@@ -735,7 +735,7 @@ private constructor(
                 return true
             }
 
-            return other is Type && this.value == other.value
+            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -779,68 +779,14 @@ private constructor(
             return true
         }
 
-        return other is InboundWireDrawdownRequest &&
-            this.amount == other.amount &&
-            this.beneficiaryAccountNumber == other.beneficiaryAccountNumber &&
-            this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
-            this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
-            this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
-            this.beneficiaryName == other.beneficiaryName &&
-            this.beneficiaryRoutingNumber == other.beneficiaryRoutingNumber &&
-            this.createdAt == other.createdAt &&
-            this.currency == other.currency &&
-            this.id == other.id &&
-            this.messageToRecipient == other.messageToRecipient &&
-            this.originatorAccountNumber == other.originatorAccountNumber &&
-            this.originatorAddressLine1 == other.originatorAddressLine1 &&
-            this.originatorAddressLine2 == other.originatorAddressLine2 &&
-            this.originatorAddressLine3 == other.originatorAddressLine3 &&
-            this.originatorName == other.originatorName &&
-            this.originatorRoutingNumber == other.originatorRoutingNumber &&
-            this.originatorToBeneficiaryInformationLine1 ==
-                other.originatorToBeneficiaryInformationLine1 &&
-            this.originatorToBeneficiaryInformationLine2 ==
-                other.originatorToBeneficiaryInformationLine2 &&
-            this.originatorToBeneficiaryInformationLine3 ==
-                other.originatorToBeneficiaryInformationLine3 &&
-            this.originatorToBeneficiaryInformationLine4 ==
-                other.originatorToBeneficiaryInformationLine4 &&
-            this.recipientAccountNumberId == other.recipientAccountNumberId &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
+        return /* spotless:off */ other is InboundWireDrawdownRequest && this.amount == other.amount && this.beneficiaryAccountNumber == other.beneficiaryAccountNumber && this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 && this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 && this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 && this.beneficiaryName == other.beneficiaryName && this.beneficiaryRoutingNumber == other.beneficiaryRoutingNumber && this.createdAt == other.createdAt && this.currency == other.currency && this.id == other.id && this.messageToRecipient == other.messageToRecipient && this.originatorAccountNumber == other.originatorAccountNumber && this.originatorAddressLine1 == other.originatorAddressLine1 && this.originatorAddressLine2 == other.originatorAddressLine2 && this.originatorAddressLine3 == other.originatorAddressLine3 && this.originatorName == other.originatorName && this.originatorRoutingNumber == other.originatorRoutingNumber && this.originatorToBeneficiaryInformationLine1 == other.originatorToBeneficiaryInformationLine1 && this.originatorToBeneficiaryInformationLine2 == other.originatorToBeneficiaryInformationLine2 && this.originatorToBeneficiaryInformationLine3 == other.originatorToBeneficiaryInformationLine3 && this.originatorToBeneficiaryInformationLine4 == other.originatorToBeneficiaryInformationLine4 && this.recipientAccountNumberId == other.recipientAccountNumberId && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    amount,
-                    beneficiaryAccountNumber,
-                    beneficiaryAddressLine1,
-                    beneficiaryAddressLine2,
-                    beneficiaryAddressLine3,
-                    beneficiaryName,
-                    beneficiaryRoutingNumber,
-                    createdAt,
-                    currency,
-                    id,
-                    messageToRecipient,
-                    originatorAccountNumber,
-                    originatorAddressLine1,
-                    originatorAddressLine2,
-                    originatorAddressLine3,
-                    originatorName,
-                    originatorRoutingNumber,
-                    originatorToBeneficiaryInformationLine1,
-                    originatorToBeneficiaryInformationLine2,
-                    originatorToBeneficiaryInformationLine3,
-                    originatorToBeneficiaryInformationLine4,
-                    recipientAccountNumberId,
-                    type,
-                    additionalProperties,
-                )
+            hashCode = /* spotless:off */ Objects.hash(amount, beneficiaryAccountNumber, beneficiaryAddressLine1, beneficiaryAddressLine2, beneficiaryAddressLine3, beneficiaryName, beneficiaryRoutingNumber, createdAt, currency, id, messageToRecipient, originatorAccountNumber, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, originatorRoutingNumber, originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4, recipientAccountNumberId, type, additionalProperties) /* spotless:on */
         }
         return hashCode
     }

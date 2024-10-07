@@ -46,20 +46,11 @@ constructor(
             return true
         }
 
-        return other is EntityArchiveParams &&
-            this.entityId == other.entityId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is EntityArchiveParams && this.entityId == other.entityId && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            entityId,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(entityId, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =

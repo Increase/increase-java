@@ -171,28 +171,14 @@ constructor(
                 return true
             }
 
-            return other is ExternalAccountCreateBody &&
-                this.accountNumber == other.accountNumber &&
-                this.description == other.description &&
-                this.routingNumber == other.routingNumber &&
-                this.accountHolder == other.accountHolder &&
-                this.funding == other.funding &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is ExternalAccountCreateBody && this.accountNumber == other.accountNumber && this.description == other.description && this.routingNumber == other.routingNumber && this.accountHolder == other.accountHolder && this.funding == other.funding && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        accountNumber,
-                        description,
-                        routingNumber,
-                        accountHolder,
-                        funding,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(accountNumber, description, routingNumber, accountHolder, funding, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -212,28 +198,11 @@ constructor(
             return true
         }
 
-        return other is ExternalAccountCreateParams &&
-            this.accountNumber == other.accountNumber &&
-            this.description == other.description &&
-            this.routingNumber == other.routingNumber &&
-            this.accountHolder == other.accountHolder &&
-            this.funding == other.funding &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is ExternalAccountCreateParams && this.accountNumber == other.accountNumber && this.description == other.description && this.routingNumber == other.routingNumber && this.accountHolder == other.accountHolder && this.funding == other.funding && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            accountNumber,
-            description,
-            routingNumber,
-            accountHolder,
-            funding,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(accountNumber, description, routingNumber, accountHolder, funding, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
@@ -370,7 +339,7 @@ constructor(
                 return true
             }
 
-            return other is AccountHolder && this.value == other.value
+            return /* spotless:off */ other is AccountHolder && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -433,7 +402,7 @@ constructor(
                 return true
             }
 
-            return other is Funding && this.value == other.value
+            return /* spotless:off */ other is Funding && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

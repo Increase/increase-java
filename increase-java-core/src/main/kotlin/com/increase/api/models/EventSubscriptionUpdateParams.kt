@@ -106,16 +106,14 @@ constructor(
                 return true
             }
 
-            return other is EventSubscriptionUpdateBody &&
-                this.status == other.status &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is EventSubscriptionUpdateBody && this.status == other.status && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(status, additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(status, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -135,22 +133,11 @@ constructor(
             return true
         }
 
-        return other is EventSubscriptionUpdateParams &&
-            this.eventSubscriptionId == other.eventSubscriptionId &&
-            this.status == other.status &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is EventSubscriptionUpdateParams && this.eventSubscriptionId == other.eventSubscriptionId && this.status == other.status && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            eventSubscriptionId,
-            status,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(eventSubscriptionId, status, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
@@ -268,7 +255,7 @@ constructor(
                 return true
             }
 
-            return other is Status && this.value == other.value
+            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

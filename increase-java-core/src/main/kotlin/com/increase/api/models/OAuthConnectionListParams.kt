@@ -50,22 +50,11 @@ constructor(
             return true
         }
 
-        return other is OAuthConnectionListParams &&
-            this.cursor == other.cursor &&
-            this.limit == other.limit &&
-            this.status == other.status &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is OAuthConnectionListParams && this.cursor == other.cursor && this.limit == other.limit && this.status == other.status && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            cursor,
-            limit,
-            status,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(cursor, limit, status, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =
@@ -235,7 +224,7 @@ constructor(
                     return true
                 }
 
-                return other is In && this.value == other.value
+                return /* spotless:off */ other is In && this.value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -284,16 +273,14 @@ constructor(
                 return true
             }
 
-            return other is Status &&
-                this.in_ == other.in_ &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is Status && this.in_ == other.in_ && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(in_, additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(in_, additionalProperties) /* spotless:on */
             }
             return hashCode
         }

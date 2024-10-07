@@ -229,7 +229,7 @@ private constructor(
                 return true
             }
 
-            return other is Category && this.value == other.value
+            return /* spotless:off */ other is Category && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -900,7 +900,7 @@ private constructor(
                 return true
             }
 
-            return other is Type && this.value == other.value
+            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -943,30 +943,14 @@ private constructor(
             return true
         }
 
-        return other is Event &&
-            this.associatedObjectId == other.associatedObjectId &&
-            this.associatedObjectType == other.associatedObjectType &&
-            this.category == other.category &&
-            this.createdAt == other.createdAt &&
-            this.id == other.id &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
+        return /* spotless:off */ other is Event && this.associatedObjectId == other.associatedObjectId && this.associatedObjectType == other.associatedObjectType && this.category == other.category && this.createdAt == other.createdAt && this.id == other.id && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    associatedObjectId,
-                    associatedObjectType,
-                    category,
-                    createdAt,
-                    id,
-                    type,
-                    additionalProperties,
-                )
+            hashCode = /* spotless:off */ Objects.hash(associatedObjectId, associatedObjectType, category, createdAt, id, type, additionalProperties) /* spotless:on */
         }
         return hashCode
     }

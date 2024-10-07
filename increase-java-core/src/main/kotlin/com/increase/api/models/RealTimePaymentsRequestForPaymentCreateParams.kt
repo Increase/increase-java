@@ -222,32 +222,14 @@ constructor(
                 return true
             }
 
-            return other is RealTimePaymentsRequestForPaymentCreateBody &&
-                this.amount == other.amount &&
-                this.debtor == other.debtor &&
-                this.destinationAccountNumberId == other.destinationAccountNumberId &&
-                this.expiresAt == other.expiresAt &&
-                this.remittanceInformation == other.remittanceInformation &&
-                this.sourceAccountNumber == other.sourceAccountNumber &&
-                this.sourceRoutingNumber == other.sourceRoutingNumber &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is RealTimePaymentsRequestForPaymentCreateBody && this.amount == other.amount && this.debtor == other.debtor && this.destinationAccountNumberId == other.destinationAccountNumberId && this.expiresAt == other.expiresAt && this.remittanceInformation == other.remittanceInformation && this.sourceAccountNumber == other.sourceAccountNumber && this.sourceRoutingNumber == other.sourceRoutingNumber && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        amount,
-                        debtor,
-                        destinationAccountNumberId,
-                        expiresAt,
-                        remittanceInformation,
-                        sourceAccountNumber,
-                        sourceRoutingNumber,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(amount, debtor, destinationAccountNumberId, expiresAt, remittanceInformation, sourceAccountNumber, sourceRoutingNumber, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -267,32 +249,11 @@ constructor(
             return true
         }
 
-        return other is RealTimePaymentsRequestForPaymentCreateParams &&
-            this.amount == other.amount &&
-            this.debtor == other.debtor &&
-            this.destinationAccountNumberId == other.destinationAccountNumberId &&
-            this.expiresAt == other.expiresAt &&
-            this.remittanceInformation == other.remittanceInformation &&
-            this.sourceAccountNumber == other.sourceAccountNumber &&
-            this.sourceRoutingNumber == other.sourceRoutingNumber &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is RealTimePaymentsRequestForPaymentCreateParams && this.amount == other.amount && this.debtor == other.debtor && this.destinationAccountNumberId == other.destinationAccountNumberId && this.expiresAt == other.expiresAt && this.remittanceInformation == other.remittanceInformation && this.sourceAccountNumber == other.sourceAccountNumber && this.sourceRoutingNumber == other.sourceRoutingNumber && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            amount,
-            debtor,
-            destinationAccountNumberId,
-            expiresAt,
-            remittanceInformation,
-            sourceAccountNumber,
-            sourceRoutingNumber,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(amount, debtor, destinationAccountNumberId, expiresAt, remittanceInformation, sourceAccountNumber, sourceRoutingNumber, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
@@ -619,26 +580,14 @@ constructor(
                     return true
                 }
 
-                return other is Address &&
-                    this.city == other.city &&
-                    this.country == other.country &&
-                    this.postCode == other.postCode &&
-                    this.streetName == other.streetName &&
-                    this.additionalProperties == other.additionalProperties
+                return /* spotless:off */ other is Address && this.city == other.city && this.country == other.country && this.postCode == other.postCode && this.streetName == other.streetName && this.additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             private var hashCode: Int = 0
 
             override fun hashCode(): Int {
                 if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            city,
-                            country,
-                            postCode,
-                            streetName,
-                            additionalProperties,
-                        )
+                    hashCode = /* spotless:off */ Objects.hash(city, country, postCode, streetName, additionalProperties) /* spotless:on */
                 }
                 return hashCode
             }
@@ -652,22 +601,14 @@ constructor(
                 return true
             }
 
-            return other is Debtor &&
-                this.address == other.address &&
-                this.name == other.name &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is Debtor && this.address == other.address && this.name == other.name && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        address,
-                        name,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(address, name, additionalProperties) /* spotless:on */
             }
             return hashCode
         }

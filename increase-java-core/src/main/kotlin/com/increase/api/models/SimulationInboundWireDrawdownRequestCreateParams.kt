@@ -524,62 +524,14 @@ constructor(
                 return true
             }
 
-            return other is SimulationInboundWireDrawdownRequestCreateBody &&
-                this.amount == other.amount &&
-                this.beneficiaryAccountNumber == other.beneficiaryAccountNumber &&
-                this.beneficiaryRoutingNumber == other.beneficiaryRoutingNumber &&
-                this.currency == other.currency &&
-                this.messageToRecipient == other.messageToRecipient &&
-                this.originatorAccountNumber == other.originatorAccountNumber &&
-                this.originatorRoutingNumber == other.originatorRoutingNumber &&
-                this.recipientAccountNumberId == other.recipientAccountNumberId &&
-                this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
-                this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
-                this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
-                this.beneficiaryName == other.beneficiaryName &&
-                this.originatorAddressLine1 == other.originatorAddressLine1 &&
-                this.originatorAddressLine2 == other.originatorAddressLine2 &&
-                this.originatorAddressLine3 == other.originatorAddressLine3 &&
-                this.originatorName == other.originatorName &&
-                this.originatorToBeneficiaryInformationLine1 ==
-                    other.originatorToBeneficiaryInformationLine1 &&
-                this.originatorToBeneficiaryInformationLine2 ==
-                    other.originatorToBeneficiaryInformationLine2 &&
-                this.originatorToBeneficiaryInformationLine3 ==
-                    other.originatorToBeneficiaryInformationLine3 &&
-                this.originatorToBeneficiaryInformationLine4 ==
-                    other.originatorToBeneficiaryInformationLine4 &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is SimulationInboundWireDrawdownRequestCreateBody && this.amount == other.amount && this.beneficiaryAccountNumber == other.beneficiaryAccountNumber && this.beneficiaryRoutingNumber == other.beneficiaryRoutingNumber && this.currency == other.currency && this.messageToRecipient == other.messageToRecipient && this.originatorAccountNumber == other.originatorAccountNumber && this.originatorRoutingNumber == other.originatorRoutingNumber && this.recipientAccountNumberId == other.recipientAccountNumberId && this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 && this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 && this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 && this.beneficiaryName == other.beneficiaryName && this.originatorAddressLine1 == other.originatorAddressLine1 && this.originatorAddressLine2 == other.originatorAddressLine2 && this.originatorAddressLine3 == other.originatorAddressLine3 && this.originatorName == other.originatorName && this.originatorToBeneficiaryInformationLine1 == other.originatorToBeneficiaryInformationLine1 && this.originatorToBeneficiaryInformationLine2 == other.originatorToBeneficiaryInformationLine2 && this.originatorToBeneficiaryInformationLine3 == other.originatorToBeneficiaryInformationLine3 && this.originatorToBeneficiaryInformationLine4 == other.originatorToBeneficiaryInformationLine4 && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        amount,
-                        beneficiaryAccountNumber,
-                        beneficiaryRoutingNumber,
-                        currency,
-                        messageToRecipient,
-                        originatorAccountNumber,
-                        originatorRoutingNumber,
-                        recipientAccountNumberId,
-                        beneficiaryAddressLine1,
-                        beneficiaryAddressLine2,
-                        beneficiaryAddressLine3,
-                        beneficiaryName,
-                        originatorAddressLine1,
-                        originatorAddressLine2,
-                        originatorAddressLine3,
-                        originatorName,
-                        originatorToBeneficiaryInformationLine1,
-                        originatorToBeneficiaryInformationLine2,
-                        originatorToBeneficiaryInformationLine3,
-                        originatorToBeneficiaryInformationLine4,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(amount, beneficiaryAccountNumber, beneficiaryRoutingNumber, currency, messageToRecipient, originatorAccountNumber, originatorRoutingNumber, recipientAccountNumberId, beneficiaryAddressLine1, beneficiaryAddressLine2, beneficiaryAddressLine3, beneficiaryName, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -599,62 +551,11 @@ constructor(
             return true
         }
 
-        return other is SimulationInboundWireDrawdownRequestCreateParams &&
-            this.amount == other.amount &&
-            this.beneficiaryAccountNumber == other.beneficiaryAccountNumber &&
-            this.beneficiaryRoutingNumber == other.beneficiaryRoutingNumber &&
-            this.currency == other.currency &&
-            this.messageToRecipient == other.messageToRecipient &&
-            this.originatorAccountNumber == other.originatorAccountNumber &&
-            this.originatorRoutingNumber == other.originatorRoutingNumber &&
-            this.recipientAccountNumberId == other.recipientAccountNumberId &&
-            this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
-            this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
-            this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
-            this.beneficiaryName == other.beneficiaryName &&
-            this.originatorAddressLine1 == other.originatorAddressLine1 &&
-            this.originatorAddressLine2 == other.originatorAddressLine2 &&
-            this.originatorAddressLine3 == other.originatorAddressLine3 &&
-            this.originatorName == other.originatorName &&
-            this.originatorToBeneficiaryInformationLine1 ==
-                other.originatorToBeneficiaryInformationLine1 &&
-            this.originatorToBeneficiaryInformationLine2 ==
-                other.originatorToBeneficiaryInformationLine2 &&
-            this.originatorToBeneficiaryInformationLine3 ==
-                other.originatorToBeneficiaryInformationLine3 &&
-            this.originatorToBeneficiaryInformationLine4 ==
-                other.originatorToBeneficiaryInformationLine4 &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is SimulationInboundWireDrawdownRequestCreateParams && this.amount == other.amount && this.beneficiaryAccountNumber == other.beneficiaryAccountNumber && this.beneficiaryRoutingNumber == other.beneficiaryRoutingNumber && this.currency == other.currency && this.messageToRecipient == other.messageToRecipient && this.originatorAccountNumber == other.originatorAccountNumber && this.originatorRoutingNumber == other.originatorRoutingNumber && this.recipientAccountNumberId == other.recipientAccountNumberId && this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 && this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 && this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 && this.beneficiaryName == other.beneficiaryName && this.originatorAddressLine1 == other.originatorAddressLine1 && this.originatorAddressLine2 == other.originatorAddressLine2 && this.originatorAddressLine3 == other.originatorAddressLine3 && this.originatorName == other.originatorName && this.originatorToBeneficiaryInformationLine1 == other.originatorToBeneficiaryInformationLine1 && this.originatorToBeneficiaryInformationLine2 == other.originatorToBeneficiaryInformationLine2 && this.originatorToBeneficiaryInformationLine3 == other.originatorToBeneficiaryInformationLine3 && this.originatorToBeneficiaryInformationLine4 == other.originatorToBeneficiaryInformationLine4 && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            amount,
-            beneficiaryAccountNumber,
-            beneficiaryRoutingNumber,
-            currency,
-            messageToRecipient,
-            originatorAccountNumber,
-            originatorRoutingNumber,
-            recipientAccountNumberId,
-            beneficiaryAddressLine1,
-            beneficiaryAddressLine2,
-            beneficiaryAddressLine3,
-            beneficiaryName,
-            originatorAddressLine1,
-            originatorAddressLine2,
-            originatorAddressLine3,
-            originatorName,
-            originatorToBeneficiaryInformationLine1,
-            originatorToBeneficiaryInformationLine2,
-            originatorToBeneficiaryInformationLine3,
-            originatorToBeneficiaryInformationLine4,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(amount, beneficiaryAccountNumber, beneficiaryRoutingNumber, currency, messageToRecipient, originatorAccountNumber, originatorRoutingNumber, recipientAccountNumberId, beneficiaryAddressLine1, beneficiaryAddressLine2, beneficiaryAddressLine3, beneficiaryName, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =

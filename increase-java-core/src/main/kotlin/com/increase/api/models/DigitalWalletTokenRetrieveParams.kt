@@ -36,18 +36,11 @@ constructor(
             return true
         }
 
-        return other is DigitalWalletTokenRetrieveParams &&
-            this.digitalWalletTokenId == other.digitalWalletTokenId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is DigitalWalletTokenRetrieveParams && this.digitalWalletTokenId == other.digitalWalletTokenId && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            digitalWalletTokenId,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(digitalWalletTokenId, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =

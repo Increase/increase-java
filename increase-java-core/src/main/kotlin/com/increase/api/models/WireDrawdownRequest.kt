@@ -616,7 +616,7 @@ private constructor(
                 return true
             }
 
-            return other is Status && this.value == other.value
+            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -770,16 +770,14 @@ private constructor(
                 return true
             }
 
-            return other is Submission &&
-                this.inputMessageAccountabilityData == other.inputMessageAccountabilityData &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is Submission && this.inputMessageAccountabilityData == other.inputMessageAccountabilityData && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(inputMessageAccountabilityData, additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(inputMessageAccountabilityData, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -801,7 +799,7 @@ private constructor(
                 return true
             }
 
-            return other is Type && this.value == other.value
+            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -844,58 +842,14 @@ private constructor(
             return true
         }
 
-        return other is WireDrawdownRequest &&
-            this.accountNumberId == other.accountNumberId &&
-            this.amount == other.amount &&
-            this.currency == other.currency &&
-            this.fulfillmentInboundWireTransferId == other.fulfillmentInboundWireTransferId &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.messageToRecipient == other.messageToRecipient &&
-            this.originatorAddressLine1 == other.originatorAddressLine1 &&
-            this.originatorAddressLine2 == other.originatorAddressLine2 &&
-            this.originatorAddressLine3 == other.originatorAddressLine3 &&
-            this.originatorName == other.originatorName &&
-            this.recipientAccountNumber == other.recipientAccountNumber &&
-            this.recipientAddressLine1 == other.recipientAddressLine1 &&
-            this.recipientAddressLine2 == other.recipientAddressLine2 &&
-            this.recipientAddressLine3 == other.recipientAddressLine3 &&
-            this.recipientName == other.recipientName &&
-            this.recipientRoutingNumber == other.recipientRoutingNumber &&
-            this.status == other.status &&
-            this.submission == other.submission &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
+        return /* spotless:off */ other is WireDrawdownRequest && this.accountNumberId == other.accountNumberId && this.amount == other.amount && this.currency == other.currency && this.fulfillmentInboundWireTransferId == other.fulfillmentInboundWireTransferId && this.id == other.id && this.idempotencyKey == other.idempotencyKey && this.messageToRecipient == other.messageToRecipient && this.originatorAddressLine1 == other.originatorAddressLine1 && this.originatorAddressLine2 == other.originatorAddressLine2 && this.originatorAddressLine3 == other.originatorAddressLine3 && this.originatorName == other.originatorName && this.recipientAccountNumber == other.recipientAccountNumber && this.recipientAddressLine1 == other.recipientAddressLine1 && this.recipientAddressLine2 == other.recipientAddressLine2 && this.recipientAddressLine3 == other.recipientAddressLine3 && this.recipientName == other.recipientName && this.recipientRoutingNumber == other.recipientRoutingNumber && this.status == other.status && this.submission == other.submission && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    accountNumberId,
-                    amount,
-                    currency,
-                    fulfillmentInboundWireTransferId,
-                    id,
-                    idempotencyKey,
-                    messageToRecipient,
-                    originatorAddressLine1,
-                    originatorAddressLine2,
-                    originatorAddressLine3,
-                    originatorName,
-                    recipientAccountNumber,
-                    recipientAddressLine1,
-                    recipientAddressLine2,
-                    recipientAddressLine3,
-                    recipientName,
-                    recipientRoutingNumber,
-                    status,
-                    submission,
-                    type,
-                    additionalProperties,
-                )
+            hashCode = /* spotless:off */ Objects.hash(accountNumberId, amount, currency, fulfillmentInboundWireTransferId, id, idempotencyKey, messageToRecipient, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, recipientAccountNumber, recipientAddressLine1, recipientAddressLine2, recipientAddressLine3, recipientName, recipientRoutingNumber, status, submission, type, additionalProperties) /* spotless:on */
         }
         return hashCode
     }

@@ -419,7 +419,7 @@ private constructor(
                 return true
             }
 
-            return other is Status && this.value == other.value
+            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -593,24 +593,14 @@ private constructor(
                 return true
             }
 
-            return other is TextColor &&
-                this.blue == other.blue &&
-                this.green == other.green &&
-                this.red == other.red &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is TextColor && this.blue == other.blue && this.green == other.green && this.red == other.red && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        blue,
-                        green,
-                        red,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(blue, green, red, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -632,7 +622,7 @@ private constructor(
                 return true
             }
 
-            return other is Type && this.value == other.value
+            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -675,46 +665,14 @@ private constructor(
             return true
         }
 
-        return other is DigitalCardProfile &&
-            this.appIconFileId == other.appIconFileId &&
-            this.backgroundImageFileId == other.backgroundImageFileId &&
-            this.cardDescription == other.cardDescription &&
-            this.contactEmail == other.contactEmail &&
-            this.contactPhone == other.contactPhone &&
-            this.contactWebsite == other.contactWebsite &&
-            this.createdAt == other.createdAt &&
-            this.description == other.description &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.issuerName == other.issuerName &&
-            this.status == other.status &&
-            this.textColor == other.textColor &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
+        return /* spotless:off */ other is DigitalCardProfile && this.appIconFileId == other.appIconFileId && this.backgroundImageFileId == other.backgroundImageFileId && this.cardDescription == other.cardDescription && this.contactEmail == other.contactEmail && this.contactPhone == other.contactPhone && this.contactWebsite == other.contactWebsite && this.createdAt == other.createdAt && this.description == other.description && this.id == other.id && this.idempotencyKey == other.idempotencyKey && this.issuerName == other.issuerName && this.status == other.status && this.textColor == other.textColor && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    appIconFileId,
-                    backgroundImageFileId,
-                    cardDescription,
-                    contactEmail,
-                    contactPhone,
-                    contactWebsite,
-                    createdAt,
-                    description,
-                    id,
-                    idempotencyKey,
-                    issuerName,
-                    status,
-                    textColor,
-                    type,
-                    additionalProperties,
-                )
+            hashCode = /* spotless:off */ Objects.hash(appIconFileId, backgroundImageFileId, cardDescription, contactEmail, contactPhone, contactWebsite, createdAt, description, id, idempotencyKey, issuerName, status, textColor, type, additionalProperties) /* spotless:on */
         }
         return hashCode
     }

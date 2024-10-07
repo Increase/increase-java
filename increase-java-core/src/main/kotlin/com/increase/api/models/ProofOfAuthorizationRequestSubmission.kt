@@ -541,7 +541,7 @@ private constructor(
                 return true
             }
 
-            return other is Status && this.value == other.value
+            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -616,7 +616,7 @@ private constructor(
                 return true
             }
 
-            return other is Type && this.value == other.value
+            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -663,55 +663,14 @@ private constructor(
             return true
         }
 
-        return other is ProofOfAuthorizationRequestSubmission &&
-            this.authorizationTerms == other.authorizationTerms &&
-            this.authorizedAt == other.authorizedAt &&
-            this.authorizerCompany == other.authorizerCompany &&
-            this.authorizerEmail == other.authorizerEmail &&
-            this.authorizerIpAddress == other.authorizerIpAddress &&
-            this.authorizerName == other.authorizerName &&
-            this.createdAt == other.createdAt &&
-            this.customerHasBeenOffboarded == other.customerHasBeenOffboarded &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.proofOfAuthorizationRequestId == other.proofOfAuthorizationRequestId &&
-            this.status == other.status &&
-            this.type == other.type &&
-            this.updatedAt == other.updatedAt &&
-            this.validatedAccountOwnershipViaCredential ==
-                other.validatedAccountOwnershipViaCredential &&
-            this.validatedAccountOwnershipWithAccountStatement ==
-                other.validatedAccountOwnershipWithAccountStatement &&
-            this.validatedAccountOwnershipWithMicrodeposit ==
-                other.validatedAccountOwnershipWithMicrodeposit &&
-            this.additionalProperties == other.additionalProperties
+        return /* spotless:off */ other is ProofOfAuthorizationRequestSubmission && this.authorizationTerms == other.authorizationTerms && this.authorizedAt == other.authorizedAt && this.authorizerCompany == other.authorizerCompany && this.authorizerEmail == other.authorizerEmail && this.authorizerIpAddress == other.authorizerIpAddress && this.authorizerName == other.authorizerName && this.createdAt == other.createdAt && this.customerHasBeenOffboarded == other.customerHasBeenOffboarded && this.id == other.id && this.idempotencyKey == other.idempotencyKey && this.proofOfAuthorizationRequestId == other.proofOfAuthorizationRequestId && this.status == other.status && this.type == other.type && this.updatedAt == other.updatedAt && this.validatedAccountOwnershipViaCredential == other.validatedAccountOwnershipViaCredential && this.validatedAccountOwnershipWithAccountStatement == other.validatedAccountOwnershipWithAccountStatement && this.validatedAccountOwnershipWithMicrodeposit == other.validatedAccountOwnershipWithMicrodeposit && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    authorizationTerms,
-                    authorizedAt,
-                    authorizerCompany,
-                    authorizerEmail,
-                    authorizerIpAddress,
-                    authorizerName,
-                    createdAt,
-                    customerHasBeenOffboarded,
-                    id,
-                    idempotencyKey,
-                    proofOfAuthorizationRequestId,
-                    status,
-                    type,
-                    updatedAt,
-                    validatedAccountOwnershipViaCredential,
-                    validatedAccountOwnershipWithAccountStatement,
-                    validatedAccountOwnershipWithMicrodeposit,
-                    additionalProperties,
-                )
+            hashCode = /* spotless:off */ Objects.hash(authorizationTerms, authorizedAt, authorizerCompany, authorizerEmail, authorizerIpAddress, authorizerName, createdAt, customerHasBeenOffboarded, id, idempotencyKey, proofOfAuthorizationRequestId, status, type, updatedAt, validatedAccountOwnershipViaCredential, validatedAccountOwnershipWithAccountStatement, validatedAccountOwnershipWithMicrodeposit, additionalProperties) /* spotless:on */
         }
         return hashCode
     }

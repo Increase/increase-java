@@ -184,28 +184,14 @@ constructor(
                 return true
             }
 
-            return other is OAuthTokenCreateBody &&
-                this.grantType == other.grantType &&
-                this.clientId == other.clientId &&
-                this.clientSecret == other.clientSecret &&
-                this.code == other.code &&
-                this.productionToken == other.productionToken &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is OAuthTokenCreateBody && this.grantType == other.grantType && this.clientId == other.clientId && this.clientSecret == other.clientSecret && this.code == other.code && this.productionToken == other.productionToken && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        grantType,
-                        clientId,
-                        clientSecret,
-                        code,
-                        productionToken,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(grantType, clientId, clientSecret, code, productionToken, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -225,28 +211,11 @@ constructor(
             return true
         }
 
-        return other is OAuthTokenCreateParams &&
-            this.grantType == other.grantType &&
-            this.clientId == other.clientId &&
-            this.clientSecret == other.clientSecret &&
-            this.code == other.code &&
-            this.productionToken == other.productionToken &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is OAuthTokenCreateParams && this.grantType == other.grantType && this.clientId == other.clientId && this.clientSecret == other.clientSecret && this.code == other.code && this.productionToken == other.productionToken && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            grantType,
-            clientId,
-            clientSecret,
-            code,
-            productionToken,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(grantType, clientId, clientSecret, code, productionToken, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
@@ -389,7 +358,7 @@ constructor(
                 return true
             }
 
-            return other is GrantType && this.value == other.value
+            return /* spotless:off */ other is GrantType && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

@@ -36,18 +36,11 @@ constructor(
             return true
         }
 
-        return other is DocumentRetrieveParams &&
-            this.documentId == other.documentId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is DocumentRetrieveParams && this.documentId == other.documentId && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            documentId,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(documentId, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =

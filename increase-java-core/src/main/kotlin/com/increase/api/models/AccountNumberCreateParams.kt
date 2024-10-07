@@ -151,26 +151,14 @@ constructor(
                 return true
             }
 
-            return other is AccountNumberCreateBody &&
-                this.accountId == other.accountId &&
-                this.name == other.name &&
-                this.inboundAch == other.inboundAch &&
-                this.inboundChecks == other.inboundChecks &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is AccountNumberCreateBody && this.accountId == other.accountId && this.name == other.name && this.inboundAch == other.inboundAch && this.inboundChecks == other.inboundChecks && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        accountId,
-                        name,
-                        inboundAch,
-                        inboundChecks,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(accountId, name, inboundAch, inboundChecks, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -190,26 +178,11 @@ constructor(
             return true
         }
 
-        return other is AccountNumberCreateParams &&
-            this.accountId == other.accountId &&
-            this.name == other.name &&
-            this.inboundAch == other.inboundAch &&
-            this.inboundChecks == other.inboundChecks &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is AccountNumberCreateParams && this.accountId == other.accountId && this.name == other.name && this.inboundAch == other.inboundAch && this.inboundChecks == other.inboundChecks && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            accountId,
-            name,
-            inboundAch,
-            inboundChecks,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(accountId, name, inboundAch, inboundChecks, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
@@ -404,7 +377,7 @@ constructor(
                     return true
                 }
 
-                return other is DebitStatus && this.value == other.value
+                return /* spotless:off */ other is DebitStatus && this.value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -453,16 +426,14 @@ constructor(
                 return true
             }
 
-            return other is InboundAch &&
-                this.debitStatus == other.debitStatus &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is InboundAch && this.debitStatus == other.debitStatus && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(debitStatus, additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(debitStatus, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -548,7 +519,7 @@ constructor(
                     return true
                 }
 
-                return other is Status && this.value == other.value
+                return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -597,16 +568,14 @@ constructor(
                 return true
             }
 
-            return other is InboundChecks &&
-                this.status == other.status &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is InboundChecks && this.status == other.status && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(status, additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(status, additionalProperties) /* spotless:on */
             }
             return hashCode
         }

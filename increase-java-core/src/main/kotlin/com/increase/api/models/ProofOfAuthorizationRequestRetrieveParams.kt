@@ -36,18 +36,11 @@ constructor(
             return true
         }
 
-        return other is ProofOfAuthorizationRequestRetrieveParams &&
-            this.proofOfAuthorizationRequestId == other.proofOfAuthorizationRequestId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is ProofOfAuthorizationRequestRetrieveParams && this.proofOfAuthorizationRequestId == other.proofOfAuthorizationRequestId && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            proofOfAuthorizationRequestId,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(proofOfAuthorizationRequestId, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =

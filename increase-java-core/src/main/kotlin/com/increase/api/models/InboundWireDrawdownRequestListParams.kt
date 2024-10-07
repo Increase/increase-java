@@ -40,20 +40,11 @@ constructor(
             return true
         }
 
-        return other is InboundWireDrawdownRequestListParams &&
-            this.cursor == other.cursor &&
-            this.limit == other.limit &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is InboundWireDrawdownRequestListParams && this.cursor == other.cursor && this.limit == other.limit && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            cursor,
-            limit,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(cursor, limit, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =

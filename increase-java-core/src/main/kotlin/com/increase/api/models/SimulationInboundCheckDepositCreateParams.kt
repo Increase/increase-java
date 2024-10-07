@@ -133,24 +133,14 @@ constructor(
                 return true
             }
 
-            return other is SimulationInboundCheckDepositCreateBody &&
-                this.accountNumberId == other.accountNumberId &&
-                this.amount == other.amount &&
-                this.checkNumber == other.checkNumber &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is SimulationInboundCheckDepositCreateBody && this.accountNumberId == other.accountNumberId && this.amount == other.amount && this.checkNumber == other.checkNumber && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        accountNumberId,
-                        amount,
-                        checkNumber,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(accountNumberId, amount, checkNumber, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -170,24 +160,11 @@ constructor(
             return true
         }
 
-        return other is SimulationInboundCheckDepositCreateParams &&
-            this.accountNumberId == other.accountNumberId &&
-            this.amount == other.amount &&
-            this.checkNumber == other.checkNumber &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is SimulationInboundCheckDepositCreateParams && this.accountNumberId == other.accountNumberId && this.amount == other.amount && this.checkNumber == other.checkNumber && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            accountNumberId,
-            amount,
-            checkNumber,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(accountNumberId, amount, checkNumber, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =

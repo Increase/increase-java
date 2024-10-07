@@ -438,7 +438,7 @@ private constructor(
                     return true
                 }
 
-                return other is DebitStatus && this.value == other.value
+                return /* spotless:off */ other is DebitStatus && this.value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -487,16 +487,14 @@ private constructor(
                 return true
             }
 
-            return other is InboundAch &&
-                this.debitStatus == other.debitStatus &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is InboundAch && this.debitStatus == other.debitStatus && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(debitStatus, additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(debitStatus, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -590,7 +588,7 @@ private constructor(
                     return true
                 }
 
-                return other is Status && this.value == other.value
+                return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -639,16 +637,14 @@ private constructor(
                 return true
             }
 
-            return other is InboundChecks &&
-                this.status == other.status &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is InboundChecks && this.status == other.status && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(status, additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(status, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -670,7 +666,7 @@ private constructor(
                 return true
             }
 
-            return other is Status && this.value == other.value
+            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -733,7 +729,7 @@ private constructor(
                 return true
             }
 
-            return other is Type && this.value == other.value
+            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -776,40 +772,14 @@ private constructor(
             return true
         }
 
-        return other is AccountNumber &&
-            this.accountId == other.accountId &&
-            this.accountNumber == other.accountNumber &&
-            this.createdAt == other.createdAt &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.inboundAch == other.inboundAch &&
-            this.inboundChecks == other.inboundChecks &&
-            this.name == other.name &&
-            this.routingNumber == other.routingNumber &&
-            this.status == other.status &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
+        return /* spotless:off */ other is AccountNumber && this.accountId == other.accountId && this.accountNumber == other.accountNumber && this.createdAt == other.createdAt && this.id == other.id && this.idempotencyKey == other.idempotencyKey && this.inboundAch == other.inboundAch && this.inboundChecks == other.inboundChecks && this.name == other.name && this.routingNumber == other.routingNumber && this.status == other.status && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    accountId,
-                    accountNumber,
-                    createdAt,
-                    id,
-                    idempotencyKey,
-                    inboundAch,
-                    inboundChecks,
-                    name,
-                    routingNumber,
-                    status,
-                    type,
-                    additionalProperties,
-                )
+            hashCode = /* spotless:off */ Objects.hash(accountId, accountNumber, createdAt, id, idempotencyKey, inboundAch, inboundChecks, name, routingNumber, status, type, additionalProperties) /* spotless:on */
         }
         return hashCode
     }

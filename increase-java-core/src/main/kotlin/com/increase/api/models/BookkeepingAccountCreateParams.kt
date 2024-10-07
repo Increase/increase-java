@@ -150,26 +150,14 @@ constructor(
                 return true
             }
 
-            return other is BookkeepingAccountCreateBody &&
-                this.name == other.name &&
-                this.accountId == other.accountId &&
-                this.complianceCategory == other.complianceCategory &&
-                this.entityId == other.entityId &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is BookkeepingAccountCreateBody && this.name == other.name && this.accountId == other.accountId && this.complianceCategory == other.complianceCategory && this.entityId == other.entityId && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        name,
-                        accountId,
-                        complianceCategory,
-                        entityId,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(name, accountId, complianceCategory, entityId, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -189,26 +177,11 @@ constructor(
             return true
         }
 
-        return other is BookkeepingAccountCreateParams &&
-            this.name == other.name &&
-            this.accountId == other.accountId &&
-            this.complianceCategory == other.complianceCategory &&
-            this.entityId == other.entityId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is BookkeepingAccountCreateParams && this.name == other.name && this.accountId == other.accountId && this.complianceCategory == other.complianceCategory && this.entityId == other.entityId && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            name,
-            accountId,
-            complianceCategory,
-            entityId,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(name, accountId, complianceCategory, entityId, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
@@ -336,7 +309,7 @@ constructor(
                 return true
             }
 
-            return other is ComplianceCategory && this.value == other.value
+            return /* spotless:off */ other is ComplianceCategory && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

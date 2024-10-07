@@ -36,18 +36,11 @@ constructor(
             return true
         }
 
-        return other is InboundAchTransferRetrieveParams &&
-            this.inboundAchTransferId == other.inboundAchTransferId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is InboundAchTransferRetrieveParams && this.inboundAchTransferId == other.inboundAchTransferId && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            inboundAchTransferId,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(inboundAchTransferId, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =

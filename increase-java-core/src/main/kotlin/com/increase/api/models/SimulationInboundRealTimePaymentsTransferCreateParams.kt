@@ -216,32 +216,14 @@ constructor(
                 return true
             }
 
-            return other is SimulationInboundRealTimePaymentsTransferCreateBody &&
-                this.accountNumberId == other.accountNumberId &&
-                this.amount == other.amount &&
-                this.debtorAccountNumber == other.debtorAccountNumber &&
-                this.debtorName == other.debtorName &&
-                this.debtorRoutingNumber == other.debtorRoutingNumber &&
-                this.remittanceInformation == other.remittanceInformation &&
-                this.requestForPaymentId == other.requestForPaymentId &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is SimulationInboundRealTimePaymentsTransferCreateBody && this.accountNumberId == other.accountNumberId && this.amount == other.amount && this.debtorAccountNumber == other.debtorAccountNumber && this.debtorName == other.debtorName && this.debtorRoutingNumber == other.debtorRoutingNumber && this.remittanceInformation == other.remittanceInformation && this.requestForPaymentId == other.requestForPaymentId && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        accountNumberId,
-                        amount,
-                        debtorAccountNumber,
-                        debtorName,
-                        debtorRoutingNumber,
-                        remittanceInformation,
-                        requestForPaymentId,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(accountNumberId, amount, debtorAccountNumber, debtorName, debtorRoutingNumber, remittanceInformation, requestForPaymentId, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -261,32 +243,11 @@ constructor(
             return true
         }
 
-        return other is SimulationInboundRealTimePaymentsTransferCreateParams &&
-            this.accountNumberId == other.accountNumberId &&
-            this.amount == other.amount &&
-            this.debtorAccountNumber == other.debtorAccountNumber &&
-            this.debtorName == other.debtorName &&
-            this.debtorRoutingNumber == other.debtorRoutingNumber &&
-            this.remittanceInformation == other.remittanceInformation &&
-            this.requestForPaymentId == other.requestForPaymentId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is SimulationInboundRealTimePaymentsTransferCreateParams && this.accountNumberId == other.accountNumberId && this.amount == other.amount && this.debtorAccountNumber == other.debtorAccountNumber && this.debtorName == other.debtorName && this.debtorRoutingNumber == other.debtorRoutingNumber && this.remittanceInformation == other.remittanceInformation && this.requestForPaymentId == other.requestForPaymentId && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            accountNumberId,
-            amount,
-            debtorAccountNumber,
-            debtorName,
-            debtorRoutingNumber,
-            remittanceInformation,
-            requestForPaymentId,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(accountNumberId, amount, debtorAccountNumber, debtorName, debtorRoutingNumber, remittanceInformation, requestForPaymentId, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =

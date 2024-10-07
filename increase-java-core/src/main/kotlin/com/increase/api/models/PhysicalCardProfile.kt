@@ -382,7 +382,7 @@ private constructor(
                 return true
             }
 
-            return other is Creator && this.value == other.value
+            return /* spotless:off */ other is Creator && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -439,7 +439,7 @@ private constructor(
                 return true
             }
 
-            return other is Status && this.value == other.value
+            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -520,7 +520,7 @@ private constructor(
                 return true
             }
 
-            return other is Type && this.value == other.value
+            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -563,42 +563,14 @@ private constructor(
             return true
         }
 
-        return other is PhysicalCardProfile &&
-            this.backImageFileId == other.backImageFileId &&
-            this.carrierImageFileId == other.carrierImageFileId &&
-            this.contactPhone == other.contactPhone &&
-            this.createdAt == other.createdAt &&
-            this.creator == other.creator &&
-            this.description == other.description &&
-            this.frontImageFileId == other.frontImageFileId &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.isDefault == other.isDefault &&
-            this.status == other.status &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
+        return /* spotless:off */ other is PhysicalCardProfile && this.backImageFileId == other.backImageFileId && this.carrierImageFileId == other.carrierImageFileId && this.contactPhone == other.contactPhone && this.createdAt == other.createdAt && this.creator == other.creator && this.description == other.description && this.frontImageFileId == other.frontImageFileId && this.id == other.id && this.idempotencyKey == other.idempotencyKey && this.isDefault == other.isDefault && this.status == other.status && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    backImageFileId,
-                    carrierImageFileId,
-                    contactPhone,
-                    createdAt,
-                    creator,
-                    description,
-                    frontImageFileId,
-                    id,
-                    idempotencyKey,
-                    isDefault,
-                    status,
-                    type,
-                    additionalProperties,
-                )
+            hashCode = /* spotless:off */ Objects.hash(backImageFileId, carrierImageFileId, contactPhone, createdAt, creator, description, frontImageFileId, id, idempotencyKey, isDefault, status, type, additionalProperties) /* spotless:on */
         }
         return hashCode
     }
