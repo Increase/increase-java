@@ -14,6 +14,14 @@ class RealTimeDecisionTest {
         val realTimeDecision =
             RealTimeDecision.builder()
                 .id("id")
+                .cardAuthentication(
+                    RealTimeDecision.CardAuthentication.builder()
+                        .accountId("account_id")
+                        .cardId("card_id")
+                        .decision(RealTimeDecision.CardAuthentication.Decision.APPROVE)
+                        .upcomingCardPaymentId("upcoming_card_payment_id")
+                        .build()
+                )
                 .cardAuthorization(
                     RealTimeDecision.CardAuthorization.builder()
                         .accountId("account_id")
@@ -148,6 +156,15 @@ class RealTimeDecisionTest {
                 .build()
         assertThat(realTimeDecision).isNotNull
         assertThat(realTimeDecision.id()).isEqualTo("id")
+        assertThat(realTimeDecision.cardAuthentication())
+            .contains(
+                RealTimeDecision.CardAuthentication.builder()
+                    .accountId("account_id")
+                    .cardId("card_id")
+                    .decision(RealTimeDecision.CardAuthentication.Decision.APPROVE)
+                    .upcomingCardPaymentId("upcoming_card_payment_id")
+                    .build()
+            )
         assertThat(realTimeDecision.cardAuthorization())
             .contains(
                 RealTimeDecision.CardAuthorization.builder()
