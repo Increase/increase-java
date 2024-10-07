@@ -329,7 +329,7 @@ private constructor(
                 return true
             }
 
-            return other is Direction && this.value == other.value
+            return /* spotless:off */ other is Direction && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -386,7 +386,7 @@ private constructor(
                 return true
             }
 
-            return other is Purpose && this.value == other.value
+            return /* spotless:off */ other is Purpose && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -571,7 +571,7 @@ private constructor(
                 return true
             }
 
-            return other is Type && this.value == other.value
+            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -614,38 +614,14 @@ private constructor(
             return true
         }
 
-        return other is File &&
-            this.createdAt == other.createdAt &&
-            this.description == other.description &&
-            this.direction == other.direction &&
-            this.downloadUrl == other.downloadUrl &&
-            this.filename == other.filename &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.mimeType == other.mimeType &&
-            this.purpose == other.purpose &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
+        return /* spotless:off */ other is File && this.createdAt == other.createdAt && this.description == other.description && this.direction == other.direction && this.downloadUrl == other.downloadUrl && this.filename == other.filename && this.id == other.id && this.idempotencyKey == other.idempotencyKey && this.mimeType == other.mimeType && this.purpose == other.purpose && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    createdAt,
-                    description,
-                    direction,
-                    downloadUrl,
-                    filename,
-                    id,
-                    idempotencyKey,
-                    mimeType,
-                    purpose,
-                    type,
-                    additionalProperties,
-                )
+            hashCode = /* spotless:off */ Objects.hash(createdAt, description, direction, downloadUrl, filename, id, idempotencyKey, mimeType, purpose, type, additionalProperties) /* spotless:on */
         }
         return hashCode
     }

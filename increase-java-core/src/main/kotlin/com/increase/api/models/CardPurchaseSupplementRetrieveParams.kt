@@ -36,18 +36,11 @@ constructor(
             return true
         }
 
-        return other is CardPurchaseSupplementRetrieveParams &&
-            this.cardPurchaseSupplementId == other.cardPurchaseSupplementId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is CardPurchaseSupplementRetrieveParams && this.cardPurchaseSupplementId == other.cardPurchaseSupplementId && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            cardPurchaseSupplementId,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(cardPurchaseSupplementId, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =

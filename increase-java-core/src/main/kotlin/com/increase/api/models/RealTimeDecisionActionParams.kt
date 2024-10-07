@@ -173,24 +173,14 @@ constructor(
                 return true
             }
 
-            return other is RealTimeDecisionActionBody &&
-                this.cardAuthorization == other.cardAuthorization &&
-                this.digitalWalletAuthentication == other.digitalWalletAuthentication &&
-                this.digitalWalletToken == other.digitalWalletToken &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is RealTimeDecisionActionBody && this.cardAuthorization == other.cardAuthorization && this.digitalWalletAuthentication == other.digitalWalletAuthentication && this.digitalWalletToken == other.digitalWalletToken && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        cardAuthorization,
-                        digitalWalletAuthentication,
-                        digitalWalletToken,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(cardAuthorization, digitalWalletAuthentication, digitalWalletToken, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -210,26 +200,11 @@ constructor(
             return true
         }
 
-        return other is RealTimeDecisionActionParams &&
-            this.realTimeDecisionId == other.realTimeDecisionId &&
-            this.cardAuthorization == other.cardAuthorization &&
-            this.digitalWalletAuthentication == other.digitalWalletAuthentication &&
-            this.digitalWalletToken == other.digitalWalletToken &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is RealTimeDecisionActionParams && this.realTimeDecisionId == other.realTimeDecisionId && this.cardAuthorization == other.cardAuthorization && this.digitalWalletAuthentication == other.digitalWalletAuthentication && this.digitalWalletToken == other.digitalWalletToken && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            realTimeDecisionId,
-            cardAuthorization,
-            digitalWalletAuthentication,
-            digitalWalletToken,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(realTimeDecisionId, cardAuthorization, digitalWalletAuthentication, digitalWalletToken, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
@@ -438,7 +413,7 @@ constructor(
                     return true
                 }
 
-                return other is Decision && this.value == other.value
+                return /* spotless:off */ other is Decision && this.value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -487,16 +462,14 @@ constructor(
                 return true
             }
 
-            return other is CardAuthorization &&
-                this.decision == other.decision &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is CardAuthorization && this.decision == other.decision && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(decision, additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(decision, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -579,7 +552,7 @@ constructor(
                     return true
                 }
 
-                return other is Result && this.value == other.value
+                return /* spotless:off */ other is Result && this.value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -628,16 +601,14 @@ constructor(
                 return true
             }
 
-            return other is DigitalWalletAuthentication &&
-                this.result == other.result &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is DigitalWalletAuthentication && this.result == other.result && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(result, additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(result, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -816,22 +787,14 @@ constructor(
                     return true
                 }
 
-                return other is Approval &&
-                    this.email == other.email &&
-                    this.phone == other.phone &&
-                    this.additionalProperties == other.additionalProperties
+                return /* spotless:off */ other is Approval && this.email == other.email && this.phone == other.phone && this.additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             private var hashCode: Int = 0
 
             override fun hashCode(): Int {
                 if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            email,
-                            phone,
-                            additionalProperties,
-                        )
+                    hashCode = /* spotless:off */ Objects.hash(email, phone, additionalProperties) /* spotless:on */
                 }
                 return hashCode
             }
@@ -909,16 +872,14 @@ constructor(
                     return true
                 }
 
-                return other is Decline &&
-                    this.reason == other.reason &&
-                    this.additionalProperties == other.additionalProperties
+                return /* spotless:off */ other is Decline && this.reason == other.reason && this.additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             private var hashCode: Int = 0
 
             override fun hashCode(): Int {
                 if (hashCode == 0) {
-                    hashCode = Objects.hash(reason, additionalProperties)
+                    hashCode = /* spotless:off */ Objects.hash(reason, additionalProperties) /* spotless:on */
                 }
                 return hashCode
             }
@@ -932,22 +893,14 @@ constructor(
                 return true
             }
 
-            return other is DigitalWalletToken &&
-                this.approval == other.approval &&
-                this.decline == other.decline &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is DigitalWalletToken && this.approval == other.approval && this.decline == other.decline && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        approval,
-                        decline,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(approval, decline, additionalProperties) /* spotless:on */
             }
             return hashCode
         }

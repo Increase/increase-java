@@ -292,40 +292,14 @@ constructor(
                 return true
             }
 
-            return other is SimulationInboundAchTransferCreateBody &&
-                this.accountNumberId == other.accountNumberId &&
-                this.amount == other.amount &&
-                this.companyDescriptiveDate == other.companyDescriptiveDate &&
-                this.companyDiscretionaryData == other.companyDiscretionaryData &&
-                this.companyEntryDescription == other.companyEntryDescription &&
-                this.companyId == other.companyId &&
-                this.companyName == other.companyName &&
-                this.receiverIdNumber == other.receiverIdNumber &&
-                this.receiverName == other.receiverName &&
-                this.resolveAt == other.resolveAt &&
-                this.standardEntryClassCode == other.standardEntryClassCode &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is SimulationInboundAchTransferCreateBody && this.accountNumberId == other.accountNumberId && this.amount == other.amount && this.companyDescriptiveDate == other.companyDescriptiveDate && this.companyDiscretionaryData == other.companyDiscretionaryData && this.companyEntryDescription == other.companyEntryDescription && this.companyId == other.companyId && this.companyName == other.companyName && this.receiverIdNumber == other.receiverIdNumber && this.receiverName == other.receiverName && this.resolveAt == other.resolveAt && this.standardEntryClassCode == other.standardEntryClassCode && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        accountNumberId,
-                        amount,
-                        companyDescriptiveDate,
-                        companyDiscretionaryData,
-                        companyEntryDescription,
-                        companyId,
-                        companyName,
-                        receiverIdNumber,
-                        receiverName,
-                        resolveAt,
-                        standardEntryClassCode,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(accountNumberId, amount, companyDescriptiveDate, companyDiscretionaryData, companyEntryDescription, companyId, companyName, receiverIdNumber, receiverName, resolveAt, standardEntryClassCode, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -345,40 +319,11 @@ constructor(
             return true
         }
 
-        return other is SimulationInboundAchTransferCreateParams &&
-            this.accountNumberId == other.accountNumberId &&
-            this.amount == other.amount &&
-            this.companyDescriptiveDate == other.companyDescriptiveDate &&
-            this.companyDiscretionaryData == other.companyDiscretionaryData &&
-            this.companyEntryDescription == other.companyEntryDescription &&
-            this.companyId == other.companyId &&
-            this.companyName == other.companyName &&
-            this.receiverIdNumber == other.receiverIdNumber &&
-            this.receiverName == other.receiverName &&
-            this.resolveAt == other.resolveAt &&
-            this.standardEntryClassCode == other.standardEntryClassCode &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is SimulationInboundAchTransferCreateParams && this.accountNumberId == other.accountNumberId && this.amount == other.amount && this.companyDescriptiveDate == other.companyDescriptiveDate && this.companyDiscretionaryData == other.companyDiscretionaryData && this.companyEntryDescription == other.companyEntryDescription && this.companyId == other.companyId && this.companyName == other.companyName && this.receiverIdNumber == other.receiverIdNumber && this.receiverName == other.receiverName && this.resolveAt == other.resolveAt && this.standardEntryClassCode == other.standardEntryClassCode && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            accountNumberId,
-            amount,
-            companyDescriptiveDate,
-            companyDiscretionaryData,
-            companyEntryDescription,
-            companyId,
-            companyName,
-            receiverIdNumber,
-            receiverName,
-            resolveAt,
-            standardEntryClassCode,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(accountNumberId, amount, companyDescriptiveDate, companyDiscretionaryData, companyEntryDescription, companyId, companyName, receiverIdNumber, receiverName, resolveAt, standardEntryClassCode, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
@@ -573,7 +518,7 @@ constructor(
                 return true
             }
 
-            return other is StandardEntryClassCode && this.value == other.value
+            return /* spotless:off */ other is StandardEntryClassCode && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

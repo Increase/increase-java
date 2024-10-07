@@ -153,26 +153,14 @@ constructor(
                 return true
             }
 
-            return other is PhysicalCardProfileCreateBody &&
-                this.carrierImageFileId == other.carrierImageFileId &&
-                this.contactPhone == other.contactPhone &&
-                this.description == other.description &&
-                this.frontImageFileId == other.frontImageFileId &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is PhysicalCardProfileCreateBody && this.carrierImageFileId == other.carrierImageFileId && this.contactPhone == other.contactPhone && this.description == other.description && this.frontImageFileId == other.frontImageFileId && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        carrierImageFileId,
-                        contactPhone,
-                        description,
-                        frontImageFileId,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(carrierImageFileId, contactPhone, description, frontImageFileId, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -192,26 +180,11 @@ constructor(
             return true
         }
 
-        return other is PhysicalCardProfileCreateParams &&
-            this.carrierImageFileId == other.carrierImageFileId &&
-            this.contactPhone == other.contactPhone &&
-            this.description == other.description &&
-            this.frontImageFileId == other.frontImageFileId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is PhysicalCardProfileCreateParams && this.carrierImageFileId == other.carrierImageFileId && this.contactPhone == other.contactPhone && this.description == other.description && this.frontImageFileId == other.frontImageFileId && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            carrierImageFileId,
-            contactPhone,
-            description,
-            frontImageFileId,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(carrierImageFileId, contactPhone, description, frontImageFileId, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =

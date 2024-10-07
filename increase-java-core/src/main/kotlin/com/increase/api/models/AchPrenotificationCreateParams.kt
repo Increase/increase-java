@@ -323,44 +323,14 @@ constructor(
                 return true
             }
 
-            return other is AchPrenotificationCreateBody &&
-                this.accountId == other.accountId &&
-                this.accountNumber == other.accountNumber &&
-                this.routingNumber == other.routingNumber &&
-                this.addendum == other.addendum &&
-                this.companyDescriptiveDate == other.companyDescriptiveDate &&
-                this.companyDiscretionaryData == other.companyDiscretionaryData &&
-                this.companyEntryDescription == other.companyEntryDescription &&
-                this.companyName == other.companyName &&
-                this.creditDebitIndicator == other.creditDebitIndicator &&
-                this.effectiveDate == other.effectiveDate &&
-                this.individualId == other.individualId &&
-                this.individualName == other.individualName &&
-                this.standardEntryClassCode == other.standardEntryClassCode &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is AchPrenotificationCreateBody && this.accountId == other.accountId && this.accountNumber == other.accountNumber && this.routingNumber == other.routingNumber && this.addendum == other.addendum && this.companyDescriptiveDate == other.companyDescriptiveDate && this.companyDiscretionaryData == other.companyDiscretionaryData && this.companyEntryDescription == other.companyEntryDescription && this.companyName == other.companyName && this.creditDebitIndicator == other.creditDebitIndicator && this.effectiveDate == other.effectiveDate && this.individualId == other.individualId && this.individualName == other.individualName && this.standardEntryClassCode == other.standardEntryClassCode && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        accountId,
-                        accountNumber,
-                        routingNumber,
-                        addendum,
-                        companyDescriptiveDate,
-                        companyDiscretionaryData,
-                        companyEntryDescription,
-                        companyName,
-                        creditDebitIndicator,
-                        effectiveDate,
-                        individualId,
-                        individualName,
-                        standardEntryClassCode,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(accountId, accountNumber, routingNumber, addendum, companyDescriptiveDate, companyDiscretionaryData, companyEntryDescription, companyName, creditDebitIndicator, effectiveDate, individualId, individualName, standardEntryClassCode, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -380,44 +350,11 @@ constructor(
             return true
         }
 
-        return other is AchPrenotificationCreateParams &&
-            this.accountId == other.accountId &&
-            this.accountNumber == other.accountNumber &&
-            this.routingNumber == other.routingNumber &&
-            this.addendum == other.addendum &&
-            this.companyDescriptiveDate == other.companyDescriptiveDate &&
-            this.companyDiscretionaryData == other.companyDiscretionaryData &&
-            this.companyEntryDescription == other.companyEntryDescription &&
-            this.companyName == other.companyName &&
-            this.creditDebitIndicator == other.creditDebitIndicator &&
-            this.effectiveDate == other.effectiveDate &&
-            this.individualId == other.individualId &&
-            this.individualName == other.individualName &&
-            this.standardEntryClassCode == other.standardEntryClassCode &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is AchPrenotificationCreateParams && this.accountId == other.accountId && this.accountNumber == other.accountNumber && this.routingNumber == other.routingNumber && this.addendum == other.addendum && this.companyDescriptiveDate == other.companyDescriptiveDate && this.companyDiscretionaryData == other.companyDiscretionaryData && this.companyEntryDescription == other.companyEntryDescription && this.companyName == other.companyName && this.creditDebitIndicator == other.creditDebitIndicator && this.effectiveDate == other.effectiveDate && this.individualId == other.individualId && this.individualName == other.individualName && this.standardEntryClassCode == other.standardEntryClassCode && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            accountId,
-            accountNumber,
-            routingNumber,
-            addendum,
-            companyDescriptiveDate,
-            companyDiscretionaryData,
-            companyEntryDescription,
-            companyName,
-            creditDebitIndicator,
-            effectiveDate,
-            individualId,
-            individualName,
-            standardEntryClassCode,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(accountId, accountNumber, routingNumber, addendum, companyDescriptiveDate, companyDiscretionaryData, companyEntryDescription, companyName, creditDebitIndicator, effectiveDate, individualId, individualName, standardEntryClassCode, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
@@ -615,7 +552,7 @@ constructor(
                 return true
             }
 
-            return other is CreditDebitIndicator && this.value == other.value
+            return /* spotless:off */ other is CreditDebitIndicator && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -672,7 +609,7 @@ constructor(
                 return true
             }
 
-            return other is StandardEntryClassCode && this.value == other.value
+            return /* spotless:off */ other is StandardEntryClassCode && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

@@ -102,16 +102,14 @@ constructor(
                 return true
             }
 
-            return other is SimulationCardRefundCreateBody &&
-                this.transactionId == other.transactionId &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is SimulationCardRefundCreateBody && this.transactionId == other.transactionId && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(transactionId, additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(transactionId, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -131,20 +129,11 @@ constructor(
             return true
         }
 
-        return other is SimulationCardRefundCreateParams &&
-            this.transactionId == other.transactionId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is SimulationCardRefundCreateParams && this.transactionId == other.transactionId && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            transactionId,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(transactionId, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =

@@ -48,24 +48,11 @@ constructor(
             return true
         }
 
-        return other is BookkeepingEntrySetListParams &&
-            this.cursor == other.cursor &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.limit == other.limit &&
-            this.transactionId == other.transactionId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is BookkeepingEntrySetListParams && this.cursor == other.cursor && this.idempotencyKey == other.idempotencyKey && this.limit == other.limit && this.transactionId == other.transactionId && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            cursor,
-            idempotencyKey,
-            limit,
-            transactionId,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(cursor, idempotencyKey, limit, transactionId, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =

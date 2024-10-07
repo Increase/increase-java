@@ -137,24 +137,14 @@ constructor(
                 return true
             }
 
-            return other is BookkeepingEntrySetCreateBody &&
-                this.entries == other.entries &&
-                this.date == other.date &&
-                this.transactionId == other.transactionId &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is BookkeepingEntrySetCreateBody && this.entries == other.entries && this.date == other.date && this.transactionId == other.transactionId && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        entries,
-                        date,
-                        transactionId,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(entries, date, transactionId, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -174,24 +164,11 @@ constructor(
             return true
         }
 
-        return other is BookkeepingEntrySetCreateParams &&
-            this.entries == other.entries &&
-            this.date == other.date &&
-            this.transactionId == other.transactionId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is BookkeepingEntrySetCreateParams && this.entries == other.entries && this.date == other.date && this.transactionId == other.transactionId && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            entries,
-            date,
-            transactionId,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(entries, date, transactionId, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
@@ -388,22 +365,14 @@ constructor(
                 return true
             }
 
-            return other is Entry &&
-                this.accountId == other.accountId &&
-                this.amount == other.amount &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is Entry && this.accountId == other.accountId && this.amount == other.amount && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        accountId,
-                        amount,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(accountId, amount, additionalProperties) /* spotless:on */
             }
             return hashCode
         }

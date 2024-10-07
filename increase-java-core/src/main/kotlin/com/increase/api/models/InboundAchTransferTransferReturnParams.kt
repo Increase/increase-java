@@ -116,16 +116,14 @@ constructor(
                 return true
             }
 
-            return other is InboundAchTransferTransferReturnBody &&
-                this.reason == other.reason &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is InboundAchTransferTransferReturnBody && this.reason == other.reason && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(reason, additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(reason, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -145,22 +143,11 @@ constructor(
             return true
         }
 
-        return other is InboundAchTransferTransferReturnParams &&
-            this.inboundAchTransferId == other.inboundAchTransferId &&
-            this.reason == other.reason &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is InboundAchTransferTransferReturnParams && this.inboundAchTransferId == other.inboundAchTransferId && this.reason == other.reason && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            inboundAchTransferId,
-            reason,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(inboundAchTransferId, reason, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
@@ -288,7 +275,7 @@ constructor(
                 return true
             }
 
-            return other is Reason && this.value == other.value
+            return /* spotless:off */ other is Reason && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

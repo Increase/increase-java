@@ -226,7 +226,7 @@ private constructor(
                 return true
             }
 
-            return other is Type && this.value == other.value
+            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -270,28 +270,14 @@ private constructor(
             return true
         }
 
-        return other is EntitySupplementalDocument &&
-            this.createdAt == other.createdAt &&
-            this.entityId == other.entityId &&
-            this.fileId == other.fileId &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
+        return /* spotless:off */ other is EntitySupplementalDocument && this.createdAt == other.createdAt && this.entityId == other.entityId && this.fileId == other.fileId && this.idempotencyKey == other.idempotencyKey && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    createdAt,
-                    entityId,
-                    fileId,
-                    idempotencyKey,
-                    type,
-                    additionalProperties,
-                )
+            hashCode = /* spotless:off */ Objects.hash(createdAt, entityId, fileId, idempotencyKey, type, additionalProperties) /* spotless:on */
         }
         return hashCode
     }

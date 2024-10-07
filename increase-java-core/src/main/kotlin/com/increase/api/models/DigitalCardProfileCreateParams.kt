@@ -230,36 +230,14 @@ constructor(
                 return true
             }
 
-            return other is DigitalCardProfileCreateBody &&
-                this.appIconFileId == other.appIconFileId &&
-                this.backgroundImageFileId == other.backgroundImageFileId &&
-                this.cardDescription == other.cardDescription &&
-                this.description == other.description &&
-                this.issuerName == other.issuerName &&
-                this.contactEmail == other.contactEmail &&
-                this.contactPhone == other.contactPhone &&
-                this.contactWebsite == other.contactWebsite &&
-                this.textColor == other.textColor &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is DigitalCardProfileCreateBody && this.appIconFileId == other.appIconFileId && this.backgroundImageFileId == other.backgroundImageFileId && this.cardDescription == other.cardDescription && this.description == other.description && this.issuerName == other.issuerName && this.contactEmail == other.contactEmail && this.contactPhone == other.contactPhone && this.contactWebsite == other.contactWebsite && this.textColor == other.textColor && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        appIconFileId,
-                        backgroundImageFileId,
-                        cardDescription,
-                        description,
-                        issuerName,
-                        contactEmail,
-                        contactPhone,
-                        contactWebsite,
-                        textColor,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(appIconFileId, backgroundImageFileId, cardDescription, description, issuerName, contactEmail, contactPhone, contactWebsite, textColor, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -279,36 +257,11 @@ constructor(
             return true
         }
 
-        return other is DigitalCardProfileCreateParams &&
-            this.appIconFileId == other.appIconFileId &&
-            this.backgroundImageFileId == other.backgroundImageFileId &&
-            this.cardDescription == other.cardDescription &&
-            this.description == other.description &&
-            this.issuerName == other.issuerName &&
-            this.contactEmail == other.contactEmail &&
-            this.contactPhone == other.contactPhone &&
-            this.contactWebsite == other.contactWebsite &&
-            this.textColor == other.textColor &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is DigitalCardProfileCreateParams && this.appIconFileId == other.appIconFileId && this.backgroundImageFileId == other.backgroundImageFileId && this.cardDescription == other.cardDescription && this.description == other.description && this.issuerName == other.issuerName && this.contactEmail == other.contactEmail && this.contactPhone == other.contactPhone && this.contactWebsite == other.contactWebsite && this.textColor == other.textColor && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            appIconFileId,
-            backgroundImageFileId,
-            cardDescription,
-            description,
-            issuerName,
-            contactEmail,
-            contactPhone,
-            contactWebsite,
-            textColor,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(appIconFileId, backgroundImageFileId, cardDescription, description, issuerName, contactEmail, contactPhone, contactWebsite, textColor, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
@@ -540,24 +493,14 @@ constructor(
                 return true
             }
 
-            return other is TextColor &&
-                this.blue == other.blue &&
-                this.green == other.green &&
-                this.red == other.red &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is TextColor && this.blue == other.blue && this.green == other.green && this.red == other.red && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        blue,
-                        green,
-                        red,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(blue, green, red, additionalProperties) /* spotless:on */
             }
             return hashCode
         }

@@ -147,24 +147,14 @@ constructor(
                 return true
             }
 
-            return other is CardDisputeCreateBody &&
-                this.disputedTransactionId == other.disputedTransactionId &&
-                this.explanation == other.explanation &&
-                this.amount == other.amount &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is CardDisputeCreateBody && this.disputedTransactionId == other.disputedTransactionId && this.explanation == other.explanation && this.amount == other.amount && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        disputedTransactionId,
-                        explanation,
-                        amount,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(disputedTransactionId, explanation, amount, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -184,24 +174,11 @@ constructor(
             return true
         }
 
-        return other is CardDisputeCreateParams &&
-            this.disputedTransactionId == other.disputedTransactionId &&
-            this.explanation == other.explanation &&
-            this.amount == other.amount &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is CardDisputeCreateParams && this.disputedTransactionId == other.disputedTransactionId && this.explanation == other.explanation && this.amount == other.amount && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            disputedTransactionId,
-            explanation,
-            amount,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(disputedTransactionId, explanation, amount, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =

@@ -51,24 +51,11 @@ constructor(
             return true
         }
 
-        return other is ProofOfAuthorizationRequestSubmissionListParams &&
-            this.cursor == other.cursor &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.limit == other.limit &&
-            this.proofOfAuthorizationRequestId == other.proofOfAuthorizationRequestId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is ProofOfAuthorizationRequestSubmissionListParams && this.cursor == other.cursor && this.idempotencyKey == other.idempotencyKey && this.limit == other.limit && this.proofOfAuthorizationRequestId == other.proofOfAuthorizationRequestId && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            cursor,
-            idempotencyKey,
-            limit,
-            proofOfAuthorizationRequestId,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(cursor, idempotencyKey, limit, proofOfAuthorizationRequestId, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =

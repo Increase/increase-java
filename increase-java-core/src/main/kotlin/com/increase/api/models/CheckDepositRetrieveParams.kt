@@ -36,18 +36,11 @@ constructor(
             return true
         }
 
-        return other is CheckDepositRetrieveParams &&
-            this.checkDepositId == other.checkDepositId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is CheckDepositRetrieveParams && this.checkDepositId == other.checkDepositId && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            checkDepositId,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(checkDepositId, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =

@@ -225,7 +225,7 @@ private constructor(
                 return true
             }
 
-            return other is AchTransfers && this.value == other.value
+            return /* spotless:off */ other is AchTransfers && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -282,7 +282,7 @@ private constructor(
                 return true
             }
 
-            return other is RealTimePaymentsTransfers && this.value == other.value
+            return /* spotless:off */ other is RealTimePaymentsTransfers && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -340,7 +340,7 @@ private constructor(
                 return true
             }
 
-            return other is Type && this.value == other.value
+            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -391,7 +391,7 @@ private constructor(
                 return true
             }
 
-            return other is WireTransfers && this.value == other.value
+            return /* spotless:off */ other is WireTransfers && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -440,30 +440,14 @@ private constructor(
             return true
         }
 
-        return other is RoutingNumberListResponse &&
-            this.achTransfers == other.achTransfers &&
-            this.name == other.name &&
-            this.realTimePaymentsTransfers == other.realTimePaymentsTransfers &&
-            this.routingNumber == other.routingNumber &&
-            this.type == other.type &&
-            this.wireTransfers == other.wireTransfers &&
-            this.additionalProperties == other.additionalProperties
+        return /* spotless:off */ other is RoutingNumberListResponse && this.achTransfers == other.achTransfers && this.name == other.name && this.realTimePaymentsTransfers == other.realTimePaymentsTransfers && this.routingNumber == other.routingNumber && this.type == other.type && this.wireTransfers == other.wireTransfers && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    achTransfers,
-                    name,
-                    realTimePaymentsTransfers,
-                    routingNumber,
-                    type,
-                    wireTransfers,
-                    additionalProperties,
-                )
+            hashCode = /* spotless:off */ Objects.hash(achTransfers, name, realTimePaymentsTransfers, routingNumber, type, wireTransfers, additionalProperties) /* spotless:on */
         }
         return hashCode
     }

@@ -102,16 +102,14 @@ constructor(
                 return true
             }
 
-            return other is AccountUpdateBody &&
-                this.name == other.name &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is AccountUpdateBody && this.name == other.name && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(name, additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(name, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -131,22 +129,11 @@ constructor(
             return true
         }
 
-        return other is AccountUpdateParams &&
-            this.accountId == other.accountId &&
-            this.name == other.name &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is AccountUpdateParams && this.accountId == other.accountId && this.name == other.name && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            accountId,
-            name,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(accountId, name, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =

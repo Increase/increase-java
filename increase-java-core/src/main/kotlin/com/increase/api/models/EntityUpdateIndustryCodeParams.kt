@@ -115,16 +115,14 @@ constructor(
                 return true
             }
 
-            return other is EntityUpdateIndustryCodeBody &&
-                this.industryCode == other.industryCode &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is EntityUpdateIndustryCodeBody && this.industryCode == other.industryCode && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(industryCode, additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(industryCode, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -144,22 +142,11 @@ constructor(
             return true
         }
 
-        return other is EntityUpdateIndustryCodeParams &&
-            this.entityId == other.entityId &&
-            this.industryCode == other.industryCode &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is EntityUpdateIndustryCodeParams && this.entityId == other.entityId && this.industryCode == other.industryCode && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            entityId,
-            industryCode,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(entityId, industryCode, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
