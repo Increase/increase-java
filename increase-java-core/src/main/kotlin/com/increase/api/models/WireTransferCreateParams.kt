@@ -376,48 +376,14 @@ constructor(
                 return true
             }
 
-            return other is WireTransferCreateBody &&
-                this.accountId == other.accountId &&
-                this.amount == other.amount &&
-                this.beneficiaryName == other.beneficiaryName &&
-                this.messageToRecipient == other.messageToRecipient &&
-                this.accountNumber == other.accountNumber &&
-                this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
-                this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
-                this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
-                this.externalAccountId == other.externalAccountId &&
-                this.originatorAddressLine1 == other.originatorAddressLine1 &&
-                this.originatorAddressLine2 == other.originatorAddressLine2 &&
-                this.originatorAddressLine3 == other.originatorAddressLine3 &&
-                this.originatorName == other.originatorName &&
-                this.requireApproval == other.requireApproval &&
-                this.routingNumber == other.routingNumber &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is WireTransferCreateBody && this.accountId == other.accountId && this.amount == other.amount && this.beneficiaryName == other.beneficiaryName && this.messageToRecipient == other.messageToRecipient && this.accountNumber == other.accountNumber && this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 && this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 && this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 && this.externalAccountId == other.externalAccountId && this.originatorAddressLine1 == other.originatorAddressLine1 && this.originatorAddressLine2 == other.originatorAddressLine2 && this.originatorAddressLine3 == other.originatorAddressLine3 && this.originatorName == other.originatorName && this.requireApproval == other.requireApproval && this.routingNumber == other.routingNumber && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        accountId,
-                        amount,
-                        beneficiaryName,
-                        messageToRecipient,
-                        accountNumber,
-                        beneficiaryAddressLine1,
-                        beneficiaryAddressLine2,
-                        beneficiaryAddressLine3,
-                        externalAccountId,
-                        originatorAddressLine1,
-                        originatorAddressLine2,
-                        originatorAddressLine3,
-                        originatorName,
-                        requireApproval,
-                        routingNumber,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(accountId, amount, beneficiaryName, messageToRecipient, accountNumber, beneficiaryAddressLine1, beneficiaryAddressLine2, beneficiaryAddressLine3, externalAccountId, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, requireApproval, routingNumber, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -437,48 +403,11 @@ constructor(
             return true
         }
 
-        return other is WireTransferCreateParams &&
-            this.accountId == other.accountId &&
-            this.amount == other.amount &&
-            this.beneficiaryName == other.beneficiaryName &&
-            this.messageToRecipient == other.messageToRecipient &&
-            this.accountNumber == other.accountNumber &&
-            this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
-            this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
-            this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
-            this.externalAccountId == other.externalAccountId &&
-            this.originatorAddressLine1 == other.originatorAddressLine1 &&
-            this.originatorAddressLine2 == other.originatorAddressLine2 &&
-            this.originatorAddressLine3 == other.originatorAddressLine3 &&
-            this.originatorName == other.originatorName &&
-            this.requireApproval == other.requireApproval &&
-            this.routingNumber == other.routingNumber &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is WireTransferCreateParams && this.accountId == other.accountId && this.amount == other.amount && this.beneficiaryName == other.beneficiaryName && this.messageToRecipient == other.messageToRecipient && this.accountNumber == other.accountNumber && this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 && this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 && this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 && this.externalAccountId == other.externalAccountId && this.originatorAddressLine1 == other.originatorAddressLine1 && this.originatorAddressLine2 == other.originatorAddressLine2 && this.originatorAddressLine3 == other.originatorAddressLine3 && this.originatorName == other.originatorName && this.requireApproval == other.requireApproval && this.routingNumber == other.routingNumber && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            accountId,
-            amount,
-            beneficiaryName,
-            messageToRecipient,
-            accountNumber,
-            beneficiaryAddressLine1,
-            beneficiaryAddressLine2,
-            beneficiaryAddressLine3,
-            externalAccountId,
-            originatorAddressLine1,
-            originatorAddressLine2,
-            originatorAddressLine3,
-            originatorName,
-            requireApproval,
-            routingNumber,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(accountId, amount, beneficiaryName, messageToRecipient, accountNumber, beneficiaryAddressLine1, beneficiaryAddressLine2, beneficiaryAddressLine3, externalAccountId, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, requireApproval, routingNumber, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =

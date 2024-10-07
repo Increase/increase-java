@@ -36,18 +36,11 @@ constructor(
             return true
         }
 
-        return other is DigitalCardProfileRetrieveParams &&
-            this.digitalCardProfileId == other.digitalCardProfileId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is DigitalCardProfileRetrieveParams && this.digitalCardProfileId == other.digitalCardProfileId && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            digitalCardProfileId,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(digitalCardProfileId, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =

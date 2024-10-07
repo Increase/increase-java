@@ -36,18 +36,11 @@ constructor(
             return true
         }
 
-        return other is InboundWireTransferRetrieveParams &&
-            this.inboundWireTransferId == other.inboundWireTransferId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is InboundWireTransferRetrieveParams && this.inboundWireTransferId == other.inboundWireTransferId && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            inboundWireTransferId,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(inboundWireTransferId, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =

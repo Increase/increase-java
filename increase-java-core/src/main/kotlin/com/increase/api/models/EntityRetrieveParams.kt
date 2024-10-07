@@ -36,18 +36,11 @@ constructor(
             return true
         }
 
-        return other is EntityRetrieveParams &&
-            this.entityId == other.entityId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is EntityRetrieveParams && this.entityId == other.entityId && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            entityId,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(entityId, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =

@@ -115,16 +115,14 @@ constructor(
                 return true
             }
 
-            return other is SimulationRealTimePaymentsTransferCompleteBody &&
-                this.rejection == other.rejection &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is SimulationRealTimePaymentsTransferCompleteBody && this.rejection == other.rejection && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(rejection, additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(rejection, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -144,22 +142,11 @@ constructor(
             return true
         }
 
-        return other is SimulationRealTimePaymentsTransferCompleteParams &&
-            this.realTimePaymentsTransferId == other.realTimePaymentsTransferId &&
-            this.rejection == other.rejection &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is SimulationRealTimePaymentsTransferCompleteParams && this.realTimePaymentsTransferId == other.realTimePaymentsTransferId && this.rejection == other.rejection && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            realTimePaymentsTransferId,
-            rejection,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(realTimePaymentsTransferId, rejection, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
@@ -349,7 +336,7 @@ constructor(
                     return true
                 }
 
-                return other is RejectReasonCode && this.value == other.value
+                return /* spotless:off */ other is RejectReasonCode && this.value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -542,16 +529,14 @@ constructor(
                 return true
             }
 
-            return other is Rejection &&
-                this.rejectReasonCode == other.rejectReasonCode &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is Rejection && this.rejectReasonCode == other.rejectReasonCode && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(rejectReasonCode, additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(rejectReasonCode, additionalProperties) /* spotless:on */
             }
             return hashCode
         }

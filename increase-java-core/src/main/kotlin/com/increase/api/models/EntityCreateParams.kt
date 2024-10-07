@@ -243,34 +243,14 @@ constructor(
                 return true
             }
 
-            return other is EntityCreateBody &&
-                this.structure == other.structure &&
-                this.corporation == other.corporation &&
-                this.description == other.description &&
-                this.governmentAuthority == other.governmentAuthority &&
-                this.joint == other.joint &&
-                this.naturalPerson == other.naturalPerson &&
-                this.supplementalDocuments == other.supplementalDocuments &&
-                this.trust == other.trust &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is EntityCreateBody && this.structure == other.structure && this.corporation == other.corporation && this.description == other.description && this.governmentAuthority == other.governmentAuthority && this.joint == other.joint && this.naturalPerson == other.naturalPerson && this.supplementalDocuments == other.supplementalDocuments && this.trust == other.trust && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        structure,
-                        corporation,
-                        description,
-                        governmentAuthority,
-                        joint,
-                        naturalPerson,
-                        supplementalDocuments,
-                        trust,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(structure, corporation, description, governmentAuthority, joint, naturalPerson, supplementalDocuments, trust, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -290,34 +270,11 @@ constructor(
             return true
         }
 
-        return other is EntityCreateParams &&
-            this.structure == other.structure &&
-            this.corporation == other.corporation &&
-            this.description == other.description &&
-            this.governmentAuthority == other.governmentAuthority &&
-            this.joint == other.joint &&
-            this.naturalPerson == other.naturalPerson &&
-            this.supplementalDocuments == other.supplementalDocuments &&
-            this.trust == other.trust &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is EntityCreateParams && this.structure == other.structure && this.corporation == other.corporation && this.description == other.description && this.governmentAuthority == other.governmentAuthority && this.joint == other.joint && this.naturalPerson == other.naturalPerson && this.supplementalDocuments == other.supplementalDocuments && this.trust == other.trust && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            structure,
-            corporation,
-            description,
-            governmentAuthority,
-            joint,
-            naturalPerson,
-            supplementalDocuments,
-            trust,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(structure, corporation, description, governmentAuthority, joint, naturalPerson, supplementalDocuments, trust, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
@@ -491,7 +448,7 @@ constructor(
                 return true
             }
 
-            return other is Structure && this.value == other.value
+            return /* spotless:off */ other is Structure && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -827,28 +784,14 @@ constructor(
                     return true
                 }
 
-                return other is Address &&
-                    this.city == other.city &&
-                    this.line1 == other.line1 &&
-                    this.line2 == other.line2 &&
-                    this.state == other.state &&
-                    this.zip == other.zip &&
-                    this.additionalProperties == other.additionalProperties
+                return /* spotless:off */ other is Address && this.city == other.city && this.line1 == other.line1 && this.line2 == other.line2 && this.state == other.state && this.zip == other.zip && this.additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             private var hashCode: Int = 0
 
             override fun hashCode(): Int {
                 if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            city,
-                            line1,
-                            line2,
-                            state,
-                            zip,
-                            additionalProperties,
-                        )
+                    hashCode = /* spotless:off */ Objects.hash(city, line1, line2, state, zip, additionalProperties) /* spotless:on */
                 }
                 return hashCode
             }
@@ -1202,28 +1145,14 @@ constructor(
                             return true
                         }
 
-                        return other is Address &&
-                            this.city == other.city &&
-                            this.line1 == other.line1 &&
-                            this.line2 == other.line2 &&
-                            this.state == other.state &&
-                            this.zip == other.zip &&
-                            this.additionalProperties == other.additionalProperties
+                        return /* spotless:off */ other is Address && this.city == other.city && this.line1 == other.line1 && this.line2 == other.line2 && this.state == other.state && this.zip == other.zip && this.additionalProperties == other.additionalProperties /* spotless:on */
                     }
 
                     private var hashCode: Int = 0
 
                     override fun hashCode(): Int {
                         if (hashCode == 0) {
-                            hashCode =
-                                Objects.hash(
-                                    city,
-                                    line1,
-                                    line2,
-                                    state,
-                                    zip,
-                                    additionalProperties,
-                                )
+                            hashCode = /* spotless:off */ Objects.hash(city, line1, line2, state, zip, additionalProperties) /* spotless:on */
                         }
                         return hashCode
                     }
@@ -1378,7 +1307,7 @@ constructor(
                                 return true
                             }
 
-                            return other is Method && this.value == other.value
+                            return /* spotless:off */ other is Method && this.value == other.value /* spotless:on */
                         }
 
                         override fun hashCode() = value.hashCode()
@@ -1565,26 +1494,14 @@ constructor(
                                 return true
                             }
 
-                            return other is DriversLicense &&
-                                this.backFileId == other.backFileId &&
-                                this.expirationDate == other.expirationDate &&
-                                this.fileId == other.fileId &&
-                                this.state == other.state &&
-                                this.additionalProperties == other.additionalProperties
+                            return /* spotless:off */ other is DriversLicense && this.backFileId == other.backFileId && this.expirationDate == other.expirationDate && this.fileId == other.fileId && this.state == other.state && this.additionalProperties == other.additionalProperties /* spotless:on */
                         }
 
                         private var hashCode: Int = 0
 
                         override fun hashCode(): Int {
                             if (hashCode == 0) {
-                                hashCode =
-                                    Objects.hash(
-                                        backFileId,
-                                        expirationDate,
-                                        fileId,
-                                        state,
-                                        additionalProperties,
-                                    )
+                                hashCode = /* spotless:off */ Objects.hash(backFileId, expirationDate, fileId, state, additionalProperties) /* spotless:on */
                             }
                             return hashCode
                         }
@@ -1729,28 +1646,14 @@ constructor(
                                 return true
                             }
 
-                            return other is Other &&
-                                this.backFileId == other.backFileId &&
-                                this.country == other.country &&
-                                this.description == other.description &&
-                                this.expirationDate == other.expirationDate &&
-                                this.fileId == other.fileId &&
-                                this.additionalProperties == other.additionalProperties
+                            return /* spotless:off */ other is Other && this.backFileId == other.backFileId && this.country == other.country && this.description == other.description && this.expirationDate == other.expirationDate && this.fileId == other.fileId && this.additionalProperties == other.additionalProperties /* spotless:on */
                         }
 
                         private var hashCode: Int = 0
 
                         override fun hashCode(): Int {
                             if (hashCode == 0) {
-                                hashCode =
-                                    Objects.hash(
-                                        backFileId,
-                                        country,
-                                        description,
-                                        expirationDate,
-                                        fileId,
-                                        additionalProperties,
-                                    )
+                                hashCode = /* spotless:off */ Objects.hash(backFileId, country, description, expirationDate, fileId, additionalProperties) /* spotless:on */
                             }
                             return hashCode
                         }
@@ -1857,24 +1760,14 @@ constructor(
                                 return true
                             }
 
-                            return other is Passport &&
-                                this.country == other.country &&
-                                this.expirationDate == other.expirationDate &&
-                                this.fileId == other.fileId &&
-                                this.additionalProperties == other.additionalProperties
+                            return /* spotless:off */ other is Passport && this.country == other.country && this.expirationDate == other.expirationDate && this.fileId == other.fileId && this.additionalProperties == other.additionalProperties /* spotless:on */
                         }
 
                         private var hashCode: Int = 0
 
                         override fun hashCode(): Int {
                             if (hashCode == 0) {
-                                hashCode =
-                                    Objects.hash(
-                                        country,
-                                        expirationDate,
-                                        fileId,
-                                        additionalProperties,
-                                    )
+                                hashCode = /* spotless:off */ Objects.hash(country, expirationDate, fileId, additionalProperties) /* spotless:on */
                             }
                             return hashCode
                         }
@@ -1888,28 +1781,14 @@ constructor(
                             return true
                         }
 
-                        return other is Identification &&
-                            this.driversLicense == other.driversLicense &&
-                            this.method == other.method &&
-                            this.number == other.number &&
-                            this.other == other.other &&
-                            this.passport == other.passport &&
-                            this.additionalProperties == other.additionalProperties
+                        return /* spotless:off */ other is Identification && this.driversLicense == other.driversLicense && this.method == other.method && this.number == other.number && this.other == other.other && this.passport == other.passport && this.additionalProperties == other.additionalProperties /* spotless:on */
                     }
 
                     private var hashCode: Int = 0
 
                     override fun hashCode(): Int {
                         if (hashCode == 0) {
-                            hashCode =
-                                Objects.hash(
-                                    driversLicense,
-                                    method,
-                                    number,
-                                    other,
-                                    passport,
-                                    additionalProperties,
-                                )
+                            hashCode = /* spotless:off */ Objects.hash(driversLicense, method, number, other, passport, additionalProperties) /* spotless:on */
                         }
                         return hashCode
                     }
@@ -1923,28 +1802,14 @@ constructor(
                         return true
                     }
 
-                    return other is Individual &&
-                        this.address == other.address &&
-                        this.confirmedNoUsTaxId == other.confirmedNoUsTaxId &&
-                        this.dateOfBirth == other.dateOfBirth &&
-                        this.identification == other.identification &&
-                        this.name == other.name &&
-                        this.additionalProperties == other.additionalProperties
+                    return /* spotless:off */ other is Individual && this.address == other.address && this.confirmedNoUsTaxId == other.confirmedNoUsTaxId && this.dateOfBirth == other.dateOfBirth && this.identification == other.identification && this.name == other.name && this.additionalProperties == other.additionalProperties /* spotless:on */
                 }
 
                 private var hashCode: Int = 0
 
                 override fun hashCode(): Int {
                     if (hashCode == 0) {
-                        hashCode =
-                            Objects.hash(
-                                address,
-                                confirmedNoUsTaxId,
-                                dateOfBirth,
-                                identification,
-                                name,
-                                additionalProperties,
-                            )
+                        hashCode = /* spotless:off */ Objects.hash(address, confirmedNoUsTaxId, dateOfBirth, identification, name, additionalProperties) /* spotless:on */
                     }
                     return hashCode
                 }
@@ -1966,7 +1831,7 @@ constructor(
                         return true
                     }
 
-                    return other is Prong && this.value == other.value
+                    return /* spotless:off */ other is Prong && this.value == other.value /* spotless:on */
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -2015,24 +1880,14 @@ constructor(
                     return true
                 }
 
-                return other is BeneficialOwner &&
-                    this.companyTitle == other.companyTitle &&
-                    this.individual == other.individual &&
-                    this.prongs == other.prongs &&
-                    this.additionalProperties == other.additionalProperties
+                return /* spotless:off */ other is BeneficialOwner && this.companyTitle == other.companyTitle && this.individual == other.individual && this.prongs == other.prongs && this.additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             private var hashCode: Int = 0
 
             override fun hashCode(): Int {
                 if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            companyTitle,
-                            individual,
-                            prongs,
-                            additionalProperties,
-                        )
+                    hashCode = /* spotless:off */ Objects.hash(companyTitle, individual, prongs, additionalProperties) /* spotless:on */
                 }
                 return hashCode
             }
@@ -2046,32 +1901,14 @@ constructor(
                 return true
             }
 
-            return other is Corporation &&
-                this.address == other.address &&
-                this.beneficialOwners == other.beneficialOwners &&
-                this.incorporationState == other.incorporationState &&
-                this.industryCode == other.industryCode &&
-                this.name == other.name &&
-                this.taxIdentifier == other.taxIdentifier &&
-                this.website == other.website &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is Corporation && this.address == other.address && this.beneficialOwners == other.beneficialOwners && this.incorporationState == other.incorporationState && this.industryCode == other.industryCode && this.name == other.name && this.taxIdentifier == other.taxIdentifier && this.website == other.website && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        address,
-                        beneficialOwners,
-                        incorporationState,
-                        industryCode,
-                        name,
-                        taxIdentifier,
-                        website,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(address, beneficialOwners, incorporationState, industryCode, name, taxIdentifier, website, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -2320,28 +2157,14 @@ constructor(
                     return true
                 }
 
-                return other is Address &&
-                    this.city == other.city &&
-                    this.line1 == other.line1 &&
-                    this.line2 == other.line2 &&
-                    this.state == other.state &&
-                    this.zip == other.zip &&
-                    this.additionalProperties == other.additionalProperties
+                return /* spotless:off */ other is Address && this.city == other.city && this.line1 == other.line1 && this.line2 == other.line2 && this.state == other.state && this.zip == other.zip && this.additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             private var hashCode: Int = 0
 
             override fun hashCode(): Int {
                 if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            city,
-                            line1,
-                            line2,
-                            state,
-                            zip,
-                            additionalProperties,
-                        )
+                    hashCode = /* spotless:off */ Objects.hash(city, line1, line2, state, zip, additionalProperties) /* spotless:on */
                 }
                 return hashCode
             }
@@ -2413,16 +2236,14 @@ constructor(
                     return true
                 }
 
-                return other is AuthorizedPerson &&
-                    this.name == other.name &&
-                    this.additionalProperties == other.additionalProperties
+                return /* spotless:off */ other is AuthorizedPerson && this.name == other.name && this.additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             private var hashCode: Int = 0
 
             override fun hashCode(): Int {
                 if (hashCode == 0) {
-                    hashCode = Objects.hash(name, additionalProperties)
+                    hashCode = /* spotless:off */ Objects.hash(name, additionalProperties) /* spotless:on */
                 }
                 return hashCode
             }
@@ -2444,7 +2265,7 @@ constructor(
                     return true
                 }
 
-                return other is Category && this.value == other.value
+                return /* spotless:off */ other is Category && this.value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -2487,30 +2308,14 @@ constructor(
                 return true
             }
 
-            return other is GovernmentAuthority &&
-                this.address == other.address &&
-                this.authorizedPersons == other.authorizedPersons &&
-                this.category == other.category &&
-                this.name == other.name &&
-                this.taxIdentifier == other.taxIdentifier &&
-                this.website == other.website &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is GovernmentAuthority && this.address == other.address && this.authorizedPersons == other.authorizedPersons && this.category == other.category && this.name == other.name && this.taxIdentifier == other.taxIdentifier && this.website == other.website && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        address,
-                        authorizedPersons,
-                        category,
-                        name,
-                        taxIdentifier,
-                        website,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(address, authorizedPersons, category, name, taxIdentifier, website, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -2830,28 +2635,14 @@ constructor(
                         return true
                     }
 
-                    return other is Address &&
-                        this.city == other.city &&
-                        this.line1 == other.line1 &&
-                        this.line2 == other.line2 &&
-                        this.state == other.state &&
-                        this.zip == other.zip &&
-                        this.additionalProperties == other.additionalProperties
+                    return /* spotless:off */ other is Address && this.city == other.city && this.line1 == other.line1 && this.line2 == other.line2 && this.state == other.state && this.zip == other.zip && this.additionalProperties == other.additionalProperties /* spotless:on */
                 }
 
                 private var hashCode: Int = 0
 
                 override fun hashCode(): Int {
                     if (hashCode == 0) {
-                        hashCode =
-                            Objects.hash(
-                                city,
-                                line1,
-                                line2,
-                                state,
-                                zip,
-                                additionalProperties,
-                            )
+                        hashCode = /* spotless:off */ Objects.hash(city, line1, line2, state, zip, additionalProperties) /* spotless:on */
                     }
                     return hashCode
                 }
@@ -3004,7 +2795,7 @@ constructor(
                             return true
                         }
 
-                        return other is Method && this.value == other.value
+                        return /* spotless:off */ other is Method && this.value == other.value /* spotless:on */
                     }
 
                     override fun hashCode() = value.hashCode()
@@ -3182,26 +2973,14 @@ constructor(
                             return true
                         }
 
-                        return other is DriversLicense &&
-                            this.backFileId == other.backFileId &&
-                            this.expirationDate == other.expirationDate &&
-                            this.fileId == other.fileId &&
-                            this.state == other.state &&
-                            this.additionalProperties == other.additionalProperties
+                        return /* spotless:off */ other is DriversLicense && this.backFileId == other.backFileId && this.expirationDate == other.expirationDate && this.fileId == other.fileId && this.state == other.state && this.additionalProperties == other.additionalProperties /* spotless:on */
                     }
 
                     private var hashCode: Int = 0
 
                     override fun hashCode(): Int {
                         if (hashCode == 0) {
-                            hashCode =
-                                Objects.hash(
-                                    backFileId,
-                                    expirationDate,
-                                    fileId,
-                                    state,
-                                    additionalProperties,
-                                )
+                            hashCode = /* spotless:off */ Objects.hash(backFileId, expirationDate, fileId, state, additionalProperties) /* spotless:on */
                         }
                         return hashCode
                     }
@@ -3342,28 +3121,14 @@ constructor(
                             return true
                         }
 
-                        return other is Other &&
-                            this.backFileId == other.backFileId &&
-                            this.country == other.country &&
-                            this.description == other.description &&
-                            this.expirationDate == other.expirationDate &&
-                            this.fileId == other.fileId &&
-                            this.additionalProperties == other.additionalProperties
+                        return /* spotless:off */ other is Other && this.backFileId == other.backFileId && this.country == other.country && this.description == other.description && this.expirationDate == other.expirationDate && this.fileId == other.fileId && this.additionalProperties == other.additionalProperties /* spotless:on */
                     }
 
                     private var hashCode: Int = 0
 
                     override fun hashCode(): Int {
                         if (hashCode == 0) {
-                            hashCode =
-                                Objects.hash(
-                                    backFileId,
-                                    country,
-                                    description,
-                                    expirationDate,
-                                    fileId,
-                                    additionalProperties,
-                                )
+                            hashCode = /* spotless:off */ Objects.hash(backFileId, country, description, expirationDate, fileId, additionalProperties) /* spotless:on */
                         }
                         return hashCode
                     }
@@ -3468,24 +3233,14 @@ constructor(
                             return true
                         }
 
-                        return other is Passport &&
-                            this.country == other.country &&
-                            this.expirationDate == other.expirationDate &&
-                            this.fileId == other.fileId &&
-                            this.additionalProperties == other.additionalProperties
+                        return /* spotless:off */ other is Passport && this.country == other.country && this.expirationDate == other.expirationDate && this.fileId == other.fileId && this.additionalProperties == other.additionalProperties /* spotless:on */
                     }
 
                     private var hashCode: Int = 0
 
                     override fun hashCode(): Int {
                         if (hashCode == 0) {
-                            hashCode =
-                                Objects.hash(
-                                    country,
-                                    expirationDate,
-                                    fileId,
-                                    additionalProperties,
-                                )
+                            hashCode = /* spotless:off */ Objects.hash(country, expirationDate, fileId, additionalProperties) /* spotless:on */
                         }
                         return hashCode
                     }
@@ -3499,28 +3254,14 @@ constructor(
                         return true
                     }
 
-                    return other is Identification &&
-                        this.driversLicense == other.driversLicense &&
-                        this.method == other.method &&
-                        this.number == other.number &&
-                        this.other == other.other &&
-                        this.passport == other.passport &&
-                        this.additionalProperties == other.additionalProperties
+                    return /* spotless:off */ other is Identification && this.driversLicense == other.driversLicense && this.method == other.method && this.number == other.number && this.other == other.other && this.passport == other.passport && this.additionalProperties == other.additionalProperties /* spotless:on */
                 }
 
                 private var hashCode: Int = 0
 
                 override fun hashCode(): Int {
                     if (hashCode == 0) {
-                        hashCode =
-                            Objects.hash(
-                                driversLicense,
-                                method,
-                                number,
-                                other,
-                                passport,
-                                additionalProperties,
-                            )
+                        hashCode = /* spotless:off */ Objects.hash(driversLicense, method, number, other, passport, additionalProperties) /* spotless:on */
                     }
                     return hashCode
                 }
@@ -3534,28 +3275,14 @@ constructor(
                     return true
                 }
 
-                return other is Individual &&
-                    this.address == other.address &&
-                    this.confirmedNoUsTaxId == other.confirmedNoUsTaxId &&
-                    this.dateOfBirth == other.dateOfBirth &&
-                    this.identification == other.identification &&
-                    this.name == other.name &&
-                    this.additionalProperties == other.additionalProperties
+                return /* spotless:off */ other is Individual && this.address == other.address && this.confirmedNoUsTaxId == other.confirmedNoUsTaxId && this.dateOfBirth == other.dateOfBirth && this.identification == other.identification && this.name == other.name && this.additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             private var hashCode: Int = 0
 
             override fun hashCode(): Int {
                 if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            address,
-                            confirmedNoUsTaxId,
-                            dateOfBirth,
-                            identification,
-                            name,
-                            additionalProperties,
-                        )
+                    hashCode = /* spotless:off */ Objects.hash(address, confirmedNoUsTaxId, dateOfBirth, identification, name, additionalProperties) /* spotless:on */
                 }
                 return hashCode
             }
@@ -3569,22 +3296,14 @@ constructor(
                 return true
             }
 
-            return other is Joint &&
-                this.individuals == other.individuals &&
-                this.name == other.name &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is Joint && this.individuals == other.individuals && this.name == other.name && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        individuals,
-                        name,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(individuals, name, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -3831,28 +3550,14 @@ constructor(
                     return true
                 }
 
-                return other is Address &&
-                    this.city == other.city &&
-                    this.line1 == other.line1 &&
-                    this.line2 == other.line2 &&
-                    this.state == other.state &&
-                    this.zip == other.zip &&
-                    this.additionalProperties == other.additionalProperties
+                return /* spotless:off */ other is Address && this.city == other.city && this.line1 == other.line1 && this.line2 == other.line2 && this.state == other.state && this.zip == other.zip && this.additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             private var hashCode: Int = 0
 
             override fun hashCode(): Int {
                 if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            city,
-                            line1,
-                            line2,
-                            state,
-                            zip,
-                            additionalProperties,
-                        )
+                    hashCode = /* spotless:off */ Objects.hash(city, line1, line2, state, zip, additionalProperties) /* spotless:on */
                 }
                 return hashCode
             }
@@ -4001,7 +3706,7 @@ constructor(
                         return true
                     }
 
-                    return other is Method && this.value == other.value
+                    return /* spotless:off */ other is Method && this.value == other.value /* spotless:on */
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -4172,26 +3877,14 @@ constructor(
                         return true
                     }
 
-                    return other is DriversLicense &&
-                        this.backFileId == other.backFileId &&
-                        this.expirationDate == other.expirationDate &&
-                        this.fileId == other.fileId &&
-                        this.state == other.state &&
-                        this.additionalProperties == other.additionalProperties
+                    return /* spotless:off */ other is DriversLicense && this.backFileId == other.backFileId && this.expirationDate == other.expirationDate && this.fileId == other.fileId && this.state == other.state && this.additionalProperties == other.additionalProperties /* spotless:on */
                 }
 
                 private var hashCode: Int = 0
 
                 override fun hashCode(): Int {
                     if (hashCode == 0) {
-                        hashCode =
-                            Objects.hash(
-                                backFileId,
-                                expirationDate,
-                                fileId,
-                                state,
-                                additionalProperties,
-                            )
+                        hashCode = /* spotless:off */ Objects.hash(backFileId, expirationDate, fileId, state, additionalProperties) /* spotless:on */
                     }
                     return hashCode
                 }
@@ -4328,28 +4021,14 @@ constructor(
                         return true
                     }
 
-                    return other is Other &&
-                        this.backFileId == other.backFileId &&
-                        this.country == other.country &&
-                        this.description == other.description &&
-                        this.expirationDate == other.expirationDate &&
-                        this.fileId == other.fileId &&
-                        this.additionalProperties == other.additionalProperties
+                    return /* spotless:off */ other is Other && this.backFileId == other.backFileId && this.country == other.country && this.description == other.description && this.expirationDate == other.expirationDate && this.fileId == other.fileId && this.additionalProperties == other.additionalProperties /* spotless:on */
                 }
 
                 private var hashCode: Int = 0
 
                 override fun hashCode(): Int {
                     if (hashCode == 0) {
-                        hashCode =
-                            Objects.hash(
-                                backFileId,
-                                country,
-                                description,
-                                expirationDate,
-                                fileId,
-                                additionalProperties,
-                            )
+                        hashCode = /* spotless:off */ Objects.hash(backFileId, country, description, expirationDate, fileId, additionalProperties) /* spotless:on */
                     }
                     return hashCode
                 }
@@ -4452,24 +4131,14 @@ constructor(
                         return true
                     }
 
-                    return other is Passport &&
-                        this.country == other.country &&
-                        this.expirationDate == other.expirationDate &&
-                        this.fileId == other.fileId &&
-                        this.additionalProperties == other.additionalProperties
+                    return /* spotless:off */ other is Passport && this.country == other.country && this.expirationDate == other.expirationDate && this.fileId == other.fileId && this.additionalProperties == other.additionalProperties /* spotless:on */
                 }
 
                 private var hashCode: Int = 0
 
                 override fun hashCode(): Int {
                     if (hashCode == 0) {
-                        hashCode =
-                            Objects.hash(
-                                country,
-                                expirationDate,
-                                fileId,
-                                additionalProperties,
-                            )
+                        hashCode = /* spotless:off */ Objects.hash(country, expirationDate, fileId, additionalProperties) /* spotless:on */
                     }
                     return hashCode
                 }
@@ -4483,28 +4152,14 @@ constructor(
                     return true
                 }
 
-                return other is Identification &&
-                    this.driversLicense == other.driversLicense &&
-                    this.method == other.method &&
-                    this.number == other.number &&
-                    this.other == other.other &&
-                    this.passport == other.passport &&
-                    this.additionalProperties == other.additionalProperties
+                return /* spotless:off */ other is Identification && this.driversLicense == other.driversLicense && this.method == other.method && this.number == other.number && this.other == other.other && this.passport == other.passport && this.additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             private var hashCode: Int = 0
 
             override fun hashCode(): Int {
                 if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            driversLicense,
-                            method,
-                            number,
-                            other,
-                            passport,
-                            additionalProperties,
-                        )
+                    hashCode = /* spotless:off */ Objects.hash(driversLicense, method, number, other, passport, additionalProperties) /* spotless:on */
                 }
                 return hashCode
             }
@@ -4518,28 +4173,14 @@ constructor(
                 return true
             }
 
-            return other is NaturalPerson &&
-                this.address == other.address &&
-                this.confirmedNoUsTaxId == other.confirmedNoUsTaxId &&
-                this.dateOfBirth == other.dateOfBirth &&
-                this.identification == other.identification &&
-                this.name == other.name &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is NaturalPerson && this.address == other.address && this.confirmedNoUsTaxId == other.confirmedNoUsTaxId && this.dateOfBirth == other.dateOfBirth && this.identification == other.identification && this.name == other.name && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        address,
-                        confirmedNoUsTaxId,
-                        dateOfBirth,
-                        identification,
-                        name,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(address, confirmedNoUsTaxId, dateOfBirth, identification, name, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -4610,16 +4251,14 @@ constructor(
                 return true
             }
 
-            return other is SupplementalDocument &&
-                this.fileId == other.fileId &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is SupplementalDocument && this.fileId == other.fileId && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(fileId, additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(fileId, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -4908,28 +4547,14 @@ constructor(
                     return true
                 }
 
-                return other is Address &&
-                    this.city == other.city &&
-                    this.line1 == other.line1 &&
-                    this.line2 == other.line2 &&
-                    this.state == other.state &&
-                    this.zip == other.zip &&
-                    this.additionalProperties == other.additionalProperties
+                return /* spotless:off */ other is Address && this.city == other.city && this.line1 == other.line1 && this.line2 == other.line2 && this.state == other.state && this.zip == other.zip && this.additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             private var hashCode: Int = 0
 
             override fun hashCode(): Int {
                 if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            city,
-                            line1,
-                            line2,
-                            state,
-                            zip,
-                            additionalProperties,
-                        )
+                    hashCode = /* spotless:off */ Objects.hash(city, line1, line2, state, zip, additionalProperties) /* spotless:on */
                 }
                 return hashCode
             }
@@ -4951,7 +4576,7 @@ constructor(
                     return true
                 }
 
-                return other is Category && this.value == other.value
+                return /* spotless:off */ other is Category && this.value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -5084,7 +4709,7 @@ constructor(
                         return true
                     }
 
-                    return other is Structure && this.value == other.value
+                    return /* spotless:off */ other is Structure && this.value == other.value /* spotless:on */
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -5380,28 +5005,14 @@ constructor(
                             return true
                         }
 
-                        return other is Address &&
-                            this.city == other.city &&
-                            this.line1 == other.line1 &&
-                            this.line2 == other.line2 &&
-                            this.state == other.state &&
-                            this.zip == other.zip &&
-                            this.additionalProperties == other.additionalProperties
+                        return /* spotless:off */ other is Address && this.city == other.city && this.line1 == other.line1 && this.line2 == other.line2 && this.state == other.state && this.zip == other.zip && this.additionalProperties == other.additionalProperties /* spotless:on */
                     }
 
                     private var hashCode: Int = 0
 
                     override fun hashCode(): Int {
                         if (hashCode == 0) {
-                            hashCode =
-                                Objects.hash(
-                                    city,
-                                    line1,
-                                    line2,
-                                    state,
-                                    zip,
-                                    additionalProperties,
-                                )
+                            hashCode = /* spotless:off */ Objects.hash(city, line1, line2, state, zip, additionalProperties) /* spotless:on */
                         }
                         return hashCode
                     }
@@ -5556,7 +5167,7 @@ constructor(
                                 return true
                             }
 
-                            return other is Method && this.value == other.value
+                            return /* spotless:off */ other is Method && this.value == other.value /* spotless:on */
                         }
 
                         override fun hashCode() = value.hashCode()
@@ -5743,26 +5354,14 @@ constructor(
                                 return true
                             }
 
-                            return other is DriversLicense &&
-                                this.backFileId == other.backFileId &&
-                                this.expirationDate == other.expirationDate &&
-                                this.fileId == other.fileId &&
-                                this.state == other.state &&
-                                this.additionalProperties == other.additionalProperties
+                            return /* spotless:off */ other is DriversLicense && this.backFileId == other.backFileId && this.expirationDate == other.expirationDate && this.fileId == other.fileId && this.state == other.state && this.additionalProperties == other.additionalProperties /* spotless:on */
                         }
 
                         private var hashCode: Int = 0
 
                         override fun hashCode(): Int {
                             if (hashCode == 0) {
-                                hashCode =
-                                    Objects.hash(
-                                        backFileId,
-                                        expirationDate,
-                                        fileId,
-                                        state,
-                                        additionalProperties,
-                                    )
+                                hashCode = /* spotless:off */ Objects.hash(backFileId, expirationDate, fileId, state, additionalProperties) /* spotless:on */
                             }
                             return hashCode
                         }
@@ -5907,28 +5506,14 @@ constructor(
                                 return true
                             }
 
-                            return other is Other &&
-                                this.backFileId == other.backFileId &&
-                                this.country == other.country &&
-                                this.description == other.description &&
-                                this.expirationDate == other.expirationDate &&
-                                this.fileId == other.fileId &&
-                                this.additionalProperties == other.additionalProperties
+                            return /* spotless:off */ other is Other && this.backFileId == other.backFileId && this.country == other.country && this.description == other.description && this.expirationDate == other.expirationDate && this.fileId == other.fileId && this.additionalProperties == other.additionalProperties /* spotless:on */
                         }
 
                         private var hashCode: Int = 0
 
                         override fun hashCode(): Int {
                             if (hashCode == 0) {
-                                hashCode =
-                                    Objects.hash(
-                                        backFileId,
-                                        country,
-                                        description,
-                                        expirationDate,
-                                        fileId,
-                                        additionalProperties,
-                                    )
+                                hashCode = /* spotless:off */ Objects.hash(backFileId, country, description, expirationDate, fileId, additionalProperties) /* spotless:on */
                             }
                             return hashCode
                         }
@@ -6035,24 +5620,14 @@ constructor(
                                 return true
                             }
 
-                            return other is Passport &&
-                                this.country == other.country &&
-                                this.expirationDate == other.expirationDate &&
-                                this.fileId == other.fileId &&
-                                this.additionalProperties == other.additionalProperties
+                            return /* spotless:off */ other is Passport && this.country == other.country && this.expirationDate == other.expirationDate && this.fileId == other.fileId && this.additionalProperties == other.additionalProperties /* spotless:on */
                         }
 
                         private var hashCode: Int = 0
 
                         override fun hashCode(): Int {
                             if (hashCode == 0) {
-                                hashCode =
-                                    Objects.hash(
-                                        country,
-                                        expirationDate,
-                                        fileId,
-                                        additionalProperties,
-                                    )
+                                hashCode = /* spotless:off */ Objects.hash(country, expirationDate, fileId, additionalProperties) /* spotless:on */
                             }
                             return hashCode
                         }
@@ -6066,28 +5641,14 @@ constructor(
                             return true
                         }
 
-                        return other is Identification &&
-                            this.driversLicense == other.driversLicense &&
-                            this.method == other.method &&
-                            this.number == other.number &&
-                            this.other == other.other &&
-                            this.passport == other.passport &&
-                            this.additionalProperties == other.additionalProperties
+                        return /* spotless:off */ other is Identification && this.driversLicense == other.driversLicense && this.method == other.method && this.number == other.number && this.other == other.other && this.passport == other.passport && this.additionalProperties == other.additionalProperties /* spotless:on */
                     }
 
                     private var hashCode: Int = 0
 
                     override fun hashCode(): Int {
                         if (hashCode == 0) {
-                            hashCode =
-                                Objects.hash(
-                                    driversLicense,
-                                    method,
-                                    number,
-                                    other,
-                                    passport,
-                                    additionalProperties,
-                                )
+                            hashCode = /* spotless:off */ Objects.hash(driversLicense, method, number, other, passport, additionalProperties) /* spotless:on */
                         }
                         return hashCode
                     }
@@ -6101,28 +5662,14 @@ constructor(
                         return true
                     }
 
-                    return other is Individual &&
-                        this.address == other.address &&
-                        this.confirmedNoUsTaxId == other.confirmedNoUsTaxId &&
-                        this.dateOfBirth == other.dateOfBirth &&
-                        this.identification == other.identification &&
-                        this.name == other.name &&
-                        this.additionalProperties == other.additionalProperties
+                    return /* spotless:off */ other is Individual && this.address == other.address && this.confirmedNoUsTaxId == other.confirmedNoUsTaxId && this.dateOfBirth == other.dateOfBirth && this.identification == other.identification && this.name == other.name && this.additionalProperties == other.additionalProperties /* spotless:on */
                 }
 
                 private var hashCode: Int = 0
 
                 override fun hashCode(): Int {
                     if (hashCode == 0) {
-                        hashCode =
-                            Objects.hash(
-                                address,
-                                confirmedNoUsTaxId,
-                                dateOfBirth,
-                                identification,
-                                name,
-                                additionalProperties,
-                            )
+                        hashCode = /* spotless:off */ Objects.hash(address, confirmedNoUsTaxId, dateOfBirth, identification, name, additionalProperties) /* spotless:on */
                     }
                     return hashCode
                 }
@@ -6136,22 +5683,14 @@ constructor(
                     return true
                 }
 
-                return other is Trustee &&
-                    this.individual == other.individual &&
-                    this.structure == other.structure &&
-                    this.additionalProperties == other.additionalProperties
+                return /* spotless:off */ other is Trustee && this.individual == other.individual && this.structure == other.structure && this.additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             private var hashCode: Int = 0
 
             override fun hashCode(): Int {
                 if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            individual,
-                            structure,
-                            additionalProperties,
-                        )
+                    hashCode = /* spotless:off */ Objects.hash(individual, structure, additionalProperties) /* spotless:on */
                 }
                 return hashCode
             }
@@ -6400,28 +5939,14 @@ constructor(
                         return true
                     }
 
-                    return other is Address &&
-                        this.city == other.city &&
-                        this.line1 == other.line1 &&
-                        this.line2 == other.line2 &&
-                        this.state == other.state &&
-                        this.zip == other.zip &&
-                        this.additionalProperties == other.additionalProperties
+                    return /* spotless:off */ other is Address && this.city == other.city && this.line1 == other.line1 && this.line2 == other.line2 && this.state == other.state && this.zip == other.zip && this.additionalProperties == other.additionalProperties /* spotless:on */
                 }
 
                 private var hashCode: Int = 0
 
                 override fun hashCode(): Int {
                     if (hashCode == 0) {
-                        hashCode =
-                            Objects.hash(
-                                city,
-                                line1,
-                                line2,
-                                state,
-                                zip,
-                                additionalProperties,
-                            )
+                        hashCode = /* spotless:off */ Objects.hash(city, line1, line2, state, zip, additionalProperties) /* spotless:on */
                     }
                     return hashCode
                 }
@@ -6574,7 +6099,7 @@ constructor(
                             return true
                         }
 
-                        return other is Method && this.value == other.value
+                        return /* spotless:off */ other is Method && this.value == other.value /* spotless:on */
                     }
 
                     override fun hashCode() = value.hashCode()
@@ -6752,26 +6277,14 @@ constructor(
                             return true
                         }
 
-                        return other is DriversLicense &&
-                            this.backFileId == other.backFileId &&
-                            this.expirationDate == other.expirationDate &&
-                            this.fileId == other.fileId &&
-                            this.state == other.state &&
-                            this.additionalProperties == other.additionalProperties
+                        return /* spotless:off */ other is DriversLicense && this.backFileId == other.backFileId && this.expirationDate == other.expirationDate && this.fileId == other.fileId && this.state == other.state && this.additionalProperties == other.additionalProperties /* spotless:on */
                     }
 
                     private var hashCode: Int = 0
 
                     override fun hashCode(): Int {
                         if (hashCode == 0) {
-                            hashCode =
-                                Objects.hash(
-                                    backFileId,
-                                    expirationDate,
-                                    fileId,
-                                    state,
-                                    additionalProperties,
-                                )
+                            hashCode = /* spotless:off */ Objects.hash(backFileId, expirationDate, fileId, state, additionalProperties) /* spotless:on */
                         }
                         return hashCode
                     }
@@ -6912,28 +6425,14 @@ constructor(
                             return true
                         }
 
-                        return other is Other &&
-                            this.backFileId == other.backFileId &&
-                            this.country == other.country &&
-                            this.description == other.description &&
-                            this.expirationDate == other.expirationDate &&
-                            this.fileId == other.fileId &&
-                            this.additionalProperties == other.additionalProperties
+                        return /* spotless:off */ other is Other && this.backFileId == other.backFileId && this.country == other.country && this.description == other.description && this.expirationDate == other.expirationDate && this.fileId == other.fileId && this.additionalProperties == other.additionalProperties /* spotless:on */
                     }
 
                     private var hashCode: Int = 0
 
                     override fun hashCode(): Int {
                         if (hashCode == 0) {
-                            hashCode =
-                                Objects.hash(
-                                    backFileId,
-                                    country,
-                                    description,
-                                    expirationDate,
-                                    fileId,
-                                    additionalProperties,
-                                )
+                            hashCode = /* spotless:off */ Objects.hash(backFileId, country, description, expirationDate, fileId, additionalProperties) /* spotless:on */
                         }
                         return hashCode
                     }
@@ -7038,24 +6537,14 @@ constructor(
                             return true
                         }
 
-                        return other is Passport &&
-                            this.country == other.country &&
-                            this.expirationDate == other.expirationDate &&
-                            this.fileId == other.fileId &&
-                            this.additionalProperties == other.additionalProperties
+                        return /* spotless:off */ other is Passport && this.country == other.country && this.expirationDate == other.expirationDate && this.fileId == other.fileId && this.additionalProperties == other.additionalProperties /* spotless:on */
                     }
 
                     private var hashCode: Int = 0
 
                     override fun hashCode(): Int {
                         if (hashCode == 0) {
-                            hashCode =
-                                Objects.hash(
-                                    country,
-                                    expirationDate,
-                                    fileId,
-                                    additionalProperties,
-                                )
+                            hashCode = /* spotless:off */ Objects.hash(country, expirationDate, fileId, additionalProperties) /* spotless:on */
                         }
                         return hashCode
                     }
@@ -7069,28 +6558,14 @@ constructor(
                         return true
                     }
 
-                    return other is Identification &&
-                        this.driversLicense == other.driversLicense &&
-                        this.method == other.method &&
-                        this.number == other.number &&
-                        this.other == other.other &&
-                        this.passport == other.passport &&
-                        this.additionalProperties == other.additionalProperties
+                    return /* spotless:off */ other is Identification && this.driversLicense == other.driversLicense && this.method == other.method && this.number == other.number && this.other == other.other && this.passport == other.passport && this.additionalProperties == other.additionalProperties /* spotless:on */
                 }
 
                 private var hashCode: Int = 0
 
                 override fun hashCode(): Int {
                     if (hashCode == 0) {
-                        hashCode =
-                            Objects.hash(
-                                driversLicense,
-                                method,
-                                number,
-                                other,
-                                passport,
-                                additionalProperties,
-                            )
+                        hashCode = /* spotless:off */ Objects.hash(driversLicense, method, number, other, passport, additionalProperties) /* spotless:on */
                     }
                     return hashCode
                 }
@@ -7104,28 +6579,14 @@ constructor(
                     return true
                 }
 
-                return other is Grantor &&
-                    this.address == other.address &&
-                    this.confirmedNoUsTaxId == other.confirmedNoUsTaxId &&
-                    this.dateOfBirth == other.dateOfBirth &&
-                    this.identification == other.identification &&
-                    this.name == other.name &&
-                    this.additionalProperties == other.additionalProperties
+                return /* spotless:off */ other is Grantor && this.address == other.address && this.confirmedNoUsTaxId == other.confirmedNoUsTaxId && this.dateOfBirth == other.dateOfBirth && this.identification == other.identification && this.name == other.name && this.additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             private var hashCode: Int = 0
 
             override fun hashCode(): Int {
                 if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            address,
-                            confirmedNoUsTaxId,
-                            dateOfBirth,
-                            identification,
-                            name,
-                            additionalProperties,
-                        )
+                    hashCode = /* spotless:off */ Objects.hash(address, confirmedNoUsTaxId, dateOfBirth, identification, name, additionalProperties) /* spotless:on */
                 }
                 return hashCode
             }
@@ -7139,34 +6600,14 @@ constructor(
                 return true
             }
 
-            return other is Trust &&
-                this.address == other.address &&
-                this.category == other.category &&
-                this.formationDocumentFileId == other.formationDocumentFileId &&
-                this.formationState == other.formationState &&
-                this.grantor == other.grantor &&
-                this.name == other.name &&
-                this.taxIdentifier == other.taxIdentifier &&
-                this.trustees == other.trustees &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is Trust && this.address == other.address && this.category == other.category && this.formationDocumentFileId == other.formationDocumentFileId && this.formationState == other.formationState && this.grantor == other.grantor && this.name == other.name && this.taxIdentifier == other.taxIdentifier && this.trustees == other.trustees && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        address,
-                        category,
-                        formationDocumentFileId,
-                        formationState,
-                        grantor,
-                        name,
-                        taxIdentifier,
-                        trustees,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(address, category, formationDocumentFileId, formationState, grantor, name, taxIdentifier, trustees, additionalProperties) /* spotless:on */
             }
             return hashCode
         }

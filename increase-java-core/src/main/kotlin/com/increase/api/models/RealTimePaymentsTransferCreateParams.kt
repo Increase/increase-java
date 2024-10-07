@@ -306,40 +306,14 @@ constructor(
                 return true
             }
 
-            return other is RealTimePaymentsTransferCreateBody &&
-                this.amount == other.amount &&
-                this.creditorName == other.creditorName &&
-                this.remittanceInformation == other.remittanceInformation &&
-                this.sourceAccountNumberId == other.sourceAccountNumberId &&
-                this.debtorName == other.debtorName &&
-                this.destinationAccountNumber == other.destinationAccountNumber &&
-                this.destinationRoutingNumber == other.destinationRoutingNumber &&
-                this.externalAccountId == other.externalAccountId &&
-                this.requireApproval == other.requireApproval &&
-                this.ultimateCreditorName == other.ultimateCreditorName &&
-                this.ultimateDebtorName == other.ultimateDebtorName &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is RealTimePaymentsTransferCreateBody && this.amount == other.amount && this.creditorName == other.creditorName && this.remittanceInformation == other.remittanceInformation && this.sourceAccountNumberId == other.sourceAccountNumberId && this.debtorName == other.debtorName && this.destinationAccountNumber == other.destinationAccountNumber && this.destinationRoutingNumber == other.destinationRoutingNumber && this.externalAccountId == other.externalAccountId && this.requireApproval == other.requireApproval && this.ultimateCreditorName == other.ultimateCreditorName && this.ultimateDebtorName == other.ultimateDebtorName && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        amount,
-                        creditorName,
-                        remittanceInformation,
-                        sourceAccountNumberId,
-                        debtorName,
-                        destinationAccountNumber,
-                        destinationRoutingNumber,
-                        externalAccountId,
-                        requireApproval,
-                        ultimateCreditorName,
-                        ultimateDebtorName,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(amount, creditorName, remittanceInformation, sourceAccountNumberId, debtorName, destinationAccountNumber, destinationRoutingNumber, externalAccountId, requireApproval, ultimateCreditorName, ultimateDebtorName, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -359,40 +333,11 @@ constructor(
             return true
         }
 
-        return other is RealTimePaymentsTransferCreateParams &&
-            this.amount == other.amount &&
-            this.creditorName == other.creditorName &&
-            this.remittanceInformation == other.remittanceInformation &&
-            this.sourceAccountNumberId == other.sourceAccountNumberId &&
-            this.debtorName == other.debtorName &&
-            this.destinationAccountNumber == other.destinationAccountNumber &&
-            this.destinationRoutingNumber == other.destinationRoutingNumber &&
-            this.externalAccountId == other.externalAccountId &&
-            this.requireApproval == other.requireApproval &&
-            this.ultimateCreditorName == other.ultimateCreditorName &&
-            this.ultimateDebtorName == other.ultimateDebtorName &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is RealTimePaymentsTransferCreateParams && this.amount == other.amount && this.creditorName == other.creditorName && this.remittanceInformation == other.remittanceInformation && this.sourceAccountNumberId == other.sourceAccountNumberId && this.debtorName == other.debtorName && this.destinationAccountNumber == other.destinationAccountNumber && this.destinationRoutingNumber == other.destinationRoutingNumber && this.externalAccountId == other.externalAccountId && this.requireApproval == other.requireApproval && this.ultimateCreditorName == other.ultimateCreditorName && this.ultimateDebtorName == other.ultimateDebtorName && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            amount,
-            creditorName,
-            remittanceInformation,
-            sourceAccountNumberId,
-            debtorName,
-            destinationAccountNumber,
-            destinationRoutingNumber,
-            externalAccountId,
-            requireApproval,
-            ultimateCreditorName,
-            ultimateDebtorName,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(amount, creditorName, remittanceInformation, sourceAccountNumberId, debtorName, destinationAccountNumber, destinationRoutingNumber, externalAccountId, requireApproval, ultimateCreditorName, ultimateDebtorName, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =

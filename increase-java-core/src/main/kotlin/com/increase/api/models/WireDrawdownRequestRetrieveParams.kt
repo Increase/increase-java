@@ -36,18 +36,11 @@ constructor(
             return true
         }
 
-        return other is WireDrawdownRequestRetrieveParams &&
-            this.wireDrawdownRequestId == other.wireDrawdownRequestId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is WireDrawdownRequestRetrieveParams && this.wireDrawdownRequestId == other.wireDrawdownRequestId && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            wireDrawdownRequestId,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(wireDrawdownRequestId, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =

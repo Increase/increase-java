@@ -180,28 +180,14 @@ constructor(
                 return true
             }
 
-            return other is PhysicalCardProfileCloneBody &&
-                this.carrierImageFileId == other.carrierImageFileId &&
-                this.contactPhone == other.contactPhone &&
-                this.description == other.description &&
-                this.frontImageFileId == other.frontImageFileId &&
-                this.frontText == other.frontText &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is PhysicalCardProfileCloneBody && this.carrierImageFileId == other.carrierImageFileId && this.contactPhone == other.contactPhone && this.description == other.description && this.frontImageFileId == other.frontImageFileId && this.frontText == other.frontText && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        carrierImageFileId,
-                        contactPhone,
-                        description,
-                        frontImageFileId,
-                        frontText,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(carrierImageFileId, contactPhone, description, frontImageFileId, frontText, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -221,30 +207,11 @@ constructor(
             return true
         }
 
-        return other is PhysicalCardProfileCloneParams &&
-            this.physicalCardProfileId == other.physicalCardProfileId &&
-            this.carrierImageFileId == other.carrierImageFileId &&
-            this.contactPhone == other.contactPhone &&
-            this.description == other.description &&
-            this.frontImageFileId == other.frontImageFileId &&
-            this.frontText == other.frontText &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is PhysicalCardProfileCloneParams && this.physicalCardProfileId == other.physicalCardProfileId && this.carrierImageFileId == other.carrierImageFileId && this.contactPhone == other.contactPhone && this.description == other.description && this.frontImageFileId == other.frontImageFileId && this.frontText == other.frontText && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            physicalCardProfileId,
-            carrierImageFileId,
-            contactPhone,
-            description,
-            frontImageFileId,
-            frontText,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(physicalCardProfileId, carrierImageFileId, contactPhone, description, frontImageFileId, frontText, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
@@ -464,22 +431,14 @@ constructor(
                 return true
             }
 
-            return other is FrontText &&
-                this.line1 == other.line1 &&
-                this.line2 == other.line2 &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is FrontText && this.line1 == other.line1 && this.line2 == other.line2 && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        line1,
-                        line2,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(line1, line2, additionalProperties) /* spotless:on */
             }
             return hashCode
         }

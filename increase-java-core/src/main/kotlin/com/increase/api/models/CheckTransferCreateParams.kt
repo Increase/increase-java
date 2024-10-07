@@ -226,32 +226,14 @@ constructor(
                 return true
             }
 
-            return other is CheckTransferCreateBody &&
-                this.accountId == other.accountId &&
-                this.amount == other.amount &&
-                this.sourceAccountNumberId == other.sourceAccountNumberId &&
-                this.fulfillmentMethod == other.fulfillmentMethod &&
-                this.physicalCheck == other.physicalCheck &&
-                this.requireApproval == other.requireApproval &&
-                this.thirdParty == other.thirdParty &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is CheckTransferCreateBody && this.accountId == other.accountId && this.amount == other.amount && this.sourceAccountNumberId == other.sourceAccountNumberId && this.fulfillmentMethod == other.fulfillmentMethod && this.physicalCheck == other.physicalCheck && this.requireApproval == other.requireApproval && this.thirdParty == other.thirdParty && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        accountId,
-                        amount,
-                        sourceAccountNumberId,
-                        fulfillmentMethod,
-                        physicalCheck,
-                        requireApproval,
-                        thirdParty,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(accountId, amount, sourceAccountNumberId, fulfillmentMethod, physicalCheck, requireApproval, thirdParty, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -271,32 +253,11 @@ constructor(
             return true
         }
 
-        return other is CheckTransferCreateParams &&
-            this.accountId == other.accountId &&
-            this.amount == other.amount &&
-            this.sourceAccountNumberId == other.sourceAccountNumberId &&
-            this.fulfillmentMethod == other.fulfillmentMethod &&
-            this.physicalCheck == other.physicalCheck &&
-            this.requireApproval == other.requireApproval &&
-            this.thirdParty == other.thirdParty &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is CheckTransferCreateParams && this.accountId == other.accountId && this.amount == other.amount && this.sourceAccountNumberId == other.sourceAccountNumberId && this.fulfillmentMethod == other.fulfillmentMethod && this.physicalCheck == other.physicalCheck && this.requireApproval == other.requireApproval && this.thirdParty == other.thirdParty && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            accountId,
-            amount,
-            sourceAccountNumberId,
-            fulfillmentMethod,
-            physicalCheck,
-            requireApproval,
-            thirdParty,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(accountId, amount, sourceAccountNumberId, fulfillmentMethod, physicalCheck, requireApproval, thirdParty, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
@@ -461,7 +422,7 @@ constructor(
                 return true
             }
 
-            return other is FulfillmentMethod && this.value == other.value
+            return /* spotless:off */ other is FulfillmentMethod && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -758,30 +719,14 @@ constructor(
                     return true
                 }
 
-                return other is MailingAddress &&
-                    this.city == other.city &&
-                    this.line1 == other.line1 &&
-                    this.line2 == other.line2 &&
-                    this.name == other.name &&
-                    this.postalCode == other.postalCode &&
-                    this.state == other.state &&
-                    this.additionalProperties == other.additionalProperties
+                return /* spotless:off */ other is MailingAddress && this.city == other.city && this.line1 == other.line1 && this.line2 == other.line2 && this.name == other.name && this.postalCode == other.postalCode && this.state == other.state && this.additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             private var hashCode: Int = 0
 
             override fun hashCode(): Int {
                 if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            city,
-                            line1,
-                            line2,
-                            name,
-                            postalCode,
-                            state,
-                            additionalProperties,
-                        )
+                    hashCode = /* spotless:off */ Objects.hash(city, line1, line2, name, postalCode, state, additionalProperties) /* spotless:on */
                 }
                 return hashCode
             }
@@ -908,30 +853,14 @@ constructor(
                     return true
                 }
 
-                return other is ReturnAddress &&
-                    this.city == other.city &&
-                    this.line1 == other.line1 &&
-                    this.line2 == other.line2 &&
-                    this.name == other.name &&
-                    this.postalCode == other.postalCode &&
-                    this.state == other.state &&
-                    this.additionalProperties == other.additionalProperties
+                return /* spotless:off */ other is ReturnAddress && this.city == other.city && this.line1 == other.line1 && this.line2 == other.line2 && this.name == other.name && this.postalCode == other.postalCode && this.state == other.state && this.additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             private var hashCode: Int = 0
 
             override fun hashCode(): Int {
                 if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            city,
-                            line1,
-                            line2,
-                            name,
-                            postalCode,
-                            state,
-                            additionalProperties,
-                        )
+                    hashCode = /* spotless:off */ Objects.hash(city, line1, line2, name, postalCode, state, additionalProperties) /* spotless:on */
                 }
                 return hashCode
             }
@@ -945,30 +874,14 @@ constructor(
                 return true
             }
 
-            return other is PhysicalCheck &&
-                this.mailingAddress == other.mailingAddress &&
-                this.memo == other.memo &&
-                this.note == other.note &&
-                this.recipientName == other.recipientName &&
-                this.returnAddress == other.returnAddress &&
-                this.signatureText == other.signatureText &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is PhysicalCheck && this.mailingAddress == other.mailingAddress && this.memo == other.memo && this.note == other.note && this.recipientName == other.recipientName && this.returnAddress == other.returnAddress && this.signatureText == other.signatureText && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        mailingAddress,
-                        memo,
-                        note,
-                        recipientName,
-                        returnAddress,
-                        signatureText,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(mailingAddress, memo, note, recipientName, returnAddress, signatureText, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -1049,16 +962,14 @@ constructor(
                 return true
             }
 
-            return other is ThirdParty &&
-                this.checkNumber == other.checkNumber &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is ThirdParty && this.checkNumber == other.checkNumber && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(checkNumber, additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(checkNumber, additionalProperties) /* spotless:on */
             }
             return hashCode
         }

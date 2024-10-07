@@ -36,18 +36,11 @@ constructor(
             return true
         }
 
-        return other is LockboxRetrieveParams &&
-            this.lockboxId == other.lockboxId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is LockboxRetrieveParams && this.lockboxId == other.lockboxId && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            lockboxId,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(lockboxId, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =
