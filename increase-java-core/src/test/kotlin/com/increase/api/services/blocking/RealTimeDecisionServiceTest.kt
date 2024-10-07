@@ -41,6 +41,13 @@ class RealTimeDecisionServiceTest {
             realTimeDecisionService.action(
                 RealTimeDecisionActionParams.builder()
                     .realTimeDecisionId("real_time_decision_id")
+                    .cardAuthentication(
+                        RealTimeDecisionActionParams.CardAuthentication.builder()
+                            .decision(
+                                RealTimeDecisionActionParams.CardAuthentication.Decision.APPROVE
+                            )
+                            .build()
+                    )
                     .cardAuthorization(
                         RealTimeDecisionActionParams.CardAuthorization.builder()
                             .decision(
