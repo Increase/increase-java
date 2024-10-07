@@ -17,6 +17,11 @@ class RealTimeDecisionActionParamsTest {
                     .decision(RealTimeDecisionActionParams.CardAuthentication.Decision.APPROVE)
                     .build()
             )
+            .cardAuthenticationChallenge(
+                RealTimeDecisionActionParams.CardAuthenticationChallenge.builder()
+                    .result(RealTimeDecisionActionParams.CardAuthenticationChallenge.Result.SUCCESS)
+                    .build()
+            )
             .cardAuthorization(
                 RealTimeDecisionActionParams.CardAuthorization.builder()
                     .decision(RealTimeDecisionActionParams.CardAuthorization.Decision.APPROVE)
@@ -55,6 +60,13 @@ class RealTimeDecisionActionParamsTest {
                         .decision(RealTimeDecisionActionParams.CardAuthentication.Decision.APPROVE)
                         .build()
                 )
+                .cardAuthenticationChallenge(
+                    RealTimeDecisionActionParams.CardAuthenticationChallenge.builder()
+                        .result(
+                            RealTimeDecisionActionParams.CardAuthenticationChallenge.Result.SUCCESS
+                        )
+                        .build()
+                )
                 .cardAuthorization(
                     RealTimeDecisionActionParams.CardAuthorization.builder()
                         .decision(RealTimeDecisionActionParams.CardAuthorization.Decision.APPROVE)
@@ -89,6 +101,12 @@ class RealTimeDecisionActionParamsTest {
             .isEqualTo(
                 RealTimeDecisionActionParams.CardAuthentication.builder()
                     .decision(RealTimeDecisionActionParams.CardAuthentication.Decision.APPROVE)
+                    .build()
+            )
+        assertThat(body.cardAuthenticationChallenge())
+            .isEqualTo(
+                RealTimeDecisionActionParams.CardAuthenticationChallenge.builder()
+                    .result(RealTimeDecisionActionParams.CardAuthenticationChallenge.Result.SUCCESS)
                     .build()
             )
         assertThat(body.cardAuthorization())
