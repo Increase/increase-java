@@ -28,6 +28,7 @@ import java.util.Optional
 @NoAutoDetect
 class RealTimeDecision
 private constructor(
+    private val cardAuthentication: JsonField<CardAuthentication>,
     private val cardAuthorization: JsonField<CardAuthorization>,
     private val category: JsonField<Category>,
     private val createdAt: JsonField<OffsetDateTime>,
@@ -41,6 +42,10 @@ private constructor(
 ) {
 
     private var validated: Boolean = false
+
+    /** Fields related to a 3DS authentication attempt. */
+    fun cardAuthentication(): Optional<CardAuthentication> =
+        Optional.ofNullable(cardAuthentication.getNullable("card_authentication"))
 
     /** Fields related to a card authorization. */
     fun cardAuthorization(): Optional<CardAuthorization> =
@@ -82,6 +87,11 @@ private constructor(
      * `real_time_decision`.
      */
     fun type(): Type = type.getRequired("type")
+
+    /** Fields related to a 3DS authentication attempt. */
+    @JsonProperty("card_authentication")
+    @ExcludeMissing
+    fun _cardAuthentication() = cardAuthentication
 
     /** Fields related to a card authorization. */
     @JsonProperty("card_authorization") @ExcludeMissing fun _cardAuthorization() = cardAuthorization
@@ -129,6 +139,7 @@ private constructor(
 
     fun validate(): RealTimeDecision = apply {
         if (!validated) {
+            cardAuthentication().map { it.validate() }
             cardAuthorization().map { it.validate() }
             category()
             createdAt()
@@ -151,6 +162,7 @@ private constructor(
 
     class Builder {
 
+        private var cardAuthentication: JsonField<CardAuthentication> = JsonMissing.of()
         private var cardAuthorization: JsonField<CardAuthorization> = JsonMissing.of()
         private var category: JsonField<Category> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
@@ -165,6 +177,7 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(realTimeDecision: RealTimeDecision) = apply {
+            this.cardAuthentication = realTimeDecision.cardAuthentication
             this.cardAuthorization = realTimeDecision.cardAuthorization
             this.category = realTimeDecision.category
             this.createdAt = realTimeDecision.createdAt
@@ -175,6 +188,17 @@ private constructor(
             this.timeoutAt = realTimeDecision.timeoutAt
             this.type = realTimeDecision.type
             additionalProperties(realTimeDecision.additionalProperties)
+        }
+
+        /** Fields related to a 3DS authentication attempt. */
+        fun cardAuthentication(cardAuthentication: CardAuthentication) =
+            cardAuthentication(JsonField.of(cardAuthentication))
+
+        /** Fields related to a 3DS authentication attempt. */
+        @JsonProperty("card_authentication")
+        @ExcludeMissing
+        fun cardAuthentication(cardAuthentication: JsonField<CardAuthentication>) = apply {
+            this.cardAuthentication = cardAuthentication
         }
 
         /** Fields related to a card authorization. */
@@ -290,6 +314,7 @@ private constructor(
 
         fun build(): RealTimeDecision =
             RealTimeDecision(
+                cardAuthentication,
                 cardAuthorization,
                 category,
                 createdAt,
@@ -301,6 +326,240 @@ private constructor(
                 type,
                 additionalProperties.toUnmodifiable(),
             )
+    }
+
+    /** Fields related to a 3DS authentication attempt. */
+    @JsonDeserialize(builder = CardAuthentication.Builder::class)
+    @NoAutoDetect
+    class CardAuthentication
+    private constructor(
+        private val accountId: JsonField<String>,
+        private val cardId: JsonField<String>,
+        private val decision: JsonField<Decision>,
+        private val upcomingCardPaymentId: JsonField<String>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var validated: Boolean = false
+
+        /** The identifier of the Account the card belongs to. */
+        fun accountId(): String = accountId.getRequired("account_id")
+
+        /** The identifier of the Card that is being tokenized. */
+        fun cardId(): String = cardId.getRequired("card_id")
+
+        /** Whether or not the authentication attempt was approved. */
+        fun decision(): Optional<Decision> = Optional.ofNullable(decision.getNullable("decision"))
+
+        /**
+         * The identifier of the Card Payment this authentication attempt will belong to. Available
+         * in the API once the card authentication has completed.
+         */
+        fun upcomingCardPaymentId(): String =
+            upcomingCardPaymentId.getRequired("upcoming_card_payment_id")
+
+        /** The identifier of the Account the card belongs to. */
+        @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
+
+        /** The identifier of the Card that is being tokenized. */
+        @JsonProperty("card_id") @ExcludeMissing fun _cardId() = cardId
+
+        /** Whether or not the authentication attempt was approved. */
+        @JsonProperty("decision") @ExcludeMissing fun _decision() = decision
+
+        /**
+         * The identifier of the Card Payment this authentication attempt will belong to. Available
+         * in the API once the card authentication has completed.
+         */
+        @JsonProperty("upcoming_card_payment_id")
+        @ExcludeMissing
+        fun _upcomingCardPaymentId() = upcomingCardPaymentId
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate(): CardAuthentication = apply {
+            if (!validated) {
+                accountId()
+                cardId()
+                decision()
+                upcomingCardPaymentId()
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            @JvmStatic fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var accountId: JsonField<String> = JsonMissing.of()
+            private var cardId: JsonField<String> = JsonMissing.of()
+            private var decision: JsonField<Decision> = JsonMissing.of()
+            private var upcomingCardPaymentId: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(cardAuthentication: CardAuthentication) = apply {
+                this.accountId = cardAuthentication.accountId
+                this.cardId = cardAuthentication.cardId
+                this.decision = cardAuthentication.decision
+                this.upcomingCardPaymentId = cardAuthentication.upcomingCardPaymentId
+                additionalProperties(cardAuthentication.additionalProperties)
+            }
+
+            /** The identifier of the Account the card belongs to. */
+            fun accountId(accountId: String) = accountId(JsonField.of(accountId))
+
+            /** The identifier of the Account the card belongs to. */
+            @JsonProperty("account_id")
+            @ExcludeMissing
+            fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
+
+            /** The identifier of the Card that is being tokenized. */
+            fun cardId(cardId: String) = cardId(JsonField.of(cardId))
+
+            /** The identifier of the Card that is being tokenized. */
+            @JsonProperty("card_id")
+            @ExcludeMissing
+            fun cardId(cardId: JsonField<String>) = apply { this.cardId = cardId }
+
+            /** Whether or not the authentication attempt was approved. */
+            fun decision(decision: Decision) = decision(JsonField.of(decision))
+
+            /** Whether or not the authentication attempt was approved. */
+            @JsonProperty("decision")
+            @ExcludeMissing
+            fun decision(decision: JsonField<Decision>) = apply { this.decision = decision }
+
+            /**
+             * The identifier of the Card Payment this authentication attempt will belong to.
+             * Available in the API once the card authentication has completed.
+             */
+            fun upcomingCardPaymentId(upcomingCardPaymentId: String) =
+                upcomingCardPaymentId(JsonField.of(upcomingCardPaymentId))
+
+            /**
+             * The identifier of the Card Payment this authentication attempt will belong to.
+             * Available in the API once the card authentication has completed.
+             */
+            @JsonProperty("upcoming_card_payment_id")
+            @ExcludeMissing
+            fun upcomingCardPaymentId(upcomingCardPaymentId: JsonField<String>) = apply {
+                this.upcomingCardPaymentId = upcomingCardPaymentId
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): CardAuthentication =
+                CardAuthentication(
+                    accountId,
+                    cardId,
+                    decision,
+                    upcomingCardPaymentId,
+                    additionalProperties.toUnmodifiable(),
+                )
+        }
+
+        class Decision
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) : Enum {
+
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return /* spotless:off */ other is Decision && this.value == other.value /* spotless:on */
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+
+            companion object {
+
+                @JvmField val APPROVE = Decision(JsonField.of("approve"))
+
+                @JvmField val CHALLENGE = Decision(JsonField.of("challenge"))
+
+                @JvmField val DENY = Decision(JsonField.of("deny"))
+
+                @JvmStatic fun of(value: String) = Decision(JsonField.of(value))
+            }
+
+            enum class Known {
+                APPROVE,
+                CHALLENGE,
+                DENY,
+            }
+
+            enum class Value {
+                APPROVE,
+                CHALLENGE,
+                DENY,
+                _UNKNOWN,
+            }
+
+            fun value(): Value =
+                when (this) {
+                    APPROVE -> Value.APPROVE
+                    CHALLENGE -> Value.CHALLENGE
+                    DENY -> Value.DENY
+                    else -> Value._UNKNOWN
+                }
+
+            fun known(): Known =
+                when (this) {
+                    APPROVE -> Known.APPROVE
+                    CHALLENGE -> Known.CHALLENGE
+                    DENY -> Known.DENY
+                    else -> throw IncreaseInvalidDataException("Unknown Decision: $value")
+                }
+
+            fun asString(): String = _value().asStringOrThrow()
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is CardAuthentication && this.accountId == other.accountId && this.cardId == other.cardId && this.decision == other.decision && this.upcomingCardPaymentId == other.upcomingCardPaymentId && this.additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = /* spotless:off */ Objects.hash(accountId, cardId, decision, upcomingCardPaymentId, additionalProperties) /* spotless:on */
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "CardAuthentication{accountId=$accountId, cardId=$cardId, decision=$decision, upcomingCardPaymentId=$upcomingCardPaymentId, additionalProperties=$additionalProperties}"
     }
 
     /** Fields related to a card authorization. */
@@ -3045,6 +3304,10 @@ private constructor(
                 Category(JsonField.of("card_authorization_requested"))
 
             @JvmField
+            val CARD_AUTHENTICATION_REQUESTED =
+                Category(JsonField.of("card_authentication_requested"))
+
+            @JvmField
             val DIGITAL_WALLET_TOKEN_REQUESTED =
                 Category(JsonField.of("digital_wallet_token_requested"))
 
@@ -3057,12 +3320,14 @@ private constructor(
 
         enum class Known {
             CARD_AUTHORIZATION_REQUESTED,
+            CARD_AUTHENTICATION_REQUESTED,
             DIGITAL_WALLET_TOKEN_REQUESTED,
             DIGITAL_WALLET_AUTHENTICATION_REQUESTED,
         }
 
         enum class Value {
             CARD_AUTHORIZATION_REQUESTED,
+            CARD_AUTHENTICATION_REQUESTED,
             DIGITAL_WALLET_TOKEN_REQUESTED,
             DIGITAL_WALLET_AUTHENTICATION_REQUESTED,
             _UNKNOWN,
@@ -3071,6 +3336,7 @@ private constructor(
         fun value(): Value =
             when (this) {
                 CARD_AUTHORIZATION_REQUESTED -> Value.CARD_AUTHORIZATION_REQUESTED
+                CARD_AUTHENTICATION_REQUESTED -> Value.CARD_AUTHENTICATION_REQUESTED
                 DIGITAL_WALLET_TOKEN_REQUESTED -> Value.DIGITAL_WALLET_TOKEN_REQUESTED
                 DIGITAL_WALLET_AUTHENTICATION_REQUESTED ->
                     Value.DIGITAL_WALLET_AUTHENTICATION_REQUESTED
@@ -3080,6 +3346,7 @@ private constructor(
         fun known(): Known =
             when (this) {
                 CARD_AUTHORIZATION_REQUESTED -> Known.CARD_AUTHORIZATION_REQUESTED
+                CARD_AUTHENTICATION_REQUESTED -> Known.CARD_AUTHENTICATION_REQUESTED
                 DIGITAL_WALLET_TOKEN_REQUESTED -> Known.DIGITAL_WALLET_TOKEN_REQUESTED
                 DIGITAL_WALLET_AUTHENTICATION_REQUESTED ->
                     Known.DIGITAL_WALLET_AUTHENTICATION_REQUESTED
@@ -3920,18 +4187,18 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is RealTimeDecision && this.cardAuthorization == other.cardAuthorization && this.category == other.category && this.createdAt == other.createdAt && this.digitalWalletAuthentication == other.digitalWalletAuthentication && this.digitalWalletToken == other.digitalWalletToken && this.id == other.id && this.status == other.status && this.timeoutAt == other.timeoutAt && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is RealTimeDecision && this.cardAuthentication == other.cardAuthentication && this.cardAuthorization == other.cardAuthorization && this.category == other.category && this.createdAt == other.createdAt && this.digitalWalletAuthentication == other.digitalWalletAuthentication && this.digitalWalletToken == other.digitalWalletToken && this.id == other.id && this.status == other.status && this.timeoutAt == other.timeoutAt && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(cardAuthorization, category, createdAt, digitalWalletAuthentication, digitalWalletToken, id, status, timeoutAt, type, additionalProperties) /* spotless:on */
+            hashCode = /* spotless:off */ Objects.hash(cardAuthentication, cardAuthorization, category, createdAt, digitalWalletAuthentication, digitalWalletToken, id, status, timeoutAt, type, additionalProperties) /* spotless:on */
         }
         return hashCode
     }
 
     override fun toString() =
-        "RealTimeDecision{cardAuthorization=$cardAuthorization, category=$category, createdAt=$createdAt, digitalWalletAuthentication=$digitalWalletAuthentication, digitalWalletToken=$digitalWalletToken, id=$id, status=$status, timeoutAt=$timeoutAt, type=$type, additionalProperties=$additionalProperties}"
+        "RealTimeDecision{cardAuthentication=$cardAuthentication, cardAuthorization=$cardAuthorization, category=$category, createdAt=$createdAt, digitalWalletAuthentication=$digitalWalletAuthentication, digitalWalletToken=$digitalWalletToken, id=$id, status=$status, timeoutAt=$timeoutAt, type=$type, additionalProperties=$additionalProperties}"
 }
