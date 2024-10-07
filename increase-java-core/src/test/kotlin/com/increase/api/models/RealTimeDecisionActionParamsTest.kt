@@ -12,6 +12,11 @@ class RealTimeDecisionActionParamsTest {
     fun createRealTimeDecisionActionParams() {
         RealTimeDecisionActionParams.builder()
             .realTimeDecisionId("real_time_decision_id")
+            .cardAuthentication(
+                RealTimeDecisionActionParams.CardAuthentication.builder()
+                    .decision(RealTimeDecisionActionParams.CardAuthentication.Decision.APPROVE)
+                    .build()
+            )
             .cardAuthorization(
                 RealTimeDecisionActionParams.CardAuthorization.builder()
                     .decision(RealTimeDecisionActionParams.CardAuthorization.Decision.APPROVE)
@@ -45,6 +50,11 @@ class RealTimeDecisionActionParamsTest {
         val params =
             RealTimeDecisionActionParams.builder()
                 .realTimeDecisionId("real_time_decision_id")
+                .cardAuthentication(
+                    RealTimeDecisionActionParams.CardAuthentication.builder()
+                        .decision(RealTimeDecisionActionParams.CardAuthentication.Decision.APPROVE)
+                        .build()
+                )
                 .cardAuthorization(
                     RealTimeDecisionActionParams.CardAuthorization.builder()
                         .decision(RealTimeDecisionActionParams.CardAuthorization.Decision.APPROVE)
@@ -75,6 +85,12 @@ class RealTimeDecisionActionParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
+        assertThat(body.cardAuthentication())
+            .isEqualTo(
+                RealTimeDecisionActionParams.CardAuthentication.builder()
+                    .decision(RealTimeDecisionActionParams.CardAuthentication.Decision.APPROVE)
+                    .build()
+            )
         assertThat(body.cardAuthorization())
             .isEqualTo(
                 RealTimeDecisionActionParams.CardAuthorization.builder()
