@@ -85,6 +85,7 @@ class AchTransferServiceTest {
                     .standardEntryClassCode(
                         AchTransferCreateParams.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT
                     )
+                    .transactionTiming(AchTransferCreateParams.TransactionTiming.SYNCHRONOUS)
                     .build()
             )
         println(achTransfer)

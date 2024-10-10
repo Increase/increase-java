@@ -68,6 +68,7 @@ class AchTransferCreateParamsTest {
             .standardEntryClassCode(
                 AchTransferCreateParams.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT
             )
+            .transactionTiming(AchTransferCreateParams.TransactionTiming.SYNCHRONOUS)
             .build()
     }
 
@@ -132,6 +133,7 @@ class AchTransferCreateParamsTest {
                 .standardEntryClassCode(
                     AchTransferCreateParams.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT
                 )
+                .transactionTiming(AchTransferCreateParams.TransactionTiming.SYNCHRONOUS)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -193,6 +195,8 @@ class AchTransferCreateParamsTest {
         assertThat(body.routingNumber()).isEqualTo("xxxxxxxxx")
         assertThat(body.standardEntryClassCode())
             .isEqualTo(AchTransferCreateParams.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT)
+        assertThat(body.transactionTiming())
+            .isEqualTo(AchTransferCreateParams.TransactionTiming.SYNCHRONOUS)
     }
 
     @Test
