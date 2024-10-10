@@ -25,6 +25,7 @@ class AccountListParamsTest {
             .idempotencyKey("x")
             .informationalEntityId("informational_entity_id")
             .limit(123L)
+            .programId("program_id")
             .status(AccountListParams.Status.OPEN)
             .build()
     }
@@ -46,6 +47,7 @@ class AccountListParamsTest {
                 .idempotencyKey("x")
                 .informationalEntityId("informational_entity_id")
                 .limit(123L)
+                .programId("program_id")
                 .status(AccountListParams.Status.OPEN)
                 .build()
         val expected = mutableMapOf<String, List<String>>()
@@ -61,6 +63,7 @@ class AccountListParamsTest {
         expected.put("idempotency_key", listOf("x"))
         expected.put("informational_entity_id", listOf("informational_entity_id"))
         expected.put("limit", listOf("123"))
+        expected.put("program_id", listOf("program_id"))
         expected.put("status", listOf(AccountListParams.Status.OPEN.toString()))
         assertThat(params.getQueryParams()).isEqualTo(expected)
     }
