@@ -39,6 +39,7 @@ constructor(
     private val requireApproval: Boolean?,
     private val routingNumber: String?,
     private val standardEntryClassCode: StandardEntryClassCode?,
+    private val transactionTiming: TransactionTiming?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -83,6 +84,8 @@ constructor(
     fun standardEntryClassCode(): Optional<StandardEntryClassCode> =
         Optional.ofNullable(standardEntryClassCode)
 
+    fun transactionTiming(): Optional<TransactionTiming> = Optional.ofNullable(transactionTiming)
+
     @JvmSynthetic
     internal fun getBody(): AchTransferCreateBody {
         return AchTransferCreateBody(
@@ -104,6 +107,7 @@ constructor(
             requireApproval,
             routingNumber,
             standardEntryClassCode,
+            transactionTiming,
             additionalBodyProperties,
         )
     }
@@ -134,6 +138,7 @@ constructor(
         private val requireApproval: Boolean?,
         private val routingNumber: String?,
         private val standardEntryClassCode: StandardEntryClassCode?,
+        private val transactionTiming: TransactionTiming?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -238,6 +243,10 @@ constructor(
         @JsonProperty("standard_entry_class_code")
         fun standardEntryClassCode(): StandardEntryClassCode? = standardEntryClassCode
 
+        /** The timing of the transaction. */
+        @JsonProperty("transaction_timing")
+        fun transactionTiming(): TransactionTiming? = transactionTiming
+
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -269,6 +278,7 @@ constructor(
             private var requireApproval: Boolean? = null
             private var routingNumber: String? = null
             private var standardEntryClassCode: StandardEntryClassCode? = null
+            private var transactionTiming: TransactionTiming? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -291,6 +301,7 @@ constructor(
                 this.requireApproval = achTransferCreateBody.requireApproval
                 this.routingNumber = achTransferCreateBody.routingNumber
                 this.standardEntryClassCode = achTransferCreateBody.standardEntryClassCode
+                this.transactionTiming = achTransferCreateBody.transactionTiming
                 additionalProperties(achTransferCreateBody.additionalProperties)
             }
 
@@ -426,6 +437,12 @@ constructor(
                 this.standardEntryClassCode = standardEntryClassCode
             }
 
+            /** The timing of the transaction. */
+            @JsonProperty("transaction_timing")
+            fun transactionTiming(transactionTiming: TransactionTiming) = apply {
+                this.transactionTiming = transactionTiming
+            }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -462,6 +479,7 @@ constructor(
                     requireApproval,
                     routingNumber,
                     standardEntryClassCode,
+                    transactionTiming,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -471,20 +489,20 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is AchTransferCreateBody && this.accountId == other.accountId && this.amount == other.amount && this.statementDescriptor == other.statementDescriptor && this.accountNumber == other.accountNumber && this.addenda == other.addenda && this.companyDescriptiveDate == other.companyDescriptiveDate && this.companyDiscretionaryData == other.companyDiscretionaryData && this.companyEntryDescription == other.companyEntryDescription && this.companyName == other.companyName && this.destinationAccountHolder == other.destinationAccountHolder && this.externalAccountId == other.externalAccountId && this.funding == other.funding && this.individualId == other.individualId && this.individualName == other.individualName && this.preferredEffectiveDate == other.preferredEffectiveDate && this.requireApproval == other.requireApproval && this.routingNumber == other.routingNumber && this.standardEntryClassCode == other.standardEntryClassCode && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is AchTransferCreateBody && this.accountId == other.accountId && this.amount == other.amount && this.statementDescriptor == other.statementDescriptor && this.accountNumber == other.accountNumber && this.addenda == other.addenda && this.companyDescriptiveDate == other.companyDescriptiveDate && this.companyDiscretionaryData == other.companyDiscretionaryData && this.companyEntryDescription == other.companyEntryDescription && this.companyName == other.companyName && this.destinationAccountHolder == other.destinationAccountHolder && this.externalAccountId == other.externalAccountId && this.funding == other.funding && this.individualId == other.individualId && this.individualName == other.individualName && this.preferredEffectiveDate == other.preferredEffectiveDate && this.requireApproval == other.requireApproval && this.routingNumber == other.routingNumber && this.standardEntryClassCode == other.standardEntryClassCode && this.transactionTiming == other.transactionTiming && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(accountId, amount, statementDescriptor, accountNumber, addenda, companyDescriptiveDate, companyDiscretionaryData, companyEntryDescription, companyName, destinationAccountHolder, externalAccountId, funding, individualId, individualName, preferredEffectiveDate, requireApproval, routingNumber, standardEntryClassCode, additionalProperties) /* spotless:on */
+                hashCode = /* spotless:off */ Objects.hash(accountId, amount, statementDescriptor, accountNumber, addenda, companyDescriptiveDate, companyDiscretionaryData, companyEntryDescription, companyName, destinationAccountHolder, externalAccountId, funding, individualId, individualName, preferredEffectiveDate, requireApproval, routingNumber, standardEntryClassCode, transactionTiming, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
 
         override fun toString() =
-            "AchTransferCreateBody{accountId=$accountId, amount=$amount, statementDescriptor=$statementDescriptor, accountNumber=$accountNumber, addenda=$addenda, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, destinationAccountHolder=$destinationAccountHolder, externalAccountId=$externalAccountId, funding=$funding, individualId=$individualId, individualName=$individualName, preferredEffectiveDate=$preferredEffectiveDate, requireApproval=$requireApproval, routingNumber=$routingNumber, standardEntryClassCode=$standardEntryClassCode, additionalProperties=$additionalProperties}"
+            "AchTransferCreateBody{accountId=$accountId, amount=$amount, statementDescriptor=$statementDescriptor, accountNumber=$accountNumber, addenda=$addenda, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, destinationAccountHolder=$destinationAccountHolder, externalAccountId=$externalAccountId, funding=$funding, individualId=$individualId, individualName=$individualName, preferredEffectiveDate=$preferredEffectiveDate, requireApproval=$requireApproval, routingNumber=$routingNumber, standardEntryClassCode=$standardEntryClassCode, transactionTiming=$transactionTiming, additionalProperties=$additionalProperties}"
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams
@@ -498,15 +516,15 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is AchTransferCreateParams && this.accountId == other.accountId && this.amount == other.amount && this.statementDescriptor == other.statementDescriptor && this.accountNumber == other.accountNumber && this.addenda == other.addenda && this.companyDescriptiveDate == other.companyDescriptiveDate && this.companyDiscretionaryData == other.companyDiscretionaryData && this.companyEntryDescription == other.companyEntryDescription && this.companyName == other.companyName && this.destinationAccountHolder == other.destinationAccountHolder && this.externalAccountId == other.externalAccountId && this.funding == other.funding && this.individualId == other.individualId && this.individualName == other.individualName && this.preferredEffectiveDate == other.preferredEffectiveDate && this.requireApproval == other.requireApproval && this.routingNumber == other.routingNumber && this.standardEntryClassCode == other.standardEntryClassCode && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is AchTransferCreateParams && this.accountId == other.accountId && this.amount == other.amount && this.statementDescriptor == other.statementDescriptor && this.accountNumber == other.accountNumber && this.addenda == other.addenda && this.companyDescriptiveDate == other.companyDescriptiveDate && this.companyDiscretionaryData == other.companyDiscretionaryData && this.companyEntryDescription == other.companyEntryDescription && this.companyName == other.companyName && this.destinationAccountHolder == other.destinationAccountHolder && this.externalAccountId == other.externalAccountId && this.funding == other.funding && this.individualId == other.individualId && this.individualName == other.individualName && this.preferredEffectiveDate == other.preferredEffectiveDate && this.requireApproval == other.requireApproval && this.routingNumber == other.routingNumber && this.standardEntryClassCode == other.standardEntryClassCode && this.transactionTiming == other.transactionTiming && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(accountId, amount, statementDescriptor, accountNumber, addenda, companyDescriptiveDate, companyDiscretionaryData, companyEntryDescription, companyName, destinationAccountHolder, externalAccountId, funding, individualId, individualName, preferredEffectiveDate, requireApproval, routingNumber, standardEntryClassCode, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
+        return /* spotless:off */ Objects.hash(accountId, amount, statementDescriptor, accountNumber, addenda, companyDescriptiveDate, companyDiscretionaryData, companyEntryDescription, companyName, destinationAccountHolder, externalAccountId, funding, individualId, individualName, preferredEffectiveDate, requireApproval, routingNumber, standardEntryClassCode, transactionTiming, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
-        "AchTransferCreateParams{accountId=$accountId, amount=$amount, statementDescriptor=$statementDescriptor, accountNumber=$accountNumber, addenda=$addenda, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, destinationAccountHolder=$destinationAccountHolder, externalAccountId=$externalAccountId, funding=$funding, individualId=$individualId, individualName=$individualName, preferredEffectiveDate=$preferredEffectiveDate, requireApproval=$requireApproval, routingNumber=$routingNumber, standardEntryClassCode=$standardEntryClassCode, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "AchTransferCreateParams{accountId=$accountId, amount=$amount, statementDescriptor=$statementDescriptor, accountNumber=$accountNumber, addenda=$addenda, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, destinationAccountHolder=$destinationAccountHolder, externalAccountId=$externalAccountId, funding=$funding, individualId=$individualId, individualName=$individualName, preferredEffectiveDate=$preferredEffectiveDate, requireApproval=$requireApproval, routingNumber=$routingNumber, standardEntryClassCode=$standardEntryClassCode, transactionTiming=$transactionTiming, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -536,6 +554,7 @@ constructor(
         private var requireApproval: Boolean? = null
         private var routingNumber: String? = null
         private var standardEntryClassCode: StandardEntryClassCode? = null
+        private var transactionTiming: TransactionTiming? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -560,6 +579,7 @@ constructor(
             this.requireApproval = achTransferCreateParams.requireApproval
             this.routingNumber = achTransferCreateParams.routingNumber
             this.standardEntryClassCode = achTransferCreateParams.standardEntryClassCode
+            this.transactionTiming = achTransferCreateParams.transactionTiming
             additionalQueryParams(achTransferCreateParams.additionalQueryParams)
             additionalHeaders(achTransferCreateParams.additionalHeaders)
             additionalBodyProperties(achTransferCreateParams.additionalBodyProperties)
@@ -677,6 +697,11 @@ constructor(
             this.standardEntryClassCode = standardEntryClassCode
         }
 
+        /** The timing of the transaction. */
+        fun transactionTiming(transactionTiming: TransactionTiming) = apply {
+            this.transactionTiming = transactionTiming
+        }
+
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
             putAllQueryParams(additionalQueryParams)
@@ -753,6 +778,7 @@ constructor(
                 requireApproval,
                 routingNumber,
                 standardEntryClassCode,
+                transactionTiming,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),
@@ -1651,6 +1677,63 @@ constructor(
                 PREARRANGED_PAYMENTS_AND_DEPOSIT -> Known.PREARRANGED_PAYMENTS_AND_DEPOSIT
                 INTERNET_INITIATED -> Known.INTERNET_INITIATED
                 else -> throw IncreaseInvalidDataException("Unknown StandardEntryClassCode: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
+    class TransactionTiming
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is TransactionTiming && this.value == other.value /* spotless:on */
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            @JvmField val SYNCHRONOUS = TransactionTiming(JsonField.of("synchronous"))
+
+            @JvmField val ASYNCHRONOUS = TransactionTiming(JsonField.of("asynchronous"))
+
+            @JvmStatic fun of(value: String) = TransactionTiming(JsonField.of(value))
+        }
+
+        enum class Known {
+            SYNCHRONOUS,
+            ASYNCHRONOUS,
+        }
+
+        enum class Value {
+            SYNCHRONOUS,
+            ASYNCHRONOUS,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                SYNCHRONOUS -> Value.SYNCHRONOUS
+                ASYNCHRONOUS -> Value.ASYNCHRONOUS
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                SYNCHRONOUS -> Known.SYNCHRONOUS
+                ASYNCHRONOUS -> Known.ASYNCHRONOUS
+                else -> throw IncreaseInvalidDataException("Unknown TransactionTiming: $value")
             }
 
         fun asString(): String = _value().asStringOrThrow()
