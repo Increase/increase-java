@@ -69,6 +69,13 @@ class RealTimeDecisionServiceTest {
                                 RealTimeDecisionActionParams.DigitalWalletAuthentication.Result
                                     .SUCCESS
                             )
+                            .success(
+                                RealTimeDecisionActionParams.DigitalWalletAuthentication.Success
+                                    .builder()
+                                    .email("x")
+                                    .phone("x")
+                                    .build()
+                            )
                             .build()
                     )
                     .digitalWalletToken(

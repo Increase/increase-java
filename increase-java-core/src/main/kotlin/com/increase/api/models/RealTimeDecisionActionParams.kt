@@ -852,11 +852,14 @@ constructor(
     class DigitalWalletAuthentication
     private constructor(
         private val result: Result?,
+        private val success: Success?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /** Whether your application was able to deliver the one-time passcode. */
         @JsonProperty("result") fun result(): Result? = result
+
+        @JsonProperty("success") fun success(): Success? = success
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -872,16 +875,21 @@ constructor(
         class Builder {
 
             private var result: Result? = null
+            private var success: Success? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(digitalWalletAuthentication: DigitalWalletAuthentication) = apply {
                 this.result = digitalWalletAuthentication.result
+                this.success = digitalWalletAuthentication.success
                 additionalProperties(digitalWalletAuthentication.additionalProperties)
             }
 
             /** Whether your application was able to deliver the one-time passcode. */
             @JsonProperty("result") fun result(result: Result) = apply { this.result = result }
+
+            @JsonProperty("success")
+            fun success(success: Success) = apply { this.success = success }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -900,7 +908,8 @@ constructor(
             fun build(): DigitalWalletAuthentication =
                 DigitalWalletAuthentication(
                     checkNotNull(result) { "`result` is required but was not set" },
-                    additionalProperties.toUnmodifiable()
+                    success,
+                    additionalProperties.toUnmodifiable(),
                 )
         }
 
@@ -961,25 +970,122 @@ constructor(
             fun asString(): String = _value().asStringOrThrow()
         }
 
+        @JsonDeserialize(builder = Success.Builder::class)
+        @NoAutoDetect
+        class Success
+        private constructor(
+            private val email: String?,
+            private val phone: String?,
+            private val additionalProperties: Map<String, JsonValue>,
+        ) {
+
+            /** The email address that was used to verify the cardholder via one-time passcode. */
+            @JsonProperty("email") fun email(): String? = email
+
+            /**
+             * The phone number that was used to verify the cardholder via one-time passcode over
+             * SMS.
+             */
+            @JsonProperty("phone") fun phone(): String? = phone
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                @JvmStatic fun builder() = Builder()
+            }
+
+            class Builder {
+
+                private var email: String? = null
+                private var phone: String? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(success: Success) = apply {
+                    this.email = success.email
+                    this.phone = success.phone
+                    additionalProperties(success.additionalProperties)
+                }
+
+                /**
+                 * The email address that was used to verify the cardholder via one-time passcode.
+                 */
+                @JsonProperty("email") fun email(email: String) = apply { this.email = email }
+
+                /**
+                 * The phone number that was used to verify the cardholder via one-time passcode
+                 * over SMS.
+                 */
+                @JsonProperty("phone") fun phone(phone: String) = apply { this.phone = phone }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                @JsonAnySetter
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    this.additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun build(): Success =
+                    Success(
+                        email,
+                        phone,
+                        additionalProperties.toUnmodifiable(),
+                    )
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return /* spotless:off */ other is Success && this.email == other.email && this.phone == other.phone && this.additionalProperties == other.additionalProperties /* spotless:on */
+            }
+
+            private var hashCode: Int = 0
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode = /* spotless:off */ Objects.hash(email, phone, additionalProperties) /* spotless:on */
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "Success{email=$email, phone=$phone, additionalProperties=$additionalProperties}"
+        }
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
             }
 
-            return /* spotless:off */ other is DigitalWalletAuthentication && this.result == other.result && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is DigitalWalletAuthentication && this.result == other.result && this.success == other.success && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(result, additionalProperties) /* spotless:on */
+                hashCode = /* spotless:off */ Objects.hash(result, success, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
 
         override fun toString() =
-            "DigitalWalletAuthentication{result=$result, additionalProperties=$additionalProperties}"
+            "DigitalWalletAuthentication{result=$result, success=$success, additionalProperties=$additionalProperties}"
     }
 
     /**
