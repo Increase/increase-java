@@ -30,6 +30,12 @@ class RealTimeDecisionActionParamsTest {
             .digitalWalletAuthentication(
                 RealTimeDecisionActionParams.DigitalWalletAuthentication.builder()
                     .result(RealTimeDecisionActionParams.DigitalWalletAuthentication.Result.SUCCESS)
+                    .success(
+                        RealTimeDecisionActionParams.DigitalWalletAuthentication.Success.builder()
+                            .email("x")
+                            .phone("x")
+                            .build()
+                    )
                     .build()
             )
             .digitalWalletToken(
@@ -77,6 +83,13 @@ class RealTimeDecisionActionParamsTest {
                         .result(
                             RealTimeDecisionActionParams.DigitalWalletAuthentication.Result.SUCCESS
                         )
+                        .success(
+                            RealTimeDecisionActionParams.DigitalWalletAuthentication.Success
+                                .builder()
+                                .email("x")
+                                .phone("x")
+                                .build()
+                        )
                         .build()
                 )
                 .digitalWalletToken(
@@ -119,6 +132,12 @@ class RealTimeDecisionActionParamsTest {
             .isEqualTo(
                 RealTimeDecisionActionParams.DigitalWalletAuthentication.builder()
                     .result(RealTimeDecisionActionParams.DigitalWalletAuthentication.Result.SUCCESS)
+                    .success(
+                        RealTimeDecisionActionParams.DigitalWalletAuthentication.Success.builder()
+                            .email("x")
+                            .phone("x")
+                            .build()
+                    )
                     .build()
             )
         assertThat(body.digitalWalletToken())
