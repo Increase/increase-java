@@ -9,6 +9,7 @@ import com.increase.api.models.AchTransfer
 import com.increase.api.models.SimulationAchTransferAcknowledgeParams
 import com.increase.api.models.SimulationAchTransferCreateNotificationOfChangeParams
 import com.increase.api.models.SimulationAchTransferReturnParams
+import com.increase.api.models.SimulationAchTransferSettleParams
 import com.increase.api.models.SimulationAchTransferSubmitParams
 
 interface AchTransferService {
@@ -41,6 +42,17 @@ interface AchTransferService {
     @JvmOverloads
     fun return_(
         params: SimulationAchTransferReturnParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): AchTransfer
+
+    /**
+     * Simulates the settlement of an [ACH Transfer](#ach-transfers) by the Federal Reserve. This
+     * transfer must first have a `status` of `submitted`. Without this simulation the transfer will
+     * eventually settle on its own following the same Federal Reserve timeline as in production.
+     */
+    @JvmOverloads
+    fun settle(
+        params: SimulationAchTransferSettleParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): AchTransfer
 

@@ -12,6 +12,7 @@ import com.increase.api.models.AchTransfer
 import com.increase.api.models.SimulationAchTransferAcknowledgeParams
 import com.increase.api.models.SimulationAchTransferCreateNotificationOfChangeParams
 import com.increase.api.models.SimulationAchTransferReturnParams
+import com.increase.api.models.SimulationAchTransferSettleParams
 import com.increase.api.models.SimulationAchTransferSubmitParams
 import com.increase.api.services.errorHandler
 import com.increase.api.services.json
@@ -128,6 +129,40 @@ constructor(
             ->
             response
                 .use { returnHandler.handle(it) }
+                .apply {
+                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                        validate()
+                    }
+                }
+        }
+    }
+
+    private val settleHandler: Handler<AchTransfer> =
+        jsonHandler<AchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+    /**
+     * Simulates the settlement of an [ACH Transfer](#ach-transfers) by the Federal Reserve. This
+     * transfer must first have a `status` of `submitted`. Without this simulation the transfer will
+     * eventually settle on its own following the same Federal Reserve timeline as in production.
+     */
+    override fun settle(
+        params: SimulationAchTransferSettleParams,
+        requestOptions: RequestOptions
+    ): CompletableFuture<AchTransfer> {
+        val request =
+            HttpRequest.builder()
+                .method(HttpMethod.POST)
+                .addPathSegments("simulations", "ach_transfers", params.getPathParam(0), "settle")
+                .putAllQueryParams(clientOptions.queryParams)
+                .putAllQueryParams(params.getQueryParams())
+                .putAllHeaders(clientOptions.headers)
+                .putAllHeaders(params.getHeaders())
+                .apply { params.getBody().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                .build()
+        return clientOptions.httpClient.executeAsync(request, requestOptions).thenApply { response
+            ->
+            response
+                .use { settleHandler.handle(it) }
                 .apply {
                     if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
                         validate()
