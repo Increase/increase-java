@@ -86,7 +86,7 @@ class CheckTransferTest {
                                 CheckTransfer.PhysicalCheck.TrackingUpdate.builder()
                                     .category(
                                         CheckTransfer.PhysicalCheck.TrackingUpdate.Category
-                                            .RETURNED_TO_SENDER
+                                            .IN_TRANSIT
                                     )
                                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .build()
@@ -196,8 +196,7 @@ class CheckTransferTest {
                         listOf(
                             CheckTransfer.PhysicalCheck.TrackingUpdate.builder()
                                 .category(
-                                    CheckTransfer.PhysicalCheck.TrackingUpdate.Category
-                                        .RETURNED_TO_SENDER
+                                    CheckTransfer.PhysicalCheck.TrackingUpdate.Category.IN_TRANSIT
                                 )
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .build()
