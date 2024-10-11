@@ -72,6 +72,22 @@ class AchTransferServiceTest {
     }
 
     @Test
+    fun callSettle() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val achTransferService = client.simulations().achTransfers()
+        val achTransfer =
+            achTransferService.settle(
+                SimulationAchTransferSettleParams.builder().achTransferId("ach_transfer_id").build()
+            )
+        println(achTransfer)
+        achTransfer.validate()
+    }
+
+    @Test
     fun callSubmit() {
         val client =
             IncreaseOkHttpClient.builder()
