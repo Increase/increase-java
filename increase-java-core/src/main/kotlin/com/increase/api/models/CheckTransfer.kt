@@ -2495,28 +2495,47 @@ private constructor(
 
                 companion object {
 
+                    @JvmField val IN_TRANSIT = Category(JsonField.of("in_transit"))
+
+                    @JvmField
+                    val PROCESSED_FOR_DELIVERY = Category(JsonField.of("processed_for_delivery"))
+
+                    @JvmField val DELIVERED = Category(JsonField.of("delivered"))
+
                     @JvmField val RETURNED_TO_SENDER = Category(JsonField.of("returned_to_sender"))
 
                     @JvmStatic fun of(value: String) = Category(JsonField.of(value))
                 }
 
                 enum class Known {
+                    IN_TRANSIT,
+                    PROCESSED_FOR_DELIVERY,
+                    DELIVERED,
                     RETURNED_TO_SENDER,
                 }
 
                 enum class Value {
+                    IN_TRANSIT,
+                    PROCESSED_FOR_DELIVERY,
+                    DELIVERED,
                     RETURNED_TO_SENDER,
                     _UNKNOWN,
                 }
 
                 fun value(): Value =
                     when (this) {
+                        IN_TRANSIT -> Value.IN_TRANSIT
+                        PROCESSED_FOR_DELIVERY -> Value.PROCESSED_FOR_DELIVERY
+                        DELIVERED -> Value.DELIVERED
                         RETURNED_TO_SENDER -> Value.RETURNED_TO_SENDER
                         else -> Value._UNKNOWN
                     }
 
                 fun known(): Known =
                     when (this) {
+                        IN_TRANSIT -> Known.IN_TRANSIT
+                        PROCESSED_FOR_DELIVERY -> Known.PROCESSED_FOR_DELIVERY
+                        DELIVERED -> Known.DELIVERED
                         RETURNED_TO_SENDER -> Known.RETURNED_TO_SENDER
                         else -> throw IncreaseInvalidDataException("Unknown Category: $value")
                     }
