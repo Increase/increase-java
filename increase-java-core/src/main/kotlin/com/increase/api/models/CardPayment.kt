@@ -20625,6 +20625,8 @@ private constructor(
 
                 @JvmField val CARD_AUTHORIZATION = Category(JsonField.of("card_authorization"))
 
+                @JvmField val CARD_AUTHENTICATION = Category(JsonField.of("card_authentication"))
+
                 @JvmField val CARD_VALIDATION = Category(JsonField.of("card_validation"))
 
                 @JvmField val CARD_DECLINE = Category(JsonField.of("card_decline"))
@@ -20651,6 +20653,7 @@ private constructor(
 
             enum class Known {
                 CARD_AUTHORIZATION,
+                CARD_AUTHENTICATION,
                 CARD_VALIDATION,
                 CARD_DECLINE,
                 CARD_REVERSAL,
@@ -20664,6 +20667,7 @@ private constructor(
 
             enum class Value {
                 CARD_AUTHORIZATION,
+                CARD_AUTHENTICATION,
                 CARD_VALIDATION,
                 CARD_DECLINE,
                 CARD_REVERSAL,
@@ -20679,6 +20683,7 @@ private constructor(
             fun value(): Value =
                 when (this) {
                     CARD_AUTHORIZATION -> Value.CARD_AUTHORIZATION
+                    CARD_AUTHENTICATION -> Value.CARD_AUTHENTICATION
                     CARD_VALIDATION -> Value.CARD_VALIDATION
                     CARD_DECLINE -> Value.CARD_DECLINE
                     CARD_REVERSAL -> Value.CARD_REVERSAL
@@ -20694,6 +20699,7 @@ private constructor(
             fun known(): Known =
                 when (this) {
                     CARD_AUTHORIZATION -> Known.CARD_AUTHORIZATION
+                    CARD_AUTHENTICATION -> Known.CARD_AUTHENTICATION
                     CARD_VALIDATION -> Known.CARD_VALIDATION
                     CARD_DECLINE -> Known.CARD_DECLINE
                     CARD_REVERSAL -> Known.CARD_REVERSAL
