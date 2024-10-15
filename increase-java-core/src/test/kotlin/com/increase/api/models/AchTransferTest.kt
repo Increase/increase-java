@@ -136,6 +136,11 @@ class AchTransferTest {
                         .build()
                 )
                 .routingNumber("routing_number")
+                .settlement(
+                    AchTransfer.Settlement.builder()
+                        .settledAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .build()
+                )
                 .standardEntryClassCode(
                     AchTransfer.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT
                 )
@@ -283,6 +288,12 @@ class AchTransferTest {
                     .build()
             )
         assertThat(achTransfer.routingNumber()).isEqualTo("routing_number")
+        assertThat(achTransfer.settlement())
+            .contains(
+                AchTransfer.Settlement.builder()
+                    .settledAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .build()
+            )
         assertThat(achTransfer.standardEntryClassCode())
             .isEqualTo(AchTransfer.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT)
         assertThat(achTransfer.statementDescriptor()).isEqualTo("statement_descriptor")
