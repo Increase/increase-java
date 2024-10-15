@@ -56,6 +56,7 @@ private constructor(
     private val preferredEffectiveDate: JsonField<PreferredEffectiveDate>,
     private val return_: JsonField<Return>,
     private val routingNumber: JsonField<String>,
+    private val settlement: JsonField<Settlement>,
     private val standardEntryClassCode: JsonField<StandardEntryClassCode>,
     private val statementDescriptor: JsonField<String>,
     private val status: JsonField<Status>,
@@ -206,6 +207,13 @@ private constructor(
 
     /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
     fun routingNumber(): String = routingNumber.getRequired("routing_number")
+
+    /**
+     * A subhash containing information about when and how the transfer settled at the Federal
+     * Reserve.
+     */
+    fun settlement(): Optional<Settlement> =
+        Optional.ofNullable(settlement.getNullable("settlement"))
 
     /** The Standard Entry Class (SEC) code to use for the transfer. */
     fun standardEntryClassCode(): StandardEntryClassCode =
@@ -377,6 +385,12 @@ private constructor(
     /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
     @JsonProperty("routing_number") @ExcludeMissing fun _routingNumber() = routingNumber
 
+    /**
+     * A subhash containing information about when and how the transfer settled at the Federal
+     * Reserve.
+     */
+    @JsonProperty("settlement") @ExcludeMissing fun _settlement() = settlement
+
     /** The Standard Entry Class (SEC) code to use for the transfer. */
     @JsonProperty("standard_entry_class_code")
     @ExcludeMissing
@@ -441,6 +455,7 @@ private constructor(
             preferredEffectiveDate().validate()
             return_().map { it.validate() }
             routingNumber()
+            settlement().map { it.validate() }
             standardEntryClassCode()
             statementDescriptor()
             status()
@@ -488,6 +503,7 @@ private constructor(
         private var preferredEffectiveDate: JsonField<PreferredEffectiveDate> = JsonMissing.of()
         private var return_: JsonField<Return> = JsonMissing.of()
         private var routingNumber: JsonField<String> = JsonMissing.of()
+        private var settlement: JsonField<Settlement> = JsonMissing.of()
         private var standardEntryClassCode: JsonField<StandardEntryClassCode> = JsonMissing.of()
         private var statementDescriptor: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
@@ -526,6 +542,7 @@ private constructor(
             this.preferredEffectiveDate = achTransfer.preferredEffectiveDate
             this.return_ = achTransfer.return_
             this.routingNumber = achTransfer.routingNumber
+            this.settlement = achTransfer.settlement
             this.standardEntryClassCode = achTransfer.standardEntryClassCode
             this.statementDescriptor = achTransfer.statementDescriptor
             this.status = achTransfer.status
@@ -885,6 +902,20 @@ private constructor(
             this.routingNumber = routingNumber
         }
 
+        /**
+         * A subhash containing information about when and how the transfer settled at the Federal
+         * Reserve.
+         */
+        fun settlement(settlement: Settlement) = settlement(JsonField.of(settlement))
+
+        /**
+         * A subhash containing information about when and how the transfer settled at the Federal
+         * Reserve.
+         */
+        @JsonProperty("settlement")
+        @ExcludeMissing
+        fun settlement(settlement: JsonField<Settlement>) = apply { this.settlement = settlement }
+
         /** The Standard Entry Class (SEC) code to use for the transfer. */
         fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode) =
             standardEntryClassCode(JsonField.of(standardEntryClassCode))
@@ -1002,6 +1033,7 @@ private constructor(
                 preferredEffectiveDate,
                 return_,
                 routingNumber,
+                settlement,
                 standardEntryClassCode,
                 statementDescriptor,
                 status,
@@ -4877,6 +4909,115 @@ private constructor(
             "Return{createdAt=$createdAt, rawReturnReasonCode=$rawReturnReasonCode, returnReasonCode=$returnReasonCode, traceNumber=$traceNumber, transactionId=$transactionId, transferId=$transferId, additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * A subhash containing information about when and how the transfer settled at the Federal
+     * Reserve.
+     */
+    @JsonDeserialize(builder = Settlement.Builder::class)
+    @NoAutoDetect
+    class Settlement
+    private constructor(
+        private val settledAt: JsonField<OffsetDateTime>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var validated: Boolean = false
+
+        /**
+         * When the funds for this transfer have settled at the destination bank at the Federal
+         * Reserve.
+         */
+        fun settledAt(): OffsetDateTime = settledAt.getRequired("settled_at")
+
+        /**
+         * When the funds for this transfer have settled at the destination bank at the Federal
+         * Reserve.
+         */
+        @JsonProperty("settled_at") @ExcludeMissing fun _settledAt() = settledAt
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate(): Settlement = apply {
+            if (!validated) {
+                settledAt()
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            @JvmStatic fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var settledAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(settlement: Settlement) = apply {
+                this.settledAt = settlement.settledAt
+                additionalProperties(settlement.additionalProperties)
+            }
+
+            /**
+             * When the funds for this transfer have settled at the destination bank at the Federal
+             * Reserve.
+             */
+            fun settledAt(settledAt: OffsetDateTime) = settledAt(JsonField.of(settledAt))
+
+            /**
+             * When the funds for this transfer have settled at the destination bank at the Federal
+             * Reserve.
+             */
+            @JsonProperty("settled_at")
+            @ExcludeMissing
+            fun settledAt(settledAt: JsonField<OffsetDateTime>) = apply {
+                this.settledAt = settledAt
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): Settlement = Settlement(settledAt, additionalProperties.toUnmodifiable())
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Settlement && this.settledAt == other.settledAt && this.additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = /* spotless:off */ Objects.hash(settledAt, additionalProperties) /* spotless:on */
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Settlement{settledAt=$settledAt, additionalProperties=$additionalProperties}"
+    }
+
     class StandardEntryClassCode
     @JsonCreator
     private constructor(
@@ -5438,18 +5579,18 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is AchTransfer && this.accountId == other.accountId && this.accountNumber == other.accountNumber && this.acknowledgement == other.acknowledgement && this.addenda == other.addenda && this.amount == other.amount && this.approval == other.approval && this.cancellation == other.cancellation && this.companyDescriptiveDate == other.companyDescriptiveDate && this.companyDiscretionaryData == other.companyDiscretionaryData && this.companyEntryDescription == other.companyEntryDescription && this.companyName == other.companyName && this.createdAt == other.createdAt && this.createdBy == other.createdBy && this.currency == other.currency && this.destinationAccountHolder == other.destinationAccountHolder && this.externalAccountId == other.externalAccountId && this.funding == other.funding && this.id == other.id && this.idempotencyKey == other.idempotencyKey && this.inboundFundsHold == other.inboundFundsHold && this.individualId == other.individualId && this.individualName == other.individualName && this.network == other.network && this.notificationsOfChange == other.notificationsOfChange && this.pendingTransactionId == other.pendingTransactionId && this.preferredEffectiveDate == other.preferredEffectiveDate && this.return_ == other.return_ && this.routingNumber == other.routingNumber && this.standardEntryClassCode == other.standardEntryClassCode && this.statementDescriptor == other.statementDescriptor && this.status == other.status && this.submission == other.submission && this.transactionId == other.transactionId && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is AchTransfer && this.accountId == other.accountId && this.accountNumber == other.accountNumber && this.acknowledgement == other.acknowledgement && this.addenda == other.addenda && this.amount == other.amount && this.approval == other.approval && this.cancellation == other.cancellation && this.companyDescriptiveDate == other.companyDescriptiveDate && this.companyDiscretionaryData == other.companyDiscretionaryData && this.companyEntryDescription == other.companyEntryDescription && this.companyName == other.companyName && this.createdAt == other.createdAt && this.createdBy == other.createdBy && this.currency == other.currency && this.destinationAccountHolder == other.destinationAccountHolder && this.externalAccountId == other.externalAccountId && this.funding == other.funding && this.id == other.id && this.idempotencyKey == other.idempotencyKey && this.inboundFundsHold == other.inboundFundsHold && this.individualId == other.individualId && this.individualName == other.individualName && this.network == other.network && this.notificationsOfChange == other.notificationsOfChange && this.pendingTransactionId == other.pendingTransactionId && this.preferredEffectiveDate == other.preferredEffectiveDate && this.return_ == other.return_ && this.routingNumber == other.routingNumber && this.settlement == other.settlement && this.standardEntryClassCode == other.standardEntryClassCode && this.statementDescriptor == other.statementDescriptor && this.status == other.status && this.submission == other.submission && this.transactionId == other.transactionId && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(accountId, accountNumber, acknowledgement, addenda, amount, approval, cancellation, companyDescriptiveDate, companyDiscretionaryData, companyEntryDescription, companyName, createdAt, createdBy, currency, destinationAccountHolder, externalAccountId, funding, id, idempotencyKey, inboundFundsHold, individualId, individualName, network, notificationsOfChange, pendingTransactionId, preferredEffectiveDate, return_, routingNumber, standardEntryClassCode, statementDescriptor, status, submission, transactionId, type, additionalProperties) /* spotless:on */
+            hashCode = /* spotless:off */ Objects.hash(accountId, accountNumber, acknowledgement, addenda, amount, approval, cancellation, companyDescriptiveDate, companyDiscretionaryData, companyEntryDescription, companyName, createdAt, createdBy, currency, destinationAccountHolder, externalAccountId, funding, id, idempotencyKey, inboundFundsHold, individualId, individualName, network, notificationsOfChange, pendingTransactionId, preferredEffectiveDate, return_, routingNumber, settlement, standardEntryClassCode, statementDescriptor, status, submission, transactionId, type, additionalProperties) /* spotless:on */
         }
         return hashCode
     }
 
     override fun toString() =
-        "AchTransfer{accountId=$accountId, accountNumber=$accountNumber, acknowledgement=$acknowledgement, addenda=$addenda, amount=$amount, approval=$approval, cancellation=$cancellation, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, createdAt=$createdAt, createdBy=$createdBy, currency=$currency, destinationAccountHolder=$destinationAccountHolder, externalAccountId=$externalAccountId, funding=$funding, id=$id, idempotencyKey=$idempotencyKey, inboundFundsHold=$inboundFundsHold, individualId=$individualId, individualName=$individualName, network=$network, notificationsOfChange=$notificationsOfChange, pendingTransactionId=$pendingTransactionId, preferredEffectiveDate=$preferredEffectiveDate, return_=$return_, routingNumber=$routingNumber, standardEntryClassCode=$standardEntryClassCode, statementDescriptor=$statementDescriptor, status=$status, submission=$submission, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+        "AchTransfer{accountId=$accountId, accountNumber=$accountNumber, acknowledgement=$acknowledgement, addenda=$addenda, amount=$amount, approval=$approval, cancellation=$cancellation, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, createdAt=$createdAt, createdBy=$createdBy, currency=$currency, destinationAccountHolder=$destinationAccountHolder, externalAccountId=$externalAccountId, funding=$funding, id=$id, idempotencyKey=$idempotencyKey, inboundFundsHold=$inboundFundsHold, individualId=$individualId, individualName=$individualName, network=$network, notificationsOfChange=$notificationsOfChange, pendingTransactionId=$pendingTransactionId, preferredEffectiveDate=$preferredEffectiveDate, return_=$return_, routingNumber=$routingNumber, settlement=$settlement, standardEntryClassCode=$standardEntryClassCode, statementDescriptor=$statementDescriptor, status=$status, submission=$submission, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 }
