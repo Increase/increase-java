@@ -4,16 +4,16 @@ package com.increase.api.services.blocking.simulations
 
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.handlers.errorHandler
+import com.increase.api.core.handlers.jsonHandler
+import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
+import com.increase.api.core.json
 import com.increase.api.errors.IncreaseError
 import com.increase.api.models.Document
 import com.increase.api.models.SimulationDocumentCreateParams
-import com.increase.api.services.errorHandler
-import com.increase.api.services.json
-import com.increase.api.services.jsonHandler
-import com.increase.api.services.withErrorHandler
 
 class DocumentServiceImpl
 constructor(
