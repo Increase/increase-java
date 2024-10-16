@@ -3,9 +3,6 @@
 package com.increase.api.services.async
 
 import com.increase.api.core.ClientOptions
-import com.increase.api.core.handlers.errorHandler
-import com.increase.api.core.http.HttpResponse.Handler
-import com.increase.api.errors.IncreaseError
 import com.increase.api.services.async.simulations.AccountStatementServiceAsync
 import com.increase.api.services.async.simulations.AccountStatementServiceAsyncImpl
 import com.increase.api.services.async.simulations.AccountTransferServiceAsync
@@ -65,8 +62,6 @@ class SimulationServiceAsyncImpl
 constructor(
     private val clientOptions: ClientOptions,
 ) : SimulationServiceAsync {
-
-    private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
     private val accountTransfers: AccountTransferServiceAsync by lazy {
         AccountTransferServiceAsyncImpl(clientOptions)
