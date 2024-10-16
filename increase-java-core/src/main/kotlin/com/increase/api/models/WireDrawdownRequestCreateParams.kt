@@ -107,7 +107,7 @@ constructor(
         /** The Account Number to which the recipient should send funds. */
         @JsonProperty("account_number_id") fun accountNumberId(): String? = accountNumberId
 
-        /** The amount requested from the recipient, in cents. */
+        /** The amount requested from the recipient, in USD cents. */
         @JsonProperty("amount") fun amount(): Long? = amount
 
         /** A message the recipient will see as part of the request. */
@@ -224,7 +224,7 @@ constructor(
                 this.accountNumberId = accountNumberId
             }
 
-            /** The amount requested from the recipient, in cents. */
+            /** The amount requested from the recipient, in USD cents. */
             @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
 
             /** A message the recipient will see as part of the request. */
@@ -443,7 +443,7 @@ constructor(
             this.accountNumberId = accountNumberId
         }
 
-        /** The amount requested from the recipient, in cents. */
+        /** The amount requested from the recipient, in USD cents. */
         fun amount(amount: Long) = apply { this.amount = amount }
 
         /** A message the recipient will see as part of the request. */

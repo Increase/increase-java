@@ -50,10 +50,7 @@ private constructor(
     /** The Account the check was deposited into. */
     fun accountId(): String = accountId.getRequired("account_id")
 
-    /**
-     * The deposited amount in the minor unit of the destination account currency. For dollars, for
-     * example, this is cents.
-     */
+    /** The deposited amount in USD cents. */
     fun amount(): Long = amount.getRequired("amount")
 
     /** The ID for the File containing the image of the back of the check. */
@@ -144,10 +141,7 @@ private constructor(
     /** The Account the check was deposited into. */
     @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
 
-    /**
-     * The deposited amount in the minor unit of the destination account currency. For dollars, for
-     * example, this is cents.
-     */
+    /** The deposited amount in USD cents. */
     @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
     /** The ID for the File containing the image of the back of the check. */
@@ -315,16 +309,10 @@ private constructor(
         @ExcludeMissing
         fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
-        /**
-         * The deposited amount in the minor unit of the destination account currency. For dollars,
-         * for example, this is cents.
-         */
+        /** The deposited amount in USD cents. */
         fun amount(amount: Long) = amount(JsonField.of(amount))
 
-        /**
-         * The deposited amount in the minor unit of the destination account currency. For dollars,
-         * for example, this is cents.
-         */
+        /** The deposited amount in USD cents. */
         @JsonProperty("amount")
         @ExcludeMissing
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
@@ -1370,10 +1358,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        /**
-         * The amount in the minor unit of the transaction's currency. For dollars, for example,
-         * this is cents.
-         */
+        /** The returned amount in USD cents. */
         fun amount(): Long = amount.getRequired("amount")
 
         /** The identifier of the Check Deposit that was returned. */
@@ -1399,10 +1384,7 @@ private constructor(
          */
         fun transactionId(): String = transactionId.getRequired("transaction_id")
 
-        /**
-         * The amount in the minor unit of the transaction's currency. For dollars, for example,
-         * this is cents.
-         */
+        /** The returned amount in USD cents. */
         @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
         /** The identifier of the Check Deposit that was returned. */
@@ -1472,16 +1454,10 @@ private constructor(
                 additionalProperties(depositReturn.additionalProperties)
             }
 
-            /**
-             * The amount in the minor unit of the transaction's currency. For dollars, for example,
-             * this is cents.
-             */
+            /** The returned amount in USD cents. */
             fun amount(amount: Long) = amount(JsonField.of(amount))
 
-            /**
-             * The amount in the minor unit of the transaction's currency. For dollars, for example,
-             * this is cents.
-             */
+            /** The returned amount in USD cents. */
             @JsonProperty("amount")
             @ExcludeMissing
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
