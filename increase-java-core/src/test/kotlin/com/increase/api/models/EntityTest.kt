@@ -169,6 +169,12 @@ class EntityTest {
                             .build()
                     )
                 )
+                .thirdPartyVerification(
+                    Entity.ThirdPartyVerification.builder()
+                        .reference("reference")
+                        .vendor(Entity.ThirdPartyVerification.Vendor.ALLOY)
+                        .build()
+                )
                 .trust(
                     Entity.Trust.builder()
                         .address(
@@ -403,6 +409,13 @@ class EntityTest {
                     .fileId("file_id")
                     .idempotencyKey("idempotency_key")
                     .type(EntitySupplementalDocument.Type.ENTITY_SUPPLEMENTAL_DOCUMENT)
+                    .build()
+            )
+        assertThat(entity.thirdPartyVerification())
+            .contains(
+                Entity.ThirdPartyVerification.builder()
+                    .reference("reference")
+                    .vendor(Entity.ThirdPartyVerification.Vendor.ALLOY)
                     .build()
             )
         assertThat(entity.trust())
