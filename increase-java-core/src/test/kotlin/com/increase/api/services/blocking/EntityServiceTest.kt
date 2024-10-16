@@ -299,6 +299,12 @@ class EntityServiceTest {
                                 .build()
                         )
                     )
+                    .thirdPartyVerification(
+                        EntityCreateParams.ThirdPartyVerification.builder()
+                            .reference("x")
+                            .vendor(EntityCreateParams.ThirdPartyVerification.Vendor.ALLOY)
+                            .build()
+                    )
                     .trust(
                         EntityCreateParams.Trust.builder()
                             .address(
