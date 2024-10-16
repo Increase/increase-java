@@ -67,10 +67,7 @@ constructor(
         /** The identifier for the Account to deposit the check in. */
         @JsonProperty("account_id") fun accountId(): String? = accountId
 
-        /**
-         * The deposit amount in the minor unit of the account currency. For dollars, for example,
-         * this is cents.
-         */
+        /** The deposit amount in USD cents. */
         @JsonProperty("amount") fun amount(): Long? = amount
 
         /** The File containing the check's back image. */
@@ -116,10 +113,7 @@ constructor(
             @JsonProperty("account_id")
             fun accountId(accountId: String) = apply { this.accountId = accountId }
 
-            /**
-             * The deposit amount in the minor unit of the account currency. For dollars, for
-             * example, this is cents.
-             */
+            /** The deposit amount in USD cents. */
             @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
 
             /** The File containing the check's back image. */
@@ -243,10 +237,7 @@ constructor(
         /** The identifier for the Account to deposit the check in. */
         fun accountId(accountId: String) = apply { this.accountId = accountId }
 
-        /**
-         * The deposit amount in the minor unit of the account currency. For dollars, for example,
-         * this is cents.
-         */
+        /** The deposit amount in USD cents. */
         fun amount(amount: Long) = apply { this.amount = amount }
 
         /** The File containing the check's back image. */
