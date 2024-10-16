@@ -40,6 +40,7 @@ private constructor(
     private val status: JsonField<Status>,
     private val structure: JsonField<Structure>,
     private val supplementalDocuments: JsonField<List<EntitySupplementalDocument>>,
+    private val thirdPartyVerification: JsonField<ThirdPartyVerification>,
     private val trust: JsonField<Trust>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
@@ -111,6 +112,13 @@ private constructor(
     fun supplementalDocuments(): List<EntitySupplementalDocument> =
         supplementalDocuments.getRequired("supplemental_documents")
 
+    /**
+     * A reference to data stored in a third-party verification service. Your integration may or may
+     * not use this field.
+     */
+    fun thirdPartyVerification(): Optional<ThirdPartyVerification> =
+        Optional.ofNullable(thirdPartyVerification.getNullable("third_party_verification"))
+
     /** Details of the trust entity. Will be present if `structure` is equal to `trust`. */
     fun trust(): Optional<Trust> = Optional.ofNullable(trust.getNullable("trust"))
 
@@ -180,6 +188,14 @@ private constructor(
     @ExcludeMissing
     fun _supplementalDocuments() = supplementalDocuments
 
+    /**
+     * A reference to data stored in a third-party verification service. Your integration may or may
+     * not use this field.
+     */
+    @JsonProperty("third_party_verification")
+    @ExcludeMissing
+    fun _thirdPartyVerification() = thirdPartyVerification
+
     /** Details of the trust entity. Will be present if `structure` is equal to `trust`. */
     @JsonProperty("trust") @ExcludeMissing fun _trust() = trust
 
@@ -204,6 +220,7 @@ private constructor(
             status()
             structure()
             supplementalDocuments().forEach { it.validate() }
+            thirdPartyVerification().map { it.validate() }
             trust().map { it.validate() }
             type()
             validated = true
@@ -232,6 +249,7 @@ private constructor(
         private var structure: JsonField<Structure> = JsonMissing.of()
         private var supplementalDocuments: JsonField<List<EntitySupplementalDocument>> =
             JsonMissing.of()
+        private var thirdPartyVerification: JsonField<ThirdPartyVerification> = JsonMissing.of()
         private var trust: JsonField<Trust> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -250,6 +268,7 @@ private constructor(
             this.status = entity.status
             this.structure = entity.structure
             this.supplementalDocuments = entity.supplementalDocuments
+            this.thirdPartyVerification = entity.thirdPartyVerification
             this.trust = entity.trust
             this.type = entity.type
             additionalProperties(entity.additionalProperties)
@@ -410,6 +429,24 @@ private constructor(
             supplementalDocuments: JsonField<List<EntitySupplementalDocument>>
         ) = apply { this.supplementalDocuments = supplementalDocuments }
 
+        /**
+         * A reference to data stored in a third-party verification service. Your integration may or
+         * may not use this field.
+         */
+        fun thirdPartyVerification(thirdPartyVerification: ThirdPartyVerification) =
+            thirdPartyVerification(JsonField.of(thirdPartyVerification))
+
+        /**
+         * A reference to data stored in a third-party verification service. Your integration may or
+         * may not use this field.
+         */
+        @JsonProperty("third_party_verification")
+        @ExcludeMissing
+        fun thirdPartyVerification(thirdPartyVerification: JsonField<ThirdPartyVerification>) =
+            apply {
+                this.thirdPartyVerification = thirdPartyVerification
+            }
+
         /** Details of the trust entity. Will be present if `structure` is equal to `trust`. */
         fun trust(trust: Trust) = trust(JsonField.of(trust))
 
@@ -458,6 +495,7 @@ private constructor(
                 status,
                 structure,
                 supplementalDocuments.map { it.toUnmodifiable() },
+                thirdPartyVerification,
                 trust,
                 type,
                 additionalProperties.toUnmodifiable(),
@@ -3619,6 +3657,175 @@ private constructor(
         fun asString(): String = _value().asStringOrThrow()
     }
 
+    /**
+     * A reference to data stored in a third-party verification service. Your integration may or may
+     * not use this field.
+     */
+    @JsonDeserialize(builder = ThirdPartyVerification.Builder::class)
+    @NoAutoDetect
+    class ThirdPartyVerification
+    private constructor(
+        private val reference: JsonField<String>,
+        private val vendor: JsonField<Vendor>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var validated: Boolean = false
+
+        /** The reference identifier for the third party verification. */
+        fun reference(): String = reference.getRequired("reference")
+
+        /** The vendor that was used to perform the verification. */
+        fun vendor(): Vendor = vendor.getRequired("vendor")
+
+        /** The reference identifier for the third party verification. */
+        @JsonProperty("reference") @ExcludeMissing fun _reference() = reference
+
+        /** The vendor that was used to perform the verification. */
+        @JsonProperty("vendor") @ExcludeMissing fun _vendor() = vendor
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate(): ThirdPartyVerification = apply {
+            if (!validated) {
+                reference()
+                vendor()
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            @JvmStatic fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var reference: JsonField<String> = JsonMissing.of()
+            private var vendor: JsonField<Vendor> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(thirdPartyVerification: ThirdPartyVerification) = apply {
+                this.reference = thirdPartyVerification.reference
+                this.vendor = thirdPartyVerification.vendor
+                additionalProperties(thirdPartyVerification.additionalProperties)
+            }
+
+            /** The reference identifier for the third party verification. */
+            fun reference(reference: String) = reference(JsonField.of(reference))
+
+            /** The reference identifier for the third party verification. */
+            @JsonProperty("reference")
+            @ExcludeMissing
+            fun reference(reference: JsonField<String>) = apply { this.reference = reference }
+
+            /** The vendor that was used to perform the verification. */
+            fun vendor(vendor: Vendor) = vendor(JsonField.of(vendor))
+
+            /** The vendor that was used to perform the verification. */
+            @JsonProperty("vendor")
+            @ExcludeMissing
+            fun vendor(vendor: JsonField<Vendor>) = apply { this.vendor = vendor }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): ThirdPartyVerification =
+                ThirdPartyVerification(
+                    reference,
+                    vendor,
+                    additionalProperties.toUnmodifiable(),
+                )
+        }
+
+        class Vendor
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) : Enum {
+
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return /* spotless:off */ other is Vendor && this.value == other.value /* spotless:on */
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+
+            companion object {
+
+                @JvmField val ALLOY = Vendor(JsonField.of("alloy"))
+
+                @JvmStatic fun of(value: String) = Vendor(JsonField.of(value))
+            }
+
+            enum class Known {
+                ALLOY,
+            }
+
+            enum class Value {
+                ALLOY,
+                _UNKNOWN,
+            }
+
+            fun value(): Value =
+                when (this) {
+                    ALLOY -> Value.ALLOY
+                    else -> Value._UNKNOWN
+                }
+
+            fun known(): Known =
+                when (this) {
+                    ALLOY -> Known.ALLOY
+                    else -> throw IncreaseInvalidDataException("Unknown Vendor: $value")
+                }
+
+            fun asString(): String = _value().asStringOrThrow()
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is ThirdPartyVerification && this.reference == other.reference && this.vendor == other.vendor && this.additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = /* spotless:off */ Objects.hash(reference, vendor, additionalProperties) /* spotless:on */
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "ThirdPartyVerification{reference=$reference, vendor=$vendor, additionalProperties=$additionalProperties}"
+    }
+
     /** Details of the trust entity. Will be present if `structure` is equal to `trust`. */
     @JsonDeserialize(builder = Trust.Builder::class)
     @NoAutoDetect
@@ -5473,18 +5680,18 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Entity && this.corporation == other.corporation && this.createdAt == other.createdAt && this.description == other.description && this.detailsConfirmedAt == other.detailsConfirmedAt && this.governmentAuthority == other.governmentAuthority && this.id == other.id && this.idempotencyKey == other.idempotencyKey && this.joint == other.joint && this.naturalPerson == other.naturalPerson && this.status == other.status && this.structure == other.structure && this.supplementalDocuments == other.supplementalDocuments && this.trust == other.trust && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is Entity && this.corporation == other.corporation && this.createdAt == other.createdAt && this.description == other.description && this.detailsConfirmedAt == other.detailsConfirmedAt && this.governmentAuthority == other.governmentAuthority && this.id == other.id && this.idempotencyKey == other.idempotencyKey && this.joint == other.joint && this.naturalPerson == other.naturalPerson && this.status == other.status && this.structure == other.structure && this.supplementalDocuments == other.supplementalDocuments && this.thirdPartyVerification == other.thirdPartyVerification && this.trust == other.trust && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(corporation, createdAt, description, detailsConfirmedAt, governmentAuthority, id, idempotencyKey, joint, naturalPerson, status, structure, supplementalDocuments, trust, type, additionalProperties) /* spotless:on */
+            hashCode = /* spotless:off */ Objects.hash(corporation, createdAt, description, detailsConfirmedAt, governmentAuthority, id, idempotencyKey, joint, naturalPerson, status, structure, supplementalDocuments, thirdPartyVerification, trust, type, additionalProperties) /* spotless:on */
         }
         return hashCode
     }
 
     override fun toString() =
-        "Entity{corporation=$corporation, createdAt=$createdAt, description=$description, detailsConfirmedAt=$detailsConfirmedAt, governmentAuthority=$governmentAuthority, id=$id, idempotencyKey=$idempotencyKey, joint=$joint, naturalPerson=$naturalPerson, status=$status, structure=$structure, supplementalDocuments=$supplementalDocuments, trust=$trust, type=$type, additionalProperties=$additionalProperties}"
+        "Entity{corporation=$corporation, createdAt=$createdAt, description=$description, detailsConfirmedAt=$detailsConfirmedAt, governmentAuthority=$governmentAuthority, id=$id, idempotencyKey=$idempotencyKey, joint=$joint, naturalPerson=$naturalPerson, status=$status, structure=$structure, supplementalDocuments=$supplementalDocuments, thirdPartyVerification=$thirdPartyVerification, trust=$trust, type=$type, additionalProperties=$additionalProperties}"
 }

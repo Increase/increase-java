@@ -261,6 +261,12 @@ class EntityCreateParamsTest {
             .supplementalDocuments(
                 listOf(EntityCreateParams.SupplementalDocument.builder().fileId("file_id").build())
             )
+            .thirdPartyVerification(
+                EntityCreateParams.ThirdPartyVerification.builder()
+                    .reference("x")
+                    .vendor(EntityCreateParams.ThirdPartyVerification.Vendor.ALLOY)
+                    .build()
+            )
             .trust(
                 EntityCreateParams.Trust.builder()
                     .address(
@@ -672,6 +678,12 @@ class EntityCreateParamsTest {
                         EntityCreateParams.SupplementalDocument.builder().fileId("file_id").build()
                     )
                 )
+                .thirdPartyVerification(
+                    EntityCreateParams.ThirdPartyVerification.builder()
+                        .reference("x")
+                        .vendor(EntityCreateParams.ThirdPartyVerification.Vendor.ALLOY)
+                        .build()
+                )
                 .trust(
                     EntityCreateParams.Trust.builder()
                         .address(
@@ -1077,6 +1089,13 @@ class EntityCreateParamsTest {
         assertThat(body.supplementalDocuments())
             .isEqualTo(
                 listOf(EntityCreateParams.SupplementalDocument.builder().fileId("file_id").build())
+            )
+        assertThat(body.thirdPartyVerification())
+            .isEqualTo(
+                EntityCreateParams.ThirdPartyVerification.builder()
+                    .reference("x")
+                    .vendor(EntityCreateParams.ThirdPartyVerification.Vendor.ALLOY)
+                    .build()
             )
         assertThat(body.trust())
             .isEqualTo(

@@ -3,9 +3,6 @@
 package com.increase.api.client
 
 import com.increase.api.core.ClientOptions
-import com.increase.api.core.handlers.errorHandler
-import com.increase.api.core.http.HttpResponse.Handler
-import com.increase.api.errors.IncreaseError
 import com.increase.api.models.*
 import com.increase.api.services.blocking.*
 
@@ -13,8 +10,6 @@ class IncreaseClientImpl
 constructor(
     private val clientOptions: ClientOptions,
 ) : IncreaseClient {
-
-    private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
     private val async: IncreaseClientAsync by lazy { IncreaseClientAsyncImpl(clientOptions) }
 

@@ -28,6 +28,7 @@ constructor(
     private val joint: Joint?,
     private val naturalPerson: NaturalPerson?,
     private val supplementalDocuments: List<SupplementalDocument>?,
+    private val thirdPartyVerification: ThirdPartyVerification?,
     private val trust: Trust?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
@@ -50,6 +51,9 @@ constructor(
     fun supplementalDocuments(): Optional<List<SupplementalDocument>> =
         Optional.ofNullable(supplementalDocuments)
 
+    fun thirdPartyVerification(): Optional<ThirdPartyVerification> =
+        Optional.ofNullable(thirdPartyVerification)
+
     fun trust(): Optional<Trust> = Optional.ofNullable(trust)
 
     @JvmSynthetic
@@ -62,6 +66,7 @@ constructor(
             joint,
             naturalPerson,
             supplementalDocuments,
+            thirdPartyVerification,
             trust,
             additionalBodyProperties,
         )
@@ -82,6 +87,7 @@ constructor(
         private val joint: Joint?,
         private val naturalPerson: NaturalPerson?,
         private val supplementalDocuments: List<SupplementalDocument>?,
+        private val thirdPartyVerification: ThirdPartyVerification?,
         private val trust: Trust?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
@@ -120,6 +126,13 @@ constructor(
         @JsonProperty("supplemental_documents")
         fun supplementalDocuments(): List<SupplementalDocument>? = supplementalDocuments
 
+        /**
+         * A reference to data stored in a third-party verification service. Your integration may or
+         * may not use this field.
+         */
+        @JsonProperty("third_party_verification")
+        fun thirdPartyVerification(): ThirdPartyVerification? = thirdPartyVerification
+
         /** Details of the trust entity to create. Required if `structure` is equal to `trust`. */
         @JsonProperty("trust") fun trust(): Trust? = trust
 
@@ -143,6 +156,7 @@ constructor(
             private var joint: Joint? = null
             private var naturalPerson: NaturalPerson? = null
             private var supplementalDocuments: List<SupplementalDocument>? = null
+            private var thirdPartyVerification: ThirdPartyVerification? = null
             private var trust: Trust? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -155,6 +169,7 @@ constructor(
                 this.joint = entityCreateBody.joint
                 this.naturalPerson = entityCreateBody.naturalPerson
                 this.supplementalDocuments = entityCreateBody.supplementalDocuments
+                this.thirdPartyVerification = entityCreateBody.thirdPartyVerification
                 this.trust = entityCreateBody.trust
                 additionalProperties(entityCreateBody.additionalProperties)
             }
@@ -206,6 +221,15 @@ constructor(
             }
 
             /**
+             * A reference to data stored in a third-party verification service. Your integration
+             * may or may not use this field.
+             */
+            @JsonProperty("third_party_verification")
+            fun thirdPartyVerification(thirdPartyVerification: ThirdPartyVerification) = apply {
+                this.thirdPartyVerification = thirdPartyVerification
+            }
+
+            /**
              * Details of the trust entity to create. Required if `structure` is equal to `trust`.
              */
             @JsonProperty("trust") fun trust(trust: Trust) = apply { this.trust = trust }
@@ -233,6 +257,7 @@ constructor(
                     joint,
                     naturalPerson,
                     supplementalDocuments?.toUnmodifiable(),
+                    thirdPartyVerification,
                     trust,
                     additionalProperties.toUnmodifiable(),
                 )
@@ -243,20 +268,20 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is EntityCreateBody && this.structure == other.structure && this.corporation == other.corporation && this.description == other.description && this.governmentAuthority == other.governmentAuthority && this.joint == other.joint && this.naturalPerson == other.naturalPerson && this.supplementalDocuments == other.supplementalDocuments && this.trust == other.trust && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is EntityCreateBody && this.structure == other.structure && this.corporation == other.corporation && this.description == other.description && this.governmentAuthority == other.governmentAuthority && this.joint == other.joint && this.naturalPerson == other.naturalPerson && this.supplementalDocuments == other.supplementalDocuments && this.thirdPartyVerification == other.thirdPartyVerification && this.trust == other.trust && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(structure, corporation, description, governmentAuthority, joint, naturalPerson, supplementalDocuments, trust, additionalProperties) /* spotless:on */
+                hashCode = /* spotless:off */ Objects.hash(structure, corporation, description, governmentAuthority, joint, naturalPerson, supplementalDocuments, thirdPartyVerification, trust, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
 
         override fun toString() =
-            "EntityCreateBody{structure=$structure, corporation=$corporation, description=$description, governmentAuthority=$governmentAuthority, joint=$joint, naturalPerson=$naturalPerson, supplementalDocuments=$supplementalDocuments, trust=$trust, additionalProperties=$additionalProperties}"
+            "EntityCreateBody{structure=$structure, corporation=$corporation, description=$description, governmentAuthority=$governmentAuthority, joint=$joint, naturalPerson=$naturalPerson, supplementalDocuments=$supplementalDocuments, thirdPartyVerification=$thirdPartyVerification, trust=$trust, additionalProperties=$additionalProperties}"
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams
@@ -270,15 +295,15 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is EntityCreateParams && this.structure == other.structure && this.corporation == other.corporation && this.description == other.description && this.governmentAuthority == other.governmentAuthority && this.joint == other.joint && this.naturalPerson == other.naturalPerson && this.supplementalDocuments == other.supplementalDocuments && this.trust == other.trust && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is EntityCreateParams && this.structure == other.structure && this.corporation == other.corporation && this.description == other.description && this.governmentAuthority == other.governmentAuthority && this.joint == other.joint && this.naturalPerson == other.naturalPerson && this.supplementalDocuments == other.supplementalDocuments && this.thirdPartyVerification == other.thirdPartyVerification && this.trust == other.trust && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(structure, corporation, description, governmentAuthority, joint, naturalPerson, supplementalDocuments, trust, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
+        return /* spotless:off */ Objects.hash(structure, corporation, description, governmentAuthority, joint, naturalPerson, supplementalDocuments, thirdPartyVerification, trust, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
-        "EntityCreateParams{structure=$structure, corporation=$corporation, description=$description, governmentAuthority=$governmentAuthority, joint=$joint, naturalPerson=$naturalPerson, supplementalDocuments=$supplementalDocuments, trust=$trust, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "EntityCreateParams{structure=$structure, corporation=$corporation, description=$description, governmentAuthority=$governmentAuthority, joint=$joint, naturalPerson=$naturalPerson, supplementalDocuments=$supplementalDocuments, thirdPartyVerification=$thirdPartyVerification, trust=$trust, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -297,6 +322,7 @@ constructor(
         private var joint: Joint? = null
         private var naturalPerson: NaturalPerson? = null
         private var supplementalDocuments: MutableList<SupplementalDocument> = mutableListOf()
+        private var thirdPartyVerification: ThirdPartyVerification? = null
         private var trust: Trust? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -311,6 +337,7 @@ constructor(
             this.joint = entityCreateParams.joint
             this.naturalPerson = entityCreateParams.naturalPerson
             this.supplementalDocuments(entityCreateParams.supplementalDocuments ?: listOf())
+            this.thirdPartyVerification = entityCreateParams.thirdPartyVerification
             this.trust = entityCreateParams.trust
             additionalQueryParams(entityCreateParams.additionalQueryParams)
             additionalHeaders(entityCreateParams.additionalHeaders)
@@ -359,6 +386,14 @@ constructor(
         /** Additional documentation associated with the entity. */
         fun addSupplementalDocument(supplementalDocument: SupplementalDocument) = apply {
             this.supplementalDocuments.add(supplementalDocument)
+        }
+
+        /**
+         * A reference to data stored in a third-party verification service. Your integration may or
+         * may not use this field.
+         */
+        fun thirdPartyVerification(thirdPartyVerification: ThirdPartyVerification) = apply {
+            this.thirdPartyVerification = thirdPartyVerification
         }
 
         /** Details of the trust entity to create. Required if `structure` is equal to `trust`. */
@@ -428,6 +463,7 @@ constructor(
                 naturalPerson,
                 if (supplementalDocuments.size == 0) null
                 else supplementalDocuments.toUnmodifiable(),
+                thirdPartyVerification,
                 trust,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
@@ -4265,6 +4301,150 @@ constructor(
 
         override fun toString() =
             "SupplementalDocument{fileId=$fileId, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * A reference to data stored in a third-party verification service. Your integration may or may
+     * not use this field.
+     */
+    @JsonDeserialize(builder = ThirdPartyVerification.Builder::class)
+    @NoAutoDetect
+    class ThirdPartyVerification
+    private constructor(
+        private val reference: String?,
+        private val vendor: Vendor?,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        /** The reference identifier for the third party verification. */
+        @JsonProperty("reference") fun reference(): String? = reference
+
+        /** The vendor that was used to perform the verification. */
+        @JsonProperty("vendor") fun vendor(): Vendor? = vendor
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            @JvmStatic fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var reference: String? = null
+            private var vendor: Vendor? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(thirdPartyVerification: ThirdPartyVerification) = apply {
+                this.reference = thirdPartyVerification.reference
+                this.vendor = thirdPartyVerification.vendor
+                additionalProperties(thirdPartyVerification.additionalProperties)
+            }
+
+            /** The reference identifier for the third party verification. */
+            @JsonProperty("reference")
+            fun reference(reference: String) = apply { this.reference = reference }
+
+            /** The vendor that was used to perform the verification. */
+            @JsonProperty("vendor") fun vendor(vendor: Vendor) = apply { this.vendor = vendor }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): ThirdPartyVerification =
+                ThirdPartyVerification(
+                    checkNotNull(reference) { "`reference` is required but was not set" },
+                    checkNotNull(vendor) { "`vendor` is required but was not set" },
+                    additionalProperties.toUnmodifiable(),
+                )
+        }
+
+        class Vendor
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) : Enum {
+
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return /* spotless:off */ other is Vendor && this.value == other.value /* spotless:on */
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+
+            companion object {
+
+                @JvmField val ALLOY = Vendor(JsonField.of("alloy"))
+
+                @JvmStatic fun of(value: String) = Vendor(JsonField.of(value))
+            }
+
+            enum class Known {
+                ALLOY,
+            }
+
+            enum class Value {
+                ALLOY,
+                _UNKNOWN,
+            }
+
+            fun value(): Value =
+                when (this) {
+                    ALLOY -> Value.ALLOY
+                    else -> Value._UNKNOWN
+                }
+
+            fun known(): Known =
+                when (this) {
+                    ALLOY -> Known.ALLOY
+                    else -> throw IncreaseInvalidDataException("Unknown Vendor: $value")
+                }
+
+            fun asString(): String = _value().asStringOrThrow()
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is ThirdPartyVerification && this.reference == other.reference && this.vendor == other.vendor && this.additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = /* spotless:off */ Objects.hash(reference, vendor, additionalProperties) /* spotless:on */
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "ThirdPartyVerification{reference=$reference, vendor=$vendor, additionalProperties=$additionalProperties}"
     }
 
     /** Details of the trust entity to create. Required if `structure` is equal to `trust`. */
