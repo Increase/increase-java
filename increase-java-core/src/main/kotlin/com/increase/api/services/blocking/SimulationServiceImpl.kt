@@ -3,9 +3,6 @@
 package com.increase.api.services.blocking
 
 import com.increase.api.core.ClientOptions
-import com.increase.api.core.handlers.errorHandler
-import com.increase.api.core.http.HttpResponse.Handler
-import com.increase.api.errors.IncreaseError
 import com.increase.api.services.blocking.simulations.AccountStatementService
 import com.increase.api.services.blocking.simulations.AccountStatementServiceImpl
 import com.increase.api.services.blocking.simulations.AccountTransferService
@@ -65,8 +62,6 @@ class SimulationServiceImpl
 constructor(
     private val clientOptions: ClientOptions,
 ) : SimulationService {
-
-    private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
     private val accountTransfers: AccountTransferService by lazy {
         AccountTransferServiceImpl(clientOptions)
