@@ -1238,19 +1238,13 @@ private constructor(
 
             private var validated: Boolean = false
 
-            /**
-             * The pending amount in the minor unit of the transaction's currency. For dollars, for
-             * example, this is cents.
-             */
+            /** The pending amount in USD cents. */
             fun amount(): Long = amount.getRequired("amount")
 
             /** The identifier of the ACH Transfer that led to this Pending Transaction. */
             fun transferId(): String = transferId.getRequired("transfer_id")
 
-            /**
-             * The pending amount in the minor unit of the transaction's currency. For dollars, for
-             * example, this is cents.
-             */
+            /** The pending amount in USD cents. */
             @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
             /** The identifier of the ACH Transfer that led to this Pending Transaction. */
@@ -1288,16 +1282,10 @@ private constructor(
                     additionalProperties(achTransferInstruction.additionalProperties)
                 }
 
-                /**
-                 * The pending amount in the minor unit of the transaction's currency. For dollars,
-                 * for example, this is cents.
-                 */
+                /** The pending amount in USD cents. */
                 fun amount(amount: Long) = amount(JsonField.of(amount))
 
-                /**
-                 * The pending amount in the minor unit of the transaction's currency. For dollars,
-                 * for example, this is cents.
-                 */
+                /** The pending amount in USD cents. */
                 @JsonProperty("amount")
                 @ExcludeMissing
                 fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
@@ -4086,10 +4074,7 @@ private constructor(
 
             private var validated: Boolean = false
 
-            /**
-             * The pending amount in the minor unit of the transaction's currency. For dollars, for
-             * example, this is cents.
-             */
+            /** The pending amount in USD cents. */
             fun amount(): Long = amount.getRequired("amount")
 
             /**
@@ -4115,10 +4100,7 @@ private constructor(
              */
             fun frontImageFileId(): String = frontImageFileId.getRequired("front_image_file_id")
 
-            /**
-             * The pending amount in the minor unit of the transaction's currency. For dollars, for
-             * example, this is cents.
-             */
+            /** The pending amount in USD cents. */
             @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
             /**
@@ -4187,16 +4169,10 @@ private constructor(
                     additionalProperties(checkDepositInstruction.additionalProperties)
                 }
 
-                /**
-                 * The pending amount in the minor unit of the transaction's currency. For dollars,
-                 * for example, this is cents.
-                 */
+                /** The pending amount in USD cents. */
                 fun amount(amount: Long) = amount(JsonField.of(amount))
 
-                /**
-                 * The pending amount in the minor unit of the transaction's currency. For dollars,
-                 * for example, this is cents.
-                 */
+                /** The pending amount in USD cents. */
                 @JsonProperty("amount")
                 @ExcludeMissing
                 fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
@@ -4404,10 +4380,7 @@ private constructor(
 
             private var validated: Boolean = false
 
-            /**
-             * The pending amount in the minor unit of the transaction's currency. For dollars, for
-             * example, this is cents.
-             */
+            /** The transfer amount in USD cents. */
             fun amount(): Long = amount.getRequired("amount")
 
             /**
@@ -4418,10 +4391,7 @@ private constructor(
             /** The identifier of the Check Transfer that led to this Pending Transaction. */
             fun transferId(): String = transferId.getRequired("transfer_id")
 
-            /**
-             * The pending amount in the minor unit of the transaction's currency. For dollars, for
-             * example, this is cents.
-             */
+            /** The transfer amount in USD cents. */
             @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
             /**
@@ -4467,16 +4437,10 @@ private constructor(
                     additionalProperties(checkTransferInstruction.additionalProperties)
                 }
 
-                /**
-                 * The pending amount in the minor unit of the transaction's currency. For dollars,
-                 * for example, this is cents.
-                 */
+                /** The transfer amount in USD cents. */
                 fun amount(amount: Long) = amount(JsonField.of(amount))
 
-                /**
-                 * The pending amount in the minor unit of the transaction's currency. For dollars,
-                 * for example, this is cents.
-                 */
+                /** The transfer amount in USD cents. */
                 @JsonProperty("amount")
                 @ExcludeMissing
                 fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
@@ -5188,10 +5152,7 @@ private constructor(
 
             private var validated: Boolean = false
 
-            /**
-             * The pending amount in the minor unit of the transaction's currency. For dollars, for
-             * example, this is cents.
-             */
+            /** The transfer amount in USD cents. */
             fun amount(): Long = amount.getRequired("amount")
 
             /**
@@ -5200,10 +5161,7 @@ private constructor(
              */
             fun transferId(): String = transferId.getRequired("transfer_id")
 
-            /**
-             * The pending amount in the minor unit of the transaction's currency. For dollars, for
-             * example, this is cents.
-             */
+            /** The transfer amount in USD cents. */
             @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
             /**
@@ -5246,16 +5204,10 @@ private constructor(
                     additionalProperties(realTimePaymentsTransferInstruction.additionalProperties)
                 }
 
-                /**
-                 * The pending amount in the minor unit of the transaction's currency. For dollars,
-                 * for example, this is cents.
-                 */
+                /** The transfer amount in USD cents. */
                 fun amount(amount: Long) = amount(JsonField.of(amount))
 
-                /**
-                 * The pending amount in the minor unit of the transaction's currency. For dollars,
-                 * for example, this is cents.
-                 */
+                /** The transfer amount in USD cents. */
                 @JsonProperty("amount")
                 @ExcludeMissing
                 fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
@@ -5341,10 +5293,7 @@ private constructor(
             /** The account number for the destination account. */
             fun accountNumber(): String = accountNumber.getRequired("account_number")
 
-            /**
-             * The pending amount in the minor unit of the transaction's currency. For dollars, for
-             * example, this is cents.
-             */
+            /** The transfer amount in USD cents. */
             fun amount(): Long = amount.getRequired("amount")
 
             /** The message that will show on the recipient's bank statement. */
@@ -5363,10 +5312,7 @@ private constructor(
             /** The account number for the destination account. */
             @JsonProperty("account_number") @ExcludeMissing fun _accountNumber() = accountNumber
 
-            /**
-             * The pending amount in the minor unit of the transaction's currency. For dollars, for
-             * example, this is cents.
-             */
+            /** The transfer amount in USD cents. */
             @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
             /** The message that will show on the recipient's bank statement. */
@@ -5435,16 +5381,10 @@ private constructor(
                     this.accountNumber = accountNumber
                 }
 
-                /**
-                 * The pending amount in the minor unit of the transaction's currency. For dollars,
-                 * for example, this is cents.
-                 */
+                /** The transfer amount in USD cents. */
                 fun amount(amount: Long) = amount(JsonField.of(amount))
 
-                /**
-                 * The pending amount in the minor unit of the transaction's currency. For dollars,
-                 * for example, this is cents.
-                 */
+                /** The transfer amount in USD cents. */
                 @JsonProperty("amount")
                 @ExcludeMissing
                 fun amount(amount: JsonField<Long>) = apply { this.amount = amount }

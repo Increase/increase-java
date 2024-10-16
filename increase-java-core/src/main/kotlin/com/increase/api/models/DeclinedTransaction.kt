@@ -864,10 +864,7 @@ private constructor(
 
             private var validated: Boolean = false
 
-            /**
-             * The declined amount in the minor unit of the destination account currency. For
-             * dollars, for example, this is cents.
-             */
+            /** The declined amount in USD cents. */
             fun amount(): Long = amount.getRequired("amount")
 
             /** The ACH Decline's identifier. */
@@ -921,10 +918,7 @@ private constructor(
              */
             fun type(): Type = type.getRequired("type")
 
-            /**
-             * The declined amount in the minor unit of the destination account currency. For
-             * dollars, for example, this is cents.
-             */
+            /** The declined amount in USD cents. */
             @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
             /** The ACH Decline's identifier. */
@@ -1039,16 +1033,10 @@ private constructor(
                     additionalProperties(achDecline.additionalProperties)
                 }
 
-                /**
-                 * The declined amount in the minor unit of the destination account currency. For
-                 * dollars, for example, this is cents.
-                 */
+                /** The declined amount in USD cents. */
                 fun amount(amount: Long) = amount(JsonField.of(amount))
 
-                /**
-                 * The declined amount in the minor unit of the destination account currency. For
-                 * dollars, for example, this is cents.
-                 */
+                /** The declined amount in USD cents. */
                 @JsonProperty("amount")
                 @ExcludeMissing
                 fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
@@ -4225,10 +4213,7 @@ private constructor(
 
             private var validated: Boolean = false
 
-            /**
-             * The declined amount in the minor unit of the destination account currency. For
-             * dollars, for example, this is cents.
-             */
+            /** The declined amount in USD cents. */
             fun amount(): Long = amount.getRequired("amount")
 
             /**
@@ -4264,10 +4249,7 @@ private constructor(
             /** Why the check was declined. */
             fun reason(): Reason = reason.getRequired("reason")
 
-            /**
-             * The declined amount in the minor unit of the destination account currency. For
-             * dollars, for example, this is cents.
-             */
+            /** The declined amount in USD cents. */
             @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
             /**
@@ -4353,16 +4335,10 @@ private constructor(
                     additionalProperties(checkDecline.additionalProperties)
                 }
 
-                /**
-                 * The declined amount in the minor unit of the destination account currency. For
-                 * dollars, for example, this is cents.
-                 */
+                /** The declined amount in USD cents. */
                 fun amount(amount: Long) = amount(JsonField.of(amount))
 
-                /**
-                 * The declined amount in the minor unit of the destination account currency. For
-                 * dollars, for example, this is cents.
-                 */
+                /** The declined amount in USD cents. */
                 @JsonProperty("amount")
                 @ExcludeMissing
                 fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
