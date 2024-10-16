@@ -3,6 +3,7 @@
 package com.increase.api.services.async
 
 import com.increase.api.core.ClientOptions
+import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
 import com.increase.api.services.async.simulations.AccountStatementServiceAsync
@@ -59,7 +60,6 @@ import com.increase.api.services.async.simulations.RealTimePaymentsTransferServi
 import com.increase.api.services.async.simulations.RealTimePaymentsTransferServiceAsyncImpl
 import com.increase.api.services.async.simulations.WireTransferServiceAsync
 import com.increase.api.services.async.simulations.WireTransferServiceAsyncImpl
-import com.increase.api.services.errorHandler
 
 class SimulationServiceAsyncImpl
 constructor(

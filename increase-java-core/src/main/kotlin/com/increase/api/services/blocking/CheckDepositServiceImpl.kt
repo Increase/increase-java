@@ -4,19 +4,19 @@ package com.increase.api.services.blocking
 
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.handlers.errorHandler
+import com.increase.api.core.handlers.jsonHandler
+import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
+import com.increase.api.core.json
 import com.increase.api.errors.IncreaseError
 import com.increase.api.models.CheckDeposit
 import com.increase.api.models.CheckDepositCreateParams
 import com.increase.api.models.CheckDepositListPage
 import com.increase.api.models.CheckDepositListParams
 import com.increase.api.models.CheckDepositRetrieveParams
-import com.increase.api.services.errorHandler
-import com.increase.api.services.json
-import com.increase.api.services.jsonHandler
-import com.increase.api.services.withErrorHandler
 
 class CheckDepositServiceImpl
 constructor(
