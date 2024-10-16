@@ -23,6 +23,7 @@ class CardAuthorizationServiceTest {
             cardAuthorizationService.create(
                 SimulationCardAuthorizationCreateParams.builder()
                     .amount(123L)
+                    .authenticatedCardPaymentId("authenticated_card_payment_id")
                     .cardId("card_id")
                     .declineReason(
                         SimulationCardAuthorizationCreateParams.DeclineReason.CARD_NOT_ACTIVE
