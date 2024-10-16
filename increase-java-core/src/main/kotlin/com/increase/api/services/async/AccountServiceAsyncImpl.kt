@@ -4,9 +4,13 @@ package com.increase.api.services.async
 
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.handlers.errorHandler
+import com.increase.api.core.handlers.jsonHandler
+import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
+import com.increase.api.core.json
 import com.increase.api.errors.IncreaseError
 import com.increase.api.models.Account
 import com.increase.api.models.AccountBalanceParams
@@ -17,10 +21,6 @@ import com.increase.api.models.AccountListParams
 import com.increase.api.models.AccountRetrieveParams
 import com.increase.api.models.AccountUpdateParams
 import com.increase.api.models.BalanceLookup
-import com.increase.api.services.errorHandler
-import com.increase.api.services.json
-import com.increase.api.services.jsonHandler
-import com.increase.api.services.withErrorHandler
 import java.util.concurrent.CompletableFuture
 
 class AccountServiceAsyncImpl

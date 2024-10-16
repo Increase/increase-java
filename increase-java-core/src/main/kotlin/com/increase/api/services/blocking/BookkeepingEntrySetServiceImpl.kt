@@ -4,19 +4,19 @@ package com.increase.api.services.blocking
 
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.handlers.errorHandler
+import com.increase.api.core.handlers.jsonHandler
+import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
+import com.increase.api.core.json
 import com.increase.api.errors.IncreaseError
 import com.increase.api.models.BookkeepingEntrySet
 import com.increase.api.models.BookkeepingEntrySetCreateParams
 import com.increase.api.models.BookkeepingEntrySetListPage
 import com.increase.api.models.BookkeepingEntrySetListParams
 import com.increase.api.models.BookkeepingEntrySetRetrieveParams
-import com.increase.api.services.errorHandler
-import com.increase.api.services.json
-import com.increase.api.services.jsonHandler
-import com.increase.api.services.withErrorHandler
 
 class BookkeepingEntrySetServiceImpl
 constructor(
