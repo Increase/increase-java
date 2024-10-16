@@ -12,6 +12,7 @@ class SimulationCardAuthorizationCreateParamsTest {
     fun createSimulationCardAuthorizationCreateParams() {
         SimulationCardAuthorizationCreateParams.builder()
             .amount(123L)
+            .authenticatedCardPaymentId("authenticated_card_payment_id")
             .cardId("card_id")
             .declineReason(SimulationCardAuthorizationCreateParams.DeclineReason.CARD_NOT_ACTIVE)
             .digitalWalletTokenId("digital_wallet_token_id")
@@ -31,6 +32,7 @@ class SimulationCardAuthorizationCreateParamsTest {
         val params =
             SimulationCardAuthorizationCreateParams.builder()
                 .amount(123L)
+                .authenticatedCardPaymentId("authenticated_card_payment_id")
                 .cardId("card_id")
                 .declineReason(
                     SimulationCardAuthorizationCreateParams.DeclineReason.CARD_NOT_ACTIVE
@@ -48,6 +50,7 @@ class SimulationCardAuthorizationCreateParamsTest {
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.authenticatedCardPaymentId()).isEqualTo("authenticated_card_payment_id")
         assertThat(body.cardId()).isEqualTo("card_id")
         assertThat(body.declineReason())
             .isEqualTo(SimulationCardAuthorizationCreateParams.DeclineReason.CARD_NOT_ACTIVE)
