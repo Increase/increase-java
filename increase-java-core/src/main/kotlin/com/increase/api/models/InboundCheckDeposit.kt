@@ -71,10 +71,7 @@ private constructor(
      */
     fun adjustments(): List<Adjustment> = adjustments.getRequired("adjustments")
 
-    /**
-     * The deposited amount in the minor unit of the destination account currency. For dollars, for
-     * example, this is cents.
-     */
+    /** The deposited amount in USD cents. */
     fun amount(): Long = amount.getRequired("amount")
 
     /** The ID for the File containing the image of the back of the check. */
@@ -167,10 +164,7 @@ private constructor(
      */
     @JsonProperty("adjustments") @ExcludeMissing fun _adjustments() = adjustments
 
-    /**
-     * The deposited amount in the minor unit of the destination account currency. For dollars, for
-     * example, this is cents.
-     */
+    /** The deposited amount in USD cents. */
     @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
     /** The ID for the File containing the image of the back of the check. */
@@ -375,16 +369,10 @@ private constructor(
             this.adjustments = adjustments
         }
 
-        /**
-         * The deposited amount in the minor unit of the destination account currency. For dollars,
-         * for example, this is cents.
-         */
+        /** The deposited amount in USD cents. */
         fun amount(amount: Long) = amount(JsonField.of(amount))
 
-        /**
-         * The deposited amount in the minor unit of the destination account currency. For dollars,
-         * for example, this is cents.
-         */
+        /** The deposited amount in USD cents. */
         @JsonProperty("amount")
         @ExcludeMissing
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }

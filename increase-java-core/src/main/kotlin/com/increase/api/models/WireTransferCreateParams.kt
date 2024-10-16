@@ -117,7 +117,7 @@ constructor(
         /** The identifier for the account that will send the transfer. */
         @JsonProperty("account_id") fun accountId(): String? = accountId
 
-        /** The transfer amount in cents. */
+        /** The transfer amount in USD cents. */
         @JsonProperty("amount") fun amount(): Long? = amount
 
         /** The beneficiary's name. */
@@ -237,7 +237,7 @@ constructor(
             @JsonProperty("account_id")
             fun accountId(accountId: String) = apply { this.accountId = accountId }
 
-            /** The transfer amount in cents. */
+            /** The transfer amount in USD cents. */
             @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
 
             /** The beneficiary's name. */
@@ -467,7 +467,7 @@ constructor(
         /** The identifier for the account that will send the transfer. */
         fun accountId(accountId: String) = apply { this.accountId = accountId }
 
-        /** The transfer amount in cents. */
+        /** The transfer amount in USD cents. */
         fun amount(amount: Long) = apply { this.amount = amount }
 
         /** The beneficiary's name. */

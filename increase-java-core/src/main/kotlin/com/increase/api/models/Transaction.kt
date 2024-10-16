@@ -14053,10 +14053,7 @@ private constructor(
 
             private var validated: Boolean = false
 
-            /**
-             * The amount in the minor unit of the transaction's currency. For dollars, for example,
-             * this is cents.
-             */
+            /** The returned amount in USD cents. */
             fun amount(): Long = amount.getRequired("amount")
 
             /** The identifier of the Check Deposit that was returned. */
@@ -14083,10 +14080,7 @@ private constructor(
              */
             fun transactionId(): String = transactionId.getRequired("transaction_id")
 
-            /**
-             * The amount in the minor unit of the transaction's currency. For dollars, for example,
-             * this is cents.
-             */
+            /** The returned amount in USD cents. */
             @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
             /** The identifier of the Check Deposit that was returned. */
@@ -14157,16 +14151,10 @@ private constructor(
                     additionalProperties(checkDepositReturn.additionalProperties)
                 }
 
-                /**
-                 * The amount in the minor unit of the transaction's currency. For dollars, for
-                 * example, this is cents.
-                 */
+                /** The returned amount in USD cents. */
                 fun amount(amount: Long) = amount(JsonField.of(amount))
 
-                /**
-                 * The amount in the minor unit of the transaction's currency. For dollars, for
-                 * example, this is cents.
-                 */
+                /** The returned amount in USD cents. */
                 @JsonProperty("amount")
                 @ExcludeMissing
                 fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
@@ -15260,10 +15248,7 @@ private constructor(
             /** Additional information sent from the originator. */
             fun addenda(): Optional<Addenda> = Optional.ofNullable(addenda.getNullable("addenda"))
 
-            /**
-             * The amount in the minor unit of the destination account currency. For dollars, for
-             * example, this is cents.
-             */
+            /** The transfer amount in USD cents. */
             fun amount(): Long = amount.getRequired("amount")
 
             /** The description of the date of the transfer, usually in the format `YYMMDD`. */
@@ -15325,10 +15310,7 @@ private constructor(
             /** Additional information sent from the originator. */
             @JsonProperty("addenda") @ExcludeMissing fun _addenda() = addenda
 
-            /**
-             * The amount in the minor unit of the destination account currency. For dollars, for
-             * example, this is cents.
-             */
+            /** The transfer amount in USD cents. */
             @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
             /** The description of the date of the transfer, usually in the format `YYMMDD`. */
@@ -15452,16 +15434,10 @@ private constructor(
                 @ExcludeMissing
                 fun addenda(addenda: JsonField<Addenda>) = apply { this.addenda = addenda }
 
-                /**
-                 * The amount in the minor unit of the destination account currency. For dollars,
-                 * for example, this is cents.
-                 */
+                /** The transfer amount in USD cents. */
                 fun amount(amount: Long) = amount(JsonField.of(amount))
 
-                /**
-                 * The amount in the minor unit of the destination account currency. For dollars,
-                 * for example, this is cents.
-                 */
+                /** The transfer amount in USD cents. */
                 @JsonProperty("amount")
                 @ExcludeMissing
                 fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
