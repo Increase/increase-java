@@ -4,6 +4,9 @@ package com.increase.api.services.blocking
 
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.handlers.errorHandler
+import com.increase.api.core.handlers.jsonHandler
+import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
@@ -12,9 +15,6 @@ import com.increase.api.models.CardPurchaseSupplement
 import com.increase.api.models.CardPurchaseSupplementListPage
 import com.increase.api.models.CardPurchaseSupplementListParams
 import com.increase.api.models.CardPurchaseSupplementRetrieveParams
-import com.increase.api.services.errorHandler
-import com.increase.api.services.jsonHandler
-import com.increase.api.services.withErrorHandler
 
 class CardPurchaseSupplementServiceImpl
 constructor(

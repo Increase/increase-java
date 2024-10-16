@@ -7,6 +7,7 @@ import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
 import com.increase.api.models.*
 import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Objects
 import java.util.Optional
 
@@ -208,10 +209,18 @@ constructor(
 
         @JvmSynthetic
         internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            this.after?.let { putParam("after", listOf(it.toString())) }
-            this.before?.let { putParam("before", listOf(it.toString())) }
-            this.onOrAfter?.let { putParam("on_or_after", listOf(it.toString())) }
-            this.onOrBefore?.let { putParam("on_or_before", listOf(it.toString())) }
+            this.after?.let {
+                putParam("after", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
+            }
+            this.before?.let {
+                putParam("before", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
+            }
+            this.onOrAfter?.let {
+                putParam("on_or_after", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
+            }
+            this.onOrBefore?.let {
+                putParam("on_or_before", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
+            }
             this.additionalProperties.forEach { key, values -> putParam(key, values) }
         }
 
