@@ -89,6 +89,7 @@ class CheckTransferTest {
                                             .IN_TRANSIT
                                     )
                                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .postalCode("postal_code")
                                     .build()
                             )
                         )
@@ -199,6 +200,7 @@ class CheckTransferTest {
                                     CheckTransfer.PhysicalCheck.TrackingUpdate.Category.IN_TRANSIT
                                 )
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .postalCode("postal_code")
                                 .build()
                         )
                     )
