@@ -2371,6 +2371,7 @@ private constructor(
         private constructor(
             private val category: JsonField<Category>,
             private val createdAt: JsonField<OffsetDateTime>,
+            private val postalCode: JsonField<String>,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
@@ -2385,6 +2386,9 @@ private constructor(
              */
             fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
+            /** The postal code where the event took place. */
+            fun postalCode(): String = postalCode.getRequired("postal_code")
+
             /** The type of tracking event. */
             @JsonProperty("category") @ExcludeMissing fun _category() = category
 
@@ -2394,6 +2398,9 @@ private constructor(
              */
             @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
+            /** The postal code where the event took place. */
+            @JsonProperty("postal_code") @ExcludeMissing fun _postalCode() = postalCode
+
             @JsonAnyGetter
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -2402,6 +2409,7 @@ private constructor(
                 if (!validated) {
                     category()
                     createdAt()
+                    postalCode()
                     validated = true
                 }
             }
@@ -2417,12 +2425,14 @@ private constructor(
 
                 private var category: JsonField<Category> = JsonMissing.of()
                 private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+                private var postalCode: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
                 internal fun from(trackingUpdate: TrackingUpdate) = apply {
                     this.category = trackingUpdate.category
                     this.createdAt = trackingUpdate.createdAt
+                    this.postalCode = trackingUpdate.postalCode
                     additionalProperties(trackingUpdate.additionalProperties)
                 }
 
@@ -2450,6 +2460,16 @@ private constructor(
                     this.createdAt = createdAt
                 }
 
+                /** The postal code where the event took place. */
+                fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
+
+                /** The postal code where the event took place. */
+                @JsonProperty("postal_code")
+                @ExcludeMissing
+                fun postalCode(postalCode: JsonField<String>) = apply {
+                    this.postalCode = postalCode
+                }
+
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
                     this.additionalProperties.putAll(additionalProperties)
@@ -2469,6 +2489,7 @@ private constructor(
                     TrackingUpdate(
                         category,
                         createdAt,
+                        postalCode,
                         additionalProperties.toUnmodifiable(),
                     )
             }
@@ -2548,20 +2569,20 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is TrackingUpdate && this.category == other.category && this.createdAt == other.createdAt && this.additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is TrackingUpdate && this.category == other.category && this.createdAt == other.createdAt && this.postalCode == other.postalCode && this.additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             private var hashCode: Int = 0
 
             override fun hashCode(): Int {
                 if (hashCode == 0) {
-                    hashCode = /* spotless:off */ Objects.hash(category, createdAt, additionalProperties) /* spotless:on */
+                    hashCode = /* spotless:off */ Objects.hash(category, createdAt, postalCode, additionalProperties) /* spotless:on */
                 }
                 return hashCode
             }
 
             override fun toString() =
-                "TrackingUpdate{category=$category, createdAt=$createdAt, additionalProperties=$additionalProperties}"
+                "TrackingUpdate{category=$category, createdAt=$createdAt, postalCode=$postalCode, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {
