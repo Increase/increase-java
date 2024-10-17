@@ -4399,27 +4399,33 @@ constructor(
 
                 @JvmField val ALLOY = Vendor(JsonField.of("alloy"))
 
+                @JvmField val MIDDESK = Vendor(JsonField.of("middesk"))
+
                 @JvmStatic fun of(value: String) = Vendor(JsonField.of(value))
             }
 
             enum class Known {
                 ALLOY,
+                MIDDESK,
             }
 
             enum class Value {
                 ALLOY,
+                MIDDESK,
                 _UNKNOWN,
             }
 
             fun value(): Value =
                 when (this) {
                     ALLOY -> Value.ALLOY
+                    MIDDESK -> Value.MIDDESK
                     else -> Value._UNKNOWN
                 }
 
             fun known(): Known =
                 when (this) {
                     ALLOY -> Known.ALLOY
+                    MIDDESK -> Known.MIDDESK
                     else -> throw IncreaseInvalidDataException("Unknown Vendor: $value")
                 }
 
