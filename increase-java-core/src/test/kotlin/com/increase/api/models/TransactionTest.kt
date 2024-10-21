@@ -618,6 +618,7 @@ class TransactionTest {
                                 .amount(123L)
                                 .currency(Transaction.Source.FeePayment.Currency.CAD)
                                 .feePeriodStart(LocalDate.parse("2019-12-27"))
+                                .programId("program_id")
                                 .build()
                         )
                         .inboundAchTransfer(
@@ -1373,6 +1374,7 @@ class TransactionTest {
                             .amount(123L)
                             .currency(Transaction.Source.FeePayment.Currency.CAD)
                             .feePeriodStart(LocalDate.parse("2019-12-27"))
+                            .programId("program_id")
                             .build()
                     )
                     .inboundAchTransfer(
