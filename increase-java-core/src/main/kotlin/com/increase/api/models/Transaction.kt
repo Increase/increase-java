@@ -14986,6 +14986,7 @@ private constructor(
             private val amount: JsonField<Long>,
             private val currency: JsonField<Currency>,
             private val feePeriodStart: JsonField<LocalDate>,
+            private val programId: JsonField<String>,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
@@ -15006,6 +15007,10 @@ private constructor(
             /** The start of this payment's fee period, usually the first day of a month. */
             fun feePeriodStart(): LocalDate = feePeriodStart.getRequired("fee_period_start")
 
+            /** The Program for which this fee was incurred. */
+            fun programId(): Optional<String> =
+                Optional.ofNullable(programId.getNullable("program_id"))
+
             /**
              * The amount in the minor unit of the transaction's currency. For dollars, for example,
              * this is cents.
@@ -15021,6 +15026,9 @@ private constructor(
             /** The start of this payment's fee period, usually the first day of a month. */
             @JsonProperty("fee_period_start") @ExcludeMissing fun _feePeriodStart() = feePeriodStart
 
+            /** The Program for which this fee was incurred. */
+            @JsonProperty("program_id") @ExcludeMissing fun _programId() = programId
+
             @JsonAnyGetter
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -15030,6 +15038,7 @@ private constructor(
                     amount()
                     currency()
                     feePeriodStart()
+                    programId()
                     validated = true
                 }
             }
@@ -15046,6 +15055,7 @@ private constructor(
                 private var amount: JsonField<Long> = JsonMissing.of()
                 private var currency: JsonField<Currency> = JsonMissing.of()
                 private var feePeriodStart: JsonField<LocalDate> = JsonMissing.of()
+                private var programId: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -15053,6 +15063,7 @@ private constructor(
                     this.amount = feePayment.amount
                     this.currency = feePayment.currency
                     this.feePeriodStart = feePayment.feePeriodStart
+                    this.programId = feePayment.programId
                     additionalProperties(feePayment.additionalProperties)
                 }
 
@@ -15095,6 +15106,14 @@ private constructor(
                     this.feePeriodStart = feePeriodStart
                 }
 
+                /** The Program for which this fee was incurred. */
+                fun programId(programId: String) = programId(JsonField.of(programId))
+
+                /** The Program for which this fee was incurred. */
+                @JsonProperty("program_id")
+                @ExcludeMissing
+                fun programId(programId: JsonField<String>) = apply { this.programId = programId }
+
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
                     this.additionalProperties.putAll(additionalProperties)
@@ -15115,6 +15134,7 @@ private constructor(
                         amount,
                         currency,
                         feePeriodStart,
+                        programId,
                         additionalProperties.toUnmodifiable(),
                     )
             }
@@ -15205,20 +15225,20 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is FeePayment && this.amount == other.amount && this.currency == other.currency && this.feePeriodStart == other.feePeriodStart && this.additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is FeePayment && this.amount == other.amount && this.currency == other.currency && this.feePeriodStart == other.feePeriodStart && this.programId == other.programId && this.additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             private var hashCode: Int = 0
 
             override fun hashCode(): Int {
                 if (hashCode == 0) {
-                    hashCode = /* spotless:off */ Objects.hash(amount, currency, feePeriodStart, additionalProperties) /* spotless:on */
+                    hashCode = /* spotless:off */ Objects.hash(amount, currency, feePeriodStart, programId, additionalProperties) /* spotless:on */
                 }
                 return hashCode
             }
 
             override fun toString() =
-                "FeePayment{amount=$amount, currency=$currency, feePeriodStart=$feePeriodStart, additionalProperties=$additionalProperties}"
+                "FeePayment{amount=$amount, currency=$currency, feePeriodStart=$feePeriodStart, programId=$programId, additionalProperties=$additionalProperties}"
         }
 
         /**
