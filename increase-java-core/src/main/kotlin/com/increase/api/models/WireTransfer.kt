@@ -52,6 +52,7 @@ private constructor(
     private val pendingTransactionId: JsonField<String>,
     private val reversal: JsonField<Reversal>,
     private val routingNumber: JsonField<String>,
+    private val sourceAccountNumberId: JsonField<String>,
     private val status: JsonField<Status>,
     private val submission: JsonField<Submission>,
     private val transactionId: JsonField<String>,
@@ -166,6 +167,10 @@ private constructor(
 
     /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
     fun routingNumber(): String = routingNumber.getRequired("routing_number")
+
+    /** The Account Number that was passed to the wire's recipient. */
+    fun sourceAccountNumberId(): Optional<String> =
+        Optional.ofNullable(sourceAccountNumberId.getNullable("source_account_number_id"))
 
     /** The lifecycle status of the transfer. */
     fun status(): Status = status.getRequired("status")
@@ -295,6 +300,11 @@ private constructor(
     /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
     @JsonProperty("routing_number") @ExcludeMissing fun _routingNumber() = routingNumber
 
+    /** The Account Number that was passed to the wire's recipient. */
+    @JsonProperty("source_account_number_id")
+    @ExcludeMissing
+    fun _sourceAccountNumberId() = sourceAccountNumberId
+
     /** The lifecycle status of the transfer. */
     @JsonProperty("status") @ExcludeMissing fun _status() = status
 
@@ -340,6 +350,7 @@ private constructor(
             pendingTransactionId()
             reversal().map { it.validate() }
             routingNumber()
+            sourceAccountNumberId()
             status()
             submission().map { it.validate() }
             transactionId()
@@ -381,6 +392,7 @@ private constructor(
         private var pendingTransactionId: JsonField<String> = JsonMissing.of()
         private var reversal: JsonField<Reversal> = JsonMissing.of()
         private var routingNumber: JsonField<String> = JsonMissing.of()
+        private var sourceAccountNumberId: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var submission: JsonField<Submission> = JsonMissing.of()
         private var transactionId: JsonField<String> = JsonMissing.of()
@@ -413,6 +425,7 @@ private constructor(
             this.pendingTransactionId = wireTransfer.pendingTransactionId
             this.reversal = wireTransfer.reversal
             this.routingNumber = wireTransfer.routingNumber
+            this.sourceAccountNumberId = wireTransfer.sourceAccountNumberId
             this.status = wireTransfer.status
             this.submission = wireTransfer.submission
             this.transactionId = wireTransfer.transactionId
@@ -692,6 +705,17 @@ private constructor(
             this.routingNumber = routingNumber
         }
 
+        /** The Account Number that was passed to the wire's recipient. */
+        fun sourceAccountNumberId(sourceAccountNumberId: String) =
+            sourceAccountNumberId(JsonField.of(sourceAccountNumberId))
+
+        /** The Account Number that was passed to the wire's recipient. */
+        @JsonProperty("source_account_number_id")
+        @ExcludeMissing
+        fun sourceAccountNumberId(sourceAccountNumberId: JsonField<String>) = apply {
+            this.sourceAccountNumberId = sourceAccountNumberId
+        }
+
         /** The lifecycle status of the transfer. */
         fun status(status: Status) = status(JsonField.of(status))
 
@@ -772,6 +796,7 @@ private constructor(
                 pendingTransactionId,
                 reversal,
                 routingNumber,
+                sourceAccountNumberId,
                 status,
                 submission,
                 transactionId,
@@ -2541,18 +2566,18 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is WireTransfer && this.accountId == other.accountId && this.accountNumber == other.accountNumber && this.amount == other.amount && this.approval == other.approval && this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 && this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 && this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 && this.beneficiaryName == other.beneficiaryName && this.cancellation == other.cancellation && this.createdAt == other.createdAt && this.createdBy == other.createdBy && this.currency == other.currency && this.externalAccountId == other.externalAccountId && this.id == other.id && this.idempotencyKey == other.idempotencyKey && this.messageToRecipient == other.messageToRecipient && this.network == other.network && this.originatorAddressLine1 == other.originatorAddressLine1 && this.originatorAddressLine2 == other.originatorAddressLine2 && this.originatorAddressLine3 == other.originatorAddressLine3 && this.originatorName == other.originatorName && this.pendingTransactionId == other.pendingTransactionId && this.reversal == other.reversal && this.routingNumber == other.routingNumber && this.status == other.status && this.submission == other.submission && this.transactionId == other.transactionId && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is WireTransfer && this.accountId == other.accountId && this.accountNumber == other.accountNumber && this.amount == other.amount && this.approval == other.approval && this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 && this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 && this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 && this.beneficiaryName == other.beneficiaryName && this.cancellation == other.cancellation && this.createdAt == other.createdAt && this.createdBy == other.createdBy && this.currency == other.currency && this.externalAccountId == other.externalAccountId && this.id == other.id && this.idempotencyKey == other.idempotencyKey && this.messageToRecipient == other.messageToRecipient && this.network == other.network && this.originatorAddressLine1 == other.originatorAddressLine1 && this.originatorAddressLine2 == other.originatorAddressLine2 && this.originatorAddressLine3 == other.originatorAddressLine3 && this.originatorName == other.originatorName && this.pendingTransactionId == other.pendingTransactionId && this.reversal == other.reversal && this.routingNumber == other.routingNumber && this.sourceAccountNumberId == other.sourceAccountNumberId && this.status == other.status && this.submission == other.submission && this.transactionId == other.transactionId && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(accountId, accountNumber, amount, approval, beneficiaryAddressLine1, beneficiaryAddressLine2, beneficiaryAddressLine3, beneficiaryName, cancellation, createdAt, createdBy, currency, externalAccountId, id, idempotencyKey, messageToRecipient, network, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, pendingTransactionId, reversal, routingNumber, status, submission, transactionId, type, additionalProperties) /* spotless:on */
+            hashCode = /* spotless:off */ Objects.hash(accountId, accountNumber, amount, approval, beneficiaryAddressLine1, beneficiaryAddressLine2, beneficiaryAddressLine3, beneficiaryName, cancellation, createdAt, createdBy, currency, externalAccountId, id, idempotencyKey, messageToRecipient, network, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, pendingTransactionId, reversal, routingNumber, sourceAccountNumberId, status, submission, transactionId, type, additionalProperties) /* spotless:on */
         }
         return hashCode
     }
 
     override fun toString() =
-        "WireTransfer{accountId=$accountId, accountNumber=$accountNumber, amount=$amount, approval=$approval, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, cancellation=$cancellation, createdAt=$createdAt, createdBy=$createdBy, currency=$currency, externalAccountId=$externalAccountId, id=$id, idempotencyKey=$idempotencyKey, messageToRecipient=$messageToRecipient, network=$network, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, pendingTransactionId=$pendingTransactionId, reversal=$reversal, routingNumber=$routingNumber, status=$status, submission=$submission, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+        "WireTransfer{accountId=$accountId, accountNumber=$accountNumber, amount=$amount, approval=$approval, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, cancellation=$cancellation, createdAt=$createdAt, createdBy=$createdBy, currency=$currency, externalAccountId=$externalAccountId, id=$id, idempotencyKey=$idempotencyKey, messageToRecipient=$messageToRecipient, network=$network, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, pendingTransactionId=$pendingTransactionId, reversal=$reversal, routingNumber=$routingNumber, sourceAccountNumberId=$sourceAccountNumberId, status=$status, submission=$submission, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 }
