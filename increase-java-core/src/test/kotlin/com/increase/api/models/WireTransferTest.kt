@@ -88,7 +88,7 @@ class WireTransferTest {
                         .build()
                 )
                 .routingNumber("routing_number")
-                .status(WireTransfer.Status.CANCELED)
+                .status(WireTransfer.Status.PENDING_APPROVAL)
                 .submission(
                     WireTransfer.Submission.builder()
                         .inputMessageAccountabilityData("input_message_accountability_data")
@@ -175,7 +175,7 @@ class WireTransferTest {
                     .build()
             )
         assertThat(wireTransfer.routingNumber()).isEqualTo("routing_number")
-        assertThat(wireTransfer.status()).isEqualTo(WireTransfer.Status.CANCELED)
+        assertThat(wireTransfer.status()).isEqualTo(WireTransfer.Status.PENDING_APPROVAL)
         assertThat(wireTransfer.submission())
             .contains(
                 WireTransfer.Submission.builder()

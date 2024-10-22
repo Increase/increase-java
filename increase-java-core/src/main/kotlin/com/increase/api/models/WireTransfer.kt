@@ -2284,15 +2284,17 @@ private constructor(
 
         companion object {
 
-            @JvmField val CANCELED = Status(JsonField.of("canceled"))
+            @JvmField val PENDING_APPROVAL = Status(JsonField.of("pending_approval"))
 
-            @JvmField val REQUIRES_ATTENTION = Status(JsonField.of("requires_attention"))
+            @JvmField val CANCELED = Status(JsonField.of("canceled"))
 
             @JvmField val PENDING_REVIEWING = Status(JsonField.of("pending_reviewing"))
 
-            @JvmField val PENDING_APPROVAL = Status(JsonField.of("pending_approval"))
-
             @JvmField val REJECTED = Status(JsonField.of("rejected"))
+
+            @JvmField val REQUIRES_ATTENTION = Status(JsonField.of("requires_attention"))
+
+            @JvmField val PENDING_CREATING = Status(JsonField.of("pending_creating"))
 
             @JvmField val REVERSED = Status(JsonField.of("reversed"))
 
@@ -2300,61 +2302,59 @@ private constructor(
 
             @JvmField val COMPLETE = Status(JsonField.of("complete"))
 
-            @JvmField val PENDING_CREATING = Status(JsonField.of("pending_creating"))
-
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
 
         enum class Known {
-            CANCELED,
-            REQUIRES_ATTENTION,
-            PENDING_REVIEWING,
             PENDING_APPROVAL,
+            CANCELED,
+            PENDING_REVIEWING,
             REJECTED,
+            REQUIRES_ATTENTION,
+            PENDING_CREATING,
             REVERSED,
             SUBMITTED,
             COMPLETE,
-            PENDING_CREATING,
         }
 
         enum class Value {
-            CANCELED,
-            REQUIRES_ATTENTION,
-            PENDING_REVIEWING,
             PENDING_APPROVAL,
+            CANCELED,
+            PENDING_REVIEWING,
             REJECTED,
+            REQUIRES_ATTENTION,
+            PENDING_CREATING,
             REVERSED,
             SUBMITTED,
             COMPLETE,
-            PENDING_CREATING,
             _UNKNOWN,
         }
 
         fun value(): Value =
             when (this) {
-                CANCELED -> Value.CANCELED
-                REQUIRES_ATTENTION -> Value.REQUIRES_ATTENTION
-                PENDING_REVIEWING -> Value.PENDING_REVIEWING
                 PENDING_APPROVAL -> Value.PENDING_APPROVAL
+                CANCELED -> Value.CANCELED
+                PENDING_REVIEWING -> Value.PENDING_REVIEWING
                 REJECTED -> Value.REJECTED
+                REQUIRES_ATTENTION -> Value.REQUIRES_ATTENTION
+                PENDING_CREATING -> Value.PENDING_CREATING
                 REVERSED -> Value.REVERSED
                 SUBMITTED -> Value.SUBMITTED
                 COMPLETE -> Value.COMPLETE
-                PENDING_CREATING -> Value.PENDING_CREATING
                 else -> Value._UNKNOWN
             }
 
         fun known(): Known =
             when (this) {
-                CANCELED -> Known.CANCELED
-                REQUIRES_ATTENTION -> Known.REQUIRES_ATTENTION
-                PENDING_REVIEWING -> Known.PENDING_REVIEWING
                 PENDING_APPROVAL -> Known.PENDING_APPROVAL
+                CANCELED -> Known.CANCELED
+                PENDING_REVIEWING -> Known.PENDING_REVIEWING
                 REJECTED -> Known.REJECTED
+                REQUIRES_ATTENTION -> Known.REQUIRES_ATTENTION
+                PENDING_CREATING -> Known.PENDING_CREATING
                 REVERSED -> Known.REVERSED
                 SUBMITTED -> Known.SUBMITTED
                 COMPLETE -> Known.COMPLETE
-                PENDING_CREATING -> Known.PENDING_CREATING
                 else -> throw IncreaseInvalidDataException("Unknown Status: $value")
             }
 
