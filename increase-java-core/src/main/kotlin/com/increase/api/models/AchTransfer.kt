@@ -5124,17 +5124,17 @@ private constructor(
 
             @JvmField val CANCELED = Status(JsonField.of("canceled"))
 
-            @JvmField val PENDING_REVIEWING = Status(JsonField.of("pending_reviewing"))
-
             @JvmField val PENDING_SUBMISSION = Status(JsonField.of("pending_submission"))
 
-            @JvmField val SUBMITTED = Status(JsonField.of("submitted"))
-
-            @JvmField val RETURNED = Status(JsonField.of("returned"))
+            @JvmField val PENDING_REVIEWING = Status(JsonField.of("pending_reviewing"))
 
             @JvmField val REQUIRES_ATTENTION = Status(JsonField.of("requires_attention"))
 
             @JvmField val REJECTED = Status(JsonField.of("rejected"))
+
+            @JvmField val SUBMITTED = Status(JsonField.of("submitted"))
+
+            @JvmField val RETURNED = Status(JsonField.of("returned"))
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
@@ -5143,24 +5143,24 @@ private constructor(
             PENDING_APPROVAL,
             PENDING_TRANSFER_SESSION_CONFIRMATION,
             CANCELED,
-            PENDING_REVIEWING,
             PENDING_SUBMISSION,
-            SUBMITTED,
-            RETURNED,
+            PENDING_REVIEWING,
             REQUIRES_ATTENTION,
             REJECTED,
+            SUBMITTED,
+            RETURNED,
         }
 
         enum class Value {
             PENDING_APPROVAL,
             PENDING_TRANSFER_SESSION_CONFIRMATION,
             CANCELED,
-            PENDING_REVIEWING,
             PENDING_SUBMISSION,
-            SUBMITTED,
-            RETURNED,
+            PENDING_REVIEWING,
             REQUIRES_ATTENTION,
             REJECTED,
+            SUBMITTED,
+            RETURNED,
             _UNKNOWN,
         }
 
@@ -5169,12 +5169,12 @@ private constructor(
                 PENDING_APPROVAL -> Value.PENDING_APPROVAL
                 PENDING_TRANSFER_SESSION_CONFIRMATION -> Value.PENDING_TRANSFER_SESSION_CONFIRMATION
                 CANCELED -> Value.CANCELED
-                PENDING_REVIEWING -> Value.PENDING_REVIEWING
                 PENDING_SUBMISSION -> Value.PENDING_SUBMISSION
-                SUBMITTED -> Value.SUBMITTED
-                RETURNED -> Value.RETURNED
+                PENDING_REVIEWING -> Value.PENDING_REVIEWING
                 REQUIRES_ATTENTION -> Value.REQUIRES_ATTENTION
                 REJECTED -> Value.REJECTED
+                SUBMITTED -> Value.SUBMITTED
+                RETURNED -> Value.RETURNED
                 else -> Value._UNKNOWN
             }
 
@@ -5183,12 +5183,12 @@ private constructor(
                 PENDING_APPROVAL -> Known.PENDING_APPROVAL
                 PENDING_TRANSFER_SESSION_CONFIRMATION -> Known.PENDING_TRANSFER_SESSION_CONFIRMATION
                 CANCELED -> Known.CANCELED
-                PENDING_REVIEWING -> Known.PENDING_REVIEWING
                 PENDING_SUBMISSION -> Known.PENDING_SUBMISSION
-                SUBMITTED -> Known.SUBMITTED
-                RETURNED -> Known.RETURNED
+                PENDING_REVIEWING -> Known.PENDING_REVIEWING
                 REQUIRES_ATTENTION -> Known.REQUIRES_ATTENTION
                 REJECTED -> Known.REJECTED
+                SUBMITTED -> Known.SUBMITTED
+                RETURNED -> Known.RETURNED
                 else -> throw IncreaseInvalidDataException("Unknown Status: $value")
             }
 
