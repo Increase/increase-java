@@ -88,6 +88,7 @@ class WireTransferTest {
                         .build()
                 )
                 .routingNumber("routing_number")
+                .sourceAccountNumberId("source_account_number_id")
                 .status(WireTransfer.Status.PENDING_APPROVAL)
                 .submission(
                     WireTransfer.Submission.builder()
@@ -175,6 +176,7 @@ class WireTransferTest {
                     .build()
             )
         assertThat(wireTransfer.routingNumber()).isEqualTo("routing_number")
+        assertThat(wireTransfer.sourceAccountNumberId()).contains("source_account_number_id")
         assertThat(wireTransfer.status()).isEqualTo(WireTransfer.Status.PENDING_APPROVAL)
         assertThat(wireTransfer.submission())
             .contains(

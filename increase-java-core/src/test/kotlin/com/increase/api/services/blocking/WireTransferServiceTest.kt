@@ -38,6 +38,7 @@ class WireTransferServiceTest {
                     .originatorName("x")
                     .requireApproval(true)
                     .routingNumber("xxxxxxxxx")
+                    .sourceAccountNumberId("source_account_number_id")
                     .build()
             )
         println(wireTransfer)
