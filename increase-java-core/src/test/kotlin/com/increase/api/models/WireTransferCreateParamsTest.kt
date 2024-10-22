@@ -26,6 +26,7 @@ class WireTransferCreateParamsTest {
             .originatorName("x")
             .requireApproval(true)
             .routingNumber("xxxxxxxxx")
+            .sourceAccountNumberId("source_account_number_id")
             .build()
     }
 
@@ -48,6 +49,7 @@ class WireTransferCreateParamsTest {
                 .originatorName("x")
                 .requireApproval(true)
                 .routingNumber("xxxxxxxxx")
+                .sourceAccountNumberId("source_account_number_id")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -66,6 +68,7 @@ class WireTransferCreateParamsTest {
         assertThat(body.originatorName()).isEqualTo("x")
         assertThat(body.requireApproval()).isEqualTo(true)
         assertThat(body.routingNumber()).isEqualTo("xxxxxxxxx")
+        assertThat(body.sourceAccountNumberId()).isEqualTo("source_account_number_id")
     }
 
     @Test
