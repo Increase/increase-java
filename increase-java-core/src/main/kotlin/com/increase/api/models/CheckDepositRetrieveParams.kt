@@ -3,7 +3,7 @@
 package com.increase.api.models
 
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.toImmutable
 import com.increase.api.models.*
 import java.util.Objects
 
@@ -113,8 +113,8 @@ constructor(
         fun build(): CheckDepositRetrieveParams =
             CheckDepositRetrieveParams(
                 checkNotNull(checkDepositId) { "`checkDepositId` is required but was not set" },
-                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalQueryParams.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalHeaders.mapValues { it.value.toImmutable() }.toImmutable(),
             )
     }
 }

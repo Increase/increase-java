@@ -13,7 +13,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
@@ -376,7 +376,7 @@ private constructor(
                 status,
                 type,
                 win,
-                additionalProperties.toUnmodifiable(),
+                additionalProperties.toImmutable(),
             )
     }
 
@@ -522,7 +522,7 @@ private constructor(
                     acceptedAt,
                     cardDisputeId,
                     transactionId,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -705,7 +705,7 @@ private constructor(
                     explanation,
                     lostAt,
                     transactionId,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -860,7 +860,7 @@ private constructor(
                     cardDisputeId,
                     explanation,
                     rejectedAt,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -1115,7 +1115,7 @@ private constructor(
                 Win(
                     cardDisputeId,
                     wonAt,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 

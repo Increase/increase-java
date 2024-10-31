@@ -13,7 +13,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -494,11 +494,11 @@ private constructor(
                 naturalPerson,
                 status,
                 structure,
-                supplementalDocuments.map { it.toUnmodifiable() },
+                supplementalDocuments.map { it.toImmutable() },
                 thirdPartyVerification,
                 trust,
                 type,
-                additionalProperties.toUnmodifiable(),
+                additionalProperties.toImmutable(),
             )
     }
 
@@ -735,13 +735,13 @@ private constructor(
             fun build(): Corporation =
                 Corporation(
                     address,
-                    beneficialOwners.map { it.toUnmodifiable() },
+                    beneficialOwners.map { it.toImmutable() },
                     incorporationState,
                     industryCode,
                     name,
                     taxIdentifier,
                     website,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -905,7 +905,7 @@ private constructor(
                         line2,
                         state,
                         zip,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -1068,7 +1068,7 @@ private constructor(
                         companyTitle,
                         individual,
                         prong,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -1208,7 +1208,7 @@ private constructor(
                             dateOfBirth,
                             identification,
                             name,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -1373,7 +1373,7 @@ private constructor(
                                 line2,
                                 state,
                                 zip,
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -1505,7 +1505,7 @@ private constructor(
                             Identification(
                                 method,
                                 numberLast4,
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -1905,12 +1905,12 @@ private constructor(
             fun build(): GovernmentAuthority =
                 GovernmentAuthority(
                     address,
-                    authorizedPersons.map { it.toUnmodifiable() },
+                    authorizedPersons.map { it.toImmutable() },
                     category,
                     name,
                     taxIdentifier,
                     website,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -2074,7 +2074,7 @@ private constructor(
                         line2,
                         state,
                         zip,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -2195,7 +2195,7 @@ private constructor(
                     AuthorizedPerson(
                         authorizedPersonId,
                         name,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -2382,9 +2382,9 @@ private constructor(
 
             fun build(): Joint =
                 Joint(
-                    individuals.map { it.toUnmodifiable() },
+                    individuals.map { it.toImmutable() },
                     name,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -2521,7 +2521,7 @@ private constructor(
                         dateOfBirth,
                         identification,
                         name,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -2685,7 +2685,7 @@ private constructor(
                             line2,
                             state,
                             zip,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -2815,7 +2815,7 @@ private constructor(
                         Identification(
                             method,
                             numberLast4,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -3099,7 +3099,7 @@ private constructor(
                     dateOfBirth,
                     identification,
                     name,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -3263,7 +3263,7 @@ private constructor(
                         line2,
                         state,
                         zip,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -3393,7 +3393,7 @@ private constructor(
                     Identification(
                         method,
                         numberLast4,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -3750,7 +3750,7 @@ private constructor(
                 ThirdPartyVerification(
                     reference,
                     vendor,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -4060,8 +4060,8 @@ private constructor(
                     grantor,
                     name,
                     taxIdentifier,
-                    trustees.map { it.toUnmodifiable() },
-                    additionalProperties.toUnmodifiable(),
+                    trustees.map { it.toImmutable() },
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -4225,7 +4225,7 @@ private constructor(
                         line2,
                         state,
                         zip,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -4441,7 +4441,7 @@ private constructor(
                         dateOfBirth,
                         identification,
                         name,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -4605,7 +4605,7 @@ private constructor(
                             line2,
                             state,
                             zip,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -4735,7 +4735,7 @@ private constructor(
                         Identification(
                             method,
                             numberLast4,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -4969,7 +4969,7 @@ private constructor(
                     Trustee(
                         individual,
                         structure,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -5112,7 +5112,7 @@ private constructor(
                             dateOfBirth,
                             identification,
                             name,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -5277,7 +5277,7 @@ private constructor(
                                 line2,
                                 state,
                                 zip,
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -5409,7 +5409,7 @@ private constructor(
                             Identification(
                                 method,
                                 numberLast4,
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 

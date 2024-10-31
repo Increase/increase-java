@@ -13,7 +13,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
@@ -235,12 +235,12 @@ private constructor(
             BookkeepingEntrySet(
                 createdAt,
                 date,
-                entries.map { it.toUnmodifiable() },
+                entries.map { it.toImmutable() },
                 id,
                 idempotencyKey,
                 transactionId,
                 type,
-                additionalProperties.toUnmodifiable(),
+                additionalProperties.toImmutable(),
             )
     }
 
@@ -352,7 +352,7 @@ private constructor(
                     accountId,
                     amount,
                     id,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 

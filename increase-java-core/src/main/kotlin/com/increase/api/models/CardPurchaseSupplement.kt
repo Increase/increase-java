@@ -13,7 +13,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.LocalDate
 import java.util.Objects
@@ -201,10 +201,10 @@ private constructor(
                 cardPaymentId,
                 id,
                 invoice,
-                lineItems.map { it.toUnmodifiable() },
+                lineItems.map { it.toImmutable() },
                 transactionId,
                 type,
-                additionalProperties.toUnmodifiable(),
+                additionalProperties.toImmutable(),
             )
     }
 
@@ -660,7 +660,7 @@ private constructor(
                     shippingTaxRate,
                     taxTreatments,
                     uniqueValueAddedTaxInvoiceReference,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -1296,7 +1296,7 @@ private constructor(
                     unitCost,
                     unitCostCurrency,
                     unitOfMeasureCode,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 

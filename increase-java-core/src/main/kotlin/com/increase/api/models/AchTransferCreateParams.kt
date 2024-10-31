@@ -12,7 +12,7 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import com.increase.api.models.*
 import java.time.LocalDate
@@ -480,7 +480,7 @@ constructor(
                     routingNumber,
                     standardEntryClassCode,
                     transactionTiming,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -779,9 +779,9 @@ constructor(
                 routingNumber,
                 standardEntryClassCode,
                 transactionTiming,
-                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalBodyProperties.toUnmodifiable(),
+                additionalQueryParams.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalHeaders.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -875,7 +875,7 @@ constructor(
                     checkNotNull(category) { "`category` is required but was not set" },
                     freeform,
                     paymentOrderRemittanceAdvice,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -1001,8 +1001,8 @@ constructor(
                 fun build(): Freeform =
                     Freeform(
                         checkNotNull(entries) { "`entries` is required but was not set" }
-                            .toUnmodifiable(),
-                        additionalProperties.toUnmodifiable()
+                            .toImmutable(),
+                        additionalProperties.toImmutable()
                     )
             }
 
@@ -1066,7 +1066,7 @@ constructor(
                             checkNotNull(paymentRelatedInformation) {
                                 "`paymentRelatedInformation` is required but was not set"
                             },
-                            additionalProperties.toUnmodifiable()
+                            additionalProperties.toImmutable()
                         )
                 }
 
@@ -1172,8 +1172,8 @@ constructor(
                 fun build(): PaymentOrderRemittanceAdvice =
                     PaymentOrderRemittanceAdvice(
                         checkNotNull(invoices) { "`invoices` is required but was not set" }
-                            .toUnmodifiable(),
-                        additionalProperties.toUnmodifiable()
+                            .toImmutable(),
+                        additionalProperties.toImmutable()
                     )
             }
 
@@ -1258,7 +1258,7 @@ constructor(
                                 "`invoiceNumber` is required but was not set"
                             },
                             checkNotNull(paidAmount) { "`paidAmount` is required but was not set" },
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -1524,7 +1524,7 @@ constructor(
                 PreferredEffectiveDate(
                     date,
                     settlementSchedule,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
