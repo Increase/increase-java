@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.135.1 (2024-10-31)
+
+Full Changelog: [v0.135.0...v0.135.1](https://github.com/Increase/increase-java/compare/v0.135.0...v0.135.1)
+
+### Bug Fixes
+
+* erroneous deletion of getRequiredHeader ([#569](https://github.com/Increase/increase-java/issues/569)) ([3c4ea98](https://github.com/Increase/increase-java/commit/3c4ea981309c6ca80ed274632109f9dc3277a1ec))
+
 ## 0.135.0 (2024-10-31)
 
 Full Changelog: [v0.134.0...v0.135.0](https://github.com/Increase/increase-java/compare/v0.134.0...v0.135.0)
