@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.increase.api.services.async.simulations.AccountStatementServiceAsync
@@ -34,31 +32,11 @@ import com.increase.api.services.async.simulations.WireTransferServiceAsync
 
 interface SimulationServiceAsync {
 
-    fun accountTransfers(): AccountTransferServiceAsync
-
-    fun inboundAchTransfers(): InboundAchTransferServiceAsync
-
-    fun achTransfers(): AchTransferServiceAsync
-
-    fun checkTransfers(): CheckTransferServiceAsync
-
-    fun inboundCheckDeposits(): InboundCheckDepositServiceAsync
-
-    fun checkDeposits(): CheckDepositServiceAsync
-
-    fun inboundWireTransfers(): InboundWireTransferServiceAsync
-
-    fun wireTransfers(): WireTransferServiceAsync
-
-    fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestServiceAsync
-
-    fun inboundRealTimePaymentsTransfers(): InboundRealTimePaymentsTransferServiceAsync
-
-    fun inboundFundsHolds(): InboundFundsHoldServiceAsync
-
-    fun realTimePaymentsTransfers(): RealTimePaymentsTransferServiceAsync
+    fun interestPayments(): InterestPaymentServiceAsync
 
     fun cardAuthorizations(): CardAuthorizationServiceAsync
+
+    fun cardAuthorizationExpirations(): CardAuthorizationExpirationServiceAsync
 
     fun cardSettlements(): CardSettlementServiceAsync
 
@@ -66,25 +44,45 @@ interface SimulationServiceAsync {
 
     fun cardIncrements(): CardIncrementServiceAsync
 
-    fun cardAuthorizationExpirations(): CardAuthorizationExpirationServiceAsync
-
     fun cardFuelConfirmations(): CardFuelConfirmationServiceAsync
 
     fun cardRefunds(): CardRefundServiceAsync
 
     fun cardDisputes(): CardDisputeServiceAsync
 
-    fun digitalWalletTokenRequests(): DigitalWalletTokenRequestServiceAsync
-
     fun physicalCards(): PhysicalCardServiceAsync
 
-    fun interestPayments(): InterestPaymentServiceAsync
+    fun digitalWalletTokenRequests(): DigitalWalletTokenRequestServiceAsync
 
-    fun accountStatements(): AccountStatementServiceAsync
+    fun inboundFundsHolds(): InboundFundsHoldServiceAsync
 
-    fun documents(): DocumentServiceAsync
+    fun accountTransfers(): AccountTransferServiceAsync
+
+    fun achTransfers(): AchTransferServiceAsync
+
+    fun inboundAchTransfers(): InboundAchTransferServiceAsync
+
+    fun wireTransfers(): WireTransferServiceAsync
+
+    fun inboundWireTransfers(): InboundWireTransferServiceAsync
+
+    fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestServiceAsync
+
+    fun checkTransfers(): CheckTransferServiceAsync
+
+    fun inboundCheckDeposits(): InboundCheckDepositServiceAsync
+
+    fun realTimePaymentsTransfers(): RealTimePaymentsTransferServiceAsync
+
+    fun inboundRealTimePaymentsTransfers(): InboundRealTimePaymentsTransferServiceAsync
+
+    fun checkDeposits(): CheckDepositServiceAsync
 
     fun inboundMailItems(): InboundMailItemServiceAsync
 
     fun programs(): ProgramServiceAsync
+
+    fun accountStatements(): AccountStatementServiceAsync
+
+    fun documents(): DocumentServiceAsync
 }

@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking
 
 import com.increase.api.services.blocking.simulations.AccountStatementService
@@ -34,31 +32,11 @@ import com.increase.api.services.blocking.simulations.WireTransferService
 
 interface SimulationService {
 
-    fun accountTransfers(): AccountTransferService
-
-    fun inboundAchTransfers(): InboundAchTransferService
-
-    fun achTransfers(): AchTransferService
-
-    fun checkTransfers(): CheckTransferService
-
-    fun inboundCheckDeposits(): InboundCheckDepositService
-
-    fun checkDeposits(): CheckDepositService
-
-    fun inboundWireTransfers(): InboundWireTransferService
-
-    fun wireTransfers(): WireTransferService
-
-    fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestService
-
-    fun inboundRealTimePaymentsTransfers(): InboundRealTimePaymentsTransferService
-
-    fun inboundFundsHolds(): InboundFundsHoldService
-
-    fun realTimePaymentsTransfers(): RealTimePaymentsTransferService
+    fun interestPayments(): InterestPaymentService
 
     fun cardAuthorizations(): CardAuthorizationService
+
+    fun cardAuthorizationExpirations(): CardAuthorizationExpirationService
 
     fun cardSettlements(): CardSettlementService
 
@@ -66,25 +44,45 @@ interface SimulationService {
 
     fun cardIncrements(): CardIncrementService
 
-    fun cardAuthorizationExpirations(): CardAuthorizationExpirationService
-
     fun cardFuelConfirmations(): CardFuelConfirmationService
 
     fun cardRefunds(): CardRefundService
 
     fun cardDisputes(): CardDisputeService
 
-    fun digitalWalletTokenRequests(): DigitalWalletTokenRequestService
-
     fun physicalCards(): PhysicalCardService
 
-    fun interestPayments(): InterestPaymentService
+    fun digitalWalletTokenRequests(): DigitalWalletTokenRequestService
 
-    fun accountStatements(): AccountStatementService
+    fun inboundFundsHolds(): InboundFundsHoldService
 
-    fun documents(): DocumentService
+    fun accountTransfers(): AccountTransferService
+
+    fun achTransfers(): AchTransferService
+
+    fun inboundAchTransfers(): InboundAchTransferService
+
+    fun wireTransfers(): WireTransferService
+
+    fun inboundWireTransfers(): InboundWireTransferService
+
+    fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestService
+
+    fun checkTransfers(): CheckTransferService
+
+    fun inboundCheckDeposits(): InboundCheckDepositService
+
+    fun realTimePaymentsTransfers(): RealTimePaymentsTransferService
+
+    fun inboundRealTimePaymentsTransfers(): InboundRealTimePaymentsTransferService
+
+    fun checkDeposits(): CheckDepositService
 
     fun inboundMailItems(): InboundMailItemService
 
     fun programs(): ProgramService
+
+    fun accountStatements(): AccountStatementService
+
+    fun documents(): DocumentService
 }

@@ -26,7 +26,7 @@ constructor(
     private val createHandler: Handler<CardPayment> =
         jsonHandler<CardPayment>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-    /** Simulates expiring a card authorization immediately. */
+    /** Simulates expiring a Card Authorization immediately. */
     override fun create(
         params: SimulationCardAuthorizationExpirationCreateParams,
         requestOptions: RequestOptions
