@@ -27,8 +27,8 @@ constructor(
             .withErrorHandler(errorHandler)
 
     /**
-     * Simulates an inbound Real-Time Payments transfer to your account. Real-Time Payments are a
-     * beta feature.
+     * Simulates an [Inbound Real-Time Payments Transfer](#inbound-real-time-payments-transfers) to
+     * your account. Real-Time Payments are a beta feature.
      */
     override fun create(
         params: SimulationInboundRealTimePaymentsTransferCreateParams,

@@ -3,6 +3,7 @@
 package com.increase.api.client
 
 import com.increase.api.core.ClientOptions
+import com.increase.api.core.getPackageVersion
 import com.increase.api.models.*
 import com.increase.api.services.blocking.*
 
@@ -11,189 +12,212 @@ constructor(
     private val clientOptions: ClientOptions,
 ) : IncreaseClient {
 
+    private val clientOptionsWithUserAgent =
+        if (clientOptions.headers.containsKey("User-Agent")) clientOptions
+        else
+            clientOptions
+                .toBuilder()
+                .putHeader("User-Agent", "${javaClass.simpleName}/Java ${getPackageVersion()}")
+                .build()
+
+    // Pass the original clientOptions so that this client sets its own User-Agent.
     private val async: IncreaseClientAsync by lazy { IncreaseClientAsyncImpl(clientOptions) }
 
-    private val accounts: AccountService by lazy { AccountServiceImpl(clientOptions) }
+    private val accounts: AccountService by lazy { AccountServiceImpl(clientOptionsWithUserAgent) }
 
     private val accountNumbers: AccountNumberService by lazy {
-        AccountNumberServiceImpl(clientOptions)
+        AccountNumberServiceImpl(clientOptionsWithUserAgent)
     }
 
-    private val cards: CardService by lazy { CardServiceImpl(clientOptions) }
+    private val cards: CardService by lazy { CardServiceImpl(clientOptionsWithUserAgent) }
 
-    private val cardPayments: CardPaymentService by lazy { CardPaymentServiceImpl(clientOptions) }
+    private val cardPayments: CardPaymentService by lazy {
+        CardPaymentServiceImpl(clientOptionsWithUserAgent)
+    }
 
     private val cardPurchaseSupplements: CardPurchaseSupplementService by lazy {
-        CardPurchaseSupplementServiceImpl(clientOptions)
+        CardPurchaseSupplementServiceImpl(clientOptionsWithUserAgent)
     }
 
-    private val cardDisputes: CardDisputeService by lazy { CardDisputeServiceImpl(clientOptions) }
+    private val cardDisputes: CardDisputeService by lazy {
+        CardDisputeServiceImpl(clientOptionsWithUserAgent)
+    }
 
     private val physicalCards: PhysicalCardService by lazy {
-        PhysicalCardServiceImpl(clientOptions)
+        PhysicalCardServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val digitalCardProfiles: DigitalCardProfileService by lazy {
-        DigitalCardProfileServiceImpl(clientOptions)
+        DigitalCardProfileServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val physicalCardProfiles: PhysicalCardProfileService by lazy {
-        PhysicalCardProfileServiceImpl(clientOptions)
+        PhysicalCardProfileServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val digitalWalletTokens: DigitalWalletTokenService by lazy {
-        DigitalWalletTokenServiceImpl(clientOptions)
+        DigitalWalletTokenServiceImpl(clientOptionsWithUserAgent)
     }
 
-    private val transactions: TransactionService by lazy { TransactionServiceImpl(clientOptions) }
+    private val transactions: TransactionService by lazy {
+        TransactionServiceImpl(clientOptionsWithUserAgent)
+    }
 
     private val pendingTransactions: PendingTransactionService by lazy {
-        PendingTransactionServiceImpl(clientOptions)
+        PendingTransactionServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val declinedTransactions: DeclinedTransactionService by lazy {
-        DeclinedTransactionServiceImpl(clientOptions)
+        DeclinedTransactionServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val accountTransfers: AccountTransferService by lazy {
-        AccountTransferServiceImpl(clientOptions)
+        AccountTransferServiceImpl(clientOptionsWithUserAgent)
     }
 
-    private val achTransfers: AchTransferService by lazy { AchTransferServiceImpl(clientOptions) }
+    private val achTransfers: AchTransferService by lazy {
+        AchTransferServiceImpl(clientOptionsWithUserAgent)
+    }
 
     private val achPrenotifications: AchPrenotificationService by lazy {
-        AchPrenotificationServiceImpl(clientOptions)
+        AchPrenotificationServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val inboundAchTransfers: InboundAchTransferService by lazy {
-        InboundAchTransferServiceImpl(clientOptions)
+        InboundAchTransferServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val wireTransfers: WireTransferService by lazy {
-        WireTransferServiceImpl(clientOptions)
+        WireTransferServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val inboundWireTransfers: InboundWireTransferService by lazy {
-        InboundWireTransferServiceImpl(clientOptions)
+        InboundWireTransferServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val wireDrawdownRequests: WireDrawdownRequestService by lazy {
-        WireDrawdownRequestServiceImpl(clientOptions)
+        WireDrawdownRequestServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val inboundWireDrawdownRequests: InboundWireDrawdownRequestService by lazy {
-        InboundWireDrawdownRequestServiceImpl(clientOptions)
+        InboundWireDrawdownRequestServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val checkTransfers: CheckTransferService by lazy {
-        CheckTransferServiceImpl(clientOptions)
+        CheckTransferServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val inboundCheckDeposits: InboundCheckDepositService by lazy {
-        InboundCheckDepositServiceImpl(clientOptions)
+        InboundCheckDepositServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val realTimePaymentsTransfers: RealTimePaymentsTransferService by lazy {
-        RealTimePaymentsTransferServiceImpl(clientOptions)
+        RealTimePaymentsTransferServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val inboundRealTimePaymentsTransfers: InboundRealTimePaymentsTransferService by lazy {
-        InboundRealTimePaymentsTransferServiceImpl(clientOptions)
+        InboundRealTimePaymentsTransferServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val checkDeposits: CheckDepositService by lazy {
-        CheckDepositServiceImpl(clientOptions)
+        CheckDepositServiceImpl(clientOptionsWithUserAgent)
     }
 
-    private val lockboxes: LockboxService by lazy { LockboxServiceImpl(clientOptions) }
+    private val lockboxes: LockboxService by lazy { LockboxServiceImpl(clientOptionsWithUserAgent) }
 
     private val inboundMailItems: InboundMailItemService by lazy {
-        InboundMailItemServiceImpl(clientOptions)
+        InboundMailItemServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val routingNumbers: RoutingNumberService by lazy {
-        RoutingNumberServiceImpl(clientOptions)
+        RoutingNumberServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val externalAccounts: ExternalAccountService by lazy {
-        ExternalAccountServiceImpl(clientOptions)
+        ExternalAccountServiceImpl(clientOptionsWithUserAgent)
     }
 
-    private val entities: EntityService by lazy { EntityServiceImpl(clientOptions) }
+    private val entities: EntityService by lazy { EntityServiceImpl(clientOptionsWithUserAgent) }
 
     private val supplementalDocuments: SupplementalDocumentService by lazy {
-        SupplementalDocumentServiceImpl(clientOptions)
+        SupplementalDocumentServiceImpl(clientOptionsWithUserAgent)
     }
 
-    private val programs: ProgramService by lazy { ProgramServiceImpl(clientOptions) }
+    private val programs: ProgramService by lazy { ProgramServiceImpl(clientOptionsWithUserAgent) }
 
     private val proofOfAuthorizationRequests: ProofOfAuthorizationRequestService by lazy {
-        ProofOfAuthorizationRequestServiceImpl(clientOptions)
+        ProofOfAuthorizationRequestServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val proofOfAuthorizationRequestSubmissions:
         ProofOfAuthorizationRequestSubmissionService by lazy {
-        ProofOfAuthorizationRequestSubmissionServiceImpl(clientOptions)
+        ProofOfAuthorizationRequestSubmissionServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val accountStatements: AccountStatementService by lazy {
-        AccountStatementServiceImpl(clientOptions)
+        AccountStatementServiceImpl(clientOptionsWithUserAgent)
     }
 
-    private val files: FileService by lazy { FileServiceImpl(clientOptions) }
+    private val files: FileService by lazy { FileServiceImpl(clientOptionsWithUserAgent) }
 
-    private val documents: DocumentService by lazy { DocumentServiceImpl(clientOptions) }
+    private val documents: DocumentService by lazy {
+        DocumentServiceImpl(clientOptionsWithUserAgent)
+    }
 
-    private val exports: ExportService by lazy { ExportServiceImpl(clientOptions) }
+    private val exports: ExportService by lazy { ExportServiceImpl(clientOptionsWithUserAgent) }
 
-    private val events: EventService by lazy { EventServiceImpl(clientOptions) }
+    private val events: EventService by lazy { EventServiceImpl(clientOptionsWithUserAgent) }
 
     private val eventSubscriptions: EventSubscriptionService by lazy {
-        EventSubscriptionServiceImpl(clientOptions)
+        EventSubscriptionServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val realTimeDecisions: RealTimeDecisionService by lazy {
-        RealTimeDecisionServiceImpl(clientOptions)
+        RealTimeDecisionServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val bookkeepingAccounts: BookkeepingAccountService by lazy {
-        BookkeepingAccountServiceImpl(clientOptions)
+        BookkeepingAccountServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val bookkeepingEntrySets: BookkeepingEntrySetService by lazy {
-        BookkeepingEntrySetServiceImpl(clientOptions)
+        BookkeepingEntrySetServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val bookkeepingEntries: BookkeepingEntryService by lazy {
-        BookkeepingEntryServiceImpl(clientOptions)
+        BookkeepingEntryServiceImpl(clientOptionsWithUserAgent)
     }
 
-    private val groups: GroupService by lazy { GroupServiceImpl(clientOptions) }
+    private val groups: GroupService by lazy { GroupServiceImpl(clientOptionsWithUserAgent) }
 
     private val oauthConnections: OAuthConnectionService by lazy {
-        OAuthConnectionServiceImpl(clientOptions)
+        OAuthConnectionServiceImpl(clientOptionsWithUserAgent)
     }
 
-    private val oauthTokens: OAuthTokenService by lazy { OAuthTokenServiceImpl(clientOptions) }
+    private val oauthTokens: OAuthTokenService by lazy {
+        OAuthTokenServiceImpl(clientOptionsWithUserAgent)
+    }
 
     private val intrafiAccountEnrollments: IntrafiAccountEnrollmentService by lazy {
-        IntrafiAccountEnrollmentServiceImpl(clientOptions)
+        IntrafiAccountEnrollmentServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val intrafiBalances: IntrafiBalanceService by lazy {
-        IntrafiBalanceServiceImpl(clientOptions)
+        IntrafiBalanceServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val intrafiExclusions: IntrafiExclusionService by lazy {
-        IntrafiExclusionServiceImpl(clientOptions)
+        IntrafiExclusionServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val realTimePaymentsRequestForPayments:
         RealTimePaymentsRequestForPaymentService by lazy {
-        RealTimePaymentsRequestForPaymentServiceImpl(clientOptions)
+        RealTimePaymentsRequestForPaymentServiceImpl(clientOptionsWithUserAgent)
     }
 
-    private val simulations: SimulationService by lazy { SimulationServiceImpl(clientOptions) }
+    private val simulations: SimulationService by lazy {
+        SimulationServiceImpl(clientOptionsWithUserAgent)
+    }
 
     override fun async(): IncreaseClientAsync = async
 

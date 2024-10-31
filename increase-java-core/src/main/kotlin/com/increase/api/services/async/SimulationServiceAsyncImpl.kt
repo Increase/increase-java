@@ -63,57 +63,16 @@ constructor(
     private val clientOptions: ClientOptions,
 ) : SimulationServiceAsync {
 
-    private val accountTransfers: AccountTransferServiceAsync by lazy {
-        AccountTransferServiceAsyncImpl(clientOptions)
-    }
-
-    private val inboundAchTransfers: InboundAchTransferServiceAsync by lazy {
-        InboundAchTransferServiceAsyncImpl(clientOptions)
-    }
-
-    private val achTransfers: AchTransferServiceAsync by lazy {
-        AchTransferServiceAsyncImpl(clientOptions)
-    }
-
-    private val checkTransfers: CheckTransferServiceAsync by lazy {
-        CheckTransferServiceAsyncImpl(clientOptions)
-    }
-
-    private val inboundCheckDeposits: InboundCheckDepositServiceAsync by lazy {
-        InboundCheckDepositServiceAsyncImpl(clientOptions)
-    }
-
-    private val checkDeposits: CheckDepositServiceAsync by lazy {
-        CheckDepositServiceAsyncImpl(clientOptions)
-    }
-
-    private val inboundWireTransfers: InboundWireTransferServiceAsync by lazy {
-        InboundWireTransferServiceAsyncImpl(clientOptions)
-    }
-
-    private val wireTransfers: WireTransferServiceAsync by lazy {
-        WireTransferServiceAsyncImpl(clientOptions)
-    }
-
-    private val inboundWireDrawdownRequests: InboundWireDrawdownRequestServiceAsync by lazy {
-        InboundWireDrawdownRequestServiceAsyncImpl(clientOptions)
-    }
-
-    private val inboundRealTimePaymentsTransfers:
-        InboundRealTimePaymentsTransferServiceAsync by lazy {
-        InboundRealTimePaymentsTransferServiceAsyncImpl(clientOptions)
-    }
-
-    private val inboundFundsHolds: InboundFundsHoldServiceAsync by lazy {
-        InboundFundsHoldServiceAsyncImpl(clientOptions)
-    }
-
-    private val realTimePaymentsTransfers: RealTimePaymentsTransferServiceAsync by lazy {
-        RealTimePaymentsTransferServiceAsyncImpl(clientOptions)
+    private val interestPayments: InterestPaymentServiceAsync by lazy {
+        InterestPaymentServiceAsyncImpl(clientOptions)
     }
 
     private val cardAuthorizations: CardAuthorizationServiceAsync by lazy {
         CardAuthorizationServiceAsyncImpl(clientOptions)
+    }
+
+    private val cardAuthorizationExpirations: CardAuthorizationExpirationServiceAsync by lazy {
+        CardAuthorizationExpirationServiceAsyncImpl(clientOptions)
     }
 
     private val cardSettlements: CardSettlementServiceAsync by lazy {
@@ -128,10 +87,6 @@ constructor(
         CardIncrementServiceAsyncImpl(clientOptions)
     }
 
-    private val cardAuthorizationExpirations: CardAuthorizationExpirationServiceAsync by lazy {
-        CardAuthorizationExpirationServiceAsyncImpl(clientOptions)
-    }
-
     private val cardFuelConfirmations: CardFuelConfirmationServiceAsync by lazy {
         CardFuelConfirmationServiceAsyncImpl(clientOptions)
     }
@@ -144,23 +99,62 @@ constructor(
         CardDisputeServiceAsyncImpl(clientOptions)
     }
 
-    private val digitalWalletTokenRequests: DigitalWalletTokenRequestServiceAsync by lazy {
-        DigitalWalletTokenRequestServiceAsyncImpl(clientOptions)
-    }
-
     private val physicalCards: PhysicalCardServiceAsync by lazy {
         PhysicalCardServiceAsyncImpl(clientOptions)
     }
 
-    private val interestPayments: InterestPaymentServiceAsync by lazy {
-        InterestPaymentServiceAsyncImpl(clientOptions)
+    private val digitalWalletTokenRequests: DigitalWalletTokenRequestServiceAsync by lazy {
+        DigitalWalletTokenRequestServiceAsyncImpl(clientOptions)
     }
 
-    private val accountStatements: AccountStatementServiceAsync by lazy {
-        AccountStatementServiceAsyncImpl(clientOptions)
+    private val inboundFundsHolds: InboundFundsHoldServiceAsync by lazy {
+        InboundFundsHoldServiceAsyncImpl(clientOptions)
     }
 
-    private val documents: DocumentServiceAsync by lazy { DocumentServiceAsyncImpl(clientOptions) }
+    private val accountTransfers: AccountTransferServiceAsync by lazy {
+        AccountTransferServiceAsyncImpl(clientOptions)
+    }
+
+    private val achTransfers: AchTransferServiceAsync by lazy {
+        AchTransferServiceAsyncImpl(clientOptions)
+    }
+
+    private val inboundAchTransfers: InboundAchTransferServiceAsync by lazy {
+        InboundAchTransferServiceAsyncImpl(clientOptions)
+    }
+
+    private val wireTransfers: WireTransferServiceAsync by lazy {
+        WireTransferServiceAsyncImpl(clientOptions)
+    }
+
+    private val inboundWireTransfers: InboundWireTransferServiceAsync by lazy {
+        InboundWireTransferServiceAsyncImpl(clientOptions)
+    }
+
+    private val inboundWireDrawdownRequests: InboundWireDrawdownRequestServiceAsync by lazy {
+        InboundWireDrawdownRequestServiceAsyncImpl(clientOptions)
+    }
+
+    private val checkTransfers: CheckTransferServiceAsync by lazy {
+        CheckTransferServiceAsyncImpl(clientOptions)
+    }
+
+    private val inboundCheckDeposits: InboundCheckDepositServiceAsync by lazy {
+        InboundCheckDepositServiceAsyncImpl(clientOptions)
+    }
+
+    private val realTimePaymentsTransfers: RealTimePaymentsTransferServiceAsync by lazy {
+        RealTimePaymentsTransferServiceAsyncImpl(clientOptions)
+    }
+
+    private val inboundRealTimePaymentsTransfers:
+        InboundRealTimePaymentsTransferServiceAsync by lazy {
+        InboundRealTimePaymentsTransferServiceAsyncImpl(clientOptions)
+    }
+
+    private val checkDeposits: CheckDepositServiceAsync by lazy {
+        CheckDepositServiceAsyncImpl(clientOptions)
+    }
 
     private val inboundMailItems: InboundMailItemServiceAsync by lazy {
         InboundMailItemServiceAsyncImpl(clientOptions)
@@ -168,34 +162,18 @@ constructor(
 
     private val programs: ProgramServiceAsync by lazy { ProgramServiceAsyncImpl(clientOptions) }
 
-    override fun accountTransfers(): AccountTransferServiceAsync = accountTransfers
+    private val accountStatements: AccountStatementServiceAsync by lazy {
+        AccountStatementServiceAsyncImpl(clientOptions)
+    }
 
-    override fun inboundAchTransfers(): InboundAchTransferServiceAsync = inboundAchTransfers
+    private val documents: DocumentServiceAsync by lazy { DocumentServiceAsyncImpl(clientOptions) }
 
-    override fun achTransfers(): AchTransferServiceAsync = achTransfers
-
-    override fun checkTransfers(): CheckTransferServiceAsync = checkTransfers
-
-    override fun inboundCheckDeposits(): InboundCheckDepositServiceAsync = inboundCheckDeposits
-
-    override fun checkDeposits(): CheckDepositServiceAsync = checkDeposits
-
-    override fun inboundWireTransfers(): InboundWireTransferServiceAsync = inboundWireTransfers
-
-    override fun wireTransfers(): WireTransferServiceAsync = wireTransfers
-
-    override fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestServiceAsync =
-        inboundWireDrawdownRequests
-
-    override fun inboundRealTimePaymentsTransfers(): InboundRealTimePaymentsTransferServiceAsync =
-        inboundRealTimePaymentsTransfers
-
-    override fun inboundFundsHolds(): InboundFundsHoldServiceAsync = inboundFundsHolds
-
-    override fun realTimePaymentsTransfers(): RealTimePaymentsTransferServiceAsync =
-        realTimePaymentsTransfers
+    override fun interestPayments(): InterestPaymentServiceAsync = interestPayments
 
     override fun cardAuthorizations(): CardAuthorizationServiceAsync = cardAuthorizations
+
+    override fun cardAuthorizationExpirations(): CardAuthorizationExpirationServiceAsync =
+        cardAuthorizationExpirations
 
     override fun cardSettlements(): CardSettlementServiceAsync = cardSettlements
 
@@ -203,27 +181,49 @@ constructor(
 
     override fun cardIncrements(): CardIncrementServiceAsync = cardIncrements
 
-    override fun cardAuthorizationExpirations(): CardAuthorizationExpirationServiceAsync =
-        cardAuthorizationExpirations
-
     override fun cardFuelConfirmations(): CardFuelConfirmationServiceAsync = cardFuelConfirmations
 
     override fun cardRefunds(): CardRefundServiceAsync = cardRefunds
 
     override fun cardDisputes(): CardDisputeServiceAsync = cardDisputes
 
+    override fun physicalCards(): PhysicalCardServiceAsync = physicalCards
+
     override fun digitalWalletTokenRequests(): DigitalWalletTokenRequestServiceAsync =
         digitalWalletTokenRequests
 
-    override fun physicalCards(): PhysicalCardServiceAsync = physicalCards
+    override fun inboundFundsHolds(): InboundFundsHoldServiceAsync = inboundFundsHolds
 
-    override fun interestPayments(): InterestPaymentServiceAsync = interestPayments
+    override fun accountTransfers(): AccountTransferServiceAsync = accountTransfers
 
-    override fun accountStatements(): AccountStatementServiceAsync = accountStatements
+    override fun achTransfers(): AchTransferServiceAsync = achTransfers
 
-    override fun documents(): DocumentServiceAsync = documents
+    override fun inboundAchTransfers(): InboundAchTransferServiceAsync = inboundAchTransfers
+
+    override fun wireTransfers(): WireTransferServiceAsync = wireTransfers
+
+    override fun inboundWireTransfers(): InboundWireTransferServiceAsync = inboundWireTransfers
+
+    override fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestServiceAsync =
+        inboundWireDrawdownRequests
+
+    override fun checkTransfers(): CheckTransferServiceAsync = checkTransfers
+
+    override fun inboundCheckDeposits(): InboundCheckDepositServiceAsync = inboundCheckDeposits
+
+    override fun realTimePaymentsTransfers(): RealTimePaymentsTransferServiceAsync =
+        realTimePaymentsTransfers
+
+    override fun inboundRealTimePaymentsTransfers(): InboundRealTimePaymentsTransferServiceAsync =
+        inboundRealTimePaymentsTransfers
+
+    override fun checkDeposits(): CheckDepositServiceAsync = checkDeposits
 
     override fun inboundMailItems(): InboundMailItemServiceAsync = inboundMailItems
 
     override fun programs(): ProgramServiceAsync = programs
+
+    override fun accountStatements(): AccountStatementServiceAsync = accountStatements
+
+    override fun documents(): DocumentServiceAsync = documents
 }

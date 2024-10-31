@@ -10,7 +10,7 @@ import com.increase.api.models.SimulationCardAuthorizationExpirationCreateParams
 
 interface CardAuthorizationExpirationService {
 
-    /** Simulates expiring a card authorization immediately. */
+    /** Simulates expiring a Card Authorization immediately. */
     @JvmOverloads
     fun create(
         params: SimulationCardAuthorizationExpirationCreateParams,
