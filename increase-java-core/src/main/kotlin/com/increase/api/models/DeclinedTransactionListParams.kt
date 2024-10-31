@@ -8,7 +8,7 @@ import com.increase.api.core.Enum
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import com.increase.api.models.*
 import java.time.OffsetDateTime
@@ -50,7 +50,7 @@ constructor(
         this.limit?.let { params.put("limit", listOf(it.toString())) }
         this.routeId?.let { params.put("route_id", listOf(it.toString())) }
         params.putAll(additionalQueryParams)
-        return params.toUnmodifiable()
+        return params.toImmutable()
     }
 
     @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
@@ -171,8 +171,8 @@ constructor(
                 cursor,
                 limit,
                 routeId,
-                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalQueryParams.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalHeaders.mapValues { it.value.toImmutable() }.toImmutable(),
             )
     }
 
@@ -236,8 +236,7 @@ constructor(
                     this.additionalProperties.putAll(additionalProperties)
                 }
 
-            fun build(): Category =
-                Category(in_?.toUnmodifiable(), additionalProperties.toUnmodifiable())
+            fun build(): Category = Category(in_?.toImmutable(), additionalProperties.toImmutable())
         }
 
         class In
@@ -471,7 +470,7 @@ constructor(
                     before,
                     onOrAfter,
                     onOrBefore,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 

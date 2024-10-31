@@ -13,7 +13,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -272,12 +272,12 @@ private constructor(
                 cardId,
                 createdAt,
                 digitalWalletTokenId,
-                elements.map { it.toUnmodifiable() },
+                elements.map { it.toImmutable() },
                 id,
                 physicalCardId,
                 state,
                 type,
-                additionalProperties.toUnmodifiable(),
+                additionalProperties.toImmutable(),
             )
     }
 
@@ -737,7 +737,7 @@ private constructor(
                     category,
                     createdAt,
                     other,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -1573,7 +1573,7 @@ private constructor(
                         realTimeDecisionId,
                         type,
                         verification,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -1869,7 +1869,7 @@ private constructor(
                         NetworkDetails(
                             category,
                             visa,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -2068,7 +2068,7 @@ private constructor(
                             Visa(
                                 electronicCommerceIndicator,
                                 pointOfServiceEntryMode,
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -2537,7 +2537,7 @@ private constructor(
                             retrievalReferenceNumber,
                             traceNumber,
                             transactionId,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -2826,7 +2826,7 @@ private constructor(
                         Verification(
                             cardVerificationCode,
                             cardholderAddress,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -2904,7 +2904,7 @@ private constructor(
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
                         fun build(): CardVerificationCode =
-                            CardVerificationCode(result, additionalProperties.toUnmodifiable())
+                            CardVerificationCode(result, additionalProperties.toImmutable())
                     }
 
                     class Result
@@ -3182,7 +3182,7 @@ private constructor(
                                 providedLine1,
                                 providedPostalCode,
                                 result,
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -3558,7 +3558,7 @@ private constructor(
                         id,
                         network,
                         type,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -4555,7 +4555,7 @@ private constructor(
                         realTimeDecisionId,
                         reason,
                         verification,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -4851,7 +4851,7 @@ private constructor(
                         NetworkDetails(
                             category,
                             visa,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -5050,7 +5050,7 @@ private constructor(
                             Visa(
                                 electronicCommerceIndicator,
                                 pointOfServiceEntryMode,
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -5519,7 +5519,7 @@ private constructor(
                             retrievalReferenceNumber,
                             traceNumber,
                             transactionId,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -5900,7 +5900,7 @@ private constructor(
                         Verification(
                             cardVerificationCode,
                             cardholderAddress,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -5978,7 +5978,7 @@ private constructor(
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
                         fun build(): CardVerificationCode =
-                            CardVerificationCode(result, additionalProperties.toUnmodifiable())
+                            CardVerificationCode(result, additionalProperties.toImmutable())
                     }
 
                     class Result
@@ -6256,7 +6256,7 @@ private constructor(
                                 providedLine1,
                                 providedPostalCode,
                                 result,
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -6699,7 +6699,7 @@ private constructor(
                         pendingTransactionId,
                         type,
                         updatedAuthorizationAmount,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -7001,7 +7001,7 @@ private constructor(
                             retrievalReferenceNumber,
                             traceNumber,
                             transactionId,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -7508,7 +7508,7 @@ private constructor(
                         realTimeDecisionId,
                         type,
                         updatedAuthorizationAmount,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -7873,7 +7873,7 @@ private constructor(
                             retrievalReferenceNumber,
                             traceNumber,
                             transactionId,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -8478,7 +8478,7 @@ private constructor(
                         purchaseDetails,
                         transactionId,
                         type,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -8701,7 +8701,7 @@ private constructor(
                             amount,
                             code,
                             currency,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -8959,7 +8959,7 @@ private constructor(
                             acquirerBusinessId,
                             acquirerReferenceNumber,
                             transactionId,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -9316,7 +9316,7 @@ private constructor(
                             purchaseIdentifier,
                             purchaseIdentifierFormat,
                             travel,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -9895,7 +9895,7 @@ private constructor(
                                 renterName,
                                 weeklyRentalRateAmount,
                                 weeklyRentalRateCurrency,
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -10634,7 +10634,7 @@ private constructor(
                                 totalRoomTaxCurrency,
                                 totalTaxAmount,
                                 totalTaxCurrency,
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -11283,8 +11283,8 @@ private constructor(
                                 ticketNumber,
                                 travelAgencyCode,
                                 travelAgencyName,
-                                tripLegs.map { it.toUnmodifiable() },
-                                additionalProperties.toUnmodifiable(),
+                                tripLegs.map { it.toImmutable() },
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -11506,9 +11506,9 @@ private constructor(
                                     connectedTicketDocumentNumber,
                                     creditReasonIndicator,
                                     passengerNameOrDescription,
-                                    services.map { it.toUnmodifiable() },
+                                    services.map { it.toImmutable() },
                                     ticketDocumentNumber,
-                                    additionalProperties.toUnmodifiable(),
+                                    additionalProperties.toImmutable(),
                                 )
                         }
 
@@ -11707,7 +11707,7 @@ private constructor(
                                     Service(
                                         category,
                                         subCategory,
-                                        additionalProperties.toUnmodifiable(),
+                                        additionalProperties.toImmutable(),
                                     )
                             }
 
@@ -12425,7 +12425,7 @@ private constructor(
                                     flightNumber,
                                     serviceClass,
                                     stopOverCode,
-                                    additionalProperties.toUnmodifiable(),
+                                    additionalProperties.toImmutable(),
                                 )
                         }
 
@@ -13166,7 +13166,7 @@ private constructor(
                         reversalReason,
                         type,
                         updatedAuthorizationAmount,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -13468,7 +13468,7 @@ private constructor(
                             retrievalReferenceNumber,
                             traceNumber,
                             transactionId,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -14208,7 +14208,7 @@ private constructor(
                         purchaseDetails,
                         transactionId,
                         type,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -14431,7 +14431,7 @@ private constructor(
                             amount,
                             code,
                             currency,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -14689,7 +14689,7 @@ private constructor(
                             acquirerBusinessId,
                             acquirerReferenceNumber,
                             transactionId,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -15046,7 +15046,7 @@ private constructor(
                             purchaseIdentifier,
                             purchaseIdentifierFormat,
                             travel,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -15625,7 +15625,7 @@ private constructor(
                                 renterName,
                                 weeklyRentalRateAmount,
                                 weeklyRentalRateCurrency,
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -16364,7 +16364,7 @@ private constructor(
                                 totalRoomTaxCurrency,
                                 totalTaxAmount,
                                 totalTaxCurrency,
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -17013,8 +17013,8 @@ private constructor(
                                 ticketNumber,
                                 travelAgencyCode,
                                 travelAgencyName,
-                                tripLegs.map { it.toUnmodifiable() },
-                                additionalProperties.toUnmodifiable(),
+                                tripLegs.map { it.toImmutable() },
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -17236,9 +17236,9 @@ private constructor(
                                     connectedTicketDocumentNumber,
                                     creditReasonIndicator,
                                     passengerNameOrDescription,
-                                    services.map { it.toUnmodifiable() },
+                                    services.map { it.toImmutable() },
                                     ticketDocumentNumber,
-                                    additionalProperties.toUnmodifiable(),
+                                    additionalProperties.toImmutable(),
                                 )
                         }
 
@@ -17437,7 +17437,7 @@ private constructor(
                                     Service(
                                         category,
                                         subCategory,
-                                        additionalProperties.toUnmodifiable(),
+                                        additionalProperties.toImmutable(),
                                     )
                             }
 
@@ -18155,7 +18155,7 @@ private constructor(
                                     flightNumber,
                                     serviceClass,
                                     stopOverCode,
-                                    additionalProperties.toUnmodifiable(),
+                                    additionalProperties.toImmutable(),
                                 )
                         }
 
@@ -18973,7 +18973,7 @@ private constructor(
                         realTimeDecisionId,
                         type,
                         verification,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -19212,7 +19212,7 @@ private constructor(
                         NetworkDetails(
                             category,
                             visa,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -19411,7 +19411,7 @@ private constructor(
                             Visa(
                                 electronicCommerceIndicator,
                                 pointOfServiceEntryMode,
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -19880,7 +19880,7 @@ private constructor(
                             retrievalReferenceNumber,
                             traceNumber,
                             transactionId,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -20084,7 +20084,7 @@ private constructor(
                         Verification(
                             cardVerificationCode,
                             cardholderAddress,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -20162,7 +20162,7 @@ private constructor(
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
                         fun build(): CardVerificationCode =
-                            CardVerificationCode(result, additionalProperties.toUnmodifiable())
+                            CardVerificationCode(result, additionalProperties.toImmutable())
                     }
 
                     class Result
@@ -20440,7 +20440,7 @@ private constructor(
                                 providedLine1,
                                 providedPostalCode,
                                 result,
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -20962,7 +20962,7 @@ private constructor(
                     incrementedAmount,
                     reversedAmount,
                     settledAmount,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 

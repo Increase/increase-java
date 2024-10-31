@@ -13,7 +13,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
@@ -402,7 +402,7 @@ private constructor(
                 source,
                 status,
                 type,
-                additionalProperties.toUnmodifiable(),
+                additionalProperties.toImmutable(),
             )
     }
 
@@ -974,7 +974,7 @@ private constructor(
                     other,
                     realTimePaymentsTransferInstruction,
                     wireTransferInstruction,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -1117,7 +1117,7 @@ private constructor(
                         amount,
                         currency,
                         transferId,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -1319,7 +1319,7 @@ private constructor(
                     AchTransferInstruction(
                         amount,
                         transferId,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -2176,7 +2176,7 @@ private constructor(
                         realTimeDecisionId,
                         type,
                         verification,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -2472,7 +2472,7 @@ private constructor(
                         NetworkDetails(
                             category,
                             visa,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -2671,7 +2671,7 @@ private constructor(
                             Visa(
                                 electronicCommerceIndicator,
                                 pointOfServiceEntryMode,
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -3140,7 +3140,7 @@ private constructor(
                             retrievalReferenceNumber,
                             traceNumber,
                             transactionId,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -3429,7 +3429,7 @@ private constructor(
                         Verification(
                             cardVerificationCode,
                             cardholderAddress,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -3507,7 +3507,7 @@ private constructor(
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
                         fun build(): CardVerificationCode =
-                            CardVerificationCode(result, additionalProperties.toUnmodifiable())
+                            CardVerificationCode(result, additionalProperties.toImmutable())
                     }
 
                     class Result
@@ -3785,7 +3785,7 @@ private constructor(
                                 providedLine1,
                                 providedPostalCode,
                                 result,
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -4266,7 +4266,7 @@ private constructor(
                         checkDepositId,
                         currency,
                         frontImageFileId,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -4497,7 +4497,7 @@ private constructor(
                         amount,
                         currency,
                         transferId,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -4931,7 +4931,7 @@ private constructor(
                         releasedAt,
                         status,
                         type,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -5255,7 +5255,7 @@ private constructor(
                     RealTimePaymentsTransferInstruction(
                         amount,
                         transferId,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -5457,7 +5457,7 @@ private constructor(
                         messageToRecipient,
                         routingNumber,
                         transferId,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 

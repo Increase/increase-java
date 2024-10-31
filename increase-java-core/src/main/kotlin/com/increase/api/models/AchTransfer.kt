@@ -13,7 +13,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -1028,7 +1028,7 @@ private constructor(
                 individualId,
                 individualName,
                 network,
-                notificationsOfChange.map { it.toUnmodifiable() },
+                notificationsOfChange.map { it.toImmutable() },
                 pendingTransactionId,
                 preferredEffectiveDate,
                 return_,
@@ -1040,7 +1040,7 @@ private constructor(
                 submission,
                 transactionId,
                 type,
-                additionalProperties.toUnmodifiable(),
+                additionalProperties.toImmutable(),
             )
     }
 
@@ -1123,7 +1123,7 @@ private constructor(
             }
 
             fun build(): Acknowledgement =
-                Acknowledgement(acknowledgedAt, additionalProperties.toUnmodifiable())
+                Acknowledgement(acknowledgedAt, additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -1290,7 +1290,7 @@ private constructor(
                     category,
                     freeform,
                     paymentOrderRemittanceAdvice,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -1429,10 +1429,7 @@ private constructor(
                     }
 
                 fun build(): Freeform =
-                    Freeform(
-                        entries.map { it.toUnmodifiable() },
-                        additionalProperties.toUnmodifiable()
-                    )
+                    Freeform(entries.map { it.toImmutable() }, additionalProperties.toImmutable())
             }
 
             @JsonDeserialize(builder = Entry.Builder::class)
@@ -1511,7 +1508,7 @@ private constructor(
                         }
 
                     fun build(): Entry =
-                        Entry(paymentRelatedInformation, additionalProperties.toUnmodifiable())
+                        Entry(paymentRelatedInformation, additionalProperties.toImmutable())
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -1633,8 +1630,8 @@ private constructor(
 
                 fun build(): PaymentOrderRemittanceAdvice =
                     PaymentOrderRemittanceAdvice(
-                        invoices.map { it.toUnmodifiable() },
-                        additionalProperties.toUnmodifiable()
+                        invoices.map { it.toImmutable() },
+                        additionalProperties.toImmutable()
                     )
             }
 
@@ -1755,7 +1752,7 @@ private constructor(
                         Invoice(
                             invoiceNumber,
                             paidAmount,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -1940,7 +1937,7 @@ private constructor(
                 Approval(
                     approvedAt,
                     approvedBy,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -2083,7 +2080,7 @@ private constructor(
                 Cancellation(
                     canceledAt,
                     canceledBy,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -2242,7 +2239,7 @@ private constructor(
                     category,
                     oauthApplication,
                     user,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -2318,7 +2315,7 @@ private constructor(
                         this.additionalProperties.putAll(additionalProperties)
                     }
 
-                fun build(): ApiKey = ApiKey(description, additionalProperties.toUnmodifiable())
+                fun build(): ApiKey = ApiKey(description, additionalProperties.toImmutable())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -2475,7 +2472,7 @@ private constructor(
                     }
 
                 fun build(): OAuthApplication =
-                    OAuthApplication(name, additionalProperties.toUnmodifiable())
+                    OAuthApplication(name, additionalProperties.toImmutable())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -2568,7 +2565,7 @@ private constructor(
                         this.additionalProperties.putAll(additionalProperties)
                     }
 
-                fun build(): User = User(email, additionalProperties.toUnmodifiable())
+                fun build(): User = User(email, additionalProperties.toImmutable())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -3136,7 +3133,7 @@ private constructor(
                     releasedAt,
                     status,
                     type,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -3563,7 +3560,7 @@ private constructor(
                     changeCode,
                     correctedData,
                     createdAt,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -3937,7 +3934,7 @@ private constructor(
                 PreferredEffectiveDate(
                     date,
                     settlementSchedule,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -4247,7 +4244,7 @@ private constructor(
                     traceNumber,
                     transactionId,
                     transferId,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -4994,7 +4991,7 @@ private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Settlement = Settlement(settledAt, additionalProperties.toUnmodifiable())
+            fun build(): Settlement = Settlement(settledAt, additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -5437,7 +5434,7 @@ private constructor(
                     expectedSettlementSchedule,
                     submittedAt,
                     traceNumber,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
