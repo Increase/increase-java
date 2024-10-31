@@ -12,8 +12,8 @@ import java.util.concurrent.CompletableFuture
 interface InboundRealTimePaymentsTransferServiceAsync {
 
     /**
-     * Simulates an inbound Real-Time Payments transfer to your account. Real-Time Payments are a
-     * beta feature.
+     * Simulates an [Inbound Real-Time Payments Transfer](#inbound-real-time-payments-transfers) to
+     * your account. Real-Time Payments are a beta feature.
      */
     @JvmOverloads
     fun create(

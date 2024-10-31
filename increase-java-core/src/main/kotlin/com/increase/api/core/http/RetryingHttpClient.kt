@@ -1,8 +1,5 @@
-@file:JvmSynthetic
-
 package com.increase.api.core.http
 
-import com.google.common.util.concurrent.MoreExecutors
 import com.increase.api.core.RequestOptions
 import com.increase.api.errors.IncreaseIoException
 import java.io.IOException
@@ -118,23 +115,22 @@ private constructor(
                             executeWithRetries(request, requestOptions)
                         }
                     },
-                    MoreExecutors.directExecutor()
-                )
+                ) {
+                    // Run in the same thread.
+                    it.run()
+                }
                 .thenCompose(Function.identity())
         }
 
         return executeWithRetries(request, requestOptions)
     }
 
-    override fun close() {
-        httpClient.close()
-    }
+    override fun close() = httpClient.close()
 
-    private fun isRetryable(request: HttpRequest): Boolean {
+    private fun isRetryable(request: HttpRequest): Boolean =
         // Some requests, such as when a request body is being streamed, cannot be retried because
         // the body data aren't available on subsequent attempts.
-        return request.body?.repeatable() ?: true
-    }
+        request.body?.repeatable() ?: true
 
     private fun setRetryCountHeader(request: HttpRequest, retries: Int) {
         request.headers.removeAll("x-stainless-retry-count")
@@ -172,11 +168,10 @@ private constructor(
         }
     }
 
-    private fun shouldRetry(throwable: Throwable): Boolean {
+    private fun shouldRetry(throwable: Throwable): Boolean =
         // Only retry IOException and IncreaseIoException, other exceptions are not intended to be
         // retried.
-        return throwable is IOException || throwable is IncreaseIoException
-    }
+        throwable is IOException || throwable is IncreaseIoException
 
     private fun getRetryBackoffMillis(retries: Int, response: HttpResponse?): Duration {
         // About the Retry-After header:

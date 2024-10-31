@@ -25,7 +25,7 @@ constructor(
     private val createHandler: Handler<InboundWireTransfer> =
         jsonHandler<InboundWireTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-    /** Simulates an inbound Wire Transfer to your account. */
+    /** Simulates an [Inbound Wire Transfer](#inbound-wire-transfers) to your account. */
     override fun create(
         params: SimulationInboundWireTransferCreateParams,
         requestOptions: RequestOptions
