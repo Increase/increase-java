@@ -13,7 +13,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
@@ -190,13 +190,13 @@ private constructor(
 
         fun build(): ProofOfAuthorizationRequest =
             ProofOfAuthorizationRequest(
-                achTransfers.map { it.toUnmodifiable() },
+                achTransfers.map { it.toImmutable() },
                 createdAt,
                 dueOn,
                 id,
                 type,
                 updatedAt,
-                additionalProperties.toUnmodifiable(),
+                additionalProperties.toImmutable(),
             )
     }
 
@@ -267,7 +267,7 @@ private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): AchTransfer = AchTransfer(id, additionalProperties.toUnmodifiable())
+            fun build(): AchTransfer = AchTransfer(id, additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {

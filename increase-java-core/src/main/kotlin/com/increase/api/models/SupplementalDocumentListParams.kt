@@ -3,7 +3,7 @@
 package com.increase.api.models
 
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.toImmutable
 import com.increase.api.models.*
 import java.util.Objects
 import java.util.Optional
@@ -34,7 +34,7 @@ constructor(
         this.idempotencyKey?.let { params.put("idempotency_key", listOf(it.toString())) }
         this.limit?.let { params.put("limit", listOf(it.toString())) }
         params.putAll(additionalQueryParams)
-        return params.toUnmodifiable()
+        return params.toImmutable()
     }
 
     @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
@@ -150,8 +150,8 @@ constructor(
                 cursor,
                 idempotencyKey,
                 limit,
-                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalQueryParams.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalHeaders.mapValues { it.value.toImmutable() }.toImmutable(),
             )
     }
 }

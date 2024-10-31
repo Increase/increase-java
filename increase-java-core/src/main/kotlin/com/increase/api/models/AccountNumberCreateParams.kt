@@ -12,7 +12,7 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import com.increase.api.models.*
 import java.util.Objects
@@ -142,7 +142,7 @@ constructor(
                     checkNotNull(name) { "`name` is required but was not set" },
                     inboundAch,
                     inboundChecks,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -291,9 +291,9 @@ constructor(
                 checkNotNull(name) { "`name` is required but was not set" },
                 inboundAch,
                 inboundChecks,
-                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalBodyProperties.toUnmodifiable(),
+                additionalQueryParams.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalHeaders.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -360,7 +360,7 @@ constructor(
             fun build(): InboundAch =
                 InboundAch(
                     checkNotNull(debitStatus) { "`debitStatus` is required but was not set" },
-                    additionalProperties.toUnmodifiable()
+                    additionalProperties.toImmutable()
                 )
         }
 
@@ -502,7 +502,7 @@ constructor(
             fun build(): InboundChecks =
                 InboundChecks(
                     checkNotNull(status) { "`status` is required but was not set" },
-                    additionalProperties.toUnmodifiable()
+                    additionalProperties.toImmutable()
                 )
         }
 

@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.toImmutable
 import java.util.Objects
 
 @JsonDeserialize(builder = IncreaseError.Builder::class)
@@ -60,6 +60,6 @@ constructor(
             this.additionalProperties.putAll(additionalProperties)
         }
 
-        fun build(): IncreaseError = IncreaseError(additionalProperties.toUnmodifiable())
+        fun build(): IncreaseError = IncreaseError(additionalProperties.toImmutable())
     }
 }
