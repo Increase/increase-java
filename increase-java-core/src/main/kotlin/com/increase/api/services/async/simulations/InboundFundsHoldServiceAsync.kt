@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture
 interface InboundFundsHoldServiceAsync {
 
     /**
-     * This endpoint simulates immediately releasing an inbound funds hold, which might be created
+     * This endpoint simulates immediately releasing an Inbound Funds Hold, which might be created
      * as a result of e.g., an ACH debit.
      */
     @JvmOverloads

@@ -11,7 +11,7 @@ import java.util.concurrent.CompletableFuture
 
 interface CardAuthorizationExpirationServiceAsync {
 
-    /** Simulates expiring a card authorization immediately. */
+    /** Simulates expiring a Card Authorization immediately. */
     @JvmOverloads
     fun create(
         params: SimulationCardAuthorizationExpirationCreateParams,

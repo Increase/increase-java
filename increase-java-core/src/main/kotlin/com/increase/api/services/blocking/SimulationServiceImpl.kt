@@ -63,54 +63,16 @@ constructor(
     private val clientOptions: ClientOptions,
 ) : SimulationService {
 
-    private val accountTransfers: AccountTransferService by lazy {
-        AccountTransferServiceImpl(clientOptions)
-    }
-
-    private val inboundAchTransfers: InboundAchTransferService by lazy {
-        InboundAchTransferServiceImpl(clientOptions)
-    }
-
-    private val achTransfers: AchTransferService by lazy { AchTransferServiceImpl(clientOptions) }
-
-    private val checkTransfers: CheckTransferService by lazy {
-        CheckTransferServiceImpl(clientOptions)
-    }
-
-    private val inboundCheckDeposits: InboundCheckDepositService by lazy {
-        InboundCheckDepositServiceImpl(clientOptions)
-    }
-
-    private val checkDeposits: CheckDepositService by lazy {
-        CheckDepositServiceImpl(clientOptions)
-    }
-
-    private val inboundWireTransfers: InboundWireTransferService by lazy {
-        InboundWireTransferServiceImpl(clientOptions)
-    }
-
-    private val wireTransfers: WireTransferService by lazy {
-        WireTransferServiceImpl(clientOptions)
-    }
-
-    private val inboundWireDrawdownRequests: InboundWireDrawdownRequestService by lazy {
-        InboundWireDrawdownRequestServiceImpl(clientOptions)
-    }
-
-    private val inboundRealTimePaymentsTransfers: InboundRealTimePaymentsTransferService by lazy {
-        InboundRealTimePaymentsTransferServiceImpl(clientOptions)
-    }
-
-    private val inboundFundsHolds: InboundFundsHoldService by lazy {
-        InboundFundsHoldServiceImpl(clientOptions)
-    }
-
-    private val realTimePaymentsTransfers: RealTimePaymentsTransferService by lazy {
-        RealTimePaymentsTransferServiceImpl(clientOptions)
+    private val interestPayments: InterestPaymentService by lazy {
+        InterestPaymentServiceImpl(clientOptions)
     }
 
     private val cardAuthorizations: CardAuthorizationService by lazy {
         CardAuthorizationServiceImpl(clientOptions)
+    }
+
+    private val cardAuthorizationExpirations: CardAuthorizationExpirationService by lazy {
+        CardAuthorizationExpirationServiceImpl(clientOptions)
     }
 
     private val cardSettlements: CardSettlementService by lazy {
@@ -125,10 +87,6 @@ constructor(
         CardIncrementServiceImpl(clientOptions)
     }
 
-    private val cardAuthorizationExpirations: CardAuthorizationExpirationService by lazy {
-        CardAuthorizationExpirationServiceImpl(clientOptions)
-    }
-
     private val cardFuelConfirmations: CardFuelConfirmationService by lazy {
         CardFuelConfirmationServiceImpl(clientOptions)
     }
@@ -137,23 +95,59 @@ constructor(
 
     private val cardDisputes: CardDisputeService by lazy { CardDisputeServiceImpl(clientOptions) }
 
-    private val digitalWalletTokenRequests: DigitalWalletTokenRequestService by lazy {
-        DigitalWalletTokenRequestServiceImpl(clientOptions)
-    }
-
     private val physicalCards: PhysicalCardService by lazy {
         PhysicalCardServiceImpl(clientOptions)
     }
 
-    private val interestPayments: InterestPaymentService by lazy {
-        InterestPaymentServiceImpl(clientOptions)
+    private val digitalWalletTokenRequests: DigitalWalletTokenRequestService by lazy {
+        DigitalWalletTokenRequestServiceImpl(clientOptions)
     }
 
-    private val accountStatements: AccountStatementService by lazy {
-        AccountStatementServiceImpl(clientOptions)
+    private val inboundFundsHolds: InboundFundsHoldService by lazy {
+        InboundFundsHoldServiceImpl(clientOptions)
     }
 
-    private val documents: DocumentService by lazy { DocumentServiceImpl(clientOptions) }
+    private val accountTransfers: AccountTransferService by lazy {
+        AccountTransferServiceImpl(clientOptions)
+    }
+
+    private val achTransfers: AchTransferService by lazy { AchTransferServiceImpl(clientOptions) }
+
+    private val inboundAchTransfers: InboundAchTransferService by lazy {
+        InboundAchTransferServiceImpl(clientOptions)
+    }
+
+    private val wireTransfers: WireTransferService by lazy {
+        WireTransferServiceImpl(clientOptions)
+    }
+
+    private val inboundWireTransfers: InboundWireTransferService by lazy {
+        InboundWireTransferServiceImpl(clientOptions)
+    }
+
+    private val inboundWireDrawdownRequests: InboundWireDrawdownRequestService by lazy {
+        InboundWireDrawdownRequestServiceImpl(clientOptions)
+    }
+
+    private val checkTransfers: CheckTransferService by lazy {
+        CheckTransferServiceImpl(clientOptions)
+    }
+
+    private val inboundCheckDeposits: InboundCheckDepositService by lazy {
+        InboundCheckDepositServiceImpl(clientOptions)
+    }
+
+    private val realTimePaymentsTransfers: RealTimePaymentsTransferService by lazy {
+        RealTimePaymentsTransferServiceImpl(clientOptions)
+    }
+
+    private val inboundRealTimePaymentsTransfers: InboundRealTimePaymentsTransferService by lazy {
+        InboundRealTimePaymentsTransferServiceImpl(clientOptions)
+    }
+
+    private val checkDeposits: CheckDepositService by lazy {
+        CheckDepositServiceImpl(clientOptions)
+    }
 
     private val inboundMailItems: InboundMailItemService by lazy {
         InboundMailItemServiceImpl(clientOptions)
@@ -161,34 +155,18 @@ constructor(
 
     private val programs: ProgramService by lazy { ProgramServiceImpl(clientOptions) }
 
-    override fun accountTransfers(): AccountTransferService = accountTransfers
+    private val accountStatements: AccountStatementService by lazy {
+        AccountStatementServiceImpl(clientOptions)
+    }
 
-    override fun inboundAchTransfers(): InboundAchTransferService = inboundAchTransfers
+    private val documents: DocumentService by lazy { DocumentServiceImpl(clientOptions) }
 
-    override fun achTransfers(): AchTransferService = achTransfers
-
-    override fun checkTransfers(): CheckTransferService = checkTransfers
-
-    override fun inboundCheckDeposits(): InboundCheckDepositService = inboundCheckDeposits
-
-    override fun checkDeposits(): CheckDepositService = checkDeposits
-
-    override fun inboundWireTransfers(): InboundWireTransferService = inboundWireTransfers
-
-    override fun wireTransfers(): WireTransferService = wireTransfers
-
-    override fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestService =
-        inboundWireDrawdownRequests
-
-    override fun inboundRealTimePaymentsTransfers(): InboundRealTimePaymentsTransferService =
-        inboundRealTimePaymentsTransfers
-
-    override fun inboundFundsHolds(): InboundFundsHoldService = inboundFundsHolds
-
-    override fun realTimePaymentsTransfers(): RealTimePaymentsTransferService =
-        realTimePaymentsTransfers
+    override fun interestPayments(): InterestPaymentService = interestPayments
 
     override fun cardAuthorizations(): CardAuthorizationService = cardAuthorizations
+
+    override fun cardAuthorizationExpirations(): CardAuthorizationExpirationService =
+        cardAuthorizationExpirations
 
     override fun cardSettlements(): CardSettlementService = cardSettlements
 
@@ -196,27 +174,49 @@ constructor(
 
     override fun cardIncrements(): CardIncrementService = cardIncrements
 
-    override fun cardAuthorizationExpirations(): CardAuthorizationExpirationService =
-        cardAuthorizationExpirations
-
     override fun cardFuelConfirmations(): CardFuelConfirmationService = cardFuelConfirmations
 
     override fun cardRefunds(): CardRefundService = cardRefunds
 
     override fun cardDisputes(): CardDisputeService = cardDisputes
 
+    override fun physicalCards(): PhysicalCardService = physicalCards
+
     override fun digitalWalletTokenRequests(): DigitalWalletTokenRequestService =
         digitalWalletTokenRequests
 
-    override fun physicalCards(): PhysicalCardService = physicalCards
+    override fun inboundFundsHolds(): InboundFundsHoldService = inboundFundsHolds
 
-    override fun interestPayments(): InterestPaymentService = interestPayments
+    override fun accountTransfers(): AccountTransferService = accountTransfers
 
-    override fun accountStatements(): AccountStatementService = accountStatements
+    override fun achTransfers(): AchTransferService = achTransfers
 
-    override fun documents(): DocumentService = documents
+    override fun inboundAchTransfers(): InboundAchTransferService = inboundAchTransfers
+
+    override fun wireTransfers(): WireTransferService = wireTransfers
+
+    override fun inboundWireTransfers(): InboundWireTransferService = inboundWireTransfers
+
+    override fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestService =
+        inboundWireDrawdownRequests
+
+    override fun checkTransfers(): CheckTransferService = checkTransfers
+
+    override fun inboundCheckDeposits(): InboundCheckDepositService = inboundCheckDeposits
+
+    override fun realTimePaymentsTransfers(): RealTimePaymentsTransferService =
+        realTimePaymentsTransfers
+
+    override fun inboundRealTimePaymentsTransfers(): InboundRealTimePaymentsTransferService =
+        inboundRealTimePaymentsTransfers
+
+    override fun checkDeposits(): CheckDepositService = checkDeposits
 
     override fun inboundMailItems(): InboundMailItemService = inboundMailItems
 
     override fun programs(): ProgramService = programs
+
+    override fun accountStatements(): AccountStatementService = accountStatements
+
+    override fun documents(): DocumentService = documents
 }

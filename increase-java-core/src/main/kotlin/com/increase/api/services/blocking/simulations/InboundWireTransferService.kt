@@ -10,7 +10,7 @@ import com.increase.api.models.SimulationInboundWireTransferCreateParams
 
 interface InboundWireTransferService {
 
-    /** Simulates an inbound Wire Transfer to your account. */
+    /** Simulates an [Inbound Wire Transfer](#inbound-wire-transfers) to your account. */
     @JvmOverloads
     fun create(
         params: SimulationInboundWireTransferCreateParams,
