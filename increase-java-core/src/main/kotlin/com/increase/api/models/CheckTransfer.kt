@@ -13,7 +13,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
@@ -685,7 +685,7 @@ private constructor(
                 submission,
                 thirdParty,
                 type,
-                additionalProperties.toUnmodifiable(),
+                additionalProperties.toImmutable(),
             )
     }
 
@@ -807,7 +807,7 @@ private constructor(
                 Approval(
                     approvedAt,
                     approvedBy,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -950,7 +950,7 @@ private constructor(
                 Cancellation(
                     canceledAt,
                     canceledBy,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -1109,7 +1109,7 @@ private constructor(
                     category,
                     oauthApplication,
                     user,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -1185,7 +1185,7 @@ private constructor(
                         this.additionalProperties.putAll(additionalProperties)
                     }
 
-                fun build(): ApiKey = ApiKey(description, additionalProperties.toUnmodifiable())
+                fun build(): ApiKey = ApiKey(description, additionalProperties.toImmutable())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -1342,7 +1342,7 @@ private constructor(
                     }
 
                 fun build(): OAuthApplication =
-                    OAuthApplication(name, additionalProperties.toUnmodifiable())
+                    OAuthApplication(name, additionalProperties.toImmutable())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -1435,7 +1435,7 @@ private constructor(
                         this.additionalProperties.putAll(additionalProperties)
                     }
 
-                fun build(): User = User(email, additionalProperties.toUnmodifiable())
+                fun build(): User = User(email, additionalProperties.toImmutable())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -1730,7 +1730,7 @@ private constructor(
                 Mailing(
                     imageId,
                     mailedAt,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -1970,8 +1970,8 @@ private constructor(
                     recipientName,
                     returnAddress,
                     signatureText,
-                    trackingUpdates.map { it.toUnmodifiable() },
-                    additionalProperties.toUnmodifiable(),
+                    trackingUpdates.map { it.toImmutable() },
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -2145,7 +2145,7 @@ private constructor(
                         name,
                         postalCode,
                         state,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -2340,7 +2340,7 @@ private constructor(
                         name,
                         postalCode,
                         state,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -2490,7 +2490,7 @@ private constructor(
                         category,
                         createdAt,
                         postalCode,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -2853,7 +2853,7 @@ private constructor(
                     requestedAt,
                     transferId,
                     type,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -3070,7 +3070,7 @@ private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Submission = Submission(submittedAt, additionalProperties.toUnmodifiable())
+            fun build(): Submission = Submission(submittedAt, additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -3168,7 +3168,7 @@ private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): ThirdParty = ThirdParty(checkNumber, additionalProperties.toUnmodifiable())
+            fun build(): ThirdParty = ThirdParty(checkNumber, additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {

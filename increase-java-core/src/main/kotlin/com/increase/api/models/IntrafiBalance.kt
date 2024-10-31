@@ -13,7 +13,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.LocalDate
 import java.util.Objects
@@ -218,13 +218,13 @@ private constructor(
 
         fun build(): IntrafiBalance =
             IntrafiBalance(
-                balances.map { it.toUnmodifiable() },
+                balances.map { it.toImmutable() },
                 currency,
                 effectiveDate,
                 id,
                 totalBalance,
                 type,
-                additionalProperties.toUnmodifiable(),
+                additionalProperties.toImmutable(),
             )
     }
 
@@ -399,7 +399,7 @@ private constructor(
                     bankLocation,
                     fdicCertificateNumber,
                     id,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -494,7 +494,7 @@ private constructor(
                     BankLocation(
                         city,
                         state,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 

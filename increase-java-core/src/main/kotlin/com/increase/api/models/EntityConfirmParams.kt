@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.toImmutable
 import com.increase.api.models.*
 import java.time.OffsetDateTime
 import java.util.Objects
@@ -102,7 +102,7 @@ constructor(
             }
 
             fun build(): EntityConfirmBody =
-                EntityConfirmBody(confirmedAt, additionalProperties.toUnmodifiable())
+                EntityConfirmBody(confirmedAt, additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -239,9 +239,9 @@ constructor(
             EntityConfirmParams(
                 checkNotNull(entityId) { "`entityId` is required but was not set" },
                 confirmedAt,
-                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalBodyProperties.toUnmodifiable(),
+                additionalQueryParams.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalHeaders.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalBodyProperties.toImmutable(),
             )
     }
 }

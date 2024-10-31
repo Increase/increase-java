@@ -13,7 +13,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -535,7 +535,7 @@ private constructor(
                 status,
                 submission,
                 type,
-                additionalProperties.toUnmodifiable(),
+                additionalProperties.toImmutable(),
             )
     }
 
@@ -709,7 +709,7 @@ private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Refusal = Refusal(refusalReasonCode, additionalProperties.toUnmodifiable())
+            fun build(): Refusal = Refusal(refusalReasonCode, additionalProperties.toImmutable())
         }
 
         class RefusalReasonCode
@@ -961,8 +961,7 @@ private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Rejection =
-                Rejection(rejectReasonCode, additionalProperties.toUnmodifiable())
+            fun build(): Rejection = Rejection(rejectReasonCode, additionalProperties.toImmutable())
         }
 
         class RejectReasonCode
@@ -1346,7 +1345,7 @@ private constructor(
             }
 
             fun build(): Submission =
-                Submission(paymentInformationIdentification, additionalProperties.toUnmodifiable())
+                Submission(paymentInformationIdentification, additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {

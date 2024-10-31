@@ -13,7 +13,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 import java.util.Optional
@@ -599,7 +599,7 @@ private constructor(
                 status,
                 submission,
                 type,
-                additionalProperties.toUnmodifiable(),
+                additionalProperties.toImmutable(),
             )
     }
 
@@ -762,7 +762,7 @@ private constructor(
             }
 
             fun build(): Submission =
-                Submission(inputMessageAccountabilityData, additionalProperties.toUnmodifiable())
+                Submission(inputMessageAccountabilityData, additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {

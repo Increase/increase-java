@@ -3,7 +3,7 @@
 package com.increase.api.models
 
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.toImmutable
 import com.increase.api.models.*
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
@@ -29,7 +29,7 @@ constructor(
             params.put("at_time", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
         }
         params.putAll(additionalQueryParams)
-        return params.toUnmodifiable()
+        return params.toImmutable()
     }
 
     @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
@@ -133,8 +133,8 @@ constructor(
             AccountBalanceParams(
                 checkNotNull(accountId) { "`accountId` is required but was not set" },
                 atTime,
-                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalQueryParams.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalHeaders.mapValues { it.value.toImmutable() }.toImmutable(),
             )
     }
 }

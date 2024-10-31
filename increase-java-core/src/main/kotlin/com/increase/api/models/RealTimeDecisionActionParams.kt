@@ -12,7 +12,7 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import com.increase.api.models.*
 import java.util.Objects
@@ -215,7 +215,7 @@ constructor(
                     cardAuthorization,
                     digitalWalletAuthentication,
                     digitalWalletToken,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -407,9 +407,9 @@ constructor(
                 cardAuthorization,
                 digitalWalletAuthentication,
                 digitalWalletToken,
-                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalBodyProperties.toUnmodifiable(),
+                additionalQueryParams.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalHeaders.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -471,7 +471,7 @@ constructor(
             fun build(): CardAuthentication =
                 CardAuthentication(
                     checkNotNull(decision) { "`decision` is required but was not set" },
-                    additionalProperties.toUnmodifiable()
+                    additionalProperties.toImmutable()
                 )
         }
 
@@ -621,7 +621,7 @@ constructor(
             fun build(): CardAuthenticationChallenge =
                 CardAuthenticationChallenge(
                     checkNotNull(result) { "`result` is required but was not set" },
-                    additionalProperties.toUnmodifiable()
+                    additionalProperties.toImmutable()
                 )
         }
 
@@ -761,7 +761,7 @@ constructor(
             fun build(): CardAuthorization =
                 CardAuthorization(
                     checkNotNull(decision) { "`decision` is required but was not set" },
-                    additionalProperties.toUnmodifiable()
+                    additionalProperties.toImmutable()
                 )
         }
 
@@ -909,7 +909,7 @@ constructor(
                 DigitalWalletAuthentication(
                     checkNotNull(result) { "`result` is required but was not set" },
                     success,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -1042,7 +1042,7 @@ constructor(
                     Success(
                         email,
                         phone,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -1169,7 +1169,7 @@ constructor(
                 DigitalWalletToken(
                     approval,
                     decline,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -1249,7 +1249,7 @@ constructor(
                     Approval(
                         email,
                         phone,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -1335,7 +1335,7 @@ constructor(
                         this.additionalProperties.putAll(additionalProperties)
                     }
 
-                fun build(): Decline = Decline(reason, additionalProperties.toUnmodifiable())
+                fun build(): Decline = Decline(reason, additionalProperties.toImmutable())
             }
 
             override fun equals(other: Any?): Boolean {

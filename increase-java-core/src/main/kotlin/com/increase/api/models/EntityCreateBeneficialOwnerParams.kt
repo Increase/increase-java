@@ -12,7 +12,7 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import com.increase.api.models.*
 import java.time.LocalDate
@@ -111,7 +111,7 @@ constructor(
                     checkNotNull(beneficialOwner) {
                         "`beneficialOwner` is required but was not set"
                     },
-                    additionalProperties.toUnmodifiable()
+                    additionalProperties.toImmutable()
                 )
         }
 
@@ -251,9 +251,9 @@ constructor(
             EntityCreateBeneficialOwnerParams(
                 checkNotNull(entityId) { "`entityId` is required but was not set" },
                 checkNotNull(beneficialOwner) { "`beneficialOwner` is required but was not set" },
-                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalBodyProperties.toUnmodifiable(),
+                additionalQueryParams.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalHeaders.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -340,9 +340,8 @@ constructor(
                 BeneficialOwner(
                     companyTitle,
                     checkNotNull(individual) { "`individual` is required but was not set" },
-                    checkNotNull(prongs) { "`prongs` is required but was not set" }
-                        .toUnmodifiable(),
-                    additionalProperties.toUnmodifiable(),
+                    checkNotNull(prongs) { "`prongs` is required but was not set" }.toImmutable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -467,7 +466,7 @@ constructor(
                             "`identification` is required but was not set"
                         },
                         checkNotNull(name) { "`name` is required but was not set" },
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -577,7 +576,7 @@ constructor(
                             line2,
                             checkNotNull(state) { "`state` is required but was not set" },
                             checkNotNull(zip) { "`zip` is required but was not set" },
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -728,7 +727,7 @@ constructor(
                             checkNotNull(number) { "`number` is required but was not set" },
                             other,
                             passport,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -915,7 +914,7 @@ constructor(
                                 },
                                 checkNotNull(fileId) { "`fileId` is required but was not set" },
                                 checkNotNull(state) { "`state` is required but was not set" },
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -1063,7 +1062,7 @@ constructor(
                                 },
                                 expirationDate,
                                 checkNotNull(fileId) { "`fileId` is required but was not set" },
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -1175,7 +1174,7 @@ constructor(
                                     "`expirationDate` is required but was not set"
                                 },
                                 checkNotNull(fileId) { "`fileId` is required but was not set" },
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
