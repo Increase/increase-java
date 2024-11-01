@@ -8,10 +8,10 @@ import com.google.common.io.BaseEncoding
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.JsonValue
 import com.increase.api.core.getRequiredHeader
+import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
 import com.increase.api.errors.IncreaseException
-import com.increase.api.services.errorHandler
 import java.time.Instant
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
