@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.137.1 (2024-11-01)
+
+Full Changelog: [v0.137.0...v0.137.1](https://github.com/Increase/increase-java/compare/v0.137.0...v0.137.1)
+
+### Bug Fixes
+
+* error handler import ([#576](https://github.com/Increase/increase-java/issues/576)) ([9f88f38](https://github.com/Increase/increase-java/commit/9f88f38768cd32515be24c126bb8f6ed26403c49))
+
 ## 0.137.0 (2024-11-01)
 
 Full Changelog: [v0.136.0...v0.137.0](https://github.com/Increase/increase-java/compare/v0.136.0...v0.137.0)
