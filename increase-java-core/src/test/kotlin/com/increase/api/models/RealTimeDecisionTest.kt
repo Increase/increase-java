@@ -62,6 +62,11 @@ class RealTimeDecisionTest {
                                                 .PointOfServiceEntryMode
                                                 .UNKNOWN
                                         )
+                                        .standInProcessingReason(
+                                            RealTimeDecision.CardAuthorization.NetworkDetails.Visa
+                                                .StandInProcessingReason
+                                                .ISSUER_ERROR
+                                        )
                                         .build()
                                 )
                                 .build()
@@ -215,6 +220,11 @@ class RealTimeDecisionTest {
                                         RealTimeDecision.CardAuthorization.NetworkDetails.Visa
                                             .PointOfServiceEntryMode
                                             .UNKNOWN
+                                    )
+                                    .standInProcessingReason(
+                                        RealTimeDecision.CardAuthorization.NetworkDetails.Visa
+                                            .StandInProcessingReason
+                                            .ISSUER_ERROR
                                     )
                                     .build()
                             )

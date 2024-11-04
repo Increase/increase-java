@@ -67,6 +67,13 @@ class CardPaymentTest {
                                                             .PointOfServiceEntryMode
                                                             .UNKNOWN
                                                     )
+                                                    .standInProcessingReason(
+                                                        CardPayment.Element.CardAuthorization
+                                                            .NetworkDetails
+                                                            .Visa
+                                                            .StandInProcessingReason
+                                                            .ISSUER_ERROR
+                                                    )
                                                     .build()
                                             )
                                             .build()
@@ -186,6 +193,13 @@ class CardPaymentTest {
                                                             .Visa
                                                             .PointOfServiceEntryMode
                                                             .UNKNOWN
+                                                    )
+                                                    .standInProcessingReason(
+                                                        CardPayment.Element.CardDecline
+                                                            .NetworkDetails
+                                                            .Visa
+                                                            .StandInProcessingReason
+                                                            .ISSUER_ERROR
                                                     )
                                                     .build()
                                             )
@@ -855,6 +869,13 @@ class CardPaymentTest {
                                                             .PointOfServiceEntryMode
                                                             .UNKNOWN
                                                     )
+                                                    .standInProcessingReason(
+                                                        CardPayment.Element.CardValidation
+                                                            .NetworkDetails
+                                                            .Visa
+                                                            .StandInProcessingReason
+                                                            .ISSUER_ERROR
+                                                    )
                                                     .build()
                                             )
                                             .build()
@@ -974,6 +995,12 @@ class CardPaymentTest {
                                                     .PointOfServiceEntryMode
                                                     .UNKNOWN
                                             )
+                                            .standInProcessingReason(
+                                                CardPayment.Element.CardAuthorization.NetworkDetails
+                                                    .Visa
+                                                    .StandInProcessingReason
+                                                    .ISSUER_ERROR
+                                            )
                                             .build()
                                     )
                                     .build()
@@ -1077,6 +1104,11 @@ class CardPaymentTest {
                                                 CardPayment.Element.CardDecline.NetworkDetails.Visa
                                                     .PointOfServiceEntryMode
                                                     .UNKNOWN
+                                            )
+                                            .standInProcessingReason(
+                                                CardPayment.Element.CardDecline.NetworkDetails.Visa
+                                                    .StandInProcessingReason
+                                                    .ISSUER_ERROR
                                             )
                                             .build()
                                     )
@@ -1678,6 +1710,12 @@ class CardPaymentTest {
                                                     .Visa
                                                     .PointOfServiceEntryMode
                                                     .UNKNOWN
+                                            )
+                                            .standInProcessingReason(
+                                                CardPayment.Element.CardValidation.NetworkDetails
+                                                    .Visa
+                                                    .StandInProcessingReason
+                                                    .ISSUER_ERROR
                                             )
                                             .build()
                                     )
