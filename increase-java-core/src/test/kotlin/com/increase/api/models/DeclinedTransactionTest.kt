@@ -89,6 +89,13 @@ class DeclinedTransactionTest {
                                                         .PointOfServiceEntryMode
                                                         .UNKNOWN
                                                 )
+                                                .standInProcessingReason(
+                                                    DeclinedTransaction.Source.CardDecline
+                                                        .NetworkDetails
+                                                        .Visa
+                                                        .StandInProcessingReason
+                                                        .ISSUER_ERROR
+                                                )
                                                 .build()
                                         )
                                         .build()
@@ -290,6 +297,13 @@ class DeclinedTransactionTest {
                                                     .Visa
                                                     .PointOfServiceEntryMode
                                                     .UNKNOWN
+                                            )
+                                            .standInProcessingReason(
+                                                DeclinedTransaction.Source.CardDecline
+                                                    .NetworkDetails
+                                                    .Visa
+                                                    .StandInProcessingReason
+                                                    .ISSUER_ERROR
                                             )
                                             .build()
                                     )

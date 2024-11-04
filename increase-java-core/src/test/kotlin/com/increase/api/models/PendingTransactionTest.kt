@@ -87,6 +87,13 @@ class PendingTransactionTest {
                                                         .PointOfServiceEntryMode
                                                         .UNKNOWN
                                                 )
+                                                .standInProcessingReason(
+                                                    PendingTransaction.Source.CardAuthorization
+                                                        .NetworkDetails
+                                                        .Visa
+                                                        .StandInProcessingReason
+                                                        .ISSUER_ERROR
+                                                )
                                                 .build()
                                         )
                                         .build()
@@ -285,6 +292,13 @@ class PendingTransactionTest {
                                                     .Visa
                                                     .PointOfServiceEntryMode
                                                     .UNKNOWN
+                                            )
+                                            .standInProcessingReason(
+                                                PendingTransaction.Source.CardAuthorization
+                                                    .NetworkDetails
+                                                    .Visa
+                                                    .StandInProcessingReason
+                                                    .ISSUER_ERROR
                                             )
                                             .build()
                                     )
