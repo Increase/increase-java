@@ -102,6 +102,13 @@ class SimulationCardAuthorizationCreateResponseTest {
                                                                 .PointOfServiceEntryMode
                                                                 .UNKNOWN
                                                         )
+                                                        .standInProcessingReason(
+                                                            DeclinedTransaction.Source.CardDecline
+                                                                .NetworkDetails
+                                                                .Visa
+                                                                .StandInProcessingReason
+                                                                .ISSUER_ERROR
+                                                        )
                                                         .build()
                                                 )
                                                 .build()
@@ -330,6 +337,14 @@ class SimulationCardAuthorizationCreateResponseTest {
                                                                 .Visa
                                                                 .PointOfServiceEntryMode
                                                                 .UNKNOWN
+                                                        )
+                                                        .standInProcessingReason(
+                                                            PendingTransaction.Source
+                                                                .CardAuthorization
+                                                                .NetworkDetails
+                                                                .Visa
+                                                                .StandInProcessingReason
+                                                                .ISSUER_ERROR
                                                         )
                                                         .build()
                                                 )
@@ -566,6 +581,13 @@ class SimulationCardAuthorizationCreateResponseTest {
                                                             .PointOfServiceEntryMode
                                                             .UNKNOWN
                                                     )
+                                                    .standInProcessingReason(
+                                                        DeclinedTransaction.Source.CardDecline
+                                                            .NetworkDetails
+                                                            .Visa
+                                                            .StandInProcessingReason
+                                                            .ISSUER_ERROR
+                                                    )
                                                     .build()
                                             )
                                             .build()
@@ -781,6 +803,13 @@ class SimulationCardAuthorizationCreateResponseTest {
                                                             .Visa
                                                             .PointOfServiceEntryMode
                                                             .UNKNOWN
+                                                    )
+                                                    .standInProcessingReason(
+                                                        PendingTransaction.Source.CardAuthorization
+                                                            .NetworkDetails
+                                                            .Visa
+                                                            .StandInProcessingReason
+                                                            .ISSUER_ERROR
                                                     )
                                                     .build()
                                             )
