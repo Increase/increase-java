@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.google.common.collect.ArrayListMultimap
+import com.google.common.collect.ListMultimap
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
@@ -22,8 +24,8 @@ class SimulationRealTimePaymentsTransferCompleteParams
 constructor(
     private val realTimePaymentsTransferId: String,
     private val rejection: Rejection?,
-    private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
+    private val additionalQueryParams: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
@@ -36,9 +38,9 @@ constructor(
         return SimulationRealTimePaymentsTransferCompleteBody(rejection, additionalBodyProperties)
     }
 
-    @JvmSynthetic internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
-
     @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+
+    @JvmSynthetic internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
 
     fun getPathParam(index: Int): String {
         return when (index) {
@@ -131,9 +133,9 @@ constructor(
             "SimulationRealTimePaymentsTransferCompleteBody{rejection=$rejection, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams
-
     fun _additionalHeaders(): Map<String, List<String>> = additionalHeaders
+
+    fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
@@ -142,15 +144,15 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is SimulationRealTimePaymentsTransferCompleteParams && this.realTimePaymentsTransferId == other.realTimePaymentsTransferId && this.rejection == other.rejection && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is SimulationRealTimePaymentsTransferCompleteParams && this.realTimePaymentsTransferId == other.realTimePaymentsTransferId && this.rejection == other.rejection && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(realTimePaymentsTransferId, rejection, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
+        return /* spotless:off */ Objects.hash(realTimePaymentsTransferId, rejection, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
-        "SimulationRealTimePaymentsTransferCompleteParams{realTimePaymentsTransferId=$realTimePaymentsTransferId, rejection=$rejection, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "SimulationRealTimePaymentsTransferCompleteParams{realTimePaymentsTransferId=$realTimePaymentsTransferId, rejection=$rejection, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -164,8 +166,8 @@ constructor(
 
         private var realTimePaymentsTransferId: String? = null
         private var rejection: Rejection? = null
-        private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
-        private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
+        private var additionalHeaders: ListMultimap<String, String> = ArrayListMultimap.create()
+        private var additionalQueryParams: ListMultimap<String, String> = ArrayListMultimap.create()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -176,10 +178,10 @@ constructor(
             this.realTimePaymentsTransferId =
                 simulationRealTimePaymentsTransferCompleteParams.realTimePaymentsTransferId
             this.rejection = simulationRealTimePaymentsTransferCompleteParams.rejection
+            additionalHeaders(simulationRealTimePaymentsTransferCompleteParams.additionalHeaders)
             additionalQueryParams(
                 simulationRealTimePaymentsTransferCompleteParams.additionalQueryParams
             )
-            additionalHeaders(simulationRealTimePaymentsTransferCompleteParams.additionalHeaders)
             additionalBodyProperties(
                 simulationRealTimePaymentsTransferCompleteParams.additionalBodyProperties
             )
@@ -193,45 +195,79 @@ constructor(
         /** If set, the simulation will reject the transfer. */
         fun rejection(rejection: Rejection) = apply { this.rejection = rejection }
 
-        fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
-            this.additionalQueryParams.clear()
-            putAllQueryParams(additionalQueryParams)
-        }
-
-        fun putQueryParam(name: String, value: String) = apply {
-            this.additionalQueryParams.getOrPut(name) { mutableListOf() }.add(value)
-        }
-
-        fun putQueryParams(name: String, values: Iterable<String>) = apply {
-            this.additionalQueryParams.getOrPut(name) { mutableListOf() }.addAll(values)
-        }
-
-        fun putAllQueryParams(additionalQueryParams: Map<String, Iterable<String>>) = apply {
-            additionalQueryParams.forEach(this::putQueryParams)
-        }
-
-        fun removeQueryParam(name: String) = apply {
-            this.additionalQueryParams.put(name, mutableListOf())
-        }
-
         fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
             this.additionalHeaders.clear()
-            putAllHeaders(additionalHeaders)
+            putAllAdditionalHeaders(additionalHeaders)
         }
 
-        fun putHeader(name: String, value: String) = apply {
-            this.additionalHeaders.getOrPut(name) { mutableListOf() }.add(value)
+        fun putAdditionalHeader(name: String, value: String) = apply {
+            additionalHeaders.put(name, value)
         }
 
-        fun putHeaders(name: String, values: Iterable<String>) = apply {
-            this.additionalHeaders.getOrPut(name) { mutableListOf() }.addAll(values)
+        fun putAdditionalHeaders(name: String, values: Iterable<String>) = apply {
+            additionalHeaders.putAll(name, values)
         }
 
-        fun putAllHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            additionalHeaders.forEach(this::putHeaders)
+        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
+            additionalHeaders.forEach(::putAdditionalHeaders)
         }
 
-        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
+        fun replaceAdditionalHeaders(name: String, value: String) = apply {
+            additionalHeaders.replaceValues(name, listOf(value))
+        }
+
+        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) = apply {
+            additionalHeaders.replaceValues(name, values)
+        }
+
+        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
+            additionalHeaders.forEach(::replaceAdditionalHeaders)
+        }
+
+        fun removeAdditionalHeaders(name: String) = apply { additionalHeaders.removeAll(name) }
+
+        fun removeAllAdditionalHeaders(names: Set<String>) = apply {
+            names.forEach(::removeAdditionalHeaders)
+        }
+
+        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) = apply {
+            this.additionalQueryParams.clear()
+            putAllAdditionalQueryParams(additionalQueryParams)
+        }
+
+        fun putAdditionalQueryParam(key: String, value: String) = apply {
+            additionalQueryParams.put(key, value)
+        }
+
+        fun putAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
+            additionalQueryParams.putAll(key, values)
+        }
+
+        fun putAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
+            apply {
+                additionalQueryParams.forEach(::putAdditionalQueryParams)
+            }
+
+        fun replaceAdditionalQueryParams(key: String, value: String) = apply {
+            additionalQueryParams.replaceValues(key, listOf(value))
+        }
+
+        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
+            additionalQueryParams.replaceValues(key, values)
+        }
+
+        fun replaceAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
+            apply {
+                additionalQueryParams.forEach(::replaceAdditionalQueryParams)
+            }
+
+        fun removeAdditionalQueryParams(key: String) = apply {
+            additionalQueryParams.removeAll(key)
+        }
+
+        fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalQueryParams)
+        }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             this.additionalBodyProperties.clear()
@@ -253,8 +289,14 @@ constructor(
                     "`realTimePaymentsTransferId` is required but was not set"
                 },
                 rejection,
-                additionalQueryParams.mapValues { it.value.toImmutable() }.toImmutable(),
-                additionalHeaders.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalHeaders
+                    .asMap()
+                    .mapValues { it.value.toList().toImmutable() }
+                    .toImmutable(),
+                additionalQueryParams
+                    .asMap()
+                    .mapValues { it.value.toList().toImmutable() }
+                    .toImmutable(),
                 additionalBodyProperties.toImmutable(),
             )
     }
