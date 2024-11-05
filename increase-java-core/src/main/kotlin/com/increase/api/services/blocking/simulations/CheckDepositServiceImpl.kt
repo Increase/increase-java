@@ -39,10 +39,10 @@ constructor(
             HttpRequest.builder()
                 .method(HttpMethod.POST)
                 .addPathSegments("simulations", "check_deposits", params.getPathParam(0), "reject")
-                .putAllQueryParams(clientOptions.queryParams)
-                .putAllQueryParams(params.getQueryParams())
-                .putAllHeaders(clientOptions.headers)
-                .putAllHeaders(params.getHeaders())
+                .putAllQueryParams(clientOptions.queryParams.asMap())
+                .replaceAllQueryParams(params.getQueryParams())
+                .putAllHeaders(clientOptions.headers.asMap())
+                .replaceAllHeaders(params.getHeaders())
                 .apply { params.getBody().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                 .build()
         return clientOptions.httpClient.execute(request, requestOptions).let { response ->
@@ -71,10 +71,10 @@ constructor(
             HttpRequest.builder()
                 .method(HttpMethod.POST)
                 .addPathSegments("simulations", "check_deposits", params.getPathParam(0), "return")
-                .putAllQueryParams(clientOptions.queryParams)
-                .putAllQueryParams(params.getQueryParams())
-                .putAllHeaders(clientOptions.headers)
-                .putAllHeaders(params.getHeaders())
+                .putAllQueryParams(clientOptions.queryParams.asMap())
+                .replaceAllQueryParams(params.getQueryParams())
+                .putAllHeaders(clientOptions.headers.asMap())
+                .replaceAllHeaders(params.getHeaders())
                 .apply { params.getBody().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                 .build()
         return clientOptions.httpClient.execute(request, requestOptions).let { response ->
@@ -103,10 +103,10 @@ constructor(
             HttpRequest.builder()
                 .method(HttpMethod.POST)
                 .addPathSegments("simulations", "check_deposits", params.getPathParam(0), "submit")
-                .putAllQueryParams(clientOptions.queryParams)
-                .putAllQueryParams(params.getQueryParams())
-                .putAllHeaders(clientOptions.headers)
-                .putAllHeaders(params.getHeaders())
+                .putAllQueryParams(clientOptions.queryParams.asMap())
+                .replaceAllQueryParams(params.getQueryParams())
+                .putAllHeaders(clientOptions.headers.asMap())
+                .replaceAllHeaders(params.getHeaders())
                 .apply { params.getBody().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                 .build()
         return clientOptions.httpClient.execute(request, requestOptions).let { response ->
