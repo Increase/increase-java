@@ -753,17 +753,21 @@ private constructor(
 
                 @JvmField val WRONG_PAYEE_CREDIT = Reason(JsonField.of("wrong_payee_credit"))
 
+                @JvmField val ADJUSTED_AMOUNT = Reason(JsonField.of("adjusted_amount"))
+
                 @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
             }
 
             enum class Known {
                 LATE_RETURN,
                 WRONG_PAYEE_CREDIT,
+                ADJUSTED_AMOUNT,
             }
 
             enum class Value {
                 LATE_RETURN,
                 WRONG_PAYEE_CREDIT,
+                ADJUSTED_AMOUNT,
                 _UNKNOWN,
             }
 
@@ -771,6 +775,7 @@ private constructor(
                 when (this) {
                     LATE_RETURN -> Value.LATE_RETURN
                     WRONG_PAYEE_CREDIT -> Value.WRONG_PAYEE_CREDIT
+                    ADJUSTED_AMOUNT -> Value.ADJUSTED_AMOUNT
                     else -> Value._UNKNOWN
                 }
 
@@ -778,6 +783,7 @@ private constructor(
                 when (this) {
                     LATE_RETURN -> Known.LATE_RETURN
                     WRONG_PAYEE_CREDIT -> Known.WRONG_PAYEE_CREDIT
+                    ADJUSTED_AMOUNT -> Known.ADJUSTED_AMOUNT
                     else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                 }
 
