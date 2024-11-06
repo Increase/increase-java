@@ -2,6 +2,7 @@
 
 package com.increase.api.models
 
+import com.increase.api.core.http.QueryParams
 import com.increase.api.models.*
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -24,16 +25,16 @@ class AccountBalanceParamsTest {
                 .accountId("account_id")
                 .atTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
-        val expected = mutableMapOf<String, List<String>>()
-        expected.put("at_time", listOf("2019-12-27T18:11:19.117Z"))
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        val expected = QueryParams.builder()
+        expected.put("at_time", "2019-12-27T18:11:19.117Z")
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 
     @Test
     fun getQueryParamsWithoutOptionalFields() {
         val params = AccountBalanceParams.builder().accountId("account_id").build()
-        val expected = mutableMapOf<String, List<String>>()
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        val expected = QueryParams.builder()
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 
     @Test

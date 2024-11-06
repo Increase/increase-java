@@ -2,6 +2,7 @@
 
 package com.increase.api.models
 
+import com.increase.api.core.http.QueryParams
 import com.increase.api.models.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -27,18 +28,18 @@ class IntrafiExclusionListParamsTest {
                 .idempotencyKey("x")
                 .limit(123L)
                 .build()
-        val expected = mutableMapOf<String, List<String>>()
-        expected.put("cursor", listOf("cursor"))
-        expected.put("entity_id", listOf("entity_id"))
-        expected.put("idempotency_key", listOf("x"))
-        expected.put("limit", listOf("123"))
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        val expected = QueryParams.builder()
+        expected.put("cursor", "cursor")
+        expected.put("entity_id", "entity_id")
+        expected.put("idempotency_key", "x")
+        expected.put("limit", "123")
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 
     @Test
     fun getQueryParamsWithoutOptionalFields() {
         val params = IntrafiExclusionListParams.builder().build()
-        val expected = mutableMapOf<String, List<String>>()
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        val expected = QueryParams.builder()
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 }

@@ -2,6 +2,7 @@
 
 package com.increase.api.models
 
+import com.increase.api.core.http.QueryParams
 import com.increase.api.models.*
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -73,8 +74,8 @@ class PendingTransactionListParamsTest {
                         .build()
                 )
                 .build()
-        val expected = mutableMapOf<String, List<String>>()
-        expected.put("account_id", listOf("account_id"))
+        val expected = QueryParams.builder()
+        expected.put("account_id", "account_id")
         PendingTransactionListParams.Category.builder()
             .in_(listOf(PendingTransactionListParams.Category.In.ACCOUNT_TRANSFER_INSTRUCTION))
             .build()
@@ -86,20 +87,20 @@ class PendingTransactionListParamsTest {
             .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .build()
             .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
-        expected.put("cursor", listOf("cursor"))
-        expected.put("limit", listOf("123"))
-        expected.put("route_id", listOf("route_id"))
+        expected.put("cursor", "cursor")
+        expected.put("limit", "123")
+        expected.put("route_id", "route_id")
         PendingTransactionListParams.Status.builder()
             .in_(listOf(PendingTransactionListParams.Status.In.PENDING))
             .build()
             .forEachQueryParam { key, values -> expected.put("status.$key", values) }
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 
     @Test
     fun getQueryParamsWithoutOptionalFields() {
         val params = PendingTransactionListParams.builder().build()
-        val expected = mutableMapOf<String, List<String>>()
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        val expected = QueryParams.builder()
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 }

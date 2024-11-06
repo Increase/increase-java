@@ -6,11 +6,11 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.google.common.collect.ArrayListMultimap
-import com.google.common.collect.ListMultimap
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.http.Headers
+import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import com.increase.api.models.*
 import java.util.Objects
@@ -38,8 +38,8 @@ constructor(
     private val originatorToBeneficiaryInformationLine2: String?,
     private val originatorToBeneficiaryInformationLine3: String?,
     private val originatorToBeneficiaryInformationLine4: String?,
-    private val additionalHeaders: Map<String, List<String>>,
-    private val additionalQueryParams: Map<String, List<String>>,
+    private val additionalHeaders: Headers,
+    private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
@@ -114,9 +114,9 @@ constructor(
         )
     }
 
-    @JvmSynthetic internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+    @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
-    @JvmSynthetic internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
+    @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
 
     @JsonDeserialize(builder = SimulationInboundWireDrawdownRequestCreateBody.Builder::class)
     @NoAutoDetect
@@ -542,9 +542,9 @@ constructor(
             "SimulationInboundWireDrawdownRequestCreateBody{amount=$amount, beneficiaryAccountNumber=$beneficiaryAccountNumber, beneficiaryRoutingNumber=$beneficiaryRoutingNumber, currency=$currency, messageToRecipient=$messageToRecipient, originatorAccountNumber=$originatorAccountNumber, originatorRoutingNumber=$originatorRoutingNumber, recipientAccountNumberId=$recipientAccountNumberId, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Map<String, List<String>> = additionalHeaders
+    fun _additionalHeaders(): Headers = additionalHeaders
 
-    fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
@@ -593,8 +593,8 @@ constructor(
         private var originatorToBeneficiaryInformationLine2: String? = null
         private var originatorToBeneficiaryInformationLine3: String? = null
         private var originatorToBeneficiaryInformationLine4: String? = null
-        private var additionalHeaders: ListMultimap<String, String> = ArrayListMultimap.create()
-        private var additionalQueryParams: ListMultimap<String, String> = ArrayListMultimap.create()
+        private var additionalHeaders: Headers.Builder = Headers.builder()
+        private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -767,6 +767,11 @@ constructor(
             this.originatorToBeneficiaryInformationLine4 = originatorToBeneficiaryInformationLine4
         }
 
+        fun additionalHeaders(additionalHeaders: Headers) = apply {
+            this.additionalHeaders.clear()
+            putAllAdditionalHeaders(additionalHeaders)
+        }
+
         fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
             this.additionalHeaders.clear()
             putAllAdditionalHeaders(additionalHeaders)
@@ -777,29 +782,42 @@ constructor(
         }
 
         fun putAdditionalHeaders(name: String, values: Iterable<String>) = apply {
-            additionalHeaders.putAll(name, values)
+            additionalHeaders.put(name, values)
+        }
+
+        fun putAllAdditionalHeaders(additionalHeaders: Headers) = apply {
+            this.additionalHeaders.putAll(additionalHeaders)
         }
 
         fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            additionalHeaders.forEach(::putAdditionalHeaders)
+            this.additionalHeaders.putAll(additionalHeaders)
         }
 
         fun replaceAdditionalHeaders(name: String, value: String) = apply {
-            additionalHeaders.replaceValues(name, listOf(value))
+            additionalHeaders.replace(name, value)
         }
 
         fun replaceAdditionalHeaders(name: String, values: Iterable<String>) = apply {
-            additionalHeaders.replaceValues(name, values)
+            additionalHeaders.replace(name, values)
+        }
+
+        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) = apply {
+            this.additionalHeaders.replaceAll(additionalHeaders)
         }
 
         fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            additionalHeaders.forEach(::replaceAdditionalHeaders)
+            this.additionalHeaders.replaceAll(additionalHeaders)
         }
 
-        fun removeAdditionalHeaders(name: String) = apply { additionalHeaders.removeAll(name) }
+        fun removeAdditionalHeaders(name: String) = apply { additionalHeaders.remove(name) }
 
         fun removeAllAdditionalHeaders(names: Set<String>) = apply {
-            names.forEach(::removeAdditionalHeaders)
+            additionalHeaders.removeAll(names)
+        }
+
+        fun additionalQueryParams(additionalQueryParams: QueryParams) = apply {
+            this.additionalQueryParams.clear()
+            putAllAdditionalQueryParams(additionalQueryParams)
         }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) = apply {
@@ -812,33 +830,39 @@ constructor(
         }
 
         fun putAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
-            additionalQueryParams.putAll(key, values)
+            additionalQueryParams.put(key, values)
+        }
+
+        fun putAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
+            this.additionalQueryParams.putAll(additionalQueryParams)
         }
 
         fun putAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
             apply {
-                additionalQueryParams.forEach(::putAdditionalQueryParams)
+                this.additionalQueryParams.putAll(additionalQueryParams)
             }
 
         fun replaceAdditionalQueryParams(key: String, value: String) = apply {
-            additionalQueryParams.replaceValues(key, listOf(value))
+            additionalQueryParams.replace(key, value)
         }
 
         fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
-            additionalQueryParams.replaceValues(key, values)
+            additionalQueryParams.replace(key, values)
+        }
+
+        fun replaceAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
+            this.additionalQueryParams.replaceAll(additionalQueryParams)
         }
 
         fun replaceAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
             apply {
-                additionalQueryParams.forEach(::replaceAdditionalQueryParams)
+                this.additionalQueryParams.replaceAll(additionalQueryParams)
             }
 
-        fun removeAdditionalQueryParams(key: String) = apply {
-            additionalQueryParams.removeAll(key)
-        }
+        fun removeAdditionalQueryParams(key: String) = apply { additionalQueryParams.remove(key) }
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalQueryParams)
+            additionalQueryParams.removeAll(keys)
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
@@ -889,14 +913,8 @@ constructor(
                 originatorToBeneficiaryInformationLine2,
                 originatorToBeneficiaryInformationLine3,
                 originatorToBeneficiaryInformationLine4,
-                additionalHeaders
-                    .asMap()
-                    .mapValues { it.value.toList().toImmutable() }
-                    .toImmutable(),
-                additionalQueryParams
-                    .asMap()
-                    .mapValues { it.value.toList().toImmutable() }
-                    .toImmutable(),
+                additionalHeaders.build(),
+                additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
             )
     }

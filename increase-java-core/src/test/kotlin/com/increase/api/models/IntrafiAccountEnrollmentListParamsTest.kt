@@ -2,6 +2,7 @@
 
 package com.increase.api.models
 
+import com.increase.api.core.http.QueryParams
 import com.increase.api.models.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -37,22 +38,22 @@ class IntrafiAccountEnrollmentListParamsTest {
                         .build()
                 )
                 .build()
-        val expected = mutableMapOf<String, List<String>>()
-        expected.put("account_id", listOf("account_id"))
-        expected.put("cursor", listOf("cursor"))
-        expected.put("idempotency_key", listOf("x"))
-        expected.put("limit", listOf("123"))
+        val expected = QueryParams.builder()
+        expected.put("account_id", "account_id")
+        expected.put("cursor", "cursor")
+        expected.put("idempotency_key", "x")
+        expected.put("limit", "123")
         IntrafiAccountEnrollmentListParams.Status.builder()
             .in_(listOf(IntrafiAccountEnrollmentListParams.Status.In.PENDING_ENROLLING))
             .build()
             .forEachQueryParam { key, values -> expected.put("status.$key", values) }
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 
     @Test
     fun getQueryParamsWithoutOptionalFields() {
         val params = IntrafiAccountEnrollmentListParams.builder().build()
-        val expected = mutableMapOf<String, List<String>>()
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        val expected = QueryParams.builder()
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 }

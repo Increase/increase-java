@@ -2,6 +2,7 @@
 
 package com.increase.api.models
 
+import com.increase.api.core.http.QueryParams
 import com.increase.api.models.*
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -42,10 +43,10 @@ class AccountStatementListParamsTest {
                         .build()
                 )
                 .build()
-        val expected = mutableMapOf<String, List<String>>()
-        expected.put("account_id", listOf("account_id"))
-        expected.put("cursor", listOf("cursor"))
-        expected.put("limit", listOf("123"))
+        val expected = QueryParams.builder()
+        expected.put("account_id", "account_id")
+        expected.put("cursor", "cursor")
+        expected.put("limit", "123")
         AccountStatementListParams.StatementPeriodStart.builder()
             .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -55,13 +56,13 @@ class AccountStatementListParamsTest {
             .forEachQueryParam { key, values ->
                 expected.put("statement_period_start.$key", values)
             }
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 
     @Test
     fun getQueryParamsWithoutOptionalFields() {
         val params = AccountStatementListParams.builder().build()
-        val expected = mutableMapOf<String, List<String>>()
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        val expected = QueryParams.builder()
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 }

@@ -45,9 +45,9 @@ constructor(
                     params.getPathParam(0),
                     "complete"
                 )
-                .putAllQueryParams(clientOptions.queryParams.asMap())
+                .putAllQueryParams(clientOptions.queryParams)
                 .replaceAllQueryParams(params.getQueryParams())
-                .putAllHeaders(clientOptions.headers.asMap())
+                .putAllHeaders(clientOptions.headers)
                 .replaceAllHeaders(params.getHeaders())
                 .body(json(clientOptions.jsonMapper, params.getBody()))
                 .build()

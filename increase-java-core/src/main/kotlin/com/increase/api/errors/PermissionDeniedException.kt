@@ -1,9 +1,9 @@
 package com.increase.api.errors
 
-import com.google.common.collect.ListMultimap
+import com.increase.api.core.http.Headers
 
 class PermissionDeniedException(
-    headers: ListMultimap<String, String>,
+    headers: Headers,
     body: String,
     error: IncreaseError,
 ) : IncreaseServiceException(403, headers, body, error)
