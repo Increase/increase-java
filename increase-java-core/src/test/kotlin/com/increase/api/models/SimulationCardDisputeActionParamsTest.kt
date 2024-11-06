@@ -12,7 +12,7 @@ class SimulationCardDisputeActionParamsTest {
     fun createSimulationCardDisputeActionParams() {
         SimulationCardDisputeActionParams.builder()
             .cardDisputeId("card_dispute_id")
-            .status(SimulationCardDisputeActionParams.Status.ACCEPTED)
+            .status(SimulationCardDisputeActionParams.Status.PENDING_USER_INFORMATION)
             .explanation("x")
             .build()
     }
@@ -22,12 +22,13 @@ class SimulationCardDisputeActionParamsTest {
         val params =
             SimulationCardDisputeActionParams.builder()
                 .cardDisputeId("card_dispute_id")
-                .status(SimulationCardDisputeActionParams.Status.ACCEPTED)
+                .status(SimulationCardDisputeActionParams.Status.PENDING_USER_INFORMATION)
                 .explanation("x")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.status()).isEqualTo(SimulationCardDisputeActionParams.Status.ACCEPTED)
+        assertThat(body.status())
+            .isEqualTo(SimulationCardDisputeActionParams.Status.PENDING_USER_INFORMATION)
         assertThat(body.explanation()).isEqualTo("x")
     }
 
@@ -36,11 +37,12 @@ class SimulationCardDisputeActionParamsTest {
         val params =
             SimulationCardDisputeActionParams.builder()
                 .cardDisputeId("card_dispute_id")
-                .status(SimulationCardDisputeActionParams.Status.ACCEPTED)
+                .status(SimulationCardDisputeActionParams.Status.PENDING_USER_INFORMATION)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.status()).isEqualTo(SimulationCardDisputeActionParams.Status.ACCEPTED)
+        assertThat(body.status())
+            .isEqualTo(SimulationCardDisputeActionParams.Status.PENDING_USER_INFORMATION)
     }
 
     @Test
@@ -48,7 +50,7 @@ class SimulationCardDisputeActionParamsTest {
         val params =
             SimulationCardDisputeActionParams.builder()
                 .cardDisputeId("card_dispute_id")
-                .status(SimulationCardDisputeActionParams.Status.ACCEPTED)
+                .status(SimulationCardDisputeActionParams.Status.PENDING_USER_INFORMATION)
                 .build()
         assertThat(params).isNotNull
         // path param "cardDisputeId"

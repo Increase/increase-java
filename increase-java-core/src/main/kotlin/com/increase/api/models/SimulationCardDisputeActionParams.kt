@@ -349,6 +349,9 @@ constructor(
 
         companion object {
 
+            @JvmField
+            val PENDING_USER_INFORMATION = Status(JsonField.of("pending_user_information"))
+
             @JvmField val ACCEPTED = Status(JsonField.of("accepted"))
 
             @JvmField val REJECTED = Status(JsonField.of("rejected"))
@@ -361,6 +364,7 @@ constructor(
         }
 
         enum class Known {
+            PENDING_USER_INFORMATION,
             ACCEPTED,
             REJECTED,
             LOST,
@@ -368,6 +372,7 @@ constructor(
         }
 
         enum class Value {
+            PENDING_USER_INFORMATION,
             ACCEPTED,
             REJECTED,
             LOST,
@@ -377,6 +382,7 @@ constructor(
 
         fun value(): Value =
             when (this) {
+                PENDING_USER_INFORMATION -> Value.PENDING_USER_INFORMATION
                 ACCEPTED -> Value.ACCEPTED
                 REJECTED -> Value.REJECTED
                 LOST -> Value.LOST
@@ -386,6 +392,7 @@ constructor(
 
         fun known(): Known =
             when (this) {
+                PENDING_USER_INFORMATION -> Known.PENDING_USER_INFORMATION
                 ACCEPTED -> Known.ACCEPTED
                 REJECTED -> Known.REJECTED
                 LOST -> Known.LOST
