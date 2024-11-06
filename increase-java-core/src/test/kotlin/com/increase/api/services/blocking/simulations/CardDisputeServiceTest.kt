@@ -23,7 +23,7 @@ class CardDisputeServiceTest {
             cardDisputeService.action(
                 SimulationCardDisputeActionParams.builder()
                     .cardDisputeId("card_dispute_id")
-                    .status(SimulationCardDisputeActionParams.Status.ACCEPTED)
+                    .status(SimulationCardDisputeActionParams.Status.PENDING_USER_INFORMATION)
                     .explanation("x")
                     .build()
             )
