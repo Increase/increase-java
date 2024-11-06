@@ -1,10 +1,10 @@
 package com.increase.api.errors
 
-import com.google.common.collect.ListMultimap
+import com.increase.api.core.http.Headers
 
 class InternalServerException(
     statusCode: Int,
-    headers: ListMultimap<String, String>,
+    headers: Headers,
     body: String,
     error: IncreaseError,
 ) : IncreaseServiceException(statusCode, headers, body, error)

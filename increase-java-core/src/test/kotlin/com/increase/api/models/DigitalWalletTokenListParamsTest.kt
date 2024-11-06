@@ -2,6 +2,7 @@
 
 package com.increase.api.models
 
+import com.increase.api.core.http.QueryParams
 import com.increase.api.models.*
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -42,8 +43,8 @@ class DigitalWalletTokenListParamsTest {
                 .cursor("cursor")
                 .limit(123L)
                 .build()
-        val expected = mutableMapOf<String, List<String>>()
-        expected.put("card_id", listOf("card_id"))
+        val expected = QueryParams.builder()
+        expected.put("card_id", "card_id")
         DigitalWalletTokenListParams.CreatedAt.builder()
             .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -51,15 +52,15 @@ class DigitalWalletTokenListParamsTest {
             .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .build()
             .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
-        expected.put("cursor", listOf("cursor"))
-        expected.put("limit", listOf("123"))
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        expected.put("cursor", "cursor")
+        expected.put("limit", "123")
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 
     @Test
     fun getQueryParamsWithoutOptionalFields() {
         val params = DigitalWalletTokenListParams.builder().build()
-        val expected = mutableMapOf<String, List<String>>()
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        val expected = QueryParams.builder()
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 }

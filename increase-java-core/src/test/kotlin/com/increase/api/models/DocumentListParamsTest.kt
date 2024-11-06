@@ -2,6 +2,7 @@
 
 package com.increase.api.models
 
+import com.increase.api.core.http.QueryParams
 import com.increase.api.models.*
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -52,7 +53,7 @@ class DocumentListParamsTest {
                 .entityId("entity_id")
                 .limit(123L)
                 .build()
-        val expected = mutableMapOf<String, List<String>>()
+        val expected = QueryParams.builder()
         DocumentListParams.Category.builder()
             .in_(listOf(DocumentListParams.Category.In.FORM_1099_INT))
             .build()
@@ -64,16 +65,16 @@ class DocumentListParamsTest {
             .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .build()
             .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
-        expected.put("cursor", listOf("cursor"))
-        expected.put("entity_id", listOf("entity_id"))
-        expected.put("limit", listOf("123"))
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        expected.put("cursor", "cursor")
+        expected.put("entity_id", "entity_id")
+        expected.put("limit", "123")
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 
     @Test
     fun getQueryParamsWithoutOptionalFields() {
         val params = DocumentListParams.builder().build()
-        val expected = mutableMapOf<String, List<String>>()
-        assertThat(params.getQueryParams()).isEqualTo(expected)
+        val expected = QueryParams.builder()
+        assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 }

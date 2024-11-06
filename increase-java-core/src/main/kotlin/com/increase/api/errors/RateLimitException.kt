@@ -1,9 +1,9 @@
 package com.increase.api.errors
 
-import com.google.common.collect.ListMultimap
+import com.increase.api.core.http.Headers
 
 class RateLimitException(
-    headers: ListMultimap<String, String>,
+    headers: Headers,
     body: String,
     error: IncreaseError,
 ) : IncreaseServiceException(429, headers, body, error)
