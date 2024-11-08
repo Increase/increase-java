@@ -37,6 +37,7 @@ class CardAuthorizationServiceTest {
                     .merchantCountry("x")
                     .merchantDescriptor("x")
                     .physicalCardId("physical_card_id")
+                    .terminalId("x")
                     .build()
             )
         println(simulationCardAuthorizationCreateResponse)
