@@ -96,6 +96,7 @@ class CardPaymentTest {
                                             .ACCOUNT_FUNDING
                                     )
                                     .realTimeDecisionId("real_time_decision_id")
+                                    .terminalId("terminal_id")
                                     .type(
                                         CardPayment.Element.CardAuthorization.Type
                                             .CARD_AUTHORIZATION
@@ -222,6 +223,7 @@ class CardPaymentTest {
                                     )
                                     .realTimeDecisionId("real_time_decision_id")
                                     .reason(CardPayment.Element.CardDecline.Reason.CARD_NOT_ACTIVE)
+                                    .terminalId("terminal_id")
                                     .verification(
                                         CardPayment.Element.CardDecline.Verification.builder()
                                             .cardVerificationCode(
@@ -574,6 +576,7 @@ class CardPaymentTest {
                                         CardPayment.Element.CardReversal.ReversalReason
                                             .REVERSED_BY_CUSTOMER
                                     )
+                                    .terminalId("terminal_id")
                                     .type(CardPayment.Element.CardReversal.Type.CARD_REVERSAL)
                                     .updatedAuthorizationAmount(123L)
                                     .build()
@@ -891,6 +894,7 @@ class CardPaymentTest {
                                     .networkRiskScore(123L)
                                     .physicalCardId("physical_card_id")
                                     .realTimeDecisionId("real_time_decision_id")
+                                    .terminalId("terminal_id")
                                     .type(CardPayment.Element.CardValidation.Type.CARD_VALIDATION)
                                     .verification(
                                         CardPayment.Element.CardValidation.Verification.builder()
@@ -1022,6 +1026,7 @@ class CardPaymentTest {
                                     .ACCOUNT_FUNDING
                             )
                             .realTimeDecisionId("real_time_decision_id")
+                            .terminalId("terminal_id")
                             .type(CardPayment.Element.CardAuthorization.Type.CARD_AUTHORIZATION)
                             .verification(
                                 CardPayment.Element.CardAuthorization.Verification.builder()
@@ -1130,6 +1135,7 @@ class CardPaymentTest {
                             )
                             .realTimeDecisionId("real_time_decision_id")
                             .reason(CardPayment.Element.CardDecline.Reason.CARD_NOT_ACTIVE)
+                            .terminalId("terminal_id")
                             .verification(
                                 CardPayment.Element.CardDecline.Verification.builder()
                                     .cardVerificationCode(
@@ -1450,6 +1456,7 @@ class CardPaymentTest {
                             .reversalReason(
                                 CardPayment.Element.CardReversal.ReversalReason.REVERSED_BY_CUSTOMER
                             )
+                            .terminalId("terminal_id")
                             .type(CardPayment.Element.CardReversal.Type.CARD_REVERSAL)
                             .updatedAuthorizationAmount(123L)
                             .build()
@@ -1731,6 +1738,7 @@ class CardPaymentTest {
                             .networkRiskScore(123L)
                             .physicalCardId("physical_card_id")
                             .realTimeDecisionId("real_time_decision_id")
+                            .terminalId("terminal_id")
                             .type(CardPayment.Element.CardValidation.Type.CARD_VALIDATION)
                             .verification(
                                 CardPayment.Element.CardValidation.Verification.builder()

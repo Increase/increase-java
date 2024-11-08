@@ -24,6 +24,7 @@ class SimulationCardAuthorizationCreateParamsTest {
             .merchantCountry("x")
             .merchantDescriptor("x")
             .physicalCardId("physical_card_id")
+            .terminalId("x")
             .build()
     }
 
@@ -46,6 +47,7 @@ class SimulationCardAuthorizationCreateParamsTest {
                 .merchantCountry("x")
                 .merchantDescriptor("x")
                 .physicalCardId("physical_card_id")
+                .terminalId("x")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -64,6 +66,7 @@ class SimulationCardAuthorizationCreateParamsTest {
         assertThat(body.merchantCountry()).isEqualTo("x")
         assertThat(body.merchantDescriptor()).isEqualTo("x")
         assertThat(body.physicalCardId()).isEqualTo("physical_card_id")
+        assertThat(body.terminalId()).isEqualTo("x")
     }
 
     @Test

@@ -138,6 +138,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                             DeclinedTransaction.Source.CardDecline.Reason
                                                 .CARD_NOT_ACTIVE
                                         )
+                                        .terminalId("terminal_id")
                                         .verification(
                                             DeclinedTransaction.Source.CardDecline.Verification
                                                 .builder()
@@ -372,6 +373,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                                 .ACCOUNT_FUNDING
                                         )
                                         .realTimeDecisionId("real_time_decision_id")
+                                        .terminalId("terminal_id")
                                         .type(
                                             PendingTransaction.Source.CardAuthorization.Type
                                                 .CARD_AUTHORIZATION
@@ -613,6 +615,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                         DeclinedTransaction.Source.CardDecline.Reason
                                             .CARD_NOT_ACTIVE
                                     )
+                                    .terminalId("terminal_id")
                                     .verification(
                                         DeclinedTransaction.Source.CardDecline.Verification
                                             .builder()
@@ -835,6 +838,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                             .ACCOUNT_FUNDING
                                     )
                                     .realTimeDecisionId("real_time_decision_id")
+                                    .terminalId("terminal_id")
                                     .type(
                                         PendingTransaction.Source.CardAuthorization.Type
                                             .CARD_AUTHORIZATION

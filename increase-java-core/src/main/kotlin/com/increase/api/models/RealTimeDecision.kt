@@ -854,6 +854,7 @@ private constructor(
         private val requestDetails: JsonField<RequestDetails>,
         private val settlementAmount: JsonField<Long>,
         private val settlementCurrency: JsonField<String>,
+        private val terminalId: JsonField<String>,
         private val upcomingCardPaymentId: JsonField<String>,
         private val verification: JsonField<Verification>,
         private val additionalProperties: Map<String, JsonValue>,
@@ -972,6 +973,13 @@ private constructor(
          * transaction will be settled in.
          */
         fun settlementCurrency(): String = settlementCurrency.getRequired("settlement_currency")
+
+        /**
+         * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
+         * transacting with.
+         */
+        fun terminalId(): Optional<String> =
+            Optional.ofNullable(terminalId.getNullable("terminal_id"))
 
         /**
          * The identifier of the Card Payment this authorization will belong to. Available in the
@@ -1110,6 +1118,12 @@ private constructor(
         fun _settlementCurrency() = settlementCurrency
 
         /**
+         * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
+         * transacting with.
+         */
+        @JsonProperty("terminal_id") @ExcludeMissing fun _terminalId() = terminalId
+
+        /**
          * The identifier of the Card Payment this authorization will belong to. Available in the
          * API once the card authorization has completed.
          */
@@ -1148,6 +1162,7 @@ private constructor(
                 requestDetails().validate()
                 settlementAmount()
                 settlementCurrency()
+                terminalId()
                 upcomingCardPaymentId()
                 verification().validate()
                 validated = true
@@ -1185,6 +1200,7 @@ private constructor(
             private var requestDetails: JsonField<RequestDetails> = JsonMissing.of()
             private var settlementAmount: JsonField<Long> = JsonMissing.of()
             private var settlementCurrency: JsonField<String> = JsonMissing.of()
+            private var terminalId: JsonField<String> = JsonMissing.of()
             private var upcomingCardPaymentId: JsonField<String> = JsonMissing.of()
             private var verification: JsonField<Verification> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -1213,6 +1229,7 @@ private constructor(
                 this.requestDetails = cardAuthorization.requestDetails
                 this.settlementAmount = cardAuthorization.settlementAmount
                 this.settlementCurrency = cardAuthorization.settlementCurrency
+                this.terminalId = cardAuthorization.terminalId
                 this.upcomingCardPaymentId = cardAuthorization.upcomingCardPaymentId
                 this.verification = cardAuthorization.verification
                 additionalProperties(cardAuthorization.additionalProperties)
@@ -1521,6 +1538,20 @@ private constructor(
             }
 
             /**
+             * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
+             * transacting with.
+             */
+            fun terminalId(terminalId: String) = terminalId(JsonField.of(terminalId))
+
+            /**
+             * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
+             * transacting with.
+             */
+            @JsonProperty("terminal_id")
+            @ExcludeMissing
+            fun terminalId(terminalId: JsonField<String>) = apply { this.terminalId = terminalId }
+
+            /**
              * The identifier of the Card Payment this authorization will belong to. Available in
              * the API once the card authorization has completed.
              */
@@ -1585,6 +1616,7 @@ private constructor(
                     requestDetails,
                     settlementAmount,
                     settlementCurrency,
+                    terminalId,
                     upcomingCardPaymentId,
                     verification,
                     additionalProperties.toImmutable(),
@@ -3671,20 +3703,20 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is CardAuthorization && this.accountId == other.accountId && this.cardId == other.cardId && this.decision == other.decision && this.digitalWalletTokenId == other.digitalWalletTokenId && this.direction == other.direction && this.merchantAcceptorId == other.merchantAcceptorId && this.merchantCategoryCode == other.merchantCategoryCode && this.merchantCity == other.merchantCity && this.merchantCountry == other.merchantCountry && this.merchantDescriptor == other.merchantDescriptor && this.merchantPostalCode == other.merchantPostalCode && this.merchantState == other.merchantState && this.networkDetails == other.networkDetails && this.networkIdentifiers == other.networkIdentifiers && this.networkRiskScore == other.networkRiskScore && this.physicalCardId == other.physicalCardId && this.presentmentAmount == other.presentmentAmount && this.presentmentCurrency == other.presentmentCurrency && this.processingCategory == other.processingCategory && this.requestDetails == other.requestDetails && this.settlementAmount == other.settlementAmount && this.settlementCurrency == other.settlementCurrency && this.upcomingCardPaymentId == other.upcomingCardPaymentId && this.verification == other.verification && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is CardAuthorization && this.accountId == other.accountId && this.cardId == other.cardId && this.decision == other.decision && this.digitalWalletTokenId == other.digitalWalletTokenId && this.direction == other.direction && this.merchantAcceptorId == other.merchantAcceptorId && this.merchantCategoryCode == other.merchantCategoryCode && this.merchantCity == other.merchantCity && this.merchantCountry == other.merchantCountry && this.merchantDescriptor == other.merchantDescriptor && this.merchantPostalCode == other.merchantPostalCode && this.merchantState == other.merchantState && this.networkDetails == other.networkDetails && this.networkIdentifiers == other.networkIdentifiers && this.networkRiskScore == other.networkRiskScore && this.physicalCardId == other.physicalCardId && this.presentmentAmount == other.presentmentAmount && this.presentmentCurrency == other.presentmentCurrency && this.processingCategory == other.processingCategory && this.requestDetails == other.requestDetails && this.settlementAmount == other.settlementAmount && this.settlementCurrency == other.settlementCurrency && this.terminalId == other.terminalId && this.upcomingCardPaymentId == other.upcomingCardPaymentId && this.verification == other.verification && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(accountId, cardId, decision, digitalWalletTokenId, direction, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantDescriptor, merchantPostalCode, merchantState, networkDetails, networkIdentifiers, networkRiskScore, physicalCardId, presentmentAmount, presentmentCurrency, processingCategory, requestDetails, settlementAmount, settlementCurrency, upcomingCardPaymentId, verification, additionalProperties) /* spotless:on */
+                hashCode = /* spotless:off */ Objects.hash(accountId, cardId, decision, digitalWalletTokenId, direction, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantDescriptor, merchantPostalCode, merchantState, networkDetails, networkIdentifiers, networkRiskScore, physicalCardId, presentmentAmount, presentmentCurrency, processingCategory, requestDetails, settlementAmount, settlementCurrency, terminalId, upcomingCardPaymentId, verification, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
 
         override fun toString() =
-            "CardAuthorization{accountId=$accountId, cardId=$cardId, decision=$decision, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, requestDetails=$requestDetails, settlementAmount=$settlementAmount, settlementCurrency=$settlementCurrency, upcomingCardPaymentId=$upcomingCardPaymentId, verification=$verification, additionalProperties=$additionalProperties}"
+            "CardAuthorization{accountId=$accountId, cardId=$cardId, decision=$decision, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, requestDetails=$requestDetails, settlementAmount=$settlementAmount, settlementCurrency=$settlementCurrency, terminalId=$terminalId, upcomingCardPaymentId=$upcomingCardPaymentId, verification=$verification, additionalProperties=$additionalProperties}"
     }
 
     class Category

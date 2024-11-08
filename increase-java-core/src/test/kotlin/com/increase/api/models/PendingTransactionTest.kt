@@ -116,6 +116,7 @@ class PendingTransactionTest {
                                         .ACCOUNT_FUNDING
                                 )
                                 .realTimeDecisionId("real_time_decision_id")
+                                .terminalId("terminal_id")
                                 .type(
                                     PendingTransaction.Source.CardAuthorization.Type
                                         .CARD_AUTHORIZATION
@@ -322,6 +323,7 @@ class PendingTransactionTest {
                                     .ACCOUNT_FUNDING
                             )
                             .realTimeDecisionId("real_time_decision_id")
+                            .terminalId("terminal_id")
                             .type(
                                 PendingTransaction.Source.CardAuthorization.Type.CARD_AUTHORIZATION
                             )

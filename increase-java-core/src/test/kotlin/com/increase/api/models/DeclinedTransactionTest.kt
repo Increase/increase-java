@@ -120,6 +120,7 @@ class DeclinedTransactionTest {
                                 .reason(
                                     DeclinedTransaction.Source.CardDecline.Reason.CARD_NOT_ACTIVE
                                 )
+                                .terminalId("terminal_id")
                                 .verification(
                                     DeclinedTransaction.Source.CardDecline.Verification.builder()
                                         .cardVerificationCode(
@@ -326,6 +327,7 @@ class DeclinedTransactionTest {
                             )
                             .realTimeDecisionId("real_time_decision_id")
                             .reason(DeclinedTransaction.Source.CardDecline.Reason.CARD_NOT_ACTIVE)
+                            .terminalId("terminal_id")
                             .verification(
                                 DeclinedTransaction.Source.CardDecline.Verification.builder()
                                     .cardVerificationCode(

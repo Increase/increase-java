@@ -35,6 +35,7 @@ constructor(
     private val merchantCountry: String?,
     private val merchantDescriptor: String?,
     private val physicalCardId: String?,
+    private val terminalId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -67,6 +68,8 @@ constructor(
 
     fun physicalCardId(): Optional<String> = Optional.ofNullable(physicalCardId)
 
+    fun terminalId(): Optional<String> = Optional.ofNullable(terminalId)
+
     @JvmSynthetic
     internal fun getBody(): SimulationCardAuthorizationCreateBody {
         return SimulationCardAuthorizationCreateBody(
@@ -83,6 +86,7 @@ constructor(
             merchantCountry,
             merchantDescriptor,
             physicalCardId,
+            terminalId,
             additionalBodyProperties,
         )
     }
@@ -108,6 +112,7 @@ constructor(
         private val merchantCountry: String?,
         private val merchantDescriptor: String?,
         private val physicalCardId: String?,
+        private val terminalId: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -171,6 +176,12 @@ constructor(
         /** The identifier of the Physical Card to be authorized. */
         @JsonProperty("physical_card_id") fun physicalCardId(): String? = physicalCardId
 
+        /**
+         * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
+         * transacting with.
+         */
+        @JsonProperty("terminal_id") fun terminalId(): String? = terminalId
+
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -197,6 +208,7 @@ constructor(
             private var merchantCountry: String? = null
             private var merchantDescriptor: String? = null
             private var physicalCardId: String? = null
+            private var terminalId: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -219,6 +231,7 @@ constructor(
                 this.merchantCountry = simulationCardAuthorizationCreateBody.merchantCountry
                 this.merchantDescriptor = simulationCardAuthorizationCreateBody.merchantDescriptor
                 this.physicalCardId = simulationCardAuthorizationCreateBody.physicalCardId
+                this.terminalId = simulationCardAuthorizationCreateBody.terminalId
                 additionalProperties(simulationCardAuthorizationCreateBody.additionalProperties)
             }
 
@@ -307,6 +320,13 @@ constructor(
                 this.physicalCardId = physicalCardId
             }
 
+            /**
+             * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
+             * transacting with.
+             */
+            @JsonProperty("terminal_id")
+            fun terminalId(terminalId: String) = apply { this.terminalId = terminalId }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -336,6 +356,7 @@ constructor(
                     merchantCountry,
                     merchantDescriptor,
                     physicalCardId,
+                    terminalId,
                     additionalProperties.toImmutable(),
                 )
         }
@@ -345,20 +366,20 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is SimulationCardAuthorizationCreateBody && this.amount == other.amount && this.authenticatedCardPaymentId == other.authenticatedCardPaymentId && this.cardId == other.cardId && this.declineReason == other.declineReason && this.digitalWalletTokenId == other.digitalWalletTokenId && this.direction == other.direction && this.eventSubscriptionId == other.eventSubscriptionId && this.merchantAcceptorId == other.merchantAcceptorId && this.merchantCategoryCode == other.merchantCategoryCode && this.merchantCity == other.merchantCity && this.merchantCountry == other.merchantCountry && this.merchantDescriptor == other.merchantDescriptor && this.physicalCardId == other.physicalCardId && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is SimulationCardAuthorizationCreateBody && this.amount == other.amount && this.authenticatedCardPaymentId == other.authenticatedCardPaymentId && this.cardId == other.cardId && this.declineReason == other.declineReason && this.digitalWalletTokenId == other.digitalWalletTokenId && this.direction == other.direction && this.eventSubscriptionId == other.eventSubscriptionId && this.merchantAcceptorId == other.merchantAcceptorId && this.merchantCategoryCode == other.merchantCategoryCode && this.merchantCity == other.merchantCity && this.merchantCountry == other.merchantCountry && this.merchantDescriptor == other.merchantDescriptor && this.physicalCardId == other.physicalCardId && this.terminalId == other.terminalId && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(amount, authenticatedCardPaymentId, cardId, declineReason, digitalWalletTokenId, direction, eventSubscriptionId, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantDescriptor, physicalCardId, additionalProperties) /* spotless:on */
+                hashCode = /* spotless:off */ Objects.hash(amount, authenticatedCardPaymentId, cardId, declineReason, digitalWalletTokenId, direction, eventSubscriptionId, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantDescriptor, physicalCardId, terminalId, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
 
         override fun toString() =
-            "SimulationCardAuthorizationCreateBody{amount=$amount, authenticatedCardPaymentId=$authenticatedCardPaymentId, cardId=$cardId, declineReason=$declineReason, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, eventSubscriptionId=$eventSubscriptionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, physicalCardId=$physicalCardId, additionalProperties=$additionalProperties}"
+            "SimulationCardAuthorizationCreateBody{amount=$amount, authenticatedCardPaymentId=$authenticatedCardPaymentId, cardId=$cardId, declineReason=$declineReason, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, eventSubscriptionId=$eventSubscriptionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, physicalCardId=$physicalCardId, terminalId=$terminalId, additionalProperties=$additionalProperties}"
     }
 
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -372,15 +393,15 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is SimulationCardAuthorizationCreateParams && this.amount == other.amount && this.authenticatedCardPaymentId == other.authenticatedCardPaymentId && this.cardId == other.cardId && this.declineReason == other.declineReason && this.digitalWalletTokenId == other.digitalWalletTokenId && this.direction == other.direction && this.eventSubscriptionId == other.eventSubscriptionId && this.merchantAcceptorId == other.merchantAcceptorId && this.merchantCategoryCode == other.merchantCategoryCode && this.merchantCity == other.merchantCity && this.merchantCountry == other.merchantCountry && this.merchantDescriptor == other.merchantDescriptor && this.physicalCardId == other.physicalCardId && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is SimulationCardAuthorizationCreateParams && this.amount == other.amount && this.authenticatedCardPaymentId == other.authenticatedCardPaymentId && this.cardId == other.cardId && this.declineReason == other.declineReason && this.digitalWalletTokenId == other.digitalWalletTokenId && this.direction == other.direction && this.eventSubscriptionId == other.eventSubscriptionId && this.merchantAcceptorId == other.merchantAcceptorId && this.merchantCategoryCode == other.merchantCategoryCode && this.merchantCity == other.merchantCity && this.merchantCountry == other.merchantCountry && this.merchantDescriptor == other.merchantDescriptor && this.physicalCardId == other.physicalCardId && this.terminalId == other.terminalId && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(amount, authenticatedCardPaymentId, cardId, declineReason, digitalWalletTokenId, direction, eventSubscriptionId, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantDescriptor, physicalCardId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+        return /* spotless:off */ Objects.hash(amount, authenticatedCardPaymentId, cardId, declineReason, digitalWalletTokenId, direction, eventSubscriptionId, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantDescriptor, physicalCardId, terminalId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
-        "SimulationCardAuthorizationCreateParams{amount=$amount, authenticatedCardPaymentId=$authenticatedCardPaymentId, cardId=$cardId, declineReason=$declineReason, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, eventSubscriptionId=$eventSubscriptionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, physicalCardId=$physicalCardId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "SimulationCardAuthorizationCreateParams{amount=$amount, authenticatedCardPaymentId=$authenticatedCardPaymentId, cardId=$cardId, declineReason=$declineReason, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, eventSubscriptionId=$eventSubscriptionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, physicalCardId=$physicalCardId, terminalId=$terminalId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -405,6 +426,7 @@ constructor(
         private var merchantCountry: String? = null
         private var merchantDescriptor: String? = null
         private var physicalCardId: String? = null
+        private var terminalId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -427,6 +449,7 @@ constructor(
             this.merchantCountry = simulationCardAuthorizationCreateParams.merchantCountry
             this.merchantDescriptor = simulationCardAuthorizationCreateParams.merchantDescriptor
             this.physicalCardId = simulationCardAuthorizationCreateParams.physicalCardId
+            this.terminalId = simulationCardAuthorizationCreateParams.terminalId
             additionalHeaders(simulationCardAuthorizationCreateParams.additionalHeaders)
             additionalQueryParams(simulationCardAuthorizationCreateParams.additionalQueryParams)
             additionalBodyProperties(
@@ -505,6 +528,12 @@ constructor(
 
         /** The identifier of the Physical Card to be authorized. */
         fun physicalCardId(physicalCardId: String) = apply { this.physicalCardId = physicalCardId }
+
+        /**
+         * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
+         * transacting with.
+         */
+        fun terminalId(terminalId: String) = apply { this.terminalId = terminalId }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -641,6 +670,7 @@ constructor(
                 merchantCountry,
                 merchantDescriptor,
                 physicalCardId,
+                terminalId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
