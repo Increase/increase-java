@@ -23,6 +23,7 @@ class SimulationCardAuthorizationCreateParamsTest {
             .merchantCity("x")
             .merchantCountry("x")
             .merchantDescriptor("x")
+            .merchantState("x")
             .physicalCardId("physical_card_id")
             .terminalId("x")
             .build()
@@ -46,6 +47,7 @@ class SimulationCardAuthorizationCreateParamsTest {
                 .merchantCity("x")
                 .merchantCountry("x")
                 .merchantDescriptor("x")
+                .merchantState("x")
                 .physicalCardId("physical_card_id")
                 .terminalId("x")
                 .build()
@@ -65,6 +67,7 @@ class SimulationCardAuthorizationCreateParamsTest {
         assertThat(body.merchantCity()).isEqualTo("x")
         assertThat(body.merchantCountry()).isEqualTo("x")
         assertThat(body.merchantDescriptor()).isEqualTo("x")
+        assertThat(body.merchantState()).isEqualTo("x")
         assertThat(body.physicalCardId()).isEqualTo("physical_card_id")
         assertThat(body.terminalId()).isEqualTo("x")
     }
