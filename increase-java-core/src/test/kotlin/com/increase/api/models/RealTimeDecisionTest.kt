@@ -106,6 +106,7 @@ class RealTimeDecisionTest {
                         )
                         .settlementAmount(123L)
                         .settlementCurrency("settlement_currency")
+                        .terminalId("terminal_id")
                         .upcomingCardPaymentId("upcoming_card_payment_id")
                         .verification(
                             RealTimeDecision.CardAuthorization.Verification.builder()
@@ -263,6 +264,7 @@ class RealTimeDecisionTest {
                     )
                     .settlementAmount(123L)
                     .settlementCurrency("settlement_currency")
+                    .terminalId("terminal_id")
                     .upcomingCardPaymentId("upcoming_card_payment_id")
                     .verification(
                         RealTimeDecision.CardAuthorization.Verification.builder()
