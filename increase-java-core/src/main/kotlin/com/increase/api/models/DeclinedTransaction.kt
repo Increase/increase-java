@@ -1484,6 +1484,7 @@ private constructor(
             private val processingCategory: JsonField<ProcessingCategory>,
             private val realTimeDecisionId: JsonField<String>,
             private val reason: JsonField<Reason>,
+            private val terminalId: JsonField<String>,
             private val verification: JsonField<Verification>,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
@@ -1613,6 +1614,13 @@ private constructor(
 
             /** Why the transaction was declined. */
             fun reason(): Reason = reason.getRequired("reason")
+
+            /**
+             * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
+             * transacting with.
+             */
+            fun terminalId(): Optional<String> =
+                Optional.ofNullable(terminalId.getNullable("terminal_id"))
 
             /** Fields related to verification of cardholder-provided values. */
             fun verification(): Verification = verification.getRequired("verification")
@@ -1753,6 +1761,12 @@ private constructor(
             /** Why the transaction was declined. */
             @JsonProperty("reason") @ExcludeMissing fun _reason() = reason
 
+            /**
+             * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
+             * transacting with.
+             */
+            @JsonProperty("terminal_id") @ExcludeMissing fun _terminalId() = terminalId
+
             /** Fields related to verification of cardholder-provided values. */
             @JsonProperty("verification") @ExcludeMissing fun _verification() = verification
 
@@ -1786,6 +1800,7 @@ private constructor(
                     processingCategory()
                     realTimeDecisionId()
                     reason()
+                    terminalId()
                     verification().validate()
                     validated = true
                 }
@@ -1824,6 +1839,7 @@ private constructor(
                 private var processingCategory: JsonField<ProcessingCategory> = JsonMissing.of()
                 private var realTimeDecisionId: JsonField<String> = JsonMissing.of()
                 private var reason: JsonField<Reason> = JsonMissing.of()
+                private var terminalId: JsonField<String> = JsonMissing.of()
                 private var verification: JsonField<Verification> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -1853,6 +1869,7 @@ private constructor(
                     this.processingCategory = cardDecline.processingCategory
                     this.realTimeDecisionId = cardDecline.realTimeDecisionId
                     this.reason = cardDecline.reason
+                    this.terminalId = cardDecline.terminalId
                     this.verification = cardDecline.verification
                     additionalProperties(cardDecline.additionalProperties)
                 }
@@ -2186,6 +2203,22 @@ private constructor(
                 @ExcludeMissing
                 fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
 
+                /**
+                 * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
+                 * transacting with.
+                 */
+                fun terminalId(terminalId: String) = terminalId(JsonField.of(terminalId))
+
+                /**
+                 * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
+                 * transacting with.
+                 */
+                @JsonProperty("terminal_id")
+                @ExcludeMissing
+                fun terminalId(terminalId: JsonField<String>) = apply {
+                    this.terminalId = terminalId
+                }
+
                 /** Fields related to verification of cardholder-provided values. */
                 fun verification(verification: Verification) =
                     verification(JsonField.of(verification))
@@ -2238,6 +2271,7 @@ private constructor(
                         processingCategory,
                         realTimeDecisionId,
                         reason,
+                        terminalId,
                         verification,
                         additionalProperties.toImmutable(),
                     )
@@ -4235,20 +4269,20 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is CardDecline && this.actioner == other.actioner && this.amount == other.amount && this.cardPaymentId == other.cardPaymentId && this.currency == other.currency && this.declinedTransactionId == other.declinedTransactionId && this.digitalWalletTokenId == other.digitalWalletTokenId && this.direction == other.direction && this.id == other.id && this.merchantAcceptorId == other.merchantAcceptorId && this.merchantCategoryCode == other.merchantCategoryCode && this.merchantCity == other.merchantCity && this.merchantCountry == other.merchantCountry && this.merchantDescriptor == other.merchantDescriptor && this.merchantPostalCode == other.merchantPostalCode && this.merchantState == other.merchantState && this.networkDetails == other.networkDetails && this.networkIdentifiers == other.networkIdentifiers && this.networkRiskScore == other.networkRiskScore && this.physicalCardId == other.physicalCardId && this.presentmentAmount == other.presentmentAmount && this.presentmentCurrency == other.presentmentCurrency && this.processingCategory == other.processingCategory && this.realTimeDecisionId == other.realTimeDecisionId && this.reason == other.reason && this.verification == other.verification && this.additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is CardDecline && this.actioner == other.actioner && this.amount == other.amount && this.cardPaymentId == other.cardPaymentId && this.currency == other.currency && this.declinedTransactionId == other.declinedTransactionId && this.digitalWalletTokenId == other.digitalWalletTokenId && this.direction == other.direction && this.id == other.id && this.merchantAcceptorId == other.merchantAcceptorId && this.merchantCategoryCode == other.merchantCategoryCode && this.merchantCity == other.merchantCity && this.merchantCountry == other.merchantCountry && this.merchantDescriptor == other.merchantDescriptor && this.merchantPostalCode == other.merchantPostalCode && this.merchantState == other.merchantState && this.networkDetails == other.networkDetails && this.networkIdentifiers == other.networkIdentifiers && this.networkRiskScore == other.networkRiskScore && this.physicalCardId == other.physicalCardId && this.presentmentAmount == other.presentmentAmount && this.presentmentCurrency == other.presentmentCurrency && this.processingCategory == other.processingCategory && this.realTimeDecisionId == other.realTimeDecisionId && this.reason == other.reason && this.terminalId == other.terminalId && this.verification == other.verification && this.additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             private var hashCode: Int = 0
 
             override fun hashCode(): Int {
                 if (hashCode == 0) {
-                    hashCode = /* spotless:off */ Objects.hash(actioner, amount, cardPaymentId, currency, declinedTransactionId, digitalWalletTokenId, direction, id, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantDescriptor, merchantPostalCode, merchantState, networkDetails, networkIdentifiers, networkRiskScore, physicalCardId, presentmentAmount, presentmentCurrency, processingCategory, realTimeDecisionId, reason, verification, additionalProperties) /* spotless:on */
+                    hashCode = /* spotless:off */ Objects.hash(actioner, amount, cardPaymentId, currency, declinedTransactionId, digitalWalletTokenId, direction, id, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantDescriptor, merchantPostalCode, merchantState, networkDetails, networkIdentifiers, networkRiskScore, physicalCardId, presentmentAmount, presentmentCurrency, processingCategory, realTimeDecisionId, reason, terminalId, verification, additionalProperties) /* spotless:on */
                 }
                 return hashCode
             }
 
             override fun toString() =
-                "CardDecline{actioner=$actioner, amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, declinedTransactionId=$declinedTransactionId, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, id=$id, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, realTimeDecisionId=$realTimeDecisionId, reason=$reason, verification=$verification, additionalProperties=$additionalProperties}"
+                "CardDecline{actioner=$actioner, amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, declinedTransactionId=$declinedTransactionId, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, id=$id, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, realTimeDecisionId=$realTimeDecisionId, reason=$reason, terminalId=$terminalId, verification=$verification, additionalProperties=$additionalProperties}"
         }
 
         class Category
