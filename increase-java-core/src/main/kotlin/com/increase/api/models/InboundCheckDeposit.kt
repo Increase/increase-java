@@ -43,6 +43,7 @@ private constructor(
     private val depositReturn: JsonField<DepositReturn>,
     private val frontImageFileId: JsonField<String>,
     private val id: JsonField<String>,
+    private val payeeNameAnalysis: JsonField<PayeeNameAnalysis>,
     private val status: JsonField<Status>,
     private val transactionId: JsonField<String>,
     private val type: JsonField<Type>,
@@ -129,6 +130,13 @@ private constructor(
 
     /** The deposit's identifier. */
     fun id(): String = id.getRequired("id")
+
+    /**
+     * Whether the details on the check match the recipient name of the check transfer. This is an
+     * optional feature, contact sales to enable.
+     */
+    fun payeeNameAnalysis(): PayeeNameAnalysis =
+        payeeNameAnalysis.getRequired("payee_name_analysis")
 
     /** The status of the Inbound Check Deposit. */
     fun status(): Status = status.getRequired("status")
@@ -217,6 +225,14 @@ private constructor(
     /** The deposit's identifier. */
     @JsonProperty("id") @ExcludeMissing fun _id() = id
 
+    /**
+     * Whether the details on the check match the recipient name of the check transfer. This is an
+     * optional feature, contact sales to enable.
+     */
+    @JsonProperty("payee_name_analysis")
+    @ExcludeMissing
+    fun _payeeNameAnalysis() = payeeNameAnalysis
+
     /** The status of the Inbound Check Deposit. */
     @JsonProperty("status") @ExcludeMissing fun _status() = status
 
@@ -254,6 +270,7 @@ private constructor(
             depositReturn().map { it.validate() }
             frontImageFileId()
             id()
+            payeeNameAnalysis()
             status()
             transactionId()
             type()
@@ -286,6 +303,7 @@ private constructor(
         private var depositReturn: JsonField<DepositReturn> = JsonMissing.of()
         private var frontImageFileId: JsonField<String> = JsonMissing.of()
         private var id: JsonField<String> = JsonMissing.of()
+        private var payeeNameAnalysis: JsonField<PayeeNameAnalysis> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var transactionId: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
@@ -310,6 +328,7 @@ private constructor(
             this.depositReturn = inboundCheckDeposit.depositReturn
             this.frontImageFileId = inboundCheckDeposit.frontImageFileId
             this.id = inboundCheckDeposit.id
+            this.payeeNameAnalysis = inboundCheckDeposit.payeeNameAnalysis
             this.status = inboundCheckDeposit.status
             this.transactionId = inboundCheckDeposit.transactionId
             this.type = inboundCheckDeposit.type
@@ -515,6 +534,23 @@ private constructor(
         /** The deposit's identifier. */
         @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
 
+        /**
+         * Whether the details on the check match the recipient name of the check transfer. This is
+         * an optional feature, contact sales to enable.
+         */
+        fun payeeNameAnalysis(payeeNameAnalysis: PayeeNameAnalysis) =
+            payeeNameAnalysis(JsonField.of(payeeNameAnalysis))
+
+        /**
+         * Whether the details on the check match the recipient name of the check transfer. This is
+         * an optional feature, contact sales to enable.
+         */
+        @JsonProperty("payee_name_analysis")
+        @ExcludeMissing
+        fun payeeNameAnalysis(payeeNameAnalysis: JsonField<PayeeNameAnalysis>) = apply {
+            this.payeeNameAnalysis = payeeNameAnalysis
+        }
+
         /** The status of the Inbound Check Deposit. */
         fun status(status: Status) = status(JsonField.of(status))
 
@@ -585,6 +621,7 @@ private constructor(
                 depositReturn,
                 frontImageFileId,
                 id,
+                payeeNameAnalysis,
                 status,
                 transactionId,
                 type,
@@ -1105,6 +1142,69 @@ private constructor(
             "DepositReturn{reason=$reason, returnedAt=$returnedAt, transactionId=$transactionId, additionalProperties=$additionalProperties}"
     }
 
+    class PayeeNameAnalysis
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is PayeeNameAnalysis && this.value == other.value /* spotless:on */
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            @JvmField val NAME_MATCHES = PayeeNameAnalysis(JsonField.of("name_matches"))
+
+            @JvmField val DOES_NOT_MATCH = PayeeNameAnalysis(JsonField.of("does_not_match"))
+
+            @JvmField val NOT_EVALUATED = PayeeNameAnalysis(JsonField.of("not_evaluated"))
+
+            @JvmStatic fun of(value: String) = PayeeNameAnalysis(JsonField.of(value))
+        }
+
+        enum class Known {
+            NAME_MATCHES,
+            DOES_NOT_MATCH,
+            NOT_EVALUATED,
+        }
+
+        enum class Value {
+            NAME_MATCHES,
+            DOES_NOT_MATCH,
+            NOT_EVALUATED,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                NAME_MATCHES -> Value.NAME_MATCHES
+                DOES_NOT_MATCH -> Value.DOES_NOT_MATCH
+                NOT_EVALUATED -> Value.NOT_EVALUATED
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                NAME_MATCHES -> Known.NAME_MATCHES
+                DOES_NOT_MATCH -> Known.DOES_NOT_MATCH
+                NOT_EVALUATED -> Known.NOT_EVALUATED
+                else -> throw IncreaseInvalidDataException("Unknown PayeeNameAnalysis: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
     class Status
     @JsonCreator
     private constructor(
@@ -1236,18 +1336,18 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InboundCheckDeposit && this.acceptedAt == other.acceptedAt && this.accountId == other.accountId && this.accountNumberId == other.accountNumberId && this.adjustments == other.adjustments && this.amount == other.amount && this.backImageFileId == other.backImageFileId && this.bankOfFirstDepositRoutingNumber == other.bankOfFirstDepositRoutingNumber && this.checkNumber == other.checkNumber && this.checkTransferId == other.checkTransferId && this.createdAt == other.createdAt && this.currency == other.currency && this.declinedAt == other.declinedAt && this.declinedTransactionId == other.declinedTransactionId && this.depositReturn == other.depositReturn && this.frontImageFileId == other.frontImageFileId && this.id == other.id && this.status == other.status && this.transactionId == other.transactionId && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is InboundCheckDeposit && this.acceptedAt == other.acceptedAt && this.accountId == other.accountId && this.accountNumberId == other.accountNumberId && this.adjustments == other.adjustments && this.amount == other.amount && this.backImageFileId == other.backImageFileId && this.bankOfFirstDepositRoutingNumber == other.bankOfFirstDepositRoutingNumber && this.checkNumber == other.checkNumber && this.checkTransferId == other.checkTransferId && this.createdAt == other.createdAt && this.currency == other.currency && this.declinedAt == other.declinedAt && this.declinedTransactionId == other.declinedTransactionId && this.depositReturn == other.depositReturn && this.frontImageFileId == other.frontImageFileId && this.id == other.id && this.payeeNameAnalysis == other.payeeNameAnalysis && this.status == other.status && this.transactionId == other.transactionId && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(acceptedAt, accountId, accountNumberId, adjustments, amount, backImageFileId, bankOfFirstDepositRoutingNumber, checkNumber, checkTransferId, createdAt, currency, declinedAt, declinedTransactionId, depositReturn, frontImageFileId, id, status, transactionId, type, additionalProperties) /* spotless:on */
+            hashCode = /* spotless:off */ Objects.hash(acceptedAt, accountId, accountNumberId, adjustments, amount, backImageFileId, bankOfFirstDepositRoutingNumber, checkNumber, checkTransferId, createdAt, currency, declinedAt, declinedTransactionId, depositReturn, frontImageFileId, id, payeeNameAnalysis, status, transactionId, type, additionalProperties) /* spotless:on */
         }
         return hashCode
     }
 
     override fun toString() =
-        "InboundCheckDeposit{acceptedAt=$acceptedAt, accountId=$accountId, accountNumberId=$accountNumberId, adjustments=$adjustments, amount=$amount, backImageFileId=$backImageFileId, bankOfFirstDepositRoutingNumber=$bankOfFirstDepositRoutingNumber, checkNumber=$checkNumber, checkTransferId=$checkTransferId, createdAt=$createdAt, currency=$currency, declinedAt=$declinedAt, declinedTransactionId=$declinedTransactionId, depositReturn=$depositReturn, frontImageFileId=$frontImageFileId, id=$id, status=$status, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+        "InboundCheckDeposit{acceptedAt=$acceptedAt, accountId=$accountId, accountNumberId=$accountNumberId, adjustments=$adjustments, amount=$amount, backImageFileId=$backImageFileId, bankOfFirstDepositRoutingNumber=$bankOfFirstDepositRoutingNumber, checkNumber=$checkNumber, checkTransferId=$checkTransferId, createdAt=$createdAt, currency=$currency, declinedAt=$declinedAt, declinedTransactionId=$declinedTransactionId, depositReturn=$depositReturn, frontImageFileId=$frontImageFileId, id=$id, payeeNameAnalysis=$payeeNameAnalysis, status=$status, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 }
