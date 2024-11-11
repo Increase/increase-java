@@ -15,6 +15,7 @@ import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
@@ -32,6 +33,7 @@ private constructor(
     private val automaticallyResolvesAt: JsonField<OffsetDateTime>,
     private val decline: JsonField<Decline>,
     private val direction: JsonField<Direction>,
+    private val effectiveDate: JsonField<LocalDate>,
     private val expectedSettlementSchedule: JsonField<ExpectedSettlementSchedule>,
     private val id: JsonField<String>,
     private val internationalAddenda: JsonField<InternationalAddenda>,
@@ -79,6 +81,12 @@ private constructor(
 
     /** The direction of the transfer. */
     fun direction(): Direction = direction.getRequired("direction")
+
+    /**
+     * The effective date of the transfer. This is sent by the sending bank and is a factor in
+     * determining funds availability.
+     */
+    fun effectiveDate(): LocalDate = effectiveDate.getRequired("effective_date")
 
     /** The settlement schedule the transfer is expected to follow. */
     fun expectedSettlementSchedule(): ExpectedSettlementSchedule =
@@ -184,6 +192,12 @@ private constructor(
     /** The direction of the transfer. */
     @JsonProperty("direction") @ExcludeMissing fun _direction() = direction
 
+    /**
+     * The effective date of the transfer. This is sent by the sending bank and is a factor in
+     * determining funds availability.
+     */
+    @JsonProperty("effective_date") @ExcludeMissing fun _effectiveDate() = effectiveDate
+
     /** The settlement schedule the transfer is expected to follow. */
     @JsonProperty("expected_settlement_schedule")
     @ExcludeMissing
@@ -280,6 +294,7 @@ private constructor(
             automaticallyResolvesAt()
             decline().map { it.validate() }
             direction()
+            effectiveDate()
             expectedSettlementSchedule()
             id()
             internationalAddenda().map { it.validate() }
@@ -318,6 +333,7 @@ private constructor(
         private var automaticallyResolvesAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var decline: JsonField<Decline> = JsonMissing.of()
         private var direction: JsonField<Direction> = JsonMissing.of()
+        private var effectiveDate: JsonField<LocalDate> = JsonMissing.of()
         private var expectedSettlementSchedule: JsonField<ExpectedSettlementSchedule> =
             JsonMissing.of()
         private var id: JsonField<String> = JsonMissing.of()
@@ -348,6 +364,7 @@ private constructor(
             this.automaticallyResolvesAt = inboundAchTransfer.automaticallyResolvesAt
             this.decline = inboundAchTransfer.decline
             this.direction = inboundAchTransfer.direction
+            this.effectiveDate = inboundAchTransfer.effectiveDate
             this.expectedSettlementSchedule = inboundAchTransfer.expectedSettlementSchedule
             this.id = inboundAchTransfer.id
             this.internationalAddenda = inboundAchTransfer.internationalAddenda
@@ -440,6 +457,22 @@ private constructor(
         @JsonProperty("direction")
         @ExcludeMissing
         fun direction(direction: JsonField<Direction>) = apply { this.direction = direction }
+
+        /**
+         * The effective date of the transfer. This is sent by the sending bank and is a factor in
+         * determining funds availability.
+         */
+        fun effectiveDate(effectiveDate: LocalDate) = effectiveDate(JsonField.of(effectiveDate))
+
+        /**
+         * The effective date of the transfer. This is sent by the sending bank and is a factor in
+         * determining funds availability.
+         */
+        @JsonProperty("effective_date")
+        @ExcludeMissing
+        fun effectiveDate(effectiveDate: JsonField<LocalDate>) = apply {
+            this.effectiveDate = effectiveDate
+        }
 
         /** The settlement schedule the transfer is expected to follow. */
         fun expectedSettlementSchedule(expectedSettlementSchedule: ExpectedSettlementSchedule) =
@@ -663,6 +696,7 @@ private constructor(
                 automaticallyResolvesAt,
                 decline,
                 direction,
+                effectiveDate,
                 expectedSettlementSchedule,
                 id,
                 internationalAddenda,
@@ -3995,18 +4029,18 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InboundAchTransfer && this.acceptance == other.acceptance && this.accountId == other.accountId && this.accountNumberId == other.accountNumberId && this.addenda == other.addenda && this.amount == other.amount && this.automaticallyResolvesAt == other.automaticallyResolvesAt && this.decline == other.decline && this.direction == other.direction && this.expectedSettlementSchedule == other.expectedSettlementSchedule && this.id == other.id && this.internationalAddenda == other.internationalAddenda && this.notificationOfChange == other.notificationOfChange && this.originatorCompanyDescriptiveDate == other.originatorCompanyDescriptiveDate && this.originatorCompanyDiscretionaryData == other.originatorCompanyDiscretionaryData && this.originatorCompanyEntryDescription == other.originatorCompanyEntryDescription && this.originatorCompanyId == other.originatorCompanyId && this.originatorCompanyName == other.originatorCompanyName && this.originatorRoutingNumber == other.originatorRoutingNumber && this.receiverIdNumber == other.receiverIdNumber && this.receiverName == other.receiverName && this.standardEntryClassCode == other.standardEntryClassCode && this.status == other.status && this.traceNumber == other.traceNumber && this.transferReturn == other.transferReturn && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is InboundAchTransfer && this.acceptance == other.acceptance && this.accountId == other.accountId && this.accountNumberId == other.accountNumberId && this.addenda == other.addenda && this.amount == other.amount && this.automaticallyResolvesAt == other.automaticallyResolvesAt && this.decline == other.decline && this.direction == other.direction && this.effectiveDate == other.effectiveDate && this.expectedSettlementSchedule == other.expectedSettlementSchedule && this.id == other.id && this.internationalAddenda == other.internationalAddenda && this.notificationOfChange == other.notificationOfChange && this.originatorCompanyDescriptiveDate == other.originatorCompanyDescriptiveDate && this.originatorCompanyDiscretionaryData == other.originatorCompanyDiscretionaryData && this.originatorCompanyEntryDescription == other.originatorCompanyEntryDescription && this.originatorCompanyId == other.originatorCompanyId && this.originatorCompanyName == other.originatorCompanyName && this.originatorRoutingNumber == other.originatorRoutingNumber && this.receiverIdNumber == other.receiverIdNumber && this.receiverName == other.receiverName && this.standardEntryClassCode == other.standardEntryClassCode && this.status == other.status && this.traceNumber == other.traceNumber && this.transferReturn == other.transferReturn && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(acceptance, accountId, accountNumberId, addenda, amount, automaticallyResolvesAt, decline, direction, expectedSettlementSchedule, id, internationalAddenda, notificationOfChange, originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData, originatorCompanyEntryDescription, originatorCompanyId, originatorCompanyName, originatorRoutingNumber, receiverIdNumber, receiverName, standardEntryClassCode, status, traceNumber, transferReturn, type, additionalProperties) /* spotless:on */
+            hashCode = /* spotless:off */ Objects.hash(acceptance, accountId, accountNumberId, addenda, amount, automaticallyResolvesAt, decline, direction, effectiveDate, expectedSettlementSchedule, id, internationalAddenda, notificationOfChange, originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData, originatorCompanyEntryDescription, originatorCompanyId, originatorCompanyName, originatorRoutingNumber, receiverIdNumber, receiverName, standardEntryClassCode, status, traceNumber, transferReturn, type, additionalProperties) /* spotless:on */
         }
         return hashCode
     }
 
     override fun toString() =
-        "InboundAchTransfer{acceptance=$acceptance, accountId=$accountId, accountNumberId=$accountNumberId, addenda=$addenda, amount=$amount, automaticallyResolvesAt=$automaticallyResolvesAt, decline=$decline, direction=$direction, expectedSettlementSchedule=$expectedSettlementSchedule, id=$id, internationalAddenda=$internationalAddenda, notificationOfChange=$notificationOfChange, originatorCompanyDescriptiveDate=$originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData=$originatorCompanyDiscretionaryData, originatorCompanyEntryDescription=$originatorCompanyEntryDescription, originatorCompanyId=$originatorCompanyId, originatorCompanyName=$originatorCompanyName, originatorRoutingNumber=$originatorRoutingNumber, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, standardEntryClassCode=$standardEntryClassCode, status=$status, traceNumber=$traceNumber, transferReturn=$transferReturn, type=$type, additionalProperties=$additionalProperties}"
+        "InboundAchTransfer{acceptance=$acceptance, accountId=$accountId, accountNumberId=$accountNumberId, addenda=$addenda, amount=$amount, automaticallyResolvesAt=$automaticallyResolvesAt, decline=$decline, direction=$direction, effectiveDate=$effectiveDate, expectedSettlementSchedule=$expectedSettlementSchedule, id=$id, internationalAddenda=$internationalAddenda, notificationOfChange=$notificationOfChange, originatorCompanyDescriptiveDate=$originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData=$originatorCompanyDiscretionaryData, originatorCompanyEntryDescription=$originatorCompanyEntryDescription, originatorCompanyId=$originatorCompanyId, originatorCompanyName=$originatorCompanyName, originatorRoutingNumber=$originatorRoutingNumber, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, standardEntryClassCode=$standardEntryClassCode, status=$status, traceNumber=$traceNumber, transferReturn=$transferReturn, type=$type, additionalProperties=$additionalProperties}"
 }
