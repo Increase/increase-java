@@ -2,6 +2,7 @@
 
 package com.increase.api.models
 
+import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -49,6 +50,7 @@ class InboundAchTransferTest {
                         .build()
                 )
                 .direction(InboundAchTransfer.Direction.CREDIT)
+                .effectiveDate(LocalDate.parse("2019-12-27"))
                 .expectedSettlementSchedule(InboundAchTransfer.ExpectedSettlementSchedule.SAME_DAY)
                 .internationalAddenda(
                     InboundAchTransfer.InternationalAddenda.builder()
@@ -185,6 +187,7 @@ class InboundAchTransferTest {
                     .build()
             )
         assertThat(inboundAchTransfer.direction()).isEqualTo(InboundAchTransfer.Direction.CREDIT)
+        assertThat(inboundAchTransfer.effectiveDate()).isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(inboundAchTransfer.expectedSettlementSchedule())
             .isEqualTo(InboundAchTransfer.ExpectedSettlementSchedule.SAME_DAY)
         assertThat(inboundAchTransfer.internationalAddenda())
