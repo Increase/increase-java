@@ -61,6 +61,10 @@ class RealTimeDecisionServiceTest {
                             .decision(
                                 RealTimeDecisionActionParams.CardAuthorization.Decision.APPROVE
                             )
+                            .declineReason(
+                                RealTimeDecisionActionParams.CardAuthorization.DeclineReason
+                                    .INSUFFICIENT_FUNDS
+                            )
                             .build()
                     )
                     .digitalWalletAuthentication(
