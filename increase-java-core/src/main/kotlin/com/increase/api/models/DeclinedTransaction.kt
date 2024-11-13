@@ -1543,16 +1543,15 @@ private constructor(
              * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
              * transacting with.
              */
-            fun merchantCategoryCode(): Optional<String> =
-                Optional.ofNullable(merchantCategoryCode.getNullable("merchant_category_code"))
+            fun merchantCategoryCode(): String =
+                merchantCategoryCode.getRequired("merchant_category_code")
 
             /** The city the merchant resides in. */
             fun merchantCity(): Optional<String> =
                 Optional.ofNullable(merchantCity.getNullable("merchant_city"))
 
             /** The country the merchant resides in. */
-            fun merchantCountry(): Optional<String> =
-                Optional.ofNullable(merchantCountry.getNullable("merchant_country"))
+            fun merchantCountry(): String = merchantCountry.getRequired("merchant_country")
 
             /** The merchant descriptor of the merchant the card is transacting with. */
             fun merchantDescriptor(): String = merchantDescriptor.getRequired("merchant_descriptor")
