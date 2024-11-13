@@ -3467,6 +3467,7 @@ private constructor(
             private val merchantCity: JsonField<String>,
             private val merchantCountry: JsonField<String>,
             private val merchantName: JsonField<String>,
+            private val merchantPostalCode: JsonField<String>,
             private val merchantState: JsonField<String>,
             private val networkIdentifiers: JsonField<NetworkIdentifiers>,
             private val presentmentAmount: JsonField<Long>,
@@ -3521,6 +3522,10 @@ private constructor(
 
             /** The name of the merchant. */
             fun merchantName(): String = merchantName.getRequired("merchant_name")
+
+            /** The merchant's postal code. For US merchants this is always a 5-digit ZIP code. */
+            fun merchantPostalCode(): Optional<String> =
+                Optional.ofNullable(merchantPostalCode.getNullable("merchant_postal_code"))
 
             /** The state the merchant resides in. */
             fun merchantState(): Optional<String> =
@@ -3600,6 +3605,11 @@ private constructor(
             /** The name of the merchant. */
             @JsonProperty("merchant_name") @ExcludeMissing fun _merchantName() = merchantName
 
+            /** The merchant's postal code. For US merchants this is always a 5-digit ZIP code. */
+            @JsonProperty("merchant_postal_code")
+            @ExcludeMissing
+            fun _merchantPostalCode() = merchantPostalCode
+
             /** The state the merchant resides in. */
             @JsonProperty("merchant_state") @ExcludeMissing fun _merchantState() = merchantState
 
@@ -3653,6 +3663,7 @@ private constructor(
                     merchantCity()
                     merchantCountry()
                     merchantName()
+                    merchantPostalCode()
                     merchantState()
                     networkIdentifiers().validate()
                     presentmentAmount()
@@ -3683,6 +3694,7 @@ private constructor(
                 private var merchantCity: JsonField<String> = JsonMissing.of()
                 private var merchantCountry: JsonField<String> = JsonMissing.of()
                 private var merchantName: JsonField<String> = JsonMissing.of()
+                private var merchantPostalCode: JsonField<String> = JsonMissing.of()
                 private var merchantState: JsonField<String> = JsonMissing.of()
                 private var networkIdentifiers: JsonField<NetworkIdentifiers> = JsonMissing.of()
                 private var presentmentAmount: JsonField<Long> = JsonMissing.of()
@@ -3704,6 +3716,7 @@ private constructor(
                     this.merchantCity = cardRefund.merchantCity
                     this.merchantCountry = cardRefund.merchantCountry
                     this.merchantName = cardRefund.merchantName
+                    this.merchantPostalCode = cardRefund.merchantPostalCode
                     this.merchantState = cardRefund.merchantState
                     this.networkIdentifiers = cardRefund.networkIdentifiers
                     this.presentmentAmount = cardRefund.presentmentAmount
@@ -3830,6 +3843,21 @@ private constructor(
                     this.merchantName = merchantName
                 }
 
+                /**
+                 * The merchant's postal code. For US merchants this is always a 5-digit ZIP code.
+                 */
+                fun merchantPostalCode(merchantPostalCode: String) =
+                    merchantPostalCode(JsonField.of(merchantPostalCode))
+
+                /**
+                 * The merchant's postal code. For US merchants this is always a 5-digit ZIP code.
+                 */
+                @JsonProperty("merchant_postal_code")
+                @ExcludeMissing
+                fun merchantPostalCode(merchantPostalCode: JsonField<String>) = apply {
+                    this.merchantPostalCode = merchantPostalCode
+                }
+
                 /** The state the merchant resides in. */
                 fun merchantState(merchantState: String) =
                     merchantState(JsonField.of(merchantState))
@@ -3949,6 +3977,7 @@ private constructor(
                         merchantCity,
                         merchantCountry,
                         merchantName,
+                        merchantPostalCode,
                         merchantState,
                         networkIdentifiers,
                         presentmentAmount,
@@ -8097,20 +8126,20 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is CardRefund && this.amount == other.amount && this.cardPaymentId == other.cardPaymentId && this.currency == other.currency && this.id == other.id && this.interchange == other.interchange && this.merchantAcceptorId == other.merchantAcceptorId && this.merchantCategoryCode == other.merchantCategoryCode && this.merchantCity == other.merchantCity && this.merchantCountry == other.merchantCountry && this.merchantName == other.merchantName && this.merchantState == other.merchantState && this.networkIdentifiers == other.networkIdentifiers && this.presentmentAmount == other.presentmentAmount && this.presentmentCurrency == other.presentmentCurrency && this.purchaseDetails == other.purchaseDetails && this.transactionId == other.transactionId && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is CardRefund && this.amount == other.amount && this.cardPaymentId == other.cardPaymentId && this.currency == other.currency && this.id == other.id && this.interchange == other.interchange && this.merchantAcceptorId == other.merchantAcceptorId && this.merchantCategoryCode == other.merchantCategoryCode && this.merchantCity == other.merchantCity && this.merchantCountry == other.merchantCountry && this.merchantName == other.merchantName && this.merchantPostalCode == other.merchantPostalCode && this.merchantState == other.merchantState && this.networkIdentifiers == other.networkIdentifiers && this.presentmentAmount == other.presentmentAmount && this.presentmentCurrency == other.presentmentCurrency && this.purchaseDetails == other.purchaseDetails && this.transactionId == other.transactionId && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             private var hashCode: Int = 0
 
             override fun hashCode(): Int {
                 if (hashCode == 0) {
-                    hashCode = /* spotless:off */ Objects.hash(amount, cardPaymentId, currency, id, interchange, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantName, merchantState, networkIdentifiers, presentmentAmount, presentmentCurrency, purchaseDetails, transactionId, type, additionalProperties) /* spotless:on */
+                    hashCode = /* spotless:off */ Objects.hash(amount, cardPaymentId, currency, id, interchange, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantName, merchantPostalCode, merchantState, networkIdentifiers, presentmentAmount, presentmentCurrency, purchaseDetails, transactionId, type, additionalProperties) /* spotless:on */
                 }
                 return hashCode
             }
 
             override fun toString() =
-                "CardRefund{amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, id=$id, interchange=$interchange, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantState=$merchantState, networkIdentifiers=$networkIdentifiers, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, purchaseDetails=$purchaseDetails, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+                "CardRefund{amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, id=$id, interchange=$interchange, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkIdentifiers=$networkIdentifiers, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, purchaseDetails=$purchaseDetails, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -8424,6 +8453,7 @@ private constructor(
             private val merchantCity: JsonField<String>,
             private val merchantCountry: JsonField<String>,
             private val merchantName: JsonField<String>,
+            private val merchantPostalCode: JsonField<String>,
             private val merchantState: JsonField<String>,
             private val networkIdentifiers: JsonField<NetworkIdentifiers>,
             private val pendingTransactionId: JsonField<String>,
@@ -8485,6 +8515,10 @@ private constructor(
 
             /** The name of the merchant. */
             fun merchantName(): String = merchantName.getRequired("merchant_name")
+
+            /** The merchant's postal code. For US merchants this is always a 5-digit ZIP code. */
+            fun merchantPostalCode(): Optional<String> =
+                Optional.ofNullable(merchantPostalCode.getNullable("merchant_postal_code"))
 
             /** The state the merchant resides in. */
             fun merchantState(): Optional<String> =
@@ -8575,6 +8609,11 @@ private constructor(
             /** The name of the merchant. */
             @JsonProperty("merchant_name") @ExcludeMissing fun _merchantName() = merchantName
 
+            /** The merchant's postal code. For US merchants this is always a 5-digit ZIP code. */
+            @JsonProperty("merchant_postal_code")
+            @ExcludeMissing
+            fun _merchantPostalCode() = merchantPostalCode
+
             /** The state the merchant resides in. */
             @JsonProperty("merchant_state") @ExcludeMissing fun _merchantState() = merchantState
 
@@ -8634,6 +8673,7 @@ private constructor(
                     merchantCity()
                     merchantCountry()
                     merchantName()
+                    merchantPostalCode()
                     merchantState()
                     networkIdentifiers().validate()
                     pendingTransactionId()
@@ -8666,6 +8706,7 @@ private constructor(
                 private var merchantCity: JsonField<String> = JsonMissing.of()
                 private var merchantCountry: JsonField<String> = JsonMissing.of()
                 private var merchantName: JsonField<String> = JsonMissing.of()
+                private var merchantPostalCode: JsonField<String> = JsonMissing.of()
                 private var merchantState: JsonField<String> = JsonMissing.of()
                 private var networkIdentifiers: JsonField<NetworkIdentifiers> = JsonMissing.of()
                 private var pendingTransactionId: JsonField<String> = JsonMissing.of()
@@ -8689,6 +8730,7 @@ private constructor(
                     this.merchantCity = cardSettlement.merchantCity
                     this.merchantCountry = cardSettlement.merchantCountry
                     this.merchantName = cardSettlement.merchantName
+                    this.merchantPostalCode = cardSettlement.merchantPostalCode
                     this.merchantState = cardSettlement.merchantState
                     this.networkIdentifiers = cardSettlement.networkIdentifiers
                     this.pendingTransactionId = cardSettlement.pendingTransactionId
@@ -8833,6 +8875,21 @@ private constructor(
                     this.merchantName = merchantName
                 }
 
+                /**
+                 * The merchant's postal code. For US merchants this is always a 5-digit ZIP code.
+                 */
+                fun merchantPostalCode(merchantPostalCode: String) =
+                    merchantPostalCode(JsonField.of(merchantPostalCode))
+
+                /**
+                 * The merchant's postal code. For US merchants this is always a 5-digit ZIP code.
+                 */
+                @JsonProperty("merchant_postal_code")
+                @ExcludeMissing
+                fun merchantPostalCode(merchantPostalCode: JsonField<String>) = apply {
+                    this.merchantPostalCode = merchantPostalCode
+                }
+
                 /** The state the merchant resides in. */
                 fun merchantState(merchantState: String) =
                     merchantState(JsonField.of(merchantState))
@@ -8964,6 +9021,7 @@ private constructor(
                         merchantCity,
                         merchantCountry,
                         merchantName,
+                        merchantPostalCode,
                         merchantState,
                         networkIdentifiers,
                         pendingTransactionId,
@@ -13113,20 +13171,20 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is CardSettlement && this.amount == other.amount && this.cardAuthorization == other.cardAuthorization && this.cardPaymentId == other.cardPaymentId && this.currency == other.currency && this.id == other.id && this.interchange == other.interchange && this.merchantAcceptorId == other.merchantAcceptorId && this.merchantCategoryCode == other.merchantCategoryCode && this.merchantCity == other.merchantCity && this.merchantCountry == other.merchantCountry && this.merchantName == other.merchantName && this.merchantState == other.merchantState && this.networkIdentifiers == other.networkIdentifiers && this.pendingTransactionId == other.pendingTransactionId && this.presentmentAmount == other.presentmentAmount && this.presentmentCurrency == other.presentmentCurrency && this.purchaseDetails == other.purchaseDetails && this.transactionId == other.transactionId && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is CardSettlement && this.amount == other.amount && this.cardAuthorization == other.cardAuthorization && this.cardPaymentId == other.cardPaymentId && this.currency == other.currency && this.id == other.id && this.interchange == other.interchange && this.merchantAcceptorId == other.merchantAcceptorId && this.merchantCategoryCode == other.merchantCategoryCode && this.merchantCity == other.merchantCity && this.merchantCountry == other.merchantCountry && this.merchantName == other.merchantName && this.merchantPostalCode == other.merchantPostalCode && this.merchantState == other.merchantState && this.networkIdentifiers == other.networkIdentifiers && this.pendingTransactionId == other.pendingTransactionId && this.presentmentAmount == other.presentmentAmount && this.presentmentCurrency == other.presentmentCurrency && this.purchaseDetails == other.purchaseDetails && this.transactionId == other.transactionId && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             private var hashCode: Int = 0
 
             override fun hashCode(): Int {
                 if (hashCode == 0) {
-                    hashCode = /* spotless:off */ Objects.hash(amount, cardAuthorization, cardPaymentId, currency, id, interchange, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantName, merchantState, networkIdentifiers, pendingTransactionId, presentmentAmount, presentmentCurrency, purchaseDetails, transactionId, type, additionalProperties) /* spotless:on */
+                    hashCode = /* spotless:off */ Objects.hash(amount, cardAuthorization, cardPaymentId, currency, id, interchange, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantName, merchantPostalCode, merchantState, networkIdentifiers, pendingTransactionId, presentmentAmount, presentmentCurrency, purchaseDetails, transactionId, type, additionalProperties) /* spotless:on */
                 }
                 return hashCode
             }
 
             override fun toString() =
-                "CardSettlement{amount=$amount, cardAuthorization=$cardAuthorization, cardPaymentId=$cardPaymentId, currency=$currency, id=$id, interchange=$interchange, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantState=$merchantState, networkIdentifiers=$networkIdentifiers, pendingTransactionId=$pendingTransactionId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, purchaseDetails=$purchaseDetails, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+                "CardSettlement{amount=$amount, cardAuthorization=$cardAuthorization, cardPaymentId=$cardPaymentId, currency=$currency, id=$id, interchange=$interchange, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkIdentifiers=$networkIdentifiers, pendingTransactionId=$pendingTransactionId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, purchaseDetails=$purchaseDetails, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
         }
 
         /**
