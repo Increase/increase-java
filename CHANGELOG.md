@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.145.0 (2024-11-13)
+
+Full Changelog: [v0.144.0...v0.145.0](https://github.com/Increase/increase-java/compare/v0.144.0...v0.145.0)
+
+### Features
+
+* **api:** api update ([#606](https://github.com/Increase/increase-java/issues/606)) ([73dfba5](https://github.com/Increase/increase-java/commit/73dfba54e04c4afd61cf81b12fc7162393d0a54c))
+
+
+### Chores
+
+* rebuild project due to codegen change ([#604](https://github.com/Increase/increase-java/issues/604)) ([cd14824](https://github.com/Increase/increase-java/commit/cd14824f40438a731dee2078e112fed08b49687d))
+
 ## 0.144.0 (2024-11-11)
 
 Full Changelog: [v0.143.0...v0.144.0](https://github.com/Increase/increase-java/compare/v0.143.0...v0.144.0)
