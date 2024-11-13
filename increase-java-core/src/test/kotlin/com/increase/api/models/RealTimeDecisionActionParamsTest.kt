@@ -25,6 +25,10 @@ class RealTimeDecisionActionParamsTest {
             .cardAuthorization(
                 RealTimeDecisionActionParams.CardAuthorization.builder()
                     .decision(RealTimeDecisionActionParams.CardAuthorization.Decision.APPROVE)
+                    .declineReason(
+                        RealTimeDecisionActionParams.CardAuthorization.DeclineReason
+                            .INSUFFICIENT_FUNDS
+                    )
                     .build()
             )
             .digitalWalletAuthentication(
@@ -76,6 +80,10 @@ class RealTimeDecisionActionParamsTest {
                 .cardAuthorization(
                     RealTimeDecisionActionParams.CardAuthorization.builder()
                         .decision(RealTimeDecisionActionParams.CardAuthorization.Decision.APPROVE)
+                        .declineReason(
+                            RealTimeDecisionActionParams.CardAuthorization.DeclineReason
+                                .INSUFFICIENT_FUNDS
+                        )
                         .build()
                 )
                 .digitalWalletAuthentication(
@@ -126,6 +134,10 @@ class RealTimeDecisionActionParamsTest {
             .isEqualTo(
                 RealTimeDecisionActionParams.CardAuthorization.builder()
                     .decision(RealTimeDecisionActionParams.CardAuthorization.Decision.APPROVE)
+                    .declineReason(
+                        RealTimeDecisionActionParams.CardAuthorization.DeclineReason
+                            .INSUFFICIENT_FUNDS
+                    )
                     .build()
             )
         assertThat(body.digitalWalletAuthentication())

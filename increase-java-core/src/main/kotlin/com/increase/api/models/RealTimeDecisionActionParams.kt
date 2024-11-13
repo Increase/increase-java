@@ -780,11 +780,18 @@ constructor(
     class CardAuthorization
     private constructor(
         private val decision: Decision?,
+        private val declineReason: DeclineReason?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /** Whether the card authorization should be approved or declined. */
         @JsonProperty("decision") fun decision(): Decision? = decision
+
+        /**
+         * The reason the card authorization was declined. This translates to a specific decline
+         * code that is sent to the card network.
+         */
+        @JsonProperty("decline_reason") fun declineReason(): DeclineReason? = declineReason
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -800,17 +807,28 @@ constructor(
         class Builder {
 
             private var decision: Decision? = null
+            private var declineReason: DeclineReason? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(cardAuthorization: CardAuthorization) = apply {
                 this.decision = cardAuthorization.decision
+                this.declineReason = cardAuthorization.declineReason
                 additionalProperties(cardAuthorization.additionalProperties)
             }
 
             /** Whether the card authorization should be approved or declined. */
             @JsonProperty("decision")
             fun decision(decision: Decision) = apply { this.decision = decision }
+
+            /**
+             * The reason the card authorization was declined. This translates to a specific decline
+             * code that is sent to the card network.
+             */
+            @JsonProperty("decline_reason")
+            fun declineReason(declineReason: DeclineReason) = apply {
+                this.declineReason = declineReason
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -829,7 +847,8 @@ constructor(
             fun build(): CardAuthorization =
                 CardAuthorization(
                     checkNotNull(decision) { "`decision` is required but was not set" },
-                    additionalProperties.toImmutable()
+                    declineReason,
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -890,25 +909,111 @@ constructor(
             fun asString(): String = _value().asStringOrThrow()
         }
 
+        class DeclineReason
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) : Enum {
+
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return /* spotless:off */ other is DeclineReason && this.value == other.value /* spotless:on */
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+
+            companion object {
+
+                @JvmField val INSUFFICIENT_FUNDS = DeclineReason(JsonField.of("insufficient_funds"))
+
+                @JvmField
+                val TRANSACTION_NEVER_ALLOWED =
+                    DeclineReason(JsonField.of("transaction_never_allowed"))
+
+                @JvmField
+                val EXCEEDS_APPROVAL_LIMIT = DeclineReason(JsonField.of("exceeds_approval_limit"))
+
+                @JvmField
+                val CARD_TEMPORARILY_DISABLED =
+                    DeclineReason(JsonField.of("card_temporarily_disabled"))
+
+                @JvmField val SUSPECTED_FRAUD = DeclineReason(JsonField.of("suspected_fraud"))
+
+                @JvmField val OTHER = DeclineReason(JsonField.of("other"))
+
+                @JvmStatic fun of(value: String) = DeclineReason(JsonField.of(value))
+            }
+
+            enum class Known {
+                INSUFFICIENT_FUNDS,
+                TRANSACTION_NEVER_ALLOWED,
+                EXCEEDS_APPROVAL_LIMIT,
+                CARD_TEMPORARILY_DISABLED,
+                SUSPECTED_FRAUD,
+                OTHER,
+            }
+
+            enum class Value {
+                INSUFFICIENT_FUNDS,
+                TRANSACTION_NEVER_ALLOWED,
+                EXCEEDS_APPROVAL_LIMIT,
+                CARD_TEMPORARILY_DISABLED,
+                SUSPECTED_FRAUD,
+                OTHER,
+                _UNKNOWN,
+            }
+
+            fun value(): Value =
+                when (this) {
+                    INSUFFICIENT_FUNDS -> Value.INSUFFICIENT_FUNDS
+                    TRANSACTION_NEVER_ALLOWED -> Value.TRANSACTION_NEVER_ALLOWED
+                    EXCEEDS_APPROVAL_LIMIT -> Value.EXCEEDS_APPROVAL_LIMIT
+                    CARD_TEMPORARILY_DISABLED -> Value.CARD_TEMPORARILY_DISABLED
+                    SUSPECTED_FRAUD -> Value.SUSPECTED_FRAUD
+                    OTHER -> Value.OTHER
+                    else -> Value._UNKNOWN
+                }
+
+            fun known(): Known =
+                when (this) {
+                    INSUFFICIENT_FUNDS -> Known.INSUFFICIENT_FUNDS
+                    TRANSACTION_NEVER_ALLOWED -> Known.TRANSACTION_NEVER_ALLOWED
+                    EXCEEDS_APPROVAL_LIMIT -> Known.EXCEEDS_APPROVAL_LIMIT
+                    CARD_TEMPORARILY_DISABLED -> Known.CARD_TEMPORARILY_DISABLED
+                    SUSPECTED_FRAUD -> Known.SUSPECTED_FRAUD
+                    OTHER -> Known.OTHER
+                    else -> throw IncreaseInvalidDataException("Unknown DeclineReason: $value")
+                }
+
+            fun asString(): String = _value().asStringOrThrow()
+        }
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
             }
 
-            return /* spotless:off */ other is CardAuthorization && this.decision == other.decision && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is CardAuthorization && this.decision == other.decision && this.declineReason == other.declineReason && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(decision, additionalProperties) /* spotless:on */
+                hashCode = /* spotless:off */ Objects.hash(decision, declineReason, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
 
         override fun toString() =
-            "CardAuthorization{decision=$decision, additionalProperties=$additionalProperties}"
+            "CardAuthorization{decision=$decision, declineReason=$declineReason, additionalProperties=$additionalProperties}"
     }
 
     /**
