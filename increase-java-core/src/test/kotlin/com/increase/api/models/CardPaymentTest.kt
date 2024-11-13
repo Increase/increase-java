@@ -324,6 +324,7 @@ class CardPaymentTest {
                                     .merchantCity("merchant_city")
                                     .merchantCountry("merchant_country")
                                     .merchantName("merchant_name")
+                                    .merchantPostalCode("merchant_postal_code")
                                     .merchantState("merchant_state")
                                     .networkIdentifiers(
                                         CardPayment.Element.CardRefund.NetworkIdentifiers.builder()
@@ -604,6 +605,7 @@ class CardPaymentTest {
                                     .merchantCity("merchant_city")
                                     .merchantCountry("merchant_country")
                                     .merchantName("merchant_name")
+                                    .merchantPostalCode("merchant_postal_code")
                                     .merchantState("merchant_state")
                                     .networkIdentifiers(
                                         CardPayment.Element.CardSettlement.NetworkIdentifiers
@@ -1233,6 +1235,7 @@ class CardPaymentTest {
                             .merchantCity("merchant_city")
                             .merchantCountry("merchant_country")
                             .merchantName("merchant_name")
+                            .merchantPostalCode("merchant_postal_code")
                             .merchantState("merchant_state")
                             .networkIdentifiers(
                                 CardPayment.Element.CardRefund.NetworkIdentifiers.builder()
@@ -1482,6 +1485,7 @@ class CardPaymentTest {
                             .merchantCity("merchant_city")
                             .merchantCountry("merchant_country")
                             .merchantName("merchant_name")
+                            .merchantPostalCode("merchant_postal_code")
                             .merchantState("merchant_state")
                             .networkIdentifiers(
                                 CardPayment.Element.CardSettlement.NetworkIdentifiers.builder()

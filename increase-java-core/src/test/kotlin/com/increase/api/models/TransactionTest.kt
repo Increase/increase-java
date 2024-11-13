@@ -96,6 +96,7 @@ class TransactionTest {
                                 .merchantCity("merchant_city")
                                 .merchantCountry("merchant_country")
                                 .merchantName("merchant_name")
+                                .merchantPostalCode("merchant_postal_code")
                                 .merchantState("merchant_state")
                                 .networkIdentifiers(
                                     Transaction.Source.CardRefund.NetworkIdentifiers.builder()
@@ -339,6 +340,7 @@ class TransactionTest {
                                 .merchantCity("merchant_city")
                                 .merchantCountry("merchant_country")
                                 .merchantName("merchant_name")
+                                .merchantPostalCode("merchant_postal_code")
                                 .merchantState("merchant_state")
                                 .networkIdentifiers(
                                     Transaction.Source.CardSettlement.NetworkIdentifiers.builder()
@@ -896,6 +898,7 @@ class TransactionTest {
                             .merchantCity("merchant_city")
                             .merchantCountry("merchant_country")
                             .merchantName("merchant_name")
+                            .merchantPostalCode("merchant_postal_code")
                             .merchantState("merchant_state")
                             .networkIdentifiers(
                                 Transaction.Source.CardRefund.NetworkIdentifiers.builder()
@@ -1120,6 +1123,7 @@ class TransactionTest {
                             .merchantCity("merchant_city")
                             .merchantCountry("merchant_country")
                             .merchantName("merchant_name")
+                            .merchantPostalCode("merchant_postal_code")
                             .merchantState("merchant_state")
                             .networkIdentifiers(
                                 Transaction.Source.CardSettlement.NetworkIdentifiers.builder()
