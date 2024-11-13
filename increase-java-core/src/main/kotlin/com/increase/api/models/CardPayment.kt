@@ -8394,8 +8394,8 @@ private constructor(
              * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
              * transacting with.
              */
-            fun merchantAcceptorId(): Optional<String> =
-                Optional.ofNullable(merchantAcceptorId.getNullable("merchant_acceptor_id"))
+            fun merchantAcceptorId(): String =
+                merchantAcceptorId.getRequired("merchant_acceptor_id")
 
             /** The 4-digit MCC describing the merchant's business. */
             fun merchantCategoryCode(): String =
@@ -8409,8 +8409,7 @@ private constructor(
             fun merchantCountry(): String = merchantCountry.getRequired("merchant_country")
 
             /** The name of the merchant. */
-            fun merchantName(): Optional<String> =
-                Optional.ofNullable(merchantName.getNullable("merchant_name"))
+            fun merchantName(): String = merchantName.getRequired("merchant_name")
 
             /** The state the merchant resides in. */
             fun merchantState(): Optional<String> =
@@ -14106,8 +14105,8 @@ private constructor(
              * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
              * transacting with.
              */
-            fun merchantAcceptorId(): Optional<String> =
-                Optional.ofNullable(merchantAcceptorId.getNullable("merchant_acceptor_id"))
+            fun merchantAcceptorId(): String =
+                merchantAcceptorId.getRequired("merchant_acceptor_id")
 
             /** The 4-digit MCC describing the merchant's business. */
             fun merchantCategoryCode(): String =
@@ -14121,8 +14120,7 @@ private constructor(
             fun merchantCountry(): String = merchantCountry.getRequired("merchant_country")
 
             /** The name of the merchant. */
-            fun merchantName(): Optional<String> =
-                Optional.ofNullable(merchantName.getNullable("merchant_name"))
+            fun merchantName(): String = merchantName.getRequired("merchant_name")
 
             /** The state the merchant resides in. */
             fun merchantState(): Optional<String> =
