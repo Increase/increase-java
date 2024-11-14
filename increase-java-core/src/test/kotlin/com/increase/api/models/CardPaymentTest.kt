@@ -222,10 +222,6 @@ class CardPaymentTest {
                                             .ACCOUNT_FUNDING
                                     )
                                     .realTimeDecisionId("real_time_decision_id")
-                                    .realTimeDecisionReason(
-                                        CardPayment.Element.CardDecline.RealTimeDecisionReason
-                                            .INSUFFICIENT_FUNDS
-                                    )
                                     .reason(CardPayment.Element.CardDecline.Reason.CARD_NOT_ACTIVE)
                                     .terminalId("terminal_id")
                                     .verification(
@@ -1140,10 +1136,6 @@ class CardPaymentTest {
                                 CardPayment.Element.CardDecline.ProcessingCategory.ACCOUNT_FUNDING
                             )
                             .realTimeDecisionId("real_time_decision_id")
-                            .realTimeDecisionReason(
-                                CardPayment.Element.CardDecline.RealTimeDecisionReason
-                                    .INSUFFICIENT_FUNDS
-                            )
                             .reason(CardPayment.Element.CardDecline.Reason.CARD_NOT_ACTIVE)
                             .terminalId("terminal_id")
                             .verification(
