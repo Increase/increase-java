@@ -3982,7 +3982,6 @@ private constructor(
             private val presentmentCurrency: JsonField<String>,
             private val processingCategory: JsonField<ProcessingCategory>,
             private val realTimeDecisionId: JsonField<String>,
-            private val realTimeDecisionReason: JsonField<RealTimeDecisionReason>,
             private val reason: JsonField<Reason>,
             private val terminalId: JsonField<String>,
             private val verification: JsonField<Verification>,
@@ -4110,10 +4109,6 @@ private constructor(
              */
             fun realTimeDecisionId(): Optional<String> =
                 Optional.ofNullable(realTimeDecisionId.getNullable("real_time_decision_id"))
-
-            /** This is present if a specific decline reason was given in the real-time decision. */
-            fun realTimeDecisionReason(): Optional<RealTimeDecisionReason> =
-                Optional.ofNullable(realTimeDecisionReason.getNullable("real_time_decision_reason"))
 
             /** Why the transaction was declined. */
             fun reason(): Reason = reason.getRequired("reason")
@@ -4261,11 +4256,6 @@ private constructor(
             @ExcludeMissing
             fun _realTimeDecisionId() = realTimeDecisionId
 
-            /** This is present if a specific decline reason was given in the real-time decision. */
-            @JsonProperty("real_time_decision_reason")
-            @ExcludeMissing
-            fun _realTimeDecisionReason() = realTimeDecisionReason
-
             /** Why the transaction was declined. */
             @JsonProperty("reason") @ExcludeMissing fun _reason() = reason
 
@@ -4307,7 +4297,6 @@ private constructor(
                     presentmentCurrency()
                     processingCategory()
                     realTimeDecisionId()
-                    realTimeDecisionReason()
                     reason()
                     terminalId()
                     verification().validate()
@@ -4347,8 +4336,6 @@ private constructor(
                 private var presentmentCurrency: JsonField<String> = JsonMissing.of()
                 private var processingCategory: JsonField<ProcessingCategory> = JsonMissing.of()
                 private var realTimeDecisionId: JsonField<String> = JsonMissing.of()
-                private var realTimeDecisionReason: JsonField<RealTimeDecisionReason> =
-                    JsonMissing.of()
                 private var reason: JsonField<Reason> = JsonMissing.of()
                 private var terminalId: JsonField<String> = JsonMissing.of()
                 private var verification: JsonField<Verification> = JsonMissing.of()
@@ -4379,7 +4366,6 @@ private constructor(
                     this.presentmentCurrency = cardDecline.presentmentCurrency
                     this.processingCategory = cardDecline.processingCategory
                     this.realTimeDecisionId = cardDecline.realTimeDecisionId
-                    this.realTimeDecisionReason = cardDecline.realTimeDecisionReason
                     this.reason = cardDecline.reason
                     this.terminalId = cardDecline.terminalId
                     this.verification = cardDecline.verification
@@ -4707,21 +4693,6 @@ private constructor(
                     this.realTimeDecisionId = realTimeDecisionId
                 }
 
-                /**
-                 * This is present if a specific decline reason was given in the real-time decision.
-                 */
-                fun realTimeDecisionReason(realTimeDecisionReason: RealTimeDecisionReason) =
-                    realTimeDecisionReason(JsonField.of(realTimeDecisionReason))
-
-                /**
-                 * This is present if a specific decline reason was given in the real-time decision.
-                 */
-                @JsonProperty("real_time_decision_reason")
-                @ExcludeMissing
-                fun realTimeDecisionReason(
-                    realTimeDecisionReason: JsonField<RealTimeDecisionReason>
-                ) = apply { this.realTimeDecisionReason = realTimeDecisionReason }
-
                 /** Why the transaction was declined. */
                 fun reason(reason: Reason) = reason(JsonField.of(reason))
 
@@ -4797,7 +4768,6 @@ private constructor(
                         presentmentCurrency,
                         processingCategory,
                         realTimeDecisionId,
-                        realTimeDecisionReason,
                         reason,
                         terminalId,
                         verification,
@@ -6025,99 +5995,6 @@ private constructor(
                 fun asString(): String = _value().asStringOrThrow()
             }
 
-            class RealTimeDecisionReason
-            @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) : Enum {
-
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return /* spotless:off */ other is RealTimeDecisionReason && this.value == other.value /* spotless:on */
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-
-                companion object {
-
-                    @JvmField
-                    val INSUFFICIENT_FUNDS =
-                        RealTimeDecisionReason(JsonField.of("insufficient_funds"))
-
-                    @JvmField
-                    val TRANSACTION_NEVER_ALLOWED =
-                        RealTimeDecisionReason(JsonField.of("transaction_never_allowed"))
-
-                    @JvmField
-                    val EXCEEDS_APPROVAL_LIMIT =
-                        RealTimeDecisionReason(JsonField.of("exceeds_approval_limit"))
-
-                    @JvmField
-                    val CARD_TEMPORARILY_DISABLED =
-                        RealTimeDecisionReason(JsonField.of("card_temporarily_disabled"))
-
-                    @JvmField
-                    val SUSPECTED_FRAUD = RealTimeDecisionReason(JsonField.of("suspected_fraud"))
-
-                    @JvmField val OTHER = RealTimeDecisionReason(JsonField.of("other"))
-
-                    @JvmStatic fun of(value: String) = RealTimeDecisionReason(JsonField.of(value))
-                }
-
-                enum class Known {
-                    INSUFFICIENT_FUNDS,
-                    TRANSACTION_NEVER_ALLOWED,
-                    EXCEEDS_APPROVAL_LIMIT,
-                    CARD_TEMPORARILY_DISABLED,
-                    SUSPECTED_FRAUD,
-                    OTHER,
-                }
-
-                enum class Value {
-                    INSUFFICIENT_FUNDS,
-                    TRANSACTION_NEVER_ALLOWED,
-                    EXCEEDS_APPROVAL_LIMIT,
-                    CARD_TEMPORARILY_DISABLED,
-                    SUSPECTED_FRAUD,
-                    OTHER,
-                    _UNKNOWN,
-                }
-
-                fun value(): Value =
-                    when (this) {
-                        INSUFFICIENT_FUNDS -> Value.INSUFFICIENT_FUNDS
-                        TRANSACTION_NEVER_ALLOWED -> Value.TRANSACTION_NEVER_ALLOWED
-                        EXCEEDS_APPROVAL_LIMIT -> Value.EXCEEDS_APPROVAL_LIMIT
-                        CARD_TEMPORARILY_DISABLED -> Value.CARD_TEMPORARILY_DISABLED
-                        SUSPECTED_FRAUD -> Value.SUSPECTED_FRAUD
-                        OTHER -> Value.OTHER
-                        else -> Value._UNKNOWN
-                    }
-
-                fun known(): Known =
-                    when (this) {
-                        INSUFFICIENT_FUNDS -> Known.INSUFFICIENT_FUNDS
-                        TRANSACTION_NEVER_ALLOWED -> Known.TRANSACTION_NEVER_ALLOWED
-                        EXCEEDS_APPROVAL_LIMIT -> Known.EXCEEDS_APPROVAL_LIMIT
-                        CARD_TEMPORARILY_DISABLED -> Known.CARD_TEMPORARILY_DISABLED
-                        SUSPECTED_FRAUD -> Known.SUSPECTED_FRAUD
-                        OTHER -> Known.OTHER
-                        else ->
-                            throw IncreaseInvalidDataException(
-                                "Unknown RealTimeDecisionReason: $value"
-                            )
-                    }
-
-                fun asString(): String = _value().asStringOrThrow()
-            }
-
             class Reason
             @JsonCreator
             private constructor(
@@ -6890,20 +6767,20 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is CardDecline && this.actioner == other.actioner && this.amount == other.amount && this.cardPaymentId == other.cardPaymentId && this.currency == other.currency && this.declinedTransactionId == other.declinedTransactionId && this.digitalWalletTokenId == other.digitalWalletTokenId && this.direction == other.direction && this.id == other.id && this.merchantAcceptorId == other.merchantAcceptorId && this.merchantCategoryCode == other.merchantCategoryCode && this.merchantCity == other.merchantCity && this.merchantCountry == other.merchantCountry && this.merchantDescriptor == other.merchantDescriptor && this.merchantPostalCode == other.merchantPostalCode && this.merchantState == other.merchantState && this.networkDetails == other.networkDetails && this.networkIdentifiers == other.networkIdentifiers && this.networkRiskScore == other.networkRiskScore && this.physicalCardId == other.physicalCardId && this.presentmentAmount == other.presentmentAmount && this.presentmentCurrency == other.presentmentCurrency && this.processingCategory == other.processingCategory && this.realTimeDecisionId == other.realTimeDecisionId && this.realTimeDecisionReason == other.realTimeDecisionReason && this.reason == other.reason && this.terminalId == other.terminalId && this.verification == other.verification && this.additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is CardDecline && this.actioner == other.actioner && this.amount == other.amount && this.cardPaymentId == other.cardPaymentId && this.currency == other.currency && this.declinedTransactionId == other.declinedTransactionId && this.digitalWalletTokenId == other.digitalWalletTokenId && this.direction == other.direction && this.id == other.id && this.merchantAcceptorId == other.merchantAcceptorId && this.merchantCategoryCode == other.merchantCategoryCode && this.merchantCity == other.merchantCity && this.merchantCountry == other.merchantCountry && this.merchantDescriptor == other.merchantDescriptor && this.merchantPostalCode == other.merchantPostalCode && this.merchantState == other.merchantState && this.networkDetails == other.networkDetails && this.networkIdentifiers == other.networkIdentifiers && this.networkRiskScore == other.networkRiskScore && this.physicalCardId == other.physicalCardId && this.presentmentAmount == other.presentmentAmount && this.presentmentCurrency == other.presentmentCurrency && this.processingCategory == other.processingCategory && this.realTimeDecisionId == other.realTimeDecisionId && this.reason == other.reason && this.terminalId == other.terminalId && this.verification == other.verification && this.additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             private var hashCode: Int = 0
 
             override fun hashCode(): Int {
                 if (hashCode == 0) {
-                    hashCode = /* spotless:off */ Objects.hash(actioner, amount, cardPaymentId, currency, declinedTransactionId, digitalWalletTokenId, direction, id, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantDescriptor, merchantPostalCode, merchantState, networkDetails, networkIdentifiers, networkRiskScore, physicalCardId, presentmentAmount, presentmentCurrency, processingCategory, realTimeDecisionId, realTimeDecisionReason, reason, terminalId, verification, additionalProperties) /* spotless:on */
+                    hashCode = /* spotless:off */ Objects.hash(actioner, amount, cardPaymentId, currency, declinedTransactionId, digitalWalletTokenId, direction, id, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantDescriptor, merchantPostalCode, merchantState, networkDetails, networkIdentifiers, networkRiskScore, physicalCardId, presentmentAmount, presentmentCurrency, processingCategory, realTimeDecisionId, reason, terminalId, verification, additionalProperties) /* spotless:on */
                 }
                 return hashCode
             }
 
             override fun toString() =
-                "CardDecline{actioner=$actioner, amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, declinedTransactionId=$declinedTransactionId, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, id=$id, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, realTimeDecisionId=$realTimeDecisionId, realTimeDecisionReason=$realTimeDecisionReason, reason=$reason, terminalId=$terminalId, verification=$verification, additionalProperties=$additionalProperties}"
+                "CardDecline{actioner=$actioner, amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, declinedTransactionId=$declinedTransactionId, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, id=$id, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, realTimeDecisionId=$realTimeDecisionId, reason=$reason, terminalId=$terminalId, verification=$verification, additionalProperties=$additionalProperties}"
         }
 
         /**
