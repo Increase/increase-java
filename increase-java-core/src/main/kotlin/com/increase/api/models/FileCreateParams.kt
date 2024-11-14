@@ -328,6 +328,8 @@ constructor(
 
             @JvmField val MAILED_CHECK_IMAGE = Purpose(JsonField.of("mailed_check_image"))
 
+            @JvmField val CHECK_VOUCHER_IMAGE = Purpose(JsonField.of("check_voucher_image"))
+
             @JvmField val FORM_SS_4 = Purpose(JsonField.of("form_ss_4"))
 
             @JvmField val IDENTITY_DOCUMENT = Purpose(JsonField.of("identity_document"))
@@ -361,6 +363,7 @@ constructor(
             CHECK_IMAGE_FRONT,
             CHECK_IMAGE_BACK,
             MAILED_CHECK_IMAGE,
+            CHECK_VOUCHER_IMAGE,
             FORM_SS_4,
             IDENTITY_DOCUMENT,
             OTHER,
@@ -378,6 +381,7 @@ constructor(
             CHECK_IMAGE_FRONT,
             CHECK_IMAGE_BACK,
             MAILED_CHECK_IMAGE,
+            CHECK_VOUCHER_IMAGE,
             FORM_SS_4,
             IDENTITY_DOCUMENT,
             OTHER,
@@ -397,6 +401,7 @@ constructor(
                 CHECK_IMAGE_FRONT -> Value.CHECK_IMAGE_FRONT
                 CHECK_IMAGE_BACK -> Value.CHECK_IMAGE_BACK
                 MAILED_CHECK_IMAGE -> Value.MAILED_CHECK_IMAGE
+                CHECK_VOUCHER_IMAGE -> Value.CHECK_VOUCHER_IMAGE
                 FORM_SS_4 -> Value.FORM_SS_4
                 IDENTITY_DOCUMENT -> Value.IDENTITY_DOCUMENT
                 OTHER -> Value.OTHER
@@ -416,6 +421,7 @@ constructor(
                 CHECK_IMAGE_FRONT -> Known.CHECK_IMAGE_FRONT
                 CHECK_IMAGE_BACK -> Known.CHECK_IMAGE_BACK
                 MAILED_CHECK_IMAGE -> Known.MAILED_CHECK_IMAGE
+                CHECK_VOUCHER_IMAGE -> Known.CHECK_VOUCHER_IMAGE
                 FORM_SS_4 -> Known.FORM_SS_4
                 IDENTITY_DOCUMENT -> Known.IDENTITY_DOCUMENT
                 OTHER -> Known.OTHER
