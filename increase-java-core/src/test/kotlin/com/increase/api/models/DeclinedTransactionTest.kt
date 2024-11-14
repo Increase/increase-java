@@ -117,6 +117,10 @@ class DeclinedTransactionTest {
                                         .ACCOUNT_FUNDING
                                 )
                                 .realTimeDecisionId("real_time_decision_id")
+                                .realTimeDecisionReason(
+                                    DeclinedTransaction.Source.CardDecline.RealTimeDecisionReason
+                                        .INSUFFICIENT_FUNDS
+                                )
                                 .reason(
                                     DeclinedTransaction.Source.CardDecline.Reason.CARD_NOT_ACTIVE
                                 )
@@ -326,6 +330,10 @@ class DeclinedTransactionTest {
                                     .ACCOUNT_FUNDING
                             )
                             .realTimeDecisionId("real_time_decision_id")
+                            .realTimeDecisionReason(
+                                DeclinedTransaction.Source.CardDecline.RealTimeDecisionReason
+                                    .INSUFFICIENT_FUNDS
+                            )
                             .reason(DeclinedTransaction.Source.CardDecline.Reason.CARD_NOT_ACTIVE)
                             .terminalId("terminal_id")
                             .verification(
