@@ -168,17 +168,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is CheckDepositCreateBody && this.accountId == other.accountId && this.amount == other.amount && this.backImageFileId == other.backImageFileId && this.frontImageFileId == other.frontImageFileId && this.description == other.description && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is CheckDepositCreateBody && accountId == other.accountId && amount == other.amount && backImageFileId == other.backImageFileId && frontImageFileId == other.frontImageFileId && description == other.description && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(accountId, amount, backImageFileId, frontImageFileId, description, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(accountId, amount, backImageFileId, frontImageFileId, description, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "CheckDepositCreateBody{accountId=$accountId, amount=$amount, backImageFileId=$backImageFileId, frontImageFileId=$frontImageFileId, description=$description, additionalProperties=$additionalProperties}"
@@ -195,12 +192,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is CheckDepositCreateParams && this.accountId == other.accountId && this.amount == other.amount && this.backImageFileId == other.backImageFileId && this.frontImageFileId == other.frontImageFileId && this.description == other.description && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is CheckDepositCreateParams && accountId == other.accountId && amount == other.amount && backImageFileId == other.backImageFileId && frontImageFileId == other.frontImageFileId && description == other.description && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(accountId, amount, backImageFileId, frontImageFileId, description, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, amount, backImageFileId, frontImageFileId, description, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
 
     override fun toString() =
         "CheckDepositCreateParams{accountId=$accountId, amount=$amount, backImageFileId=$backImageFileId, frontImageFileId=$frontImageFileId, description=$description, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"

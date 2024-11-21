@@ -821,17 +821,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Acceptance && this.acceptedAt == other.acceptedAt && this.transactionId == other.transactionId && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Acceptance && acceptedAt == other.acceptedAt && transactionId == other.transactionId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(acceptedAt, transactionId, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(acceptedAt, transactionId, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "Acceptance{acceptedAt=$acceptedAt, transactionId=$transactionId, additionalProperties=$additionalProperties}"
@@ -944,7 +941,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Category && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is Category && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -1139,17 +1136,14 @@ private constructor(
                         return true
                     }
 
-                    return /* spotless:off */ other is Entry && this.paymentRelatedInformation == other.paymentRelatedInformation && this.additionalProperties == other.additionalProperties /* spotless:on */
+                    return /* spotless:off */ other is Entry && paymentRelatedInformation == other.paymentRelatedInformation && additionalProperties == other.additionalProperties /* spotless:on */
                 }
 
-                private var hashCode: Int = 0
+                /* spotless:off */
+                private val hashCode: Int by lazy { Objects.hash(paymentRelatedInformation, additionalProperties) }
+                /* spotless:on */
 
-                override fun hashCode(): Int {
-                    if (hashCode == 0) {
-                        hashCode = /* spotless:off */ Objects.hash(paymentRelatedInformation, additionalProperties) /* spotless:on */
-                    }
-                    return hashCode
-                }
+                override fun hashCode(): Int = hashCode
 
                 override fun toString() =
                     "Entry{paymentRelatedInformation=$paymentRelatedInformation, additionalProperties=$additionalProperties}"
@@ -1160,17 +1154,14 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Freeform && this.entries == other.entries && this.additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is Freeform && entries == other.entries && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
-            private var hashCode: Int = 0
+            /* spotless:off */
+            private val hashCode: Int by lazy { Objects.hash(entries, additionalProperties) }
+            /* spotless:on */
 
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode = /* spotless:off */ Objects.hash(entries, additionalProperties) /* spotless:on */
-                }
-                return hashCode
-            }
+            override fun hashCode(): Int = hashCode
 
             override fun toString() =
                 "Freeform{entries=$entries, additionalProperties=$additionalProperties}"
@@ -1181,17 +1172,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Addenda && this.category == other.category && this.freeform == other.freeform && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Addenda && category == other.category && freeform == other.freeform && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(category, freeform, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(category, freeform, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "Addenda{category=$category, freeform=$freeform, additionalProperties=$additionalProperties}"
@@ -1331,7 +1319,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Reason && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is Reason && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -1500,17 +1488,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Decline && this.declinedAt == other.declinedAt && this.declinedTransactionId == other.declinedTransactionId && this.reason == other.reason && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Decline && declinedAt == other.declinedAt && declinedTransactionId == other.declinedTransactionId && reason == other.reason && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(declinedAt, declinedTransactionId, reason, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(declinedAt, declinedTransactionId, reason, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "Decline{declinedAt=$declinedAt, declinedTransactionId=$declinedTransactionId, reason=$reason, additionalProperties=$additionalProperties}"
@@ -1529,7 +1514,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Direction && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Direction && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -1586,7 +1571,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ExpectedSettlementSchedule && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is ExpectedSettlementSchedule && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -2847,7 +2832,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is ForeignExchangeIndicator && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is ForeignExchangeIndicator && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -2916,7 +2901,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is ForeignExchangeReferenceIndicator && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is ForeignExchangeReferenceIndicator && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -2989,7 +2974,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is InternationalTransactionTypeCode && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is InternationalTransactionTypeCode && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -3182,7 +3167,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is OriginatingDepositoryFinancialInstitutionIdQualifier && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is OriginatingDepositoryFinancialInstitutionIdQualifier && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -3258,7 +3243,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is ReceivingDepositoryFinancialInstitutionIdQualifier && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is ReceivingDepositoryFinancialInstitutionIdQualifier && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -3325,17 +3310,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is InternationalAddenda && this.destinationCountryCode == other.destinationCountryCode && this.destinationCurrencyCode == other.destinationCurrencyCode && this.foreignExchangeIndicator == other.foreignExchangeIndicator && this.foreignExchangeReference == other.foreignExchangeReference && this.foreignExchangeReferenceIndicator == other.foreignExchangeReferenceIndicator && this.foreignPaymentAmount == other.foreignPaymentAmount && this.foreignTraceNumber == other.foreignTraceNumber && this.internationalTransactionTypeCode == other.internationalTransactionTypeCode && this.originatingCurrencyCode == other.originatingCurrencyCode && this.originatingDepositoryFinancialInstitutionBranchCountry == other.originatingDepositoryFinancialInstitutionBranchCountry && this.originatingDepositoryFinancialInstitutionId == other.originatingDepositoryFinancialInstitutionId && this.originatingDepositoryFinancialInstitutionIdQualifier == other.originatingDepositoryFinancialInstitutionIdQualifier && this.originatingDepositoryFinancialInstitutionName == other.originatingDepositoryFinancialInstitutionName && this.originatorCity == other.originatorCity && this.originatorCountry == other.originatorCountry && this.originatorIdentification == other.originatorIdentification && this.originatorName == other.originatorName && this.originatorPostalCode == other.originatorPostalCode && this.originatorStateOrProvince == other.originatorStateOrProvince && this.originatorStreetAddress == other.originatorStreetAddress && this.paymentRelatedInformation == other.paymentRelatedInformation && this.paymentRelatedInformation2 == other.paymentRelatedInformation2 && this.receiverCity == other.receiverCity && this.receiverCountry == other.receiverCountry && this.receiverIdentificationNumber == other.receiverIdentificationNumber && this.receiverPostalCode == other.receiverPostalCode && this.receiverStateOrProvince == other.receiverStateOrProvince && this.receiverStreetAddress == other.receiverStreetAddress && this.receivingCompanyOrIndividualName == other.receivingCompanyOrIndividualName && this.receivingDepositoryFinancialInstitutionCountry == other.receivingDepositoryFinancialInstitutionCountry && this.receivingDepositoryFinancialInstitutionId == other.receivingDepositoryFinancialInstitutionId && this.receivingDepositoryFinancialInstitutionIdQualifier == other.receivingDepositoryFinancialInstitutionIdQualifier && this.receivingDepositoryFinancialInstitutionName == other.receivingDepositoryFinancialInstitutionName && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is InternationalAddenda && destinationCountryCode == other.destinationCountryCode && destinationCurrencyCode == other.destinationCurrencyCode && foreignExchangeIndicator == other.foreignExchangeIndicator && foreignExchangeReference == other.foreignExchangeReference && foreignExchangeReferenceIndicator == other.foreignExchangeReferenceIndicator && foreignPaymentAmount == other.foreignPaymentAmount && foreignTraceNumber == other.foreignTraceNumber && internationalTransactionTypeCode == other.internationalTransactionTypeCode && originatingCurrencyCode == other.originatingCurrencyCode && originatingDepositoryFinancialInstitutionBranchCountry == other.originatingDepositoryFinancialInstitutionBranchCountry && originatingDepositoryFinancialInstitutionId == other.originatingDepositoryFinancialInstitutionId && originatingDepositoryFinancialInstitutionIdQualifier == other.originatingDepositoryFinancialInstitutionIdQualifier && originatingDepositoryFinancialInstitutionName == other.originatingDepositoryFinancialInstitutionName && originatorCity == other.originatorCity && originatorCountry == other.originatorCountry && originatorIdentification == other.originatorIdentification && originatorName == other.originatorName && originatorPostalCode == other.originatorPostalCode && originatorStateOrProvince == other.originatorStateOrProvince && originatorStreetAddress == other.originatorStreetAddress && paymentRelatedInformation == other.paymentRelatedInformation && paymentRelatedInformation2 == other.paymentRelatedInformation2 && receiverCity == other.receiverCity && receiverCountry == other.receiverCountry && receiverIdentificationNumber == other.receiverIdentificationNumber && receiverPostalCode == other.receiverPostalCode && receiverStateOrProvince == other.receiverStateOrProvince && receiverStreetAddress == other.receiverStreetAddress && receivingCompanyOrIndividualName == other.receivingCompanyOrIndividualName && receivingDepositoryFinancialInstitutionCountry == other.receivingDepositoryFinancialInstitutionCountry && receivingDepositoryFinancialInstitutionId == other.receivingDepositoryFinancialInstitutionId && receivingDepositoryFinancialInstitutionIdQualifier == other.receivingDepositoryFinancialInstitutionIdQualifier && receivingDepositoryFinancialInstitutionName == other.receivingDepositoryFinancialInstitutionName && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(destinationCountryCode, destinationCurrencyCode, foreignExchangeIndicator, foreignExchangeReference, foreignExchangeReferenceIndicator, foreignPaymentAmount, foreignTraceNumber, internationalTransactionTypeCode, originatingCurrencyCode, originatingDepositoryFinancialInstitutionBranchCountry, originatingDepositoryFinancialInstitutionId, originatingDepositoryFinancialInstitutionIdQualifier, originatingDepositoryFinancialInstitutionName, originatorCity, originatorCountry, originatorIdentification, originatorName, originatorPostalCode, originatorStateOrProvince, originatorStreetAddress, paymentRelatedInformation, paymentRelatedInformation2, receiverCity, receiverCountry, receiverIdentificationNumber, receiverPostalCode, receiverStateOrProvince, receiverStreetAddress, receivingCompanyOrIndividualName, receivingDepositoryFinancialInstitutionCountry, receivingDepositoryFinancialInstitutionId, receivingDepositoryFinancialInstitutionIdQualifier, receivingDepositoryFinancialInstitutionName, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(destinationCountryCode, destinationCurrencyCode, foreignExchangeIndicator, foreignExchangeReference, foreignExchangeReferenceIndicator, foreignPaymentAmount, foreignTraceNumber, internationalTransactionTypeCode, originatingCurrencyCode, originatingDepositoryFinancialInstitutionBranchCountry, originatingDepositoryFinancialInstitutionId, originatingDepositoryFinancialInstitutionIdQualifier, originatingDepositoryFinancialInstitutionName, originatorCity, originatorCountry, originatorIdentification, originatorName, originatorPostalCode, originatorStateOrProvince, originatorStreetAddress, paymentRelatedInformation, paymentRelatedInformation2, receiverCity, receiverCountry, receiverIdentificationNumber, receiverPostalCode, receiverStateOrProvince, receiverStreetAddress, receivingCompanyOrIndividualName, receivingDepositoryFinancialInstitutionCountry, receivingDepositoryFinancialInstitutionId, receivingDepositoryFinancialInstitutionIdQualifier, receivingDepositoryFinancialInstitutionName, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "InternationalAddenda{destinationCountryCode=$destinationCountryCode, destinationCurrencyCode=$destinationCurrencyCode, foreignExchangeIndicator=$foreignExchangeIndicator, foreignExchangeReference=$foreignExchangeReference, foreignExchangeReferenceIndicator=$foreignExchangeReferenceIndicator, foreignPaymentAmount=$foreignPaymentAmount, foreignTraceNumber=$foreignTraceNumber, internationalTransactionTypeCode=$internationalTransactionTypeCode, originatingCurrencyCode=$originatingCurrencyCode, originatingDepositoryFinancialInstitutionBranchCountry=$originatingDepositoryFinancialInstitutionBranchCountry, originatingDepositoryFinancialInstitutionId=$originatingDepositoryFinancialInstitutionId, originatingDepositoryFinancialInstitutionIdQualifier=$originatingDepositoryFinancialInstitutionIdQualifier, originatingDepositoryFinancialInstitutionName=$originatingDepositoryFinancialInstitutionName, originatorCity=$originatorCity, originatorCountry=$originatorCountry, originatorIdentification=$originatorIdentification, originatorName=$originatorName, originatorPostalCode=$originatorPostalCode, originatorStateOrProvince=$originatorStateOrProvince, originatorStreetAddress=$originatorStreetAddress, paymentRelatedInformation=$paymentRelatedInformation, paymentRelatedInformation2=$paymentRelatedInformation2, receiverCity=$receiverCity, receiverCountry=$receiverCountry, receiverIdentificationNumber=$receiverIdentificationNumber, receiverPostalCode=$receiverPostalCode, receiverStateOrProvince=$receiverStateOrProvince, receiverStreetAddress=$receiverStreetAddress, receivingCompanyOrIndividualName=$receivingCompanyOrIndividualName, receivingDepositoryFinancialInstitutionCountry=$receivingDepositoryFinancialInstitutionCountry, receivingDepositoryFinancialInstitutionId=$receivingDepositoryFinancialInstitutionId, receivingDepositoryFinancialInstitutionIdQualifier=$receivingDepositoryFinancialInstitutionIdQualifier, receivingDepositoryFinancialInstitutionName=$receivingDepositoryFinancialInstitutionName, additionalProperties=$additionalProperties}"
@@ -3455,17 +3437,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is NotificationOfChange && this.updatedAccountNumber == other.updatedAccountNumber && this.updatedRoutingNumber == other.updatedRoutingNumber && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is NotificationOfChange && updatedAccountNumber == other.updatedAccountNumber && updatedRoutingNumber == other.updatedRoutingNumber && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(updatedAccountNumber, updatedRoutingNumber, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(updatedAccountNumber, updatedRoutingNumber, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "NotificationOfChange{updatedAccountNumber=$updatedAccountNumber, updatedRoutingNumber=$updatedRoutingNumber, additionalProperties=$additionalProperties}"
@@ -3484,7 +3463,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is StandardEntryClassCode && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is StandardEntryClassCode && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -3645,7 +3624,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -3831,7 +3810,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Reason && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is Reason && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -3957,17 +3936,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is TransferReturn && this.reason == other.reason && this.returnedAt == other.returnedAt && this.transactionId == other.transactionId && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is TransferReturn && reason == other.reason && returnedAt == other.returnedAt && transactionId == other.transactionId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(reason, returnedAt, transactionId, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(reason, returnedAt, transactionId, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "TransferReturn{reason=$reason, returnedAt=$returnedAt, transactionId=$transactionId, additionalProperties=$additionalProperties}"
@@ -3986,7 +3962,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -4029,17 +4005,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InboundAchTransfer && this.acceptance == other.acceptance && this.accountId == other.accountId && this.accountNumberId == other.accountNumberId && this.addenda == other.addenda && this.amount == other.amount && this.automaticallyResolvesAt == other.automaticallyResolvesAt && this.decline == other.decline && this.direction == other.direction && this.effectiveDate == other.effectiveDate && this.expectedSettlementSchedule == other.expectedSettlementSchedule && this.id == other.id && this.internationalAddenda == other.internationalAddenda && this.notificationOfChange == other.notificationOfChange && this.originatorCompanyDescriptiveDate == other.originatorCompanyDescriptiveDate && this.originatorCompanyDiscretionaryData == other.originatorCompanyDiscretionaryData && this.originatorCompanyEntryDescription == other.originatorCompanyEntryDescription && this.originatorCompanyId == other.originatorCompanyId && this.originatorCompanyName == other.originatorCompanyName && this.originatorRoutingNumber == other.originatorRoutingNumber && this.receiverIdNumber == other.receiverIdNumber && this.receiverName == other.receiverName && this.standardEntryClassCode == other.standardEntryClassCode && this.status == other.status && this.traceNumber == other.traceNumber && this.transferReturn == other.transferReturn && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is InboundAchTransfer && acceptance == other.acceptance && accountId == other.accountId && accountNumberId == other.accountNumberId && addenda == other.addenda && amount == other.amount && automaticallyResolvesAt == other.automaticallyResolvesAt && decline == other.decline && direction == other.direction && effectiveDate == other.effectiveDate && expectedSettlementSchedule == other.expectedSettlementSchedule && id == other.id && internationalAddenda == other.internationalAddenda && notificationOfChange == other.notificationOfChange && originatorCompanyDescriptiveDate == other.originatorCompanyDescriptiveDate && originatorCompanyDiscretionaryData == other.originatorCompanyDiscretionaryData && originatorCompanyEntryDescription == other.originatorCompanyEntryDescription && originatorCompanyId == other.originatorCompanyId && originatorCompanyName == other.originatorCompanyName && originatorRoutingNumber == other.originatorRoutingNumber && receiverIdNumber == other.receiverIdNumber && receiverName == other.receiverName && standardEntryClassCode == other.standardEntryClassCode && status == other.status && traceNumber == other.traceNumber && transferReturn == other.transferReturn && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(acceptance, accountId, accountNumberId, addenda, amount, automaticallyResolvesAt, decline, direction, effectiveDate, expectedSettlementSchedule, id, internationalAddenda, notificationOfChange, originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData, originatorCompanyEntryDescription, originatorCompanyId, originatorCompanyName, originatorRoutingNumber, receiverIdNumber, receiverName, standardEntryClassCode, status, traceNumber, transferReturn, type, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(acceptance, accountId, accountNumberId, addenda, amount, automaticallyResolvesAt, decline, direction, effectiveDate, expectedSettlementSchedule, id, internationalAddenda, notificationOfChange, originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData, originatorCompanyEntryDescription, originatorCompanyId, originatorCompanyName, originatorRoutingNumber, receiverIdNumber, receiverName, standardEntryClassCode, status, traceNumber, transferReturn, type, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "InboundAchTransfer{acceptance=$acceptance, accountId=$accountId, accountNumberId=$accountNumberId, addenda=$addenda, amount=$amount, automaticallyResolvesAt=$automaticallyResolvesAt, decline=$decline, direction=$direction, effectiveDate=$effectiveDate, expectedSettlementSchedule=$expectedSettlementSchedule, id=$id, internationalAddenda=$internationalAddenda, notificationOfChange=$notificationOfChange, originatorCompanyDescriptiveDate=$originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData=$originatorCompanyDiscretionaryData, originatorCompanyEntryDescription=$originatorCompanyEntryDescription, originatorCompanyId=$originatorCompanyId, originatorCompanyName=$originatorCompanyName, originatorRoutingNumber=$originatorRoutingNumber, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, standardEntryClassCode=$standardEntryClassCode, status=$status, traceNumber=$traceNumber, transferReturn=$transferReturn, type=$type, additionalProperties=$additionalProperties}"

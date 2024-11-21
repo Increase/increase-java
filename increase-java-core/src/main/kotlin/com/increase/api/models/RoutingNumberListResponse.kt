@@ -225,7 +225,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is AchTransfers && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is AchTransfers && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -282,7 +282,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is RealTimePaymentsTransfers && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is RealTimePaymentsTransfers && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -340,7 +340,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -391,7 +391,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is WireTransfers && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is WireTransfers && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -440,17 +440,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is RoutingNumberListResponse && this.achTransfers == other.achTransfers && this.name == other.name && this.realTimePaymentsTransfers == other.realTimePaymentsTransfers && this.routingNumber == other.routingNumber && this.type == other.type && this.wireTransfers == other.wireTransfers && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is RoutingNumberListResponse && achTransfers == other.achTransfers && name == other.name && realTimePaymentsTransfers == other.realTimePaymentsTransfers && routingNumber == other.routingNumber && type == other.type && wireTransfers == other.wireTransfers && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(achTransfers, name, realTimePaymentsTransfers, routingNumber, type, wireTransfers, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(achTransfers, name, realTimePaymentsTransfers, routingNumber, type, wireTransfers, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "RoutingNumberListResponse{achTransfers=$achTransfers, name=$name, realTimePaymentsTransfers=$realTimePaymentsTransfers, routingNumber=$routingNumber, type=$type, wireTransfers=$wireTransfers, additionalProperties=$additionalProperties}"

@@ -281,7 +281,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is RejectionReason && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is RejectionReason && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -344,7 +344,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -407,7 +407,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -450,17 +450,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InboundMailItem && this.createdAt == other.createdAt && this.fileId == other.fileId && this.id == other.id && this.lockboxId == other.lockboxId && this.recipientName == other.recipientName && this.rejectionReason == other.rejectionReason && this.status == other.status && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is InboundMailItem && createdAt == other.createdAt && fileId == other.fileId && id == other.id && lockboxId == other.lockboxId && recipientName == other.recipientName && rejectionReason == other.rejectionReason && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(createdAt, fileId, id, lockboxId, recipientName, rejectionReason, status, type, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(createdAt, fileId, id, lockboxId, recipientName, rejectionReason, status, type, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "InboundMailItem{createdAt=$createdAt, fileId=$fileId, id=$id, lockboxId=$lockboxId, recipientName=$recipientName, rejectionReason=$rejectionReason, status=$status, type=$type, additionalProperties=$additionalProperties}"

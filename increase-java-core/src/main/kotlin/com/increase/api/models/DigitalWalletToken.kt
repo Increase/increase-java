@@ -229,7 +229,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -298,7 +298,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is TokenRequestor && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is TokenRequestor && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -367,7 +367,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -410,17 +410,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is DigitalWalletToken && this.cardId == other.cardId && this.createdAt == other.createdAt && this.id == other.id && this.status == other.status && this.tokenRequestor == other.tokenRequestor && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is DigitalWalletToken && cardId == other.cardId && createdAt == other.createdAt && id == other.id && status == other.status && tokenRequestor == other.tokenRequestor && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(cardId, createdAt, id, status, tokenRequestor, type, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(cardId, createdAt, id, status, tokenRequestor, type, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "DigitalWalletToken{cardId=$cardId, createdAt=$createdAt, id=$id, status=$status, tokenRequestor=$tokenRequestor, type=$type, additionalProperties=$additionalProperties}"

@@ -531,17 +531,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Acceptance && this.acceptedAt == other.acceptedAt && this.cardDisputeId == other.cardDisputeId && this.transactionId == other.transactionId && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Acceptance && acceptedAt == other.acceptedAt && cardDisputeId == other.cardDisputeId && transactionId == other.transactionId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(acceptedAt, cardDisputeId, transactionId, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(acceptedAt, cardDisputeId, transactionId, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "Acceptance{acceptedAt=$acceptedAt, cardDisputeId=$cardDisputeId, transactionId=$transactionId, additionalProperties=$additionalProperties}"
@@ -714,17 +711,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Loss && this.cardDisputeId == other.cardDisputeId && this.explanation == other.explanation && this.lostAt == other.lostAt && this.transactionId == other.transactionId && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Loss && cardDisputeId == other.cardDisputeId && explanation == other.explanation && lostAt == other.lostAt && transactionId == other.transactionId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(cardDisputeId, explanation, lostAt, transactionId, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(cardDisputeId, explanation, lostAt, transactionId, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "Loss{cardDisputeId=$cardDisputeId, explanation=$explanation, lostAt=$lostAt, transactionId=$transactionId, additionalProperties=$additionalProperties}"
@@ -869,17 +863,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Rejection && this.cardDisputeId == other.cardDisputeId && this.explanation == other.explanation && this.rejectedAt == other.rejectedAt && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Rejection && cardDisputeId == other.cardDisputeId && explanation == other.explanation && rejectedAt == other.rejectedAt && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(cardDisputeId, explanation, rejectedAt, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(cardDisputeId, explanation, rejectedAt, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "Rejection{cardDisputeId=$cardDisputeId, explanation=$explanation, rejectedAt=$rejectedAt, additionalProperties=$additionalProperties}"
@@ -898,7 +889,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -980,7 +971,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -1131,17 +1122,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Win && this.cardDisputeId == other.cardDisputeId && this.wonAt == other.wonAt && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Win && cardDisputeId == other.cardDisputeId && wonAt == other.wonAt && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(cardDisputeId, wonAt, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(cardDisputeId, wonAt, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "Win{cardDisputeId=$cardDisputeId, wonAt=$wonAt, additionalProperties=$additionalProperties}"
@@ -1152,17 +1140,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is CardDispute && this.acceptance == other.acceptance && this.amount == other.amount && this.createdAt == other.createdAt && this.disputedTransactionId == other.disputedTransactionId && this.explanation == other.explanation && this.id == other.id && this.idempotencyKey == other.idempotencyKey && this.loss == other.loss && this.rejection == other.rejection && this.status == other.status && this.type == other.type && this.win == other.win && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is CardDispute && acceptance == other.acceptance && amount == other.amount && createdAt == other.createdAt && disputedTransactionId == other.disputedTransactionId && explanation == other.explanation && id == other.id && idempotencyKey == other.idempotencyKey && loss == other.loss && rejection == other.rejection && status == other.status && type == other.type && win == other.win && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(acceptance, amount, createdAt, disputedTransactionId, explanation, id, idempotencyKey, loss, rejection, status, type, win, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(acceptance, amount, createdAt, disputedTransactionId, explanation, id, idempotencyKey, loss, rejection, status, type, win, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "CardDispute{acceptance=$acceptance, amount=$amount, createdAt=$createdAt, disputedTransactionId=$disputedTransactionId, explanation=$explanation, id=$id, idempotencyKey=$idempotencyKey, loss=$loss, rejection=$rejection, status=$status, type=$type, win=$win, additionalProperties=$additionalProperties}"

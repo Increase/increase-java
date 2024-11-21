@@ -316,7 +316,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Bank && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Bank && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -379,7 +379,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -422,17 +422,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Program && this.bank == other.bank && this.billingAccountId == other.billingAccountId && this.createdAt == other.createdAt && this.defaultDigitalCardProfileId == other.defaultDigitalCardProfileId && this.id == other.id && this.interestRate == other.interestRate && this.name == other.name && this.type == other.type && this.updatedAt == other.updatedAt && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is Program && bank == other.bank && billingAccountId == other.billingAccountId && createdAt == other.createdAt && defaultDigitalCardProfileId == other.defaultDigitalCardProfileId && id == other.id && interestRate == other.interestRate && name == other.name && type == other.type && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(bank, billingAccountId, createdAt, defaultDigitalCardProfileId, id, interestRate, name, type, updatedAt, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(bank, billingAccountId, createdAt, defaultDigitalCardProfileId, id, interestRate, name, type, updatedAt, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "Program{bank=$bank, billingAccountId=$billingAccountId, createdAt=$createdAt, defaultDigitalCardProfileId=$defaultDigitalCardProfileId, id=$id, interestRate=$interestRate, name=$name, type=$type, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"

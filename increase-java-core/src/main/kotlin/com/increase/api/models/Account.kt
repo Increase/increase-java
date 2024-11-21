@@ -496,7 +496,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Bank && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Bank && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -559,7 +559,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Currency && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Currency && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -640,7 +640,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -697,7 +697,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -740,17 +740,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Account && this.bank == other.bank && this.closedAt == other.closedAt && this.createdAt == other.createdAt && this.currency == other.currency && this.entityId == other.entityId && this.id == other.id && this.idempotencyKey == other.idempotencyKey && this.informationalEntityId == other.informationalEntityId && this.interestAccrued == other.interestAccrued && this.interestAccruedAt == other.interestAccruedAt && this.interestRate == other.interestRate && this.name == other.name && this.programId == other.programId && this.status == other.status && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is Account && bank == other.bank && closedAt == other.closedAt && createdAt == other.createdAt && currency == other.currency && entityId == other.entityId && id == other.id && idempotencyKey == other.idempotencyKey && informationalEntityId == other.informationalEntityId && interestAccrued == other.interestAccrued && interestAccruedAt == other.interestAccruedAt && interestRate == other.interestRate && name == other.name && programId == other.programId && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(bank, closedAt, createdAt, currency, entityId, id, idempotencyKey, informationalEntityId, interestAccrued, interestAccruedAt, interestRate, name, programId, status, type, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(bank, closedAt, createdAt, currency, entityId, id, idempotencyKey, informationalEntityId, interestAccrued, interestAccruedAt, interestRate, name, programId, status, type, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "Account{bank=$bank, closedAt=$closedAt, createdAt=$createdAt, currency=$currency, entityId=$entityId, id=$id, idempotencyKey=$idempotencyKey, informationalEntityId=$informationalEntityId, interestAccrued=$interestAccrued, interestAccruedAt=$interestAccruedAt, interestRate=$interestRate, name=$name, programId=$programId, status=$status, type=$type, additionalProperties=$additionalProperties}"

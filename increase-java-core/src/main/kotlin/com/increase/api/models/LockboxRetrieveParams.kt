@@ -37,12 +37,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is LockboxRetrieveParams && this.lockboxId == other.lockboxId && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is LockboxRetrieveParams && lockboxId == other.lockboxId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(lockboxId, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(lockboxId, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "LockboxRetrieveParams{lockboxId=$lockboxId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

@@ -51,12 +51,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is BookkeepingAccountBalanceParams && this.bookkeepingAccountId == other.bookkeepingAccountId && this.atTime == other.atTime && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is BookkeepingAccountBalanceParams && bookkeepingAccountId == other.bookkeepingAccountId && atTime == other.atTime && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(bookkeepingAccountId, atTime, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(bookkeepingAccountId, atTime, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "BookkeepingAccountBalanceParams{bookkeepingAccountId=$bookkeepingAccountId, atTime=$atTime, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

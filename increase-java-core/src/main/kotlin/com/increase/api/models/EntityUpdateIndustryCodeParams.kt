@@ -117,17 +117,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is EntityUpdateIndustryCodeBody && this.industryCode == other.industryCode && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is EntityUpdateIndustryCodeBody && industryCode == other.industryCode && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(industryCode, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(industryCode, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "EntityUpdateIndustryCodeBody{industryCode=$industryCode, additionalProperties=$additionalProperties}"
@@ -144,12 +141,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is EntityUpdateIndustryCodeParams && this.entityId == other.entityId && this.industryCode == other.industryCode && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is EntityUpdateIndustryCodeParams && entityId == other.entityId && industryCode == other.industryCode && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(entityId, industryCode, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(entityId, industryCode, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
 
     override fun toString() =
         "EntityUpdateIndustryCodeParams{entityId=$entityId, industryCode=$industryCode, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
