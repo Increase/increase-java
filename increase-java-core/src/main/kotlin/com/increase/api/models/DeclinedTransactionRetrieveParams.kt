@@ -37,12 +37,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is DeclinedTransactionRetrieveParams && this.declinedTransactionId == other.declinedTransactionId && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is DeclinedTransactionRetrieveParams && declinedTransactionId == other.declinedTransactionId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(declinedTransactionId, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(declinedTransactionId, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "DeclinedTransactionRetrieveParams{declinedTransactionId=$declinedTransactionId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

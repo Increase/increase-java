@@ -236,7 +236,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -279,17 +279,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is CardDetails && this.cardId == other.cardId && this.expirationMonth == other.expirationMonth && this.expirationYear == other.expirationYear && this.primaryAccountNumber == other.primaryAccountNumber && this.type == other.type && this.verificationCode == other.verificationCode && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is CardDetails && cardId == other.cardId && expirationMonth == other.expirationMonth && expirationYear == other.expirationYear && primaryAccountNumber == other.primaryAccountNumber && type == other.type && verificationCode == other.verificationCode && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(cardId, expirationMonth, expirationYear, primaryAccountNumber, type, verificationCode, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(cardId, expirationMonth, expirationYear, primaryAccountNumber, type, verificationCode, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "CardDetails{cardId=$cardId, expirationMonth=$expirationMonth, expirationYear=$expirationYear, primaryAccountNumber=$primaryAccountNumber, type=$type, verificationCode=$verificationCode, additionalProperties=$additionalProperties}"

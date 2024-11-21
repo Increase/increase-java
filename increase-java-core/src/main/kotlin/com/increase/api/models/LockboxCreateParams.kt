@@ -131,17 +131,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LockboxCreateBody && this.accountId == other.accountId && this.description == other.description && this.recipientName == other.recipientName && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is LockboxCreateBody && accountId == other.accountId && description == other.description && recipientName == other.recipientName && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(accountId, description, recipientName, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(accountId, description, recipientName, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "LockboxCreateBody{accountId=$accountId, description=$description, recipientName=$recipientName, additionalProperties=$additionalProperties}"
@@ -158,12 +155,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is LockboxCreateParams && this.accountId == other.accountId && this.description == other.description && this.recipientName == other.recipientName && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is LockboxCreateParams && accountId == other.accountId && description == other.description && recipientName == other.recipientName && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(accountId, description, recipientName, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, description, recipientName, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
 
     override fun toString() =
         "LockboxCreateParams{accountId=$accountId, description=$description, recipientName=$recipientName, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"

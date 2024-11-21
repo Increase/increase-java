@@ -37,12 +37,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is PhysicalCardRetrieveParams && this.physicalCardId == other.physicalCardId && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is PhysicalCardRetrieveParams && physicalCardId == other.physicalCardId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(physicalCardId, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(physicalCardId, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "PhysicalCardRetrieveParams{physicalCardId=$physicalCardId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

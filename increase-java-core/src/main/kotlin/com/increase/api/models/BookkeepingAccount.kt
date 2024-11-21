@@ -259,7 +259,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ComplianceCategory && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is ComplianceCategory && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -316,7 +316,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -359,17 +359,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is BookkeepingAccount && this.accountId == other.accountId && this.complianceCategory == other.complianceCategory && this.entityId == other.entityId && this.id == other.id && this.idempotencyKey == other.idempotencyKey && this.name == other.name && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is BookkeepingAccount && accountId == other.accountId && complianceCategory == other.complianceCategory && entityId == other.entityId && id == other.id && idempotencyKey == other.idempotencyKey && name == other.name && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(accountId, complianceCategory, entityId, id, idempotencyKey, name, type, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(accountId, complianceCategory, entityId, id, idempotencyKey, name, type, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "BookkeepingAccount{accountId=$accountId, complianceCategory=$complianceCategory, entityId=$entityId, id=$id, idempotencyKey=$idempotencyKey, name=$name, type=$type, additionalProperties=$additionalProperties}"

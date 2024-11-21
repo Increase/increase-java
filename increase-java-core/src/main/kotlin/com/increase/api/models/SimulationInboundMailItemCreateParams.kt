@@ -140,17 +140,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is SimulationInboundMailItemCreateBody && this.amount == other.amount && this.lockboxId == other.lockboxId && this.contentsFileId == other.contentsFileId && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is SimulationInboundMailItemCreateBody && amount == other.amount && lockboxId == other.lockboxId && contentsFileId == other.contentsFileId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(amount, lockboxId, contentsFileId, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(amount, lockboxId, contentsFileId, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "SimulationInboundMailItemCreateBody{amount=$amount, lockboxId=$lockboxId, contentsFileId=$contentsFileId, additionalProperties=$additionalProperties}"
@@ -167,12 +164,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is SimulationInboundMailItemCreateParams && this.amount == other.amount && this.lockboxId == other.lockboxId && this.contentsFileId == other.contentsFileId && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is SimulationInboundMailItemCreateParams && amount == other.amount && lockboxId == other.lockboxId && contentsFileId == other.contentsFileId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(amount, lockboxId, contentsFileId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(amount, lockboxId, contentsFileId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
 
     override fun toString() =
         "SimulationInboundMailItemCreateParams{amount=$amount, lockboxId=$lockboxId, contentsFileId=$contentsFileId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"

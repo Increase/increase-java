@@ -115,17 +115,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is SimulationAchTransferReturnBody && this.reason == other.reason && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is SimulationAchTransferReturnBody && reason == other.reason && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(reason, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(reason, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "SimulationAchTransferReturnBody{reason=$reason, additionalProperties=$additionalProperties}"
@@ -142,12 +139,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is SimulationAchTransferReturnParams && this.achTransferId == other.achTransferId && this.reason == other.reason && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is SimulationAchTransferReturnParams && achTransferId == other.achTransferId && reason == other.reason && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(achTransferId, reason, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(achTransferId, reason, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
 
     override fun toString() =
         "SimulationAchTransferReturnParams{achTransferId=$achTransferId, reason=$reason, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
@@ -330,7 +325,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Reason && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Reason && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

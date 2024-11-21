@@ -112,17 +112,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is EntityConfirmBody && this.confirmedAt == other.confirmedAt && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is EntityConfirmBody && confirmedAt == other.confirmedAt && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(confirmedAt, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(confirmedAt, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "EntityConfirmBody{confirmedAt=$confirmedAt, additionalProperties=$additionalProperties}"
@@ -139,12 +136,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is EntityConfirmParams && this.entityId == other.entityId && this.confirmedAt == other.confirmedAt && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is EntityConfirmParams && entityId == other.entityId && confirmedAt == other.confirmedAt && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(entityId, confirmedAt, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(entityId, confirmedAt, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
 
     override fun toString() =
         "EntityConfirmParams{entityId=$entityId, confirmedAt=$confirmedAt, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"

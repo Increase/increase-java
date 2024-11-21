@@ -49,12 +49,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is IntrafiExclusionListParams && this.cursor == other.cursor && this.entityId == other.entityId && this.idempotencyKey == other.idempotencyKey && this.limit == other.limit && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is IntrafiExclusionListParams && cursor == other.cursor && entityId == other.entityId && idempotencyKey == other.idempotencyKey && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(cursor, entityId, idempotencyKey, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cursor, entityId, idempotencyKey, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "IntrafiExclusionListParams{cursor=$cursor, entityId=$entityId, idempotencyKey=$idempotencyKey, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
