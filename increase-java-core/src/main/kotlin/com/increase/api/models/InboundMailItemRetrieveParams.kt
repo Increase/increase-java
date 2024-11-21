@@ -37,12 +37,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is InboundMailItemRetrieveParams && this.inboundMailItemId == other.inboundMailItemId && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is InboundMailItemRetrieveParams && inboundMailItemId == other.inboundMailItemId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(inboundMailItemId, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(inboundMailItemId, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "InboundMailItemRetrieveParams{inboundMailItemId=$inboundMailItemId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

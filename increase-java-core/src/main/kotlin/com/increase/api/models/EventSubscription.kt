@@ -310,7 +310,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is SelectedEventCategory && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is SelectedEventCategory && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -1060,7 +1060,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -1129,7 +1129,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -1172,17 +1172,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is EventSubscription && this.createdAt == other.createdAt && this.id == other.id && this.idempotencyKey == other.idempotencyKey && this.oauthConnectionId == other.oauthConnectionId && this.selectedEventCategory == other.selectedEventCategory && this.status == other.status && this.type == other.type && this.url == other.url && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is EventSubscription && createdAt == other.createdAt && id == other.id && idempotencyKey == other.idempotencyKey && oauthConnectionId == other.oauthConnectionId && selectedEventCategory == other.selectedEventCategory && status == other.status && type == other.type && url == other.url && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(createdAt, id, idempotencyKey, oauthConnectionId, selectedEventCategory, status, type, url, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(createdAt, id, idempotencyKey, oauthConnectionId, selectedEventCategory, status, type, url, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "EventSubscription{createdAt=$createdAt, id=$id, idempotencyKey=$idempotencyKey, oauthConnectionId=$oauthConnectionId, selectedEventCategory=$selectedEventCategory, status=$status, type=$type, url=$url, additionalProperties=$additionalProperties}"

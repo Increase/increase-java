@@ -382,7 +382,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Creator && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Creator && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -439,7 +439,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -520,7 +520,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -563,17 +563,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is PhysicalCardProfile && this.backImageFileId == other.backImageFileId && this.carrierImageFileId == other.carrierImageFileId && this.contactPhone == other.contactPhone && this.createdAt == other.createdAt && this.creator == other.creator && this.description == other.description && this.frontImageFileId == other.frontImageFileId && this.id == other.id && this.idempotencyKey == other.idempotencyKey && this.isDefault == other.isDefault && this.status == other.status && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is PhysicalCardProfile && backImageFileId == other.backImageFileId && carrierImageFileId == other.carrierImageFileId && contactPhone == other.contactPhone && createdAt == other.createdAt && creator == other.creator && description == other.description && frontImageFileId == other.frontImageFileId && id == other.id && idempotencyKey == other.idempotencyKey && isDefault == other.isDefault && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(backImageFileId, carrierImageFileId, contactPhone, createdAt, creator, description, frontImageFileId, id, idempotencyKey, isDefault, status, type, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(backImageFileId, carrierImageFileId, contactPhone, createdAt, creator, description, frontImageFileId, id, idempotencyKey, isDefault, status, type, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "PhysicalCardProfile{backImageFileId=$backImageFileId, carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, createdAt=$createdAt, creator=$creator, description=$description, frontImageFileId=$frontImageFileId, id=$id, idempotencyKey=$idempotencyKey, isDefault=$isDefault, status=$status, type=$type, additionalProperties=$additionalProperties}"

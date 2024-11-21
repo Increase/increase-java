@@ -260,7 +260,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -335,7 +335,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -379,17 +379,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is IntrafiAccountEnrollment && this.accountId == other.accountId && this.id == other.id && this.idempotencyKey == other.idempotencyKey && this.intrafiId == other.intrafiId && this.status == other.status && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is IntrafiAccountEnrollment && accountId == other.accountId && id == other.id && idempotencyKey == other.idempotencyKey && intrafiId == other.intrafiId && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(accountId, id, idempotencyKey, intrafiId, status, type, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(accountId, id, idempotencyKey, intrafiId, status, type, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "IntrafiAccountEnrollment{accountId=$accountId, id=$id, idempotencyKey=$idempotencyKey, intrafiId=$intrafiId, status=$status, type=$type, additionalProperties=$additionalProperties}"

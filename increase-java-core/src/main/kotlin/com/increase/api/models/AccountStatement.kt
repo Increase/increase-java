@@ -323,7 +323,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -366,17 +366,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is AccountStatement && this.accountId == other.accountId && this.createdAt == other.createdAt && this.endingBalance == other.endingBalance && this.fileId == other.fileId && this.id == other.id && this.startingBalance == other.startingBalance && this.statementPeriodEnd == other.statementPeriodEnd && this.statementPeriodStart == other.statementPeriodStart && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is AccountStatement && accountId == other.accountId && createdAt == other.createdAt && endingBalance == other.endingBalance && fileId == other.fileId && id == other.id && startingBalance == other.startingBalance && statementPeriodEnd == other.statementPeriodEnd && statementPeriodStart == other.statementPeriodStart && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(accountId, createdAt, endingBalance, fileId, id, startingBalance, statementPeriodEnd, statementPeriodStart, type, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(accountId, createdAt, endingBalance, fileId, id, startingBalance, statementPeriodEnd, statementPeriodStart, type, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "AccountStatement{accountId=$accountId, createdAt=$createdAt, endingBalance=$endingBalance, fileId=$fileId, id=$id, startingBalance=$startingBalance, statementPeriodEnd=$statementPeriodEnd, statementPeriodStart=$statementPeriodStart, type=$type, additionalProperties=$additionalProperties}"

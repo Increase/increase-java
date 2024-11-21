@@ -204,7 +204,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is AchDebitStatus && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is AchDebitStatus && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -261,7 +261,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ActivationStatus && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is ActivationStatus && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -318,7 +318,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -361,17 +361,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Group && this.achDebitStatus == other.achDebitStatus && this.activationStatus == other.activationStatus && this.createdAt == other.createdAt && this.id == other.id && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is Group && achDebitStatus == other.achDebitStatus && activationStatus == other.activationStatus && createdAt == other.createdAt && id == other.id && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(achDebitStatus, activationStatus, createdAt, id, type, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(achDebitStatus, activationStatus, createdAt, id, type, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "Group{achDebitStatus=$achDebitStatus, activationStatus=$activationStatus, createdAt=$createdAt, id=$id, type=$type, additionalProperties=$additionalProperties}"

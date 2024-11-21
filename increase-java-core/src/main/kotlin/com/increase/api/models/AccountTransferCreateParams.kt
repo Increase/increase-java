@@ -173,17 +173,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is AccountTransferCreateBody && this.accountId == other.accountId && this.amount == other.amount && this.description == other.description && this.destinationAccountId == other.destinationAccountId && this.requireApproval == other.requireApproval && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is AccountTransferCreateBody && accountId == other.accountId && amount == other.amount && description == other.description && destinationAccountId == other.destinationAccountId && requireApproval == other.requireApproval && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(accountId, amount, description, destinationAccountId, requireApproval, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(accountId, amount, description, destinationAccountId, requireApproval, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "AccountTransferCreateBody{accountId=$accountId, amount=$amount, description=$description, destinationAccountId=$destinationAccountId, requireApproval=$requireApproval, additionalProperties=$additionalProperties}"
@@ -200,12 +197,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is AccountTransferCreateParams && this.accountId == other.accountId && this.amount == other.amount && this.description == other.description && this.destinationAccountId == other.destinationAccountId && this.requireApproval == other.requireApproval && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is AccountTransferCreateParams && accountId == other.accountId && amount == other.amount && description == other.description && destinationAccountId == other.destinationAccountId && requireApproval == other.requireApproval && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(accountId, amount, description, destinationAccountId, requireApproval, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, amount, description, destinationAccountId, requireApproval, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
 
     override fun toString() =
         "AccountTransferCreateParams{accountId=$accountId, amount=$amount, description=$description, destinationAccountId=$destinationAccountId, requireApproval=$requireApproval, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"

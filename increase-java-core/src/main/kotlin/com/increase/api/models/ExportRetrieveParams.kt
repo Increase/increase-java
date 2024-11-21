@@ -37,12 +37,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is ExportRetrieveParams && this.exportId == other.exportId && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is ExportRetrieveParams && exportId == other.exportId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(exportId, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(exportId, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "ExportRetrieveParams{exportId=$exportId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

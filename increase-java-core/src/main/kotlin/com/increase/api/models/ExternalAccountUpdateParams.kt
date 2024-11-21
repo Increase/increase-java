@@ -161,17 +161,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ExternalAccountUpdateBody && this.accountHolder == other.accountHolder && this.description == other.description && this.funding == other.funding && this.status == other.status && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is ExternalAccountUpdateBody && accountHolder == other.accountHolder && description == other.description && funding == other.funding && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(accountHolder, description, funding, status, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(accountHolder, description, funding, status, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "ExternalAccountUpdateBody{accountHolder=$accountHolder, description=$description, funding=$funding, status=$status, additionalProperties=$additionalProperties}"
@@ -188,12 +185,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is ExternalAccountUpdateParams && this.externalAccountId == other.externalAccountId && this.accountHolder == other.accountHolder && this.description == other.description && this.funding == other.funding && this.status == other.status && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is ExternalAccountUpdateParams && externalAccountId == other.externalAccountId && accountHolder == other.accountHolder && description == other.description && funding == other.funding && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(externalAccountId, accountHolder, description, funding, status, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(externalAccountId, accountHolder, description, funding, status, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
 
     override fun toString() =
         "ExternalAccountUpdateParams{externalAccountId=$externalAccountId, accountHolder=$accountHolder, description=$description, funding=$funding, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
@@ -396,7 +391,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is AccountHolder && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is AccountHolder && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -453,7 +448,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Funding && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Funding && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -516,7 +511,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

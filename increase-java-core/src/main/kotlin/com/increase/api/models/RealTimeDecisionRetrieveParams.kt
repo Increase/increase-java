@@ -37,12 +37,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is RealTimeDecisionRetrieveParams && this.realTimeDecisionId == other.realTimeDecisionId && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is RealTimeDecisionRetrieveParams && realTimeDecisionId == other.realTimeDecisionId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(realTimeDecisionId, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(realTimeDecisionId, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "RealTimeDecisionRetrieveParams{realTimeDecisionId=$realTimeDecisionId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

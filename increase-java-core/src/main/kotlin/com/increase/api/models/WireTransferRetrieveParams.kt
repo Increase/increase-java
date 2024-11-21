@@ -37,12 +37,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is WireTransferRetrieveParams && this.wireTransferId == other.wireTransferId && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is WireTransferRetrieveParams && wireTransferId == other.wireTransferId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(wireTransferId, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(wireTransferId, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "WireTransferRetrieveParams{wireTransferId=$wireTransferId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

@@ -37,12 +37,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is InboundWireDrawdownRequestRetrieveParams && this.inboundWireDrawdownRequestId == other.inboundWireDrawdownRequestId && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is InboundWireDrawdownRequestRetrieveParams && inboundWireDrawdownRequestId == other.inboundWireDrawdownRequestId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(inboundWireDrawdownRequestId, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(inboundWireDrawdownRequestId, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "InboundWireDrawdownRequestRetrieveParams{inboundWireDrawdownRequestId=$inboundWireDrawdownRequestId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

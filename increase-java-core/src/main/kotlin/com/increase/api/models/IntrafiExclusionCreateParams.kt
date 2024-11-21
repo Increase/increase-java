@@ -115,17 +115,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is IntrafiExclusionCreateBody && this.bankName == other.bankName && this.entityId == other.entityId && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is IntrafiExclusionCreateBody && bankName == other.bankName && entityId == other.entityId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(bankName, entityId, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(bankName, entityId, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "IntrafiExclusionCreateBody{bankName=$bankName, entityId=$entityId, additionalProperties=$additionalProperties}"
@@ -142,12 +139,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is IntrafiExclusionCreateParams && this.bankName == other.bankName && this.entityId == other.entityId && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is IntrafiExclusionCreateParams && bankName == other.bankName && entityId == other.entityId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(bankName, entityId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(bankName, entityId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
 
     override fun toString() =
         "IntrafiExclusionCreateParams{bankName=$bankName, entityId=$entityId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"

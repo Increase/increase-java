@@ -37,12 +37,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is BookkeepingEntrySetRetrieveParams && this.bookkeepingEntrySetId == other.bookkeepingEntrySetId && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is BookkeepingEntrySetRetrieveParams && bookkeepingEntrySetId == other.bookkeepingEntrySetId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(bookkeepingEntrySetId, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(bookkeepingEntrySetId, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "BookkeepingEntrySetRetrieveParams{bookkeepingEntrySetId=$bookkeepingEntrySetId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
