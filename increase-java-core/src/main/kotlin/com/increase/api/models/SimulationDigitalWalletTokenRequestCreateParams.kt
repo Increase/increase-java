@@ -101,17 +101,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is SimulationDigitalWalletTokenRequestCreateBody && this.cardId == other.cardId && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is SimulationDigitalWalletTokenRequestCreateBody && cardId == other.cardId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(cardId, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(cardId, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "SimulationDigitalWalletTokenRequestCreateBody{cardId=$cardId, additionalProperties=$additionalProperties}"
@@ -128,12 +125,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is SimulationDigitalWalletTokenRequestCreateParams && this.cardId == other.cardId && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is SimulationDigitalWalletTokenRequestCreateParams && cardId == other.cardId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(cardId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cardId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
 
     override fun toString() =
         "SimulationDigitalWalletTokenRequestCreateParams{cardId=$cardId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"

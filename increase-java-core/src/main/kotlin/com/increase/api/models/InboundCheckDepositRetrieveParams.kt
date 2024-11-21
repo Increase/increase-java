@@ -37,12 +37,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is InboundCheckDepositRetrieveParams && this.inboundCheckDepositId == other.inboundCheckDepositId && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is InboundCheckDepositRetrieveParams && inboundCheckDepositId == other.inboundCheckDepositId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(inboundCheckDepositId, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(inboundCheckDepositId, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "InboundCheckDepositRetrieveParams{inboundCheckDepositId=$inboundCheckDepositId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

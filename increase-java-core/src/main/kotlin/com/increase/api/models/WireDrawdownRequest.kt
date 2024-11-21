@@ -616,7 +616,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -770,17 +770,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Submission && this.inputMessageAccountabilityData == other.inputMessageAccountabilityData && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Submission && inputMessageAccountabilityData == other.inputMessageAccountabilityData && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(inputMessageAccountabilityData, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(inputMessageAccountabilityData, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "Submission{inputMessageAccountabilityData=$inputMessageAccountabilityData, additionalProperties=$additionalProperties}"
@@ -799,7 +796,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -842,17 +839,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is WireDrawdownRequest && this.accountNumberId == other.accountNumberId && this.amount == other.amount && this.currency == other.currency && this.fulfillmentInboundWireTransferId == other.fulfillmentInboundWireTransferId && this.id == other.id && this.idempotencyKey == other.idempotencyKey && this.messageToRecipient == other.messageToRecipient && this.originatorAddressLine1 == other.originatorAddressLine1 && this.originatorAddressLine2 == other.originatorAddressLine2 && this.originatorAddressLine3 == other.originatorAddressLine3 && this.originatorName == other.originatorName && this.recipientAccountNumber == other.recipientAccountNumber && this.recipientAddressLine1 == other.recipientAddressLine1 && this.recipientAddressLine2 == other.recipientAddressLine2 && this.recipientAddressLine3 == other.recipientAddressLine3 && this.recipientName == other.recipientName && this.recipientRoutingNumber == other.recipientRoutingNumber && this.status == other.status && this.submission == other.submission && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is WireDrawdownRequest && accountNumberId == other.accountNumberId && amount == other.amount && currency == other.currency && fulfillmentInboundWireTransferId == other.fulfillmentInboundWireTransferId && id == other.id && idempotencyKey == other.idempotencyKey && messageToRecipient == other.messageToRecipient && originatorAddressLine1 == other.originatorAddressLine1 && originatorAddressLine2 == other.originatorAddressLine2 && originatorAddressLine3 == other.originatorAddressLine3 && originatorName == other.originatorName && recipientAccountNumber == other.recipientAccountNumber && recipientAddressLine1 == other.recipientAddressLine1 && recipientAddressLine2 == other.recipientAddressLine2 && recipientAddressLine3 == other.recipientAddressLine3 && recipientName == other.recipientName && recipientRoutingNumber == other.recipientRoutingNumber && status == other.status && submission == other.submission && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(accountNumberId, amount, currency, fulfillmentInboundWireTransferId, id, idempotencyKey, messageToRecipient, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, recipientAccountNumber, recipientAddressLine1, recipientAddressLine2, recipientAddressLine3, recipientName, recipientRoutingNumber, status, submission, type, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(accountNumberId, amount, currency, fulfillmentInboundWireTransferId, id, idempotencyKey, messageToRecipient, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, recipientAccountNumber, recipientAddressLine1, recipientAddressLine2, recipientAddressLine3, recipientName, recipientRoutingNumber, status, submission, type, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "WireDrawdownRequest{accountNumberId=$accountNumberId, amount=$amount, currency=$currency, fulfillmentInboundWireTransferId=$fulfillmentInboundWireTransferId, id=$id, idempotencyKey=$idempotencyKey, messageToRecipient=$messageToRecipient, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, recipientAccountNumber=$recipientAccountNumber, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, recipientName=$recipientName, recipientRoutingNumber=$recipientRoutingNumber, status=$status, submission=$submission, type=$type, additionalProperties=$additionalProperties}"

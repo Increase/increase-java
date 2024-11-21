@@ -37,12 +37,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is CheckTransferRetrieveParams && this.checkTransferId == other.checkTransferId && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is CheckTransferRetrieveParams && checkTransferId == other.checkTransferId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(checkTransferId, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(checkTransferId, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "CheckTransferRetrieveParams{checkTransferId=$checkTransferId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

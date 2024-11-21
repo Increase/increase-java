@@ -229,7 +229,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Category && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Category && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -920,7 +920,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -963,17 +963,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Event && this.associatedObjectId == other.associatedObjectId && this.associatedObjectType == other.associatedObjectType && this.category == other.category && this.createdAt == other.createdAt && this.id == other.id && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is Event && associatedObjectId == other.associatedObjectId && associatedObjectType == other.associatedObjectType && category == other.category && createdAt == other.createdAt && id == other.id && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(associatedObjectId, associatedObjectType, category, createdAt, id, type, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(associatedObjectId, associatedObjectType, category, createdAt, id, type, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "Event{associatedObjectId=$associatedObjectId, associatedObjectType=$associatedObjectType, category=$category, createdAt=$createdAt, id=$id, type=$type, additionalProperties=$additionalProperties}"

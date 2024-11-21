@@ -37,12 +37,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is IntrafiAccountEnrollmentRetrieveParams && this.intrafiAccountEnrollmentId == other.intrafiAccountEnrollmentId && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is IntrafiAccountEnrollmentRetrieveParams && intrafiAccountEnrollmentId == other.intrafiAccountEnrollmentId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(intrafiAccountEnrollmentId, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(intrafiAccountEnrollmentId, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "IntrafiAccountEnrollmentRetrieveParams{intrafiAccountEnrollmentId=$intrafiAccountEnrollmentId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

@@ -306,7 +306,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Category && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Category && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -389,7 +389,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -452,7 +452,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -495,17 +495,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Export && this.category == other.category && this.createdAt == other.createdAt && this.fileDownloadUrl == other.fileDownloadUrl && this.fileId == other.fileId && this.id == other.id && this.idempotencyKey == other.idempotencyKey && this.status == other.status && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is Export && category == other.category && createdAt == other.createdAt && fileDownloadUrl == other.fileDownloadUrl && fileId == other.fileId && id == other.id && idempotencyKey == other.idempotencyKey && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(category, createdAt, fileDownloadUrl, fileId, id, idempotencyKey, status, type, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(category, createdAt, fileDownloadUrl, fileId, id, idempotencyKey, status, type, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "Export{category=$category, createdAt=$createdAt, fileDownloadUrl=$fileDownloadUrl, fileId=$fileId, id=$id, idempotencyKey=$idempotencyKey, status=$status, type=$type, additionalProperties=$additionalProperties}"

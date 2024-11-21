@@ -182,17 +182,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is PhysicalCardProfileCloneBody && this.carrierImageFileId == other.carrierImageFileId && this.contactPhone == other.contactPhone && this.description == other.description && this.frontImageFileId == other.frontImageFileId && this.frontText == other.frontText && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is PhysicalCardProfileCloneBody && carrierImageFileId == other.carrierImageFileId && contactPhone == other.contactPhone && description == other.description && frontImageFileId == other.frontImageFileId && frontText == other.frontText && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(carrierImageFileId, contactPhone, description, frontImageFileId, frontText, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(carrierImageFileId, contactPhone, description, frontImageFileId, frontText, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "PhysicalCardProfileCloneBody{carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, description=$description, frontImageFileId=$frontImageFileId, frontText=$frontText, additionalProperties=$additionalProperties}"
@@ -209,12 +206,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is PhysicalCardProfileCloneParams && this.physicalCardProfileId == other.physicalCardProfileId && this.carrierImageFileId == other.carrierImageFileId && this.contactPhone == other.contactPhone && this.description == other.description && this.frontImageFileId == other.frontImageFileId && this.frontText == other.frontText && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is PhysicalCardProfileCloneParams && physicalCardProfileId == other.physicalCardProfileId && carrierImageFileId == other.carrierImageFileId && contactPhone == other.contactPhone && description == other.description && frontImageFileId == other.frontImageFileId && frontText == other.frontText && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(physicalCardProfileId, carrierImageFileId, contactPhone, description, frontImageFileId, frontText, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(physicalCardProfileId, carrierImageFileId, contactPhone, description, frontImageFileId, frontText, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
 
     override fun toString() =
         "PhysicalCardProfileCloneParams{physicalCardProfileId=$physicalCardProfileId, carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, description=$description, frontImageFileId=$frontImageFileId, frontText=$frontText, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
@@ -499,17 +494,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is FrontText && this.line1 == other.line1 && this.line2 == other.line2 && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is FrontText && line1 == other.line1 && line2 == other.line2 && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(line1, line2, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(line1, line2, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "FrontText{line1=$line1, line2=$line2, additionalProperties=$additionalProperties}"

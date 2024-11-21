@@ -37,12 +37,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is DigitalWalletTokenRetrieveParams && this.digitalWalletTokenId == other.digitalWalletTokenId && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is DigitalWalletTokenRetrieveParams && digitalWalletTokenId == other.digitalWalletTokenId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(digitalWalletTokenId, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(digitalWalletTokenId, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "DigitalWalletTokenRetrieveParams{digitalWalletTokenId=$digitalWalletTokenId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

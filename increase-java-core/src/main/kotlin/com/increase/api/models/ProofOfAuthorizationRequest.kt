@@ -275,17 +275,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is AchTransfer && this.id == other.id && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is AchTransfer && id == other.id && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(id, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(id, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() = "AchTransfer{id=$id, additionalProperties=$additionalProperties}"
     }
@@ -303,7 +300,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -348,17 +345,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ProofOfAuthorizationRequest && this.achTransfers == other.achTransfers && this.createdAt == other.createdAt && this.dueOn == other.dueOn && this.id == other.id && this.type == other.type && this.updatedAt == other.updatedAt && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is ProofOfAuthorizationRequest && achTransfers == other.achTransfers && createdAt == other.createdAt && dueOn == other.dueOn && id == other.id && type == other.type && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(achTransfers, createdAt, dueOn, id, type, updatedAt, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(achTransfers, createdAt, dueOn, id, type, updatedAt, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "ProofOfAuthorizationRequest{achTransfers=$achTransfers, createdAt=$createdAt, dueOn=$dueOn, id=$id, type=$type, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"

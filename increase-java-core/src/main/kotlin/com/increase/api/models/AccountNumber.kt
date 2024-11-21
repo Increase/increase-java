@@ -438,7 +438,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is DebitStatus && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is DebitStatus && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -487,17 +487,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is InboundAch && this.debitStatus == other.debitStatus && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is InboundAch && debitStatus == other.debitStatus && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(debitStatus, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(debitStatus, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "InboundAch{debitStatus=$debitStatus, additionalProperties=$additionalProperties}"
@@ -587,7 +584,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is Status && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -636,17 +633,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is InboundChecks && this.status == other.status && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is InboundChecks && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(status, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(status, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "InboundChecks{status=$status, additionalProperties=$additionalProperties}"
@@ -665,7 +659,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -728,7 +722,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -771,17 +765,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is AccountNumber && this.accountId == other.accountId && this.accountNumber == other.accountNumber && this.createdAt == other.createdAt && this.id == other.id && this.idempotencyKey == other.idempotencyKey && this.inboundAch == other.inboundAch && this.inboundChecks == other.inboundChecks && this.name == other.name && this.routingNumber == other.routingNumber && this.status == other.status && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is AccountNumber && accountId == other.accountId && accountNumber == other.accountNumber && createdAt == other.createdAt && id == other.id && idempotencyKey == other.idempotencyKey && inboundAch == other.inboundAch && inboundChecks == other.inboundChecks && name == other.name && routingNumber == other.routingNumber && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(accountId, accountNumber, createdAt, id, idempotencyKey, inboundAch, inboundChecks, name, routingNumber, status, type, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(accountId, accountNumber, createdAt, id, idempotencyKey, inboundAch, inboundChecks, name, routingNumber, status, type, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "AccountNumber{accountId=$accountId, accountNumber=$accountNumber, createdAt=$createdAt, id=$id, idempotencyKey=$idempotencyKey, inboundAch=$inboundAch, inboundChecks=$inboundChecks, name=$name, routingNumber=$routingNumber, status=$status, type=$type, additionalProperties=$additionalProperties}"

@@ -36,12 +36,10 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is CardPurchaseSupplementListPage && this.cardPurchaseSupplementsService == other.cardPurchaseSupplementsService && this.params == other.params && this.response == other.response /* spotless:on */
+        return /* spotless:off */ other is CardPurchaseSupplementListPage && cardPurchaseSupplementsService == other.cardPurchaseSupplementsService && params == other.params && response == other.response /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(cardPurchaseSupplementsService, params, response) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cardPurchaseSupplementsService, params, response) /* spotless:on */
 
     override fun toString() =
         "CardPurchaseSupplementListPage{cardPurchaseSupplementsService=$cardPurchaseSupplementsService, params=$params, response=$response}"
@@ -129,15 +127,13 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Response && this.data == other.data && this.nextCursor == other.nextCursor && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Response && data == other.data && nextCursor == other.nextCursor && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        override fun hashCode(): Int {
-            return /* spotless:off */ Objects.hash(data, nextCursor, additionalProperties) /* spotless:on */
-        }
+        override fun hashCode(): Int = /* spotless:off */ Objects.hash(data, nextCursor, additionalProperties) /* spotless:on */
 
         override fun toString() =
-            "CardPurchaseSupplementListPage.Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
+            "Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
 
         companion object {
 

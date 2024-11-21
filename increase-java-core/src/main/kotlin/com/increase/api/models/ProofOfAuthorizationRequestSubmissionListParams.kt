@@ -52,12 +52,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is ProofOfAuthorizationRequestSubmissionListParams && this.cursor == other.cursor && this.idempotencyKey == other.idempotencyKey && this.limit == other.limit && this.proofOfAuthorizationRequestId == other.proofOfAuthorizationRequestId && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is ProofOfAuthorizationRequestSubmissionListParams && cursor == other.cursor && idempotencyKey == other.idempotencyKey && limit == other.limit && proofOfAuthorizationRequestId == other.proofOfAuthorizationRequestId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(cursor, idempotencyKey, limit, proofOfAuthorizationRequestId, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cursor, idempotencyKey, limit, proofOfAuthorizationRequestId, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "ProofOfAuthorizationRequestSubmissionListParams{cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, proofOfAuthorizationRequestId=$proofOfAuthorizationRequestId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

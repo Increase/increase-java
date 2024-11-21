@@ -139,17 +139,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is InboundAchTransferCreateNotificationOfChangeBody && this.updatedAccountNumber == other.updatedAccountNumber && this.updatedRoutingNumber == other.updatedRoutingNumber && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is InboundAchTransferCreateNotificationOfChangeBody && updatedAccountNumber == other.updatedAccountNumber && updatedRoutingNumber == other.updatedRoutingNumber && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(updatedAccountNumber, updatedRoutingNumber, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(updatedAccountNumber, updatedRoutingNumber, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "InboundAchTransferCreateNotificationOfChangeBody{updatedAccountNumber=$updatedAccountNumber, updatedRoutingNumber=$updatedRoutingNumber, additionalProperties=$additionalProperties}"
@@ -166,12 +163,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is InboundAchTransferCreateNotificationOfChangeParams && this.inboundAchTransferId == other.inboundAchTransferId && this.updatedAccountNumber == other.updatedAccountNumber && this.updatedRoutingNumber == other.updatedRoutingNumber && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is InboundAchTransferCreateNotificationOfChangeParams && inboundAchTransferId == other.inboundAchTransferId && updatedAccountNumber == other.updatedAccountNumber && updatedRoutingNumber == other.updatedRoutingNumber && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(inboundAchTransferId, updatedAccountNumber, updatedRoutingNumber, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(inboundAchTransferId, updatedAccountNumber, updatedRoutingNumber, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
 
     override fun toString() =
         "InboundAchTransferCreateNotificationOfChangeParams{inboundAchTransferId=$inboundAchTransferId, updatedAccountNumber=$updatedAccountNumber, updatedRoutingNumber=$updatedRoutingNumber, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"

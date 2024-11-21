@@ -135,17 +135,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is SimulationAchTransferCreateNotificationOfChangeBody && this.changeCode == other.changeCode && this.correctedData == other.correctedData && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is SimulationAchTransferCreateNotificationOfChangeBody && changeCode == other.changeCode && correctedData == other.correctedData && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(changeCode, correctedData, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(changeCode, correctedData, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "SimulationAchTransferCreateNotificationOfChangeBody{changeCode=$changeCode, correctedData=$correctedData, additionalProperties=$additionalProperties}"
@@ -162,12 +159,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is SimulationAchTransferCreateNotificationOfChangeParams && this.achTransferId == other.achTransferId && this.changeCode == other.changeCode && this.correctedData == other.correctedData && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is SimulationAchTransferCreateNotificationOfChangeParams && achTransferId == other.achTransferId && changeCode == other.changeCode && correctedData == other.correctedData && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(achTransferId, changeCode, correctedData, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(achTransferId, changeCode, correctedData, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
 
     override fun toString() =
         "SimulationAchTransferCreateNotificationOfChangeParams{achTransferId=$achTransferId, changeCode=$changeCode, correctedData=$correctedData, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
@@ -361,7 +356,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ChangeCode && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is ChangeCode && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

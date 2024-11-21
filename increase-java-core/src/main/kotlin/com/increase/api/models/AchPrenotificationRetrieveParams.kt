@@ -37,12 +37,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is AchPrenotificationRetrieveParams && this.achPrenotificationId == other.achPrenotificationId && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is AchPrenotificationRetrieveParams && achPrenotificationId == other.achPrenotificationId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(achPrenotificationId, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(achPrenotificationId, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "AchPrenotificationRetrieveParams{achPrenotificationId=$achPrenotificationId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

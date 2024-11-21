@@ -552,7 +552,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Currency && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Currency && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -725,7 +725,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is RefusalReasonCode && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is RefusalReasonCode && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -856,17 +856,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Refusal && this.refusalReasonCode == other.refusalReasonCode && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Refusal && refusalReasonCode == other.refusalReasonCode && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(refusalReasonCode, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(refusalReasonCode, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "Refusal{refusalReasonCode=$refusalReasonCode, additionalProperties=$additionalProperties}"
@@ -977,7 +974,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is RejectReasonCode && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is RejectReasonCode && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -1170,17 +1167,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Rejection && this.rejectReasonCode == other.rejectReasonCode && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Rejection && rejectReasonCode == other.rejectReasonCode && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(rejectReasonCode, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(rejectReasonCode, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "Rejection{rejectReasonCode=$rejectReasonCode, additionalProperties=$additionalProperties}"
@@ -1199,7 +1193,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -1353,17 +1347,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Submission && this.paymentInformationIdentification == other.paymentInformationIdentification && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Submission && paymentInformationIdentification == other.paymentInformationIdentification && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(paymentInformationIdentification, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(paymentInformationIdentification, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "Submission{paymentInformationIdentification=$paymentInformationIdentification, additionalProperties=$additionalProperties}"
@@ -1382,7 +1373,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -1429,17 +1420,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is RealTimePaymentsRequestForPayment && this.amount == other.amount && this.createdAt == other.createdAt && this.currency == other.currency && this.debtorName == other.debtorName && this.destinationAccountNumberId == other.destinationAccountNumberId && this.expiresAt == other.expiresAt && this.fulfillmentTransactionId == other.fulfillmentTransactionId && this.id == other.id && this.idempotencyKey == other.idempotencyKey && this.refusal == other.refusal && this.rejection == other.rejection && this.remittanceInformation == other.remittanceInformation && this.sourceAccountNumber == other.sourceAccountNumber && this.sourceRoutingNumber == other.sourceRoutingNumber && this.status == other.status && this.submission == other.submission && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is RealTimePaymentsRequestForPayment && amount == other.amount && createdAt == other.createdAt && currency == other.currency && debtorName == other.debtorName && destinationAccountNumberId == other.destinationAccountNumberId && expiresAt == other.expiresAt && fulfillmentTransactionId == other.fulfillmentTransactionId && id == other.id && idempotencyKey == other.idempotencyKey && refusal == other.refusal && rejection == other.rejection && remittanceInformation == other.remittanceInformation && sourceAccountNumber == other.sourceAccountNumber && sourceRoutingNumber == other.sourceRoutingNumber && status == other.status && submission == other.submission && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(amount, createdAt, currency, debtorName, destinationAccountNumberId, expiresAt, fulfillmentTransactionId, id, idempotencyKey, refusal, rejection, remittanceInformation, sourceAccountNumber, sourceRoutingNumber, status, submission, type, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(amount, createdAt, currency, debtorName, destinationAccountNumberId, expiresAt, fulfillmentTransactionId, id, idempotencyKey, refusal, rejection, remittanceInformation, sourceAccountNumber, sourceRoutingNumber, status, submission, type, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "RealTimePaymentsRequestForPayment{amount=$amount, createdAt=$createdAt, currency=$currency, debtorName=$debtorName, destinationAccountNumberId=$destinationAccountNumberId, expiresAt=$expiresAt, fulfillmentTransactionId=$fulfillmentTransactionId, id=$id, idempotencyKey=$idempotencyKey, refusal=$refusal, rejection=$rejection, remittanceInformation=$remittanceInformation, sourceAccountNumber=$sourceAccountNumber, sourceRoutingNumber=$sourceRoutingNumber, status=$status, submission=$submission, type=$type, additionalProperties=$additionalProperties}"

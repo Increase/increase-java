@@ -37,12 +37,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is ProofOfAuthorizationRequestSubmissionRetrieveParams && this.proofOfAuthorizationRequestSubmissionId == other.proofOfAuthorizationRequestSubmissionId && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is ProofOfAuthorizationRequestSubmissionRetrieveParams && proofOfAuthorizationRequestSubmissionId == other.proofOfAuthorizationRequestSubmissionId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(proofOfAuthorizationRequestSubmissionId, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(proofOfAuthorizationRequestSubmissionId, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "ProofOfAuthorizationRequestSubmissionRetrieveParams{proofOfAuthorizationRequestSubmissionId=$proofOfAuthorizationRequestSubmissionId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

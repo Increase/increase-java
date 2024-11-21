@@ -68,12 +68,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is ExportListParams && this.category == other.category && this.createdAt == other.createdAt && this.cursor == other.cursor && this.idempotencyKey == other.idempotencyKey && this.limit == other.limit && this.status == other.status && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is ExportListParams && category == other.category && createdAt == other.createdAt && cursor == other.cursor && idempotencyKey == other.idempotencyKey && limit == other.limit && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(category, createdAt, cursor, idempotencyKey, limit, status, additionalHeaders, additionalQueryParams) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(category, createdAt, cursor, idempotencyKey, limit, status, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
         "ExportListParams{category=$category, createdAt=$createdAt, cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
@@ -318,7 +316,7 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is In && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is In && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -393,17 +391,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Category && this.in_ == other.in_ && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Category && in_ == other.in_ && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(in_, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(in_, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() = "Category{in_=$in_, additionalProperties=$additionalProperties}"
     }
@@ -537,17 +532,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is CreatedAt && this.after == other.after && this.before == other.before && this.onOrAfter == other.onOrAfter && this.onOrBefore == other.onOrBefore && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is CreatedAt && after == other.after && before == other.before && onOrAfter == other.onOrAfter && onOrBefore == other.onOrBefore && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(after, before, onOrAfter, onOrBefore, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(after, before, onOrAfter, onOrBefore, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
@@ -629,7 +621,7 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is In && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is In && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -684,17 +676,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && this.in_ == other.in_ && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Status && in_ == other.in_ && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(in_, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(in_, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() = "Status{in_=$in_, additionalProperties=$additionalProperties}"
     }

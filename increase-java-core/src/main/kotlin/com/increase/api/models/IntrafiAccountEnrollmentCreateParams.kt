@@ -117,17 +117,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is IntrafiAccountEnrollmentCreateBody && this.accountId == other.accountId && this.emailAddress == other.emailAddress && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is IntrafiAccountEnrollmentCreateBody && accountId == other.accountId && emailAddress == other.emailAddress && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(accountId, emailAddress, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(accountId, emailAddress, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "IntrafiAccountEnrollmentCreateBody{accountId=$accountId, emailAddress=$emailAddress, additionalProperties=$additionalProperties}"
@@ -144,12 +141,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is IntrafiAccountEnrollmentCreateParams && this.accountId == other.accountId && this.emailAddress == other.emailAddress && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is IntrafiAccountEnrollmentCreateParams && accountId == other.accountId && emailAddress == other.emailAddress && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(accountId, emailAddress, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, emailAddress, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
 
     override fun toString() =
         "IntrafiAccountEnrollmentCreateParams{accountId=$accountId, emailAddress=$emailAddress, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"

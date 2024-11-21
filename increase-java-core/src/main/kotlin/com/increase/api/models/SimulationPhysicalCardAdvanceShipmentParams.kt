@@ -115,17 +115,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is SimulationPhysicalCardAdvanceShipmentBody && this.shipmentStatus == other.shipmentStatus && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is SimulationPhysicalCardAdvanceShipmentBody && shipmentStatus == other.shipmentStatus && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(shipmentStatus, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(shipmentStatus, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "SimulationPhysicalCardAdvanceShipmentBody{shipmentStatus=$shipmentStatus, additionalProperties=$additionalProperties}"
@@ -142,12 +139,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is SimulationPhysicalCardAdvanceShipmentParams && this.physicalCardId == other.physicalCardId && this.shipmentStatus == other.shipmentStatus && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is SimulationPhysicalCardAdvanceShipmentParams && physicalCardId == other.physicalCardId && shipmentStatus == other.shipmentStatus && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(physicalCardId, shipmentStatus, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(physicalCardId, shipmentStatus, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
 
     override fun toString() =
         "SimulationPhysicalCardAdvanceShipmentParams{physicalCardId=$physicalCardId, shipmentStatus=$shipmentStatus, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
@@ -332,7 +327,7 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ShipmentStatus && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is ShipmentStatus && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

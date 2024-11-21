@@ -225,7 +225,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Category && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Category && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -288,7 +288,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -331,17 +331,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Document && this.category == other.category && this.createdAt == other.createdAt && this.entityId == other.entityId && this.fileId == other.fileId && this.id == other.id && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is Document && category == other.category && createdAt == other.createdAt && entityId == other.entityId && fileId == other.fileId && id == other.id && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(category, createdAt, entityId, fileId, id, type, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(category, createdAt, entityId, fileId, id, type, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "Document{category=$category, createdAt=$createdAt, entityId=$entityId, fileId=$fileId, id=$id, type=$type, additionalProperties=$additionalProperties}"
