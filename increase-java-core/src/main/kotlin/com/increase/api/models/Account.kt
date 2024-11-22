@@ -649,35 +649,35 @@ private constructor(
 
         companion object {
 
-            @JvmField val OPEN = Status(JsonField.of("open"))
-
             @JvmField val CLOSED = Status(JsonField.of("closed"))
+
+            @JvmField val OPEN = Status(JsonField.of("open"))
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
 
         enum class Known {
-            OPEN,
             CLOSED,
+            OPEN,
         }
 
         enum class Value {
-            OPEN,
             CLOSED,
+            OPEN,
             _UNKNOWN,
         }
 
         fun value(): Value =
             when (this) {
-                OPEN -> Value.OPEN
                 CLOSED -> Value.CLOSED
+                OPEN -> Value.OPEN
                 else -> Value._UNKNOWN
             }
 
         fun known(): Known =
             when (this) {
-                OPEN -> Known.OPEN
                 CLOSED -> Known.CLOSED
+                OPEN -> Known.OPEN
                 else -> throw IncreaseInvalidDataException("Unknown Status: $value")
             }
 
