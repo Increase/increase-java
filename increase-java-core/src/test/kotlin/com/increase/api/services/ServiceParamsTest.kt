@@ -83,7 +83,7 @@ class ServiceParamsTest {
                 .interestRate("interest_rate")
                 .name("name")
                 .programId("program_id")
-                .status(Account.Status.OPEN)
+                .status(Account.Status.CLOSED)
                 .type(Account.Type.ACCOUNT)
                 .build()
 
