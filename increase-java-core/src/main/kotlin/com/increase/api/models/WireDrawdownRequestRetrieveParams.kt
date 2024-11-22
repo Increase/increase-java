@@ -17,6 +17,10 @@ constructor(
 
     fun wireDrawdownRequestId(): String = wireDrawdownRequestId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
@@ -27,23 +31,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is WireDrawdownRequestRetrieveParams && wireDrawdownRequestId == other.wireDrawdownRequestId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(wireDrawdownRequestId, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "WireDrawdownRequestRetrieveParams{wireDrawdownRequestId=$wireDrawdownRequestId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -62,9 +49,10 @@ constructor(
         @JvmSynthetic
         internal fun from(wireDrawdownRequestRetrieveParams: WireDrawdownRequestRetrieveParams) =
             apply {
-                this.wireDrawdownRequestId = wireDrawdownRequestRetrieveParams.wireDrawdownRequestId
-                additionalHeaders(wireDrawdownRequestRetrieveParams.additionalHeaders)
-                additionalQueryParams(wireDrawdownRequestRetrieveParams.additionalQueryParams)
+                wireDrawdownRequestId = wireDrawdownRequestRetrieveParams.wireDrawdownRequestId
+                additionalHeaders = wireDrawdownRequestRetrieveParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    wireDrawdownRequestRetrieveParams.additionalQueryParams.toBuilder()
             }
 
         /** The identifier of the Wire Drawdown Request to retrieve. */
@@ -179,4 +167,17 @@ constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is WireDrawdownRequestRetrieveParams && wireDrawdownRequestId == other.wireDrawdownRequestId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(wireDrawdownRequestId, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "WireDrawdownRequestRetrieveParams{wireDrawdownRequestId=$wireDrawdownRequestId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

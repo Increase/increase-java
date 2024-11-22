@@ -45,6 +45,12 @@ constructor(
 
     fun status(): Optional<Status> = Optional.ofNullable(status)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): CardUpdateBody {
         return CardUpdateBody(
@@ -203,25 +209,6 @@ constructor(
             "CardUpdateBody{billingAddress=$billingAddress, description=$description, digitalWallet=$digitalWallet, entityId=$entityId, status=$status, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is CardUpdateParams && cardId == other.cardId && billingAddress == other.billingAddress && description == other.description && digitalWallet == other.digitalWallet && entityId == other.entityId && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cardId, billingAddress, description, digitalWallet, entityId, status, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "CardUpdateParams{cardId=$cardId, billingAddress=$billingAddress, description=$description, digitalWallet=$digitalWallet, entityId=$entityId, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -244,15 +231,15 @@ constructor(
 
         @JvmSynthetic
         internal fun from(cardUpdateParams: CardUpdateParams) = apply {
-            this.cardId = cardUpdateParams.cardId
-            this.billingAddress = cardUpdateParams.billingAddress
-            this.description = cardUpdateParams.description
-            this.digitalWallet = cardUpdateParams.digitalWallet
-            this.entityId = cardUpdateParams.entityId
-            this.status = cardUpdateParams.status
-            additionalHeaders(cardUpdateParams.additionalHeaders)
-            additionalQueryParams(cardUpdateParams.additionalQueryParams)
-            additionalBodyProperties(cardUpdateParams.additionalBodyProperties)
+            cardId = cardUpdateParams.cardId
+            billingAddress = cardUpdateParams.billingAddress
+            description = cardUpdateParams.description
+            digitalWallet = cardUpdateParams.digitalWallet
+            entityId = cardUpdateParams.entityId
+            status = cardUpdateParams.status
+            additionalHeaders = cardUpdateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = cardUpdateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties = cardUpdateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The card identifier. */
@@ -710,4 +697,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is CardUpdateParams && cardId == other.cardId && billingAddress == other.billingAddress && description == other.description && digitalWallet == other.digitalWallet && entityId == other.entityId && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cardId, billingAddress, description, digitalWallet, entityId, status, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "CardUpdateParams{cardId=$cardId, billingAddress=$billingAddress, description=$description, digitalWallet=$digitalWallet, entityId=$entityId, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

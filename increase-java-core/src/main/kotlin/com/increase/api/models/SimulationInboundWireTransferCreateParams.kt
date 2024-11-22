@@ -78,6 +78,12 @@ constructor(
 
     fun senderReference(): Optional<String> = Optional.ofNullable(senderReference)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): SimulationInboundWireTransferCreateBody {
         return SimulationInboundWireTransferCreateBody(
@@ -522,25 +528,6 @@ constructor(
             "SimulationInboundWireTransferCreateBody{accountNumberId=$accountNumberId, amount=$amount, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, senderReference=$senderReference, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is SimulationInboundWireTransferCreateParams && accountNumberId == other.accountNumberId && amount == other.amount && beneficiaryAddressLine1 == other.beneficiaryAddressLine1 && beneficiaryAddressLine2 == other.beneficiaryAddressLine2 && beneficiaryAddressLine3 == other.beneficiaryAddressLine3 && beneficiaryName == other.beneficiaryName && beneficiaryReference == other.beneficiaryReference && originatorAddressLine1 == other.originatorAddressLine1 && originatorAddressLine2 == other.originatorAddressLine2 && originatorAddressLine3 == other.originatorAddressLine3 && originatorName == other.originatorName && originatorRoutingNumber == other.originatorRoutingNumber && originatorToBeneficiaryInformationLine1 == other.originatorToBeneficiaryInformationLine1 && originatorToBeneficiaryInformationLine2 == other.originatorToBeneficiaryInformationLine2 && originatorToBeneficiaryInformationLine3 == other.originatorToBeneficiaryInformationLine3 && originatorToBeneficiaryInformationLine4 == other.originatorToBeneficiaryInformationLine4 && senderReference == other.senderReference && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountNumberId, amount, beneficiaryAddressLine1, beneficiaryAddressLine2, beneficiaryAddressLine3, beneficiaryName, beneficiaryReference, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, originatorRoutingNumber, originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4, senderReference, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "SimulationInboundWireTransferCreateParams{accountNumberId=$accountNumberId, amount=$amount, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, senderReference=$senderReference, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -576,40 +563,40 @@ constructor(
         internal fun from(
             simulationInboundWireTransferCreateParams: SimulationInboundWireTransferCreateParams
         ) = apply {
-            this.accountNumberId = simulationInboundWireTransferCreateParams.accountNumberId
-            this.amount = simulationInboundWireTransferCreateParams.amount
-            this.beneficiaryAddressLine1 =
+            accountNumberId = simulationInboundWireTransferCreateParams.accountNumberId
+            amount = simulationInboundWireTransferCreateParams.amount
+            beneficiaryAddressLine1 =
                 simulationInboundWireTransferCreateParams.beneficiaryAddressLine1
-            this.beneficiaryAddressLine2 =
+            beneficiaryAddressLine2 =
                 simulationInboundWireTransferCreateParams.beneficiaryAddressLine2
-            this.beneficiaryAddressLine3 =
+            beneficiaryAddressLine3 =
                 simulationInboundWireTransferCreateParams.beneficiaryAddressLine3
-            this.beneficiaryName = simulationInboundWireTransferCreateParams.beneficiaryName
-            this.beneficiaryReference =
-                simulationInboundWireTransferCreateParams.beneficiaryReference
-            this.originatorAddressLine1 =
+            beneficiaryName = simulationInboundWireTransferCreateParams.beneficiaryName
+            beneficiaryReference = simulationInboundWireTransferCreateParams.beneficiaryReference
+            originatorAddressLine1 =
                 simulationInboundWireTransferCreateParams.originatorAddressLine1
-            this.originatorAddressLine2 =
+            originatorAddressLine2 =
                 simulationInboundWireTransferCreateParams.originatorAddressLine2
-            this.originatorAddressLine3 =
+            originatorAddressLine3 =
                 simulationInboundWireTransferCreateParams.originatorAddressLine3
-            this.originatorName = simulationInboundWireTransferCreateParams.originatorName
-            this.originatorRoutingNumber =
+            originatorName = simulationInboundWireTransferCreateParams.originatorName
+            originatorRoutingNumber =
                 simulationInboundWireTransferCreateParams.originatorRoutingNumber
-            this.originatorToBeneficiaryInformationLine1 =
+            originatorToBeneficiaryInformationLine1 =
                 simulationInboundWireTransferCreateParams.originatorToBeneficiaryInformationLine1
-            this.originatorToBeneficiaryInformationLine2 =
+            originatorToBeneficiaryInformationLine2 =
                 simulationInboundWireTransferCreateParams.originatorToBeneficiaryInformationLine2
-            this.originatorToBeneficiaryInformationLine3 =
+            originatorToBeneficiaryInformationLine3 =
                 simulationInboundWireTransferCreateParams.originatorToBeneficiaryInformationLine3
-            this.originatorToBeneficiaryInformationLine4 =
+            originatorToBeneficiaryInformationLine4 =
                 simulationInboundWireTransferCreateParams.originatorToBeneficiaryInformationLine4
-            this.senderReference = simulationInboundWireTransferCreateParams.senderReference
-            additionalHeaders(simulationInboundWireTransferCreateParams.additionalHeaders)
-            additionalQueryParams(simulationInboundWireTransferCreateParams.additionalQueryParams)
-            additionalBodyProperties(
-                simulationInboundWireTransferCreateParams.additionalBodyProperties
-            )
+            senderReference = simulationInboundWireTransferCreateParams.senderReference
+            additionalHeaders =
+                simulationInboundWireTransferCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                simulationInboundWireTransferCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                simulationInboundWireTransferCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier of the Account Number the inbound Wire Transfer is for. */
@@ -889,4 +876,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is SimulationInboundWireTransferCreateParams && accountNumberId == other.accountNumberId && amount == other.amount && beneficiaryAddressLine1 == other.beneficiaryAddressLine1 && beneficiaryAddressLine2 == other.beneficiaryAddressLine2 && beneficiaryAddressLine3 == other.beneficiaryAddressLine3 && beneficiaryName == other.beneficiaryName && beneficiaryReference == other.beneficiaryReference && originatorAddressLine1 == other.originatorAddressLine1 && originatorAddressLine2 == other.originatorAddressLine2 && originatorAddressLine3 == other.originatorAddressLine3 && originatorName == other.originatorName && originatorRoutingNumber == other.originatorRoutingNumber && originatorToBeneficiaryInformationLine1 == other.originatorToBeneficiaryInformationLine1 && originatorToBeneficiaryInformationLine2 == other.originatorToBeneficiaryInformationLine2 && originatorToBeneficiaryInformationLine3 == other.originatorToBeneficiaryInformationLine3 && originatorToBeneficiaryInformationLine4 == other.originatorToBeneficiaryInformationLine4 && senderReference == other.senderReference && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountNumberId, amount, beneficiaryAddressLine1, beneficiaryAddressLine2, beneficiaryAddressLine3, beneficiaryName, beneficiaryReference, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, originatorRoutingNumber, originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4, senderReference, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "SimulationInboundWireTransferCreateParams{accountNumberId=$accountNumberId, amount=$amount, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, senderReference=$senderReference, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

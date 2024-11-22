@@ -32,6 +32,12 @@ constructor(
 
     fun eventSubscriptionId(): Optional<String> = Optional.ofNullable(eventSubscriptionId)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): SimulationCardIncrementCreateBody {
         return SimulationCardIncrementCreateBody(
@@ -158,25 +164,6 @@ constructor(
             "SimulationCardIncrementCreateBody{amount=$amount, cardPaymentId=$cardPaymentId, eventSubscriptionId=$eventSubscriptionId, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is SimulationCardIncrementCreateParams && amount == other.amount && cardPaymentId == other.cardPaymentId && eventSubscriptionId == other.eventSubscriptionId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(amount, cardPaymentId, eventSubscriptionId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "SimulationCardIncrementCreateParams{amount=$amount, cardPaymentId=$cardPaymentId, eventSubscriptionId=$eventSubscriptionId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -198,12 +185,14 @@ constructor(
         internal fun from(
             simulationCardIncrementCreateParams: SimulationCardIncrementCreateParams
         ) = apply {
-            this.amount = simulationCardIncrementCreateParams.amount
-            this.cardPaymentId = simulationCardIncrementCreateParams.cardPaymentId
-            this.eventSubscriptionId = simulationCardIncrementCreateParams.eventSubscriptionId
-            additionalHeaders(simulationCardIncrementCreateParams.additionalHeaders)
-            additionalQueryParams(simulationCardIncrementCreateParams.additionalQueryParams)
-            additionalBodyProperties(simulationCardIncrementCreateParams.additionalBodyProperties)
+            amount = simulationCardIncrementCreateParams.amount
+            cardPaymentId = simulationCardIncrementCreateParams.cardPaymentId
+            eventSubscriptionId = simulationCardIncrementCreateParams.eventSubscriptionId
+            additionalHeaders = simulationCardIncrementCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                simulationCardIncrementCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                simulationCardIncrementCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The amount of the increment in minor units in the card authorization's currency. */
@@ -352,4 +341,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is SimulationCardIncrementCreateParams && amount == other.amount && cardPaymentId == other.cardPaymentId && eventSubscriptionId == other.eventSubscriptionId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(amount, cardPaymentId, eventSubscriptionId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "SimulationCardIncrementCreateParams{amount=$amount, cardPaymentId=$cardPaymentId, eventSubscriptionId=$eventSubscriptionId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

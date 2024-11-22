@@ -42,6 +42,12 @@ constructor(
 
     fun productionToken(): Optional<String> = Optional.ofNullable(productionToken)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): OAuthTokenCreateBody {
         return OAuthTokenCreateBody(
@@ -199,25 +205,6 @@ constructor(
             "OAuthTokenCreateBody{grantType=$grantType, clientId=$clientId, clientSecret=$clientSecret, code=$code, productionToken=$productionToken, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is OAuthTokenCreateParams && grantType == other.grantType && clientId == other.clientId && clientSecret == other.clientSecret && code == other.code && productionToken == other.productionToken && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(grantType, clientId, clientSecret, code, productionToken, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "OAuthTokenCreateParams{grantType=$grantType, clientId=$clientId, clientSecret=$clientSecret, code=$code, productionToken=$productionToken, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -239,14 +226,15 @@ constructor(
 
         @JvmSynthetic
         internal fun from(oauthTokenCreateParams: OAuthTokenCreateParams) = apply {
-            this.grantType = oauthTokenCreateParams.grantType
-            this.clientId = oauthTokenCreateParams.clientId
-            this.clientSecret = oauthTokenCreateParams.clientSecret
-            this.code = oauthTokenCreateParams.code
-            this.productionToken = oauthTokenCreateParams.productionToken
-            additionalHeaders(oauthTokenCreateParams.additionalHeaders)
-            additionalQueryParams(oauthTokenCreateParams.additionalQueryParams)
-            additionalBodyProperties(oauthTokenCreateParams.additionalBodyProperties)
+            grantType = oauthTokenCreateParams.grantType
+            clientId = oauthTokenCreateParams.clientId
+            clientSecret = oauthTokenCreateParams.clientSecret
+            code = oauthTokenCreateParams.code
+            productionToken = oauthTokenCreateParams.productionToken
+            additionalHeaders = oauthTokenCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = oauthTokenCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                oauthTokenCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /**
@@ -464,4 +452,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is OAuthTokenCreateParams && grantType == other.grantType && clientId == other.clientId && clientSecret == other.clientSecret && code == other.code && productionToken == other.productionToken && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(grantType, clientId, clientSecret, code, productionToken, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "OAuthTokenCreateParams{grantType=$grantType, clientId=$clientId, clientSecret=$clientSecret, code=$code, productionToken=$productionToken, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

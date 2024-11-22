@@ -39,6 +39,12 @@ constructor(
 
     fun physicalCardProfileId(): Optional<String> = Optional.ofNullable(physicalCardProfileId)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): PhysicalCardCreateBody {
         return PhysicalCardCreateBody(
@@ -171,25 +177,6 @@ constructor(
             "PhysicalCardCreateBody{cardId=$cardId, cardholder=$cardholder, shipment=$shipment, physicalCardProfileId=$physicalCardProfileId, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is PhysicalCardCreateParams && cardId == other.cardId && cardholder == other.cardholder && shipment == other.shipment && physicalCardProfileId == other.physicalCardProfileId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cardId, cardholder, shipment, physicalCardProfileId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "PhysicalCardCreateParams{cardId=$cardId, cardholder=$cardholder, shipment=$shipment, physicalCardProfileId=$physicalCardProfileId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -210,13 +197,14 @@ constructor(
 
         @JvmSynthetic
         internal fun from(physicalCardCreateParams: PhysicalCardCreateParams) = apply {
-            this.cardId = physicalCardCreateParams.cardId
-            this.cardholder = physicalCardCreateParams.cardholder
-            this.shipment = physicalCardCreateParams.shipment
-            this.physicalCardProfileId = physicalCardCreateParams.physicalCardProfileId
-            additionalHeaders(physicalCardCreateParams.additionalHeaders)
-            additionalQueryParams(physicalCardCreateParams.additionalQueryParams)
-            additionalBodyProperties(physicalCardCreateParams.additionalBodyProperties)
+            cardId = physicalCardCreateParams.cardId
+            cardholder = physicalCardCreateParams.cardholder
+            shipment = physicalCardCreateParams.shipment
+            physicalCardProfileId = physicalCardCreateParams.physicalCardProfileId
+            additionalHeaders = physicalCardCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = physicalCardCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                physicalCardCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The underlying card representing this physical card. */
@@ -755,4 +743,17 @@ constructor(
         override fun toString() =
             "Shipment{address=$address, method=$method, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is PhysicalCardCreateParams && cardId == other.cardId && cardholder == other.cardholder && shipment == other.shipment && physicalCardProfileId == other.physicalCardProfileId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cardId, cardholder, shipment, physicalCardProfileId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "PhysicalCardCreateParams{cardId=$cardId, cardholder=$cardholder, shipment=$shipment, physicalCardProfileId=$physicalCardProfileId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

@@ -25,6 +25,12 @@ constructor(
 
     fun cardId(): String = cardId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): SimulationDigitalWalletTokenRequestCreateBody {
         return SimulationDigitalWalletTokenRequestCreateBody(cardId, additionalBodyProperties)
@@ -114,25 +120,6 @@ constructor(
             "SimulationDigitalWalletTokenRequestCreateBody{cardId=$cardId, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is SimulationDigitalWalletTokenRequestCreateParams && cardId == other.cardId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cardId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "SimulationDigitalWalletTokenRequestCreateParams{cardId=$cardId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -153,14 +140,14 @@ constructor(
             simulationDigitalWalletTokenRequestCreateParams:
                 SimulationDigitalWalletTokenRequestCreateParams
         ) = apply {
-            this.cardId = simulationDigitalWalletTokenRequestCreateParams.cardId
-            additionalHeaders(simulationDigitalWalletTokenRequestCreateParams.additionalHeaders)
-            additionalQueryParams(
-                simulationDigitalWalletTokenRequestCreateParams.additionalQueryParams
-            )
-            additionalBodyProperties(
+            cardId = simulationDigitalWalletTokenRequestCreateParams.cardId
+            additionalHeaders =
+                simulationDigitalWalletTokenRequestCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                simulationDigitalWalletTokenRequestCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
                 simulationDigitalWalletTokenRequestCreateParams.additionalBodyProperties
-            )
+                    .toMutableMap()
         }
 
         /** The identifier of the Card to be authorized. */
@@ -294,4 +281,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is SimulationDigitalWalletTokenRequestCreateParams && cardId == other.cardId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cardId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "SimulationDigitalWalletTokenRequestCreateParams{cardId=$cardId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

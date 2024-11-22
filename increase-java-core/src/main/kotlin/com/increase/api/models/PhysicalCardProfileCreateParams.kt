@@ -34,6 +34,12 @@ constructor(
 
     fun frontImageFileId(): String = frontImageFileId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): PhysicalCardProfileCreateBody {
         return PhysicalCardProfileCreateBody(
@@ -168,25 +174,6 @@ constructor(
             "PhysicalCardProfileCreateBody{carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, description=$description, frontImageFileId=$frontImageFileId, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is PhysicalCardProfileCreateParams && carrierImageFileId == other.carrierImageFileId && contactPhone == other.contactPhone && description == other.description && frontImageFileId == other.frontImageFileId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(carrierImageFileId, contactPhone, description, frontImageFileId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "PhysicalCardProfileCreateParams{carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, description=$description, frontImageFileId=$frontImageFileId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -208,13 +195,15 @@ constructor(
         @JvmSynthetic
         internal fun from(physicalCardProfileCreateParams: PhysicalCardProfileCreateParams) =
             apply {
-                this.carrierImageFileId = physicalCardProfileCreateParams.carrierImageFileId
-                this.contactPhone = physicalCardProfileCreateParams.contactPhone
-                this.description = physicalCardProfileCreateParams.description
-                this.frontImageFileId = physicalCardProfileCreateParams.frontImageFileId
-                additionalHeaders(physicalCardProfileCreateParams.additionalHeaders)
-                additionalQueryParams(physicalCardProfileCreateParams.additionalQueryParams)
-                additionalBodyProperties(physicalCardProfileCreateParams.additionalBodyProperties)
+                carrierImageFileId = physicalCardProfileCreateParams.carrierImageFileId
+                contactPhone = physicalCardProfileCreateParams.contactPhone
+                description = physicalCardProfileCreateParams.description
+                frontImageFileId = physicalCardProfileCreateParams.frontImageFileId
+                additionalHeaders = physicalCardProfileCreateParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    physicalCardProfileCreateParams.additionalQueryParams.toBuilder()
+                additionalBodyProperties =
+                    physicalCardProfileCreateParams.additionalBodyProperties.toMutableMap()
             }
 
         /** The identifier of the File containing the physical card's carrier image. */
@@ -366,4 +355,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is PhysicalCardProfileCreateParams && carrierImageFileId == other.carrierImageFileId && contactPhone == other.contactPhone && description == other.description && frontImageFileId == other.frontImageFileId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(carrierImageFileId, contactPhone, description, frontImageFileId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "PhysicalCardProfileCreateParams{carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, description=$description, frontImageFileId=$frontImageFileId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

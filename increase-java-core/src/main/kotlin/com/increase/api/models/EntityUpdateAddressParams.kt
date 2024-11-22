@@ -28,6 +28,12 @@ constructor(
 
     fun address(): Address = address
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): EntityUpdateAddressBody {
         return EntityUpdateAddressBody(address, additionalBodyProperties)
@@ -126,25 +132,6 @@ constructor(
             "EntityUpdateAddressBody{address=$address, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is EntityUpdateAddressParams && entityId == other.entityId && address == other.address && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(entityId, address, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "EntityUpdateAddressParams{entityId=$entityId, address=$address, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -163,11 +150,12 @@ constructor(
 
         @JvmSynthetic
         internal fun from(entityUpdateAddressParams: EntityUpdateAddressParams) = apply {
-            this.entityId = entityUpdateAddressParams.entityId
-            this.address = entityUpdateAddressParams.address
-            additionalHeaders(entityUpdateAddressParams.additionalHeaders)
-            additionalQueryParams(entityUpdateAddressParams.additionalQueryParams)
-            additionalBodyProperties(entityUpdateAddressParams.additionalBodyProperties)
+            entityId = entityUpdateAddressParams.entityId
+            address = entityUpdateAddressParams.address
+            additionalHeaders = entityUpdateAddressParams.additionalHeaders.toBuilder()
+            additionalQueryParams = entityUpdateAddressParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                entityUpdateAddressParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier of the Entity whose address is being updated. */
@@ -433,4 +421,17 @@ constructor(
         override fun toString() =
             "Address{city=$city, line1=$line1, line2=$line2, state=$state, zip=$zip, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is EntityUpdateAddressParams && entityId == other.entityId && address == other.address && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(entityId, address, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "EntityUpdateAddressParams{entityId=$entityId, address=$address, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

@@ -17,6 +17,10 @@ constructor(
 
     fun eventSubscriptionId(): String = eventSubscriptionId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
@@ -27,23 +31,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is EventSubscriptionRetrieveParams && eventSubscriptionId == other.eventSubscriptionId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(eventSubscriptionId, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "EventSubscriptionRetrieveParams{eventSubscriptionId=$eventSubscriptionId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -62,9 +49,10 @@ constructor(
         @JvmSynthetic
         internal fun from(eventSubscriptionRetrieveParams: EventSubscriptionRetrieveParams) =
             apply {
-                this.eventSubscriptionId = eventSubscriptionRetrieveParams.eventSubscriptionId
-                additionalHeaders(eventSubscriptionRetrieveParams.additionalHeaders)
-                additionalQueryParams(eventSubscriptionRetrieveParams.additionalQueryParams)
+                eventSubscriptionId = eventSubscriptionRetrieveParams.eventSubscriptionId
+                additionalHeaders = eventSubscriptionRetrieveParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    eventSubscriptionRetrieveParams.additionalQueryParams.toBuilder()
             }
 
         /** The identifier of the Event Subscription. */
@@ -179,4 +167,17 @@ constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is EventSubscriptionRetrieveParams && eventSubscriptionId == other.eventSubscriptionId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(eventSubscriptionId, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "EventSubscriptionRetrieveParams{eventSubscriptionId=$eventSubscriptionId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

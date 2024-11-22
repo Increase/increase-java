@@ -28,6 +28,12 @@ constructor(
 
     fun industryCode(): String = industryCode
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): EntityUpdateIndustryCodeBody {
         return EntityUpdateIndustryCodeBody(industryCode, additionalBodyProperties)
@@ -130,25 +136,6 @@ constructor(
             "EntityUpdateIndustryCodeBody{industryCode=$industryCode, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is EntityUpdateIndustryCodeParams && entityId == other.entityId && industryCode == other.industryCode && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(entityId, industryCode, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "EntityUpdateIndustryCodeParams{entityId=$entityId, industryCode=$industryCode, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -167,11 +154,12 @@ constructor(
 
         @JvmSynthetic
         internal fun from(entityUpdateIndustryCodeParams: EntityUpdateIndustryCodeParams) = apply {
-            this.entityId = entityUpdateIndustryCodeParams.entityId
-            this.industryCode = entityUpdateIndustryCodeParams.industryCode
-            additionalHeaders(entityUpdateIndustryCodeParams.additionalHeaders)
-            additionalQueryParams(entityUpdateIndustryCodeParams.additionalQueryParams)
-            additionalBodyProperties(entityUpdateIndustryCodeParams.additionalBodyProperties)
+            entityId = entityUpdateIndustryCodeParams.entityId
+            industryCode = entityUpdateIndustryCodeParams.industryCode
+            additionalHeaders = entityUpdateIndustryCodeParams.additionalHeaders.toBuilder()
+            additionalQueryParams = entityUpdateIndustryCodeParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                entityUpdateIndustryCodeParams.additionalBodyProperties.toMutableMap()
         }
 
         /**
@@ -317,4 +305,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is EntityUpdateIndustryCodeParams && entityId == other.entityId && industryCode == other.industryCode && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(entityId, industryCode, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "EntityUpdateIndustryCodeParams{entityId=$entityId, industryCode=$industryCode, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

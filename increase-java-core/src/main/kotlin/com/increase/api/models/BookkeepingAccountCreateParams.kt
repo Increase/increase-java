@@ -39,6 +39,12 @@ constructor(
 
     fun entityId(): Optional<String> = Optional.ofNullable(entityId)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): BookkeepingAccountCreateBody {
         return BookkeepingAccountCreateBody(
@@ -165,25 +171,6 @@ constructor(
             "BookkeepingAccountCreateBody{name=$name, accountId=$accountId, complianceCategory=$complianceCategory, entityId=$entityId, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is BookkeepingAccountCreateParams && name == other.name && accountId == other.accountId && complianceCategory == other.complianceCategory && entityId == other.entityId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(name, accountId, complianceCategory, entityId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "BookkeepingAccountCreateParams{name=$name, accountId=$accountId, complianceCategory=$complianceCategory, entityId=$entityId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -204,13 +191,14 @@ constructor(
 
         @JvmSynthetic
         internal fun from(bookkeepingAccountCreateParams: BookkeepingAccountCreateParams) = apply {
-            this.name = bookkeepingAccountCreateParams.name
-            this.accountId = bookkeepingAccountCreateParams.accountId
-            this.complianceCategory = bookkeepingAccountCreateParams.complianceCategory
-            this.entityId = bookkeepingAccountCreateParams.entityId
-            additionalHeaders(bookkeepingAccountCreateParams.additionalHeaders)
-            additionalQueryParams(bookkeepingAccountCreateParams.additionalQueryParams)
-            additionalBodyProperties(bookkeepingAccountCreateParams.additionalBodyProperties)
+            name = bookkeepingAccountCreateParams.name
+            accountId = bookkeepingAccountCreateParams.accountId
+            complianceCategory = bookkeepingAccountCreateParams.complianceCategory
+            entityId = bookkeepingAccountCreateParams.entityId
+            additionalHeaders = bookkeepingAccountCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = bookkeepingAccountCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                bookkeepingAccountCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The name you choose for the account. */
@@ -415,4 +403,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is BookkeepingAccountCreateParams && name == other.name && accountId == other.accountId && complianceCategory == other.complianceCategory && entityId == other.entityId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(name, accountId, complianceCategory, entityId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "BookkeepingAccountCreateParams{name=$name, accountId=$accountId, complianceCategory=$complianceCategory, entityId=$entityId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

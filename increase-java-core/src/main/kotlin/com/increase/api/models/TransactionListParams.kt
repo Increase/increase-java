@@ -42,6 +42,10 @@ constructor(
 
     fun routeId(): Optional<String> = Optional.ofNullable(routeId)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic
@@ -58,23 +62,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is TransactionListParams && accountId == other.accountId && category == other.category && createdAt == other.createdAt && cursor == other.cursor && limit == other.limit && routeId == other.routeId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, category, createdAt, cursor, limit, routeId, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "TransactionListParams{accountId=$accountId, category=$category, createdAt=$createdAt, cursor=$cursor, limit=$limit, routeId=$routeId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -97,14 +84,14 @@ constructor(
 
         @JvmSynthetic
         internal fun from(transactionListParams: TransactionListParams) = apply {
-            this.accountId = transactionListParams.accountId
-            this.category = transactionListParams.category
-            this.createdAt = transactionListParams.createdAt
-            this.cursor = transactionListParams.cursor
-            this.limit = transactionListParams.limit
-            this.routeId = transactionListParams.routeId
-            additionalHeaders(transactionListParams.additionalHeaders)
-            additionalQueryParams(transactionListParams.additionalQueryParams)
+            accountId = transactionListParams.accountId
+            category = transactionListParams.category
+            createdAt = transactionListParams.createdAt
+            cursor = transactionListParams.cursor
+            limit = transactionListParams.limit
+            routeId = transactionListParams.routeId
+            additionalHeaders = transactionListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = transactionListParams.additionalQueryParams.toBuilder()
         }
 
         /** Filter Transactions for those belonging to the specified Account. */
@@ -704,4 +691,17 @@ constructor(
         override fun toString() =
             "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is TransactionListParams && accountId == other.accountId && category == other.category && createdAt == other.createdAt && cursor == other.cursor && limit == other.limit && routeId == other.routeId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, category, createdAt, cursor, limit, routeId, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "TransactionListParams{accountId=$accountId, category=$category, createdAt=$createdAt, cursor=$cursor, limit=$limit, routeId=$routeId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -21,6 +21,12 @@ constructor(
 
     fun checkDepositId(): String = checkDepositId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): Optional<Map<String, JsonValue>> {
         return Optional.ofNullable(additionalBodyProperties.ifEmpty { null })
@@ -36,25 +42,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is SimulationCheckDepositSubmitParams && checkDepositId == other.checkDepositId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(checkDepositId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "SimulationCheckDepositSubmitParams{checkDepositId=$checkDepositId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -74,12 +61,12 @@ constructor(
         @JvmSynthetic
         internal fun from(simulationCheckDepositSubmitParams: SimulationCheckDepositSubmitParams) =
             apply {
-                this.checkDepositId = simulationCheckDepositSubmitParams.checkDepositId
-                additionalHeaders(simulationCheckDepositSubmitParams.additionalHeaders)
-                additionalQueryParams(simulationCheckDepositSubmitParams.additionalQueryParams)
-                additionalBodyProperties(
-                    simulationCheckDepositSubmitParams.additionalBodyProperties
-                )
+                checkDepositId = simulationCheckDepositSubmitParams.checkDepositId
+                additionalHeaders = simulationCheckDepositSubmitParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    simulationCheckDepositSubmitParams.additionalQueryParams.toBuilder()
+                additionalBodyProperties =
+                    simulationCheckDepositSubmitParams.additionalBodyProperties.toMutableMap()
             }
 
         /** The identifier of the Check Deposit you wish to submit. */
@@ -213,4 +200,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is SimulationCheckDepositSubmitParams && checkDepositId == other.checkDepositId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(checkDepositId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "SimulationCheckDepositSubmitParams{checkDepositId=$checkDepositId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

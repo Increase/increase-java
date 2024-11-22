@@ -17,6 +17,10 @@ constructor(
 
     fun requestForPaymentId(): String = requestForPaymentId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
@@ -27,23 +31,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is RealTimePaymentsRequestForPaymentRetrieveParams && requestForPaymentId == other.requestForPaymentId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(requestForPaymentId, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "RealTimePaymentsRequestForPaymentRetrieveParams{requestForPaymentId=$requestForPaymentId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -64,12 +51,12 @@ constructor(
             realTimePaymentsRequestForPaymentRetrieveParams:
                 RealTimePaymentsRequestForPaymentRetrieveParams
         ) = apply {
-            this.requestForPaymentId =
+            requestForPaymentId =
                 realTimePaymentsRequestForPaymentRetrieveParams.requestForPaymentId
-            additionalHeaders(realTimePaymentsRequestForPaymentRetrieveParams.additionalHeaders)
-            additionalQueryParams(
-                realTimePaymentsRequestForPaymentRetrieveParams.additionalQueryParams
-            )
+            additionalHeaders =
+                realTimePaymentsRequestForPaymentRetrieveParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                realTimePaymentsRequestForPaymentRetrieveParams.additionalQueryParams.toBuilder()
         }
 
         /** The identifier of the Real-Time Payments Request for Payment. */
@@ -184,4 +171,17 @@ constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is RealTimePaymentsRequestForPaymentRetrieveParams && requestForPaymentId == other.requestForPaymentId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(requestForPaymentId, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "RealTimePaymentsRequestForPaymentRetrieveParams{requestForPaymentId=$requestForPaymentId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

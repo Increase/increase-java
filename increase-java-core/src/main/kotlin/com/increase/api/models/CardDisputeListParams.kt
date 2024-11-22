@@ -39,6 +39,10 @@ constructor(
 
     fun status(): Optional<Status> = Optional.ofNullable(status)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic
@@ -54,23 +58,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is CardDisputeListParams && createdAt == other.createdAt && cursor == other.cursor && idempotencyKey == other.idempotencyKey && limit == other.limit && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(createdAt, cursor, idempotencyKey, limit, status, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "CardDisputeListParams{createdAt=$createdAt, cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -92,13 +79,13 @@ constructor(
 
         @JvmSynthetic
         internal fun from(cardDisputeListParams: CardDisputeListParams) = apply {
-            this.createdAt = cardDisputeListParams.createdAt
-            this.cursor = cardDisputeListParams.cursor
-            this.idempotencyKey = cardDisputeListParams.idempotencyKey
-            this.limit = cardDisputeListParams.limit
-            this.status = cardDisputeListParams.status
-            additionalHeaders(cardDisputeListParams.additionalHeaders)
-            additionalQueryParams(cardDisputeListParams.additionalQueryParams)
+            createdAt = cardDisputeListParams.createdAt
+            cursor = cardDisputeListParams.cursor
+            idempotencyKey = cardDisputeListParams.idempotencyKey
+            limit = cardDisputeListParams.limit
+            status = cardDisputeListParams.status
+            additionalHeaders = cardDisputeListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = cardDisputeListParams.additionalQueryParams.toBuilder()
         }
 
         fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
@@ -535,4 +522,17 @@ constructor(
 
         override fun toString() = "Status{in_=$in_, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is CardDisputeListParams && createdAt == other.createdAt && cursor == other.cursor && idempotencyKey == other.idempotencyKey && limit == other.limit && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(createdAt, cursor, idempotencyKey, limit, status, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "CardDisputeListParams{createdAt=$createdAt, cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -21,6 +21,10 @@ constructor(
 
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic
@@ -31,23 +35,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is InboundWireDrawdownRequestListParams && cursor == other.cursor && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cursor, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "InboundWireDrawdownRequestListParams{cursor=$cursor, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -68,10 +55,11 @@ constructor(
         internal fun from(
             inboundWireDrawdownRequestListParams: InboundWireDrawdownRequestListParams
         ) = apply {
-            this.cursor = inboundWireDrawdownRequestListParams.cursor
-            this.limit = inboundWireDrawdownRequestListParams.limit
-            additionalHeaders(inboundWireDrawdownRequestListParams.additionalHeaders)
-            additionalQueryParams(inboundWireDrawdownRequestListParams.additionalQueryParams)
+            cursor = inboundWireDrawdownRequestListParams.cursor
+            limit = inboundWireDrawdownRequestListParams.limit
+            additionalHeaders = inboundWireDrawdownRequestListParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                inboundWireDrawdownRequestListParams.additionalQueryParams.toBuilder()
         }
 
         /** Return the page of entries after this one. */
@@ -188,4 +176,17 @@ constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is InboundWireDrawdownRequestListParams && cursor == other.cursor && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cursor, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "InboundWireDrawdownRequestListParams{cursor=$cursor, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

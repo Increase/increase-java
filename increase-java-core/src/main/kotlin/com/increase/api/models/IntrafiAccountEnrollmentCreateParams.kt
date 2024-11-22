@@ -28,6 +28,12 @@ constructor(
 
     fun emailAddress(): String = emailAddress
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): IntrafiAccountEnrollmentCreateBody {
         return IntrafiAccountEnrollmentCreateBody(
@@ -130,25 +136,6 @@ constructor(
             "IntrafiAccountEnrollmentCreateBody{accountId=$accountId, emailAddress=$emailAddress, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is IntrafiAccountEnrollmentCreateParams && accountId == other.accountId && emailAddress == other.emailAddress && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, emailAddress, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "IntrafiAccountEnrollmentCreateParams{accountId=$accountId, emailAddress=$emailAddress, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -169,11 +156,13 @@ constructor(
         internal fun from(
             intrafiAccountEnrollmentCreateParams: IntrafiAccountEnrollmentCreateParams
         ) = apply {
-            this.accountId = intrafiAccountEnrollmentCreateParams.accountId
-            this.emailAddress = intrafiAccountEnrollmentCreateParams.emailAddress
-            additionalHeaders(intrafiAccountEnrollmentCreateParams.additionalHeaders)
-            additionalQueryParams(intrafiAccountEnrollmentCreateParams.additionalQueryParams)
-            additionalBodyProperties(intrafiAccountEnrollmentCreateParams.additionalBodyProperties)
+            accountId = intrafiAccountEnrollmentCreateParams.accountId
+            emailAddress = intrafiAccountEnrollmentCreateParams.emailAddress
+            additionalHeaders = intrafiAccountEnrollmentCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                intrafiAccountEnrollmentCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                intrafiAccountEnrollmentCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier for the account to be added to IntraFi. */
@@ -311,4 +300,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is IntrafiAccountEnrollmentCreateParams && accountId == other.accountId && emailAddress == other.emailAddress && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, emailAddress, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "IntrafiAccountEnrollmentCreateParams{accountId=$accountId, emailAddress=$emailAddress, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

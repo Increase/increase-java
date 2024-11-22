@@ -28,6 +28,12 @@ constructor(
 
     fun fileId(): String = fileId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): SupplementalDocumentCreateBody {
         return SupplementalDocumentCreateBody(
@@ -128,25 +134,6 @@ constructor(
             "SupplementalDocumentCreateBody{entityId=$entityId, fileId=$fileId, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is SupplementalDocumentCreateParams && entityId == other.entityId && fileId == other.fileId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(entityId, fileId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "SupplementalDocumentCreateParams{entityId=$entityId, fileId=$fileId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -166,11 +153,13 @@ constructor(
         @JvmSynthetic
         internal fun from(supplementalDocumentCreateParams: SupplementalDocumentCreateParams) =
             apply {
-                this.entityId = supplementalDocumentCreateParams.entityId
-                this.fileId = supplementalDocumentCreateParams.fileId
-                additionalHeaders(supplementalDocumentCreateParams.additionalHeaders)
-                additionalQueryParams(supplementalDocumentCreateParams.additionalQueryParams)
-                additionalBodyProperties(supplementalDocumentCreateParams.additionalBodyProperties)
+                entityId = supplementalDocumentCreateParams.entityId
+                fileId = supplementalDocumentCreateParams.fileId
+                additionalHeaders = supplementalDocumentCreateParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    supplementalDocumentCreateParams.additionalQueryParams.toBuilder()
+                additionalBodyProperties =
+                    supplementalDocumentCreateParams.additionalBodyProperties.toMutableMap()
             }
 
         /** The identifier of the Entity to associate with the supplemental document. */
@@ -308,4 +297,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is SupplementalDocumentCreateParams && entityId == other.entityId && fileId == other.fileId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(entityId, fileId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "SupplementalDocumentCreateParams{entityId=$entityId, fileId=$fileId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

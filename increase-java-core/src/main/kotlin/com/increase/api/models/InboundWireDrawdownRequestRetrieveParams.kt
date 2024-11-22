@@ -17,6 +17,10 @@ constructor(
 
     fun inboundWireDrawdownRequestId(): String = inboundWireDrawdownRequestId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
@@ -27,23 +31,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is InboundWireDrawdownRequestRetrieveParams && inboundWireDrawdownRequestId == other.inboundWireDrawdownRequestId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(inboundWireDrawdownRequestId, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "InboundWireDrawdownRequestRetrieveParams{inboundWireDrawdownRequestId=$inboundWireDrawdownRequestId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -63,10 +50,12 @@ constructor(
         internal fun from(
             inboundWireDrawdownRequestRetrieveParams: InboundWireDrawdownRequestRetrieveParams
         ) = apply {
-            this.inboundWireDrawdownRequestId =
+            inboundWireDrawdownRequestId =
                 inboundWireDrawdownRequestRetrieveParams.inboundWireDrawdownRequestId
-            additionalHeaders(inboundWireDrawdownRequestRetrieveParams.additionalHeaders)
-            additionalQueryParams(inboundWireDrawdownRequestRetrieveParams.additionalQueryParams)
+            additionalHeaders =
+                inboundWireDrawdownRequestRetrieveParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                inboundWireDrawdownRequestRetrieveParams.additionalQueryParams.toBuilder()
         }
 
         /** The identifier of the Inbound Wire Drawdown Request to retrieve. */
@@ -181,4 +170,17 @@ constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is InboundWireDrawdownRequestRetrieveParams && inboundWireDrawdownRequestId == other.inboundWireDrawdownRequestId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(inboundWireDrawdownRequestId, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "InboundWireDrawdownRequestRetrieveParams{inboundWireDrawdownRequestId=$inboundWireDrawdownRequestId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

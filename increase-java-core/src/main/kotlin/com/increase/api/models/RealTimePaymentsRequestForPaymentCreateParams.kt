@@ -44,6 +44,12 @@ constructor(
 
     fun sourceRoutingNumber(): String = sourceRoutingNumber
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): RealTimePaymentsRequestForPaymentCreateBody {
         return RealTimePaymentsRequestForPaymentCreateBody(
@@ -237,25 +243,6 @@ constructor(
             "RealTimePaymentsRequestForPaymentCreateBody{amount=$amount, debtor=$debtor, destinationAccountNumberId=$destinationAccountNumberId, expiresAt=$expiresAt, remittanceInformation=$remittanceInformation, sourceAccountNumber=$sourceAccountNumber, sourceRoutingNumber=$sourceRoutingNumber, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is RealTimePaymentsRequestForPaymentCreateParams && amount == other.amount && debtor == other.debtor && destinationAccountNumberId == other.destinationAccountNumberId && expiresAt == other.expiresAt && remittanceInformation == other.remittanceInformation && sourceAccountNumber == other.sourceAccountNumber && sourceRoutingNumber == other.sourceRoutingNumber && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(amount, debtor, destinationAccountNumberId, expiresAt, remittanceInformation, sourceAccountNumber, sourceRoutingNumber, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "RealTimePaymentsRequestForPaymentCreateParams{amount=$amount, debtor=$debtor, destinationAccountNumberId=$destinationAccountNumberId, expiresAt=$expiresAt, remittanceInformation=$remittanceInformation, sourceAccountNumber=$sourceAccountNumber, sourceRoutingNumber=$sourceRoutingNumber, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -282,24 +269,22 @@ constructor(
             realTimePaymentsRequestForPaymentCreateParams:
                 RealTimePaymentsRequestForPaymentCreateParams
         ) = apply {
-            this.amount = realTimePaymentsRequestForPaymentCreateParams.amount
-            this.debtor = realTimePaymentsRequestForPaymentCreateParams.debtor
-            this.destinationAccountNumberId =
+            amount = realTimePaymentsRequestForPaymentCreateParams.amount
+            debtor = realTimePaymentsRequestForPaymentCreateParams.debtor
+            destinationAccountNumberId =
                 realTimePaymentsRequestForPaymentCreateParams.destinationAccountNumberId
-            this.expiresAt = realTimePaymentsRequestForPaymentCreateParams.expiresAt
-            this.remittanceInformation =
+            expiresAt = realTimePaymentsRequestForPaymentCreateParams.expiresAt
+            remittanceInformation =
                 realTimePaymentsRequestForPaymentCreateParams.remittanceInformation
-            this.sourceAccountNumber =
-                realTimePaymentsRequestForPaymentCreateParams.sourceAccountNumber
-            this.sourceRoutingNumber =
-                realTimePaymentsRequestForPaymentCreateParams.sourceRoutingNumber
-            additionalHeaders(realTimePaymentsRequestForPaymentCreateParams.additionalHeaders)
-            additionalQueryParams(
-                realTimePaymentsRequestForPaymentCreateParams.additionalQueryParams
-            )
-            additionalBodyProperties(
+            sourceAccountNumber = realTimePaymentsRequestForPaymentCreateParams.sourceAccountNumber
+            sourceRoutingNumber = realTimePaymentsRequestForPaymentCreateParams.sourceRoutingNumber
+            additionalHeaders =
+                realTimePaymentsRequestForPaymentCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                realTimePaymentsRequestForPaymentCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
                 realTimePaymentsRequestForPaymentCreateParams.additionalBodyProperties
-            )
+                    .toMutableMap()
         }
 
         /** The requested amount in USD cents. Must be positive. */
@@ -673,4 +658,17 @@ constructor(
         override fun toString() =
             "Debtor{address=$address, name=$name, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is RealTimePaymentsRequestForPaymentCreateParams && amount == other.amount && debtor == other.debtor && destinationAccountNumberId == other.destinationAccountNumberId && expiresAt == other.expiresAt && remittanceInformation == other.remittanceInformation && sourceAccountNumber == other.sourceAccountNumber && sourceRoutingNumber == other.sourceRoutingNumber && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(amount, debtor, destinationAccountNumberId, expiresAt, remittanceInformation, sourceAccountNumber, sourceRoutingNumber, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "RealTimePaymentsRequestForPaymentCreateParams{amount=$amount, debtor=$debtor, destinationAccountNumberId=$destinationAccountNumberId, expiresAt=$expiresAt, remittanceInformation=$remittanceInformation, sourceAccountNumber=$sourceAccountNumber, sourceRoutingNumber=$sourceRoutingNumber, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

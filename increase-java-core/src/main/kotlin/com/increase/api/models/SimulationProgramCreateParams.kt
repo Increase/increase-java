@@ -25,6 +25,12 @@ constructor(
 
     fun name(): String = name
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): SimulationProgramCreateBody {
         return SimulationProgramCreateBody(name, additionalBodyProperties)
@@ -109,25 +115,6 @@ constructor(
             "SimulationProgramCreateBody{name=$name, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is SimulationProgramCreateParams && name == other.name && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(name, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "SimulationProgramCreateParams{name=$name, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -145,10 +132,11 @@ constructor(
 
         @JvmSynthetic
         internal fun from(simulationProgramCreateParams: SimulationProgramCreateParams) = apply {
-            this.name = simulationProgramCreateParams.name
-            additionalHeaders(simulationProgramCreateParams.additionalHeaders)
-            additionalQueryParams(simulationProgramCreateParams.additionalQueryParams)
-            additionalBodyProperties(simulationProgramCreateParams.additionalBodyProperties)
+            name = simulationProgramCreateParams.name
+            additionalHeaders = simulationProgramCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = simulationProgramCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                simulationProgramCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The name of the program being added. */
@@ -282,4 +270,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is SimulationProgramCreateParams && name == other.name && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(name, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "SimulationProgramCreateParams{name=$name, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }
