@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.155.0 (2024-11-22)
+
+Full Changelog: [v0.154.0...v0.155.0](https://github.com/Increase/increase-java/compare/v0.154.0...v0.155.0)
+
+### Features
+
+* **api:** api update ([#632](https://github.com/Increase/increase-java/issues/632)) ([1fcb7a6](https://github.com/Increase/increase-java/commit/1fcb7a65e923a4226a739a7ab8e14cbb2fcac45e))
+
+
+### Chores
+
+* **deps:** bump jackson to 2.18.1 ([#630](https://github.com/Increase/increase-java/issues/630)) ([e12d550](https://github.com/Increase/increase-java/commit/e12d5501b20e22586c51fbfcaa667a73abf71919))
+* **internal:** codegen related update ([#631](https://github.com/Increase/increase-java/issues/631)) ([504768b](https://github.com/Increase/increase-java/commit/504768b7b10fc4319d5e0adfc7ea2d505bf2ed8d))
+* rebuild project due to codegen change ([#628](https://github.com/Increase/increase-java/issues/628)) ([ce9c4a2](https://github.com/Increase/increase-java/commit/ce9c4a20081aba56b174f7ae392b194214d0324c))
+
 ## 0.154.0 (2024-11-14)
 
 Full Changelog: [v0.153.0...v0.154.0](https://github.com/Increase/increase-java/compare/v0.153.0...v0.154.0)
