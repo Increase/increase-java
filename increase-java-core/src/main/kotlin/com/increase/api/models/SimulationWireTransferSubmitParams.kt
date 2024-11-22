@@ -21,6 +21,12 @@ constructor(
 
     fun wireTransferId(): String = wireTransferId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): Optional<Map<String, JsonValue>> {
         return Optional.ofNullable(additionalBodyProperties.ifEmpty { null })
@@ -36,25 +42,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is SimulationWireTransferSubmitParams && wireTransferId == other.wireTransferId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(wireTransferId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "SimulationWireTransferSubmitParams{wireTransferId=$wireTransferId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -74,12 +61,12 @@ constructor(
         @JvmSynthetic
         internal fun from(simulationWireTransferSubmitParams: SimulationWireTransferSubmitParams) =
             apply {
-                this.wireTransferId = simulationWireTransferSubmitParams.wireTransferId
-                additionalHeaders(simulationWireTransferSubmitParams.additionalHeaders)
-                additionalQueryParams(simulationWireTransferSubmitParams.additionalQueryParams)
-                additionalBodyProperties(
-                    simulationWireTransferSubmitParams.additionalBodyProperties
-                )
+                wireTransferId = simulationWireTransferSubmitParams.wireTransferId
+                additionalHeaders = simulationWireTransferSubmitParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    simulationWireTransferSubmitParams.additionalQueryParams.toBuilder()
+                additionalBodyProperties =
+                    simulationWireTransferSubmitParams.additionalBodyProperties.toMutableMap()
             }
 
         /** The identifier of the Wire Transfer you wish to submit. */
@@ -213,4 +200,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is SimulationWireTransferSubmitParams && wireTransferId == other.wireTransferId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(wireTransferId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "SimulationWireTransferSubmitParams{wireTransferId=$wireTransferId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

@@ -34,6 +34,10 @@ constructor(
 
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic
@@ -49,23 +53,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is AccountTransferListParams && accountId == other.accountId && createdAt == other.createdAt && cursor == other.cursor && idempotencyKey == other.idempotencyKey && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, createdAt, cursor, idempotencyKey, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "AccountTransferListParams{accountId=$accountId, createdAt=$createdAt, cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -87,13 +74,13 @@ constructor(
 
         @JvmSynthetic
         internal fun from(accountTransferListParams: AccountTransferListParams) = apply {
-            this.accountId = accountTransferListParams.accountId
-            this.createdAt = accountTransferListParams.createdAt
-            this.cursor = accountTransferListParams.cursor
-            this.idempotencyKey = accountTransferListParams.idempotencyKey
-            this.limit = accountTransferListParams.limit
-            additionalHeaders(accountTransferListParams.additionalHeaders)
-            additionalQueryParams(accountTransferListParams.additionalQueryParams)
+            accountId = accountTransferListParams.accountId
+            createdAt = accountTransferListParams.createdAt
+            cursor = accountTransferListParams.cursor
+            idempotencyKey = accountTransferListParams.idempotencyKey
+            limit = accountTransferListParams.limit
+            additionalHeaders = accountTransferListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = accountTransferListParams.additionalQueryParams.toBuilder()
         }
 
         /** Filter Account Transfers to those that originated from the specified Account. */
@@ -368,4 +355,17 @@ constructor(
         override fun toString() =
             "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is AccountTransferListParams && accountId == other.accountId && createdAt == other.createdAt && cursor == other.cursor && idempotencyKey == other.idempotencyKey && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, createdAt, cursor, idempotencyKey, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "AccountTransferListParams{accountId=$accountId, createdAt=$createdAt, cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

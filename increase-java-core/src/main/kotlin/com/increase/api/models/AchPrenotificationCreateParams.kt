@@ -69,6 +69,12 @@ constructor(
     fun standardEntryClassCode(): Optional<StandardEntryClassCode> =
         Optional.ofNullable(standardEntryClassCode)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): AchPrenotificationCreateBody {
         return AchPrenotificationCreateBody(
@@ -338,25 +344,6 @@ constructor(
             "AchPrenotificationCreateBody{accountId=$accountId, accountNumber=$accountNumber, routingNumber=$routingNumber, addendum=$addendum, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, creditDebitIndicator=$creditDebitIndicator, effectiveDate=$effectiveDate, individualId=$individualId, individualName=$individualName, standardEntryClassCode=$standardEntryClassCode, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is AchPrenotificationCreateParams && accountId == other.accountId && accountNumber == other.accountNumber && routingNumber == other.routingNumber && addendum == other.addendum && companyDescriptiveDate == other.companyDescriptiveDate && companyDiscretionaryData == other.companyDiscretionaryData && companyEntryDescription == other.companyEntryDescription && companyName == other.companyName && creditDebitIndicator == other.creditDebitIndicator && effectiveDate == other.effectiveDate && individualId == other.individualId && individualName == other.individualName && standardEntryClassCode == other.standardEntryClassCode && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, accountNumber, routingNumber, addendum, companyDescriptiveDate, companyDiscretionaryData, companyEntryDescription, companyName, creditDebitIndicator, effectiveDate, individualId, individualName, standardEntryClassCode, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "AchPrenotificationCreateParams{accountId=$accountId, accountNumber=$accountNumber, routingNumber=$routingNumber, addendum=$addendum, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, creditDebitIndicator=$creditDebitIndicator, effectiveDate=$effectiveDate, individualId=$individualId, individualName=$individualName, standardEntryClassCode=$standardEntryClassCode, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -386,22 +373,23 @@ constructor(
 
         @JvmSynthetic
         internal fun from(achPrenotificationCreateParams: AchPrenotificationCreateParams) = apply {
-            this.accountId = achPrenotificationCreateParams.accountId
-            this.accountNumber = achPrenotificationCreateParams.accountNumber
-            this.routingNumber = achPrenotificationCreateParams.routingNumber
-            this.addendum = achPrenotificationCreateParams.addendum
-            this.companyDescriptiveDate = achPrenotificationCreateParams.companyDescriptiveDate
-            this.companyDiscretionaryData = achPrenotificationCreateParams.companyDiscretionaryData
-            this.companyEntryDescription = achPrenotificationCreateParams.companyEntryDescription
-            this.companyName = achPrenotificationCreateParams.companyName
-            this.creditDebitIndicator = achPrenotificationCreateParams.creditDebitIndicator
-            this.effectiveDate = achPrenotificationCreateParams.effectiveDate
-            this.individualId = achPrenotificationCreateParams.individualId
-            this.individualName = achPrenotificationCreateParams.individualName
-            this.standardEntryClassCode = achPrenotificationCreateParams.standardEntryClassCode
-            additionalHeaders(achPrenotificationCreateParams.additionalHeaders)
-            additionalQueryParams(achPrenotificationCreateParams.additionalQueryParams)
-            additionalBodyProperties(achPrenotificationCreateParams.additionalBodyProperties)
+            accountId = achPrenotificationCreateParams.accountId
+            accountNumber = achPrenotificationCreateParams.accountNumber
+            routingNumber = achPrenotificationCreateParams.routingNumber
+            addendum = achPrenotificationCreateParams.addendum
+            companyDescriptiveDate = achPrenotificationCreateParams.companyDescriptiveDate
+            companyDiscretionaryData = achPrenotificationCreateParams.companyDiscretionaryData
+            companyEntryDescription = achPrenotificationCreateParams.companyEntryDescription
+            companyName = achPrenotificationCreateParams.companyName
+            creditDebitIndicator = achPrenotificationCreateParams.creditDebitIndicator
+            effectiveDate = achPrenotificationCreateParams.effectiveDate
+            individualId = achPrenotificationCreateParams.individualId
+            individualName = achPrenotificationCreateParams.individualName
+            standardEntryClassCode = achPrenotificationCreateParams.standardEntryClassCode
+            additionalHeaders = achPrenotificationCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = achPrenotificationCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                achPrenotificationCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The Increase identifier for the account that will send the transfer. */
@@ -734,4 +722,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is AchPrenotificationCreateParams && accountId == other.accountId && accountNumber == other.accountNumber && routingNumber == other.routingNumber && addendum == other.addendum && companyDescriptiveDate == other.companyDescriptiveDate && companyDiscretionaryData == other.companyDiscretionaryData && companyEntryDescription == other.companyEntryDescription && companyName == other.companyName && creditDebitIndicator == other.creditDebitIndicator && effectiveDate == other.effectiveDate && individualId == other.individualId && individualName == other.individualName && standardEntryClassCode == other.standardEntryClassCode && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, accountNumber, routingNumber, addendum, companyDescriptiveDate, companyDiscretionaryData, companyEntryDescription, companyName, creditDebitIndicator, effectiveDate, individualId, individualName, standardEntryClassCode, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "AchPrenotificationCreateParams{accountId=$accountId, accountNumber=$accountNumber, routingNumber=$routingNumber, addendum=$addendum, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, creditDebitIndicator=$creditDebitIndicator, effectiveDate=$effectiveDate, individualId=$individualId, individualName=$individualName, standardEntryClassCode=$standardEntryClassCode, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

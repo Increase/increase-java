@@ -17,6 +17,10 @@ constructor(
 
     fun bookkeepingEntrySetId(): String = bookkeepingEntrySetId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
@@ -27,23 +31,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is BookkeepingEntrySetRetrieveParams && bookkeepingEntrySetId == other.bookkeepingEntrySetId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(bookkeepingEntrySetId, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "BookkeepingEntrySetRetrieveParams{bookkeepingEntrySetId=$bookkeepingEntrySetId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -62,9 +49,10 @@ constructor(
         @JvmSynthetic
         internal fun from(bookkeepingEntrySetRetrieveParams: BookkeepingEntrySetRetrieveParams) =
             apply {
-                this.bookkeepingEntrySetId = bookkeepingEntrySetRetrieveParams.bookkeepingEntrySetId
-                additionalHeaders(bookkeepingEntrySetRetrieveParams.additionalHeaders)
-                additionalQueryParams(bookkeepingEntrySetRetrieveParams.additionalQueryParams)
+                bookkeepingEntrySetId = bookkeepingEntrySetRetrieveParams.bookkeepingEntrySetId
+                additionalHeaders = bookkeepingEntrySetRetrieveParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    bookkeepingEntrySetRetrieveParams.additionalQueryParams.toBuilder()
             }
 
         /** The identifier of the Bookkeeping Entry Set. */
@@ -179,4 +167,17 @@ constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is BookkeepingEntrySetRetrieveParams && bookkeepingEntrySetId == other.bookkeepingEntrySetId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(bookkeepingEntrySetId, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "BookkeepingEntrySetRetrieveParams{bookkeepingEntrySetId=$bookkeepingEntrySetId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

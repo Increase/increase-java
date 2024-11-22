@@ -34,6 +34,10 @@ constructor(
 
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic
@@ -49,23 +53,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is LockboxListParams && accountId == other.accountId && createdAt == other.createdAt && cursor == other.cursor && idempotencyKey == other.idempotencyKey && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, createdAt, cursor, idempotencyKey, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "LockboxListParams{accountId=$accountId, createdAt=$createdAt, cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -87,13 +74,13 @@ constructor(
 
         @JvmSynthetic
         internal fun from(lockboxListParams: LockboxListParams) = apply {
-            this.accountId = lockboxListParams.accountId
-            this.createdAt = lockboxListParams.createdAt
-            this.cursor = lockboxListParams.cursor
-            this.idempotencyKey = lockboxListParams.idempotencyKey
-            this.limit = lockboxListParams.limit
-            additionalHeaders(lockboxListParams.additionalHeaders)
-            additionalQueryParams(lockboxListParams.additionalQueryParams)
+            accountId = lockboxListParams.accountId
+            createdAt = lockboxListParams.createdAt
+            cursor = lockboxListParams.cursor
+            idempotencyKey = lockboxListParams.idempotencyKey
+            limit = lockboxListParams.limit
+            additionalHeaders = lockboxListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = lockboxListParams.additionalQueryParams.toBuilder()
         }
 
         /** Filter Lockboxes to those associated with the provided Account. */
@@ -368,4 +355,17 @@ constructor(
         override fun toString() =
             "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is LockboxListParams && accountId == other.accountId && createdAt == other.createdAt && cursor == other.cursor && idempotencyKey == other.idempotencyKey && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, createdAt, cursor, idempotencyKey, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "LockboxListParams{accountId=$accountId, createdAt=$createdAt, cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

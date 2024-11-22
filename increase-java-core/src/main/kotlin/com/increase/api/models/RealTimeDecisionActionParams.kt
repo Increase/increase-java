@@ -47,6 +47,12 @@ constructor(
 
     fun digitalWalletToken(): Optional<DigitalWalletToken> = Optional.ofNullable(digitalWalletToken)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): RealTimeDecisionActionBody {
         return RealTimeDecisionActionBody(
@@ -239,25 +245,6 @@ constructor(
             "RealTimeDecisionActionBody{cardAuthentication=$cardAuthentication, cardAuthenticationChallenge=$cardAuthenticationChallenge, cardAuthorization=$cardAuthorization, digitalWalletAuthentication=$digitalWalletAuthentication, digitalWalletToken=$digitalWalletToken, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is RealTimeDecisionActionParams && realTimeDecisionId == other.realTimeDecisionId && cardAuthentication == other.cardAuthentication && cardAuthenticationChallenge == other.cardAuthenticationChallenge && cardAuthorization == other.cardAuthorization && digitalWalletAuthentication == other.digitalWalletAuthentication && digitalWalletToken == other.digitalWalletToken && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(realTimeDecisionId, cardAuthentication, cardAuthenticationChallenge, cardAuthorization, digitalWalletAuthentication, digitalWalletToken, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "RealTimeDecisionActionParams{realTimeDecisionId=$realTimeDecisionId, cardAuthentication=$cardAuthentication, cardAuthenticationChallenge=$cardAuthenticationChallenge, cardAuthorization=$cardAuthorization, digitalWalletAuthentication=$digitalWalletAuthentication, digitalWalletToken=$digitalWalletToken, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -280,17 +267,16 @@ constructor(
 
         @JvmSynthetic
         internal fun from(realTimeDecisionActionParams: RealTimeDecisionActionParams) = apply {
-            this.realTimeDecisionId = realTimeDecisionActionParams.realTimeDecisionId
-            this.cardAuthentication = realTimeDecisionActionParams.cardAuthentication
-            this.cardAuthenticationChallenge =
-                realTimeDecisionActionParams.cardAuthenticationChallenge
-            this.cardAuthorization = realTimeDecisionActionParams.cardAuthorization
-            this.digitalWalletAuthentication =
-                realTimeDecisionActionParams.digitalWalletAuthentication
-            this.digitalWalletToken = realTimeDecisionActionParams.digitalWalletToken
-            additionalHeaders(realTimeDecisionActionParams.additionalHeaders)
-            additionalQueryParams(realTimeDecisionActionParams.additionalQueryParams)
-            additionalBodyProperties(realTimeDecisionActionParams.additionalBodyProperties)
+            realTimeDecisionId = realTimeDecisionActionParams.realTimeDecisionId
+            cardAuthentication = realTimeDecisionActionParams.cardAuthentication
+            cardAuthenticationChallenge = realTimeDecisionActionParams.cardAuthenticationChallenge
+            cardAuthorization = realTimeDecisionActionParams.cardAuthorization
+            digitalWalletAuthentication = realTimeDecisionActionParams.digitalWalletAuthentication
+            digitalWalletToken = realTimeDecisionActionParams.digitalWalletToken
+            additionalHeaders = realTimeDecisionActionParams.additionalHeaders.toBuilder()
+            additionalQueryParams = realTimeDecisionActionParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                realTimeDecisionActionParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier of the Real-Time Decision. */
@@ -1523,4 +1509,17 @@ constructor(
         override fun toString() =
             "DigitalWalletToken{approval=$approval, decline=$decline, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is RealTimeDecisionActionParams && realTimeDecisionId == other.realTimeDecisionId && cardAuthentication == other.cardAuthentication && cardAuthenticationChallenge == other.cardAuthenticationChallenge && cardAuthorization == other.cardAuthorization && digitalWalletAuthentication == other.digitalWalletAuthentication && digitalWalletToken == other.digitalWalletToken && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(realTimeDecisionId, cardAuthentication, cardAuthenticationChallenge, cardAuthorization, digitalWalletAuthentication, digitalWalletToken, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "RealTimeDecisionActionParams{realTimeDecisionId=$realTimeDecisionId, cardAuthentication=$cardAuthentication, cardAuthenticationChallenge=$cardAuthenticationChallenge, cardAuthorization=$cardAuthorization, digitalWalletAuthentication=$digitalWalletAuthentication, digitalWalletToken=$digitalWalletToken, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

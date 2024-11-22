@@ -58,6 +58,12 @@ constructor(
 
     fun trust(): Optional<Trust> = Optional.ofNullable(trust)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): EntityCreateBody {
         return EntityCreateBody(
@@ -283,25 +289,6 @@ constructor(
             "EntityCreateBody{structure=$structure, corporation=$corporation, description=$description, governmentAuthority=$governmentAuthority, joint=$joint, naturalPerson=$naturalPerson, supplementalDocuments=$supplementalDocuments, thirdPartyVerification=$thirdPartyVerification, trust=$trust, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is EntityCreateParams && structure == other.structure && corporation == other.corporation && description == other.description && governmentAuthority == other.governmentAuthority && joint == other.joint && naturalPerson == other.naturalPerson && supplementalDocuments == other.supplementalDocuments && thirdPartyVerification == other.thirdPartyVerification && trust == other.trust && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(structure, corporation, description, governmentAuthority, joint, naturalPerson, supplementalDocuments, thirdPartyVerification, trust, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "EntityCreateParams{structure=$structure, corporation=$corporation, description=$description, governmentAuthority=$governmentAuthority, joint=$joint, naturalPerson=$naturalPerson, supplementalDocuments=$supplementalDocuments, thirdPartyVerification=$thirdPartyVerification, trust=$trust, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -327,18 +314,19 @@ constructor(
 
         @JvmSynthetic
         internal fun from(entityCreateParams: EntityCreateParams) = apply {
-            this.structure = entityCreateParams.structure
-            this.corporation = entityCreateParams.corporation
-            this.description = entityCreateParams.description
-            this.governmentAuthority = entityCreateParams.governmentAuthority
-            this.joint = entityCreateParams.joint
-            this.naturalPerson = entityCreateParams.naturalPerson
-            this.supplementalDocuments(entityCreateParams.supplementalDocuments ?: listOf())
-            this.thirdPartyVerification = entityCreateParams.thirdPartyVerification
-            this.trust = entityCreateParams.trust
-            additionalHeaders(entityCreateParams.additionalHeaders)
-            additionalQueryParams(entityCreateParams.additionalQueryParams)
-            additionalBodyProperties(entityCreateParams.additionalBodyProperties)
+            structure = entityCreateParams.structure
+            corporation = entityCreateParams.corporation
+            description = entityCreateParams.description
+            governmentAuthority = entityCreateParams.governmentAuthority
+            joint = entityCreateParams.joint
+            naturalPerson = entityCreateParams.naturalPerson
+            supplementalDocuments =
+                entityCreateParams.supplementalDocuments?.toMutableList() ?: mutableListOf()
+            thirdPartyVerification = entityCreateParams.thirdPartyVerification
+            trust = entityCreateParams.trust
+            additionalHeaders = entityCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = entityCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties = entityCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The type of Entity to create. */
@@ -524,7 +512,7 @@ constructor(
                 governmentAuthority,
                 joint,
                 naturalPerson,
-                if (supplementalDocuments.size == 0) null else supplementalDocuments.toImmutable(),
+                supplementalDocuments.toImmutable().ifEmpty { null },
                 thirdPartyVerification,
                 trust,
                 additionalHeaders.build(),
@@ -6737,4 +6725,17 @@ constructor(
         override fun toString() =
             "Trust{address=$address, category=$category, formationDocumentFileId=$formationDocumentFileId, formationState=$formationState, grantor=$grantor, name=$name, taxIdentifier=$taxIdentifier, trustees=$trustees, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is EntityCreateParams && structure == other.structure && corporation == other.corporation && description == other.description && governmentAuthority == other.governmentAuthority && joint == other.joint && naturalPerson == other.naturalPerson && supplementalDocuments == other.supplementalDocuments && thirdPartyVerification == other.thirdPartyVerification && trust == other.trust && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(structure, corporation, description, governmentAuthority, joint, naturalPerson, supplementalDocuments, thirdPartyVerification, trust, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "EntityCreateParams{structure=$structure, corporation=$corporation, description=$description, governmentAuthority=$governmentAuthority, joint=$joint, naturalPerson=$naturalPerson, supplementalDocuments=$supplementalDocuments, thirdPartyVerification=$thirdPartyVerification, trust=$trust, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

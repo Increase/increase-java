@@ -25,6 +25,12 @@ constructor(
 
     fun cardPaymentId(): String = cardPaymentId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): SimulationCardAuthorizationExpirationCreateBody {
         return SimulationCardAuthorizationExpirationCreateBody(
@@ -118,25 +124,6 @@ constructor(
             "SimulationCardAuthorizationExpirationCreateBody{cardPaymentId=$cardPaymentId, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is SimulationCardAuthorizationExpirationCreateParams && cardPaymentId == other.cardPaymentId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cardPaymentId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "SimulationCardAuthorizationExpirationCreateParams{cardPaymentId=$cardPaymentId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -157,14 +144,14 @@ constructor(
             simulationCardAuthorizationExpirationCreateParams:
                 SimulationCardAuthorizationExpirationCreateParams
         ) = apply {
-            this.cardPaymentId = simulationCardAuthorizationExpirationCreateParams.cardPaymentId
-            additionalHeaders(simulationCardAuthorizationExpirationCreateParams.additionalHeaders)
-            additionalQueryParams(
-                simulationCardAuthorizationExpirationCreateParams.additionalQueryParams
-            )
-            additionalBodyProperties(
+            cardPaymentId = simulationCardAuthorizationExpirationCreateParams.cardPaymentId
+            additionalHeaders =
+                simulationCardAuthorizationExpirationCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                simulationCardAuthorizationExpirationCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
                 simulationCardAuthorizationExpirationCreateParams.additionalBodyProperties
-            )
+                    .toMutableMap()
         }
 
         /** The identifier of the Card Payment to expire. */
@@ -298,4 +285,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is SimulationCardAuthorizationExpirationCreateParams && cardPaymentId == other.cardPaymentId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cardPaymentId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "SimulationCardAuthorizationExpirationCreateParams{cardPaymentId=$cardPaymentId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

@@ -32,6 +32,10 @@ constructor(
 
     fun status(): Optional<Status> = Optional.ofNullable(status)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic
@@ -44,23 +48,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is WireDrawdownRequestListParams && cursor == other.cursor && idempotencyKey == other.idempotencyKey && limit == other.limit && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cursor, idempotencyKey, limit, status, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "WireDrawdownRequestListParams{cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -81,12 +68,12 @@ constructor(
 
         @JvmSynthetic
         internal fun from(wireDrawdownRequestListParams: WireDrawdownRequestListParams) = apply {
-            this.cursor = wireDrawdownRequestListParams.cursor
-            this.idempotencyKey = wireDrawdownRequestListParams.idempotencyKey
-            this.limit = wireDrawdownRequestListParams.limit
-            this.status = wireDrawdownRequestListParams.status
-            additionalHeaders(wireDrawdownRequestListParams.additionalHeaders)
-            additionalQueryParams(wireDrawdownRequestListParams.additionalQueryParams)
+            cursor = wireDrawdownRequestListParams.cursor
+            idempotencyKey = wireDrawdownRequestListParams.idempotencyKey
+            limit = wireDrawdownRequestListParams.limit
+            status = wireDrawdownRequestListParams.status
+            additionalHeaders = wireDrawdownRequestListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = wireDrawdownRequestListParams.additionalQueryParams.toBuilder()
         }
 
         /** Return the page of entries after this one. */
@@ -285,4 +272,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is WireDrawdownRequestListParams && cursor == other.cursor && idempotencyKey == other.idempotencyKey && limit == other.limit && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cursor, idempotencyKey, limit, status, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "WireDrawdownRequestListParams{cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

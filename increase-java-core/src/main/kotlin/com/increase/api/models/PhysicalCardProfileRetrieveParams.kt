@@ -17,6 +17,10 @@ constructor(
 
     fun physicalCardProfileId(): String = physicalCardProfileId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
@@ -27,23 +31,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is PhysicalCardProfileRetrieveParams && physicalCardProfileId == other.physicalCardProfileId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(physicalCardProfileId, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "PhysicalCardProfileRetrieveParams{physicalCardProfileId=$physicalCardProfileId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -62,9 +49,10 @@ constructor(
         @JvmSynthetic
         internal fun from(physicalCardProfileRetrieveParams: PhysicalCardProfileRetrieveParams) =
             apply {
-                this.physicalCardProfileId = physicalCardProfileRetrieveParams.physicalCardProfileId
-                additionalHeaders(physicalCardProfileRetrieveParams.additionalHeaders)
-                additionalQueryParams(physicalCardProfileRetrieveParams.additionalQueryParams)
+                physicalCardProfileId = physicalCardProfileRetrieveParams.physicalCardProfileId
+                additionalHeaders = physicalCardProfileRetrieveParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    physicalCardProfileRetrieveParams.additionalQueryParams.toBuilder()
             }
 
         /** The identifier of the Card Profile. */
@@ -179,4 +167,17 @@ constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is PhysicalCardProfileRetrieveParams && physicalCardProfileId == other.physicalCardProfileId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(physicalCardProfileId, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "PhysicalCardProfileRetrieveParams{physicalCardProfileId=$physicalCardProfileId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

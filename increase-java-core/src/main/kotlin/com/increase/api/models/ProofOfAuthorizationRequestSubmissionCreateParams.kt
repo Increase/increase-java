@@ -59,6 +59,12 @@ constructor(
 
     fun authorizerIpAddress(): Optional<String> = Optional.ofNullable(authorizerIpAddress)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): ProofOfAuthorizationRequestSubmissionCreateBody {
         return ProofOfAuthorizationRequestSubmissionCreateBody(
@@ -337,25 +343,6 @@ constructor(
             "ProofOfAuthorizationRequestSubmissionCreateBody{authorizationTerms=$authorizationTerms, authorizedAt=$authorizedAt, authorizerEmail=$authorizerEmail, authorizerName=$authorizerName, customerHasBeenOffboarded=$customerHasBeenOffboarded, proofOfAuthorizationRequestId=$proofOfAuthorizationRequestId, validatedAccountOwnershipViaCredential=$validatedAccountOwnershipViaCredential, validatedAccountOwnershipWithAccountStatement=$validatedAccountOwnershipWithAccountStatement, validatedAccountOwnershipWithMicrodeposit=$validatedAccountOwnershipWithMicrodeposit, authorizerCompany=$authorizerCompany, authorizerIpAddress=$authorizerIpAddress, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is ProofOfAuthorizationRequestSubmissionCreateParams && authorizationTerms == other.authorizationTerms && authorizedAt == other.authorizedAt && authorizerEmail == other.authorizerEmail && authorizerName == other.authorizerName && customerHasBeenOffboarded == other.customerHasBeenOffboarded && proofOfAuthorizationRequestId == other.proofOfAuthorizationRequestId && validatedAccountOwnershipViaCredential == other.validatedAccountOwnershipViaCredential && validatedAccountOwnershipWithAccountStatement == other.validatedAccountOwnershipWithAccountStatement && validatedAccountOwnershipWithMicrodeposit == other.validatedAccountOwnershipWithMicrodeposit && authorizerCompany == other.authorizerCompany && authorizerIpAddress == other.authorizerIpAddress && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(authorizationTerms, authorizedAt, authorizerEmail, authorizerName, customerHasBeenOffboarded, proofOfAuthorizationRequestId, validatedAccountOwnershipViaCredential, validatedAccountOwnershipWithAccountStatement, validatedAccountOwnershipWithMicrodeposit, authorizerCompany, authorizerIpAddress, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "ProofOfAuthorizationRequestSubmissionCreateParams{authorizationTerms=$authorizationTerms, authorizedAt=$authorizedAt, authorizerEmail=$authorizerEmail, authorizerName=$authorizerName, customerHasBeenOffboarded=$customerHasBeenOffboarded, proofOfAuthorizationRequestId=$proofOfAuthorizationRequestId, validatedAccountOwnershipViaCredential=$validatedAccountOwnershipViaCredential, validatedAccountOwnershipWithAccountStatement=$validatedAccountOwnershipWithAccountStatement, validatedAccountOwnershipWithMicrodeposit=$validatedAccountOwnershipWithMicrodeposit, authorizerCompany=$authorizerCompany, authorizerIpAddress=$authorizerIpAddress, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -386,35 +373,34 @@ constructor(
             proofOfAuthorizationRequestSubmissionCreateParams:
                 ProofOfAuthorizationRequestSubmissionCreateParams
         ) = apply {
-            this.authorizationTerms =
+            authorizationTerms =
                 proofOfAuthorizationRequestSubmissionCreateParams.authorizationTerms
-            this.authorizedAt = proofOfAuthorizationRequestSubmissionCreateParams.authorizedAt
-            this.authorizerEmail = proofOfAuthorizationRequestSubmissionCreateParams.authorizerEmail
-            this.authorizerName = proofOfAuthorizationRequestSubmissionCreateParams.authorizerName
-            this.customerHasBeenOffboarded =
+            authorizedAt = proofOfAuthorizationRequestSubmissionCreateParams.authorizedAt
+            authorizerEmail = proofOfAuthorizationRequestSubmissionCreateParams.authorizerEmail
+            authorizerName = proofOfAuthorizationRequestSubmissionCreateParams.authorizerName
+            customerHasBeenOffboarded =
                 proofOfAuthorizationRequestSubmissionCreateParams.customerHasBeenOffboarded
-            this.proofOfAuthorizationRequestId =
+            proofOfAuthorizationRequestId =
                 proofOfAuthorizationRequestSubmissionCreateParams.proofOfAuthorizationRequestId
-            this.validatedAccountOwnershipViaCredential =
+            validatedAccountOwnershipViaCredential =
                 proofOfAuthorizationRequestSubmissionCreateParams
                     .validatedAccountOwnershipViaCredential
-            this.validatedAccountOwnershipWithAccountStatement =
+            validatedAccountOwnershipWithAccountStatement =
                 proofOfAuthorizationRequestSubmissionCreateParams
                     .validatedAccountOwnershipWithAccountStatement
-            this.validatedAccountOwnershipWithMicrodeposit =
+            validatedAccountOwnershipWithMicrodeposit =
                 proofOfAuthorizationRequestSubmissionCreateParams
                     .validatedAccountOwnershipWithMicrodeposit
-            this.authorizerCompany =
-                proofOfAuthorizationRequestSubmissionCreateParams.authorizerCompany
-            this.authorizerIpAddress =
+            authorizerCompany = proofOfAuthorizationRequestSubmissionCreateParams.authorizerCompany
+            authorizerIpAddress =
                 proofOfAuthorizationRequestSubmissionCreateParams.authorizerIpAddress
-            additionalHeaders(proofOfAuthorizationRequestSubmissionCreateParams.additionalHeaders)
-            additionalQueryParams(
-                proofOfAuthorizationRequestSubmissionCreateParams.additionalQueryParams
-            )
-            additionalBodyProperties(
+            additionalHeaders =
+                proofOfAuthorizationRequestSubmissionCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                proofOfAuthorizationRequestSubmissionCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
                 proofOfAuthorizationRequestSubmissionCreateParams.additionalBodyProperties
-            )
+                    .toMutableMap()
         }
 
         /** Terms of authorization. */
@@ -626,4 +612,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is ProofOfAuthorizationRequestSubmissionCreateParams && authorizationTerms == other.authorizationTerms && authorizedAt == other.authorizedAt && authorizerEmail == other.authorizerEmail && authorizerName == other.authorizerName && customerHasBeenOffboarded == other.customerHasBeenOffboarded && proofOfAuthorizationRequestId == other.proofOfAuthorizationRequestId && validatedAccountOwnershipViaCredential == other.validatedAccountOwnershipViaCredential && validatedAccountOwnershipWithAccountStatement == other.validatedAccountOwnershipWithAccountStatement && validatedAccountOwnershipWithMicrodeposit == other.validatedAccountOwnershipWithMicrodeposit && authorizerCompany == other.authorizerCompany && authorizerIpAddress == other.authorizerIpAddress && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(authorizationTerms, authorizedAt, authorizerEmail, authorizerName, customerHasBeenOffboarded, proofOfAuthorizationRequestId, validatedAccountOwnershipViaCredential, validatedAccountOwnershipWithAccountStatement, validatedAccountOwnershipWithMicrodeposit, authorizerCompany, authorizerIpAddress, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "ProofOfAuthorizationRequestSubmissionCreateParams{authorizationTerms=$authorizationTerms, authorizedAt=$authorizedAt, authorizerEmail=$authorizerEmail, authorizerName=$authorizerName, customerHasBeenOffboarded=$customerHasBeenOffboarded, proofOfAuthorizationRequestId=$proofOfAuthorizationRequestId, validatedAccountOwnershipViaCredential=$validatedAccountOwnershipViaCredential, validatedAccountOwnershipWithAccountStatement=$validatedAccountOwnershipWithAccountStatement, validatedAccountOwnershipWithMicrodeposit=$validatedAccountOwnershipWithMicrodeposit, authorizerCompany=$authorizerCompany, authorizerIpAddress=$authorizerIpAddress, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

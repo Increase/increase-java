@@ -17,6 +17,10 @@ constructor(
 
     fun realTimePaymentsTransferId(): String = realTimePaymentsTransferId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
@@ -27,23 +31,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is RealTimePaymentsTransferRetrieveParams && realTimePaymentsTransferId == other.realTimePaymentsTransferId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(realTimePaymentsTransferId, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "RealTimePaymentsTransferRetrieveParams{realTimePaymentsTransferId=$realTimePaymentsTransferId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -63,10 +50,11 @@ constructor(
         internal fun from(
             realTimePaymentsTransferRetrieveParams: RealTimePaymentsTransferRetrieveParams
         ) = apply {
-            this.realTimePaymentsTransferId =
+            realTimePaymentsTransferId =
                 realTimePaymentsTransferRetrieveParams.realTimePaymentsTransferId
-            additionalHeaders(realTimePaymentsTransferRetrieveParams.additionalHeaders)
-            additionalQueryParams(realTimePaymentsTransferRetrieveParams.additionalQueryParams)
+            additionalHeaders = realTimePaymentsTransferRetrieveParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                realTimePaymentsTransferRetrieveParams.additionalQueryParams.toBuilder()
         }
 
         /** The identifier of the Real-Time Payments Transfer. */
@@ -181,4 +169,17 @@ constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is RealTimePaymentsTransferRetrieveParams && realTimePaymentsTransferId == other.realTimePaymentsTransferId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(realTimePaymentsTransferId, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "RealTimePaymentsTransferRetrieveParams{realTimePaymentsTransferId=$realTimePaymentsTransferId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

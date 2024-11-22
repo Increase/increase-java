@@ -17,6 +17,10 @@ constructor(
 
     fun accountTransferId(): String = accountTransferId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
@@ -27,23 +31,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is AccountTransferRetrieveParams && accountTransferId == other.accountTransferId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountTransferId, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "AccountTransferRetrieveParams{accountTransferId=$accountTransferId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -61,9 +48,9 @@ constructor(
 
         @JvmSynthetic
         internal fun from(accountTransferRetrieveParams: AccountTransferRetrieveParams) = apply {
-            this.accountTransferId = accountTransferRetrieveParams.accountTransferId
-            additionalHeaders(accountTransferRetrieveParams.additionalHeaders)
-            additionalQueryParams(accountTransferRetrieveParams.additionalQueryParams)
+            accountTransferId = accountTransferRetrieveParams.accountTransferId
+            additionalHeaders = accountTransferRetrieveParams.additionalHeaders.toBuilder()
+            additionalQueryParams = accountTransferRetrieveParams.additionalQueryParams.toBuilder()
         }
 
         /** The identifier of the Account Transfer. */
@@ -178,4 +165,17 @@ constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is AccountTransferRetrieveParams && accountTransferId == other.accountTransferId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountTransferId, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "AccountTransferRetrieveParams{accountTransferId=$accountTransferId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

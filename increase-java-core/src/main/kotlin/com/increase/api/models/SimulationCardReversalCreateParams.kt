@@ -29,6 +29,12 @@ constructor(
 
     fun amount(): Optional<Long> = Optional.ofNullable(amount)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): SimulationCardReversalCreateBody {
         return SimulationCardReversalCreateBody(
@@ -135,25 +141,6 @@ constructor(
             "SimulationCardReversalCreateBody{cardPaymentId=$cardPaymentId, amount=$amount, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is SimulationCardReversalCreateParams && cardPaymentId == other.cardPaymentId && amount == other.amount && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cardPaymentId, amount, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "SimulationCardReversalCreateParams{cardPaymentId=$cardPaymentId, amount=$amount, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -173,13 +160,13 @@ constructor(
         @JvmSynthetic
         internal fun from(simulationCardReversalCreateParams: SimulationCardReversalCreateParams) =
             apply {
-                this.cardPaymentId = simulationCardReversalCreateParams.cardPaymentId
-                this.amount = simulationCardReversalCreateParams.amount
-                additionalHeaders(simulationCardReversalCreateParams.additionalHeaders)
-                additionalQueryParams(simulationCardReversalCreateParams.additionalQueryParams)
-                additionalBodyProperties(
-                    simulationCardReversalCreateParams.additionalBodyProperties
-                )
+                cardPaymentId = simulationCardReversalCreateParams.cardPaymentId
+                amount = simulationCardReversalCreateParams.amount
+                additionalHeaders = simulationCardReversalCreateParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    simulationCardReversalCreateParams.additionalQueryParams.toBuilder()
+                additionalBodyProperties =
+                    simulationCardReversalCreateParams.additionalBodyProperties.toMutableMap()
             }
 
         /** The identifier of the Card Payment to create a reversal on. */
@@ -320,4 +307,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is SimulationCardReversalCreateParams && cardPaymentId == other.cardPaymentId && amount == other.amount && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cardPaymentId, amount, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "SimulationCardReversalCreateParams{cardPaymentId=$cardPaymentId, amount=$amount, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

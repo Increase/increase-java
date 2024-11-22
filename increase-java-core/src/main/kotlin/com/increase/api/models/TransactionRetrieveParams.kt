@@ -17,6 +17,10 @@ constructor(
 
     fun transactionId(): String = transactionId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
@@ -27,23 +31,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is TransactionRetrieveParams && transactionId == other.transactionId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(transactionId, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "TransactionRetrieveParams{transactionId=$transactionId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -61,9 +48,9 @@ constructor(
 
         @JvmSynthetic
         internal fun from(transactionRetrieveParams: TransactionRetrieveParams) = apply {
-            this.transactionId = transactionRetrieveParams.transactionId
-            additionalHeaders(transactionRetrieveParams.additionalHeaders)
-            additionalQueryParams(transactionRetrieveParams.additionalQueryParams)
+            transactionId = transactionRetrieveParams.transactionId
+            additionalHeaders = transactionRetrieveParams.additionalHeaders.toBuilder()
+            additionalQueryParams = transactionRetrieveParams.additionalQueryParams.toBuilder()
         }
 
         /** The identifier of the Transaction to retrieve. */
@@ -174,4 +161,17 @@ constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is TransactionRetrieveParams && transactionId == other.transactionId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(transactionId, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "TransactionRetrieveParams{transactionId=$transactionId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

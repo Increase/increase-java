@@ -17,6 +17,10 @@ constructor(
 
     fun checkTransferId(): String = checkTransferId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
@@ -27,23 +31,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is CheckTransferRetrieveParams && checkTransferId == other.checkTransferId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(checkTransferId, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "CheckTransferRetrieveParams{checkTransferId=$checkTransferId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -61,9 +48,9 @@ constructor(
 
         @JvmSynthetic
         internal fun from(checkTransferRetrieveParams: CheckTransferRetrieveParams) = apply {
-            this.checkTransferId = checkTransferRetrieveParams.checkTransferId
-            additionalHeaders(checkTransferRetrieveParams.additionalHeaders)
-            additionalQueryParams(checkTransferRetrieveParams.additionalQueryParams)
+            checkTransferId = checkTransferRetrieveParams.checkTransferId
+            additionalHeaders = checkTransferRetrieveParams.additionalHeaders.toBuilder()
+            additionalQueryParams = checkTransferRetrieveParams.additionalQueryParams.toBuilder()
         }
 
         /** The identifier of the Check Transfer. */
@@ -176,4 +163,17 @@ constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is CheckTransferRetrieveParams && checkTransferId == other.checkTransferId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(checkTransferId, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "CheckTransferRetrieveParams{checkTransferId=$checkTransferId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

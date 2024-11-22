@@ -48,6 +48,10 @@ constructor(
 
     fun status(): Optional<Status> = Optional.ofNullable(status)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic
@@ -68,23 +72,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is AccountListParams && createdAt == other.createdAt && cursor == other.cursor && entityId == other.entityId && idempotencyKey == other.idempotencyKey && informationalEntityId == other.informationalEntityId && limit == other.limit && programId == other.programId && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(createdAt, cursor, entityId, idempotencyKey, informationalEntityId, limit, programId, status, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "AccountListParams{createdAt=$createdAt, cursor=$cursor, entityId=$entityId, idempotencyKey=$idempotencyKey, informationalEntityId=$informationalEntityId, limit=$limit, programId=$programId, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -109,16 +96,16 @@ constructor(
 
         @JvmSynthetic
         internal fun from(accountListParams: AccountListParams) = apply {
-            this.createdAt = accountListParams.createdAt
-            this.cursor = accountListParams.cursor
-            this.entityId = accountListParams.entityId
-            this.idempotencyKey = accountListParams.idempotencyKey
-            this.informationalEntityId = accountListParams.informationalEntityId
-            this.limit = accountListParams.limit
-            this.programId = accountListParams.programId
-            this.status = accountListParams.status
-            additionalHeaders(accountListParams.additionalHeaders)
-            additionalQueryParams(accountListParams.additionalQueryParams)
+            createdAt = accountListParams.createdAt
+            cursor = accountListParams.cursor
+            entityId = accountListParams.entityId
+            idempotencyKey = accountListParams.idempotencyKey
+            informationalEntityId = accountListParams.informationalEntityId
+            limit = accountListParams.limit
+            programId = accountListParams.programId
+            status = accountListParams.status
+            additionalHeaders = accountListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = accountListParams.additionalQueryParams.toBuilder()
         }
 
         fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
@@ -464,4 +451,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is AccountListParams && createdAt == other.createdAt && cursor == other.cursor && entityId == other.entityId && idempotencyKey == other.idempotencyKey && informationalEntityId == other.informationalEntityId && limit == other.limit && programId == other.programId && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(createdAt, cursor, entityId, idempotencyKey, informationalEntityId, limit, programId, status, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "AccountListParams{createdAt=$createdAt, cursor=$cursor, entityId=$entityId, idempotencyKey=$idempotencyKey, informationalEntityId=$informationalEntityId, limit=$limit, programId=$programId, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

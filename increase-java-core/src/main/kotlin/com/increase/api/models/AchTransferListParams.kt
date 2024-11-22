@@ -37,6 +37,10 @@ constructor(
 
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic
@@ -55,23 +59,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is AchTransferListParams && accountId == other.accountId && createdAt == other.createdAt && cursor == other.cursor && externalAccountId == other.externalAccountId && idempotencyKey == other.idempotencyKey && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, createdAt, cursor, externalAccountId, idempotencyKey, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "AchTransferListParams{accountId=$accountId, createdAt=$createdAt, cursor=$cursor, externalAccountId=$externalAccountId, idempotencyKey=$idempotencyKey, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -94,14 +81,14 @@ constructor(
 
         @JvmSynthetic
         internal fun from(achTransferListParams: AchTransferListParams) = apply {
-            this.accountId = achTransferListParams.accountId
-            this.createdAt = achTransferListParams.createdAt
-            this.cursor = achTransferListParams.cursor
-            this.externalAccountId = achTransferListParams.externalAccountId
-            this.idempotencyKey = achTransferListParams.idempotencyKey
-            this.limit = achTransferListParams.limit
-            additionalHeaders(achTransferListParams.additionalHeaders)
-            additionalQueryParams(achTransferListParams.additionalQueryParams)
+            accountId = achTransferListParams.accountId
+            createdAt = achTransferListParams.createdAt
+            cursor = achTransferListParams.cursor
+            externalAccountId = achTransferListParams.externalAccountId
+            idempotencyKey = achTransferListParams.idempotencyKey
+            limit = achTransferListParams.limit
+            additionalHeaders = achTransferListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = achTransferListParams.additionalQueryParams.toBuilder()
         }
 
         /** Filter ACH Transfers to those that originated from the specified Account. */
@@ -382,4 +369,17 @@ constructor(
         override fun toString() =
             "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is AchTransferListParams && accountId == other.accountId && createdAt == other.createdAt && cursor == other.cursor && externalAccountId == other.externalAccountId && idempotencyKey == other.idempotencyKey && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, createdAt, cursor, externalAccountId, idempotencyKey, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "AchTransferListParams{accountId=$accountId, createdAt=$createdAt, cursor=$cursor, externalAccountId=$externalAccountId, idempotencyKey=$idempotencyKey, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

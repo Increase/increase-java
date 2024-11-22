@@ -23,6 +23,10 @@ constructor(
 
     fun atTime(): Optional<OffsetDateTime> = Optional.ofNullable(atTime)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic
@@ -42,23 +46,6 @@ constructor(
         }
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is BookkeepingAccountBalanceParams && bookkeepingAccountId == other.bookkeepingAccountId && atTime == other.atTime && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(bookkeepingAccountId, atTime, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "BookkeepingAccountBalanceParams{bookkeepingAccountId=$bookkeepingAccountId, atTime=$atTime, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -77,10 +64,11 @@ constructor(
         @JvmSynthetic
         internal fun from(bookkeepingAccountBalanceParams: BookkeepingAccountBalanceParams) =
             apply {
-                this.bookkeepingAccountId = bookkeepingAccountBalanceParams.bookkeepingAccountId
-                this.atTime = bookkeepingAccountBalanceParams.atTime
-                additionalHeaders(bookkeepingAccountBalanceParams.additionalHeaders)
-                additionalQueryParams(bookkeepingAccountBalanceParams.additionalQueryParams)
+                bookkeepingAccountId = bookkeepingAccountBalanceParams.bookkeepingAccountId
+                atTime = bookkeepingAccountBalanceParams.atTime
+                additionalHeaders = bookkeepingAccountBalanceParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    bookkeepingAccountBalanceParams.additionalQueryParams.toBuilder()
             }
 
         /** The identifier of the Bookkeeping Account to retrieve. */
@@ -199,4 +187,17 @@ constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is BookkeepingAccountBalanceParams && bookkeepingAccountId == other.bookkeepingAccountId && atTime == other.atTime && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(bookkeepingAccountId, atTime, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "BookkeepingAccountBalanceParams{bookkeepingAccountId=$bookkeepingAccountId, atTime=$atTime, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

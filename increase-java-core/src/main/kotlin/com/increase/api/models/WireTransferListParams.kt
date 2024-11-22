@@ -37,6 +37,10 @@ constructor(
 
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic
@@ -55,23 +59,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is WireTransferListParams && accountId == other.accountId && createdAt == other.createdAt && cursor == other.cursor && externalAccountId == other.externalAccountId && idempotencyKey == other.idempotencyKey && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, createdAt, cursor, externalAccountId, idempotencyKey, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "WireTransferListParams{accountId=$accountId, createdAt=$createdAt, cursor=$cursor, externalAccountId=$externalAccountId, idempotencyKey=$idempotencyKey, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -94,14 +81,14 @@ constructor(
 
         @JvmSynthetic
         internal fun from(wireTransferListParams: WireTransferListParams) = apply {
-            this.accountId = wireTransferListParams.accountId
-            this.createdAt = wireTransferListParams.createdAt
-            this.cursor = wireTransferListParams.cursor
-            this.externalAccountId = wireTransferListParams.externalAccountId
-            this.idempotencyKey = wireTransferListParams.idempotencyKey
-            this.limit = wireTransferListParams.limit
-            additionalHeaders(wireTransferListParams.additionalHeaders)
-            additionalQueryParams(wireTransferListParams.additionalQueryParams)
+            accountId = wireTransferListParams.accountId
+            createdAt = wireTransferListParams.createdAt
+            cursor = wireTransferListParams.cursor
+            externalAccountId = wireTransferListParams.externalAccountId
+            idempotencyKey = wireTransferListParams.idempotencyKey
+            limit = wireTransferListParams.limit
+            additionalHeaders = wireTransferListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = wireTransferListParams.additionalQueryParams.toBuilder()
         }
 
         /** Filter Wire Transfers to those belonging to the specified Account. */
@@ -382,4 +369,17 @@ constructor(
         override fun toString() =
             "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is WireTransferListParams && accountId == other.accountId && createdAt == other.createdAt && cursor == other.cursor && externalAccountId == other.externalAccountId && idempotencyKey == other.idempotencyKey && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, createdAt, cursor, externalAccountId, idempotencyKey, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "WireTransferListParams{accountId=$accountId, createdAt=$createdAt, cursor=$cursor, externalAccountId=$externalAccountId, idempotencyKey=$idempotencyKey, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

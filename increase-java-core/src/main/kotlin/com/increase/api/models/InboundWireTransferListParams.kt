@@ -42,6 +42,10 @@ constructor(
 
     fun status(): Optional<Status> = Optional.ofNullable(status)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic
@@ -58,23 +62,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is InboundWireTransferListParams && accountId == other.accountId && accountNumberId == other.accountNumberId && createdAt == other.createdAt && cursor == other.cursor && limit == other.limit && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, accountNumberId, createdAt, cursor, limit, status, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "InboundWireTransferListParams{accountId=$accountId, accountNumberId=$accountNumberId, createdAt=$createdAt, cursor=$cursor, limit=$limit, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -97,14 +84,14 @@ constructor(
 
         @JvmSynthetic
         internal fun from(inboundWireTransferListParams: InboundWireTransferListParams) = apply {
-            this.accountId = inboundWireTransferListParams.accountId
-            this.accountNumberId = inboundWireTransferListParams.accountNumberId
-            this.createdAt = inboundWireTransferListParams.createdAt
-            this.cursor = inboundWireTransferListParams.cursor
-            this.limit = inboundWireTransferListParams.limit
-            this.status = inboundWireTransferListParams.status
-            additionalHeaders(inboundWireTransferListParams.additionalHeaders)
-            additionalQueryParams(inboundWireTransferListParams.additionalQueryParams)
+            accountId = inboundWireTransferListParams.accountId
+            accountNumberId = inboundWireTransferListParams.accountNumberId
+            createdAt = inboundWireTransferListParams.createdAt
+            cursor = inboundWireTransferListParams.cursor
+            limit = inboundWireTransferListParams.limit
+            status = inboundWireTransferListParams.status
+            additionalHeaders = inboundWireTransferListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = inboundWireTransferListParams.additionalQueryParams.toBuilder()
         }
 
         /** Filter Inbound Wire Tranfers to ones belonging to the specified Account. */
@@ -449,4 +436,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is InboundWireTransferListParams && accountId == other.accountId && accountNumberId == other.accountNumberId && createdAt == other.createdAt && cursor == other.cursor && limit == other.limit && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, accountNumberId, createdAt, cursor, limit, status, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "InboundWireTransferListParams{accountId=$accountId, accountNumberId=$accountNumberId, createdAt=$createdAt, cursor=$cursor, limit=$limit, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
