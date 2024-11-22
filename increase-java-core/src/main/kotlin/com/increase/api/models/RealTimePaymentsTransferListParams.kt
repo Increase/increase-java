@@ -37,6 +37,10 @@ constructor(
 
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic
@@ -55,23 +59,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is RealTimePaymentsTransferListParams && accountId == other.accountId && createdAt == other.createdAt && cursor == other.cursor && externalAccountId == other.externalAccountId && idempotencyKey == other.idempotencyKey && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, createdAt, cursor, externalAccountId, idempotencyKey, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "RealTimePaymentsTransferListParams{accountId=$accountId, createdAt=$createdAt, cursor=$cursor, externalAccountId=$externalAccountId, idempotencyKey=$idempotencyKey, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -95,14 +82,15 @@ constructor(
         @JvmSynthetic
         internal fun from(realTimePaymentsTransferListParams: RealTimePaymentsTransferListParams) =
             apply {
-                this.accountId = realTimePaymentsTransferListParams.accountId
-                this.createdAt = realTimePaymentsTransferListParams.createdAt
-                this.cursor = realTimePaymentsTransferListParams.cursor
-                this.externalAccountId = realTimePaymentsTransferListParams.externalAccountId
-                this.idempotencyKey = realTimePaymentsTransferListParams.idempotencyKey
-                this.limit = realTimePaymentsTransferListParams.limit
-                additionalHeaders(realTimePaymentsTransferListParams.additionalHeaders)
-                additionalQueryParams(realTimePaymentsTransferListParams.additionalQueryParams)
+                accountId = realTimePaymentsTransferListParams.accountId
+                createdAt = realTimePaymentsTransferListParams.createdAt
+                cursor = realTimePaymentsTransferListParams.cursor
+                externalAccountId = realTimePaymentsTransferListParams.externalAccountId
+                idempotencyKey = realTimePaymentsTransferListParams.idempotencyKey
+                limit = realTimePaymentsTransferListParams.limit
+                additionalHeaders = realTimePaymentsTransferListParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    realTimePaymentsTransferListParams.additionalQueryParams.toBuilder()
             }
 
         /** Filter Real-Time Payments Transfers to those belonging to the specified Account. */
@@ -383,4 +371,17 @@ constructor(
         override fun toString() =
             "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is RealTimePaymentsTransferListParams && accountId == other.accountId && createdAt == other.createdAt && cursor == other.cursor && externalAccountId == other.externalAccountId && idempotencyKey == other.idempotencyKey && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, createdAt, cursor, externalAccountId, idempotencyKey, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "RealTimePaymentsTransferListParams{accountId=$accountId, createdAt=$createdAt, cursor=$cursor, externalAccountId=$externalAccountId, idempotencyKey=$idempotencyKey, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

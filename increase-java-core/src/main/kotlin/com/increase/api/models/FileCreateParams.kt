@@ -33,6 +33,10 @@ constructor(
 
     fun description(): Optional<MultipartFormValue<String>> = Optional.ofNullable(description)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic
     internal fun getBody(): Array<MultipartFormValue<*>?> {
         return arrayOf(
@@ -120,23 +124,6 @@ constructor(
             "FileCreateBody{file=$file, purpose=$purpose, description=$description}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is FileCreateParams && file == other.file && purpose == other.purpose && description == other.description && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(file, purpose, description, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "FileCreateParams{file=$file, purpose=$purpose, description=$description, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -155,11 +142,11 @@ constructor(
 
         @JvmSynthetic
         internal fun from(fileCreateParams: FileCreateParams) = apply {
-            this.file = fileCreateParams.file
-            this.purpose = fileCreateParams.purpose
-            this.description = fileCreateParams.description
-            additionalHeaders(fileCreateParams.additionalHeaders)
-            additionalQueryParams(fileCreateParams.additionalQueryParams)
+            file = fileCreateParams.file
+            purpose = fileCreateParams.purpose
+            description = fileCreateParams.description
+            additionalHeaders = fileCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = fileCreateParams.additionalQueryParams.toBuilder()
         }
 
         /**
@@ -433,4 +420,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is FileCreateParams && file == other.file && purpose == other.purpose && description == other.description && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(file, purpose, description, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "FileCreateParams{file=$file, purpose=$purpose, description=$description, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

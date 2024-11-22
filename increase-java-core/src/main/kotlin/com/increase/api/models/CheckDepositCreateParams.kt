@@ -38,6 +38,12 @@ constructor(
 
     fun description(): Optional<String> = Optional.ofNullable(description)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): CheckDepositCreateBody {
         return CheckDepositCreateBody(
@@ -181,25 +187,6 @@ constructor(
             "CheckDepositCreateBody{accountId=$accountId, amount=$amount, backImageFileId=$backImageFileId, frontImageFileId=$frontImageFileId, description=$description, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is CheckDepositCreateParams && accountId == other.accountId && amount == other.amount && backImageFileId == other.backImageFileId && frontImageFileId == other.frontImageFileId && description == other.description && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, amount, backImageFileId, frontImageFileId, description, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "CheckDepositCreateParams{accountId=$accountId, amount=$amount, backImageFileId=$backImageFileId, frontImageFileId=$frontImageFileId, description=$description, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -221,14 +208,15 @@ constructor(
 
         @JvmSynthetic
         internal fun from(checkDepositCreateParams: CheckDepositCreateParams) = apply {
-            this.accountId = checkDepositCreateParams.accountId
-            this.amount = checkDepositCreateParams.amount
-            this.backImageFileId = checkDepositCreateParams.backImageFileId
-            this.frontImageFileId = checkDepositCreateParams.frontImageFileId
-            this.description = checkDepositCreateParams.description
-            additionalHeaders(checkDepositCreateParams.additionalHeaders)
-            additionalQueryParams(checkDepositCreateParams.additionalQueryParams)
-            additionalBodyProperties(checkDepositCreateParams.additionalBodyProperties)
+            accountId = checkDepositCreateParams.accountId
+            amount = checkDepositCreateParams.amount
+            backImageFileId = checkDepositCreateParams.backImageFileId
+            frontImageFileId = checkDepositCreateParams.frontImageFileId
+            description = checkDepositCreateParams.description
+            additionalHeaders = checkDepositCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = checkDepositCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                checkDepositCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier for the Account to deposit the check in. */
@@ -382,4 +370,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is CheckDepositCreateParams && accountId == other.accountId && amount == other.amount && backImageFileId == other.backImageFileId && frontImageFileId == other.frontImageFileId && description == other.description && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, amount, backImageFileId, frontImageFileId, description, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "CheckDepositCreateParams{accountId=$accountId, amount=$amount, backImageFileId=$backImageFileId, frontImageFileId=$frontImageFileId, description=$description, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

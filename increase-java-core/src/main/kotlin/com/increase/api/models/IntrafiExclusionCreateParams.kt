@@ -28,6 +28,12 @@ constructor(
 
     fun entityId(): String = entityId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): IntrafiExclusionCreateBody {
         return IntrafiExclusionCreateBody(
@@ -128,25 +134,6 @@ constructor(
             "IntrafiExclusionCreateBody{bankName=$bankName, entityId=$entityId, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is IntrafiExclusionCreateParams && bankName == other.bankName && entityId == other.entityId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(bankName, entityId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "IntrafiExclusionCreateParams{bankName=$bankName, entityId=$entityId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -165,11 +152,12 @@ constructor(
 
         @JvmSynthetic
         internal fun from(intrafiExclusionCreateParams: IntrafiExclusionCreateParams) = apply {
-            this.bankName = intrafiExclusionCreateParams.bankName
-            this.entityId = intrafiExclusionCreateParams.entityId
-            additionalHeaders(intrafiExclusionCreateParams.additionalHeaders)
-            additionalQueryParams(intrafiExclusionCreateParams.additionalQueryParams)
-            additionalBodyProperties(intrafiExclusionCreateParams.additionalBodyProperties)
+            bankName = intrafiExclusionCreateParams.bankName
+            entityId = intrafiExclusionCreateParams.entityId
+            additionalHeaders = intrafiExclusionCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = intrafiExclusionCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                intrafiExclusionCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The name of the financial institution to be excluded. */
@@ -307,4 +295,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is IntrafiExclusionCreateParams && bankName == other.bankName && entityId == other.entityId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(bankName, entityId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "IntrafiExclusionCreateParams{bankName=$bankName, entityId=$entityId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

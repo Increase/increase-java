@@ -32,6 +32,10 @@ constructor(
     fun statementPeriodStart(): Optional<StatementPeriodStart> =
         Optional.ofNullable(statementPeriodStart)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic
@@ -46,23 +50,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is AccountStatementListParams && accountId == other.accountId && cursor == other.cursor && limit == other.limit && statementPeriodStart == other.statementPeriodStart && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, cursor, limit, statementPeriodStart, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "AccountStatementListParams{accountId=$accountId, cursor=$cursor, limit=$limit, statementPeriodStart=$statementPeriodStart, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -83,12 +70,12 @@ constructor(
 
         @JvmSynthetic
         internal fun from(accountStatementListParams: AccountStatementListParams) = apply {
-            this.accountId = accountStatementListParams.accountId
-            this.cursor = accountStatementListParams.cursor
-            this.limit = accountStatementListParams.limit
-            this.statementPeriodStart = accountStatementListParams.statementPeriodStart
-            additionalHeaders(accountStatementListParams.additionalHeaders)
-            additionalQueryParams(accountStatementListParams.additionalQueryParams)
+            accountId = accountStatementListParams.accountId
+            cursor = accountStatementListParams.cursor
+            limit = accountStatementListParams.limit
+            statementPeriodStart = accountStatementListParams.statementPeriodStart
+            additionalHeaders = accountStatementListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = accountStatementListParams.additionalQueryParams.toBuilder()
         }
 
         /** Filter Account Statements to those belonging to the specified Account. */
@@ -356,4 +343,17 @@ constructor(
         override fun toString() =
             "StatementPeriodStart{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is AccountStatementListParams && accountId == other.accountId && cursor == other.cursor && limit == other.limit && statementPeriodStart == other.statementPeriodStart && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, cursor, limit, statementPeriodStart, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "AccountStatementListParams{accountId=$accountId, cursor=$cursor, limit=$limit, statementPeriodStart=$statementPeriodStart, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -48,6 +48,12 @@ constructor(
 
     fun thirdParty(): Optional<ThirdParty> = Optional.ofNullable(thirdParty)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): CheckTransferCreateBody {
         return CheckTransferCreateBody(
@@ -241,25 +247,6 @@ constructor(
             "CheckTransferCreateBody{accountId=$accountId, amount=$amount, sourceAccountNumberId=$sourceAccountNumberId, fulfillmentMethod=$fulfillmentMethod, physicalCheck=$physicalCheck, requireApproval=$requireApproval, thirdParty=$thirdParty, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is CheckTransferCreateParams && accountId == other.accountId && amount == other.amount && sourceAccountNumberId == other.sourceAccountNumberId && fulfillmentMethod == other.fulfillmentMethod && physicalCheck == other.physicalCheck && requireApproval == other.requireApproval && thirdParty == other.thirdParty && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, amount, sourceAccountNumberId, fulfillmentMethod, physicalCheck, requireApproval, thirdParty, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "CheckTransferCreateParams{accountId=$accountId, amount=$amount, sourceAccountNumberId=$sourceAccountNumberId, fulfillmentMethod=$fulfillmentMethod, physicalCheck=$physicalCheck, requireApproval=$requireApproval, thirdParty=$thirdParty, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -283,16 +270,17 @@ constructor(
 
         @JvmSynthetic
         internal fun from(checkTransferCreateParams: CheckTransferCreateParams) = apply {
-            this.accountId = checkTransferCreateParams.accountId
-            this.amount = checkTransferCreateParams.amount
-            this.sourceAccountNumberId = checkTransferCreateParams.sourceAccountNumberId
-            this.fulfillmentMethod = checkTransferCreateParams.fulfillmentMethod
-            this.physicalCheck = checkTransferCreateParams.physicalCheck
-            this.requireApproval = checkTransferCreateParams.requireApproval
-            this.thirdParty = checkTransferCreateParams.thirdParty
-            additionalHeaders(checkTransferCreateParams.additionalHeaders)
-            additionalQueryParams(checkTransferCreateParams.additionalQueryParams)
-            additionalBodyProperties(checkTransferCreateParams.additionalBodyProperties)
+            accountId = checkTransferCreateParams.accountId
+            amount = checkTransferCreateParams.amount
+            sourceAccountNumberId = checkTransferCreateParams.sourceAccountNumberId
+            fulfillmentMethod = checkTransferCreateParams.fulfillmentMethod
+            physicalCheck = checkTransferCreateParams.physicalCheck
+            requireApproval = checkTransferCreateParams.requireApproval
+            thirdParty = checkTransferCreateParams.thirdParty
+            additionalHeaders = checkTransferCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = checkTransferCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                checkTransferCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier for the account that will send the transfer. */
@@ -1028,4 +1016,17 @@ constructor(
         override fun toString() =
             "ThirdParty{checkNumber=$checkNumber, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is CheckTransferCreateParams && accountId == other.accountId && amount == other.amount && sourceAccountNumberId == other.sourceAccountNumberId && fulfillmentMethod == other.fulfillmentMethod && physicalCheck == other.physicalCheck && requireApproval == other.requireApproval && thirdParty == other.thirdParty && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, amount, sourceAccountNumberId, fulfillmentMethod, physicalCheck, requireApproval, thirdParty, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "CheckTransferCreateParams{accountId=$accountId, amount=$amount, sourceAccountNumberId=$sourceAccountNumberId, fulfillmentMethod=$fulfillmentMethod, physicalCheck=$physicalCheck, requireApproval=$requireApproval, thirdParty=$thirdParty, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

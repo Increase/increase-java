@@ -42,6 +42,10 @@ constructor(
 
     fun status(): Optional<Status> = Optional.ofNullable(status)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic
@@ -58,23 +62,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is InboundAchTransferListParams && accountId == other.accountId && accountNumberId == other.accountNumberId && createdAt == other.createdAt && cursor == other.cursor && limit == other.limit && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, accountNumberId, createdAt, cursor, limit, status, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "InboundAchTransferListParams{accountId=$accountId, accountNumberId=$accountNumberId, createdAt=$createdAt, cursor=$cursor, limit=$limit, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -97,14 +84,14 @@ constructor(
 
         @JvmSynthetic
         internal fun from(inboundAchTransferListParams: InboundAchTransferListParams) = apply {
-            this.accountId = inboundAchTransferListParams.accountId
-            this.accountNumberId = inboundAchTransferListParams.accountNumberId
-            this.createdAt = inboundAchTransferListParams.createdAt
-            this.cursor = inboundAchTransferListParams.cursor
-            this.limit = inboundAchTransferListParams.limit
-            this.status = inboundAchTransferListParams.status
-            additionalHeaders(inboundAchTransferListParams.additionalHeaders)
-            additionalQueryParams(inboundAchTransferListParams.additionalQueryParams)
+            accountId = inboundAchTransferListParams.accountId
+            accountNumberId = inboundAchTransferListParams.accountNumberId
+            createdAt = inboundAchTransferListParams.createdAt
+            cursor = inboundAchTransferListParams.cursor
+            limit = inboundAchTransferListParams.limit
+            status = inboundAchTransferListParams.status
+            additionalHeaders = inboundAchTransferListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = inboundAchTransferListParams.additionalQueryParams.toBuilder()
         }
 
         /** Filter Inbound ACH Tranfers to ones belonging to the specified Account. */
@@ -449,4 +436,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is InboundAchTransferListParams && accountId == other.accountId && accountNumberId == other.accountNumberId && createdAt == other.createdAt && cursor == other.cursor && limit == other.limit && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, accountNumberId, createdAt, cursor, limit, status, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "InboundAchTransferListParams{accountId=$accountId, accountNumberId=$accountNumberId, createdAt=$createdAt, cursor=$cursor, limit=$limit, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

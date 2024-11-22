@@ -32,6 +32,12 @@ constructor(
 
     fun recipientName(): Optional<String> = Optional.ofNullable(recipientName)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): LockboxCreateBody {
         return LockboxCreateBody(
@@ -144,25 +150,6 @@ constructor(
             "LockboxCreateBody{accountId=$accountId, description=$description, recipientName=$recipientName, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is LockboxCreateParams && accountId == other.accountId && description == other.description && recipientName == other.recipientName && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, description, recipientName, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "LockboxCreateParams{accountId=$accountId, description=$description, recipientName=$recipientName, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -182,12 +169,12 @@ constructor(
 
         @JvmSynthetic
         internal fun from(lockboxCreateParams: LockboxCreateParams) = apply {
-            this.accountId = lockboxCreateParams.accountId
-            this.description = lockboxCreateParams.description
-            this.recipientName = lockboxCreateParams.recipientName
-            additionalHeaders(lockboxCreateParams.additionalHeaders)
-            additionalQueryParams(lockboxCreateParams.additionalQueryParams)
-            additionalBodyProperties(lockboxCreateParams.additionalBodyProperties)
+            accountId = lockboxCreateParams.accountId
+            description = lockboxCreateParams.description
+            recipientName = lockboxCreateParams.recipientName
+            additionalHeaders = lockboxCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = lockboxCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties = lockboxCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The Account checks sent to this Lockbox should be deposited into. */
@@ -329,4 +316,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is LockboxCreateParams && accountId == other.accountId && description == other.description && recipientName == other.recipientName && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, description, recipientName, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "LockboxCreateParams{accountId=$accountId, description=$description, recipientName=$recipientName, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

@@ -31,6 +31,12 @@ constructor(
 
     fun checkNumber(): String = checkNumber
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): SimulationInboundCheckDepositCreateBody {
         return SimulationInboundCheckDepositCreateBody(
@@ -148,25 +154,6 @@ constructor(
             "SimulationInboundCheckDepositCreateBody{accountNumberId=$accountNumberId, amount=$amount, checkNumber=$checkNumber, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is SimulationInboundCheckDepositCreateParams && accountNumberId == other.accountNumberId && amount == other.amount && checkNumber == other.checkNumber && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountNumberId, amount, checkNumber, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "SimulationInboundCheckDepositCreateParams{accountNumberId=$accountNumberId, amount=$amount, checkNumber=$checkNumber, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -188,14 +175,15 @@ constructor(
         internal fun from(
             simulationInboundCheckDepositCreateParams: SimulationInboundCheckDepositCreateParams
         ) = apply {
-            this.accountNumberId = simulationInboundCheckDepositCreateParams.accountNumberId
-            this.amount = simulationInboundCheckDepositCreateParams.amount
-            this.checkNumber = simulationInboundCheckDepositCreateParams.checkNumber
-            additionalHeaders(simulationInboundCheckDepositCreateParams.additionalHeaders)
-            additionalQueryParams(simulationInboundCheckDepositCreateParams.additionalQueryParams)
-            additionalBodyProperties(
-                simulationInboundCheckDepositCreateParams.additionalBodyProperties
-            )
+            accountNumberId = simulationInboundCheckDepositCreateParams.accountNumberId
+            amount = simulationInboundCheckDepositCreateParams.amount
+            checkNumber = simulationInboundCheckDepositCreateParams.checkNumber
+            additionalHeaders =
+                simulationInboundCheckDepositCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                simulationInboundCheckDepositCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                simulationInboundCheckDepositCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier of the Account Number the Inbound Check Deposit will be against. */
@@ -339,4 +327,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is SimulationInboundCheckDepositCreateParams && accountNumberId == other.accountNumberId && amount == other.amount && checkNumber == other.checkNumber && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountNumberId, amount, checkNumber, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "SimulationInboundCheckDepositCreateParams{accountNumberId=$accountNumberId, amount=$amount, checkNumber=$checkNumber, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

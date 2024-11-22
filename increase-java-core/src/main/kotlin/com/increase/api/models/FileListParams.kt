@@ -39,6 +39,10 @@ constructor(
 
     fun purpose(): Optional<Purpose> = Optional.ofNullable(purpose)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic
@@ -54,23 +58,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is FileListParams && createdAt == other.createdAt && cursor == other.cursor && idempotencyKey == other.idempotencyKey && limit == other.limit && purpose == other.purpose && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(createdAt, cursor, idempotencyKey, limit, purpose, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "FileListParams{createdAt=$createdAt, cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, purpose=$purpose, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -92,13 +79,13 @@ constructor(
 
         @JvmSynthetic
         internal fun from(fileListParams: FileListParams) = apply {
-            this.createdAt = fileListParams.createdAt
-            this.cursor = fileListParams.cursor
-            this.idempotencyKey = fileListParams.idempotencyKey
-            this.limit = fileListParams.limit
-            this.purpose = fileListParams.purpose
-            additionalHeaders(fileListParams.additionalHeaders)
-            additionalQueryParams(fileListParams.additionalQueryParams)
+            createdAt = fileListParams.createdAt
+            cursor = fileListParams.cursor
+            idempotencyKey = fileListParams.idempotencyKey
+            limit = fileListParams.limit
+            purpose = fileListParams.purpose
+            additionalHeaders = fileListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = fileListParams.additionalQueryParams.toBuilder()
         }
 
         fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
@@ -643,4 +630,17 @@ constructor(
 
         override fun toString() = "Purpose{in_=$in_, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is FileListParams && createdAt == other.createdAt && cursor == other.cursor && idempotencyKey == other.idempotencyKey && limit == other.limit && purpose == other.purpose && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(createdAt, cursor, idempotencyKey, limit, purpose, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "FileListParams{createdAt=$createdAt, cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, purpose=$purpose, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

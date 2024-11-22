@@ -71,6 +71,12 @@ constructor(
 
     fun sourceAccountNumberId(): Optional<String> = Optional.ofNullable(sourceAccountNumberId)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): WireTransferCreateBody {
         return WireTransferCreateBody(
@@ -409,25 +415,6 @@ constructor(
             "WireTransferCreateBody{accountId=$accountId, amount=$amount, beneficiaryName=$beneficiaryName, messageToRecipient=$messageToRecipient, accountNumber=$accountNumber, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, externalAccountId=$externalAccountId, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, requireApproval=$requireApproval, routingNumber=$routingNumber, sourceAccountNumberId=$sourceAccountNumberId, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is WireTransferCreateParams && accountId == other.accountId && amount == other.amount && beneficiaryName == other.beneficiaryName && messageToRecipient == other.messageToRecipient && accountNumber == other.accountNumber && beneficiaryAddressLine1 == other.beneficiaryAddressLine1 && beneficiaryAddressLine2 == other.beneficiaryAddressLine2 && beneficiaryAddressLine3 == other.beneficiaryAddressLine3 && externalAccountId == other.externalAccountId && originatorAddressLine1 == other.originatorAddressLine1 && originatorAddressLine2 == other.originatorAddressLine2 && originatorAddressLine3 == other.originatorAddressLine3 && originatorName == other.originatorName && requireApproval == other.requireApproval && routingNumber == other.routingNumber && sourceAccountNumberId == other.sourceAccountNumberId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, amount, beneficiaryName, messageToRecipient, accountNumber, beneficiaryAddressLine1, beneficiaryAddressLine2, beneficiaryAddressLine3, externalAccountId, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, requireApproval, routingNumber, sourceAccountNumberId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "WireTransferCreateParams{accountId=$accountId, amount=$amount, beneficiaryName=$beneficiaryName, messageToRecipient=$messageToRecipient, accountNumber=$accountNumber, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, externalAccountId=$externalAccountId, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, requireApproval=$requireApproval, routingNumber=$routingNumber, sourceAccountNumberId=$sourceAccountNumberId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -460,25 +447,26 @@ constructor(
 
         @JvmSynthetic
         internal fun from(wireTransferCreateParams: WireTransferCreateParams) = apply {
-            this.accountId = wireTransferCreateParams.accountId
-            this.amount = wireTransferCreateParams.amount
-            this.beneficiaryName = wireTransferCreateParams.beneficiaryName
-            this.messageToRecipient = wireTransferCreateParams.messageToRecipient
-            this.accountNumber = wireTransferCreateParams.accountNumber
-            this.beneficiaryAddressLine1 = wireTransferCreateParams.beneficiaryAddressLine1
-            this.beneficiaryAddressLine2 = wireTransferCreateParams.beneficiaryAddressLine2
-            this.beneficiaryAddressLine3 = wireTransferCreateParams.beneficiaryAddressLine3
-            this.externalAccountId = wireTransferCreateParams.externalAccountId
-            this.originatorAddressLine1 = wireTransferCreateParams.originatorAddressLine1
-            this.originatorAddressLine2 = wireTransferCreateParams.originatorAddressLine2
-            this.originatorAddressLine3 = wireTransferCreateParams.originatorAddressLine3
-            this.originatorName = wireTransferCreateParams.originatorName
-            this.requireApproval = wireTransferCreateParams.requireApproval
-            this.routingNumber = wireTransferCreateParams.routingNumber
-            this.sourceAccountNumberId = wireTransferCreateParams.sourceAccountNumberId
-            additionalHeaders(wireTransferCreateParams.additionalHeaders)
-            additionalQueryParams(wireTransferCreateParams.additionalQueryParams)
-            additionalBodyProperties(wireTransferCreateParams.additionalBodyProperties)
+            accountId = wireTransferCreateParams.accountId
+            amount = wireTransferCreateParams.amount
+            beneficiaryName = wireTransferCreateParams.beneficiaryName
+            messageToRecipient = wireTransferCreateParams.messageToRecipient
+            accountNumber = wireTransferCreateParams.accountNumber
+            beneficiaryAddressLine1 = wireTransferCreateParams.beneficiaryAddressLine1
+            beneficiaryAddressLine2 = wireTransferCreateParams.beneficiaryAddressLine2
+            beneficiaryAddressLine3 = wireTransferCreateParams.beneficiaryAddressLine3
+            externalAccountId = wireTransferCreateParams.externalAccountId
+            originatorAddressLine1 = wireTransferCreateParams.originatorAddressLine1
+            originatorAddressLine2 = wireTransferCreateParams.originatorAddressLine2
+            originatorAddressLine3 = wireTransferCreateParams.originatorAddressLine3
+            originatorName = wireTransferCreateParams.originatorName
+            requireApproval = wireTransferCreateParams.requireApproval
+            routingNumber = wireTransferCreateParams.routingNumber
+            sourceAccountNumberId = wireTransferCreateParams.sourceAccountNumberId
+            additionalHeaders = wireTransferCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = wireTransferCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                wireTransferCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier for the account that will send the transfer. */
@@ -714,4 +702,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is WireTransferCreateParams && accountId == other.accountId && amount == other.amount && beneficiaryName == other.beneficiaryName && messageToRecipient == other.messageToRecipient && accountNumber == other.accountNumber && beneficiaryAddressLine1 == other.beneficiaryAddressLine1 && beneficiaryAddressLine2 == other.beneficiaryAddressLine2 && beneficiaryAddressLine3 == other.beneficiaryAddressLine3 && externalAccountId == other.externalAccountId && originatorAddressLine1 == other.originatorAddressLine1 && originatorAddressLine2 == other.originatorAddressLine2 && originatorAddressLine3 == other.originatorAddressLine3 && originatorName == other.originatorName && requireApproval == other.requireApproval && routingNumber == other.routingNumber && sourceAccountNumberId == other.sourceAccountNumberId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, amount, beneficiaryName, messageToRecipient, accountNumber, beneficiaryAddressLine1, beneficiaryAddressLine2, beneficiaryAddressLine3, externalAccountId, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, requireApproval, routingNumber, sourceAccountNumberId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "WireTransferCreateParams{accountId=$accountId, amount=$amount, beneficiaryName=$beneficiaryName, messageToRecipient=$messageToRecipient, accountNumber=$accountNumber, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, externalAccountId=$externalAccountId, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, requireApproval=$requireApproval, routingNumber=$routingNumber, sourceAccountNumberId=$sourceAccountNumberId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

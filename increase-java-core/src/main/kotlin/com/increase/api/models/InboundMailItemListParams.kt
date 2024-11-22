@@ -31,6 +31,10 @@ constructor(
 
     fun lockboxId(): Optional<String> = Optional.ofNullable(lockboxId)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic
@@ -45,23 +49,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is InboundMailItemListParams && createdAt == other.createdAt && cursor == other.cursor && limit == other.limit && lockboxId == other.lockboxId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(createdAt, cursor, limit, lockboxId, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "InboundMailItemListParams{createdAt=$createdAt, cursor=$cursor, limit=$limit, lockboxId=$lockboxId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -82,12 +69,12 @@ constructor(
 
         @JvmSynthetic
         internal fun from(inboundMailItemListParams: InboundMailItemListParams) = apply {
-            this.createdAt = inboundMailItemListParams.createdAt
-            this.cursor = inboundMailItemListParams.cursor
-            this.limit = inboundMailItemListParams.limit
-            this.lockboxId = inboundMailItemListParams.lockboxId
-            additionalHeaders(inboundMailItemListParams.additionalHeaders)
-            additionalQueryParams(inboundMailItemListParams.additionalQueryParams)
+            createdAt = inboundMailItemListParams.createdAt
+            cursor = inboundMailItemListParams.cursor
+            limit = inboundMailItemListParams.limit
+            lockboxId = inboundMailItemListParams.lockboxId
+            additionalHeaders = inboundMailItemListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = inboundMailItemListParams.additionalQueryParams.toBuilder()
         }
 
         fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
@@ -353,4 +340,17 @@ constructor(
         override fun toString() =
             "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is InboundMailItemListParams && createdAt == other.createdAt && cursor == other.cursor && limit == other.limit && lockboxId == other.lockboxId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(createdAt, cursor, limit, lockboxId, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "InboundMailItemListParams{createdAt=$createdAt, cursor=$cursor, limit=$limit, lockboxId=$lockboxId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

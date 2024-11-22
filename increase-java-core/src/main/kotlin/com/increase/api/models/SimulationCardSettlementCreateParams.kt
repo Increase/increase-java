@@ -32,6 +32,12 @@ constructor(
 
     fun amount(): Optional<Long> = Optional.ofNullable(amount)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): SimulationCardSettlementCreateBody {
         return SimulationCardSettlementCreateBody(
@@ -160,25 +166,6 @@ constructor(
             "SimulationCardSettlementCreateBody{cardId=$cardId, pendingTransactionId=$pendingTransactionId, amount=$amount, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is SimulationCardSettlementCreateParams && cardId == other.cardId && pendingTransactionId == other.pendingTransactionId && amount == other.amount && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cardId, pendingTransactionId, amount, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "SimulationCardSettlementCreateParams{cardId=$cardId, pendingTransactionId=$pendingTransactionId, amount=$amount, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -200,12 +187,14 @@ constructor(
         internal fun from(
             simulationCardSettlementCreateParams: SimulationCardSettlementCreateParams
         ) = apply {
-            this.cardId = simulationCardSettlementCreateParams.cardId
-            this.pendingTransactionId = simulationCardSettlementCreateParams.pendingTransactionId
-            this.amount = simulationCardSettlementCreateParams.amount
-            additionalHeaders(simulationCardSettlementCreateParams.additionalHeaders)
-            additionalQueryParams(simulationCardSettlementCreateParams.additionalQueryParams)
-            additionalBodyProperties(simulationCardSettlementCreateParams.additionalBodyProperties)
+            cardId = simulationCardSettlementCreateParams.cardId
+            pendingTransactionId = simulationCardSettlementCreateParams.pendingTransactionId
+            amount = simulationCardSettlementCreateParams.amount
+            additionalHeaders = simulationCardSettlementCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                simulationCardSettlementCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                simulationCardSettlementCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier of the Card to create a settlement on. */
@@ -356,4 +345,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is SimulationCardSettlementCreateParams && cardId == other.cardId && pendingTransactionId == other.pendingTransactionId && amount == other.amount && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cardId, pendingTransactionId, amount, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "SimulationCardSettlementCreateParams{cardId=$cardId, pendingTransactionId=$pendingTransactionId, amount=$amount, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

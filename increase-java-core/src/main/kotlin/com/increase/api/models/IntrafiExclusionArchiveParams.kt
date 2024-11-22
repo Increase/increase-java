@@ -21,6 +21,12 @@ constructor(
 
     fun intrafiExclusionId(): String = intrafiExclusionId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): Optional<Map<String, JsonValue>> {
         return Optional.ofNullable(additionalBodyProperties.ifEmpty { null })
@@ -36,25 +42,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is IntrafiExclusionArchiveParams && intrafiExclusionId == other.intrafiExclusionId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(intrafiExclusionId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "IntrafiExclusionArchiveParams{intrafiExclusionId=$intrafiExclusionId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -73,10 +60,11 @@ constructor(
 
         @JvmSynthetic
         internal fun from(intrafiExclusionArchiveParams: IntrafiExclusionArchiveParams) = apply {
-            this.intrafiExclusionId = intrafiExclusionArchiveParams.intrafiExclusionId
-            additionalHeaders(intrafiExclusionArchiveParams.additionalHeaders)
-            additionalQueryParams(intrafiExclusionArchiveParams.additionalQueryParams)
-            additionalBodyProperties(intrafiExclusionArchiveParams.additionalBodyProperties)
+            intrafiExclusionId = intrafiExclusionArchiveParams.intrafiExclusionId
+            additionalHeaders = intrafiExclusionArchiveParams.additionalHeaders.toBuilder()
+            additionalQueryParams = intrafiExclusionArchiveParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                intrafiExclusionArchiveParams.additionalBodyProperties.toMutableMap()
         }
 
         /**
@@ -218,4 +206,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is IntrafiExclusionArchiveParams && intrafiExclusionId == other.intrafiExclusionId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(intrafiExclusionId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "IntrafiExclusionArchiveParams{intrafiExclusionId=$intrafiExclusionId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

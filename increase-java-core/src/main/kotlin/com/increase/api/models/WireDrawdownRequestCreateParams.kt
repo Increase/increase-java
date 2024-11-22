@@ -62,6 +62,12 @@ constructor(
 
     fun recipientAddressLine3(): Optional<String> = Optional.ofNullable(recipientAddressLine3)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): WireDrawdownRequestCreateBody {
         return WireDrawdownRequestCreateBody(
@@ -368,25 +374,6 @@ constructor(
             "WireDrawdownRequestCreateBody{accountNumberId=$accountNumberId, amount=$amount, messageToRecipient=$messageToRecipient, recipientAccountNumber=$recipientAccountNumber, recipientName=$recipientName, recipientRoutingNumber=$recipientRoutingNumber, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is WireDrawdownRequestCreateParams && accountNumberId == other.accountNumberId && amount == other.amount && messageToRecipient == other.messageToRecipient && recipientAccountNumber == other.recipientAccountNumber && recipientName == other.recipientName && recipientRoutingNumber == other.recipientRoutingNumber && originatorAddressLine1 == other.originatorAddressLine1 && originatorAddressLine2 == other.originatorAddressLine2 && originatorAddressLine3 == other.originatorAddressLine3 && originatorName == other.originatorName && recipientAddressLine1 == other.recipientAddressLine1 && recipientAddressLine2 == other.recipientAddressLine2 && recipientAddressLine3 == other.recipientAddressLine3 && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountNumberId, amount, messageToRecipient, recipientAccountNumber, recipientName, recipientRoutingNumber, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, recipientAddressLine1, recipientAddressLine2, recipientAddressLine3, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "WireDrawdownRequestCreateParams{accountNumberId=$accountNumberId, amount=$amount, messageToRecipient=$messageToRecipient, recipientAccountNumber=$recipientAccountNumber, recipientName=$recipientName, recipientRoutingNumber=$recipientRoutingNumber, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -417,22 +404,24 @@ constructor(
         @JvmSynthetic
         internal fun from(wireDrawdownRequestCreateParams: WireDrawdownRequestCreateParams) =
             apply {
-                this.accountNumberId = wireDrawdownRequestCreateParams.accountNumberId
-                this.amount = wireDrawdownRequestCreateParams.amount
-                this.messageToRecipient = wireDrawdownRequestCreateParams.messageToRecipient
-                this.recipientAccountNumber = wireDrawdownRequestCreateParams.recipientAccountNumber
-                this.recipientName = wireDrawdownRequestCreateParams.recipientName
-                this.recipientRoutingNumber = wireDrawdownRequestCreateParams.recipientRoutingNumber
-                this.originatorAddressLine1 = wireDrawdownRequestCreateParams.originatorAddressLine1
-                this.originatorAddressLine2 = wireDrawdownRequestCreateParams.originatorAddressLine2
-                this.originatorAddressLine3 = wireDrawdownRequestCreateParams.originatorAddressLine3
-                this.originatorName = wireDrawdownRequestCreateParams.originatorName
-                this.recipientAddressLine1 = wireDrawdownRequestCreateParams.recipientAddressLine1
-                this.recipientAddressLine2 = wireDrawdownRequestCreateParams.recipientAddressLine2
-                this.recipientAddressLine3 = wireDrawdownRequestCreateParams.recipientAddressLine3
-                additionalHeaders(wireDrawdownRequestCreateParams.additionalHeaders)
-                additionalQueryParams(wireDrawdownRequestCreateParams.additionalQueryParams)
-                additionalBodyProperties(wireDrawdownRequestCreateParams.additionalBodyProperties)
+                accountNumberId = wireDrawdownRequestCreateParams.accountNumberId
+                amount = wireDrawdownRequestCreateParams.amount
+                messageToRecipient = wireDrawdownRequestCreateParams.messageToRecipient
+                recipientAccountNumber = wireDrawdownRequestCreateParams.recipientAccountNumber
+                recipientName = wireDrawdownRequestCreateParams.recipientName
+                recipientRoutingNumber = wireDrawdownRequestCreateParams.recipientRoutingNumber
+                originatorAddressLine1 = wireDrawdownRequestCreateParams.originatorAddressLine1
+                originatorAddressLine2 = wireDrawdownRequestCreateParams.originatorAddressLine2
+                originatorAddressLine3 = wireDrawdownRequestCreateParams.originatorAddressLine3
+                originatorName = wireDrawdownRequestCreateParams.originatorName
+                recipientAddressLine1 = wireDrawdownRequestCreateParams.recipientAddressLine1
+                recipientAddressLine2 = wireDrawdownRequestCreateParams.recipientAddressLine2
+                recipientAddressLine3 = wireDrawdownRequestCreateParams.recipientAddressLine3
+                additionalHeaders = wireDrawdownRequestCreateParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    wireDrawdownRequestCreateParams.additionalQueryParams.toBuilder()
+                additionalBodyProperties =
+                    wireDrawdownRequestCreateParams.additionalBodyProperties.toMutableMap()
             }
 
         /** The Account Number to which the recipient should send funds. */
@@ -655,4 +644,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is WireDrawdownRequestCreateParams && accountNumberId == other.accountNumberId && amount == other.amount && messageToRecipient == other.messageToRecipient && recipientAccountNumber == other.recipientAccountNumber && recipientName == other.recipientName && recipientRoutingNumber == other.recipientRoutingNumber && originatorAddressLine1 == other.originatorAddressLine1 && originatorAddressLine2 == other.originatorAddressLine2 && originatorAddressLine3 == other.originatorAddressLine3 && originatorName == other.originatorName && recipientAddressLine1 == other.recipientAddressLine1 && recipientAddressLine2 == other.recipientAddressLine2 && recipientAddressLine3 == other.recipientAddressLine3 && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountNumberId, amount, messageToRecipient, recipientAccountNumber, recipientName, recipientRoutingNumber, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, recipientAddressLine1, recipientAddressLine2, recipientAddressLine3, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "WireDrawdownRequestCreateParams{accountNumberId=$accountNumberId, amount=$amount, messageToRecipient=$messageToRecipient, recipientAccountNumber=$recipientAccountNumber, recipientName=$recipientName, recipientRoutingNumber=$recipientRoutingNumber, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

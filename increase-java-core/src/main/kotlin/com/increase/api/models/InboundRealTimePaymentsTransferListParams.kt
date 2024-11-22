@@ -34,6 +34,10 @@ constructor(
 
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic
@@ -49,23 +53,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is InboundRealTimePaymentsTransferListParams && accountId == other.accountId && accountNumberId == other.accountNumberId && createdAt == other.createdAt && cursor == other.cursor && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, accountNumberId, createdAt, cursor, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "InboundRealTimePaymentsTransferListParams{accountId=$accountId, accountNumberId=$accountNumberId, createdAt=$createdAt, cursor=$cursor, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -89,13 +76,15 @@ constructor(
         internal fun from(
             inboundRealTimePaymentsTransferListParams: InboundRealTimePaymentsTransferListParams
         ) = apply {
-            this.accountId = inboundRealTimePaymentsTransferListParams.accountId
-            this.accountNumberId = inboundRealTimePaymentsTransferListParams.accountNumberId
-            this.createdAt = inboundRealTimePaymentsTransferListParams.createdAt
-            this.cursor = inboundRealTimePaymentsTransferListParams.cursor
-            this.limit = inboundRealTimePaymentsTransferListParams.limit
-            additionalHeaders(inboundRealTimePaymentsTransferListParams.additionalHeaders)
-            additionalQueryParams(inboundRealTimePaymentsTransferListParams.additionalQueryParams)
+            accountId = inboundRealTimePaymentsTransferListParams.accountId
+            accountNumberId = inboundRealTimePaymentsTransferListParams.accountNumberId
+            createdAt = inboundRealTimePaymentsTransferListParams.createdAt
+            cursor = inboundRealTimePaymentsTransferListParams.cursor
+            limit = inboundRealTimePaymentsTransferListParams.limit
+            additionalHeaders =
+                inboundRealTimePaymentsTransferListParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                inboundRealTimePaymentsTransferListParams.additionalQueryParams.toBuilder()
         }
 
         /**
@@ -372,4 +361,17 @@ constructor(
         override fun toString() =
             "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is InboundRealTimePaymentsTransferListParams && accountId == other.accountId && accountNumberId == other.accountNumberId && createdAt == other.createdAt && cursor == other.cursor && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, accountNumberId, createdAt, cursor, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "InboundRealTimePaymentsTransferListParams{accountId=$accountId, accountNumberId=$accountNumberId, createdAt=$createdAt, cursor=$cursor, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

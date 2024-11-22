@@ -39,6 +39,10 @@ constructor(
 
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic
@@ -54,23 +58,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is DocumentListParams && category == other.category && createdAt == other.createdAt && cursor == other.cursor && entityId == other.entityId && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(category, createdAt, cursor, entityId, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "DocumentListParams{category=$category, createdAt=$createdAt, cursor=$cursor, entityId=$entityId, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -92,13 +79,13 @@ constructor(
 
         @JvmSynthetic
         internal fun from(documentListParams: DocumentListParams) = apply {
-            this.category = documentListParams.category
-            this.createdAt = documentListParams.createdAt
-            this.cursor = documentListParams.cursor
-            this.entityId = documentListParams.entityId
-            this.limit = documentListParams.limit
-            additionalHeaders(documentListParams.additionalHeaders)
-            additionalQueryParams(documentListParams.additionalQueryParams)
+            category = documentListParams.category
+            createdAt = documentListParams.createdAt
+            cursor = documentListParams.cursor
+            entityId = documentListParams.entityId
+            limit = documentListParams.limit
+            additionalHeaders = documentListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = documentListParams.additionalQueryParams.toBuilder()
         }
 
         fun category(category: Category) = apply { this.category = category }
@@ -511,4 +498,17 @@ constructor(
         override fun toString() =
             "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is DocumentListParams && category == other.category && createdAt == other.createdAt && cursor == other.cursor && entityId == other.entityId && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(category, createdAt, cursor, entityId, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "DocumentListParams{category=$category, createdAt=$createdAt, cursor=$cursor, entityId=$entityId, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

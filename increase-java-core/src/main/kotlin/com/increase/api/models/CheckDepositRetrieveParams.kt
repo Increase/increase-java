@@ -17,6 +17,10 @@ constructor(
 
     fun checkDepositId(): String = checkDepositId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
@@ -27,23 +31,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is CheckDepositRetrieveParams && checkDepositId == other.checkDepositId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(checkDepositId, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "CheckDepositRetrieveParams{checkDepositId=$checkDepositId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -61,9 +48,9 @@ constructor(
 
         @JvmSynthetic
         internal fun from(checkDepositRetrieveParams: CheckDepositRetrieveParams) = apply {
-            this.checkDepositId = checkDepositRetrieveParams.checkDepositId
-            additionalHeaders(checkDepositRetrieveParams.additionalHeaders)
-            additionalQueryParams(checkDepositRetrieveParams.additionalQueryParams)
+            checkDepositId = checkDepositRetrieveParams.checkDepositId
+            additionalHeaders = checkDepositRetrieveParams.additionalHeaders.toBuilder()
+            additionalQueryParams = checkDepositRetrieveParams.additionalQueryParams.toBuilder()
         }
 
         /** The identifier of the Check Deposit to retrieve. */
@@ -174,4 +161,17 @@ constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is CheckDepositRetrieveParams && checkDepositId == other.checkDepositId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(checkDepositId, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "CheckDepositRetrieveParams{checkDepositId=$checkDepositId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

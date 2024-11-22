@@ -17,6 +17,10 @@ constructor(
 
     fun inboundAchTransferId(): String = inboundAchTransferId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
@@ -27,23 +31,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is InboundAchTransferRetrieveParams && inboundAchTransferId == other.inboundAchTransferId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(inboundAchTransferId, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "InboundAchTransferRetrieveParams{inboundAchTransferId=$inboundAchTransferId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -62,9 +49,10 @@ constructor(
         @JvmSynthetic
         internal fun from(inboundAchTransferRetrieveParams: InboundAchTransferRetrieveParams) =
             apply {
-                this.inboundAchTransferId = inboundAchTransferRetrieveParams.inboundAchTransferId
-                additionalHeaders(inboundAchTransferRetrieveParams.additionalHeaders)
-                additionalQueryParams(inboundAchTransferRetrieveParams.additionalQueryParams)
+                inboundAchTransferId = inboundAchTransferRetrieveParams.inboundAchTransferId
+                additionalHeaders = inboundAchTransferRetrieveParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    inboundAchTransferRetrieveParams.additionalQueryParams.toBuilder()
             }
 
         /** The identifier of the Inbound ACH Transfer to get details for. */
@@ -179,4 +167,17 @@ constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is InboundAchTransferRetrieveParams && inboundAchTransferId == other.inboundAchTransferId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(inboundAchTransferId, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "InboundAchTransferRetrieveParams{inboundAchTransferId=$inboundAchTransferId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

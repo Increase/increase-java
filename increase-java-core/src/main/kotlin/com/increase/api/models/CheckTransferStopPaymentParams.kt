@@ -33,6 +33,12 @@ constructor(
 
     fun reason(): Optional<Reason> = Optional.ofNullable(reason)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): CheckTransferStopPaymentBody {
         return CheckTransferStopPaymentBody(reason, additionalBodyProperties)
@@ -121,25 +127,6 @@ constructor(
             "CheckTransferStopPaymentBody{reason=$reason, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is CheckTransferStopPaymentParams && checkTransferId == other.checkTransferId && reason == other.reason && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(checkTransferId, reason, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "CheckTransferStopPaymentParams{checkTransferId=$checkTransferId, reason=$reason, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -158,11 +145,12 @@ constructor(
 
         @JvmSynthetic
         internal fun from(checkTransferStopPaymentParams: CheckTransferStopPaymentParams) = apply {
-            this.checkTransferId = checkTransferStopPaymentParams.checkTransferId
-            this.reason = checkTransferStopPaymentParams.reason
-            additionalHeaders(checkTransferStopPaymentParams.additionalHeaders)
-            additionalQueryParams(checkTransferStopPaymentParams.additionalQueryParams)
-            additionalBodyProperties(checkTransferStopPaymentParams.additionalBodyProperties)
+            checkTransferId = checkTransferStopPaymentParams.checkTransferId
+            reason = checkTransferStopPaymentParams.reason
+            additionalHeaders = checkTransferStopPaymentParams.additionalHeaders.toBuilder()
+            additionalQueryParams = checkTransferStopPaymentParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                checkTransferStopPaymentParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier of the Check Transfer. */
@@ -365,4 +353,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is CheckTransferStopPaymentParams && checkTransferId == other.checkTransferId && reason == other.reason && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(checkTransferId, reason, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "CheckTransferStopPaymentParams{checkTransferId=$checkTransferId, reason=$reason, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

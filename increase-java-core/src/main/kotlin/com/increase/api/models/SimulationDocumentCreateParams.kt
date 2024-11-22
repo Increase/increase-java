@@ -25,6 +25,12 @@ constructor(
 
     fun accountId(): String = accountId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): SimulationDocumentCreateBody {
         return SimulationDocumentCreateBody(accountId, additionalBodyProperties)
@@ -110,25 +116,6 @@ constructor(
             "SimulationDocumentCreateBody{accountId=$accountId, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is SimulationDocumentCreateParams && accountId == other.accountId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "SimulationDocumentCreateParams{accountId=$accountId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -146,10 +133,11 @@ constructor(
 
         @JvmSynthetic
         internal fun from(simulationDocumentCreateParams: SimulationDocumentCreateParams) = apply {
-            this.accountId = simulationDocumentCreateParams.accountId
-            additionalHeaders(simulationDocumentCreateParams.additionalHeaders)
-            additionalQueryParams(simulationDocumentCreateParams.additionalQueryParams)
-            additionalBodyProperties(simulationDocumentCreateParams.additionalBodyProperties)
+            accountId = simulationDocumentCreateParams.accountId
+            additionalHeaders = simulationDocumentCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = simulationDocumentCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                simulationDocumentCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier of the Account the tax document is for. */
@@ -283,4 +271,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is SimulationDocumentCreateParams && accountId == other.accountId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "SimulationDocumentCreateParams{accountId=$accountId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

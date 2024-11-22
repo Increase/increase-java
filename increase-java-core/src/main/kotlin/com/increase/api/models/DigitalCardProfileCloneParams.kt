@@ -53,6 +53,12 @@ constructor(
 
     fun textColor(): Optional<TextColor> = Optional.ofNullable(textColor)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): DigitalCardProfileCloneBody {
         return DigitalCardProfileCloneBody(
@@ -251,25 +257,6 @@ constructor(
             "DigitalCardProfileCloneBody{appIconFileId=$appIconFileId, backgroundImageFileId=$backgroundImageFileId, cardDescription=$cardDescription, contactEmail=$contactEmail, contactPhone=$contactPhone, contactWebsite=$contactWebsite, description=$description, issuerName=$issuerName, textColor=$textColor, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is DigitalCardProfileCloneParams && digitalCardProfileId == other.digitalCardProfileId && appIconFileId == other.appIconFileId && backgroundImageFileId == other.backgroundImageFileId && cardDescription == other.cardDescription && contactEmail == other.contactEmail && contactPhone == other.contactPhone && contactWebsite == other.contactWebsite && description == other.description && issuerName == other.issuerName && textColor == other.textColor && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(digitalCardProfileId, appIconFileId, backgroundImageFileId, cardDescription, contactEmail, contactPhone, contactWebsite, description, issuerName, textColor, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "DigitalCardProfileCloneParams{digitalCardProfileId=$digitalCardProfileId, appIconFileId=$appIconFileId, backgroundImageFileId=$backgroundImageFileId, cardDescription=$cardDescription, contactEmail=$contactEmail, contactPhone=$contactPhone, contactWebsite=$contactWebsite, description=$description, issuerName=$issuerName, textColor=$textColor, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -296,19 +283,20 @@ constructor(
 
         @JvmSynthetic
         internal fun from(digitalCardProfileCloneParams: DigitalCardProfileCloneParams) = apply {
-            this.digitalCardProfileId = digitalCardProfileCloneParams.digitalCardProfileId
-            this.appIconFileId = digitalCardProfileCloneParams.appIconFileId
-            this.backgroundImageFileId = digitalCardProfileCloneParams.backgroundImageFileId
-            this.cardDescription = digitalCardProfileCloneParams.cardDescription
-            this.contactEmail = digitalCardProfileCloneParams.contactEmail
-            this.contactPhone = digitalCardProfileCloneParams.contactPhone
-            this.contactWebsite = digitalCardProfileCloneParams.contactWebsite
-            this.description = digitalCardProfileCloneParams.description
-            this.issuerName = digitalCardProfileCloneParams.issuerName
-            this.textColor = digitalCardProfileCloneParams.textColor
-            additionalHeaders(digitalCardProfileCloneParams.additionalHeaders)
-            additionalQueryParams(digitalCardProfileCloneParams.additionalQueryParams)
-            additionalBodyProperties(digitalCardProfileCloneParams.additionalBodyProperties)
+            digitalCardProfileId = digitalCardProfileCloneParams.digitalCardProfileId
+            appIconFileId = digitalCardProfileCloneParams.appIconFileId
+            backgroundImageFileId = digitalCardProfileCloneParams.backgroundImageFileId
+            cardDescription = digitalCardProfileCloneParams.cardDescription
+            contactEmail = digitalCardProfileCloneParams.contactEmail
+            contactPhone = digitalCardProfileCloneParams.contactPhone
+            contactWebsite = digitalCardProfileCloneParams.contactWebsite
+            description = digitalCardProfileCloneParams.description
+            issuerName = digitalCardProfileCloneParams.issuerName
+            textColor = digitalCardProfileCloneParams.textColor
+            additionalHeaders = digitalCardProfileCloneParams.additionalHeaders.toBuilder()
+            additionalQueryParams = digitalCardProfileCloneParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                digitalCardProfileCloneParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier of the Digital Card Profile to clone. */
@@ -582,4 +570,17 @@ constructor(
         override fun toString() =
             "TextColor{blue=$blue, green=$green, red=$red, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is DigitalCardProfileCloneParams && digitalCardProfileId == other.digitalCardProfileId && appIconFileId == other.appIconFileId && backgroundImageFileId == other.backgroundImageFileId && cardDescription == other.cardDescription && contactEmail == other.contactEmail && contactPhone == other.contactPhone && contactWebsite == other.contactWebsite && description == other.description && issuerName == other.issuerName && textColor == other.textColor && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(digitalCardProfileId, appIconFileId, backgroundImageFileId, cardDescription, contactEmail, contactPhone, contactWebsite, description, issuerName, textColor, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "DigitalCardProfileCloneParams{digitalCardProfileId=$digitalCardProfileId, appIconFileId=$appIconFileId, backgroundImageFileId=$backgroundImageFileId, cardDescription=$cardDescription, contactEmail=$contactEmail, contactPhone=$contactPhone, contactWebsite=$contactWebsite, description=$description, issuerName=$issuerName, textColor=$textColor, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

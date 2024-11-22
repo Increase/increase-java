@@ -33,6 +33,12 @@ constructor(
 
     fun beneficialOwner(): BeneficialOwner = beneficialOwner
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): EntityCreateBeneficialOwnerBody {
         return EntityCreateBeneficialOwnerBody(beneficialOwner, additionalBodyProperties)
@@ -135,25 +141,6 @@ constructor(
             "EntityCreateBeneficialOwnerBody{beneficialOwner=$beneficialOwner, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is EntityCreateBeneficialOwnerParams && entityId == other.entityId && beneficialOwner == other.beneficialOwner && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(entityId, beneficialOwner, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "EntityCreateBeneficialOwnerParams{entityId=$entityId, beneficialOwner=$beneficialOwner, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -173,11 +160,13 @@ constructor(
         @JvmSynthetic
         internal fun from(entityCreateBeneficialOwnerParams: EntityCreateBeneficialOwnerParams) =
             apply {
-                this.entityId = entityCreateBeneficialOwnerParams.entityId
-                this.beneficialOwner = entityCreateBeneficialOwnerParams.beneficialOwner
-                additionalHeaders(entityCreateBeneficialOwnerParams.additionalHeaders)
-                additionalQueryParams(entityCreateBeneficialOwnerParams.additionalQueryParams)
-                additionalBodyProperties(entityCreateBeneficialOwnerParams.additionalBodyProperties)
+                entityId = entityCreateBeneficialOwnerParams.entityId
+                beneficialOwner = entityCreateBeneficialOwnerParams.beneficialOwner
+                additionalHeaders = entityCreateBeneficialOwnerParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    entityCreateBeneficialOwnerParams.additionalQueryParams.toBuilder()
+                additionalBodyProperties =
+                    entityCreateBeneficialOwnerParams.additionalBodyProperties.toMutableMap()
             }
 
         /** The identifier of the Entity to associate with the new Beneficial Owner. */
@@ -1360,4 +1349,17 @@ constructor(
         override fun toString() =
             "BeneficialOwner{companyTitle=$companyTitle, individual=$individual, prongs=$prongs, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is EntityCreateBeneficialOwnerParams && entityId == other.entityId && beneficialOwner == other.beneficialOwner && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(entityId, beneficialOwner, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "EntityCreateBeneficialOwnerParams{entityId=$entityId, beneficialOwner=$beneficialOwner, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }
