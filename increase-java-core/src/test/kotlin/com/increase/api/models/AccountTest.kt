@@ -26,7 +26,7 @@ class AccountTest {
                 .interestRate("interest_rate")
                 .name("name")
                 .programId("program_id")
-                .status(Account.Status.OPEN)
+                .status(Account.Status.CLOSED)
                 .type(Account.Type.ACCOUNT)
                 .build()
         assertThat(account).isNotNull
@@ -43,7 +43,7 @@ class AccountTest {
         assertThat(account.interestRate()).isEqualTo("interest_rate")
         assertThat(account.name()).isEqualTo("name")
         assertThat(account.programId()).isEqualTo("program_id")
-        assertThat(account.status()).isEqualTo(Account.Status.OPEN)
+        assertThat(account.status()).isEqualTo(Account.Status.CLOSED)
         assertThat(account.type()).isEqualTo(Account.Type.ACCOUNT)
     }
 }
