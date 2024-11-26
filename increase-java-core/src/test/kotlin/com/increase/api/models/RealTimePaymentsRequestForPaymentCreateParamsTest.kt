@@ -12,7 +12,7 @@ class RealTimePaymentsRequestForPaymentCreateParamsTest {
     @Test
     fun createRealTimePaymentsRequestForPaymentCreateParams() {
         RealTimePaymentsRequestForPaymentCreateParams.builder()
-            .amount(123L)
+            .amount(1L)
             .debtor(
                 RealTimePaymentsRequestForPaymentCreateParams.Debtor.builder()
                     .address(
@@ -38,7 +38,7 @@ class RealTimePaymentsRequestForPaymentCreateParamsTest {
     fun getBody() {
         val params =
             RealTimePaymentsRequestForPaymentCreateParams.builder()
-                .amount(123L)
+                .amount(1L)
                 .debtor(
                     RealTimePaymentsRequestForPaymentCreateParams.Debtor.builder()
                         .address(
@@ -60,7 +60,7 @@ class RealTimePaymentsRequestForPaymentCreateParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.amount()).isEqualTo(1L)
         assertThat(body.debtor())
             .isEqualTo(
                 RealTimePaymentsRequestForPaymentCreateParams.Debtor.builder()
@@ -86,7 +86,7 @@ class RealTimePaymentsRequestForPaymentCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             RealTimePaymentsRequestForPaymentCreateParams.builder()
-                .amount(123L)
+                .amount(1L)
                 .debtor(
                     RealTimePaymentsRequestForPaymentCreateParams.Debtor.builder()
                         .address(
@@ -105,7 +105,7 @@ class RealTimePaymentsRequestForPaymentCreateParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.amount()).isEqualTo(1L)
         assertThat(body.debtor())
             .isEqualTo(
                 RealTimePaymentsRequestForPaymentCreateParams.Debtor.builder()

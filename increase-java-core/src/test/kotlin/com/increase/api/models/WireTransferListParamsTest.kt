@@ -25,7 +25,7 @@ class WireTransferListParamsTest {
             .cursor("cursor")
             .externalAccountId("external_account_id")
             .idempotencyKey("x")
-            .limit(123L)
+            .limit(1L)
             .build()
     }
 
@@ -45,7 +45,7 @@ class WireTransferListParamsTest {
                 .cursor("cursor")
                 .externalAccountId("external_account_id")
                 .idempotencyKey("x")
-                .limit(123L)
+                .limit(1L)
                 .build()
         val expected = QueryParams.builder()
         expected.put("account_id", "account_id")
@@ -59,7 +59,7 @@ class WireTransferListParamsTest {
         expected.put("cursor", "cursor")
         expected.put("external_account_id", "external_account_id")
         expected.put("idempotency_key", "x")
-        expected.put("limit", "123")
+        expected.put("limit", "1")
         assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 

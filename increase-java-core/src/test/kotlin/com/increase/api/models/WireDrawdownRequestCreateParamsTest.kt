@@ -12,7 +12,7 @@ class WireDrawdownRequestCreateParamsTest {
     fun createWireDrawdownRequestCreateParams() {
         WireDrawdownRequestCreateParams.builder()
             .accountNumberId("account_number_id")
-            .amount(123L)
+            .amount(1L)
             .messageToRecipient("x")
             .recipientAccountNumber("x")
             .recipientName("x")
@@ -32,7 +32,7 @@ class WireDrawdownRequestCreateParamsTest {
         val params =
             WireDrawdownRequestCreateParams.builder()
                 .accountNumberId("account_number_id")
-                .amount(123L)
+                .amount(1L)
                 .messageToRecipient("x")
                 .recipientAccountNumber("x")
                 .recipientName("x")
@@ -48,7 +48,7 @@ class WireDrawdownRequestCreateParamsTest {
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.accountNumberId()).isEqualTo("account_number_id")
-        assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.amount()).isEqualTo(1L)
         assertThat(body.messageToRecipient()).isEqualTo("x")
         assertThat(body.recipientAccountNumber()).isEqualTo("x")
         assertThat(body.recipientName()).isEqualTo("x")
@@ -67,7 +67,7 @@ class WireDrawdownRequestCreateParamsTest {
         val params =
             WireDrawdownRequestCreateParams.builder()
                 .accountNumberId("account_number_id")
-                .amount(123L)
+                .amount(1L)
                 .messageToRecipient("x")
                 .recipientAccountNumber("x")
                 .recipientName("x")
@@ -76,7 +76,7 @@ class WireDrawdownRequestCreateParamsTest {
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.accountNumberId()).isEqualTo("account_number_id")
-        assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.amount()).isEqualTo(1L)
         assertThat(body.messageToRecipient()).isEqualTo("x")
         assertThat(body.recipientAccountNumber()).isEqualTo("x")
         assertThat(body.recipientName()).isEqualTo("x")

@@ -11,7 +11,7 @@ class SimulationInboundWireDrawdownRequestCreateParamsTest {
     @Test
     fun createSimulationInboundWireDrawdownRequestCreateParams() {
         SimulationInboundWireDrawdownRequestCreateParams.builder()
-            .amount(123L)
+            .amount(0L)
             .beneficiaryAccountNumber("x")
             .beneficiaryRoutingNumber("x")
             .currency("x")
@@ -38,7 +38,7 @@ class SimulationInboundWireDrawdownRequestCreateParamsTest {
     fun getBody() {
         val params =
             SimulationInboundWireDrawdownRequestCreateParams.builder()
-                .amount(123L)
+                .amount(0L)
                 .beneficiaryAccountNumber("x")
                 .beneficiaryRoutingNumber("x")
                 .currency("x")
@@ -61,7 +61,7 @@ class SimulationInboundWireDrawdownRequestCreateParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.amount()).isEqualTo(0L)
         assertThat(body.beneficiaryAccountNumber()).isEqualTo("x")
         assertThat(body.beneficiaryRoutingNumber()).isEqualTo("x")
         assertThat(body.currency()).isEqualTo("x")
@@ -87,7 +87,7 @@ class SimulationInboundWireDrawdownRequestCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             SimulationInboundWireDrawdownRequestCreateParams.builder()
-                .amount(123L)
+                .amount(0L)
                 .beneficiaryAccountNumber("x")
                 .beneficiaryRoutingNumber("x")
                 .currency("x")
@@ -98,7 +98,7 @@ class SimulationInboundWireDrawdownRequestCreateParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.amount()).isEqualTo(0L)
         assertThat(body.beneficiaryAccountNumber()).isEqualTo("x")
         assertThat(body.beneficiaryRoutingNumber()).isEqualTo("x")
         assertThat(body.currency()).isEqualTo("x")

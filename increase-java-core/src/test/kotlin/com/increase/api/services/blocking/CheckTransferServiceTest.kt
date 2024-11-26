@@ -24,7 +24,7 @@ class CheckTransferServiceTest {
             checkTransferService.create(
                 CheckTransferCreateParams.builder()
                     .accountId("account_id")
-                    .amount(123L)
+                    .amount(1L)
                     .sourceAccountNumberId("source_account_number_id")
                     .fulfillmentMethod(CheckTransferCreateParams.FulfillmentMethod.PHYSICAL_CHECK)
                     .physicalCheck(

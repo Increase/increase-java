@@ -13,7 +13,7 @@ class WireDrawdownRequestTest {
             WireDrawdownRequest.builder()
                 .id("id")
                 .accountNumberId("account_number_id")
-                .amount(123L)
+                .amount(0L)
                 .currency("currency")
                 .fulfillmentInboundWireTransferId("fulfillment_inbound_wire_transfer_id")
                 .idempotencyKey("idempotency_key")
@@ -39,7 +39,7 @@ class WireDrawdownRequestTest {
         assertThat(wireDrawdownRequest).isNotNull
         assertThat(wireDrawdownRequest.id()).isEqualTo("id")
         assertThat(wireDrawdownRequest.accountNumberId()).isEqualTo("account_number_id")
-        assertThat(wireDrawdownRequest.amount()).isEqualTo(123L)
+        assertThat(wireDrawdownRequest.amount()).isEqualTo(0L)
         assertThat(wireDrawdownRequest.currency()).isEqualTo("currency")
         assertThat(wireDrawdownRequest.fulfillmentInboundWireTransferId())
             .contains("fulfillment_inbound_wire_transfer_id")

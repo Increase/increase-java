@@ -24,7 +24,7 @@ class InterestPaymentServiceTest {
             interestPaymentService.create(
                 SimulationInterestPaymentCreateParams.builder()
                     .accountId("account_id")
-                    .amount(123L)
+                    .amount(1L)
                     .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()

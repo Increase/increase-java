@@ -16,7 +16,7 @@ class TransactionTest {
             Transaction.builder()
                 .id("id")
                 .accountId("account_id")
-                .amount(123L)
+                .amount(0L)
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .currency(Transaction.Currency.CAD)
                 .description("description")
@@ -26,7 +26,7 @@ class TransactionTest {
                     Transaction.Source.builder()
                         .accountTransferIntention(
                             Transaction.Source.AccountTransferIntention.builder()
-                                .amount(123L)
+                                .amount(0L)
                                 .currency(Transaction.Source.AccountTransferIntention.Currency.CAD)
                                 .description("description")
                                 .destinationAccountId("destination_account_id")
@@ -37,7 +37,7 @@ class TransactionTest {
                         .achTransferIntention(
                             Transaction.Source.AchTransferIntention.builder()
                                 .accountNumber("account_number")
-                                .amount(123L)
+                                .amount(0L)
                                 .routingNumber("routing_number")
                                 .statementDescriptor("statement_descriptor")
                                 .transferId("transfer_id")
@@ -79,7 +79,7 @@ class TransactionTest {
                         .cardRefund(
                             Transaction.Source.CardRefund.builder()
                                 .id("id")
-                                .amount(123L)
+                                .amount(0L)
                                 .cardPaymentId("card_payment_id")
                                 .currency(Transaction.Source.CardRefund.Currency.CAD)
                                 .interchange(
@@ -105,7 +105,7 @@ class TransactionTest {
                                         .transactionId("transaction_id")
                                         .build()
                                 )
-                                .presentmentAmount(123L)
+                                .presentmentAmount(0L)
                                 .presentmentCurrency("presentment_currency")
                                 .purchaseDetails(
                                     Transaction.Source.CardRefund.PurchaseDetails.builder()
@@ -114,20 +114,20 @@ class TransactionTest {
                                                 .builder()
                                                 .carClassCode("car_class_code")
                                                 .checkoutDate(LocalDate.parse("2019-12-27"))
-                                                .dailyRentalRateAmount(123L)
+                                                .dailyRentalRateAmount(0L)
                                                 .dailyRentalRateCurrency(
                                                     "daily_rental_rate_currency"
                                                 )
-                                                .daysRented(123L)
+                                                .daysRented(0L)
                                                 .extraCharges(
                                                     Transaction.Source.CardRefund.PurchaseDetails
                                                         .CarRental
                                                         .ExtraCharges
                                                         .NO_EXTRA_CHARGE
                                                 )
-                                                .fuelChargesAmount(123L)
+                                                .fuelChargesAmount(0L)
                                                 .fuelChargesCurrency("fuel_charges_currency")
-                                                .insuranceChargesAmount(123L)
+                                                .insuranceChargesAmount(0L)
                                                 .insuranceChargesCurrency(
                                                     "insurance_charges_currency"
                                                 )
@@ -137,12 +137,12 @@ class TransactionTest {
                                                         .NoShowIndicator
                                                         .NOT_APPLICABLE
                                                 )
-                                                .oneWayDropOffChargesAmount(123L)
+                                                .oneWayDropOffChargesAmount(0L)
                                                 .oneWayDropOffChargesCurrency(
                                                     "one_way_drop_off_charges_currency"
                                                 )
                                                 .renterName("renter_name")
-                                                .weeklyRentalRateAmount(123L)
+                                                .weeklyRentalRateAmount(0L)
                                                 .weeklyRentalRateCurrency(
                                                     "weekly_rental_rate_currency"
                                                 )
@@ -151,13 +151,13 @@ class TransactionTest {
                                         .customerReferenceIdentifier(
                                             "customer_reference_identifier"
                                         )
-                                        .localTaxAmount(123L)
+                                        .localTaxAmount(0L)
                                         .localTaxCurrency("local_tax_currency")
                                         .lodging(
                                             Transaction.Source.CardRefund.PurchaseDetails.Lodging
                                                 .builder()
                                                 .checkInDate(LocalDate.parse("2019-12-27"))
-                                                .dailyRoomRateAmount(123L)
+                                                .dailyRoomRateAmount(0L)
                                                 .dailyRoomRateCurrency("daily_room_rate_currency")
                                                 .extraCharges(
                                                     Transaction.Source.CardRefund.PurchaseDetails
@@ -165,11 +165,11 @@ class TransactionTest {
                                                         .ExtraCharges
                                                         .NO_EXTRA_CHARGE
                                                 )
-                                                .folioCashAdvancesAmount(123L)
+                                                .folioCashAdvancesAmount(0L)
                                                 .folioCashAdvancesCurrency(
                                                     "folio_cash_advances_currency"
                                                 )
-                                                .foodBeverageChargesAmount(123L)
+                                                .foodBeverageChargesAmount(0L)
                                                 .foodBeverageChargesCurrency(
                                                     "food_beverage_charges_currency"
                                                 )
@@ -179,18 +179,18 @@ class TransactionTest {
                                                         .NoShowIndicator
                                                         .NOT_APPLICABLE
                                                 )
-                                                .prepaidExpensesAmount(123L)
+                                                .prepaidExpensesAmount(0L)
                                                 .prepaidExpensesCurrency(
                                                     "prepaid_expenses_currency"
                                                 )
-                                                .roomNights(123L)
-                                                .totalRoomTaxAmount(123L)
+                                                .roomNights(0L)
+                                                .totalRoomTaxAmount(0L)
                                                 .totalRoomTaxCurrency("total_room_tax_currency")
-                                                .totalTaxAmount(123L)
+                                                .totalTaxAmount(0L)
                                                 .totalTaxCurrency("total_tax_currency")
                                                 .build()
                                         )
-                                        .nationalTaxAmount(123L)
+                                        .nationalTaxAmount(0L)
                                         .nationalTaxCurrency("national_tax_currency")
                                         .purchaseIdentifier("purchase_identifier")
                                         .purchaseIdentifierFormat(
@@ -311,7 +311,7 @@ class TransactionTest {
                         )
                         .cardRevenuePayment(
                             Transaction.Source.CardRevenuePayment.builder()
-                                .amount(123L)
+                                .amount(0L)
                                 .currency(Transaction.Source.CardRevenuePayment.Currency.CAD)
                                 .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -321,7 +321,7 @@ class TransactionTest {
                         .cardSettlement(
                             Transaction.Source.CardSettlement.builder()
                                 .id("id")
-                                .amount(123L)
+                                .amount(0L)
                                 .cardAuthorization("card_authorization")
                                 .cardPaymentId("card_payment_id")
                                 .currency(Transaction.Source.CardSettlement.Currency.CAD)
@@ -350,7 +350,7 @@ class TransactionTest {
                                         .build()
                                 )
                                 .pendingTransactionId("pending_transaction_id")
-                                .presentmentAmount(123L)
+                                .presentmentAmount(0L)
                                 .presentmentCurrency("presentment_currency")
                                 .purchaseDetails(
                                     Transaction.Source.CardSettlement.PurchaseDetails.builder()
@@ -360,11 +360,11 @@ class TransactionTest {
                                                 .builder()
                                                 .carClassCode("car_class_code")
                                                 .checkoutDate(LocalDate.parse("2019-12-27"))
-                                                .dailyRentalRateAmount(123L)
+                                                .dailyRentalRateAmount(0L)
                                                 .dailyRentalRateCurrency(
                                                     "daily_rental_rate_currency"
                                                 )
-                                                .daysRented(123L)
+                                                .daysRented(0L)
                                                 .extraCharges(
                                                     Transaction.Source.CardSettlement
                                                         .PurchaseDetails
@@ -372,9 +372,9 @@ class TransactionTest {
                                                         .ExtraCharges
                                                         .NO_EXTRA_CHARGE
                                                 )
-                                                .fuelChargesAmount(123L)
+                                                .fuelChargesAmount(0L)
                                                 .fuelChargesCurrency("fuel_charges_currency")
-                                                .insuranceChargesAmount(123L)
+                                                .insuranceChargesAmount(0L)
                                                 .insuranceChargesCurrency(
                                                     "insurance_charges_currency"
                                                 )
@@ -385,12 +385,12 @@ class TransactionTest {
                                                         .NoShowIndicator
                                                         .NOT_APPLICABLE
                                                 )
-                                                .oneWayDropOffChargesAmount(123L)
+                                                .oneWayDropOffChargesAmount(0L)
                                                 .oneWayDropOffChargesCurrency(
                                                     "one_way_drop_off_charges_currency"
                                                 )
                                                 .renterName("renter_name")
-                                                .weeklyRentalRateAmount(123L)
+                                                .weeklyRentalRateAmount(0L)
                                                 .weeklyRentalRateCurrency(
                                                     "weekly_rental_rate_currency"
                                                 )
@@ -399,14 +399,14 @@ class TransactionTest {
                                         .customerReferenceIdentifier(
                                             "customer_reference_identifier"
                                         )
-                                        .localTaxAmount(123L)
+                                        .localTaxAmount(0L)
                                         .localTaxCurrency("local_tax_currency")
                                         .lodging(
                                             Transaction.Source.CardSettlement.PurchaseDetails
                                                 .Lodging
                                                 .builder()
                                                 .checkInDate(LocalDate.parse("2019-12-27"))
-                                                .dailyRoomRateAmount(123L)
+                                                .dailyRoomRateAmount(0L)
                                                 .dailyRoomRateCurrency("daily_room_rate_currency")
                                                 .extraCharges(
                                                     Transaction.Source.CardSettlement
@@ -415,11 +415,11 @@ class TransactionTest {
                                                         .ExtraCharges
                                                         .NO_EXTRA_CHARGE
                                                 )
-                                                .folioCashAdvancesAmount(123L)
+                                                .folioCashAdvancesAmount(0L)
                                                 .folioCashAdvancesCurrency(
                                                     "folio_cash_advances_currency"
                                                 )
-                                                .foodBeverageChargesAmount(123L)
+                                                .foodBeverageChargesAmount(0L)
                                                 .foodBeverageChargesCurrency(
                                                     "food_beverage_charges_currency"
                                                 )
@@ -430,18 +430,18 @@ class TransactionTest {
                                                         .NoShowIndicator
                                                         .NOT_APPLICABLE
                                                 )
-                                                .prepaidExpensesAmount(123L)
+                                                .prepaidExpensesAmount(0L)
                                                 .prepaidExpensesCurrency(
                                                     "prepaid_expenses_currency"
                                                 )
-                                                .roomNights(123L)
-                                                .totalRoomTaxAmount(123L)
+                                                .roomNights(0L)
+                                                .totalRoomTaxAmount(0L)
                                                 .totalRoomTaxCurrency("total_room_tax_currency")
-                                                .totalTaxAmount(123L)
+                                                .totalTaxAmount(0L)
                                                 .totalTaxCurrency("total_tax_currency")
                                                 .build()
                                         )
-                                        .nationalTaxAmount(123L)
+                                        .nationalTaxAmount(0L)
                                         .nationalTaxCurrency("national_tax_currency")
                                         .purchaseIdentifier("purchase_identifier")
                                         .purchaseIdentifierFormat(
@@ -567,7 +567,7 @@ class TransactionTest {
                         .cashbackPayment(
                             Transaction.Source.CashbackPayment.builder()
                                 .accruedOnCardId("accrued_on_card_id")
-                                .amount(123L)
+                                .amount(0L)
                                 .currency(Transaction.Source.CashbackPayment.Currency.CAD)
                                 .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -577,7 +577,7 @@ class TransactionTest {
                         .checkDepositAcceptance(
                             Transaction.Source.CheckDepositAcceptance.builder()
                                 .accountNumber("account_number")
-                                .amount(123L)
+                                .amount(0L)
                                 .auxiliaryOnUs("auxiliary_on_us")
                                 .checkDepositId("check_deposit_id")
                                 .currency(Transaction.Source.CheckDepositAcceptance.Currency.CAD)
@@ -587,7 +587,7 @@ class TransactionTest {
                         )
                         .checkDepositReturn(
                             Transaction.Source.CheckDepositReturn.builder()
-                                .amount(123L)
+                                .amount(0L)
                                 .checkDepositId("check_deposit_id")
                                 .currency(Transaction.Source.CheckDepositReturn.Currency.CAD)
                                 .returnReason(
@@ -617,7 +617,7 @@ class TransactionTest {
                         )
                         .feePayment(
                             Transaction.Source.FeePayment.builder()
-                                .amount(123L)
+                                .amount(0L)
                                 .currency(Transaction.Source.FeePayment.Currency.CAD)
                                 .feePeriodStart(LocalDate.parse("2019-12-27"))
                                 .programId("program_id")
@@ -651,7 +651,7 @@ class TransactionTest {
                                         )
                                         .build()
                                 )
-                                .amount(123L)
+                                .amount(0L)
                                 .originatorCompanyDescriptiveDate(
                                     "originator_company_descriptive_date"
                                 )
@@ -671,7 +671,7 @@ class TransactionTest {
                         )
                         .inboundRealTimePaymentsTransferConfirmation(
                             Transaction.Source.InboundRealTimePaymentsTransferConfirmation.builder()
-                                .amount(123L)
+                                .amount(0L)
                                 .creditorName("creditor_name")
                                 .currency(
                                     Transaction.Source.InboundRealTimePaymentsTransferConfirmation
@@ -688,7 +688,7 @@ class TransactionTest {
                         )
                         .inboundRealTimePaymentsTransferDecline(
                             Transaction.Source.InboundRealTimePaymentsTransferDecline.builder()
-                                .amount(123L)
+                                .amount(0L)
                                 .creditorName("creditor_name")
                                 .currency(
                                     Transaction.Source.InboundRealTimePaymentsTransferDecline
@@ -709,7 +709,7 @@ class TransactionTest {
                         )
                         .inboundWireReversal(
                             Transaction.Source.InboundWireReversal.builder()
-                                .amount(123L)
+                                .amount(0L)
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .description("description")
                                 .financialInstitutionToFinancialInstitutionInformation(
@@ -738,7 +738,7 @@ class TransactionTest {
                         )
                         .inboundWireTransfer(
                             Transaction.Source.InboundWireTransfer.builder()
-                                .amount(123L)
+                                .amount(0L)
                                 .beneficiaryAddressLine1("beneficiary_address_line1")
                                 .beneficiaryAddressLine2("beneficiary_address_line2")
                                 .beneficiaryAddressLine3("beneficiary_address_line3")
@@ -772,7 +772,7 @@ class TransactionTest {
                         .interestPayment(
                             Transaction.Source.InterestPayment.builder()
                                 .accruedOnAccountId("accrued_on_account_id")
-                                .amount(123L)
+                                .amount(0L)
                                 .currency(Transaction.Source.InterestPayment.Currency.CAD)
                                 .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -780,7 +780,7 @@ class TransactionTest {
                         )
                         .internalSource(
                             Transaction.Source.InternalSource.builder()
-                                .amount(123L)
+                                .amount(0L)
                                 .currency(Transaction.Source.InternalSource.Currency.CAD)
                                 .reason(Transaction.Source.InternalSource.Reason.ACCOUNT_CLOSURE)
                                 .build()
@@ -788,7 +788,7 @@ class TransactionTest {
                         .other(JsonNull.of())
                         .realTimePaymentsTransferAcknowledgement(
                             Transaction.Source.RealTimePaymentsTransferAcknowledgement.builder()
-                                .amount(123L)
+                                .amount(0L)
                                 .destinationAccountNumber("destination_account_number")
                                 .destinationRoutingNumber("destination_routing_number")
                                 .remittanceInformation("remittance_information")
@@ -803,7 +803,7 @@ class TransactionTest {
                         .wireTransferIntention(
                             Transaction.Source.WireTransferIntention.builder()
                                 .accountNumber("account_number")
-                                .amount(123L)
+                                .amount(0L)
                                 .messageToRecipient("message_to_recipient")
                                 .routingNumber("routing_number")
                                 .transferId("transfer_id")
@@ -816,7 +816,7 @@ class TransactionTest {
         assertThat(transaction).isNotNull
         assertThat(transaction.id()).isEqualTo("id")
         assertThat(transaction.accountId()).isEqualTo("account_id")
-        assertThat(transaction.amount()).isEqualTo(123L)
+        assertThat(transaction.amount()).isEqualTo(0L)
         assertThat(transaction.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(transaction.currency()).isEqualTo(Transaction.Currency.CAD)
@@ -828,7 +828,7 @@ class TransactionTest {
                 Transaction.Source.builder()
                     .accountTransferIntention(
                         Transaction.Source.AccountTransferIntention.builder()
-                            .amount(123L)
+                            .amount(0L)
                             .currency(Transaction.Source.AccountTransferIntention.Currency.CAD)
                             .description("description")
                             .destinationAccountId("destination_account_id")
@@ -839,7 +839,7 @@ class TransactionTest {
                     .achTransferIntention(
                         Transaction.Source.AchTransferIntention.builder()
                             .accountNumber("account_number")
-                            .amount(123L)
+                            .amount(0L)
                             .routingNumber("routing_number")
                             .statementDescriptor("statement_descriptor")
                             .transferId("transfer_id")
@@ -881,7 +881,7 @@ class TransactionTest {
                     .cardRefund(
                         Transaction.Source.CardRefund.builder()
                             .id("id")
-                            .amount(123L)
+                            .amount(0L)
                             .cardPaymentId("card_payment_id")
                             .currency(Transaction.Source.CardRefund.Currency.CAD)
                             .interchange(
@@ -907,7 +907,7 @@ class TransactionTest {
                                     .transactionId("transaction_id")
                                     .build()
                             )
-                            .presentmentAmount(123L)
+                            .presentmentAmount(0L)
                             .presentmentCurrency("presentment_currency")
                             .purchaseDetails(
                                 Transaction.Source.CardRefund.PurchaseDetails.builder()
@@ -916,18 +916,18 @@ class TransactionTest {
                                             .builder()
                                             .carClassCode("car_class_code")
                                             .checkoutDate(LocalDate.parse("2019-12-27"))
-                                            .dailyRentalRateAmount(123L)
+                                            .dailyRentalRateAmount(0L)
                                             .dailyRentalRateCurrency("daily_rental_rate_currency")
-                                            .daysRented(123L)
+                                            .daysRented(0L)
                                             .extraCharges(
                                                 Transaction.Source.CardRefund.PurchaseDetails
                                                     .CarRental
                                                     .ExtraCharges
                                                     .NO_EXTRA_CHARGE
                                             )
-                                            .fuelChargesAmount(123L)
+                                            .fuelChargesAmount(0L)
                                             .fuelChargesCurrency("fuel_charges_currency")
-                                            .insuranceChargesAmount(123L)
+                                            .insuranceChargesAmount(0L)
                                             .insuranceChargesCurrency("insurance_charges_currency")
                                             .noShowIndicator(
                                                 Transaction.Source.CardRefund.PurchaseDetails
@@ -935,23 +935,23 @@ class TransactionTest {
                                                     .NoShowIndicator
                                                     .NOT_APPLICABLE
                                             )
-                                            .oneWayDropOffChargesAmount(123L)
+                                            .oneWayDropOffChargesAmount(0L)
                                             .oneWayDropOffChargesCurrency(
                                                 "one_way_drop_off_charges_currency"
                                             )
                                             .renterName("renter_name")
-                                            .weeklyRentalRateAmount(123L)
+                                            .weeklyRentalRateAmount(0L)
                                             .weeklyRentalRateCurrency("weekly_rental_rate_currency")
                                             .build()
                                     )
                                     .customerReferenceIdentifier("customer_reference_identifier")
-                                    .localTaxAmount(123L)
+                                    .localTaxAmount(0L)
                                     .localTaxCurrency("local_tax_currency")
                                     .lodging(
                                         Transaction.Source.CardRefund.PurchaseDetails.Lodging
                                             .builder()
                                             .checkInDate(LocalDate.parse("2019-12-27"))
-                                            .dailyRoomRateAmount(123L)
+                                            .dailyRoomRateAmount(0L)
                                             .dailyRoomRateCurrency("daily_room_rate_currency")
                                             .extraCharges(
                                                 Transaction.Source.CardRefund.PurchaseDetails
@@ -959,11 +959,11 @@ class TransactionTest {
                                                     .ExtraCharges
                                                     .NO_EXTRA_CHARGE
                                             )
-                                            .folioCashAdvancesAmount(123L)
+                                            .folioCashAdvancesAmount(0L)
                                             .folioCashAdvancesCurrency(
                                                 "folio_cash_advances_currency"
                                             )
-                                            .foodBeverageChargesAmount(123L)
+                                            .foodBeverageChargesAmount(0L)
                                             .foodBeverageChargesCurrency(
                                                 "food_beverage_charges_currency"
                                             )
@@ -973,16 +973,16 @@ class TransactionTest {
                                                     .NoShowIndicator
                                                     .NOT_APPLICABLE
                                             )
-                                            .prepaidExpensesAmount(123L)
+                                            .prepaidExpensesAmount(0L)
                                             .prepaidExpensesCurrency("prepaid_expenses_currency")
-                                            .roomNights(123L)
-                                            .totalRoomTaxAmount(123L)
+                                            .roomNights(0L)
+                                            .totalRoomTaxAmount(0L)
                                             .totalRoomTaxCurrency("total_room_tax_currency")
-                                            .totalTaxAmount(123L)
+                                            .totalTaxAmount(0L)
                                             .totalTaxCurrency("total_tax_currency")
                                             .build()
                                     )
-                                    .nationalTaxAmount(123L)
+                                    .nationalTaxAmount(0L)
                                     .nationalTaxCurrency("national_tax_currency")
                                     .purchaseIdentifier("purchase_identifier")
                                     .purchaseIdentifierFormat(
@@ -1095,7 +1095,7 @@ class TransactionTest {
                     )
                     .cardRevenuePayment(
                         Transaction.Source.CardRevenuePayment.builder()
-                            .amount(123L)
+                            .amount(0L)
                             .currency(Transaction.Source.CardRevenuePayment.Currency.CAD)
                             .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -1105,7 +1105,7 @@ class TransactionTest {
                     .cardSettlement(
                         Transaction.Source.CardSettlement.builder()
                             .id("id")
-                            .amount(123L)
+                            .amount(0L)
                             .cardAuthorization("card_authorization")
                             .cardPaymentId("card_payment_id")
                             .currency(Transaction.Source.CardSettlement.Currency.CAD)
@@ -1133,7 +1133,7 @@ class TransactionTest {
                                     .build()
                             )
                             .pendingTransactionId("pending_transaction_id")
-                            .presentmentAmount(123L)
+                            .presentmentAmount(0L)
                             .presentmentCurrency("presentment_currency")
                             .purchaseDetails(
                                 Transaction.Source.CardSettlement.PurchaseDetails.builder()
@@ -1142,18 +1142,18 @@ class TransactionTest {
                                             .builder()
                                             .carClassCode("car_class_code")
                                             .checkoutDate(LocalDate.parse("2019-12-27"))
-                                            .dailyRentalRateAmount(123L)
+                                            .dailyRentalRateAmount(0L)
                                             .dailyRentalRateCurrency("daily_rental_rate_currency")
-                                            .daysRented(123L)
+                                            .daysRented(0L)
                                             .extraCharges(
                                                 Transaction.Source.CardSettlement.PurchaseDetails
                                                     .CarRental
                                                     .ExtraCharges
                                                     .NO_EXTRA_CHARGE
                                             )
-                                            .fuelChargesAmount(123L)
+                                            .fuelChargesAmount(0L)
                                             .fuelChargesCurrency("fuel_charges_currency")
-                                            .insuranceChargesAmount(123L)
+                                            .insuranceChargesAmount(0L)
                                             .insuranceChargesCurrency("insurance_charges_currency")
                                             .noShowIndicator(
                                                 Transaction.Source.CardSettlement.PurchaseDetails
@@ -1161,23 +1161,23 @@ class TransactionTest {
                                                     .NoShowIndicator
                                                     .NOT_APPLICABLE
                                             )
-                                            .oneWayDropOffChargesAmount(123L)
+                                            .oneWayDropOffChargesAmount(0L)
                                             .oneWayDropOffChargesCurrency(
                                                 "one_way_drop_off_charges_currency"
                                             )
                                             .renterName("renter_name")
-                                            .weeklyRentalRateAmount(123L)
+                                            .weeklyRentalRateAmount(0L)
                                             .weeklyRentalRateCurrency("weekly_rental_rate_currency")
                                             .build()
                                     )
                                     .customerReferenceIdentifier("customer_reference_identifier")
-                                    .localTaxAmount(123L)
+                                    .localTaxAmount(0L)
                                     .localTaxCurrency("local_tax_currency")
                                     .lodging(
                                         Transaction.Source.CardSettlement.PurchaseDetails.Lodging
                                             .builder()
                                             .checkInDate(LocalDate.parse("2019-12-27"))
-                                            .dailyRoomRateAmount(123L)
+                                            .dailyRoomRateAmount(0L)
                                             .dailyRoomRateCurrency("daily_room_rate_currency")
                                             .extraCharges(
                                                 Transaction.Source.CardSettlement.PurchaseDetails
@@ -1185,11 +1185,11 @@ class TransactionTest {
                                                     .ExtraCharges
                                                     .NO_EXTRA_CHARGE
                                             )
-                                            .folioCashAdvancesAmount(123L)
+                                            .folioCashAdvancesAmount(0L)
                                             .folioCashAdvancesCurrency(
                                                 "folio_cash_advances_currency"
                                             )
-                                            .foodBeverageChargesAmount(123L)
+                                            .foodBeverageChargesAmount(0L)
                                             .foodBeverageChargesCurrency(
                                                 "food_beverage_charges_currency"
                                             )
@@ -1199,16 +1199,16 @@ class TransactionTest {
                                                     .NoShowIndicator
                                                     .NOT_APPLICABLE
                                             )
-                                            .prepaidExpensesAmount(123L)
+                                            .prepaidExpensesAmount(0L)
                                             .prepaidExpensesCurrency("prepaid_expenses_currency")
-                                            .roomNights(123L)
-                                            .totalRoomTaxAmount(123L)
+                                            .roomNights(0L)
+                                            .totalRoomTaxAmount(0L)
                                             .totalRoomTaxCurrency("total_room_tax_currency")
-                                            .totalTaxAmount(123L)
+                                            .totalTaxAmount(0L)
                                             .totalTaxCurrency("total_tax_currency")
                                             .build()
                                     )
-                                    .nationalTaxAmount(123L)
+                                    .nationalTaxAmount(0L)
                                     .nationalTaxCurrency("national_tax_currency")
                                     .purchaseIdentifier("purchase_identifier")
                                     .purchaseIdentifierFormat(
@@ -1328,7 +1328,7 @@ class TransactionTest {
                     .cashbackPayment(
                         Transaction.Source.CashbackPayment.builder()
                             .accruedOnCardId("accrued_on_card_id")
-                            .amount(123L)
+                            .amount(0L)
                             .currency(Transaction.Source.CashbackPayment.Currency.CAD)
                             .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -1338,7 +1338,7 @@ class TransactionTest {
                     .checkDepositAcceptance(
                         Transaction.Source.CheckDepositAcceptance.builder()
                             .accountNumber("account_number")
-                            .amount(123L)
+                            .amount(0L)
                             .auxiliaryOnUs("auxiliary_on_us")
                             .checkDepositId("check_deposit_id")
                             .currency(Transaction.Source.CheckDepositAcceptance.Currency.CAD)
@@ -1348,7 +1348,7 @@ class TransactionTest {
                     )
                     .checkDepositReturn(
                         Transaction.Source.CheckDepositReturn.builder()
-                            .amount(123L)
+                            .amount(0L)
                             .checkDepositId("check_deposit_id")
                             .currency(Transaction.Source.CheckDepositReturn.Currency.CAD)
                             .returnReason(
@@ -1375,7 +1375,7 @@ class TransactionTest {
                     )
                     .feePayment(
                         Transaction.Source.FeePayment.builder()
-                            .amount(123L)
+                            .amount(0L)
                             .currency(Transaction.Source.FeePayment.Currency.CAD)
                             .feePeriodStart(LocalDate.parse("2019-12-27"))
                             .programId("program_id")
@@ -1408,7 +1408,7 @@ class TransactionTest {
                                     )
                                     .build()
                             )
-                            .amount(123L)
+                            .amount(0L)
                             .originatorCompanyDescriptiveDate("originator_company_descriptive_date")
                             .originatorCompanyDiscretionaryData(
                                 "originator_company_discretionary_data"
@@ -1426,7 +1426,7 @@ class TransactionTest {
                     )
                     .inboundRealTimePaymentsTransferConfirmation(
                         Transaction.Source.InboundRealTimePaymentsTransferConfirmation.builder()
-                            .amount(123L)
+                            .amount(0L)
                             .creditorName("creditor_name")
                             .currency(
                                 Transaction.Source.InboundRealTimePaymentsTransferConfirmation
@@ -1443,7 +1443,7 @@ class TransactionTest {
                     )
                     .inboundRealTimePaymentsTransferDecline(
                         Transaction.Source.InboundRealTimePaymentsTransferDecline.builder()
-                            .amount(123L)
+                            .amount(0L)
                             .creditorName("creditor_name")
                             .currency(
                                 Transaction.Source.InboundRealTimePaymentsTransferDecline.Currency
@@ -1463,7 +1463,7 @@ class TransactionTest {
                     )
                     .inboundWireReversal(
                         Transaction.Source.InboundWireReversal.builder()
-                            .amount(123L)
+                            .amount(0L)
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .description("description")
                             .financialInstitutionToFinancialInstitutionInformation(
@@ -1492,7 +1492,7 @@ class TransactionTest {
                     )
                     .inboundWireTransfer(
                         Transaction.Source.InboundWireTransfer.builder()
-                            .amount(123L)
+                            .amount(0L)
                             .beneficiaryAddressLine1("beneficiary_address_line1")
                             .beneficiaryAddressLine2("beneficiary_address_line2")
                             .beneficiaryAddressLine3("beneficiary_address_line3")
@@ -1526,7 +1526,7 @@ class TransactionTest {
                     .interestPayment(
                         Transaction.Source.InterestPayment.builder()
                             .accruedOnAccountId("accrued_on_account_id")
-                            .amount(123L)
+                            .amount(0L)
                             .currency(Transaction.Source.InterestPayment.Currency.CAD)
                             .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -1534,7 +1534,7 @@ class TransactionTest {
                     )
                     .internalSource(
                         Transaction.Source.InternalSource.builder()
-                            .amount(123L)
+                            .amount(0L)
                             .currency(Transaction.Source.InternalSource.Currency.CAD)
                             .reason(Transaction.Source.InternalSource.Reason.ACCOUNT_CLOSURE)
                             .build()
@@ -1542,7 +1542,7 @@ class TransactionTest {
                     .other(JsonNull.of())
                     .realTimePaymentsTransferAcknowledgement(
                         Transaction.Source.RealTimePaymentsTransferAcknowledgement.builder()
-                            .amount(123L)
+                            .amount(0L)
                             .destinationAccountNumber("destination_account_number")
                             .destinationRoutingNumber("destination_routing_number")
                             .remittanceInformation("remittance_information")
@@ -1555,7 +1555,7 @@ class TransactionTest {
                     .wireTransferIntention(
                         Transaction.Source.WireTransferIntention.builder()
                             .accountNumber("account_number")
-                            .amount(123L)
+                            .amount(0L)
                             .messageToRecipient("message_to_recipient")
                             .routingNumber("routing_number")
                             .transferId("transfer_id")

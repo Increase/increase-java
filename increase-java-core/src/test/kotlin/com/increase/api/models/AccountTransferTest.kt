@@ -14,7 +14,7 @@ class AccountTransferTest {
             AccountTransfer.builder()
                 .id("id")
                 .accountId("account_id")
-                .amount(123L)
+                .amount(0L)
                 .approval(
                     AccountTransfer.Approval.builder()
                         .approvedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -58,7 +58,7 @@ class AccountTransferTest {
         assertThat(accountTransfer).isNotNull
         assertThat(accountTransfer.id()).isEqualTo("id")
         assertThat(accountTransfer.accountId()).isEqualTo("account_id")
-        assertThat(accountTransfer.amount()).isEqualTo(123L)
+        assertThat(accountTransfer.amount()).isEqualTo(0L)
         assertThat(accountTransfer.approval())
             .contains(
                 AccountTransfer.Approval.builder()

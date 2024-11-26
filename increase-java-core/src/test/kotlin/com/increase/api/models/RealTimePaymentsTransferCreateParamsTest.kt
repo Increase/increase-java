@@ -11,7 +11,7 @@ class RealTimePaymentsTransferCreateParamsTest {
     @Test
     fun createRealTimePaymentsTransferCreateParams() {
         RealTimePaymentsTransferCreateParams.builder()
-            .amount(123L)
+            .amount(1L)
             .creditorName("x")
             .remittanceInformation("x")
             .sourceAccountNumberId("source_account_number_id")
@@ -29,7 +29,7 @@ class RealTimePaymentsTransferCreateParamsTest {
     fun getBody() {
         val params =
             RealTimePaymentsTransferCreateParams.builder()
-                .amount(123L)
+                .amount(1L)
                 .creditorName("x")
                 .remittanceInformation("x")
                 .sourceAccountNumberId("source_account_number_id")
@@ -43,7 +43,7 @@ class RealTimePaymentsTransferCreateParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.amount()).isEqualTo(1L)
         assertThat(body.creditorName()).isEqualTo("x")
         assertThat(body.remittanceInformation()).isEqualTo("x")
         assertThat(body.sourceAccountNumberId()).isEqualTo("source_account_number_id")
@@ -60,14 +60,14 @@ class RealTimePaymentsTransferCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             RealTimePaymentsTransferCreateParams.builder()
-                .amount(123L)
+                .amount(1L)
                 .creditorName("x")
                 .remittanceInformation("x")
                 .sourceAccountNumberId("source_account_number_id")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.amount()).isEqualTo(1L)
         assertThat(body.creditorName()).isEqualTo("x")
         assertThat(body.remittanceInformation()).isEqualTo("x")
         assertThat(body.sourceAccountNumberId()).isEqualTo("source_account_number_id")

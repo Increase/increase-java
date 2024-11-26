@@ -21,9 +21,9 @@ class DigitalCardProfileCreateParamsTest {
             .contactWebsite("contact_website")
             .textColor(
                 DigitalCardProfileCreateParams.TextColor.builder()
-                    .blue(123L)
-                    .green(123L)
-                    .red(123L)
+                    .blue(0L)
+                    .green(0L)
+                    .red(0L)
                     .build()
             )
             .build()
@@ -43,9 +43,9 @@ class DigitalCardProfileCreateParamsTest {
                 .contactWebsite("contact_website")
                 .textColor(
                     DigitalCardProfileCreateParams.TextColor.builder()
-                        .blue(123L)
-                        .green(123L)
-                        .red(123L)
+                        .blue(0L)
+                        .green(0L)
+                        .red(0L)
                         .build()
                 )
                 .build()
@@ -62,9 +62,9 @@ class DigitalCardProfileCreateParamsTest {
         assertThat(body.textColor())
             .isEqualTo(
                 DigitalCardProfileCreateParams.TextColor.builder()
-                    .blue(123L)
-                    .green(123L)
-                    .red(123L)
+                    .blue(0L)
+                    .green(0L)
+                    .red(0L)
                     .build()
             )
     }

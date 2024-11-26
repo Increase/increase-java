@@ -24,7 +24,7 @@ class WireDrawdownRequestServiceTest {
             wireDrawdownRequestService.create(
                 WireDrawdownRequestCreateParams.builder()
                     .accountNumberId("account_number_id")
-                    .amount(123L)
+                    .amount(1L)
                     .messageToRecipient("x")
                     .recipientAccountNumber("x")
                     .recipientName("x")

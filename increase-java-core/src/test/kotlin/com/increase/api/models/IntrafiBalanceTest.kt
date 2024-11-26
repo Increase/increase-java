@@ -17,7 +17,7 @@ class IntrafiBalanceTest {
                     listOf(
                         IntrafiBalance.Balance.builder()
                             .id("id")
-                            .balance(123L)
+                            .balance(0L)
                             .bank("bank")
                             .bankLocation(
                                 IntrafiBalance.Balance.BankLocation.builder()
@@ -31,7 +31,7 @@ class IntrafiBalanceTest {
                 )
                 .currency(IntrafiBalance.Currency.CAD)
                 .effectiveDate(LocalDate.parse("2019-12-27"))
-                .totalBalance(123L)
+                .totalBalance(0L)
                 .type(IntrafiBalance.Type.INTRAFI_BALANCE)
                 .build()
         assertThat(intrafiBalance).isNotNull
@@ -40,7 +40,7 @@ class IntrafiBalanceTest {
             .containsExactly(
                 IntrafiBalance.Balance.builder()
                     .id("id")
-                    .balance(123L)
+                    .balance(0L)
                     .bank("bank")
                     .bankLocation(
                         IntrafiBalance.Balance.BankLocation.builder()
@@ -53,7 +53,7 @@ class IntrafiBalanceTest {
             )
         assertThat(intrafiBalance.currency()).isEqualTo(IntrafiBalance.Currency.CAD)
         assertThat(intrafiBalance.effectiveDate()).isEqualTo(LocalDate.parse("2019-12-27"))
-        assertThat(intrafiBalance.totalBalance()).isEqualTo(123L)
+        assertThat(intrafiBalance.totalBalance()).isEqualTo(0L)
         assertThat(intrafiBalance.type()).isEqualTo(IntrafiBalance.Type.INTRAFI_BALANCE)
     }
 }

@@ -22,7 +22,7 @@ class CardAuthorizationServiceTest {
         val simulationCardAuthorizationCreateResponse =
             cardAuthorizationService.create(
                 SimulationCardAuthorizationCreateParams.builder()
-                    .amount(123L)
+                    .amount(1L)
                     .authenticatedCardPaymentId("authenticated_card_payment_id")
                     .cardId("card_id")
                     .declineReason(

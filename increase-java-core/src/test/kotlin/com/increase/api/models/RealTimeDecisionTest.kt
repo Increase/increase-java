@@ -78,9 +78,9 @@ class RealTimeDecisionTest {
                                 .transactionId("transaction_id")
                                 .build()
                         )
-                        .networkRiskScore(123L)
+                        .networkRiskScore(0L)
                         .physicalCardId("physical_card_id")
-                        .presentmentAmount(123L)
+                        .presentmentAmount(0L)
                         .presentmentCurrency("presentment_currency")
                         .processingCategory(
                             RealTimeDecision.CardAuthorization.ProcessingCategory.ACCOUNT_FUNDING
@@ -104,7 +104,7 @@ class RealTimeDecisionTest {
                                 .initialAuthorization(JsonNull.of())
                                 .build()
                         )
-                        .settlementAmount(123L)
+                        .settlementAmount(0L)
                         .settlementCurrency("settlement_currency")
                         .terminalId("terminal_id")
                         .upcomingCardPaymentId("upcoming_card_payment_id")
@@ -238,9 +238,9 @@ class RealTimeDecisionTest {
                             .transactionId("transaction_id")
                             .build()
                     )
-                    .networkRiskScore(123L)
+                    .networkRiskScore(0L)
                     .physicalCardId("physical_card_id")
-                    .presentmentAmount(123L)
+                    .presentmentAmount(0L)
                     .presentmentCurrency("presentment_currency")
                     .processingCategory(
                         RealTimeDecision.CardAuthorization.ProcessingCategory.ACCOUNT_FUNDING
@@ -262,7 +262,7 @@ class RealTimeDecisionTest {
                             .initialAuthorization(JsonNull.of())
                             .build()
                     )
-                    .settlementAmount(123L)
+                    .settlementAmount(0L)
                     .settlementCurrency("settlement_currency")
                     .terminalId("terminal_id")
                     .upcomingCardPaymentId("upcoming_card_payment_id")

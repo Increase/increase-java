@@ -24,7 +24,7 @@ class AccountTransferServiceTest {
             accountTransferService.create(
                 AccountTransferCreateParams.builder()
                     .accountId("account_id")
-                    .amount(123L)
+                    .amount(1L)
                     .description("x")
                     .destinationAccountId("destination_account_id")
                     .requireApproval(true)

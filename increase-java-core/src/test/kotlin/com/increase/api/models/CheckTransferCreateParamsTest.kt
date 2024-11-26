@@ -12,7 +12,7 @@ class CheckTransferCreateParamsTest {
     fun createCheckTransferCreateParams() {
         CheckTransferCreateParams.builder()
             .accountId("account_id")
-            .amount(123L)
+            .amount(1L)
             .sourceAccountNumberId("source_account_number_id")
             .fulfillmentMethod(CheckTransferCreateParams.FulfillmentMethod.PHYSICAL_CHECK)
             .physicalCheck(
@@ -53,7 +53,7 @@ class CheckTransferCreateParamsTest {
         val params =
             CheckTransferCreateParams.builder()
                 .accountId("account_id")
-                .amount(123L)
+                .amount(1L)
                 .sourceAccountNumberId("source_account_number_id")
                 .fulfillmentMethod(CheckTransferCreateParams.FulfillmentMethod.PHYSICAL_CHECK)
                 .physicalCheck(
@@ -90,7 +90,7 @@ class CheckTransferCreateParamsTest {
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("account_id")
-        assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.amount()).isEqualTo(1L)
         assertThat(body.sourceAccountNumberId()).isEqualTo("source_account_number_id")
         assertThat(body.fulfillmentMethod())
             .isEqualTo(CheckTransferCreateParams.FulfillmentMethod.PHYSICAL_CHECK)
@@ -133,13 +133,13 @@ class CheckTransferCreateParamsTest {
         val params =
             CheckTransferCreateParams.builder()
                 .accountId("account_id")
-                .amount(123L)
+                .amount(1L)
                 .sourceAccountNumberId("source_account_number_id")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("account_id")
-        assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.amount()).isEqualTo(1L)
         assertThat(body.sourceAccountNumberId()).isEqualTo("source_account_number_id")
     }
 }

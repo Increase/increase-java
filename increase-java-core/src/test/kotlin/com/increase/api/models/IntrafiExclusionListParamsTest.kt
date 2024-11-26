@@ -15,7 +15,7 @@ class IntrafiExclusionListParamsTest {
             .cursor("cursor")
             .entityId("entity_id")
             .idempotencyKey("x")
-            .limit(123L)
+            .limit(1L)
             .build()
     }
 
@@ -26,13 +26,13 @@ class IntrafiExclusionListParamsTest {
                 .cursor("cursor")
                 .entityId("entity_id")
                 .idempotencyKey("x")
-                .limit(123L)
+                .limit(1L)
                 .build()
         val expected = QueryParams.builder()
         expected.put("cursor", "cursor")
         expected.put("entity_id", "entity_id")
         expected.put("idempotency_key", "x")
-        expected.put("limit", "123")
+        expected.put("limit", "1")
         assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 

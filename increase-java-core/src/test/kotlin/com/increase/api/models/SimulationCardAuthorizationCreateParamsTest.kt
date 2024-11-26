@@ -11,7 +11,7 @@ class SimulationCardAuthorizationCreateParamsTest {
     @Test
     fun createSimulationCardAuthorizationCreateParams() {
         SimulationCardAuthorizationCreateParams.builder()
-            .amount(123L)
+            .amount(1L)
             .authenticatedCardPaymentId("authenticated_card_payment_id")
             .cardId("card_id")
             .declineReason(SimulationCardAuthorizationCreateParams.DeclineReason.CARD_NOT_ACTIVE)
@@ -33,7 +33,7 @@ class SimulationCardAuthorizationCreateParamsTest {
     fun getBody() {
         val params =
             SimulationCardAuthorizationCreateParams.builder()
-                .amount(123L)
+                .amount(1L)
                 .authenticatedCardPaymentId("authenticated_card_payment_id")
                 .cardId("card_id")
                 .declineReason(
@@ -53,7 +53,7 @@ class SimulationCardAuthorizationCreateParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.amount()).isEqualTo(1L)
         assertThat(body.authenticatedCardPaymentId()).isEqualTo("authenticated_card_payment_id")
         assertThat(body.cardId()).isEqualTo("card_id")
         assertThat(body.declineReason())
@@ -74,9 +74,9 @@ class SimulationCardAuthorizationCreateParamsTest {
 
     @Test
     fun getBodyWithoutOptionalFields() {
-        val params = SimulationCardAuthorizationCreateParams.builder().amount(123L).build()
+        val params = SimulationCardAuthorizationCreateParams.builder().amount(1L).build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.amount()).isEqualTo(1L)
     }
 }

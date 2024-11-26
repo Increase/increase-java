@@ -13,7 +13,7 @@ class SimulationInterestPaymentCreateParamsTest {
     fun createSimulationInterestPaymentCreateParams() {
         SimulationInterestPaymentCreateParams.builder()
             .accountId("account_id")
-            .amount(123L)
+            .amount(1L)
             .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .build()
@@ -24,14 +24,14 @@ class SimulationInterestPaymentCreateParamsTest {
         val params =
             SimulationInterestPaymentCreateParams.builder()
                 .accountId("account_id")
-                .amount(123L)
+                .amount(1L)
                 .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("account_id")
-        assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.amount()).isEqualTo(1L)
         assertThat(body.periodEnd()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(body.periodStart()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
     }
@@ -41,11 +41,11 @@ class SimulationInterestPaymentCreateParamsTest {
         val params =
             SimulationInterestPaymentCreateParams.builder()
                 .accountId("account_id")
-                .amount(123L)
+                .amount(1L)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("account_id")
-        assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.amount()).isEqualTo(1L)
     }
 }
