@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.156.0 (2024-11-26)
+
+Full Changelog: [v0.155.0...v0.156.0](https://github.com/Increase/increase-java/compare/v0.155.0...v0.156.0)
+
+### Features
+
+* **api:** api update ([#638](https://github.com/Increase/increase-java/issues/638)) ([f3e4594](https://github.com/Increase/increase-java/commit/f3e4594dc220ea7a4c9761315db48df155129d23))
+* **client:** add logging when debug env is set ([#635](https://github.com/Increase/increase-java/issues/635)) ([aaa5b9b](https://github.com/Increase/increase-java/commit/aaa5b9b4eaee2e1be3f7cd2b1589e984fd3987fb))
+* derive gpg release key's id via gpg itself ([#640](https://github.com/Increase/increase-java/issues/640)) ([c96d761](https://github.com/Increase/increase-java/commit/c96d761ce198292b198f11eed9a6c68d986dff47))
+
+
+### Chores
+
+* **internal:** codegen related update ([#633](https://github.com/Increase/increase-java/issues/633)) ([36e102f](https://github.com/Increase/increase-java/commit/36e102f7df19d1c4d4739db4734694ffac1810d4))
+* **internal:** update example values ([#639](https://github.com/Increase/increase-java/issues/639)) ([ee613c7](https://github.com/Increase/increase-java/commit/ee613c7cd0bde53f2eb0c0dd65dcca3942b5659c))
+* publish to maven central portal ([#637](https://github.com/Increase/increase-java/issues/637)) ([eb76c9d](https://github.com/Increase/increase-java/commit/eb76c9d4648b83262104b637fc5fcacb54056e38))
+
 ## 0.155.0 (2024-11-22)
 
 Full Changelog: [v0.154.0...v0.155.0](https://github.com/Increase/increase-java/compare/v0.154.0...v0.155.0)
