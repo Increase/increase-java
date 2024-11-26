@@ -13,7 +13,7 @@ class InboundWireDrawdownRequestTest {
         val inboundWireDrawdownRequest =
             InboundWireDrawdownRequest.builder()
                 .id("id")
-                .amount(123L)
+                .amount(0L)
                 .beneficiaryAccountNumber("beneficiary_account_number")
                 .beneficiaryAddressLine1("beneficiary_address_line1")
                 .beneficiaryAddressLine2("beneficiary_address_line2")
@@ -46,7 +46,7 @@ class InboundWireDrawdownRequestTest {
                 .build()
         assertThat(inboundWireDrawdownRequest).isNotNull
         assertThat(inboundWireDrawdownRequest.id()).isEqualTo("id")
-        assertThat(inboundWireDrawdownRequest.amount()).isEqualTo(123L)
+        assertThat(inboundWireDrawdownRequest.amount()).isEqualTo(0L)
         assertThat(inboundWireDrawdownRequest.beneficiaryAccountNumber())
             .isEqualTo("beneficiary_account_number")
         assertThat(inboundWireDrawdownRequest.beneficiaryAddressLine1())

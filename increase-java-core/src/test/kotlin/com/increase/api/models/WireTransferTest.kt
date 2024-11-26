@@ -16,7 +16,7 @@ class WireTransferTest {
                 .id("id")
                 .accountId("account_id")
                 .accountNumber("account_number")
-                .amount(123L)
+                .amount(0L)
                 .approval(
                     WireTransfer.Approval.builder()
                         .approvedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -60,7 +60,7 @@ class WireTransferTest {
                 .pendingTransactionId("pending_transaction_id")
                 .reversal(
                     WireTransfer.Reversal.builder()
-                        .amount(123L)
+                        .amount(0L)
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .description("description")
                         .financialInstitutionToFinancialInstitutionInformation(
@@ -103,7 +103,7 @@ class WireTransferTest {
         assertThat(wireTransfer.id()).isEqualTo("id")
         assertThat(wireTransfer.accountId()).isEqualTo("account_id")
         assertThat(wireTransfer.accountNumber()).isEqualTo("account_number")
-        assertThat(wireTransfer.amount()).isEqualTo(123L)
+        assertThat(wireTransfer.amount()).isEqualTo(0L)
         assertThat(wireTransfer.approval())
             .contains(
                 WireTransfer.Approval.builder()
@@ -150,7 +150,7 @@ class WireTransferTest {
         assertThat(wireTransfer.reversal())
             .contains(
                 WireTransfer.Reversal.builder()
-                    .amount(123L)
+                    .amount(0L)
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .description("description")
                     .financialInstitutionToFinancialInstitutionInformation(

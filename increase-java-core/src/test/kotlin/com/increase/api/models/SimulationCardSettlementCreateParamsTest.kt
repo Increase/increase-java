@@ -13,7 +13,7 @@ class SimulationCardSettlementCreateParamsTest {
         SimulationCardSettlementCreateParams.builder()
             .cardId("card_id")
             .pendingTransactionId("pending_transaction_id")
-            .amount(123L)
+            .amount(1L)
             .build()
     }
 
@@ -23,13 +23,13 @@ class SimulationCardSettlementCreateParamsTest {
             SimulationCardSettlementCreateParams.builder()
                 .cardId("card_id")
                 .pendingTransactionId("pending_transaction_id")
-                .amount(123L)
+                .amount(1L)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.cardId()).isEqualTo("card_id")
         assertThat(body.pendingTransactionId()).isEqualTo("pending_transaction_id")
-        assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.amount()).isEqualTo(1L)
     }
 
     @Test

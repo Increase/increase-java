@@ -14,7 +14,7 @@ class RealTimePaymentsRequestForPaymentTest {
         val realTimePaymentsRequestForPayment =
             RealTimePaymentsRequestForPayment.builder()
                 .id("id")
-                .amount(123L)
+                .amount(0L)
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .currency(RealTimePaymentsRequestForPayment.Currency.CAD)
                 .debtorName("debtor_name")
@@ -51,7 +51,7 @@ class RealTimePaymentsRequestForPaymentTest {
                 .build()
         assertThat(realTimePaymentsRequestForPayment).isNotNull
         assertThat(realTimePaymentsRequestForPayment.id()).isEqualTo("id")
-        assertThat(realTimePaymentsRequestForPayment.amount()).isEqualTo(123L)
+        assertThat(realTimePaymentsRequestForPayment.amount()).isEqualTo(0L)
         assertThat(realTimePaymentsRequestForPayment.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(realTimePaymentsRequestForPayment.currency())

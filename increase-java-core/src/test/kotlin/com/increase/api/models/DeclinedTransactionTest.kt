@@ -15,7 +15,7 @@ class DeclinedTransactionTest {
             DeclinedTransaction.builder()
                 .id("id")
                 .accountId("account_id")
-                .amount(123L)
+                .amount(0L)
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .currency(DeclinedTransaction.Currency.CAD)
                 .description("description")
@@ -26,7 +26,7 @@ class DeclinedTransactionTest {
                         .achDecline(
                             DeclinedTransaction.Source.AchDecline.builder()
                                 .id("id")
-                                .amount(123L)
+                                .amount(0L)
                                 .inboundAchTransferId("inbound_ach_transfer_id")
                                 .originatorCompanyDescriptiveDate(
                                     "originator_company_descriptive_date"
@@ -49,7 +49,7 @@ class DeclinedTransactionTest {
                             DeclinedTransaction.Source.CardDecline.builder()
                                 .id("id")
                                 .actioner(DeclinedTransaction.Source.CardDecline.Actioner.USER)
-                                .amount(123L)
+                                .amount(0L)
                                 .cardPaymentId("card_payment_id")
                                 .currency(DeclinedTransaction.Source.CardDecline.Currency.CAD)
                                 .declinedTransactionId("declined_transaction_id")
@@ -108,9 +108,9 @@ class DeclinedTransactionTest {
                                         .transactionId("transaction_id")
                                         .build()
                                 )
-                                .networkRiskScore(123L)
+                                .networkRiskScore(0L)
                                 .physicalCardId("physical_card_id")
-                                .presentmentAmount(123L)
+                                .presentmentAmount(0L)
                                 .presentmentCurrency("presentment_currency")
                                 .processingCategory(
                                     DeclinedTransaction.Source.CardDecline.ProcessingCategory
@@ -164,7 +164,7 @@ class DeclinedTransactionTest {
                         .category(DeclinedTransaction.Source.Category.ACH_DECLINE)
                         .checkDecline(
                             DeclinedTransaction.Source.CheckDecline.builder()
-                                .amount(123L)
+                                .amount(0L)
                                 .auxiliaryOnUs("auxiliary_on_us")
                                 .backImageFileId("back_image_file_id")
                                 .checkTransferId("check_transfer_id")
@@ -178,7 +178,7 @@ class DeclinedTransactionTest {
                         )
                         .checkDepositRejection(
                             DeclinedTransaction.Source.CheckDepositRejection.builder()
-                                .amount(123L)
+                                .amount(0L)
                                 .checkDepositId("check_deposit_id")
                                 .currency(
                                     DeclinedTransaction.Source.CheckDepositRejection.Currency.CAD
@@ -194,7 +194,7 @@ class DeclinedTransactionTest {
                         .inboundRealTimePaymentsTransferDecline(
                             DeclinedTransaction.Source.InboundRealTimePaymentsTransferDecline
                                 .builder()
-                                .amount(123L)
+                                .amount(0L)
                                 .creditorName("creditor_name")
                                 .currency(
                                     DeclinedTransaction.Source
@@ -233,7 +233,7 @@ class DeclinedTransactionTest {
         assertThat(declinedTransaction).isNotNull
         assertThat(declinedTransaction.id()).isEqualTo("id")
         assertThat(declinedTransaction.accountId()).isEqualTo("account_id")
-        assertThat(declinedTransaction.amount()).isEqualTo(123L)
+        assertThat(declinedTransaction.amount()).isEqualTo(0L)
         assertThat(declinedTransaction.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(declinedTransaction.currency()).isEqualTo(DeclinedTransaction.Currency.CAD)
@@ -247,7 +247,7 @@ class DeclinedTransactionTest {
                     .achDecline(
                         DeclinedTransaction.Source.AchDecline.builder()
                             .id("id")
-                            .amount(123L)
+                            .amount(0L)
                             .inboundAchTransferId("inbound_ach_transfer_id")
                             .originatorCompanyDescriptiveDate("originator_company_descriptive_date")
                             .originatorCompanyDiscretionaryData(
@@ -266,7 +266,7 @@ class DeclinedTransactionTest {
                         DeclinedTransaction.Source.CardDecline.builder()
                             .id("id")
                             .actioner(DeclinedTransaction.Source.CardDecline.Actioner.USER)
-                            .amount(123L)
+                            .amount(0L)
                             .cardPaymentId("card_payment_id")
                             .currency(DeclinedTransaction.Source.CardDecline.Currency.CAD)
                             .declinedTransactionId("declined_transaction_id")
@@ -321,9 +321,9 @@ class DeclinedTransactionTest {
                                     .transactionId("transaction_id")
                                     .build()
                             )
-                            .networkRiskScore(123L)
+                            .networkRiskScore(0L)
                             .physicalCardId("physical_card_id")
-                            .presentmentAmount(123L)
+                            .presentmentAmount(0L)
                             .presentmentCurrency("presentment_currency")
                             .processingCategory(
                                 DeclinedTransaction.Source.CardDecline.ProcessingCategory
@@ -373,7 +373,7 @@ class DeclinedTransactionTest {
                     .category(DeclinedTransaction.Source.Category.ACH_DECLINE)
                     .checkDecline(
                         DeclinedTransaction.Source.CheckDecline.builder()
-                            .amount(123L)
+                            .amount(0L)
                             .auxiliaryOnUs("auxiliary_on_us")
                             .backImageFileId("back_image_file_id")
                             .checkTransferId("check_transfer_id")
@@ -386,7 +386,7 @@ class DeclinedTransactionTest {
                     )
                     .checkDepositRejection(
                         DeclinedTransaction.Source.CheckDepositRejection.builder()
-                            .amount(123L)
+                            .amount(0L)
                             .checkDepositId("check_deposit_id")
                             .currency(DeclinedTransaction.Source.CheckDepositRejection.Currency.CAD)
                             .declinedTransactionId("declined_transaction_id")
@@ -399,7 +399,7 @@ class DeclinedTransactionTest {
                     )
                     .inboundRealTimePaymentsTransferDecline(
                         DeclinedTransaction.Source.InboundRealTimePaymentsTransferDecline.builder()
-                            .amount(123L)
+                            .amount(0L)
                             .creditorName("creditor_name")
                             .currency(
                                 DeclinedTransaction.Source.InboundRealTimePaymentsTransferDecline

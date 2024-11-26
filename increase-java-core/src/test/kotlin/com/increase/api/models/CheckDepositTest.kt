@@ -14,13 +14,13 @@ class CheckDepositTest {
             CheckDeposit.builder()
                 .id("id")
                 .accountId("account_id")
-                .amount(123L)
+                .amount(0L)
                 .backImageFileId("back_image_file_id")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .depositAcceptance(
                     CheckDeposit.DepositAcceptance.builder()
                         .accountNumber("account_number")
-                        .amount(123L)
+                        .amount(0L)
                         .auxiliaryOnUs("auxiliary_on_us")
                         .checkDepositId("check_deposit_id")
                         .currency(CheckDeposit.DepositAcceptance.Currency.CAD)
@@ -30,7 +30,7 @@ class CheckDepositTest {
                 )
                 .depositRejection(
                     CheckDeposit.DepositRejection.builder()
-                        .amount(123L)
+                        .amount(0L)
                         .checkDepositId("check_deposit_id")
                         .currency(CheckDeposit.DepositRejection.Currency.CAD)
                         .declinedTransactionId("declined_transaction_id")
@@ -40,7 +40,7 @@ class CheckDepositTest {
                 )
                 .depositReturn(
                     CheckDeposit.DepositReturn.builder()
-                        .amount(123L)
+                        .amount(0L)
                         .checkDepositId("check_deposit_id")
                         .currency(CheckDeposit.DepositReturn.Currency.CAD)
                         .returnReason(
@@ -63,7 +63,7 @@ class CheckDepositTest {
                 .inboundFundsHold(
                     CheckDeposit.InboundFundsHold.builder()
                         .id("id")
-                        .amount(123L)
+                        .amount(0L)
                         .automaticallyReleasesAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .currency(CheckDeposit.InboundFundsHold.Currency.CAD)
@@ -83,7 +83,7 @@ class CheckDepositTest {
         assertThat(checkDeposit).isNotNull
         assertThat(checkDeposit.id()).isEqualTo("id")
         assertThat(checkDeposit.accountId()).isEqualTo("account_id")
-        assertThat(checkDeposit.amount()).isEqualTo(123L)
+        assertThat(checkDeposit.amount()).isEqualTo(0L)
         assertThat(checkDeposit.backImageFileId()).contains("back_image_file_id")
         assertThat(checkDeposit.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -91,7 +91,7 @@ class CheckDepositTest {
             .contains(
                 CheckDeposit.DepositAcceptance.builder()
                     .accountNumber("account_number")
-                    .amount(123L)
+                    .amount(0L)
                     .auxiliaryOnUs("auxiliary_on_us")
                     .checkDepositId("check_deposit_id")
                     .currency(CheckDeposit.DepositAcceptance.Currency.CAD)
@@ -102,7 +102,7 @@ class CheckDepositTest {
         assertThat(checkDeposit.depositRejection())
             .contains(
                 CheckDeposit.DepositRejection.builder()
-                    .amount(123L)
+                    .amount(0L)
                     .checkDepositId("check_deposit_id")
                     .currency(CheckDeposit.DepositRejection.Currency.CAD)
                     .declinedTransactionId("declined_transaction_id")
@@ -113,7 +113,7 @@ class CheckDepositTest {
         assertThat(checkDeposit.depositReturn())
             .contains(
                 CheckDeposit.DepositReturn.builder()
-                    .amount(123L)
+                    .amount(0L)
                     .checkDepositId("check_deposit_id")
                     .currency(CheckDeposit.DepositReturn.Currency.CAD)
                     .returnReason(
@@ -138,7 +138,7 @@ class CheckDepositTest {
             .contains(
                 CheckDeposit.InboundFundsHold.builder()
                     .id("id")
-                    .amount(123L)
+                    .amount(0L)
                     .automaticallyReleasesAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .currency(CheckDeposit.InboundFundsHold.Currency.CAD)

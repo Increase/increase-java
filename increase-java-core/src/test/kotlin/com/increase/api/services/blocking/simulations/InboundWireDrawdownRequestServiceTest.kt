@@ -22,7 +22,7 @@ class InboundWireDrawdownRequestServiceTest {
         val inboundWireDrawdownRequest =
             inboundWireDrawdownRequestService.create(
                 SimulationInboundWireDrawdownRequestCreateParams.builder()
-                    .amount(123L)
+                    .amount(0L)
                     .beneficiaryAccountNumber("x")
                     .beneficiaryRoutingNumber("x")
                     .currency("x")

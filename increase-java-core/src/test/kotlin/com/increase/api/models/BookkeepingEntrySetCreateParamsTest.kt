@@ -16,7 +16,7 @@ class BookkeepingEntrySetCreateParamsTest {
                 listOf(
                     BookkeepingEntrySetCreateParams.Entry.builder()
                         .accountId("account_id")
-                        .amount(123L)
+                        .amount(0L)
                         .build()
                 )
             )
@@ -33,7 +33,7 @@ class BookkeepingEntrySetCreateParamsTest {
                     listOf(
                         BookkeepingEntrySetCreateParams.Entry.builder()
                             .accountId("account_id")
-                            .amount(123L)
+                            .amount(0L)
                             .build()
                     )
                 )
@@ -47,7 +47,7 @@ class BookkeepingEntrySetCreateParamsTest {
                 listOf(
                     BookkeepingEntrySetCreateParams.Entry.builder()
                         .accountId("account_id")
-                        .amount(123L)
+                        .amount(0L)
                         .build()
                 )
             )
@@ -63,7 +63,7 @@ class BookkeepingEntrySetCreateParamsTest {
                     listOf(
                         BookkeepingEntrySetCreateParams.Entry.builder()
                             .accountId("account_id")
-                            .amount(123L)
+                            .amount(0L)
                             .build()
                     )
                 )
@@ -75,7 +75,7 @@ class BookkeepingEntrySetCreateParamsTest {
                 listOf(
                     BookkeepingEntrySetCreateParams.Entry.builder()
                         .accountId("account_id")
-                        .amount(123L)
+                        .amount(0L)
                         .build()
                 )
             )

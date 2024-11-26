@@ -28,7 +28,7 @@ class EventListParamsTest {
                     .build()
             )
             .cursor("cursor")
-            .limit(123L)
+            .limit(1L)
             .build()
     }
 
@@ -51,7 +51,7 @@ class EventListParamsTest {
                         .build()
                 )
                 .cursor("cursor")
-                .limit(123L)
+                .limit(1L)
                 .build()
         val expected = QueryParams.builder()
         expected.put("associated_object_id", "associated_object_id")
@@ -67,7 +67,7 @@ class EventListParamsTest {
             .build()
             .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
         expected.put("cursor", "cursor")
-        expected.put("limit", "123")
+        expected.put("limit", "1")
         assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 

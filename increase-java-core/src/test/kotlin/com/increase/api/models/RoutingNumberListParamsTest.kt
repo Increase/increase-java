@@ -14,7 +14,7 @@ class RoutingNumberListParamsTest {
         RoutingNumberListParams.builder()
             .routingNumber("xxxxxxxxx")
             .cursor("cursor")
-            .limit(123L)
+            .limit(1L)
             .build()
     }
 
@@ -24,12 +24,12 @@ class RoutingNumberListParamsTest {
             RoutingNumberListParams.builder()
                 .routingNumber("xxxxxxxxx")
                 .cursor("cursor")
-                .limit(123L)
+                .limit(1L)
                 .build()
         val expected = QueryParams.builder()
         expected.put("routing_number", "xxxxxxxxx")
         expected.put("cursor", "cursor")
-        expected.put("limit", "123")
+        expected.put("limit", "1")
         assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 

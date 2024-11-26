@@ -15,7 +15,7 @@ class PendingTransactionTest {
             PendingTransaction.builder()
                 .id("id")
                 .accountId("account_id")
-                .amount(123L)
+                .amount(0L)
                 .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .currency(PendingTransaction.Currency.CAD)
@@ -26,7 +26,7 @@ class PendingTransactionTest {
                     PendingTransaction.Source.builder()
                         .accountTransferInstruction(
                             PendingTransaction.Source.AccountTransferInstruction.builder()
-                                .amount(123L)
+                                .amount(0L)
                                 .currency(
                                     PendingTransaction.Source.AccountTransferInstruction.Currency
                                         .CAD
@@ -36,7 +36,7 @@ class PendingTransactionTest {
                         )
                         .achTransferInstruction(
                             PendingTransaction.Source.AchTransferInstruction.builder()
-                                .amount(123L)
+                                .amount(0L)
                                 .transferId("transfer_id")
                                 .build()
                         )
@@ -44,7 +44,7 @@ class PendingTransactionTest {
                             PendingTransaction.Source.CardAuthorization.builder()
                                 .id("id")
                                 .actioner(PendingTransaction.Source.CardAuthorization.Actioner.USER)
-                                .amount(123L)
+                                .amount(0L)
                                 .cardPaymentId("card_payment_id")
                                 .currency(PendingTransaction.Source.CardAuthorization.Currency.CAD)
                                 .digitalWalletTokenId("digital_wallet_token_id")
@@ -106,10 +106,10 @@ class PendingTransactionTest {
                                         .transactionId("transaction_id")
                                         .build()
                                 )
-                                .networkRiskScore(123L)
+                                .networkRiskScore(0L)
                                 .pendingTransactionId("pending_transaction_id")
                                 .physicalCardId("physical_card_id")
-                                .presentmentAmount(123L)
+                                .presentmentAmount(0L)
                                 .presentmentCurrency("presentment_currency")
                                 .processingCategory(
                                     PendingTransaction.Source.CardAuthorization.ProcessingCategory
@@ -161,7 +161,7 @@ class PendingTransactionTest {
                         .category(PendingTransaction.Source.Category.ACCOUNT_TRANSFER_INSTRUCTION)
                         .checkDepositInstruction(
                             PendingTransaction.Source.CheckDepositInstruction.builder()
-                                .amount(123L)
+                                .amount(0L)
                                 .backImageFileId("back_image_file_id")
                                 .checkDepositId("check_deposit_id")
                                 .currency(
@@ -172,7 +172,7 @@ class PendingTransactionTest {
                         )
                         .checkTransferInstruction(
                             PendingTransaction.Source.CheckTransferInstruction.builder()
-                                .amount(123L)
+                                .amount(0L)
                                 .currency(
                                     PendingTransaction.Source.CheckTransferInstruction.Currency.CAD
                                 )
@@ -182,7 +182,7 @@ class PendingTransactionTest {
                         .inboundFundsHold(
                             PendingTransaction.Source.InboundFundsHold.builder()
                                 .id("id")
-                                .amount(123L)
+                                .amount(0L)
                                 .automaticallyReleasesAt(
                                     OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                 )
@@ -201,14 +201,14 @@ class PendingTransactionTest {
                         .other(JsonNull.of())
                         .realTimePaymentsTransferInstruction(
                             PendingTransaction.Source.RealTimePaymentsTransferInstruction.builder()
-                                .amount(123L)
+                                .amount(0L)
                                 .transferId("transfer_id")
                                 .build()
                         )
                         .wireTransferInstruction(
                             PendingTransaction.Source.WireTransferInstruction.builder()
                                 .accountNumber("account_number")
-                                .amount(123L)
+                                .amount(0L)
                                 .messageToRecipient("message_to_recipient")
                                 .routingNumber("routing_number")
                                 .transferId("transfer_id")
@@ -222,7 +222,7 @@ class PendingTransactionTest {
         assertThat(pendingTransaction).isNotNull
         assertThat(pendingTransaction.id()).isEqualTo("id")
         assertThat(pendingTransaction.accountId()).isEqualTo("account_id")
-        assertThat(pendingTransaction.amount()).isEqualTo(123L)
+        assertThat(pendingTransaction.amount()).isEqualTo(0L)
         assertThat(pendingTransaction.completedAt())
             .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(pendingTransaction.createdAt())
@@ -237,7 +237,7 @@ class PendingTransactionTest {
                 PendingTransaction.Source.builder()
                     .accountTransferInstruction(
                         PendingTransaction.Source.AccountTransferInstruction.builder()
-                            .amount(123L)
+                            .amount(0L)
                             .currency(
                                 PendingTransaction.Source.AccountTransferInstruction.Currency.CAD
                             )
@@ -246,7 +246,7 @@ class PendingTransactionTest {
                     )
                     .achTransferInstruction(
                         PendingTransaction.Source.AchTransferInstruction.builder()
-                            .amount(123L)
+                            .amount(0L)
                             .transferId("transfer_id")
                             .build()
                     )
@@ -254,7 +254,7 @@ class PendingTransactionTest {
                         PendingTransaction.Source.CardAuthorization.builder()
                             .id("id")
                             .actioner(PendingTransaction.Source.CardAuthorization.Actioner.USER)
-                            .amount(123L)
+                            .amount(0L)
                             .cardPaymentId("card_payment_id")
                             .currency(PendingTransaction.Source.CardAuthorization.Currency.CAD)
                             .digitalWalletTokenId("digital_wallet_token_id")
@@ -313,10 +313,10 @@ class PendingTransactionTest {
                                     .transactionId("transaction_id")
                                     .build()
                             )
-                            .networkRiskScore(123L)
+                            .networkRiskScore(0L)
                             .pendingTransactionId("pending_transaction_id")
                             .physicalCardId("physical_card_id")
-                            .presentmentAmount(123L)
+                            .presentmentAmount(0L)
                             .presentmentCurrency("presentment_currency")
                             .processingCategory(
                                 PendingTransaction.Source.CardAuthorization.ProcessingCategory
@@ -366,7 +366,7 @@ class PendingTransactionTest {
                     .category(PendingTransaction.Source.Category.ACCOUNT_TRANSFER_INSTRUCTION)
                     .checkDepositInstruction(
                         PendingTransaction.Source.CheckDepositInstruction.builder()
-                            .amount(123L)
+                            .amount(0L)
                             .backImageFileId("back_image_file_id")
                             .checkDepositId("check_deposit_id")
                             .currency(
@@ -377,7 +377,7 @@ class PendingTransactionTest {
                     )
                     .checkTransferInstruction(
                         PendingTransaction.Source.CheckTransferInstruction.builder()
-                            .amount(123L)
+                            .amount(0L)
                             .currency(
                                 PendingTransaction.Source.CheckTransferInstruction.Currency.CAD
                             )
@@ -387,7 +387,7 @@ class PendingTransactionTest {
                     .inboundFundsHold(
                         PendingTransaction.Source.InboundFundsHold.builder()
                             .id("id")
-                            .amount(123L)
+                            .amount(0L)
                             .automaticallyReleasesAt(
                                 OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                             )
@@ -405,14 +405,14 @@ class PendingTransactionTest {
                     .other(JsonNull.of())
                     .realTimePaymentsTransferInstruction(
                         PendingTransaction.Source.RealTimePaymentsTransferInstruction.builder()
-                            .amount(123L)
+                            .amount(0L)
                             .transferId("transfer_id")
                             .build()
                     )
                     .wireTransferInstruction(
                         PendingTransaction.Source.WireTransferInstruction.builder()
                             .accountNumber("account_number")
-                            .amount(123L)
+                            .amount(0L)
                             .messageToRecipient("message_to_recipient")
                             .routingNumber("routing_number")
                             .transferId("transfer_id")

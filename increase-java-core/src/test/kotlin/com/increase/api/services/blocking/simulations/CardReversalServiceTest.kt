@@ -23,7 +23,7 @@ class CardReversalServiceTest {
             cardReversalService.create(
                 SimulationCardReversalCreateParams.builder()
                     .cardPaymentId("card_payment_id")
-                    .amount(123L)
+                    .amount(1L)
                     .build()
             )
         println(cardPayment)

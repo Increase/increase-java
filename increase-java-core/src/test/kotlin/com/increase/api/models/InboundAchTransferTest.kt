@@ -40,7 +40,7 @@ class InboundAchTransferTest {
                         )
                         .build()
                 )
-                .amount(123L)
+                .amount(0L)
                 .automaticallyResolvesAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .decline(
                     InboundAchTransfer.Decline.builder()
@@ -66,7 +66,7 @@ class InboundAchTransferTest {
                                 .ForeignExchangeReferenceIndicator
                                 .FOREIGN_EXCHANGE_RATE
                         )
-                        .foreignPaymentAmount(123L)
+                        .foreignPaymentAmount(0L)
                         .foreignTraceNumber("foreign_trace_number")
                         .internationalTransactionTypeCode(
                             InboundAchTransfer.InternationalAddenda.InternationalTransactionTypeCode
@@ -175,7 +175,7 @@ class InboundAchTransferTest {
                     )
                     .build()
             )
-        assertThat(inboundAchTransfer.amount()).isEqualTo(123L)
+        assertThat(inboundAchTransfer.amount()).isEqualTo(0L)
         assertThat(inboundAchTransfer.automaticallyResolvesAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(inboundAchTransfer.decline())
@@ -204,7 +204,7 @@ class InboundAchTransferTest {
                         InboundAchTransfer.InternationalAddenda.ForeignExchangeReferenceIndicator
                             .FOREIGN_EXCHANGE_RATE
                     )
-                    .foreignPaymentAmount(123L)
+                    .foreignPaymentAmount(0L)
                     .foreignTraceNumber("foreign_trace_number")
                     .internationalTransactionTypeCode(
                         InboundAchTransfer.InternationalAddenda.InternationalTransactionTypeCode

@@ -12,7 +12,7 @@ class SimulationInboundRealTimePaymentsTransferCreateParamsTest {
     fun createSimulationInboundRealTimePaymentsTransferCreateParams() {
         SimulationInboundRealTimePaymentsTransferCreateParams.builder()
             .accountNumberId("account_number_id")
-            .amount(123L)
+            .amount(1L)
             .debtorAccountNumber("x")
             .debtorName("x")
             .debtorRoutingNumber("xxxxxxxxx")
@@ -26,7 +26,7 @@ class SimulationInboundRealTimePaymentsTransferCreateParamsTest {
         val params =
             SimulationInboundRealTimePaymentsTransferCreateParams.builder()
                 .accountNumberId("account_number_id")
-                .amount(123L)
+                .amount(1L)
                 .debtorAccountNumber("x")
                 .debtorName("x")
                 .debtorRoutingNumber("xxxxxxxxx")
@@ -36,7 +36,7 @@ class SimulationInboundRealTimePaymentsTransferCreateParamsTest {
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.accountNumberId()).isEqualTo("account_number_id")
-        assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.amount()).isEqualTo(1L)
         assertThat(body.debtorAccountNumber()).isEqualTo("x")
         assertThat(body.debtorName()).isEqualTo("x")
         assertThat(body.debtorRoutingNumber()).isEqualTo("xxxxxxxxx")
@@ -49,11 +49,11 @@ class SimulationInboundRealTimePaymentsTransferCreateParamsTest {
         val params =
             SimulationInboundRealTimePaymentsTransferCreateParams.builder()
                 .accountNumberId("account_number_id")
-                .amount(123L)
+                .amount(1L)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.accountNumberId()).isEqualTo("account_number_id")
-        assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.amount()).isEqualTo(1L)
     }
 }

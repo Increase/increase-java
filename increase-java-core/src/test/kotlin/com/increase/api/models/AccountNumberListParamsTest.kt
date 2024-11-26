@@ -25,7 +25,7 @@ class AccountNumberListParamsTest {
             )
             .cursor("cursor")
             .idempotencyKey("x")
-            .limit(123L)
+            .limit(1L)
             .status(AccountNumberListParams.Status.ACTIVE)
             .build()
     }
@@ -46,7 +46,7 @@ class AccountNumberListParamsTest {
                 )
                 .cursor("cursor")
                 .idempotencyKey("x")
-                .limit(123L)
+                .limit(1L)
                 .status(AccountNumberListParams.Status.ACTIVE)
                 .build()
         val expected = QueryParams.builder()
@@ -61,7 +61,7 @@ class AccountNumberListParamsTest {
             .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
         expected.put("cursor", "cursor")
         expected.put("idempotency_key", "x")
-        expected.put("limit", "123")
+        expected.put("limit", "1")
         expected.put("status", AccountNumberListParams.Status.ACTIVE.toString())
         assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }

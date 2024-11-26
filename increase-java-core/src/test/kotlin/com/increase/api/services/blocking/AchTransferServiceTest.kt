@@ -25,7 +25,7 @@ class AchTransferServiceTest {
             achTransferService.create(
                 AchTransferCreateParams.builder()
                     .accountId("account_id")
-                    .amount(123L)
+                    .amount(-9999999999L)
                     .statementDescriptor("x")
                     .accountNumber("x")
                     .addenda(
@@ -52,7 +52,7 @@ class AchTransferServiceTest {
                                                 .Invoice
                                                 .builder()
                                                 .invoiceNumber("x")
-                                                .paidAmount(123L)
+                                                .paidAmount(0L)
                                                 .build()
                                         )
                                     )

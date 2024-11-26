@@ -14,7 +14,7 @@ class RealTimePaymentsTransferTest {
             RealTimePaymentsTransfer.builder()
                 .id("id")
                 .accountId("account_id")
-                .amount(123L)
+                .amount(0L)
                 .approval(
                     RealTimePaymentsTransfer.Approval.builder()
                         .approvedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -80,7 +80,7 @@ class RealTimePaymentsTransferTest {
         assertThat(realTimePaymentsTransfer).isNotNull
         assertThat(realTimePaymentsTransfer.id()).isEqualTo("id")
         assertThat(realTimePaymentsTransfer.accountId()).isEqualTo("account_id")
-        assertThat(realTimePaymentsTransfer.amount()).isEqualTo(123L)
+        assertThat(realTimePaymentsTransfer.amount()).isEqualTo(0L)
         assertThat(realTimePaymentsTransfer.approval())
             .contains(
                 RealTimePaymentsTransfer.Approval.builder()

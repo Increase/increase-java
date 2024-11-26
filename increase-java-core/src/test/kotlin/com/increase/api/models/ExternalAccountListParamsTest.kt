@@ -14,7 +14,7 @@ class ExternalAccountListParamsTest {
         ExternalAccountListParams.builder()
             .cursor("cursor")
             .idempotencyKey("x")
-            .limit(123L)
+            .limit(1L)
             .routingNumber("xxxxxxxxx")
             .status(
                 ExternalAccountListParams.Status.builder()
@@ -30,7 +30,7 @@ class ExternalAccountListParamsTest {
             ExternalAccountListParams.builder()
                 .cursor("cursor")
                 .idempotencyKey("x")
-                .limit(123L)
+                .limit(1L)
                 .routingNumber("xxxxxxxxx")
                 .status(
                     ExternalAccountListParams.Status.builder()
@@ -41,7 +41,7 @@ class ExternalAccountListParamsTest {
         val expected = QueryParams.builder()
         expected.put("cursor", "cursor")
         expected.put("idempotency_key", "x")
-        expected.put("limit", "123")
+        expected.put("limit", "1")
         expected.put("routing_number", "xxxxxxxxx")
         ExternalAccountListParams.Status.builder()
             .in_(listOf(ExternalAccountListParams.Status.In.ACTIVE))
