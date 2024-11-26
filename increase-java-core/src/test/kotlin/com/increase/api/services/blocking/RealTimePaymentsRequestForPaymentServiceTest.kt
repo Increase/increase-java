@@ -24,7 +24,7 @@ class RealTimePaymentsRequestForPaymentServiceTest {
         val realTimePaymentsRequestForPayment =
             realTimePaymentsRequestForPaymentService.create(
                 RealTimePaymentsRequestForPaymentCreateParams.builder()
-                    .amount(123L)
+                    .amount(1L)
                     .debtor(
                         RealTimePaymentsRequestForPaymentCreateParams.Debtor.builder()
                             .address(

@@ -11,7 +11,7 @@ class SimulationCardFuelConfirmationCreateParamsTest {
     @Test
     fun createSimulationCardFuelConfirmationCreateParams() {
         SimulationCardFuelConfirmationCreateParams.builder()
-            .amount(123L)
+            .amount(1L)
             .cardPaymentId("card_payment_id")
             .build()
     }
@@ -20,12 +20,12 @@ class SimulationCardFuelConfirmationCreateParamsTest {
     fun getBody() {
         val params =
             SimulationCardFuelConfirmationCreateParams.builder()
-                .amount(123L)
+                .amount(1L)
                 .cardPaymentId("card_payment_id")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.amount()).isEqualTo(1L)
         assertThat(body.cardPaymentId()).isEqualTo("card_payment_id")
     }
 
@@ -33,12 +33,12 @@ class SimulationCardFuelConfirmationCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             SimulationCardFuelConfirmationCreateParams.builder()
-                .amount(123L)
+                .amount(1L)
                 .cardPaymentId("card_payment_id")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.amount()).isEqualTo(1L)
         assertThat(body.cardPaymentId()).isEqualTo("card_payment_id")
     }
 }

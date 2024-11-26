@@ -13,7 +13,7 @@ class AchTransferCreateParamsTest {
     fun createAchTransferCreateParams() {
         AchTransferCreateParams.builder()
             .accountId("account_id")
-            .amount(123L)
+            .amount(-9999999999L)
             .statementDescriptor("x")
             .accountNumber("x")
             .addenda(
@@ -38,7 +38,7 @@ class AchTransferCreateParamsTest {
                                         .Invoice
                                         .builder()
                                         .invoiceNumber("x")
-                                        .paidAmount(123L)
+                                        .paidAmount(0L)
                                         .build()
                                 )
                             )
@@ -77,7 +77,7 @@ class AchTransferCreateParamsTest {
         val params =
             AchTransferCreateParams.builder()
                 .accountId("account_id")
-                .amount(123L)
+                .amount(-9999999999L)
                 .statementDescriptor("x")
                 .accountNumber("x")
                 .addenda(
@@ -102,7 +102,7 @@ class AchTransferCreateParamsTest {
                                             .Invoice
                                             .builder()
                                             .invoiceNumber("x")
-                                            .paidAmount(123L)
+                                            .paidAmount(0L)
                                             .build()
                                     )
                                 )
@@ -138,7 +138,7 @@ class AchTransferCreateParamsTest {
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("account_id")
-        assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.amount()).isEqualTo(-9999999999L)
         assertThat(body.statementDescriptor()).isEqualTo("x")
         assertThat(body.accountNumber()).isEqualTo("x")
         assertThat(body.addenda())
@@ -164,7 +164,7 @@ class AchTransferCreateParamsTest {
                                         .Invoice
                                         .builder()
                                         .invoiceNumber("x")
-                                        .paidAmount(123L)
+                                        .paidAmount(0L)
                                         .build()
                                 )
                             )
@@ -204,13 +204,13 @@ class AchTransferCreateParamsTest {
         val params =
             AchTransferCreateParams.builder()
                 .accountId("account_id")
-                .amount(123L)
+                .amount(-9999999999L)
                 .statementDescriptor("x")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("account_id")
-        assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.amount()).isEqualTo(-9999999999L)
         assertThat(body.statementDescriptor()).isEqualTo("x")
     }
 }

@@ -24,7 +24,7 @@ class PhysicalCardListParamsTest {
             )
             .cursor("cursor")
             .idempotencyKey("x")
-            .limit(123L)
+            .limit(1L)
             .build()
     }
 
@@ -43,7 +43,7 @@ class PhysicalCardListParamsTest {
                 )
                 .cursor("cursor")
                 .idempotencyKey("x")
-                .limit(123L)
+                .limit(1L)
                 .build()
         val expected = QueryParams.builder()
         expected.put("card_id", "card_id")
@@ -56,7 +56,7 @@ class PhysicalCardListParamsTest {
             .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
         expected.put("cursor", "cursor")
         expected.put("idempotency_key", "x")
-        expected.put("limit", "123")
+        expected.put("limit", "1")
         assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 

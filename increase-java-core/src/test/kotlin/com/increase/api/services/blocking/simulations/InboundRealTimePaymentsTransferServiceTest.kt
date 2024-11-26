@@ -24,7 +24,7 @@ class InboundRealTimePaymentsTransferServiceTest {
             inboundRealTimePaymentsTransferService.create(
                 SimulationInboundRealTimePaymentsTransferCreateParams.builder()
                     .accountNumberId("account_number_id")
-                    .amount(123L)
+                    .amount(1L)
                     .debtorAccountNumber("x")
                     .debtorName("x")
                     .debtorRoutingNumber("xxxxxxxxx")

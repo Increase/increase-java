@@ -15,7 +15,7 @@ class AccountStatementListParamsTest {
         AccountStatementListParams.builder()
             .accountId("account_id")
             .cursor("cursor")
-            .limit(123L)
+            .limit(1L)
             .statementPeriodStart(
                 AccountStatementListParams.StatementPeriodStart.builder()
                     .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -33,7 +33,7 @@ class AccountStatementListParamsTest {
             AccountStatementListParams.builder()
                 .accountId("account_id")
                 .cursor("cursor")
-                .limit(123L)
+                .limit(1L)
                 .statementPeriodStart(
                     AccountStatementListParams.StatementPeriodStart.builder()
                         .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -46,7 +46,7 @@ class AccountStatementListParamsTest {
         val expected = QueryParams.builder()
         expected.put("account_id", "account_id")
         expected.put("cursor", "cursor")
-        expected.put("limit", "123")
+        expected.put("limit", "1")
         AccountStatementListParams.StatementPeriodStart.builder()
             .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

@@ -23,7 +23,7 @@ class InboundCheckDepositServiceTest {
             inboundCheckDepositService.create(
                 SimulationInboundCheckDepositCreateParams.builder()
                     .accountNumberId("account_number_id")
-                    .amount(123L)
+                    .amount(0L)
                     .checkNumber("x")
                     .build()
             )

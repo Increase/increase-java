@@ -13,7 +13,7 @@ class SimulationInboundFundsHoldReleaseResponseTest {
         val simulationInboundFundsHoldReleaseResponse =
             SimulationInboundFundsHoldReleaseResponse.builder()
                 .id("id")
-                .amount(123L)
+                .amount(0L)
                 .automaticallyReleasesAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .currency(SimulationInboundFundsHoldReleaseResponse.Currency.CAD)
@@ -25,7 +25,7 @@ class SimulationInboundFundsHoldReleaseResponseTest {
                 .build()
         assertThat(simulationInboundFundsHoldReleaseResponse).isNotNull
         assertThat(simulationInboundFundsHoldReleaseResponse.id()).isEqualTo("id")
-        assertThat(simulationInboundFundsHoldReleaseResponse.amount()).isEqualTo(123L)
+        assertThat(simulationInboundFundsHoldReleaseResponse.amount()).isEqualTo(0L)
         assertThat(simulationInboundFundsHoldReleaseResponse.automaticallyReleasesAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(simulationInboundFundsHoldReleaseResponse.createdAt())

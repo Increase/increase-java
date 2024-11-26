@@ -12,7 +12,7 @@ class WireTransferCreateParamsTest {
     fun createWireTransferCreateParams() {
         WireTransferCreateParams.builder()
             .accountId("account_id")
-            .amount(123L)
+            .amount(1L)
             .beneficiaryName("x")
             .messageToRecipient("x")
             .accountNumber("x")
@@ -35,7 +35,7 @@ class WireTransferCreateParamsTest {
         val params =
             WireTransferCreateParams.builder()
                 .accountId("account_id")
-                .amount(123L)
+                .amount(1L)
                 .beneficiaryName("x")
                 .messageToRecipient("x")
                 .accountNumber("x")
@@ -54,7 +54,7 @@ class WireTransferCreateParamsTest {
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("account_id")
-        assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.amount()).isEqualTo(1L)
         assertThat(body.beneficiaryName()).isEqualTo("x")
         assertThat(body.messageToRecipient()).isEqualTo("x")
         assertThat(body.accountNumber()).isEqualTo("x")
@@ -76,14 +76,14 @@ class WireTransferCreateParamsTest {
         val params =
             WireTransferCreateParams.builder()
                 .accountId("account_id")
-                .amount(123L)
+                .amount(1L)
                 .beneficiaryName("x")
                 .messageToRecipient("x")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("account_id")
-        assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.amount()).isEqualTo(1L)
         assertThat(body.beneficiaryName()).isEqualTo("x")
         assertThat(body.messageToRecipient()).isEqualTo("x")
     }

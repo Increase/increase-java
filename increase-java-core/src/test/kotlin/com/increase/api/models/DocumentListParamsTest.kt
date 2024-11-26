@@ -28,7 +28,7 @@ class DocumentListParamsTest {
             )
             .cursor("cursor")
             .entityId("entity_id")
-            .limit(123L)
+            .limit(1L)
             .build()
     }
 
@@ -51,7 +51,7 @@ class DocumentListParamsTest {
                 )
                 .cursor("cursor")
                 .entityId("entity_id")
-                .limit(123L)
+                .limit(1L)
                 .build()
         val expected = QueryParams.builder()
         DocumentListParams.Category.builder()
@@ -67,7 +67,7 @@ class DocumentListParamsTest {
             .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
         expected.put("cursor", "cursor")
         expected.put("entity_id", "entity_id")
-        expected.put("limit", "123")
+        expected.put("limit", "1")
         assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 

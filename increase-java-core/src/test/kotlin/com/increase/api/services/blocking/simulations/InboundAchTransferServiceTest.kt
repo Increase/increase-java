@@ -24,7 +24,7 @@ class InboundAchTransferServiceTest {
             inboundAchTransferService.create(
                 SimulationInboundAchTransferCreateParams.builder()
                     .accountNumberId("account_number_id")
-                    .amount(123L)
+                    .amount(0L)
                     .companyDescriptiveDate("x")
                     .companyDiscretionaryData("x")
                     .companyEntryDescription("x")

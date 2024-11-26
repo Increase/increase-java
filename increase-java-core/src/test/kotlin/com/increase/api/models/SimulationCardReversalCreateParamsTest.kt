@@ -12,7 +12,7 @@ class SimulationCardReversalCreateParamsTest {
     fun createSimulationCardReversalCreateParams() {
         SimulationCardReversalCreateParams.builder()
             .cardPaymentId("card_payment_id")
-            .amount(123L)
+            .amount(1L)
             .build()
     }
 
@@ -21,12 +21,12 @@ class SimulationCardReversalCreateParamsTest {
         val params =
             SimulationCardReversalCreateParams.builder()
                 .cardPaymentId("card_payment_id")
-                .amount(123L)
+                .amount(1L)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.cardPaymentId()).isEqualTo("card_payment_id")
-        assertThat(body.amount()).isEqualTo(123L)
+        assertThat(body.amount()).isEqualTo(1L)
     }
 
     @Test

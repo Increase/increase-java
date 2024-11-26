@@ -12,14 +12,14 @@ class BalanceLookupTest {
         val balanceLookup =
             BalanceLookup.builder()
                 .accountId("account_id")
-                .availableBalance(123L)
-                .currentBalance(123L)
+                .availableBalance(0L)
+                .currentBalance(0L)
                 .type(BalanceLookup.Type.BALANCE_LOOKUP)
                 .build()
         assertThat(balanceLookup).isNotNull
         assertThat(balanceLookup.accountId()).isEqualTo("account_id")
-        assertThat(balanceLookup.availableBalance()).isEqualTo(123L)
-        assertThat(balanceLookup.currentBalance()).isEqualTo(123L)
+        assertThat(balanceLookup.availableBalance()).isEqualTo(0L)
+        assertThat(balanceLookup.currentBalance()).isEqualTo(0L)
         assertThat(balanceLookup.type()).isEqualTo(BalanceLookup.Type.BALANCE_LOOKUP)
     }
 }

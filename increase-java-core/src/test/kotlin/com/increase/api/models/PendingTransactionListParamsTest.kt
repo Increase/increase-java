@@ -32,7 +32,7 @@ class PendingTransactionListParamsTest {
                     .build()
             )
             .cursor("cursor")
-            .limit(123L)
+            .limit(1L)
             .routeId("route_id")
             .status(
                 PendingTransactionListParams.Status.builder()
@@ -66,7 +66,7 @@ class PendingTransactionListParamsTest {
                         .build()
                 )
                 .cursor("cursor")
-                .limit(123L)
+                .limit(1L)
                 .routeId("route_id")
                 .status(
                     PendingTransactionListParams.Status.builder()
@@ -88,7 +88,7 @@ class PendingTransactionListParamsTest {
             .build()
             .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
         expected.put("cursor", "cursor")
-        expected.put("limit", "123")
+        expected.put("limit", "1")
         expected.put("route_id", "route_id")
         PendingTransactionListParams.Status.builder()
             .in_(listOf(PendingTransactionListParams.Status.In.PENDING))

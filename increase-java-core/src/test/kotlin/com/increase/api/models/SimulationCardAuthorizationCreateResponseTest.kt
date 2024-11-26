@@ -17,7 +17,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                     DeclinedTransaction.builder()
                         .id("id")
                         .accountId("account_id")
-                        .amount(123L)
+                        .amount(0L)
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .currency(DeclinedTransaction.Currency.CAD)
                         .description("description")
@@ -28,7 +28,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                 .achDecline(
                                     DeclinedTransaction.Source.AchDecline.builder()
                                         .id("id")
-                                        .amount(123L)
+                                        .amount(0L)
                                         .inboundAchTransferId("inbound_ach_transfer_id")
                                         .originatorCompanyDescriptiveDate(
                                             "originator_company_descriptive_date"
@@ -56,7 +56,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                         .actioner(
                                             DeclinedTransaction.Source.CardDecline.Actioner.USER
                                         )
-                                        .amount(123L)
+                                        .amount(0L)
                                         .cardPaymentId("card_payment_id")
                                         .currency(
                                             DeclinedTransaction.Source.CardDecline.Currency.CAD
@@ -124,9 +124,9 @@ class SimulationCardAuthorizationCreateResponseTest {
                                                 .transactionId("transaction_id")
                                                 .build()
                                         )
-                                        .networkRiskScore(123L)
+                                        .networkRiskScore(0L)
                                         .physicalCardId("physical_card_id")
-                                        .presentmentAmount(123L)
+                                        .presentmentAmount(0L)
                                         .presentmentCurrency("presentment_currency")
                                         .processingCategory(
                                             DeclinedTransaction.Source.CardDecline
@@ -186,7 +186,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                 .category(DeclinedTransaction.Source.Category.ACH_DECLINE)
                                 .checkDecline(
                                     DeclinedTransaction.Source.CheckDecline.builder()
-                                        .amount(123L)
+                                        .amount(0L)
                                         .auxiliaryOnUs("auxiliary_on_us")
                                         .backImageFileId("back_image_file_id")
                                         .checkTransferId("check_transfer_id")
@@ -200,7 +200,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                 )
                                 .checkDepositRejection(
                                     DeclinedTransaction.Source.CheckDepositRejection.builder()
-                                        .amount(123L)
+                                        .amount(0L)
                                         .checkDepositId("check_deposit_id")
                                         .currency(
                                             DeclinedTransaction.Source.CheckDepositRejection
@@ -221,7 +221,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                     DeclinedTransaction.Source
                                         .InboundRealTimePaymentsTransferDecline
                                         .builder()
-                                        .amount(123L)
+                                        .amount(0L)
                                         .creditorName("creditor_name")
                                         .currency(
                                             DeclinedTransaction.Source
@@ -262,7 +262,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                     PendingTransaction.builder()
                         .id("id")
                         .accountId("account_id")
-                        .amount(123L)
+                        .amount(0L)
                         .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .currency(PendingTransaction.Currency.CAD)
@@ -273,7 +273,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                             PendingTransaction.Source.builder()
                                 .accountTransferInstruction(
                                     PendingTransaction.Source.AccountTransferInstruction.builder()
-                                        .amount(123L)
+                                        .amount(0L)
                                         .currency(
                                             PendingTransaction.Source.AccountTransferInstruction
                                                 .Currency
@@ -284,7 +284,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                 )
                                 .achTransferInstruction(
                                     PendingTransaction.Source.AchTransferInstruction.builder()
-                                        .amount(123L)
+                                        .amount(0L)
                                         .transferId("transfer_id")
                                         .build()
                                 )
@@ -295,7 +295,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                             PendingTransaction.Source.CardAuthorization.Actioner
                                                 .USER
                                         )
-                                        .amount(123L)
+                                        .amount(0L)
                                         .cardPaymentId("card_payment_id")
                                         .currency(
                                             PendingTransaction.Source.CardAuthorization.Currency.CAD
@@ -367,10 +367,10 @@ class SimulationCardAuthorizationCreateResponseTest {
                                                 .transactionId("transaction_id")
                                                 .build()
                                         )
-                                        .networkRiskScore(123L)
+                                        .networkRiskScore(0L)
                                         .pendingTransactionId("pending_transaction_id")
                                         .physicalCardId("physical_card_id")
-                                        .presentmentAmount(123L)
+                                        .presentmentAmount(0L)
                                         .presentmentCurrency("presentment_currency")
                                         .processingCategory(
                                             PendingTransaction.Source.CardAuthorization
@@ -429,7 +429,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                 )
                                 .checkDepositInstruction(
                                     PendingTransaction.Source.CheckDepositInstruction.builder()
-                                        .amount(123L)
+                                        .amount(0L)
                                         .backImageFileId("back_image_file_id")
                                         .checkDepositId("check_deposit_id")
                                         .currency(
@@ -442,7 +442,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                 )
                                 .checkTransferInstruction(
                                     PendingTransaction.Source.CheckTransferInstruction.builder()
-                                        .amount(123L)
+                                        .amount(0L)
                                         .currency(
                                             PendingTransaction.Source.CheckTransferInstruction
                                                 .Currency
@@ -454,7 +454,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                 .inboundFundsHold(
                                     PendingTransaction.Source.InboundFundsHold.builder()
                                         .id("id")
-                                        .amount(123L)
+                                        .amount(0L)
                                         .automaticallyReleasesAt(
                                             OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                         )
@@ -480,14 +480,14 @@ class SimulationCardAuthorizationCreateResponseTest {
                                 .realTimePaymentsTransferInstruction(
                                     PendingTransaction.Source.RealTimePaymentsTransferInstruction
                                         .builder()
-                                        .amount(123L)
+                                        .amount(0L)
                                         .transferId("transfer_id")
                                         .build()
                                 )
                                 .wireTransferInstruction(
                                     PendingTransaction.Source.WireTransferInstruction.builder()
                                         .accountNumber("account_number")
-                                        .amount(123L)
+                                        .amount(0L)
                                         .messageToRecipient("message_to_recipient")
                                         .routingNumber("routing_number")
                                         .transferId("transfer_id")
@@ -510,7 +510,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                 DeclinedTransaction.builder()
                     .id("id")
                     .accountId("account_id")
-                    .amount(123L)
+                    .amount(0L)
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .currency(DeclinedTransaction.Currency.CAD)
                     .description("description")
@@ -521,7 +521,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                             .achDecline(
                                 DeclinedTransaction.Source.AchDecline.builder()
                                     .id("id")
-                                    .amount(123L)
+                                    .amount(0L)
                                     .inboundAchTransferId("inbound_ach_transfer_id")
                                     .originatorCompanyDescriptiveDate(
                                         "originator_company_descriptive_date"
@@ -545,7 +545,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                 DeclinedTransaction.Source.CardDecline.builder()
                                     .id("id")
                                     .actioner(DeclinedTransaction.Source.CardDecline.Actioner.USER)
-                                    .amount(123L)
+                                    .amount(0L)
                                     .cardPaymentId("card_payment_id")
                                     .currency(DeclinedTransaction.Source.CardDecline.Currency.CAD)
                                     .declinedTransactionId("declined_transaction_id")
@@ -607,9 +607,9 @@ class SimulationCardAuthorizationCreateResponseTest {
                                             .transactionId("transaction_id")
                                             .build()
                                     )
-                                    .networkRiskScore(123L)
+                                    .networkRiskScore(0L)
                                     .physicalCardId("physical_card_id")
-                                    .presentmentAmount(123L)
+                                    .presentmentAmount(0L)
                                     .presentmentCurrency("presentment_currency")
                                     .processingCategory(
                                         DeclinedTransaction.Source.CardDecline.ProcessingCategory
@@ -666,7 +666,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                             .category(DeclinedTransaction.Source.Category.ACH_DECLINE)
                             .checkDecline(
                                 DeclinedTransaction.Source.CheckDecline.builder()
-                                    .amount(123L)
+                                    .amount(0L)
                                     .auxiliaryOnUs("auxiliary_on_us")
                                     .backImageFileId("back_image_file_id")
                                     .checkTransferId("check_transfer_id")
@@ -680,7 +680,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                             )
                             .checkDepositRejection(
                                 DeclinedTransaction.Source.CheckDepositRejection.builder()
-                                    .amount(123L)
+                                    .amount(0L)
                                     .checkDepositId("check_deposit_id")
                                     .currency(
                                         DeclinedTransaction.Source.CheckDepositRejection.Currency
@@ -697,7 +697,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                             .inboundRealTimePaymentsTransferDecline(
                                 DeclinedTransaction.Source.InboundRealTimePaymentsTransferDecline
                                     .builder()
-                                    .amount(123L)
+                                    .amount(0L)
                                     .creditorName("creditor_name")
                                     .currency(
                                         DeclinedTransaction.Source
@@ -739,7 +739,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                 PendingTransaction.builder()
                     .id("id")
                     .accountId("account_id")
-                    .amount(123L)
+                    .amount(0L)
                     .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .currency(PendingTransaction.Currency.CAD)
@@ -750,7 +750,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                         PendingTransaction.Source.builder()
                             .accountTransferInstruction(
                                 PendingTransaction.Source.AccountTransferInstruction.builder()
-                                    .amount(123L)
+                                    .amount(0L)
                                     .currency(
                                         PendingTransaction.Source.AccountTransferInstruction
                                             .Currency
@@ -761,7 +761,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                             )
                             .achTransferInstruction(
                                 PendingTransaction.Source.AchTransferInstruction.builder()
-                                    .amount(123L)
+                                    .amount(0L)
                                     .transferId("transfer_id")
                                     .build()
                             )
@@ -771,7 +771,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                     .actioner(
                                         PendingTransaction.Source.CardAuthorization.Actioner.USER
                                     )
-                                    .amount(123L)
+                                    .amount(0L)
                                     .cardPaymentId("card_payment_id")
                                     .currency(
                                         PendingTransaction.Source.CardAuthorization.Currency.CAD
@@ -837,10 +837,10 @@ class SimulationCardAuthorizationCreateResponseTest {
                                             .transactionId("transaction_id")
                                             .build()
                                     )
-                                    .networkRiskScore(123L)
+                                    .networkRiskScore(0L)
                                     .pendingTransactionId("pending_transaction_id")
                                     .physicalCardId("physical_card_id")
-                                    .presentmentAmount(123L)
+                                    .presentmentAmount(0L)
                                     .presentmentCurrency("presentment_currency")
                                     .processingCategory(
                                         PendingTransaction.Source.CardAuthorization
@@ -897,7 +897,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                             )
                             .checkDepositInstruction(
                                 PendingTransaction.Source.CheckDepositInstruction.builder()
-                                    .amount(123L)
+                                    .amount(0L)
                                     .backImageFileId("back_image_file_id")
                                     .checkDepositId("check_deposit_id")
                                     .currency(
@@ -909,7 +909,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                             )
                             .checkTransferInstruction(
                                 PendingTransaction.Source.CheckTransferInstruction.builder()
-                                    .amount(123L)
+                                    .amount(0L)
                                     .currency(
                                         PendingTransaction.Source.CheckTransferInstruction.Currency
                                             .CAD
@@ -920,7 +920,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                             .inboundFundsHold(
                                 PendingTransaction.Source.InboundFundsHold.builder()
                                     .id("id")
-                                    .amount(123L)
+                                    .amount(0L)
                                     .automaticallyReleasesAt(
                                         OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
                                     )
@@ -942,14 +942,14 @@ class SimulationCardAuthorizationCreateResponseTest {
                             .realTimePaymentsTransferInstruction(
                                 PendingTransaction.Source.RealTimePaymentsTransferInstruction
                                     .builder()
-                                    .amount(123L)
+                                    .amount(0L)
                                     .transferId("transfer_id")
                                     .build()
                             )
                             .wireTransferInstruction(
                                 PendingTransaction.Source.WireTransferInstruction.builder()
                                     .accountNumber("account_number")
-                                    .amount(123L)
+                                    .amount(0L)
                                     .messageToRecipient("message_to_recipient")
                                     .routingNumber("routing_number")
                                     .transferId("transfer_id")
