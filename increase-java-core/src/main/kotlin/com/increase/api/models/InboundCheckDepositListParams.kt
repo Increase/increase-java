@@ -34,6 +34,10 @@ constructor(
 
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic
@@ -49,23 +53,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is InboundCheckDepositListParams && accountId == other.accountId && checkTransferId == other.checkTransferId && createdAt == other.createdAt && cursor == other.cursor && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, checkTransferId, createdAt, cursor, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "InboundCheckDepositListParams{accountId=$accountId, checkTransferId=$checkTransferId, createdAt=$createdAt, cursor=$cursor, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -87,13 +74,13 @@ constructor(
 
         @JvmSynthetic
         internal fun from(inboundCheckDepositListParams: InboundCheckDepositListParams) = apply {
-            this.accountId = inboundCheckDepositListParams.accountId
-            this.checkTransferId = inboundCheckDepositListParams.checkTransferId
-            this.createdAt = inboundCheckDepositListParams.createdAt
-            this.cursor = inboundCheckDepositListParams.cursor
-            this.limit = inboundCheckDepositListParams.limit
-            additionalHeaders(inboundCheckDepositListParams.additionalHeaders)
-            additionalQueryParams(inboundCheckDepositListParams.additionalQueryParams)
+            accountId = inboundCheckDepositListParams.accountId
+            checkTransferId = inboundCheckDepositListParams.checkTransferId
+            createdAt = inboundCheckDepositListParams.createdAt
+            cursor = inboundCheckDepositListParams.cursor
+            limit = inboundCheckDepositListParams.limit
+            additionalHeaders = inboundCheckDepositListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = inboundCheckDepositListParams.additionalQueryParams.toBuilder()
         }
 
         /** Filter Inbound Check Deposits to those belonging to the specified Account. */
@@ -365,4 +352,17 @@ constructor(
         override fun toString() =
             "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is InboundCheckDepositListParams && accountId == other.accountId && checkTransferId == other.checkTransferId && createdAt == other.createdAt && cursor == other.cursor && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, checkTransferId, createdAt, cursor, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "InboundCheckDepositListParams{accountId=$accountId, checkTransferId=$checkTransferId, createdAt=$createdAt, cursor=$cursor, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -15,7 +15,7 @@ class InboundRealTimePaymentsTransferTest {
                 .id("id")
                 .accountId("account_id")
                 .accountNumberId("account_number_id")
-                .amount(123L)
+                .amount(0L)
                 .confirmation(
                     InboundRealTimePaymentsTransfer.Confirmation.builder()
                         .confirmedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -46,7 +46,7 @@ class InboundRealTimePaymentsTransferTest {
         assertThat(inboundRealTimePaymentsTransfer.id()).isEqualTo("id")
         assertThat(inboundRealTimePaymentsTransfer.accountId()).isEqualTo("account_id")
         assertThat(inboundRealTimePaymentsTransfer.accountNumberId()).isEqualTo("account_number_id")
-        assertThat(inboundRealTimePaymentsTransfer.amount()).isEqualTo(123L)
+        assertThat(inboundRealTimePaymentsTransfer.amount()).isEqualTo(0L)
         assertThat(inboundRealTimePaymentsTransfer.confirmation())
             .contains(
                 InboundRealTimePaymentsTransfer.Confirmation.builder()

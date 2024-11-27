@@ -11,16 +11,16 @@ class InboundWireDrawdownRequestListParamsTest {
 
     @Test
     fun createInboundWireDrawdownRequestListParams() {
-        InboundWireDrawdownRequestListParams.builder().cursor("cursor").limit(123L).build()
+        InboundWireDrawdownRequestListParams.builder().cursor("cursor").limit(1L).build()
     }
 
     @Test
     fun getQueryParams() {
         val params =
-            InboundWireDrawdownRequestListParams.builder().cursor("cursor").limit(123L).build()
+            InboundWireDrawdownRequestListParams.builder().cursor("cursor").limit(1L).build()
         val expected = QueryParams.builder()
         expected.put("cursor", "cursor")
-        expected.put("limit", "123")
+        expected.put("limit", "1")
         assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 

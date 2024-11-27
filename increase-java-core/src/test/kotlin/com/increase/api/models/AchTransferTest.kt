@@ -42,7 +42,7 @@ class AchTransferTest {
                                         AchTransfer.Addenda.PaymentOrderRemittanceAdvice.Invoice
                                             .builder()
                                             .invoiceNumber("invoice_number")
-                                            .paidAmount(123L)
+                                            .paidAmount(0L)
                                             .build()
                                     )
                                 )
@@ -50,7 +50,7 @@ class AchTransferTest {
                         )
                         .build()
                 )
-                .amount(123L)
+                .amount(0L)
                 .approval(
                     AchTransfer.Approval.builder()
                         .approvedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -90,7 +90,7 @@ class AchTransferTest {
                 .inboundFundsHold(
                     AchTransfer.InboundFundsHold.builder()
                         .id("id")
-                        .amount(123L)
+                        .amount(0L)
                         .automaticallyReleasesAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .currency(AchTransfer.InboundFundsHold.Currency.CAD)
@@ -190,7 +190,7 @@ class AchTransferTest {
                                     AchTransfer.Addenda.PaymentOrderRemittanceAdvice.Invoice
                                         .builder()
                                         .invoiceNumber("invoice_number")
-                                        .paidAmount(123L)
+                                        .paidAmount(0L)
                                         .build()
                                 )
                             )
@@ -198,7 +198,7 @@ class AchTransferTest {
                     )
                     .build()
             )
-        assertThat(achTransfer.amount()).isEqualTo(123L)
+        assertThat(achTransfer.amount()).isEqualTo(0L)
         assertThat(achTransfer.approval())
             .contains(
                 AchTransfer.Approval.builder()
@@ -242,7 +242,7 @@ class AchTransferTest {
             .contains(
                 AchTransfer.InboundFundsHold.builder()
                     .id("id")
-                    .amount(123L)
+                    .amount(0L)
                     .automaticallyReleasesAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .currency(AchTransfer.InboundFundsHold.Currency.CAD)

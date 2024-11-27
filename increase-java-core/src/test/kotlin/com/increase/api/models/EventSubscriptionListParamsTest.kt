@@ -11,11 +11,7 @@ class EventSubscriptionListParamsTest {
 
     @Test
     fun createEventSubscriptionListParams() {
-        EventSubscriptionListParams.builder()
-            .cursor("cursor")
-            .idempotencyKey("x")
-            .limit(123L)
-            .build()
+        EventSubscriptionListParams.builder().cursor("cursor").idempotencyKey("x").limit(1L).build()
     }
 
     @Test
@@ -24,12 +20,12 @@ class EventSubscriptionListParamsTest {
             EventSubscriptionListParams.builder()
                 .cursor("cursor")
                 .idempotencyKey("x")
-                .limit(123L)
+                .limit(1L)
                 .build()
         val expected = QueryParams.builder()
         expected.put("cursor", "cursor")
         expected.put("idempotency_key", "x")
-        expected.put("limit", "123")
+        expected.put("limit", "1")
         assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 

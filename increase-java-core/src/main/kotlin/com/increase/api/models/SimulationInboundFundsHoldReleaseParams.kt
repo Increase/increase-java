@@ -21,6 +21,12 @@ constructor(
 
     fun inboundFundsHoldId(): String = inboundFundsHoldId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): Optional<Map<String, JsonValue>> {
         return Optional.ofNullable(additionalBodyProperties.ifEmpty { null })
@@ -36,25 +42,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is SimulationInboundFundsHoldReleaseParams && inboundFundsHoldId == other.inboundFundsHoldId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(inboundFundsHoldId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "SimulationInboundFundsHoldReleaseParams{inboundFundsHoldId=$inboundFundsHoldId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -75,12 +62,13 @@ constructor(
         internal fun from(
             simulationInboundFundsHoldReleaseParams: SimulationInboundFundsHoldReleaseParams
         ) = apply {
-            this.inboundFundsHoldId = simulationInboundFundsHoldReleaseParams.inboundFundsHoldId
-            additionalHeaders(simulationInboundFundsHoldReleaseParams.additionalHeaders)
-            additionalQueryParams(simulationInboundFundsHoldReleaseParams.additionalQueryParams)
-            additionalBodyProperties(
-                simulationInboundFundsHoldReleaseParams.additionalBodyProperties
-            )
+            inboundFundsHoldId = simulationInboundFundsHoldReleaseParams.inboundFundsHoldId
+            additionalHeaders =
+                simulationInboundFundsHoldReleaseParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                simulationInboundFundsHoldReleaseParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                simulationInboundFundsHoldReleaseParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The inbound funds hold to release. */
@@ -218,4 +206,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is SimulationInboundFundsHoldReleaseParams && inboundFundsHoldId == other.inboundFundsHoldId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(inboundFundsHoldId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "SimulationInboundFundsHoldReleaseParams{inboundFundsHoldId=$inboundFundsHoldId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

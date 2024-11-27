@@ -24,7 +24,7 @@ class WireTransferServiceTest {
             wireTransferService.create(
                 WireTransferCreateParams.builder()
                     .accountId("account_id")
-                    .amount(123L)
+                    .amount(1L)
                     .beneficiaryName("x")
                     .messageToRecipient("x")
                     .accountNumber("x")

@@ -35,6 +35,12 @@ constructor(
 
     fun correctedData(): String = correctedData
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): SimulationAchTransferCreateNotificationOfChangeBody {
         return SimulationAchTransferCreateNotificationOfChangeBody(
@@ -148,25 +154,6 @@ constructor(
             "SimulationAchTransferCreateNotificationOfChangeBody{changeCode=$changeCode, correctedData=$correctedData, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is SimulationAchTransferCreateNotificationOfChangeParams && achTransferId == other.achTransferId && changeCode == other.changeCode && correctedData == other.correctedData && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(achTransferId, changeCode, correctedData, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "SimulationAchTransferCreateNotificationOfChangeParams{achTransferId=$achTransferId, changeCode=$changeCode, correctedData=$correctedData, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -189,18 +176,17 @@ constructor(
             simulationAchTransferCreateNotificationOfChangeParams:
                 SimulationAchTransferCreateNotificationOfChangeParams
         ) = apply {
-            this.achTransferId = simulationAchTransferCreateNotificationOfChangeParams.achTransferId
-            this.changeCode = simulationAchTransferCreateNotificationOfChangeParams.changeCode
-            this.correctedData = simulationAchTransferCreateNotificationOfChangeParams.correctedData
-            additionalHeaders(
-                simulationAchTransferCreateNotificationOfChangeParams.additionalHeaders
-            )
-            additionalQueryParams(
+            achTransferId = simulationAchTransferCreateNotificationOfChangeParams.achTransferId
+            changeCode = simulationAchTransferCreateNotificationOfChangeParams.changeCode
+            correctedData = simulationAchTransferCreateNotificationOfChangeParams.correctedData
+            additionalHeaders =
+                simulationAchTransferCreateNotificationOfChangeParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
                 simulationAchTransferCreateNotificationOfChangeParams.additionalQueryParams
-            )
-            additionalBodyProperties(
+                    .toBuilder()
+            additionalBodyProperties =
                 simulationAchTransferCreateNotificationOfChangeParams.additionalBodyProperties
-            )
+                    .toMutableMap()
         }
 
         /** The identifier of the ACH Transfer you wish to create a notification of change for. */
@@ -573,4 +559,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is SimulationAchTransferCreateNotificationOfChangeParams && achTransferId == other.achTransferId && changeCode == other.changeCode && correctedData == other.correctedData && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(achTransferId, changeCode, correctedData, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "SimulationAchTransferCreateNotificationOfChangeParams{achTransferId=$achTransferId, changeCode=$changeCode, correctedData=$correctedData, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

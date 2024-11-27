@@ -21,6 +21,12 @@ constructor(
 
     fun accountId(): String = accountId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): Optional<Map<String, JsonValue>> {
         return Optional.ofNullable(additionalBodyProperties.ifEmpty { null })
@@ -36,25 +42,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is AccountCloseParams && accountId == other.accountId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "AccountCloseParams{accountId=$accountId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -73,10 +60,10 @@ constructor(
 
         @JvmSynthetic
         internal fun from(accountCloseParams: AccountCloseParams) = apply {
-            this.accountId = accountCloseParams.accountId
-            additionalHeaders(accountCloseParams.additionalHeaders)
-            additionalQueryParams(accountCloseParams.additionalQueryParams)
-            additionalBodyProperties(accountCloseParams.additionalBodyProperties)
+            accountId = accountCloseParams.accountId
+            additionalHeaders = accountCloseParams.additionalHeaders.toBuilder()
+            additionalQueryParams = accountCloseParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties = accountCloseParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier of the Account to close. The account must have a zero balance. */
@@ -210,4 +197,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is AccountCloseParams && accountId == other.accountId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "AccountCloseParams{accountId=$accountId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

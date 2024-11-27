@@ -17,6 +17,10 @@ constructor(
 
     fun inboundWireTransferId(): String = inboundWireTransferId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
@@ -27,23 +31,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is InboundWireTransferRetrieveParams && inboundWireTransferId == other.inboundWireTransferId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(inboundWireTransferId, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "InboundWireTransferRetrieveParams{inboundWireTransferId=$inboundWireTransferId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -62,9 +49,10 @@ constructor(
         @JvmSynthetic
         internal fun from(inboundWireTransferRetrieveParams: InboundWireTransferRetrieveParams) =
             apply {
-                this.inboundWireTransferId = inboundWireTransferRetrieveParams.inboundWireTransferId
-                additionalHeaders(inboundWireTransferRetrieveParams.additionalHeaders)
-                additionalQueryParams(inboundWireTransferRetrieveParams.additionalQueryParams)
+                inboundWireTransferId = inboundWireTransferRetrieveParams.inboundWireTransferId
+                additionalHeaders = inboundWireTransferRetrieveParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    inboundWireTransferRetrieveParams.additionalQueryParams.toBuilder()
             }
 
         /** The identifier of the Inbound Wire Transfer to get details for. */
@@ -179,4 +167,17 @@ constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is InboundWireTransferRetrieveParams && inboundWireTransferId == other.inboundWireTransferId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(inboundWireTransferId, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "InboundWireTransferRetrieveParams{inboundWireTransferId=$inboundWireTransferId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

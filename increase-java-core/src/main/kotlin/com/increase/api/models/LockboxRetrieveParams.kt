@@ -17,6 +17,10 @@ constructor(
 
     fun lockboxId(): String = lockboxId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
@@ -27,23 +31,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is LockboxRetrieveParams && lockboxId == other.lockboxId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(lockboxId, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "LockboxRetrieveParams{lockboxId=$lockboxId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -61,9 +48,9 @@ constructor(
 
         @JvmSynthetic
         internal fun from(lockboxRetrieveParams: LockboxRetrieveParams) = apply {
-            this.lockboxId = lockboxRetrieveParams.lockboxId
-            additionalHeaders(lockboxRetrieveParams.additionalHeaders)
-            additionalQueryParams(lockboxRetrieveParams.additionalQueryParams)
+            lockboxId = lockboxRetrieveParams.lockboxId
+            additionalHeaders = lockboxRetrieveParams.additionalHeaders.toBuilder()
+            additionalQueryParams = lockboxRetrieveParams.additionalQueryParams.toBuilder()
         }
 
         /** The identifier of the Lockbox to retrieve. */
@@ -174,4 +161,17 @@ constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is LockboxRetrieveParams && lockboxId == other.lockboxId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(lockboxId, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "LockboxRetrieveParams{lockboxId=$lockboxId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -62,6 +62,12 @@ constructor(
     fun standardEntryClassCode(): Optional<StandardEntryClassCode> =
         Optional.ofNullable(standardEntryClassCode)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): SimulationInboundAchTransferCreateBody {
         return SimulationInboundAchTransferCreateBody(
@@ -307,25 +313,6 @@ constructor(
             "SimulationInboundAchTransferCreateBody{accountNumberId=$accountNumberId, amount=$amount, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyId=$companyId, companyName=$companyName, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, resolveAt=$resolveAt, standardEntryClassCode=$standardEntryClassCode, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is SimulationInboundAchTransferCreateParams && accountNumberId == other.accountNumberId && amount == other.amount && companyDescriptiveDate == other.companyDescriptiveDate && companyDiscretionaryData == other.companyDiscretionaryData && companyEntryDescription == other.companyEntryDescription && companyId == other.companyId && companyName == other.companyName && receiverIdNumber == other.receiverIdNumber && receiverName == other.receiverName && resolveAt == other.resolveAt && standardEntryClassCode == other.standardEntryClassCode && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountNumberId, amount, companyDescriptiveDate, companyDiscretionaryData, companyEntryDescription, companyId, companyName, receiverIdNumber, receiverName, resolveAt, standardEntryClassCode, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "SimulationInboundAchTransferCreateParams{accountNumberId=$accountNumberId, amount=$amount, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyId=$companyId, companyName=$companyName, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, resolveAt=$resolveAt, standardEntryClassCode=$standardEntryClassCode, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -355,26 +342,25 @@ constructor(
         internal fun from(
             simulationInboundAchTransferCreateParams: SimulationInboundAchTransferCreateParams
         ) = apply {
-            this.accountNumberId = simulationInboundAchTransferCreateParams.accountNumberId
-            this.amount = simulationInboundAchTransferCreateParams.amount
-            this.companyDescriptiveDate =
-                simulationInboundAchTransferCreateParams.companyDescriptiveDate
-            this.companyDiscretionaryData =
+            accountNumberId = simulationInboundAchTransferCreateParams.accountNumberId
+            amount = simulationInboundAchTransferCreateParams.amount
+            companyDescriptiveDate = simulationInboundAchTransferCreateParams.companyDescriptiveDate
+            companyDiscretionaryData =
                 simulationInboundAchTransferCreateParams.companyDiscretionaryData
-            this.companyEntryDescription =
+            companyEntryDescription =
                 simulationInboundAchTransferCreateParams.companyEntryDescription
-            this.companyId = simulationInboundAchTransferCreateParams.companyId
-            this.companyName = simulationInboundAchTransferCreateParams.companyName
-            this.receiverIdNumber = simulationInboundAchTransferCreateParams.receiverIdNumber
-            this.receiverName = simulationInboundAchTransferCreateParams.receiverName
-            this.resolveAt = simulationInboundAchTransferCreateParams.resolveAt
-            this.standardEntryClassCode =
-                simulationInboundAchTransferCreateParams.standardEntryClassCode
-            additionalHeaders(simulationInboundAchTransferCreateParams.additionalHeaders)
-            additionalQueryParams(simulationInboundAchTransferCreateParams.additionalQueryParams)
-            additionalBodyProperties(
-                simulationInboundAchTransferCreateParams.additionalBodyProperties
-            )
+            companyId = simulationInboundAchTransferCreateParams.companyId
+            companyName = simulationInboundAchTransferCreateParams.companyName
+            receiverIdNumber = simulationInboundAchTransferCreateParams.receiverIdNumber
+            receiverName = simulationInboundAchTransferCreateParams.receiverName
+            resolveAt = simulationInboundAchTransferCreateParams.resolveAt
+            standardEntryClassCode = simulationInboundAchTransferCreateParams.standardEntryClassCode
+            additionalHeaders =
+                simulationInboundAchTransferCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                simulationInboundAchTransferCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                simulationInboundAchTransferCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier of the Account Number the inbound ACH Transfer is for. */
@@ -728,4 +714,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is SimulationInboundAchTransferCreateParams && accountNumberId == other.accountNumberId && amount == other.amount && companyDescriptiveDate == other.companyDescriptiveDate && companyDiscretionaryData == other.companyDiscretionaryData && companyEntryDescription == other.companyEntryDescription && companyId == other.companyId && companyName == other.companyName && receiverIdNumber == other.receiverIdNumber && receiverName == other.receiverName && resolveAt == other.resolveAt && standardEntryClassCode == other.standardEntryClassCode && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountNumberId, amount, companyDescriptiveDate, companyDiscretionaryData, companyEntryDescription, companyId, companyName, receiverIdNumber, receiverName, resolveAt, standardEntryClassCode, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "SimulationInboundAchTransferCreateParams{accountNumberId=$accountNumberId, amount=$amount, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyId=$companyId, companyName=$companyName, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, resolveAt=$resolveAt, standardEntryClassCode=$standardEntryClassCode, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

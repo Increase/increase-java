@@ -40,6 +40,12 @@ constructor(
 
     fun sharedSecret(): Optional<String> = Optional.ofNullable(sharedSecret)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): EventSubscriptionCreateBody {
         return EventSubscriptionCreateBody(
@@ -186,25 +192,6 @@ constructor(
             "EventSubscriptionCreateBody{url=$url, oauthConnectionId=$oauthConnectionId, selectedEventCategory=$selectedEventCategory, sharedSecret=$sharedSecret, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is EventSubscriptionCreateParams && url == other.url && oauthConnectionId == other.oauthConnectionId && selectedEventCategory == other.selectedEventCategory && sharedSecret == other.sharedSecret && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(url, oauthConnectionId, selectedEventCategory, sharedSecret, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "EventSubscriptionCreateParams{url=$url, oauthConnectionId=$oauthConnectionId, selectedEventCategory=$selectedEventCategory, sharedSecret=$sharedSecret, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -225,13 +212,14 @@ constructor(
 
         @JvmSynthetic
         internal fun from(eventSubscriptionCreateParams: EventSubscriptionCreateParams) = apply {
-            this.url = eventSubscriptionCreateParams.url
-            this.oauthConnectionId = eventSubscriptionCreateParams.oauthConnectionId
-            this.selectedEventCategory = eventSubscriptionCreateParams.selectedEventCategory
-            this.sharedSecret = eventSubscriptionCreateParams.sharedSecret
-            additionalHeaders(eventSubscriptionCreateParams.additionalHeaders)
-            additionalQueryParams(eventSubscriptionCreateParams.additionalQueryParams)
-            additionalBodyProperties(eventSubscriptionCreateParams.additionalBodyProperties)
+            url = eventSubscriptionCreateParams.url
+            oauthConnectionId = eventSubscriptionCreateParams.oauthConnectionId
+            selectedEventCategory = eventSubscriptionCreateParams.selectedEventCategory
+            sharedSecret = eventSubscriptionCreateParams.sharedSecret
+            additionalHeaders = eventSubscriptionCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = eventSubscriptionCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                eventSubscriptionCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The URL you'd like us to send webhooks to. */
@@ -1140,4 +1128,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is EventSubscriptionCreateParams && url == other.url && oauthConnectionId == other.oauthConnectionId && selectedEventCategory == other.selectedEventCategory && sharedSecret == other.sharedSecret && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(url, oauthConnectionId, selectedEventCategory, sharedSecret, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "EventSubscriptionCreateParams{url=$url, oauthConnectionId=$oauthConnectionId, selectedEventCategory=$selectedEventCategory, sharedSecret=$sharedSecret, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

@@ -17,6 +17,10 @@ constructor(
 
     fun programId(): String = programId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
@@ -27,23 +31,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is ProgramRetrieveParams && programId == other.programId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(programId, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "ProgramRetrieveParams{programId=$programId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -61,9 +48,9 @@ constructor(
 
         @JvmSynthetic
         internal fun from(programRetrieveParams: ProgramRetrieveParams) = apply {
-            this.programId = programRetrieveParams.programId
-            additionalHeaders(programRetrieveParams.additionalHeaders)
-            additionalQueryParams(programRetrieveParams.additionalQueryParams)
+            programId = programRetrieveParams.programId
+            additionalHeaders = programRetrieveParams.additionalHeaders.toBuilder()
+            additionalQueryParams = programRetrieveParams.additionalQueryParams.toBuilder()
         }
 
         /** The identifier of the Program to retrieve. */
@@ -174,4 +161,17 @@ constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is ProgramRetrieveParams && programId == other.programId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(programId, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "ProgramRetrieveParams{programId=$programId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -29,6 +29,12 @@ constructor(
 
     fun name(): Optional<String> = Optional.ofNullable(name)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): AccountUpdateBody {
         return AccountUpdateBody(name, additionalBodyProperties)
@@ -117,25 +123,6 @@ constructor(
             "AccountUpdateBody{name=$name, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is AccountUpdateParams && accountId == other.accountId && name == other.name && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, name, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "AccountUpdateParams{accountId=$accountId, name=$name, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -154,11 +141,11 @@ constructor(
 
         @JvmSynthetic
         internal fun from(accountUpdateParams: AccountUpdateParams) = apply {
-            this.accountId = accountUpdateParams.accountId
-            this.name = accountUpdateParams.name
-            additionalHeaders(accountUpdateParams.additionalHeaders)
-            additionalQueryParams(accountUpdateParams.additionalQueryParams)
-            additionalBodyProperties(accountUpdateParams.additionalBodyProperties)
+            accountId = accountUpdateParams.accountId
+            name = accountUpdateParams.name
+            additionalHeaders = accountUpdateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = accountUpdateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties = accountUpdateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier of the Account to update. */
@@ -296,4 +283,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is AccountUpdateParams && accountId == other.accountId && name == other.name && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, name, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "AccountUpdateParams{accountId=$accountId, name=$name, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

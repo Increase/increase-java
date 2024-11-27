@@ -17,6 +17,10 @@ constructor(
 
     fun externalAccountId(): String = externalAccountId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
@@ -27,23 +31,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is ExternalAccountRetrieveParams && externalAccountId == other.externalAccountId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(externalAccountId, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "ExternalAccountRetrieveParams{externalAccountId=$externalAccountId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -61,9 +48,9 @@ constructor(
 
         @JvmSynthetic
         internal fun from(externalAccountRetrieveParams: ExternalAccountRetrieveParams) = apply {
-            this.externalAccountId = externalAccountRetrieveParams.externalAccountId
-            additionalHeaders(externalAccountRetrieveParams.additionalHeaders)
-            additionalQueryParams(externalAccountRetrieveParams.additionalQueryParams)
+            externalAccountId = externalAccountRetrieveParams.externalAccountId
+            additionalHeaders = externalAccountRetrieveParams.additionalHeaders.toBuilder()
+            additionalQueryParams = externalAccountRetrieveParams.additionalQueryParams.toBuilder()
         }
 
         /** The identifier of the External Account. */
@@ -178,4 +165,17 @@ constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is ExternalAccountRetrieveParams && externalAccountId == other.externalAccountId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(externalAccountId, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "ExternalAccountRetrieveParams{externalAccountId=$externalAccountId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

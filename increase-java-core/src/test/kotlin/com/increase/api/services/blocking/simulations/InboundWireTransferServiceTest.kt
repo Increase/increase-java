@@ -23,7 +23,7 @@ class InboundWireTransferServiceTest {
             inboundWireTransferService.create(
                 SimulationInboundWireTransferCreateParams.builder()
                     .accountNumberId("account_number_id")
-                    .amount(123L)
+                    .amount(1L)
                     .beneficiaryAddressLine1("x")
                     .beneficiaryAddressLine2("x")
                     .beneficiaryAddressLine3("x")

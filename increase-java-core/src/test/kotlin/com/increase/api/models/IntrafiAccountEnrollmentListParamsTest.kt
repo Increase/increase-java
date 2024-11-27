@@ -15,7 +15,7 @@ class IntrafiAccountEnrollmentListParamsTest {
             .accountId("account_id")
             .cursor("cursor")
             .idempotencyKey("x")
-            .limit(123L)
+            .limit(1L)
             .status(
                 IntrafiAccountEnrollmentListParams.Status.builder()
                     .in_(listOf(IntrafiAccountEnrollmentListParams.Status.In.PENDING_ENROLLING))
@@ -31,7 +31,7 @@ class IntrafiAccountEnrollmentListParamsTest {
                 .accountId("account_id")
                 .cursor("cursor")
                 .idempotencyKey("x")
-                .limit(123L)
+                .limit(1L)
                 .status(
                     IntrafiAccountEnrollmentListParams.Status.builder()
                         .in_(listOf(IntrafiAccountEnrollmentListParams.Status.In.PENDING_ENROLLING))
@@ -42,7 +42,7 @@ class IntrafiAccountEnrollmentListParamsTest {
         expected.put("account_id", "account_id")
         expected.put("cursor", "cursor")
         expected.put("idempotency_key", "x")
-        expected.put("limit", "123")
+        expected.put("limit", "1")
         IntrafiAccountEnrollmentListParams.Status.builder()
             .in_(listOf(IntrafiAccountEnrollmentListParams.Status.In.PENDING_ENROLLING))
             .build()

@@ -17,6 +17,10 @@ constructor(
 
     fun exportId(): String = exportId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
@@ -27,23 +31,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is ExportRetrieveParams && exportId == other.exportId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(exportId, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "ExportRetrieveParams{exportId=$exportId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -61,9 +48,9 @@ constructor(
 
         @JvmSynthetic
         internal fun from(exportRetrieveParams: ExportRetrieveParams) = apply {
-            this.exportId = exportRetrieveParams.exportId
-            additionalHeaders(exportRetrieveParams.additionalHeaders)
-            additionalQueryParams(exportRetrieveParams.additionalQueryParams)
+            exportId = exportRetrieveParams.exportId
+            additionalHeaders = exportRetrieveParams.additionalHeaders.toBuilder()
+            additionalQueryParams = exportRetrieveParams.additionalQueryParams.toBuilder()
         }
 
         /** The identifier of the Export to retrieve. */
@@ -174,4 +161,17 @@ constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is ExportRetrieveParams && exportId == other.exportId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(exportId, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "ExportRetrieveParams{exportId=$exportId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

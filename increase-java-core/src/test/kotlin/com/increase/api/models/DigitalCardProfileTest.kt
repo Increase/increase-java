@@ -25,7 +25,7 @@ class DigitalCardProfileTest {
                 .issuerName("issuer_name")
                 .status(DigitalCardProfile.Status.PENDING)
                 .textColor(
-                    DigitalCardProfile.TextColor.builder().blue(123L).green(123L).red(123L).build()
+                    DigitalCardProfile.TextColor.builder().blue(0L).green(0L).red(0L).build()
                 )
                 .type(DigitalCardProfile.Type.DIGITAL_CARD_PROFILE)
                 .build()
@@ -44,9 +44,7 @@ class DigitalCardProfileTest {
         assertThat(digitalCardProfile.issuerName()).isEqualTo("issuer_name")
         assertThat(digitalCardProfile.status()).isEqualTo(DigitalCardProfile.Status.PENDING)
         assertThat(digitalCardProfile.textColor())
-            .isEqualTo(
-                DigitalCardProfile.TextColor.builder().blue(123L).green(123L).red(123L).build()
-            )
+            .isEqualTo(DigitalCardProfile.TextColor.builder().blue(0L).green(0L).red(0L).build())
         assertThat(digitalCardProfile.type())
             .isEqualTo(DigitalCardProfile.Type.DIGITAL_CARD_PROFILE)
     }

@@ -88,6 +88,12 @@ constructor(
 
     fun transactionTiming(): Optional<TransactionTiming> = Optional.ofNullable(transactionTiming)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): AchTransferCreateBody {
         return AchTransferCreateBody(
@@ -504,25 +510,6 @@ constructor(
             "AchTransferCreateBody{accountId=$accountId, amount=$amount, statementDescriptor=$statementDescriptor, accountNumber=$accountNumber, addenda=$addenda, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, destinationAccountHolder=$destinationAccountHolder, externalAccountId=$externalAccountId, funding=$funding, individualId=$individualId, individualName=$individualName, preferredEffectiveDate=$preferredEffectiveDate, requireApproval=$requireApproval, routingNumber=$routingNumber, standardEntryClassCode=$standardEntryClassCode, transactionTiming=$transactionTiming, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is AchTransferCreateParams && accountId == other.accountId && amount == other.amount && statementDescriptor == other.statementDescriptor && accountNumber == other.accountNumber && addenda == other.addenda && companyDescriptiveDate == other.companyDescriptiveDate && companyDiscretionaryData == other.companyDiscretionaryData && companyEntryDescription == other.companyEntryDescription && companyName == other.companyName && destinationAccountHolder == other.destinationAccountHolder && externalAccountId == other.externalAccountId && funding == other.funding && individualId == other.individualId && individualName == other.individualName && preferredEffectiveDate == other.preferredEffectiveDate && requireApproval == other.requireApproval && routingNumber == other.routingNumber && standardEntryClassCode == other.standardEntryClassCode && transactionTiming == other.transactionTiming && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, amount, statementDescriptor, accountNumber, addenda, companyDescriptiveDate, companyDiscretionaryData, companyEntryDescription, companyName, destinationAccountHolder, externalAccountId, funding, individualId, individualName, preferredEffectiveDate, requireApproval, routingNumber, standardEntryClassCode, transactionTiming, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "AchTransferCreateParams{accountId=$accountId, amount=$amount, statementDescriptor=$statementDescriptor, accountNumber=$accountNumber, addenda=$addenda, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, destinationAccountHolder=$destinationAccountHolder, externalAccountId=$externalAccountId, funding=$funding, individualId=$individualId, individualName=$individualName, preferredEffectiveDate=$preferredEffectiveDate, requireApproval=$requireApproval, routingNumber=$routingNumber, standardEntryClassCode=$standardEntryClassCode, transactionTiming=$transactionTiming, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -558,28 +545,29 @@ constructor(
 
         @JvmSynthetic
         internal fun from(achTransferCreateParams: AchTransferCreateParams) = apply {
-            this.accountId = achTransferCreateParams.accountId
-            this.amount = achTransferCreateParams.amount
-            this.statementDescriptor = achTransferCreateParams.statementDescriptor
-            this.accountNumber = achTransferCreateParams.accountNumber
-            this.addenda = achTransferCreateParams.addenda
-            this.companyDescriptiveDate = achTransferCreateParams.companyDescriptiveDate
-            this.companyDiscretionaryData = achTransferCreateParams.companyDiscretionaryData
-            this.companyEntryDescription = achTransferCreateParams.companyEntryDescription
-            this.companyName = achTransferCreateParams.companyName
-            this.destinationAccountHolder = achTransferCreateParams.destinationAccountHolder
-            this.externalAccountId = achTransferCreateParams.externalAccountId
-            this.funding = achTransferCreateParams.funding
-            this.individualId = achTransferCreateParams.individualId
-            this.individualName = achTransferCreateParams.individualName
-            this.preferredEffectiveDate = achTransferCreateParams.preferredEffectiveDate
-            this.requireApproval = achTransferCreateParams.requireApproval
-            this.routingNumber = achTransferCreateParams.routingNumber
-            this.standardEntryClassCode = achTransferCreateParams.standardEntryClassCode
-            this.transactionTiming = achTransferCreateParams.transactionTiming
-            additionalHeaders(achTransferCreateParams.additionalHeaders)
-            additionalQueryParams(achTransferCreateParams.additionalQueryParams)
-            additionalBodyProperties(achTransferCreateParams.additionalBodyProperties)
+            accountId = achTransferCreateParams.accountId
+            amount = achTransferCreateParams.amount
+            statementDescriptor = achTransferCreateParams.statementDescriptor
+            accountNumber = achTransferCreateParams.accountNumber
+            addenda = achTransferCreateParams.addenda
+            companyDescriptiveDate = achTransferCreateParams.companyDescriptiveDate
+            companyDiscretionaryData = achTransferCreateParams.companyDiscretionaryData
+            companyEntryDescription = achTransferCreateParams.companyEntryDescription
+            companyName = achTransferCreateParams.companyName
+            destinationAccountHolder = achTransferCreateParams.destinationAccountHolder
+            externalAccountId = achTransferCreateParams.externalAccountId
+            funding = achTransferCreateParams.funding
+            individualId = achTransferCreateParams.individualId
+            individualName = achTransferCreateParams.individualName
+            preferredEffectiveDate = achTransferCreateParams.preferredEffectiveDate
+            requireApproval = achTransferCreateParams.requireApproval
+            routingNumber = achTransferCreateParams.routingNumber
+            standardEntryClassCode = achTransferCreateParams.standardEntryClassCode
+            transactionTiming = achTransferCreateParams.transactionTiming
+            additionalHeaders = achTransferCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = achTransferCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                achTransferCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The Increase identifier for the account that will send the transfer. */
@@ -1783,4 +1771,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is AchTransferCreateParams && accountId == other.accountId && amount == other.amount && statementDescriptor == other.statementDescriptor && accountNumber == other.accountNumber && addenda == other.addenda && companyDescriptiveDate == other.companyDescriptiveDate && companyDiscretionaryData == other.companyDiscretionaryData && companyEntryDescription == other.companyEntryDescription && companyName == other.companyName && destinationAccountHolder == other.destinationAccountHolder && externalAccountId == other.externalAccountId && funding == other.funding && individualId == other.individualId && individualName == other.individualName && preferredEffectiveDate == other.preferredEffectiveDate && requireApproval == other.requireApproval && routingNumber == other.routingNumber && standardEntryClassCode == other.standardEntryClassCode && transactionTiming == other.transactionTiming && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, amount, statementDescriptor, accountNumber, addenda, companyDescriptiveDate, companyDiscretionaryData, companyEntryDescription, companyName, destinationAccountHolder, externalAccountId, funding, individualId, individualName, preferredEffectiveDate, requireApproval, routingNumber, standardEntryClassCode, transactionTiming, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "AchTransferCreateParams{accountId=$accountId, amount=$amount, statementDescriptor=$statementDescriptor, accountNumber=$accountNumber, addenda=$addenda, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, destinationAccountHolder=$destinationAccountHolder, externalAccountId=$externalAccountId, funding=$funding, individualId=$individualId, individualName=$individualName, preferredEffectiveDate=$preferredEffectiveDate, requireApproval=$requireApproval, routingNumber=$routingNumber, standardEntryClassCode=$standardEntryClassCode, transactionTiming=$transactionTiming, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

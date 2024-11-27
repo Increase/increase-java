@@ -21,6 +21,12 @@ constructor(
 
     fun physicalCardProfileId(): String = physicalCardProfileId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): Optional<Map<String, JsonValue>> {
         return Optional.ofNullable(additionalBodyProperties.ifEmpty { null })
@@ -36,25 +42,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is PhysicalCardProfileArchiveParams && physicalCardProfileId == other.physicalCardProfileId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(physicalCardProfileId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "PhysicalCardProfileArchiveParams{physicalCardProfileId=$physicalCardProfileId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -74,10 +61,12 @@ constructor(
         @JvmSynthetic
         internal fun from(physicalCardProfileArchiveParams: PhysicalCardProfileArchiveParams) =
             apply {
-                this.physicalCardProfileId = physicalCardProfileArchiveParams.physicalCardProfileId
-                additionalHeaders(physicalCardProfileArchiveParams.additionalHeaders)
-                additionalQueryParams(physicalCardProfileArchiveParams.additionalQueryParams)
-                additionalBodyProperties(physicalCardProfileArchiveParams.additionalBodyProperties)
+                physicalCardProfileId = physicalCardProfileArchiveParams.physicalCardProfileId
+                additionalHeaders = physicalCardProfileArchiveParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    physicalCardProfileArchiveParams.additionalQueryParams.toBuilder()
+                additionalBodyProperties =
+                    physicalCardProfileArchiveParams.additionalBodyProperties.toMutableMap()
             }
 
         /** The identifier of the Physical Card Profile to archive. */
@@ -215,4 +204,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is PhysicalCardProfileArchiveParams && physicalCardProfileId == other.physicalCardProfileId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(physicalCardProfileId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "PhysicalCardProfileArchiveParams{physicalCardProfileId=$physicalCardProfileId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

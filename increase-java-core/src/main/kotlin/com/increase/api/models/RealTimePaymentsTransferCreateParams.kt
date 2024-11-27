@@ -56,6 +56,12 @@ constructor(
 
     fun ultimateDebtorName(): Optional<String> = Optional.ofNullable(ultimateDebtorName)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): RealTimePaymentsTransferCreateBody {
         return RealTimePaymentsTransferCreateBody(
@@ -321,25 +327,6 @@ constructor(
             "RealTimePaymentsTransferCreateBody{amount=$amount, creditorName=$creditorName, remittanceInformation=$remittanceInformation, sourceAccountNumberId=$sourceAccountNumberId, debtorName=$debtorName, destinationAccountNumber=$destinationAccountNumber, destinationRoutingNumber=$destinationRoutingNumber, externalAccountId=$externalAccountId, requireApproval=$requireApproval, ultimateCreditorName=$ultimateCreditorName, ultimateDebtorName=$ultimateDebtorName, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is RealTimePaymentsTransferCreateParams && amount == other.amount && creditorName == other.creditorName && remittanceInformation == other.remittanceInformation && sourceAccountNumberId == other.sourceAccountNumberId && debtorName == other.debtorName && destinationAccountNumber == other.destinationAccountNumber && destinationRoutingNumber == other.destinationRoutingNumber && externalAccountId == other.externalAccountId && requireApproval == other.requireApproval && ultimateCreditorName == other.ultimateCreditorName && ultimateDebtorName == other.ultimateDebtorName && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(amount, creditorName, remittanceInformation, sourceAccountNumberId, debtorName, destinationAccountNumber, destinationRoutingNumber, externalAccountId, requireApproval, ultimateCreditorName, ultimateDebtorName, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "RealTimePaymentsTransferCreateParams{amount=$amount, creditorName=$creditorName, remittanceInformation=$remittanceInformation, sourceAccountNumberId=$sourceAccountNumberId, debtorName=$debtorName, destinationAccountNumber=$destinationAccountNumber, destinationRoutingNumber=$destinationRoutingNumber, externalAccountId=$externalAccountId, requireApproval=$requireApproval, ultimateCreditorName=$ultimateCreditorName, ultimateDebtorName=$ultimateDebtorName, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -369,22 +356,22 @@ constructor(
         internal fun from(
             realTimePaymentsTransferCreateParams: RealTimePaymentsTransferCreateParams
         ) = apply {
-            this.amount = realTimePaymentsTransferCreateParams.amount
-            this.creditorName = realTimePaymentsTransferCreateParams.creditorName
-            this.remittanceInformation = realTimePaymentsTransferCreateParams.remittanceInformation
-            this.sourceAccountNumberId = realTimePaymentsTransferCreateParams.sourceAccountNumberId
-            this.debtorName = realTimePaymentsTransferCreateParams.debtorName
-            this.destinationAccountNumber =
-                realTimePaymentsTransferCreateParams.destinationAccountNumber
-            this.destinationRoutingNumber =
-                realTimePaymentsTransferCreateParams.destinationRoutingNumber
-            this.externalAccountId = realTimePaymentsTransferCreateParams.externalAccountId
-            this.requireApproval = realTimePaymentsTransferCreateParams.requireApproval
-            this.ultimateCreditorName = realTimePaymentsTransferCreateParams.ultimateCreditorName
-            this.ultimateDebtorName = realTimePaymentsTransferCreateParams.ultimateDebtorName
-            additionalHeaders(realTimePaymentsTransferCreateParams.additionalHeaders)
-            additionalQueryParams(realTimePaymentsTransferCreateParams.additionalQueryParams)
-            additionalBodyProperties(realTimePaymentsTransferCreateParams.additionalBodyProperties)
+            amount = realTimePaymentsTransferCreateParams.amount
+            creditorName = realTimePaymentsTransferCreateParams.creditorName
+            remittanceInformation = realTimePaymentsTransferCreateParams.remittanceInformation
+            sourceAccountNumberId = realTimePaymentsTransferCreateParams.sourceAccountNumberId
+            debtorName = realTimePaymentsTransferCreateParams.debtorName
+            destinationAccountNumber = realTimePaymentsTransferCreateParams.destinationAccountNumber
+            destinationRoutingNumber = realTimePaymentsTransferCreateParams.destinationRoutingNumber
+            externalAccountId = realTimePaymentsTransferCreateParams.externalAccountId
+            requireApproval = realTimePaymentsTransferCreateParams.requireApproval
+            ultimateCreditorName = realTimePaymentsTransferCreateParams.ultimateCreditorName
+            ultimateDebtorName = realTimePaymentsTransferCreateParams.ultimateDebtorName
+            additionalHeaders = realTimePaymentsTransferCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                realTimePaymentsTransferCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                realTimePaymentsTransferCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The transfer amount in USD cents. For Real-Time Payments transfers, must be positive. */
@@ -590,4 +577,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is RealTimePaymentsTransferCreateParams && amount == other.amount && creditorName == other.creditorName && remittanceInformation == other.remittanceInformation && sourceAccountNumberId == other.sourceAccountNumberId && debtorName == other.debtorName && destinationAccountNumber == other.destinationAccountNumber && destinationRoutingNumber == other.destinationRoutingNumber && externalAccountId == other.externalAccountId && requireApproval == other.requireApproval && ultimateCreditorName == other.ultimateCreditorName && ultimateDebtorName == other.ultimateDebtorName && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(amount, creditorName, remittanceInformation, sourceAccountNumberId, debtorName, destinationAccountNumber, destinationRoutingNumber, externalAccountId, requireApproval, ultimateCreditorName, ultimateDebtorName, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "RealTimePaymentsTransferCreateParams{amount=$amount, creditorName=$creditorName, remittanceInformation=$remittanceInformation, sourceAccountNumberId=$sourceAccountNumberId, debtorName=$debtorName, destinationAccountNumber=$destinationAccountNumber, destinationRoutingNumber=$destinationRoutingNumber, externalAccountId=$externalAccountId, requireApproval=$requireApproval, ultimateCreditorName=$ultimateCreditorName, ultimateDebtorName=$ultimateDebtorName, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

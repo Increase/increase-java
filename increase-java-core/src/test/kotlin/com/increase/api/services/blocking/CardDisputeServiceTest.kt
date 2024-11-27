@@ -25,7 +25,7 @@ class CardDisputeServiceTest {
                 CardDisputeCreateParams.builder()
                     .disputedTransactionId("disputed_transaction_id")
                     .explanation("x")
-                    .amount(123L)
+                    .amount(1L)
                     .build()
             )
         println(cardDispute)

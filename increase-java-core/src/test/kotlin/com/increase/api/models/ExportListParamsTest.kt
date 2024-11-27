@@ -28,7 +28,7 @@ class ExportListParamsTest {
             )
             .cursor("cursor")
             .idempotencyKey("x")
-            .limit(123L)
+            .limit(1L)
             .status(
                 ExportListParams.Status.builder()
                     .in_(listOf(ExportListParams.Status.In.PENDING))
@@ -56,7 +56,7 @@ class ExportListParamsTest {
                 )
                 .cursor("cursor")
                 .idempotencyKey("x")
-                .limit(123L)
+                .limit(1L)
                 .status(
                     ExportListParams.Status.builder()
                         .in_(listOf(ExportListParams.Status.In.PENDING))
@@ -77,7 +77,7 @@ class ExportListParamsTest {
             .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
         expected.put("cursor", "cursor")
         expected.put("idempotency_key", "x")
-        expected.put("limit", "123")
+        expected.put("limit", "1")
         ExportListParams.Status.builder()
             .in_(listOf(ExportListParams.Status.In.PENDING))
             .build()

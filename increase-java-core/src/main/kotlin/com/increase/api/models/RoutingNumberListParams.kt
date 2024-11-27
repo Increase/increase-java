@@ -24,6 +24,10 @@ constructor(
 
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic
@@ -35,23 +39,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is RoutingNumberListParams && routingNumber == other.routingNumber && cursor == other.cursor && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(routingNumber, cursor, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "RoutingNumberListParams{routingNumber=$routingNumber, cursor=$cursor, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -71,11 +58,11 @@ constructor(
 
         @JvmSynthetic
         internal fun from(routingNumberListParams: RoutingNumberListParams) = apply {
-            this.routingNumber = routingNumberListParams.routingNumber
-            this.cursor = routingNumberListParams.cursor
-            this.limit = routingNumberListParams.limit
-            additionalHeaders(routingNumberListParams.additionalHeaders)
-            additionalQueryParams(routingNumberListParams.additionalQueryParams)
+            routingNumber = routingNumberListParams.routingNumber
+            cursor = routingNumberListParams.cursor
+            limit = routingNumberListParams.limit
+            additionalHeaders = routingNumberListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = routingNumberListParams.additionalQueryParams.toBuilder()
         }
 
         /** Filter financial institutions by routing number. */
@@ -196,4 +183,17 @@ constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is RoutingNumberListParams && routingNumber == other.routingNumber && cursor == other.cursor && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(routingNumber, cursor, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "RoutingNumberListParams{routingNumber=$routingNumber, cursor=$cursor, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

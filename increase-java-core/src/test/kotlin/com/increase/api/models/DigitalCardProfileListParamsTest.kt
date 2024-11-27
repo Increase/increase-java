@@ -14,7 +14,7 @@ class DigitalCardProfileListParamsTest {
         DigitalCardProfileListParams.builder()
             .cursor("cursor")
             .idempotencyKey("x")
-            .limit(123L)
+            .limit(1L)
             .status(
                 DigitalCardProfileListParams.Status.builder()
                     .in_(listOf(DigitalCardProfileListParams.Status.In.PENDING))
@@ -29,7 +29,7 @@ class DigitalCardProfileListParamsTest {
             DigitalCardProfileListParams.builder()
                 .cursor("cursor")
                 .idempotencyKey("x")
-                .limit(123L)
+                .limit(1L)
                 .status(
                     DigitalCardProfileListParams.Status.builder()
                         .in_(listOf(DigitalCardProfileListParams.Status.In.PENDING))
@@ -39,7 +39,7 @@ class DigitalCardProfileListParamsTest {
         val expected = QueryParams.builder()
         expected.put("cursor", "cursor")
         expected.put("idempotency_key", "x")
-        expected.put("limit", "123")
+        expected.put("limit", "1")
         DigitalCardProfileListParams.Status.builder()
             .in_(listOf(DigitalCardProfileListParams.Status.In.PENDING))
             .build()

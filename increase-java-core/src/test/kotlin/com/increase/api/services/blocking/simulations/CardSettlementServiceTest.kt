@@ -24,7 +24,7 @@ class CardSettlementServiceTest {
                 SimulationCardSettlementCreateParams.builder()
                     .cardId("card_id")
                     .pendingTransactionId("pending_transaction_id")
-                    .amount(123L)
+                    .amount(1L)
                     .build()
             )
         println(transaction)

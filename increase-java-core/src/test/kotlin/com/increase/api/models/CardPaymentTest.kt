@@ -26,7 +26,7 @@ class CardPaymentTest {
                                 CardPayment.Element.CardAuthorization.builder()
                                     .id("id")
                                     .actioner(CardPayment.Element.CardAuthorization.Actioner.USER)
-                                    .amount(123L)
+                                    .amount(0L)
                                     .cardPaymentId("card_payment_id")
                                     .currency(CardPayment.Element.CardAuthorization.Currency.CAD)
                                     .digitalWalletTokenId("digital_wallet_token_id")
@@ -86,10 +86,10 @@ class CardPaymentTest {
                                             .transactionId("transaction_id")
                                             .build()
                                     )
-                                    .networkRiskScore(123L)
+                                    .networkRiskScore(0L)
                                     .pendingTransactionId("pending_transaction_id")
                                     .physicalCardId("physical_card_id")
-                                    .presentmentAmount(123L)
+                                    .presentmentAmount(0L)
                                     .presentmentCurrency("presentment_currency")
                                     .processingCategory(
                                         CardPayment.Element.CardAuthorization.ProcessingCategory
@@ -144,7 +144,7 @@ class CardPaymentTest {
                                     .currency(
                                         CardPayment.Element.CardAuthorizationExpiration.Currency.CAD
                                     )
-                                    .expiredAmount(123L)
+                                    .expiredAmount(0L)
                                     .network(
                                         CardPayment.Element.CardAuthorizationExpiration.Network.VISA
                                     )
@@ -158,7 +158,7 @@ class CardPaymentTest {
                                 CardPayment.Element.CardDecline.builder()
                                     .id("id")
                                     .actioner(CardPayment.Element.CardDecline.Actioner.USER)
-                                    .amount(123L)
+                                    .amount(0L)
                                     .cardPaymentId("card_payment_id")
                                     .currency(CardPayment.Element.CardDecline.Currency.CAD)
                                     .declinedTransactionId("declined_transaction_id")
@@ -213,9 +213,9 @@ class CardPaymentTest {
                                             .transactionId("transaction_id")
                                             .build()
                                     )
-                                    .networkRiskScore(123L)
+                                    .networkRiskScore(0L)
                                     .physicalCardId("physical_card_id")
-                                    .presentmentAmount(123L)
+                                    .presentmentAmount(0L)
                                     .presentmentCurrency("presentment_currency")
                                     .processingCategory(
                                         CardPayment.Element.CardDecline.ProcessingCategory
@@ -281,14 +281,14 @@ class CardPaymentTest {
                                         CardPayment.Element.CardFuelConfirmation.Type
                                             .CARD_FUEL_CONFIRMATION
                                     )
-                                    .updatedAuthorizationAmount(123L)
+                                    .updatedAuthorizationAmount(0L)
                                     .build()
                             )
                             .cardIncrement(
                                 CardPayment.Element.CardIncrement.builder()
                                     .id("id")
                                     .actioner(CardPayment.Element.CardIncrement.Actioner.USER)
-                                    .amount(123L)
+                                    .amount(0L)
                                     .cardAuthorizationId("card_authorization_id")
                                     .currency(CardPayment.Element.CardIncrement.Currency.CAD)
                                     .network(CardPayment.Element.CardIncrement.Network.VISA)
@@ -300,17 +300,17 @@ class CardPaymentTest {
                                             .transactionId("transaction_id")
                                             .build()
                                     )
-                                    .networkRiskScore(123L)
+                                    .networkRiskScore(0L)
                                     .pendingTransactionId("pending_transaction_id")
                                     .realTimeDecisionId("real_time_decision_id")
                                     .type(CardPayment.Element.CardIncrement.Type.CARD_INCREMENT)
-                                    .updatedAuthorizationAmount(123L)
+                                    .updatedAuthorizationAmount(0L)
                                     .build()
                             )
                             .cardRefund(
                                 CardPayment.Element.CardRefund.builder()
                                     .id("id")
-                                    .amount(123L)
+                                    .amount(0L)
                                     .cardPaymentId("card_payment_id")
                                     .currency(CardPayment.Element.CardRefund.Currency.CAD)
                                     .interchange(
@@ -337,7 +337,7 @@ class CardPaymentTest {
                                             .transactionId("transaction_id")
                                             .build()
                                     )
-                                    .presentmentAmount(123L)
+                                    .presentmentAmount(0L)
                                     .presentmentCurrency("presentment_currency")
                                     .purchaseDetails(
                                         CardPayment.Element.CardRefund.PurchaseDetails.builder()
@@ -347,11 +347,11 @@ class CardPaymentTest {
                                                     .builder()
                                                     .carClassCode("car_class_code")
                                                     .checkoutDate(LocalDate.parse("2019-12-27"))
-                                                    .dailyRentalRateAmount(123L)
+                                                    .dailyRentalRateAmount(0L)
                                                     .dailyRentalRateCurrency(
                                                         "daily_rental_rate_currency"
                                                     )
-                                                    .daysRented(123L)
+                                                    .daysRented(0L)
                                                     .extraCharges(
                                                         CardPayment.Element.CardRefund
                                                             .PurchaseDetails
@@ -359,9 +359,9 @@ class CardPaymentTest {
                                                             .ExtraCharges
                                                             .NO_EXTRA_CHARGE
                                                     )
-                                                    .fuelChargesAmount(123L)
+                                                    .fuelChargesAmount(0L)
                                                     .fuelChargesCurrency("fuel_charges_currency")
-                                                    .insuranceChargesAmount(123L)
+                                                    .insuranceChargesAmount(0L)
                                                     .insuranceChargesCurrency(
                                                         "insurance_charges_currency"
                                                     )
@@ -372,12 +372,12 @@ class CardPaymentTest {
                                                             .NoShowIndicator
                                                             .NOT_APPLICABLE
                                                     )
-                                                    .oneWayDropOffChargesAmount(123L)
+                                                    .oneWayDropOffChargesAmount(0L)
                                                     .oneWayDropOffChargesCurrency(
                                                         "one_way_drop_off_charges_currency"
                                                     )
                                                     .renterName("renter_name")
-                                                    .weeklyRentalRateAmount(123L)
+                                                    .weeklyRentalRateAmount(0L)
                                                     .weeklyRentalRateCurrency(
                                                         "weekly_rental_rate_currency"
                                                     )
@@ -386,14 +386,14 @@ class CardPaymentTest {
                                             .customerReferenceIdentifier(
                                                 "customer_reference_identifier"
                                             )
-                                            .localTaxAmount(123L)
+                                            .localTaxAmount(0L)
                                             .localTaxCurrency("local_tax_currency")
                                             .lodging(
                                                 CardPayment.Element.CardRefund.PurchaseDetails
                                                     .Lodging
                                                     .builder()
                                                     .checkInDate(LocalDate.parse("2019-12-27"))
-                                                    .dailyRoomRateAmount(123L)
+                                                    .dailyRoomRateAmount(0L)
                                                     .dailyRoomRateCurrency(
                                                         "daily_room_rate_currency"
                                                     )
@@ -404,11 +404,11 @@ class CardPaymentTest {
                                                             .ExtraCharges
                                                             .NO_EXTRA_CHARGE
                                                     )
-                                                    .folioCashAdvancesAmount(123L)
+                                                    .folioCashAdvancesAmount(0L)
                                                     .folioCashAdvancesCurrency(
                                                         "folio_cash_advances_currency"
                                                     )
-                                                    .foodBeverageChargesAmount(123L)
+                                                    .foodBeverageChargesAmount(0L)
                                                     .foodBeverageChargesCurrency(
                                                         "food_beverage_charges_currency"
                                                     )
@@ -419,18 +419,18 @@ class CardPaymentTest {
                                                             .NoShowIndicator
                                                             .NOT_APPLICABLE
                                                     )
-                                                    .prepaidExpensesAmount(123L)
+                                                    .prepaidExpensesAmount(0L)
                                                     .prepaidExpensesCurrency(
                                                         "prepaid_expenses_currency"
                                                     )
-                                                    .roomNights(123L)
-                                                    .totalRoomTaxAmount(123L)
+                                                    .roomNights(0L)
+                                                    .totalRoomTaxAmount(0L)
                                                     .totalRoomTaxCurrency("total_room_tax_currency")
-                                                    .totalTaxAmount(123L)
+                                                    .totalTaxAmount(0L)
                                                     .totalTaxCurrency("total_tax_currency")
                                                     .build()
                                             )
-                                            .nationalTaxAmount(123L)
+                                            .nationalTaxAmount(0L)
                                             .nationalTaxCurrency("national_tax_currency")
                                             .purchaseIdentifier("purchase_identifier")
                                             .purchaseIdentifierFormat(
@@ -576,20 +576,20 @@ class CardPaymentTest {
                                             .build()
                                     )
                                     .pendingTransactionId("pending_transaction_id")
-                                    .reversalAmount(123L)
+                                    .reversalAmount(0L)
                                     .reversalReason(
                                         CardPayment.Element.CardReversal.ReversalReason
                                             .REVERSED_BY_CUSTOMER
                                     )
                                     .terminalId("terminal_id")
                                     .type(CardPayment.Element.CardReversal.Type.CARD_REVERSAL)
-                                    .updatedAuthorizationAmount(123L)
+                                    .updatedAuthorizationAmount(0L)
                                     .build()
                             )
                             .cardSettlement(
                                 CardPayment.Element.CardSettlement.builder()
                                     .id("id")
-                                    .amount(123L)
+                                    .amount(0L)
                                     .cardAuthorization("card_authorization")
                                     .cardPaymentId("card_payment_id")
                                     .currency(CardPayment.Element.CardSettlement.Currency.CAD)
@@ -620,7 +620,7 @@ class CardPaymentTest {
                                             .build()
                                     )
                                     .pendingTransactionId("pending_transaction_id")
-                                    .presentmentAmount(123L)
+                                    .presentmentAmount(0L)
                                     .presentmentCurrency("presentment_currency")
                                     .purchaseDetails(
                                         CardPayment.Element.CardSettlement.PurchaseDetails.builder()
@@ -630,11 +630,11 @@ class CardPaymentTest {
                                                     .builder()
                                                     .carClassCode("car_class_code")
                                                     .checkoutDate(LocalDate.parse("2019-12-27"))
-                                                    .dailyRentalRateAmount(123L)
+                                                    .dailyRentalRateAmount(0L)
                                                     .dailyRentalRateCurrency(
                                                         "daily_rental_rate_currency"
                                                     )
-                                                    .daysRented(123L)
+                                                    .daysRented(0L)
                                                     .extraCharges(
                                                         CardPayment.Element.CardSettlement
                                                             .PurchaseDetails
@@ -642,9 +642,9 @@ class CardPaymentTest {
                                                             .ExtraCharges
                                                             .NO_EXTRA_CHARGE
                                                     )
-                                                    .fuelChargesAmount(123L)
+                                                    .fuelChargesAmount(0L)
                                                     .fuelChargesCurrency("fuel_charges_currency")
-                                                    .insuranceChargesAmount(123L)
+                                                    .insuranceChargesAmount(0L)
                                                     .insuranceChargesCurrency(
                                                         "insurance_charges_currency"
                                                     )
@@ -655,12 +655,12 @@ class CardPaymentTest {
                                                             .NoShowIndicator
                                                             .NOT_APPLICABLE
                                                     )
-                                                    .oneWayDropOffChargesAmount(123L)
+                                                    .oneWayDropOffChargesAmount(0L)
                                                     .oneWayDropOffChargesCurrency(
                                                         "one_way_drop_off_charges_currency"
                                                     )
                                                     .renterName("renter_name")
-                                                    .weeklyRentalRateAmount(123L)
+                                                    .weeklyRentalRateAmount(0L)
                                                     .weeklyRentalRateCurrency(
                                                         "weekly_rental_rate_currency"
                                                     )
@@ -669,14 +669,14 @@ class CardPaymentTest {
                                             .customerReferenceIdentifier(
                                                 "customer_reference_identifier"
                                             )
-                                            .localTaxAmount(123L)
+                                            .localTaxAmount(0L)
                                             .localTaxCurrency("local_tax_currency")
                                             .lodging(
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
                                                     .Lodging
                                                     .builder()
                                                     .checkInDate(LocalDate.parse("2019-12-27"))
-                                                    .dailyRoomRateAmount(123L)
+                                                    .dailyRoomRateAmount(0L)
                                                     .dailyRoomRateCurrency(
                                                         "daily_room_rate_currency"
                                                     )
@@ -687,11 +687,11 @@ class CardPaymentTest {
                                                             .ExtraCharges
                                                             .NO_EXTRA_CHARGE
                                                     )
-                                                    .folioCashAdvancesAmount(123L)
+                                                    .folioCashAdvancesAmount(0L)
                                                     .folioCashAdvancesCurrency(
                                                         "folio_cash_advances_currency"
                                                     )
-                                                    .foodBeverageChargesAmount(123L)
+                                                    .foodBeverageChargesAmount(0L)
                                                     .foodBeverageChargesCurrency(
                                                         "food_beverage_charges_currency"
                                                     )
@@ -702,18 +702,18 @@ class CardPaymentTest {
                                                             .NoShowIndicator
                                                             .NOT_APPLICABLE
                                                     )
-                                                    .prepaidExpensesAmount(123L)
+                                                    .prepaidExpensesAmount(0L)
                                                     .prepaidExpensesCurrency(
                                                         "prepaid_expenses_currency"
                                                     )
-                                                    .roomNights(123L)
-                                                    .totalRoomTaxAmount(123L)
+                                                    .roomNights(0L)
+                                                    .totalRoomTaxAmount(0L)
                                                     .totalRoomTaxCurrency("total_room_tax_currency")
-                                                    .totalTaxAmount(123L)
+                                                    .totalTaxAmount(0L)
                                                     .totalTaxCurrency("total_tax_currency")
                                                     .build()
                                             )
-                                            .nationalTaxAmount(123L)
+                                            .nationalTaxAmount(0L)
                                             .nationalTaxCurrency("national_tax_currency")
                                             .purchaseIdentifier("purchase_identifier")
                                             .purchaseIdentifierFormat(
@@ -897,7 +897,7 @@ class CardPaymentTest {
                                             .transactionId("transaction_id")
                                             .build()
                                     )
-                                    .networkRiskScore(123L)
+                                    .networkRiskScore(0L)
                                     .physicalCardId("physical_card_id")
                                     .realTimeDecisionId("real_time_decision_id")
                                     .terminalId("terminal_id")
@@ -947,11 +947,11 @@ class CardPaymentTest {
                 .physicalCardId("physical_card_id")
                 .state(
                     CardPayment.State.builder()
-                        .authorizedAmount(123L)
-                        .fuelConfirmedAmount(123L)
-                        .incrementedAmount(123L)
-                        .reversedAmount(123L)
-                        .settledAmount(123L)
+                        .authorizedAmount(0L)
+                        .fuelConfirmedAmount(0L)
+                        .incrementedAmount(0L)
+                        .reversedAmount(0L)
+                        .settledAmount(0L)
                         .build()
                 )
                 .type(CardPayment.Type.CARD_PAYMENT)
@@ -970,7 +970,7 @@ class CardPaymentTest {
                         CardPayment.Element.CardAuthorization.builder()
                             .id("id")
                             .actioner(CardPayment.Element.CardAuthorization.Actioner.USER)
-                            .amount(123L)
+                            .amount(0L)
                             .cardPaymentId("card_payment_id")
                             .currency(CardPayment.Element.CardAuthorization.Currency.CAD)
                             .digitalWalletTokenId("digital_wallet_token_id")
@@ -1022,10 +1022,10 @@ class CardPaymentTest {
                                     .transactionId("transaction_id")
                                     .build()
                             )
-                            .networkRiskScore(123L)
+                            .networkRiskScore(0L)
                             .pendingTransactionId("pending_transaction_id")
                             .physicalCardId("physical_card_id")
-                            .presentmentAmount(123L)
+                            .presentmentAmount(0L)
                             .presentmentCurrency("presentment_currency")
                             .processingCategory(
                                 CardPayment.Element.CardAuthorization.ProcessingCategory
@@ -1073,7 +1073,7 @@ class CardPaymentTest {
                             .id("id")
                             .cardAuthorizationId("card_authorization_id")
                             .currency(CardPayment.Element.CardAuthorizationExpiration.Currency.CAD)
-                            .expiredAmount(123L)
+                            .expiredAmount(0L)
                             .network(CardPayment.Element.CardAuthorizationExpiration.Network.VISA)
                             .type(
                                 CardPayment.Element.CardAuthorizationExpiration.Type
@@ -1085,7 +1085,7 @@ class CardPaymentTest {
                         CardPayment.Element.CardDecline.builder()
                             .id("id")
                             .actioner(CardPayment.Element.CardDecline.Actioner.USER)
-                            .amount(123L)
+                            .amount(0L)
                             .cardPaymentId("card_payment_id")
                             .currency(CardPayment.Element.CardDecline.Currency.CAD)
                             .declinedTransactionId("declined_transaction_id")
@@ -1132,9 +1132,9 @@ class CardPaymentTest {
                                     .transactionId("transaction_id")
                                     .build()
                             )
-                            .networkRiskScore(123L)
+                            .networkRiskScore(0L)
                             .physicalCardId("physical_card_id")
-                            .presentmentAmount(123L)
+                            .presentmentAmount(0L)
                             .presentmentCurrency("presentment_currency")
                             .processingCategory(
                                 CardPayment.Element.CardDecline.ProcessingCategory.ACCOUNT_FUNDING
@@ -1198,14 +1198,14 @@ class CardPaymentTest {
                             .type(
                                 CardPayment.Element.CardFuelConfirmation.Type.CARD_FUEL_CONFIRMATION
                             )
-                            .updatedAuthorizationAmount(123L)
+                            .updatedAuthorizationAmount(0L)
                             .build()
                     )
                     .cardIncrement(
                         CardPayment.Element.CardIncrement.builder()
                             .id("id")
                             .actioner(CardPayment.Element.CardIncrement.Actioner.USER)
-                            .amount(123L)
+                            .amount(0L)
                             .cardAuthorizationId("card_authorization_id")
                             .currency(CardPayment.Element.CardIncrement.Currency.CAD)
                             .network(CardPayment.Element.CardIncrement.Network.VISA)
@@ -1216,17 +1216,17 @@ class CardPaymentTest {
                                     .transactionId("transaction_id")
                                     .build()
                             )
-                            .networkRiskScore(123L)
+                            .networkRiskScore(0L)
                             .pendingTransactionId("pending_transaction_id")
                             .realTimeDecisionId("real_time_decision_id")
                             .type(CardPayment.Element.CardIncrement.Type.CARD_INCREMENT)
-                            .updatedAuthorizationAmount(123L)
+                            .updatedAuthorizationAmount(0L)
                             .build()
                     )
                     .cardRefund(
                         CardPayment.Element.CardRefund.builder()
                             .id("id")
-                            .amount(123L)
+                            .amount(0L)
                             .cardPaymentId("card_payment_id")
                             .currency(CardPayment.Element.CardRefund.Currency.CAD)
                             .interchange(
@@ -1252,7 +1252,7 @@ class CardPaymentTest {
                                     .transactionId("transaction_id")
                                     .build()
                             )
-                            .presentmentAmount(123L)
+                            .presentmentAmount(0L)
                             .presentmentCurrency("presentment_currency")
                             .purchaseDetails(
                                 CardPayment.Element.CardRefund.PurchaseDetails.builder()
@@ -1261,18 +1261,18 @@ class CardPaymentTest {
                                             .builder()
                                             .carClassCode("car_class_code")
                                             .checkoutDate(LocalDate.parse("2019-12-27"))
-                                            .dailyRentalRateAmount(123L)
+                                            .dailyRentalRateAmount(0L)
                                             .dailyRentalRateCurrency("daily_rental_rate_currency")
-                                            .daysRented(123L)
+                                            .daysRented(0L)
                                             .extraCharges(
                                                 CardPayment.Element.CardRefund.PurchaseDetails
                                                     .CarRental
                                                     .ExtraCharges
                                                     .NO_EXTRA_CHARGE
                                             )
-                                            .fuelChargesAmount(123L)
+                                            .fuelChargesAmount(0L)
                                             .fuelChargesCurrency("fuel_charges_currency")
-                                            .insuranceChargesAmount(123L)
+                                            .insuranceChargesAmount(0L)
                                             .insuranceChargesCurrency("insurance_charges_currency")
                                             .noShowIndicator(
                                                 CardPayment.Element.CardRefund.PurchaseDetails
@@ -1280,23 +1280,23 @@ class CardPaymentTest {
                                                     .NoShowIndicator
                                                     .NOT_APPLICABLE
                                             )
-                                            .oneWayDropOffChargesAmount(123L)
+                                            .oneWayDropOffChargesAmount(0L)
                                             .oneWayDropOffChargesCurrency(
                                                 "one_way_drop_off_charges_currency"
                                             )
                                             .renterName("renter_name")
-                                            .weeklyRentalRateAmount(123L)
+                                            .weeklyRentalRateAmount(0L)
                                             .weeklyRentalRateCurrency("weekly_rental_rate_currency")
                                             .build()
                                     )
                                     .customerReferenceIdentifier("customer_reference_identifier")
-                                    .localTaxAmount(123L)
+                                    .localTaxAmount(0L)
                                     .localTaxCurrency("local_tax_currency")
                                     .lodging(
                                         CardPayment.Element.CardRefund.PurchaseDetails.Lodging
                                             .builder()
                                             .checkInDate(LocalDate.parse("2019-12-27"))
-                                            .dailyRoomRateAmount(123L)
+                                            .dailyRoomRateAmount(0L)
                                             .dailyRoomRateCurrency("daily_room_rate_currency")
                                             .extraCharges(
                                                 CardPayment.Element.CardRefund.PurchaseDetails
@@ -1304,11 +1304,11 @@ class CardPaymentTest {
                                                     .ExtraCharges
                                                     .NO_EXTRA_CHARGE
                                             )
-                                            .folioCashAdvancesAmount(123L)
+                                            .folioCashAdvancesAmount(0L)
                                             .folioCashAdvancesCurrency(
                                                 "folio_cash_advances_currency"
                                             )
-                                            .foodBeverageChargesAmount(123L)
+                                            .foodBeverageChargesAmount(0L)
                                             .foodBeverageChargesCurrency(
                                                 "food_beverage_charges_currency"
                                             )
@@ -1318,16 +1318,16 @@ class CardPaymentTest {
                                                     .NoShowIndicator
                                                     .NOT_APPLICABLE
                                             )
-                                            .prepaidExpensesAmount(123L)
+                                            .prepaidExpensesAmount(0L)
                                             .prepaidExpensesCurrency("prepaid_expenses_currency")
-                                            .roomNights(123L)
-                                            .totalRoomTaxAmount(123L)
+                                            .roomNights(0L)
+                                            .totalRoomTaxAmount(0L)
                                             .totalRoomTaxCurrency("total_room_tax_currency")
-                                            .totalTaxAmount(123L)
+                                            .totalTaxAmount(0L)
                                             .totalTaxCurrency("total_tax_currency")
                                             .build()
                                     )
-                                    .nationalTaxAmount(123L)
+                                    .nationalTaxAmount(0L)
                                     .nationalTaxCurrency("national_tax_currency")
                                     .purchaseIdentifier("purchase_identifier")
                                     .purchaseIdentifierFormat(
@@ -1463,19 +1463,19 @@ class CardPaymentTest {
                                     .build()
                             )
                             .pendingTransactionId("pending_transaction_id")
-                            .reversalAmount(123L)
+                            .reversalAmount(0L)
                             .reversalReason(
                                 CardPayment.Element.CardReversal.ReversalReason.REVERSED_BY_CUSTOMER
                             )
                             .terminalId("terminal_id")
                             .type(CardPayment.Element.CardReversal.Type.CARD_REVERSAL)
-                            .updatedAuthorizationAmount(123L)
+                            .updatedAuthorizationAmount(0L)
                             .build()
                     )
                     .cardSettlement(
                         CardPayment.Element.CardSettlement.builder()
                             .id("id")
-                            .amount(123L)
+                            .amount(0L)
                             .cardAuthorization("card_authorization")
                             .cardPaymentId("card_payment_id")
                             .currency(CardPayment.Element.CardSettlement.Currency.CAD)
@@ -1503,7 +1503,7 @@ class CardPaymentTest {
                                     .build()
                             )
                             .pendingTransactionId("pending_transaction_id")
-                            .presentmentAmount(123L)
+                            .presentmentAmount(0L)
                             .presentmentCurrency("presentment_currency")
                             .purchaseDetails(
                                 CardPayment.Element.CardSettlement.PurchaseDetails.builder()
@@ -1512,18 +1512,18 @@ class CardPaymentTest {
                                             .builder()
                                             .carClassCode("car_class_code")
                                             .checkoutDate(LocalDate.parse("2019-12-27"))
-                                            .dailyRentalRateAmount(123L)
+                                            .dailyRentalRateAmount(0L)
                                             .dailyRentalRateCurrency("daily_rental_rate_currency")
-                                            .daysRented(123L)
+                                            .daysRented(0L)
                                             .extraCharges(
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
                                                     .CarRental
                                                     .ExtraCharges
                                                     .NO_EXTRA_CHARGE
                                             )
-                                            .fuelChargesAmount(123L)
+                                            .fuelChargesAmount(0L)
                                             .fuelChargesCurrency("fuel_charges_currency")
-                                            .insuranceChargesAmount(123L)
+                                            .insuranceChargesAmount(0L)
                                             .insuranceChargesCurrency("insurance_charges_currency")
                                             .noShowIndicator(
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
@@ -1531,23 +1531,23 @@ class CardPaymentTest {
                                                     .NoShowIndicator
                                                     .NOT_APPLICABLE
                                             )
-                                            .oneWayDropOffChargesAmount(123L)
+                                            .oneWayDropOffChargesAmount(0L)
                                             .oneWayDropOffChargesCurrency(
                                                 "one_way_drop_off_charges_currency"
                                             )
                                             .renterName("renter_name")
-                                            .weeklyRentalRateAmount(123L)
+                                            .weeklyRentalRateAmount(0L)
                                             .weeklyRentalRateCurrency("weekly_rental_rate_currency")
                                             .build()
                                     )
                                     .customerReferenceIdentifier("customer_reference_identifier")
-                                    .localTaxAmount(123L)
+                                    .localTaxAmount(0L)
                                     .localTaxCurrency("local_tax_currency")
                                     .lodging(
                                         CardPayment.Element.CardSettlement.PurchaseDetails.Lodging
                                             .builder()
                                             .checkInDate(LocalDate.parse("2019-12-27"))
-                                            .dailyRoomRateAmount(123L)
+                                            .dailyRoomRateAmount(0L)
                                             .dailyRoomRateCurrency("daily_room_rate_currency")
                                             .extraCharges(
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
@@ -1555,11 +1555,11 @@ class CardPaymentTest {
                                                     .ExtraCharges
                                                     .NO_EXTRA_CHARGE
                                             )
-                                            .folioCashAdvancesAmount(123L)
+                                            .folioCashAdvancesAmount(0L)
                                             .folioCashAdvancesCurrency(
                                                 "folio_cash_advances_currency"
                                             )
-                                            .foodBeverageChargesAmount(123L)
+                                            .foodBeverageChargesAmount(0L)
                                             .foodBeverageChargesCurrency(
                                                 "food_beverage_charges_currency"
                                             )
@@ -1569,16 +1569,16 @@ class CardPaymentTest {
                                                     .NoShowIndicator
                                                     .NOT_APPLICABLE
                                             )
-                                            .prepaidExpensesAmount(123L)
+                                            .prepaidExpensesAmount(0L)
                                             .prepaidExpensesCurrency("prepaid_expenses_currency")
-                                            .roomNights(123L)
-                                            .totalRoomTaxAmount(123L)
+                                            .roomNights(0L)
+                                            .totalRoomTaxAmount(0L)
                                             .totalRoomTaxCurrency("total_room_tax_currency")
-                                            .totalTaxAmount(123L)
+                                            .totalTaxAmount(0L)
                                             .totalTaxCurrency("total_tax_currency")
                                             .build()
                                     )
-                                    .nationalTaxAmount(123L)
+                                    .nationalTaxAmount(0L)
                                     .nationalTaxCurrency("national_tax_currency")
                                     .purchaseIdentifier("purchase_identifier")
                                     .purchaseIdentifierFormat(
@@ -1747,7 +1747,7 @@ class CardPaymentTest {
                                     .transactionId("transaction_id")
                                     .build()
                             )
-                            .networkRiskScore(123L)
+                            .networkRiskScore(0L)
                             .physicalCardId("physical_card_id")
                             .realTimeDecisionId("real_time_decision_id")
                             .terminalId("terminal_id")
@@ -1795,11 +1795,11 @@ class CardPaymentTest {
         assertThat(cardPayment.state())
             .isEqualTo(
                 CardPayment.State.builder()
-                    .authorizedAmount(123L)
-                    .fuelConfirmedAmount(123L)
-                    .incrementedAmount(123L)
-                    .reversedAmount(123L)
-                    .settledAmount(123L)
+                    .authorizedAmount(0L)
+                    .fuelConfirmedAmount(0L)
+                    .incrementedAmount(0L)
+                    .reversedAmount(0L)
+                    .settledAmount(0L)
                     .build()
             )
         assertThat(cardPayment.type()).isEqualTo(CardPayment.Type.CARD_PAYMENT)

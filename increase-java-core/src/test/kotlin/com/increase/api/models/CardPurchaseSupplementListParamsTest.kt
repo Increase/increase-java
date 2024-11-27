@@ -23,7 +23,7 @@ class CardPurchaseSupplementListParamsTest {
                     .build()
             )
             .cursor("cursor")
-            .limit(123L)
+            .limit(1L)
             .build()
     }
 
@@ -41,7 +41,7 @@ class CardPurchaseSupplementListParamsTest {
                         .build()
                 )
                 .cursor("cursor")
-                .limit(123L)
+                .limit(1L)
                 .build()
         val expected = QueryParams.builder()
         expected.put("card_payment_id", "card_payment_id")
@@ -53,7 +53,7 @@ class CardPurchaseSupplementListParamsTest {
             .build()
             .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
         expected.put("cursor", "cursor")
-        expected.put("limit", "123")
+        expected.put("limit", "1")
         assertThat(params.getQueryParams()).isEqualTo(expected.build())
     }
 

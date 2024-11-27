@@ -25,6 +25,12 @@ constructor(
 
     fun transactionId(): String = transactionId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): SimulationCardRefundCreateBody {
         return SimulationCardRefundCreateBody(transactionId, additionalBodyProperties)
@@ -117,25 +123,6 @@ constructor(
             "SimulationCardRefundCreateBody{transactionId=$transactionId, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is SimulationCardRefundCreateParams && transactionId == other.transactionId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(transactionId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "SimulationCardRefundCreateParams{transactionId=$transactionId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -154,10 +141,12 @@ constructor(
         @JvmSynthetic
         internal fun from(simulationCardRefundCreateParams: SimulationCardRefundCreateParams) =
             apply {
-                this.transactionId = simulationCardRefundCreateParams.transactionId
-                additionalHeaders(simulationCardRefundCreateParams.additionalHeaders)
-                additionalQueryParams(simulationCardRefundCreateParams.additionalQueryParams)
-                additionalBodyProperties(simulationCardRefundCreateParams.additionalBodyProperties)
+                transactionId = simulationCardRefundCreateParams.transactionId
+                additionalHeaders = simulationCardRefundCreateParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    simulationCardRefundCreateParams.additionalQueryParams.toBuilder()
+                additionalBodyProperties =
+                    simulationCardRefundCreateParams.additionalBodyProperties.toMutableMap()
             }
 
         /**
@@ -294,4 +283,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is SimulationCardRefundCreateParams && transactionId == other.transactionId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(transactionId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "SimulationCardRefundCreateParams{transactionId=$transactionId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

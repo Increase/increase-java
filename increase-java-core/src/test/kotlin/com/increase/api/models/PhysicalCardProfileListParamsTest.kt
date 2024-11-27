@@ -14,7 +14,7 @@ class PhysicalCardProfileListParamsTest {
         PhysicalCardProfileListParams.builder()
             .cursor("cursor")
             .idempotencyKey("x")
-            .limit(123L)
+            .limit(1L)
             .status(
                 PhysicalCardProfileListParams.Status.builder()
                     .in_(listOf(PhysicalCardProfileListParams.Status.In.PENDING_CREATING))
@@ -29,7 +29,7 @@ class PhysicalCardProfileListParamsTest {
             PhysicalCardProfileListParams.builder()
                 .cursor("cursor")
                 .idempotencyKey("x")
-                .limit(123L)
+                .limit(1L)
                 .status(
                     PhysicalCardProfileListParams.Status.builder()
                         .in_(listOf(PhysicalCardProfileListParams.Status.In.PENDING_CREATING))
@@ -39,7 +39,7 @@ class PhysicalCardProfileListParamsTest {
         val expected = QueryParams.builder()
         expected.put("cursor", "cursor")
         expected.put("idempotency_key", "x")
-        expected.put("limit", "123")
+        expected.put("limit", "1")
         PhysicalCardProfileListParams.Status.builder()
             .in_(listOf(PhysicalCardProfileListParams.Status.In.PENDING_CREATING))
             .build()

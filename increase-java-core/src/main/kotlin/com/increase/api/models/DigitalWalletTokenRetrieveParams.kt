@@ -17,6 +17,10 @@ constructor(
 
     fun digitalWalletTokenId(): String = digitalWalletTokenId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
@@ -27,23 +31,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is DigitalWalletTokenRetrieveParams && digitalWalletTokenId == other.digitalWalletTokenId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(digitalWalletTokenId, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "DigitalWalletTokenRetrieveParams{digitalWalletTokenId=$digitalWalletTokenId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -62,9 +49,10 @@ constructor(
         @JvmSynthetic
         internal fun from(digitalWalletTokenRetrieveParams: DigitalWalletTokenRetrieveParams) =
             apply {
-                this.digitalWalletTokenId = digitalWalletTokenRetrieveParams.digitalWalletTokenId
-                additionalHeaders(digitalWalletTokenRetrieveParams.additionalHeaders)
-                additionalQueryParams(digitalWalletTokenRetrieveParams.additionalQueryParams)
+                digitalWalletTokenId = digitalWalletTokenRetrieveParams.digitalWalletTokenId
+                additionalHeaders = digitalWalletTokenRetrieveParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    digitalWalletTokenRetrieveParams.additionalQueryParams.toBuilder()
             }
 
         /** The identifier of the Digital Wallet Token. */
@@ -179,4 +167,17 @@ constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is DigitalWalletTokenRetrieveParams && digitalWalletTokenId == other.digitalWalletTokenId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(digitalWalletTokenId, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "DigitalWalletTokenRetrieveParams{digitalWalletTokenId=$digitalWalletTokenId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

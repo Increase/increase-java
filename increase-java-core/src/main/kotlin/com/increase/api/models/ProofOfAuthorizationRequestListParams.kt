@@ -28,6 +28,10 @@ constructor(
 
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic
@@ -41,23 +45,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is ProofOfAuthorizationRequestListParams && createdAt == other.createdAt && cursor == other.cursor && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(createdAt, cursor, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "ProofOfAuthorizationRequestListParams{createdAt=$createdAt, cursor=$cursor, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -79,11 +66,12 @@ constructor(
         internal fun from(
             proofOfAuthorizationRequestListParams: ProofOfAuthorizationRequestListParams
         ) = apply {
-            this.createdAt = proofOfAuthorizationRequestListParams.createdAt
-            this.cursor = proofOfAuthorizationRequestListParams.cursor
-            this.limit = proofOfAuthorizationRequestListParams.limit
-            additionalHeaders(proofOfAuthorizationRequestListParams.additionalHeaders)
-            additionalQueryParams(proofOfAuthorizationRequestListParams.additionalQueryParams)
+            createdAt = proofOfAuthorizationRequestListParams.createdAt
+            cursor = proofOfAuthorizationRequestListParams.cursor
+            limit = proofOfAuthorizationRequestListParams.limit
+            additionalHeaders = proofOfAuthorizationRequestListParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                proofOfAuthorizationRequestListParams.additionalQueryParams.toBuilder()
         }
 
         fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
@@ -345,4 +333,17 @@ constructor(
         override fun toString() =
             "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is ProofOfAuthorizationRequestListParams && createdAt == other.createdAt && cursor == other.cursor && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(createdAt, cursor, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "ProofOfAuthorizationRequestListParams{createdAt=$createdAt, cursor=$cursor, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

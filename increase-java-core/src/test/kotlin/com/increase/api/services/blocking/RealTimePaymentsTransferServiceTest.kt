@@ -23,7 +23,7 @@ class RealTimePaymentsTransferServiceTest {
         val realTimePaymentsTransfer =
             realTimePaymentsTransferService.create(
                 RealTimePaymentsTransferCreateParams.builder()
-                    .amount(123L)
+                    .amount(1L)
                     .creditorName("x")
                     .remittanceInformation("x")
                     .sourceAccountNumberId("source_account_number_id")

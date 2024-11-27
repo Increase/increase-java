@@ -17,6 +17,10 @@ constructor(
 
     fun achPrenotificationId(): String = achPrenotificationId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
@@ -27,23 +31,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is AchPrenotificationRetrieveParams && achPrenotificationId == other.achPrenotificationId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(achPrenotificationId, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "AchPrenotificationRetrieveParams{achPrenotificationId=$achPrenotificationId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -62,9 +49,10 @@ constructor(
         @JvmSynthetic
         internal fun from(achPrenotificationRetrieveParams: AchPrenotificationRetrieveParams) =
             apply {
-                this.achPrenotificationId = achPrenotificationRetrieveParams.achPrenotificationId
-                additionalHeaders(achPrenotificationRetrieveParams.additionalHeaders)
-                additionalQueryParams(achPrenotificationRetrieveParams.additionalQueryParams)
+                achPrenotificationId = achPrenotificationRetrieveParams.achPrenotificationId
+                additionalHeaders = achPrenotificationRetrieveParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    achPrenotificationRetrieveParams.additionalQueryParams.toBuilder()
             }
 
         /** The identifier of the ACH Prenotification to retrieve. */
@@ -179,4 +167,17 @@ constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is AchPrenotificationRetrieveParams && achPrenotificationId == other.achPrenotificationId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(achPrenotificationId, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "AchPrenotificationRetrieveParams{achPrenotificationId=$achPrenotificationId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

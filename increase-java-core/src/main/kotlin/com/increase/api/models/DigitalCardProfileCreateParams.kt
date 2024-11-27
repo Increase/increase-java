@@ -50,6 +50,12 @@ constructor(
 
     fun textColor(): Optional<TextColor> = Optional.ofNullable(textColor)
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     @JvmSynthetic
     internal fun getBody(): DigitalCardProfileCreateBody {
         return DigitalCardProfileCreateBody(
@@ -245,25 +251,6 @@ constructor(
             "DigitalCardProfileCreateBody{appIconFileId=$appIconFileId, backgroundImageFileId=$backgroundImageFileId, cardDescription=$cardDescription, description=$description, issuerName=$issuerName, contactEmail=$contactEmail, contactPhone=$contactPhone, contactWebsite=$contactWebsite, textColor=$textColor, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is DigitalCardProfileCreateParams && appIconFileId == other.appIconFileId && backgroundImageFileId == other.backgroundImageFileId && cardDescription == other.cardDescription && description == other.description && issuerName == other.issuerName && contactEmail == other.contactEmail && contactPhone == other.contactPhone && contactWebsite == other.contactWebsite && textColor == other.textColor && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(appIconFileId, backgroundImageFileId, cardDescription, description, issuerName, contactEmail, contactPhone, contactWebsite, textColor, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "DigitalCardProfileCreateParams{appIconFileId=$appIconFileId, backgroundImageFileId=$backgroundImageFileId, cardDescription=$cardDescription, description=$description, issuerName=$issuerName, contactEmail=$contactEmail, contactPhone=$contactPhone, contactWebsite=$contactWebsite, textColor=$textColor, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -289,18 +276,19 @@ constructor(
 
         @JvmSynthetic
         internal fun from(digitalCardProfileCreateParams: DigitalCardProfileCreateParams) = apply {
-            this.appIconFileId = digitalCardProfileCreateParams.appIconFileId
-            this.backgroundImageFileId = digitalCardProfileCreateParams.backgroundImageFileId
-            this.cardDescription = digitalCardProfileCreateParams.cardDescription
-            this.description = digitalCardProfileCreateParams.description
-            this.issuerName = digitalCardProfileCreateParams.issuerName
-            this.contactEmail = digitalCardProfileCreateParams.contactEmail
-            this.contactPhone = digitalCardProfileCreateParams.contactPhone
-            this.contactWebsite = digitalCardProfileCreateParams.contactWebsite
-            this.textColor = digitalCardProfileCreateParams.textColor
-            additionalHeaders(digitalCardProfileCreateParams.additionalHeaders)
-            additionalQueryParams(digitalCardProfileCreateParams.additionalQueryParams)
-            additionalBodyProperties(digitalCardProfileCreateParams.additionalBodyProperties)
+            appIconFileId = digitalCardProfileCreateParams.appIconFileId
+            backgroundImageFileId = digitalCardProfileCreateParams.backgroundImageFileId
+            cardDescription = digitalCardProfileCreateParams.cardDescription
+            description = digitalCardProfileCreateParams.description
+            issuerName = digitalCardProfileCreateParams.issuerName
+            contactEmail = digitalCardProfileCreateParams.contactEmail
+            contactPhone = digitalCardProfileCreateParams.contactPhone
+            contactWebsite = digitalCardProfileCreateParams.contactWebsite
+            textColor = digitalCardProfileCreateParams.textColor
+            additionalHeaders = digitalCardProfileCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = digitalCardProfileCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                digitalCardProfileCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier of the File containing the card's icon image. */
@@ -568,4 +556,17 @@ constructor(
         override fun toString() =
             "TextColor{blue=$blue, green=$green, red=$red, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is DigitalCardProfileCreateParams && appIconFileId == other.appIconFileId && backgroundImageFileId == other.backgroundImageFileId && cardDescription == other.cardDescription && description == other.description && issuerName == other.issuerName && contactEmail == other.contactEmail && contactPhone == other.contactPhone && contactWebsite == other.contactWebsite && textColor == other.textColor && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(appIconFileId, backgroundImageFileId, cardDescription, description, issuerName, contactEmail, contactPhone, contactWebsite, textColor, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "DigitalCardProfileCreateParams{appIconFileId=$appIconFileId, backgroundImageFileId=$backgroundImageFileId, cardDescription=$cardDescription, description=$description, issuerName=$issuerName, contactEmail=$contactEmail, contactPhone=$contactPhone, contactWebsite=$contactWebsite, textColor=$textColor, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

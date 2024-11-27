@@ -21,11 +21,7 @@ class DigitalCardProfileCloneParamsTest {
             .description("x")
             .issuerName("x")
             .textColor(
-                DigitalCardProfileCloneParams.TextColor.builder()
-                    .blue(123L)
-                    .green(123L)
-                    .red(123L)
-                    .build()
+                DigitalCardProfileCloneParams.TextColor.builder().blue(0L).green(0L).red(0L).build()
             )
             .build()
     }
@@ -45,9 +41,9 @@ class DigitalCardProfileCloneParamsTest {
                 .issuerName("x")
                 .textColor(
                     DigitalCardProfileCloneParams.TextColor.builder()
-                        .blue(123L)
-                        .green(123L)
-                        .red(123L)
+                        .blue(0L)
+                        .green(0L)
+                        .red(0L)
                         .build()
                 )
                 .build()
@@ -63,11 +59,7 @@ class DigitalCardProfileCloneParamsTest {
         assertThat(body.issuerName()).isEqualTo("x")
         assertThat(body.textColor())
             .isEqualTo(
-                DigitalCardProfileCloneParams.TextColor.builder()
-                    .blue(123L)
-                    .green(123L)
-                    .red(123L)
-                    .build()
+                DigitalCardProfileCloneParams.TextColor.builder().blue(0L).green(0L).red(0L).build()
             )
     }
 

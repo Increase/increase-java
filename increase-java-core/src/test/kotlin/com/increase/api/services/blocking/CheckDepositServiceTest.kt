@@ -24,7 +24,7 @@ class CheckDepositServiceTest {
             checkDepositService.create(
                 CheckDepositCreateParams.builder()
                     .accountId("account_id")
-                    .amount(123L)
+                    .amount(0L)
                     .backImageFileId("back_image_file_id")
                     .frontImageFileId("front_image_file_id")
                     .description("x")
