@@ -28,6 +28,7 @@ import java.util.Optional
 class RealTimePaymentsTransfer
 private constructor(
     private val accountId: JsonField<String>,
+    private val acknowledgement: JsonField<Acknowledgement>,
     private val amount: JsonField<Long>,
     private val approval: JsonField<Approval>,
     private val cancellation: JsonField<Cancellation>,
@@ -58,6 +59,13 @@ private constructor(
 
     /** The Account from which the transfer was sent. */
     fun accountId(): String = accountId.getRequired("account_id")
+
+    /**
+     * If the transfer is acknowledged by the recipient bank, this will contain supplemental
+     * details.
+     */
+    fun acknowledgement(): Optional<Acknowledgement> =
+        Optional.ofNullable(acknowledgement.getNullable("acknowledgement"))
 
     /** The transfer amount in USD cents. */
     fun amount(): Long = amount.getRequired("amount")
@@ -183,6 +191,12 @@ private constructor(
 
     /** The Account from which the transfer was sent. */
     @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
+
+    /**
+     * If the transfer is acknowledged by the recipient bank, this will contain supplemental
+     * details.
+     */
+    @JsonProperty("acknowledgement") @ExcludeMissing fun _acknowledgement() = acknowledgement
 
     /** The transfer amount in USD cents. */
     @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
@@ -317,6 +331,7 @@ private constructor(
     fun validate(): RealTimePaymentsTransfer = apply {
         if (!validated) {
             accountId()
+            acknowledgement().map { it.validate() }
             amount()
             approval().map { it.validate() }
             cancellation().map { it.validate() }
@@ -354,6 +369,7 @@ private constructor(
     class Builder {
 
         private var accountId: JsonField<String> = JsonMissing.of()
+        private var acknowledgement: JsonField<Acknowledgement> = JsonMissing.of()
         private var amount: JsonField<Long> = JsonMissing.of()
         private var approval: JsonField<Approval> = JsonMissing.of()
         private var cancellation: JsonField<Cancellation> = JsonMissing.of()
@@ -382,6 +398,7 @@ private constructor(
         @JvmSynthetic
         internal fun from(realTimePaymentsTransfer: RealTimePaymentsTransfer) = apply {
             this.accountId = realTimePaymentsTransfer.accountId
+            this.acknowledgement = realTimePaymentsTransfer.acknowledgement
             this.amount = realTimePaymentsTransfer.amount
             this.approval = realTimePaymentsTransfer.approval
             this.cancellation = realTimePaymentsTransfer.cancellation
@@ -415,6 +432,23 @@ private constructor(
         @JsonProperty("account_id")
         @ExcludeMissing
         fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
+
+        /**
+         * If the transfer is acknowledged by the recipient bank, this will contain supplemental
+         * details.
+         */
+        fun acknowledgement(acknowledgement: Acknowledgement) =
+            acknowledgement(JsonField.of(acknowledgement))
+
+        /**
+         * If the transfer is acknowledged by the recipient bank, this will contain supplemental
+         * details.
+         */
+        @JsonProperty("acknowledgement")
+        @ExcludeMissing
+        fun acknowledgement(acknowledgement: JsonField<Acknowledgement>) = apply {
+            this.acknowledgement = acknowledgement
+        }
 
         /** The transfer amount in USD cents. */
         fun amount(amount: Long) = amount(JsonField.of(amount))
@@ -731,6 +765,7 @@ private constructor(
         fun build(): RealTimePaymentsTransfer =
             RealTimePaymentsTransfer(
                 accountId,
+                acknowledgement,
                 amount,
                 approval,
                 cancellation,
@@ -756,6 +791,102 @@ private constructor(
                 ultimateDebtorName,
                 additionalProperties.toImmutable(),
             )
+    }
+
+    /**
+     * If the transfer is acknowledged by the recipient bank, this will contain supplemental
+     * details.
+     */
+    @JsonDeserialize(builder = Acknowledgement.Builder::class)
+    @NoAutoDetect
+    class Acknowledgement
+    private constructor(
+        private val acknowledgedAt: JsonField<OffsetDateTime>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var validated: Boolean = false
+
+        /** When the transfer was acknowledged. */
+        fun acknowledgedAt(): OffsetDateTime = acknowledgedAt.getRequired("acknowledged_at")
+
+        /** When the transfer was acknowledged. */
+        @JsonProperty("acknowledged_at") @ExcludeMissing fun _acknowledgedAt() = acknowledgedAt
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate(): Acknowledgement = apply {
+            if (!validated) {
+                acknowledgedAt()
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            @JvmStatic fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var acknowledgedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(acknowledgement: Acknowledgement) = apply {
+                this.acknowledgedAt = acknowledgement.acknowledgedAt
+                additionalProperties(acknowledgement.additionalProperties)
+            }
+
+            /** When the transfer was acknowledged. */
+            fun acknowledgedAt(acknowledgedAt: OffsetDateTime) =
+                acknowledgedAt(JsonField.of(acknowledgedAt))
+
+            /** When the transfer was acknowledged. */
+            @JsonProperty("acknowledged_at")
+            @ExcludeMissing
+            fun acknowledgedAt(acknowledgedAt: JsonField<OffsetDateTime>) = apply {
+                this.acknowledgedAt = acknowledgedAt
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): Acknowledgement =
+                Acknowledgement(acknowledgedAt, additionalProperties.toImmutable())
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Acknowledgement && acknowledgedAt == other.acknowledgedAt && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(acknowledgedAt, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Acknowledgement{acknowledgedAt=$acknowledgedAt, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -2288,15 +2419,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is RealTimePaymentsTransfer && accountId == other.accountId && amount == other.amount && approval == other.approval && cancellation == other.cancellation && createdAt == other.createdAt && createdBy == other.createdBy && creditorName == other.creditorName && currency == other.currency && debtorName == other.debtorName && destinationAccountNumber == other.destinationAccountNumber && destinationRoutingNumber == other.destinationRoutingNumber && externalAccountId == other.externalAccountId && id == other.id && idempotencyKey == other.idempotencyKey && pendingTransactionId == other.pendingTransactionId && rejection == other.rejection && remittanceInformation == other.remittanceInformation && sourceAccountNumberId == other.sourceAccountNumberId && status == other.status && submission == other.submission && transactionId == other.transactionId && type == other.type && ultimateCreditorName == other.ultimateCreditorName && ultimateDebtorName == other.ultimateDebtorName && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is RealTimePaymentsTransfer && accountId == other.accountId && acknowledgement == other.acknowledgement && amount == other.amount && approval == other.approval && cancellation == other.cancellation && createdAt == other.createdAt && createdBy == other.createdBy && creditorName == other.creditorName && currency == other.currency && debtorName == other.debtorName && destinationAccountNumber == other.destinationAccountNumber && destinationRoutingNumber == other.destinationRoutingNumber && externalAccountId == other.externalAccountId && id == other.id && idempotencyKey == other.idempotencyKey && pendingTransactionId == other.pendingTransactionId && rejection == other.rejection && remittanceInformation == other.remittanceInformation && sourceAccountNumberId == other.sourceAccountNumberId && status == other.status && submission == other.submission && transactionId == other.transactionId && type == other.type && ultimateCreditorName == other.ultimateCreditorName && ultimateDebtorName == other.ultimateDebtorName && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(accountId, amount, approval, cancellation, createdAt, createdBy, creditorName, currency, debtorName, destinationAccountNumber, destinationRoutingNumber, externalAccountId, id, idempotencyKey, pendingTransactionId, rejection, remittanceInformation, sourceAccountNumberId, status, submission, transactionId, type, ultimateCreditorName, ultimateDebtorName, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(accountId, acknowledgement, amount, approval, cancellation, createdAt, createdBy, creditorName, currency, debtorName, destinationAccountNumber, destinationRoutingNumber, externalAccountId, id, idempotencyKey, pendingTransactionId, rejection, remittanceInformation, sourceAccountNumberId, status, submission, transactionId, type, ultimateCreditorName, ultimateDebtorName, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "RealTimePaymentsTransfer{accountId=$accountId, amount=$amount, approval=$approval, cancellation=$cancellation, createdAt=$createdAt, createdBy=$createdBy, creditorName=$creditorName, currency=$currency, debtorName=$debtorName, destinationAccountNumber=$destinationAccountNumber, destinationRoutingNumber=$destinationRoutingNumber, externalAccountId=$externalAccountId, id=$id, idempotencyKey=$idempotencyKey, pendingTransactionId=$pendingTransactionId, rejection=$rejection, remittanceInformation=$remittanceInformation, sourceAccountNumberId=$sourceAccountNumberId, status=$status, submission=$submission, transactionId=$transactionId, type=$type, ultimateCreditorName=$ultimateCreditorName, ultimateDebtorName=$ultimateDebtorName, additionalProperties=$additionalProperties}"
+        "RealTimePaymentsTransfer{accountId=$accountId, acknowledgement=$acknowledgement, amount=$amount, approval=$approval, cancellation=$cancellation, createdAt=$createdAt, createdBy=$createdBy, creditorName=$creditorName, currency=$currency, debtorName=$debtorName, destinationAccountNumber=$destinationAccountNumber, destinationRoutingNumber=$destinationRoutingNumber, externalAccountId=$externalAccountId, id=$id, idempotencyKey=$idempotencyKey, pendingTransactionId=$pendingTransactionId, rejection=$rejection, remittanceInformation=$remittanceInformation, sourceAccountNumberId=$sourceAccountNumberId, status=$status, submission=$submission, transactionId=$transactionId, type=$type, ultimateCreditorName=$ultimateCreditorName, ultimateDebtorName=$ultimateDebtorName, additionalProperties=$additionalProperties}"
 }
