@@ -14,6 +14,11 @@ class RealTimePaymentsTransferTest {
             RealTimePaymentsTransfer.builder()
                 .id("id")
                 .accountId("account_id")
+                .acknowledgement(
+                    RealTimePaymentsTransfer.Acknowledgement.builder()
+                        .acknowledgedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .build()
+                )
                 .amount(0L)
                 .approval(
                     RealTimePaymentsTransfer.Approval.builder()
@@ -80,6 +85,12 @@ class RealTimePaymentsTransferTest {
         assertThat(realTimePaymentsTransfer).isNotNull
         assertThat(realTimePaymentsTransfer.id()).isEqualTo("id")
         assertThat(realTimePaymentsTransfer.accountId()).isEqualTo("account_id")
+        assertThat(realTimePaymentsTransfer.acknowledgement())
+            .contains(
+                RealTimePaymentsTransfer.Acknowledgement.builder()
+                    .acknowledgedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .build()
+            )
         assertThat(realTimePaymentsTransfer.amount()).isEqualTo(0L)
         assertThat(realTimePaymentsTransfer.approval())
             .contains(
