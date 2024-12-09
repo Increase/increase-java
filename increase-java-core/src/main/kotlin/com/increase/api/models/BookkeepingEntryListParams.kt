@@ -11,11 +11,14 @@ import java.util.Optional
 
 class BookkeepingEntryListParams
 constructor(
+    private val accountId: String?,
     private val cursor: String?,
     private val limit: Long?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) {
+
+    fun accountId(): Optional<String> = Optional.ofNullable(accountId)
 
     fun cursor(): Optional<String> = Optional.ofNullable(cursor)
 
@@ -30,6 +33,7 @@ constructor(
     @JvmSynthetic
     internal fun getQueryParams(): QueryParams {
         val queryParams = QueryParams.builder()
+        this.accountId?.let { queryParams.put("account_id", listOf(it.toString())) }
         this.cursor?.let { queryParams.put("cursor", listOf(it.toString())) }
         this.limit?.let { queryParams.put("limit", listOf(it.toString())) }
         queryParams.putAll(additionalQueryParams)
@@ -46,6 +50,7 @@ constructor(
     @NoAutoDetect
     class Builder {
 
+        private var accountId: String? = null
         private var cursor: String? = null
         private var limit: Long? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
@@ -53,11 +58,15 @@ constructor(
 
         @JvmSynthetic
         internal fun from(bookkeepingEntryListParams: BookkeepingEntryListParams) = apply {
+            accountId = bookkeepingEntryListParams.accountId
             cursor = bookkeepingEntryListParams.cursor
             limit = bookkeepingEntryListParams.limit
             additionalHeaders = bookkeepingEntryListParams.additionalHeaders.toBuilder()
             additionalQueryParams = bookkeepingEntryListParams.additionalQueryParams.toBuilder()
         }
+
+        /** The identifier for the Bookkeeping Account to filter by. */
+        fun accountId(accountId: String) = apply { this.accountId = accountId }
 
         /** Return the page of entries after this one. */
         fun cursor(cursor: String) = apply { this.cursor = cursor }
@@ -167,6 +176,7 @@ constructor(
 
         fun build(): BookkeepingEntryListParams =
             BookkeepingEntryListParams(
+                accountId,
                 cursor,
                 limit,
                 additionalHeaders.build(),
@@ -179,11 +189,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is BookkeepingEntryListParams && cursor == other.cursor && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is BookkeepingEntryListParams && accountId == other.accountId && cursor == other.cursor && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cursor, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, cursor, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "BookkeepingEntryListParams{cursor=$cursor, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "BookkeepingEntryListParams{accountId=$accountId, cursor=$cursor, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
