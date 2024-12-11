@@ -11,15 +11,15 @@ class BalanceLookupTest {
     fun createBalanceLookup() {
         val balanceLookup =
             BalanceLookup.builder()
-                .accountId("account_id")
-                .availableBalance(0L)
-                .currentBalance(0L)
+                .accountId("account_in71c4amph0vgo2qllky")
+                .availableBalance(100L)
+                .currentBalance(100L)
                 .type(BalanceLookup.Type.BALANCE_LOOKUP)
                 .build()
         assertThat(balanceLookup).isNotNull
-        assertThat(balanceLookup.accountId()).isEqualTo("account_id")
-        assertThat(balanceLookup.availableBalance()).isEqualTo(0L)
-        assertThat(balanceLookup.currentBalance()).isEqualTo(0L)
+        assertThat(balanceLookup.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
+        assertThat(balanceLookup.availableBalance()).isEqualTo(100L)
+        assertThat(balanceLookup.currentBalance()).isEqualTo(100L)
         assertThat(balanceLookup.type()).isEqualTo(BalanceLookup.Type.BALANCE_LOOKUP)
     }
 }

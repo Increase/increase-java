@@ -12,25 +12,22 @@ class EventSubscriptionTest {
     fun createEventSubscription() {
         val eventSubscription =
             EventSubscription.builder()
-                .id("id")
-                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .idempotencyKey("idempotency_key")
-                .oauthConnectionId("oauth_connection_id")
+                .id("event_subscription_001dzz0r20rcdxgb013zqb8m04g")
+                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .selectedEventCategory(EventSubscription.SelectedEventCategory.ACCOUNT_CREATED)
                 .status(EventSubscription.Status.ACTIVE)
                 .type(EventSubscription.Type.EVENT_SUBSCRIPTION)
-                .url("url")
+                .url("https://website.com/webhooks")
                 .build()
         assertThat(eventSubscription).isNotNull
-        assertThat(eventSubscription.id()).isEqualTo("id")
+        assertThat(eventSubscription.id())
+            .isEqualTo("event_subscription_001dzz0r20rcdxgb013zqb8m04g")
         assertThat(eventSubscription.createdAt())
-            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(eventSubscription.idempotencyKey()).contains("idempotency_key")
-        assertThat(eventSubscription.oauthConnectionId()).contains("oauth_connection_id")
+            .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(eventSubscription.selectedEventCategory())
             .contains(EventSubscription.SelectedEventCategory.ACCOUNT_CREATED)
         assertThat(eventSubscription.status()).isEqualTo(EventSubscription.Status.ACTIVE)
         assertThat(eventSubscription.type()).isEqualTo(EventSubscription.Type.EVENT_SUBSCRIPTION)
-        assertThat(eventSubscription.url()).isEqualTo("url")
+        assertThat(eventSubscription.url()).isEqualTo("https://website.com/webhooks")
     }
 }

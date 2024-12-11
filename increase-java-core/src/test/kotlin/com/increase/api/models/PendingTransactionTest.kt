@@ -2,7 +2,7 @@
 
 package com.increase.api.models
 
-import com.increase.api.core.JsonNull
+import com.increase.api.core.JsonValue
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -13,52 +13,50 @@ class PendingTransactionTest {
     fun createPendingTransaction() {
         val pendingTransaction =
             PendingTransaction.builder()
-                .id("id")
-                .accountId("account_id")
-                .amount(0L)
-                .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .id("pending_transaction_k1sfetcau2qbvjbzgju4")
+                .accountId("account_in71c4amph0vgo2qllky")
+                .amount(100L)
+                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .currency(PendingTransaction.Currency.CAD)
-                .description("description")
-                .routeId("route_id")
+                .description("INVOICE 2468")
+                .routeId("card_oubs0hwk5rn6knuecxg2")
                 .routeType(PendingTransaction.RouteType.ACCOUNT_NUMBER)
                 .source(
                     PendingTransaction.Source.builder()
                         .accountTransferInstruction(
                             PendingTransaction.Source.AccountTransferInstruction.builder()
-                                .amount(0L)
+                                .amount(100L)
                                 .currency(
                                     PendingTransaction.Source.AccountTransferInstruction.Currency
                                         .CAD
                                 )
-                                .transferId("transfer_id")
+                                .transferId("account_transfer_7k9qe1ysdgqztnt63l7n")
                                 .build()
                         )
                         .achTransferInstruction(
                             PendingTransaction.Source.AchTransferInstruction.builder()
-                                .amount(0L)
-                                .transferId("transfer_id")
+                                .amount(100L)
+                                .transferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
                                 .build()
                         )
                         .cardAuthorization(
                             PendingTransaction.Source.CardAuthorization.builder()
-                                .id("id")
+                                .id("card_authorization_6iqxap6ivd0fo5eu3i8x")
                                 .actioner(PendingTransaction.Source.CardAuthorization.Actioner.USER)
-                                .amount(0L)
-                                .cardPaymentId("card_payment_id")
+                                .amount(100L)
+                                .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                 .currency(PendingTransaction.Source.CardAuthorization.Currency.CAD)
-                                .digitalWalletTokenId("digital_wallet_token_id")
                                 .direction(
                                     PendingTransaction.Source.CardAuthorization.Direction.SETTLEMENT
                                 )
-                                .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .merchantAcceptorId("merchant_acceptor_id")
-                                .merchantCategoryCode("merchant_category_code")
-                                .merchantCity("merchant_city")
-                                .merchantCountry("merchant_country")
-                                .merchantDescriptor("merchant_descriptor")
-                                .merchantPostalCode("merchant_postal_code")
-                                .merchantState("merchant_state")
+                                .expiresAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .merchantAcceptorId("5665270011000168")
+                                .merchantCategoryCode("5734")
+                                .merchantCity("New York")
+                                .merchantCountry("US")
+                                .merchantDescriptor("AMAZON.COM")
+                                .merchantPostalCode("10045")
+                                .merchantState("NY")
                                 .networkDetails(
                                     PendingTransaction.Source.CardAuthorization.NetworkDetails
                                         .builder()
@@ -101,22 +99,19 @@ class PendingTransactionTest {
                                 .networkIdentifiers(
                                     PendingTransaction.Source.CardAuthorization.NetworkIdentifiers
                                         .builder()
-                                        .retrievalReferenceNumber("retrieval_reference_number")
-                                        .traceNumber("trace_number")
-                                        .transactionId("transaction_id")
+                                        .retrievalReferenceNumber("785867080153")
+                                        .traceNumber("487941")
+                                        .transactionId("627199945183184")
                                         .build()
                                 )
-                                .networkRiskScore(0L)
-                                .pendingTransactionId("pending_transaction_id")
-                                .physicalCardId("physical_card_id")
-                                .presentmentAmount(0L)
-                                .presentmentCurrency("presentment_currency")
+                                .networkRiskScore(10L)
+                                .presentmentAmount(100L)
+                                .presentmentCurrency("USD")
                                 .processingCategory(
                                     PendingTransaction.Source.CardAuthorization.ProcessingCategory
                                         .ACCOUNT_FUNDING
                                 )
-                                .realTimeDecisionId("real_time_decision_id")
-                                .terminalId("terminal_id")
+                                .terminalId("RCN5VNXS")
                                 .type(
                                     PendingTransaction.Source.CardAuthorization.Type
                                         .CARD_AUTHORIZATION
@@ -141,10 +136,10 @@ class PendingTransactionTest {
                                             PendingTransaction.Source.CardAuthorization.Verification
                                                 .CardholderAddress
                                                 .builder()
-                                                .actualLine1("actual_line1")
-                                                .actualPostalCode("actual_postal_code")
-                                                .providedLine1("provided_line1")
-                                                .providedPostalCode("provided_postal_code")
+                                                .actualLine1("33 Liberty Street")
+                                                .actualPostalCode("94131")
+                                                .providedLine1("33 Liberty Street")
+                                                .providedPostalCode("94132")
                                                 .result(
                                                     PendingTransaction.Source.CardAuthorization
                                                         .Verification
@@ -161,36 +156,35 @@ class PendingTransactionTest {
                         .category(PendingTransaction.Source.Category.ACCOUNT_TRANSFER_INSTRUCTION)
                         .checkDepositInstruction(
                             PendingTransaction.Source.CheckDepositInstruction.builder()
-                                .amount(0L)
-                                .backImageFileId("back_image_file_id")
-                                .checkDepositId("check_deposit_id")
+                                .amount(100L)
+                                .backImageFileId("file_26khfk98mzfz90a11oqx")
+                                .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                                 .currency(
                                     PendingTransaction.Source.CheckDepositInstruction.Currency.CAD
                                 )
-                                .frontImageFileId("front_image_file_id")
+                                .frontImageFileId("file_makxrc67oh9l6sg7w9yc")
                                 .build()
                         )
                         .checkTransferInstruction(
                             PendingTransaction.Source.CheckTransferInstruction.builder()
-                                .amount(0L)
+                                .amount(100L)
                                 .currency(
                                     PendingTransaction.Source.CheckTransferInstruction.Currency.CAD
                                 )
-                                .transferId("transfer_id")
+                                .transferId("check_transfer_30b43acfu9vw8fyc4f5")
                                 .build()
                         )
                         .inboundFundsHold(
                             PendingTransaction.Source.InboundFundsHold.builder()
-                                .id("id")
-                                .amount(0L)
+                                .id("inbound_funds_hold_9vuasmywdo7xb3zt4071")
+                                .amount(100L)
                                 .automaticallyReleasesAt(
-                                    OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                    OffsetDateTime.parse("2020-01-31T23:59:59Z")
                                 )
-                                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                 .currency(PendingTransaction.Source.InboundFundsHold.Currency.CAD)
-                                .heldTransactionId("held_transaction_id")
-                                .pendingTransactionId("pending_transaction_id")
-                                .releasedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .heldTransactionId("transaction_uyrp7fld2ium70oa7oi")
+                                .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
                                 .status(PendingTransaction.Source.InboundFundsHold.Status.HELD)
                                 .type(
                                     PendingTransaction.Source.InboundFundsHold.Type
@@ -198,20 +192,20 @@ class PendingTransactionTest {
                                 )
                                 .build()
                         )
-                        .other(JsonNull.of())
+                        .other(JsonValue.from(mapOf<String, Any>()))
                         .realTimePaymentsTransferInstruction(
                             PendingTransaction.Source.RealTimePaymentsTransferInstruction.builder()
-                                .amount(0L)
-                                .transferId("transfer_id")
+                                .amount(100L)
+                                .transferId("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
                                 .build()
                         )
                         .wireTransferInstruction(
                             PendingTransaction.Source.WireTransferInstruction.builder()
-                                .accountNumber("account_number")
-                                .amount(0L)
-                                .messageToRecipient("message_to_recipient")
-                                .routingNumber("routing_number")
-                                .transferId("transfer_id")
+                                .accountNumber("987654321")
+                                .amount(100L)
+                                .messageToRecipient("HELLO")
+                                .routingNumber("101050001")
+                                .transferId("wire_transfer_5akynk7dqsq25qwk9q2u")
                                 .build()
                         )
                         .build()
@@ -220,16 +214,14 @@ class PendingTransactionTest {
                 .type(PendingTransaction.Type.PENDING_TRANSACTION)
                 .build()
         assertThat(pendingTransaction).isNotNull
-        assertThat(pendingTransaction.id()).isEqualTo("id")
-        assertThat(pendingTransaction.accountId()).isEqualTo("account_id")
-        assertThat(pendingTransaction.amount()).isEqualTo(0L)
-        assertThat(pendingTransaction.completedAt())
-            .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(pendingTransaction.id()).isEqualTo("pending_transaction_k1sfetcau2qbvjbzgju4")
+        assertThat(pendingTransaction.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
+        assertThat(pendingTransaction.amount()).isEqualTo(100L)
         assertThat(pendingTransaction.createdAt())
-            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+            .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(pendingTransaction.currency()).isEqualTo(PendingTransaction.Currency.CAD)
-        assertThat(pendingTransaction.description()).isEqualTo("description")
-        assertThat(pendingTransaction.routeId()).contains("route_id")
+        assertThat(pendingTransaction.description()).isEqualTo("INVOICE 2468")
+        assertThat(pendingTransaction.routeId()).contains("card_oubs0hwk5rn6knuecxg2")
         assertThat(pendingTransaction.routeType())
             .contains(PendingTransaction.RouteType.ACCOUNT_NUMBER)
         assertThat(pendingTransaction.source())
@@ -237,38 +229,37 @@ class PendingTransactionTest {
                 PendingTransaction.Source.builder()
                     .accountTransferInstruction(
                         PendingTransaction.Source.AccountTransferInstruction.builder()
-                            .amount(0L)
+                            .amount(100L)
                             .currency(
                                 PendingTransaction.Source.AccountTransferInstruction.Currency.CAD
                             )
-                            .transferId("transfer_id")
+                            .transferId("account_transfer_7k9qe1ysdgqztnt63l7n")
                             .build()
                     )
                     .achTransferInstruction(
                         PendingTransaction.Source.AchTransferInstruction.builder()
-                            .amount(0L)
-                            .transferId("transfer_id")
+                            .amount(100L)
+                            .transferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
                             .build()
                     )
                     .cardAuthorization(
                         PendingTransaction.Source.CardAuthorization.builder()
-                            .id("id")
+                            .id("card_authorization_6iqxap6ivd0fo5eu3i8x")
                             .actioner(PendingTransaction.Source.CardAuthorization.Actioner.USER)
-                            .amount(0L)
-                            .cardPaymentId("card_payment_id")
+                            .amount(100L)
+                            .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                             .currency(PendingTransaction.Source.CardAuthorization.Currency.CAD)
-                            .digitalWalletTokenId("digital_wallet_token_id")
                             .direction(
                                 PendingTransaction.Source.CardAuthorization.Direction.SETTLEMENT
                             )
-                            .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .merchantAcceptorId("merchant_acceptor_id")
-                            .merchantCategoryCode("merchant_category_code")
-                            .merchantCity("merchant_city")
-                            .merchantCountry("merchant_country")
-                            .merchantDescriptor("merchant_descriptor")
-                            .merchantPostalCode("merchant_postal_code")
-                            .merchantState("merchant_state")
+                            .expiresAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                            .merchantAcceptorId("5665270011000168")
+                            .merchantCategoryCode("5734")
+                            .merchantCity("New York")
+                            .merchantCountry("US")
+                            .merchantDescriptor("AMAZON.COM")
+                            .merchantPostalCode("10045")
+                            .merchantState("NY")
                             .networkDetails(
                                 PendingTransaction.Source.CardAuthorization.NetworkDetails.builder()
                                     .category(
@@ -308,22 +299,19 @@ class PendingTransactionTest {
                             .networkIdentifiers(
                                 PendingTransaction.Source.CardAuthorization.NetworkIdentifiers
                                     .builder()
-                                    .retrievalReferenceNumber("retrieval_reference_number")
-                                    .traceNumber("trace_number")
-                                    .transactionId("transaction_id")
+                                    .retrievalReferenceNumber("785867080153")
+                                    .traceNumber("487941")
+                                    .transactionId("627199945183184")
                                     .build()
                             )
-                            .networkRiskScore(0L)
-                            .pendingTransactionId("pending_transaction_id")
-                            .physicalCardId("physical_card_id")
-                            .presentmentAmount(0L)
-                            .presentmentCurrency("presentment_currency")
+                            .networkRiskScore(10L)
+                            .presentmentAmount(100L)
+                            .presentmentCurrency("USD")
                             .processingCategory(
                                 PendingTransaction.Source.CardAuthorization.ProcessingCategory
                                     .ACCOUNT_FUNDING
                             )
-                            .realTimeDecisionId("real_time_decision_id")
-                            .terminalId("terminal_id")
+                            .terminalId("RCN5VNXS")
                             .type(
                                 PendingTransaction.Source.CardAuthorization.Type.CARD_AUTHORIZATION
                             )
@@ -346,10 +334,10 @@ class PendingTransactionTest {
                                         PendingTransaction.Source.CardAuthorization.Verification
                                             .CardholderAddress
                                             .builder()
-                                            .actualLine1("actual_line1")
-                                            .actualPostalCode("actual_postal_code")
-                                            .providedLine1("provided_line1")
-                                            .providedPostalCode("provided_postal_code")
+                                            .actualLine1("33 Liberty Street")
+                                            .actualPostalCode("94131")
+                                            .providedLine1("33 Liberty Street")
+                                            .providedPostalCode("94132")
                                             .result(
                                                 PendingTransaction.Source.CardAuthorization
                                                     .Verification
@@ -366,56 +354,53 @@ class PendingTransactionTest {
                     .category(PendingTransaction.Source.Category.ACCOUNT_TRANSFER_INSTRUCTION)
                     .checkDepositInstruction(
                         PendingTransaction.Source.CheckDepositInstruction.builder()
-                            .amount(0L)
-                            .backImageFileId("back_image_file_id")
-                            .checkDepositId("check_deposit_id")
+                            .amount(100L)
+                            .backImageFileId("file_26khfk98mzfz90a11oqx")
+                            .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                             .currency(
                                 PendingTransaction.Source.CheckDepositInstruction.Currency.CAD
                             )
-                            .frontImageFileId("front_image_file_id")
+                            .frontImageFileId("file_makxrc67oh9l6sg7w9yc")
                             .build()
                     )
                     .checkTransferInstruction(
                         PendingTransaction.Source.CheckTransferInstruction.builder()
-                            .amount(0L)
+                            .amount(100L)
                             .currency(
                                 PendingTransaction.Source.CheckTransferInstruction.Currency.CAD
                             )
-                            .transferId("transfer_id")
+                            .transferId("check_transfer_30b43acfu9vw8fyc4f5")
                             .build()
                     )
                     .inboundFundsHold(
                         PendingTransaction.Source.InboundFundsHold.builder()
-                            .id("id")
-                            .amount(0L)
-                            .automaticallyReleasesAt(
-                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
-                            )
-                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .id("inbound_funds_hold_9vuasmywdo7xb3zt4071")
+                            .amount(100L)
+                            .automaticallyReleasesAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                             .currency(PendingTransaction.Source.InboundFundsHold.Currency.CAD)
-                            .heldTransactionId("held_transaction_id")
-                            .pendingTransactionId("pending_transaction_id")
-                            .releasedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .heldTransactionId("transaction_uyrp7fld2ium70oa7oi")
+                            .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
                             .status(PendingTransaction.Source.InboundFundsHold.Status.HELD)
                             .type(
                                 PendingTransaction.Source.InboundFundsHold.Type.INBOUND_FUNDS_HOLD
                             )
                             .build()
                     )
-                    .other(JsonNull.of())
+                    .other(JsonValue.from(mapOf<String, Any>()))
                     .realTimePaymentsTransferInstruction(
                         PendingTransaction.Source.RealTimePaymentsTransferInstruction.builder()
-                            .amount(0L)
-                            .transferId("transfer_id")
+                            .amount(100L)
+                            .transferId("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
                             .build()
                     )
                     .wireTransferInstruction(
                         PendingTransaction.Source.WireTransferInstruction.builder()
-                            .accountNumber("account_number")
-                            .amount(0L)
-                            .messageToRecipient("message_to_recipient")
-                            .routingNumber("routing_number")
-                            .transferId("transfer_id")
+                            .accountNumber("987654321")
+                            .amount(100L)
+                            .messageToRecipient("HELLO")
+                            .routingNumber("101050001")
+                            .transferId("wire_transfer_5akynk7dqsq25qwk9q2u")
                             .build()
                     )
                     .build()

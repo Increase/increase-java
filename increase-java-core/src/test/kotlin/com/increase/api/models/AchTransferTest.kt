@@ -13,11 +13,13 @@ class AchTransferTest {
     fun createAchTransfer() {
         val achTransfer =
             AchTransfer.builder()
-                .id("id")
-                .accountId("account_id")
-                .accountNumber("account_number")
+                .id("ach_transfer_uoxatyh3lt5evrsdvo7q")
+                .accountId("account_in71c4amph0vgo2qllky")
+                .accountNumber("987654321")
                 .acknowledgement(
-                    AchTransfer.Acknowledgement.builder().acknowledgedAt("acknowledged_at").build()
+                    AchTransfer.Acknowledgement.builder()
+                        .acknowledgedAt("2020-01-31T23:59:59Z")
+                        .build()
                 )
                 .addenda(
                     AchTransfer.Addenda.builder()
@@ -50,11 +52,10 @@ class AchTransferTest {
                         )
                         .build()
                 )
-                .amount(0L)
+                .amount(100L)
                 .approval(
                     AchTransfer.Approval.builder()
-                        .approvedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .approvedBy("approved_by")
+                        .approvedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .build()
                 )
                 .cancellation(
@@ -63,11 +64,8 @@ class AchTransferTest {
                         .canceledBy("canceled_by")
                         .build()
                 )
-                .companyDescriptiveDate("company_descriptive_date")
-                .companyDiscretionaryData("company_discretionary_data")
-                .companyEntryDescription("company_entry_description")
-                .companyName("company_name")
-                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .companyName("National Phonograph Company")
+                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .createdBy(
                     AchTransfer.CreatedBy.builder()
                         .apiKey(
@@ -79,14 +77,15 @@ class AchTransferTest {
                         .oauthApplication(
                             AchTransfer.CreatedBy.OAuthApplication.builder().name("name").build()
                         )
-                        .user(AchTransfer.CreatedBy.User.builder().email("email").build())
+                        .user(
+                            AchTransfer.CreatedBy.User.builder().email("user@example.com").build()
+                        )
                         .build()
                 )
                 .currency(AchTransfer.Currency.CAD)
                 .destinationAccountHolder(AchTransfer.DestinationAccountHolder.BUSINESS)
-                .externalAccountId("external_account_id")
+                .externalAccountId("external_account_ukk55lr923a3ac0pp7iv")
                 .funding(AchTransfer.Funding.CHECKING)
-                .idempotencyKey("idempotency_key")
                 .inboundFundsHold(
                     AchTransfer.InboundFundsHold.builder()
                         .id("id")
@@ -101,8 +100,7 @@ class AchTransferTest {
                         .type(AchTransfer.InboundFundsHold.Type.INBOUND_FUNDS_HOLD)
                         .build()
                 )
-                .individualId("individual_id")
-                .individualName("individual_name")
+                .individualName("Ian Crease")
                 .network(AchTransfer.Network.ACH)
                 .notificationsOfChange(
                     listOf(
@@ -111,15 +109,13 @@ class AchTransferTest {
                                 AchTransfer.NotificationsOfChange.ChangeCode
                                     .INCORRECT_ACCOUNT_NUMBER
                             )
-                            .correctedData("corrected_data")
-                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .correctedData("32")
+                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                             .build()
                     )
                 )
-                .pendingTransactionId("pending_transaction_id")
                 .preferredEffectiveDate(
                     AchTransfer.PreferredEffectiveDate.builder()
-                        .date(LocalDate.parse("2019-12-27"))
                         .settlementSchedule(
                             AchTransfer.PreferredEffectiveDate.SettlementSchedule.SAME_DAY
                         )
@@ -135,7 +131,7 @@ class AchTransferTest {
                         .transferId("transfer_id")
                         .build()
                 )
-                .routingNumber("routing_number")
+                .routingNumber("101050001")
                 .settlement(
                     AchTransfer.Settlement.builder()
                         .settledAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -144,29 +140,29 @@ class AchTransferTest {
                 .standardEntryClassCode(
                     AchTransfer.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT
                 )
-                .statementDescriptor("statement_descriptor")
+                .statementDescriptor("Statement descriptor")
                 .status(AchTransfer.Status.PENDING_APPROVAL)
                 .submission(
                     AchTransfer.Submission.builder()
-                        .effectiveDate(LocalDate.parse("2019-12-27"))
-                        .expectedFundsSettlementAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .effectiveDate(LocalDate.parse("2020-01-31"))
+                        .expectedFundsSettlementAt(OffsetDateTime.parse("2020-02-03T13:30:00Z"))
                         .expectedSettlementSchedule(
                             AchTransfer.Submission.ExpectedSettlementSchedule.SAME_DAY
                         )
-                        .submittedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .traceNumber("trace_number")
+                        .submittedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .traceNumber("058349238292834")
                         .build()
                 )
-                .transactionId("transaction_id")
+                .transactionId("transaction_uyrp7fld2ium70oa7oi")
                 .type(AchTransfer.Type.ACH_TRANSFER)
                 .build()
         assertThat(achTransfer).isNotNull
-        assertThat(achTransfer.id()).isEqualTo("id")
-        assertThat(achTransfer.accountId()).isEqualTo("account_id")
-        assertThat(achTransfer.accountNumber()).isEqualTo("account_number")
+        assertThat(achTransfer.id()).isEqualTo("ach_transfer_uoxatyh3lt5evrsdvo7q")
+        assertThat(achTransfer.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
+        assertThat(achTransfer.accountNumber()).isEqualTo("987654321")
         assertThat(achTransfer.acknowledgement())
             .contains(
-                AchTransfer.Acknowledgement.builder().acknowledgedAt("acknowledged_at").build()
+                AchTransfer.Acknowledgement.builder().acknowledgedAt("2020-01-31T23:59:59Z").build()
             )
         assertThat(achTransfer.addenda())
             .contains(
@@ -198,12 +194,11 @@ class AchTransferTest {
                     )
                     .build()
             )
-        assertThat(achTransfer.amount()).isEqualTo(0L)
+        assertThat(achTransfer.amount()).isEqualTo(100L)
         assertThat(achTransfer.approval())
             .contains(
                 AchTransfer.Approval.builder()
-                    .approvedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .approvedBy("approved_by")
+                    .approvedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                     .build()
             )
         assertThat(achTransfer.cancellation())
@@ -213,12 +208,8 @@ class AchTransferTest {
                     .canceledBy("canceled_by")
                     .build()
             )
-        assertThat(achTransfer.companyDescriptiveDate()).contains("company_descriptive_date")
-        assertThat(achTransfer.companyDiscretionaryData()).contains("company_discretionary_data")
-        assertThat(achTransfer.companyEntryDescription()).contains("company_entry_description")
-        assertThat(achTransfer.companyName()).contains("company_name")
-        assertThat(achTransfer.createdAt())
-            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(achTransfer.companyName()).contains("National Phonograph Company")
+        assertThat(achTransfer.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(achTransfer.createdBy())
             .contains(
                 AchTransfer.CreatedBy.builder()
@@ -229,15 +220,15 @@ class AchTransferTest {
                     .oauthApplication(
                         AchTransfer.CreatedBy.OAuthApplication.builder().name("name").build()
                     )
-                    .user(AchTransfer.CreatedBy.User.builder().email("email").build())
+                    .user(AchTransfer.CreatedBy.User.builder().email("user@example.com").build())
                     .build()
             )
         assertThat(achTransfer.currency()).isEqualTo(AchTransfer.Currency.CAD)
         assertThat(achTransfer.destinationAccountHolder())
             .isEqualTo(AchTransfer.DestinationAccountHolder.BUSINESS)
-        assertThat(achTransfer.externalAccountId()).contains("external_account_id")
+        assertThat(achTransfer.externalAccountId())
+            .contains("external_account_ukk55lr923a3ac0pp7iv")
         assertThat(achTransfer.funding()).isEqualTo(AchTransfer.Funding.CHECKING)
-        assertThat(achTransfer.idempotencyKey()).contains("idempotency_key")
         assertThat(achTransfer.inboundFundsHold())
             .contains(
                 AchTransfer.InboundFundsHold.builder()
@@ -253,8 +244,7 @@ class AchTransferTest {
                     .type(AchTransfer.InboundFundsHold.Type.INBOUND_FUNDS_HOLD)
                     .build()
             )
-        assertThat(achTransfer.individualId()).contains("individual_id")
-        assertThat(achTransfer.individualName()).contains("individual_name")
+        assertThat(achTransfer.individualName()).contains("Ian Crease")
         assertThat(achTransfer.network()).isEqualTo(AchTransfer.Network.ACH)
         assertThat(achTransfer.notificationsOfChange())
             .containsExactly(
@@ -262,15 +252,13 @@ class AchTransferTest {
                     .changeCode(
                         AchTransfer.NotificationsOfChange.ChangeCode.INCORRECT_ACCOUNT_NUMBER
                     )
-                    .correctedData("corrected_data")
-                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .correctedData("32")
+                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                     .build()
             )
-        assertThat(achTransfer.pendingTransactionId()).contains("pending_transaction_id")
         assertThat(achTransfer.preferredEffectiveDate())
             .isEqualTo(
                 AchTransfer.PreferredEffectiveDate.builder()
-                    .date(LocalDate.parse("2019-12-27"))
                     .settlementSchedule(
                         AchTransfer.PreferredEffectiveDate.SettlementSchedule.SAME_DAY
                     )
@@ -287,7 +275,7 @@ class AchTransferTest {
                     .transferId("transfer_id")
                     .build()
             )
-        assertThat(achTransfer.routingNumber()).isEqualTo("routing_number")
+        assertThat(achTransfer.routingNumber()).isEqualTo("101050001")
         assertThat(achTransfer.settlement())
             .contains(
                 AchTransfer.Settlement.builder()
@@ -296,21 +284,21 @@ class AchTransferTest {
             )
         assertThat(achTransfer.standardEntryClassCode())
             .isEqualTo(AchTransfer.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT)
-        assertThat(achTransfer.statementDescriptor()).isEqualTo("statement_descriptor")
+        assertThat(achTransfer.statementDescriptor()).isEqualTo("Statement descriptor")
         assertThat(achTransfer.status()).isEqualTo(AchTransfer.Status.PENDING_APPROVAL)
         assertThat(achTransfer.submission())
             .contains(
                 AchTransfer.Submission.builder()
-                    .effectiveDate(LocalDate.parse("2019-12-27"))
-                    .expectedFundsSettlementAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .effectiveDate(LocalDate.parse("2020-01-31"))
+                    .expectedFundsSettlementAt(OffsetDateTime.parse("2020-02-03T13:30:00Z"))
                     .expectedSettlementSchedule(
                         AchTransfer.Submission.ExpectedSettlementSchedule.SAME_DAY
                     )
-                    .submittedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .traceNumber("trace_number")
+                    .submittedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                    .traceNumber("058349238292834")
                     .build()
             )
-        assertThat(achTransfer.transactionId()).contains("transaction_id")
+        assertThat(achTransfer.transactionId()).contains("transaction_uyrp7fld2ium70oa7oi")
         assertThat(achTransfer.type()).isEqualTo(AchTransfer.Type.ACH_TRANSFER)
     }
 }
