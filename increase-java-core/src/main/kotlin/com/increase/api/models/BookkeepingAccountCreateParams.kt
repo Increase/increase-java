@@ -369,9 +369,9 @@ constructor(
 
         companion object {
 
-            @JvmField val COMMINGLED_CASH = ComplianceCategory(JsonField.of("commingled_cash"))
+            @JvmField val COMMINGLED_CASH = of("commingled_cash")
 
-            @JvmField val CUSTOMER_BALANCE = ComplianceCategory(JsonField.of("customer_balance"))
+            @JvmField val CUSTOMER_BALANCE = of("customer_balance")
 
             @JvmStatic fun of(value: String) = ComplianceCategory(JsonField.of(value))
         }

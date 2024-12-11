@@ -169,7 +169,7 @@ private constructor(
 
         companion object {
 
-            @JvmField val BEARER = TokenType(JsonField.of("bearer"))
+            @JvmField val BEARER = of("bearer")
 
             @JvmStatic fun of(value: String) = TokenType(JsonField.of(value))
         }
@@ -220,7 +220,7 @@ private constructor(
 
         companion object {
 
-            @JvmField val OAUTH_TOKEN = Type(JsonField.of("oauth_token"))
+            @JvmField val OAUTH_TOKEN = of("oauth_token")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }

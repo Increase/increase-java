@@ -362,11 +362,11 @@ private constructor(
 
         companion object {
 
-            @JvmField val BUSINESS = AccountHolder(JsonField.of("business"))
+            @JvmField val BUSINESS = of("business")
 
-            @JvmField val INDIVIDUAL = AccountHolder(JsonField.of("individual"))
+            @JvmField val INDIVIDUAL = of("individual")
 
-            @JvmField val UNKNOWN = AccountHolder(JsonField.of("unknown"))
+            @JvmField val UNKNOWN = of("unknown")
 
             @JvmStatic fun of(value: String) = AccountHolder(JsonField.of(value))
         }
@@ -425,11 +425,11 @@ private constructor(
 
         companion object {
 
-            @JvmField val CHECKING = Funding(JsonField.of("checking"))
+            @JvmField val CHECKING = of("checking")
 
-            @JvmField val SAVINGS = Funding(JsonField.of("savings"))
+            @JvmField val SAVINGS = of("savings")
 
-            @JvmField val OTHER = Funding(JsonField.of("other"))
+            @JvmField val OTHER = of("other")
 
             @JvmStatic fun of(value: String) = Funding(JsonField.of(value))
         }
@@ -488,9 +488,9 @@ private constructor(
 
         companion object {
 
-            @JvmField val ACTIVE = Status(JsonField.of("active"))
+            @JvmField val ACTIVE = of("active")
 
-            @JvmField val ARCHIVED = Status(JsonField.of("archived"))
+            @JvmField val ARCHIVED = of("archived")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
@@ -545,7 +545,7 @@ private constructor(
 
         companion object {
 
-            @JvmField val EXTERNAL_ACCOUNT = Type(JsonField.of("external_account"))
+            @JvmField val EXTERNAL_ACCOUNT = of("external_account")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }
@@ -596,11 +596,11 @@ private constructor(
 
         companion object {
 
-            @JvmField val UNVERIFIED = VerificationStatus(JsonField.of("unverified"))
+            @JvmField val UNVERIFIED = of("unverified")
 
-            @JvmField val PENDING = VerificationStatus(JsonField.of("pending"))
+            @JvmField val PENDING = of("pending")
 
-            @JvmField val VERIFIED = VerificationStatus(JsonField.of("verified"))
+            @JvmField val VERIFIED = of("verified")
 
             @JvmStatic fun of(value: String) = VerificationStatus(JsonField.of(value))
         }

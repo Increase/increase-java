@@ -418,9 +418,9 @@ constructor(
 
         companion object {
 
-            @JvmField val AUTHORIZATION_CODE = GrantType(JsonField.of("authorization_code"))
+            @JvmField val AUTHORIZATION_CODE = of("authorization_code")
 
-            @JvmField val PRODUCTION_TOKEN = GrantType(JsonField.of("production_token"))
+            @JvmField val PRODUCTION_TOKEN = of("production_token")
 
             @JvmStatic fun of(value: String) = GrantType(JsonField.of(value))
         }

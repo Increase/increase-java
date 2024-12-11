@@ -550,15 +550,15 @@ private constructor(
 
         companion object {
 
-            @JvmField val PENDING_REVIEW = Status(JsonField.of("pending_review"))
+            @JvmField val PENDING_REVIEW = of("pending_review")
 
-            @JvmField val REJECTED = Status(JsonField.of("rejected"))
+            @JvmField val REJECTED = of("rejected")
 
-            @JvmField val CANCELED = Status(JsonField.of("canceled"))
+            @JvmField val CANCELED = of("canceled")
 
-            @JvmField val PENDING_SENDING = Status(JsonField.of("pending_sending"))
+            @JvmField val PENDING_SENDING = of("pending_sending")
 
-            @JvmField val SENT = Status(JsonField.of("sent"))
+            @JvmField val SENT = of("sent")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
@@ -627,7 +627,7 @@ private constructor(
 
             @JvmField
             val PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION =
-                Type(JsonField.of("proof_of_authorization_request_submission"))
+                of("proof_of_authorization_request_submission")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }

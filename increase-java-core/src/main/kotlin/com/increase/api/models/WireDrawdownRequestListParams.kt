@@ -226,13 +226,13 @@ constructor(
 
         companion object {
 
-            @JvmField val PENDING_SUBMISSION = Status(JsonField.of("pending_submission"))
+            @JvmField val PENDING_SUBMISSION = of("pending_submission")
 
-            @JvmField val PENDING_RESPONSE = Status(JsonField.of("pending_response"))
+            @JvmField val PENDING_RESPONSE = of("pending_response")
 
-            @JvmField val FULFILLED = Status(JsonField.of("fulfilled"))
+            @JvmField val FULFILLED = of("fulfilled")
 
-            @JvmField val REFUSED = Status(JsonField.of("refused"))
+            @JvmField val REFUSED = of("refused")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }

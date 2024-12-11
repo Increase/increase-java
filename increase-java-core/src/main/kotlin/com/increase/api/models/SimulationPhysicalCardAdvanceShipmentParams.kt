@@ -324,19 +324,19 @@ constructor(
 
         companion object {
 
-            @JvmField val PENDING = ShipmentStatus(JsonField.of("pending"))
+            @JvmField val PENDING = of("pending")
 
-            @JvmField val CANCELED = ShipmentStatus(JsonField.of("canceled"))
+            @JvmField val CANCELED = of("canceled")
 
-            @JvmField val SUBMITTED = ShipmentStatus(JsonField.of("submitted"))
+            @JvmField val SUBMITTED = of("submitted")
 
-            @JvmField val ACKNOWLEDGED = ShipmentStatus(JsonField.of("acknowledged"))
+            @JvmField val ACKNOWLEDGED = of("acknowledged")
 
-            @JvmField val REJECTED = ShipmentStatus(JsonField.of("rejected"))
+            @JvmField val REJECTED = of("rejected")
 
-            @JvmField val SHIPPED = ShipmentStatus(JsonField.of("shipped"))
+            @JvmField val SHIPPED = of("shipped")
 
-            @JvmField val RETURNED = ShipmentStatus(JsonField.of("returned"))
+            @JvmField val RETURNED = of("returned")
 
             @JvmStatic fun of(value: String) = ShipmentStatus(JsonField.of(value))
         }

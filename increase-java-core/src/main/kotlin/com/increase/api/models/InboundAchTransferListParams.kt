@@ -390,13 +390,13 @@ constructor(
 
         companion object {
 
-            @JvmField val PENDING = Status(JsonField.of("pending"))
+            @JvmField val PENDING = of("pending")
 
-            @JvmField val DECLINED = Status(JsonField.of("declined"))
+            @JvmField val DECLINED = of("declined")
 
-            @JvmField val ACCEPTED = Status(JsonField.of("accepted"))
+            @JvmField val ACCEPTED = of("accepted")
 
-            @JvmField val RETURNED = Status(JsonField.of("returned"))
+            @JvmField val RETURNED = of("returned")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }

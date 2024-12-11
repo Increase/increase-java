@@ -317,34 +317,27 @@ constructor(
 
             companion object {
 
-                @JvmField
-                val ACCOUNT_TRANSFER_INSTRUCTION = In(JsonField.of("account_transfer_instruction"))
+                @JvmField val ACCOUNT_TRANSFER_INSTRUCTION = of("account_transfer_instruction")
 
-                @JvmField
-                val ACH_TRANSFER_INSTRUCTION = In(JsonField.of("ach_transfer_instruction"))
+                @JvmField val ACH_TRANSFER_INSTRUCTION = of("ach_transfer_instruction")
 
-                @JvmField val CARD_AUTHORIZATION = In(JsonField.of("card_authorization"))
+                @JvmField val CARD_AUTHORIZATION = of("card_authorization")
 
-                @JvmField
-                val CHECK_DEPOSIT_INSTRUCTION = In(JsonField.of("check_deposit_instruction"))
+                @JvmField val CHECK_DEPOSIT_INSTRUCTION = of("check_deposit_instruction")
 
-                @JvmField
-                val CHECK_TRANSFER_INSTRUCTION = In(JsonField.of("check_transfer_instruction"))
+                @JvmField val CHECK_TRANSFER_INSTRUCTION = of("check_transfer_instruction")
 
-                @JvmField val INBOUND_FUNDS_HOLD = In(JsonField.of("inbound_funds_hold"))
+                @JvmField val INBOUND_FUNDS_HOLD = of("inbound_funds_hold")
 
                 @JvmField
                 val REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION =
-                    In(JsonField.of("real_time_payments_transfer_instruction"))
+                    of("real_time_payments_transfer_instruction")
 
-                @JvmField
-                val WIRE_TRANSFER_INSTRUCTION = In(JsonField.of("wire_transfer_instruction"))
+                @JvmField val WIRE_TRANSFER_INSTRUCTION = of("wire_transfer_instruction")
 
-                @JvmField
-                val INBOUND_WIRE_TRANSFER_REVERSAL =
-                    In(JsonField.of("inbound_wire_transfer_reversal"))
+                @JvmField val INBOUND_WIRE_TRANSFER_REVERSAL = of("inbound_wire_transfer_reversal")
 
-                @JvmField val OTHER = In(JsonField.of("other"))
+                @JvmField val OTHER = of("other")
 
                 @JvmStatic fun of(value: String) = In(JsonField.of(value))
             }
@@ -657,9 +650,9 @@ constructor(
 
             companion object {
 
-                @JvmField val PENDING = In(JsonField.of("pending"))
+                @JvmField val PENDING = of("pending")
 
-                @JvmField val COMPLETE = In(JsonField.of("complete"))
+                @JvmField val COMPLETE = of("complete")
 
                 @JvmStatic fun of(value: String) = In(JsonField.of(value))
             }

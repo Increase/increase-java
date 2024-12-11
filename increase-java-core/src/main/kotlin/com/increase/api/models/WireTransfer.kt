@@ -1338,11 +1338,11 @@ private constructor(
 
             companion object {
 
-                @JvmField val API_KEY = Category(JsonField.of("api_key"))
+                @JvmField val API_KEY = of("api_key")
 
-                @JvmField val OAUTH_APPLICATION = Category(JsonField.of("oauth_application"))
+                @JvmField val OAUTH_APPLICATION = of("oauth_application")
 
-                @JvmField val USER = Category(JsonField.of("user"))
+                @JvmField val USER = of("user")
 
                 @JvmStatic fun of(value: String) = Category(JsonField.of(value))
             }
@@ -1600,17 +1600,17 @@ private constructor(
 
         companion object {
 
-            @JvmField val CAD = Currency(JsonField.of("CAD"))
+            @JvmField val CAD = of("CAD")
 
-            @JvmField val CHF = Currency(JsonField.of("CHF"))
+            @JvmField val CHF = of("CHF")
 
-            @JvmField val EUR = Currency(JsonField.of("EUR"))
+            @JvmField val EUR = of("EUR")
 
-            @JvmField val GBP = Currency(JsonField.of("GBP"))
+            @JvmField val GBP = of("GBP")
 
-            @JvmField val JPY = Currency(JsonField.of("JPY"))
+            @JvmField val JPY = of("JPY")
 
-            @JvmField val USD = Currency(JsonField.of("USD"))
+            @JvmField val USD = of("USD")
 
             @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
         }
@@ -1681,7 +1681,7 @@ private constructor(
 
         companion object {
 
-            @JvmField val WIRE = Network(JsonField.of("wire"))
+            @JvmField val WIRE = of("wire")
 
             @JvmStatic fun of(value: String) = Network(JsonField.of(value))
         }
@@ -2288,23 +2288,23 @@ private constructor(
 
         companion object {
 
-            @JvmField val PENDING_APPROVAL = Status(JsonField.of("pending_approval"))
+            @JvmField val PENDING_APPROVAL = of("pending_approval")
 
-            @JvmField val CANCELED = Status(JsonField.of("canceled"))
+            @JvmField val CANCELED = of("canceled")
 
-            @JvmField val PENDING_REVIEWING = Status(JsonField.of("pending_reviewing"))
+            @JvmField val PENDING_REVIEWING = of("pending_reviewing")
 
-            @JvmField val REJECTED = Status(JsonField.of("rejected"))
+            @JvmField val REJECTED = of("rejected")
 
-            @JvmField val REQUIRES_ATTENTION = Status(JsonField.of("requires_attention"))
+            @JvmField val REQUIRES_ATTENTION = of("requires_attention")
 
-            @JvmField val PENDING_CREATING = Status(JsonField.of("pending_creating"))
+            @JvmField val PENDING_CREATING = of("pending_creating")
 
-            @JvmField val REVERSED = Status(JsonField.of("reversed"))
+            @JvmField val REVERSED = of("reversed")
 
-            @JvmField val SUBMITTED = Status(JsonField.of("submitted"))
+            @JvmField val SUBMITTED = of("submitted")
 
-            @JvmField val COMPLETE = Status(JsonField.of("complete"))
+            @JvmField val COMPLETE = of("complete")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
@@ -2508,7 +2508,7 @@ private constructor(
 
         companion object {
 
-            @JvmField val WIRE_TRANSFER = Type(JsonField.of("wire_transfer"))
+            @JvmField val WIRE_TRANSFER = of("wire_transfer")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }

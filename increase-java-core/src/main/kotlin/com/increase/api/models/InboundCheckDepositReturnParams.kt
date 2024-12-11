@@ -320,15 +320,15 @@ constructor(
 
         companion object {
 
-            @JvmField val ALTERED_OR_FICTITIOUS = Reason(JsonField.of("altered_or_fictitious"))
+            @JvmField val ALTERED_OR_FICTITIOUS = of("altered_or_fictitious")
 
-            @JvmField val NOT_AUTHORIZED = Reason(JsonField.of("not_authorized"))
+            @JvmField val NOT_AUTHORIZED = of("not_authorized")
 
-            @JvmField val DUPLICATE_PRESENTMENT = Reason(JsonField.of("duplicate_presentment"))
+            @JvmField val DUPLICATE_PRESENTMENT = of("duplicate_presentment")
 
-            @JvmField val ENDORSEMENT_MISSING = Reason(JsonField.of("endorsement_missing"))
+            @JvmField val ENDORSEMENT_MISSING = of("endorsement_missing")
 
-            @JvmField val ENDORSEMENT_IRREGULAR = Reason(JsonField.of("endorsement_irregular"))
+            @JvmField val ENDORSEMENT_IRREGULAR = of("endorsement_irregular")
 
             @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
         }

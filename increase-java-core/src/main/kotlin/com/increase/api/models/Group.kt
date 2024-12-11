@@ -213,9 +213,9 @@ private constructor(
 
         companion object {
 
-            @JvmField val DISABLED = AchDebitStatus(JsonField.of("disabled"))
+            @JvmField val DISABLED = of("disabled")
 
-            @JvmField val ENABLED = AchDebitStatus(JsonField.of("enabled"))
+            @JvmField val ENABLED = of("enabled")
 
             @JvmStatic fun of(value: String) = AchDebitStatus(JsonField.of(value))
         }
@@ -270,9 +270,9 @@ private constructor(
 
         companion object {
 
-            @JvmField val UNACTIVATED = ActivationStatus(JsonField.of("unactivated"))
+            @JvmField val UNACTIVATED = of("unactivated")
 
-            @JvmField val ACTIVATED = ActivationStatus(JsonField.of("activated"))
+            @JvmField val ACTIVATED = of("activated")
 
             @JvmStatic fun of(value: String) = ActivationStatus(JsonField.of(value))
         }
@@ -327,7 +327,7 @@ private constructor(
 
         companion object {
 
-            @JvmField val GROUP = Type(JsonField.of("group"))
+            @JvmField val GROUP = of("group")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }

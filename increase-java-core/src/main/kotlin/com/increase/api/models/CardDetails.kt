@@ -245,7 +245,7 @@ private constructor(
 
         companion object {
 
-            @JvmField val CARD_DETAILS = Type(JsonField.of("card_details"))
+            @JvmField val CARD_DETAILS = of("card_details")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }

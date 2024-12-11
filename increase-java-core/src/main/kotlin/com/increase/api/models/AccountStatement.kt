@@ -332,7 +332,7 @@ private constructor(
 
         companion object {
 
-            @JvmField val ACCOUNT_STATEMENT = Type(JsonField.of("account_statement"))
+            @JvmField val ACCOUNT_STATEMENT = of("account_statement")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }

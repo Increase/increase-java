@@ -736,13 +736,13 @@ private constructor(
 
         companion object {
 
-            @JvmField val PENDING = Status(JsonField.of("pending"))
+            @JvmField val PENDING = of("pending")
 
-            @JvmField val ACCEPTED = Status(JsonField.of("accepted"))
+            @JvmField val ACCEPTED = of("accepted")
 
-            @JvmField val DECLINED = Status(JsonField.of("declined"))
+            @JvmField val DECLINED = of("declined")
 
-            @JvmField val REVERSED = Status(JsonField.of("reversed"))
+            @JvmField val REVERSED = of("reversed")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
@@ -805,7 +805,7 @@ private constructor(
 
         companion object {
 
-            @JvmField val INBOUND_WIRE_TRANSFER = Type(JsonField.of("inbound_wire_transfer"))
+            @JvmField val INBOUND_WIRE_TRANSFER = of("inbound_wire_transfer")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }

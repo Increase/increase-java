@@ -417,9 +417,9 @@ constructor(
 
         companion object {
 
-            @JvmField val CLOSED = Status(JsonField.of("closed"))
+            @JvmField val CLOSED = of("closed")
 
-            @JvmField val OPEN = Status(JsonField.of("open"))
+            @JvmField val OPEN = of("open")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }

@@ -311,78 +311,73 @@ constructor(
 
             companion object {
 
-                @JvmField
-                val ACCOUNT_TRANSFER_INTENTION = In(JsonField.of("account_transfer_intention"))
+                @JvmField val ACCOUNT_TRANSFER_INTENTION = of("account_transfer_intention")
 
-                @JvmField val ACH_TRANSFER_INTENTION = In(JsonField.of("ach_transfer_intention"))
+                @JvmField val ACH_TRANSFER_INTENTION = of("ach_transfer_intention")
 
-                @JvmField val ACH_TRANSFER_REJECTION = In(JsonField.of("ach_transfer_rejection"))
+                @JvmField val ACH_TRANSFER_REJECTION = of("ach_transfer_rejection")
 
-                @JvmField val ACH_TRANSFER_RETURN = In(JsonField.of("ach_transfer_return"))
+                @JvmField val ACH_TRANSFER_RETURN = of("ach_transfer_return")
 
-                @JvmField val CASHBACK_PAYMENT = In(JsonField.of("cashback_payment"))
+                @JvmField val CASHBACK_PAYMENT = of("cashback_payment")
 
-                @JvmField val CARD_DISPUTE_ACCEPTANCE = In(JsonField.of("card_dispute_acceptance"))
+                @JvmField val CARD_DISPUTE_ACCEPTANCE = of("card_dispute_acceptance")
 
-                @JvmField val CARD_DISPUTE_LOSS = In(JsonField.of("card_dispute_loss"))
+                @JvmField val CARD_DISPUTE_LOSS = of("card_dispute_loss")
 
-                @JvmField val CARD_REFUND = In(JsonField.of("card_refund"))
+                @JvmField val CARD_REFUND = of("card_refund")
 
-                @JvmField val CARD_SETTLEMENT = In(JsonField.of("card_settlement"))
+                @JvmField val CARD_SETTLEMENT = of("card_settlement")
 
-                @JvmField val CARD_REVENUE_PAYMENT = In(JsonField.of("card_revenue_payment"))
+                @JvmField val CARD_REVENUE_PAYMENT = of("card_revenue_payment")
 
-                @JvmField
-                val CHECK_DEPOSIT_ACCEPTANCE = In(JsonField.of("check_deposit_acceptance"))
+                @JvmField val CHECK_DEPOSIT_ACCEPTANCE = of("check_deposit_acceptance")
 
-                @JvmField val CHECK_DEPOSIT_RETURN = In(JsonField.of("check_deposit_return"))
+                @JvmField val CHECK_DEPOSIT_RETURN = of("check_deposit_return")
 
-                @JvmField val CHECK_TRANSFER_DEPOSIT = In(JsonField.of("check_transfer_deposit"))
+                @JvmField val CHECK_TRANSFER_DEPOSIT = of("check_transfer_deposit")
 
-                @JvmField val FEE_PAYMENT = In(JsonField.of("fee_payment"))
+                @JvmField val FEE_PAYMENT = of("fee_payment")
 
-                @JvmField val INBOUND_ACH_TRANSFER = In(JsonField.of("inbound_ach_transfer"))
+                @JvmField val INBOUND_ACH_TRANSFER = of("inbound_ach_transfer")
 
                 @JvmField
                 val INBOUND_ACH_TRANSFER_RETURN_INTENTION =
-                    In(JsonField.of("inbound_ach_transfer_return_intention"))
+                    of("inbound_ach_transfer_return_intention")
 
                 @JvmField
                 val INBOUND_CHECK_DEPOSIT_RETURN_INTENTION =
-                    In(JsonField.of("inbound_check_deposit_return_intention"))
+                    of("inbound_check_deposit_return_intention")
 
-                @JvmField
-                val INBOUND_CHECK_ADJUSTMENT = In(JsonField.of("inbound_check_adjustment"))
+                @JvmField val INBOUND_CHECK_ADJUSTMENT = of("inbound_check_adjustment")
 
                 @JvmField
                 val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION =
-                    In(JsonField.of("inbound_real_time_payments_transfer_confirmation"))
+                    of("inbound_real_time_payments_transfer_confirmation")
 
                 @JvmField
                 val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE =
-                    In(JsonField.of("inbound_real_time_payments_transfer_decline"))
+                    of("inbound_real_time_payments_transfer_decline")
 
-                @JvmField val INBOUND_WIRE_REVERSAL = In(JsonField.of("inbound_wire_reversal"))
+                @JvmField val INBOUND_WIRE_REVERSAL = of("inbound_wire_reversal")
 
-                @JvmField val INBOUND_WIRE_TRANSFER = In(JsonField.of("inbound_wire_transfer"))
+                @JvmField val INBOUND_WIRE_TRANSFER = of("inbound_wire_transfer")
 
-                @JvmField
-                val INBOUND_WIRE_TRANSFER_REVERSAL =
-                    In(JsonField.of("inbound_wire_transfer_reversal"))
+                @JvmField val INBOUND_WIRE_TRANSFER_REVERSAL = of("inbound_wire_transfer_reversal")
 
-                @JvmField val INTEREST_PAYMENT = In(JsonField.of("interest_payment"))
+                @JvmField val INTEREST_PAYMENT = of("interest_payment")
 
-                @JvmField val INTERNAL_SOURCE = In(JsonField.of("internal_source"))
+                @JvmField val INTERNAL_SOURCE = of("internal_source")
 
                 @JvmField
                 val REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT =
-                    In(JsonField.of("real_time_payments_transfer_acknowledgement"))
+                    of("real_time_payments_transfer_acknowledgement")
 
-                @JvmField val SAMPLE_FUNDS = In(JsonField.of("sample_funds"))
+                @JvmField val SAMPLE_FUNDS = of("sample_funds")
 
-                @JvmField val WIRE_TRANSFER_INTENTION = In(JsonField.of("wire_transfer_intention"))
+                @JvmField val WIRE_TRANSFER_INTENTION = of("wire_transfer_intention")
 
-                @JvmField val OTHER = In(JsonField.of("other"))
+                @JvmField val OTHER = of("other")
 
                 @JvmStatic fun of(value: String) = In(JsonField.of(value))
             }

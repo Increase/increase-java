@@ -546,11 +546,11 @@ constructor(
 
             companion object {
 
-                @JvmField val APPROVE = Decision(JsonField.of("approve"))
+                @JvmField val APPROVE = of("approve")
 
-                @JvmField val CHALLENGE = Decision(JsonField.of("challenge"))
+                @JvmField val CHALLENGE = of("challenge")
 
-                @JvmField val DENY = Decision(JsonField.of("deny"))
+                @JvmField val DENY = of("deny")
 
                 @JvmStatic fun of(value: String) = Decision(JsonField.of(value))
             }
@@ -693,9 +693,9 @@ constructor(
 
             companion object {
 
-                @JvmField val SUCCESS = Result(JsonField.of("success"))
+                @JvmField val SUCCESS = of("success")
 
-                @JvmField val FAILURE = Result(JsonField.of("failure"))
+                @JvmField val FAILURE = of("failure")
 
                 @JvmStatic fun of(value: String) = Result(JsonField.of(value))
             }
@@ -849,9 +849,9 @@ constructor(
 
             companion object {
 
-                @JvmField val APPROVE = Decision(JsonField.of("approve"))
+                @JvmField val APPROVE = of("approve")
 
-                @JvmField val DECLINE = Decision(JsonField.of("decline"))
+                @JvmField val DECLINE = of("decline")
 
                 @JvmStatic fun of(value: String) = Decision(JsonField.of(value))
             }
@@ -906,22 +906,17 @@ constructor(
 
             companion object {
 
-                @JvmField val INSUFFICIENT_FUNDS = DeclineReason(JsonField.of("insufficient_funds"))
+                @JvmField val INSUFFICIENT_FUNDS = of("insufficient_funds")
 
-                @JvmField
-                val TRANSACTION_NEVER_ALLOWED =
-                    DeclineReason(JsonField.of("transaction_never_allowed"))
+                @JvmField val TRANSACTION_NEVER_ALLOWED = of("transaction_never_allowed")
 
-                @JvmField
-                val EXCEEDS_APPROVAL_LIMIT = DeclineReason(JsonField.of("exceeds_approval_limit"))
+                @JvmField val EXCEEDS_APPROVAL_LIMIT = of("exceeds_approval_limit")
 
-                @JvmField
-                val CARD_TEMPORARILY_DISABLED =
-                    DeclineReason(JsonField.of("card_temporarily_disabled"))
+                @JvmField val CARD_TEMPORARILY_DISABLED = of("card_temporarily_disabled")
 
-                @JvmField val SUSPECTED_FRAUD = DeclineReason(JsonField.of("suspected_fraud"))
+                @JvmField val SUSPECTED_FRAUD = of("suspected_fraud")
 
-                @JvmField val OTHER = DeclineReason(JsonField.of("other"))
+                @JvmField val OTHER = of("other")
 
                 @JvmStatic fun of(value: String) = DeclineReason(JsonField.of(value))
             }
@@ -1080,9 +1075,9 @@ constructor(
 
             companion object {
 
-                @JvmField val SUCCESS = Result(JsonField.of("success"))
+                @JvmField val SUCCESS = of("success")
 
-                @JvmField val FAILURE = Result(JsonField.of("failure"))
+                @JvmField val FAILURE = of("failure")
 
                 @JvmStatic fun of(value: String) = Result(JsonField.of(value))
             }

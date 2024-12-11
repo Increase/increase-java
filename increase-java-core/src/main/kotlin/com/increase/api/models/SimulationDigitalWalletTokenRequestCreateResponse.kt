@@ -202,14 +202,13 @@ private constructor(
 
         companion object {
 
-            @JvmField val CARD_NOT_ACTIVE = DeclineReason(JsonField.of("card_not_active"))
+            @JvmField val CARD_NOT_ACTIVE = of("card_not_active")
 
-            @JvmField
-            val NO_VERIFICATION_METHOD = DeclineReason(JsonField.of("no_verification_method"))
+            @JvmField val NO_VERIFICATION_METHOD = of("no_verification_method")
 
-            @JvmField val WEBHOOK_TIMED_OUT = DeclineReason(JsonField.of("webhook_timed_out"))
+            @JvmField val WEBHOOK_TIMED_OUT = of("webhook_timed_out")
 
-            @JvmField val WEBHOOK_DECLINED = DeclineReason(JsonField.of("webhook_declined"))
+            @JvmField val WEBHOOK_DECLINED = of("webhook_declined")
 
             @JvmStatic fun of(value: String) = DeclineReason(JsonField.of(value))
         }
@@ -274,7 +273,7 @@ private constructor(
 
             @JvmField
             val INBOUND_DIGITAL_WALLET_TOKEN_REQUEST_SIMULATION_RESULT =
-                Type(JsonField.of("inbound_digital_wallet_token_request_simulation_result"))
+                of("inbound_digital_wallet_token_request_simulation_result")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }

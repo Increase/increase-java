@@ -299,11 +299,11 @@ constructor(
 
             companion object {
 
-                @JvmField val FORM_1099_INT = In(JsonField.of("form_1099_int"))
+                @JvmField val FORM_1099_INT = of("form_1099_int")
 
-                @JvmField val PROOF_OF_AUTHORIZATION = In(JsonField.of("proof_of_authorization"))
+                @JvmField val PROOF_OF_AUTHORIZATION = of("proof_of_authorization")
 
-                @JvmField val COMPANY_INFORMATION = In(JsonField.of("company_information"))
+                @JvmField val COMPANY_INFORMATION = of("company_information")
 
                 @JvmStatic fun of(value: String) = In(JsonField.of(value))
             }

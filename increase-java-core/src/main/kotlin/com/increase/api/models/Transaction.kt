@@ -377,17 +377,17 @@ private constructor(
 
         companion object {
 
-            @JvmField val CAD = Currency(JsonField.of("CAD"))
+            @JvmField val CAD = of("CAD")
 
-            @JvmField val CHF = Currency(JsonField.of("CHF"))
+            @JvmField val CHF = of("CHF")
 
-            @JvmField val EUR = Currency(JsonField.of("EUR"))
+            @JvmField val EUR = of("EUR")
 
-            @JvmField val GBP = Currency(JsonField.of("GBP"))
+            @JvmField val GBP = of("GBP")
 
-            @JvmField val JPY = Currency(JsonField.of("JPY"))
+            @JvmField val JPY = of("JPY")
 
-            @JvmField val USD = Currency(JsonField.of("USD"))
+            @JvmField val USD = of("USD")
 
             @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
         }
@@ -458,11 +458,11 @@ private constructor(
 
         companion object {
 
-            @JvmField val ACCOUNT_NUMBER = RouteType(JsonField.of("account_number"))
+            @JvmField val ACCOUNT_NUMBER = of("account_number")
 
-            @JvmField val CARD = RouteType(JsonField.of("card"))
+            @JvmField val CARD = of("card")
 
-            @JvmField val LOCKBOX = RouteType(JsonField.of("lockbox"))
+            @JvmField val LOCKBOX = of("lockbox")
 
             @JvmStatic fun of(value: String) = RouteType(JsonField.of(value))
         }
@@ -1783,17 +1783,17 @@ private constructor(
 
                 companion object {
 
-                    @JvmField val CAD = Currency(JsonField.of("CAD"))
+                    @JvmField val CAD = of("CAD")
 
-                    @JvmField val CHF = Currency(JsonField.of("CHF"))
+                    @JvmField val CHF = of("CHF")
 
-                    @JvmField val EUR = Currency(JsonField.of("EUR"))
+                    @JvmField val EUR = of("EUR")
 
-                    @JvmField val GBP = Currency(JsonField.of("GBP"))
+                    @JvmField val GBP = of("GBP")
 
-                    @JvmField val JPY = Currency(JsonField.of("JPY"))
+                    @JvmField val JPY = of("JPY")
 
-                    @JvmField val USD = Currency(JsonField.of("USD"))
+                    @JvmField val USD = of("USD")
 
                     @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
                 }
@@ -2428,287 +2428,201 @@ private constructor(
 
                 companion object {
 
+                    @JvmField val INSUFFICIENT_FUND = of("insufficient_fund")
+
+                    @JvmField val NO_ACCOUNT = of("no_account")
+
+                    @JvmField val ACCOUNT_CLOSED = of("account_closed")
+
                     @JvmField
-                    val INSUFFICIENT_FUND = ReturnReasonCode(JsonField.of("insufficient_fund"))
-
-                    @JvmField val NO_ACCOUNT = ReturnReasonCode(JsonField.of("no_account"))
-
-                    @JvmField val ACCOUNT_CLOSED = ReturnReasonCode(JsonField.of("account_closed"))
-
-                    @JvmField
-                    val INVALID_ACCOUNT_NUMBER_STRUCTURE =
-                        ReturnReasonCode(JsonField.of("invalid_account_number_structure"))
+                    val INVALID_ACCOUNT_NUMBER_STRUCTURE = of("invalid_account_number_structure")
 
                     @JvmField
                     val ACCOUNT_FROZEN_ENTRY_RETURNED_PER_OFAC_INSTRUCTION =
-                        ReturnReasonCode(
-                            JsonField.of("account_frozen_entry_returned_per_ofac_instruction")
-                        )
+                        of("account_frozen_entry_returned_per_ofac_instruction")
 
                     @JvmField
-                    val CREDIT_ENTRY_REFUSED_BY_RECEIVER =
-                        ReturnReasonCode(JsonField.of("credit_entry_refused_by_receiver"))
+                    val CREDIT_ENTRY_REFUSED_BY_RECEIVER = of("credit_entry_refused_by_receiver")
 
                     @JvmField
                     val UNAUTHORIZED_DEBIT_TO_CONSUMER_ACCOUNT_USING_CORPORATE_SEC_CODE =
-                        ReturnReasonCode(
-                            JsonField.of(
-                                "unauthorized_debit_to_consumer_account_using_corporate_sec_code"
-                            )
-                        )
+                        of("unauthorized_debit_to_consumer_account_using_corporate_sec_code")
 
                     @JvmField
                     val CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED =
-                        ReturnReasonCode(JsonField.of("corporate_customer_advised_not_authorized"))
+                        of("corporate_customer_advised_not_authorized")
+
+                    @JvmField val PAYMENT_STOPPED = of("payment_stopped")
+
+                    @JvmField val NON_TRANSACTION_ACCOUNT = of("non_transaction_account")
+
+                    @JvmField val UNCOLLECTED_FUNDS = of("uncollected_funds")
 
                     @JvmField
-                    val PAYMENT_STOPPED = ReturnReasonCode(JsonField.of("payment_stopped"))
-
-                    @JvmField
-                    val NON_TRANSACTION_ACCOUNT =
-                        ReturnReasonCode(JsonField.of("non_transaction_account"))
-
-                    @JvmField
-                    val UNCOLLECTED_FUNDS = ReturnReasonCode(JsonField.of("uncollected_funds"))
-
-                    @JvmField
-                    val ROUTING_NUMBER_CHECK_DIGIT_ERROR =
-                        ReturnReasonCode(JsonField.of("routing_number_check_digit_error"))
+                    val ROUTING_NUMBER_CHECK_DIGIT_ERROR = of("routing_number_check_digit_error")
 
                     @JvmField
                     val CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE =
-                        ReturnReasonCode(
-                            JsonField.of(
-                                "customer_advised_unauthorized_improper_ineligible_or_incomplete"
-                            )
-                        )
+                        of("customer_advised_unauthorized_improper_ineligible_or_incomplete")
+
+                    @JvmField val AMOUNT_FIELD_ERROR = of("amount_field_error")
 
                     @JvmField
-                    val AMOUNT_FIELD_ERROR = ReturnReasonCode(JsonField.of("amount_field_error"))
+                    val AUTHORIZATION_REVOKED_BY_CUSTOMER = of("authorization_revoked_by_customer")
 
-                    @JvmField
-                    val AUTHORIZATION_REVOKED_BY_CUSTOMER =
-                        ReturnReasonCode(JsonField.of("authorization_revoked_by_customer"))
+                    @JvmField val INVALID_ACH_ROUTING_NUMBER = of("invalid_ach_routing_number")
 
-                    @JvmField
-                    val INVALID_ACH_ROUTING_NUMBER =
-                        ReturnReasonCode(JsonField.of("invalid_ach_routing_number"))
+                    @JvmField val FILE_RECORD_EDIT_CRITERIA = of("file_record_edit_criteria")
 
-                    @JvmField
-                    val FILE_RECORD_EDIT_CRITERIA =
-                        ReturnReasonCode(JsonField.of("file_record_edit_criteria"))
+                    @JvmField val ENR_INVALID_INDIVIDUAL_NAME = of("enr_invalid_individual_name")
 
-                    @JvmField
-                    val ENR_INVALID_INDIVIDUAL_NAME =
-                        ReturnReasonCode(JsonField.of("enr_invalid_individual_name"))
+                    @JvmField val RETURNED_PER_ODFI_REQUEST = of("returned_per_odfi_request")
 
-                    @JvmField
-                    val RETURNED_PER_ODFI_REQUEST =
-                        ReturnReasonCode(JsonField.of("returned_per_odfi_request"))
-
-                    @JvmField
-                    val LIMITED_PARTICIPATION_DFI =
-                        ReturnReasonCode(JsonField.of("limited_participation_dfi"))
+                    @JvmField val LIMITED_PARTICIPATION_DFI = of("limited_participation_dfi")
 
                     @JvmField
                     val INCORRECTLY_CODED_OUTBOUND_INTERNATIONAL_PAYMENT =
-                        ReturnReasonCode(
-                            JsonField.of("incorrectly_coded_outbound_international_payment")
-                        )
+                        of("incorrectly_coded_outbound_international_payment")
 
-                    @JvmField
-                    val ACCOUNT_SOLD_TO_ANOTHER_DFI =
-                        ReturnReasonCode(JsonField.of("account_sold_to_another_dfi"))
+                    @JvmField val ACCOUNT_SOLD_TO_ANOTHER_DFI = of("account_sold_to_another_dfi")
 
-                    @JvmField val ADDENDA_ERROR = ReturnReasonCode(JsonField.of("addenda_error"))
+                    @JvmField val ADDENDA_ERROR = of("addenda_error")
 
                     @JvmField
                     val BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED =
-                        ReturnReasonCode(JsonField.of("beneficiary_or_account_holder_deceased"))
+                        of("beneficiary_or_account_holder_deceased")
 
                     @JvmField
                     val CUSTOMER_ADVISED_NOT_WITHIN_AUTHORIZATION_TERMS =
-                        ReturnReasonCode(
-                            JsonField.of("customer_advised_not_within_authorization_terms")
-                        )
+                        of("customer_advised_not_within_authorization_terms")
+
+                    @JvmField val CORRECTED_RETURN = of("corrected_return")
+
+                    @JvmField val DUPLICATE_ENTRY = of("duplicate_entry")
+
+                    @JvmField val DUPLICATE_RETURN = of("duplicate_return")
+
+                    @JvmField val ENR_DUPLICATE_ENROLLMENT = of("enr_duplicate_enrollment")
 
                     @JvmField
-                    val CORRECTED_RETURN = ReturnReasonCode(JsonField.of("corrected_return"))
+                    val ENR_INVALID_DFI_ACCOUNT_NUMBER = of("enr_invalid_dfi_account_number")
 
                     @JvmField
-                    val DUPLICATE_ENTRY = ReturnReasonCode(JsonField.of("duplicate_entry"))
-
-                    @JvmField
-                    val DUPLICATE_RETURN = ReturnReasonCode(JsonField.of("duplicate_return"))
-
-                    @JvmField
-                    val ENR_DUPLICATE_ENROLLMENT =
-                        ReturnReasonCode(JsonField.of("enr_duplicate_enrollment"))
-
-                    @JvmField
-                    val ENR_INVALID_DFI_ACCOUNT_NUMBER =
-                        ReturnReasonCode(JsonField.of("enr_invalid_dfi_account_number"))
-
-                    @JvmField
-                    val ENR_INVALID_INDIVIDUAL_ID_NUMBER =
-                        ReturnReasonCode(JsonField.of("enr_invalid_individual_id_number"))
+                    val ENR_INVALID_INDIVIDUAL_ID_NUMBER = of("enr_invalid_individual_id_number")
 
                     @JvmField
                     val ENR_INVALID_REPRESENTATIVE_PAYEE_INDICATOR =
-                        ReturnReasonCode(JsonField.of("enr_invalid_representative_payee_indicator"))
+                        of("enr_invalid_representative_payee_indicator")
 
-                    @JvmField
-                    val ENR_INVALID_TRANSACTION_CODE =
-                        ReturnReasonCode(JsonField.of("enr_invalid_transaction_code"))
+                    @JvmField val ENR_INVALID_TRANSACTION_CODE = of("enr_invalid_transaction_code")
 
-                    @JvmField
-                    val ENR_RETURN_OF_ENR_ENTRY =
-                        ReturnReasonCode(JsonField.of("enr_return_of_enr_entry"))
+                    @JvmField val ENR_RETURN_OF_ENR_ENTRY = of("enr_return_of_enr_entry")
 
                     @JvmField
                     val ENR_ROUTING_NUMBER_CHECK_DIGIT_ERROR =
-                        ReturnReasonCode(JsonField.of("enr_routing_number_check_digit_error"))
+                        of("enr_routing_number_check_digit_error")
 
                     @JvmField
-                    val ENTRY_NOT_PROCESSED_BY_GATEWAY =
-                        ReturnReasonCode(JsonField.of("entry_not_processed_by_gateway"))
+                    val ENTRY_NOT_PROCESSED_BY_GATEWAY = of("entry_not_processed_by_gateway")
 
-                    @JvmField val FIELD_ERROR = ReturnReasonCode(JsonField.of("field_error"))
+                    @JvmField val FIELD_ERROR = of("field_error")
 
                     @JvmField
                     val FOREIGN_RECEIVING_DFI_UNABLE_TO_SETTLE =
-                        ReturnReasonCode(JsonField.of("foreign_receiving_dfi_unable_to_settle"))
+                        of("foreign_receiving_dfi_unable_to_settle")
+
+                    @JvmField val IAT_ENTRY_CODING_ERROR = of("iat_entry_coding_error")
 
                     @JvmField
-                    val IAT_ENTRY_CODING_ERROR =
-                        ReturnReasonCode(JsonField.of("iat_entry_coding_error"))
-
-                    @JvmField
-                    val IMPROPER_EFFECTIVE_ENTRY_DATE =
-                        ReturnReasonCode(JsonField.of("improper_effective_entry_date"))
+                    val IMPROPER_EFFECTIVE_ENTRY_DATE = of("improper_effective_entry_date")
 
                     @JvmField
                     val IMPROPER_SOURCE_DOCUMENT_SOURCE_DOCUMENT_PRESENTED =
-                        ReturnReasonCode(
-                            JsonField.of("improper_source_document_source_document_presented")
-                        )
+                        of("improper_source_document_source_document_presented")
 
-                    @JvmField
-                    val INVALID_COMPANY_ID = ReturnReasonCode(JsonField.of("invalid_company_id"))
+                    @JvmField val INVALID_COMPANY_ID = of("invalid_company_id")
 
                     @JvmField
                     val INVALID_FOREIGN_RECEIVING_DFI_IDENTIFICATION =
-                        ReturnReasonCode(
-                            JsonField.of("invalid_foreign_receiving_dfi_identification")
-                        )
+                        of("invalid_foreign_receiving_dfi_identification")
 
-                    @JvmField
-                    val INVALID_INDIVIDUAL_ID_NUMBER =
-                        ReturnReasonCode(JsonField.of("invalid_individual_id_number"))
+                    @JvmField val INVALID_INDIVIDUAL_ID_NUMBER = of("invalid_individual_id_number")
 
                     @JvmField
                     val ITEM_AND_RCK_ENTRY_PRESENTED_FOR_PAYMENT =
-                        ReturnReasonCode(JsonField.of("item_and_rck_entry_presented_for_payment"))
+                        of("item_and_rck_entry_presented_for_payment")
 
                     @JvmField
                     val ITEM_RELATED_TO_RCK_ENTRY_IS_INELIGIBLE =
-                        ReturnReasonCode(JsonField.of("item_related_to_rck_entry_is_ineligible"))
+                        of("item_related_to_rck_entry_is_ineligible")
 
-                    @JvmField
-                    val MANDATORY_FIELD_ERROR =
-                        ReturnReasonCode(JsonField.of("mandatory_field_error"))
+                    @JvmField val MANDATORY_FIELD_ERROR = of("mandatory_field_error")
 
-                    @JvmField
-                    val MISROUTED_DISHONORED_RETURN =
-                        ReturnReasonCode(JsonField.of("misrouted_dishonored_return"))
+                    @JvmField val MISROUTED_DISHONORED_RETURN = of("misrouted_dishonored_return")
 
-                    @JvmField
-                    val MISROUTED_RETURN = ReturnReasonCode(JsonField.of("misrouted_return"))
+                    @JvmField val MISROUTED_RETURN = of("misrouted_return")
 
-                    @JvmField
-                    val NO_ERRORS_FOUND = ReturnReasonCode(JsonField.of("no_errors_found"))
+                    @JvmField val NO_ERRORS_FOUND = of("no_errors_found")
 
                     @JvmField
                     val NON_ACCEPTANCE_OF_R62_DISHONORED_RETURN =
-                        ReturnReasonCode(JsonField.of("non_acceptance_of_r62_dishonored_return"))
+                        of("non_acceptance_of_r62_dishonored_return")
 
                     @JvmField
-                    val NON_PARTICIPANT_IN_IAT_PROGRAM =
-                        ReturnReasonCode(JsonField.of("non_participant_in_iat_program"))
+                    val NON_PARTICIPANT_IN_IAT_PROGRAM = of("non_participant_in_iat_program")
 
-                    @JvmField
-                    val PERMISSIBLE_RETURN_ENTRY =
-                        ReturnReasonCode(JsonField.of("permissible_return_entry"))
+                    @JvmField val PERMISSIBLE_RETURN_ENTRY = of("permissible_return_entry")
 
                     @JvmField
                     val PERMISSIBLE_RETURN_ENTRY_NOT_ACCEPTED =
-                        ReturnReasonCode(JsonField.of("permissible_return_entry_not_accepted"))
+                        of("permissible_return_entry_not_accepted")
 
-                    @JvmField
-                    val RDFI_NON_SETTLEMENT = ReturnReasonCode(JsonField.of("rdfi_non_settlement"))
+                    @JvmField val RDFI_NON_SETTLEMENT = of("rdfi_non_settlement")
 
                     @JvmField
                     val RDFI_PARTICIPANT_IN_CHECK_TRUNCATION_PROGRAM =
-                        ReturnReasonCode(
-                            JsonField.of("rdfi_participant_in_check_truncation_program")
-                        )
+                        of("rdfi_participant_in_check_truncation_program")
 
                     @JvmField
                     val REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY =
-                        ReturnReasonCode(
-                            JsonField.of(
-                                "representative_payee_deceased_or_unable_to_continue_in_that_capacity"
-                            )
-                        )
+                        of("representative_payee_deceased_or_unable_to_continue_in_that_capacity")
 
-                    @JvmField
-                    val RETURN_NOT_A_DUPLICATE =
-                        ReturnReasonCode(JsonField.of("return_not_a_duplicate"))
+                    @JvmField val RETURN_NOT_A_DUPLICATE = of("return_not_a_duplicate")
 
                     @JvmField
                     val RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT =
-                        ReturnReasonCode(JsonField.of("return_of_erroneous_or_reversing_debit"))
+                        of("return_of_erroneous_or_reversing_debit")
 
                     @JvmField
-                    val RETURN_OF_IMPROPER_CREDIT_ENTRY =
-                        ReturnReasonCode(JsonField.of("return_of_improper_credit_entry"))
+                    val RETURN_OF_IMPROPER_CREDIT_ENTRY = of("return_of_improper_credit_entry")
 
                     @JvmField
-                    val RETURN_OF_IMPROPER_DEBIT_ENTRY =
-                        ReturnReasonCode(JsonField.of("return_of_improper_debit_entry"))
+                    val RETURN_OF_IMPROPER_DEBIT_ENTRY = of("return_of_improper_debit_entry")
 
-                    @JvmField
-                    val RETURN_OF_XCK_ENTRY = ReturnReasonCode(JsonField.of("return_of_xck_entry"))
+                    @JvmField val RETURN_OF_XCK_ENTRY = of("return_of_xck_entry")
 
                     @JvmField
                     val SOURCE_DOCUMENT_PRESENTED_FOR_PAYMENT =
-                        ReturnReasonCode(JsonField.of("source_document_presented_for_payment"))
+                        of("source_document_presented_for_payment")
 
                     @JvmField
                     val STATE_LAW_AFFECTING_RCK_ACCEPTANCE =
-                        ReturnReasonCode(JsonField.of("state_law_affecting_rck_acceptance"))
+                        of("state_law_affecting_rck_acceptance")
 
                     @JvmField
                     val STOP_PAYMENT_ON_ITEM_RELATED_TO_RCK_ENTRY =
-                        ReturnReasonCode(JsonField.of("stop_payment_on_item_related_to_rck_entry"))
+                        of("stop_payment_on_item_related_to_rck_entry")
 
                     @JvmField
-                    val STOP_PAYMENT_ON_SOURCE_DOCUMENT =
-                        ReturnReasonCode(JsonField.of("stop_payment_on_source_document"))
+                    val STOP_PAYMENT_ON_SOURCE_DOCUMENT = of("stop_payment_on_source_document")
 
-                    @JvmField
-                    val TIMELY_ORIGINAL_RETURN =
-                        ReturnReasonCode(JsonField.of("timely_original_return"))
+                    @JvmField val TIMELY_ORIGINAL_RETURN = of("timely_original_return")
 
-                    @JvmField
-                    val TRACE_NUMBER_ERROR = ReturnReasonCode(JsonField.of("trace_number_error"))
+                    @JvmField val TRACE_NUMBER_ERROR = of("trace_number_error")
 
-                    @JvmField
-                    val UNTIMELY_DISHONORED_RETURN =
-                        ReturnReasonCode(JsonField.of("untimely_dishonored_return"))
+                    @JvmField val UNTIMELY_DISHONORED_RETURN = of("untimely_dishonored_return")
 
-                    @JvmField
-                    val UNTIMELY_RETURN = ReturnReasonCode(JsonField.of("untimely_return"))
+                    @JvmField val UNTIMELY_RETURN = of("untimely_return")
 
                     @JvmStatic fun of(value: String) = ReturnReasonCode(JsonField.of(value))
                 }
@@ -3992,17 +3906,17 @@ private constructor(
 
                 companion object {
 
-                    @JvmField val CAD = Currency(JsonField.of("CAD"))
+                    @JvmField val CAD = of("CAD")
 
-                    @JvmField val CHF = Currency(JsonField.of("CHF"))
+                    @JvmField val CHF = of("CHF")
 
-                    @JvmField val EUR = Currency(JsonField.of("EUR"))
+                    @JvmField val EUR = of("EUR")
 
-                    @JvmField val GBP = Currency(JsonField.of("GBP"))
+                    @JvmField val GBP = of("GBP")
 
-                    @JvmField val JPY = Currency(JsonField.of("JPY"))
+                    @JvmField val JPY = of("JPY")
 
-                    @JvmField val USD = Currency(JsonField.of("USD"))
+                    @JvmField val USD = of("USD")
 
                     @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
                 }
@@ -4216,17 +4130,17 @@ private constructor(
 
                     companion object {
 
-                        @JvmField val CAD = Currency(JsonField.of("CAD"))
+                        @JvmField val CAD = of("CAD")
 
-                        @JvmField val CHF = Currency(JsonField.of("CHF"))
+                        @JvmField val CHF = of("CHF")
 
-                        @JvmField val EUR = Currency(JsonField.of("EUR"))
+                        @JvmField val EUR = of("EUR")
 
-                        @JvmField val GBP = Currency(JsonField.of("GBP"))
+                        @JvmField val GBP = of("GBP")
 
-                        @JvmField val JPY = Currency(JsonField.of("JPY"))
+                        @JvmField val JPY = of("JPY")
 
-                        @JvmField val USD = Currency(JsonField.of("USD"))
+                        @JvmField val USD = of("USD")
 
                         @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
                     }
@@ -5404,22 +5318,17 @@ private constructor(
 
                         companion object {
 
-                            @JvmField
-                            val NO_EXTRA_CHARGE = ExtraCharges(JsonField.of("no_extra_charge"))
+                            @JvmField val NO_EXTRA_CHARGE = of("no_extra_charge")
 
-                            @JvmField val GAS = ExtraCharges(JsonField.of("gas"))
+                            @JvmField val GAS = of("gas")
 
-                            @JvmField
-                            val EXTRA_MILEAGE = ExtraCharges(JsonField.of("extra_mileage"))
+                            @JvmField val EXTRA_MILEAGE = of("extra_mileage")
 
-                            @JvmField val LATE_RETURN = ExtraCharges(JsonField.of("late_return"))
+                            @JvmField val LATE_RETURN = of("late_return")
 
-                            @JvmField
-                            val ONE_WAY_SERVICE_FEE =
-                                ExtraCharges(JsonField.of("one_way_service_fee"))
+                            @JvmField val ONE_WAY_SERVICE_FEE = of("one_way_service_fee")
 
-                            @JvmField
-                            val PARKING_VIOLATION = ExtraCharges(JsonField.of("parking_violation"))
+                            @JvmField val PARKING_VIOLATION = of("parking_violation")
 
                             @JvmStatic fun of(value: String) = ExtraCharges(JsonField.of(value))
                         }
@@ -5494,12 +5403,11 @@ private constructor(
 
                         companion object {
 
-                            @JvmField
-                            val NOT_APPLICABLE = NoShowIndicator(JsonField.of("not_applicable"))
+                            @JvmField val NOT_APPLICABLE = of("not_applicable")
 
                             @JvmField
                             val NO_SHOW_FOR_SPECIALIZED_VEHICLE =
-                                NoShowIndicator(JsonField.of("no_show_for_specialized_vehicle"))
+                                of("no_show_for_specialized_vehicle")
 
                             @JvmStatic fun of(value: String) = NoShowIndicator(JsonField.of(value))
                         }
@@ -6140,20 +6048,19 @@ private constructor(
 
                         companion object {
 
-                            @JvmField
-                            val NO_EXTRA_CHARGE = ExtraCharges(JsonField.of("no_extra_charge"))
+                            @JvmField val NO_EXTRA_CHARGE = of("no_extra_charge")
 
-                            @JvmField val RESTAURANT = ExtraCharges(JsonField.of("restaurant"))
+                            @JvmField val RESTAURANT = of("restaurant")
 
-                            @JvmField val GIFT_SHOP = ExtraCharges(JsonField.of("gift_shop"))
+                            @JvmField val GIFT_SHOP = of("gift_shop")
 
-                            @JvmField val MINI_BAR = ExtraCharges(JsonField.of("mini_bar"))
+                            @JvmField val MINI_BAR = of("mini_bar")
 
-                            @JvmField val TELEPHONE = ExtraCharges(JsonField.of("telephone"))
+                            @JvmField val TELEPHONE = of("telephone")
 
-                            @JvmField val OTHER = ExtraCharges(JsonField.of("other"))
+                            @JvmField val OTHER = of("other")
 
-                            @JvmField val LAUNDRY = ExtraCharges(JsonField.of("laundry"))
+                            @JvmField val LAUNDRY = of("laundry")
 
                             @JvmStatic fun of(value: String) = ExtraCharges(JsonField.of(value))
                         }
@@ -6232,10 +6139,9 @@ private constructor(
 
                         companion object {
 
-                            @JvmField
-                            val NOT_APPLICABLE = NoShowIndicator(JsonField.of("not_applicable"))
+                            @JvmField val NOT_APPLICABLE = of("not_applicable")
 
-                            @JvmField val NO_SHOW = NoShowIndicator(JsonField.of("no_show"))
+                            @JvmField val NO_SHOW = of("no_show")
 
                             @JvmStatic fun of(value: String) = NoShowIndicator(JsonField.of(value))
                         }
@@ -6312,23 +6218,15 @@ private constructor(
 
                     companion object {
 
-                        @JvmField
-                        val FREE_TEXT = PurchaseIdentifierFormat(JsonField.of("free_text"))
+                        @JvmField val FREE_TEXT = of("free_text")
 
-                        @JvmField
-                        val ORDER_NUMBER = PurchaseIdentifierFormat(JsonField.of("order_number"))
+                        @JvmField val ORDER_NUMBER = of("order_number")
 
-                        @JvmField
-                        val RENTAL_AGREEMENT_NUMBER =
-                            PurchaseIdentifierFormat(JsonField.of("rental_agreement_number"))
+                        @JvmField val RENTAL_AGREEMENT_NUMBER = of("rental_agreement_number")
 
-                        @JvmField
-                        val HOTEL_FOLIO_NUMBER =
-                            PurchaseIdentifierFormat(JsonField.of("hotel_folio_number"))
+                        @JvmField val HOTEL_FOLIO_NUMBER = of("hotel_folio_number")
 
-                        @JvmField
-                        val INVOICE_NUMBER =
-                            PurchaseIdentifierFormat(JsonField.of("invoice_number"))
+                        @JvmField val INVOICE_NUMBER = of("invoice_number")
 
                         @JvmStatic
                         fun of(value: String) = PurchaseIdentifierFormat(JsonField.of(value))
@@ -7011,26 +6909,19 @@ private constructor(
 
                             companion object {
 
-                                @JvmField
-                                val NO_CREDIT = CreditReasonIndicator(JsonField.of("no_credit"))
+                                @JvmField val NO_CREDIT = of("no_credit")
 
                                 @JvmField
                                 val PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION =
-                                    CreditReasonIndicator(
-                                        JsonField.of(
-                                            "passenger_transport_ancillary_purchase_cancellation"
-                                        )
-                                    )
+                                    of("passenger_transport_ancillary_purchase_cancellation")
 
                                 @JvmField
                                 val AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION =
-                                    CreditReasonIndicator(
-                                        JsonField.of(
-                                            "airline_ticket_and_passenger_transport_ancillary_purchase_cancellation"
-                                        )
+                                    of(
+                                        "airline_ticket_and_passenger_transport_ancillary_purchase_cancellation"
                                     )
 
-                                @JvmField val OTHER = CreditReasonIndicator(JsonField.of("other"))
+                                @JvmField val OTHER = of("other")
 
                                 @JvmStatic
                                 fun of(value: String) = CreditReasonIndicator(JsonField.of(value))
@@ -7210,68 +7101,54 @@ private constructor(
 
                                 companion object {
 
-                                    @JvmField val NONE = Category(JsonField.of("none"))
+                                    @JvmField val NONE = of("none")
+
+                                    @JvmField val BUNDLED_SERVICE = of("bundled_service")
+
+                                    @JvmField val BAGGAGE_FEE = of("baggage_fee")
+
+                                    @JvmField val CHANGE_FEE = of("change_fee")
+
+                                    @JvmField val CARGO = of("cargo")
+
+                                    @JvmField val CARBON_OFFSET = of("carbon_offset")
+
+                                    @JvmField val FREQUENT_FLYER = of("frequent_flyer")
+
+                                    @JvmField val GIFT_CARD = of("gift_card")
+
+                                    @JvmField val GROUND_TRANSPORT = of("ground_transport")
 
                                     @JvmField
-                                    val BUNDLED_SERVICE = Category(JsonField.of("bundled_service"))
+                                    val IN_FLIGHT_ENTERTAINMENT = of("in_flight_entertainment")
 
-                                    @JvmField
-                                    val BAGGAGE_FEE = Category(JsonField.of("baggage_fee"))
+                                    @JvmField val LOUNGE = of("lounge")
 
-                                    @JvmField val CHANGE_FEE = Category(JsonField.of("change_fee"))
+                                    @JvmField val MEDICAL = of("medical")
 
-                                    @JvmField val CARGO = Category(JsonField.of("cargo"))
+                                    @JvmField val MEAL_BEVERAGE = of("meal_beverage")
 
-                                    @JvmField
-                                    val CARBON_OFFSET = Category(JsonField.of("carbon_offset"))
+                                    @JvmField val OTHER = of("other")
 
-                                    @JvmField
-                                    val FREQUENT_FLYER = Category(JsonField.of("frequent_flyer"))
+                                    @JvmField val PASSENGER_ASSIST_FEE = of("passenger_assist_fee")
 
-                                    @JvmField val GIFT_CARD = Category(JsonField.of("gift_card"))
+                                    @JvmField val PETS = of("pets")
 
-                                    @JvmField
-                                    val GROUND_TRANSPORT =
-                                        Category(JsonField.of("ground_transport"))
+                                    @JvmField val SEAT_FEES = of("seat_fees")
 
-                                    @JvmField
-                                    val IN_FLIGHT_ENTERTAINMENT =
-                                        Category(JsonField.of("in_flight_entertainment"))
+                                    @JvmField val STANDBY = of("standby")
 
-                                    @JvmField val LOUNGE = Category(JsonField.of("lounge"))
+                                    @JvmField val SERVICE_FEE = of("service_fee")
 
-                                    @JvmField val MEDICAL = Category(JsonField.of("medical"))
+                                    @JvmField val STORE = of("store")
 
-                                    @JvmField
-                                    val MEAL_BEVERAGE = Category(JsonField.of("meal_beverage"))
+                                    @JvmField val TRAVEL_SERVICE = of("travel_service")
 
-                                    @JvmField val OTHER = Category(JsonField.of("other"))
+                                    @JvmField val UNACCOMPANIED_TRAVEL = of("unaccompanied_travel")
 
-                                    @JvmField
-                                    val PASSENGER_ASSIST_FEE =
-                                        Category(JsonField.of("passenger_assist_fee"))
+                                    @JvmField val UPGRADES = of("upgrades")
 
-                                    @JvmField val PETS = Category(JsonField.of("pets"))
-
-                                    @JvmField val SEAT_FEES = Category(JsonField.of("seat_fees"))
-
-                                    @JvmField val STANDBY = Category(JsonField.of("standby"))
-
-                                    @JvmField
-                                    val SERVICE_FEE = Category(JsonField.of("service_fee"))
-
-                                    @JvmField val STORE = Category(JsonField.of("store"))
-
-                                    @JvmField
-                                    val TRAVEL_SERVICE = Category(JsonField.of("travel_service"))
-
-                                    @JvmField
-                                    val UNACCOMPANIED_TRAVEL =
-                                        Category(JsonField.of("unaccompanied_travel"))
-
-                                    @JvmField val UPGRADES = Category(JsonField.of("upgrades"))
-
-                                    @JvmField val WIFI = Category(JsonField.of("wifi"))
+                                    @JvmField val WIFI = of("wifi")
 
                                     @JvmStatic fun of(value: String) = Category(JsonField.of(value))
                                 }
@@ -7454,36 +7331,26 @@ private constructor(
 
                         companion object {
 
-                            @JvmField
-                            val NO_CREDIT = CreditReasonIndicator(JsonField.of("no_credit"))
+                            @JvmField val NO_CREDIT = of("no_credit")
 
                             @JvmField
                             val PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION =
-                                CreditReasonIndicator(
-                                    JsonField.of(
-                                        "passenger_transport_ancillary_purchase_cancellation"
-                                    )
-                                )
+                                of("passenger_transport_ancillary_purchase_cancellation")
 
                             @JvmField
                             val AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION =
-                                CreditReasonIndicator(
-                                    JsonField.of(
-                                        "airline_ticket_and_passenger_transport_ancillary_purchase_cancellation"
-                                    )
+                                of(
+                                    "airline_ticket_and_passenger_transport_ancillary_purchase_cancellation"
                                 )
 
                             @JvmField
-                            val AIRLINE_TICKET_CANCELLATION =
-                                CreditReasonIndicator(JsonField.of("airline_ticket_cancellation"))
+                            val AIRLINE_TICKET_CANCELLATION = of("airline_ticket_cancellation")
 
-                            @JvmField val OTHER = CreditReasonIndicator(JsonField.of("other"))
+                            @JvmField val OTHER = of("other")
 
                             @JvmField
                             val PARTIAL_REFUND_OF_AIRLINE_TICKET =
-                                CreditReasonIndicator(
-                                    JsonField.of("partial_refund_of_airline_ticket")
-                                )
+                                of("partial_refund_of_airline_ticket")
 
                             @JvmStatic
                             fun of(value: String) = CreditReasonIndicator(JsonField.of(value))
@@ -7567,15 +7434,11 @@ private constructor(
 
                         companion object {
 
-                            @JvmField
-                            val NO_RESTRICTIONS =
-                                RestrictedTicketIndicator(JsonField.of("no_restrictions"))
+                            @JvmField val NO_RESTRICTIONS = of("no_restrictions")
 
                             @JvmField
                             val RESTRICTED_NON_REFUNDABLE_TICKET =
-                                RestrictedTicketIndicator(
-                                    JsonField.of("restricted_non_refundable_ticket")
-                                )
+                                of("restricted_non_refundable_ticket")
 
                             @JvmStatic
                             fun of(value: String) = RestrictedTicketIndicator(JsonField.of(value))
@@ -7637,14 +7500,12 @@ private constructor(
 
                         companion object {
 
-                            @JvmField val NONE = TicketChangeIndicator(JsonField.of("none"))
+                            @JvmField val NONE = of("none")
 
                             @JvmField
-                            val CHANGE_TO_EXISTING_TICKET =
-                                TicketChangeIndicator(JsonField.of("change_to_existing_ticket"))
+                            val CHANGE_TO_EXISTING_TICKET = of("change_to_existing_ticket")
 
-                            @JvmField
-                            val NEW_TICKET = TicketChangeIndicator(JsonField.of("new_ticket"))
+                            @JvmField val NEW_TICKET = of("new_ticket")
 
                             @JvmStatic
                             fun of(value: String) = TicketChangeIndicator(JsonField.of(value))
@@ -7922,15 +7783,11 @@ private constructor(
 
                             companion object {
 
-                                @JvmField val NONE = StopOverCode(JsonField.of("none"))
+                                @JvmField val NONE = of("none")
 
-                                @JvmField
-                                val STOP_OVER_ALLOWED =
-                                    StopOverCode(JsonField.of("stop_over_allowed"))
+                                @JvmField val STOP_OVER_ALLOWED = of("stop_over_allowed")
 
-                                @JvmField
-                                val STOP_OVER_NOT_ALLOWED =
-                                    StopOverCode(JsonField.of("stop_over_not_allowed"))
+                                @JvmField val STOP_OVER_NOT_ALLOWED = of("stop_over_not_allowed")
 
                                 @JvmStatic fun of(value: String) = StopOverCode(JsonField.of(value))
                             }
@@ -8046,7 +7903,7 @@ private constructor(
 
                 companion object {
 
-                    @JvmField val CARD_REFUND = Type(JsonField.of("card_refund"))
+                    @JvmField val CARD_REFUND = of("card_refund")
 
                     @JvmStatic fun of(value: String) = Type(JsonField.of(value))
                 }
@@ -8305,17 +8162,17 @@ private constructor(
 
                 companion object {
 
-                    @JvmField val CAD = Currency(JsonField.of("CAD"))
+                    @JvmField val CAD = of("CAD")
 
-                    @JvmField val CHF = Currency(JsonField.of("CHF"))
+                    @JvmField val CHF = of("CHF")
 
-                    @JvmField val EUR = Currency(JsonField.of("EUR"))
+                    @JvmField val EUR = of("EUR")
 
-                    @JvmField val GBP = Currency(JsonField.of("GBP"))
+                    @JvmField val GBP = of("GBP")
 
-                    @JvmField val JPY = Currency(JsonField.of("JPY"))
+                    @JvmField val JPY = of("JPY")
 
-                    @JvmField val USD = Currency(JsonField.of("USD"))
+                    @JvmField val USD = of("USD")
 
                     @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
                 }
@@ -9003,17 +8860,17 @@ private constructor(
 
                 companion object {
 
-                    @JvmField val CAD = Currency(JsonField.of("CAD"))
+                    @JvmField val CAD = of("CAD")
 
-                    @JvmField val CHF = Currency(JsonField.of("CHF"))
+                    @JvmField val CHF = of("CHF")
 
-                    @JvmField val EUR = Currency(JsonField.of("EUR"))
+                    @JvmField val EUR = of("EUR")
 
-                    @JvmField val GBP = Currency(JsonField.of("GBP"))
+                    @JvmField val GBP = of("GBP")
 
-                    @JvmField val JPY = Currency(JsonField.of("JPY"))
+                    @JvmField val JPY = of("JPY")
 
-                    @JvmField val USD = Currency(JsonField.of("USD"))
+                    @JvmField val USD = of("USD")
 
                     @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
                 }
@@ -9227,17 +9084,17 @@ private constructor(
 
                     companion object {
 
-                        @JvmField val CAD = Currency(JsonField.of("CAD"))
+                        @JvmField val CAD = of("CAD")
 
-                        @JvmField val CHF = Currency(JsonField.of("CHF"))
+                        @JvmField val CHF = of("CHF")
 
-                        @JvmField val EUR = Currency(JsonField.of("EUR"))
+                        @JvmField val EUR = of("EUR")
 
-                        @JvmField val GBP = Currency(JsonField.of("GBP"))
+                        @JvmField val GBP = of("GBP")
 
-                        @JvmField val JPY = Currency(JsonField.of("JPY"))
+                        @JvmField val JPY = of("JPY")
 
-                        @JvmField val USD = Currency(JsonField.of("USD"))
+                        @JvmField val USD = of("USD")
 
                         @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
                     }
@@ -10415,22 +10272,17 @@ private constructor(
 
                         companion object {
 
-                            @JvmField
-                            val NO_EXTRA_CHARGE = ExtraCharges(JsonField.of("no_extra_charge"))
+                            @JvmField val NO_EXTRA_CHARGE = of("no_extra_charge")
 
-                            @JvmField val GAS = ExtraCharges(JsonField.of("gas"))
+                            @JvmField val GAS = of("gas")
 
-                            @JvmField
-                            val EXTRA_MILEAGE = ExtraCharges(JsonField.of("extra_mileage"))
+                            @JvmField val EXTRA_MILEAGE = of("extra_mileage")
 
-                            @JvmField val LATE_RETURN = ExtraCharges(JsonField.of("late_return"))
+                            @JvmField val LATE_RETURN = of("late_return")
 
-                            @JvmField
-                            val ONE_WAY_SERVICE_FEE =
-                                ExtraCharges(JsonField.of("one_way_service_fee"))
+                            @JvmField val ONE_WAY_SERVICE_FEE = of("one_way_service_fee")
 
-                            @JvmField
-                            val PARKING_VIOLATION = ExtraCharges(JsonField.of("parking_violation"))
+                            @JvmField val PARKING_VIOLATION = of("parking_violation")
 
                             @JvmStatic fun of(value: String) = ExtraCharges(JsonField.of(value))
                         }
@@ -10505,12 +10357,11 @@ private constructor(
 
                         companion object {
 
-                            @JvmField
-                            val NOT_APPLICABLE = NoShowIndicator(JsonField.of("not_applicable"))
+                            @JvmField val NOT_APPLICABLE = of("not_applicable")
 
                             @JvmField
                             val NO_SHOW_FOR_SPECIALIZED_VEHICLE =
-                                NoShowIndicator(JsonField.of("no_show_for_specialized_vehicle"))
+                                of("no_show_for_specialized_vehicle")
 
                             @JvmStatic fun of(value: String) = NoShowIndicator(JsonField.of(value))
                         }
@@ -11151,20 +11002,19 @@ private constructor(
 
                         companion object {
 
-                            @JvmField
-                            val NO_EXTRA_CHARGE = ExtraCharges(JsonField.of("no_extra_charge"))
+                            @JvmField val NO_EXTRA_CHARGE = of("no_extra_charge")
 
-                            @JvmField val RESTAURANT = ExtraCharges(JsonField.of("restaurant"))
+                            @JvmField val RESTAURANT = of("restaurant")
 
-                            @JvmField val GIFT_SHOP = ExtraCharges(JsonField.of("gift_shop"))
+                            @JvmField val GIFT_SHOP = of("gift_shop")
 
-                            @JvmField val MINI_BAR = ExtraCharges(JsonField.of("mini_bar"))
+                            @JvmField val MINI_BAR = of("mini_bar")
 
-                            @JvmField val TELEPHONE = ExtraCharges(JsonField.of("telephone"))
+                            @JvmField val TELEPHONE = of("telephone")
 
-                            @JvmField val OTHER = ExtraCharges(JsonField.of("other"))
+                            @JvmField val OTHER = of("other")
 
-                            @JvmField val LAUNDRY = ExtraCharges(JsonField.of("laundry"))
+                            @JvmField val LAUNDRY = of("laundry")
 
                             @JvmStatic fun of(value: String) = ExtraCharges(JsonField.of(value))
                         }
@@ -11243,10 +11093,9 @@ private constructor(
 
                         companion object {
 
-                            @JvmField
-                            val NOT_APPLICABLE = NoShowIndicator(JsonField.of("not_applicable"))
+                            @JvmField val NOT_APPLICABLE = of("not_applicable")
 
-                            @JvmField val NO_SHOW = NoShowIndicator(JsonField.of("no_show"))
+                            @JvmField val NO_SHOW = of("no_show")
 
                             @JvmStatic fun of(value: String) = NoShowIndicator(JsonField.of(value))
                         }
@@ -11323,23 +11172,15 @@ private constructor(
 
                     companion object {
 
-                        @JvmField
-                        val FREE_TEXT = PurchaseIdentifierFormat(JsonField.of("free_text"))
+                        @JvmField val FREE_TEXT = of("free_text")
 
-                        @JvmField
-                        val ORDER_NUMBER = PurchaseIdentifierFormat(JsonField.of("order_number"))
+                        @JvmField val ORDER_NUMBER = of("order_number")
 
-                        @JvmField
-                        val RENTAL_AGREEMENT_NUMBER =
-                            PurchaseIdentifierFormat(JsonField.of("rental_agreement_number"))
+                        @JvmField val RENTAL_AGREEMENT_NUMBER = of("rental_agreement_number")
 
-                        @JvmField
-                        val HOTEL_FOLIO_NUMBER =
-                            PurchaseIdentifierFormat(JsonField.of("hotel_folio_number"))
+                        @JvmField val HOTEL_FOLIO_NUMBER = of("hotel_folio_number")
 
-                        @JvmField
-                        val INVOICE_NUMBER =
-                            PurchaseIdentifierFormat(JsonField.of("invoice_number"))
+                        @JvmField val INVOICE_NUMBER = of("invoice_number")
 
                         @JvmStatic
                         fun of(value: String) = PurchaseIdentifierFormat(JsonField.of(value))
@@ -12022,26 +11863,19 @@ private constructor(
 
                             companion object {
 
-                                @JvmField
-                                val NO_CREDIT = CreditReasonIndicator(JsonField.of("no_credit"))
+                                @JvmField val NO_CREDIT = of("no_credit")
 
                                 @JvmField
                                 val PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION =
-                                    CreditReasonIndicator(
-                                        JsonField.of(
-                                            "passenger_transport_ancillary_purchase_cancellation"
-                                        )
-                                    )
+                                    of("passenger_transport_ancillary_purchase_cancellation")
 
                                 @JvmField
                                 val AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION =
-                                    CreditReasonIndicator(
-                                        JsonField.of(
-                                            "airline_ticket_and_passenger_transport_ancillary_purchase_cancellation"
-                                        )
+                                    of(
+                                        "airline_ticket_and_passenger_transport_ancillary_purchase_cancellation"
                                     )
 
-                                @JvmField val OTHER = CreditReasonIndicator(JsonField.of("other"))
+                                @JvmField val OTHER = of("other")
 
                                 @JvmStatic
                                 fun of(value: String) = CreditReasonIndicator(JsonField.of(value))
@@ -12221,68 +12055,54 @@ private constructor(
 
                                 companion object {
 
-                                    @JvmField val NONE = Category(JsonField.of("none"))
+                                    @JvmField val NONE = of("none")
+
+                                    @JvmField val BUNDLED_SERVICE = of("bundled_service")
+
+                                    @JvmField val BAGGAGE_FEE = of("baggage_fee")
+
+                                    @JvmField val CHANGE_FEE = of("change_fee")
+
+                                    @JvmField val CARGO = of("cargo")
+
+                                    @JvmField val CARBON_OFFSET = of("carbon_offset")
+
+                                    @JvmField val FREQUENT_FLYER = of("frequent_flyer")
+
+                                    @JvmField val GIFT_CARD = of("gift_card")
+
+                                    @JvmField val GROUND_TRANSPORT = of("ground_transport")
 
                                     @JvmField
-                                    val BUNDLED_SERVICE = Category(JsonField.of("bundled_service"))
+                                    val IN_FLIGHT_ENTERTAINMENT = of("in_flight_entertainment")
 
-                                    @JvmField
-                                    val BAGGAGE_FEE = Category(JsonField.of("baggage_fee"))
+                                    @JvmField val LOUNGE = of("lounge")
 
-                                    @JvmField val CHANGE_FEE = Category(JsonField.of("change_fee"))
+                                    @JvmField val MEDICAL = of("medical")
 
-                                    @JvmField val CARGO = Category(JsonField.of("cargo"))
+                                    @JvmField val MEAL_BEVERAGE = of("meal_beverage")
 
-                                    @JvmField
-                                    val CARBON_OFFSET = Category(JsonField.of("carbon_offset"))
+                                    @JvmField val OTHER = of("other")
 
-                                    @JvmField
-                                    val FREQUENT_FLYER = Category(JsonField.of("frequent_flyer"))
+                                    @JvmField val PASSENGER_ASSIST_FEE = of("passenger_assist_fee")
 
-                                    @JvmField val GIFT_CARD = Category(JsonField.of("gift_card"))
+                                    @JvmField val PETS = of("pets")
 
-                                    @JvmField
-                                    val GROUND_TRANSPORT =
-                                        Category(JsonField.of("ground_transport"))
+                                    @JvmField val SEAT_FEES = of("seat_fees")
 
-                                    @JvmField
-                                    val IN_FLIGHT_ENTERTAINMENT =
-                                        Category(JsonField.of("in_flight_entertainment"))
+                                    @JvmField val STANDBY = of("standby")
 
-                                    @JvmField val LOUNGE = Category(JsonField.of("lounge"))
+                                    @JvmField val SERVICE_FEE = of("service_fee")
 
-                                    @JvmField val MEDICAL = Category(JsonField.of("medical"))
+                                    @JvmField val STORE = of("store")
 
-                                    @JvmField
-                                    val MEAL_BEVERAGE = Category(JsonField.of("meal_beverage"))
+                                    @JvmField val TRAVEL_SERVICE = of("travel_service")
 
-                                    @JvmField val OTHER = Category(JsonField.of("other"))
+                                    @JvmField val UNACCOMPANIED_TRAVEL = of("unaccompanied_travel")
 
-                                    @JvmField
-                                    val PASSENGER_ASSIST_FEE =
-                                        Category(JsonField.of("passenger_assist_fee"))
+                                    @JvmField val UPGRADES = of("upgrades")
 
-                                    @JvmField val PETS = Category(JsonField.of("pets"))
-
-                                    @JvmField val SEAT_FEES = Category(JsonField.of("seat_fees"))
-
-                                    @JvmField val STANDBY = Category(JsonField.of("standby"))
-
-                                    @JvmField
-                                    val SERVICE_FEE = Category(JsonField.of("service_fee"))
-
-                                    @JvmField val STORE = Category(JsonField.of("store"))
-
-                                    @JvmField
-                                    val TRAVEL_SERVICE = Category(JsonField.of("travel_service"))
-
-                                    @JvmField
-                                    val UNACCOMPANIED_TRAVEL =
-                                        Category(JsonField.of("unaccompanied_travel"))
-
-                                    @JvmField val UPGRADES = Category(JsonField.of("upgrades"))
-
-                                    @JvmField val WIFI = Category(JsonField.of("wifi"))
+                                    @JvmField val WIFI = of("wifi")
 
                                     @JvmStatic fun of(value: String) = Category(JsonField.of(value))
                                 }
@@ -12465,36 +12285,26 @@ private constructor(
 
                         companion object {
 
-                            @JvmField
-                            val NO_CREDIT = CreditReasonIndicator(JsonField.of("no_credit"))
+                            @JvmField val NO_CREDIT = of("no_credit")
 
                             @JvmField
                             val PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION =
-                                CreditReasonIndicator(
-                                    JsonField.of(
-                                        "passenger_transport_ancillary_purchase_cancellation"
-                                    )
-                                )
+                                of("passenger_transport_ancillary_purchase_cancellation")
 
                             @JvmField
                             val AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION =
-                                CreditReasonIndicator(
-                                    JsonField.of(
-                                        "airline_ticket_and_passenger_transport_ancillary_purchase_cancellation"
-                                    )
+                                of(
+                                    "airline_ticket_and_passenger_transport_ancillary_purchase_cancellation"
                                 )
 
                             @JvmField
-                            val AIRLINE_TICKET_CANCELLATION =
-                                CreditReasonIndicator(JsonField.of("airline_ticket_cancellation"))
+                            val AIRLINE_TICKET_CANCELLATION = of("airline_ticket_cancellation")
 
-                            @JvmField val OTHER = CreditReasonIndicator(JsonField.of("other"))
+                            @JvmField val OTHER = of("other")
 
                             @JvmField
                             val PARTIAL_REFUND_OF_AIRLINE_TICKET =
-                                CreditReasonIndicator(
-                                    JsonField.of("partial_refund_of_airline_ticket")
-                                )
+                                of("partial_refund_of_airline_ticket")
 
                             @JvmStatic
                             fun of(value: String) = CreditReasonIndicator(JsonField.of(value))
@@ -12578,15 +12388,11 @@ private constructor(
 
                         companion object {
 
-                            @JvmField
-                            val NO_RESTRICTIONS =
-                                RestrictedTicketIndicator(JsonField.of("no_restrictions"))
+                            @JvmField val NO_RESTRICTIONS = of("no_restrictions")
 
                             @JvmField
                             val RESTRICTED_NON_REFUNDABLE_TICKET =
-                                RestrictedTicketIndicator(
-                                    JsonField.of("restricted_non_refundable_ticket")
-                                )
+                                of("restricted_non_refundable_ticket")
 
                             @JvmStatic
                             fun of(value: String) = RestrictedTicketIndicator(JsonField.of(value))
@@ -12648,14 +12454,12 @@ private constructor(
 
                         companion object {
 
-                            @JvmField val NONE = TicketChangeIndicator(JsonField.of("none"))
+                            @JvmField val NONE = of("none")
 
                             @JvmField
-                            val CHANGE_TO_EXISTING_TICKET =
-                                TicketChangeIndicator(JsonField.of("change_to_existing_ticket"))
+                            val CHANGE_TO_EXISTING_TICKET = of("change_to_existing_ticket")
 
-                            @JvmField
-                            val NEW_TICKET = TicketChangeIndicator(JsonField.of("new_ticket"))
+                            @JvmField val NEW_TICKET = of("new_ticket")
 
                             @JvmStatic
                             fun of(value: String) = TicketChangeIndicator(JsonField.of(value))
@@ -12933,15 +12737,11 @@ private constructor(
 
                             companion object {
 
-                                @JvmField val NONE = StopOverCode(JsonField.of("none"))
+                                @JvmField val NONE = of("none")
 
-                                @JvmField
-                                val STOP_OVER_ALLOWED =
-                                    StopOverCode(JsonField.of("stop_over_allowed"))
+                                @JvmField val STOP_OVER_ALLOWED = of("stop_over_allowed")
 
-                                @JvmField
-                                val STOP_OVER_NOT_ALLOWED =
-                                    StopOverCode(JsonField.of("stop_over_not_allowed"))
+                                @JvmField val STOP_OVER_NOT_ALLOWED = of("stop_over_not_allowed")
 
                                 @JvmStatic fun of(value: String) = StopOverCode(JsonField.of(value))
                             }
@@ -13057,7 +12857,7 @@ private constructor(
 
                 companion object {
 
-                    @JvmField val CARD_SETTLEMENT = Type(JsonField.of("card_settlement"))
+                    @JvmField val CARD_SETTLEMENT = of("card_settlement")
 
                     @JvmStatic fun of(value: String) = Type(JsonField.of(value))
                 }
@@ -13316,17 +13116,17 @@ private constructor(
 
                 companion object {
 
-                    @JvmField val CAD = Currency(JsonField.of("CAD"))
+                    @JvmField val CAD = of("CAD")
 
-                    @JvmField val CHF = Currency(JsonField.of("CHF"))
+                    @JvmField val CHF = of("CHF")
 
-                    @JvmField val EUR = Currency(JsonField.of("EUR"))
+                    @JvmField val EUR = of("EUR")
 
-                    @JvmField val GBP = Currency(JsonField.of("GBP"))
+                    @JvmField val GBP = of("GBP")
 
-                    @JvmField val JPY = Currency(JsonField.of("JPY"))
+                    @JvmField val JPY = of("JPY")
 
-                    @JvmField val USD = Currency(JsonField.of("USD"))
+                    @JvmField val USD = of("USD")
 
                     @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
                 }
@@ -13415,86 +13215,73 @@ private constructor(
 
             companion object {
 
-                @JvmField
-                val ACCOUNT_TRANSFER_INTENTION =
-                    Category(JsonField.of("account_transfer_intention"))
+                @JvmField val ACCOUNT_TRANSFER_INTENTION = of("account_transfer_intention")
 
-                @JvmField
-                val ACH_TRANSFER_INTENTION = Category(JsonField.of("ach_transfer_intention"))
+                @JvmField val ACH_TRANSFER_INTENTION = of("ach_transfer_intention")
 
-                @JvmField
-                val ACH_TRANSFER_REJECTION = Category(JsonField.of("ach_transfer_rejection"))
+                @JvmField val ACH_TRANSFER_REJECTION = of("ach_transfer_rejection")
 
-                @JvmField val ACH_TRANSFER_RETURN = Category(JsonField.of("ach_transfer_return"))
+                @JvmField val ACH_TRANSFER_RETURN = of("ach_transfer_return")
 
-                @JvmField val CASHBACK_PAYMENT = Category(JsonField.of("cashback_payment"))
+                @JvmField val CASHBACK_PAYMENT = of("cashback_payment")
 
-                @JvmField
-                val CARD_DISPUTE_ACCEPTANCE = Category(JsonField.of("card_dispute_acceptance"))
+                @JvmField val CARD_DISPUTE_ACCEPTANCE = of("card_dispute_acceptance")
 
-                @JvmField val CARD_DISPUTE_LOSS = Category(JsonField.of("card_dispute_loss"))
+                @JvmField val CARD_DISPUTE_LOSS = of("card_dispute_loss")
 
-                @JvmField val CARD_REFUND = Category(JsonField.of("card_refund"))
+                @JvmField val CARD_REFUND = of("card_refund")
 
-                @JvmField val CARD_SETTLEMENT = Category(JsonField.of("card_settlement"))
+                @JvmField val CARD_SETTLEMENT = of("card_settlement")
 
-                @JvmField val CARD_REVENUE_PAYMENT = Category(JsonField.of("card_revenue_payment"))
+                @JvmField val CARD_REVENUE_PAYMENT = of("card_revenue_payment")
 
-                @JvmField
-                val CHECK_DEPOSIT_ACCEPTANCE = Category(JsonField.of("check_deposit_acceptance"))
+                @JvmField val CHECK_DEPOSIT_ACCEPTANCE = of("check_deposit_acceptance")
 
-                @JvmField val CHECK_DEPOSIT_RETURN = Category(JsonField.of("check_deposit_return"))
+                @JvmField val CHECK_DEPOSIT_RETURN = of("check_deposit_return")
 
-                @JvmField
-                val CHECK_TRANSFER_DEPOSIT = Category(JsonField.of("check_transfer_deposit"))
+                @JvmField val CHECK_TRANSFER_DEPOSIT = of("check_transfer_deposit")
 
-                @JvmField val FEE_PAYMENT = Category(JsonField.of("fee_payment"))
+                @JvmField val FEE_PAYMENT = of("fee_payment")
 
-                @JvmField val INBOUND_ACH_TRANSFER = Category(JsonField.of("inbound_ach_transfer"))
+                @JvmField val INBOUND_ACH_TRANSFER = of("inbound_ach_transfer")
 
                 @JvmField
                 val INBOUND_ACH_TRANSFER_RETURN_INTENTION =
-                    Category(JsonField.of("inbound_ach_transfer_return_intention"))
+                    of("inbound_ach_transfer_return_intention")
 
                 @JvmField
                 val INBOUND_CHECK_DEPOSIT_RETURN_INTENTION =
-                    Category(JsonField.of("inbound_check_deposit_return_intention"))
+                    of("inbound_check_deposit_return_intention")
 
-                @JvmField
-                val INBOUND_CHECK_ADJUSTMENT = Category(JsonField.of("inbound_check_adjustment"))
+                @JvmField val INBOUND_CHECK_ADJUSTMENT = of("inbound_check_adjustment")
 
                 @JvmField
                 val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION =
-                    Category(JsonField.of("inbound_real_time_payments_transfer_confirmation"))
+                    of("inbound_real_time_payments_transfer_confirmation")
 
                 @JvmField
                 val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE =
-                    Category(JsonField.of("inbound_real_time_payments_transfer_decline"))
+                    of("inbound_real_time_payments_transfer_decline")
 
-                @JvmField
-                val INBOUND_WIRE_REVERSAL = Category(JsonField.of("inbound_wire_reversal"))
+                @JvmField val INBOUND_WIRE_REVERSAL = of("inbound_wire_reversal")
 
-                @JvmField
-                val INBOUND_WIRE_TRANSFER = Category(JsonField.of("inbound_wire_transfer"))
+                @JvmField val INBOUND_WIRE_TRANSFER = of("inbound_wire_transfer")
 
-                @JvmField
-                val INBOUND_WIRE_TRANSFER_REVERSAL =
-                    Category(JsonField.of("inbound_wire_transfer_reversal"))
+                @JvmField val INBOUND_WIRE_TRANSFER_REVERSAL = of("inbound_wire_transfer_reversal")
 
-                @JvmField val INTEREST_PAYMENT = Category(JsonField.of("interest_payment"))
+                @JvmField val INTEREST_PAYMENT = of("interest_payment")
 
-                @JvmField val INTERNAL_SOURCE = Category(JsonField.of("internal_source"))
+                @JvmField val INTERNAL_SOURCE = of("internal_source")
 
                 @JvmField
                 val REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT =
-                    Category(JsonField.of("real_time_payments_transfer_acknowledgement"))
+                    of("real_time_payments_transfer_acknowledgement")
 
-                @JvmField val SAMPLE_FUNDS = Category(JsonField.of("sample_funds"))
+                @JvmField val SAMPLE_FUNDS = of("sample_funds")
 
-                @JvmField
-                val WIRE_TRANSFER_INTENTION = Category(JsonField.of("wire_transfer_intention"))
+                @JvmField val WIRE_TRANSFER_INTENTION = of("wire_transfer_intention")
 
-                @JvmField val OTHER = Category(JsonField.of("other"))
+                @JvmField val OTHER = of("other")
 
                 @JvmStatic fun of(value: String) = Category(JsonField.of(value))
             }
@@ -13924,17 +13711,17 @@ private constructor(
 
                 companion object {
 
-                    @JvmField val CAD = Currency(JsonField.of("CAD"))
+                    @JvmField val CAD = of("CAD")
 
-                    @JvmField val CHF = Currency(JsonField.of("CHF"))
+                    @JvmField val CHF = of("CHF")
 
-                    @JvmField val EUR = Currency(JsonField.of("EUR"))
+                    @JvmField val EUR = of("EUR")
 
-                    @JvmField val GBP = Currency(JsonField.of("GBP"))
+                    @JvmField val GBP = of("GBP")
 
-                    @JvmField val JPY = Currency(JsonField.of("JPY"))
+                    @JvmField val JPY = of("JPY")
 
-                    @JvmField val USD = Currency(JsonField.of("USD"))
+                    @JvmField val USD = of("USD")
 
                     @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
                 }
@@ -14248,17 +14035,17 @@ private constructor(
 
                 companion object {
 
-                    @JvmField val CAD = Currency(JsonField.of("CAD"))
+                    @JvmField val CAD = of("CAD")
 
-                    @JvmField val CHF = Currency(JsonField.of("CHF"))
+                    @JvmField val CHF = of("CHF")
 
-                    @JvmField val EUR = Currency(JsonField.of("EUR"))
+                    @JvmField val EUR = of("EUR")
 
-                    @JvmField val GBP = Currency(JsonField.of("GBP"))
+                    @JvmField val GBP = of("GBP")
 
-                    @JvmField val JPY = Currency(JsonField.of("JPY"))
+                    @JvmField val JPY = of("JPY")
 
-                    @JvmField val USD = Currency(JsonField.of("USD"))
+                    @JvmField val USD = of("USD")
 
                     @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
                 }
@@ -14329,80 +14116,57 @@ private constructor(
 
                 companion object {
 
-                    @JvmField
-                    val ACH_CONVERSION_NOT_SUPPORTED =
-                        ReturnReason(JsonField.of("ach_conversion_not_supported"))
+                    @JvmField val ACH_CONVERSION_NOT_SUPPORTED = of("ach_conversion_not_supported")
 
-                    @JvmField val CLOSED_ACCOUNT = ReturnReason(JsonField.of("closed_account"))
+                    @JvmField val CLOSED_ACCOUNT = of("closed_account")
 
-                    @JvmField
-                    val DUPLICATE_SUBMISSION = ReturnReason(JsonField.of("duplicate_submission"))
+                    @JvmField val DUPLICATE_SUBMISSION = of("duplicate_submission")
 
-                    @JvmField
-                    val INSUFFICIENT_FUNDS = ReturnReason(JsonField.of("insufficient_funds"))
+                    @JvmField val INSUFFICIENT_FUNDS = of("insufficient_funds")
 
-                    @JvmField val NO_ACCOUNT = ReturnReason(JsonField.of("no_account"))
+                    @JvmField val NO_ACCOUNT = of("no_account")
 
-                    @JvmField val NOT_AUTHORIZED = ReturnReason(JsonField.of("not_authorized"))
+                    @JvmField val NOT_AUTHORIZED = of("not_authorized")
 
-                    @JvmField val STALE_DATED = ReturnReason(JsonField.of("stale_dated"))
+                    @JvmField val STALE_DATED = of("stale_dated")
 
-                    @JvmField val STOP_PAYMENT = ReturnReason(JsonField.of("stop_payment"))
+                    @JvmField val STOP_PAYMENT = of("stop_payment")
 
-                    @JvmField val UNKNOWN_REASON = ReturnReason(JsonField.of("unknown_reason"))
+                    @JvmField val UNKNOWN_REASON = of("unknown_reason")
 
-                    @JvmField
-                    val UNMATCHED_DETAILS = ReturnReason(JsonField.of("unmatched_details"))
+                    @JvmField val UNMATCHED_DETAILS = of("unmatched_details")
 
-                    @JvmField val UNREADABLE_IMAGE = ReturnReason(JsonField.of("unreadable_image"))
+                    @JvmField val UNREADABLE_IMAGE = of("unreadable_image")
 
-                    @JvmField
-                    val ENDORSEMENT_IRREGULAR = ReturnReason(JsonField.of("endorsement_irregular"))
+                    @JvmField val ENDORSEMENT_IRREGULAR = of("endorsement_irregular")
 
-                    @JvmField
-                    val ALTERED_OR_FICTITIOUS_ITEM =
-                        ReturnReason(JsonField.of("altered_or_fictitious_item"))
+                    @JvmField val ALTERED_OR_FICTITIOUS_ITEM = of("altered_or_fictitious_item")
 
-                    @JvmField
-                    val FROZEN_OR_BLOCKED_ACCOUNT =
-                        ReturnReason(JsonField.of("frozen_or_blocked_account"))
+                    @JvmField val FROZEN_OR_BLOCKED_ACCOUNT = of("frozen_or_blocked_account")
 
-                    @JvmField val POST_DATED = ReturnReason(JsonField.of("post_dated"))
+                    @JvmField val POST_DATED = of("post_dated")
 
-                    @JvmField
-                    val ENDORSEMENT_MISSING = ReturnReason(JsonField.of("endorsement_missing"))
+                    @JvmField val ENDORSEMENT_MISSING = of("endorsement_missing")
 
-                    @JvmField
-                    val SIGNATURE_MISSING = ReturnReason(JsonField.of("signature_missing"))
+                    @JvmField val SIGNATURE_MISSING = of("signature_missing")
 
-                    @JvmField
-                    val STOP_PAYMENT_SUSPECT = ReturnReason(JsonField.of("stop_payment_suspect"))
+                    @JvmField val STOP_PAYMENT_SUSPECT = of("stop_payment_suspect")
 
-                    @JvmField val UNUSABLE_IMAGE = ReturnReason(JsonField.of("unusable_image"))
+                    @JvmField val UNUSABLE_IMAGE = of("unusable_image")
 
-                    @JvmField
-                    val IMAGE_FAILS_SECURITY_CHECK =
-                        ReturnReason(JsonField.of("image_fails_security_check"))
+                    @JvmField val IMAGE_FAILS_SECURITY_CHECK = of("image_fails_security_check")
 
-                    @JvmField
-                    val CANNOT_DETERMINE_AMOUNT =
-                        ReturnReason(JsonField.of("cannot_determine_amount"))
+                    @JvmField val CANNOT_DETERMINE_AMOUNT = of("cannot_determine_amount")
 
-                    @JvmField
-                    val SIGNATURE_IRREGULAR = ReturnReason(JsonField.of("signature_irregular"))
+                    @JvmField val SIGNATURE_IRREGULAR = of("signature_irregular")
 
-                    @JvmField val NON_CASH_ITEM = ReturnReason(JsonField.of("non_cash_item"))
+                    @JvmField val NON_CASH_ITEM = of("non_cash_item")
 
-                    @JvmField
-                    val UNABLE_TO_PROCESS = ReturnReason(JsonField.of("unable_to_process"))
+                    @JvmField val UNABLE_TO_PROCESS = of("unable_to_process")
 
-                    @JvmField
-                    val ITEM_EXCEEDS_DOLLAR_LIMIT =
-                        ReturnReason(JsonField.of("item_exceeds_dollar_limit"))
+                    @JvmField val ITEM_EXCEEDS_DOLLAR_LIMIT = of("item_exceeds_dollar_limit")
 
-                    @JvmField
-                    val BRANCH_OR_ACCOUNT_SOLD =
-                        ReturnReason(JsonField.of("branch_or_account_sold"))
+                    @JvmField val BRANCH_OR_ACCOUNT_SOLD = of("branch_or_account_sold")
 
                     @JvmStatic fun of(value: String) = ReturnReason(JsonField.of(value))
                 }
@@ -14888,8 +14652,7 @@ private constructor(
 
                 companion object {
 
-                    @JvmField
-                    val CHECK_TRANSFER_DEPOSIT = Type(JsonField.of("check_transfer_deposit"))
+                    @JvmField val CHECK_TRANSFER_DEPOSIT = of("check_transfer_deposit")
 
                     @JvmStatic fun of(value: String) = Type(JsonField.of(value))
                 }
@@ -15122,17 +14885,17 @@ private constructor(
 
                 companion object {
 
-                    @JvmField val CAD = Currency(JsonField.of("CAD"))
+                    @JvmField val CAD = of("CAD")
 
-                    @JvmField val CHF = Currency(JsonField.of("CHF"))
+                    @JvmField val CHF = of("CHF")
 
-                    @JvmField val EUR = Currency(JsonField.of("EUR"))
+                    @JvmField val EUR = of("EUR")
 
-                    @JvmField val GBP = Currency(JsonField.of("GBP"))
+                    @JvmField val GBP = of("GBP")
 
-                    @JvmField val JPY = Currency(JsonField.of("JPY"))
+                    @JvmField val JPY = of("JPY")
 
-                    @JvmField val USD = Currency(JsonField.of("USD"))
+                    @JvmField val USD = of("USD")
 
                     @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
                 }
@@ -15705,7 +15468,7 @@ private constructor(
 
                     companion object {
 
-                        @JvmField val FREEFORM = Category(JsonField.of("freeform"))
+                        @JvmField val FREEFORM = of("freeform")
 
                         @JvmStatic fun of(value: String) = Category(JsonField.of(value))
                     }
@@ -16291,17 +16054,17 @@ private constructor(
 
                 companion object {
 
-                    @JvmField val CAD = Currency(JsonField.of("CAD"))
+                    @JvmField val CAD = of("CAD")
 
-                    @JvmField val CHF = Currency(JsonField.of("CHF"))
+                    @JvmField val CHF = of("CHF")
 
-                    @JvmField val EUR = Currency(JsonField.of("EUR"))
+                    @JvmField val EUR = of("EUR")
 
-                    @JvmField val GBP = Currency(JsonField.of("GBP"))
+                    @JvmField val GBP = of("GBP")
 
-                    @JvmField val JPY = Currency(JsonField.of("JPY"))
+                    @JvmField val JPY = of("JPY")
 
-                    @JvmField val USD = Currency(JsonField.of("USD"))
+                    @JvmField val USD = of("USD")
 
                     @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
                 }
@@ -16712,17 +16475,17 @@ private constructor(
 
                 companion object {
 
-                    @JvmField val CAD = Currency(JsonField.of("CAD"))
+                    @JvmField val CAD = of("CAD")
 
-                    @JvmField val CHF = Currency(JsonField.of("CHF"))
+                    @JvmField val CHF = of("CHF")
 
-                    @JvmField val EUR = Currency(JsonField.of("EUR"))
+                    @JvmField val EUR = of("EUR")
 
-                    @JvmField val GBP = Currency(JsonField.of("GBP"))
+                    @JvmField val GBP = of("GBP")
 
-                    @JvmField val JPY = Currency(JsonField.of("JPY"))
+                    @JvmField val JPY = of("JPY")
 
-                    @JvmField val USD = Currency(JsonField.of("USD"))
+                    @JvmField val USD = of("USD")
 
                     @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
                 }
@@ -16793,21 +16556,18 @@ private constructor(
 
                 companion object {
 
-                    @JvmField
-                    val ACCOUNT_NUMBER_CANCELED = Reason(JsonField.of("account_number_canceled"))
+                    @JvmField val ACCOUNT_NUMBER_CANCELED = of("account_number_canceled")
+
+                    @JvmField val ACCOUNT_NUMBER_DISABLED = of("account_number_disabled")
+
+                    @JvmField val ACCOUNT_RESTRICTED = of("account_restricted")
+
+                    @JvmField val GROUP_LOCKED = of("group_locked")
+
+                    @JvmField val ENTITY_NOT_ACTIVE = of("entity_not_active")
 
                     @JvmField
-                    val ACCOUNT_NUMBER_DISABLED = Reason(JsonField.of("account_number_disabled"))
-
-                    @JvmField val ACCOUNT_RESTRICTED = Reason(JsonField.of("account_restricted"))
-
-                    @JvmField val GROUP_LOCKED = Reason(JsonField.of("group_locked"))
-
-                    @JvmField val ENTITY_NOT_ACTIVE = Reason(JsonField.of("entity_not_active"))
-
-                    @JvmField
-                    val REAL_TIME_PAYMENTS_NOT_ENABLED =
-                        Reason(JsonField.of("real_time_payments_not_enabled"))
+                    val REAL_TIME_PAYMENTS_NOT_ENABLED = of("real_time_payments_not_enabled")
 
                     @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
                 }
@@ -18315,17 +18075,17 @@ private constructor(
 
                 companion object {
 
-                    @JvmField val CAD = Currency(JsonField.of("CAD"))
+                    @JvmField val CAD = of("CAD")
 
-                    @JvmField val CHF = Currency(JsonField.of("CHF"))
+                    @JvmField val CHF = of("CHF")
 
-                    @JvmField val EUR = Currency(JsonField.of("EUR"))
+                    @JvmField val EUR = of("EUR")
 
-                    @JvmField val GBP = Currency(JsonField.of("GBP"))
+                    @JvmField val GBP = of("GBP")
 
-                    @JvmField val JPY = Currency(JsonField.of("JPY"))
+                    @JvmField val JPY = of("JPY")
 
-                    @JvmField val USD = Currency(JsonField.of("USD"))
+                    @JvmField val USD = of("USD")
 
                     @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
                 }
@@ -18567,17 +18327,17 @@ private constructor(
 
                 companion object {
 
-                    @JvmField val CAD = Currency(JsonField.of("CAD"))
+                    @JvmField val CAD = of("CAD")
 
-                    @JvmField val CHF = Currency(JsonField.of("CHF"))
+                    @JvmField val CHF = of("CHF")
 
-                    @JvmField val EUR = Currency(JsonField.of("EUR"))
+                    @JvmField val EUR = of("EUR")
 
-                    @JvmField val GBP = Currency(JsonField.of("GBP"))
+                    @JvmField val GBP = of("GBP")
 
-                    @JvmField val JPY = Currency(JsonField.of("JPY"))
+                    @JvmField val JPY = of("JPY")
 
-                    @JvmField val USD = Currency(JsonField.of("USD"))
+                    @JvmField val USD = of("USD")
 
                     @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
                 }
@@ -18648,39 +18408,35 @@ private constructor(
 
                 companion object {
 
-                    @JvmField val ACCOUNT_CLOSURE = Reason(JsonField.of("account_closure"))
+                    @JvmField val ACCOUNT_CLOSURE = of("account_closure")
 
-                    @JvmField val BANK_DRAWN_CHECK = Reason(JsonField.of("bank_drawn_check"))
+                    @JvmField val BANK_DRAWN_CHECK = of("bank_drawn_check")
 
-                    @JvmField
-                    val BANK_DRAWN_CHECK_CREDIT = Reason(JsonField.of("bank_drawn_check_credit"))
+                    @JvmField val BANK_DRAWN_CHECK_CREDIT = of("bank_drawn_check_credit")
 
-                    @JvmField val BANK_MIGRATION = Reason(JsonField.of("bank_migration"))
+                    @JvmField val BANK_MIGRATION = of("bank_migration")
 
-                    @JvmField val CHECK_ADJUSTMENT = Reason(JsonField.of("check_adjustment"))
+                    @JvmField val CHECK_ADJUSTMENT = of("check_adjustment")
 
-                    @JvmField val COLLECTION_PAYMENT = Reason(JsonField.of("collection_payment"))
+                    @JvmField val COLLECTION_PAYMENT = of("collection_payment")
 
-                    @JvmField
-                    val COLLECTION_RECEIVABLE = Reason(JsonField.of("collection_receivable"))
+                    @JvmField val COLLECTION_RECEIVABLE = of("collection_receivable")
 
-                    @JvmField val EMPYREAL_ADJUSTMENT = Reason(JsonField.of("empyreal_adjustment"))
+                    @JvmField val EMPYREAL_ADJUSTMENT = of("empyreal_adjustment")
 
-                    @JvmField val ERROR = Reason(JsonField.of("error"))
+                    @JvmField val ERROR = of("error")
 
-                    @JvmField val ERROR_CORRECTION = Reason(JsonField.of("error_correction"))
+                    @JvmField val ERROR_CORRECTION = of("error_correction")
 
-                    @JvmField val FEES = Reason(JsonField.of("fees"))
+                    @JvmField val FEES = of("fees")
 
-                    @JvmField val INTEREST = Reason(JsonField.of("interest"))
+                    @JvmField val INTEREST = of("interest")
 
-                    @JvmField
-                    val NEGATIVE_BALANCE_FORGIVENESS =
-                        Reason(JsonField.of("negative_balance_forgiveness"))
+                    @JvmField val NEGATIVE_BALANCE_FORGIVENESS = of("negative_balance_forgiveness")
 
-                    @JvmField val SAMPLE_FUNDS = Reason(JsonField.of("sample_funds"))
+                    @JvmField val SAMPLE_FUNDS = of("sample_funds")
 
-                    @JvmField val SAMPLE_FUNDS_RETURN = Reason(JsonField.of("sample_funds_return"))
+                    @JvmField val SAMPLE_FUNDS_RETURN = of("sample_funds_return")
 
                     @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
                 }
@@ -19311,7 +19067,7 @@ private constructor(
 
         companion object {
 
-            @JvmField val TRANSACTION = Type(JsonField.of("transaction"))
+            @JvmField val TRANSACTION = of("transaction")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }

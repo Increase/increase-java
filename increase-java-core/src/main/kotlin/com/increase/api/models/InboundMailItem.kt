@@ -290,11 +290,11 @@ private constructor(
 
         companion object {
 
-            @JvmField val NO_MATCHING_LOCKBOX = RejectionReason(JsonField.of("no_matching_lockbox"))
+            @JvmField val NO_MATCHING_LOCKBOX = of("no_matching_lockbox")
 
-            @JvmField val NO_CHECK = RejectionReason(JsonField.of("no_check"))
+            @JvmField val NO_CHECK = of("no_check")
 
-            @JvmField val LOCKBOX_NOT_ACTIVE = RejectionReason(JsonField.of("lockbox_not_active"))
+            @JvmField val LOCKBOX_NOT_ACTIVE = of("lockbox_not_active")
 
             @JvmStatic fun of(value: String) = RejectionReason(JsonField.of(value))
         }
@@ -353,11 +353,11 @@ private constructor(
 
         companion object {
 
-            @JvmField val PENDING = Status(JsonField.of("pending"))
+            @JvmField val PENDING = of("pending")
 
-            @JvmField val PROCESSED = Status(JsonField.of("processed"))
+            @JvmField val PROCESSED = of("processed")
 
-            @JvmField val REJECTED = Status(JsonField.of("rejected"))
+            @JvmField val REJECTED = of("rejected")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
@@ -416,7 +416,7 @@ private constructor(
 
         companion object {
 
-            @JvmField val INBOUND_MAIL_ITEM = Type(JsonField.of("inbound_mail_item"))
+            @JvmField val INBOUND_MAIL_ITEM = of("inbound_mail_item")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }

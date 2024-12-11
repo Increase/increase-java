@@ -748,11 +748,11 @@ private constructor(
 
         companion object {
 
-            @JvmField val ACTIVE = Status(JsonField.of("active"))
+            @JvmField val ACTIVE = of("active")
 
-            @JvmField val DISABLED = Status(JsonField.of("disabled"))
+            @JvmField val DISABLED = of("disabled")
 
-            @JvmField val CANCELED = Status(JsonField.of("canceled"))
+            @JvmField val CANCELED = of("canceled")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
@@ -811,7 +811,7 @@ private constructor(
 
         companion object {
 
-            @JvmField val CARD = Type(JsonField.of("card"))
+            @JvmField val CARD = of("card")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }

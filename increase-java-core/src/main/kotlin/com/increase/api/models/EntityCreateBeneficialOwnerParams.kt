@@ -803,18 +803,17 @@ constructor(
 
                     companion object {
 
-                        @JvmField
-                        val SOCIAL_SECURITY_NUMBER = Method(JsonField.of("social_security_number"))
+                        @JvmField val SOCIAL_SECURITY_NUMBER = of("social_security_number")
 
                         @JvmField
                         val INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER =
-                            Method(JsonField.of("individual_taxpayer_identification_number"))
+                            of("individual_taxpayer_identification_number")
 
-                        @JvmField val PASSPORT = Method(JsonField.of("passport"))
+                        @JvmField val PASSPORT = of("passport")
 
-                        @JvmField val DRIVERS_LICENSE = Method(JsonField.of("drivers_license"))
+                        @JvmField val DRIVERS_LICENSE = of("drivers_license")
 
-                        @JvmField val OTHER = Method(JsonField.of("other"))
+                        @JvmField val OTHER = of("other")
 
                         @JvmStatic fun of(value: String) = Method(JsonField.of(value))
                     }
@@ -1297,9 +1296,9 @@ constructor(
 
             companion object {
 
-                @JvmField val OWNERSHIP = Prong(JsonField.of("ownership"))
+                @JvmField val OWNERSHIP = of("ownership")
 
-                @JvmField val CONTROL = Prong(JsonField.of("control"))
+                @JvmField val CONTROL = of("control")
 
                 @JvmStatic fun of(value: String) = Prong(JsonField.of(value))
             }
