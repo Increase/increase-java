@@ -313,11 +313,11 @@ private constructor(
 
         companion object {
 
-            @JvmField val PENDING = Status(JsonField.of("pending"))
+            @JvmField val PENDING = of("pending")
 
-            @JvmField val COMPLETED = Status(JsonField.of("completed"))
+            @JvmField val COMPLETED = of("completed")
 
-            @JvmField val ARCHIVED = Status(JsonField.of("archived"))
+            @JvmField val ARCHIVED = of("archived")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
@@ -376,7 +376,7 @@ private constructor(
 
         companion object {
 
-            @JvmField val INTRAFI_EXCLUSION = Type(JsonField.of("intrafi_exclusion"))
+            @JvmField val INTRAFI_EXCLUSION = of("intrafi_exclusion")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }

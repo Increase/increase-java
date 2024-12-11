@@ -437,9 +437,9 @@ constructor(
 
             companion object {
 
-                @JvmField val ALLOWED = DebitStatus(JsonField.of("allowed"))
+                @JvmField val ALLOWED = of("allowed")
 
-                @JvmField val BLOCKED = DebitStatus(JsonField.of("blocked"))
+                @JvmField val BLOCKED = of("blocked")
 
                 @JvmStatic fun of(value: String) = DebitStatus(JsonField.of(value))
             }
@@ -576,9 +576,9 @@ constructor(
 
             companion object {
 
-                @JvmField val ALLOWED = Status(JsonField.of("allowed"))
+                @JvmField val ALLOWED = of("allowed")
 
-                @JvmField val CHECK_TRANSFERS_ONLY = Status(JsonField.of("check_transfers_only"))
+                @JvmField val CHECK_TRANSFERS_ONLY = of("check_transfers_only")
 
                 @JvmStatic fun of(value: String) = Status(JsonField.of(value))
             }

@@ -396,7 +396,7 @@ private constructor(
 
         companion object {
 
-            @JvmField val BOOKKEEPING_ENTRY_SET = Type(JsonField.of("bookkeeping_entry_set"))
+            @JvmField val BOOKKEEPING_ENTRY_SET = of("bookkeeping_entry_set")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }

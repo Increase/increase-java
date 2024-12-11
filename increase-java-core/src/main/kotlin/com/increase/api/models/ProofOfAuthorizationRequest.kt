@@ -309,9 +309,7 @@ private constructor(
 
         companion object {
 
-            @JvmField
-            val PROOF_OF_AUTHORIZATION_REQUEST =
-                Type(JsonField.of("proof_of_authorization_request"))
+            @JvmField val PROOF_OF_AUTHORIZATION_REQUEST = of("proof_of_authorization_request")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }

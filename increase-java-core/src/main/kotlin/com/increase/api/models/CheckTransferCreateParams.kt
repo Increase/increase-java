@@ -482,9 +482,9 @@ constructor(
 
         companion object {
 
-            @JvmField val PHYSICAL_CHECK = FulfillmentMethod(JsonField.of("physical_check"))
+            @JvmField val PHYSICAL_CHECK = of("physical_check")
 
-            @JvmField val THIRD_PARTY = FulfillmentMethod(JsonField.of("third_party"))
+            @JvmField val THIRD_PARTY = of("third_party")
 
             @JvmStatic fun of(value: String) = FulfillmentMethod(JsonField.of(value))
         }

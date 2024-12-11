@@ -211,7 +211,7 @@ private constructor(
 
             @JvmField
             val INBOUND_CARD_AUTHORIZATION_SIMULATION_RESULT =
-                Type(JsonField.of("inbound_card_authorization_simulation_result"))
+                of("inbound_card_authorization_simulation_result")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }

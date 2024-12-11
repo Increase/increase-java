@@ -447,9 +447,9 @@ private constructor(
 
             companion object {
 
-                @JvmField val ALLOWED = DebitStatus(JsonField.of("allowed"))
+                @JvmField val ALLOWED = of("allowed")
 
-                @JvmField val BLOCKED = DebitStatus(JsonField.of("blocked"))
+                @JvmField val BLOCKED = of("blocked")
 
                 @JvmStatic fun of(value: String) = DebitStatus(JsonField.of(value))
             }
@@ -593,9 +593,9 @@ private constructor(
 
             companion object {
 
-                @JvmField val ALLOWED = Status(JsonField.of("allowed"))
+                @JvmField val ALLOWED = of("allowed")
 
-                @JvmField val CHECK_TRANSFERS_ONLY = Status(JsonField.of("check_transfers_only"))
+                @JvmField val CHECK_TRANSFERS_ONLY = of("check_transfers_only")
 
                 @JvmStatic fun of(value: String) = Status(JsonField.of(value))
             }
@@ -668,11 +668,11 @@ private constructor(
 
         companion object {
 
-            @JvmField val ACTIVE = Status(JsonField.of("active"))
+            @JvmField val ACTIVE = of("active")
 
-            @JvmField val DISABLED = Status(JsonField.of("disabled"))
+            @JvmField val DISABLED = of("disabled")
 
-            @JvmField val CANCELED = Status(JsonField.of("canceled"))
+            @JvmField val CANCELED = of("canceled")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
@@ -731,7 +731,7 @@ private constructor(
 
         companion object {
 
-            @JvmField val ACCOUNT_NUMBER = Type(JsonField.of("account_number"))
+            @JvmField val ACCOUNT_NUMBER = of("account_number")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }

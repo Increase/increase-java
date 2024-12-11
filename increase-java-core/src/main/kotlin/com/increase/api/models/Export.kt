@@ -315,19 +315,17 @@ private constructor(
 
         companion object {
 
-            @JvmField val ACCOUNT_STATEMENT_OFX = Category(JsonField.of("account_statement_ofx"))
+            @JvmField val ACCOUNT_STATEMENT_OFX = of("account_statement_ofx")
 
-            @JvmField val TRANSACTION_CSV = Category(JsonField.of("transaction_csv"))
+            @JvmField val TRANSACTION_CSV = of("transaction_csv")
 
-            @JvmField val BALANCE_CSV = Category(JsonField.of("balance_csv"))
+            @JvmField val BALANCE_CSV = of("balance_csv")
 
-            @JvmField
-            val BOOKKEEPING_ACCOUNT_BALANCE_CSV =
-                Category(JsonField.of("bookkeeping_account_balance_csv"))
+            @JvmField val BOOKKEEPING_ACCOUNT_BALANCE_CSV = of("bookkeeping_account_balance_csv")
 
-            @JvmField val ENTITY_CSV = Category(JsonField.of("entity_csv"))
+            @JvmField val ENTITY_CSV = of("entity_csv")
 
-            @JvmField val VENDOR_CSV = Category(JsonField.of("vendor_csv"))
+            @JvmField val VENDOR_CSV = of("vendor_csv")
 
             @JvmStatic fun of(value: String) = Category(JsonField.of(value))
         }
@@ -398,11 +396,11 @@ private constructor(
 
         companion object {
 
-            @JvmField val PENDING = Status(JsonField.of("pending"))
+            @JvmField val PENDING = of("pending")
 
-            @JvmField val COMPLETE = Status(JsonField.of("complete"))
+            @JvmField val COMPLETE = of("complete")
 
-            @JvmField val FAILED = Status(JsonField.of("failed"))
+            @JvmField val FAILED = of("failed")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
@@ -461,7 +459,7 @@ private constructor(
 
         companion object {
 
-            @JvmField val EXPORT = Type(JsonField.of("export"))
+            @JvmField val EXPORT = of("export")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }

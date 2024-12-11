@@ -684,12 +684,11 @@ constructor(
 
             companion object {
 
-                @JvmField val USPS = Method(JsonField.of("usps"))
+                @JvmField val USPS = of("usps")
 
-                @JvmField
-                val FEDEX_PRIORITY_OVERNIGHT = Method(JsonField.of("fedex_priority_overnight"))
+                @JvmField val FEDEX_PRIORITY_OVERNIGHT = of("fedex_priority_overnight")
 
-                @JvmField val FEDEX_2_DAY = Method(JsonField.of("fedex_2_day"))
+                @JvmField val FEDEX_2_DAY = of("fedex_2_day")
 
                 @JvmStatic fun of(value: String) = Method(JsonField.of(value))
             }

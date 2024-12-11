@@ -235,8 +235,7 @@ private constructor(
 
         companion object {
 
-            @JvmField
-            val ENTITY_SUPPLEMENTAL_DOCUMENT = Type(JsonField.of("entity_supplemental_document"))
+            @JvmField val ENTITY_SUPPLEMENTAL_DOCUMENT = of("entity_supplemental_document")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }

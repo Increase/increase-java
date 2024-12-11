@@ -313,11 +313,11 @@ constructor(
 
         companion object {
 
-            @JvmField val MAIL_DELIVERY_FAILED = Reason(JsonField.of("mail_delivery_failed"))
+            @JvmField val MAIL_DELIVERY_FAILED = of("mail_delivery_failed")
 
-            @JvmField val NOT_AUTHORIZED = Reason(JsonField.of("not_authorized"))
+            @JvmField val NOT_AUTHORIZED = of("not_authorized")
 
-            @JvmField val UNKNOWN = Reason(JsonField.of("unknown"))
+            @JvmField val UNKNOWN = of("unknown")
 
             @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
         }

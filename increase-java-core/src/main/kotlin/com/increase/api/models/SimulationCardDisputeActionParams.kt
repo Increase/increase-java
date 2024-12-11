@@ -341,16 +341,15 @@ constructor(
 
         companion object {
 
-            @JvmField
-            val PENDING_USER_INFORMATION = Status(JsonField.of("pending_user_information"))
+            @JvmField val PENDING_USER_INFORMATION = of("pending_user_information")
 
-            @JvmField val ACCEPTED = Status(JsonField.of("accepted"))
+            @JvmField val ACCEPTED = of("accepted")
 
-            @JvmField val REJECTED = Status(JsonField.of("rejected"))
+            @JvmField val REJECTED = of("rejected")
 
-            @JvmField val LOST = Status(JsonField.of("lost"))
+            @JvmField val LOST = of("lost")
 
-            @JvmField val WON = Status(JsonField.of("won"))
+            @JvmField val WON = of("won")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }

@@ -898,18 +898,17 @@ private constructor(
 
         companion object {
 
-            @JvmField val PENDING_REVIEWING = Status(JsonField.of("pending_reviewing"))
+            @JvmField val PENDING_REVIEWING = of("pending_reviewing")
 
-            @JvmField
-            val PENDING_USER_INFORMATION = Status(JsonField.of("pending_user_information"))
+            @JvmField val PENDING_USER_INFORMATION = of("pending_user_information")
 
-            @JvmField val ACCEPTED = Status(JsonField.of("accepted"))
+            @JvmField val ACCEPTED = of("accepted")
 
-            @JvmField val REJECTED = Status(JsonField.of("rejected"))
+            @JvmField val REJECTED = of("rejected")
 
-            @JvmField val LOST = Status(JsonField.of("lost"))
+            @JvmField val LOST = of("lost")
 
-            @JvmField val WON = Status(JsonField.of("won"))
+            @JvmField val WON = of("won")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
@@ -980,7 +979,7 @@ private constructor(
 
         companion object {
 
-            @JvmField val CARD_DISPUTE = Type(JsonField.of("card_dispute"))
+            @JvmField val CARD_DISPUTE = of("card_dispute")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }
