@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.ContentTypes
 import com.increase.api.core.Enum
 import com.increase.api.core.JsonField
-import com.increase.api.core.JsonValue
 import com.increase.api.core.MultipartFormValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
