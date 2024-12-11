@@ -556,17 +556,17 @@ private constructor(
 
         companion object {
 
-            @JvmField val CAD = Currency(JsonField.of("CAD"))
+            @JvmField val CAD = of("CAD")
 
-            @JvmField val CHF = Currency(JsonField.of("CHF"))
+            @JvmField val CHF = of("CHF")
 
-            @JvmField val EUR = Currency(JsonField.of("EUR"))
+            @JvmField val EUR = of("EUR")
 
-            @JvmField val GBP = Currency(JsonField.of("GBP"))
+            @JvmField val GBP = of("GBP")
 
-            @JvmField val JPY = Currency(JsonField.of("JPY"))
+            @JvmField val JPY = of("JPY")
 
-            @JvmField val USD = Currency(JsonField.of("USD"))
+            @JvmField val USD = of("USD")
 
             @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
         }
@@ -637,7 +637,7 @@ private constructor(
 
         companion object {
 
-            @JvmField val INTRAFI_BALANCE = Type(JsonField.of("intrafi_balance"))
+            @JvmField val INTRAFI_BALANCE = of("intrafi_balance")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }

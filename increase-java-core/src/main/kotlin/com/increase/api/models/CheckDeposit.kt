@@ -839,17 +839,17 @@ private constructor(
 
             companion object {
 
-                @JvmField val CAD = Currency(JsonField.of("CAD"))
+                @JvmField val CAD = of("CAD")
 
-                @JvmField val CHF = Currency(JsonField.of("CHF"))
+                @JvmField val CHF = of("CHF")
 
-                @JvmField val EUR = Currency(JsonField.of("EUR"))
+                @JvmField val EUR = of("EUR")
 
-                @JvmField val GBP = Currency(JsonField.of("GBP"))
+                @JvmField val GBP = of("GBP")
 
-                @JvmField val JPY = Currency(JsonField.of("JPY"))
+                @JvmField val JPY = of("JPY")
 
-                @JvmField val USD = Currency(JsonField.of("USD"))
+                @JvmField val USD = of("USD")
 
                 @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
             }
@@ -1149,17 +1149,17 @@ private constructor(
 
             companion object {
 
-                @JvmField val CAD = Currency(JsonField.of("CAD"))
+                @JvmField val CAD = of("CAD")
 
-                @JvmField val CHF = Currency(JsonField.of("CHF"))
+                @JvmField val CHF = of("CHF")
 
-                @JvmField val EUR = Currency(JsonField.of("EUR"))
+                @JvmField val EUR = of("EUR")
 
-                @JvmField val GBP = Currency(JsonField.of("GBP"))
+                @JvmField val GBP = of("GBP")
 
-                @JvmField val JPY = Currency(JsonField.of("JPY"))
+                @JvmField val JPY = of("JPY")
 
-                @JvmField val USD = Currency(JsonField.of("USD"))
+                @JvmField val USD = of("USD")
 
                 @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
             }
@@ -1230,32 +1230,28 @@ private constructor(
 
             companion object {
 
-                @JvmField val INCOMPLETE_IMAGE = Reason(JsonField.of("incomplete_image"))
+                @JvmField val INCOMPLETE_IMAGE = of("incomplete_image")
 
-                @JvmField val DUPLICATE = Reason(JsonField.of("duplicate"))
+                @JvmField val DUPLICATE = of("duplicate")
 
-                @JvmField val POOR_IMAGE_QUALITY = Reason(JsonField.of("poor_image_quality"))
+                @JvmField val POOR_IMAGE_QUALITY = of("poor_image_quality")
 
-                @JvmField val INCORRECT_AMOUNT = Reason(JsonField.of("incorrect_amount"))
+                @JvmField val INCORRECT_AMOUNT = of("incorrect_amount")
 
-                @JvmField val INCORRECT_RECIPIENT = Reason(JsonField.of("incorrect_recipient"))
-
-                @JvmField
-                val NOT_ELIGIBLE_FOR_MOBILE_DEPOSIT =
-                    Reason(JsonField.of("not_eligible_for_mobile_deposit"))
+                @JvmField val INCORRECT_RECIPIENT = of("incorrect_recipient")
 
                 @JvmField
-                val MISSING_REQUIRED_DATA_ELEMENTS =
-                    Reason(JsonField.of("missing_required_data_elements"))
+                val NOT_ELIGIBLE_FOR_MOBILE_DEPOSIT = of("not_eligible_for_mobile_deposit")
 
-                @JvmField val SUSPECTED_FRAUD = Reason(JsonField.of("suspected_fraud"))
+                @JvmField val MISSING_REQUIRED_DATA_ELEMENTS = of("missing_required_data_elements")
 
-                @JvmField
-                val DEPOSIT_WINDOW_EXPIRED = Reason(JsonField.of("deposit_window_expired"))
+                @JvmField val SUSPECTED_FRAUD = of("suspected_fraud")
 
-                @JvmField val REQUESTED_BY_USER = Reason(JsonField.of("requested_by_user"))
+                @JvmField val DEPOSIT_WINDOW_EXPIRED = of("deposit_window_expired")
 
-                @JvmField val UNKNOWN = Reason(JsonField.of("unknown"))
+                @JvmField val REQUESTED_BY_USER = of("requested_by_user")
+
+                @JvmField val UNKNOWN = of("unknown")
 
                 @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
             }
@@ -1577,17 +1573,17 @@ private constructor(
 
             companion object {
 
-                @JvmField val CAD = Currency(JsonField.of("CAD"))
+                @JvmField val CAD = of("CAD")
 
-                @JvmField val CHF = Currency(JsonField.of("CHF"))
+                @JvmField val CHF = of("CHF")
 
-                @JvmField val EUR = Currency(JsonField.of("EUR"))
+                @JvmField val EUR = of("EUR")
 
-                @JvmField val GBP = Currency(JsonField.of("GBP"))
+                @JvmField val GBP = of("GBP")
 
-                @JvmField val JPY = Currency(JsonField.of("JPY"))
+                @JvmField val JPY = of("JPY")
 
-                @JvmField val USD = Currency(JsonField.of("USD"))
+                @JvmField val USD = of("USD")
 
                 @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
             }
@@ -1658,74 +1654,57 @@ private constructor(
 
             companion object {
 
-                @JvmField
-                val ACH_CONVERSION_NOT_SUPPORTED =
-                    ReturnReason(JsonField.of("ach_conversion_not_supported"))
+                @JvmField val ACH_CONVERSION_NOT_SUPPORTED = of("ach_conversion_not_supported")
 
-                @JvmField val CLOSED_ACCOUNT = ReturnReason(JsonField.of("closed_account"))
+                @JvmField val CLOSED_ACCOUNT = of("closed_account")
 
-                @JvmField
-                val DUPLICATE_SUBMISSION = ReturnReason(JsonField.of("duplicate_submission"))
+                @JvmField val DUPLICATE_SUBMISSION = of("duplicate_submission")
 
-                @JvmField val INSUFFICIENT_FUNDS = ReturnReason(JsonField.of("insufficient_funds"))
+                @JvmField val INSUFFICIENT_FUNDS = of("insufficient_funds")
 
-                @JvmField val NO_ACCOUNT = ReturnReason(JsonField.of("no_account"))
+                @JvmField val NO_ACCOUNT = of("no_account")
 
-                @JvmField val NOT_AUTHORIZED = ReturnReason(JsonField.of("not_authorized"))
+                @JvmField val NOT_AUTHORIZED = of("not_authorized")
 
-                @JvmField val STALE_DATED = ReturnReason(JsonField.of("stale_dated"))
+                @JvmField val STALE_DATED = of("stale_dated")
 
-                @JvmField val STOP_PAYMENT = ReturnReason(JsonField.of("stop_payment"))
+                @JvmField val STOP_PAYMENT = of("stop_payment")
 
-                @JvmField val UNKNOWN_REASON = ReturnReason(JsonField.of("unknown_reason"))
+                @JvmField val UNKNOWN_REASON = of("unknown_reason")
 
-                @JvmField val UNMATCHED_DETAILS = ReturnReason(JsonField.of("unmatched_details"))
+                @JvmField val UNMATCHED_DETAILS = of("unmatched_details")
 
-                @JvmField val UNREADABLE_IMAGE = ReturnReason(JsonField.of("unreadable_image"))
+                @JvmField val UNREADABLE_IMAGE = of("unreadable_image")
 
-                @JvmField
-                val ENDORSEMENT_IRREGULAR = ReturnReason(JsonField.of("endorsement_irregular"))
+                @JvmField val ENDORSEMENT_IRREGULAR = of("endorsement_irregular")
 
-                @JvmField
-                val ALTERED_OR_FICTITIOUS_ITEM =
-                    ReturnReason(JsonField.of("altered_or_fictitious_item"))
+                @JvmField val ALTERED_OR_FICTITIOUS_ITEM = of("altered_or_fictitious_item")
 
-                @JvmField
-                val FROZEN_OR_BLOCKED_ACCOUNT =
-                    ReturnReason(JsonField.of("frozen_or_blocked_account"))
+                @JvmField val FROZEN_OR_BLOCKED_ACCOUNT = of("frozen_or_blocked_account")
 
-                @JvmField val POST_DATED = ReturnReason(JsonField.of("post_dated"))
+                @JvmField val POST_DATED = of("post_dated")
 
-                @JvmField
-                val ENDORSEMENT_MISSING = ReturnReason(JsonField.of("endorsement_missing"))
+                @JvmField val ENDORSEMENT_MISSING = of("endorsement_missing")
 
-                @JvmField val SIGNATURE_MISSING = ReturnReason(JsonField.of("signature_missing"))
+                @JvmField val SIGNATURE_MISSING = of("signature_missing")
 
-                @JvmField
-                val STOP_PAYMENT_SUSPECT = ReturnReason(JsonField.of("stop_payment_suspect"))
+                @JvmField val STOP_PAYMENT_SUSPECT = of("stop_payment_suspect")
 
-                @JvmField val UNUSABLE_IMAGE = ReturnReason(JsonField.of("unusable_image"))
+                @JvmField val UNUSABLE_IMAGE = of("unusable_image")
 
-                @JvmField
-                val IMAGE_FAILS_SECURITY_CHECK =
-                    ReturnReason(JsonField.of("image_fails_security_check"))
+                @JvmField val IMAGE_FAILS_SECURITY_CHECK = of("image_fails_security_check")
 
-                @JvmField
-                val CANNOT_DETERMINE_AMOUNT = ReturnReason(JsonField.of("cannot_determine_amount"))
+                @JvmField val CANNOT_DETERMINE_AMOUNT = of("cannot_determine_amount")
 
-                @JvmField
-                val SIGNATURE_IRREGULAR = ReturnReason(JsonField.of("signature_irregular"))
+                @JvmField val SIGNATURE_IRREGULAR = of("signature_irregular")
 
-                @JvmField val NON_CASH_ITEM = ReturnReason(JsonField.of("non_cash_item"))
+                @JvmField val NON_CASH_ITEM = of("non_cash_item")
 
-                @JvmField val UNABLE_TO_PROCESS = ReturnReason(JsonField.of("unable_to_process"))
+                @JvmField val UNABLE_TO_PROCESS = of("unable_to_process")
 
-                @JvmField
-                val ITEM_EXCEEDS_DOLLAR_LIMIT =
-                    ReturnReason(JsonField.of("item_exceeds_dollar_limit"))
+                @JvmField val ITEM_EXCEEDS_DOLLAR_LIMIT = of("item_exceeds_dollar_limit")
 
-                @JvmField
-                val BRANCH_OR_ACCOUNT_SOLD = ReturnReason(JsonField.of("branch_or_account_sold"))
+                @JvmField val BRANCH_OR_ACCOUNT_SOLD = of("branch_or_account_sold")
 
                 @JvmStatic fun of(value: String) = ReturnReason(JsonField.of(value))
             }
@@ -2395,17 +2374,17 @@ private constructor(
 
             companion object {
 
-                @JvmField val CAD = Currency(JsonField.of("CAD"))
+                @JvmField val CAD = of("CAD")
 
-                @JvmField val CHF = Currency(JsonField.of("CHF"))
+                @JvmField val CHF = of("CHF")
 
-                @JvmField val EUR = Currency(JsonField.of("EUR"))
+                @JvmField val EUR = of("EUR")
 
-                @JvmField val GBP = Currency(JsonField.of("GBP"))
+                @JvmField val GBP = of("GBP")
 
-                @JvmField val JPY = Currency(JsonField.of("JPY"))
+                @JvmField val JPY = of("JPY")
 
-                @JvmField val USD = Currency(JsonField.of("USD"))
+                @JvmField val USD = of("USD")
 
                 @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
             }
@@ -2476,9 +2455,9 @@ private constructor(
 
             companion object {
 
-                @JvmField val HELD = Status(JsonField.of("held"))
+                @JvmField val HELD = of("held")
 
-                @JvmField val COMPLETE = Status(JsonField.of("complete"))
+                @JvmField val COMPLETE = of("complete")
 
                 @JvmStatic fun of(value: String) = Status(JsonField.of(value))
             }
@@ -2533,7 +2512,7 @@ private constructor(
 
             companion object {
 
-                @JvmField val INBOUND_FUNDS_HOLD = Type(JsonField.of("inbound_funds_hold"))
+                @JvmField val INBOUND_FUNDS_HOLD = of("inbound_funds_hold")
 
                 @JvmStatic fun of(value: String) = Type(JsonField.of(value))
             }
@@ -2602,13 +2581,13 @@ private constructor(
 
         companion object {
 
-            @JvmField val PENDING = Status(JsonField.of("pending"))
+            @JvmField val PENDING = of("pending")
 
-            @JvmField val SUBMITTED = Status(JsonField.of("submitted"))
+            @JvmField val SUBMITTED = of("submitted")
 
-            @JvmField val REJECTED = Status(JsonField.of("rejected"))
+            @JvmField val REJECTED = of("rejected")
 
-            @JvmField val RETURNED = Status(JsonField.of("returned"))
+            @JvmField val RETURNED = of("returned")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
@@ -2671,7 +2650,7 @@ private constructor(
 
         companion object {
 
-            @JvmField val CHECK_DEPOSIT = Type(JsonField.of("check_deposit"))
+            @JvmField val CHECK_DEPOSIT = of("check_deposit")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }

@@ -238,13 +238,13 @@ private constructor(
 
         companion object {
 
-            @JvmField val ACTIVE = Status(JsonField.of("active"))
+            @JvmField val ACTIVE = of("active")
 
-            @JvmField val INACTIVE = Status(JsonField.of("inactive"))
+            @JvmField val INACTIVE = of("inactive")
 
-            @JvmField val SUSPENDED = Status(JsonField.of("suspended"))
+            @JvmField val SUSPENDED = of("suspended")
 
-            @JvmField val DEACTIVATED = Status(JsonField.of("deactivated"))
+            @JvmField val DEACTIVATED = of("deactivated")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
@@ -307,13 +307,13 @@ private constructor(
 
         companion object {
 
-            @JvmField val APPLE_PAY = TokenRequestor(JsonField.of("apple_pay"))
+            @JvmField val APPLE_PAY = of("apple_pay")
 
-            @JvmField val GOOGLE_PAY = TokenRequestor(JsonField.of("google_pay"))
+            @JvmField val GOOGLE_PAY = of("google_pay")
 
-            @JvmField val SAMSUNG_PAY = TokenRequestor(JsonField.of("samsung_pay"))
+            @JvmField val SAMSUNG_PAY = of("samsung_pay")
 
-            @JvmField val UNKNOWN = TokenRequestor(JsonField.of("unknown"))
+            @JvmField val UNKNOWN = of("unknown")
 
             @JvmStatic fun of(value: String) = TokenRequestor(JsonField.of(value))
         }
@@ -376,7 +376,7 @@ private constructor(
 
         companion object {
 
-            @JvmField val DIGITAL_WALLET_TOKEN = Type(JsonField.of("digital_wallet_token"))
+            @JvmField val DIGITAL_WALLET_TOKEN = of("digital_wallet_token")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }

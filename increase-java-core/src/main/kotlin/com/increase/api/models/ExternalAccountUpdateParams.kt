@@ -388,9 +388,9 @@ constructor(
 
         companion object {
 
-            @JvmField val BUSINESS = AccountHolder(JsonField.of("business"))
+            @JvmField val BUSINESS = of("business")
 
-            @JvmField val INDIVIDUAL = AccountHolder(JsonField.of("individual"))
+            @JvmField val INDIVIDUAL = of("individual")
 
             @JvmStatic fun of(value: String) = AccountHolder(JsonField.of(value))
         }
@@ -445,11 +445,11 @@ constructor(
 
         companion object {
 
-            @JvmField val CHECKING = Funding(JsonField.of("checking"))
+            @JvmField val CHECKING = of("checking")
 
-            @JvmField val SAVINGS = Funding(JsonField.of("savings"))
+            @JvmField val SAVINGS = of("savings")
 
-            @JvmField val OTHER = Funding(JsonField.of("other"))
+            @JvmField val OTHER = of("other")
 
             @JvmStatic fun of(value: String) = Funding(JsonField.of(value))
         }
@@ -508,9 +508,9 @@ constructor(
 
         companion object {
 
-            @JvmField val ACTIVE = Status(JsonField.of("active"))
+            @JvmField val ACTIVE = of("active")
 
-            @JvmField val ARCHIVED = Status(JsonField.of("archived"))
+            @JvmField val ARCHIVED = of("archived")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }

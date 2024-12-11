@@ -543,15 +543,15 @@ constructor(
 
         companion object {
 
-            @JvmField val CORPORATION = Structure(JsonField.of("corporation"))
+            @JvmField val CORPORATION = of("corporation")
 
-            @JvmField val NATURAL_PERSON = Structure(JsonField.of("natural_person"))
+            @JvmField val NATURAL_PERSON = of("natural_person")
 
-            @JvmField val JOINT = Structure(JsonField.of("joint"))
+            @JvmField val JOINT = of("joint")
 
-            @JvmField val TRUST = Structure(JsonField.of("trust"))
+            @JvmField val TRUST = of("trust")
 
-            @JvmField val GOVERNMENT_AUTHORITY = Structure(JsonField.of("government_authority"))
+            @JvmField val GOVERNMENT_AUTHORITY = of("government_authority")
 
             @JvmStatic fun of(value: String) = Structure(JsonField.of(value))
         }
@@ -1396,19 +1396,17 @@ constructor(
 
                         companion object {
 
-                            @JvmField
-                            val SOCIAL_SECURITY_NUMBER =
-                                Method(JsonField.of("social_security_number"))
+                            @JvmField val SOCIAL_SECURITY_NUMBER = of("social_security_number")
 
                             @JvmField
                             val INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER =
-                                Method(JsonField.of("individual_taxpayer_identification_number"))
+                                of("individual_taxpayer_identification_number")
 
-                            @JvmField val PASSPORT = Method(JsonField.of("passport"))
+                            @JvmField val PASSPORT = of("passport")
 
-                            @JvmField val DRIVERS_LICENSE = Method(JsonField.of("drivers_license"))
+                            @JvmField val DRIVERS_LICENSE = of("drivers_license")
 
-                            @JvmField val OTHER = Method(JsonField.of("other"))
+                            @JvmField val OTHER = of("other")
 
                             @JvmStatic fun of(value: String) = Method(JsonField.of(value))
                         }
@@ -1905,9 +1903,9 @@ constructor(
 
                 companion object {
 
-                    @JvmField val OWNERSHIP = Prong(JsonField.of("ownership"))
+                    @JvmField val OWNERSHIP = of("ownership")
 
-                    @JvmField val CONTROL = Prong(JsonField.of("control"))
+                    @JvmField val CONTROL = of("control")
 
                     @JvmStatic fun of(value: String) = Prong(JsonField.of(value))
                 }
@@ -2327,7 +2325,7 @@ constructor(
 
             companion object {
 
-                @JvmField val MUNICIPALITY = Category(JsonField.of("municipality"))
+                @JvmField val MUNICIPALITY = of("municipality")
 
                 @JvmStatic fun of(value: String) = Category(JsonField.of(value))
             }
@@ -2851,18 +2849,17 @@ constructor(
 
                     companion object {
 
-                        @JvmField
-                        val SOCIAL_SECURITY_NUMBER = Method(JsonField.of("social_security_number"))
+                        @JvmField val SOCIAL_SECURITY_NUMBER = of("social_security_number")
 
                         @JvmField
                         val INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER =
-                            Method(JsonField.of("individual_taxpayer_identification_number"))
+                            of("individual_taxpayer_identification_number")
 
-                        @JvmField val PASSPORT = Method(JsonField.of("passport"))
+                        @JvmField val PASSPORT = of("passport")
 
-                        @JvmField val DRIVERS_LICENSE = Method(JsonField.of("drivers_license"))
+                        @JvmField val DRIVERS_LICENSE = of("drivers_license")
 
-                        @JvmField val OTHER = Method(JsonField.of("other"))
+                        @JvmField val OTHER = of("other")
 
                         @JvmStatic fun of(value: String) = Method(JsonField.of(value))
                     }
@@ -3741,18 +3738,17 @@ constructor(
 
                 companion object {
 
-                    @JvmField
-                    val SOCIAL_SECURITY_NUMBER = Method(JsonField.of("social_security_number"))
+                    @JvmField val SOCIAL_SECURITY_NUMBER = of("social_security_number")
 
                     @JvmField
                     val INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER =
-                        Method(JsonField.of("individual_taxpayer_identification_number"))
+                        of("individual_taxpayer_identification_number")
 
-                    @JvmField val PASSPORT = Method(JsonField.of("passport"))
+                    @JvmField val PASSPORT = of("passport")
 
-                    @JvmField val DRIVERS_LICENSE = Method(JsonField.of("drivers_license"))
+                    @JvmField val DRIVERS_LICENSE = of("drivers_license")
 
-                    @JvmField val OTHER = Method(JsonField.of("other"))
+                    @JvmField val OTHER = of("other")
 
                     @JvmStatic fun of(value: String) = Method(JsonField.of(value))
                 }
@@ -4369,9 +4365,9 @@ constructor(
 
             companion object {
 
-                @JvmField val ALLOY = Vendor(JsonField.of("alloy"))
+                @JvmField val ALLOY = of("alloy")
 
-                @JvmField val MIDDESK = Vendor(JsonField.of("middesk"))
+                @JvmField val MIDDESK = of("middesk")
 
                 @JvmStatic fun of(value: String) = Vendor(JsonField.of(value))
             }
@@ -4737,9 +4733,9 @@ constructor(
 
             companion object {
 
-                @JvmField val REVOCABLE = Category(JsonField.of("revocable"))
+                @JvmField val REVOCABLE = of("revocable")
 
-                @JvmField val IRREVOCABLE = Category(JsonField.of("irrevocable"))
+                @JvmField val IRREVOCABLE = of("irrevocable")
 
                 @JvmStatic fun of(value: String) = Category(JsonField.of(value))
             }
@@ -4870,7 +4866,7 @@ constructor(
 
                 companion object {
 
-                    @JvmField val INDIVIDUAL = Structure(JsonField.of("individual"))
+                    @JvmField val INDIVIDUAL = of("individual")
 
                     @JvmStatic fun of(value: String) = Structure(JsonField.of(value))
                 }
@@ -5325,19 +5321,17 @@ constructor(
 
                         companion object {
 
-                            @JvmField
-                            val SOCIAL_SECURITY_NUMBER =
-                                Method(JsonField.of("social_security_number"))
+                            @JvmField val SOCIAL_SECURITY_NUMBER = of("social_security_number")
 
                             @JvmField
                             val INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER =
-                                Method(JsonField.of("individual_taxpayer_identification_number"))
+                                of("individual_taxpayer_identification_number")
 
-                            @JvmField val PASSPORT = Method(JsonField.of("passport"))
+                            @JvmField val PASSPORT = of("passport")
 
-                            @JvmField val DRIVERS_LICENSE = Method(JsonField.of("drivers_license"))
+                            @JvmField val DRIVERS_LICENSE = of("drivers_license")
 
-                            @JvmField val OTHER = Method(JsonField.of("other"))
+                            @JvmField val OTHER = of("other")
 
                             @JvmStatic fun of(value: String) = Method(JsonField.of(value))
                         }
@@ -6236,18 +6230,17 @@ constructor(
 
                     companion object {
 
-                        @JvmField
-                        val SOCIAL_SECURITY_NUMBER = Method(JsonField.of("social_security_number"))
+                        @JvmField val SOCIAL_SECURITY_NUMBER = of("social_security_number")
 
                         @JvmField
                         val INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER =
-                            Method(JsonField.of("individual_taxpayer_identification_number"))
+                            of("individual_taxpayer_identification_number")
 
-                        @JvmField val PASSPORT = Method(JsonField.of("passport"))
+                        @JvmField val PASSPORT = of("passport")
 
-                        @JvmField val DRIVERS_LICENSE = Method(JsonField.of("drivers_license"))
+                        @JvmField val DRIVERS_LICENSE = of("drivers_license")
 
-                        @JvmField val OTHER = Method(JsonField.of("other"))
+                        @JvmField val OTHER = of("other")
 
                         @JvmStatic fun of(value: String) = Method(JsonField.of(value))
                     }

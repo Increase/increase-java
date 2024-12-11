@@ -774,12 +774,11 @@ private constructor(
 
             companion object {
 
-                @JvmField val USPS = Method(JsonField.of("usps"))
+                @JvmField val USPS = of("usps")
 
-                @JvmField
-                val FEDEX_PRIORITY_OVERNIGHT = Method(JsonField.of("fedex_priority_overnight"))
+                @JvmField val FEDEX_PRIORITY_OVERNIGHT = of("fedex_priority_overnight")
 
-                @JvmField val FEDEX_2_DAY = Method(JsonField.of("fedex_2_day"))
+                @JvmField val FEDEX_2_DAY = of("fedex_2_day")
 
                 @JvmStatic fun of(value: String) = Method(JsonField.of(value))
             }
@@ -838,19 +837,19 @@ private constructor(
 
             companion object {
 
-                @JvmField val PENDING = Status(JsonField.of("pending"))
+                @JvmField val PENDING = of("pending")
 
-                @JvmField val CANCELED = Status(JsonField.of("canceled"))
+                @JvmField val CANCELED = of("canceled")
 
-                @JvmField val SUBMITTED = Status(JsonField.of("submitted"))
+                @JvmField val SUBMITTED = of("submitted")
 
-                @JvmField val ACKNOWLEDGED = Status(JsonField.of("acknowledged"))
+                @JvmField val ACKNOWLEDGED = of("acknowledged")
 
-                @JvmField val REJECTED = Status(JsonField.of("rejected"))
+                @JvmField val REJECTED = of("rejected")
 
-                @JvmField val SHIPPED = Status(JsonField.of("shipped"))
+                @JvmField val SHIPPED = of("shipped")
 
-                @JvmField val RETURNED = Status(JsonField.of("returned"))
+                @JvmField val RETURNED = of("returned")
 
                 @JvmStatic fun of(value: String) = Status(JsonField.of(value))
             }
@@ -1116,11 +1115,11 @@ private constructor(
 
         companion object {
 
-            @JvmField val ACTIVE = Status(JsonField.of("active"))
+            @JvmField val ACTIVE = of("active")
 
-            @JvmField val DISABLED = Status(JsonField.of("disabled"))
+            @JvmField val DISABLED = of("disabled")
 
-            @JvmField val CANCELED = Status(JsonField.of("canceled"))
+            @JvmField val CANCELED = of("canceled")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
@@ -1179,7 +1178,7 @@ private constructor(
 
         companion object {
 
-            @JvmField val PHYSICAL_CARD = Type(JsonField.of("physical_card"))
+            @JvmField val PHYSICAL_CARD = of("physical_card")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }

@@ -269,15 +269,15 @@ private constructor(
 
         companion object {
 
-            @JvmField val PENDING_ENROLLING = Status(JsonField.of("pending_enrolling"))
+            @JvmField val PENDING_ENROLLING = of("pending_enrolling")
 
-            @JvmField val ENROLLED = Status(JsonField.of("enrolled"))
+            @JvmField val ENROLLED = of("enrolled")
 
-            @JvmField val PENDING_UNENROLLING = Status(JsonField.of("pending_unenrolling"))
+            @JvmField val PENDING_UNENROLLING = of("pending_unenrolling")
 
-            @JvmField val UNENROLLED = Status(JsonField.of("unenrolled"))
+            @JvmField val UNENROLLED = of("unenrolled")
 
-            @JvmField val REQUIRES_ATTENTION = Status(JsonField.of("requires_attention"))
+            @JvmField val REQUIRES_ATTENTION = of("requires_attention")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
@@ -344,8 +344,7 @@ private constructor(
 
         companion object {
 
-            @JvmField
-            val INTRAFI_ACCOUNT_ENROLLMENT = Type(JsonField.of("intrafi_account_enrollment"))
+            @JvmField val INTRAFI_ACCOUNT_ENROLLMENT = of("intrafi_account_enrollment")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }

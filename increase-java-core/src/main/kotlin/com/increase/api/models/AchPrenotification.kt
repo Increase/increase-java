@@ -503,9 +503,9 @@ private constructor(
 
         companion object {
 
-            @JvmField val CREDIT = CreditDebitIndicator(JsonField.of("credit"))
+            @JvmField val CREDIT = of("credit")
 
-            @JvmField val DEBIT = CreditDebitIndicator(JsonField.of("debit"))
+            @JvmField val DEBIT = of("debit")
 
             @JvmStatic fun of(value: String) = CreditDebitIndicator(JsonField.of(value))
         }
@@ -726,95 +726,69 @@ private constructor(
 
             companion object {
 
-                @JvmField
-                val INCORRECT_ACCOUNT_NUMBER = ChangeCode(JsonField.of("incorrect_account_number"))
+                @JvmField val INCORRECT_ACCOUNT_NUMBER = of("incorrect_account_number")
 
-                @JvmField
-                val INCORRECT_ROUTING_NUMBER = ChangeCode(JsonField.of("incorrect_routing_number"))
+                @JvmField val INCORRECT_ROUTING_NUMBER = of("incorrect_routing_number")
 
                 @JvmField
                 val INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER =
-                    ChangeCode(JsonField.of("incorrect_routing_number_and_account_number"))
+                    of("incorrect_routing_number_and_account_number")
 
-                @JvmField
-                val INCORRECT_TRANSACTION_CODE =
-                    ChangeCode(JsonField.of("incorrect_transaction_code"))
+                @JvmField val INCORRECT_TRANSACTION_CODE = of("incorrect_transaction_code")
 
                 @JvmField
                 val INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE =
-                    ChangeCode(JsonField.of("incorrect_account_number_and_transaction_code"))
+                    of("incorrect_account_number_and_transaction_code")
 
                 @JvmField
                 val INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE =
-                    ChangeCode(
-                        JsonField.of("incorrect_routing_number_account_number_and_transaction_code")
-                    )
+                    of("incorrect_routing_number_account_number_and_transaction_code")
 
                 @JvmField
                 val INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION =
-                    ChangeCode(
-                        JsonField.of(
-                            "incorrect_receiving_depository_financial_institution_identification"
-                        )
-                    )
+                    of("incorrect_receiving_depository_financial_institution_identification")
 
                 @JvmField
                 val INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER =
-                    ChangeCode(JsonField.of("incorrect_individual_identification_number"))
+                    of("incorrect_individual_identification_number")
 
-                @JvmField
-                val ADDENDA_FORMAT_ERROR = ChangeCode(JsonField.of("addenda_format_error"))
+                @JvmField val ADDENDA_FORMAT_ERROR = of("addenda_format_error")
 
                 @JvmField
                 val INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT =
-                    ChangeCode(
-                        JsonField.of(
-                            "incorrect_standard_entry_class_code_for_outbound_international_payment"
-                        )
-                    )
+                    of("incorrect_standard_entry_class_code_for_outbound_international_payment")
 
                 @JvmField
-                val MISROUTED_NOTIFICATION_OF_CHANGE =
-                    ChangeCode(JsonField.of("misrouted_notification_of_change"))
+                val MISROUTED_NOTIFICATION_OF_CHANGE = of("misrouted_notification_of_change")
 
-                @JvmField
-                val INCORRECT_TRACE_NUMBER = ChangeCode(JsonField.of("incorrect_trace_number"))
+                @JvmField val INCORRECT_TRACE_NUMBER = of("incorrect_trace_number")
 
                 @JvmField
                 val INCORRECT_COMPANY_IDENTIFICATION_NUMBER =
-                    ChangeCode(JsonField.of("incorrect_company_identification_number"))
+                    of("incorrect_company_identification_number")
 
                 @JvmField
-                val INCORRECT_IDENTIFICATION_NUMBER =
-                    ChangeCode(JsonField.of("incorrect_identification_number"))
+                val INCORRECT_IDENTIFICATION_NUMBER = of("incorrect_identification_number")
 
                 @JvmField
                 val INCORRECTLY_FORMATTED_CORRECTED_DATA =
-                    ChangeCode(JsonField.of("incorrectly_formatted_corrected_data"))
+                    of("incorrectly_formatted_corrected_data")
 
-                @JvmField
-                val INCORRECT_DISCRETIONARY_DATA =
-                    ChangeCode(JsonField.of("incorrect_discretionary_data"))
+                @JvmField val INCORRECT_DISCRETIONARY_DATA = of("incorrect_discretionary_data")
 
                 @JvmField
                 val ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD =
-                    ChangeCode(JsonField.of("routing_number_not_from_original_entry_detail_record"))
+                    of("routing_number_not_from_original_entry_detail_record")
 
                 @JvmField
                 val DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD =
-                    ChangeCode(
-                        JsonField.of(
-                            "depository_financial_institution_account_number_not_from_original_entry_detail_record"
-                        )
+                    of(
+                        "depository_financial_institution_account_number_not_from_original_entry_detail_record"
                     )
 
                 @JvmField
                 val INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION =
-                    ChangeCode(
-                        JsonField.of(
-                            "incorrect_transaction_code_by_originating_depository_financial_institution"
-                        )
-                    )
+                    of("incorrect_transaction_code_by_originating_depository_financial_institution")
 
                 @JvmStatic fun of(value: String) = ChangeCode(JsonField.of(value))
             }
@@ -1095,275 +1069,195 @@ private constructor(
 
             companion object {
 
+                @JvmField val INSUFFICIENT_FUND = of("insufficient_fund")
+
+                @JvmField val NO_ACCOUNT = of("no_account")
+
+                @JvmField val ACCOUNT_CLOSED = of("account_closed")
+
                 @JvmField
-                val INSUFFICIENT_FUND = ReturnReasonCode(JsonField.of("insufficient_fund"))
-
-                @JvmField val NO_ACCOUNT = ReturnReasonCode(JsonField.of("no_account"))
-
-                @JvmField val ACCOUNT_CLOSED = ReturnReasonCode(JsonField.of("account_closed"))
-
-                @JvmField
-                val INVALID_ACCOUNT_NUMBER_STRUCTURE =
-                    ReturnReasonCode(JsonField.of("invalid_account_number_structure"))
+                val INVALID_ACCOUNT_NUMBER_STRUCTURE = of("invalid_account_number_structure")
 
                 @JvmField
                 val ACCOUNT_FROZEN_ENTRY_RETURNED_PER_OFAC_INSTRUCTION =
-                    ReturnReasonCode(
-                        JsonField.of("account_frozen_entry_returned_per_ofac_instruction")
-                    )
+                    of("account_frozen_entry_returned_per_ofac_instruction")
 
                 @JvmField
-                val CREDIT_ENTRY_REFUSED_BY_RECEIVER =
-                    ReturnReasonCode(JsonField.of("credit_entry_refused_by_receiver"))
+                val CREDIT_ENTRY_REFUSED_BY_RECEIVER = of("credit_entry_refused_by_receiver")
 
                 @JvmField
                 val UNAUTHORIZED_DEBIT_TO_CONSUMER_ACCOUNT_USING_CORPORATE_SEC_CODE =
-                    ReturnReasonCode(
-                        JsonField.of(
-                            "unauthorized_debit_to_consumer_account_using_corporate_sec_code"
-                        )
-                    )
+                    of("unauthorized_debit_to_consumer_account_using_corporate_sec_code")
 
                 @JvmField
                 val CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED =
-                    ReturnReasonCode(JsonField.of("corporate_customer_advised_not_authorized"))
+                    of("corporate_customer_advised_not_authorized")
 
-                @JvmField val PAYMENT_STOPPED = ReturnReasonCode(JsonField.of("payment_stopped"))
+                @JvmField val PAYMENT_STOPPED = of("payment_stopped")
 
-                @JvmField
-                val NON_TRANSACTION_ACCOUNT =
-                    ReturnReasonCode(JsonField.of("non_transaction_account"))
+                @JvmField val NON_TRANSACTION_ACCOUNT = of("non_transaction_account")
 
-                @JvmField
-                val UNCOLLECTED_FUNDS = ReturnReasonCode(JsonField.of("uncollected_funds"))
+                @JvmField val UNCOLLECTED_FUNDS = of("uncollected_funds")
 
                 @JvmField
-                val ROUTING_NUMBER_CHECK_DIGIT_ERROR =
-                    ReturnReasonCode(JsonField.of("routing_number_check_digit_error"))
+                val ROUTING_NUMBER_CHECK_DIGIT_ERROR = of("routing_number_check_digit_error")
 
                 @JvmField
                 val CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE =
-                    ReturnReasonCode(
-                        JsonField.of(
-                            "customer_advised_unauthorized_improper_ineligible_or_incomplete"
-                        )
-                    )
+                    of("customer_advised_unauthorized_improper_ineligible_or_incomplete")
+
+                @JvmField val AMOUNT_FIELD_ERROR = of("amount_field_error")
 
                 @JvmField
-                val AMOUNT_FIELD_ERROR = ReturnReasonCode(JsonField.of("amount_field_error"))
+                val AUTHORIZATION_REVOKED_BY_CUSTOMER = of("authorization_revoked_by_customer")
 
-                @JvmField
-                val AUTHORIZATION_REVOKED_BY_CUSTOMER =
-                    ReturnReasonCode(JsonField.of("authorization_revoked_by_customer"))
+                @JvmField val INVALID_ACH_ROUTING_NUMBER = of("invalid_ach_routing_number")
 
-                @JvmField
-                val INVALID_ACH_ROUTING_NUMBER =
-                    ReturnReasonCode(JsonField.of("invalid_ach_routing_number"))
+                @JvmField val FILE_RECORD_EDIT_CRITERIA = of("file_record_edit_criteria")
 
-                @JvmField
-                val FILE_RECORD_EDIT_CRITERIA =
-                    ReturnReasonCode(JsonField.of("file_record_edit_criteria"))
+                @JvmField val ENR_INVALID_INDIVIDUAL_NAME = of("enr_invalid_individual_name")
 
-                @JvmField
-                val ENR_INVALID_INDIVIDUAL_NAME =
-                    ReturnReasonCode(JsonField.of("enr_invalid_individual_name"))
+                @JvmField val RETURNED_PER_ODFI_REQUEST = of("returned_per_odfi_request")
 
-                @JvmField
-                val RETURNED_PER_ODFI_REQUEST =
-                    ReturnReasonCode(JsonField.of("returned_per_odfi_request"))
-
-                @JvmField
-                val LIMITED_PARTICIPATION_DFI =
-                    ReturnReasonCode(JsonField.of("limited_participation_dfi"))
+                @JvmField val LIMITED_PARTICIPATION_DFI = of("limited_participation_dfi")
 
                 @JvmField
                 val INCORRECTLY_CODED_OUTBOUND_INTERNATIONAL_PAYMENT =
-                    ReturnReasonCode(
-                        JsonField.of("incorrectly_coded_outbound_international_payment")
-                    )
+                    of("incorrectly_coded_outbound_international_payment")
 
-                @JvmField
-                val ACCOUNT_SOLD_TO_ANOTHER_DFI =
-                    ReturnReasonCode(JsonField.of("account_sold_to_another_dfi"))
+                @JvmField val ACCOUNT_SOLD_TO_ANOTHER_DFI = of("account_sold_to_another_dfi")
 
-                @JvmField val ADDENDA_ERROR = ReturnReasonCode(JsonField.of("addenda_error"))
+                @JvmField val ADDENDA_ERROR = of("addenda_error")
 
                 @JvmField
                 val BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED =
-                    ReturnReasonCode(JsonField.of("beneficiary_or_account_holder_deceased"))
+                    of("beneficiary_or_account_holder_deceased")
 
                 @JvmField
                 val CUSTOMER_ADVISED_NOT_WITHIN_AUTHORIZATION_TERMS =
-                    ReturnReasonCode(
-                        JsonField.of("customer_advised_not_within_authorization_terms")
-                    )
+                    of("customer_advised_not_within_authorization_terms")
 
-                @JvmField val CORRECTED_RETURN = ReturnReasonCode(JsonField.of("corrected_return"))
+                @JvmField val CORRECTED_RETURN = of("corrected_return")
 
-                @JvmField val DUPLICATE_ENTRY = ReturnReasonCode(JsonField.of("duplicate_entry"))
+                @JvmField val DUPLICATE_ENTRY = of("duplicate_entry")
 
-                @JvmField val DUPLICATE_RETURN = ReturnReasonCode(JsonField.of("duplicate_return"))
+                @JvmField val DUPLICATE_RETURN = of("duplicate_return")
 
-                @JvmField
-                val ENR_DUPLICATE_ENROLLMENT =
-                    ReturnReasonCode(JsonField.of("enr_duplicate_enrollment"))
+                @JvmField val ENR_DUPLICATE_ENROLLMENT = of("enr_duplicate_enrollment")
+
+                @JvmField val ENR_INVALID_DFI_ACCOUNT_NUMBER = of("enr_invalid_dfi_account_number")
 
                 @JvmField
-                val ENR_INVALID_DFI_ACCOUNT_NUMBER =
-                    ReturnReasonCode(JsonField.of("enr_invalid_dfi_account_number"))
-
-                @JvmField
-                val ENR_INVALID_INDIVIDUAL_ID_NUMBER =
-                    ReturnReasonCode(JsonField.of("enr_invalid_individual_id_number"))
+                val ENR_INVALID_INDIVIDUAL_ID_NUMBER = of("enr_invalid_individual_id_number")
 
                 @JvmField
                 val ENR_INVALID_REPRESENTATIVE_PAYEE_INDICATOR =
-                    ReturnReasonCode(JsonField.of("enr_invalid_representative_payee_indicator"))
+                    of("enr_invalid_representative_payee_indicator")
 
-                @JvmField
-                val ENR_INVALID_TRANSACTION_CODE =
-                    ReturnReasonCode(JsonField.of("enr_invalid_transaction_code"))
+                @JvmField val ENR_INVALID_TRANSACTION_CODE = of("enr_invalid_transaction_code")
 
-                @JvmField
-                val ENR_RETURN_OF_ENR_ENTRY =
-                    ReturnReasonCode(JsonField.of("enr_return_of_enr_entry"))
+                @JvmField val ENR_RETURN_OF_ENR_ENTRY = of("enr_return_of_enr_entry")
 
                 @JvmField
                 val ENR_ROUTING_NUMBER_CHECK_DIGIT_ERROR =
-                    ReturnReasonCode(JsonField.of("enr_routing_number_check_digit_error"))
+                    of("enr_routing_number_check_digit_error")
 
-                @JvmField
-                val ENTRY_NOT_PROCESSED_BY_GATEWAY =
-                    ReturnReasonCode(JsonField.of("entry_not_processed_by_gateway"))
+                @JvmField val ENTRY_NOT_PROCESSED_BY_GATEWAY = of("entry_not_processed_by_gateway")
 
-                @JvmField val FIELD_ERROR = ReturnReasonCode(JsonField.of("field_error"))
+                @JvmField val FIELD_ERROR = of("field_error")
 
                 @JvmField
                 val FOREIGN_RECEIVING_DFI_UNABLE_TO_SETTLE =
-                    ReturnReasonCode(JsonField.of("foreign_receiving_dfi_unable_to_settle"))
+                    of("foreign_receiving_dfi_unable_to_settle")
 
-                @JvmField
-                val IAT_ENTRY_CODING_ERROR =
-                    ReturnReasonCode(JsonField.of("iat_entry_coding_error"))
+                @JvmField val IAT_ENTRY_CODING_ERROR = of("iat_entry_coding_error")
 
-                @JvmField
-                val IMPROPER_EFFECTIVE_ENTRY_DATE =
-                    ReturnReasonCode(JsonField.of("improper_effective_entry_date"))
+                @JvmField val IMPROPER_EFFECTIVE_ENTRY_DATE = of("improper_effective_entry_date")
 
                 @JvmField
                 val IMPROPER_SOURCE_DOCUMENT_SOURCE_DOCUMENT_PRESENTED =
-                    ReturnReasonCode(
-                        JsonField.of("improper_source_document_source_document_presented")
-                    )
+                    of("improper_source_document_source_document_presented")
 
-                @JvmField
-                val INVALID_COMPANY_ID = ReturnReasonCode(JsonField.of("invalid_company_id"))
+                @JvmField val INVALID_COMPANY_ID = of("invalid_company_id")
 
                 @JvmField
                 val INVALID_FOREIGN_RECEIVING_DFI_IDENTIFICATION =
-                    ReturnReasonCode(JsonField.of("invalid_foreign_receiving_dfi_identification"))
+                    of("invalid_foreign_receiving_dfi_identification")
 
-                @JvmField
-                val INVALID_INDIVIDUAL_ID_NUMBER =
-                    ReturnReasonCode(JsonField.of("invalid_individual_id_number"))
+                @JvmField val INVALID_INDIVIDUAL_ID_NUMBER = of("invalid_individual_id_number")
 
                 @JvmField
                 val ITEM_AND_RCK_ENTRY_PRESENTED_FOR_PAYMENT =
-                    ReturnReasonCode(JsonField.of("item_and_rck_entry_presented_for_payment"))
+                    of("item_and_rck_entry_presented_for_payment")
 
                 @JvmField
                 val ITEM_RELATED_TO_RCK_ENTRY_IS_INELIGIBLE =
-                    ReturnReasonCode(JsonField.of("item_related_to_rck_entry_is_ineligible"))
+                    of("item_related_to_rck_entry_is_ineligible")
 
-                @JvmField
-                val MANDATORY_FIELD_ERROR = ReturnReasonCode(JsonField.of("mandatory_field_error"))
+                @JvmField val MANDATORY_FIELD_ERROR = of("mandatory_field_error")
 
-                @JvmField
-                val MISROUTED_DISHONORED_RETURN =
-                    ReturnReasonCode(JsonField.of("misrouted_dishonored_return"))
+                @JvmField val MISROUTED_DISHONORED_RETURN = of("misrouted_dishonored_return")
 
-                @JvmField val MISROUTED_RETURN = ReturnReasonCode(JsonField.of("misrouted_return"))
+                @JvmField val MISROUTED_RETURN = of("misrouted_return")
 
-                @JvmField val NO_ERRORS_FOUND = ReturnReasonCode(JsonField.of("no_errors_found"))
+                @JvmField val NO_ERRORS_FOUND = of("no_errors_found")
 
                 @JvmField
                 val NON_ACCEPTANCE_OF_R62_DISHONORED_RETURN =
-                    ReturnReasonCode(JsonField.of("non_acceptance_of_r62_dishonored_return"))
+                    of("non_acceptance_of_r62_dishonored_return")
 
-                @JvmField
-                val NON_PARTICIPANT_IN_IAT_PROGRAM =
-                    ReturnReasonCode(JsonField.of("non_participant_in_iat_program"))
+                @JvmField val NON_PARTICIPANT_IN_IAT_PROGRAM = of("non_participant_in_iat_program")
 
-                @JvmField
-                val PERMISSIBLE_RETURN_ENTRY =
-                    ReturnReasonCode(JsonField.of("permissible_return_entry"))
+                @JvmField val PERMISSIBLE_RETURN_ENTRY = of("permissible_return_entry")
 
                 @JvmField
                 val PERMISSIBLE_RETURN_ENTRY_NOT_ACCEPTED =
-                    ReturnReasonCode(JsonField.of("permissible_return_entry_not_accepted"))
+                    of("permissible_return_entry_not_accepted")
 
-                @JvmField
-                val RDFI_NON_SETTLEMENT = ReturnReasonCode(JsonField.of("rdfi_non_settlement"))
+                @JvmField val RDFI_NON_SETTLEMENT = of("rdfi_non_settlement")
 
                 @JvmField
                 val RDFI_PARTICIPANT_IN_CHECK_TRUNCATION_PROGRAM =
-                    ReturnReasonCode(JsonField.of("rdfi_participant_in_check_truncation_program"))
+                    of("rdfi_participant_in_check_truncation_program")
 
                 @JvmField
                 val REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY =
-                    ReturnReasonCode(
-                        JsonField.of(
-                            "representative_payee_deceased_or_unable_to_continue_in_that_capacity"
-                        )
-                    )
+                    of("representative_payee_deceased_or_unable_to_continue_in_that_capacity")
 
-                @JvmField
-                val RETURN_NOT_A_DUPLICATE =
-                    ReturnReasonCode(JsonField.of("return_not_a_duplicate"))
+                @JvmField val RETURN_NOT_A_DUPLICATE = of("return_not_a_duplicate")
 
                 @JvmField
                 val RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT =
-                    ReturnReasonCode(JsonField.of("return_of_erroneous_or_reversing_debit"))
+                    of("return_of_erroneous_or_reversing_debit")
 
                 @JvmField
-                val RETURN_OF_IMPROPER_CREDIT_ENTRY =
-                    ReturnReasonCode(JsonField.of("return_of_improper_credit_entry"))
+                val RETURN_OF_IMPROPER_CREDIT_ENTRY = of("return_of_improper_credit_entry")
 
-                @JvmField
-                val RETURN_OF_IMPROPER_DEBIT_ENTRY =
-                    ReturnReasonCode(JsonField.of("return_of_improper_debit_entry"))
+                @JvmField val RETURN_OF_IMPROPER_DEBIT_ENTRY = of("return_of_improper_debit_entry")
 
-                @JvmField
-                val RETURN_OF_XCK_ENTRY = ReturnReasonCode(JsonField.of("return_of_xck_entry"))
+                @JvmField val RETURN_OF_XCK_ENTRY = of("return_of_xck_entry")
 
                 @JvmField
                 val SOURCE_DOCUMENT_PRESENTED_FOR_PAYMENT =
-                    ReturnReasonCode(JsonField.of("source_document_presented_for_payment"))
+                    of("source_document_presented_for_payment")
 
                 @JvmField
-                val STATE_LAW_AFFECTING_RCK_ACCEPTANCE =
-                    ReturnReasonCode(JsonField.of("state_law_affecting_rck_acceptance"))
+                val STATE_LAW_AFFECTING_RCK_ACCEPTANCE = of("state_law_affecting_rck_acceptance")
 
                 @JvmField
                 val STOP_PAYMENT_ON_ITEM_RELATED_TO_RCK_ENTRY =
-                    ReturnReasonCode(JsonField.of("stop_payment_on_item_related_to_rck_entry"))
+                    of("stop_payment_on_item_related_to_rck_entry")
 
                 @JvmField
-                val STOP_PAYMENT_ON_SOURCE_DOCUMENT =
-                    ReturnReasonCode(JsonField.of("stop_payment_on_source_document"))
+                val STOP_PAYMENT_ON_SOURCE_DOCUMENT = of("stop_payment_on_source_document")
 
-                @JvmField
-                val TIMELY_ORIGINAL_RETURN =
-                    ReturnReasonCode(JsonField.of("timely_original_return"))
+                @JvmField val TIMELY_ORIGINAL_RETURN = of("timely_original_return")
 
-                @JvmField
-                val TRACE_NUMBER_ERROR = ReturnReasonCode(JsonField.of("trace_number_error"))
+                @JvmField val TRACE_NUMBER_ERROR = of("trace_number_error")
 
-                @JvmField
-                val UNTIMELY_DISHONORED_RETURN =
-                    ReturnReasonCode(JsonField.of("untimely_dishonored_return"))
+                @JvmField val UNTIMELY_DISHONORED_RETURN = of("untimely_dishonored_return")
 
-                @JvmField val UNTIMELY_RETURN = ReturnReasonCode(JsonField.of("untimely_return"))
+                @JvmField val UNTIMELY_RETURN = of("untimely_return")
 
                 @JvmStatic fun of(value: String) = ReturnReasonCode(JsonField.of(value))
             }
@@ -1750,13 +1644,13 @@ private constructor(
 
         companion object {
 
-            @JvmField val PENDING_SUBMITTING = Status(JsonField.of("pending_submitting"))
+            @JvmField val PENDING_SUBMITTING = of("pending_submitting")
 
-            @JvmField val REQUIRES_ATTENTION = Status(JsonField.of("requires_attention"))
+            @JvmField val REQUIRES_ATTENTION = of("requires_attention")
 
-            @JvmField val RETURNED = Status(JsonField.of("returned"))
+            @JvmField val RETURNED = of("returned")
 
-            @JvmField val SUBMITTED = Status(JsonField.of("submitted"))
+            @JvmField val SUBMITTED = of("submitted")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
@@ -1819,7 +1713,7 @@ private constructor(
 
         companion object {
 
-            @JvmField val ACH_PRENOTIFICATION = Type(JsonField.of("ach_prenotification"))
+            @JvmField val ACH_PRENOTIFICATION = of("ach_prenotification")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }

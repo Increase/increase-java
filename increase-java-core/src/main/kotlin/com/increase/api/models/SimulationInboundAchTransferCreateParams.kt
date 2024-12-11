@@ -576,57 +576,37 @@ constructor(
 
         companion object {
 
-            @JvmField
-            val CORPORATE_CREDIT_OR_DEBIT =
-                StandardEntryClassCode(JsonField.of("corporate_credit_or_debit"))
+            @JvmField val CORPORATE_CREDIT_OR_DEBIT = of("corporate_credit_or_debit")
 
-            @JvmField
-            val CORPORATE_TRADE_EXCHANGE =
-                StandardEntryClassCode(JsonField.of("corporate_trade_exchange"))
+            @JvmField val CORPORATE_TRADE_EXCHANGE = of("corporate_trade_exchange")
 
-            @JvmField
-            val PREARRANGED_PAYMENTS_AND_DEPOSIT =
-                StandardEntryClassCode(JsonField.of("prearranged_payments_and_deposit"))
+            @JvmField val PREARRANGED_PAYMENTS_AND_DEPOSIT = of("prearranged_payments_and_deposit")
 
-            @JvmField
-            val INTERNET_INITIATED = StandardEntryClassCode(JsonField.of("internet_initiated"))
+            @JvmField val INTERNET_INITIATED = of("internet_initiated")
 
-            @JvmField val POINT_OF_SALE = StandardEntryClassCode(JsonField.of("point_of_sale"))
+            @JvmField val POINT_OF_SALE = of("point_of_sale")
 
-            @JvmField
-            val TELEPHONE_INITIATED = StandardEntryClassCode(JsonField.of("telephone_initiated"))
+            @JvmField val TELEPHONE_INITIATED = of("telephone_initiated")
 
-            @JvmField
-            val CUSTOMER_INITIATED = StandardEntryClassCode(JsonField.of("customer_initiated"))
+            @JvmField val CUSTOMER_INITIATED = of("customer_initiated")
 
-            @JvmField
-            val ACCOUNTS_RECEIVABLE = StandardEntryClassCode(JsonField.of("accounts_receivable"))
+            @JvmField val ACCOUNTS_RECEIVABLE = of("accounts_receivable")
 
-            @JvmField
-            val MACHINE_TRANSFER = StandardEntryClassCode(JsonField.of("machine_transfer"))
+            @JvmField val MACHINE_TRANSFER = of("machine_transfer")
 
-            @JvmField
-            val SHARED_NETWORK_TRANSACTION =
-                StandardEntryClassCode(JsonField.of("shared_network_transaction"))
+            @JvmField val SHARED_NETWORK_TRANSACTION = of("shared_network_transaction")
 
-            @JvmField
-            val REPRESENTED_CHECK = StandardEntryClassCode(JsonField.of("represented_check"))
+            @JvmField val REPRESENTED_CHECK = of("represented_check")
 
-            @JvmField
-            val BACK_OFFICE_CONVERSION =
-                StandardEntryClassCode(JsonField.of("back_office_conversion"))
+            @JvmField val BACK_OFFICE_CONVERSION = of("back_office_conversion")
 
-            @JvmField
-            val POINT_OF_PURCHASE = StandardEntryClassCode(JsonField.of("point_of_purchase"))
+            @JvmField val POINT_OF_PURCHASE = of("point_of_purchase")
 
-            @JvmField
-            val CHECK_TRUNCATION = StandardEntryClassCode(JsonField.of("check_truncation"))
+            @JvmField val CHECK_TRUNCATION = of("check_truncation")
 
-            @JvmField val DESTROYED_CHECK = StandardEntryClassCode(JsonField.of("destroyed_check"))
+            @JvmField val DESTROYED_CHECK = of("destroyed_check")
 
-            @JvmField
-            val INTERNATIONAL_ACH_TRANSACTION =
-                StandardEntryClassCode(JsonField.of("international_ach_transaction"))
+            @JvmField val INTERNATIONAL_ACH_TRANSACTION = of("international_ach_transaction")
 
             @JvmStatic fun of(value: String) = StandardEntryClassCode(JsonField.of(value))
         }

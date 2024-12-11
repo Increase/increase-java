@@ -234,9 +234,9 @@ private constructor(
 
         companion object {
 
-            @JvmField val SUPPORTED = AchTransfers(JsonField.of("supported"))
+            @JvmField val SUPPORTED = of("supported")
 
-            @JvmField val NOT_SUPPORTED = AchTransfers(JsonField.of("not_supported"))
+            @JvmField val NOT_SUPPORTED = of("not_supported")
 
             @JvmStatic fun of(value: String) = AchTransfers(JsonField.of(value))
         }
@@ -291,9 +291,9 @@ private constructor(
 
         companion object {
 
-            @JvmField val SUPPORTED = RealTimePaymentsTransfers(JsonField.of("supported"))
+            @JvmField val SUPPORTED = of("supported")
 
-            @JvmField val NOT_SUPPORTED = RealTimePaymentsTransfers(JsonField.of("not_supported"))
+            @JvmField val NOT_SUPPORTED = of("not_supported")
 
             @JvmStatic fun of(value: String) = RealTimePaymentsTransfers(JsonField.of(value))
         }
@@ -349,7 +349,7 @@ private constructor(
 
         companion object {
 
-            @JvmField val ROUTING_NUMBER = Type(JsonField.of("routing_number"))
+            @JvmField val ROUTING_NUMBER = of("routing_number")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }
@@ -400,9 +400,9 @@ private constructor(
 
         companion object {
 
-            @JvmField val SUPPORTED = WireTransfers(JsonField.of("supported"))
+            @JvmField val SUPPORTED = of("supported")
 
-            @JvmField val NOT_SUPPORTED = WireTransfers(JsonField.of("not_supported"))
+            @JvmField val NOT_SUPPORTED = of("not_supported")
 
             @JvmStatic fun of(value: String) = WireTransfers(JsonField.of(value))
         }

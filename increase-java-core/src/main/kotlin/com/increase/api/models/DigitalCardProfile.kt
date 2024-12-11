@@ -428,13 +428,13 @@ private constructor(
 
         companion object {
 
-            @JvmField val PENDING = Status(JsonField.of("pending"))
+            @JvmField val PENDING = of("pending")
 
-            @JvmField val REJECTED = Status(JsonField.of("rejected"))
+            @JvmField val REJECTED = of("rejected")
 
-            @JvmField val ACTIVE = Status(JsonField.of("active"))
+            @JvmField val ACTIVE = of("active")
 
-            @JvmField val ARCHIVED = Status(JsonField.of("archived"))
+            @JvmField val ARCHIVED = of("archived")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
@@ -628,7 +628,7 @@ private constructor(
 
         companion object {
 
-            @JvmField val DIGITAL_CARD_PROFILE = Type(JsonField.of("digital_card_profile"))
+            @JvmField val DIGITAL_CARD_PROFILE = of("digital_card_profile")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }

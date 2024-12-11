@@ -330,44 +330,34 @@ constructor(
 
         companion object {
 
-            @JvmField val INSUFFICIENT_FUNDS = Reason(JsonField.of("insufficient_funds"))
+            @JvmField val INSUFFICIENT_FUNDS = of("insufficient_funds")
+
+            @JvmField val RETURNED_PER_ODFI_REQUEST = of("returned_per_odfi_request")
 
             @JvmField
-            val RETURNED_PER_ODFI_REQUEST = Reason(JsonField.of("returned_per_odfi_request"))
+            val AUTHORIZATION_REVOKED_BY_CUSTOMER = of("authorization_revoked_by_customer")
 
-            @JvmField
-            val AUTHORIZATION_REVOKED_BY_CUSTOMER =
-                Reason(JsonField.of("authorization_revoked_by_customer"))
-
-            @JvmField val PAYMENT_STOPPED = Reason(JsonField.of("payment_stopped"))
+            @JvmField val PAYMENT_STOPPED = of("payment_stopped")
 
             @JvmField
             val CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE =
-                Reason(
-                    JsonField.of("customer_advised_unauthorized_improper_ineligible_or_incomplete")
-                )
+                of("customer_advised_unauthorized_improper_ineligible_or_incomplete")
 
             @JvmField
             val REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY =
-                Reason(
-                    JsonField.of(
-                        "representative_payee_deceased_or_unable_to_continue_in_that_capacity"
-                    )
-                )
+                of("representative_payee_deceased_or_unable_to_continue_in_that_capacity")
 
             @JvmField
             val BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED =
-                Reason(JsonField.of("beneficiary_or_account_holder_deceased"))
+                of("beneficiary_or_account_holder_deceased")
 
-            @JvmField
-            val CREDIT_ENTRY_REFUSED_BY_RECEIVER =
-                Reason(JsonField.of("credit_entry_refused_by_receiver"))
+            @JvmField val CREDIT_ENTRY_REFUSED_BY_RECEIVER = of("credit_entry_refused_by_receiver")
 
-            @JvmField val DUPLICATE_ENTRY = Reason(JsonField.of("duplicate_entry"))
+            @JvmField val DUPLICATE_ENTRY = of("duplicate_entry")
 
             @JvmField
             val CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED =
-                Reason(JsonField.of("corporate_customer_advised_not_authorized"))
+                of("corporate_customer_advised_not_authorized")
 
             @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
         }

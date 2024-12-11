@@ -952,11 +952,10 @@ constructor(
 
             companion object {
 
-                @JvmField val FREEFORM = Category(JsonField.of("freeform"))
+                @JvmField val FREEFORM = of("freeform")
 
                 @JvmField
-                val PAYMENT_ORDER_REMITTANCE_ADVICE =
-                    Category(JsonField.of("payment_order_remittance_advice"))
+                val PAYMENT_ORDER_REMITTANCE_ADVICE = of("payment_order_remittance_advice")
 
                 @JvmStatic fun of(value: String) = Category(JsonField.of(value))
             }
@@ -1383,11 +1382,11 @@ constructor(
 
         companion object {
 
-            @JvmField val BUSINESS = DestinationAccountHolder(JsonField.of("business"))
+            @JvmField val BUSINESS = of("business")
 
-            @JvmField val INDIVIDUAL = DestinationAccountHolder(JsonField.of("individual"))
+            @JvmField val INDIVIDUAL = of("individual")
 
-            @JvmField val UNKNOWN = DestinationAccountHolder(JsonField.of("unknown"))
+            @JvmField val UNKNOWN = of("unknown")
 
             @JvmStatic fun of(value: String) = DestinationAccountHolder(JsonField.of(value))
         }
@@ -1447,9 +1446,9 @@ constructor(
 
         companion object {
 
-            @JvmField val CHECKING = Funding(JsonField.of("checking"))
+            @JvmField val CHECKING = of("checking")
 
-            @JvmField val SAVINGS = Funding(JsonField.of("savings"))
+            @JvmField val SAVINGS = of("savings")
 
             @JvmStatic fun of(value: String) = Funding(JsonField.of(value))
         }
@@ -1586,9 +1585,9 @@ constructor(
 
             companion object {
 
-                @JvmField val SAME_DAY = SettlementSchedule(JsonField.of("same_day"))
+                @JvmField val SAME_DAY = of("same_day")
 
-                @JvmField val FUTURE_DATED = SettlementSchedule(JsonField.of("future_dated"))
+                @JvmField val FUTURE_DATED = of("future_dated")
 
                 @JvmStatic fun of(value: String) = SettlementSchedule(JsonField.of(value))
             }
@@ -1661,20 +1660,13 @@ constructor(
 
         companion object {
 
-            @JvmField
-            val CORPORATE_CREDIT_OR_DEBIT =
-                StandardEntryClassCode(JsonField.of("corporate_credit_or_debit"))
+            @JvmField val CORPORATE_CREDIT_OR_DEBIT = of("corporate_credit_or_debit")
 
-            @JvmField
-            val CORPORATE_TRADE_EXCHANGE =
-                StandardEntryClassCode(JsonField.of("corporate_trade_exchange"))
+            @JvmField val CORPORATE_TRADE_EXCHANGE = of("corporate_trade_exchange")
 
-            @JvmField
-            val PREARRANGED_PAYMENTS_AND_DEPOSIT =
-                StandardEntryClassCode(JsonField.of("prearranged_payments_and_deposit"))
+            @JvmField val PREARRANGED_PAYMENTS_AND_DEPOSIT = of("prearranged_payments_and_deposit")
 
-            @JvmField
-            val INTERNET_INITIATED = StandardEntryClassCode(JsonField.of("internet_initiated"))
+            @JvmField val INTERNET_INITIATED = of("internet_initiated")
 
             @JvmStatic fun of(value: String) = StandardEntryClassCode(JsonField.of(value))
         }
@@ -1737,9 +1729,9 @@ constructor(
 
         companion object {
 
-            @JvmField val SYNCHRONOUS = TransactionTiming(JsonField.of("synchronous"))
+            @JvmField val SYNCHRONOUS = of("synchronous")
 
-            @JvmField val ASYNCHRONOUS = TransactionTiming(JsonField.of("asynchronous"))
+            @JvmField val ASYNCHRONOUS = of("asynchronous")
 
             @JvmStatic fun of(value: String) = TransactionTiming(JsonField.of(value))
         }

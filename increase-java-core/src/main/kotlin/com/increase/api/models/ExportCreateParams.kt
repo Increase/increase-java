@@ -465,19 +465,17 @@ constructor(
 
         companion object {
 
-            @JvmField val ACCOUNT_STATEMENT_OFX = Category(JsonField.of("account_statement_ofx"))
+            @JvmField val ACCOUNT_STATEMENT_OFX = of("account_statement_ofx")
 
-            @JvmField val TRANSACTION_CSV = Category(JsonField.of("transaction_csv"))
+            @JvmField val TRANSACTION_CSV = of("transaction_csv")
 
-            @JvmField val BALANCE_CSV = Category(JsonField.of("balance_csv"))
+            @JvmField val BALANCE_CSV = of("balance_csv")
 
-            @JvmField
-            val BOOKKEEPING_ACCOUNT_BALANCE_CSV =
-                Category(JsonField.of("bookkeeping_account_balance_csv"))
+            @JvmField val BOOKKEEPING_ACCOUNT_BALANCE_CSV = of("bookkeeping_account_balance_csv")
 
-            @JvmField val ENTITY_CSV = Category(JsonField.of("entity_csv"))
+            @JvmField val ENTITY_CSV = of("entity_csv")
 
-            @JvmField val VENDOR_CSV = Category(JsonField.of("vendor_csv"))
+            @JvmField val VENDOR_CSV = of("vendor_csv")
 
             @JvmStatic fun of(value: String) = Category(JsonField.of(value))
         }
@@ -1355,11 +1353,11 @@ constructor(
 
                 companion object {
 
-                    @JvmField val ACTIVE = In(JsonField.of("active"))
+                    @JvmField val ACTIVE = of("active")
 
-                    @JvmField val ARCHIVED = In(JsonField.of("archived"))
+                    @JvmField val ARCHIVED = of("archived")
 
-                    @JvmField val DISABLED = In(JsonField.of("disabled"))
+                    @JvmField val DISABLED = of("disabled")
 
                     @JvmStatic fun of(value: String) = In(JsonField.of(value))
                 }

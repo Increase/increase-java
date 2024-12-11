@@ -351,93 +351,66 @@ constructor(
 
         companion object {
 
-            @JvmField
-            val INCORRECT_ACCOUNT_NUMBER = ChangeCode(JsonField.of("incorrect_account_number"))
+            @JvmField val INCORRECT_ACCOUNT_NUMBER = of("incorrect_account_number")
 
-            @JvmField
-            val INCORRECT_ROUTING_NUMBER = ChangeCode(JsonField.of("incorrect_routing_number"))
+            @JvmField val INCORRECT_ROUTING_NUMBER = of("incorrect_routing_number")
 
             @JvmField
             val INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER =
-                ChangeCode(JsonField.of("incorrect_routing_number_and_account_number"))
+                of("incorrect_routing_number_and_account_number")
 
-            @JvmField
-            val INCORRECT_TRANSACTION_CODE = ChangeCode(JsonField.of("incorrect_transaction_code"))
+            @JvmField val INCORRECT_TRANSACTION_CODE = of("incorrect_transaction_code")
 
             @JvmField
             val INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE =
-                ChangeCode(JsonField.of("incorrect_account_number_and_transaction_code"))
+                of("incorrect_account_number_and_transaction_code")
 
             @JvmField
             val INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE =
-                ChangeCode(
-                    JsonField.of("incorrect_routing_number_account_number_and_transaction_code")
-                )
+                of("incorrect_routing_number_account_number_and_transaction_code")
 
             @JvmField
             val INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION =
-                ChangeCode(
-                    JsonField.of(
-                        "incorrect_receiving_depository_financial_institution_identification"
-                    )
-                )
+                of("incorrect_receiving_depository_financial_institution_identification")
 
             @JvmField
             val INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER =
-                ChangeCode(JsonField.of("incorrect_individual_identification_number"))
+                of("incorrect_individual_identification_number")
 
-            @JvmField val ADDENDA_FORMAT_ERROR = ChangeCode(JsonField.of("addenda_format_error"))
+            @JvmField val ADDENDA_FORMAT_ERROR = of("addenda_format_error")
 
             @JvmField
             val INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT =
-                ChangeCode(
-                    JsonField.of(
-                        "incorrect_standard_entry_class_code_for_outbound_international_payment"
-                    )
-                )
+                of("incorrect_standard_entry_class_code_for_outbound_international_payment")
 
-            @JvmField
-            val MISROUTED_NOTIFICATION_OF_CHANGE =
-                ChangeCode(JsonField.of("misrouted_notification_of_change"))
+            @JvmField val MISROUTED_NOTIFICATION_OF_CHANGE = of("misrouted_notification_of_change")
 
-            @JvmField
-            val INCORRECT_TRACE_NUMBER = ChangeCode(JsonField.of("incorrect_trace_number"))
+            @JvmField val INCORRECT_TRACE_NUMBER = of("incorrect_trace_number")
 
             @JvmField
             val INCORRECT_COMPANY_IDENTIFICATION_NUMBER =
-                ChangeCode(JsonField.of("incorrect_company_identification_number"))
+                of("incorrect_company_identification_number")
+
+            @JvmField val INCORRECT_IDENTIFICATION_NUMBER = of("incorrect_identification_number")
 
             @JvmField
-            val INCORRECT_IDENTIFICATION_NUMBER =
-                ChangeCode(JsonField.of("incorrect_identification_number"))
+            val INCORRECTLY_FORMATTED_CORRECTED_DATA = of("incorrectly_formatted_corrected_data")
 
-            @JvmField
-            val INCORRECTLY_FORMATTED_CORRECTED_DATA =
-                ChangeCode(JsonField.of("incorrectly_formatted_corrected_data"))
-
-            @JvmField
-            val INCORRECT_DISCRETIONARY_DATA =
-                ChangeCode(JsonField.of("incorrect_discretionary_data"))
+            @JvmField val INCORRECT_DISCRETIONARY_DATA = of("incorrect_discretionary_data")
 
             @JvmField
             val ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD =
-                ChangeCode(JsonField.of("routing_number_not_from_original_entry_detail_record"))
+                of("routing_number_not_from_original_entry_detail_record")
 
             @JvmField
             val DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD =
-                ChangeCode(
-                    JsonField.of(
-                        "depository_financial_institution_account_number_not_from_original_entry_detail_record"
-                    )
+                of(
+                    "depository_financial_institution_account_number_not_from_original_entry_detail_record"
                 )
 
             @JvmField
             val INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION =
-                ChangeCode(
-                    JsonField.of(
-                        "incorrect_transaction_code_by_originating_depository_financial_institution"
-                    )
-                )
+                of("incorrect_transaction_code_by_originating_depository_financial_institution")
 
             @JvmStatic fun of(value: String) = ChangeCode(JsonField.of(value))
         }

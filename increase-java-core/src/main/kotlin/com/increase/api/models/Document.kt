@@ -234,11 +234,11 @@ private constructor(
 
         companion object {
 
-            @JvmField val FORM_1099_INT = Category(JsonField.of("form_1099_int"))
+            @JvmField val FORM_1099_INT = of("form_1099_int")
 
-            @JvmField val PROOF_OF_AUTHORIZATION = Category(JsonField.of("proof_of_authorization"))
+            @JvmField val PROOF_OF_AUTHORIZATION = of("proof_of_authorization")
 
-            @JvmField val COMPANY_INFORMATION = Category(JsonField.of("company_information"))
+            @JvmField val COMPANY_INFORMATION = of("company_information")
 
             @JvmStatic fun of(value: String) = Category(JsonField.of(value))
         }
@@ -297,7 +297,7 @@ private constructor(
 
         companion object {
 
-            @JvmField val DOCUMENT = Type(JsonField.of("document"))
+            @JvmField val DOCUMENT = of("document")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }

@@ -304,15 +304,15 @@ constructor(
 
             companion object {
 
-                @JvmField val PENDING_ENROLLING = In(JsonField.of("pending_enrolling"))
+                @JvmField val PENDING_ENROLLING = of("pending_enrolling")
 
-                @JvmField val ENROLLED = In(JsonField.of("enrolled"))
+                @JvmField val ENROLLED = of("enrolled")
 
-                @JvmField val PENDING_UNENROLLING = In(JsonField.of("pending_unenrolling"))
+                @JvmField val PENDING_UNENROLLING = of("pending_unenrolling")
 
-                @JvmField val UNENROLLED = In(JsonField.of("unenrolled"))
+                @JvmField val UNENROLLED = of("unenrolled")
 
-                @JvmField val REQUIRES_ATTENTION = In(JsonField.of("requires_attention"))
+                @JvmField val REQUIRES_ATTENTION = of("requires_attention")
 
                 @JvmStatic fun of(value: String) = In(JsonField.of(value))
             }

@@ -291,17 +291,17 @@ constructor(
 
             companion object {
 
-                @JvmField val PENDING_CREATING = In(JsonField.of("pending_creating"))
+                @JvmField val PENDING_CREATING = of("pending_creating")
 
-                @JvmField val PENDING_REVIEWING = In(JsonField.of("pending_reviewing"))
+                @JvmField val PENDING_REVIEWING = of("pending_reviewing")
 
-                @JvmField val REJECTED = In(JsonField.of("rejected"))
+                @JvmField val REJECTED = of("rejected")
 
-                @JvmField val PENDING_SUBMITTING = In(JsonField.of("pending_submitting"))
+                @JvmField val PENDING_SUBMITTING = of("pending_submitting")
 
-                @JvmField val ACTIVE = In(JsonField.of("active"))
+                @JvmField val ACTIVE = of("active")
 
-                @JvmField val ARCHIVED = In(JsonField.of("archived"))
+                @JvmField val ARCHIVED = of("archived")
 
                 @JvmStatic fun of(value: String) = In(JsonField.of(value))
             }

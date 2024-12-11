@@ -446,18 +446,17 @@ constructor(
 
             companion object {
 
-                @JvmField val PENDING_REVIEWING = In(JsonField.of("pending_reviewing"))
+                @JvmField val PENDING_REVIEWING = of("pending_reviewing")
 
-                @JvmField
-                val PENDING_USER_INFORMATION = In(JsonField.of("pending_user_information"))
+                @JvmField val PENDING_USER_INFORMATION = of("pending_user_information")
 
-                @JvmField val ACCEPTED = In(JsonField.of("accepted"))
+                @JvmField val ACCEPTED = of("accepted")
 
-                @JvmField val REJECTED = In(JsonField.of("rejected"))
+                @JvmField val REJECTED = of("rejected")
 
-                @JvmField val LOST = In(JsonField.of("lost"))
+                @JvmField val LOST = of("lost")
 
-                @JvmField val WON = In(JsonField.of("won"))
+                @JvmField val WON = of("won")
 
                 @JvmStatic fun of(value: String) = In(JsonField.of(value))
             }

@@ -302,9 +302,9 @@ constructor(
 
             companion object {
 
-                @JvmField val ACTIVE = In(JsonField.of("active"))
+                @JvmField val ACTIVE = of("active")
 
-                @JvmField val ARCHIVED = In(JsonField.of("archived"))
+                @JvmField val ARCHIVED = of("archived")
 
                 @JvmStatic fun of(value: String) = In(JsonField.of(value))
             }

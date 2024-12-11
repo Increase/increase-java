@@ -212,7 +212,7 @@ private constructor(
 
         companion object {
 
-            @JvmField val BALANCE_LOOKUP = Type(JsonField.of("balance_lookup"))
+            @JvmField val BALANCE_LOOKUP = of("balance_lookup")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }

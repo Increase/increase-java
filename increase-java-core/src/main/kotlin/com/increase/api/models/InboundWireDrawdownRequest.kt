@@ -744,8 +744,7 @@ private constructor(
 
         companion object {
 
-            @JvmField
-            val INBOUND_WIRE_DRAWDOWN_REQUEST = Type(JsonField.of("inbound_wire_drawdown_request"))
+            @JvmField val INBOUND_WIRE_DRAWDOWN_REQUEST = of("inbound_wire_drawdown_request")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }
