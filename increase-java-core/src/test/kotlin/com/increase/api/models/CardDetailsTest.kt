@@ -11,19 +11,19 @@ class CardDetailsTest {
     fun createCardDetails() {
         val cardDetails =
             CardDetails.builder()
-                .cardId("card_id")
-                .expirationMonth(0L)
-                .expirationYear(0L)
-                .primaryAccountNumber("primary_account_number")
+                .cardId("card_oubs0hwk5rn6knuecxg2")
+                .expirationMonth(7L)
+                .expirationYear(2025L)
+                .primaryAccountNumber("4242424242424242")
                 .type(CardDetails.Type.CARD_DETAILS)
-                .verificationCode("verification_code")
+                .verificationCode("123")
                 .build()
         assertThat(cardDetails).isNotNull
-        assertThat(cardDetails.cardId()).isEqualTo("card_id")
-        assertThat(cardDetails.expirationMonth()).isEqualTo(0L)
-        assertThat(cardDetails.expirationYear()).isEqualTo(0L)
-        assertThat(cardDetails.primaryAccountNumber()).isEqualTo("primary_account_number")
+        assertThat(cardDetails.cardId()).isEqualTo("card_oubs0hwk5rn6knuecxg2")
+        assertThat(cardDetails.expirationMonth()).isEqualTo(7L)
+        assertThat(cardDetails.expirationYear()).isEqualTo(2025L)
+        assertThat(cardDetails.primaryAccountNumber()).isEqualTo("4242424242424242")
         assertThat(cardDetails.type()).isEqualTo(CardDetails.Type.CARD_DETAILS)
-        assertThat(cardDetails.verificationCode()).isEqualTo("verification_code")
+        assertThat(cardDetails.verificationCode()).isEqualTo("123")
     }
 }

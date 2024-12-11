@@ -12,19 +12,19 @@ class EventTest {
     fun createEvent() {
         val event =
             Event.builder()
-                .id("id")
-                .associatedObjectId("associated_object_id")
-                .associatedObjectType("associated_object_type")
+                .id("event_001dzz0r20rzr4zrhrr1364hy80")
+                .associatedObjectId("account_in71c4amph0vgo2qllky")
+                .associatedObjectType("account")
                 .category(Event.Category.ACCOUNT_CREATED)
-                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .type(Event.Type.EVENT)
                 .build()
         assertThat(event).isNotNull
-        assertThat(event.id()).isEqualTo("id")
-        assertThat(event.associatedObjectId()).isEqualTo("associated_object_id")
-        assertThat(event.associatedObjectType()).isEqualTo("associated_object_type")
+        assertThat(event.id()).isEqualTo("event_001dzz0r20rzr4zrhrr1364hy80")
+        assertThat(event.associatedObjectId()).isEqualTo("account_in71c4amph0vgo2qllky")
+        assertThat(event.associatedObjectType()).isEqualTo("account")
         assertThat(event.category()).isEqualTo(Event.Category.ACCOUNT_CREATED)
-        assertThat(event.createdAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(event.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(event.type()).isEqualTo(Event.Type.EVENT)
     }
 }
