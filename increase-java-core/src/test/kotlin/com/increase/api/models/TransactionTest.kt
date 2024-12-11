@@ -2,7 +2,7 @@
 
 package com.increase.api.models
 
-import com.increase.api.core.JsonNull
+import com.increase.api.core.JsonValue
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -14,99 +14,99 @@ class TransactionTest {
     fun createTransaction() {
         val transaction =
             Transaction.builder()
-                .id("id")
-                .accountId("account_id")
-                .amount(0L)
-                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .id("transaction_uyrp7fld2ium70oa7oi")
+                .accountId("account_in71c4amph0vgo2qllky")
+                .amount(100L)
+                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .currency(Transaction.Currency.CAD)
-                .description("description")
-                .routeId("route_id")
+                .description("INVOICE 2468")
+                .routeId("account_number_v18nkfqm6afpsrvy82b2")
                 .routeType(Transaction.RouteType.ACCOUNT_NUMBER)
                 .source(
                     Transaction.Source.builder()
                         .accountTransferIntention(
                             Transaction.Source.AccountTransferIntention.builder()
-                                .amount(0L)
+                                .amount(100L)
                                 .currency(Transaction.Source.AccountTransferIntention.Currency.CAD)
-                                .description("description")
-                                .destinationAccountId("destination_account_id")
-                                .sourceAccountId("source_account_id")
-                                .transferId("transfer_id")
+                                .description("INVOICE 2468")
+                                .destinationAccountId("account_uf16sut2ct5bevmq3eh")
+                                .sourceAccountId("account_in71c4amph0vgo2qllky")
+                                .transferId("account_transfer_7k9qe1ysdgqztnt63l7n")
                                 .build()
                         )
                         .achTransferIntention(
                             Transaction.Source.AchTransferIntention.builder()
-                                .accountNumber("account_number")
-                                .amount(0L)
-                                .routingNumber("routing_number")
-                                .statementDescriptor("statement_descriptor")
-                                .transferId("transfer_id")
+                                .accountNumber("987654321")
+                                .amount(100L)
+                                .routingNumber("101050001")
+                                .statementDescriptor("INVOICE 2468")
+                                .transferId("account_transfer_7k9qe1ysdgqztnt63l7n")
                                 .build()
                         )
                         .achTransferRejection(
                             Transaction.Source.AchTransferRejection.builder()
-                                .transferId("transfer_id")
+                                .transferId("account_transfer_7k9qe1ysdgqztnt63l7n")
                                 .build()
                         )
                         .achTransferReturn(
                             Transaction.Source.AchTransferReturn.builder()
-                                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .rawReturnReasonCode("raw_return_reason_code")
+                                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .rawReturnReasonCode("R01")
                                 .returnReasonCode(
                                     Transaction.Source.AchTransferReturn.ReturnReasonCode
                                         .INSUFFICIENT_FUND
                                 )
-                                .traceNumber("trace_number")
-                                .transactionId("transaction_id")
-                                .transferId("transfer_id")
+                                .traceNumber("111122223292834")
+                                .transactionId("transaction_uyrp7fld2ium70oa7oi")
+                                .transferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
                                 .build()
                         )
                         .cardDisputeAcceptance(
                             Transaction.Source.CardDisputeAcceptance.builder()
-                                .acceptedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .cardDisputeId("card_dispute_id")
-                                .transactionId("transaction_id")
+                                .acceptedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
+                                .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                 .build()
                         )
                         .cardDisputeLoss(
                             Transaction.Source.CardDisputeLoss.builder()
-                                .cardDisputeId("card_dispute_id")
-                                .explanation("explanation")
-                                .lostAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .transactionId("transaction_id")
+                                .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
+                                .explanation("The card dispute was lost.")
+                                .lostAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                 .build()
                         )
                         .cardRefund(
                             Transaction.Source.CardRefund.builder()
-                                .id("id")
-                                .amount(0L)
-                                .cardPaymentId("card_payment_id")
+                                .id("card_refund_imgc2xwplh6t4r3gn16e")
+                                .amount(100L)
+                                .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                 .currency(Transaction.Source.CardRefund.Currency.CAD)
                                 .interchange(
                                     Transaction.Source.CardRefund.Interchange.builder()
-                                        .amount("amount")
-                                        .code("code")
+                                        .amount("0.137465")
+                                        .code("271")
                                         .currency(
                                             Transaction.Source.CardRefund.Interchange.Currency.CAD
                                         )
                                         .build()
                                 )
-                                .merchantAcceptorId("merchant_acceptor_id")
-                                .merchantCategoryCode("merchant_category_code")
-                                .merchantCity("merchant_city")
-                                .merchantCountry("merchant_country")
-                                .merchantName("merchant_name")
-                                .merchantPostalCode("merchant_postal_code")
-                                .merchantState("merchant_state")
+                                .merchantAcceptorId("5665270011000168")
+                                .merchantCategoryCode("5734")
+                                .merchantCity("New York")
+                                .merchantCountry("US")
+                                .merchantName("AMAZON.COM")
+                                .merchantPostalCode("10045")
+                                .merchantState("NY")
                                 .networkIdentifiers(
                                     Transaction.Source.CardRefund.NetworkIdentifiers.builder()
-                                        .acquirerBusinessId("acquirer_business_id")
-                                        .acquirerReferenceNumber("acquirer_reference_number")
-                                        .transactionId("transaction_id")
+                                        .acquirerBusinessId("69650702")
+                                        .acquirerReferenceNumber("83163715445437604865089")
+                                        .transactionId("627199945183184")
                                         .build()
                                 )
-                                .presentmentAmount(0L)
-                                .presentmentCurrency("presentment_currency")
+                                .presentmentAmount(100L)
+                                .presentmentCurrency("USD")
                                 .purchaseDetails(
                                     Transaction.Source.CardRefund.PurchaseDetails.builder()
                                         .carRental(
@@ -148,17 +148,14 @@ class TransactionTest {
                                                 )
                                                 .build()
                                         )
-                                        .customerReferenceIdentifier(
-                                            "customer_reference_identifier"
-                                        )
-                                        .localTaxAmount(0L)
-                                        .localTaxCurrency("local_tax_currency")
+                                        .customerReferenceIdentifier("51201")
+                                        .localTaxCurrency("usd")
                                         .lodging(
                                             Transaction.Source.CardRefund.PurchaseDetails.Lodging
                                                 .builder()
-                                                .checkInDate(LocalDate.parse("2019-12-27"))
-                                                .dailyRoomRateAmount(0L)
-                                                .dailyRoomRateCurrency("daily_room_rate_currency")
+                                                .checkInDate(LocalDate.parse("2023-07-20"))
+                                                .dailyRoomRateAmount(1000L)
+                                                .dailyRoomRateCurrency("usd")
                                                 .extraCharges(
                                                     Transaction.Source.CardRefund.PurchaseDetails
                                                         .Lodging
@@ -166,13 +163,9 @@ class TransactionTest {
                                                         .NO_EXTRA_CHARGE
                                                 )
                                                 .folioCashAdvancesAmount(0L)
-                                                .folioCashAdvancesCurrency(
-                                                    "folio_cash_advances_currency"
-                                                )
+                                                .folioCashAdvancesCurrency("usd")
                                                 .foodBeverageChargesAmount(0L)
-                                                .foodBeverageChargesCurrency(
-                                                    "food_beverage_charges_currency"
-                                                )
+                                                .foodBeverageChargesCurrency("usd")
                                                 .noShowIndicator(
                                                     Transaction.Source.CardRefund.PurchaseDetails
                                                         .Lodging
@@ -180,19 +173,16 @@ class TransactionTest {
                                                         .NOT_APPLICABLE
                                                 )
                                                 .prepaidExpensesAmount(0L)
-                                                .prepaidExpensesCurrency(
-                                                    "prepaid_expenses_currency"
-                                                )
-                                                .roomNights(0L)
-                                                .totalRoomTaxAmount(0L)
-                                                .totalRoomTaxCurrency("total_room_tax_currency")
-                                                .totalTaxAmount(0L)
-                                                .totalTaxCurrency("total_tax_currency")
+                                                .prepaidExpensesCurrency("usd")
+                                                .roomNights(1L)
+                                                .totalRoomTaxAmount(100L)
+                                                .totalRoomTaxCurrency("usd")
+                                                .totalTaxAmount(100L)
+                                                .totalTaxCurrency("usd")
                                                 .build()
                                         )
-                                        .nationalTaxAmount(0L)
-                                        .nationalTaxCurrency("national_tax_currency")
-                                        .purchaseIdentifier("purchase_identifier")
+                                        .nationalTaxCurrency("usd")
+                                        .purchaseIdentifier("10203")
                                         .purchaseIdentifierFormat(
                                             Transaction.Source.CardRefund.PurchaseDetails
                                                 .PurchaseIdentifierFormat
@@ -305,53 +295,51 @@ class TransactionTest {
                                         )
                                         .build()
                                 )
-                                .transactionId("transaction_id")
+                                .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                 .type(Transaction.Source.CardRefund.Type.CARD_REFUND)
                                 .build()
                         )
                         .cardRevenuePayment(
                             Transaction.Source.CardRevenuePayment.builder()
-                                .amount(0L)
+                                .amount(100L)
                                 .currency(Transaction.Source.CardRevenuePayment.Currency.CAD)
-                                .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .transactedOnAccountId("transacted_on_account_id")
+                                .periodEnd(OffsetDateTime.parse("2024-12-31T23:59:59Z"))
+                                .periodStart(OffsetDateTime.parse("2024-12-01T00:00:00Z"))
+                                .transactedOnAccountId("account_in71c4amph0vgo2qllky")
                                 .build()
                         )
                         .cardSettlement(
                             Transaction.Source.CardSettlement.builder()
-                                .id("id")
-                                .amount(0L)
-                                .cardAuthorization("card_authorization")
-                                .cardPaymentId("card_payment_id")
+                                .id("card_settlement_khv5kfeu0vndj291omg6")
+                                .amount(100L)
+                                .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                 .currency(Transaction.Source.CardSettlement.Currency.CAD)
                                 .interchange(
                                     Transaction.Source.CardSettlement.Interchange.builder()
-                                        .amount("amount")
-                                        .code("code")
+                                        .amount("0.137465")
+                                        .code("271")
                                         .currency(
                                             Transaction.Source.CardSettlement.Interchange.Currency
                                                 .CAD
                                         )
                                         .build()
                                 )
-                                .merchantAcceptorId("merchant_acceptor_id")
-                                .merchantCategoryCode("merchant_category_code")
-                                .merchantCity("merchant_city")
-                                .merchantCountry("merchant_country")
-                                .merchantName("merchant_name")
-                                .merchantPostalCode("merchant_postal_code")
-                                .merchantState("merchant_state")
+                                .merchantAcceptorId("5665270011000168")
+                                .merchantCategoryCode("5734")
+                                .merchantCity("New York")
+                                .merchantCountry("US")
+                                .merchantName("AMAZON.COM")
+                                .merchantPostalCode("10045")
+                                .merchantState("NY")
                                 .networkIdentifiers(
                                     Transaction.Source.CardSettlement.NetworkIdentifiers.builder()
-                                        .acquirerBusinessId("acquirer_business_id")
-                                        .acquirerReferenceNumber("acquirer_reference_number")
-                                        .transactionId("transaction_id")
+                                        .acquirerBusinessId("69650702")
+                                        .acquirerReferenceNumber("83163715445437604865089")
+                                        .transactionId("627199945183184")
                                         .build()
                                 )
-                                .pendingTransactionId("pending_transaction_id")
-                                .presentmentAmount(0L)
-                                .presentmentCurrency("presentment_currency")
+                                .presentmentAmount(100L)
+                                .presentmentCurrency("USD")
                                 .purchaseDetails(
                                     Transaction.Source.CardSettlement.PurchaseDetails.builder()
                                         .carRental(
@@ -396,18 +384,15 @@ class TransactionTest {
                                                 )
                                                 .build()
                                         )
-                                        .customerReferenceIdentifier(
-                                            "customer_reference_identifier"
-                                        )
-                                        .localTaxAmount(0L)
-                                        .localTaxCurrency("local_tax_currency")
+                                        .customerReferenceIdentifier("51201")
+                                        .localTaxCurrency("usd")
                                         .lodging(
                                             Transaction.Source.CardSettlement.PurchaseDetails
                                                 .Lodging
                                                 .builder()
-                                                .checkInDate(LocalDate.parse("2019-12-27"))
-                                                .dailyRoomRateAmount(0L)
-                                                .dailyRoomRateCurrency("daily_room_rate_currency")
+                                                .checkInDate(LocalDate.parse("2023-07-20"))
+                                                .dailyRoomRateAmount(1000L)
+                                                .dailyRoomRateCurrency("usd")
                                                 .extraCharges(
                                                     Transaction.Source.CardSettlement
                                                         .PurchaseDetails
@@ -416,13 +401,9 @@ class TransactionTest {
                                                         .NO_EXTRA_CHARGE
                                                 )
                                                 .folioCashAdvancesAmount(0L)
-                                                .folioCashAdvancesCurrency(
-                                                    "folio_cash_advances_currency"
-                                                )
+                                                .folioCashAdvancesCurrency("usd")
                                                 .foodBeverageChargesAmount(0L)
-                                                .foodBeverageChargesCurrency(
-                                                    "food_beverage_charges_currency"
-                                                )
+                                                .foodBeverageChargesCurrency("usd")
                                                 .noShowIndicator(
                                                     Transaction.Source.CardSettlement
                                                         .PurchaseDetails
@@ -431,19 +412,16 @@ class TransactionTest {
                                                         .NOT_APPLICABLE
                                                 )
                                                 .prepaidExpensesAmount(0L)
-                                                .prepaidExpensesCurrency(
-                                                    "prepaid_expenses_currency"
-                                                )
-                                                .roomNights(0L)
-                                                .totalRoomTaxAmount(0L)
-                                                .totalRoomTaxCurrency("total_room_tax_currency")
-                                                .totalTaxAmount(0L)
-                                                .totalTaxCurrency("total_tax_currency")
+                                                .prepaidExpensesCurrency("usd")
+                                                .roomNights(1L)
+                                                .totalRoomTaxAmount(100L)
+                                                .totalRoomTaxCurrency("usd")
+                                                .totalTaxAmount(100L)
+                                                .totalTaxCurrency("usd")
                                                 .build()
                                         )
-                                        .nationalTaxAmount(0L)
-                                        .nationalTaxCurrency("national_tax_currency")
-                                        .purchaseIdentifier("purchase_identifier")
+                                        .nationalTaxCurrency("usd")
+                                        .purchaseIdentifier("10203")
                                         .purchaseIdentifierFormat(
                                             Transaction.Source.CardSettlement.PurchaseDetails
                                                 .PurchaseIdentifierFormat
@@ -560,55 +538,51 @@ class TransactionTest {
                                         )
                                         .build()
                                 )
-                                .transactionId("transaction_id")
+                                .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                 .type(Transaction.Source.CardSettlement.Type.CARD_SETTLEMENT)
                                 .build()
                         )
                         .cashbackPayment(
                             Transaction.Source.CashbackPayment.builder()
-                                .accruedOnCardId("accrued_on_card_id")
-                                .amount(0L)
+                                .accruedOnCardId("card_oubs0hwk5rn6knuecxg2")
+                                .amount(100L)
                                 .currency(Transaction.Source.CashbackPayment.Currency.CAD)
-                                .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .periodEnd(OffsetDateTime.parse("2024-12-31T23:59:59Z"))
+                                .periodStart(OffsetDateTime.parse("2024-12-01T00:00:00Z"))
                                 .build()
                         )
                         .category(Transaction.Source.Category.ACCOUNT_TRANSFER_INTENTION)
                         .checkDepositAcceptance(
                             Transaction.Source.CheckDepositAcceptance.builder()
-                                .accountNumber("account_number")
-                                .amount(0L)
-                                .auxiliaryOnUs("auxiliary_on_us")
-                                .checkDepositId("check_deposit_id")
+                                .accountNumber("987654321")
+                                .amount(100L)
+                                .auxiliaryOnUs("101")
+                                .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                                 .currency(Transaction.Source.CheckDepositAcceptance.Currency.CAD)
-                                .routingNumber("routing_number")
-                                .serialNumber("serial_number")
+                                .routingNumber("101050001")
                                 .build()
                         )
                         .checkDepositReturn(
                             Transaction.Source.CheckDepositReturn.builder()
-                                .amount(0L)
-                                .checkDepositId("check_deposit_id")
+                                .amount(100L)
+                                .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                                 .currency(Transaction.Source.CheckDepositReturn.Currency.CAD)
                                 .returnReason(
                                     Transaction.Source.CheckDepositReturn.ReturnReason
                                         .ACH_CONVERSION_NOT_SUPPORTED
                                 )
-                                .returnedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .transactionId("transaction_id")
+                                .returnedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                 .build()
                         )
                         .checkTransferDeposit(
                             Transaction.Source.CheckTransferDeposit.builder()
-                                .backImageFileId("back_image_file_id")
-                                .bankOfFirstDepositRoutingNumber(
-                                    "bank_of_first_deposit_routing_number"
-                                )
-                                .depositedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .frontImageFileId("front_image_file_id")
-                                .inboundCheckDepositId("inbound_check_deposit_id")
-                                .transactionId("transaction_id")
-                                .transferId("transfer_id")
+                                .backImageFileId("file_makxrc67oh9l6sg7w9yc")
+                                .depositedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .frontImageFileId("file_makxrc67oh9l6sg7w9yc")
+                                .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
+                                .transactionId("transaction_uyrp7fld2ium70oa7oi")
+                                .transferId("check_transfer_30b43acfu9vw8fyc4f5")
                                 .type(
                                     Transaction.Source.CheckTransferDeposit.Type
                                         .CHECK_TRANSFER_DEPOSIT
@@ -617,10 +591,10 @@ class TransactionTest {
                         )
                         .feePayment(
                             Transaction.Source.FeePayment.builder()
-                                .amount(0L)
+                                .amount(100L)
                                 .currency(Transaction.Source.FeePayment.Currency.CAD)
-                                .feePeriodStart(LocalDate.parse("2019-12-27"))
-                                .programId("program_id")
+                                .feePeriodStart(LocalDate.parse("2023-05-01"))
+                                .programId("program_i2v2os4mwza1oetokh9i")
                                 .build()
                         )
                         .inboundAchTransfer(
@@ -651,162 +625,120 @@ class TransactionTest {
                                         )
                                         .build()
                                 )
-                                .amount(0L)
-                                .originatorCompanyDescriptiveDate(
-                                    "originator_company_descriptive_date"
-                                )
-                                .originatorCompanyDiscretionaryData(
-                                    "originator_company_discretionary_data"
-                                )
-                                .originatorCompanyEntryDescription(
-                                    "originator_company_entry_description"
-                                )
-                                .originatorCompanyId("originator_company_id")
-                                .originatorCompanyName("originator_company_name")
-                                .receiverIdNumber("receiver_id_number")
-                                .receiverName("receiver_name")
-                                .traceNumber("trace_number")
-                                .transferId("transfer_id")
+                                .amount(100L)
+                                .originatorCompanyEntryDescription("RESERVE")
+                                .originatorCompanyId("0987654321")
+                                .originatorCompanyName("BIG BANK")
+                                .receiverIdNumber("12345678900")
+                                .receiverName("IAN CREASE")
+                                .traceNumber("021000038461022")
+                                .transferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
                                 .build()
                         )
                         .inboundRealTimePaymentsTransferConfirmation(
                             Transaction.Source.InboundRealTimePaymentsTransferConfirmation.builder()
-                                .amount(0L)
-                                .creditorName("creditor_name")
+                                .amount(100L)
+                                .creditorName("Ian Crease")
                                 .currency(
                                     Transaction.Source.InboundRealTimePaymentsTransferConfirmation
                                         .Currency
                                         .CAD
                                 )
-                                .debtorAccountNumber("debtor_account_number")
-                                .debtorName("debtor_name")
-                                .debtorRoutingNumber("debtor_routing_number")
-                                .remittanceInformation("remittance_information")
-                                .transactionIdentification("transaction_identification")
-                                .transferId("transfer_id")
+                                .debtorAccountNumber("987654321")
+                                .debtorName("National Phonograph Company")
+                                .debtorRoutingNumber("101050001")
+                                .remittanceInformation("Invoice 29582")
+                                .transactionIdentification("20220501234567891T1BSLZO01745013025")
+                                .transferId(
+                                    "inbound_real_time_payments_transfer_63hlz498vcxg644hcrzr"
+                                )
                                 .build()
                         )
                         .inboundRealTimePaymentsTransferDecline(
                             Transaction.Source.InboundRealTimePaymentsTransferDecline.builder()
-                                .amount(0L)
-                                .creditorName("creditor_name")
+                                .amount(100L)
+                                .creditorName("Ian Crease")
                                 .currency(
                                     Transaction.Source.InboundRealTimePaymentsTransferDecline
                                         .Currency
                                         .CAD
                                 )
-                                .debtorAccountNumber("debtor_account_number")
-                                .debtorName("debtor_name")
-                                .debtorRoutingNumber("debtor_routing_number")
+                                .debtorAccountNumber("987654321")
+                                .debtorName("National Phonograph Company")
+                                .debtorRoutingNumber("101050001")
                                 .reason(
                                     Transaction.Source.InboundRealTimePaymentsTransferDecline.Reason
                                         .ACCOUNT_NUMBER_CANCELED
                                 )
-                                .remittanceInformation("remittance_information")
-                                .transactionIdentification("transaction_identification")
-                                .transferId("transfer_id")
+                                .remittanceInformation("Invoice 29582")
+                                .transactionIdentification("20220501234567891T1BSLZO01745013025")
+                                .transferId(
+                                    "inbound_real_time_payments_transfer_63hlz498vcxg644hcrzr"
+                                )
                                 .build()
                         )
                         .inboundWireReversal(
                             Transaction.Source.InboundWireReversal.builder()
-                                .amount(0L)
-                                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .description("description")
-                                .financialInstitutionToFinancialInstitutionInformation(
-                                    "financial_institution_to_financial_institution_information"
-                                )
-                                .inputCycleDate(LocalDate.parse("2019-12-27"))
-                                .inputMessageAccountabilityData("input_message_accountability_data")
-                                .inputSequenceNumber("input_sequence_number")
-                                .inputSource("input_source")
-                                .originatorRoutingNumber("originator_routing_number")
-                                .previousMessageInputCycleDate(LocalDate.parse("2019-12-27"))
+                                .amount(12345L)
+                                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .description("Inbound wire reversal 2022021100335128")
+                                .inputCycleDate(LocalDate.parse("2022-02-11"))
+                                .inputMessageAccountabilityData("20220211B6B7HU2R011023")
+                                .inputSequenceNumber("11023")
+                                .inputSource("B6B7HU2R")
+                                .previousMessageInputCycleDate(LocalDate.parse("2022-02-10"))
                                 .previousMessageInputMessageAccountabilityData(
-                                    "previous_message_input_message_accountability_data"
+                                    "20220210MMQFMP0P000007"
                                 )
-                                .previousMessageInputSequenceNumber(
-                                    "previous_message_input_sequence_number"
-                                )
-                                .previousMessageInputSource("previous_message_input_source")
-                                .receiverFinancialInstitutionInformation(
-                                    "receiver_financial_institution_information"
-                                )
-                                .senderReference("sender_reference")
-                                .transactionId("transaction_id")
-                                .wireTransferId("wire_transfer_id")
+                                .previousMessageInputSequenceNumber("3")
+                                .previousMessageInputSource("MMQFMP0P")
+                                .transactionId("transaction_uyrp7fld2ium70oa7oi")
+                                .wireTransferId("wire_transfer_5akynk7dqsq25qwk9q2u")
                                 .build()
                         )
                         .inboundWireTransfer(
                             Transaction.Source.InboundWireTransfer.builder()
-                                .amount(0L)
-                                .beneficiaryAddressLine1("beneficiary_address_line1")
-                                .beneficiaryAddressLine2("beneficiary_address_line2")
-                                .beneficiaryAddressLine3("beneficiary_address_line3")
-                                .beneficiaryName("beneficiary_name")
-                                .beneficiaryReference("beneficiary_reference")
-                                .description("description")
-                                .inputMessageAccountabilityData("input_message_accountability_data")
-                                .originatorAddressLine1("originator_address_line1")
-                                .originatorAddressLine2("originator_address_line2")
-                                .originatorAddressLine3("originator_address_line3")
-                                .originatorName("originator_name")
-                                .originatorRoutingNumber("originator_routing_number")
-                                .originatorToBeneficiaryInformation(
-                                    "originator_to_beneficiary_information"
-                                )
-                                .originatorToBeneficiaryInformationLine1(
-                                    "originator_to_beneficiary_information_line1"
-                                )
-                                .originatorToBeneficiaryInformationLine2(
-                                    "originator_to_beneficiary_information_line2"
-                                )
-                                .originatorToBeneficiaryInformationLine3(
-                                    "originator_to_beneficiary_information_line3"
-                                )
-                                .originatorToBeneficiaryInformationLine4(
-                                    "originator_to_beneficiary_information_line4"
-                                )
-                                .transferId("transfer_id")
+                                .amount(100L)
+                                .description("Inbound wire transfer")
+                                .transferId("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
                                 .build()
                         )
                         .interestPayment(
                             Transaction.Source.InterestPayment.builder()
-                                .accruedOnAccountId("accrued_on_account_id")
-                                .amount(0L)
+                                .accruedOnAccountId("account_in71c4amph0vgo2qllky")
+                                .amount(100L)
                                 .currency(Transaction.Source.InterestPayment.Currency.CAD)
-                                .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .periodEnd(OffsetDateTime.parse("2024-12-31T23:59:59Z"))
+                                .periodStart(OffsetDateTime.parse("2024-12-01T00:00:00Z"))
                                 .build()
                         )
                         .internalSource(
                             Transaction.Source.InternalSource.builder()
-                                .amount(0L)
+                                .amount(100L)
                                 .currency(Transaction.Source.InternalSource.Currency.CAD)
                                 .reason(Transaction.Source.InternalSource.Reason.ACCOUNT_CLOSURE)
                                 .build()
                         )
-                        .other(JsonNull.of())
+                        .other(JsonValue.from(mapOf<String, Any>()))
                         .realTimePaymentsTransferAcknowledgement(
                             Transaction.Source.RealTimePaymentsTransferAcknowledgement.builder()
-                                .amount(0L)
-                                .destinationAccountNumber("destination_account_number")
-                                .destinationRoutingNumber("destination_routing_number")
-                                .remittanceInformation("remittance_information")
-                                .transferId("transfer_id")
+                                .amount(100L)
+                                .destinationAccountNumber("987654321")
+                                .destinationRoutingNumber("101050001")
+                                .remittanceInformation("Invoice 29582")
+                                .transferId("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
                                 .build()
                         )
                         .sampleFunds(
-                            Transaction.Source.SampleFunds.builder()
-                                .originator("originator")
-                                .build()
+                            Transaction.Source.SampleFunds.builder().originator("dashboard").build()
                         )
                         .wireTransferIntention(
                             Transaction.Source.WireTransferIntention.builder()
-                                .accountNumber("account_number")
-                                .amount(0L)
-                                .messageToRecipient("message_to_recipient")
-                                .routingNumber("routing_number")
-                                .transferId("transfer_id")
+                                .accountNumber("987654321")
+                                .amount(100L)
+                                .messageToRecipient("HELLO")
+                                .routingNumber("101050001")
+                                .transferId("wire_transfer_5akynk7dqsq25qwk9q2u")
                                 .build()
                         )
                         .build()
@@ -814,101 +746,100 @@ class TransactionTest {
                 .type(Transaction.Type.TRANSACTION)
                 .build()
         assertThat(transaction).isNotNull
-        assertThat(transaction.id()).isEqualTo("id")
-        assertThat(transaction.accountId()).isEqualTo("account_id")
-        assertThat(transaction.amount()).isEqualTo(0L)
-        assertThat(transaction.createdAt())
-            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(transaction.id()).isEqualTo("transaction_uyrp7fld2ium70oa7oi")
+        assertThat(transaction.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
+        assertThat(transaction.amount()).isEqualTo(100L)
+        assertThat(transaction.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(transaction.currency()).isEqualTo(Transaction.Currency.CAD)
-        assertThat(transaction.description()).isEqualTo("description")
-        assertThat(transaction.routeId()).contains("route_id")
+        assertThat(transaction.description()).isEqualTo("INVOICE 2468")
+        assertThat(transaction.routeId()).contains("account_number_v18nkfqm6afpsrvy82b2")
         assertThat(transaction.routeType()).contains(Transaction.RouteType.ACCOUNT_NUMBER)
         assertThat(transaction.source())
             .isEqualTo(
                 Transaction.Source.builder()
                     .accountTransferIntention(
                         Transaction.Source.AccountTransferIntention.builder()
-                            .amount(0L)
+                            .amount(100L)
                             .currency(Transaction.Source.AccountTransferIntention.Currency.CAD)
-                            .description("description")
-                            .destinationAccountId("destination_account_id")
-                            .sourceAccountId("source_account_id")
-                            .transferId("transfer_id")
+                            .description("INVOICE 2468")
+                            .destinationAccountId("account_uf16sut2ct5bevmq3eh")
+                            .sourceAccountId("account_in71c4amph0vgo2qllky")
+                            .transferId("account_transfer_7k9qe1ysdgqztnt63l7n")
                             .build()
                     )
                     .achTransferIntention(
                         Transaction.Source.AchTransferIntention.builder()
-                            .accountNumber("account_number")
-                            .amount(0L)
-                            .routingNumber("routing_number")
-                            .statementDescriptor("statement_descriptor")
-                            .transferId("transfer_id")
+                            .accountNumber("987654321")
+                            .amount(100L)
+                            .routingNumber("101050001")
+                            .statementDescriptor("INVOICE 2468")
+                            .transferId("account_transfer_7k9qe1ysdgqztnt63l7n")
                             .build()
                     )
                     .achTransferRejection(
                         Transaction.Source.AchTransferRejection.builder()
-                            .transferId("transfer_id")
+                            .transferId("account_transfer_7k9qe1ysdgqztnt63l7n")
                             .build()
                     )
                     .achTransferReturn(
                         Transaction.Source.AchTransferReturn.builder()
-                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .rawReturnReasonCode("raw_return_reason_code")
+                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                            .rawReturnReasonCode("R01")
                             .returnReasonCode(
                                 Transaction.Source.AchTransferReturn.ReturnReasonCode
                                     .INSUFFICIENT_FUND
                             )
-                            .traceNumber("trace_number")
-                            .transactionId("transaction_id")
-                            .transferId("transfer_id")
+                            .traceNumber("111122223292834")
+                            .transactionId("transaction_uyrp7fld2ium70oa7oi")
+                            .transferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
                             .build()
                     )
                     .cardDisputeAcceptance(
                         Transaction.Source.CardDisputeAcceptance.builder()
-                            .acceptedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .cardDisputeId("card_dispute_id")
-                            .transactionId("transaction_id")
+                            .acceptedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                            .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
+                            .transactionId("transaction_uyrp7fld2ium70oa7oi")
                             .build()
                     )
                     .cardDisputeLoss(
                         Transaction.Source.CardDisputeLoss.builder()
-                            .cardDisputeId("card_dispute_id")
-                            .explanation("explanation")
-                            .lostAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .transactionId("transaction_id")
+                            .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
+                            .explanation("The card dispute was lost.")
+                            .lostAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                            .transactionId("transaction_uyrp7fld2ium70oa7oi")
                             .build()
                     )
                     .cardRefund(
                         Transaction.Source.CardRefund.builder()
-                            .id("id")
-                            .amount(0L)
-                            .cardPaymentId("card_payment_id")
+                            .id("card_refund_imgc2xwplh6t4r3gn16e")
+                            .amount(100L)
+                            .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                             .currency(Transaction.Source.CardRefund.Currency.CAD)
                             .interchange(
                                 Transaction.Source.CardRefund.Interchange.builder()
-                                    .amount("amount")
-                                    .code("code")
+                                    .amount("0.137465")
+                                    .code("271")
                                     .currency(
                                         Transaction.Source.CardRefund.Interchange.Currency.CAD
                                     )
                                     .build()
                             )
-                            .merchantAcceptorId("merchant_acceptor_id")
-                            .merchantCategoryCode("merchant_category_code")
-                            .merchantCity("merchant_city")
-                            .merchantCountry("merchant_country")
-                            .merchantName("merchant_name")
-                            .merchantPostalCode("merchant_postal_code")
-                            .merchantState("merchant_state")
+                            .merchantAcceptorId("5665270011000168")
+                            .merchantCategoryCode("5734")
+                            .merchantCity("New York")
+                            .merchantCountry("US")
+                            .merchantName("AMAZON.COM")
+                            .merchantPostalCode("10045")
+                            .merchantState("NY")
                             .networkIdentifiers(
                                 Transaction.Source.CardRefund.NetworkIdentifiers.builder()
-                                    .acquirerBusinessId("acquirer_business_id")
-                                    .acquirerReferenceNumber("acquirer_reference_number")
-                                    .transactionId("transaction_id")
+                                    .acquirerBusinessId("69650702")
+                                    .acquirerReferenceNumber("83163715445437604865089")
+                                    .transactionId("627199945183184")
                                     .build()
                             )
-                            .presentmentAmount(0L)
-                            .presentmentCurrency("presentment_currency")
+                            .presentmentAmount(100L)
+                            .presentmentCurrency("USD")
                             .purchaseDetails(
                                 Transaction.Source.CardRefund.PurchaseDetails.builder()
                                     .carRental(
@@ -944,15 +875,14 @@ class TransactionTest {
                                             .weeklyRentalRateCurrency("weekly_rental_rate_currency")
                                             .build()
                                     )
-                                    .customerReferenceIdentifier("customer_reference_identifier")
-                                    .localTaxAmount(0L)
-                                    .localTaxCurrency("local_tax_currency")
+                                    .customerReferenceIdentifier("51201")
+                                    .localTaxCurrency("usd")
                                     .lodging(
                                         Transaction.Source.CardRefund.PurchaseDetails.Lodging
                                             .builder()
-                                            .checkInDate(LocalDate.parse("2019-12-27"))
-                                            .dailyRoomRateAmount(0L)
-                                            .dailyRoomRateCurrency("daily_room_rate_currency")
+                                            .checkInDate(LocalDate.parse("2023-07-20"))
+                                            .dailyRoomRateAmount(1000L)
+                                            .dailyRoomRateCurrency("usd")
                                             .extraCharges(
                                                 Transaction.Source.CardRefund.PurchaseDetails
                                                     .Lodging
@@ -960,13 +890,9 @@ class TransactionTest {
                                                     .NO_EXTRA_CHARGE
                                             )
                                             .folioCashAdvancesAmount(0L)
-                                            .folioCashAdvancesCurrency(
-                                                "folio_cash_advances_currency"
-                                            )
+                                            .folioCashAdvancesCurrency("usd")
                                             .foodBeverageChargesAmount(0L)
-                                            .foodBeverageChargesCurrency(
-                                                "food_beverage_charges_currency"
-                                            )
+                                            .foodBeverageChargesCurrency("usd")
                                             .noShowIndicator(
                                                 Transaction.Source.CardRefund.PurchaseDetails
                                                     .Lodging
@@ -974,17 +900,16 @@ class TransactionTest {
                                                     .NOT_APPLICABLE
                                             )
                                             .prepaidExpensesAmount(0L)
-                                            .prepaidExpensesCurrency("prepaid_expenses_currency")
-                                            .roomNights(0L)
-                                            .totalRoomTaxAmount(0L)
-                                            .totalRoomTaxCurrency("total_room_tax_currency")
-                                            .totalTaxAmount(0L)
-                                            .totalTaxCurrency("total_tax_currency")
+                                            .prepaidExpensesCurrency("usd")
+                                            .roomNights(1L)
+                                            .totalRoomTaxAmount(100L)
+                                            .totalRoomTaxCurrency("usd")
+                                            .totalTaxAmount(100L)
+                                            .totalTaxCurrency("usd")
                                             .build()
                                     )
-                                    .nationalTaxAmount(0L)
-                                    .nationalTaxCurrency("national_tax_currency")
-                                    .purchaseIdentifier("purchase_identifier")
+                                    .nationalTaxCurrency("usd")
+                                    .purchaseIdentifier("10203")
                                     .purchaseIdentifierFormat(
                                         Transaction.Source.CardRefund.PurchaseDetails
                                             .PurchaseIdentifierFormat
@@ -1089,52 +1014,50 @@ class TransactionTest {
                                     )
                                     .build()
                             )
-                            .transactionId("transaction_id")
+                            .transactionId("transaction_uyrp7fld2ium70oa7oi")
                             .type(Transaction.Source.CardRefund.Type.CARD_REFUND)
                             .build()
                     )
                     .cardRevenuePayment(
                         Transaction.Source.CardRevenuePayment.builder()
-                            .amount(0L)
+                            .amount(100L)
                             .currency(Transaction.Source.CardRevenuePayment.Currency.CAD)
-                            .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .transactedOnAccountId("transacted_on_account_id")
+                            .periodEnd(OffsetDateTime.parse("2024-12-31T23:59:59Z"))
+                            .periodStart(OffsetDateTime.parse("2024-12-01T00:00:00Z"))
+                            .transactedOnAccountId("account_in71c4amph0vgo2qllky")
                             .build()
                     )
                     .cardSettlement(
                         Transaction.Source.CardSettlement.builder()
-                            .id("id")
-                            .amount(0L)
-                            .cardAuthorization("card_authorization")
-                            .cardPaymentId("card_payment_id")
+                            .id("card_settlement_khv5kfeu0vndj291omg6")
+                            .amount(100L)
+                            .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                             .currency(Transaction.Source.CardSettlement.Currency.CAD)
                             .interchange(
                                 Transaction.Source.CardSettlement.Interchange.builder()
-                                    .amount("amount")
-                                    .code("code")
+                                    .amount("0.137465")
+                                    .code("271")
                                     .currency(
                                         Transaction.Source.CardSettlement.Interchange.Currency.CAD
                                     )
                                     .build()
                             )
-                            .merchantAcceptorId("merchant_acceptor_id")
-                            .merchantCategoryCode("merchant_category_code")
-                            .merchantCity("merchant_city")
-                            .merchantCountry("merchant_country")
-                            .merchantName("merchant_name")
-                            .merchantPostalCode("merchant_postal_code")
-                            .merchantState("merchant_state")
+                            .merchantAcceptorId("5665270011000168")
+                            .merchantCategoryCode("5734")
+                            .merchantCity("New York")
+                            .merchantCountry("US")
+                            .merchantName("AMAZON.COM")
+                            .merchantPostalCode("10045")
+                            .merchantState("NY")
                             .networkIdentifiers(
                                 Transaction.Source.CardSettlement.NetworkIdentifiers.builder()
-                                    .acquirerBusinessId("acquirer_business_id")
-                                    .acquirerReferenceNumber("acquirer_reference_number")
-                                    .transactionId("transaction_id")
+                                    .acquirerBusinessId("69650702")
+                                    .acquirerReferenceNumber("83163715445437604865089")
+                                    .transactionId("627199945183184")
                                     .build()
                             )
-                            .pendingTransactionId("pending_transaction_id")
-                            .presentmentAmount(0L)
-                            .presentmentCurrency("presentment_currency")
+                            .presentmentAmount(100L)
+                            .presentmentCurrency("USD")
                             .purchaseDetails(
                                 Transaction.Source.CardSettlement.PurchaseDetails.builder()
                                     .carRental(
@@ -1170,15 +1093,14 @@ class TransactionTest {
                                             .weeklyRentalRateCurrency("weekly_rental_rate_currency")
                                             .build()
                                     )
-                                    .customerReferenceIdentifier("customer_reference_identifier")
-                                    .localTaxAmount(0L)
-                                    .localTaxCurrency("local_tax_currency")
+                                    .customerReferenceIdentifier("51201")
+                                    .localTaxCurrency("usd")
                                     .lodging(
                                         Transaction.Source.CardSettlement.PurchaseDetails.Lodging
                                             .builder()
-                                            .checkInDate(LocalDate.parse("2019-12-27"))
-                                            .dailyRoomRateAmount(0L)
-                                            .dailyRoomRateCurrency("daily_room_rate_currency")
+                                            .checkInDate(LocalDate.parse("2023-07-20"))
+                                            .dailyRoomRateAmount(1000L)
+                                            .dailyRoomRateCurrency("usd")
                                             .extraCharges(
                                                 Transaction.Source.CardSettlement.PurchaseDetails
                                                     .Lodging
@@ -1186,13 +1108,9 @@ class TransactionTest {
                                                     .NO_EXTRA_CHARGE
                                             )
                                             .folioCashAdvancesAmount(0L)
-                                            .folioCashAdvancesCurrency(
-                                                "folio_cash_advances_currency"
-                                            )
+                                            .folioCashAdvancesCurrency("usd")
                                             .foodBeverageChargesAmount(0L)
-                                            .foodBeverageChargesCurrency(
-                                                "food_beverage_charges_currency"
-                                            )
+                                            .foodBeverageChargesCurrency("usd")
                                             .noShowIndicator(
                                                 Transaction.Source.CardSettlement.PurchaseDetails
                                                     .Lodging
@@ -1200,17 +1118,16 @@ class TransactionTest {
                                                     .NOT_APPLICABLE
                                             )
                                             .prepaidExpensesAmount(0L)
-                                            .prepaidExpensesCurrency("prepaid_expenses_currency")
-                                            .roomNights(0L)
-                                            .totalRoomTaxAmount(0L)
-                                            .totalRoomTaxCurrency("total_room_tax_currency")
-                                            .totalTaxAmount(0L)
-                                            .totalTaxCurrency("total_tax_currency")
+                                            .prepaidExpensesCurrency("usd")
+                                            .roomNights(1L)
+                                            .totalRoomTaxAmount(100L)
+                                            .totalRoomTaxCurrency("usd")
+                                            .totalTaxAmount(100L)
+                                            .totalTaxCurrency("usd")
                                             .build()
                                     )
-                                    .nationalTaxAmount(0L)
-                                    .nationalTaxCurrency("national_tax_currency")
-                                    .purchaseIdentifier("purchase_identifier")
+                                    .nationalTaxCurrency("usd")
+                                    .purchaseIdentifier("10203")
                                     .purchaseIdentifierFormat(
                                         Transaction.Source.CardSettlement.PurchaseDetails
                                             .PurchaseIdentifierFormat
@@ -1321,53 +1238,51 @@ class TransactionTest {
                                     )
                                     .build()
                             )
-                            .transactionId("transaction_id")
+                            .transactionId("transaction_uyrp7fld2ium70oa7oi")
                             .type(Transaction.Source.CardSettlement.Type.CARD_SETTLEMENT)
                             .build()
                     )
                     .cashbackPayment(
                         Transaction.Source.CashbackPayment.builder()
-                            .accruedOnCardId("accrued_on_card_id")
-                            .amount(0L)
+                            .accruedOnCardId("card_oubs0hwk5rn6knuecxg2")
+                            .amount(100L)
                             .currency(Transaction.Source.CashbackPayment.Currency.CAD)
-                            .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .periodEnd(OffsetDateTime.parse("2024-12-31T23:59:59Z"))
+                            .periodStart(OffsetDateTime.parse("2024-12-01T00:00:00Z"))
                             .build()
                     )
                     .category(Transaction.Source.Category.ACCOUNT_TRANSFER_INTENTION)
                     .checkDepositAcceptance(
                         Transaction.Source.CheckDepositAcceptance.builder()
-                            .accountNumber("account_number")
-                            .amount(0L)
-                            .auxiliaryOnUs("auxiliary_on_us")
-                            .checkDepositId("check_deposit_id")
+                            .accountNumber("987654321")
+                            .amount(100L)
+                            .auxiliaryOnUs("101")
+                            .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                             .currency(Transaction.Source.CheckDepositAcceptance.Currency.CAD)
-                            .routingNumber("routing_number")
-                            .serialNumber("serial_number")
+                            .routingNumber("101050001")
                             .build()
                     )
                     .checkDepositReturn(
                         Transaction.Source.CheckDepositReturn.builder()
-                            .amount(0L)
-                            .checkDepositId("check_deposit_id")
+                            .amount(100L)
+                            .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                             .currency(Transaction.Source.CheckDepositReturn.Currency.CAD)
                             .returnReason(
                                 Transaction.Source.CheckDepositReturn.ReturnReason
                                     .ACH_CONVERSION_NOT_SUPPORTED
                             )
-                            .returnedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .transactionId("transaction_id")
+                            .returnedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                            .transactionId("transaction_uyrp7fld2ium70oa7oi")
                             .build()
                     )
                     .checkTransferDeposit(
                         Transaction.Source.CheckTransferDeposit.builder()
-                            .backImageFileId("back_image_file_id")
-                            .bankOfFirstDepositRoutingNumber("bank_of_first_deposit_routing_number")
-                            .depositedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .frontImageFileId("front_image_file_id")
-                            .inboundCheckDepositId("inbound_check_deposit_id")
-                            .transactionId("transaction_id")
-                            .transferId("transfer_id")
+                            .backImageFileId("file_makxrc67oh9l6sg7w9yc")
+                            .depositedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                            .frontImageFileId("file_makxrc67oh9l6sg7w9yc")
+                            .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
+                            .transactionId("transaction_uyrp7fld2ium70oa7oi")
+                            .transferId("check_transfer_30b43acfu9vw8fyc4f5")
                             .type(
                                 Transaction.Source.CheckTransferDeposit.Type.CHECK_TRANSFER_DEPOSIT
                             )
@@ -1375,10 +1290,10 @@ class TransactionTest {
                     )
                     .feePayment(
                         Transaction.Source.FeePayment.builder()
-                            .amount(0L)
+                            .amount(100L)
                             .currency(Transaction.Source.FeePayment.Currency.CAD)
-                            .feePeriodStart(LocalDate.parse("2019-12-27"))
-                            .programId("program_id")
+                            .feePeriodStart(LocalDate.parse("2023-05-01"))
+                            .programId("program_i2v2os4mwza1oetokh9i")
                             .build()
                     )
                     .inboundAchTransfer(
@@ -1408,157 +1323,113 @@ class TransactionTest {
                                     )
                                     .build()
                             )
-                            .amount(0L)
-                            .originatorCompanyDescriptiveDate("originator_company_descriptive_date")
-                            .originatorCompanyDiscretionaryData(
-                                "originator_company_discretionary_data"
-                            )
-                            .originatorCompanyEntryDescription(
-                                "originator_company_entry_description"
-                            )
-                            .originatorCompanyId("originator_company_id")
-                            .originatorCompanyName("originator_company_name")
-                            .receiverIdNumber("receiver_id_number")
-                            .receiverName("receiver_name")
-                            .traceNumber("trace_number")
-                            .transferId("transfer_id")
+                            .amount(100L)
+                            .originatorCompanyEntryDescription("RESERVE")
+                            .originatorCompanyId("0987654321")
+                            .originatorCompanyName("BIG BANK")
+                            .receiverIdNumber("12345678900")
+                            .receiverName("IAN CREASE")
+                            .traceNumber("021000038461022")
+                            .transferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
                             .build()
                     )
                     .inboundRealTimePaymentsTransferConfirmation(
                         Transaction.Source.InboundRealTimePaymentsTransferConfirmation.builder()
-                            .amount(0L)
-                            .creditorName("creditor_name")
+                            .amount(100L)
+                            .creditorName("Ian Crease")
                             .currency(
                                 Transaction.Source.InboundRealTimePaymentsTransferConfirmation
                                     .Currency
                                     .CAD
                             )
-                            .debtorAccountNumber("debtor_account_number")
-                            .debtorName("debtor_name")
-                            .debtorRoutingNumber("debtor_routing_number")
-                            .remittanceInformation("remittance_information")
-                            .transactionIdentification("transaction_identification")
-                            .transferId("transfer_id")
+                            .debtorAccountNumber("987654321")
+                            .debtorName("National Phonograph Company")
+                            .debtorRoutingNumber("101050001")
+                            .remittanceInformation("Invoice 29582")
+                            .transactionIdentification("20220501234567891T1BSLZO01745013025")
+                            .transferId("inbound_real_time_payments_transfer_63hlz498vcxg644hcrzr")
                             .build()
                     )
                     .inboundRealTimePaymentsTransferDecline(
                         Transaction.Source.InboundRealTimePaymentsTransferDecline.builder()
-                            .amount(0L)
-                            .creditorName("creditor_name")
+                            .amount(100L)
+                            .creditorName("Ian Crease")
                             .currency(
                                 Transaction.Source.InboundRealTimePaymentsTransferDecline.Currency
                                     .CAD
                             )
-                            .debtorAccountNumber("debtor_account_number")
-                            .debtorName("debtor_name")
-                            .debtorRoutingNumber("debtor_routing_number")
+                            .debtorAccountNumber("987654321")
+                            .debtorName("National Phonograph Company")
+                            .debtorRoutingNumber("101050001")
                             .reason(
                                 Transaction.Source.InboundRealTimePaymentsTransferDecline.Reason
                                     .ACCOUNT_NUMBER_CANCELED
                             )
-                            .remittanceInformation("remittance_information")
-                            .transactionIdentification("transaction_identification")
-                            .transferId("transfer_id")
+                            .remittanceInformation("Invoice 29582")
+                            .transactionIdentification("20220501234567891T1BSLZO01745013025")
+                            .transferId("inbound_real_time_payments_transfer_63hlz498vcxg644hcrzr")
                             .build()
                     )
                     .inboundWireReversal(
                         Transaction.Source.InboundWireReversal.builder()
-                            .amount(0L)
-                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .description("description")
-                            .financialInstitutionToFinancialInstitutionInformation(
-                                "financial_institution_to_financial_institution_information"
-                            )
-                            .inputCycleDate(LocalDate.parse("2019-12-27"))
-                            .inputMessageAccountabilityData("input_message_accountability_data")
-                            .inputSequenceNumber("input_sequence_number")
-                            .inputSource("input_source")
-                            .originatorRoutingNumber("originator_routing_number")
-                            .previousMessageInputCycleDate(LocalDate.parse("2019-12-27"))
-                            .previousMessageInputMessageAccountabilityData(
-                                "previous_message_input_message_accountability_data"
-                            )
-                            .previousMessageInputSequenceNumber(
-                                "previous_message_input_sequence_number"
-                            )
-                            .previousMessageInputSource("previous_message_input_source")
-                            .receiverFinancialInstitutionInformation(
-                                "receiver_financial_institution_information"
-                            )
-                            .senderReference("sender_reference")
-                            .transactionId("transaction_id")
-                            .wireTransferId("wire_transfer_id")
+                            .amount(12345L)
+                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                            .description("Inbound wire reversal 2022021100335128")
+                            .inputCycleDate(LocalDate.parse("2022-02-11"))
+                            .inputMessageAccountabilityData("20220211B6B7HU2R011023")
+                            .inputSequenceNumber("11023")
+                            .inputSource("B6B7HU2R")
+                            .previousMessageInputCycleDate(LocalDate.parse("2022-02-10"))
+                            .previousMessageInputMessageAccountabilityData("20220210MMQFMP0P000007")
+                            .previousMessageInputSequenceNumber("3")
+                            .previousMessageInputSource("MMQFMP0P")
+                            .transactionId("transaction_uyrp7fld2ium70oa7oi")
+                            .wireTransferId("wire_transfer_5akynk7dqsq25qwk9q2u")
                             .build()
                     )
                     .inboundWireTransfer(
                         Transaction.Source.InboundWireTransfer.builder()
-                            .amount(0L)
-                            .beneficiaryAddressLine1("beneficiary_address_line1")
-                            .beneficiaryAddressLine2("beneficiary_address_line2")
-                            .beneficiaryAddressLine3("beneficiary_address_line3")
-                            .beneficiaryName("beneficiary_name")
-                            .beneficiaryReference("beneficiary_reference")
-                            .description("description")
-                            .inputMessageAccountabilityData("input_message_accountability_data")
-                            .originatorAddressLine1("originator_address_line1")
-                            .originatorAddressLine2("originator_address_line2")
-                            .originatorAddressLine3("originator_address_line3")
-                            .originatorName("originator_name")
-                            .originatorRoutingNumber("originator_routing_number")
-                            .originatorToBeneficiaryInformation(
-                                "originator_to_beneficiary_information"
-                            )
-                            .originatorToBeneficiaryInformationLine1(
-                                "originator_to_beneficiary_information_line1"
-                            )
-                            .originatorToBeneficiaryInformationLine2(
-                                "originator_to_beneficiary_information_line2"
-                            )
-                            .originatorToBeneficiaryInformationLine3(
-                                "originator_to_beneficiary_information_line3"
-                            )
-                            .originatorToBeneficiaryInformationLine4(
-                                "originator_to_beneficiary_information_line4"
-                            )
-                            .transferId("transfer_id")
+                            .amount(100L)
+                            .description("Inbound wire transfer")
+                            .transferId("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
                             .build()
                     )
                     .interestPayment(
                         Transaction.Source.InterestPayment.builder()
-                            .accruedOnAccountId("accrued_on_account_id")
-                            .amount(0L)
+                            .accruedOnAccountId("account_in71c4amph0vgo2qllky")
+                            .amount(100L)
                             .currency(Transaction.Source.InterestPayment.Currency.CAD)
-                            .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .periodEnd(OffsetDateTime.parse("2024-12-31T23:59:59Z"))
+                            .periodStart(OffsetDateTime.parse("2024-12-01T00:00:00Z"))
                             .build()
                     )
                     .internalSource(
                         Transaction.Source.InternalSource.builder()
-                            .amount(0L)
+                            .amount(100L)
                             .currency(Transaction.Source.InternalSource.Currency.CAD)
                             .reason(Transaction.Source.InternalSource.Reason.ACCOUNT_CLOSURE)
                             .build()
                     )
-                    .other(JsonNull.of())
+                    .other(JsonValue.from(mapOf<String, Any>()))
                     .realTimePaymentsTransferAcknowledgement(
                         Transaction.Source.RealTimePaymentsTransferAcknowledgement.builder()
-                            .amount(0L)
-                            .destinationAccountNumber("destination_account_number")
-                            .destinationRoutingNumber("destination_routing_number")
-                            .remittanceInformation("remittance_information")
-                            .transferId("transfer_id")
+                            .amount(100L)
+                            .destinationAccountNumber("987654321")
+                            .destinationRoutingNumber("101050001")
+                            .remittanceInformation("Invoice 29582")
+                            .transferId("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
                             .build()
                     )
                     .sampleFunds(
-                        Transaction.Source.SampleFunds.builder().originator("originator").build()
+                        Transaction.Source.SampleFunds.builder().originator("dashboard").build()
                     )
                     .wireTransferIntention(
                         Transaction.Source.WireTransferIntention.builder()
-                            .accountNumber("account_number")
-                            .amount(0L)
-                            .messageToRecipient("message_to_recipient")
-                            .routingNumber("routing_number")
-                            .transferId("transfer_id")
+                            .accountNumber("987654321")
+                            .amount(100L)
+                            .messageToRecipient("HELLO")
+                            .routingNumber("101050001")
+                            .transferId("wire_transfer_5akynk7dqsq25qwk9q2u")
                             .build()
                     )
                     .build()

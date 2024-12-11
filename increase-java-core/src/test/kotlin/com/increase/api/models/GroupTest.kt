@@ -12,17 +12,17 @@ class GroupTest {
     fun createGroup() {
         val group =
             Group.builder()
-                .id("id")
+                .id("group_1g4mhziu6kvrs3vz35um")
                 .achDebitStatus(Group.AchDebitStatus.DISABLED)
                 .activationStatus(Group.ActivationStatus.UNACTIVATED)
-                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .type(Group.Type.GROUP)
                 .build()
         assertThat(group).isNotNull
-        assertThat(group.id()).isEqualTo("id")
+        assertThat(group.id()).isEqualTo("group_1g4mhziu6kvrs3vz35um")
         assertThat(group.achDebitStatus()).isEqualTo(Group.AchDebitStatus.DISABLED)
         assertThat(group.activationStatus()).isEqualTo(Group.ActivationStatus.UNACTIVATED)
-        assertThat(group.createdAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(group.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(group.type()).isEqualTo(Group.Type.GROUP)
     }
 }

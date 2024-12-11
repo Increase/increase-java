@@ -12,7 +12,7 @@ class CardDisputeTest {
     fun createCardDispute() {
         val cardDispute =
             CardDispute.builder()
-                .id("id")
+                .id("card_dispute_h9sc95nbl1cgltpp7men")
                 .acceptance(
                     CardDispute.Acceptance.builder()
                         .acceptedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -20,11 +20,9 @@ class CardDisputeTest {
                         .transactionId("transaction_id")
                         .build()
                 )
-                .amount(0L)
-                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .disputedTransactionId("disputed_transaction_id")
-                .explanation("explanation")
-                .idempotencyKey("idempotency_key")
+                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                .disputedTransactionId("transaction_uyrp7fld2ium70oa7oi")
+                .explanation("Unauthorized recurring purchase")
                 .loss(
                     CardDispute.Loss.builder()
                         .cardDisputeId("card_dispute_id")
@@ -50,7 +48,7 @@ class CardDisputeTest {
                 )
                 .build()
         assertThat(cardDispute).isNotNull
-        assertThat(cardDispute.id()).isEqualTo("id")
+        assertThat(cardDispute.id()).isEqualTo("card_dispute_h9sc95nbl1cgltpp7men")
         assertThat(cardDispute.acceptance())
             .contains(
                 CardDispute.Acceptance.builder()
@@ -59,12 +57,9 @@ class CardDisputeTest {
                     .transactionId("transaction_id")
                     .build()
             )
-        assertThat(cardDispute.amount()).contains(0L)
-        assertThat(cardDispute.createdAt())
-            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(cardDispute.disputedTransactionId()).isEqualTo("disputed_transaction_id")
-        assertThat(cardDispute.explanation()).isEqualTo("explanation")
-        assertThat(cardDispute.idempotencyKey()).contains("idempotency_key")
+        assertThat(cardDispute.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+        assertThat(cardDispute.disputedTransactionId()).isEqualTo("transaction_uyrp7fld2ium70oa7oi")
+        assertThat(cardDispute.explanation()).isEqualTo("Unauthorized recurring purchase")
         assertThat(cardDispute.loss())
             .contains(
                 CardDispute.Loss.builder()

@@ -12,21 +12,21 @@ class RoutingNumberListResponseTest {
         val routingNumberListResponse =
             RoutingNumberListResponse.builder()
                 .achTransfers(RoutingNumberListResponse.AchTransfers.SUPPORTED)
-                .name("name")
+                .name("Chase")
                 .realTimePaymentsTransfers(
                     RoutingNumberListResponse.RealTimePaymentsTransfers.SUPPORTED
                 )
-                .routingNumber("routing_number")
+                .routingNumber("021000021")
                 .type(RoutingNumberListResponse.Type.ROUTING_NUMBER)
                 .wireTransfers(RoutingNumberListResponse.WireTransfers.SUPPORTED)
                 .build()
         assertThat(routingNumberListResponse).isNotNull
         assertThat(routingNumberListResponse.achTransfers())
             .isEqualTo(RoutingNumberListResponse.AchTransfers.SUPPORTED)
-        assertThat(routingNumberListResponse.name()).isEqualTo("name")
+        assertThat(routingNumberListResponse.name()).isEqualTo("Chase")
         assertThat(routingNumberListResponse.realTimePaymentsTransfers())
             .isEqualTo(RoutingNumberListResponse.RealTimePaymentsTransfers.SUPPORTED)
-        assertThat(routingNumberListResponse.routingNumber()).isEqualTo("routing_number")
+        assertThat(routingNumberListResponse.routingNumber()).isEqualTo("021000021")
         assertThat(routingNumberListResponse.type())
             .isEqualTo(RoutingNumberListResponse.Type.ROUTING_NUMBER)
         assertThat(routingNumberListResponse.wireTransfers())

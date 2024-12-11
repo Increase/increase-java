@@ -2,7 +2,7 @@
 
 package com.increase.api.models
 
-import com.increase.api.core.JsonNull
+import com.increase.api.core.JsonValue
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -13,7 +13,7 @@ class RealTimeDecisionTest {
     fun createRealTimeDecision() {
         val realTimeDecision =
             RealTimeDecision.builder()
-                .id("id")
+                .id("real_time_decision_j76n2e810ezcg3zh5qtn")
                 .cardAuthentication(
                     RealTimeDecision.CardAuthentication.builder()
                         .accountId("account_id")
@@ -33,18 +33,17 @@ class RealTimeDecisionTest {
                 )
                 .cardAuthorization(
                     RealTimeDecision.CardAuthorization.builder()
-                        .accountId("account_id")
-                        .cardId("card_id")
+                        .accountId("account_in71c4amph0vgo2qllky")
+                        .cardId("card_oubs0hwk5rn6knuecxg2")
                         .decision(RealTimeDecision.CardAuthorization.Decision.APPROVE)
-                        .digitalWalletTokenId("digital_wallet_token_id")
                         .direction(RealTimeDecision.CardAuthorization.Direction.SETTLEMENT)
-                        .merchantAcceptorId("merchant_acceptor_id")
-                        .merchantCategoryCode("merchant_category_code")
-                        .merchantCity("merchant_city")
-                        .merchantCountry("merchant_country")
-                        .merchantDescriptor("merchant_descriptor")
-                        .merchantPostalCode("merchant_postal_code")
-                        .merchantState("merchant_state")
+                        .merchantAcceptorId("5665270011000168")
+                        .merchantCategoryCode("5734")
+                        .merchantCity("New York")
+                        .merchantCountry("US")
+                        .merchantDescriptor("AMAZON.COM")
+                        .merchantPostalCode("10045")
+                        .merchantState("NY")
                         .networkDetails(
                             RealTimeDecision.CardAuthorization.NetworkDetails.builder()
                                 .category(
@@ -73,15 +72,14 @@ class RealTimeDecisionTest {
                         )
                         .networkIdentifiers(
                             RealTimeDecision.CardAuthorization.NetworkIdentifiers.builder()
-                                .retrievalReferenceNumber("retrieval_reference_number")
-                                .traceNumber("trace_number")
-                                .transactionId("transaction_id")
+                                .retrievalReferenceNumber("785867080153")
+                                .traceNumber("487941")
+                                .transactionId("627199945183184")
                                 .build()
                         )
-                        .networkRiskScore(0L)
-                        .physicalCardId("physical_card_id")
-                        .presentmentAmount(0L)
-                        .presentmentCurrency("presentment_currency")
+                        .networkRiskScore(10L)
+                        .presentmentAmount(100L)
+                        .presentmentCurrency("USD")
                         .processingCategory(
                             RealTimeDecision.CardAuthorization.ProcessingCategory.ACCOUNT_FUNDING
                         )
@@ -101,13 +99,13 @@ class RealTimeDecisionTest {
                                         )
                                         .build()
                                 )
-                                .initialAuthorization(JsonNull.of())
+                                .initialAuthorization(JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
-                        .settlementAmount(0L)
-                        .settlementCurrency("settlement_currency")
-                        .terminalId("terminal_id")
-                        .upcomingCardPaymentId("upcoming_card_payment_id")
+                        .settlementAmount(100L)
+                        .settlementCurrency("USD")
+                        .terminalId("RCN5VNXS")
+                        .upcomingCardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                         .verification(
                             RealTimeDecision.CardAuthorization.Verification.builder()
                                 .cardVerificationCode(
@@ -126,10 +124,10 @@ class RealTimeDecisionTest {
                                     RealTimeDecision.CardAuthorization.Verification
                                         .CardholderAddress
                                         .builder()
-                                        .actualLine1("actual_line1")
-                                        .actualPostalCode("actual_postal_code")
-                                        .providedLine1("provided_line1")
-                                        .providedPostalCode("provided_postal_code")
+                                        .actualLine1("33 Liberty Street")
+                                        .actualPostalCode("94131")
+                                        .providedLine1("33 Liberty Street")
+                                        .providedPostalCode("94132")
                                         .result(
                                             RealTimeDecision.CardAuthorization.Verification
                                                 .CardholderAddress
@@ -143,7 +141,7 @@ class RealTimeDecisionTest {
                         .build()
                 )
                 .category(RealTimeDecision.Category.CARD_AUTHORIZATION_REQUESTED)
-                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .digitalWalletAuthentication(
                     RealTimeDecision.DigitalWalletAuthentication.builder()
                         .cardId("card_id")
@@ -166,11 +164,11 @@ class RealTimeDecisionTest {
                         .build()
                 )
                 .status(RealTimeDecision.Status.PENDING)
-                .timeoutAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .timeoutAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .type(RealTimeDecision.Type.REAL_TIME_DECISION)
                 .build()
         assertThat(realTimeDecision).isNotNull
-        assertThat(realTimeDecision.id()).isEqualTo("id")
+        assertThat(realTimeDecision.id()).isEqualTo("real_time_decision_j76n2e810ezcg3zh5qtn")
         assertThat(realTimeDecision.cardAuthentication())
             .contains(
                 RealTimeDecision.CardAuthentication.builder()
@@ -193,18 +191,17 @@ class RealTimeDecisionTest {
         assertThat(realTimeDecision.cardAuthorization())
             .contains(
                 RealTimeDecision.CardAuthorization.builder()
-                    .accountId("account_id")
-                    .cardId("card_id")
+                    .accountId("account_in71c4amph0vgo2qllky")
+                    .cardId("card_oubs0hwk5rn6knuecxg2")
                     .decision(RealTimeDecision.CardAuthorization.Decision.APPROVE)
-                    .digitalWalletTokenId("digital_wallet_token_id")
                     .direction(RealTimeDecision.CardAuthorization.Direction.SETTLEMENT)
-                    .merchantAcceptorId("merchant_acceptor_id")
-                    .merchantCategoryCode("merchant_category_code")
-                    .merchantCity("merchant_city")
-                    .merchantCountry("merchant_country")
-                    .merchantDescriptor("merchant_descriptor")
-                    .merchantPostalCode("merchant_postal_code")
-                    .merchantState("merchant_state")
+                    .merchantAcceptorId("5665270011000168")
+                    .merchantCategoryCode("5734")
+                    .merchantCity("New York")
+                    .merchantCountry("US")
+                    .merchantDescriptor("AMAZON.COM")
+                    .merchantPostalCode("10045")
+                    .merchantState("NY")
                     .networkDetails(
                         RealTimeDecision.CardAuthorization.NetworkDetails.builder()
                             .category(
@@ -233,15 +230,14 @@ class RealTimeDecisionTest {
                     )
                     .networkIdentifiers(
                         RealTimeDecision.CardAuthorization.NetworkIdentifiers.builder()
-                            .retrievalReferenceNumber("retrieval_reference_number")
-                            .traceNumber("trace_number")
-                            .transactionId("transaction_id")
+                            .retrievalReferenceNumber("785867080153")
+                            .traceNumber("487941")
+                            .transactionId("627199945183184")
                             .build()
                     )
-                    .networkRiskScore(0L)
-                    .physicalCardId("physical_card_id")
-                    .presentmentAmount(0L)
-                    .presentmentCurrency("presentment_currency")
+                    .networkRiskScore(10L)
+                    .presentmentAmount(100L)
+                    .presentmentCurrency("USD")
                     .processingCategory(
                         RealTimeDecision.CardAuthorization.ProcessingCategory.ACCOUNT_FUNDING
                     )
@@ -259,13 +255,13 @@ class RealTimeDecisionTest {
                                     .originalCardAuthorizationId("original_card_authorization_id")
                                     .build()
                             )
-                            .initialAuthorization(JsonNull.of())
+                            .initialAuthorization(JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
-                    .settlementAmount(0L)
-                    .settlementCurrency("settlement_currency")
-                    .terminalId("terminal_id")
-                    .upcomingCardPaymentId("upcoming_card_payment_id")
+                    .settlementAmount(100L)
+                    .settlementCurrency("USD")
+                    .terminalId("RCN5VNXS")
+                    .upcomingCardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                     .verification(
                         RealTimeDecision.CardAuthorization.Verification.builder()
                             .cardVerificationCode(
@@ -282,10 +278,10 @@ class RealTimeDecisionTest {
                             .cardholderAddress(
                                 RealTimeDecision.CardAuthorization.Verification.CardholderAddress
                                     .builder()
-                                    .actualLine1("actual_line1")
-                                    .actualPostalCode("actual_postal_code")
-                                    .providedLine1("provided_line1")
-                                    .providedPostalCode("provided_postal_code")
+                                    .actualLine1("33 Liberty Street")
+                                    .actualPostalCode("94131")
+                                    .providedLine1("33 Liberty Street")
+                                    .providedPostalCode("94132")
                                     .result(
                                         RealTimeDecision.CardAuthorization.Verification
                                             .CardholderAddress
@@ -301,7 +297,7 @@ class RealTimeDecisionTest {
         assertThat(realTimeDecision.category())
             .isEqualTo(RealTimeDecision.Category.CARD_AUTHORIZATION_REQUESTED)
         assertThat(realTimeDecision.createdAt())
-            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+            .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(realTimeDecision.digitalWalletAuthentication())
             .contains(
                 RealTimeDecision.DigitalWalletAuthentication.builder()
@@ -327,7 +323,7 @@ class RealTimeDecisionTest {
             )
         assertThat(realTimeDecision.status()).isEqualTo(RealTimeDecision.Status.PENDING)
         assertThat(realTimeDecision.timeoutAt())
-            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+            .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(realTimeDecision.type()).isEqualTo(RealTimeDecision.Type.REAL_TIME_DECISION)
     }
 }

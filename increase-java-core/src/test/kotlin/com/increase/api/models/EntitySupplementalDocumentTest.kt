@@ -12,18 +12,16 @@ class EntitySupplementalDocumentTest {
     fun createEntitySupplementalDocument() {
         val entitySupplementalDocument =
             EntitySupplementalDocument.builder()
-                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .entityId("entity_id")
-                .fileId("file_id")
-                .idempotencyKey("idempotency_key")
+                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                .entityId("entity_n8y8tnk2p9339ti393yi")
+                .fileId("file_makxrc67oh9l6sg7w9yc")
                 .type(EntitySupplementalDocument.Type.ENTITY_SUPPLEMENTAL_DOCUMENT)
                 .build()
         assertThat(entitySupplementalDocument).isNotNull
         assertThat(entitySupplementalDocument.createdAt())
-            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(entitySupplementalDocument.entityId()).isEqualTo("entity_id")
-        assertThat(entitySupplementalDocument.fileId()).isEqualTo("file_id")
-        assertThat(entitySupplementalDocument.idempotencyKey()).contains("idempotency_key")
+            .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+        assertThat(entitySupplementalDocument.entityId()).isEqualTo("entity_n8y8tnk2p9339ti393yi")
+        assertThat(entitySupplementalDocument.fileId()).isEqualTo("file_makxrc67oh9l6sg7w9yc")
         assertThat(entitySupplementalDocument.type())
             .isEqualTo(EntitySupplementalDocument.Type.ENTITY_SUPPLEMENTAL_DOCUMENT)
     }
