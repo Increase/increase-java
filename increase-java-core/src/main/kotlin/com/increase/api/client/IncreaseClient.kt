@@ -2,7 +2,59 @@
 
 package com.increase.api.client
 
-import com.increase.api.services.blocking.*
+import com.increase.api.services.blocking.AccountNumberService
+import com.increase.api.services.blocking.AccountService
+import com.increase.api.services.blocking.AccountStatementService
+import com.increase.api.services.blocking.AccountTransferService
+import com.increase.api.services.blocking.AchPrenotificationService
+import com.increase.api.services.blocking.AchTransferService
+import com.increase.api.services.blocking.BookkeepingAccountService
+import com.increase.api.services.blocking.BookkeepingEntryService
+import com.increase.api.services.blocking.BookkeepingEntrySetService
+import com.increase.api.services.blocking.CardDisputeService
+import com.increase.api.services.blocking.CardPaymentService
+import com.increase.api.services.blocking.CardPurchaseSupplementService
+import com.increase.api.services.blocking.CardService
+import com.increase.api.services.blocking.CheckDepositService
+import com.increase.api.services.blocking.CheckTransferService
+import com.increase.api.services.blocking.DeclinedTransactionService
+import com.increase.api.services.blocking.DigitalCardProfileService
+import com.increase.api.services.blocking.DigitalWalletTokenService
+import com.increase.api.services.blocking.DocumentService
+import com.increase.api.services.blocking.EntityService
+import com.increase.api.services.blocking.EventService
+import com.increase.api.services.blocking.EventSubscriptionService
+import com.increase.api.services.blocking.ExportService
+import com.increase.api.services.blocking.ExternalAccountService
+import com.increase.api.services.blocking.FileService
+import com.increase.api.services.blocking.GroupService
+import com.increase.api.services.blocking.InboundAchTransferService
+import com.increase.api.services.blocking.InboundCheckDepositService
+import com.increase.api.services.blocking.InboundMailItemService
+import com.increase.api.services.blocking.InboundRealTimePaymentsTransferService
+import com.increase.api.services.blocking.InboundWireDrawdownRequestService
+import com.increase.api.services.blocking.InboundWireTransferService
+import com.increase.api.services.blocking.IntrafiAccountEnrollmentService
+import com.increase.api.services.blocking.IntrafiBalanceService
+import com.increase.api.services.blocking.IntrafiExclusionService
+import com.increase.api.services.blocking.LockboxService
+import com.increase.api.services.blocking.OAuthConnectionService
+import com.increase.api.services.blocking.OAuthTokenService
+import com.increase.api.services.blocking.PendingTransactionService
+import com.increase.api.services.blocking.PhysicalCardProfileService
+import com.increase.api.services.blocking.PhysicalCardService
+import com.increase.api.services.blocking.ProgramService
+import com.increase.api.services.blocking.ProofOfAuthorizationRequestService
+import com.increase.api.services.blocking.ProofOfAuthorizationRequestSubmissionService
+import com.increase.api.services.blocking.RealTimeDecisionService
+import com.increase.api.services.blocking.RealTimePaymentsRequestForPaymentService
+import com.increase.api.services.blocking.RealTimePaymentsTransferService
+import com.increase.api.services.blocking.RoutingNumberService
+import com.increase.api.services.blocking.SimulationService
+import com.increase.api.services.blocking.SupplementalDocumentService
+import com.increase.api.services.blocking.TransactionService
+import com.increase.api.services.blocking.WireDrawdownRequestService
+import com.increase.api.services.blocking.WireTransferService
 
 interface IncreaseClient {
 
