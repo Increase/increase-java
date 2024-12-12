@@ -81,6 +81,14 @@ class TransactionTest {
                                 .id("card_refund_imgc2xwplh6t4r3gn16e")
                                 .amount(100L)
                                 .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
+                                .cashback(
+                                    Transaction.Source.CardRefund.Cashback.builder()
+                                        .amount("amount")
+                                        .currency(
+                                            Transaction.Source.CardRefund.Cashback.Currency.CAD
+                                        )
+                                        .build()
+                                )
                                 .currency(Transaction.Source.CardRefund.Currency.CAD)
                                 .interchange(
                                     Transaction.Source.CardRefund.Interchange.builder()
@@ -313,6 +321,14 @@ class TransactionTest {
                                 .id("card_settlement_khv5kfeu0vndj291omg6")
                                 .amount(100L)
                                 .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
+                                .cashback(
+                                    Transaction.Source.CardSettlement.Cashback.builder()
+                                        .amount("amount")
+                                        .currency(
+                                            Transaction.Source.CardSettlement.Cashback.Currency.CAD
+                                        )
+                                        .build()
+                                )
                                 .currency(Transaction.Source.CardSettlement.Currency.CAD)
                                 .interchange(
                                     Transaction.Source.CardSettlement.Interchange.builder()
@@ -814,6 +830,12 @@ class TransactionTest {
                             .id("card_refund_imgc2xwplh6t4r3gn16e")
                             .amount(100L)
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
+                            .cashback(
+                                Transaction.Source.CardRefund.Cashback.builder()
+                                    .amount("amount")
+                                    .currency(Transaction.Source.CardRefund.Cashback.Currency.CAD)
+                                    .build()
+                            )
                             .currency(Transaction.Source.CardRefund.Currency.CAD)
                             .interchange(
                                 Transaction.Source.CardRefund.Interchange.builder()
@@ -1032,6 +1054,14 @@ class TransactionTest {
                             .id("card_settlement_khv5kfeu0vndj291omg6")
                             .amount(100L)
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
+                            .cashback(
+                                Transaction.Source.CardSettlement.Cashback.builder()
+                                    .amount("amount")
+                                    .currency(
+                                        Transaction.Source.CardSettlement.Cashback.Currency.CAD
+                                    )
+                                    .build()
+                            )
                             .currency(Transaction.Source.CardSettlement.Currency.CAD)
                             .interchange(
                                 Transaction.Source.CardSettlement.Interchange.builder()
