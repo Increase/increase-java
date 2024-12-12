@@ -12,7 +12,7 @@ import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import com.increase.api.client.IncreaseClient
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.core.JsonString
+import com.increase.api.core.JsonValue
 import com.increase.api.core.http.Headers
 import com.increase.api.core.jsonMapper
 import com.increase.api.errors.BadRequestException
@@ -40,7 +40,7 @@ class ErrorHandlingTest {
     private val JSON_MAPPER: JsonMapper = jsonMapper()
 
     private val INCREASE_ERROR: IncreaseError =
-        IncreaseError.builder().putAdditionalProperty("key", JsonString.of("value")).build()
+        IncreaseError.builder().putAdditionalProperty("key", JsonValue.from("value")).build()
 
     private lateinit var client: IncreaseClient
 
