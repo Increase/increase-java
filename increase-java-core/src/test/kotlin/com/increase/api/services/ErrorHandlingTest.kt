@@ -25,7 +25,8 @@ import com.increase.api.errors.RateLimitException
 import com.increase.api.errors.UnauthorizedException
 import com.increase.api.errors.UnexpectedStatusCodeException
 import com.increase.api.errors.UnprocessableEntityException
-import com.increase.api.models.*
+import com.increase.api.models.Account
+import com.increase.api.models.AccountCreateParams
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat

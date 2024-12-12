@@ -12,7 +12,6 @@ import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.errors.IncreaseInvalidDataException
-import com.increase.api.models.*
 import java.util.Objects
 import java.util.Optional
 import org.apache.hc.core5.http.ContentType

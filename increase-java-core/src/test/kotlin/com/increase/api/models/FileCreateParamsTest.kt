@@ -4,7 +4,6 @@ package com.increase.api.models
 
 import com.increase.api.core.ContentTypes
 import com.increase.api.core.MultipartFormValue
-import com.increase.api.models.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
