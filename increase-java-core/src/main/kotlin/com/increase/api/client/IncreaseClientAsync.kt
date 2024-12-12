@@ -2,7 +2,6 @@
 
 package com.increase.api.client
 
-import com.increase.api.models.*
 import com.increase.api.services.async.*
 
 interface IncreaseClientAsync {

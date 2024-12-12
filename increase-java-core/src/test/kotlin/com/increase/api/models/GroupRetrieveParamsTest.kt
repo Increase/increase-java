@@ -2,7 +2,6 @@
 
 package com.increase.api.models
 
-import com.increase.api.models.*
 import org.junit.jupiter.api.Test
 
 class GroupRetrieveParamsTest {

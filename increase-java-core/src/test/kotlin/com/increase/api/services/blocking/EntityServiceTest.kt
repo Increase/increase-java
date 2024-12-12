@@ -4,8 +4,16 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.*
+import com.increase.api.models.EntityArchiveBeneficialOwnerParams
+import com.increase.api.models.EntityArchiveParams
+import com.increase.api.models.EntityConfirmParams
+import com.increase.api.models.EntityCreateBeneficialOwnerParams
+import com.increase.api.models.EntityCreateParams
 import com.increase.api.models.EntityListParams
+import com.increase.api.models.EntityRetrieveParams
+import com.increase.api.models.EntityUpdateAddressParams
+import com.increase.api.models.EntityUpdateBeneficialOwnerAddressParams
+import com.increase.api.models.EntityUpdateIndustryCodeParams
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test

@@ -4,8 +4,9 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.*
+import com.increase.api.models.RealTimePaymentsTransferCreateParams
 import com.increase.api.models.RealTimePaymentsTransferListParams
+import com.increase.api.models.RealTimePaymentsTransferRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 

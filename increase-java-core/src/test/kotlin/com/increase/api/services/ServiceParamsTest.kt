@@ -17,7 +17,8 @@ import com.increase.api.client.IncreaseClient
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.core.JsonValue
 import com.increase.api.core.jsonMapper
-import com.increase.api.models.*
+import com.increase.api.models.Account
+import com.increase.api.models.AccountCreateParams
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.BeforeEach

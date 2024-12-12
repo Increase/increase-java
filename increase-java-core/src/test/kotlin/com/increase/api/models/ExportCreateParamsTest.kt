@@ -3,7 +3,6 @@
 package com.increase.api.models
 
 import com.increase.api.core.JsonValue
-import com.increase.api.models.*
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test

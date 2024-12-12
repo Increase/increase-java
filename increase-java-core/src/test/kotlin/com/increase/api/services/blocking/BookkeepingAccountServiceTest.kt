@@ -4,8 +4,10 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.*
+import com.increase.api.models.BookkeepingAccountBalanceParams
+import com.increase.api.models.BookkeepingAccountCreateParams
 import com.increase.api.models.BookkeepingAccountListParams
+import com.increase.api.models.BookkeepingAccountUpdateParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
