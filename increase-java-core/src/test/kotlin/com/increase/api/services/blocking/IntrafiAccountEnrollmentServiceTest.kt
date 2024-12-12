@@ -4,8 +4,10 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.*
+import com.increase.api.models.IntrafiAccountEnrollmentCreateParams
 import com.increase.api.models.IntrafiAccountEnrollmentListParams
+import com.increase.api.models.IntrafiAccountEnrollmentRetrieveParams
+import com.increase.api.models.IntrafiAccountEnrollmentUnenrollParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 

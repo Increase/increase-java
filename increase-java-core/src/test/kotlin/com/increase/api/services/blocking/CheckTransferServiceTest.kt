@@ -4,8 +4,12 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.*
+import com.increase.api.models.CheckTransferApproveParams
+import com.increase.api.models.CheckTransferCancelParams
+import com.increase.api.models.CheckTransferCreateParams
 import com.increase.api.models.CheckTransferListParams
+import com.increase.api.models.CheckTransferRetrieveParams
+import com.increase.api.models.CheckTransferStopPaymentParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 

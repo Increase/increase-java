@@ -4,8 +4,10 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.*
+import com.increase.api.models.LockboxCreateParams
 import com.increase.api.models.LockboxListParams
+import com.increase.api.models.LockboxRetrieveParams
+import com.increase.api.models.LockboxUpdateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 

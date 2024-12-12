@@ -4,7 +4,6 @@ package com.increase.api.client
 
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.getPackageVersion
-import com.increase.api.models.*
 import com.increase.api.services.blocking.*
 
 class IncreaseClientImpl

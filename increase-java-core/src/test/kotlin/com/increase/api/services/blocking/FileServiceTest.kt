@@ -4,8 +4,9 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.*
+import com.increase.api.models.FileCreateParams
 import com.increase.api.models.FileListParams
+import com.increase.api.models.FileRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 

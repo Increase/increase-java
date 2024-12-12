@@ -4,8 +4,9 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.*
+import com.increase.api.models.CheckDepositCreateParams
 import com.increase.api.models.CheckDepositListParams
+import com.increase.api.models.CheckDepositRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
