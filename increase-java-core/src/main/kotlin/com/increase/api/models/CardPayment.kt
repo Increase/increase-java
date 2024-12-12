@@ -8297,6 +8297,7 @@ private constructor(
         private constructor(
             private val amount: JsonField<Long>,
             private val cardPaymentId: JsonField<String>,
+            private val cashback: JsonField<Cashback>,
             private val currency: JsonField<Currency>,
             private val id: JsonField<String>,
             private val interchange: JsonField<Interchange>,
@@ -8326,6 +8327,13 @@ private constructor(
 
             /** The ID of the Card Payment this transaction belongs to. */
             fun cardPaymentId(): String = cardPaymentId.getRequired("card_payment_id")
+
+            /**
+             * Cashback debited for this transaction, if eligible. Cashback is paid out in
+             * aggregate, monthly.
+             */
+            fun cashback(): Optional<Cashback> =
+                Optional.ofNullable(cashback.getNullable("cashback"))
 
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
@@ -8405,6 +8413,12 @@ private constructor(
 
             /** The ID of the Card Payment this transaction belongs to. */
             @JsonProperty("card_payment_id") @ExcludeMissing fun _cardPaymentId() = cardPaymentId
+
+            /**
+             * Cashback debited for this transaction, if eligible. Cashback is paid out in
+             * aggregate, monthly.
+             */
+            @JsonProperty("cashback") @ExcludeMissing fun _cashback() = cashback
 
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
@@ -8492,6 +8506,7 @@ private constructor(
                 if (!validated) {
                     amount()
                     cardPaymentId()
+                    cashback().map { it.validate() }
                     currency()
                     id()
                     interchange().map { it.validate() }
@@ -8523,6 +8538,7 @@ private constructor(
 
                 private var amount: JsonField<Long> = JsonMissing.of()
                 private var cardPaymentId: JsonField<String> = JsonMissing.of()
+                private var cashback: JsonField<Cashback> = JsonMissing.of()
                 private var currency: JsonField<Currency> = JsonMissing.of()
                 private var id: JsonField<String> = JsonMissing.of()
                 private var interchange: JsonField<Interchange> = JsonMissing.of()
@@ -8545,6 +8561,7 @@ private constructor(
                 internal fun from(cardRefund: CardRefund) = apply {
                     this.amount = cardRefund.amount
                     this.cardPaymentId = cardRefund.cardPaymentId
+                    this.cashback = cardRefund.cashback
                     this.currency = cardRefund.currency
                     this.id = cardRefund.id
                     this.interchange = cardRefund.interchange
@@ -8588,6 +8605,20 @@ private constructor(
                 fun cardPaymentId(cardPaymentId: JsonField<String>) = apply {
                     this.cardPaymentId = cardPaymentId
                 }
+
+                /**
+                 * Cashback debited for this transaction, if eligible. Cashback is paid out in
+                 * aggregate, monthly.
+                 */
+                fun cashback(cashback: Cashback) = cashback(JsonField.of(cashback))
+
+                /**
+                 * Cashback debited for this transaction, if eligible. Cashback is paid out in
+                 * aggregate, monthly.
+                 */
+                @JsonProperty("cashback")
+                @ExcludeMissing
+                fun cashback(cashback: JsonField<Cashback>) = apply { this.cashback = cashback }
 
                 /**
                  * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
@@ -8806,6 +8837,7 @@ private constructor(
                     CardRefund(
                         amount,
                         cardPaymentId,
+                        cashback,
                         currency,
                         id,
                         interchange,
@@ -8824,6 +8856,224 @@ private constructor(
                         type,
                         additionalProperties.toImmutable(),
                     )
+            }
+
+            /**
+             * Cashback debited for this transaction, if eligible. Cashback is paid out in
+             * aggregate, monthly.
+             */
+            @JsonDeserialize(builder = Cashback.Builder::class)
+            @NoAutoDetect
+            class Cashback
+            private constructor(
+                private val amount: JsonField<String>,
+                private val currency: JsonField<Currency>,
+                private val additionalProperties: Map<String, JsonValue>,
+            ) {
+
+                private var validated: Boolean = false
+
+                /**
+                 * The cashback amount given as a string containing a decimal number. The amount is
+                 * a positive number if it will be credited to you (e.g., settlements) and a
+                 * negative number if it will be debited (e.g., refunds).
+                 */
+                fun amount(): String = amount.getRequired("amount")
+
+                /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the cashback. */
+                fun currency(): Currency = currency.getRequired("currency")
+
+                /**
+                 * The cashback amount given as a string containing a decimal number. The amount is
+                 * a positive number if it will be credited to you (e.g., settlements) and a
+                 * negative number if it will be debited (e.g., refunds).
+                 */
+                @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+
+                /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the cashback. */
+                @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                fun validate(): Cashback = apply {
+                    if (!validated) {
+                        amount()
+                        currency()
+                        validated = true
+                    }
+                }
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                class Builder {
+
+                    private var amount: JsonField<String> = JsonMissing.of()
+                    private var currency: JsonField<Currency> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(cashback: Cashback) = apply {
+                        this.amount = cashback.amount
+                        this.currency = cashback.currency
+                        additionalProperties(cashback.additionalProperties)
+                    }
+
+                    /**
+                     * The cashback amount given as a string containing a decimal number. The amount
+                     * is a positive number if it will be credited to you (e.g., settlements) and a
+                     * negative number if it will be debited (e.g., refunds).
+                     */
+                    fun amount(amount: String) = amount(JsonField.of(amount))
+
+                    /**
+                     * The cashback amount given as a string containing a decimal number. The amount
+                     * is a positive number if it will be credited to you (e.g., settlements) and a
+                     * negative number if it will be debited (e.g., refunds).
+                     */
+                    @JsonProperty("amount")
+                    @ExcludeMissing
+                    fun amount(amount: JsonField<String>) = apply { this.amount = amount }
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the cashback.
+                     */
+                    fun currency(currency: Currency) = currency(JsonField.of(currency))
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the cashback.
+                     */
+                    @JsonProperty("currency")
+                    @ExcludeMissing
+                    fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                    @JsonAnySetter
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        this.additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun build(): Cashback =
+                        Cashback(
+                            amount,
+                            currency,
+                            additionalProperties.toImmutable(),
+                        )
+                }
+
+                class Currency
+                @JsonCreator
+                private constructor(
+                    private val value: JsonField<String>,
+                ) : Enum {
+
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    companion object {
+
+                        @JvmField val CAD = of("CAD")
+
+                        @JvmField val CHF = of("CHF")
+
+                        @JvmField val EUR = of("EUR")
+
+                        @JvmField val GBP = of("GBP")
+
+                        @JvmField val JPY = of("JPY")
+
+                        @JvmField val USD = of("USD")
+
+                        @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
+                    }
+
+                    enum class Known {
+                        CAD,
+                        CHF,
+                        EUR,
+                        GBP,
+                        JPY,
+                        USD,
+                    }
+
+                    enum class Value {
+                        CAD,
+                        CHF,
+                        EUR,
+                        GBP,
+                        JPY,
+                        USD,
+                        _UNKNOWN,
+                    }
+
+                    fun value(): Value =
+                        when (this) {
+                            CAD -> Value.CAD
+                            CHF -> Value.CHF
+                            EUR -> Value.EUR
+                            GBP -> Value.GBP
+                            JPY -> Value.JPY
+                            USD -> Value.USD
+                            else -> Value._UNKNOWN
+                        }
+
+                    fun known(): Known =
+                        when (this) {
+                            CAD -> Known.CAD
+                            CHF -> Known.CHF
+                            EUR -> Known.EUR
+                            GBP -> Known.GBP
+                            JPY -> Known.JPY
+                            USD -> Known.USD
+                            else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
+                        }
+
+                    fun asString(): String = _value().asStringOrThrow()
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return /* spotless:off */ other is Currency && value == other.value /* spotless:on */
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+                }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return /* spotless:off */ other is Cashback && amount == other.amount && currency == other.currency && additionalProperties == other.additionalProperties /* spotless:on */
+                }
+
+                /* spotless:off */
+                private val hashCode: Int by lazy { Objects.hash(amount, currency, additionalProperties) }
+                /* spotless:on */
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "Cashback{amount=$amount, currency=$currency, additionalProperties=$additionalProperties}"
             }
 
             class Currency
@@ -12879,17 +13129,17 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is CardRefund && amount == other.amount && cardPaymentId == other.cardPaymentId && currency == other.currency && id == other.id && interchange == other.interchange && merchantAcceptorId == other.merchantAcceptorId && merchantCategoryCode == other.merchantCategoryCode && merchantCity == other.merchantCity && merchantCountry == other.merchantCountry && merchantName == other.merchantName && merchantPostalCode == other.merchantPostalCode && merchantState == other.merchantState && networkIdentifiers == other.networkIdentifiers && presentmentAmount == other.presentmentAmount && presentmentCurrency == other.presentmentCurrency && purchaseDetails == other.purchaseDetails && transactionId == other.transactionId && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is CardRefund && amount == other.amount && cardPaymentId == other.cardPaymentId && cashback == other.cashback && currency == other.currency && id == other.id && interchange == other.interchange && merchantAcceptorId == other.merchantAcceptorId && merchantCategoryCode == other.merchantCategoryCode && merchantCity == other.merchantCity && merchantCountry == other.merchantCountry && merchantName == other.merchantName && merchantPostalCode == other.merchantPostalCode && merchantState == other.merchantState && networkIdentifiers == other.networkIdentifiers && presentmentAmount == other.presentmentAmount && presentmentCurrency == other.presentmentCurrency && purchaseDetails == other.purchaseDetails && transactionId == other.transactionId && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(amount, cardPaymentId, currency, id, interchange, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantName, merchantPostalCode, merchantState, networkIdentifiers, presentmentAmount, presentmentCurrency, purchaseDetails, transactionId, type, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(amount, cardPaymentId, cashback, currency, id, interchange, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantName, merchantPostalCode, merchantState, networkIdentifiers, presentmentAmount, presentmentCurrency, purchaseDetails, transactionId, type, additionalProperties) }
             /* spotless:on */
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CardRefund{amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, id=$id, interchange=$interchange, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkIdentifiers=$networkIdentifiers, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, purchaseDetails=$purchaseDetails, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+                "CardRefund{amount=$amount, cardPaymentId=$cardPaymentId, cashback=$cashback, currency=$currency, id=$id, interchange=$interchange, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkIdentifiers=$networkIdentifiers, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, purchaseDetails=$purchaseDetails, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -13931,6 +14181,7 @@ private constructor(
             private val amount: JsonField<Long>,
             private val cardAuthorization: JsonField<String>,
             private val cardPaymentId: JsonField<String>,
+            private val cashback: JsonField<Cashback>,
             private val currency: JsonField<Currency>,
             private val id: JsonField<String>,
             private val interchange: JsonField<Interchange>,
@@ -13967,6 +14218,13 @@ private constructor(
 
             /** The ID of the Card Payment this transaction belongs to. */
             fun cardPaymentId(): String = cardPaymentId.getRequired("card_payment_id")
+
+            /**
+             * Cashback earned on this transaction, if eligible. Cashback is paid out in aggregate,
+             * monthly.
+             */
+            fun cashback(): Optional<Cashback> =
+                Optional.ofNullable(cashback.getNullable("cashback"))
 
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
@@ -14057,6 +14315,12 @@ private constructor(
 
             /** The ID of the Card Payment this transaction belongs to. */
             @JsonProperty("card_payment_id") @ExcludeMissing fun _cardPaymentId() = cardPaymentId
+
+            /**
+             * Cashback earned on this transaction, if eligible. Cashback is paid out in aggregate,
+             * monthly.
+             */
+            @JsonProperty("cashback") @ExcludeMissing fun _cashback() = cashback
 
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
@@ -14150,6 +14414,7 @@ private constructor(
                     amount()
                     cardAuthorization()
                     cardPaymentId()
+                    cashback().map { it.validate() }
                     currency()
                     id()
                     interchange().map { it.validate() }
@@ -14183,6 +14448,7 @@ private constructor(
                 private var amount: JsonField<Long> = JsonMissing.of()
                 private var cardAuthorization: JsonField<String> = JsonMissing.of()
                 private var cardPaymentId: JsonField<String> = JsonMissing.of()
+                private var cashback: JsonField<Cashback> = JsonMissing.of()
                 private var currency: JsonField<Currency> = JsonMissing.of()
                 private var id: JsonField<String> = JsonMissing.of()
                 private var interchange: JsonField<Interchange> = JsonMissing.of()
@@ -14207,6 +14473,7 @@ private constructor(
                     this.amount = cardSettlement.amount
                     this.cardAuthorization = cardSettlement.cardAuthorization
                     this.cardPaymentId = cardSettlement.cardPaymentId
+                    this.cashback = cardSettlement.cashback
                     this.currency = cardSettlement.currency
                     this.id = cardSettlement.id
                     this.interchange = cardSettlement.interchange
@@ -14268,6 +14535,20 @@ private constructor(
                 fun cardPaymentId(cardPaymentId: JsonField<String>) = apply {
                     this.cardPaymentId = cardPaymentId
                 }
+
+                /**
+                 * Cashback earned on this transaction, if eligible. Cashback is paid out in
+                 * aggregate, monthly.
+                 */
+                fun cashback(cashback: Cashback) = cashback(JsonField.of(cashback))
+
+                /**
+                 * Cashback earned on this transaction, if eligible. Cashback is paid out in
+                 * aggregate, monthly.
+                 */
+                @JsonProperty("cashback")
+                @ExcludeMissing
+                fun cashback(cashback: JsonField<Cashback>) = apply { this.cashback = cashback }
 
                 /**
                  * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
@@ -14498,6 +14779,7 @@ private constructor(
                         amount,
                         cardAuthorization,
                         cardPaymentId,
+                        cashback,
                         currency,
                         id,
                         interchange,
@@ -14517,6 +14799,224 @@ private constructor(
                         type,
                         additionalProperties.toImmutable(),
                     )
+            }
+
+            /**
+             * Cashback earned on this transaction, if eligible. Cashback is paid out in aggregate,
+             * monthly.
+             */
+            @JsonDeserialize(builder = Cashback.Builder::class)
+            @NoAutoDetect
+            class Cashback
+            private constructor(
+                private val amount: JsonField<String>,
+                private val currency: JsonField<Currency>,
+                private val additionalProperties: Map<String, JsonValue>,
+            ) {
+
+                private var validated: Boolean = false
+
+                /**
+                 * The cashback amount given as a string containing a decimal number. The amount is
+                 * a positive number if it will be credited to you (e.g., settlements) and a
+                 * negative number if it will be debited (e.g., refunds).
+                 */
+                fun amount(): String = amount.getRequired("amount")
+
+                /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the cashback. */
+                fun currency(): Currency = currency.getRequired("currency")
+
+                /**
+                 * The cashback amount given as a string containing a decimal number. The amount is
+                 * a positive number if it will be credited to you (e.g., settlements) and a
+                 * negative number if it will be debited (e.g., refunds).
+                 */
+                @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+
+                /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the cashback. */
+                @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                fun validate(): Cashback = apply {
+                    if (!validated) {
+                        amount()
+                        currency()
+                        validated = true
+                    }
+                }
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                class Builder {
+
+                    private var amount: JsonField<String> = JsonMissing.of()
+                    private var currency: JsonField<Currency> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(cashback: Cashback) = apply {
+                        this.amount = cashback.amount
+                        this.currency = cashback.currency
+                        additionalProperties(cashback.additionalProperties)
+                    }
+
+                    /**
+                     * The cashback amount given as a string containing a decimal number. The amount
+                     * is a positive number if it will be credited to you (e.g., settlements) and a
+                     * negative number if it will be debited (e.g., refunds).
+                     */
+                    fun amount(amount: String) = amount(JsonField.of(amount))
+
+                    /**
+                     * The cashback amount given as a string containing a decimal number. The amount
+                     * is a positive number if it will be credited to you (e.g., settlements) and a
+                     * negative number if it will be debited (e.g., refunds).
+                     */
+                    @JsonProperty("amount")
+                    @ExcludeMissing
+                    fun amount(amount: JsonField<String>) = apply { this.amount = amount }
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the cashback.
+                     */
+                    fun currency(currency: Currency) = currency(JsonField.of(currency))
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the cashback.
+                     */
+                    @JsonProperty("currency")
+                    @ExcludeMissing
+                    fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                    @JsonAnySetter
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        this.additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun build(): Cashback =
+                        Cashback(
+                            amount,
+                            currency,
+                            additionalProperties.toImmutable(),
+                        )
+                }
+
+                class Currency
+                @JsonCreator
+                private constructor(
+                    private val value: JsonField<String>,
+                ) : Enum {
+
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    companion object {
+
+                        @JvmField val CAD = of("CAD")
+
+                        @JvmField val CHF = of("CHF")
+
+                        @JvmField val EUR = of("EUR")
+
+                        @JvmField val GBP = of("GBP")
+
+                        @JvmField val JPY = of("JPY")
+
+                        @JvmField val USD = of("USD")
+
+                        @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
+                    }
+
+                    enum class Known {
+                        CAD,
+                        CHF,
+                        EUR,
+                        GBP,
+                        JPY,
+                        USD,
+                    }
+
+                    enum class Value {
+                        CAD,
+                        CHF,
+                        EUR,
+                        GBP,
+                        JPY,
+                        USD,
+                        _UNKNOWN,
+                    }
+
+                    fun value(): Value =
+                        when (this) {
+                            CAD -> Value.CAD
+                            CHF -> Value.CHF
+                            EUR -> Value.EUR
+                            GBP -> Value.GBP
+                            JPY -> Value.JPY
+                            USD -> Value.USD
+                            else -> Value._UNKNOWN
+                        }
+
+                    fun known(): Known =
+                        when (this) {
+                            CAD -> Known.CAD
+                            CHF -> Known.CHF
+                            EUR -> Known.EUR
+                            GBP -> Known.GBP
+                            JPY -> Known.JPY
+                            USD -> Known.USD
+                            else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
+                        }
+
+                    fun asString(): String = _value().asStringOrThrow()
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return /* spotless:off */ other is Currency && value == other.value /* spotless:on */
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+                }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return /* spotless:off */ other is Cashback && amount == other.amount && currency == other.currency && additionalProperties == other.additionalProperties /* spotless:on */
+                }
+
+                /* spotless:off */
+                private val hashCode: Int by lazy { Objects.hash(amount, currency, additionalProperties) }
+                /* spotless:on */
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "Cashback{amount=$amount, currency=$currency, additionalProperties=$additionalProperties}"
             }
 
             class Currency
@@ -18572,17 +19072,17 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is CardSettlement && amount == other.amount && cardAuthorization == other.cardAuthorization && cardPaymentId == other.cardPaymentId && currency == other.currency && id == other.id && interchange == other.interchange && merchantAcceptorId == other.merchantAcceptorId && merchantCategoryCode == other.merchantCategoryCode && merchantCity == other.merchantCity && merchantCountry == other.merchantCountry && merchantName == other.merchantName && merchantPostalCode == other.merchantPostalCode && merchantState == other.merchantState && networkIdentifiers == other.networkIdentifiers && pendingTransactionId == other.pendingTransactionId && presentmentAmount == other.presentmentAmount && presentmentCurrency == other.presentmentCurrency && purchaseDetails == other.purchaseDetails && transactionId == other.transactionId && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is CardSettlement && amount == other.amount && cardAuthorization == other.cardAuthorization && cardPaymentId == other.cardPaymentId && cashback == other.cashback && currency == other.currency && id == other.id && interchange == other.interchange && merchantAcceptorId == other.merchantAcceptorId && merchantCategoryCode == other.merchantCategoryCode && merchantCity == other.merchantCity && merchantCountry == other.merchantCountry && merchantName == other.merchantName && merchantPostalCode == other.merchantPostalCode && merchantState == other.merchantState && networkIdentifiers == other.networkIdentifiers && pendingTransactionId == other.pendingTransactionId && presentmentAmount == other.presentmentAmount && presentmentCurrency == other.presentmentCurrency && purchaseDetails == other.purchaseDetails && transactionId == other.transactionId && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(amount, cardAuthorization, cardPaymentId, currency, id, interchange, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantName, merchantPostalCode, merchantState, networkIdentifiers, pendingTransactionId, presentmentAmount, presentmentCurrency, purchaseDetails, transactionId, type, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(amount, cardAuthorization, cardPaymentId, cashback, currency, id, interchange, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantName, merchantPostalCode, merchantState, networkIdentifiers, pendingTransactionId, presentmentAmount, presentmentCurrency, purchaseDetails, transactionId, type, additionalProperties) }
             /* spotless:on */
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CardSettlement{amount=$amount, cardAuthorization=$cardAuthorization, cardPaymentId=$cardPaymentId, currency=$currency, id=$id, interchange=$interchange, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkIdentifiers=$networkIdentifiers, pendingTransactionId=$pendingTransactionId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, purchaseDetails=$purchaseDetails, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+                "CardSettlement{amount=$amount, cardAuthorization=$cardAuthorization, cardPaymentId=$cardPaymentId, cashback=$cashback, currency=$currency, id=$id, interchange=$interchange, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkIdentifiers=$networkIdentifiers, pendingTransactionId=$pendingTransactionId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, purchaseDetails=$purchaseDetails, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
         }
 
         /**
