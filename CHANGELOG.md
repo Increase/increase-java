@@ -1,5 +1,32 @@
 # Changelog
 
+## 0.158.0 (2024-12-18)
+
+Full Changelog: [v0.157.0...v0.158.0](https://github.com/Increase/increase-java/compare/v0.157.0...v0.158.0)
+
+### Features
+
+* **api:** api update ([#645](https://github.com/Increase/increase-java/issues/645)) ([ad806f4](https://github.com/Increase/increase-java/commit/ad806f44fa2387744f892ce3aa37af1299be4482))
+* **api:** api update ([#647](https://github.com/Increase/increase-java/issues/647)) ([dd4c71a](https://github.com/Increase/increase-java/commit/dd4c71a7d62da3a968639e13827857a8de99d8fd))
+* **api:** api update ([#652](https://github.com/Increase/increase-java/issues/652)) ([a330815](https://github.com/Increase/increase-java/commit/a33081568fcbba8b677c85a6244484bc438dfb22))
+* **api:** api update ([#657](https://github.com/Increase/increase-java/issues/657)) ([02c29b7](https://github.com/Increase/increase-java/commit/02c29b7c7453ba2947420b2e548e3ecdf0282d51))
+
+
+### Chores
+
+* **internal:** remove unused and expand used wildcard imports ([#655](https://github.com/Increase/increase-java/issues/655)) ([4ea2232](https://github.com/Increase/increase-java/commit/4ea22321f6714678eb88293e7f3ec3d21502e508))
+* **internal:** remove unused and expand used wildcard imports ([#656](https://github.com/Increase/increase-java/issues/656)) ([f9fab92](https://github.com/Increase/increase-java/commit/f9fab923e0d1874578da01be174097c741995c2c))
+* **internal:** remove unused imports ([#651](https://github.com/Increase/increase-java/issues/651)) ([652cf01](https://github.com/Increase/increase-java/commit/652cf0162501bad6e8b2731e29383951f3599fe7))
+* **test:** remove unused imports ([#653](https://github.com/Increase/increase-java/issues/653)) ([bd477bf](https://github.com/Increase/increase-java/commit/bd477bf96456f8d057db67ae9be000a3e54bef6c))
+* **test:** use `JsonValue` instead of `JsonString` ([#654](https://github.com/Increase/increase-java/issues/654)) ([4470aa8](https://github.com/Increase/increase-java/commit/4470aa836dec9090babcf44c29942ce9e3b168bc))
+* update example values in tests and docs ([#648](https://github.com/Increase/increase-java/issues/648)) ([f1e2ee1](https://github.com/Increase/increase-java/commit/f1e2ee1afc5e405a39978774d4046aeb62660b6c))
+
+
+### Styles
+
+* **internal:** make enum value definitions less verbose ([#649](https://github.com/Increase/increase-java/issues/649)) ([30ec6c5](https://github.com/Increase/increase-java/commit/30ec6c5ab32fa72e4f1d49f93f40c6f357269471))
+* **internal:** move enum identity methods to bottom of class ([#650](https://github.com/Increase/increase-java/issues/650)) ([3d2f476](https://github.com/Increase/increase-java/commit/3d2f476dd4de6154cb36d80a1b301eb3d07333ea))
+
 ## 0.157.0 (2024-12-02)
 
 Full Changelog: [v0.156.0...v0.157.0](https://github.com/Increase/increase-java/compare/v0.156.0...v0.157.0)
