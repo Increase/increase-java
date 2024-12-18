@@ -6,13 +6,11 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.JsonField
-import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
-import com.increase.api.models.*
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
@@ -285,25 +283,13 @@ constructor(
 
             @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return /* spotless:off */ other is In && value == other.value /* spotless:on */
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-
             companion object {
 
-                @JvmField val FORM_1099_INT = In(JsonField.of("form_1099_int"))
+                @JvmField val FORM_1099_INT = of("form_1099_int")
 
-                @JvmField val PROOF_OF_AUTHORIZATION = In(JsonField.of("proof_of_authorization"))
+                @JvmField val PROOF_OF_AUTHORIZATION = of("proof_of_authorization")
 
-                @JvmField val COMPANY_INFORMATION = In(JsonField.of("company_information"))
+                @JvmField val COMPANY_INFORMATION = of("company_information")
 
                 @JvmStatic fun of(value: String) = In(JsonField.of(value))
             }
@@ -338,6 +324,18 @@ constructor(
                 }
 
             fun asString(): String = _value().asStringOrThrow()
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return /* spotless:off */ other is In && value == other.value /* spotless:on */
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
         }
 
         override fun equals(other: Any?): Boolean {

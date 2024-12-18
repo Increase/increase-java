@@ -6,13 +6,11 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.JsonField
-import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
-import com.increase.api.models.*
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
@@ -432,32 +430,19 @@ constructor(
 
             @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return /* spotless:off */ other is In && value == other.value /* spotless:on */
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-
             companion object {
 
-                @JvmField val PENDING_REVIEWING = In(JsonField.of("pending_reviewing"))
+                @JvmField val PENDING_REVIEWING = of("pending_reviewing")
 
-                @JvmField
-                val PENDING_USER_INFORMATION = In(JsonField.of("pending_user_information"))
+                @JvmField val PENDING_USER_INFORMATION = of("pending_user_information")
 
-                @JvmField val ACCEPTED = In(JsonField.of("accepted"))
+                @JvmField val ACCEPTED = of("accepted")
 
-                @JvmField val REJECTED = In(JsonField.of("rejected"))
+                @JvmField val REJECTED = of("rejected")
 
-                @JvmField val LOST = In(JsonField.of("lost"))
+                @JvmField val LOST = of("lost")
 
-                @JvmField val WON = In(JsonField.of("won"))
+                @JvmField val WON = of("won")
 
                 @JvmStatic fun of(value: String) = In(JsonField.of(value))
             }
@@ -504,6 +489,18 @@ constructor(
                 }
 
             fun asString(): String = _value().asStringOrThrow()
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return /* spotless:off */ other is In && value == other.value /* spotless:on */
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
         }
 
         override fun equals(other: Any?): Boolean {

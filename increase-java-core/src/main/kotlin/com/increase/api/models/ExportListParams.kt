@@ -6,13 +6,11 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.JsonField
-import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
-import com.increase.api.models.*
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
@@ -298,33 +296,22 @@ constructor(
 
             @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return /* spotless:off */ other is In && value == other.value /* spotless:on */
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-
             companion object {
 
-                @JvmField val ACCOUNT_STATEMENT_OFX = In(JsonField.of("account_statement_ofx"))
+                @JvmField val ACCOUNT_STATEMENT_OFX = of("account_statement_ofx")
 
-                @JvmField val TRANSACTION_CSV = In(JsonField.of("transaction_csv"))
+                @JvmField val TRANSACTION_CSV = of("transaction_csv")
 
-                @JvmField val BALANCE_CSV = In(JsonField.of("balance_csv"))
+                @JvmField val BALANCE_CSV = of("balance_csv")
 
                 @JvmField
-                val BOOKKEEPING_ACCOUNT_BALANCE_CSV =
-                    In(JsonField.of("bookkeeping_account_balance_csv"))
+                val BOOKKEEPING_ACCOUNT_BALANCE_CSV = of("bookkeeping_account_balance_csv")
 
-                @JvmField val ENTITY_CSV = In(JsonField.of("entity_csv"))
+                @JvmField val ENTITY_CSV = of("entity_csv")
 
-                @JvmField val VENDOR_CSV = In(JsonField.of("vendor_csv"))
+                @JvmField val VENDOR_CSV = of("vendor_csv")
+
+                @JvmField val DASHBOARD_TABLE_CSV = of("dashboard_table_csv")
 
                 @JvmStatic fun of(value: String) = In(JsonField.of(value))
             }
@@ -336,6 +323,7 @@ constructor(
                 BOOKKEEPING_ACCOUNT_BALANCE_CSV,
                 ENTITY_CSV,
                 VENDOR_CSV,
+                DASHBOARD_TABLE_CSV,
             }
 
             enum class Value {
@@ -345,6 +333,7 @@ constructor(
                 BOOKKEEPING_ACCOUNT_BALANCE_CSV,
                 ENTITY_CSV,
                 VENDOR_CSV,
+                DASHBOARD_TABLE_CSV,
                 _UNKNOWN,
             }
 
@@ -356,6 +345,7 @@ constructor(
                     BOOKKEEPING_ACCOUNT_BALANCE_CSV -> Value.BOOKKEEPING_ACCOUNT_BALANCE_CSV
                     ENTITY_CSV -> Value.ENTITY_CSV
                     VENDOR_CSV -> Value.VENDOR_CSV
+                    DASHBOARD_TABLE_CSV -> Value.DASHBOARD_TABLE_CSV
                     else -> Value._UNKNOWN
                 }
 
@@ -367,10 +357,23 @@ constructor(
                     BOOKKEEPING_ACCOUNT_BALANCE_CSV -> Known.BOOKKEEPING_ACCOUNT_BALANCE_CSV
                     ENTITY_CSV -> Known.ENTITY_CSV
                     VENDOR_CSV -> Known.VENDOR_CSV
+                    DASHBOARD_TABLE_CSV -> Known.DASHBOARD_TABLE_CSV
                     else -> throw IncreaseInvalidDataException("Unknown In: $value")
                 }
 
             fun asString(): String = _value().asStringOrThrow()
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return /* spotless:off */ other is In && value == other.value /* spotless:on */
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
         }
 
         override fun equals(other: Any?): Boolean {
@@ -603,25 +606,13 @@ constructor(
 
             @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return /* spotless:off */ other is In && value == other.value /* spotless:on */
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-
             companion object {
 
-                @JvmField val PENDING = In(JsonField.of("pending"))
+                @JvmField val PENDING = of("pending")
 
-                @JvmField val COMPLETE = In(JsonField.of("complete"))
+                @JvmField val COMPLETE = of("complete")
 
-                @JvmField val FAILED = In(JsonField.of("failed"))
+                @JvmField val FAILED = of("failed")
 
                 @JvmStatic fun of(value: String) = In(JsonField.of(value))
             }
@@ -656,6 +647,18 @@ constructor(
                 }
 
             fun asString(): String = _value().asStringOrThrow()
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return /* spotless:off */ other is In && value == other.value /* spotless:on */
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
         }
 
         override fun equals(other: Any?): Boolean {

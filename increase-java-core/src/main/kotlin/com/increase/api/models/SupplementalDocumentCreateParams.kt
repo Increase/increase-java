@@ -12,7 +12,6 @@ import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
-import com.increase.api.models.*
 import java.util.Objects
 
 class SupplementalDocumentCreateParams

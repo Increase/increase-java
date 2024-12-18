@@ -491,25 +491,13 @@ private constructor(
 
         @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is Bank && value == other.value /* spotless:on */
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
         companion object {
 
-            @JvmField val BLUE_RIDGE_BANK = Bank(JsonField.of("blue_ridge_bank"))
+            @JvmField val BLUE_RIDGE_BANK = of("blue_ridge_bank")
 
-            @JvmField val FIRST_INTERNET_BANK = Bank(JsonField.of("first_internet_bank"))
+            @JvmField val FIRST_INTERNET_BANK = of("first_internet_bank")
 
-            @JvmField val GRASSHOPPER_BANK = Bank(JsonField.of("grasshopper_bank"))
+            @JvmField val GRASSHOPPER_BANK = of("grasshopper_bank")
 
             @JvmStatic fun of(value: String) = Bank(JsonField.of(value))
         }
@@ -544,6 +532,18 @@ private constructor(
             }
 
         fun asString(): String = _value().asStringOrThrow()
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Bank && value == other.value /* spotless:on */
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
     }
 
     class Currency
@@ -554,31 +554,19 @@ private constructor(
 
         @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is Currency && value == other.value /* spotless:on */
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
         companion object {
 
-            @JvmField val CAD = Currency(JsonField.of("CAD"))
+            @JvmField val CAD = of("CAD")
 
-            @JvmField val CHF = Currency(JsonField.of("CHF"))
+            @JvmField val CHF = of("CHF")
 
-            @JvmField val EUR = Currency(JsonField.of("EUR"))
+            @JvmField val EUR = of("EUR")
 
-            @JvmField val GBP = Currency(JsonField.of("GBP"))
+            @JvmField val GBP = of("GBP")
 
-            @JvmField val JPY = Currency(JsonField.of("JPY"))
+            @JvmField val JPY = of("JPY")
 
-            @JvmField val USD = Currency(JsonField.of("USD"))
+            @JvmField val USD = of("USD")
 
             @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
         }
@@ -625,6 +613,18 @@ private constructor(
             }
 
         fun asString(): String = _value().asStringOrThrow()
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Currency && value == other.value /* spotless:on */
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
     }
 
     class Status
@@ -635,23 +635,11 @@ private constructor(
 
         @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
         companion object {
 
-            @JvmField val CLOSED = Status(JsonField.of("closed"))
+            @JvmField val CLOSED = of("closed")
 
-            @JvmField val OPEN = Status(JsonField.of("open"))
+            @JvmField val OPEN = of("open")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
@@ -682,6 +670,18 @@ private constructor(
             }
 
         fun asString(): String = _value().asStringOrThrow()
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
     }
 
     class Type
@@ -692,21 +692,9 @@ private constructor(
 
         @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
         companion object {
 
-            @JvmField val ACCOUNT = Type(JsonField.of("account"))
+            @JvmField val ACCOUNT = of("account")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }
@@ -733,6 +721,18 @@ private constructor(
             }
 
         fun asString(): String = _value().asStringOrThrow()
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
     }
 
     override fun equals(other: Any?): Boolean {

@@ -2,7 +2,7 @@
 
 package com.increase.api.models
 
-import com.increase.api.core.JsonNull
+import com.increase.api.core.JsonValue
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -13,57 +13,49 @@ class DeclinedTransactionTest {
     fun createDeclinedTransaction() {
         val declinedTransaction =
             DeclinedTransaction.builder()
-                .id("id")
-                .accountId("account_id")
-                .amount(0L)
-                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .id("declined_transaction_17jbn0yyhvkt4v4ooym8")
+                .accountId("account_in71c4amph0vgo2qllky")
+                .amount(1750L)
+                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .currency(DeclinedTransaction.Currency.CAD)
-                .description("description")
-                .routeId("route_id")
+                .description("INVOICE 2468")
+                .routeId("account_number_v18nkfqm6afpsrvy82b2")
                 .routeType(DeclinedTransaction.RouteType.ACCOUNT_NUMBER)
                 .source(
                     DeclinedTransaction.Source.builder()
                         .achDecline(
                             DeclinedTransaction.Source.AchDecline.builder()
-                                .id("id")
-                                .amount(0L)
-                                .inboundAchTransferId("inbound_ach_transfer_id")
-                                .originatorCompanyDescriptiveDate(
-                                    "originator_company_descriptive_date"
-                                )
-                                .originatorCompanyDiscretionaryData(
-                                    "originator_company_discretionary_data"
-                                )
-                                .originatorCompanyId("originator_company_id")
-                                .originatorCompanyName("originator_company_name")
+                                .id("ach_decline_72v1mcwxudctq56efipa")
+                                .amount(1750L)
+                                .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
+                                .originatorCompanyId("0987654321")
+                                .originatorCompanyName("BIG BANK")
                                 .reason(
                                     DeclinedTransaction.Source.AchDecline.Reason.ACH_ROUTE_CANCELED
                                 )
-                                .receiverIdNumber("receiver_id_number")
-                                .receiverName("receiver_name")
-                                .traceNumber("trace_number")
+                                .receiverIdNumber("12345678900")
+                                .receiverName("IAN CREASE")
+                                .traceNumber("021000038461022")
                                 .type(DeclinedTransaction.Source.AchDecline.Type.ACH_DECLINE)
                                 .build()
                         )
                         .cardDecline(
                             DeclinedTransaction.Source.CardDecline.builder()
-                                .id("id")
+                                .id("card_decline_bx3o8zd7glq8yvtwg25v")
                                 .actioner(DeclinedTransaction.Source.CardDecline.Actioner.USER)
-                                .amount(0L)
-                                .cardPaymentId("card_payment_id")
+                                .amount(-1000L)
+                                .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                 .currency(DeclinedTransaction.Source.CardDecline.Currency.CAD)
-                                .declinedTransactionId("declined_transaction_id")
-                                .digitalWalletTokenId("digital_wallet_token_id")
+                                .declinedTransactionId("declined_transaction_17jbn0yyhvkt4v4ooym8")
                                 .direction(
                                     DeclinedTransaction.Source.CardDecline.Direction.SETTLEMENT
                                 )
-                                .merchantAcceptorId("merchant_acceptor_id")
-                                .merchantCategoryCode("merchant_category_code")
-                                .merchantCity("merchant_city")
-                                .merchantCountry("merchant_country")
-                                .merchantDescriptor("merchant_descriptor")
-                                .merchantPostalCode("merchant_postal_code")
-                                .merchantState("merchant_state")
+                                .merchantAcceptorId("5665270011000168")
+                                .merchantCategoryCode("5734")
+                                .merchantCity("New York")
+                                .merchantCountry("US")
+                                .merchantDescriptor("AMAZON.COM")
+                                .merchantPostalCode("10045")
                                 .networkDetails(
                                     DeclinedTransaction.Source.CardDecline.NetworkDetails.builder()
                                         .category(
@@ -103,20 +95,18 @@ class DeclinedTransactionTest {
                                 .networkIdentifiers(
                                     DeclinedTransaction.Source.CardDecline.NetworkIdentifiers
                                         .builder()
-                                        .retrievalReferenceNumber("retrieval_reference_number")
-                                        .traceNumber("trace_number")
-                                        .transactionId("transaction_id")
+                                        .retrievalReferenceNumber("785867080153")
+                                        .traceNumber("487941")
+                                        .transactionId("627199945183184")
                                         .build()
                                 )
-                                .networkRiskScore(0L)
-                                .physicalCardId("physical_card_id")
-                                .presentmentAmount(0L)
-                                .presentmentCurrency("presentment_currency")
+                                .networkRiskScore(10L)
+                                .presentmentAmount(-1000L)
+                                .presentmentCurrency("USD")
                                 .processingCategory(
                                     DeclinedTransaction.Source.CardDecline.ProcessingCategory
                                         .ACCOUNT_FUNDING
                                 )
-                                .realTimeDecisionId("real_time_decision_id")
                                 .realTimeDecisionReason(
                                     DeclinedTransaction.Source.CardDecline.RealTimeDecisionReason
                                         .INSUFFICIENT_FUNDS
@@ -124,7 +114,7 @@ class DeclinedTransactionTest {
                                 .reason(
                                     DeclinedTransaction.Source.CardDecline.Reason.CARD_NOT_ACTIVE
                                 )
-                                .terminalId("terminal_id")
+                                .terminalId("RCN5VNXS")
                                 .verification(
                                     DeclinedTransaction.Source.CardDecline.Verification.builder()
                                         .cardVerificationCode(
@@ -144,10 +134,10 @@ class DeclinedTransactionTest {
                                             DeclinedTransaction.Source.CardDecline.Verification
                                                 .CardholderAddress
                                                 .builder()
-                                                .actualLine1("actual_line1")
-                                                .actualPostalCode("actual_postal_code")
-                                                .providedLine1("provided_line1")
-                                                .providedPostalCode("provided_postal_code")
+                                                .actualLine1("33 Liberty Street")
+                                                .actualPostalCode("94131")
+                                                .providedLine1("33 Liberty Street")
+                                                .providedPostalCode("94132")
                                                 .result(
                                                     DeclinedTransaction.Source.CardDecline
                                                         .Verification
@@ -164,12 +154,10 @@ class DeclinedTransactionTest {
                         .category(DeclinedTransaction.Source.Category.ACH_DECLINE)
                         .checkDecline(
                             DeclinedTransaction.Source.CheckDecline.builder()
-                                .amount(0L)
-                                .auxiliaryOnUs("auxiliary_on_us")
-                                .backImageFileId("back_image_file_id")
-                                .checkTransferId("check_transfer_id")
-                                .frontImageFileId("front_image_file_id")
-                                .inboundCheckDepositId("inbound_check_deposit_id")
+                                .amount(-1000L)
+                                .auxiliaryOnUs("99999")
+                                .checkTransferId("check_transfer_30b43acfu9vw8fyc4f5")
+                                .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
                                 .reason(
                                     DeclinedTransaction.Source.CheckDecline.Reason
                                         .ACH_ROUTE_DISABLED
@@ -178,48 +166,50 @@ class DeclinedTransactionTest {
                         )
                         .checkDepositRejection(
                             DeclinedTransaction.Source.CheckDepositRejection.builder()
-                                .amount(0L)
-                                .checkDepositId("check_deposit_id")
+                                .amount(1750L)
+                                .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                                 .currency(
                                     DeclinedTransaction.Source.CheckDepositRejection.Currency.CAD
                                 )
-                                .declinedTransactionId("declined_transaction_id")
+                                .declinedTransactionId("declined_transaction_17jbn0yyhvkt4v4ooym8")
                                 .reason(
                                     DeclinedTransaction.Source.CheckDepositRejection.Reason
                                         .INCOMPLETE_IMAGE
                                 )
-                                .rejectedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .rejectedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                 .build()
                         )
                         .inboundRealTimePaymentsTransferDecline(
                             DeclinedTransaction.Source.InboundRealTimePaymentsTransferDecline
                                 .builder()
-                                .amount(0L)
-                                .creditorName("creditor_name")
+                                .amount(100L)
+                                .creditorName("Ian Crease")
                                 .currency(
                                     DeclinedTransaction.Source
                                         .InboundRealTimePaymentsTransferDecline
                                         .Currency
                                         .CAD
                                 )
-                                .debtorAccountNumber("debtor_account_number")
-                                .debtorName("debtor_name")
-                                .debtorRoutingNumber("debtor_routing_number")
+                                .debtorAccountNumber("987654321")
+                                .debtorName("National Phonograph Company")
+                                .debtorRoutingNumber("101050001")
                                 .reason(
                                     DeclinedTransaction.Source
                                         .InboundRealTimePaymentsTransferDecline
                                         .Reason
                                         .ACCOUNT_NUMBER_CANCELED
                                 )
-                                .remittanceInformation("remittance_information")
-                                .transactionIdentification("transaction_identification")
-                                .transferId("transfer_id")
+                                .remittanceInformation("Invoice 29582")
+                                .transactionIdentification("20220501234567891T1BSLZO01745013025")
+                                .transferId(
+                                    "inbound_real_time_payments_transfer_63hlz498vcxg644hcrzr"
+                                )
                                 .build()
                         )
-                        .other(JsonNull.of())
+                        .other(JsonValue.from(mapOf<String, Any>()))
                         .wireDecline(
                             DeclinedTransaction.Source.WireDecline.builder()
-                                .inboundWireTransferId("inbound_wire_transfer_id")
+                                .inboundWireTransferId("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
                                 .reason(
                                     DeclinedTransaction.Source.WireDecline.Reason
                                         .ACCOUNT_NUMBER_CANCELED
@@ -231,14 +221,14 @@ class DeclinedTransactionTest {
                 .type(DeclinedTransaction.Type.DECLINED_TRANSACTION)
                 .build()
         assertThat(declinedTransaction).isNotNull
-        assertThat(declinedTransaction.id()).isEqualTo("id")
-        assertThat(declinedTransaction.accountId()).isEqualTo("account_id")
-        assertThat(declinedTransaction.amount()).isEqualTo(0L)
+        assertThat(declinedTransaction.id()).isEqualTo("declined_transaction_17jbn0yyhvkt4v4ooym8")
+        assertThat(declinedTransaction.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
+        assertThat(declinedTransaction.amount()).isEqualTo(1750L)
         assertThat(declinedTransaction.createdAt())
-            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+            .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(declinedTransaction.currency()).isEqualTo(DeclinedTransaction.Currency.CAD)
-        assertThat(declinedTransaction.description()).isEqualTo("description")
-        assertThat(declinedTransaction.routeId()).contains("route_id")
+        assertThat(declinedTransaction.description()).isEqualTo("INVOICE 2468")
+        assertThat(declinedTransaction.routeId()).contains("account_number_v18nkfqm6afpsrvy82b2")
         assertThat(declinedTransaction.routeType())
             .contains(DeclinedTransaction.RouteType.ACCOUNT_NUMBER)
         assertThat(declinedTransaction.source())
@@ -246,39 +236,33 @@ class DeclinedTransactionTest {
                 DeclinedTransaction.Source.builder()
                     .achDecline(
                         DeclinedTransaction.Source.AchDecline.builder()
-                            .id("id")
-                            .amount(0L)
-                            .inboundAchTransferId("inbound_ach_transfer_id")
-                            .originatorCompanyDescriptiveDate("originator_company_descriptive_date")
-                            .originatorCompanyDiscretionaryData(
-                                "originator_company_discretionary_data"
-                            )
-                            .originatorCompanyId("originator_company_id")
-                            .originatorCompanyName("originator_company_name")
+                            .id("ach_decline_72v1mcwxudctq56efipa")
+                            .amount(1750L)
+                            .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
+                            .originatorCompanyId("0987654321")
+                            .originatorCompanyName("BIG BANK")
                             .reason(DeclinedTransaction.Source.AchDecline.Reason.ACH_ROUTE_CANCELED)
-                            .receiverIdNumber("receiver_id_number")
-                            .receiverName("receiver_name")
-                            .traceNumber("trace_number")
+                            .receiverIdNumber("12345678900")
+                            .receiverName("IAN CREASE")
+                            .traceNumber("021000038461022")
                             .type(DeclinedTransaction.Source.AchDecline.Type.ACH_DECLINE)
                             .build()
                     )
                     .cardDecline(
                         DeclinedTransaction.Source.CardDecline.builder()
-                            .id("id")
+                            .id("card_decline_bx3o8zd7glq8yvtwg25v")
                             .actioner(DeclinedTransaction.Source.CardDecline.Actioner.USER)
-                            .amount(0L)
-                            .cardPaymentId("card_payment_id")
+                            .amount(-1000L)
+                            .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                             .currency(DeclinedTransaction.Source.CardDecline.Currency.CAD)
-                            .declinedTransactionId("declined_transaction_id")
-                            .digitalWalletTokenId("digital_wallet_token_id")
+                            .declinedTransactionId("declined_transaction_17jbn0yyhvkt4v4ooym8")
                             .direction(DeclinedTransaction.Source.CardDecline.Direction.SETTLEMENT)
-                            .merchantAcceptorId("merchant_acceptor_id")
-                            .merchantCategoryCode("merchant_category_code")
-                            .merchantCity("merchant_city")
-                            .merchantCountry("merchant_country")
-                            .merchantDescriptor("merchant_descriptor")
-                            .merchantPostalCode("merchant_postal_code")
-                            .merchantState("merchant_state")
+                            .merchantAcceptorId("5665270011000168")
+                            .merchantCategoryCode("5734")
+                            .merchantCity("New York")
+                            .merchantCountry("US")
+                            .merchantDescriptor("AMAZON.COM")
+                            .merchantPostalCode("10045")
                             .networkDetails(
                                 DeclinedTransaction.Source.CardDecline.NetworkDetails.builder()
                                     .category(
@@ -316,26 +300,24 @@ class DeclinedTransactionTest {
                             )
                             .networkIdentifiers(
                                 DeclinedTransaction.Source.CardDecline.NetworkIdentifiers.builder()
-                                    .retrievalReferenceNumber("retrieval_reference_number")
-                                    .traceNumber("trace_number")
-                                    .transactionId("transaction_id")
+                                    .retrievalReferenceNumber("785867080153")
+                                    .traceNumber("487941")
+                                    .transactionId("627199945183184")
                                     .build()
                             )
-                            .networkRiskScore(0L)
-                            .physicalCardId("physical_card_id")
-                            .presentmentAmount(0L)
-                            .presentmentCurrency("presentment_currency")
+                            .networkRiskScore(10L)
+                            .presentmentAmount(-1000L)
+                            .presentmentCurrency("USD")
                             .processingCategory(
                                 DeclinedTransaction.Source.CardDecline.ProcessingCategory
                                     .ACCOUNT_FUNDING
                             )
-                            .realTimeDecisionId("real_time_decision_id")
                             .realTimeDecisionReason(
                                 DeclinedTransaction.Source.CardDecline.RealTimeDecisionReason
                                     .INSUFFICIENT_FUNDS
                             )
                             .reason(DeclinedTransaction.Source.CardDecline.Reason.CARD_NOT_ACTIVE)
-                            .terminalId("terminal_id")
+                            .terminalId("RCN5VNXS")
                             .verification(
                                 DeclinedTransaction.Source.CardDecline.Verification.builder()
                                     .cardVerificationCode(
@@ -354,10 +336,10 @@ class DeclinedTransactionTest {
                                         DeclinedTransaction.Source.CardDecline.Verification
                                             .CardholderAddress
                                             .builder()
-                                            .actualLine1("actual_line1")
-                                            .actualPostalCode("actual_postal_code")
-                                            .providedLine1("provided_line1")
-                                            .providedPostalCode("provided_postal_code")
+                                            .actualLine1("33 Liberty Street")
+                                            .actualPostalCode("94131")
+                                            .providedLine1("33 Liberty Street")
+                                            .providedPostalCode("94132")
                                             .result(
                                                 DeclinedTransaction.Source.CardDecline.Verification
                                                     .CardholderAddress
@@ -373,12 +355,10 @@ class DeclinedTransactionTest {
                     .category(DeclinedTransaction.Source.Category.ACH_DECLINE)
                     .checkDecline(
                         DeclinedTransaction.Source.CheckDecline.builder()
-                            .amount(0L)
-                            .auxiliaryOnUs("auxiliary_on_us")
-                            .backImageFileId("back_image_file_id")
-                            .checkTransferId("check_transfer_id")
-                            .frontImageFileId("front_image_file_id")
-                            .inboundCheckDepositId("inbound_check_deposit_id")
+                            .amount(-1000L)
+                            .auxiliaryOnUs("99999")
+                            .checkTransferId("check_transfer_30b43acfu9vw8fyc4f5")
+                            .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
                             .reason(
                                 DeclinedTransaction.Source.CheckDecline.Reason.ACH_ROUTE_DISABLED
                             )
@@ -386,43 +366,43 @@ class DeclinedTransactionTest {
                     )
                     .checkDepositRejection(
                         DeclinedTransaction.Source.CheckDepositRejection.builder()
-                            .amount(0L)
-                            .checkDepositId("check_deposit_id")
+                            .amount(1750L)
+                            .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                             .currency(DeclinedTransaction.Source.CheckDepositRejection.Currency.CAD)
-                            .declinedTransactionId("declined_transaction_id")
+                            .declinedTransactionId("declined_transaction_17jbn0yyhvkt4v4ooym8")
                             .reason(
                                 DeclinedTransaction.Source.CheckDepositRejection.Reason
                                     .INCOMPLETE_IMAGE
                             )
-                            .rejectedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .rejectedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                             .build()
                     )
                     .inboundRealTimePaymentsTransferDecline(
                         DeclinedTransaction.Source.InboundRealTimePaymentsTransferDecline.builder()
-                            .amount(0L)
-                            .creditorName("creditor_name")
+                            .amount(100L)
+                            .creditorName("Ian Crease")
                             .currency(
                                 DeclinedTransaction.Source.InboundRealTimePaymentsTransferDecline
                                     .Currency
                                     .CAD
                             )
-                            .debtorAccountNumber("debtor_account_number")
-                            .debtorName("debtor_name")
-                            .debtorRoutingNumber("debtor_routing_number")
+                            .debtorAccountNumber("987654321")
+                            .debtorName("National Phonograph Company")
+                            .debtorRoutingNumber("101050001")
                             .reason(
                                 DeclinedTransaction.Source.InboundRealTimePaymentsTransferDecline
                                     .Reason
                                     .ACCOUNT_NUMBER_CANCELED
                             )
-                            .remittanceInformation("remittance_information")
-                            .transactionIdentification("transaction_identification")
-                            .transferId("transfer_id")
+                            .remittanceInformation("Invoice 29582")
+                            .transactionIdentification("20220501234567891T1BSLZO01745013025")
+                            .transferId("inbound_real_time_payments_transfer_63hlz498vcxg644hcrzr")
                             .build()
                     )
-                    .other(JsonNull.of())
+                    .other(JsonValue.from(mapOf<String, Any>()))
                     .wireDecline(
                         DeclinedTransaction.Source.WireDecline.builder()
-                            .inboundWireTransferId("inbound_wire_transfer_id")
+                            .inboundWireTransferId("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
                             .reason(
                                 DeclinedTransaction.Source.WireDecline.Reason
                                     .ACCOUNT_NUMBER_CANCELED

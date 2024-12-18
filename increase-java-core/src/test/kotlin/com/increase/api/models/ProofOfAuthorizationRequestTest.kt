@@ -12,26 +12,35 @@ class ProofOfAuthorizationRequestTest {
     fun createProofOfAuthorizationRequest() {
         val proofOfAuthorizationRequest =
             ProofOfAuthorizationRequest.builder()
-                .id("id")
+                .id("proof_of_authorization_request_iwp8no25h3rjvil6ad3b")
                 .achTransfers(
-                    listOf(ProofOfAuthorizationRequest.AchTransfer.builder().id("id").build())
+                    listOf(
+                        ProofOfAuthorizationRequest.AchTransfer.builder()
+                            .id("ach_transfer_uoxatyh3lt5evrsdvo7q")
+                            .build()
+                    )
                 )
-                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .dueOn(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                .dueOn(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .type(ProofOfAuthorizationRequest.Type.PROOF_OF_AUTHORIZATION_REQUEST)
-                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .updatedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .build()
         assertThat(proofOfAuthorizationRequest).isNotNull
-        assertThat(proofOfAuthorizationRequest.id()).isEqualTo("id")
+        assertThat(proofOfAuthorizationRequest.id())
+            .isEqualTo("proof_of_authorization_request_iwp8no25h3rjvil6ad3b")
         assertThat(proofOfAuthorizationRequest.achTransfers())
-            .containsExactly(ProofOfAuthorizationRequest.AchTransfer.builder().id("id").build())
+            .containsExactly(
+                ProofOfAuthorizationRequest.AchTransfer.builder()
+                    .id("ach_transfer_uoxatyh3lt5evrsdvo7q")
+                    .build()
+            )
         assertThat(proofOfAuthorizationRequest.createdAt())
-            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+            .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(proofOfAuthorizationRequest.dueOn())
-            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+            .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(proofOfAuthorizationRequest.type())
             .isEqualTo(ProofOfAuthorizationRequest.Type.PROOF_OF_AUTHORIZATION_REQUEST)
         assertThat(proofOfAuthorizationRequest.updatedAt())
-            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+            .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
     }
 }

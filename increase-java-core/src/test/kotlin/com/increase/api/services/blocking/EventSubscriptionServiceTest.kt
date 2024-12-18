@@ -4,8 +4,10 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.*
+import com.increase.api.models.EventSubscriptionCreateParams
 import com.increase.api.models.EventSubscriptionListParams
+import com.increase.api.models.EventSubscriptionRetrieveParams
+import com.increase.api.models.EventSubscriptionUpdateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 

@@ -5,22 +5,20 @@ package com.increase.api.services
 import com.fasterxml.jackson.databind.json.JsonMapper
 import com.github.tomakehurst.wiremock.client.WireMock.anyUrl
 import com.github.tomakehurst.wiremock.client.WireMock.equalTo
-import com.github.tomakehurst.wiremock.client.WireMock.get
 import com.github.tomakehurst.wiremock.client.WireMock.matchingJsonPath
 import com.github.tomakehurst.wiremock.client.WireMock.ok
 import com.github.tomakehurst.wiremock.client.WireMock.post
 import com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor
-import com.github.tomakehurst.wiremock.client.WireMock.put
 import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.client.WireMock.verify
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import com.increase.api.client.IncreaseClient
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.core.JsonString
 import com.increase.api.core.JsonValue
 import com.increase.api.core.jsonMapper
-import com.increase.api.models.*
+import com.increase.api.models.Account
+import com.increase.api.models.AccountCreateParams
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.BeforeEach
@@ -55,7 +53,7 @@ class ServiceParamsTest {
 
         val additionalBodyProperties = mutableMapOf<String, JsonValue>()
 
-        additionalBodyProperties.put("testBodyProperty", JsonString.of("ghi890"))
+        additionalBodyProperties.put("testBodyProperty", JsonValue.from("ghi890"))
 
         val params =
             AccountCreateParams.builder()
@@ -70,19 +68,16 @@ class ServiceParamsTest {
 
         val apiResponse =
             Account.builder()
-                .id("id")
+                .id("account_in71c4amph0vgo2qllky")
                 .bank(Account.Bank.BLUE_RIDGE_BANK)
-                .closedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .currency(Account.Currency.CAD)
-                .entityId("entity_id")
-                .idempotencyKey("idempotency_key")
-                .informationalEntityId("informational_entity_id")
-                .interestAccrued("interest_accrued")
-                .interestAccruedAt(LocalDate.parse("2019-12-27"))
-                .interestRate("interest_rate")
-                .name("name")
-                .programId("program_id")
+                .entityId("entity_n8y8tnk2p9339ti393yi")
+                .interestAccrued("0.01")
+                .interestAccruedAt(LocalDate.parse("2020-01-31"))
+                .interestRate("0.055")
+                .name("My first account!")
+                .programId("program_i2v2os4mwza1oetokh9i")
                 .status(Account.Status.CLOSED)
                 .type(Account.Type.ACCOUNT)
                 .build()

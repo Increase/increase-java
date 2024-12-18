@@ -16,7 +16,6 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
-import com.increase.api.models.*
 import java.util.Objects
 
 class SimulationPhysicalCardAdvanceShipmentParams
@@ -310,33 +309,21 @@ constructor(
 
         @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is ShipmentStatus && value == other.value /* spotless:on */
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
         companion object {
 
-            @JvmField val PENDING = ShipmentStatus(JsonField.of("pending"))
+            @JvmField val PENDING = of("pending")
 
-            @JvmField val CANCELED = ShipmentStatus(JsonField.of("canceled"))
+            @JvmField val CANCELED = of("canceled")
 
-            @JvmField val SUBMITTED = ShipmentStatus(JsonField.of("submitted"))
+            @JvmField val SUBMITTED = of("submitted")
 
-            @JvmField val ACKNOWLEDGED = ShipmentStatus(JsonField.of("acknowledged"))
+            @JvmField val ACKNOWLEDGED = of("acknowledged")
 
-            @JvmField val REJECTED = ShipmentStatus(JsonField.of("rejected"))
+            @JvmField val REJECTED = of("rejected")
 
-            @JvmField val SHIPPED = ShipmentStatus(JsonField.of("shipped"))
+            @JvmField val SHIPPED = of("shipped")
 
-            @JvmField val RETURNED = ShipmentStatus(JsonField.of("returned"))
+            @JvmField val RETURNED = of("returned")
 
             @JvmStatic fun of(value: String) = ShipmentStatus(JsonField.of(value))
         }
@@ -387,6 +374,18 @@ constructor(
             }
 
         fun asString(): String = _value().asStringOrThrow()
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is ShipmentStatus && value == other.value /* spotless:on */
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
     }
 
     override fun equals(other: Any?): Boolean {

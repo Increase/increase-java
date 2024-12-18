@@ -16,7 +16,6 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
-import com.increase.api.models.*
 import java.util.Objects
 import java.util.Optional
 
@@ -404,23 +403,11 @@ constructor(
 
         @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is GrantType && value == other.value /* spotless:on */
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
         companion object {
 
-            @JvmField val AUTHORIZATION_CODE = GrantType(JsonField.of("authorization_code"))
+            @JvmField val AUTHORIZATION_CODE = of("authorization_code")
 
-            @JvmField val PRODUCTION_TOKEN = GrantType(JsonField.of("production_token"))
+            @JvmField val PRODUCTION_TOKEN = of("production_token")
 
             @JvmStatic fun of(value: String) = GrantType(JsonField.of(value))
         }
@@ -451,6 +438,18 @@ constructor(
             }
 
         fun asString(): String = _value().asStringOrThrow()
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is GrantType && value == other.value /* spotless:on */
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
     }
 
     override fun equals(other: Any?): Boolean {

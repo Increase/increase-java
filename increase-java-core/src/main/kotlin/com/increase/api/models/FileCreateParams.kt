@@ -7,13 +7,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.ContentTypes
 import com.increase.api.core.Enum
 import com.increase.api.core.JsonField
-import com.increase.api.core.JsonValue
 import com.increase.api.core.MultipartFormValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.errors.IncreaseInvalidDataException
-import com.increase.api.models.*
 import java.util.Objects
 import java.util.Optional
 import org.apache.hc.core5.http.ContentType
@@ -290,53 +288,38 @@ constructor(
 
         @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is Purpose && value == other.value /* spotless:on */
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
         companion object {
 
-            @JvmField val CHECK_IMAGE_FRONT = Purpose(JsonField.of("check_image_front"))
+            @JvmField val CHECK_IMAGE_FRONT = of("check_image_front")
 
-            @JvmField val CHECK_IMAGE_BACK = Purpose(JsonField.of("check_image_back"))
+            @JvmField val CHECK_IMAGE_BACK = of("check_image_back")
 
-            @JvmField val MAILED_CHECK_IMAGE = Purpose(JsonField.of("mailed_check_image"))
+            @JvmField val MAILED_CHECK_IMAGE = of("mailed_check_image")
 
-            @JvmField val CHECK_VOUCHER_IMAGE = Purpose(JsonField.of("check_voucher_image"))
+            @JvmField val CHECK_VOUCHER_IMAGE = of("check_voucher_image")
 
-            @JvmField val FORM_SS_4 = Purpose(JsonField.of("form_ss_4"))
+            @JvmField val FORM_SS_4 = of("form_ss_4")
 
-            @JvmField val IDENTITY_DOCUMENT = Purpose(JsonField.of("identity_document"))
+            @JvmField val IDENTITY_DOCUMENT = of("identity_document")
 
-            @JvmField val OTHER = Purpose(JsonField.of("other"))
+            @JvmField val OTHER = of("other")
 
-            @JvmField
-            val TRUST_FORMATION_DOCUMENT = Purpose(JsonField.of("trust_formation_document"))
+            @JvmField val TRUST_FORMATION_DOCUMENT = of("trust_formation_document")
 
-            @JvmField val DIGITAL_WALLET_ARTWORK = Purpose(JsonField.of("digital_wallet_artwork"))
+            @JvmField val DIGITAL_WALLET_ARTWORK = of("digital_wallet_artwork")
 
-            @JvmField val DIGITAL_WALLET_APP_ICON = Purpose(JsonField.of("digital_wallet_app_icon"))
+            @JvmField val DIGITAL_WALLET_APP_ICON = of("digital_wallet_app_icon")
 
-            @JvmField val PHYSICAL_CARD_FRONT = Purpose(JsonField.of("physical_card_front"))
+            @JvmField val PHYSICAL_CARD_FRONT = of("physical_card_front")
 
-            @JvmField val PHYSICAL_CARD_CARRIER = Purpose(JsonField.of("physical_card_carrier"))
+            @JvmField val PHYSICAL_CARD_CARRIER = of("physical_card_carrier")
 
-            @JvmField val DOCUMENT_REQUEST = Purpose(JsonField.of("document_request"))
+            @JvmField val DOCUMENT_REQUEST = of("document_request")
 
-            @JvmField
-            val ENTITY_SUPPLEMENTAL_DOCUMENT = Purpose(JsonField.of("entity_supplemental_document"))
+            @JvmField val ENTITY_SUPPLEMENTAL_DOCUMENT = of("entity_supplemental_document")
 
             @JvmField
-            val UNUSUAL_ACTIVITY_REPORT_ATTACHMENT =
-                Purpose(JsonField.of("unusual_activity_report_attachment"))
+            val UNUSUAL_ACTIVITY_REPORT_ATTACHMENT = of("unusual_activity_report_attachment")
 
             @JvmStatic fun of(value: String) = Purpose(JsonField.of(value))
         }
@@ -419,6 +402,18 @@ constructor(
             }
 
         fun asString(): String = _value().asStringOrThrow()
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Purpose && value == other.value /* spotless:on */
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
     }
 
     override fun equals(other: Any?): Boolean {

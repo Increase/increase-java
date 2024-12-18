@@ -6,13 +6,11 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.JsonField
-import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
-import com.increase.api.models.*
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
@@ -431,73 +429,55 @@ constructor(
 
             @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return /* spotless:off */ other is In && value == other.value /* spotless:on */
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-
             companion object {
 
-                @JvmField val CHECK_IMAGE_FRONT = In(JsonField.of("check_image_front"))
+                @JvmField val CHECK_IMAGE_FRONT = of("check_image_front")
 
-                @JvmField val CHECK_IMAGE_BACK = In(JsonField.of("check_image_back"))
+                @JvmField val CHECK_IMAGE_BACK = of("check_image_back")
 
-                @JvmField
-                val PROCESSED_CHECK_IMAGE_FRONT = In(JsonField.of("processed_check_image_front"))
+                @JvmField val PROCESSED_CHECK_IMAGE_FRONT = of("processed_check_image_front")
 
-                @JvmField
-                val PROCESSED_CHECK_IMAGE_BACK = In(JsonField.of("processed_check_image_back"))
+                @JvmField val PROCESSED_CHECK_IMAGE_BACK = of("processed_check_image_back")
 
-                @JvmField val MAILED_CHECK_IMAGE = In(JsonField.of("mailed_check_image"))
+                @JvmField val MAILED_CHECK_IMAGE = of("mailed_check_image")
 
-                @JvmField val CHECK_VOUCHER_IMAGE = In(JsonField.of("check_voucher_image"))
+                @JvmField val CHECK_VOUCHER_IMAGE = of("check_voucher_image")
 
-                @JvmField val INBOUND_MAIL_ITEM = In(JsonField.of("inbound_mail_item"))
+                @JvmField val INBOUND_MAIL_ITEM = of("inbound_mail_item")
 
-                @JvmField val FORM_1099_INT = In(JsonField.of("form_1099_int"))
+                @JvmField val FORM_1099_INT = of("form_1099_int")
 
-                @JvmField val FORM_SS_4 = In(JsonField.of("form_ss_4"))
+                @JvmField val FORM_SS_4 = of("form_ss_4")
 
-                @JvmField val IDENTITY_DOCUMENT = In(JsonField.of("identity_document"))
+                @JvmField val IDENTITY_DOCUMENT = of("identity_document")
 
-                @JvmField val INCREASE_STATEMENT = In(JsonField.of("increase_statement"))
+                @JvmField val INCREASE_STATEMENT = of("increase_statement")
 
-                @JvmField val OTHER = In(JsonField.of("other"))
+                @JvmField val OTHER = of("other")
 
-                @JvmField
-                val TRUST_FORMATION_DOCUMENT = In(JsonField.of("trust_formation_document"))
+                @JvmField val TRUST_FORMATION_DOCUMENT = of("trust_formation_document")
 
-                @JvmField val DIGITAL_WALLET_ARTWORK = In(JsonField.of("digital_wallet_artwork"))
+                @JvmField val DIGITAL_WALLET_ARTWORK = of("digital_wallet_artwork")
 
-                @JvmField val DIGITAL_WALLET_APP_ICON = In(JsonField.of("digital_wallet_app_icon"))
+                @JvmField val DIGITAL_WALLET_APP_ICON = of("digital_wallet_app_icon")
 
-                @JvmField val PHYSICAL_CARD_FRONT = In(JsonField.of("physical_card_front"))
+                @JvmField val PHYSICAL_CARD_FRONT = of("physical_card_front")
 
-                @JvmField val PHYSICAL_CARD_BACK = In(JsonField.of("physical_card_back"))
+                @JvmField val PHYSICAL_CARD_BACK = of("physical_card_back")
 
-                @JvmField val PHYSICAL_CARD_CARRIER = In(JsonField.of("physical_card_carrier"))
+                @JvmField val PHYSICAL_CARD_CARRIER = of("physical_card_carrier")
 
-                @JvmField val DOCUMENT_REQUEST = In(JsonField.of("document_request"))
+                @JvmField val DOCUMENT_REQUEST = of("document_request")
 
-                @JvmField
-                val ENTITY_SUPPLEMENTAL_DOCUMENT = In(JsonField.of("entity_supplemental_document"))
+                @JvmField val ENTITY_SUPPLEMENTAL_DOCUMENT = of("entity_supplemental_document")
 
-                @JvmField val EXPORT = In(JsonField.of("export"))
+                @JvmField val EXPORT = of("export")
 
                 @JvmField
-                val UNUSUAL_ACTIVITY_REPORT_ATTACHMENT =
-                    In(JsonField.of("unusual_activity_report_attachment"))
+                val UNUSUAL_ACTIVITY_REPORT_ATTACHMENT = of("unusual_activity_report_attachment")
 
                 @JvmField
-                val DEPOSIT_ACCOUNT_CONTROL_AGREEMENT =
-                    In(JsonField.of("deposit_account_control_agreement"))
+                val DEPOSIT_ACCOUNT_CONTROL_AGREEMENT = of("deposit_account_control_agreement")
 
                 @JvmStatic fun of(value: String) = In(JsonField.of(value))
             }
@@ -612,6 +592,18 @@ constructor(
                 }
 
             fun asString(): String = _value().asStringOrThrow()
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return /* spotless:off */ other is In && value == other.value /* spotless:on */
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
         }
 
         override fun equals(other: Any?): Boolean {

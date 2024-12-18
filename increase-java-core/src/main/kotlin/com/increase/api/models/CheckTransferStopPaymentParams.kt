@@ -16,7 +16,6 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
-import com.increase.api.models.*
 import java.util.Objects
 import java.util.Optional
 
@@ -299,25 +298,13 @@ constructor(
 
         @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is Reason && value == other.value /* spotless:on */
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
         companion object {
 
-            @JvmField val MAIL_DELIVERY_FAILED = Reason(JsonField.of("mail_delivery_failed"))
+            @JvmField val MAIL_DELIVERY_FAILED = of("mail_delivery_failed")
 
-            @JvmField val NOT_AUTHORIZED = Reason(JsonField.of("not_authorized"))
+            @JvmField val NOT_AUTHORIZED = of("not_authorized")
 
-            @JvmField val UNKNOWN = Reason(JsonField.of("unknown"))
+            @JvmField val UNKNOWN = of("unknown")
 
             @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
         }
@@ -352,6 +339,18 @@ constructor(
             }
 
         fun asString(): String = _value().asStringOrThrow()
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Reason && value == other.value /* spotless:on */
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
     }
 
     override fun equals(other: Any?): Boolean {

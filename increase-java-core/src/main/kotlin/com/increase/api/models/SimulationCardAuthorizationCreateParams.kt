@@ -16,7 +16,6 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
-import com.increase.api.models.*
 import java.util.Objects
 import java.util.Optional
 
@@ -689,57 +688,37 @@ constructor(
 
         @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is DeclineReason && value == other.value /* spotless:on */
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
         companion object {
 
-            @JvmField val CARD_NOT_ACTIVE = DeclineReason(JsonField.of("card_not_active"))
+            @JvmField val CARD_NOT_ACTIVE = of("card_not_active")
 
-            @JvmField
-            val PHYSICAL_CARD_NOT_ACTIVE = DeclineReason(JsonField.of("physical_card_not_active"))
+            @JvmField val PHYSICAL_CARD_NOT_ACTIVE = of("physical_card_not_active")
 
-            @JvmField val ENTITY_NOT_ACTIVE = DeclineReason(JsonField.of("entity_not_active"))
+            @JvmField val ENTITY_NOT_ACTIVE = of("entity_not_active")
 
-            @JvmField val GROUP_LOCKED = DeclineReason(JsonField.of("group_locked"))
+            @JvmField val GROUP_LOCKED = of("group_locked")
 
-            @JvmField val INSUFFICIENT_FUNDS = DeclineReason(JsonField.of("insufficient_funds"))
+            @JvmField val INSUFFICIENT_FUNDS = of("insufficient_funds")
 
-            @JvmField val CVV2_MISMATCH = DeclineReason(JsonField.of("cvv2_mismatch"))
+            @JvmField val CVV2_MISMATCH = of("cvv2_mismatch")
 
-            @JvmField
-            val CARD_EXPIRATION_MISMATCH = DeclineReason(JsonField.of("card_expiration_mismatch"))
+            @JvmField val CARD_EXPIRATION_MISMATCH = of("card_expiration_mismatch")
 
-            @JvmField
-            val TRANSACTION_NOT_ALLOWED = DeclineReason(JsonField.of("transaction_not_allowed"))
+            @JvmField val TRANSACTION_NOT_ALLOWED = of("transaction_not_allowed")
 
-            @JvmField val BREACHES_LIMIT = DeclineReason(JsonField.of("breaches_limit"))
+            @JvmField val BREACHES_LIMIT = of("breaches_limit")
 
-            @JvmField val WEBHOOK_DECLINED = DeclineReason(JsonField.of("webhook_declined"))
+            @JvmField val WEBHOOK_DECLINED = of("webhook_declined")
 
-            @JvmField val WEBHOOK_TIMED_OUT = DeclineReason(JsonField.of("webhook_timed_out"))
+            @JvmField val WEBHOOK_TIMED_OUT = of("webhook_timed_out")
 
-            @JvmField
-            val DECLINED_BY_STAND_IN_PROCESSING =
-                DeclineReason(JsonField.of("declined_by_stand_in_processing"))
+            @JvmField val DECLINED_BY_STAND_IN_PROCESSING = of("declined_by_stand_in_processing")
 
-            @JvmField
-            val INVALID_PHYSICAL_CARD = DeclineReason(JsonField.of("invalid_physical_card"))
+            @JvmField val INVALID_PHYSICAL_CARD = of("invalid_physical_card")
 
-            @JvmField
-            val MISSING_ORIGINAL_AUTHORIZATION =
-                DeclineReason(JsonField.of("missing_original_authorization"))
+            @JvmField val MISSING_ORIGINAL_AUTHORIZATION = of("missing_original_authorization")
 
-            @JvmField val SUSPECTED_FRAUD = DeclineReason(JsonField.of("suspected_fraud"))
+            @JvmField val SUSPECTED_FRAUD = of("suspected_fraud")
 
             @JvmStatic fun of(value: String) = DeclineReason(JsonField.of(value))
         }
@@ -822,6 +801,18 @@ constructor(
             }
 
         fun asString(): String = _value().asStringOrThrow()
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is DeclineReason && value == other.value /* spotless:on */
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
     }
 
     class Direction
@@ -832,23 +823,11 @@ constructor(
 
         @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is Direction && value == other.value /* spotless:on */
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
         companion object {
 
-            @JvmField val SETTLEMENT = Direction(JsonField.of("settlement"))
+            @JvmField val SETTLEMENT = of("settlement")
 
-            @JvmField val REFUND = Direction(JsonField.of("refund"))
+            @JvmField val REFUND = of("refund")
 
             @JvmStatic fun of(value: String) = Direction(JsonField.of(value))
         }
@@ -879,6 +858,18 @@ constructor(
             }
 
         fun asString(): String = _value().asStringOrThrow()
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Direction && value == other.value /* spotless:on */
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
     }
 
     override fun equals(other: Any?): Boolean {

@@ -301,33 +301,21 @@ private constructor(
 
         @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is Category && value == other.value /* spotless:on */
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
         companion object {
 
-            @JvmField val ACCOUNT_STATEMENT_OFX = Category(JsonField.of("account_statement_ofx"))
+            @JvmField val ACCOUNT_STATEMENT_OFX = of("account_statement_ofx")
 
-            @JvmField val TRANSACTION_CSV = Category(JsonField.of("transaction_csv"))
+            @JvmField val TRANSACTION_CSV = of("transaction_csv")
 
-            @JvmField val BALANCE_CSV = Category(JsonField.of("balance_csv"))
+            @JvmField val BALANCE_CSV = of("balance_csv")
 
-            @JvmField
-            val BOOKKEEPING_ACCOUNT_BALANCE_CSV =
-                Category(JsonField.of("bookkeeping_account_balance_csv"))
+            @JvmField val BOOKKEEPING_ACCOUNT_BALANCE_CSV = of("bookkeeping_account_balance_csv")
 
-            @JvmField val ENTITY_CSV = Category(JsonField.of("entity_csv"))
+            @JvmField val ENTITY_CSV = of("entity_csv")
 
-            @JvmField val VENDOR_CSV = Category(JsonField.of("vendor_csv"))
+            @JvmField val VENDOR_CSV = of("vendor_csv")
+
+            @JvmField val DASHBOARD_TABLE_CSV = of("dashboard_table_csv")
 
             @JvmStatic fun of(value: String) = Category(JsonField.of(value))
         }
@@ -339,6 +327,7 @@ private constructor(
             BOOKKEEPING_ACCOUNT_BALANCE_CSV,
             ENTITY_CSV,
             VENDOR_CSV,
+            DASHBOARD_TABLE_CSV,
         }
 
         enum class Value {
@@ -348,6 +337,7 @@ private constructor(
             BOOKKEEPING_ACCOUNT_BALANCE_CSV,
             ENTITY_CSV,
             VENDOR_CSV,
+            DASHBOARD_TABLE_CSV,
             _UNKNOWN,
         }
 
@@ -359,6 +349,7 @@ private constructor(
                 BOOKKEEPING_ACCOUNT_BALANCE_CSV -> Value.BOOKKEEPING_ACCOUNT_BALANCE_CSV
                 ENTITY_CSV -> Value.ENTITY_CSV
                 VENDOR_CSV -> Value.VENDOR_CSV
+                DASHBOARD_TABLE_CSV -> Value.DASHBOARD_TABLE_CSV
                 else -> Value._UNKNOWN
             }
 
@@ -370,10 +361,23 @@ private constructor(
                 BOOKKEEPING_ACCOUNT_BALANCE_CSV -> Known.BOOKKEEPING_ACCOUNT_BALANCE_CSV
                 ENTITY_CSV -> Known.ENTITY_CSV
                 VENDOR_CSV -> Known.VENDOR_CSV
+                DASHBOARD_TABLE_CSV -> Known.DASHBOARD_TABLE_CSV
                 else -> throw IncreaseInvalidDataException("Unknown Category: $value")
             }
 
         fun asString(): String = _value().asStringOrThrow()
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Category && value == other.value /* spotless:on */
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
     }
 
     class Status
@@ -384,25 +388,13 @@ private constructor(
 
         @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
         companion object {
 
-            @JvmField val PENDING = Status(JsonField.of("pending"))
+            @JvmField val PENDING = of("pending")
 
-            @JvmField val COMPLETE = Status(JsonField.of("complete"))
+            @JvmField val COMPLETE = of("complete")
 
-            @JvmField val FAILED = Status(JsonField.of("failed"))
+            @JvmField val FAILED = of("failed")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
@@ -437,6 +429,18 @@ private constructor(
             }
 
         fun asString(): String = _value().asStringOrThrow()
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
     }
 
     class Type
@@ -447,21 +451,9 @@ private constructor(
 
         @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
         companion object {
 
-            @JvmField val EXPORT = Type(JsonField.of("export"))
+            @JvmField val EXPORT = of("export")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }
@@ -488,6 +480,18 @@ private constructor(
             }
 
         fun asString(): String = _value().asStringOrThrow()
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
     }
 
     override fun equals(other: Any?): Boolean {

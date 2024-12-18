@@ -224,287 +224,216 @@ private constructor(
 
         @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is Category && value == other.value /* spotless:on */
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
         companion object {
 
-            @JvmField val ACCOUNT_CREATED = Category(JsonField.of("account.created"))
+            @JvmField val ACCOUNT_CREATED = of("account.created")
 
-            @JvmField val ACCOUNT_UPDATED = Category(JsonField.of("account.updated"))
+            @JvmField val ACCOUNT_UPDATED = of("account.updated")
 
-            @JvmField val ACCOUNT_NUMBER_CREATED = Category(JsonField.of("account_number.created"))
+            @JvmField val ACCOUNT_NUMBER_CREATED = of("account_number.created")
 
-            @JvmField val ACCOUNT_NUMBER_UPDATED = Category(JsonField.of("account_number.updated"))
+            @JvmField val ACCOUNT_NUMBER_UPDATED = of("account_number.updated")
 
-            @JvmField
-            val ACCOUNT_STATEMENT_CREATED = Category(JsonField.of("account_statement.created"))
+            @JvmField val ACCOUNT_STATEMENT_CREATED = of("account_statement.created")
 
-            @JvmField
-            val ACCOUNT_TRANSFER_CREATED = Category(JsonField.of("account_transfer.created"))
+            @JvmField val ACCOUNT_TRANSFER_CREATED = of("account_transfer.created")
 
-            @JvmField
-            val ACCOUNT_TRANSFER_UPDATED = Category(JsonField.of("account_transfer.updated"))
+            @JvmField val ACCOUNT_TRANSFER_UPDATED = of("account_transfer.updated")
 
-            @JvmField
-            val ACH_PRENOTIFICATION_CREATED = Category(JsonField.of("ach_prenotification.created"))
+            @JvmField val ACH_PRENOTIFICATION_CREATED = of("ach_prenotification.created")
 
-            @JvmField
-            val ACH_PRENOTIFICATION_UPDATED = Category(JsonField.of("ach_prenotification.updated"))
+            @JvmField val ACH_PRENOTIFICATION_UPDATED = of("ach_prenotification.updated")
 
-            @JvmField val ACH_TRANSFER_CREATED = Category(JsonField.of("ach_transfer.created"))
+            @JvmField val ACH_TRANSFER_CREATED = of("ach_transfer.created")
 
-            @JvmField val ACH_TRANSFER_UPDATED = Category(JsonField.of("ach_transfer.updated"))
+            @JvmField val ACH_TRANSFER_UPDATED = of("ach_transfer.updated")
 
-            @JvmField
-            val BOOKKEEPING_ACCOUNT_CREATED = Category(JsonField.of("bookkeeping_account.created"))
+            @JvmField val BOOKKEEPING_ACCOUNT_CREATED = of("bookkeeping_account.created")
 
-            @JvmField
-            val BOOKKEEPING_ACCOUNT_UPDATED = Category(JsonField.of("bookkeeping_account.updated"))
+            @JvmField val BOOKKEEPING_ACCOUNT_UPDATED = of("bookkeeping_account.updated")
 
-            @JvmField
-            val BOOKKEEPING_ENTRY_SET_UPDATED =
-                Category(JsonField.of("bookkeeping_entry_set.updated"))
+            @JvmField val BOOKKEEPING_ENTRY_SET_UPDATED = of("bookkeeping_entry_set.updated")
 
-            @JvmField val CARD_CREATED = Category(JsonField.of("card.created"))
+            @JvmField val CARD_CREATED = of("card.created")
 
-            @JvmField val CARD_UPDATED = Category(JsonField.of("card.updated"))
+            @JvmField val CARD_UPDATED = of("card.updated")
 
-            @JvmField val CARD_PAYMENT_CREATED = Category(JsonField.of("card_payment.created"))
+            @JvmField val CARD_PAYMENT_CREATED = of("card_payment.created")
 
-            @JvmField val CARD_PAYMENT_UPDATED = Category(JsonField.of("card_payment.updated"))
+            @JvmField val CARD_PAYMENT_UPDATED = of("card_payment.updated")
 
-            @JvmField val CARD_PROFILE_CREATED = Category(JsonField.of("card_profile.created"))
+            @JvmField val CARD_PROFILE_CREATED = of("card_profile.created")
 
-            @JvmField val CARD_PROFILE_UPDATED = Category(JsonField.of("card_profile.updated"))
+            @JvmField val CARD_PROFILE_UPDATED = of("card_profile.updated")
 
-            @JvmField val CARD_DISPUTE_CREATED = Category(JsonField.of("card_dispute.created"))
+            @JvmField val CARD_DISPUTE_CREATED = of("card_dispute.created")
 
-            @JvmField val CARD_DISPUTE_UPDATED = Category(JsonField.of("card_dispute.updated"))
+            @JvmField val CARD_DISPUTE_UPDATED = of("card_dispute.updated")
 
-            @JvmField val CHECK_DEPOSIT_CREATED = Category(JsonField.of("check_deposit.created"))
+            @JvmField val CHECK_DEPOSIT_CREATED = of("check_deposit.created")
 
-            @JvmField val CHECK_DEPOSIT_UPDATED = Category(JsonField.of("check_deposit.updated"))
+            @JvmField val CHECK_DEPOSIT_UPDATED = of("check_deposit.updated")
 
-            @JvmField val CHECK_TRANSFER_CREATED = Category(JsonField.of("check_transfer.created"))
+            @JvmField val CHECK_TRANSFER_CREATED = of("check_transfer.created")
 
-            @JvmField val CHECK_TRANSFER_UPDATED = Category(JsonField.of("check_transfer.updated"))
+            @JvmField val CHECK_TRANSFER_UPDATED = of("check_transfer.updated")
 
-            @JvmField
-            val DECLINED_TRANSACTION_CREATED =
-                Category(JsonField.of("declined_transaction.created"))
+            @JvmField val DECLINED_TRANSACTION_CREATED = of("declined_transaction.created")
 
-            @JvmField
-            val DIGITAL_CARD_PROFILE_CREATED =
-                Category(JsonField.of("digital_card_profile.created"))
+            @JvmField val DIGITAL_CARD_PROFILE_CREATED = of("digital_card_profile.created")
 
-            @JvmField
-            val DIGITAL_CARD_PROFILE_UPDATED =
-                Category(JsonField.of("digital_card_profile.updated"))
+            @JvmField val DIGITAL_CARD_PROFILE_UPDATED = of("digital_card_profile.updated")
 
-            @JvmField
-            val DIGITAL_WALLET_TOKEN_CREATED =
-                Category(JsonField.of("digital_wallet_token.created"))
+            @JvmField val DIGITAL_WALLET_TOKEN_CREATED = of("digital_wallet_token.created")
 
-            @JvmField
-            val DIGITAL_WALLET_TOKEN_UPDATED =
-                Category(JsonField.of("digital_wallet_token.updated"))
+            @JvmField val DIGITAL_WALLET_TOKEN_UPDATED = of("digital_wallet_token.updated")
 
-            @JvmField val DOCUMENT_CREATED = Category(JsonField.of("document.created"))
+            @JvmField val DOCUMENT_CREATED = of("document.created")
 
-            @JvmField val ENTITY_CREATED = Category(JsonField.of("entity.created"))
+            @JvmField val ENTITY_CREATED = of("entity.created")
 
-            @JvmField val ENTITY_UPDATED = Category(JsonField.of("entity.updated"))
+            @JvmField val ENTITY_UPDATED = of("entity.updated")
 
-            @JvmField
-            val EVENT_SUBSCRIPTION_CREATED = Category(JsonField.of("event_subscription.created"))
+            @JvmField val EVENT_SUBSCRIPTION_CREATED = of("event_subscription.created")
 
-            @JvmField
-            val EVENT_SUBSCRIPTION_UPDATED = Category(JsonField.of("event_subscription.updated"))
+            @JvmField val EVENT_SUBSCRIPTION_UPDATED = of("event_subscription.updated")
 
-            @JvmField val EXPORT_CREATED = Category(JsonField.of("export.created"))
+            @JvmField val EXPORT_CREATED = of("export.created")
 
-            @JvmField val EXPORT_UPDATED = Category(JsonField.of("export.updated"))
+            @JvmField val EXPORT_UPDATED = of("export.updated")
+
+            @JvmField val EXTERNAL_ACCOUNT_CREATED = of("external_account.created")
+
+            @JvmField val EXTERNAL_ACCOUNT_UPDATED = of("external_account.updated")
+
+            @JvmField val FILE_CREATED = of("file.created")
+
+            @JvmField val GROUP_UPDATED = of("group.updated")
+
+            @JvmField val GROUP_HEARTBEAT = of("group.heartbeat")
+
+            @JvmField val INBOUND_ACH_TRANSFER_CREATED = of("inbound_ach_transfer.created")
+
+            @JvmField val INBOUND_ACH_TRANSFER_UPDATED = of("inbound_ach_transfer.updated")
 
             @JvmField
-            val EXTERNAL_ACCOUNT_CREATED = Category(JsonField.of("external_account.created"))
+            val INBOUND_ACH_TRANSFER_RETURN_CREATED = of("inbound_ach_transfer_return.created")
 
             @JvmField
-            val EXTERNAL_ACCOUNT_UPDATED = Category(JsonField.of("external_account.updated"))
+            val INBOUND_ACH_TRANSFER_RETURN_UPDATED = of("inbound_ach_transfer_return.updated")
 
-            @JvmField val FILE_CREATED = Category(JsonField.of("file.created"))
+            @JvmField val INBOUND_CHECK_DEPOSIT_CREATED = of("inbound_check_deposit.created")
 
-            @JvmField val GROUP_UPDATED = Category(JsonField.of("group.updated"))
+            @JvmField val INBOUND_CHECK_DEPOSIT_UPDATED = of("inbound_check_deposit.updated")
 
-            @JvmField val GROUP_HEARTBEAT = Category(JsonField.of("group.heartbeat"))
+            @JvmField val INBOUND_MAIL_ITEM_CREATED = of("inbound_mail_item.created")
 
-            @JvmField
-            val INBOUND_ACH_TRANSFER_CREATED =
-                Category(JsonField.of("inbound_ach_transfer.created"))
-
-            @JvmField
-            val INBOUND_ACH_TRANSFER_UPDATED =
-                Category(JsonField.of("inbound_ach_transfer.updated"))
-
-            @JvmField
-            val INBOUND_ACH_TRANSFER_RETURN_CREATED =
-                Category(JsonField.of("inbound_ach_transfer_return.created"))
-
-            @JvmField
-            val INBOUND_ACH_TRANSFER_RETURN_UPDATED =
-                Category(JsonField.of("inbound_ach_transfer_return.updated"))
-
-            @JvmField
-            val INBOUND_CHECK_DEPOSIT_CREATED =
-                Category(JsonField.of("inbound_check_deposit.created"))
-
-            @JvmField
-            val INBOUND_CHECK_DEPOSIT_UPDATED =
-                Category(JsonField.of("inbound_check_deposit.updated"))
-
-            @JvmField
-            val INBOUND_MAIL_ITEM_CREATED = Category(JsonField.of("inbound_mail_item.created"))
-
-            @JvmField
-            val INBOUND_MAIL_ITEM_UPDATED = Category(JsonField.of("inbound_mail_item.updated"))
+            @JvmField val INBOUND_MAIL_ITEM_UPDATED = of("inbound_mail_item.updated")
 
             @JvmField
             val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED =
-                Category(JsonField.of("inbound_real_time_payments_transfer.created"))
+                of("inbound_real_time_payments_transfer.created")
 
             @JvmField
             val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_UPDATED =
-                Category(JsonField.of("inbound_real_time_payments_transfer.updated"))
+                of("inbound_real_time_payments_transfer.updated")
 
             @JvmField
-            val INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED =
-                Category(JsonField.of("inbound_wire_drawdown_request.created"))
+            val INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED = of("inbound_wire_drawdown_request.created")
+
+            @JvmField val INBOUND_WIRE_TRANSFER_CREATED = of("inbound_wire_transfer.created")
+
+            @JvmField val INBOUND_WIRE_TRANSFER_UPDATED = of("inbound_wire_transfer.updated")
 
             @JvmField
-            val INBOUND_WIRE_TRANSFER_CREATED =
-                Category(JsonField.of("inbound_wire_transfer.created"))
+            val INTRAFI_ACCOUNT_ENROLLMENT_CREATED = of("intrafi_account_enrollment.created")
 
             @JvmField
-            val INBOUND_WIRE_TRANSFER_UPDATED =
-                Category(JsonField.of("inbound_wire_transfer.updated"))
+            val INTRAFI_ACCOUNT_ENROLLMENT_UPDATED = of("intrafi_account_enrollment.updated")
 
-            @JvmField
-            val INTRAFI_ACCOUNT_ENROLLMENT_CREATED =
-                Category(JsonField.of("intrafi_account_enrollment.created"))
+            @JvmField val INTRAFI_EXCLUSION_CREATED = of("intrafi_exclusion.created")
 
-            @JvmField
-            val INTRAFI_ACCOUNT_ENROLLMENT_UPDATED =
-                Category(JsonField.of("intrafi_account_enrollment.updated"))
+            @JvmField val INTRAFI_EXCLUSION_UPDATED = of("intrafi_exclusion.updated")
 
-            @JvmField
-            val INTRAFI_EXCLUSION_CREATED = Category(JsonField.of("intrafi_exclusion.created"))
+            @JvmField val LOCKBOX_CREATED = of("lockbox.created")
 
-            @JvmField
-            val INTRAFI_EXCLUSION_UPDATED = Category(JsonField.of("intrafi_exclusion.updated"))
+            @JvmField val LOCKBOX_UPDATED = of("lockbox.updated")
 
-            @JvmField val LOCKBOX_CREATED = Category(JsonField.of("lockbox.created"))
+            @JvmField val OAUTH_CONNECTION_CREATED = of("oauth_connection.created")
 
-            @JvmField val LOCKBOX_UPDATED = Category(JsonField.of("lockbox.updated"))
+            @JvmField val OAUTH_CONNECTION_DEACTIVATED = of("oauth_connection.deactivated")
 
-            @JvmField
-            val OAUTH_CONNECTION_CREATED = Category(JsonField.of("oauth_connection.created"))
+            @JvmField val PENDING_TRANSACTION_CREATED = of("pending_transaction.created")
 
-            @JvmField
-            val OAUTH_CONNECTION_DEACTIVATED =
-                Category(JsonField.of("oauth_connection.deactivated"))
+            @JvmField val PENDING_TRANSACTION_UPDATED = of("pending_transaction.updated")
 
-            @JvmField
-            val PENDING_TRANSACTION_CREATED = Category(JsonField.of("pending_transaction.created"))
+            @JvmField val PHYSICAL_CARD_CREATED = of("physical_card.created")
 
-            @JvmField
-            val PENDING_TRANSACTION_UPDATED = Category(JsonField.of("pending_transaction.updated"))
+            @JvmField val PHYSICAL_CARD_UPDATED = of("physical_card.updated")
 
-            @JvmField val PHYSICAL_CARD_CREATED = Category(JsonField.of("physical_card.created"))
+            @JvmField val PHYSICAL_CARD_PROFILE_CREATED = of("physical_card_profile.created")
 
-            @JvmField val PHYSICAL_CARD_UPDATED = Category(JsonField.of("physical_card.updated"))
-
-            @JvmField
-            val PHYSICAL_CARD_PROFILE_CREATED =
-                Category(JsonField.of("physical_card_profile.created"))
-
-            @JvmField
-            val PHYSICAL_CARD_PROFILE_UPDATED =
-                Category(JsonField.of("physical_card_profile.updated"))
+            @JvmField val PHYSICAL_CARD_PROFILE_UPDATED = of("physical_card_profile.updated")
 
             @JvmField
             val PROOF_OF_AUTHORIZATION_REQUEST_CREATED =
-                Category(JsonField.of("proof_of_authorization_request.created"))
+                of("proof_of_authorization_request.created")
 
             @JvmField
             val PROOF_OF_AUTHORIZATION_REQUEST_UPDATED =
-                Category(JsonField.of("proof_of_authorization_request.updated"))
+                of("proof_of_authorization_request.updated")
 
             @JvmField
             val PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_CREATED =
-                Category(JsonField.of("proof_of_authorization_request_submission.created"))
+                of("proof_of_authorization_request_submission.created")
 
             @JvmField
             val PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_UPDATED =
-                Category(JsonField.of("proof_of_authorization_request_submission.updated"))
+                of("proof_of_authorization_request_submission.updated")
 
             @JvmField
             val REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED =
-                Category(JsonField.of("real_time_decision.card_authorization_requested"))
+                of("real_time_decision.card_authorization_requested")
 
             @JvmField
             val REAL_TIME_DECISION_DIGITAL_WALLET_TOKEN_REQUESTED =
-                Category(JsonField.of("real_time_decision.digital_wallet_token_requested"))
+                of("real_time_decision.digital_wallet_token_requested")
 
             @JvmField
             val REAL_TIME_DECISION_DIGITAL_WALLET_AUTHENTICATION_REQUESTED =
-                Category(JsonField.of("real_time_decision.digital_wallet_authentication_requested"))
+                of("real_time_decision.digital_wallet_authentication_requested")
 
             @JvmField
             val REAL_TIME_DECISION_CARD_AUTHENTICATION_REQUESTED =
-                Category(JsonField.of("real_time_decision.card_authentication_requested"))
+                of("real_time_decision.card_authentication_requested")
 
             @JvmField
             val REAL_TIME_DECISION_CARD_AUTHENTICATION_CHALLENGE_REQUESTED =
-                Category(JsonField.of("real_time_decision.card_authentication_challenge_requested"))
+                of("real_time_decision.card_authentication_challenge_requested")
 
             @JvmField
-            val REAL_TIME_PAYMENTS_TRANSFER_CREATED =
-                Category(JsonField.of("real_time_payments_transfer.created"))
+            val REAL_TIME_PAYMENTS_TRANSFER_CREATED = of("real_time_payments_transfer.created")
 
             @JvmField
-            val REAL_TIME_PAYMENTS_TRANSFER_UPDATED =
-                Category(JsonField.of("real_time_payments_transfer.updated"))
+            val REAL_TIME_PAYMENTS_TRANSFER_UPDATED = of("real_time_payments_transfer.updated")
 
             @JvmField
             val REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_CREATED =
-                Category(JsonField.of("real_time_payments_request_for_payment.created"))
+                of("real_time_payments_request_for_payment.created")
 
             @JvmField
             val REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_UPDATED =
-                Category(JsonField.of("real_time_payments_request_for_payment.updated"))
+                of("real_time_payments_request_for_payment.updated")
 
-            @JvmField val TRANSACTION_CREATED = Category(JsonField.of("transaction.created"))
+            @JvmField val TRANSACTION_CREATED = of("transaction.created")
 
-            @JvmField
-            val WIRE_DRAWDOWN_REQUEST_CREATED =
-                Category(JsonField.of("wire_drawdown_request.created"))
+            @JvmField val WIRE_DRAWDOWN_REQUEST_CREATED = of("wire_drawdown_request.created")
 
-            @JvmField
-            val WIRE_DRAWDOWN_REQUEST_UPDATED =
-                Category(JsonField.of("wire_drawdown_request.updated"))
+            @JvmField val WIRE_DRAWDOWN_REQUEST_UPDATED = of("wire_drawdown_request.updated")
 
-            @JvmField val WIRE_TRANSFER_CREATED = Category(JsonField.of("wire_transfer.created"))
+            @JvmField val WIRE_TRANSFER_CREATED = of("wire_transfer.created")
 
-            @JvmField val WIRE_TRANSFER_UPDATED = Category(JsonField.of("wire_transfer.updated"))
+            @JvmField val WIRE_TRANSFER_UPDATED = of("wire_transfer.updated")
 
             @JvmStatic fun of(value: String) = Category(JsonField.of(value))
         }
@@ -905,6 +834,18 @@ private constructor(
             }
 
         fun asString(): String = _value().asStringOrThrow()
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Category && value == other.value /* spotless:on */
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
     }
 
     class Type
@@ -915,21 +856,9 @@ private constructor(
 
         @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
         companion object {
 
-            @JvmField val EVENT = Type(JsonField.of("event"))
+            @JvmField val EVENT = of("event")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }
@@ -956,6 +885,18 @@ private constructor(
             }
 
         fun asString(): String = _value().asStringOrThrow()
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
     }
 
     override fun equals(other: Any?): Boolean {
