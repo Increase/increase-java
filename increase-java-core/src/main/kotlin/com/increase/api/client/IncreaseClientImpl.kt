@@ -106,6 +106,8 @@ import com.increase.api.services.blocking.SupplementalDocumentService
 import com.increase.api.services.blocking.SupplementalDocumentServiceImpl
 import com.increase.api.services.blocking.TransactionService
 import com.increase.api.services.blocking.TransactionServiceImpl
+import com.increase.api.services.blocking.WebhookService
+import com.increase.api.services.blocking.WebhookServiceImpl
 import com.increase.api.services.blocking.WireDrawdownRequestService
 import com.increase.api.services.blocking.WireDrawdownRequestServiceImpl
 import com.increase.api.services.blocking.WireTransferService

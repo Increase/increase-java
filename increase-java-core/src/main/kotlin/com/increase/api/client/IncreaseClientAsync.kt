@@ -53,6 +53,7 @@ import com.increase.api.services.async.RoutingNumberServiceAsync
 import com.increase.api.services.async.SimulationServiceAsync
 import com.increase.api.services.async.SupplementalDocumentServiceAsync
 import com.increase.api.services.async.TransactionServiceAsync
+import com.increase.api.services.async.WebhookServiceAsync
 import com.increase.api.services.async.WireDrawdownRequestServiceAsync
 import com.increase.api.services.async.WireTransferServiceAsync
 

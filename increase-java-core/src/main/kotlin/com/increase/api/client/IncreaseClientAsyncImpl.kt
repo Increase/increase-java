@@ -106,6 +106,8 @@ import com.increase.api.services.async.SupplementalDocumentServiceAsync
 import com.increase.api.services.async.SupplementalDocumentServiceAsyncImpl
 import com.increase.api.services.async.TransactionServiceAsync
 import com.increase.api.services.async.TransactionServiceAsyncImpl
+import com.increase.api.services.async.WebhookServiceAsync
+import com.increase.api.services.async.WebhookServiceAsyncImpl
 import com.increase.api.services.async.WireDrawdownRequestServiceAsync
 import com.increase.api.services.async.WireDrawdownRequestServiceAsyncImpl
 import com.increase.api.services.async.WireTransferServiceAsync
