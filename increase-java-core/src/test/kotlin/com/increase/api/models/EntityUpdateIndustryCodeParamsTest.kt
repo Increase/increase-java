@@ -9,34 +9,46 @@ class EntityUpdateIndustryCodeParamsTest {
 
     @Test
     fun createEntityUpdateIndustryCodeParams() {
-        EntityUpdateIndustryCodeParams.builder().entityId("entity_id").industryCode("x").build()
+        EntityUpdateIndustryCodeParams.builder()
+            .entityId("entity_n8y8tnk2p9339ti393yi")
+            .industryCode("5132")
+            .build()
     }
 
     @Test
     fun getBody() {
         val params =
-            EntityUpdateIndustryCodeParams.builder().entityId("entity_id").industryCode("x").build()
+            EntityUpdateIndustryCodeParams.builder()
+                .entityId("entity_n8y8tnk2p9339ti393yi")
+                .industryCode("5132")
+                .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.industryCode()).isEqualTo("x")
+        assertThat(body.industryCode()).isEqualTo("5132")
     }
 
     @Test
     fun getBodyWithoutOptionalFields() {
         val params =
-            EntityUpdateIndustryCodeParams.builder().entityId("entity_id").industryCode("x").build()
+            EntityUpdateIndustryCodeParams.builder()
+                .entityId("entity_n8y8tnk2p9339ti393yi")
+                .industryCode("5132")
+                .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.industryCode()).isEqualTo("x")
+        assertThat(body.industryCode()).isEqualTo("5132")
     }
 
     @Test
     fun getPathParam() {
         val params =
-            EntityUpdateIndustryCodeParams.builder().entityId("entity_id").industryCode("x").build()
+            EntityUpdateIndustryCodeParams.builder()
+                .entityId("entity_n8y8tnk2p9339ti393yi")
+                .industryCode("5132")
+                .build()
         assertThat(params).isNotNull
         // path param "entityId"
-        assertThat(params.getPathParam(0)).isEqualTo("entity_id")
+        assertThat(params.getPathParam(0)).isEqualTo("entity_n8y8tnk2p9339ti393yi")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

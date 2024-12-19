@@ -24,13 +24,13 @@ class RealTimePaymentsTransferServiceTest {
         val realTimePaymentsTransfer =
             realTimePaymentsTransferService.create(
                 RealTimePaymentsTransferCreateParams.builder()
-                    .amount(1L)
-                    .creditorName("x")
-                    .remittanceInformation("x")
-                    .sourceAccountNumberId("source_account_number_id")
+                    .amount(100L)
+                    .creditorName("Ian Crease")
+                    .remittanceInformation("Invoice 29582")
+                    .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                     .debtorName("x")
-                    .destinationAccountNumber("x")
-                    .destinationRoutingNumber("xxxxxxxxx")
+                    .destinationAccountNumber("987654321")
+                    .destinationRoutingNumber("101050001")
                     .externalAccountId("external_account_id")
                     .requireApproval(true)
                     .ultimateCreditorName("x")
@@ -52,7 +52,7 @@ class RealTimePaymentsTransferServiceTest {
         val realTimePaymentsTransfer =
             realTimePaymentsTransferService.retrieve(
                 RealTimePaymentsTransferRetrieveParams.builder()
-                    .realTimePaymentsTransferId("real_time_payments_transfer_id")
+                    .realTimePaymentsTransferId("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
                     .build()
             )
         println(realTimePaymentsTransfer)

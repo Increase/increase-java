@@ -106,6 +106,36 @@ for (Account account : page.data()) {
 }
 ```
 
+Use the `AccountListParams` builder to set parameters:
+
+```java
+AccountListParams params = AccountListParams.builder()
+    .createdAt(AccountListParams.CreatedAt.builder()
+        .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        .build())
+    .cursor("cursor")
+    .entityId("entity_id")
+    .idempotencyKey("x")
+    .informationalEntityId("informational_entity_id")
+    .limit(1L)
+    .programId("program_id")
+    .status(AccountListParams.Status.CLOSED)
+    .build();
+AccountListPage page1 = client.accounts().list(params);
+
+// Using the `from` method of the builder you can reuse previous params values:
+AccountListPage page2 = client.accounts().list(AccountListParams.builder()
+    .from(params)
+    .nextCursor("abc123...")
+    .build());
+
+// Or easily get params for the next page by using the helper `getNextPageParams`:
+AccountListPage page3 = client.accounts().list(params.getNextPageParams(page2));
+```
+
 See [Pagination](#pagination) below for more information on transparently working with lists of objects without worrying about fetching each page.
 
 ---

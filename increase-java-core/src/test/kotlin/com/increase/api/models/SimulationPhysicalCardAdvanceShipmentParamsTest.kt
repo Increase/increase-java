@@ -10,7 +10,7 @@ class SimulationPhysicalCardAdvanceShipmentParamsTest {
     @Test
     fun createSimulationPhysicalCardAdvanceShipmentParams() {
         SimulationPhysicalCardAdvanceShipmentParams.builder()
-            .physicalCardId("physical_card_id")
+            .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
             .shipmentStatus(SimulationPhysicalCardAdvanceShipmentParams.ShipmentStatus.PENDING)
             .build()
     }
@@ -19,7 +19,7 @@ class SimulationPhysicalCardAdvanceShipmentParamsTest {
     fun getBody() {
         val params =
             SimulationPhysicalCardAdvanceShipmentParams.builder()
-                .physicalCardId("physical_card_id")
+                .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
                 .shipmentStatus(SimulationPhysicalCardAdvanceShipmentParams.ShipmentStatus.PENDING)
                 .build()
         val body = params.getBody()
@@ -32,7 +32,7 @@ class SimulationPhysicalCardAdvanceShipmentParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             SimulationPhysicalCardAdvanceShipmentParams.builder()
-                .physicalCardId("physical_card_id")
+                .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
                 .shipmentStatus(SimulationPhysicalCardAdvanceShipmentParams.ShipmentStatus.PENDING)
                 .build()
         val body = params.getBody()
@@ -45,12 +45,12 @@ class SimulationPhysicalCardAdvanceShipmentParamsTest {
     fun getPathParam() {
         val params =
             SimulationPhysicalCardAdvanceShipmentParams.builder()
-                .physicalCardId("physical_card_id")
+                .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
                 .shipmentStatus(SimulationPhysicalCardAdvanceShipmentParams.ShipmentStatus.PENDING)
                 .build()
         assertThat(params).isNotNull
         // path param "physicalCardId"
-        assertThat(params.getPathParam(0)).isEqualTo("physical_card_id")
+        assertThat(params.getPathParam(0)).isEqualTo("physical_card_ode8duyq5v2ynhjoharl")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

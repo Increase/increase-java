@@ -10,7 +10,7 @@ class DigitalCardProfileArchiveParamsTest {
     @Test
     fun createDigitalCardProfileArchiveParams() {
         DigitalCardProfileArchiveParams.builder()
-            .digitalCardProfileId("digital_card_profile_id")
+            .digitalCardProfileId("digital_card_profile_s3puplu90f04xhcwkiga")
             .build()
     }
 
@@ -18,11 +18,11 @@ class DigitalCardProfileArchiveParamsTest {
     fun getPathParam() {
         val params =
             DigitalCardProfileArchiveParams.builder()
-                .digitalCardProfileId("digital_card_profile_id")
+                .digitalCardProfileId("digital_card_profile_s3puplu90f04xhcwkiga")
                 .build()
         assertThat(params).isNotNull
         // path param "digitalCardProfileId"
-        assertThat(params.getPathParam(0)).isEqualTo("digital_card_profile_id")
+        assertThat(params.getPathParam(0)).isEqualTo("digital_card_profile_s3puplu90f04xhcwkiga")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }
