@@ -23,7 +23,7 @@ class DeclinedTransactionServiceTest {
         val declinedTransaction =
             declinedTransactionService.retrieve(
                 DeclinedTransactionRetrieveParams.builder()
-                    .declinedTransactionId("declined_transaction_id")
+                    .declinedTransactionId("declined_transaction_17jbn0yyhvkt4v4ooym8")
                     .build()
             )
         println(declinedTransaction)

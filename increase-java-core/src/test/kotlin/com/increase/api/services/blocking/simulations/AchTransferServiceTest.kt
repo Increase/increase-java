@@ -26,7 +26,7 @@ class AchTransferServiceTest {
         val achTransfer =
             achTransferService.acknowledge(
                 SimulationAchTransferAcknowledgeParams.builder()
-                    .achTransferId("ach_transfer_id")
+                    .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
                     .build()
             )
         println(achTransfer)
@@ -44,12 +44,12 @@ class AchTransferServiceTest {
         val achTransfer =
             achTransferService.createNotificationOfChange(
                 SimulationAchTransferCreateNotificationOfChangeParams.builder()
-                    .achTransferId("ach_transfer_id")
+                    .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
                     .changeCode(
                         SimulationAchTransferCreateNotificationOfChangeParams.ChangeCode
                             .INCORRECT_ACCOUNT_NUMBER
                     )
-                    .correctedData("x")
+                    .correctedData("123456789")
                     .build()
             )
         println(achTransfer)
@@ -67,7 +67,7 @@ class AchTransferServiceTest {
         val achTransfer =
             achTransferService.return_(
                 SimulationAchTransferReturnParams.builder()
-                    .achTransferId("ach_transfer_id")
+                    .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
                     .reason(SimulationAchTransferReturnParams.Reason.INSUFFICIENT_FUND)
                     .build()
             )
@@ -85,7 +85,9 @@ class AchTransferServiceTest {
         val achTransferService = client.simulations().achTransfers()
         val achTransfer =
             achTransferService.settle(
-                SimulationAchTransferSettleParams.builder().achTransferId("ach_transfer_id").build()
+                SimulationAchTransferSettleParams.builder()
+                    .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
+                    .build()
             )
         println(achTransfer)
         achTransfer.validate()
@@ -101,7 +103,9 @@ class AchTransferServiceTest {
         val achTransferService = client.simulations().achTransfers()
         val achTransfer =
             achTransferService.submit(
-                SimulationAchTransferSubmitParams.builder().achTransferId("ach_transfer_id").build()
+                SimulationAchTransferSubmitParams.builder()
+                    .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
+                    .build()
             )
         println(achTransfer)
         achTransfer.validate()

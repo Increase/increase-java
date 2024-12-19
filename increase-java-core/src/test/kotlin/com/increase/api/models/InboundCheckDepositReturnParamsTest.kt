@@ -10,7 +10,7 @@ class InboundCheckDepositReturnParamsTest {
     @Test
     fun createInboundCheckDepositReturnParams() {
         InboundCheckDepositReturnParams.builder()
-            .inboundCheckDepositId("inbound_check_deposit_id")
+            .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
             .reason(InboundCheckDepositReturnParams.Reason.ALTERED_OR_FICTITIOUS)
             .build()
     }
@@ -19,7 +19,7 @@ class InboundCheckDepositReturnParamsTest {
     fun getBody() {
         val params =
             InboundCheckDepositReturnParams.builder()
-                .inboundCheckDepositId("inbound_check_deposit_id")
+                .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
                 .reason(InboundCheckDepositReturnParams.Reason.ALTERED_OR_FICTITIOUS)
                 .build()
         val body = params.getBody()
@@ -32,7 +32,7 @@ class InboundCheckDepositReturnParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             InboundCheckDepositReturnParams.builder()
-                .inboundCheckDepositId("inbound_check_deposit_id")
+                .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
                 .reason(InboundCheckDepositReturnParams.Reason.ALTERED_OR_FICTITIOUS)
                 .build()
         val body = params.getBody()
@@ -45,12 +45,12 @@ class InboundCheckDepositReturnParamsTest {
     fun getPathParam() {
         val params =
             InboundCheckDepositReturnParams.builder()
-                .inboundCheckDepositId("inbound_check_deposit_id")
+                .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
                 .reason(InboundCheckDepositReturnParams.Reason.ALTERED_OR_FICTITIOUS)
                 .build()
         assertThat(params).isNotNull
         // path param "inboundCheckDepositId"
-        assertThat(params.getPathParam(0)).isEqualTo("inbound_check_deposit_id")
+        assertThat(params.getPathParam(0)).isEqualTo("inbound_check_deposit_zoshvqybq0cjjm31mra")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

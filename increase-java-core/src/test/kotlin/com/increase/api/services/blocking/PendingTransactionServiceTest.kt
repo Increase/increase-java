@@ -23,7 +23,7 @@ class PendingTransactionServiceTest {
         val pendingTransaction =
             pendingTransactionService.retrieve(
                 PendingTransactionRetrieveParams.builder()
-                    .pendingTransactionId("pending_transaction_id")
+                    .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
                     .build()
             )
         println(pendingTransaction)

@@ -10,7 +10,7 @@ class RealTimeDecisionActionParamsTest {
     @Test
     fun createRealTimeDecisionActionParams() {
         RealTimeDecisionActionParams.builder()
-            .realTimeDecisionId("real_time_decision_id")
+            .realTimeDecisionId("real_time_decision_j76n2e810ezcg3zh5qtn")
             .cardAuthentication(
                 RealTimeDecisionActionParams.CardAuthentication.builder()
                     .decision(RealTimeDecisionActionParams.CardAuthentication.Decision.APPROVE)
@@ -63,7 +63,7 @@ class RealTimeDecisionActionParamsTest {
     fun getBody() {
         val params =
             RealTimeDecisionActionParams.builder()
-                .realTimeDecisionId("real_time_decision_id")
+                .realTimeDecisionId("real_time_decision_j76n2e810ezcg3zh5qtn")
                 .cardAuthentication(
                     RealTimeDecisionActionParams.CardAuthentication.builder()
                         .decision(RealTimeDecisionActionParams.CardAuthentication.Decision.APPROVE)
@@ -173,7 +173,7 @@ class RealTimeDecisionActionParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             RealTimeDecisionActionParams.builder()
-                .realTimeDecisionId("real_time_decision_id")
+                .realTimeDecisionId("real_time_decision_j76n2e810ezcg3zh5qtn")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -183,11 +183,11 @@ class RealTimeDecisionActionParamsTest {
     fun getPathParam() {
         val params =
             RealTimeDecisionActionParams.builder()
-                .realTimeDecisionId("real_time_decision_id")
+                .realTimeDecisionId("real_time_decision_j76n2e810ezcg3zh5qtn")
                 .build()
         assertThat(params).isNotNull
         // path param "realTimeDecisionId"
-        assertThat(params.getPathParam(0)).isEqualTo("real_time_decision_id")
+        assertThat(params.getPathParam(0)).isEqualTo("real_time_decision_j76n2e810ezcg3zh5qtn")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

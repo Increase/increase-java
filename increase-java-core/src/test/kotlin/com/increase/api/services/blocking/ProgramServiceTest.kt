@@ -21,7 +21,9 @@ class ProgramServiceTest {
                 .build()
         val programService = client.programs()
         val program =
-            programService.retrieve(ProgramRetrieveParams.builder().programId("program_id").build())
+            programService.retrieve(
+                ProgramRetrieveParams.builder().programId("program_i2v2os4mwza1oetokh9i").build()
+            )
         println(program)
         program.validate()
     }

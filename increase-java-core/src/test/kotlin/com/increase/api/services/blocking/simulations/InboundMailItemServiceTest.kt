@@ -22,8 +22,8 @@ class InboundMailItemServiceTest {
         val inboundMailItem =
             inboundMailItemService.create(
                 SimulationInboundMailItemCreateParams.builder()
-                    .amount(0L)
-                    .lockboxId("lockbox_id")
+                    .amount(1000L)
+                    .lockboxId("lockbox_3xt21ok13q19advds4t5")
                     .contentsFileId("contents_file_id")
                     .build()
             )

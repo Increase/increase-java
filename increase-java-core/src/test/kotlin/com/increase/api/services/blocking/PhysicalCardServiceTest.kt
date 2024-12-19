@@ -25,23 +25,23 @@ class PhysicalCardServiceTest {
         val physicalCard =
             physicalCardService.create(
                 PhysicalCardCreateParams.builder()
-                    .cardId("card_id")
+                    .cardId("card_oubs0hwk5rn6knuecxg2")
                     .cardholder(
                         PhysicalCardCreateParams.Cardholder.builder()
-                            .firstName("x")
-                            .lastName("x")
+                            .firstName("Ian")
+                            .lastName("Crease")
                             .build()
                     )
                     .shipment(
                         PhysicalCardCreateParams.Shipment.builder()
                             .address(
                                 PhysicalCardCreateParams.Shipment.Address.builder()
-                                    .city("x")
-                                    .line1("x")
-                                    .name("x")
-                                    .postalCode("x")
-                                    .state("x")
-                                    .line2("x")
+                                    .city("New York")
+                                    .line1("33 Liberty Street")
+                                    .name("Ian Crease")
+                                    .postalCode("10045")
+                                    .state("NY")
+                                    .line2("Unit 2")
                                     .line3("x")
                                     .phoneNumber("x")
                                     .build()
@@ -66,7 +66,9 @@ class PhysicalCardServiceTest {
         val physicalCardService = client.physicalCards()
         val physicalCard =
             physicalCardService.retrieve(
-                PhysicalCardRetrieveParams.builder().physicalCardId("physical_card_id").build()
+                PhysicalCardRetrieveParams.builder()
+                    .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
+                    .build()
             )
         println(physicalCard)
         physicalCard.validate()
@@ -83,7 +85,7 @@ class PhysicalCardServiceTest {
         val physicalCard =
             physicalCardService.update(
                 PhysicalCardUpdateParams.builder()
-                    .physicalCardId("physical_card_id")
+                    .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
                     .status(PhysicalCardUpdateParams.Status.ACTIVE)
                     .build()
             )

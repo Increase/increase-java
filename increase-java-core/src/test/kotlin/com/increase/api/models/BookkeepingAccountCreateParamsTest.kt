@@ -10,7 +10,7 @@ class BookkeepingAccountCreateParamsTest {
     @Test
     fun createBookkeepingAccountCreateParams() {
         BookkeepingAccountCreateParams.builder()
-            .name("x")
+            .name("New Account!")
             .accountId("account_id")
             .complianceCategory(BookkeepingAccountCreateParams.ComplianceCategory.COMMINGLED_CASH)
             .entityId("entity_id")
@@ -21,7 +21,7 @@ class BookkeepingAccountCreateParamsTest {
     fun getBody() {
         val params =
             BookkeepingAccountCreateParams.builder()
-                .name("x")
+                .name("New Account!")
                 .accountId("account_id")
                 .complianceCategory(
                     BookkeepingAccountCreateParams.ComplianceCategory.COMMINGLED_CASH
@@ -30,7 +30,7 @@ class BookkeepingAccountCreateParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.name()).isEqualTo("x")
+        assertThat(body.name()).isEqualTo("New Account!")
         assertThat(body.accountId()).isEqualTo("account_id")
         assertThat(body.complianceCategory())
             .isEqualTo(BookkeepingAccountCreateParams.ComplianceCategory.COMMINGLED_CASH)
@@ -39,9 +39,9 @@ class BookkeepingAccountCreateParamsTest {
 
     @Test
     fun getBodyWithoutOptionalFields() {
-        val params = BookkeepingAccountCreateParams.builder().name("x").build()
+        val params = BookkeepingAccountCreateParams.builder().name("New Account!").build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.name()).isEqualTo("x")
+        assertThat(body.name()).isEqualTo("New Account!")
     }
 }
