@@ -11,7 +11,7 @@ class EntityCreateBeneficialOwnerParamsTest {
     @Test
     fun createEntityCreateBeneficialOwnerParams() {
         EntityCreateBeneficialOwnerParams.builder()
-            .entityId("entity_id")
+            .entityId("entity_n8y8tnk2p9339ti393yi")
             .beneficialOwner(
                 EntityCreateBeneficialOwnerParams.BeneficialOwner.builder()
                     .individual(
@@ -19,14 +19,14 @@ class EntityCreateBeneficialOwnerParamsTest {
                             .address(
                                 EntityCreateBeneficialOwnerParams.BeneficialOwner.Individual.Address
                                     .builder()
-                                    .city("x")
-                                    .line1("x")
-                                    .state("x")
-                                    .zip("x")
+                                    .city("New York")
+                                    .line1("33 Liberty Street")
+                                    .state("NY")
+                                    .zip("10045")
                                     .line2("x")
                                     .build()
                             )
-                            .dateOfBirth(LocalDate.parse("2019-12-27"))
+                            .dateOfBirth(LocalDate.parse("1970-01-31"))
                             .identification(
                                 EntityCreateBeneficialOwnerParams.BeneficialOwner.Individual
                                     .Identification
@@ -37,7 +37,7 @@ class EntityCreateBeneficialOwnerParamsTest {
                                             .Method
                                             .SOCIAL_SECURITY_NUMBER
                                     )
-                                    .number("xxxx")
+                                    .number("078051120")
                                     .driversLicense(
                                         EntityCreateBeneficialOwnerParams.BeneficialOwner.Individual
                                             .Identification
@@ -73,14 +73,14 @@ class EntityCreateBeneficialOwnerParamsTest {
                                     )
                                     .build()
                             )
-                            .name("x")
+                            .name("Ian Crease")
                             .confirmedNoUsTaxId(true)
                             .build()
                     )
                     .prongs(
                         listOf(EntityCreateBeneficialOwnerParams.BeneficialOwner.Prong.OWNERSHIP)
                     )
-                    .companyTitle("x")
+                    .companyTitle("CEO")
                     .build()
             )
             .build()
@@ -90,7 +90,7 @@ class EntityCreateBeneficialOwnerParamsTest {
     fun getBody() {
         val params =
             EntityCreateBeneficialOwnerParams.builder()
-                .entityId("entity_id")
+                .entityId("entity_n8y8tnk2p9339ti393yi")
                 .beneficialOwner(
                     EntityCreateBeneficialOwnerParams.BeneficialOwner.builder()
                         .individual(
@@ -99,14 +99,14 @@ class EntityCreateBeneficialOwnerParamsTest {
                                     EntityCreateBeneficialOwnerParams.BeneficialOwner.Individual
                                         .Address
                                         .builder()
-                                        .city("x")
-                                        .line1("x")
-                                        .state("x")
-                                        .zip("x")
+                                        .city("New York")
+                                        .line1("33 Liberty Street")
+                                        .state("NY")
+                                        .zip("10045")
                                         .line2("x")
                                         .build()
                                 )
-                                .dateOfBirth(LocalDate.parse("2019-12-27"))
+                                .dateOfBirth(LocalDate.parse("1970-01-31"))
                                 .identification(
                                     EntityCreateBeneficialOwnerParams.BeneficialOwner.Individual
                                         .Identification
@@ -118,7 +118,7 @@ class EntityCreateBeneficialOwnerParamsTest {
                                                 .Method
                                                 .SOCIAL_SECURITY_NUMBER
                                         )
-                                        .number("xxxx")
+                                        .number("078051120")
                                         .driversLicense(
                                             EntityCreateBeneficialOwnerParams.BeneficialOwner
                                                 .Individual
@@ -157,7 +157,7 @@ class EntityCreateBeneficialOwnerParamsTest {
                                         )
                                         .build()
                                 )
-                                .name("x")
+                                .name("Ian Crease")
                                 .confirmedNoUsTaxId(true)
                                 .build()
                         )
@@ -166,7 +166,7 @@ class EntityCreateBeneficialOwnerParamsTest {
                                 EntityCreateBeneficialOwnerParams.BeneficialOwner.Prong.OWNERSHIP
                             )
                         )
-                        .companyTitle("x")
+                        .companyTitle("CEO")
                         .build()
                 )
                 .build()
@@ -180,14 +180,14 @@ class EntityCreateBeneficialOwnerParamsTest {
                             .address(
                                 EntityCreateBeneficialOwnerParams.BeneficialOwner.Individual.Address
                                     .builder()
-                                    .city("x")
-                                    .line1("x")
-                                    .state("x")
-                                    .zip("x")
+                                    .city("New York")
+                                    .line1("33 Liberty Street")
+                                    .state("NY")
+                                    .zip("10045")
                                     .line2("x")
                                     .build()
                             )
-                            .dateOfBirth(LocalDate.parse("2019-12-27"))
+                            .dateOfBirth(LocalDate.parse("1970-01-31"))
                             .identification(
                                 EntityCreateBeneficialOwnerParams.BeneficialOwner.Individual
                                     .Identification
@@ -198,7 +198,7 @@ class EntityCreateBeneficialOwnerParamsTest {
                                             .Method
                                             .SOCIAL_SECURITY_NUMBER
                                     )
-                                    .number("xxxx")
+                                    .number("078051120")
                                     .driversLicense(
                                         EntityCreateBeneficialOwnerParams.BeneficialOwner.Individual
                                             .Identification
@@ -234,14 +234,14 @@ class EntityCreateBeneficialOwnerParamsTest {
                                     )
                                     .build()
                             )
-                            .name("x")
+                            .name("Ian Crease")
                             .confirmedNoUsTaxId(true)
                             .build()
                     )
                     .prongs(
                         listOf(EntityCreateBeneficialOwnerParams.BeneficialOwner.Prong.OWNERSHIP)
                     )
-                    .companyTitle("x")
+                    .companyTitle("CEO")
                     .build()
             )
     }
@@ -250,7 +250,7 @@ class EntityCreateBeneficialOwnerParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             EntityCreateBeneficialOwnerParams.builder()
-                .entityId("entity_id")
+                .entityId("entity_n8y8tnk2p9339ti393yi")
                 .beneficialOwner(
                     EntityCreateBeneficialOwnerParams.BeneficialOwner.builder()
                         .individual(
@@ -259,13 +259,13 @@ class EntityCreateBeneficialOwnerParamsTest {
                                     EntityCreateBeneficialOwnerParams.BeneficialOwner.Individual
                                         .Address
                                         .builder()
-                                        .city("x")
-                                        .line1("x")
-                                        .state("x")
-                                        .zip("x")
+                                        .city("New York")
+                                        .line1("33 Liberty Street")
+                                        .state("NY")
+                                        .zip("10045")
                                         .build()
                                 )
-                                .dateOfBirth(LocalDate.parse("2019-12-27"))
+                                .dateOfBirth(LocalDate.parse("1970-01-31"))
                                 .identification(
                                     EntityCreateBeneficialOwnerParams.BeneficialOwner.Individual
                                         .Identification
@@ -277,10 +277,10 @@ class EntityCreateBeneficialOwnerParamsTest {
                                                 .Method
                                                 .SOCIAL_SECURITY_NUMBER
                                         )
-                                        .number("xxxx")
+                                        .number("078051120")
                                         .build()
                                 )
-                                .name("x")
+                                .name("Ian Crease")
                                 .build()
                         )
                         .prongs(
@@ -301,13 +301,13 @@ class EntityCreateBeneficialOwnerParamsTest {
                             .address(
                                 EntityCreateBeneficialOwnerParams.BeneficialOwner.Individual.Address
                                     .builder()
-                                    .city("x")
-                                    .line1("x")
-                                    .state("x")
-                                    .zip("x")
+                                    .city("New York")
+                                    .line1("33 Liberty Street")
+                                    .state("NY")
+                                    .zip("10045")
                                     .build()
                             )
-                            .dateOfBirth(LocalDate.parse("2019-12-27"))
+                            .dateOfBirth(LocalDate.parse("1970-01-31"))
                             .identification(
                                 EntityCreateBeneficialOwnerParams.BeneficialOwner.Individual
                                     .Identification
@@ -318,10 +318,10 @@ class EntityCreateBeneficialOwnerParamsTest {
                                             .Method
                                             .SOCIAL_SECURITY_NUMBER
                                     )
-                                    .number("xxxx")
+                                    .number("078051120")
                                     .build()
                             )
-                            .name("x")
+                            .name("Ian Crease")
                             .build()
                     )
                     .prongs(
@@ -335,7 +335,7 @@ class EntityCreateBeneficialOwnerParamsTest {
     fun getPathParam() {
         val params =
             EntityCreateBeneficialOwnerParams.builder()
-                .entityId("entity_id")
+                .entityId("entity_n8y8tnk2p9339ti393yi")
                 .beneficialOwner(
                     EntityCreateBeneficialOwnerParams.BeneficialOwner.builder()
                         .individual(
@@ -344,13 +344,13 @@ class EntityCreateBeneficialOwnerParamsTest {
                                     EntityCreateBeneficialOwnerParams.BeneficialOwner.Individual
                                         .Address
                                         .builder()
-                                        .city("x")
-                                        .line1("x")
-                                        .state("x")
-                                        .zip("x")
+                                        .city("New York")
+                                        .line1("33 Liberty Street")
+                                        .state("NY")
+                                        .zip("10045")
                                         .build()
                                 )
-                                .dateOfBirth(LocalDate.parse("2019-12-27"))
+                                .dateOfBirth(LocalDate.parse("1970-01-31"))
                                 .identification(
                                     EntityCreateBeneficialOwnerParams.BeneficialOwner.Individual
                                         .Identification
@@ -362,10 +362,10 @@ class EntityCreateBeneficialOwnerParamsTest {
                                                 .Method
                                                 .SOCIAL_SECURITY_NUMBER
                                         )
-                                        .number("xxxx")
+                                        .number("078051120")
                                         .build()
                                 )
-                                .name("x")
+                                .name("Ian Crease")
                                 .build()
                         )
                         .prongs(
@@ -378,7 +378,7 @@ class EntityCreateBeneficialOwnerParamsTest {
                 .build()
         assertThat(params).isNotNull
         // path param "entityId"
-        assertThat(params.getPathParam(0)).isEqualTo("entity_id")
+        assertThat(params.getPathParam(0)).isEqualTo("entity_n8y8tnk2p9339ti393yi")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

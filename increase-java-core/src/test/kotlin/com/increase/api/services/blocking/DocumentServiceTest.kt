@@ -22,7 +22,7 @@ class DocumentServiceTest {
         val documentService = client.documents()
         val document =
             documentService.retrieve(
-                DocumentRetrieveParams.builder().documentId("document_id").build()
+                DocumentRetrieveParams.builder().documentId("document_qjtqc6s4c14ve2q89izm").build()
             )
         println(document)
         document.validate()

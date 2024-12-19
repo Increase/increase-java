@@ -23,7 +23,9 @@ class ProofOfAuthorizationRequestServiceTest {
         val proofOfAuthorizationRequest =
             proofOfAuthorizationRequestService.retrieve(
                 ProofOfAuthorizationRequestRetrieveParams.builder()
-                    .proofOfAuthorizationRequestId("proof_of_authorization_request_id")
+                    .proofOfAuthorizationRequestId(
+                        "proof_of_authorization_request_iwp8no25h3rjvil6ad3b"
+                    )
                     .build()
             )
         println(proofOfAuthorizationRequest)

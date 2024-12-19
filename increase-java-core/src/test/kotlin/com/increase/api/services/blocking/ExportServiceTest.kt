@@ -78,7 +78,7 @@ class ExportServiceTest {
                     )
                     .transactionCsv(
                         ExportCreateParams.TransactionCsv.builder()
-                            .accountId("account_id")
+                            .accountId("account_in71c4amph0vgo2qllky")
                             .createdAt(
                                 ExportCreateParams.TransactionCsv.CreatedAt.builder()
                                     .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -106,7 +106,9 @@ class ExportServiceTest {
                 .build()
         val exportService = client.exports()
         val export =
-            exportService.retrieve(ExportRetrieveParams.builder().exportId("export_id").build())
+            exportService.retrieve(
+                ExportRetrieveParams.builder().exportId("export_8s4m48qz3bclzje0zwh9").build()
+            )
         println(export)
         export.validate()
     }

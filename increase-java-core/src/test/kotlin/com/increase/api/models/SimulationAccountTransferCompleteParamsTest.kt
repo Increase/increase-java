@@ -10,7 +10,7 @@ class SimulationAccountTransferCompleteParamsTest {
     @Test
     fun createSimulationAccountTransferCompleteParams() {
         SimulationAccountTransferCompleteParams.builder()
-            .accountTransferId("account_transfer_id")
+            .accountTransferId("account_transfer_7k9qe1ysdgqztnt63l7n")
             .build()
     }
 
@@ -18,11 +18,11 @@ class SimulationAccountTransferCompleteParamsTest {
     fun getPathParam() {
         val params =
             SimulationAccountTransferCompleteParams.builder()
-                .accountTransferId("account_transfer_id")
+                .accountTransferId("account_transfer_7k9qe1ysdgqztnt63l7n")
                 .build()
         assertThat(params).isNotNull
         // path param "accountTransferId"
-        assertThat(params.getPathParam(0)).isEqualTo("account_transfer_id")
+        assertThat(params.getPathParam(0)).isEqualTo("account_transfer_7k9qe1ysdgqztnt63l7n")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

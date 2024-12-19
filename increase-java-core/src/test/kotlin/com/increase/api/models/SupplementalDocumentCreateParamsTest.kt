@@ -9,32 +9,35 @@ class SupplementalDocumentCreateParamsTest {
 
     @Test
     fun createSupplementalDocumentCreateParams() {
-        SupplementalDocumentCreateParams.builder().entityId("entity_id").fileId("file_id").build()
+        SupplementalDocumentCreateParams.builder()
+            .entityId("entity_n8y8tnk2p9339ti393yi")
+            .fileId("file_makxrc67oh9l6sg7w9yc")
+            .build()
     }
 
     @Test
     fun getBody() {
         val params =
             SupplementalDocumentCreateParams.builder()
-                .entityId("entity_id")
-                .fileId("file_id")
+                .entityId("entity_n8y8tnk2p9339ti393yi")
+                .fileId("file_makxrc67oh9l6sg7w9yc")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.entityId()).isEqualTo("entity_id")
-        assertThat(body.fileId()).isEqualTo("file_id")
+        assertThat(body.entityId()).isEqualTo("entity_n8y8tnk2p9339ti393yi")
+        assertThat(body.fileId()).isEqualTo("file_makxrc67oh9l6sg7w9yc")
     }
 
     @Test
     fun getBodyWithoutOptionalFields() {
         val params =
             SupplementalDocumentCreateParams.builder()
-                .entityId("entity_id")
-                .fileId("file_id")
+                .entityId("entity_n8y8tnk2p9339ti393yi")
+                .fileId("file_makxrc67oh9l6sg7w9yc")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.entityId()).isEqualTo("entity_id")
-        assertThat(body.fileId()).isEqualTo("file_id")
+        assertThat(body.entityId()).isEqualTo("entity_n8y8tnk2p9339ti393yi")
+        assertThat(body.fileId()).isEqualTo("file_makxrc67oh9l6sg7w9yc")
     }
 }

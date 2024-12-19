@@ -23,8 +23,8 @@ class InterestPaymentServiceTest {
         val transaction =
             interestPaymentService.create(
                 SimulationInterestPaymentCreateParams.builder()
-                    .accountId("account_id")
-                    .amount(1L)
+                    .accountId("account_in71c4amph0vgo2qllky")
+                    .amount(1000L)
                     .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()

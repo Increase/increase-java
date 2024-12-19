@@ -23,7 +23,7 @@ class WireTransferServiceTest {
         val wireTransfer =
             wireTransferService.reverse(
                 SimulationWireTransferReverseParams.builder()
-                    .wireTransferId("wire_transfer_id")
+                    .wireTransferId("wire_transfer_5akynk7dqsq25qwk9q2u")
                     .build()
             )
         println(wireTransfer)
@@ -41,7 +41,7 @@ class WireTransferServiceTest {
         val wireTransfer =
             wireTransferService.submit(
                 SimulationWireTransferSubmitParams.builder()
-                    .wireTransferId("wire_transfer_id")
+                    .wireTransferId("wire_transfer_5akynk7dqsq25qwk9q2u")
                     .build()
             )
         println(wireTransfer)

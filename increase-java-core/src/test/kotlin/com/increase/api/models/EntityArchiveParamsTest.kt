@@ -9,15 +9,15 @@ class EntityArchiveParamsTest {
 
     @Test
     fun createEntityArchiveParams() {
-        EntityArchiveParams.builder().entityId("entity_id").build()
+        EntityArchiveParams.builder().entityId("entity_n8y8tnk2p9339ti393yi").build()
     }
 
     @Test
     fun getPathParam() {
-        val params = EntityArchiveParams.builder().entityId("entity_id").build()
+        val params = EntityArchiveParams.builder().entityId("entity_n8y8tnk2p9339ti393yi").build()
         assertThat(params).isNotNull
         // path param "entityId"
-        assertThat(params.getPathParam(0)).isEqualTo("entity_id")
+        assertThat(params.getPathParam(0)).isEqualTo("entity_n8y8tnk2p9339ti393yi")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

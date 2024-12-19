@@ -10,7 +10,7 @@ class AchPrenotificationRetrieveParamsTest {
     @Test
     fun createAchPrenotificationRetrieveParams() {
         AchPrenotificationRetrieveParams.builder()
-            .achPrenotificationId("ach_prenotification_id")
+            .achPrenotificationId("ach_prenotification_ubjf9qqsxl3obbcn1u34")
             .build()
     }
 
@@ -18,11 +18,11 @@ class AchPrenotificationRetrieveParamsTest {
     fun getPathParam() {
         val params =
             AchPrenotificationRetrieveParams.builder()
-                .achPrenotificationId("ach_prenotification_id")
+                .achPrenotificationId("ach_prenotification_ubjf9qqsxl3obbcn1u34")
                 .build()
         assertThat(params).isNotNull
         // path param "achPrenotificationId"
-        assertThat(params.getPathParam(0)).isEqualTo("ach_prenotification_id")
+        assertThat(params.getPathParam(0)).isEqualTo("ach_prenotification_ubjf9qqsxl3obbcn1u34")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

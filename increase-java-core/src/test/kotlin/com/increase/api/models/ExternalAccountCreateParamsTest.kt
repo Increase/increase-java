@@ -10,9 +10,9 @@ class ExternalAccountCreateParamsTest {
     @Test
     fun createExternalAccountCreateParams() {
         ExternalAccountCreateParams.builder()
-            .accountNumber("x")
-            .description("x")
-            .routingNumber("xxxxxxxxx")
+            .accountNumber("987654321")
+            .description("Landlord")
+            .routingNumber("101050001")
             .accountHolder(ExternalAccountCreateParams.AccountHolder.BUSINESS)
             .funding(ExternalAccountCreateParams.Funding.CHECKING)
             .build()
@@ -22,17 +22,17 @@ class ExternalAccountCreateParamsTest {
     fun getBody() {
         val params =
             ExternalAccountCreateParams.builder()
-                .accountNumber("x")
-                .description("x")
-                .routingNumber("xxxxxxxxx")
+                .accountNumber("987654321")
+                .description("Landlord")
+                .routingNumber("101050001")
                 .accountHolder(ExternalAccountCreateParams.AccountHolder.BUSINESS)
                 .funding(ExternalAccountCreateParams.Funding.CHECKING)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountNumber()).isEqualTo("x")
-        assertThat(body.description()).isEqualTo("x")
-        assertThat(body.routingNumber()).isEqualTo("xxxxxxxxx")
+        assertThat(body.accountNumber()).isEqualTo("987654321")
+        assertThat(body.description()).isEqualTo("Landlord")
+        assertThat(body.routingNumber()).isEqualTo("101050001")
         assertThat(body.accountHolder())
             .isEqualTo(ExternalAccountCreateParams.AccountHolder.BUSINESS)
         assertThat(body.funding()).isEqualTo(ExternalAccountCreateParams.Funding.CHECKING)
@@ -42,14 +42,14 @@ class ExternalAccountCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             ExternalAccountCreateParams.builder()
-                .accountNumber("x")
-                .description("x")
-                .routingNumber("xxxxxxxxx")
+                .accountNumber("987654321")
+                .description("Landlord")
+                .routingNumber("101050001")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountNumber()).isEqualTo("x")
-        assertThat(body.description()).isEqualTo("x")
-        assertThat(body.routingNumber()).isEqualTo("xxxxxxxxx")
+        assertThat(body.accountNumber()).isEqualTo("987654321")
+        assertThat(body.description()).isEqualTo("Landlord")
+        assertThat(body.routingNumber()).isEqualTo("101050001")
     }
 }

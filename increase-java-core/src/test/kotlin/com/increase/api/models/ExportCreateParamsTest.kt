@@ -64,7 +64,7 @@ class ExportCreateParamsTest {
             )
             .transactionCsv(
                 ExportCreateParams.TransactionCsv.builder()
-                    .accountId("account_id")
+                    .accountId("account_in71c4amph0vgo2qllky")
                     .createdAt(
                         ExportCreateParams.TransactionCsv.CreatedAt.builder()
                             .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -136,7 +136,7 @@ class ExportCreateParamsTest {
                 )
                 .transactionCsv(
                     ExportCreateParams.TransactionCsv.builder()
-                        .accountId("account_id")
+                        .accountId("account_in71c4amph0vgo2qllky")
                         .createdAt(
                             ExportCreateParams.TransactionCsv.CreatedAt.builder()
                                 .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -209,7 +209,7 @@ class ExportCreateParamsTest {
         assertThat(body.transactionCsv())
             .isEqualTo(
                 ExportCreateParams.TransactionCsv.builder()
-                    .accountId("account_id")
+                    .accountId("account_in71c4amph0vgo2qllky")
                     .createdAt(
                         ExportCreateParams.TransactionCsv.CreatedAt.builder()
                             .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

@@ -10,10 +10,10 @@ class AccountTransferCreateParamsTest {
     @Test
     fun createAccountTransferCreateParams() {
         AccountTransferCreateParams.builder()
-            .accountId("account_id")
-            .amount(1L)
-            .description("x")
-            .destinationAccountId("destination_account_id")
+            .accountId("account_in71c4amph0vgo2qllky")
+            .amount(100L)
+            .description("Creating liquidity")
+            .destinationAccountId("account_uf16sut2ct5bevmq3eh")
             .requireApproval(true)
             .build()
     }
@@ -22,18 +22,18 @@ class AccountTransferCreateParamsTest {
     fun getBody() {
         val params =
             AccountTransferCreateParams.builder()
-                .accountId("account_id")
-                .amount(1L)
-                .description("x")
-                .destinationAccountId("destination_account_id")
+                .accountId("account_in71c4amph0vgo2qllky")
+                .amount(100L)
+                .description("Creating liquidity")
+                .destinationAccountId("account_uf16sut2ct5bevmq3eh")
                 .requireApproval(true)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountId()).isEqualTo("account_id")
-        assertThat(body.amount()).isEqualTo(1L)
-        assertThat(body.description()).isEqualTo("x")
-        assertThat(body.destinationAccountId()).isEqualTo("destination_account_id")
+        assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
+        assertThat(body.amount()).isEqualTo(100L)
+        assertThat(body.description()).isEqualTo("Creating liquidity")
+        assertThat(body.destinationAccountId()).isEqualTo("account_uf16sut2ct5bevmq3eh")
         assertThat(body.requireApproval()).isEqualTo(true)
     }
 
@@ -41,16 +41,16 @@ class AccountTransferCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             AccountTransferCreateParams.builder()
-                .accountId("account_id")
-                .amount(1L)
-                .description("x")
-                .destinationAccountId("destination_account_id")
+                .accountId("account_in71c4amph0vgo2qllky")
+                .amount(100L)
+                .description("Creating liquidity")
+                .destinationAccountId("account_uf16sut2ct5bevmq3eh")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountId()).isEqualTo("account_id")
-        assertThat(body.amount()).isEqualTo(1L)
-        assertThat(body.description()).isEqualTo("x")
-        assertThat(body.destinationAccountId()).isEqualTo("destination_account_id")
+        assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
+        assertThat(body.amount()).isEqualTo(100L)
+        assertThat(body.description()).isEqualTo("Creating liquidity")
+        assertThat(body.destinationAccountId()).isEqualTo("account_uf16sut2ct5bevmq3eh")
     }
 }

@@ -23,7 +23,7 @@ class CardPurchaseSupplementServiceTest {
         val cardPurchaseSupplement =
             cardPurchaseSupplementService.retrieve(
                 CardPurchaseSupplementRetrieveParams.builder()
-                    .cardPurchaseSupplementId("card_purchase_supplement_id")
+                    .cardPurchaseSupplementId("card_purchase_supplement_ijuc45iym4jchnh2sfk3")
                     .build()
             )
         println(cardPurchaseSupplement)

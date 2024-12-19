@@ -9,16 +9,20 @@ class CheckTransferApproveParamsTest {
 
     @Test
     fun createCheckTransferApproveParams() {
-        CheckTransferApproveParams.builder().checkTransferId("check_transfer_id").build()
+        CheckTransferApproveParams.builder()
+            .checkTransferId("check_transfer_30b43acfu9vw8fyc4f5")
+            .build()
     }
 
     @Test
     fun getPathParam() {
         val params =
-            CheckTransferApproveParams.builder().checkTransferId("check_transfer_id").build()
+            CheckTransferApproveParams.builder()
+                .checkTransferId("check_transfer_30b43acfu9vw8fyc4f5")
+                .build()
         assertThat(params).isNotNull
         // path param "checkTransferId"
-        assertThat(params.getPathParam(0)).isEqualTo("check_transfer_id")
+        assertThat(params.getPathParam(0)).isEqualTo("check_transfer_30b43acfu9vw8fyc4f5")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

@@ -10,14 +10,14 @@ class EntityUpdateAddressParamsTest {
     @Test
     fun createEntityUpdateAddressParams() {
         EntityUpdateAddressParams.builder()
-            .entityId("entity_id")
+            .entityId("entity_n8y8tnk2p9339ti393yi")
             .address(
                 EntityUpdateAddressParams.Address.builder()
-                    .city("x")
-                    .line1("x")
-                    .state("x")
-                    .zip("x")
-                    .line2("x")
+                    .city("New York")
+                    .line1("33 Liberty Street")
+                    .state("NY")
+                    .zip("10045")
+                    .line2("Unit 2")
                     .build()
             )
             .build()
@@ -27,14 +27,14 @@ class EntityUpdateAddressParamsTest {
     fun getBody() {
         val params =
             EntityUpdateAddressParams.builder()
-                .entityId("entity_id")
+                .entityId("entity_n8y8tnk2p9339ti393yi")
                 .address(
                     EntityUpdateAddressParams.Address.builder()
-                        .city("x")
-                        .line1("x")
-                        .state("x")
-                        .zip("x")
-                        .line2("x")
+                        .city("New York")
+                        .line1("33 Liberty Street")
+                        .state("NY")
+                        .zip("10045")
+                        .line2("Unit 2")
                         .build()
                 )
                 .build()
@@ -43,11 +43,11 @@ class EntityUpdateAddressParamsTest {
         assertThat(body.address())
             .isEqualTo(
                 EntityUpdateAddressParams.Address.builder()
-                    .city("x")
-                    .line1("x")
-                    .state("x")
-                    .zip("x")
-                    .line2("x")
+                    .city("New York")
+                    .line1("33 Liberty Street")
+                    .state("NY")
+                    .zip("10045")
+                    .line2("Unit 2")
                     .build()
             )
     }
@@ -56,13 +56,13 @@ class EntityUpdateAddressParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             EntityUpdateAddressParams.builder()
-                .entityId("entity_id")
+                .entityId("entity_n8y8tnk2p9339ti393yi")
                 .address(
                     EntityUpdateAddressParams.Address.builder()
-                        .city("x")
-                        .line1("x")
-                        .state("x")
-                        .zip("x")
+                        .city("New York")
+                        .line1("33 Liberty Street")
+                        .state("NY")
+                        .zip("10045")
                         .build()
                 )
                 .build()
@@ -71,10 +71,10 @@ class EntityUpdateAddressParamsTest {
         assertThat(body.address())
             .isEqualTo(
                 EntityUpdateAddressParams.Address.builder()
-                    .city("x")
-                    .line1("x")
-                    .state("x")
-                    .zip("x")
+                    .city("New York")
+                    .line1("33 Liberty Street")
+                    .state("NY")
+                    .zip("10045")
                     .build()
             )
     }
@@ -83,19 +83,19 @@ class EntityUpdateAddressParamsTest {
     fun getPathParam() {
         val params =
             EntityUpdateAddressParams.builder()
-                .entityId("entity_id")
+                .entityId("entity_n8y8tnk2p9339ti393yi")
                 .address(
                     EntityUpdateAddressParams.Address.builder()
-                        .city("x")
-                        .line1("x")
-                        .state("x")
-                        .zip("x")
+                        .city("New York")
+                        .line1("33 Liberty Street")
+                        .state("NY")
+                        .zip("10045")
                         .build()
                 )
                 .build()
         assertThat(params).isNotNull
         // path param "entityId"
-        assertThat(params.getPathParam(0)).isEqualTo("entity_id")
+        assertThat(params.getPathParam(0)).isEqualTo("entity_n8y8tnk2p9339ti393yi")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

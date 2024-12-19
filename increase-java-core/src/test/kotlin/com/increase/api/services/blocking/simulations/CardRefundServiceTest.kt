@@ -21,7 +21,9 @@ class CardRefundServiceTest {
         val cardRefundService = client.simulations().cardRefunds()
         val transaction =
             cardRefundService.create(
-                SimulationCardRefundCreateParams.builder().transactionId("transaction_id").build()
+                SimulationCardRefundCreateParams.builder()
+                    .transactionId("transaction_uyrp7fld2ium70oa7oi")
+                    .build()
             )
         println(transaction)
         transaction.validate()

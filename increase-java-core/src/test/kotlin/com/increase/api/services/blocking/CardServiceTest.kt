@@ -26,7 +26,7 @@ class CardServiceTest {
         val card =
             cardService.create(
                 CardCreateParams.builder()
-                    .accountId("account_id")
+                    .accountId("account_in71c4amph0vgo2qllky")
                     .billingAddress(
                         CardCreateParams.BillingAddress.builder()
                             .city("x")
@@ -36,7 +36,7 @@ class CardServiceTest {
                             .line2("x")
                             .build()
                     )
-                    .description("x")
+                    .description("Card for Ian Crease")
                     .digitalWallet(
                         CardCreateParams.DigitalWallet.builder()
                             .digitalCardProfileId("digital_card_profile_id")
@@ -59,7 +59,10 @@ class CardServiceTest {
                 .apiKey("My API Key")
                 .build()
         val cardService = client.cards()
-        val card = cardService.retrieve(CardRetrieveParams.builder().cardId("card_id").build())
+        val card =
+            cardService.retrieve(
+                CardRetrieveParams.builder().cardId("card_oubs0hwk5rn6knuecxg2").build()
+            )
         println(card)
         card.validate()
     }
@@ -75,7 +78,7 @@ class CardServiceTest {
         val card =
             cardService.update(
                 CardUpdateParams.builder()
-                    .cardId("card_id")
+                    .cardId("card_oubs0hwk5rn6knuecxg2")
                     .billingAddress(
                         CardUpdateParams.BillingAddress.builder()
                             .city("x")
@@ -85,7 +88,7 @@ class CardServiceTest {
                             .line2("x")
                             .build()
                     )
-                    .description("x")
+                    .description("New description")
                     .digitalWallet(
                         CardUpdateParams.DigitalWallet.builder()
                             .digitalCardProfileId("digital_card_profile_id")
@@ -122,7 +125,10 @@ class CardServiceTest {
                 .apiKey("My API Key")
                 .build()
         val cardService = client.cards()
-        val cardDetails = cardService.details(CardDetailsParams.builder().cardId("card_id").build())
+        val cardDetails =
+            cardService.details(
+                CardDetailsParams.builder().cardId("card_oubs0hwk5rn6knuecxg2").build()
+            )
         println(cardDetails)
         cardDetails.validate()
     }

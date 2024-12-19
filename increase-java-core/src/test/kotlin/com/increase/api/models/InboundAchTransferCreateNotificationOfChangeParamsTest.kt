@@ -10,9 +10,9 @@ class InboundAchTransferCreateNotificationOfChangeParamsTest {
     @Test
     fun createInboundAchTransferCreateNotificationOfChangeParams() {
         InboundAchTransferCreateNotificationOfChangeParams.builder()
-            .inboundAchTransferId("inbound_ach_transfer_id")
-            .updatedAccountNumber("x")
-            .updatedRoutingNumber("x")
+            .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
+            .updatedAccountNumber("987654321")
+            .updatedRoutingNumber("101050001")
             .build()
     }
 
@@ -20,21 +20,21 @@ class InboundAchTransferCreateNotificationOfChangeParamsTest {
     fun getBody() {
         val params =
             InboundAchTransferCreateNotificationOfChangeParams.builder()
-                .inboundAchTransferId("inbound_ach_transfer_id")
-                .updatedAccountNumber("x")
-                .updatedRoutingNumber("x")
+                .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
+                .updatedAccountNumber("987654321")
+                .updatedRoutingNumber("101050001")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.updatedAccountNumber()).isEqualTo("x")
-        assertThat(body.updatedRoutingNumber()).isEqualTo("x")
+        assertThat(body.updatedAccountNumber()).isEqualTo("987654321")
+        assertThat(body.updatedRoutingNumber()).isEqualTo("101050001")
     }
 
     @Test
     fun getBodyWithoutOptionalFields() {
         val params =
             InboundAchTransferCreateNotificationOfChangeParams.builder()
-                .inboundAchTransferId("inbound_ach_transfer_id")
+                .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -44,11 +44,11 @@ class InboundAchTransferCreateNotificationOfChangeParamsTest {
     fun getPathParam() {
         val params =
             InboundAchTransferCreateNotificationOfChangeParams.builder()
-                .inboundAchTransferId("inbound_ach_transfer_id")
+                .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
                 .build()
         assertThat(params).isNotNull
         // path param "inboundAchTransferId"
-        assertThat(params.getPathParam(0)).isEqualTo("inbound_ach_transfer_id")
+        assertThat(params.getPathParam(0)).isEqualTo("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

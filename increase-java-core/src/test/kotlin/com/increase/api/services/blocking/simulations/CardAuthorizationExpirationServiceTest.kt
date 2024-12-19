@@ -22,7 +22,7 @@ class CardAuthorizationExpirationServiceTest {
         val cardPayment =
             cardAuthorizationExpirationService.create(
                 SimulationCardAuthorizationExpirationCreateParams.builder()
-                    .cardPaymentId("card_payment_id")
+                    .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                     .build()
             )
         println(cardPayment)

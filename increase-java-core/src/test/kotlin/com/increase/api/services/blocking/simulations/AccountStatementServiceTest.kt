@@ -21,7 +21,9 @@ class AccountStatementServiceTest {
         val accountStatementService = client.simulations().accountStatements()
         val accountStatement =
             accountStatementService.create(
-                SimulationAccountStatementCreateParams.builder().accountId("account_id").build()
+                SimulationAccountStatementCreateParams.builder()
+                    .accountId("account_in71c4amph0vgo2qllky")
+                    .build()
             )
         println(accountStatement)
         accountStatement.validate()

@@ -16,10 +16,10 @@ class EntityCreateParamsTest {
                 EntityCreateParams.Corporation.builder()
                     .address(
                         EntityCreateParams.Corporation.Address.builder()
-                            .city("x")
-                            .line1("x")
-                            .state("x")
-                            .zip("x")
+                            .city("New York")
+                            .line1("33 Liberty Street")
+                            .state("NY")
+                            .zip("10045")
                             .line2("x")
                             .build()
                     )
@@ -34,14 +34,14 @@ class EntityCreateParamsTest {
                                                 .Individual
                                                 .Address
                                                 .builder()
-                                                .city("x")
-                                                .line1("x")
-                                                .state("x")
-                                                .zip("x")
+                                                .city("New York")
+                                                .line1("33 Liberty Street")
+                                                .state("NY")
+                                                .zip("10045")
                                                 .line2("x")
                                                 .build()
                                         )
-                                        .dateOfBirth(LocalDate.parse("2019-12-27"))
+                                        .dateOfBirth(LocalDate.parse("1970-01-31"))
                                         .identification(
                                             EntityCreateParams.Corporation.BeneficialOwner
                                                 .Individual
@@ -54,7 +54,7 @@ class EntityCreateParamsTest {
                                                         .Method
                                                         .SOCIAL_SECURITY_NUMBER
                                                 )
-                                                .number("xxxx")
+                                                .number("078051120")
                                                 .driversLicense(
                                                     EntityCreateParams.Corporation.BeneficialOwner
                                                         .Individual
@@ -99,7 +99,7 @@ class EntityCreateParamsTest {
                                                 )
                                                 .build()
                                         )
-                                        .name("x")
+                                        .name("Ian Crease")
                                         .confirmedNoUsTaxId(true)
                                         .build()
                                 )
@@ -109,15 +109,15 @@ class EntityCreateParamsTest {
                                             .OWNERSHIP
                                     )
                                 )
-                                .companyTitle("x")
+                                .companyTitle("CEO")
                                 .build()
                         )
                     )
-                    .name("x")
-                    .taxIdentifier("x")
-                    .incorporationState("x")
+                    .name("National Phonograph Company")
+                    .taxIdentifier("602214076")
+                    .incorporationState("NY")
                     .industryCode("x")
-                    .website("website")
+                    .website("https://example.com")
                     .build()
             )
             .description("x")
@@ -258,7 +258,11 @@ class EntityCreateParamsTest {
                     .build()
             )
             .supplementalDocuments(
-                listOf(EntityCreateParams.SupplementalDocument.builder().fileId("file_id").build())
+                listOf(
+                    EntityCreateParams.SupplementalDocument.builder()
+                        .fileId("file_makxrc67oh9l6sg7w9yc")
+                        .build()
+                )
             )
             .thirdPartyVerification(
                 EntityCreateParams.ThirdPartyVerification.builder()
@@ -425,10 +429,10 @@ class EntityCreateParamsTest {
                     EntityCreateParams.Corporation.builder()
                         .address(
                             EntityCreateParams.Corporation.Address.builder()
-                                .city("x")
-                                .line1("x")
-                                .state("x")
-                                .zip("x")
+                                .city("New York")
+                                .line1("33 Liberty Street")
+                                .state("NY")
+                                .zip("10045")
                                 .line2("x")
                                 .build()
                         )
@@ -443,14 +447,14 @@ class EntityCreateParamsTest {
                                                     .Individual
                                                     .Address
                                                     .builder()
-                                                    .city("x")
-                                                    .line1("x")
-                                                    .state("x")
-                                                    .zip("x")
+                                                    .city("New York")
+                                                    .line1("33 Liberty Street")
+                                                    .state("NY")
+                                                    .zip("10045")
                                                     .line2("x")
                                                     .build()
                                             )
-                                            .dateOfBirth(LocalDate.parse("2019-12-27"))
+                                            .dateOfBirth(LocalDate.parse("1970-01-31"))
                                             .identification(
                                                 EntityCreateParams.Corporation.BeneficialOwner
                                                     .Individual
@@ -464,7 +468,7 @@ class EntityCreateParamsTest {
                                                             .Method
                                                             .SOCIAL_SECURITY_NUMBER
                                                     )
-                                                    .number("xxxx")
+                                                    .number("078051120")
                                                     .driversLicense(
                                                         EntityCreateParams.Corporation
                                                             .BeneficialOwner
@@ -512,7 +516,7 @@ class EntityCreateParamsTest {
                                                     )
                                                     .build()
                                             )
-                                            .name("x")
+                                            .name("Ian Crease")
                                             .confirmedNoUsTaxId(true)
                                             .build()
                                     )
@@ -522,15 +526,15 @@ class EntityCreateParamsTest {
                                                 .OWNERSHIP
                                         )
                                     )
-                                    .companyTitle("x")
+                                    .companyTitle("CEO")
                                     .build()
                             )
                         )
-                        .name("x")
-                        .taxIdentifier("x")
-                        .incorporationState("x")
+                        .name("National Phonograph Company")
+                        .taxIdentifier("602214076")
+                        .incorporationState("NY")
                         .industryCode("x")
-                        .website("website")
+                        .website("https://example.com")
                         .build()
                 )
                 .description("x")
@@ -674,7 +678,9 @@ class EntityCreateParamsTest {
                 )
                 .supplementalDocuments(
                     listOf(
-                        EntityCreateParams.SupplementalDocument.builder().fileId("file_id").build()
+                        EntityCreateParams.SupplementalDocument.builder()
+                            .fileId("file_makxrc67oh9l6sg7w9yc")
+                            .build()
                     )
                 )
                 .thirdPartyVerification(
@@ -841,10 +847,10 @@ class EntityCreateParamsTest {
                 EntityCreateParams.Corporation.builder()
                     .address(
                         EntityCreateParams.Corporation.Address.builder()
-                            .city("x")
-                            .line1("x")
-                            .state("x")
-                            .zip("x")
+                            .city("New York")
+                            .line1("33 Liberty Street")
+                            .state("NY")
+                            .zip("10045")
                             .line2("x")
                             .build()
                     )
@@ -859,14 +865,14 @@ class EntityCreateParamsTest {
                                                 .Individual
                                                 .Address
                                                 .builder()
-                                                .city("x")
-                                                .line1("x")
-                                                .state("x")
-                                                .zip("x")
+                                                .city("New York")
+                                                .line1("33 Liberty Street")
+                                                .state("NY")
+                                                .zip("10045")
                                                 .line2("x")
                                                 .build()
                                         )
-                                        .dateOfBirth(LocalDate.parse("2019-12-27"))
+                                        .dateOfBirth(LocalDate.parse("1970-01-31"))
                                         .identification(
                                             EntityCreateParams.Corporation.BeneficialOwner
                                                 .Individual
@@ -879,7 +885,7 @@ class EntityCreateParamsTest {
                                                         .Method
                                                         .SOCIAL_SECURITY_NUMBER
                                                 )
-                                                .number("xxxx")
+                                                .number("078051120")
                                                 .driversLicense(
                                                     EntityCreateParams.Corporation.BeneficialOwner
                                                         .Individual
@@ -924,7 +930,7 @@ class EntityCreateParamsTest {
                                                 )
                                                 .build()
                                         )
-                                        .name("x")
+                                        .name("Ian Crease")
                                         .confirmedNoUsTaxId(true)
                                         .build()
                                 )
@@ -934,15 +940,15 @@ class EntityCreateParamsTest {
                                             .OWNERSHIP
                                     )
                                 )
-                                .companyTitle("x")
+                                .companyTitle("CEO")
                                 .build()
                         )
                     )
-                    .name("x")
-                    .taxIdentifier("x")
-                    .incorporationState("x")
+                    .name("National Phonograph Company")
+                    .taxIdentifier("602214076")
+                    .incorporationState("NY")
                     .industryCode("x")
-                    .website("website")
+                    .website("https://example.com")
                     .build()
             )
         assertThat(body.description()).isEqualTo("x")
@@ -1087,7 +1093,11 @@ class EntityCreateParamsTest {
             )
         assertThat(body.supplementalDocuments())
             .isEqualTo(
-                listOf(EntityCreateParams.SupplementalDocument.builder().fileId("file_id").build())
+                listOf(
+                    EntityCreateParams.SupplementalDocument.builder()
+                        .fileId("file_makxrc67oh9l6sg7w9yc")
+                        .build()
+                )
             )
         assertThat(body.thirdPartyVerification())
             .isEqualTo(

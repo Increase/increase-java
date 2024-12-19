@@ -24,8 +24,8 @@ class CardDisputeServiceTest {
         val cardDispute =
             cardDisputeService.create(
                 CardDisputeCreateParams.builder()
-                    .disputedTransactionId("disputed_transaction_id")
-                    .explanation("x")
+                    .disputedTransactionId("transaction_uyrp7fld2ium70oa7oi")
+                    .explanation("Unauthorized recurring transaction.")
                     .amount(1L)
                     .build()
             )
@@ -43,7 +43,9 @@ class CardDisputeServiceTest {
         val cardDisputeService = client.cardDisputes()
         val cardDispute =
             cardDisputeService.retrieve(
-                CardDisputeRetrieveParams.builder().cardDisputeId("card_dispute_id").build()
+                CardDisputeRetrieveParams.builder()
+                    .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
+                    .build()
             )
         println(cardDispute)
         cardDispute.validate()
