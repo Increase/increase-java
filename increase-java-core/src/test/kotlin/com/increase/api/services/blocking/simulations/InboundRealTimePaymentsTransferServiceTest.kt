@@ -23,13 +23,15 @@ class InboundRealTimePaymentsTransferServiceTest {
         val inboundRealTimePaymentsTransfer =
             inboundRealTimePaymentsTransferService.create(
                 SimulationInboundRealTimePaymentsTransferCreateParams.builder()
-                    .accountNumberId("account_number_id")
-                    .amount(1L)
+                    .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
+                    .amount(1000L)
                     .debtorAccountNumber("x")
                     .debtorName("x")
                     .debtorRoutingNumber("xxxxxxxxx")
                     .remittanceInformation("x")
-                    .requestForPaymentId("request_for_payment_id")
+                    .requestForPaymentId(
+                        "real_time_payments_request_for_payment_28kcliz1oevcnqyn9qp7"
+                    )
                     .build()
             )
         println(inboundRealTimePaymentsTransfer)

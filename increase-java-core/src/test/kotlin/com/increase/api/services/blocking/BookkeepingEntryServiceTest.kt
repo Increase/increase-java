@@ -23,7 +23,7 @@ class BookkeepingEntryServiceTest {
         val bookkeepingEntry =
             bookkeepingEntryService.retrieve(
                 BookkeepingEntryRetrieveParams.builder()
-                    .bookkeepingEntryId("bookkeeping_entry_id")
+                    .bookkeepingEntryId("bookkeeping_entry_ctjpajsj3ks2blx10375")
                     .build()
             )
         println(bookkeepingEntry)

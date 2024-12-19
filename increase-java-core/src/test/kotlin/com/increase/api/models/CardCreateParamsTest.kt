@@ -10,7 +10,7 @@ class CardCreateParamsTest {
     @Test
     fun createCardCreateParams() {
         CardCreateParams.builder()
-            .accountId("account_id")
+            .accountId("account_in71c4amph0vgo2qllky")
             .billingAddress(
                 CardCreateParams.BillingAddress.builder()
                     .city("x")
@@ -20,7 +20,7 @@ class CardCreateParamsTest {
                     .line2("x")
                     .build()
             )
-            .description("x")
+            .description("Card for Ian Crease")
             .digitalWallet(
                 CardCreateParams.DigitalWallet.builder()
                     .digitalCardProfileId("digital_card_profile_id")
@@ -36,7 +36,7 @@ class CardCreateParamsTest {
     fun getBody() {
         val params =
             CardCreateParams.builder()
-                .accountId("account_id")
+                .accountId("account_in71c4amph0vgo2qllky")
                 .billingAddress(
                     CardCreateParams.BillingAddress.builder()
                         .city("x")
@@ -46,7 +46,7 @@ class CardCreateParamsTest {
                         .line2("x")
                         .build()
                 )
-                .description("x")
+                .description("Card for Ian Crease")
                 .digitalWallet(
                     CardCreateParams.DigitalWallet.builder()
                         .digitalCardProfileId("digital_card_profile_id")
@@ -58,7 +58,7 @@ class CardCreateParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountId()).isEqualTo("account_id")
+        assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.billingAddress())
             .isEqualTo(
                 CardCreateParams.BillingAddress.builder()
@@ -69,7 +69,7 @@ class CardCreateParamsTest {
                     .line2("x")
                     .build()
             )
-        assertThat(body.description()).isEqualTo("x")
+        assertThat(body.description()).isEqualTo("Card for Ian Crease")
         assertThat(body.digitalWallet())
             .isEqualTo(
                 CardCreateParams.DigitalWallet.builder()
@@ -83,9 +83,9 @@ class CardCreateParamsTest {
 
     @Test
     fun getBodyWithoutOptionalFields() {
-        val params = CardCreateParams.builder().accountId("account_id").build()
+        val params = CardCreateParams.builder().accountId("account_in71c4amph0vgo2qllky").build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountId()).isEqualTo("account_id")
+        assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
     }
 }

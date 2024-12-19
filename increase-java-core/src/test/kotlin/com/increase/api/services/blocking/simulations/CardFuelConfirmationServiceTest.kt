@@ -22,8 +22,8 @@ class CardFuelConfirmationServiceTest {
         val cardPayment =
             cardFuelConfirmationService.create(
                 SimulationCardFuelConfirmationCreateParams.builder()
-                    .amount(1L)
-                    .cardPaymentId("card_payment_id")
+                    .amount(5000L)
+                    .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                     .build()
             )
         println(cardPayment)

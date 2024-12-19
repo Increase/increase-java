@@ -26,7 +26,7 @@ class InboundAchTransferServiceTest {
         val inboundAchTransfer =
             inboundAchTransferService.retrieve(
                 InboundAchTransferRetrieveParams.builder()
-                    .inboundAchTransferId("inbound_ach_transfer_id")
+                    .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
                     .build()
             )
         println(inboundAchTransfer)
@@ -58,9 +58,9 @@ class InboundAchTransferServiceTest {
         val inboundAchTransfer =
             inboundAchTransferService.createNotificationOfChange(
                 InboundAchTransferCreateNotificationOfChangeParams.builder()
-                    .inboundAchTransferId("inbound_ach_transfer_id")
-                    .updatedAccountNumber("x")
-                    .updatedRoutingNumber("x")
+                    .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
+                    .updatedAccountNumber("987654321")
+                    .updatedRoutingNumber("101050001")
                     .build()
             )
         println(inboundAchTransfer)
@@ -78,7 +78,7 @@ class InboundAchTransferServiceTest {
         val inboundAchTransfer =
             inboundAchTransferService.decline(
                 InboundAchTransferDeclineParams.builder()
-                    .inboundAchTransferId("inbound_ach_transfer_id")
+                    .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
                     .reason(InboundAchTransferDeclineParams.Reason.INSUFFICIENT_FUNDS)
                     .build()
             )
@@ -97,7 +97,7 @@ class InboundAchTransferServiceTest {
         val inboundAchTransfer =
             inboundAchTransferService.transferReturn(
                 InboundAchTransferTransferReturnParams.builder()
-                    .inboundAchTransferId("inbound_ach_transfer_id")
+                    .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
                     .reason(InboundAchTransferTransferReturnParams.Reason.INSUFFICIENT_FUNDS)
                     .build()
             )

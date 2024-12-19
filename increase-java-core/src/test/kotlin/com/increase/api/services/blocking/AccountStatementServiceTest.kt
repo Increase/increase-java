@@ -23,7 +23,7 @@ class AccountStatementServiceTest {
         val accountStatement =
             accountStatementService.retrieve(
                 AccountStatementRetrieveParams.builder()
-                    .accountStatementId("account_statement_id")
+                    .accountStatementId("account_statement_lkc03a4skm2k7f38vj15")
                     .build()
             )
         println(accountStatement)

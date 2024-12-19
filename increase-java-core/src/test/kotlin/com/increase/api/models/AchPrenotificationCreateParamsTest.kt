@@ -11,9 +11,9 @@ class AchPrenotificationCreateParamsTest {
     @Test
     fun createAchPrenotificationCreateParams() {
         AchPrenotificationCreateParams.builder()
-            .accountId("account_id")
-            .accountNumber("x")
-            .routingNumber("xxxxxxxxx")
+            .accountId("account_in71c4amph0vgo2qllky")
+            .accountNumber("987654321")
+            .routingNumber("101050001")
             .addendum("x")
             .companyDescriptiveDate("x")
             .companyDiscretionaryData("x")
@@ -33,9 +33,9 @@ class AchPrenotificationCreateParamsTest {
     fun getBody() {
         val params =
             AchPrenotificationCreateParams.builder()
-                .accountId("account_id")
-                .accountNumber("x")
-                .routingNumber("xxxxxxxxx")
+                .accountId("account_in71c4amph0vgo2qllky")
+                .accountNumber("987654321")
+                .routingNumber("101050001")
                 .addendum("x")
                 .companyDescriptiveDate("x")
                 .companyDiscretionaryData("x")
@@ -51,9 +51,9 @@ class AchPrenotificationCreateParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountId()).isEqualTo("account_id")
-        assertThat(body.accountNumber()).isEqualTo("x")
-        assertThat(body.routingNumber()).isEqualTo("xxxxxxxxx")
+        assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
+        assertThat(body.accountNumber()).isEqualTo("987654321")
+        assertThat(body.routingNumber()).isEqualTo("101050001")
         assertThat(body.addendum()).isEqualTo("x")
         assertThat(body.companyDescriptiveDate()).isEqualTo("x")
         assertThat(body.companyDiscretionaryData()).isEqualTo("x")
@@ -74,14 +74,14 @@ class AchPrenotificationCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             AchPrenotificationCreateParams.builder()
-                .accountId("account_id")
-                .accountNumber("x")
-                .routingNumber("xxxxxxxxx")
+                .accountId("account_in71c4amph0vgo2qllky")
+                .accountNumber("987654321")
+                .routingNumber("101050001")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountId()).isEqualTo("account_id")
-        assertThat(body.accountNumber()).isEqualTo("x")
-        assertThat(body.routingNumber()).isEqualTo("xxxxxxxxx")
+        assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
+        assertThat(body.accountNumber()).isEqualTo("987654321")
+        assertThat(body.routingNumber()).isEqualTo("101050001")
     }
 }

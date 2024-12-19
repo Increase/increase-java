@@ -25,9 +25,9 @@ class AchPrenotificationServiceTest {
         val achPrenotification =
             achPrenotificationService.create(
                 AchPrenotificationCreateParams.builder()
-                    .accountId("account_id")
-                    .accountNumber("x")
-                    .routingNumber("xxxxxxxxx")
+                    .accountId("account_in71c4amph0vgo2qllky")
+                    .accountNumber("987654321")
+                    .routingNumber("101050001")
                     .addendum("x")
                     .companyDescriptiveDate("x")
                     .companyDiscretionaryData("x")
@@ -60,7 +60,7 @@ class AchPrenotificationServiceTest {
         val achPrenotification =
             achPrenotificationService.retrieve(
                 AchPrenotificationRetrieveParams.builder()
-                    .achPrenotificationId("ach_prenotification_id")
+                    .achPrenotificationId("ach_prenotification_ubjf9qqsxl3obbcn1u34")
                     .build()
             )
         println(achPrenotification)

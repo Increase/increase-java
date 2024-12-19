@@ -10,7 +10,7 @@ class InboundCheckDepositDeclineParamsTest {
     @Test
     fun createInboundCheckDepositDeclineParams() {
         InboundCheckDepositDeclineParams.builder()
-            .inboundCheckDepositId("inbound_check_deposit_id")
+            .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
             .build()
     }
 
@@ -18,11 +18,11 @@ class InboundCheckDepositDeclineParamsTest {
     fun getPathParam() {
         val params =
             InboundCheckDepositDeclineParams.builder()
-                .inboundCheckDepositId("inbound_check_deposit_id")
+                .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
                 .build()
         assertThat(params).isNotNull
         // path param "inboundCheckDepositId"
-        assertThat(params.getPathParam(0)).isEqualTo("inbound_check_deposit_id")
+        assertThat(params.getPathParam(0)).isEqualTo("inbound_check_deposit_zoshvqybq0cjjm31mra")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

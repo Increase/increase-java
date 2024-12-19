@@ -25,9 +25,9 @@ class ExternalAccountServiceTest {
         val externalAccount =
             externalAccountService.create(
                 ExternalAccountCreateParams.builder()
-                    .accountNumber("x")
-                    .description("x")
-                    .routingNumber("xxxxxxxxx")
+                    .accountNumber("987654321")
+                    .description("Landlord")
+                    .routingNumber("101050001")
                     .accountHolder(ExternalAccountCreateParams.AccountHolder.BUSINESS)
                     .funding(ExternalAccountCreateParams.Funding.CHECKING)
                     .build()
@@ -47,7 +47,7 @@ class ExternalAccountServiceTest {
         val externalAccount =
             externalAccountService.retrieve(
                 ExternalAccountRetrieveParams.builder()
-                    .externalAccountId("external_account_id")
+                    .externalAccountId("external_account_ukk55lr923a3ac0pp7iv")
                     .build()
             )
         println(externalAccount)
@@ -65,9 +65,9 @@ class ExternalAccountServiceTest {
         val externalAccount =
             externalAccountService.update(
                 ExternalAccountUpdateParams.builder()
-                    .externalAccountId("external_account_id")
+                    .externalAccountId("external_account_ukk55lr923a3ac0pp7iv")
                     .accountHolder(ExternalAccountUpdateParams.AccountHolder.BUSINESS)
-                    .description("x")
+                    .description("New description")
                     .funding(ExternalAccountUpdateParams.Funding.CHECKING)
                     .status(ExternalAccountUpdateParams.Status.ACTIVE)
                     .build()

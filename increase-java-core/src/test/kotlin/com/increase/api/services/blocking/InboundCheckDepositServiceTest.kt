@@ -25,7 +25,7 @@ class InboundCheckDepositServiceTest {
         val inboundCheckDeposit =
             inboundCheckDepositService.retrieve(
                 InboundCheckDepositRetrieveParams.builder()
-                    .inboundCheckDepositId("inbound_check_deposit_id")
+                    .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
                     .build()
             )
         println(inboundCheckDeposit)
@@ -57,7 +57,7 @@ class InboundCheckDepositServiceTest {
         val inboundCheckDeposit =
             inboundCheckDepositService.decline(
                 InboundCheckDepositDeclineParams.builder()
-                    .inboundCheckDepositId("inbound_check_deposit_id")
+                    .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
                     .build()
             )
         println(inboundCheckDeposit)
@@ -75,7 +75,7 @@ class InboundCheckDepositServiceTest {
         val inboundCheckDeposit =
             inboundCheckDepositService.return_(
                 InboundCheckDepositReturnParams.builder()
-                    .inboundCheckDepositId("inbound_check_deposit_id")
+                    .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
                     .reason(InboundCheckDepositReturnParams.Reason.ALTERED_OR_FICTITIOUS)
                     .build()
             )

@@ -20,7 +20,9 @@ class ProgramServiceTest {
                 .build()
         val programService = client.simulations().programs()
         val program =
-            programService.create(SimulationProgramCreateParams.builder().name("x").build())
+            programService.create(
+                SimulationProgramCreateParams.builder().name("For Benefit Of").build()
+            )
         println(program)
         program.validate()
     }

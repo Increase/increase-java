@@ -9,15 +9,21 @@ class CheckDepositRetrieveParamsTest {
 
     @Test
     fun createCheckDepositRetrieveParams() {
-        CheckDepositRetrieveParams.builder().checkDepositId("check_deposit_id").build()
+        CheckDepositRetrieveParams.builder()
+            .checkDepositId("check_deposit_instruction_q2shv7x9qhevfm71kor8")
+            .build()
     }
 
     @Test
     fun getPathParam() {
-        val params = CheckDepositRetrieveParams.builder().checkDepositId("check_deposit_id").build()
+        val params =
+            CheckDepositRetrieveParams.builder()
+                .checkDepositId("check_deposit_instruction_q2shv7x9qhevfm71kor8")
+                .build()
         assertThat(params).isNotNull
         // path param "checkDepositId"
-        assertThat(params.getPathParam(0)).isEqualTo("check_deposit_id")
+        assertThat(params.getPathParam(0))
+            .isEqualTo("check_deposit_instruction_q2shv7x9qhevfm71kor8")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }
