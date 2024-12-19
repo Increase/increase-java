@@ -26,16 +26,18 @@ class ProofOfAuthorizationRequestSubmissionServiceTest {
         val proofOfAuthorizationRequestSubmission =
             proofOfAuthorizationRequestSubmissionService.create(
                 ProofOfAuthorizationRequestSubmissionCreateParams.builder()
-                    .authorizationTerms("x")
-                    .authorizedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .authorizerEmail("x")
-                    .authorizerName("x")
+                    .authorizationTerms("I agree to the terms of service.")
+                    .authorizedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                    .authorizerEmail("user@example.com")
+                    .authorizerName("Ian Crease")
                     .customerHasBeenOffboarded(true)
-                    .proofOfAuthorizationRequestId("proof_of_authorization_request_id")
+                    .proofOfAuthorizationRequestId(
+                        "proof_of_authorization_request_iwp8no25h3rjvil6ad3b"
+                    )
                     .validatedAccountOwnershipViaCredential(true)
                     .validatedAccountOwnershipWithAccountStatement(true)
                     .validatedAccountOwnershipWithMicrodeposit(true)
-                    .authorizerCompany("x")
+                    .authorizerCompany("National Phonograph Company")
                     .authorizerIpAddress("x")
                     .build()
             )
@@ -56,7 +58,7 @@ class ProofOfAuthorizationRequestSubmissionServiceTest {
             proofOfAuthorizationRequestSubmissionService.retrieve(
                 ProofOfAuthorizationRequestSubmissionRetrieveParams.builder()
                     .proofOfAuthorizationRequestSubmissionId(
-                        "proof_of_authorization_request_submission_id"
+                        "proof_of_authorization_request_submission_uqhqroiley7n0097vizn"
                     )
                     .build()
             )

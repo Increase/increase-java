@@ -28,10 +28,10 @@ class AccountServiceTest {
         val account =
             accountService.create(
                 AccountCreateParams.builder()
-                    .name("x")
-                    .entityId("entity_id")
+                    .name("New Account!")
+                    .entityId("entity_n8y8tnk2p9339ti393yi")
                     .informationalEntityId("informational_entity_id")
-                    .programId("program_id")
+                    .programId("program_i2v2os4mwza1oetokh9i")
                     .build()
             )
         println(account)
@@ -47,7 +47,9 @@ class AccountServiceTest {
                 .build()
         val accountService = client.accounts()
         val account =
-            accountService.retrieve(AccountRetrieveParams.builder().accountId("account_id").build())
+            accountService.retrieve(
+                AccountRetrieveParams.builder().accountId("account_in71c4amph0vgo2qllky").build()
+            )
         println(account)
         account.validate()
     }
@@ -62,7 +64,10 @@ class AccountServiceTest {
         val accountService = client.accounts()
         val account =
             accountService.update(
-                AccountUpdateParams.builder().accountId("account_id").name("x").build()
+                AccountUpdateParams.builder()
+                    .accountId("account_in71c4amph0vgo2qllky")
+                    .name("My renamed account")
+                    .build()
             )
         println(account)
         account.validate()
@@ -92,7 +97,7 @@ class AccountServiceTest {
         val balanceLookup =
             accountService.balance(
                 AccountBalanceParams.builder()
-                    .accountId("account_id")
+                    .accountId("account_in71c4amph0vgo2qllky")
                     .atTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
@@ -109,7 +114,9 @@ class AccountServiceTest {
                 .build()
         val accountService = client.accounts()
         val account =
-            accountService.close(AccountCloseParams.builder().accountId("account_id").build())
+            accountService.close(
+                AccountCloseParams.builder().accountId("account_in71c4amph0vgo2qllky").build()
+            )
         println(account)
         account.validate()
     }

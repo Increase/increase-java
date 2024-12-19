@@ -11,8 +11,8 @@ class SimulationInterestPaymentCreateParamsTest {
     @Test
     fun createSimulationInterestPaymentCreateParams() {
         SimulationInterestPaymentCreateParams.builder()
-            .accountId("account_id")
-            .amount(1L)
+            .accountId("account_in71c4amph0vgo2qllky")
+            .amount(1000L)
             .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .build()
@@ -22,15 +22,15 @@ class SimulationInterestPaymentCreateParamsTest {
     fun getBody() {
         val params =
             SimulationInterestPaymentCreateParams.builder()
-                .accountId("account_id")
-                .amount(1L)
+                .accountId("account_in71c4amph0vgo2qllky")
+                .amount(1000L)
                 .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountId()).isEqualTo("account_id")
-        assertThat(body.amount()).isEqualTo(1L)
+        assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
+        assertThat(body.amount()).isEqualTo(1000L)
         assertThat(body.periodEnd()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(body.periodStart()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
     }
@@ -39,12 +39,12 @@ class SimulationInterestPaymentCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             SimulationInterestPaymentCreateParams.builder()
-                .accountId("account_id")
-                .amount(1L)
+                .accountId("account_in71c4amph0vgo2qllky")
+                .amount(1000L)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountId()).isEqualTo("account_id")
-        assertThat(body.amount()).isEqualTo(1L)
+        assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
+        assertThat(body.amount()).isEqualTo(1000L)
     }
 }

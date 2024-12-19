@@ -10,8 +10,8 @@ class AccountNumberCreateParamsTest {
     @Test
     fun createAccountNumberCreateParams() {
         AccountNumberCreateParams.builder()
-            .accountId("account_id")
-            .name("x")
+            .accountId("account_in71c4amph0vgo2qllky")
+            .name("Rent payments")
             .inboundAch(
                 AccountNumberCreateParams.InboundAch.builder()
                     .debitStatus(AccountNumberCreateParams.InboundAch.DebitStatus.ALLOWED)
@@ -29,8 +29,8 @@ class AccountNumberCreateParamsTest {
     fun getBody() {
         val params =
             AccountNumberCreateParams.builder()
-                .accountId("account_id")
-                .name("x")
+                .accountId("account_in71c4amph0vgo2qllky")
+                .name("Rent payments")
                 .inboundAch(
                     AccountNumberCreateParams.InboundAch.builder()
                         .debitStatus(AccountNumberCreateParams.InboundAch.DebitStatus.ALLOWED)
@@ -44,8 +44,8 @@ class AccountNumberCreateParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountId()).isEqualTo("account_id")
-        assertThat(body.name()).isEqualTo("x")
+        assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
+        assertThat(body.name()).isEqualTo("Rent payments")
         assertThat(body.inboundAch())
             .isEqualTo(
                 AccountNumberCreateParams.InboundAch.builder()
@@ -62,10 +62,14 @@ class AccountNumberCreateParamsTest {
 
     @Test
     fun getBodyWithoutOptionalFields() {
-        val params = AccountNumberCreateParams.builder().accountId("account_id").name("x").build()
+        val params =
+            AccountNumberCreateParams.builder()
+                .accountId("account_in71c4amph0vgo2qllky")
+                .name("Rent payments")
+                .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountId()).isEqualTo("account_id")
-        assertThat(body.name()).isEqualTo("x")
+        assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
+        assertThat(body.name()).isEqualTo("Rent payments")
     }
 }

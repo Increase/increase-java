@@ -24,11 +24,11 @@ class CheckDepositServiceTest {
         val checkDeposit =
             checkDepositService.create(
                 CheckDepositCreateParams.builder()
-                    .accountId("account_id")
-                    .amount(0L)
-                    .backImageFileId("back_image_file_id")
-                    .frontImageFileId("front_image_file_id")
-                    .description("x")
+                    .accountId("account_in71c4amph0vgo2qllky")
+                    .amount(1000L)
+                    .backImageFileId("file_26khfk98mzfz90a11oqx")
+                    .frontImageFileId("file_hkv175ovmc2tb2v2zbrm")
+                    .description("Vendor payment")
                     .build()
             )
         println(checkDeposit)
@@ -45,7 +45,9 @@ class CheckDepositServiceTest {
         val checkDepositService = client.checkDeposits()
         val checkDeposit =
             checkDepositService.retrieve(
-                CheckDepositRetrieveParams.builder().checkDepositId("check_deposit_id").build()
+                CheckDepositRetrieveParams.builder()
+                    .checkDepositId("check_deposit_instruction_q2shv7x9qhevfm71kor8")
+                    .build()
             )
         println(checkDeposit)
         checkDeposit.validate()

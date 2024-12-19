@@ -24,7 +24,10 @@ class IntrafiExclusionServiceTest {
         val intrafiExclusionService = client.intrafiExclusions()
         val intrafiExclusion =
             intrafiExclusionService.create(
-                IntrafiExclusionCreateParams.builder().bankName("x").entityId("entity_id").build()
+                IntrafiExclusionCreateParams.builder()
+                    .bankName("Example Bank")
+                    .entityId("entity_n8y8tnk2p9339ti393yi")
+                    .build()
             )
         println(intrafiExclusion)
         intrafiExclusion.validate()
@@ -41,7 +44,7 @@ class IntrafiExclusionServiceTest {
         val intrafiExclusion =
             intrafiExclusionService.retrieve(
                 IntrafiExclusionRetrieveParams.builder()
-                    .intrafiExclusionId("intrafi_exclusion_id")
+                    .intrafiExclusionId("account_in71c4amph0vgo2qllky")
                     .build()
             )
         println(intrafiExclusion)
@@ -73,7 +76,7 @@ class IntrafiExclusionServiceTest {
         val intrafiExclusion =
             intrafiExclusionService.archive(
                 IntrafiExclusionArchiveParams.builder()
-                    .intrafiExclusionId("intrafi_exclusion_id")
+                    .intrafiExclusionId("intrafi_exclusion_ygfqduuzpau3jqof6jyh")
                     .build()
             )
         println(intrafiExclusion)

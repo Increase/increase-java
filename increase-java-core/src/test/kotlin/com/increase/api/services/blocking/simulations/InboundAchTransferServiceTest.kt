@@ -23,8 +23,8 @@ class InboundAchTransferServiceTest {
         val inboundAchTransfer =
             inboundAchTransferService.create(
                 SimulationInboundAchTransferCreateParams.builder()
-                    .accountNumberId("account_number_id")
-                    .amount(0L)
+                    .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
+                    .amount(1000L)
                     .companyDescriptiveDate("x")
                     .companyDiscretionaryData("x")
                     .companyEntryDescription("x")

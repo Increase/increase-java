@@ -38,10 +38,10 @@ class EntityServiceTest {
                         EntityCreateParams.Corporation.builder()
                             .address(
                                 EntityCreateParams.Corporation.Address.builder()
-                                    .city("x")
-                                    .line1("x")
-                                    .state("x")
-                                    .zip("x")
+                                    .city("New York")
+                                    .line1("33 Liberty Street")
+                                    .state("NY")
+                                    .zip("10045")
                                     .line2("x")
                                     .build()
                             )
@@ -57,14 +57,14 @@ class EntityServiceTest {
                                                         .Individual
                                                         .Address
                                                         .builder()
-                                                        .city("x")
-                                                        .line1("x")
-                                                        .state("x")
-                                                        .zip("x")
+                                                        .city("New York")
+                                                        .line1("33 Liberty Street")
+                                                        .state("NY")
+                                                        .zip("10045")
                                                         .line2("x")
                                                         .build()
                                                 )
-                                                .dateOfBirth(LocalDate.parse("2019-12-27"))
+                                                .dateOfBirth(LocalDate.parse("1970-01-31"))
                                                 .identification(
                                                     EntityCreateParams.Corporation.BeneficialOwner
                                                         .Individual
@@ -78,7 +78,7 @@ class EntityServiceTest {
                                                                 .Method
                                                                 .SOCIAL_SECURITY_NUMBER
                                                         )
-                                                        .number("xxxx")
+                                                        .number("078051120")
                                                         .driversLicense(
                                                             EntityCreateParams.Corporation
                                                                 .BeneficialOwner
@@ -126,7 +126,7 @@ class EntityServiceTest {
                                                         )
                                                         .build()
                                                 )
-                                                .name("x")
+                                                .name("Ian Crease")
                                                 .confirmedNoUsTaxId(true)
                                                 .build()
                                         )
@@ -136,15 +136,15 @@ class EntityServiceTest {
                                                     .OWNERSHIP
                                             )
                                         )
-                                        .companyTitle("x")
+                                        .companyTitle("CEO")
                                         .build()
                                 )
                             )
-                            .name("x")
-                            .taxIdentifier("x")
-                            .incorporationState("x")
+                            .name("National Phonograph Company")
+                            .taxIdentifier("602214076")
+                            .incorporationState("NY")
                             .industryCode("x")
-                            .website("website")
+                            .website("https://example.com")
                             .build()
                     )
                     .description("x")
@@ -303,7 +303,7 @@ class EntityServiceTest {
                     .supplementalDocuments(
                         listOf(
                             EntityCreateParams.SupplementalDocument.builder()
-                                .fileId("file_id")
+                                .fileId("file_makxrc67oh9l6sg7w9yc")
                                 .build()
                         )
                     )
@@ -485,7 +485,9 @@ class EntityServiceTest {
                 .build()
         val entityService = client.entities()
         val entity =
-            entityService.retrieve(EntityRetrieveParams.builder().entityId("entity_id").build())
+            entityService.retrieve(
+                EntityRetrieveParams.builder().entityId("entity_n8y8tnk2p9339ti393yi").build()
+            )
         println(entity)
         entity.validate()
     }
@@ -512,7 +514,9 @@ class EntityServiceTest {
                 .build()
         val entityService = client.entities()
         val entity =
-            entityService.archive(EntityArchiveParams.builder().entityId("entity_id").build())
+            entityService.archive(
+                EntityArchiveParams.builder().entityId("entity_n8y8tnk2p9339ti393yi").build()
+            )
         println(entity)
         entity.validate()
     }
@@ -528,8 +532,10 @@ class EntityServiceTest {
         val entity =
             entityService.archiveBeneficialOwner(
                 EntityArchiveBeneficialOwnerParams.builder()
-                    .entityId("entity_id")
-                    .beneficialOwnerId("beneficial_owner_id")
+                    .entityId("entity_n8y8tnk2p9339ti393yi")
+                    .beneficialOwnerId(
+                        "entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7"
+                    )
                     .build()
             )
         println(entity)
@@ -547,7 +553,7 @@ class EntityServiceTest {
         val entity =
             entityService.confirm(
                 EntityConfirmParams.builder()
-                    .entityId("entity_id")
+                    .entityId("entity_n8y8tnk2p9339ti393yi")
                     .confirmedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
@@ -566,7 +572,7 @@ class EntityServiceTest {
         val entity =
             entityService.createBeneficialOwner(
                 EntityCreateBeneficialOwnerParams.builder()
-                    .entityId("entity_id")
+                    .entityId("entity_n8y8tnk2p9339ti393yi")
                     .beneficialOwner(
                         EntityCreateBeneficialOwnerParams.BeneficialOwner.builder()
                             .individual(
@@ -576,14 +582,14 @@ class EntityServiceTest {
                                         EntityCreateBeneficialOwnerParams.BeneficialOwner.Individual
                                             .Address
                                             .builder()
-                                            .city("x")
-                                            .line1("x")
-                                            .state("x")
-                                            .zip("x")
+                                            .city("New York")
+                                            .line1("33 Liberty Street")
+                                            .state("NY")
+                                            .zip("10045")
                                             .line2("x")
                                             .build()
                                     )
-                                    .dateOfBirth(LocalDate.parse("2019-12-27"))
+                                    .dateOfBirth(LocalDate.parse("1970-01-31"))
                                     .identification(
                                         EntityCreateBeneficialOwnerParams.BeneficialOwner.Individual
                                             .Identification
@@ -595,7 +601,7 @@ class EntityServiceTest {
                                                     .Method
                                                     .SOCIAL_SECURITY_NUMBER
                                             )
-                                            .number("xxxx")
+                                            .number("078051120")
                                             .driversLicense(
                                                 EntityCreateBeneficialOwnerParams.BeneficialOwner
                                                     .Individual
@@ -634,7 +640,7 @@ class EntityServiceTest {
                                             )
                                             .build()
                                     )
-                                    .name("x")
+                                    .name("Ian Crease")
                                     .confirmedNoUsTaxId(true)
                                     .build()
                             )
@@ -644,7 +650,7 @@ class EntityServiceTest {
                                         .OWNERSHIP
                                 )
                             )
-                            .companyTitle("x")
+                            .companyTitle("CEO")
                             .build()
                     )
                     .build()
@@ -664,14 +670,14 @@ class EntityServiceTest {
         val entity =
             entityService.updateAddress(
                 EntityUpdateAddressParams.builder()
-                    .entityId("entity_id")
+                    .entityId("entity_n8y8tnk2p9339ti393yi")
                     .address(
                         EntityUpdateAddressParams.Address.builder()
-                            .city("x")
-                            .line1("x")
-                            .state("x")
-                            .zip("x")
-                            .line2("x")
+                            .city("New York")
+                            .line1("33 Liberty Street")
+                            .state("NY")
+                            .zip("10045")
+                            .line2("Unit 2")
                             .build()
                     )
                     .build()
@@ -691,17 +697,19 @@ class EntityServiceTest {
         val entity =
             entityService.updateBeneficialOwnerAddress(
                 EntityUpdateBeneficialOwnerAddressParams.builder()
-                    .entityId("entity_id")
+                    .entityId("entity_n8y8tnk2p9339ti393yi")
                     .address(
                         EntityUpdateBeneficialOwnerAddressParams.Address.builder()
-                            .city("x")
-                            .line1("x")
-                            .state("x")
-                            .zip("x")
-                            .line2("x")
+                            .city("New York")
+                            .line1("33 Liberty Street")
+                            .state("NY")
+                            .zip("10045")
+                            .line2("Unit 2")
                             .build()
                     )
-                    .beneficialOwnerId("beneficial_owner_id")
+                    .beneficialOwnerId(
+                        "entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7"
+                    )
                     .build()
             )
         println(entity)
@@ -719,8 +727,8 @@ class EntityServiceTest {
         val entity =
             entityService.updateIndustryCode(
                 EntityUpdateIndustryCodeParams.builder()
-                    .entityId("entity_id")
-                    .industryCode("x")
+                    .entityId("entity_n8y8tnk2p9339ti393yi")
+                    .industryCode("5132")
                     .build()
             )
         println(entity)

@@ -57,10 +57,10 @@ class ServiceParamsTest {
 
         val params =
             AccountCreateParams.builder()
-                .name("x")
-                .entityId("entity_id")
+                .name("New Account!")
+                .entityId("entity_n8y8tnk2p9339ti393yi")
                 .informationalEntityId("informational_entity_id")
-                .programId("program_id")
+                .programId("program_i2v2os4mwza1oetokh9i")
                 .additionalHeaders(additionalHeaders)
                 .additionalBodyProperties(additionalBodyProperties)
                 .additionalQueryParams(additionalQueryParams)

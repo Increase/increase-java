@@ -23,9 +23,9 @@ class OAuthTokenServiceTest {
             oauthTokenService.create(
                 OAuthTokenCreateParams.builder()
                     .grantType(OAuthTokenCreateParams.GrantType.AUTHORIZATION_CODE)
-                    .clientId("x")
-                    .clientSecret("x")
-                    .code("x")
+                    .clientId("12345")
+                    .clientSecret("supersecret")
+                    .code("123")
                     .productionToken("x")
                     .build()
             )

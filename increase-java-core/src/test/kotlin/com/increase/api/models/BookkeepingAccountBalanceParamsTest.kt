@@ -12,7 +12,7 @@ class BookkeepingAccountBalanceParamsTest {
     @Test
     fun createBookkeepingAccountBalanceParams() {
         BookkeepingAccountBalanceParams.builder()
-            .bookkeepingAccountId("bookkeeping_account_id")
+            .bookkeepingAccountId("bookkeeping_account_e37p1f1iuocw5intf35v")
             .atTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .build()
     }
@@ -21,7 +21,7 @@ class BookkeepingAccountBalanceParamsTest {
     fun getQueryParams() {
         val params =
             BookkeepingAccountBalanceParams.builder()
-                .bookkeepingAccountId("bookkeeping_account_id")
+                .bookkeepingAccountId("bookkeeping_account_e37p1f1iuocw5intf35v")
                 .atTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
         val expected = QueryParams.builder()
@@ -33,7 +33,7 @@ class BookkeepingAccountBalanceParamsTest {
     fun getQueryParamsWithoutOptionalFields() {
         val params =
             BookkeepingAccountBalanceParams.builder()
-                .bookkeepingAccountId("bookkeeping_account_id")
+                .bookkeepingAccountId("bookkeeping_account_e37p1f1iuocw5intf35v")
                 .build()
         val expected = QueryParams.builder()
         assertThat(params.getQueryParams()).isEqualTo(expected.build())
@@ -43,11 +43,11 @@ class BookkeepingAccountBalanceParamsTest {
     fun getPathParam() {
         val params =
             BookkeepingAccountBalanceParams.builder()
-                .bookkeepingAccountId("bookkeeping_account_id")
+                .bookkeepingAccountId("bookkeeping_account_e37p1f1iuocw5intf35v")
                 .build()
         assertThat(params).isNotNull
         // path param "bookkeepingAccountId"
-        assertThat(params.getPathParam(0)).isEqualTo("bookkeeping_account_id")
+        assertThat(params.getPathParam(0)).isEqualTo("bookkeeping_account_e37p1f1iuocw5intf35v")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

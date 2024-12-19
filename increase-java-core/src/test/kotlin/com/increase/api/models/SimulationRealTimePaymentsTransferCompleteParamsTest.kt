@@ -10,7 +10,7 @@ class SimulationRealTimePaymentsTransferCompleteParamsTest {
     @Test
     fun createSimulationRealTimePaymentsTransferCompleteParams() {
         SimulationRealTimePaymentsTransferCompleteParams.builder()
-            .realTimePaymentsTransferId("real_time_payments_transfer_id")
+            .realTimePaymentsTransferId("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
             .rejection(
                 SimulationRealTimePaymentsTransferCompleteParams.Rejection.builder()
                     .rejectReasonCode(
@@ -26,7 +26,7 @@ class SimulationRealTimePaymentsTransferCompleteParamsTest {
     fun getBody() {
         val params =
             SimulationRealTimePaymentsTransferCompleteParams.builder()
-                .realTimePaymentsTransferId("real_time_payments_transfer_id")
+                .realTimePaymentsTransferId("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
                 .rejection(
                     SimulationRealTimePaymentsTransferCompleteParams.Rejection.builder()
                         .rejectReasonCode(
@@ -54,7 +54,7 @@ class SimulationRealTimePaymentsTransferCompleteParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             SimulationRealTimePaymentsTransferCompleteParams.builder()
-                .realTimePaymentsTransferId("real_time_payments_transfer_id")
+                .realTimePaymentsTransferId("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -64,11 +64,12 @@ class SimulationRealTimePaymentsTransferCompleteParamsTest {
     fun getPathParam() {
         val params =
             SimulationRealTimePaymentsTransferCompleteParams.builder()
-                .realTimePaymentsTransferId("real_time_payments_transfer_id")
+                .realTimePaymentsTransferId("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
                 .build()
         assertThat(params).isNotNull
         // path param "realTimePaymentsTransferId"
-        assertThat(params.getPathParam(0)).isEqualTo("real_time_payments_transfer_id")
+        assertThat(params.getPathParam(0))
+            .isEqualTo("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

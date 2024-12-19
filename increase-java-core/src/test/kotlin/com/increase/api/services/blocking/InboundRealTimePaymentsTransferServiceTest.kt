@@ -23,7 +23,9 @@ class InboundRealTimePaymentsTransferServiceTest {
         val inboundRealTimePaymentsTransfer =
             inboundRealTimePaymentsTransferService.retrieve(
                 InboundRealTimePaymentsTransferRetrieveParams.builder()
-                    .inboundRealTimePaymentsTransferId("inbound_real_time_payments_transfer_id")
+                    .inboundRealTimePaymentsTransferId(
+                        "inbound_real_time_payments_transfer_63hlz498vcxg644hcrzr"
+                    )
                     .build()
             )
         println(inboundRealTimePaymentsTransfer)

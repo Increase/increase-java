@@ -22,7 +22,9 @@ class CardPaymentServiceTest {
         val cardPaymentService = client.cardPayments()
         val cardPayment =
             cardPaymentService.retrieve(
-                CardPaymentRetrieveParams.builder().cardPaymentId("card_payment_id").build()
+                CardPaymentRetrieveParams.builder()
+                    .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
+                    .build()
             )
         println(cardPayment)
         cardPayment.validate()

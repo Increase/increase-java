@@ -10,7 +10,7 @@ class PhysicalCardProfileArchiveParamsTest {
     @Test
     fun createPhysicalCardProfileArchiveParams() {
         PhysicalCardProfileArchiveParams.builder()
-            .physicalCardProfileId("physical_card_profile_id")
+            .physicalCardProfileId("physical_card_profile_m534d5rn9qyy9ufqxoec")
             .build()
     }
 
@@ -18,11 +18,11 @@ class PhysicalCardProfileArchiveParamsTest {
     fun getPathParam() {
         val params =
             PhysicalCardProfileArchiveParams.builder()
-                .physicalCardProfileId("physical_card_profile_id")
+                .physicalCardProfileId("physical_card_profile_m534d5rn9qyy9ufqxoec")
                 .build()
         assertThat(params).isNotNull
         // path param "physicalCardProfileId"
-        assertThat(params.getPathParam(0)).isEqualTo("physical_card_profile_id")
+        assertThat(params.getPathParam(0)).isEqualTo("physical_card_profile_m534d5rn9qyy9ufqxoec")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

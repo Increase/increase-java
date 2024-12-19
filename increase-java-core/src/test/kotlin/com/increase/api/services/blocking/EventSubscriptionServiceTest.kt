@@ -25,7 +25,7 @@ class EventSubscriptionServiceTest {
         val eventSubscription =
             eventSubscriptionService.create(
                 EventSubscriptionCreateParams.builder()
-                    .url("url")
+                    .url("https://website.com/webhooks")
                     .oauthConnectionId("oauth_connection_id")
                     .selectedEventCategory(
                         EventSubscriptionCreateParams.SelectedEventCategory.ACCOUNT_CREATED
@@ -48,7 +48,7 @@ class EventSubscriptionServiceTest {
         val eventSubscription =
             eventSubscriptionService.retrieve(
                 EventSubscriptionRetrieveParams.builder()
-                    .eventSubscriptionId("event_subscription_id")
+                    .eventSubscriptionId("event_subscription_001dzz0r20rcdxgb013zqb8m04g")
                     .build()
             )
         println(eventSubscription)
@@ -66,7 +66,7 @@ class EventSubscriptionServiceTest {
         val eventSubscription =
             eventSubscriptionService.update(
                 EventSubscriptionUpdateParams.builder()
-                    .eventSubscriptionId("event_subscription_id")
+                    .eventSubscriptionId("event_subscription_001dzz0r20rcdxgb013zqb8m04g")
                     .status(EventSubscriptionUpdateParams.Status.ACTIVE)
                     .build()
             )
