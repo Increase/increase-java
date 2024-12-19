@@ -10,7 +10,7 @@ class PhysicalCardUpdateParamsTest {
     @Test
     fun createPhysicalCardUpdateParams() {
         PhysicalCardUpdateParams.builder()
-            .physicalCardId("physical_card_id")
+            .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
             .status(PhysicalCardUpdateParams.Status.ACTIVE)
             .build()
     }
@@ -19,7 +19,7 @@ class PhysicalCardUpdateParamsTest {
     fun getBody() {
         val params =
             PhysicalCardUpdateParams.builder()
-                .physicalCardId("physical_card_id")
+                .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
                 .status(PhysicalCardUpdateParams.Status.ACTIVE)
                 .build()
         val body = params.getBody()
@@ -31,7 +31,7 @@ class PhysicalCardUpdateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             PhysicalCardUpdateParams.builder()
-                .physicalCardId("physical_card_id")
+                .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
                 .status(PhysicalCardUpdateParams.Status.ACTIVE)
                 .build()
         val body = params.getBody()
@@ -43,12 +43,12 @@ class PhysicalCardUpdateParamsTest {
     fun getPathParam() {
         val params =
             PhysicalCardUpdateParams.builder()
-                .physicalCardId("physical_card_id")
+                .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
                 .status(PhysicalCardUpdateParams.Status.ACTIVE)
                 .build()
         assertThat(params).isNotNull
         // path param "physicalCardId"
-        assertThat(params.getPathParam(0)).isEqualTo("physical_card_id")
+        assertThat(params.getPathParam(0)).isEqualTo("physical_card_ode8duyq5v2ynhjoharl")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

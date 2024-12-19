@@ -26,10 +26,10 @@ class AccountTransferServiceTest {
         val accountTransfer =
             accountTransferService.create(
                 AccountTransferCreateParams.builder()
-                    .accountId("account_id")
-                    .amount(1L)
-                    .description("x")
-                    .destinationAccountId("destination_account_id")
+                    .accountId("account_in71c4amph0vgo2qllky")
+                    .amount(100L)
+                    .description("Creating liquidity")
+                    .destinationAccountId("account_uf16sut2ct5bevmq3eh")
                     .requireApproval(true)
                     .build()
             )
@@ -48,7 +48,7 @@ class AccountTransferServiceTest {
         val accountTransfer =
             accountTransferService.retrieve(
                 AccountTransferRetrieveParams.builder()
-                    .accountTransferId("account_transfer_id")
+                    .accountTransferId("account_transfer_7k9qe1ysdgqztnt63l7n")
                     .build()
             )
         println(accountTransfer)
@@ -80,7 +80,7 @@ class AccountTransferServiceTest {
         val accountTransfer =
             accountTransferService.approve(
                 AccountTransferApproveParams.builder()
-                    .accountTransferId("account_transfer_id")
+                    .accountTransferId("account_transfer_7k9qe1ysdgqztnt63l7n")
                     .build()
             )
         println(accountTransfer)
@@ -98,7 +98,7 @@ class AccountTransferServiceTest {
         val accountTransfer =
             accountTransferService.cancel(
                 AccountTransferCancelParams.builder()
-                    .accountTransferId("account_transfer_id")
+                    .accountTransferId("account_transfer_7k9qe1ysdgqztnt63l7n")
                     .build()
             )
         println(accountTransfer)

@@ -22,7 +22,7 @@ class RealTimePaymentsTransferServiceTest {
         val realTimePaymentsTransfer =
             realTimePaymentsTransferService.complete(
                 SimulationRealTimePaymentsTransferCompleteParams.builder()
-                    .realTimePaymentsTransferId("real_time_payments_transfer_id")
+                    .realTimePaymentsTransferId("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
                     .rejection(
                         SimulationRealTimePaymentsTransferCompleteParams.Rejection.builder()
                             .rejectReasonCode(

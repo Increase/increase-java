@@ -9,16 +9,20 @@ class AccountNumberRetrieveParamsTest {
 
     @Test
     fun createAccountNumberRetrieveParams() {
-        AccountNumberRetrieveParams.builder().accountNumberId("account_number_id").build()
+        AccountNumberRetrieveParams.builder()
+            .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
+            .build()
     }
 
     @Test
     fun getPathParam() {
         val params =
-            AccountNumberRetrieveParams.builder().accountNumberId("account_number_id").build()
+            AccountNumberRetrieveParams.builder()
+                .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
+                .build()
         assertThat(params).isNotNull
         // path param "accountNumberId"
-        assertThat(params.getPathParam(0)).isEqualTo("account_number_id")
+        assertThat(params.getPathParam(0)).isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

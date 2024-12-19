@@ -27,10 +27,10 @@ class AchTransferServiceTest {
         val achTransfer =
             achTransferService.create(
                 AchTransferCreateParams.builder()
-                    .accountId("account_id")
-                    .amount(-9999999999L)
-                    .statementDescriptor("x")
-                    .accountNumber("x")
+                    .accountId("account_in71c4amph0vgo2qllky")
+                    .amount(100L)
+                    .statementDescriptor("New ACH transfer")
+                    .accountNumber("987654321")
                     .addenda(
                         AchTransferCreateParams.Addenda.builder()
                             .category(AchTransferCreateParams.Addenda.Category.FREEFORM)
@@ -84,7 +84,7 @@ class AchTransferServiceTest {
                             .build()
                     )
                     .requireApproval(true)
-                    .routingNumber("xxxxxxxxx")
+                    .routingNumber("101050001")
                     .standardEntryClassCode(
                         AchTransferCreateParams.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT
                     )
@@ -105,7 +105,9 @@ class AchTransferServiceTest {
         val achTransferService = client.achTransfers()
         val achTransfer =
             achTransferService.retrieve(
-                AchTransferRetrieveParams.builder().achTransferId("ach_transfer_id").build()
+                AchTransferRetrieveParams.builder()
+                    .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
+                    .build()
             )
         println(achTransfer)
         achTransfer.validate()
@@ -134,7 +136,9 @@ class AchTransferServiceTest {
         val achTransferService = client.achTransfers()
         val achTransfer =
             achTransferService.approve(
-                AchTransferApproveParams.builder().achTransferId("ach_transfer_id").build()
+                AchTransferApproveParams.builder()
+                    .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
+                    .build()
             )
         println(achTransfer)
         achTransfer.validate()
@@ -150,7 +154,9 @@ class AchTransferServiceTest {
         val achTransferService = client.achTransfers()
         val achTransfer =
             achTransferService.cancel(
-                AchTransferCancelParams.builder().achTransferId("ach_transfer_id").build()
+                AchTransferCancelParams.builder()
+                    .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
+                    .build()
             )
         println(achTransfer)
         achTransfer.validate()

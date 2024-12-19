@@ -10,8 +10,8 @@ class SimulationCardIncrementCreateParamsTest {
     @Test
     fun createSimulationCardIncrementCreateParams() {
         SimulationCardIncrementCreateParams.builder()
-            .amount(1L)
-            .cardPaymentId("card_payment_id")
+            .amount(500L)
+            .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
             .eventSubscriptionId("event_subscription_id")
             .build()
     }
@@ -20,14 +20,14 @@ class SimulationCardIncrementCreateParamsTest {
     fun getBody() {
         val params =
             SimulationCardIncrementCreateParams.builder()
-                .amount(1L)
-                .cardPaymentId("card_payment_id")
+                .amount(500L)
+                .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                 .eventSubscriptionId("event_subscription_id")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.amount()).isEqualTo(1L)
-        assertThat(body.cardPaymentId()).isEqualTo("card_payment_id")
+        assertThat(body.amount()).isEqualTo(500L)
+        assertThat(body.cardPaymentId()).isEqualTo("card_payment_nd3k2kacrqjli8482ave")
         assertThat(body.eventSubscriptionId()).isEqualTo("event_subscription_id")
     }
 
@@ -35,12 +35,12 @@ class SimulationCardIncrementCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             SimulationCardIncrementCreateParams.builder()
-                .amount(1L)
-                .cardPaymentId("card_payment_id")
+                .amount(500L)
+                .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.amount()).isEqualTo(1L)
-        assertThat(body.cardPaymentId()).isEqualTo("card_payment_id")
+        assertThat(body.amount()).isEqualTo(500L)
+        assertThat(body.cardPaymentId()).isEqualTo("card_payment_nd3k2kacrqjli8482ave")
     }
 }

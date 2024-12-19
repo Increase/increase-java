@@ -23,7 +23,7 @@ class InboundWireTransferServiceTest {
         val inboundWireTransfer =
             inboundWireTransferService.retrieve(
                 InboundWireTransferRetrieveParams.builder()
-                    .inboundWireTransferId("inbound_wire_transfer_id")
+                    .inboundWireTransferId("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
                     .build()
             )
         println(inboundWireTransfer)

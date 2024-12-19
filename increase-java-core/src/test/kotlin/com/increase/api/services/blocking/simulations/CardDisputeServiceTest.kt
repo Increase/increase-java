@@ -22,9 +22,9 @@ class CardDisputeServiceTest {
         val cardDispute =
             cardDisputeService.action(
                 SimulationCardDisputeActionParams.builder()
-                    .cardDisputeId("card_dispute_id")
+                    .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
                     .status(SimulationCardDisputeActionParams.Status.PENDING_USER_INFORMATION)
-                    .explanation("x")
+                    .explanation("This was a valid recurring transaction")
                     .build()
             )
         println(cardDispute)

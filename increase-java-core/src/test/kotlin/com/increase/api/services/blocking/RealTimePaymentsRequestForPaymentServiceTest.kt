@@ -25,26 +25,26 @@ class RealTimePaymentsRequestForPaymentServiceTest {
         val realTimePaymentsRequestForPayment =
             realTimePaymentsRequestForPaymentService.create(
                 RealTimePaymentsRequestForPaymentCreateParams.builder()
-                    .amount(1L)
+                    .amount(100L)
                     .debtor(
                         RealTimePaymentsRequestForPaymentCreateParams.Debtor.builder()
                             .address(
                                 RealTimePaymentsRequestForPaymentCreateParams.Debtor.Address
                                     .builder()
-                                    .country("x")
+                                    .country("US")
                                     .city("x")
                                     .postCode("x")
-                                    .streetName("x")
+                                    .streetName("Liberty Street")
                                     .build()
                             )
-                            .name("x")
+                            .name("Ian Crease")
                             .build()
                     )
-                    .destinationAccountNumberId("destination_account_number_id")
-                    .expiresAt(LocalDate.parse("2019-12-27"))
-                    .remittanceInformation("x")
-                    .sourceAccountNumber("x")
-                    .sourceRoutingNumber("xxxxxxxxx")
+                    .destinationAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
+                    .expiresAt(LocalDate.parse("2025-12-31"))
+                    .remittanceInformation("Invoice 29582")
+                    .sourceAccountNumber("987654321")
+                    .sourceRoutingNumber("101050001")
                     .build()
             )
         println(realTimePaymentsRequestForPayment)
@@ -62,7 +62,7 @@ class RealTimePaymentsRequestForPaymentServiceTest {
         val realTimePaymentsRequestForPayment =
             realTimePaymentsRequestForPaymentService.retrieve(
                 RealTimePaymentsRequestForPaymentRetrieveParams.builder()
-                    .requestForPaymentId("request_for_payment_id")
+                    .requestForPaymentId("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
                     .build()
             )
         println(realTimePaymentsRequestForPayment)

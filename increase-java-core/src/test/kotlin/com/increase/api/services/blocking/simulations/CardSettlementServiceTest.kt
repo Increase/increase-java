@@ -22,8 +22,8 @@ class CardSettlementServiceTest {
         val transaction =
             cardSettlementService.create(
                 SimulationCardSettlementCreateParams.builder()
-                    .cardId("card_id")
-                    .pendingTransactionId("pending_transaction_id")
+                    .cardId("card_oubs0hwk5rn6knuecxg2")
+                    .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
                     .amount(1L)
                     .build()
             )

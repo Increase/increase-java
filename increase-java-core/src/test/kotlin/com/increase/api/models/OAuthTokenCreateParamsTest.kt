@@ -11,9 +11,9 @@ class OAuthTokenCreateParamsTest {
     fun createOAuthTokenCreateParams() {
         OAuthTokenCreateParams.builder()
             .grantType(OAuthTokenCreateParams.GrantType.AUTHORIZATION_CODE)
-            .clientId("x")
-            .clientSecret("x")
-            .code("x")
+            .clientId("12345")
+            .clientSecret("supersecret")
+            .code("123")
             .productionToken("x")
             .build()
     }
@@ -23,17 +23,17 @@ class OAuthTokenCreateParamsTest {
         val params =
             OAuthTokenCreateParams.builder()
                 .grantType(OAuthTokenCreateParams.GrantType.AUTHORIZATION_CODE)
-                .clientId("x")
-                .clientSecret("x")
-                .code("x")
+                .clientId("12345")
+                .clientSecret("supersecret")
+                .code("123")
                 .productionToken("x")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.grantType()).isEqualTo(OAuthTokenCreateParams.GrantType.AUTHORIZATION_CODE)
-        assertThat(body.clientId()).isEqualTo("x")
-        assertThat(body.clientSecret()).isEqualTo("x")
-        assertThat(body.code()).isEqualTo("x")
+        assertThat(body.clientId()).isEqualTo("12345")
+        assertThat(body.clientSecret()).isEqualTo("supersecret")
+        assertThat(body.code()).isEqualTo("123")
         assertThat(body.productionToken()).isEqualTo("x")
     }
 

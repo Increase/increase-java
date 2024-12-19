@@ -9,16 +9,20 @@ class OAuthConnectionRetrieveParamsTest {
 
     @Test
     fun createOAuthConnectionRetrieveParams() {
-        OAuthConnectionRetrieveParams.builder().oauthConnectionId("oauth_connection_id").build()
+        OAuthConnectionRetrieveParams.builder()
+            .oauthConnectionId("connection_dauknoksyr4wilz4e6my")
+            .build()
     }
 
     @Test
     fun getPathParam() {
         val params =
-            OAuthConnectionRetrieveParams.builder().oauthConnectionId("oauth_connection_id").build()
+            OAuthConnectionRetrieveParams.builder()
+                .oauthConnectionId("connection_dauknoksyr4wilz4e6my")
+                .build()
         assertThat(params).isNotNull
         // path param "oauthConnectionId"
-        assertThat(params.getPathParam(0)).isEqualTo("oauth_connection_id")
+        assertThat(params.getPathParam(0)).isEqualTo("connection_dauknoksyr4wilz4e6my")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

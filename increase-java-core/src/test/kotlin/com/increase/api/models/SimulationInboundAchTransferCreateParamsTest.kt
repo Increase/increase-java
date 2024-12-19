@@ -11,8 +11,8 @@ class SimulationInboundAchTransferCreateParamsTest {
     @Test
     fun createSimulationInboundAchTransferCreateParams() {
         SimulationInboundAchTransferCreateParams.builder()
-            .accountNumberId("account_number_id")
-            .amount(0L)
+            .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
+            .amount(1000L)
             .companyDescriptiveDate("x")
             .companyDiscretionaryData("x")
             .companyEntryDescription("x")
@@ -32,8 +32,8 @@ class SimulationInboundAchTransferCreateParamsTest {
     fun getBody() {
         val params =
             SimulationInboundAchTransferCreateParams.builder()
-                .accountNumberId("account_number_id")
-                .amount(0L)
+                .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
+                .amount(1000L)
                 .companyDescriptiveDate("x")
                 .companyDiscretionaryData("x")
                 .companyEntryDescription("x")
@@ -49,8 +49,8 @@ class SimulationInboundAchTransferCreateParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountNumberId()).isEqualTo("account_number_id")
-        assertThat(body.amount()).isEqualTo(0L)
+        assertThat(body.accountNumberId()).isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
+        assertThat(body.amount()).isEqualTo(1000L)
         assertThat(body.companyDescriptiveDate()).isEqualTo("x")
         assertThat(body.companyDiscretionaryData()).isEqualTo("x")
         assertThat(body.companyEntryDescription()).isEqualTo("x")
@@ -70,12 +70,12 @@ class SimulationInboundAchTransferCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             SimulationInboundAchTransferCreateParams.builder()
-                .accountNumberId("account_number_id")
-                .amount(0L)
+                .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
+                .amount(1000L)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountNumberId()).isEqualTo("account_number_id")
-        assertThat(body.amount()).isEqualTo(0L)
+        assertThat(body.accountNumberId()).isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
+        assertThat(body.amount()).isEqualTo(1000L)
     }
 }

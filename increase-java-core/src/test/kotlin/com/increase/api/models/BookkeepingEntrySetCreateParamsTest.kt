@@ -14,13 +14,17 @@ class BookkeepingEntrySetCreateParamsTest {
             .entries(
                 listOf(
                     BookkeepingEntrySetCreateParams.Entry.builder()
-                        .accountId("account_id")
-                        .amount(0L)
+                        .accountId("bookkeeping_account_9husfpw68pzmve9dvvc7")
+                        .amount(100L)
+                        .build(),
+                    BookkeepingEntrySetCreateParams.Entry.builder()
+                        .accountId("bookkeeping_account_t2obldz1rcu15zr54umg")
+                        .amount(-100L)
                         .build()
                 )
             )
-            .date(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-            .transactionId("transaction_id")
+            .date(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+            .transactionId("transaction_uyrp7fld2ium70oa7oi")
             .build()
     }
 
@@ -31,13 +35,17 @@ class BookkeepingEntrySetCreateParamsTest {
                 .entries(
                     listOf(
                         BookkeepingEntrySetCreateParams.Entry.builder()
-                            .accountId("account_id")
-                            .amount(0L)
+                            .accountId("bookkeeping_account_9husfpw68pzmve9dvvc7")
+                            .amount(100L)
+                            .build(),
+                        BookkeepingEntrySetCreateParams.Entry.builder()
+                            .accountId("bookkeeping_account_t2obldz1rcu15zr54umg")
+                            .amount(-100L)
                             .build()
                     )
                 )
-                .date(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .transactionId("transaction_id")
+                .date(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                .transactionId("transaction_uyrp7fld2ium70oa7oi")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -45,13 +53,17 @@ class BookkeepingEntrySetCreateParamsTest {
             .isEqualTo(
                 listOf(
                     BookkeepingEntrySetCreateParams.Entry.builder()
-                        .accountId("account_id")
-                        .amount(0L)
+                        .accountId("bookkeeping_account_9husfpw68pzmve9dvvc7")
+                        .amount(100L)
+                        .build(),
+                    BookkeepingEntrySetCreateParams.Entry.builder()
+                        .accountId("bookkeeping_account_t2obldz1rcu15zr54umg")
+                        .amount(-100L)
                         .build()
                 )
             )
-        assertThat(body.date()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(body.transactionId()).isEqualTo("transaction_id")
+        assertThat(body.date()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+        assertThat(body.transactionId()).isEqualTo("transaction_uyrp7fld2ium70oa7oi")
     }
 
     @Test
@@ -61,8 +73,12 @@ class BookkeepingEntrySetCreateParamsTest {
                 .entries(
                     listOf(
                         BookkeepingEntrySetCreateParams.Entry.builder()
-                            .accountId("account_id")
-                            .amount(0L)
+                            .accountId("bookkeeping_account_9husfpw68pzmve9dvvc7")
+                            .amount(100L)
+                            .build(),
+                        BookkeepingEntrySetCreateParams.Entry.builder()
+                            .accountId("bookkeeping_account_t2obldz1rcu15zr54umg")
+                            .amount(-100L)
                             .build()
                     )
                 )
@@ -73,8 +89,12 @@ class BookkeepingEntrySetCreateParamsTest {
             .isEqualTo(
                 listOf(
                     BookkeepingEntrySetCreateParams.Entry.builder()
-                        .accountId("account_id")
-                        .amount(0L)
+                        .accountId("bookkeeping_account_9husfpw68pzmve9dvvc7")
+                        .amount(100L)
+                        .build(),
+                    BookkeepingEntrySetCreateParams.Entry.builder()
+                        .accountId("bookkeeping_account_t2obldz1rcu15zr54umg")
+                        .amount(-100L)
                         .build()
                 )
             )

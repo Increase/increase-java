@@ -10,7 +10,7 @@ class InboundAchTransferTransferReturnParamsTest {
     @Test
     fun createInboundAchTransferTransferReturnParams() {
         InboundAchTransferTransferReturnParams.builder()
-            .inboundAchTransferId("inbound_ach_transfer_id")
+            .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
             .reason(InboundAchTransferTransferReturnParams.Reason.INSUFFICIENT_FUNDS)
             .build()
     }
@@ -19,7 +19,7 @@ class InboundAchTransferTransferReturnParamsTest {
     fun getBody() {
         val params =
             InboundAchTransferTransferReturnParams.builder()
-                .inboundAchTransferId("inbound_ach_transfer_id")
+                .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
                 .reason(InboundAchTransferTransferReturnParams.Reason.INSUFFICIENT_FUNDS)
                 .build()
         val body = params.getBody()
@@ -32,7 +32,7 @@ class InboundAchTransferTransferReturnParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             InboundAchTransferTransferReturnParams.builder()
-                .inboundAchTransferId("inbound_ach_transfer_id")
+                .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
                 .reason(InboundAchTransferTransferReturnParams.Reason.INSUFFICIENT_FUNDS)
                 .build()
         val body = params.getBody()
@@ -45,12 +45,12 @@ class InboundAchTransferTransferReturnParamsTest {
     fun getPathParam() {
         val params =
             InboundAchTransferTransferReturnParams.builder()
-                .inboundAchTransferId("inbound_ach_transfer_id")
+                .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
                 .reason(InboundAchTransferTransferReturnParams.Reason.INSUFFICIENT_FUNDS)
                 .build()
         assertThat(params).isNotNull
         // path param "inboundAchTransferId"
-        assertThat(params.getPathParam(0)).isEqualTo("inbound_ach_transfer_id")
+        assertThat(params.getPathParam(0)).isEqualTo("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

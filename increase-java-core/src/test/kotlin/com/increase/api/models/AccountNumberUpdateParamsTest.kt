@@ -10,7 +10,7 @@ class AccountNumberUpdateParamsTest {
     @Test
     fun createAccountNumberUpdateParams() {
         AccountNumberUpdateParams.builder()
-            .accountNumberId("account_number_id")
+            .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
             .inboundAch(
                 AccountNumberUpdateParams.InboundAch.builder()
                     .debitStatus(AccountNumberUpdateParams.InboundAch.DebitStatus.ALLOWED)
@@ -30,7 +30,7 @@ class AccountNumberUpdateParamsTest {
     fun getBody() {
         val params =
             AccountNumberUpdateParams.builder()
-                .accountNumberId("account_number_id")
+                .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                 .inboundAch(
                     AccountNumberUpdateParams.InboundAch.builder()
                         .debitStatus(AccountNumberUpdateParams.InboundAch.DebitStatus.ALLOWED)
@@ -65,7 +65,9 @@ class AccountNumberUpdateParamsTest {
     @Test
     fun getBodyWithoutOptionalFields() {
         val params =
-            AccountNumberUpdateParams.builder().accountNumberId("account_number_id").build()
+            AccountNumberUpdateParams.builder()
+                .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
+                .build()
         val body = params.getBody()
         assertThat(body).isNotNull
     }
@@ -73,10 +75,12 @@ class AccountNumberUpdateParamsTest {
     @Test
     fun getPathParam() {
         val params =
-            AccountNumberUpdateParams.builder().accountNumberId("account_number_id").build()
+            AccountNumberUpdateParams.builder()
+                .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
+                .build()
         assertThat(params).isNotNull
         // path param "accountNumberId"
-        assertThat(params.getPathParam(0)).isEqualTo("account_number_id")
+        assertThat(params.getPathParam(0)).isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

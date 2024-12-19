@@ -10,8 +10,8 @@ class SimulationCardSettlementCreateParamsTest {
     @Test
     fun createSimulationCardSettlementCreateParams() {
         SimulationCardSettlementCreateParams.builder()
-            .cardId("card_id")
-            .pendingTransactionId("pending_transaction_id")
+            .cardId("card_oubs0hwk5rn6knuecxg2")
+            .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
             .amount(1L)
             .build()
     }
@@ -20,14 +20,15 @@ class SimulationCardSettlementCreateParamsTest {
     fun getBody() {
         val params =
             SimulationCardSettlementCreateParams.builder()
-                .cardId("card_id")
-                .pendingTransactionId("pending_transaction_id")
+                .cardId("card_oubs0hwk5rn6knuecxg2")
+                .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
                 .amount(1L)
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.cardId()).isEqualTo("card_id")
-        assertThat(body.pendingTransactionId()).isEqualTo("pending_transaction_id")
+        assertThat(body.cardId()).isEqualTo("card_oubs0hwk5rn6knuecxg2")
+        assertThat(body.pendingTransactionId())
+            .isEqualTo("pending_transaction_k1sfetcau2qbvjbzgju4")
         assertThat(body.amount()).isEqualTo(1L)
     }
 
@@ -35,12 +36,13 @@ class SimulationCardSettlementCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             SimulationCardSettlementCreateParams.builder()
-                .cardId("card_id")
-                .pendingTransactionId("pending_transaction_id")
+                .cardId("card_oubs0hwk5rn6knuecxg2")
+                .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.cardId()).isEqualTo("card_id")
-        assertThat(body.pendingTransactionId()).isEqualTo("pending_transaction_id")
+        assertThat(body.cardId()).isEqualTo("card_oubs0hwk5rn6knuecxg2")
+        assertThat(body.pendingTransactionId())
+            .isEqualTo("pending_transaction_k1sfetcau2qbvjbzgju4")
     }
 }

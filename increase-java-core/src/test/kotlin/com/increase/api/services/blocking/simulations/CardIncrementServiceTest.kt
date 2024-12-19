@@ -22,8 +22,8 @@ class CardIncrementServiceTest {
         val cardPayment =
             cardIncrementService.create(
                 SimulationCardIncrementCreateParams.builder()
-                    .amount(1L)
-                    .cardPaymentId("card_payment_id")
+                    .amount(500L)
+                    .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                     .eventSubscriptionId("event_subscription_id")
                     .build()
             )

@@ -11,10 +11,10 @@ class AchTransferCreateParamsTest {
     @Test
     fun createAchTransferCreateParams() {
         AchTransferCreateParams.builder()
-            .accountId("account_id")
-            .amount(-9999999999L)
-            .statementDescriptor("x")
-            .accountNumber("x")
+            .accountId("account_in71c4amph0vgo2qllky")
+            .amount(100L)
+            .statementDescriptor("New ACH transfer")
+            .accountNumber("987654321")
             .addenda(
                 AchTransferCreateParams.Addenda.builder()
                     .category(AchTransferCreateParams.Addenda.Category.FREEFORM)
@@ -63,7 +63,7 @@ class AchTransferCreateParamsTest {
                     .build()
             )
             .requireApproval(true)
-            .routingNumber("xxxxxxxxx")
+            .routingNumber("101050001")
             .standardEntryClassCode(
                 AchTransferCreateParams.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT
             )
@@ -75,10 +75,10 @@ class AchTransferCreateParamsTest {
     fun getBody() {
         val params =
             AchTransferCreateParams.builder()
-                .accountId("account_id")
-                .amount(-9999999999L)
-                .statementDescriptor("x")
-                .accountNumber("x")
+                .accountId("account_in71c4amph0vgo2qllky")
+                .amount(100L)
+                .statementDescriptor("New ACH transfer")
+                .accountNumber("987654321")
                 .addenda(
                     AchTransferCreateParams.Addenda.builder()
                         .category(AchTransferCreateParams.Addenda.Category.FREEFORM)
@@ -128,7 +128,7 @@ class AchTransferCreateParamsTest {
                         .build()
                 )
                 .requireApproval(true)
-                .routingNumber("xxxxxxxxx")
+                .routingNumber("101050001")
                 .standardEntryClassCode(
                     AchTransferCreateParams.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT
                 )
@@ -136,10 +136,10 @@ class AchTransferCreateParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountId()).isEqualTo("account_id")
-        assertThat(body.amount()).isEqualTo(-9999999999L)
-        assertThat(body.statementDescriptor()).isEqualTo("x")
-        assertThat(body.accountNumber()).isEqualTo("x")
+        assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
+        assertThat(body.amount()).isEqualTo(100L)
+        assertThat(body.statementDescriptor()).isEqualTo("New ACH transfer")
+        assertThat(body.accountNumber()).isEqualTo("987654321")
         assertThat(body.addenda())
             .isEqualTo(
                 AchTransferCreateParams.Addenda.builder()
@@ -191,7 +191,7 @@ class AchTransferCreateParamsTest {
                     .build()
             )
         assertThat(body.requireApproval()).isEqualTo(true)
-        assertThat(body.routingNumber()).isEqualTo("xxxxxxxxx")
+        assertThat(body.routingNumber()).isEqualTo("101050001")
         assertThat(body.standardEntryClassCode())
             .isEqualTo(AchTransferCreateParams.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT)
         assertThat(body.transactionTiming())
@@ -202,14 +202,14 @@ class AchTransferCreateParamsTest {
     fun getBodyWithoutOptionalFields() {
         val params =
             AchTransferCreateParams.builder()
-                .accountId("account_id")
-                .amount(-9999999999L)
-                .statementDescriptor("x")
+                .accountId("account_in71c4amph0vgo2qllky")
+                .amount(100L)
+                .statementDescriptor("New ACH transfer")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.accountId()).isEqualTo("account_id")
-        assertThat(body.amount()).isEqualTo(-9999999999L)
-        assertThat(body.statementDescriptor()).isEqualTo("x")
+        assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
+        assertThat(body.amount()).isEqualTo(100L)
+        assertThat(body.statementDescriptor()).isEqualTo("New ACH transfer")
     }
 }

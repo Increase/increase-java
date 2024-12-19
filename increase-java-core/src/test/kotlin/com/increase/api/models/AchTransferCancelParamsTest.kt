@@ -9,15 +9,18 @@ class AchTransferCancelParamsTest {
 
     @Test
     fun createAchTransferCancelParams() {
-        AchTransferCancelParams.builder().achTransferId("ach_transfer_id").build()
+        AchTransferCancelParams.builder().achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q").build()
     }
 
     @Test
     fun getPathParam() {
-        val params = AchTransferCancelParams.builder().achTransferId("ach_transfer_id").build()
+        val params =
+            AchTransferCancelParams.builder()
+                .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
+                .build()
         assertThat(params).isNotNull
         // path param "achTransferId"
-        assertThat(params.getPathParam(0)).isEqualTo("ach_transfer_id")
+        assertThat(params.getPathParam(0)).isEqualTo("ach_transfer_uoxatyh3lt5evrsdvo7q")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

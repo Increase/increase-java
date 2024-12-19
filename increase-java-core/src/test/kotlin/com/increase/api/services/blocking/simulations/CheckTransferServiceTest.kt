@@ -22,7 +22,7 @@ class CheckTransferServiceTest {
         val checkTransfer =
             checkTransferService.mail(
                 SimulationCheckTransferMailParams.builder()
-                    .checkTransferId("check_transfer_id")
+                    .checkTransferId("check_transfer_30b43acfu9vw8fyc4f5")
                     .build()
             )
         println(checkTransfer)

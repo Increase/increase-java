@@ -10,8 +10,8 @@ class EntityArchiveBeneficialOwnerParamsTest {
     @Test
     fun createEntityArchiveBeneficialOwnerParams() {
         EntityArchiveBeneficialOwnerParams.builder()
-            .entityId("entity_id")
-            .beneficialOwnerId("beneficial_owner_id")
+            .entityId("entity_n8y8tnk2p9339ti393yi")
+            .beneficialOwnerId("entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7")
             .build()
     }
 
@@ -19,36 +19,38 @@ class EntityArchiveBeneficialOwnerParamsTest {
     fun getBody() {
         val params =
             EntityArchiveBeneficialOwnerParams.builder()
-                .entityId("entity_id")
-                .beneficialOwnerId("beneficial_owner_id")
+                .entityId("entity_n8y8tnk2p9339ti393yi")
+                .beneficialOwnerId("entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.beneficialOwnerId()).isEqualTo("beneficial_owner_id")
+        assertThat(body.beneficialOwnerId())
+            .isEqualTo("entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7")
     }
 
     @Test
     fun getBodyWithoutOptionalFields() {
         val params =
             EntityArchiveBeneficialOwnerParams.builder()
-                .entityId("entity_id")
-                .beneficialOwnerId("beneficial_owner_id")
+                .entityId("entity_n8y8tnk2p9339ti393yi")
+                .beneficialOwnerId("entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.beneficialOwnerId()).isEqualTo("beneficial_owner_id")
+        assertThat(body.beneficialOwnerId())
+            .isEqualTo("entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7")
     }
 
     @Test
     fun getPathParam() {
         val params =
             EntityArchiveBeneficialOwnerParams.builder()
-                .entityId("entity_id")
-                .beneficialOwnerId("beneficial_owner_id")
+                .entityId("entity_n8y8tnk2p9339ti393yi")
+                .beneficialOwnerId("entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7")
                 .build()
         assertThat(params).isNotNull
         // path param "entityId"
-        assertThat(params.getPathParam(0)).isEqualTo("entity_id")
+        assertThat(params.getPathParam(0)).isEqualTo("entity_n8y8tnk2p9339ti393yi")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

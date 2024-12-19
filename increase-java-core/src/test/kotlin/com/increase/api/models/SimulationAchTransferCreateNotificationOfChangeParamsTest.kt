@@ -10,12 +10,12 @@ class SimulationAchTransferCreateNotificationOfChangeParamsTest {
     @Test
     fun createSimulationAchTransferCreateNotificationOfChangeParams() {
         SimulationAchTransferCreateNotificationOfChangeParams.builder()
-            .achTransferId("ach_transfer_id")
+            .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
             .changeCode(
                 SimulationAchTransferCreateNotificationOfChangeParams.ChangeCode
                     .INCORRECT_ACCOUNT_NUMBER
             )
-            .correctedData("x")
+            .correctedData("123456789")
             .build()
     }
 
@@ -23,12 +23,12 @@ class SimulationAchTransferCreateNotificationOfChangeParamsTest {
     fun getBody() {
         val params =
             SimulationAchTransferCreateNotificationOfChangeParams.builder()
-                .achTransferId("ach_transfer_id")
+                .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
                 .changeCode(
                     SimulationAchTransferCreateNotificationOfChangeParams.ChangeCode
                         .INCORRECT_ACCOUNT_NUMBER
                 )
-                .correctedData("x")
+                .correctedData("123456789")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -37,19 +37,19 @@ class SimulationAchTransferCreateNotificationOfChangeParamsTest {
                 SimulationAchTransferCreateNotificationOfChangeParams.ChangeCode
                     .INCORRECT_ACCOUNT_NUMBER
             )
-        assertThat(body.correctedData()).isEqualTo("x")
+        assertThat(body.correctedData()).isEqualTo("123456789")
     }
 
     @Test
     fun getBodyWithoutOptionalFields() {
         val params =
             SimulationAchTransferCreateNotificationOfChangeParams.builder()
-                .achTransferId("ach_transfer_id")
+                .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
                 .changeCode(
                     SimulationAchTransferCreateNotificationOfChangeParams.ChangeCode
                         .INCORRECT_ACCOUNT_NUMBER
                 )
-                .correctedData("x")
+                .correctedData("123456789")
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
@@ -58,23 +58,23 @@ class SimulationAchTransferCreateNotificationOfChangeParamsTest {
                 SimulationAchTransferCreateNotificationOfChangeParams.ChangeCode
                     .INCORRECT_ACCOUNT_NUMBER
             )
-        assertThat(body.correctedData()).isEqualTo("x")
+        assertThat(body.correctedData()).isEqualTo("123456789")
     }
 
     @Test
     fun getPathParam() {
         val params =
             SimulationAchTransferCreateNotificationOfChangeParams.builder()
-                .achTransferId("ach_transfer_id")
+                .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
                 .changeCode(
                     SimulationAchTransferCreateNotificationOfChangeParams.ChangeCode
                         .INCORRECT_ACCOUNT_NUMBER
                 )
-                .correctedData("x")
+                .correctedData("123456789")
                 .build()
         assertThat(params).isNotNull
         // path param "achTransferId"
-        assertThat(params.getPathParam(0)).isEqualTo("ach_transfer_id")
+        assertThat(params.getPathParam(0)).isEqualTo("ach_transfer_uoxatyh3lt5evrsdvo7q")
         // out-of-bound path param
         assertThat(params.getPathParam(1)).isEqualTo("")
     }

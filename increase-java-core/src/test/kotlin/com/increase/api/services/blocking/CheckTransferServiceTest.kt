@@ -27,24 +27,24 @@ class CheckTransferServiceTest {
         val checkTransfer =
             checkTransferService.create(
                 CheckTransferCreateParams.builder()
-                    .accountId("account_id")
-                    .amount(1L)
-                    .sourceAccountNumberId("source_account_number_id")
+                    .accountId("account_in71c4amph0vgo2qllky")
+                    .amount(1000L)
+                    .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                     .fulfillmentMethod(CheckTransferCreateParams.FulfillmentMethod.PHYSICAL_CHECK)
                     .physicalCheck(
                         CheckTransferCreateParams.PhysicalCheck.builder()
                             .mailingAddress(
                                 CheckTransferCreateParams.PhysicalCheck.MailingAddress.builder()
-                                    .city("x")
-                                    .line1("x")
-                                    .postalCode("x")
-                                    .state("x")
+                                    .city("New York")
+                                    .line1("33 Liberty Street")
+                                    .postalCode("10045")
+                                    .state("NY")
                                     .line2("x")
-                                    .name("x")
+                                    .name("Ian Crease")
                                     .build()
                             )
-                            .memo("x")
-                            .recipientName("x")
+                            .memo("Check payment")
+                            .recipientName("Ian Crease")
                             .note("x")
                             .returnAddress(
                                 CheckTransferCreateParams.PhysicalCheck.ReturnAddress.builder()
@@ -56,7 +56,7 @@ class CheckTransferServiceTest {
                                     .line2("x")
                                     .build()
                             )
-                            .signatureText("x")
+                            .signatureText("Ian Crease")
                             .build()
                     )
                     .requireApproval(true)
@@ -79,7 +79,9 @@ class CheckTransferServiceTest {
         val checkTransferService = client.checkTransfers()
         val checkTransfer =
             checkTransferService.retrieve(
-                CheckTransferRetrieveParams.builder().checkTransferId("check_transfer_id").build()
+                CheckTransferRetrieveParams.builder()
+                    .checkTransferId("check_transfer_30b43acfu9vw8fyc4f5")
+                    .build()
             )
         println(checkTransfer)
         checkTransfer.validate()
@@ -108,7 +110,9 @@ class CheckTransferServiceTest {
         val checkTransferService = client.checkTransfers()
         val checkTransfer =
             checkTransferService.approve(
-                CheckTransferApproveParams.builder().checkTransferId("check_transfer_id").build()
+                CheckTransferApproveParams.builder()
+                    .checkTransferId("check_transfer_30b43acfu9vw8fyc4f5")
+                    .build()
             )
         println(checkTransfer)
         checkTransfer.validate()
@@ -124,7 +128,9 @@ class CheckTransferServiceTest {
         val checkTransferService = client.checkTransfers()
         val checkTransfer =
             checkTransferService.cancel(
-                CheckTransferCancelParams.builder().checkTransferId("check_transfer_id").build()
+                CheckTransferCancelParams.builder()
+                    .checkTransferId("check_transfer_30b43acfu9vw8fyc4f5")
+                    .build()
             )
         println(checkTransfer)
         checkTransfer.validate()
@@ -141,7 +147,7 @@ class CheckTransferServiceTest {
         val checkTransfer =
             checkTransferService.stopPayment(
                 CheckTransferStopPaymentParams.builder()
-                    .checkTransferId("check_transfer_id")
+                    .checkTransferId("check_transfer_30b43acfu9vw8fyc4f5")
                     .reason(CheckTransferStopPaymentParams.Reason.MAIL_DELIVERY_FAILED)
                     .build()
             )

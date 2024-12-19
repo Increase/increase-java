@@ -23,7 +23,7 @@ class OAuthConnectionServiceTest {
         val oauthConnection =
             oauthConnectionService.retrieve(
                 OAuthConnectionRetrieveParams.builder()
-                    .oauthConnectionId("oauth_connection_id")
+                    .oauthConnectionId("connection_dauknoksyr4wilz4e6my")
                     .build()
             )
         println(oauthConnection)
