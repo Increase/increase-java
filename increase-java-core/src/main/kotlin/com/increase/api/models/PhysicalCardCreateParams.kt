@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
@@ -14,6 +13,7 @@ import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
@@ -59,15 +59,16 @@ constructor(
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(builder = PhysicalCardCreateBody.Builder::class)
     @NoAutoDetect
     class PhysicalCardCreateBody
+    @JsonCreator
     internal constructor(
-        private val cardId: String,
-        private val cardholder: Cardholder,
-        private val shipment: Shipment,
-        private val physicalCardProfileId: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("card_id") private val cardId: String,
+        @JsonProperty("cardholder") private val cardholder: Cardholder,
+        @JsonProperty("shipment") private val shipment: Shipment,
+        @JsonProperty("physical_card_profile_id") private val physicalCardProfileId: String?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The underlying card representing this physical card. */
@@ -115,21 +116,18 @@ constructor(
             }
 
             /** The underlying card representing this physical card. */
-            @JsonProperty("card_id") fun cardId(cardId: String) = apply { this.cardId = cardId }
+            fun cardId(cardId: String) = apply { this.cardId = cardId }
 
             /** Details about the cardholder, as it will appear on the physical card. */
-            @JsonProperty("cardholder")
             fun cardholder(cardholder: Cardholder) = apply { this.cardholder = cardholder }
 
             /** The details used to ship this physical card. */
-            @JsonProperty("shipment")
             fun shipment(shipment: Shipment) = apply { this.shipment = shipment }
 
             /**
              * The physical card profile to use for this physical card. The latest default physical
              * card profile will be used if not provided.
              */
-            @JsonProperty("physical_card_profile_id")
             fun physicalCardProfileId(physicalCardProfileId: String) = apply {
                 this.physicalCardProfileId = physicalCardProfileId
             }
@@ -139,7 +137,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -362,13 +359,14 @@ constructor(
     }
 
     /** Details about the cardholder, as it will appear on the physical card. */
-    @JsonDeserialize(builder = Cardholder.Builder::class)
     @NoAutoDetect
     class Cardholder
+    @JsonCreator
     private constructor(
-        private val firstName: String,
-        private val lastName: String,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("first_name") private val firstName: String,
+        @JsonProperty("last_name") private val lastName: String,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The cardholder's first name. */
@@ -402,11 +400,9 @@ constructor(
             }
 
             /** The cardholder's first name. */
-            @JsonProperty("first_name")
             fun firstName(firstName: String) = apply { this.firstName = firstName }
 
             /** The cardholder's last name. */
-            @JsonProperty("last_name")
             fun lastName(lastName: String) = apply { this.lastName = lastName }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -414,7 +410,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -456,13 +451,14 @@ constructor(
     }
 
     /** The details used to ship this physical card. */
-    @JsonDeserialize(builder = Shipment.Builder::class)
     @NoAutoDetect
     class Shipment
+    @JsonCreator
     private constructor(
-        private val address: Address,
-        private val method: Method,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("address") private val address: Address,
+        @JsonProperty("method") private val method: Method,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The address to where the card should be shipped. */
@@ -496,18 +492,16 @@ constructor(
             }
 
             /** The address to where the card should be shipped. */
-            @JsonProperty("address")
             fun address(address: Address) = apply { this.address = address }
 
             /** The shipping method to use. */
-            @JsonProperty("method") fun method(method: Method) = apply { this.method = method }
+            fun method(method: Method) = apply { this.method = method }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -531,19 +525,20 @@ constructor(
         }
 
         /** The address to where the card should be shipped. */
-        @JsonDeserialize(builder = Address.Builder::class)
         @NoAutoDetect
         class Address
+        @JsonCreator
         private constructor(
-            private val city: String,
-            private val line1: String,
-            private val line2: String?,
-            private val line3: String?,
-            private val name: String,
-            private val phoneNumber: String?,
-            private val postalCode: String,
-            private val state: String,
-            private val additionalProperties: Map<String, JsonValue>,
+            @JsonProperty("city") private val city: String,
+            @JsonProperty("line1") private val line1: String,
+            @JsonProperty("line2") private val line2: String?,
+            @JsonProperty("line3") private val line3: String?,
+            @JsonProperty("name") private val name: String,
+            @JsonProperty("phone_number") private val phoneNumber: String?,
+            @JsonProperty("postal_code") private val postalCode: String,
+            @JsonProperty("state") private val state: String,
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
             /** The city of the shipping address. */
@@ -608,37 +603,34 @@ constructor(
                 }
 
                 /** The city of the shipping address. */
-                @JsonProperty("city") fun city(city: String) = apply { this.city = city }
+                fun city(city: String) = apply { this.city = city }
 
                 /** The first line of the shipping address. */
-                @JsonProperty("line1") fun line1(line1: String) = apply { this.line1 = line1 }
+                fun line1(line1: String) = apply { this.line1 = line1 }
 
                 /** The second line of the shipping address. */
-                @JsonProperty("line2") fun line2(line2: String) = apply { this.line2 = line2 }
+                fun line2(line2: String) = apply { this.line2 = line2 }
 
                 /** The third line of the shipping address. */
-                @JsonProperty("line3") fun line3(line3: String) = apply { this.line3 = line3 }
+                fun line3(line3: String) = apply { this.line3 = line3 }
 
                 /** The name of the recipient. */
-                @JsonProperty("name") fun name(name: String) = apply { this.name = name }
+                fun name(name: String) = apply { this.name = name }
 
                 /** The phone number of the recipient. */
-                @JsonProperty("phone_number")
                 fun phoneNumber(phoneNumber: String) = apply { this.phoneNumber = phoneNumber }
 
                 /** The postal code of the shipping address. */
-                @JsonProperty("postal_code")
                 fun postalCode(postalCode: String) = apply { this.postalCode = postalCode }
 
                 /** The US state of the shipping address. */
-                @JsonProperty("state") fun state(state: String) = apply { this.state = state }
+                fun state(state: String) = apply { this.state = state }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
                     putAllAdditionalProperties(additionalProperties)
                 }
 
-                @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                     additionalProperties.put(key, value)
                 }

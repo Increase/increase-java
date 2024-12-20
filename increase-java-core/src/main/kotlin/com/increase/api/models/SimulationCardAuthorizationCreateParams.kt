@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
@@ -14,6 +13,7 @@ import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
@@ -104,26 +104,28 @@ constructor(
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(builder = SimulationCardAuthorizationCreateBody.Builder::class)
     @NoAutoDetect
     class SimulationCardAuthorizationCreateBody
+    @JsonCreator
     internal constructor(
-        private val amount: Long,
+        @JsonProperty("amount") private val amount: Long,
+        @JsonProperty("authenticated_card_payment_id")
         private val authenticatedCardPaymentId: String?,
-        private val cardId: String?,
-        private val declineReason: DeclineReason?,
-        private val digitalWalletTokenId: String?,
-        private val direction: Direction?,
-        private val eventSubscriptionId: String?,
-        private val merchantAcceptorId: String?,
-        private val merchantCategoryCode: String?,
-        private val merchantCity: String?,
-        private val merchantCountry: String?,
-        private val merchantDescriptor: String?,
-        private val merchantState: String?,
-        private val physicalCardId: String?,
-        private val terminalId: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("card_id") private val cardId: String?,
+        @JsonProperty("decline_reason") private val declineReason: DeclineReason?,
+        @JsonProperty("digital_wallet_token_id") private val digitalWalletTokenId: String?,
+        @JsonProperty("direction") private val direction: Direction?,
+        @JsonProperty("event_subscription_id") private val eventSubscriptionId: String?,
+        @JsonProperty("merchant_acceptor_id") private val merchantAcceptorId: String?,
+        @JsonProperty("merchant_category_code") private val merchantCategoryCode: String?,
+        @JsonProperty("merchant_city") private val merchantCity: String?,
+        @JsonProperty("merchant_country") private val merchantCountry: String?,
+        @JsonProperty("merchant_descriptor") private val merchantDescriptor: String?,
+        @JsonProperty("merchant_state") private val merchantState: String?,
+        @JsonProperty("physical_card_id") private val physicalCardId: String?,
+        @JsonProperty("terminal_id") private val terminalId: String?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The authorization amount in cents. */
@@ -260,28 +262,25 @@ constructor(
             }
 
             /** The authorization amount in cents. */
-            @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long) = apply { this.amount = amount }
 
             /**
              * The identifier of a Card Payment with a `card_authentication` if you want to simulate
              * an authenticated authorization.
              */
-            @JsonProperty("authenticated_card_payment_id")
             fun authenticatedCardPaymentId(authenticatedCardPaymentId: String) = apply {
                 this.authenticatedCardPaymentId = authenticatedCardPaymentId
             }
 
             /** The identifier of the Card to be authorized. */
-            @JsonProperty("card_id") fun cardId(cardId: String) = apply { this.cardId = cardId }
+            fun cardId(cardId: String) = apply { this.cardId = cardId }
 
             /** Forces a card decline with a specific reason. No real time decision will be sent. */
-            @JsonProperty("decline_reason")
             fun declineReason(declineReason: DeclineReason) = apply {
                 this.declineReason = declineReason
             }
 
             /** The identifier of the Digital Wallet Token to be authorized. */
-            @JsonProperty("digital_wallet_token_id")
             fun digitalWalletTokenId(digitalWalletTokenId: String) = apply {
                 this.digitalWalletTokenId = digitalWalletTokenId
             }
@@ -290,7 +289,6 @@ constructor(
              * The direction describes the direction the funds will move, either from the cardholder
              * to the merchant or from the merchant to the cardholder.
              */
-            @JsonProperty("direction")
             fun direction(direction: Direction) = apply { this.direction = direction }
 
             /**
@@ -299,7 +297,6 @@ constructor(
              * decision event subscription, you can use this field to route events to any specified
              * event subscription for testing purposes.
              */
-            @JsonProperty("event_subscription_id")
             fun eventSubscriptionId(eventSubscriptionId: String) = apply {
                 this.eventSubscriptionId = eventSubscriptionId
             }
@@ -308,7 +305,6 @@ constructor(
              * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
              * transacting with.
              */
-            @JsonProperty("merchant_acceptor_id")
             fun merchantAcceptorId(merchantAcceptorId: String) = apply {
                 this.merchantAcceptorId = merchantAcceptorId
             }
@@ -317,33 +313,27 @@ constructor(
              * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
              * transacting with.
              */
-            @JsonProperty("merchant_category_code")
             fun merchantCategoryCode(merchantCategoryCode: String) = apply {
                 this.merchantCategoryCode = merchantCategoryCode
             }
 
             /** The city the merchant resides in. */
-            @JsonProperty("merchant_city")
             fun merchantCity(merchantCity: String) = apply { this.merchantCity = merchantCity }
 
             /** The country the merchant resides in. */
-            @JsonProperty("merchant_country")
             fun merchantCountry(merchantCountry: String) = apply {
                 this.merchantCountry = merchantCountry
             }
 
             /** The merchant descriptor of the merchant the card is transacting with. */
-            @JsonProperty("merchant_descriptor")
             fun merchantDescriptor(merchantDescriptor: String) = apply {
                 this.merchantDescriptor = merchantDescriptor
             }
 
             /** The state the merchant resides in. */
-            @JsonProperty("merchant_state")
             fun merchantState(merchantState: String) = apply { this.merchantState = merchantState }
 
             /** The identifier of the Physical Card to be authorized. */
-            @JsonProperty("physical_card_id")
             fun physicalCardId(physicalCardId: String) = apply {
                 this.physicalCardId = physicalCardId
             }
@@ -352,7 +342,6 @@ constructor(
              * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
              * transacting with.
              */
-            @JsonProperty("terminal_id")
             fun terminalId(terminalId: String) = apply { this.terminalId = terminalId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -360,7 +349,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

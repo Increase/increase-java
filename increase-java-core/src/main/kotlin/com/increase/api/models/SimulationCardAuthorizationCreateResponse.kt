@@ -6,27 +6,31 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 import java.util.Optional
 
 /** The results of a Card Authorization simulation. */
-@JsonDeserialize(builder = SimulationCardAuthorizationCreateResponse.Builder::class)
 @NoAutoDetect
 class SimulationCardAuthorizationCreateResponse
+@JsonCreator
 private constructor(
-    private val declinedTransaction: JsonField<DeclinedTransaction>,
-    private val pendingTransaction: JsonField<PendingTransaction>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("declined_transaction")
+    @ExcludeMissing
+    private val declinedTransaction: JsonField<DeclinedTransaction> = JsonMissing.of(),
+    @JsonProperty("pending_transaction")
+    @ExcludeMissing
+    private val pendingTransaction: JsonField<PendingTransaction> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     /**
@@ -126,8 +130,6 @@ private constructor(
          * [Declined Transaction](#declined-transactions) object. The Declined Transaction's
          * `source` will be of `category: card_decline`.
          */
-        @JsonProperty("declined_transaction")
-        @ExcludeMissing
         fun declinedTransaction(declinedTransaction: JsonField<DeclinedTransaction>) = apply {
             this.declinedTransaction = declinedTransaction
         }
@@ -145,8 +147,6 @@ private constructor(
          * Transaction object. The Pending Transaction's `source` will be of `category:
          * card_authorization`.
          */
-        @JsonProperty("pending_transaction")
-        @ExcludeMissing
         fun pendingTransaction(pendingTransaction: JsonField<PendingTransaction>) = apply {
             this.pendingTransaction = pendingTransaction
         }
@@ -161,8 +161,6 @@ private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `inbound_card_authorization_simulation_result`.
          */
-        @JsonProperty("type")
-        @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -170,7 +168,6 @@ private constructor(
             putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
             additionalProperties.put(key, value)
         }

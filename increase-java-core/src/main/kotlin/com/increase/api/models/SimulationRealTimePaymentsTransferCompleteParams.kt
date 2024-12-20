@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
@@ -14,6 +13,7 @@ import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
@@ -54,12 +54,13 @@ constructor(
         }
     }
 
-    @JsonDeserialize(builder = SimulationRealTimePaymentsTransferCompleteBody.Builder::class)
     @NoAutoDetect
     class SimulationRealTimePaymentsTransferCompleteBody
+    @JsonCreator
     internal constructor(
-        private val rejection: Rejection?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("rejection") private val rejection: Rejection?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** If set, the simulation will reject the transfer. */
@@ -94,7 +95,6 @@ constructor(
             }
 
             /** If set, the simulation will reject the transfer. */
-            @JsonProperty("rejection")
             fun rejection(rejection: Rejection) = apply { this.rejection = rejection }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -102,7 +102,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -316,12 +315,13 @@ constructor(
     }
 
     /** If set, the simulation will reject the transfer. */
-    @JsonDeserialize(builder = Rejection.Builder::class)
     @NoAutoDetect
     class Rejection
+    @JsonCreator
     private constructor(
-        private val rejectReasonCode: RejectReasonCode,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("reject_reason_code") private val rejectReasonCode: RejectReasonCode,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The reason code that the simulated rejection will have. */
@@ -351,7 +351,6 @@ constructor(
             }
 
             /** The reason code that the simulated rejection will have. */
-            @JsonProperty("reject_reason_code")
             fun rejectReasonCode(rejectReasonCode: RejectReasonCode) = apply {
                 this.rejectReasonCode = rejectReasonCode
             }
@@ -361,7 +360,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

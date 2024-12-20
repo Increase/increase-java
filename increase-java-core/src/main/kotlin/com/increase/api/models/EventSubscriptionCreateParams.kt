@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
@@ -14,6 +13,7 @@ import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
@@ -60,15 +60,17 @@ constructor(
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(builder = EventSubscriptionCreateBody.Builder::class)
     @NoAutoDetect
     class EventSubscriptionCreateBody
+    @JsonCreator
     internal constructor(
-        private val url: String,
-        private val oauthConnectionId: String?,
+        @JsonProperty("url") private val url: String,
+        @JsonProperty("oauth_connection_id") private val oauthConnectionId: String?,
+        @JsonProperty("selected_event_category")
         private val selectedEventCategory: SelectedEventCategory?,
-        private val sharedSecret: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("shared_secret") private val sharedSecret: String?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The URL you'd like us to send webhooks to. */
@@ -126,13 +128,12 @@ constructor(
             }
 
             /** The URL you'd like us to send webhooks to. */
-            @JsonProperty("url") fun url(url: String) = apply { this.url = url }
+            fun url(url: String) = apply { this.url = url }
 
             /**
              * If specified, this subscription will only receive webhooks for Events associated with
              * the specified OAuth Connection.
              */
-            @JsonProperty("oauth_connection_id")
             fun oauthConnectionId(oauthConnectionId: String) = apply {
                 this.oauthConnectionId = oauthConnectionId
             }
@@ -141,7 +142,6 @@ constructor(
              * If specified, this subscription will only receive webhooks for Events with the
              * specified `category`.
              */
-            @JsonProperty("selected_event_category")
             fun selectedEventCategory(selectedEventCategory: SelectedEventCategory) = apply {
                 this.selectedEventCategory = selectedEventCategory
             }
@@ -150,7 +150,6 @@ constructor(
              * The key that will be used to sign webhooks. If no value is passed, a random string
              * will be used as default.
              */
-            @JsonProperty("shared_secret")
             fun sharedSecret(sharedSecret: String) = apply { this.sharedSecret = sharedSecret }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -158,7 +157,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

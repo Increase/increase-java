@@ -4,13 +4,14 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
@@ -67,18 +68,19 @@ constructor(
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(builder = SimulationInboundRealTimePaymentsTransferCreateBody.Builder::class)
     @NoAutoDetect
     class SimulationInboundRealTimePaymentsTransferCreateBody
+    @JsonCreator
     internal constructor(
-        private val accountNumberId: String,
-        private val amount: Long,
-        private val debtorAccountNumber: String?,
-        private val debtorName: String?,
-        private val debtorRoutingNumber: String?,
-        private val remittanceInformation: String?,
-        private val requestForPaymentId: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("account_number_id") private val accountNumberId: String,
+        @JsonProperty("amount") private val amount: Long,
+        @JsonProperty("debtor_account_number") private val debtorAccountNumber: String?,
+        @JsonProperty("debtor_name") private val debtorName: String?,
+        @JsonProperty("debtor_routing_number") private val debtorRoutingNumber: String?,
+        @JsonProperty("remittance_information") private val remittanceInformation: String?,
+        @JsonProperty("request_for_payment_id") private val requestForPaymentId: String?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The identifier of the Account Number the inbound Real-Time Payments Transfer is for. */
@@ -154,38 +156,32 @@ constructor(
             /**
              * The identifier of the Account Number the inbound Real-Time Payments Transfer is for.
              */
-            @JsonProperty("account_number_id")
             fun accountNumberId(accountNumberId: String) = apply {
                 this.accountNumberId = accountNumberId
             }
 
             /** The transfer amount in USD cents. Must be positive. */
-            @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long) = apply { this.amount = amount }
 
             /** The account number of the account that sent the transfer. */
-            @JsonProperty("debtor_account_number")
             fun debtorAccountNumber(debtorAccountNumber: String) = apply {
                 this.debtorAccountNumber = debtorAccountNumber
             }
 
             /** The name provided by the sender of the transfer. */
-            @JsonProperty("debtor_name")
             fun debtorName(debtorName: String) = apply { this.debtorName = debtorName }
 
             /** The routing number of the account that sent the transfer. */
-            @JsonProperty("debtor_routing_number")
             fun debtorRoutingNumber(debtorRoutingNumber: String) = apply {
                 this.debtorRoutingNumber = debtorRoutingNumber
             }
 
             /** Additional information included with the transfer. */
-            @JsonProperty("remittance_information")
             fun remittanceInformation(remittanceInformation: String) = apply {
                 this.remittanceInformation = remittanceInformation
             }
 
             /** The identifier of a pending Request for Payment that this transfer will fulfill. */
-            @JsonProperty("request_for_payment_id")
             fun requestForPaymentId(requestForPaymentId: String) = apply {
                 this.requestForPaymentId = requestForPaymentId
             }
@@ -195,7 +191,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
@@ -14,6 +13,7 @@ import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.LocalDate
@@ -55,12 +55,13 @@ constructor(
         }
     }
 
-    @JsonDeserialize(builder = EntityCreateBeneficialOwnerBody.Builder::class)
     @NoAutoDetect
     class EntityCreateBeneficialOwnerBody
+    @JsonCreator
     internal constructor(
-        private val beneficialOwner: BeneficialOwner,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("beneficial_owner") private val beneficialOwner: BeneficialOwner,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /**
@@ -96,7 +97,6 @@ constructor(
              * The identifying details of anyone controlling or owning 25% or more of the
              * corporation.
              */
-            @JsonProperty("beneficial_owner")
             fun beneficialOwner(beneficialOwner: BeneficialOwner) = apply {
                 this.beneficialOwner = beneficialOwner
             }
@@ -106,7 +106,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -317,14 +316,15 @@ constructor(
     }
 
     /** The identifying details of anyone controlling or owning 25% or more of the corporation. */
-    @JsonDeserialize(builder = BeneficialOwner.Builder::class)
     @NoAutoDetect
     class BeneficialOwner
+    @JsonCreator
     private constructor(
-        private val companyTitle: String?,
-        private val individual: Individual,
-        private val prongs: List<Prong>,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("company_title") private val companyTitle: String?,
+        @JsonProperty("individual") private val individual: Individual,
+        @JsonProperty("prongs") private val prongs: List<Prong>,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** This person's role or title within the entity. */
@@ -368,11 +368,9 @@ constructor(
             }
 
             /** This person's role or title within the entity. */
-            @JsonProperty("company_title")
             fun companyTitle(companyTitle: String) = apply { this.companyTitle = companyTitle }
 
             /** Personal details for the beneficial owner. */
-            @JsonProperty("individual")
             fun individual(individual: Individual) = apply { this.individual = individual }
 
             /**
@@ -380,14 +378,13 @@ constructor(
              * is required, if a person is both a control person and owner, submit an array
              * containing both.
              */
-            @JsonProperty("prongs") fun prongs(prongs: List<Prong>) = apply { this.prongs = prongs }
+            fun prongs(prongs: List<Prong>) = apply { this.prongs = prongs }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -412,16 +409,17 @@ constructor(
         }
 
         /** Personal details for the beneficial owner. */
-        @JsonDeserialize(builder = Individual.Builder::class)
         @NoAutoDetect
         class Individual
+        @JsonCreator
         private constructor(
-            private val address: Address,
-            private val confirmedNoUsTaxId: Boolean?,
-            private val dateOfBirth: LocalDate,
-            private val identification: Identification,
-            private val name: String,
-            private val additionalProperties: Map<String, JsonValue>,
+            @JsonProperty("address") private val address: Address,
+            @JsonProperty("confirmed_no_us_tax_id") private val confirmedNoUsTaxId: Boolean?,
+            @JsonProperty("date_of_birth") private val dateOfBirth: LocalDate,
+            @JsonProperty("identification") private val identification: Identification,
+            @JsonProperty("name") private val name: String,
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
             /**
@@ -481,7 +479,6 @@ constructor(
                  * The individual's physical address. Mail receiving locations like PO Boxes and
                  * PMB's are disallowed.
                  */
-                @JsonProperty("address")
                 fun address(address: Address) = apply { this.address = address }
 
                 /**
@@ -490,30 +487,26 @@ constructor(
                  * tax id (either a Social Security Number or Individual Taxpayer Identification
                  * Number).
                  */
-                @JsonProperty("confirmed_no_us_tax_id")
                 fun confirmedNoUsTaxId(confirmedNoUsTaxId: Boolean) = apply {
                     this.confirmedNoUsTaxId = confirmedNoUsTaxId
                 }
 
                 /** The person's date of birth in YYYY-MM-DD format. */
-                @JsonProperty("date_of_birth")
                 fun dateOfBirth(dateOfBirth: LocalDate) = apply { this.dateOfBirth = dateOfBirth }
 
                 /** A means of verifying the person's identity. */
-                @JsonProperty("identification")
                 fun identification(identification: Identification) = apply {
                     this.identification = identification
                 }
 
                 /** The person's legal name. */
-                @JsonProperty("name") fun name(name: String) = apply { this.name = name }
+                fun name(name: String) = apply { this.name = name }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
                     putAllAdditionalProperties(additionalProperties)
                 }
 
-                @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                     additionalProperties.put(key, value)
                 }
@@ -548,16 +541,17 @@ constructor(
              * The individual's physical address. Mail receiving locations like PO Boxes and PMB's
              * are disallowed.
              */
-            @JsonDeserialize(builder = Address.Builder::class)
             @NoAutoDetect
             class Address
+            @JsonCreator
             private constructor(
-                private val city: String,
-                private val line1: String,
-                private val line2: String?,
-                private val state: String,
-                private val zip: String,
-                private val additionalProperties: Map<String, JsonValue>,
+                @JsonProperty("city") private val city: String,
+                @JsonProperty("line1") private val line1: String,
+                @JsonProperty("line2") private val line2: String?,
+                @JsonProperty("state") private val state: String,
+                @JsonProperty("zip") private val zip: String,
+                @JsonAnySetter
+                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
             ) {
 
                 /** The city of the address. */
@@ -609,31 +603,30 @@ constructor(
                     }
 
                     /** The city of the address. */
-                    @JsonProperty("city") fun city(city: String) = apply { this.city = city }
+                    fun city(city: String) = apply { this.city = city }
 
                     /**
                      * The first line of the address. This is usually the street number and street.
                      */
-                    @JsonProperty("line1") fun line1(line1: String) = apply { this.line1 = line1 }
+                    fun line1(line1: String) = apply { this.line1 = line1 }
 
                     /** The second line of the address. This might be the floor or room number. */
-                    @JsonProperty("line2") fun line2(line2: String) = apply { this.line2 = line2 }
+                    fun line2(line2: String) = apply { this.line2 = line2 }
 
                     /**
                      * The two-letter United States Postal Service (USPS) abbreviation for the state
                      * of the address.
                      */
-                    @JsonProperty("state") fun state(state: String) = apply { this.state = state }
+                    fun state(state: String) = apply { this.state = state }
 
                     /** The ZIP code of the address. */
-                    @JsonProperty("zip") fun zip(zip: String) = apply { this.zip = zip }
+                    fun zip(zip: String) = apply { this.zip = zip }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
                         putAllAdditionalProperties(additionalProperties)
                     }
 
-                    @JsonAnySetter
                     fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                         additionalProperties.put(key, value)
                     }
@@ -681,16 +674,17 @@ constructor(
             }
 
             /** A means of verifying the person's identity. */
-            @JsonDeserialize(builder = Identification.Builder::class)
             @NoAutoDetect
             class Identification
+            @JsonCreator
             private constructor(
-                private val driversLicense: DriversLicense?,
-                private val method: Method,
-                private val number: String,
-                private val other: Other?,
-                private val passport: Passport?,
-                private val additionalProperties: Map<String, JsonValue>,
+                @JsonProperty("drivers_license") private val driversLicense: DriversLicense?,
+                @JsonProperty("method") private val method: Method,
+                @JsonProperty("number") private val number: String,
+                @JsonProperty("other") private val other: Other?,
+                @JsonProperty("passport") private val passport: Passport?,
+                @JsonAnySetter
+                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
             ) {
 
                 /**
@@ -756,33 +750,29 @@ constructor(
                      * Information about the United States driver's license used for identification.
                      * Required if `method` is equal to `drivers_license`.
                      */
-                    @JsonProperty("drivers_license")
                     fun driversLicense(driversLicense: DriversLicense) = apply {
                         this.driversLicense = driversLicense
                     }
 
                     /** A method that can be used to verify the individual's identity. */
-                    @JsonProperty("method")
                     fun method(method: Method) = apply { this.method = method }
 
                     /**
                      * An identification number that can be used to verify the individual's
                      * identity, such as a social security number.
                      */
-                    @JsonProperty("number")
                     fun number(number: String) = apply { this.number = number }
 
                     /**
                      * Information about the identification document provided. Required if `method`
                      * is equal to `other`.
                      */
-                    @JsonProperty("other") fun other(other: Other) = apply { this.other = other }
+                    fun other(other: Other) = apply { this.other = other }
 
                     /**
                      * Information about the passport used for identification. Required if `method`
                      * is equal to `passport`.
                      */
-                    @JsonProperty("passport")
                     fun passport(passport: Passport) = apply { this.passport = passport }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -790,7 +780,6 @@ constructor(
                         putAllAdditionalProperties(additionalProperties)
                     }
 
-                    @JsonAnySetter
                     fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                         additionalProperties.put(key, value)
                     }
@@ -903,15 +892,16 @@ constructor(
                  * Information about the United States driver's license used for identification.
                  * Required if `method` is equal to `drivers_license`.
                  */
-                @JsonDeserialize(builder = DriversLicense.Builder::class)
                 @NoAutoDetect
                 class DriversLicense
+                @JsonCreator
                 private constructor(
-                    private val backFileId: String?,
-                    private val expirationDate: LocalDate,
-                    private val fileId: String,
-                    private val state: String,
-                    private val additionalProperties: Map<String, JsonValue>,
+                    @JsonProperty("back_file_id") private val backFileId: String?,
+                    @JsonProperty("expiration_date") private val expirationDate: LocalDate,
+                    @JsonProperty("file_id") private val fileId: String,
+                    @JsonProperty("state") private val state: String,
+                    @JsonAnySetter
+                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
                 ) {
 
                     /** The identifier of the File containing the back of the driver's license. */
@@ -961,11 +951,9 @@ constructor(
                         /**
                          * The identifier of the File containing the back of the driver's license.
                          */
-                        @JsonProperty("back_file_id")
                         fun backFileId(backFileId: String) = apply { this.backFileId = backFileId }
 
                         /** The driver's license's expiration date in YYYY-MM-DD format. */
-                        @JsonProperty("expiration_date")
                         fun expirationDate(expirationDate: LocalDate) = apply {
                             this.expirationDate = expirationDate
                         }
@@ -973,11 +961,9 @@ constructor(
                         /**
                          * The identifier of the File containing the front of the driver's license.
                          */
-                        @JsonProperty("file_id")
                         fun fileId(fileId: String) = apply { this.fileId = fileId }
 
                         /** The state that issued the provided driver's license. */
-                        @JsonProperty("state")
                         fun state(state: String) = apply { this.state = state }
 
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
@@ -986,7 +972,6 @@ constructor(
                                 putAllAdditionalProperties(additionalProperties)
                             }
 
-                        @JsonAnySetter
                         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                             additionalProperties.put(key, value)
                         }
@@ -1037,16 +1022,17 @@ constructor(
                  * Information about the identification document provided. Required if `method` is
                  * equal to `other`.
                  */
-                @JsonDeserialize(builder = Other.Builder::class)
                 @NoAutoDetect
                 class Other
+                @JsonCreator
                 private constructor(
-                    private val backFileId: String?,
-                    private val country: String,
-                    private val description: String,
-                    private val expirationDate: LocalDate?,
-                    private val fileId: String,
-                    private val additionalProperties: Map<String, JsonValue>,
+                    @JsonProperty("back_file_id") private val backFileId: String?,
+                    @JsonProperty("country") private val country: String,
+                    @JsonProperty("description") private val description: String,
+                    @JsonProperty("expiration_date") private val expirationDate: LocalDate?,
+                    @JsonProperty("file_id") private val fileId: String,
+                    @JsonAnySetter
+                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
                 ) {
 
                     /**
@@ -1107,30 +1093,25 @@ constructor(
                          * The identifier of the File containing the back of the document. Not every
                          * document has a reverse side.
                          */
-                        @JsonProperty("back_file_id")
                         fun backFileId(backFileId: String) = apply { this.backFileId = backFileId }
 
                         /**
                          * The two-character ISO 3166-1 code representing the country that issued
                          * the document.
                          */
-                        @JsonProperty("country")
                         fun country(country: String) = apply { this.country = country }
 
                         /** A description of the document submitted. */
-                        @JsonProperty("description")
                         fun description(description: String) = apply {
                             this.description = description
                         }
 
                         /** The document's expiration date in YYYY-MM-DD format. */
-                        @JsonProperty("expiration_date")
                         fun expirationDate(expirationDate: LocalDate) = apply {
                             this.expirationDate = expirationDate
                         }
 
                         /** The identifier of the File containing the front of the document. */
-                        @JsonProperty("file_id")
                         fun fileId(fileId: String) = apply { this.fileId = fileId }
 
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
@@ -1139,7 +1120,6 @@ constructor(
                                 putAllAdditionalProperties(additionalProperties)
                             }
 
-                        @JsonAnySetter
                         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                             additionalProperties.put(key, value)
                         }
@@ -1191,14 +1171,15 @@ constructor(
                  * Information about the passport used for identification. Required if `method` is
                  * equal to `passport`.
                  */
-                @JsonDeserialize(builder = Passport.Builder::class)
                 @NoAutoDetect
                 class Passport
+                @JsonCreator
                 private constructor(
-                    private val country: String,
-                    private val expirationDate: LocalDate,
-                    private val fileId: String,
-                    private val additionalProperties: Map<String, JsonValue>,
+                    @JsonProperty("country") private val country: String,
+                    @JsonProperty("expiration_date") private val expirationDate: LocalDate,
+                    @JsonProperty("file_id") private val fileId: String,
+                    @JsonAnySetter
+                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
                 ) {
 
                     /** The country that issued the passport. */
@@ -1239,17 +1220,14 @@ constructor(
                         }
 
                         /** The country that issued the passport. */
-                        @JsonProperty("country")
                         fun country(country: String) = apply { this.country = country }
 
                         /** The passport's expiration date in YYYY-MM-DD format. */
-                        @JsonProperty("expiration_date")
                         fun expirationDate(expirationDate: LocalDate) = apply {
                             this.expirationDate = expirationDate
                         }
 
                         /** The identifier of the File containing the passport. */
-                        @JsonProperty("file_id")
                         fun fileId(fileId: String) = apply { this.fileId = fileId }
 
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
@@ -1258,7 +1236,6 @@ constructor(
                                 putAllAdditionalProperties(additionalProperties)
                             }
 
-                        @JsonAnySetter
                         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                             additionalProperties.put(key, value)
                         }

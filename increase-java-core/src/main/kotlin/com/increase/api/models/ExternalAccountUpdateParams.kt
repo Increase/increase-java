@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
@@ -14,6 +13,7 @@ import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
@@ -69,15 +69,16 @@ constructor(
         }
     }
 
-    @JsonDeserialize(builder = ExternalAccountUpdateBody.Builder::class)
     @NoAutoDetect
     class ExternalAccountUpdateBody
+    @JsonCreator
     internal constructor(
-        private val accountHolder: AccountHolder?,
-        private val description: String?,
-        private val funding: Funding?,
-        private val status: Status?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("account_holder") private val accountHolder: AccountHolder?,
+        @JsonProperty("description") private val description: String?,
+        @JsonProperty("funding") private val funding: Funding?,
+        @JsonProperty("status") private val status: Status?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The type of entity that owns the External Account. */
@@ -123,28 +124,24 @@ constructor(
             }
 
             /** The type of entity that owns the External Account. */
-            @JsonProperty("account_holder")
             fun accountHolder(accountHolder: AccountHolder) = apply {
                 this.accountHolder = accountHolder
             }
 
             /** The description you choose to give the external account. */
-            @JsonProperty("description")
             fun description(description: String) = apply { this.description = description }
 
             /** The funding type of the External Account. */
-            @JsonProperty("funding")
             fun funding(funding: Funding) = apply { this.funding = funding }
 
             /** The status of the External Account. */
-            @JsonProperty("status") fun status(status: Status) = apply { this.status = status }
+            fun status(status: Status) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

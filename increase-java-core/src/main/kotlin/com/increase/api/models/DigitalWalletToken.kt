@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
@@ -22,17 +22,25 @@ import java.util.Objects
  * A Digital Wallet Token is created when a user adds a Card to their Apple Pay or Google Pay app.
  * The Digital Wallet Token can be used for purchases just like a Card.
  */
-@JsonDeserialize(builder = DigitalWalletToken.Builder::class)
 @NoAutoDetect
 class DigitalWalletToken
+@JsonCreator
 private constructor(
-    private val cardId: JsonField<String>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val id: JsonField<String>,
-    private val status: JsonField<Status>,
-    private val tokenRequestor: JsonField<TokenRequestor>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("card_id")
+    @ExcludeMissing
+    private val cardId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("status")
+    @ExcludeMissing
+    private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("token_requestor")
+    @ExcludeMissing
+    private val tokenRequestor: JsonField<TokenRequestor> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     /** The identifier for the Card this Digital Wallet Token belongs to. */
@@ -133,8 +141,6 @@ private constructor(
         fun cardId(cardId: String) = cardId(JsonField.of(cardId))
 
         /** The identifier for the Card this Digital Wallet Token belongs to. */
-        @JsonProperty("card_id")
-        @ExcludeMissing
         fun cardId(cardId: JsonField<String>) = apply { this.cardId = cardId }
 
         /**
@@ -147,22 +153,18 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
          * was created.
          */
-        @JsonProperty("created_at")
-        @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The Digital Wallet Token identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Digital Wallet Token identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** This indicates if payments can be made with the Digital Wallet Token. */
         fun status(status: Status) = status(JsonField.of(status))
 
         /** This indicates if payments can be made with the Digital Wallet Token. */
-        @JsonProperty("status")
-        @ExcludeMissing
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /** The digital wallet app being used. */
@@ -170,8 +172,6 @@ private constructor(
             tokenRequestor(JsonField.of(tokenRequestor))
 
         /** The digital wallet app being used. */
-        @JsonProperty("token_requestor")
-        @ExcludeMissing
         fun tokenRequestor(tokenRequestor: JsonField<TokenRequestor>) = apply {
             this.tokenRequestor = tokenRequestor
         }
@@ -186,8 +186,6 @@ private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `digital_wallet_token`.
          */
-        @JsonProperty("type")
-        @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -195,7 +193,6 @@ private constructor(
             putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
             additionalProperties.put(key, value)
         }

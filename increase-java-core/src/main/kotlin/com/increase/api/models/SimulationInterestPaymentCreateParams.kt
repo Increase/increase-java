@@ -4,13 +4,14 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.time.OffsetDateTime
 import java.util.Objects
@@ -56,15 +57,16 @@ constructor(
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(builder = SimulationInterestPaymentCreateBody.Builder::class)
     @NoAutoDetect
     class SimulationInterestPaymentCreateBody
+    @JsonCreator
     internal constructor(
-        private val accountId: String,
-        private val amount: Long,
-        private val periodEnd: OffsetDateTime?,
-        private val periodStart: OffsetDateTime?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("account_id") private val accountId: String,
+        @JsonProperty("amount") private val amount: Long,
+        @JsonProperty("period_end") private val periodEnd: OffsetDateTime?,
+        @JsonProperty("period_start") private val periodStart: OffsetDateTime?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The identifier of the Account Number the Interest Payment is for. */
@@ -113,18 +115,15 @@ constructor(
             }
 
             /** The identifier of the Account Number the Interest Payment is for. */
-            @JsonProperty("account_id")
             fun accountId(accountId: String) = apply { this.accountId = accountId }
 
             /** The interest amount in cents. Must be positive. */
-            @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long) = apply { this.amount = amount }
 
             /** The end of the interest period. If not provided, defaults to the current time. */
-            @JsonProperty("period_end")
             fun periodEnd(periodEnd: OffsetDateTime) = apply { this.periodEnd = periodEnd }
 
             /** The start of the interest period. If not provided, defaults to the current time. */
-            @JsonProperty("period_start")
             fun periodStart(periodStart: OffsetDateTime) = apply { this.periodStart = periodStart }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -132,7 +131,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
@@ -20,19 +20,31 @@ import java.util.Objects
 import java.util.Optional
 
 /** Inbound Mail Items represent pieces of physical mail delivered to a Lockbox. */
-@JsonDeserialize(builder = InboundMailItem.Builder::class)
 @NoAutoDetect
 class InboundMailItem
+@JsonCreator
 private constructor(
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val fileId: JsonField<String>,
-    private val id: JsonField<String>,
-    private val lockboxId: JsonField<String>,
-    private val recipientName: JsonField<String>,
-    private val rejectionReason: JsonField<RejectionReason>,
-    private val status: JsonField<Status>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("file_id")
+    @ExcludeMissing
+    private val fileId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("lockbox_id")
+    @ExcludeMissing
+    private val lockboxId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("recipient_name")
+    @ExcludeMissing
+    private val recipientName: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("rejection_reason")
+    @ExcludeMissing
+    private val rejectionReason: JsonField<RejectionReason> = JsonMissing.of(),
+    @JsonProperty("status")
+    @ExcludeMissing
+    private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     /**
@@ -165,23 +177,19 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Inbound Mail
          * Item was created.
          */
-        @JsonProperty("created_at")
-        @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The identifier for the File containing the scanned contents of the mail item. */
         fun fileId(fileId: String) = fileId(JsonField.of(fileId))
 
         /** The identifier for the File containing the scanned contents of the mail item. */
-        @JsonProperty("file_id")
-        @ExcludeMissing
         fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
         /** The Inbound Mail Item identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Inbound Mail Item identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The identifier for the Lockbox that received this mail item. For mail items that could
@@ -193,16 +201,12 @@ private constructor(
          * The identifier for the Lockbox that received this mail item. For mail items that could
          * not be processed due to an invalid address, this will be null.
          */
-        @JsonProperty("lockbox_id")
-        @ExcludeMissing
         fun lockboxId(lockboxId: JsonField<String>) = apply { this.lockboxId = lockboxId }
 
         /** The recipient name as written on the mail item. */
         fun recipientName(recipientName: String) = recipientName(JsonField.of(recipientName))
 
         /** The recipient name as written on the mail item. */
-        @JsonProperty("recipient_name")
-        @ExcludeMissing
         fun recipientName(recipientName: JsonField<String>) = apply {
             this.recipientName = recipientName
         }
@@ -212,8 +216,6 @@ private constructor(
             rejectionReason(JsonField.of(rejectionReason))
 
         /** If the mail item has been rejected, why it was rejected. */
-        @JsonProperty("rejection_reason")
-        @ExcludeMissing
         fun rejectionReason(rejectionReason: JsonField<RejectionReason>) = apply {
             this.rejectionReason = rejectionReason
         }
@@ -222,8 +224,6 @@ private constructor(
         fun status(status: Status) = status(JsonField.of(status))
 
         /** If the mail item has been processed. */
-        @JsonProperty("status")
-        @ExcludeMissing
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
@@ -236,8 +236,6 @@ private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `inbound_mail_item`.
          */
-        @JsonProperty("type")
-        @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -245,7 +243,6 @@ private constructor(
             putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
             additionalProperties.put(key, value)
         }
