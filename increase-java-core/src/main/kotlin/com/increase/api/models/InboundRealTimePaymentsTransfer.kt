@@ -46,8 +46,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     /** The Account to which the transfer was sent. */
     fun accountId(): String = accountId.getRequired("account_id")
 
@@ -177,6 +175,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): InboundRealTimePaymentsTransfer = apply {
         if (!validated) {
             accountId()
@@ -229,24 +229,25 @@ private constructor(
         @JvmSynthetic
         internal fun from(inboundRealTimePaymentsTransfer: InboundRealTimePaymentsTransfer) =
             apply {
-                this.accountId = inboundRealTimePaymentsTransfer.accountId
-                this.accountNumberId = inboundRealTimePaymentsTransfer.accountNumberId
-                this.amount = inboundRealTimePaymentsTransfer.amount
-                this.confirmation = inboundRealTimePaymentsTransfer.confirmation
-                this.createdAt = inboundRealTimePaymentsTransfer.createdAt
-                this.creditorName = inboundRealTimePaymentsTransfer.creditorName
-                this.currency = inboundRealTimePaymentsTransfer.currency
-                this.debtorAccountNumber = inboundRealTimePaymentsTransfer.debtorAccountNumber
-                this.debtorName = inboundRealTimePaymentsTransfer.debtorName
-                this.debtorRoutingNumber = inboundRealTimePaymentsTransfer.debtorRoutingNumber
-                this.decline = inboundRealTimePaymentsTransfer.decline
-                this.id = inboundRealTimePaymentsTransfer.id
-                this.remittanceInformation = inboundRealTimePaymentsTransfer.remittanceInformation
-                this.status = inboundRealTimePaymentsTransfer.status
-                this.transactionIdentification =
+                accountId = inboundRealTimePaymentsTransfer.accountId
+                accountNumberId = inboundRealTimePaymentsTransfer.accountNumberId
+                amount = inboundRealTimePaymentsTransfer.amount
+                confirmation = inboundRealTimePaymentsTransfer.confirmation
+                createdAt = inboundRealTimePaymentsTransfer.createdAt
+                creditorName = inboundRealTimePaymentsTransfer.creditorName
+                currency = inboundRealTimePaymentsTransfer.currency
+                debtorAccountNumber = inboundRealTimePaymentsTransfer.debtorAccountNumber
+                debtorName = inboundRealTimePaymentsTransfer.debtorName
+                debtorRoutingNumber = inboundRealTimePaymentsTransfer.debtorRoutingNumber
+                decline = inboundRealTimePaymentsTransfer.decline
+                id = inboundRealTimePaymentsTransfer.id
+                remittanceInformation = inboundRealTimePaymentsTransfer.remittanceInformation
+                status = inboundRealTimePaymentsTransfer.status
+                transactionIdentification =
                     inboundRealTimePaymentsTransfer.transactionIdentification
-                this.type = inboundRealTimePaymentsTransfer.type
-                additionalProperties(inboundRealTimePaymentsTransfer.additionalProperties)
+                type = inboundRealTimePaymentsTransfer.type
+                additionalProperties =
+                    inboundRealTimePaymentsTransfer.additionalProperties.toMutableMap()
             }
 
         /** The Account to which the transfer was sent. */
@@ -414,16 +415,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): InboundRealTimePaymentsTransfer =
@@ -458,8 +465,6 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         /** The time at which the transfer was confirmed. */
         fun confirmedAt(): OffsetDateTime = confirmedAt.getRequired("confirmed_at")
 
@@ -475,6 +480,8 @@ private constructor(
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
 
         fun validate(): Confirmation = apply {
             if (!validated) {
@@ -499,9 +506,9 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(confirmation: Confirmation) = apply {
-                this.confirmedAt = confirmation.confirmedAt
-                this.transactionId = confirmation.transactionId
-                additionalProperties(confirmation.additionalProperties)
+                confirmedAt = confirmation.confirmedAt
+                transactionId = confirmation.transactionId
+                additionalProperties = confirmation.additionalProperties.toMutableMap()
             }
 
             /** The time at which the transfer was confirmed. */
@@ -526,16 +533,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Confirmation =
@@ -656,8 +669,6 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         /** The time at which the transfer was declined. */
         fun declinedAt(): OffsetDateTime = declinedAt.getRequired("declined_at")
 
@@ -682,6 +693,8 @@ private constructor(
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
 
         fun validate(): Decline = apply {
             if (!validated) {
@@ -708,10 +721,10 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(decline: Decline) = apply {
-                this.declinedAt = decline.declinedAt
-                this.declinedTransactionId = decline.declinedTransactionId
-                this.reason = decline.reason
-                additionalProperties(decline.additionalProperties)
+                declinedAt = decline.declinedAt
+                declinedTransactionId = decline.declinedTransactionId
+                reason = decline.reason
+                additionalProperties = decline.additionalProperties.toMutableMap()
             }
 
             /** The time at which the transfer was declined. */
@@ -745,16 +758,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Decline =

@@ -32,8 +32,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     /** The ACH Transfers associated with the request. */
     fun achTransfers(): List<AchTransfer> = achTransfers.getRequired("ach_transfers")
 
@@ -80,6 +78,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): ProofOfAuthorizationRequest = apply {
         if (!validated) {
             achTransfers().forEach { it.validate() }
@@ -111,13 +111,13 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(proofOfAuthorizationRequest: ProofOfAuthorizationRequest) = apply {
-            this.achTransfers = proofOfAuthorizationRequest.achTransfers
-            this.createdAt = proofOfAuthorizationRequest.createdAt
-            this.dueOn = proofOfAuthorizationRequest.dueOn
-            this.id = proofOfAuthorizationRequest.id
-            this.type = proofOfAuthorizationRequest.type
-            this.updatedAt = proofOfAuthorizationRequest.updatedAt
-            additionalProperties(proofOfAuthorizationRequest.additionalProperties)
+            achTransfers = proofOfAuthorizationRequest.achTransfers
+            createdAt = proofOfAuthorizationRequest.createdAt
+            dueOn = proofOfAuthorizationRequest.dueOn
+            id = proofOfAuthorizationRequest.id
+            type = proofOfAuthorizationRequest.type
+            updatedAt = proofOfAuthorizationRequest.updatedAt
+            additionalProperties = proofOfAuthorizationRequest.additionalProperties.toMutableMap()
         }
 
         /** The ACH Transfers associated with the request. */
@@ -176,16 +176,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): ProofOfAuthorizationRequest =
@@ -208,8 +214,6 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         /** The ACH Transfer identifier. */
         fun id(): String = id.getRequired("id")
 
@@ -219,6 +223,8 @@ private constructor(
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
 
         fun validate(): AchTransfer = apply {
             if (!validated) {
@@ -241,8 +247,8 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(achTransfer: AchTransfer) = apply {
-                this.id = achTransfer.id
-                additionalProperties(achTransfer.additionalProperties)
+                id = achTransfer.id
+                additionalProperties = achTransfer.additionalProperties.toMutableMap()
             }
 
             /** The ACH Transfer identifier. */
@@ -255,16 +261,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): AchTransfer = AchTransfer(id, additionalProperties.toImmutable())

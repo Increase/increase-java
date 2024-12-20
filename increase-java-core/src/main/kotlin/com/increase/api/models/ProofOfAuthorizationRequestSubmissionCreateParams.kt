@@ -90,61 +90,62 @@ constructor(
     @NoAutoDetect
     class ProofOfAuthorizationRequestSubmissionCreateBody
     internal constructor(
-        private val authorizationTerms: String?,
-        private val authorizedAt: OffsetDateTime?,
-        private val authorizerEmail: String?,
-        private val authorizerName: String?,
-        private val customerHasBeenOffboarded: Boolean?,
-        private val proofOfAuthorizationRequestId: String?,
-        private val validatedAccountOwnershipViaCredential: Boolean?,
-        private val validatedAccountOwnershipWithAccountStatement: Boolean?,
-        private val validatedAccountOwnershipWithMicrodeposit: Boolean?,
+        private val authorizationTerms: String,
+        private val authorizedAt: OffsetDateTime,
+        private val authorizerEmail: String,
+        private val authorizerName: String,
+        private val customerHasBeenOffboarded: Boolean,
+        private val proofOfAuthorizationRequestId: String,
+        private val validatedAccountOwnershipViaCredential: Boolean,
+        private val validatedAccountOwnershipWithAccountStatement: Boolean,
+        private val validatedAccountOwnershipWithMicrodeposit: Boolean,
         private val authorizerCompany: String?,
         private val authorizerIpAddress: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /** Terms of authorization. */
-        @JsonProperty("authorization_terms") fun authorizationTerms(): String? = authorizationTerms
+        @JsonProperty("authorization_terms") fun authorizationTerms(): String = authorizationTerms
 
         /** Time of authorization. */
-        @JsonProperty("authorized_at") fun authorizedAt(): OffsetDateTime? = authorizedAt
+        @JsonProperty("authorized_at") fun authorizedAt(): OffsetDateTime = authorizedAt
 
         /** Email of the authorizer. */
-        @JsonProperty("authorizer_email") fun authorizerEmail(): String? = authorizerEmail
+        @JsonProperty("authorizer_email") fun authorizerEmail(): String = authorizerEmail
 
         /** Name of the authorizer. */
-        @JsonProperty("authorizer_name") fun authorizerName(): String? = authorizerName
+        @JsonProperty("authorizer_name") fun authorizerName(): String = authorizerName
 
         /** Whether the customer has been offboarded or suspended. */
         @JsonProperty("customer_has_been_offboarded")
-        fun customerHasBeenOffboarded(): Boolean? = customerHasBeenOffboarded
+        fun customerHasBeenOffboarded(): Boolean = customerHasBeenOffboarded
 
         /** ID of the proof of authorization request. */
         @JsonProperty("proof_of_authorization_request_id")
-        fun proofOfAuthorizationRequestId(): String? = proofOfAuthorizationRequestId
+        fun proofOfAuthorizationRequestId(): String = proofOfAuthorizationRequestId
 
         /** Whether the account ownership was validated via credential (e.g. Plaid). */
         @JsonProperty("validated_account_ownership_via_credential")
-        fun validatedAccountOwnershipViaCredential(): Boolean? =
+        fun validatedAccountOwnershipViaCredential(): Boolean =
             validatedAccountOwnershipViaCredential
 
         /** Whether the account ownership was validated with an account statement. */
         @JsonProperty("validated_account_ownership_with_account_statement")
-        fun validatedAccountOwnershipWithAccountStatement(): Boolean? =
+        fun validatedAccountOwnershipWithAccountStatement(): Boolean =
             validatedAccountOwnershipWithAccountStatement
 
         /** Whether the account ownership was validated with a microdeposit. */
         @JsonProperty("validated_account_ownership_with_microdeposit")
-        fun validatedAccountOwnershipWithMicrodeposit(): Boolean? =
+        fun validatedAccountOwnershipWithMicrodeposit(): Boolean =
             validatedAccountOwnershipWithMicrodeposit
 
         /** Company of the authorizer. */
-        @JsonProperty("authorizer_company") fun authorizerCompany(): String? = authorizerCompany
+        @JsonProperty("authorizer_company")
+        fun authorizerCompany(): Optional<String> = Optional.ofNullable(authorizerCompany)
 
         /** IP address of the authorizer. */
         @JsonProperty("authorizer_ip_address")
-        fun authorizerIpAddress(): String? = authorizerIpAddress
+        fun authorizerIpAddress(): Optional<String> = Optional.ofNullable(authorizerIpAddress)
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -177,32 +178,31 @@ constructor(
                 proofOfAuthorizationRequestSubmissionCreateBody:
                     ProofOfAuthorizationRequestSubmissionCreateBody
             ) = apply {
-                this.authorizationTerms =
+                authorizationTerms =
                     proofOfAuthorizationRequestSubmissionCreateBody.authorizationTerms
-                this.authorizedAt = proofOfAuthorizationRequestSubmissionCreateBody.authorizedAt
-                this.authorizerEmail =
-                    proofOfAuthorizationRequestSubmissionCreateBody.authorizerEmail
-                this.authorizerName = proofOfAuthorizationRequestSubmissionCreateBody.authorizerName
-                this.customerHasBeenOffboarded =
+                authorizedAt = proofOfAuthorizationRequestSubmissionCreateBody.authorizedAt
+                authorizerEmail = proofOfAuthorizationRequestSubmissionCreateBody.authorizerEmail
+                authorizerName = proofOfAuthorizationRequestSubmissionCreateBody.authorizerName
+                customerHasBeenOffboarded =
                     proofOfAuthorizationRequestSubmissionCreateBody.customerHasBeenOffboarded
-                this.proofOfAuthorizationRequestId =
+                proofOfAuthorizationRequestId =
                     proofOfAuthorizationRequestSubmissionCreateBody.proofOfAuthorizationRequestId
-                this.validatedAccountOwnershipViaCredential =
+                validatedAccountOwnershipViaCredential =
                     proofOfAuthorizationRequestSubmissionCreateBody
                         .validatedAccountOwnershipViaCredential
-                this.validatedAccountOwnershipWithAccountStatement =
+                validatedAccountOwnershipWithAccountStatement =
                     proofOfAuthorizationRequestSubmissionCreateBody
                         .validatedAccountOwnershipWithAccountStatement
-                this.validatedAccountOwnershipWithMicrodeposit =
+                validatedAccountOwnershipWithMicrodeposit =
                     proofOfAuthorizationRequestSubmissionCreateBody
                         .validatedAccountOwnershipWithMicrodeposit
-                this.authorizerCompany =
+                authorizerCompany =
                     proofOfAuthorizationRequestSubmissionCreateBody.authorizerCompany
-                this.authorizerIpAddress =
+                authorizerIpAddress =
                     proofOfAuthorizationRequestSubmissionCreateBody.authorizerIpAddress
-                additionalProperties(
+                additionalProperties =
                     proofOfAuthorizationRequestSubmissionCreateBody.additionalProperties
-                )
+                        .toMutableMap()
             }
 
             /** Terms of authorization. */
@@ -281,16 +281,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): ProofOfAuthorizationRequestSubmissionCreateBody =

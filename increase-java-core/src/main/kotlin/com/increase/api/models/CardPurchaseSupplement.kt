@@ -36,8 +36,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     /** The ID of the Card Payment this transaction belongs to. */
     fun cardPaymentId(): Optional<String> =
         Optional.ofNullable(cardPaymentId.getNullable("card_payment_id"))
@@ -86,6 +84,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): CardPurchaseSupplement = apply {
         if (!validated) {
             cardPaymentId()
@@ -117,13 +117,13 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(cardPurchaseSupplement: CardPurchaseSupplement) = apply {
-            this.cardPaymentId = cardPurchaseSupplement.cardPaymentId
-            this.id = cardPurchaseSupplement.id
-            this.invoice = cardPurchaseSupplement.invoice
-            this.lineItems = cardPurchaseSupplement.lineItems
-            this.transactionId = cardPurchaseSupplement.transactionId
-            this.type = cardPurchaseSupplement.type
-            additionalProperties(cardPurchaseSupplement.additionalProperties)
+            cardPaymentId = cardPurchaseSupplement.cardPaymentId
+            id = cardPurchaseSupplement.id
+            invoice = cardPurchaseSupplement.invoice
+            lineItems = cardPurchaseSupplement.lineItems
+            transactionId = cardPurchaseSupplement.transactionId
+            type = cardPurchaseSupplement.type
+            additionalProperties = cardPurchaseSupplement.additionalProperties.toMutableMap()
         }
 
         /** The ID of the Card Payment this transaction belongs to. */
@@ -184,16 +184,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): CardPurchaseSupplement =
@@ -231,8 +237,6 @@ private constructor(
         private val uniqueValueAddedTaxInvoiceReference: JsonField<String>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
-
-        private var validated: Boolean = false
 
         /** Discount given to cardholder. */
         fun discountAmount(): Optional<Long> =
@@ -376,6 +380,8 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+        private var validated: Boolean = false
+
         fun validate(): Invoice = apply {
             if (!validated) {
                 discountAmount()
@@ -427,24 +433,23 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(invoice: Invoice) = apply {
-                this.discountAmount = invoice.discountAmount
-                this.discountCurrency = invoice.discountCurrency
-                this.discountTreatmentCode = invoice.discountTreatmentCode
-                this.dutyTaxAmount = invoice.dutyTaxAmount
-                this.dutyTaxCurrency = invoice.dutyTaxCurrency
-                this.orderDate = invoice.orderDate
-                this.shippingAmount = invoice.shippingAmount
-                this.shippingCurrency = invoice.shippingCurrency
-                this.shippingDestinationCountryCode = invoice.shippingDestinationCountryCode
-                this.shippingDestinationPostalCode = invoice.shippingDestinationPostalCode
-                this.shippingSourcePostalCode = invoice.shippingSourcePostalCode
-                this.shippingTaxAmount = invoice.shippingTaxAmount
-                this.shippingTaxCurrency = invoice.shippingTaxCurrency
-                this.shippingTaxRate = invoice.shippingTaxRate
-                this.taxTreatments = invoice.taxTreatments
-                this.uniqueValueAddedTaxInvoiceReference =
-                    invoice.uniqueValueAddedTaxInvoiceReference
-                additionalProperties(invoice.additionalProperties)
+                discountAmount = invoice.discountAmount
+                discountCurrency = invoice.discountCurrency
+                discountTreatmentCode = invoice.discountTreatmentCode
+                dutyTaxAmount = invoice.dutyTaxAmount
+                dutyTaxCurrency = invoice.dutyTaxCurrency
+                orderDate = invoice.orderDate
+                shippingAmount = invoice.shippingAmount
+                shippingCurrency = invoice.shippingCurrency
+                shippingDestinationCountryCode = invoice.shippingDestinationCountryCode
+                shippingDestinationPostalCode = invoice.shippingDestinationPostalCode
+                shippingSourcePostalCode = invoice.shippingSourcePostalCode
+                shippingTaxAmount = invoice.shippingTaxAmount
+                shippingTaxCurrency = invoice.shippingTaxCurrency
+                shippingTaxRate = invoice.shippingTaxRate
+                taxTreatments = invoice.taxTreatments
+                uniqueValueAddedTaxInvoiceReference = invoice.uniqueValueAddedTaxInvoiceReference
+                additionalProperties = invoice.additionalProperties.toMutableMap()
             }
 
             /** Discount given to cardholder. */
@@ -630,16 +635,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Invoice =
@@ -854,8 +865,6 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         /** Indicates the type of line item. */
         fun detailIndicator(): Optional<DetailIndicator> =
             Optional.ofNullable(detailIndicator.getNullable("detail_indicator"))
@@ -995,6 +1004,8 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+        private var validated: Boolean = false
+
         fun validate(): LineItem = apply {
             if (!validated) {
                 detailIndicator()
@@ -1048,24 +1059,24 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(lineItem: LineItem) = apply {
-                this.detailIndicator = lineItem.detailIndicator
-                this.discountAmount = lineItem.discountAmount
-                this.discountCurrency = lineItem.discountCurrency
-                this.discountTreatmentCode = lineItem.discountTreatmentCode
-                this.id = lineItem.id
-                this.itemCommodityCode = lineItem.itemCommodityCode
-                this.itemDescriptor = lineItem.itemDescriptor
-                this.itemQuantity = lineItem.itemQuantity
-                this.productCode = lineItem.productCode
-                this.salesTaxAmount = lineItem.salesTaxAmount
-                this.salesTaxCurrency = lineItem.salesTaxCurrency
-                this.salesTaxRate = lineItem.salesTaxRate
-                this.totalAmount = lineItem.totalAmount
-                this.totalAmountCurrency = lineItem.totalAmountCurrency
-                this.unitCost = lineItem.unitCost
-                this.unitCostCurrency = lineItem.unitCostCurrency
-                this.unitOfMeasureCode = lineItem.unitOfMeasureCode
-                additionalProperties(lineItem.additionalProperties)
+                detailIndicator = lineItem.detailIndicator
+                discountAmount = lineItem.discountAmount
+                discountCurrency = lineItem.discountCurrency
+                discountTreatmentCode = lineItem.discountTreatmentCode
+                id = lineItem.id
+                itemCommodityCode = lineItem.itemCommodityCode
+                itemDescriptor = lineItem.itemDescriptor
+                itemQuantity = lineItem.itemQuantity
+                productCode = lineItem.productCode
+                salesTaxAmount = lineItem.salesTaxAmount
+                salesTaxCurrency = lineItem.salesTaxCurrency
+                salesTaxRate = lineItem.salesTaxRate
+                totalAmount = lineItem.totalAmount
+                totalAmountCurrency = lineItem.totalAmountCurrency
+                unitCost = lineItem.unitCost
+                unitCostCurrency = lineItem.unitCostCurrency
+                unitOfMeasureCode = lineItem.unitOfMeasureCode
+                additionalProperties = lineItem.additionalProperties.toMutableMap()
             }
 
             /** Indicates the type of line item. */
@@ -1250,16 +1261,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): LineItem =

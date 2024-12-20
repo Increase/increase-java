@@ -57,12 +57,12 @@ constructor(
     @NoAutoDetect
     class PhysicalCardUpdateBody
     internal constructor(
-        private val status: Status?,
+        private val status: Status,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /** The status to update the Physical Card to. */
-        @JsonProperty("status") fun status(): Status? = status
+        @JsonProperty("status") fun status(): Status = status
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -82,8 +82,8 @@ constructor(
 
             @JvmSynthetic
             internal fun from(physicalCardUpdateBody: PhysicalCardUpdateBody) = apply {
-                this.status = physicalCardUpdateBody.status
-                additionalProperties(physicalCardUpdateBody.additionalProperties)
+                status = physicalCardUpdateBody.status
+                additionalProperties = physicalCardUpdateBody.additionalProperties.toMutableMap()
             }
 
             /** The status to update the Physical Card to. */
@@ -91,16 +91,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): PhysicalCardUpdateBody =

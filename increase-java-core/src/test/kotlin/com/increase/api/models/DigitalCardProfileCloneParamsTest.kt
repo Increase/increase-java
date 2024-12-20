@@ -48,16 +48,16 @@ class DigitalCardProfileCloneParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.appIconFileId()).isEqualTo("app_icon_file_id")
-        assertThat(body.backgroundImageFileId()).isEqualTo("file_1ai913suu1zfn1pdetru")
-        assertThat(body.cardDescription()).isEqualTo("x")
-        assertThat(body.contactEmail()).isEqualTo("x")
-        assertThat(body.contactPhone()).isEqualTo("x")
-        assertThat(body.contactWebsite()).isEqualTo("contact_website")
-        assertThat(body.description()).isEqualTo("x")
-        assertThat(body.issuerName()).isEqualTo("x")
+        assertThat(body.appIconFileId()).contains("app_icon_file_id")
+        assertThat(body.backgroundImageFileId()).contains("file_1ai913suu1zfn1pdetru")
+        assertThat(body.cardDescription()).contains("x")
+        assertThat(body.contactEmail()).contains("x")
+        assertThat(body.contactPhone()).contains("x")
+        assertThat(body.contactWebsite()).contains("contact_website")
+        assertThat(body.description()).contains("x")
+        assertThat(body.issuerName()).contains("x")
         assertThat(body.textColor())
-            .isEqualTo(
+            .contains(
                 DigitalCardProfileCloneParams.TextColor.builder().blue(0L).green(0L).red(0L).build()
             )
     }

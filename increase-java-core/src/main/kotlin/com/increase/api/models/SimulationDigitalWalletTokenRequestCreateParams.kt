@@ -43,12 +43,12 @@ constructor(
     @NoAutoDetect
     class SimulationDigitalWalletTokenRequestCreateBody
     internal constructor(
-        private val cardId: String?,
+        private val cardId: String,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /** The identifier of the Card to be authorized. */
-        @JsonProperty("card_id") fun cardId(): String? = cardId
+        @JsonProperty("card_id") fun cardId(): String = cardId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -71,10 +71,10 @@ constructor(
                 simulationDigitalWalletTokenRequestCreateBody:
                     SimulationDigitalWalletTokenRequestCreateBody
             ) = apply {
-                this.cardId = simulationDigitalWalletTokenRequestCreateBody.cardId
-                additionalProperties(
+                cardId = simulationDigitalWalletTokenRequestCreateBody.cardId
+                additionalProperties =
                     simulationDigitalWalletTokenRequestCreateBody.additionalProperties
-                )
+                        .toMutableMap()
             }
 
             /** The identifier of the Card to be authorized. */
@@ -82,16 +82,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): SimulationDigitalWalletTokenRequestCreateBody =

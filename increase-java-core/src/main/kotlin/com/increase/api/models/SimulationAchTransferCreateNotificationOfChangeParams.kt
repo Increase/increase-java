@@ -64,16 +64,16 @@ constructor(
     @NoAutoDetect
     class SimulationAchTransferCreateNotificationOfChangeBody
     internal constructor(
-        private val changeCode: ChangeCode?,
-        private val correctedData: String?,
+        private val changeCode: ChangeCode,
+        private val correctedData: String,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /** The reason for the notification of change. */
-        @JsonProperty("change_code") fun changeCode(): ChangeCode? = changeCode
+        @JsonProperty("change_code") fun changeCode(): ChangeCode = changeCode
 
         /** The corrected data for the notification of change (e.g., a new routing number). */
-        @JsonProperty("corrected_data") fun correctedData(): String? = correctedData
+        @JsonProperty("corrected_data") fun correctedData(): String = correctedData
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -97,12 +97,11 @@ constructor(
                 simulationAchTransferCreateNotificationOfChangeBody:
                     SimulationAchTransferCreateNotificationOfChangeBody
             ) = apply {
-                this.changeCode = simulationAchTransferCreateNotificationOfChangeBody.changeCode
-                this.correctedData =
-                    simulationAchTransferCreateNotificationOfChangeBody.correctedData
-                additionalProperties(
+                changeCode = simulationAchTransferCreateNotificationOfChangeBody.changeCode
+                correctedData = simulationAchTransferCreateNotificationOfChangeBody.correctedData
+                additionalProperties =
                     simulationAchTransferCreateNotificationOfChangeBody.additionalProperties
-                )
+                        .toMutableMap()
             }
 
             /** The reason for the notification of change. */
@@ -115,16 +114,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): SimulationAchTransferCreateNotificationOfChangeBody =

@@ -55,8 +55,8 @@ constructor(
     @NoAutoDetect
     class CardDisputeCreateBody
     internal constructor(
-        private val disputedTransactionId: String?,
-        private val explanation: String?,
+        private val disputedTransactionId: String,
+        private val explanation: String,
         private val amount: Long?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
@@ -66,17 +66,17 @@ constructor(
          * `card_settlement`.
          */
         @JsonProperty("disputed_transaction_id")
-        fun disputedTransactionId(): String? = disputedTransactionId
+        fun disputedTransactionId(): String = disputedTransactionId
 
         /** Why you are disputing this Transaction. */
-        @JsonProperty("explanation") fun explanation(): String? = explanation
+        @JsonProperty("explanation") fun explanation(): String = explanation
 
         /**
          * The monetary amount of the part of the transaction that is being disputed. This is
          * optional and will default to the full amount of the transaction if not provided. If
          * provided, the amount must be less than or equal to the amount of the transaction.
          */
-        @JsonProperty("amount") fun amount(): Long? = amount
+        @JsonProperty("amount") fun amount(): Optional<Long> = Optional.ofNullable(amount)
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -98,10 +98,10 @@ constructor(
 
             @JvmSynthetic
             internal fun from(cardDisputeCreateBody: CardDisputeCreateBody) = apply {
-                this.disputedTransactionId = cardDisputeCreateBody.disputedTransactionId
-                this.explanation = cardDisputeCreateBody.explanation
-                this.amount = cardDisputeCreateBody.amount
-                additionalProperties(cardDisputeCreateBody.additionalProperties)
+                disputedTransactionId = cardDisputeCreateBody.disputedTransactionId
+                explanation = cardDisputeCreateBody.explanation
+                amount = cardDisputeCreateBody.amount
+                additionalProperties = cardDisputeCreateBody.additionalProperties.toMutableMap()
             }
 
             /**
@@ -126,16 +126,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): CardDisputeCreateBody =

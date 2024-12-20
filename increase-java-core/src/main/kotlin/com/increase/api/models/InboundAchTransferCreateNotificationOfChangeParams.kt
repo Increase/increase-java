@@ -68,11 +68,11 @@ constructor(
 
         /** The updated account number to send in the notification of change. */
         @JsonProperty("updated_account_number")
-        fun updatedAccountNumber(): String? = updatedAccountNumber
+        fun updatedAccountNumber(): Optional<String> = Optional.ofNullable(updatedAccountNumber)
 
         /** The updated routing number to send in the notification of change. */
         @JsonProperty("updated_routing_number")
-        fun updatedRoutingNumber(): String? = updatedRoutingNumber
+        fun updatedRoutingNumber(): Optional<String> = Optional.ofNullable(updatedRoutingNumber)
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -96,13 +96,13 @@ constructor(
                 inboundAchTransferCreateNotificationOfChangeBody:
                     InboundAchTransferCreateNotificationOfChangeBody
             ) = apply {
-                this.updatedAccountNumber =
+                updatedAccountNumber =
                     inboundAchTransferCreateNotificationOfChangeBody.updatedAccountNumber
-                this.updatedRoutingNumber =
+                updatedRoutingNumber =
                     inboundAchTransferCreateNotificationOfChangeBody.updatedRoutingNumber
-                additionalProperties(
+                additionalProperties =
                     inboundAchTransferCreateNotificationOfChangeBody.additionalProperties
-                )
+                        .toMutableMap()
             }
 
             /** The updated account number to send in the notification of change. */
@@ -119,16 +119,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): InboundAchTransferCreateNotificationOfChangeBody =

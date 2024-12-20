@@ -55,23 +55,24 @@ constructor(
     @NoAutoDetect
     class SimulationInboundMailItemCreateBody
     internal constructor(
-        private val amount: Long?,
-        private val lockboxId: String?,
+        private val amount: Long,
+        private val lockboxId: String,
         private val contentsFileId: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /** The amount of the check to be simulated, in cents. */
-        @JsonProperty("amount") fun amount(): Long? = amount
+        @JsonProperty("amount") fun amount(): Long = amount
 
         /** The identifier of the Lockbox to simulate inbound mail to. */
-        @JsonProperty("lockbox_id") fun lockboxId(): String? = lockboxId
+        @JsonProperty("lockbox_id") fun lockboxId(): String = lockboxId
 
         /**
          * The file containing the PDF contents. If not present, a default check image file will be
          * used.
          */
-        @JsonProperty("contents_file_id") fun contentsFileId(): String? = contentsFileId
+        @JsonProperty("contents_file_id")
+        fun contentsFileId(): Optional<String> = Optional.ofNullable(contentsFileId)
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -95,10 +96,11 @@ constructor(
             internal fun from(
                 simulationInboundMailItemCreateBody: SimulationInboundMailItemCreateBody
             ) = apply {
-                this.amount = simulationInboundMailItemCreateBody.amount
-                this.lockboxId = simulationInboundMailItemCreateBody.lockboxId
-                this.contentsFileId = simulationInboundMailItemCreateBody.contentsFileId
-                additionalProperties(simulationInboundMailItemCreateBody.additionalProperties)
+                amount = simulationInboundMailItemCreateBody.amount
+                lockboxId = simulationInboundMailItemCreateBody.lockboxId
+                contentsFileId = simulationInboundMailItemCreateBody.contentsFileId
+                additionalProperties =
+                    simulationInboundMailItemCreateBody.additionalProperties.toMutableMap()
             }
 
             /** The amount of the check to be simulated, in cents. */
@@ -119,16 +121,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): SimulationInboundMailItemCreateBody =

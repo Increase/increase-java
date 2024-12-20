@@ -38,8 +38,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     /** The identifier of the Increase Account being swept into the network. */
     fun accountId(): String = accountId.getRequired("account_id")
 
@@ -107,6 +105,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): IntrafiAccountEnrollment = apply {
         if (!validated) {
             accountId()
@@ -138,13 +138,13 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(intrafiAccountEnrollment: IntrafiAccountEnrollment) = apply {
-            this.accountId = intrafiAccountEnrollment.accountId
-            this.id = intrafiAccountEnrollment.id
-            this.idempotencyKey = intrafiAccountEnrollment.idempotencyKey
-            this.intrafiId = intrafiAccountEnrollment.intrafiId
-            this.status = intrafiAccountEnrollment.status
-            this.type = intrafiAccountEnrollment.type
-            additionalProperties(intrafiAccountEnrollment.additionalProperties)
+            accountId = intrafiAccountEnrollment.accountId
+            id = intrafiAccountEnrollment.id
+            idempotencyKey = intrafiAccountEnrollment.idempotencyKey
+            intrafiId = intrafiAccountEnrollment.intrafiId
+            status = intrafiAccountEnrollment.status
+            type = intrafiAccountEnrollment.type
+            additionalProperties = intrafiAccountEnrollment.additionalProperties.toMutableMap()
         }
 
         /** The identifier of the Increase Account being swept into the network. */
@@ -223,16 +223,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): IntrafiAccountEnrollment =

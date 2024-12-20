@@ -50,16 +50,16 @@ constructor(
     @NoAutoDetect
     class IntrafiExclusionCreateBody
     internal constructor(
-        private val bankName: String?,
-        private val entityId: String?,
+        private val bankName: String,
+        private val entityId: String,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /** The name of the financial institution to be excluded. */
-        @JsonProperty("bank_name") fun bankName(): String? = bankName
+        @JsonProperty("bank_name") fun bankName(): String = bankName
 
         /** The identifier of the Entity whose deposits will be excluded. */
-        @JsonProperty("entity_id") fun entityId(): String? = entityId
+        @JsonProperty("entity_id") fun entityId(): String = entityId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -80,9 +80,10 @@ constructor(
 
             @JvmSynthetic
             internal fun from(intrafiExclusionCreateBody: IntrafiExclusionCreateBody) = apply {
-                this.bankName = intrafiExclusionCreateBody.bankName
-                this.entityId = intrafiExclusionCreateBody.entityId
-                additionalProperties(intrafiExclusionCreateBody.additionalProperties)
+                bankName = intrafiExclusionCreateBody.bankName
+                entityId = intrafiExclusionCreateBody.entityId
+                additionalProperties =
+                    intrafiExclusionCreateBody.additionalProperties.toMutableMap()
             }
 
             /** The name of the financial institution to be excluded. */
@@ -95,16 +96,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): IntrafiExclusionCreateBody =

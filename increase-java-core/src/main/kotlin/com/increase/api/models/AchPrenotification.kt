@@ -46,8 +46,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     /** The destination account number. */
     fun accountNumber(): String = accountNumber.getRequired("account_number")
 
@@ -195,6 +193,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): AchPrenotification = apply {
         if (!validated) {
             accountNumber()
@@ -246,23 +246,23 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(achPrenotification: AchPrenotification) = apply {
-            this.accountNumber = achPrenotification.accountNumber
-            this.addendum = achPrenotification.addendum
-            this.companyDescriptiveDate = achPrenotification.companyDescriptiveDate
-            this.companyDiscretionaryData = achPrenotification.companyDiscretionaryData
-            this.companyEntryDescription = achPrenotification.companyEntryDescription
-            this.companyName = achPrenotification.companyName
-            this.createdAt = achPrenotification.createdAt
-            this.creditDebitIndicator = achPrenotification.creditDebitIndicator
-            this.effectiveDate = achPrenotification.effectiveDate
-            this.id = achPrenotification.id
-            this.idempotencyKey = achPrenotification.idempotencyKey
-            this.notificationsOfChange = achPrenotification.notificationsOfChange
-            this.prenotificationReturn = achPrenotification.prenotificationReturn
-            this.routingNumber = achPrenotification.routingNumber
-            this.status = achPrenotification.status
-            this.type = achPrenotification.type
-            additionalProperties(achPrenotification.additionalProperties)
+            accountNumber = achPrenotification.accountNumber
+            addendum = achPrenotification.addendum
+            companyDescriptiveDate = achPrenotification.companyDescriptiveDate
+            companyDiscretionaryData = achPrenotification.companyDiscretionaryData
+            companyEntryDescription = achPrenotification.companyEntryDescription
+            companyName = achPrenotification.companyName
+            createdAt = achPrenotification.createdAt
+            creditDebitIndicator = achPrenotification.creditDebitIndicator
+            effectiveDate = achPrenotification.effectiveDate
+            id = achPrenotification.id
+            idempotencyKey = achPrenotification.idempotencyKey
+            notificationsOfChange = achPrenotification.notificationsOfChange
+            prenotificationReturn = achPrenotification.prenotificationReturn
+            routingNumber = achPrenotification.routingNumber
+            status = achPrenotification.status
+            type = achPrenotification.type
+            additionalProperties = achPrenotification.additionalProperties.toMutableMap()
         }
 
         /** The destination account number. */
@@ -447,16 +447,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): AchPrenotification =
@@ -548,8 +554,6 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         /**
          * The required type of change that is being signaled by the receiving financial
          * institution.
@@ -596,6 +600,8 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+        private var validated: Boolean = false
+
         fun validate(): NotificationsOfChange = apply {
             if (!validated) {
                 changeCode()
@@ -621,10 +627,10 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(notificationsOfChange: NotificationsOfChange) = apply {
-                this.changeCode = notificationsOfChange.changeCode
-                this.correctedData = notificationsOfChange.correctedData
-                this.createdAt = notificationsOfChange.createdAt
-                additionalProperties(notificationsOfChange.additionalProperties)
+                changeCode = notificationsOfChange.changeCode
+                correctedData = notificationsOfChange.correctedData
+                createdAt = notificationsOfChange.createdAt
+                additionalProperties = notificationsOfChange.additionalProperties.toMutableMap()
             }
 
             /**
@@ -683,16 +689,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): NotificationsOfChange =
@@ -943,8 +955,6 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
          * Prenotification was returned.
@@ -970,6 +980,8 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+        private var validated: Boolean = false
+
         fun validate(): PrenotificationReturn = apply {
             if (!validated) {
                 createdAt()
@@ -993,9 +1005,9 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(prenotificationReturn: PrenotificationReturn) = apply {
-                this.createdAt = prenotificationReturn.createdAt
-                this.returnReasonCode = prenotificationReturn.returnReasonCode
-                additionalProperties(prenotificationReturn.additionalProperties)
+                createdAt = prenotificationReturn.createdAt
+                returnReasonCode = prenotificationReturn.returnReasonCode
+                additionalProperties = prenotificationReturn.additionalProperties.toMutableMap()
             }
 
             /**
@@ -1027,16 +1039,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): PrenotificationReturn =

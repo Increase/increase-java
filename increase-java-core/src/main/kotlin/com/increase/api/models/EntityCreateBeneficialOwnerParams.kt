@@ -18,6 +18,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.LocalDate
 import java.util.Objects
+import java.util.Optional
 
 class EntityCreateBeneficialOwnerParams
 constructor(
@@ -58,14 +59,14 @@ constructor(
     @NoAutoDetect
     class EntityCreateBeneficialOwnerBody
     internal constructor(
-        private val beneficialOwner: BeneficialOwner?,
+        private val beneficialOwner: BeneficialOwner,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /**
          * The identifying details of anyone controlling or owning 25% or more of the corporation.
          */
-        @JsonProperty("beneficial_owner") fun beneficialOwner(): BeneficialOwner? = beneficialOwner
+        @JsonProperty("beneficial_owner") fun beneficialOwner(): BeneficialOwner = beneficialOwner
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -86,8 +87,9 @@ constructor(
             @JvmSynthetic
             internal fun from(entityCreateBeneficialOwnerBody: EntityCreateBeneficialOwnerBody) =
                 apply {
-                    this.beneficialOwner = entityCreateBeneficialOwnerBody.beneficialOwner
-                    additionalProperties(entityCreateBeneficialOwnerBody.additionalProperties)
+                    beneficialOwner = entityCreateBeneficialOwnerBody.beneficialOwner
+                    additionalProperties =
+                        entityCreateBeneficialOwnerBody.additionalProperties.toMutableMap()
                 }
 
             /**
@@ -101,16 +103,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): EntityCreateBeneficialOwnerBody =
@@ -314,23 +322,24 @@ constructor(
     class BeneficialOwner
     private constructor(
         private val companyTitle: String?,
-        private val individual: Individual?,
-        private val prongs: List<Prong>?,
+        private val individual: Individual,
+        private val prongs: List<Prong>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /** This person's role or title within the entity. */
-        @JsonProperty("company_title") fun companyTitle(): String? = companyTitle
+        @JsonProperty("company_title")
+        fun companyTitle(): Optional<String> = Optional.ofNullable(companyTitle)
 
         /** Personal details for the beneficial owner. */
-        @JsonProperty("individual") fun individual(): Individual? = individual
+        @JsonProperty("individual") fun individual(): Individual = individual
 
         /**
          * Why this person is considered a beneficial owner of the entity. At least one option is
          * required, if a person is both a control person and owner, submit an array containing
          * both.
          */
-        @JsonProperty("prongs") fun prongs(): List<Prong>? = prongs
+        @JsonProperty("prongs") fun prongs(): List<Prong> = prongs
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -352,10 +361,10 @@ constructor(
 
             @JvmSynthetic
             internal fun from(beneficialOwner: BeneficialOwner) = apply {
-                this.companyTitle = beneficialOwner.companyTitle
-                this.individual = beneficialOwner.individual
-                this.prongs = beneficialOwner.prongs
-                additionalProperties(beneficialOwner.additionalProperties)
+                companyTitle = beneficialOwner.companyTitle
+                individual = beneficialOwner.individual
+                prongs = beneficialOwner.prongs.toMutableList()
+                additionalProperties = beneficialOwner.additionalProperties.toMutableMap()
             }
 
             /** This person's role or title within the entity. */
@@ -375,16 +384,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): BeneficialOwner =
@@ -401,11 +416,11 @@ constructor(
         @NoAutoDetect
         class Individual
         private constructor(
-            private val address: Address?,
+            private val address: Address,
             private val confirmedNoUsTaxId: Boolean?,
-            private val dateOfBirth: LocalDate?,
-            private val identification: Identification?,
-            private val name: String?,
+            private val dateOfBirth: LocalDate,
+            private val identification: Identification,
+            private val name: String,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
@@ -413,7 +428,7 @@ constructor(
              * The individual's physical address. Mail receiving locations like PO Boxes and PMB's
              * are disallowed.
              */
-            @JsonProperty("address") fun address(): Address? = address
+            @JsonProperty("address") fun address(): Address = address
 
             /**
              * The identification method for an individual can only be a passport, driver's license,
@@ -421,16 +436,16 @@ constructor(
              * (either a Social Security Number or Individual Taxpayer Identification Number).
              */
             @JsonProperty("confirmed_no_us_tax_id")
-            fun confirmedNoUsTaxId(): Boolean? = confirmedNoUsTaxId
+            fun confirmedNoUsTaxId(): Optional<Boolean> = Optional.ofNullable(confirmedNoUsTaxId)
 
             /** The person's date of birth in YYYY-MM-DD format. */
-            @JsonProperty("date_of_birth") fun dateOfBirth(): LocalDate? = dateOfBirth
+            @JsonProperty("date_of_birth") fun dateOfBirth(): LocalDate = dateOfBirth
 
             /** A means of verifying the person's identity. */
-            @JsonProperty("identification") fun identification(): Identification? = identification
+            @JsonProperty("identification") fun identification(): Identification = identification
 
             /** The person's legal name. */
-            @JsonProperty("name") fun name(): String? = name
+            @JsonProperty("name") fun name(): String = name
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -454,12 +469,12 @@ constructor(
 
                 @JvmSynthetic
                 internal fun from(individual: Individual) = apply {
-                    this.address = individual.address
-                    this.confirmedNoUsTaxId = individual.confirmedNoUsTaxId
-                    this.dateOfBirth = individual.dateOfBirth
-                    this.identification = individual.identification
-                    this.name = individual.name
-                    additionalProperties(individual.additionalProperties)
+                    address = individual.address
+                    confirmedNoUsTaxId = individual.confirmedNoUsTaxId
+                    dateOfBirth = individual.dateOfBirth
+                    identification = individual.identification
+                    name = individual.name
+                    additionalProperties = individual.additionalProperties.toMutableMap()
                 }
 
                 /**
@@ -495,18 +510,26 @@ constructor(
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): Individual =
                     Individual(
@@ -529,31 +552,31 @@ constructor(
             @NoAutoDetect
             class Address
             private constructor(
-                private val city: String?,
-                private val line1: String?,
+                private val city: String,
+                private val line1: String,
                 private val line2: String?,
-                private val state: String?,
-                private val zip: String?,
+                private val state: String,
+                private val zip: String,
                 private val additionalProperties: Map<String, JsonValue>,
             ) {
 
                 /** The city of the address. */
-                @JsonProperty("city") fun city(): String? = city
+                @JsonProperty("city") fun city(): String = city
 
                 /** The first line of the address. This is usually the street number and street. */
-                @JsonProperty("line1") fun line1(): String? = line1
+                @JsonProperty("line1") fun line1(): String = line1
 
                 /** The second line of the address. This might be the floor or room number. */
-                @JsonProperty("line2") fun line2(): String? = line2
+                @JsonProperty("line2") fun line2(): Optional<String> = Optional.ofNullable(line2)
 
                 /**
                  * The two-letter United States Postal Service (USPS) abbreviation for the state of
                  * the address.
                  */
-                @JsonProperty("state") fun state(): String? = state
+                @JsonProperty("state") fun state(): String = state
 
                 /** The ZIP code of the address. */
-                @JsonProperty("zip") fun zip(): String? = zip
+                @JsonProperty("zip") fun zip(): String = zip
 
                 @JsonAnyGetter
                 @ExcludeMissing
@@ -577,12 +600,12 @@ constructor(
 
                     @JvmSynthetic
                     internal fun from(address: Address) = apply {
-                        this.city = address.city
-                        this.line1 = address.line1
-                        this.line2 = address.line2
-                        this.state = address.state
-                        this.zip = address.zip
-                        additionalProperties(address.additionalProperties)
+                        city = address.city
+                        line1 = address.line1
+                        line2 = address.line2
+                        state = address.state
+                        zip = address.zip
+                        additionalProperties = address.additionalProperties.toMutableMap()
                     }
 
                     /** The city of the address. */
@@ -607,18 +630,26 @@ constructor(
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
-                        this.additionalProperties.putAll(additionalProperties)
+                        putAllAdditionalProperties(additionalProperties)
                     }
 
                     @JsonAnySetter
                     fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        this.additionalProperties.put(key, value)
+                        additionalProperties.put(key, value)
                     }
 
                     fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                         apply {
                             this.additionalProperties.putAll(additionalProperties)
                         }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
 
                     fun build(): Address =
                         Address(
@@ -655,8 +686,8 @@ constructor(
             class Identification
             private constructor(
                 private val driversLicense: DriversLicense?,
-                private val method: Method?,
-                private val number: String?,
+                private val method: Method,
+                private val number: String,
                 private val other: Other?,
                 private val passport: Passport?,
                 private val additionalProperties: Map<String, JsonValue>,
@@ -667,28 +698,29 @@ constructor(
                  * Required if `method` is equal to `drivers_license`.
                  */
                 @JsonProperty("drivers_license")
-                fun driversLicense(): DriversLicense? = driversLicense
+                fun driversLicense(): Optional<DriversLicense> = Optional.ofNullable(driversLicense)
 
                 /** A method that can be used to verify the individual's identity. */
-                @JsonProperty("method") fun method(): Method? = method
+                @JsonProperty("method") fun method(): Method = method
 
                 /**
                  * An identification number that can be used to verify the individual's identity,
                  * such as a social security number.
                  */
-                @JsonProperty("number") fun number(): String? = number
+                @JsonProperty("number") fun number(): String = number
 
                 /**
                  * Information about the identification document provided. Required if `method` is
                  * equal to `other`.
                  */
-                @JsonProperty("other") fun other(): Other? = other
+                @JsonProperty("other") fun other(): Optional<Other> = Optional.ofNullable(other)
 
                 /**
                  * Information about the passport used for identification. Required if `method` is
                  * equal to `passport`.
                  */
-                @JsonProperty("passport") fun passport(): Passport? = passport
+                @JsonProperty("passport")
+                fun passport(): Optional<Passport> = Optional.ofNullable(passport)
 
                 @JsonAnyGetter
                 @ExcludeMissing
@@ -712,12 +744,12 @@ constructor(
 
                     @JvmSynthetic
                     internal fun from(identification: Identification) = apply {
-                        this.driversLicense = identification.driversLicense
-                        this.method = identification.method
-                        this.number = identification.number
-                        this.other = identification.other
-                        this.passport = identification.passport
-                        additionalProperties(identification.additionalProperties)
+                        driversLicense = identification.driversLicense
+                        method = identification.method
+                        number = identification.number
+                        other = identification.other
+                        passport = identification.passport
+                        additionalProperties = identification.additionalProperties.toMutableMap()
                     }
 
                     /**
@@ -755,18 +787,26 @@ constructor(
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
-                        this.additionalProperties.putAll(additionalProperties)
+                        putAllAdditionalProperties(additionalProperties)
                     }
 
                     @JsonAnySetter
                     fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        this.additionalProperties.put(key, value)
+                        additionalProperties.put(key, value)
                     }
 
                     fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                         apply {
                             this.additionalProperties.putAll(additionalProperties)
                         }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
 
                     fun build(): Identification =
                         Identification(
@@ -868,24 +908,25 @@ constructor(
                 class DriversLicense
                 private constructor(
                     private val backFileId: String?,
-                    private val expirationDate: LocalDate?,
-                    private val fileId: String?,
-                    private val state: String?,
+                    private val expirationDate: LocalDate,
+                    private val fileId: String,
+                    private val state: String,
                     private val additionalProperties: Map<String, JsonValue>,
                 ) {
 
                     /** The identifier of the File containing the back of the driver's license. */
-                    @JsonProperty("back_file_id") fun backFileId(): String? = backFileId
+                    @JsonProperty("back_file_id")
+                    fun backFileId(): Optional<String> = Optional.ofNullable(backFileId)
 
                     /** The driver's license's expiration date in YYYY-MM-DD format. */
                     @JsonProperty("expiration_date")
-                    fun expirationDate(): LocalDate? = expirationDate
+                    fun expirationDate(): LocalDate = expirationDate
 
                     /** The identifier of the File containing the front of the driver's license. */
-                    @JsonProperty("file_id") fun fileId(): String? = fileId
+                    @JsonProperty("file_id") fun fileId(): String = fileId
 
                     /** The state that issued the provided driver's license. */
-                    @JsonProperty("state") fun state(): String? = state
+                    @JsonProperty("state") fun state(): String = state
 
                     @JsonAnyGetter
                     @ExcludeMissing
@@ -909,11 +950,12 @@ constructor(
 
                         @JvmSynthetic
                         internal fun from(driversLicense: DriversLicense) = apply {
-                            this.backFileId = driversLicense.backFileId
-                            this.expirationDate = driversLicense.expirationDate
-                            this.fileId = driversLicense.fileId
-                            this.state = driversLicense.state
-                            additionalProperties(driversLicense.additionalProperties)
+                            backFileId = driversLicense.backFileId
+                            expirationDate = driversLicense.expirationDate
+                            fileId = driversLicense.fileId
+                            state = driversLicense.state
+                            additionalProperties =
+                                driversLicense.additionalProperties.toMutableMap()
                         }
 
                         /**
@@ -941,17 +983,25 @@ constructor(
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                             apply {
                                 this.additionalProperties.clear()
-                                this.additionalProperties.putAll(additionalProperties)
+                                putAllAdditionalProperties(additionalProperties)
                             }
 
                         @JsonAnySetter
                         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                            this.additionalProperties.put(key, value)
+                            additionalProperties.put(key, value)
                         }
 
                         fun putAllAdditionalProperties(
                             additionalProperties: Map<String, JsonValue>
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
 
                         fun build(): DriversLicense =
                             DriversLicense(
@@ -992,10 +1042,10 @@ constructor(
                 class Other
                 private constructor(
                     private val backFileId: String?,
-                    private val country: String?,
-                    private val description: String?,
+                    private val country: String,
+                    private val description: String,
                     private val expirationDate: LocalDate?,
-                    private val fileId: String?,
+                    private val fileId: String,
                     private val additionalProperties: Map<String, JsonValue>,
                 ) {
 
@@ -1003,23 +1053,24 @@ constructor(
                      * The identifier of the File containing the back of the document. Not every
                      * document has a reverse side.
                      */
-                    @JsonProperty("back_file_id") fun backFileId(): String? = backFileId
+                    @JsonProperty("back_file_id")
+                    fun backFileId(): Optional<String> = Optional.ofNullable(backFileId)
 
                     /**
                      * The two-character ISO 3166-1 code representing the country that issued the
                      * document.
                      */
-                    @JsonProperty("country") fun country(): String? = country
+                    @JsonProperty("country") fun country(): String = country
 
                     /** A description of the document submitted. */
-                    @JsonProperty("description") fun description(): String? = description
+                    @JsonProperty("description") fun description(): String = description
 
                     /** The document's expiration date in YYYY-MM-DD format. */
                     @JsonProperty("expiration_date")
-                    fun expirationDate(): LocalDate? = expirationDate
+                    fun expirationDate(): Optional<LocalDate> = Optional.ofNullable(expirationDate)
 
                     /** The identifier of the File containing the front of the document. */
-                    @JsonProperty("file_id") fun fileId(): String? = fileId
+                    @JsonProperty("file_id") fun fileId(): String = fileId
 
                     @JsonAnyGetter
                     @ExcludeMissing
@@ -1044,12 +1095,12 @@ constructor(
 
                         @JvmSynthetic
                         internal fun from(other: Other) = apply {
-                            this.backFileId = other.backFileId
-                            this.country = other.country
-                            this.description = other.description
-                            this.expirationDate = other.expirationDate
-                            this.fileId = other.fileId
-                            additionalProperties(other.additionalProperties)
+                            backFileId = other.backFileId
+                            country = other.country
+                            description = other.description
+                            expirationDate = other.expirationDate
+                            fileId = other.fileId
+                            additionalProperties = other.additionalProperties.toMutableMap()
                         }
 
                         /**
@@ -1085,17 +1136,25 @@ constructor(
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                             apply {
                                 this.additionalProperties.clear()
-                                this.additionalProperties.putAll(additionalProperties)
+                                putAllAdditionalProperties(additionalProperties)
                             }
 
                         @JsonAnySetter
                         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                            this.additionalProperties.put(key, value)
+                            additionalProperties.put(key, value)
                         }
 
                         fun putAllAdditionalProperties(
                             additionalProperties: Map<String, JsonValue>
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
 
                         fun build(): Other =
                             Other(
@@ -1136,21 +1195,21 @@ constructor(
                 @NoAutoDetect
                 class Passport
                 private constructor(
-                    private val country: String?,
-                    private val expirationDate: LocalDate?,
-                    private val fileId: String?,
+                    private val country: String,
+                    private val expirationDate: LocalDate,
+                    private val fileId: String,
                     private val additionalProperties: Map<String, JsonValue>,
                 ) {
 
                     /** The country that issued the passport. */
-                    @JsonProperty("country") fun country(): String? = country
+                    @JsonProperty("country") fun country(): String = country
 
                     /** The passport's expiration date in YYYY-MM-DD format. */
                     @JsonProperty("expiration_date")
-                    fun expirationDate(): LocalDate? = expirationDate
+                    fun expirationDate(): LocalDate = expirationDate
 
                     /** The identifier of the File containing the passport. */
-                    @JsonProperty("file_id") fun fileId(): String? = fileId
+                    @JsonProperty("file_id") fun fileId(): String = fileId
 
                     @JsonAnyGetter
                     @ExcludeMissing
@@ -1173,10 +1232,10 @@ constructor(
 
                         @JvmSynthetic
                         internal fun from(passport: Passport) = apply {
-                            this.country = passport.country
-                            this.expirationDate = passport.expirationDate
-                            this.fileId = passport.fileId
-                            additionalProperties(passport.additionalProperties)
+                            country = passport.country
+                            expirationDate = passport.expirationDate
+                            fileId = passport.fileId
+                            additionalProperties = passport.additionalProperties.toMutableMap()
                         }
 
                         /** The country that issued the passport. */
@@ -1196,17 +1255,25 @@ constructor(
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                             apply {
                                 this.additionalProperties.clear()
-                                this.additionalProperties.putAll(additionalProperties)
+                                putAllAdditionalProperties(additionalProperties)
                             }
 
                         @JsonAnySetter
                         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                            this.additionalProperties.put(key, value)
+                            additionalProperties.put(key, value)
                         }
 
                         fun putAllAdditionalProperties(
                             additionalProperties: Map<String, JsonValue>
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
 
                         fun build(): Passport =
                             Passport(

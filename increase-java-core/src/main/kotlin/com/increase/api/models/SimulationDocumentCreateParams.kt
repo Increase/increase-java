@@ -43,12 +43,12 @@ constructor(
     @NoAutoDetect
     class SimulationDocumentCreateBody
     internal constructor(
-        private val accountId: String?,
+        private val accountId: String,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /** The identifier of the Account the tax document is for. */
-        @JsonProperty("account_id") fun accountId(): String? = accountId
+        @JsonProperty("account_id") fun accountId(): String = accountId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -68,8 +68,9 @@ constructor(
 
             @JvmSynthetic
             internal fun from(simulationDocumentCreateBody: SimulationDocumentCreateBody) = apply {
-                this.accountId = simulationDocumentCreateBody.accountId
-                additionalProperties(simulationDocumentCreateBody.additionalProperties)
+                accountId = simulationDocumentCreateBody.accountId
+                additionalProperties =
+                    simulationDocumentCreateBody.additionalProperties.toMutableMap()
             }
 
             /** The identifier of the Account the tax document is for. */
@@ -78,16 +79,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): SimulationDocumentCreateBody =

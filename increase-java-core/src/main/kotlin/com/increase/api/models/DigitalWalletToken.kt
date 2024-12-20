@@ -35,8 +35,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     /** The identifier for the Card this Digital Wallet Token belongs to. */
     fun cardId(): String = cardId.getRequired("card_id")
 
@@ -89,6 +87,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): DigitalWalletToken = apply {
         if (!validated) {
             cardId()
@@ -120,13 +120,13 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(digitalWalletToken: DigitalWalletToken) = apply {
-            this.cardId = digitalWalletToken.cardId
-            this.createdAt = digitalWalletToken.createdAt
-            this.id = digitalWalletToken.id
-            this.status = digitalWalletToken.status
-            this.tokenRequestor = digitalWalletToken.tokenRequestor
-            this.type = digitalWalletToken.type
-            additionalProperties(digitalWalletToken.additionalProperties)
+            cardId = digitalWalletToken.cardId
+            createdAt = digitalWalletToken.createdAt
+            id = digitalWalletToken.id
+            status = digitalWalletToken.status
+            tokenRequestor = digitalWalletToken.tokenRequestor
+            type = digitalWalletToken.type
+            additionalProperties = digitalWalletToken.additionalProperties.toMutableMap()
         }
 
         /** The identifier for the Card this Digital Wallet Token belongs to. */
@@ -192,16 +192,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): DigitalWalletToken =

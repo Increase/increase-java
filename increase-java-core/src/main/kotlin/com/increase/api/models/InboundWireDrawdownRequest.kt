@@ -53,8 +53,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     /** The amount being requested in cents. */
     fun amount(): Long = amount.getRequired("amount")
 
@@ -285,6 +283,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): InboundWireDrawdownRequest = apply {
         if (!validated) {
             amount()
@@ -350,34 +350,34 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(inboundWireDrawdownRequest: InboundWireDrawdownRequest) = apply {
-            this.amount = inboundWireDrawdownRequest.amount
-            this.beneficiaryAccountNumber = inboundWireDrawdownRequest.beneficiaryAccountNumber
-            this.beneficiaryAddressLine1 = inboundWireDrawdownRequest.beneficiaryAddressLine1
-            this.beneficiaryAddressLine2 = inboundWireDrawdownRequest.beneficiaryAddressLine2
-            this.beneficiaryAddressLine3 = inboundWireDrawdownRequest.beneficiaryAddressLine3
-            this.beneficiaryName = inboundWireDrawdownRequest.beneficiaryName
-            this.beneficiaryRoutingNumber = inboundWireDrawdownRequest.beneficiaryRoutingNumber
-            this.createdAt = inboundWireDrawdownRequest.createdAt
-            this.currency = inboundWireDrawdownRequest.currency
-            this.id = inboundWireDrawdownRequest.id
-            this.messageToRecipient = inboundWireDrawdownRequest.messageToRecipient
-            this.originatorAccountNumber = inboundWireDrawdownRequest.originatorAccountNumber
-            this.originatorAddressLine1 = inboundWireDrawdownRequest.originatorAddressLine1
-            this.originatorAddressLine2 = inboundWireDrawdownRequest.originatorAddressLine2
-            this.originatorAddressLine3 = inboundWireDrawdownRequest.originatorAddressLine3
-            this.originatorName = inboundWireDrawdownRequest.originatorName
-            this.originatorRoutingNumber = inboundWireDrawdownRequest.originatorRoutingNumber
-            this.originatorToBeneficiaryInformationLine1 =
+            amount = inboundWireDrawdownRequest.amount
+            beneficiaryAccountNumber = inboundWireDrawdownRequest.beneficiaryAccountNumber
+            beneficiaryAddressLine1 = inboundWireDrawdownRequest.beneficiaryAddressLine1
+            beneficiaryAddressLine2 = inboundWireDrawdownRequest.beneficiaryAddressLine2
+            beneficiaryAddressLine3 = inboundWireDrawdownRequest.beneficiaryAddressLine3
+            beneficiaryName = inboundWireDrawdownRequest.beneficiaryName
+            beneficiaryRoutingNumber = inboundWireDrawdownRequest.beneficiaryRoutingNumber
+            createdAt = inboundWireDrawdownRequest.createdAt
+            currency = inboundWireDrawdownRequest.currency
+            id = inboundWireDrawdownRequest.id
+            messageToRecipient = inboundWireDrawdownRequest.messageToRecipient
+            originatorAccountNumber = inboundWireDrawdownRequest.originatorAccountNumber
+            originatorAddressLine1 = inboundWireDrawdownRequest.originatorAddressLine1
+            originatorAddressLine2 = inboundWireDrawdownRequest.originatorAddressLine2
+            originatorAddressLine3 = inboundWireDrawdownRequest.originatorAddressLine3
+            originatorName = inboundWireDrawdownRequest.originatorName
+            originatorRoutingNumber = inboundWireDrawdownRequest.originatorRoutingNumber
+            originatorToBeneficiaryInformationLine1 =
                 inboundWireDrawdownRequest.originatorToBeneficiaryInformationLine1
-            this.originatorToBeneficiaryInformationLine2 =
+            originatorToBeneficiaryInformationLine2 =
                 inboundWireDrawdownRequest.originatorToBeneficiaryInformationLine2
-            this.originatorToBeneficiaryInformationLine3 =
+            originatorToBeneficiaryInformationLine3 =
                 inboundWireDrawdownRequest.originatorToBeneficiaryInformationLine3
-            this.originatorToBeneficiaryInformationLine4 =
+            originatorToBeneficiaryInformationLine4 =
                 inboundWireDrawdownRequest.originatorToBeneficiaryInformationLine4
-            this.recipientAccountNumberId = inboundWireDrawdownRequest.recipientAccountNumberId
-            this.type = inboundWireDrawdownRequest.type
-            additionalProperties(inboundWireDrawdownRequest.additionalProperties)
+            recipientAccountNumberId = inboundWireDrawdownRequest.recipientAccountNumberId
+            type = inboundWireDrawdownRequest.type
+            additionalProperties = inboundWireDrawdownRequest.additionalProperties.toMutableMap()
         }
 
         /** The amount being requested in cents. */
@@ -681,16 +681,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): InboundWireDrawdownRequest =

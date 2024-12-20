@@ -127,14 +127,14 @@ constructor(
     @NoAutoDetect
     class SimulationInboundWireDrawdownRequestCreateBody
     internal constructor(
-        private val amount: Long?,
-        private val beneficiaryAccountNumber: String?,
-        private val beneficiaryRoutingNumber: String?,
-        private val currency: String?,
-        private val messageToRecipient: String?,
-        private val originatorAccountNumber: String?,
-        private val originatorRoutingNumber: String?,
-        private val recipientAccountNumberId: String?,
+        private val amount: Long,
+        private val beneficiaryAccountNumber: String,
+        private val beneficiaryRoutingNumber: String,
+        private val currency: String,
+        private val messageToRecipient: String,
+        private val originatorAccountNumber: String,
+        private val originatorRoutingNumber: String,
+        private val recipientAccountNumberId: String,
         private val beneficiaryAddressLine1: String?,
         private val beneficiaryAddressLine2: String?,
         private val beneficiaryAddressLine3: String?,
@@ -151,97 +151,102 @@ constructor(
     ) {
 
         /** The amount being requested in cents. */
-        @JsonProperty("amount") fun amount(): Long? = amount
+        @JsonProperty("amount") fun amount(): Long = amount
 
         /** The drawdown request's beneficiary's account number. */
         @JsonProperty("beneficiary_account_number")
-        fun beneficiaryAccountNumber(): String? = beneficiaryAccountNumber
+        fun beneficiaryAccountNumber(): String = beneficiaryAccountNumber
 
         /** The drawdown request's beneficiary's routing number. */
         @JsonProperty("beneficiary_routing_number")
-        fun beneficiaryRoutingNumber(): String? = beneficiaryRoutingNumber
+        fun beneficiaryRoutingNumber(): String = beneficiaryRoutingNumber
 
         /**
          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the amount being
          * requested. Will always be "USD".
          */
-        @JsonProperty("currency") fun currency(): String? = currency
+        @JsonProperty("currency") fun currency(): String = currency
 
         /** A message from the drawdown request's originator. */
-        @JsonProperty("message_to_recipient") fun messageToRecipient(): String? = messageToRecipient
+        @JsonProperty("message_to_recipient") fun messageToRecipient(): String = messageToRecipient
 
         /** The drawdown request's originator's account number. */
         @JsonProperty("originator_account_number")
-        fun originatorAccountNumber(): String? = originatorAccountNumber
+        fun originatorAccountNumber(): String = originatorAccountNumber
 
         /** The drawdown request's originator's routing number. */
         @JsonProperty("originator_routing_number")
-        fun originatorRoutingNumber(): String? = originatorRoutingNumber
+        fun originatorRoutingNumber(): String = originatorRoutingNumber
 
         /**
          * The Account Number to which the recipient of this request is being requested to send
          * funds from.
          */
         @JsonProperty("recipient_account_number_id")
-        fun recipientAccountNumberId(): String? = recipientAccountNumberId
+        fun recipientAccountNumberId(): String = recipientAccountNumberId
 
         /** Line 1 of the drawdown request's beneficiary's address. */
         @JsonProperty("beneficiary_address_line1")
-        fun beneficiaryAddressLine1(): String? = beneficiaryAddressLine1
+        fun beneficiaryAddressLine1(): Optional<String> =
+            Optional.ofNullable(beneficiaryAddressLine1)
 
         /** Line 2 of the drawdown request's beneficiary's address. */
         @JsonProperty("beneficiary_address_line2")
-        fun beneficiaryAddressLine2(): String? = beneficiaryAddressLine2
+        fun beneficiaryAddressLine2(): Optional<String> =
+            Optional.ofNullable(beneficiaryAddressLine2)
 
         /** Line 3 of the drawdown request's beneficiary's address. */
         @JsonProperty("beneficiary_address_line3")
-        fun beneficiaryAddressLine3(): String? = beneficiaryAddressLine3
+        fun beneficiaryAddressLine3(): Optional<String> =
+            Optional.ofNullable(beneficiaryAddressLine3)
 
         /** The drawdown request's beneficiary's name. */
-        @JsonProperty("beneficiary_name") fun beneficiaryName(): String? = beneficiaryName
+        @JsonProperty("beneficiary_name")
+        fun beneficiaryName(): Optional<String> = Optional.ofNullable(beneficiaryName)
 
         /** Line 1 of the drawdown request's originator's address. */
         @JsonProperty("originator_address_line1")
-        fun originatorAddressLine1(): String? = originatorAddressLine1
+        fun originatorAddressLine1(): Optional<String> = Optional.ofNullable(originatorAddressLine1)
 
         /** Line 2 of the drawdown request's originator's address. */
         @JsonProperty("originator_address_line2")
-        fun originatorAddressLine2(): String? = originatorAddressLine2
+        fun originatorAddressLine2(): Optional<String> = Optional.ofNullable(originatorAddressLine2)
 
         /** Line 3 of the drawdown request's originator's address. */
         @JsonProperty("originator_address_line3")
-        fun originatorAddressLine3(): String? = originatorAddressLine3
+        fun originatorAddressLine3(): Optional<String> = Optional.ofNullable(originatorAddressLine3)
 
         /** The drawdown request's originator's name. */
-        @JsonProperty("originator_name") fun originatorName(): String? = originatorName
+        @JsonProperty("originator_name")
+        fun originatorName(): Optional<String> = Optional.ofNullable(originatorName)
 
         /**
          * Line 1 of the information conveyed from the originator of the message to the beneficiary.
          */
         @JsonProperty("originator_to_beneficiary_information_line1")
-        fun originatorToBeneficiaryInformationLine1(): String? =
-            originatorToBeneficiaryInformationLine1
+        fun originatorToBeneficiaryInformationLine1(): Optional<String> =
+            Optional.ofNullable(originatorToBeneficiaryInformationLine1)
 
         /**
          * Line 2 of the information conveyed from the originator of the message to the beneficiary.
          */
         @JsonProperty("originator_to_beneficiary_information_line2")
-        fun originatorToBeneficiaryInformationLine2(): String? =
-            originatorToBeneficiaryInformationLine2
+        fun originatorToBeneficiaryInformationLine2(): Optional<String> =
+            Optional.ofNullable(originatorToBeneficiaryInformationLine2)
 
         /**
          * Line 3 of the information conveyed from the originator of the message to the beneficiary.
          */
         @JsonProperty("originator_to_beneficiary_information_line3")
-        fun originatorToBeneficiaryInformationLine3(): String? =
-            originatorToBeneficiaryInformationLine3
+        fun originatorToBeneficiaryInformationLine3(): Optional<String> =
+            Optional.ofNullable(originatorToBeneficiaryInformationLine3)
 
         /**
          * Line 4 of the information conveyed from the originator of the message to the beneficiary.
          */
         @JsonProperty("originator_to_beneficiary_information_line4")
-        fun originatorToBeneficiaryInformationLine4(): String? =
-            originatorToBeneficiaryInformationLine4
+        fun originatorToBeneficiaryInformationLine4(): Optional<String> =
+            Optional.ofNullable(originatorToBeneficiaryInformationLine4)
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -283,50 +288,49 @@ constructor(
                 simulationInboundWireDrawdownRequestCreateBody:
                     SimulationInboundWireDrawdownRequestCreateBody
             ) = apply {
-                this.amount = simulationInboundWireDrawdownRequestCreateBody.amount
-                this.beneficiaryAccountNumber =
+                amount = simulationInboundWireDrawdownRequestCreateBody.amount
+                beneficiaryAccountNumber =
                     simulationInboundWireDrawdownRequestCreateBody.beneficiaryAccountNumber
-                this.beneficiaryRoutingNumber =
+                beneficiaryRoutingNumber =
                     simulationInboundWireDrawdownRequestCreateBody.beneficiaryRoutingNumber
-                this.currency = simulationInboundWireDrawdownRequestCreateBody.currency
-                this.messageToRecipient =
+                currency = simulationInboundWireDrawdownRequestCreateBody.currency
+                messageToRecipient =
                     simulationInboundWireDrawdownRequestCreateBody.messageToRecipient
-                this.originatorAccountNumber =
+                originatorAccountNumber =
                     simulationInboundWireDrawdownRequestCreateBody.originatorAccountNumber
-                this.originatorRoutingNumber =
+                originatorRoutingNumber =
                     simulationInboundWireDrawdownRequestCreateBody.originatorRoutingNumber
-                this.recipientAccountNumberId =
+                recipientAccountNumberId =
                     simulationInboundWireDrawdownRequestCreateBody.recipientAccountNumberId
-                this.beneficiaryAddressLine1 =
+                beneficiaryAddressLine1 =
                     simulationInboundWireDrawdownRequestCreateBody.beneficiaryAddressLine1
-                this.beneficiaryAddressLine2 =
+                beneficiaryAddressLine2 =
                     simulationInboundWireDrawdownRequestCreateBody.beneficiaryAddressLine2
-                this.beneficiaryAddressLine3 =
+                beneficiaryAddressLine3 =
                     simulationInboundWireDrawdownRequestCreateBody.beneficiaryAddressLine3
-                this.beneficiaryName =
-                    simulationInboundWireDrawdownRequestCreateBody.beneficiaryName
-                this.originatorAddressLine1 =
+                beneficiaryName = simulationInboundWireDrawdownRequestCreateBody.beneficiaryName
+                originatorAddressLine1 =
                     simulationInboundWireDrawdownRequestCreateBody.originatorAddressLine1
-                this.originatorAddressLine2 =
+                originatorAddressLine2 =
                     simulationInboundWireDrawdownRequestCreateBody.originatorAddressLine2
-                this.originatorAddressLine3 =
+                originatorAddressLine3 =
                     simulationInboundWireDrawdownRequestCreateBody.originatorAddressLine3
-                this.originatorName = simulationInboundWireDrawdownRequestCreateBody.originatorName
-                this.originatorToBeneficiaryInformationLine1 =
+                originatorName = simulationInboundWireDrawdownRequestCreateBody.originatorName
+                originatorToBeneficiaryInformationLine1 =
                     simulationInboundWireDrawdownRequestCreateBody
                         .originatorToBeneficiaryInformationLine1
-                this.originatorToBeneficiaryInformationLine2 =
+                originatorToBeneficiaryInformationLine2 =
                     simulationInboundWireDrawdownRequestCreateBody
                         .originatorToBeneficiaryInformationLine2
-                this.originatorToBeneficiaryInformationLine3 =
+                originatorToBeneficiaryInformationLine3 =
                     simulationInboundWireDrawdownRequestCreateBody
                         .originatorToBeneficiaryInformationLine3
-                this.originatorToBeneficiaryInformationLine4 =
+                originatorToBeneficiaryInformationLine4 =
                     simulationInboundWireDrawdownRequestCreateBody
                         .originatorToBeneficiaryInformationLine4
-                additionalProperties(
+                additionalProperties =
                     simulationInboundWireDrawdownRequestCreateBody.additionalProperties
-                )
+                        .toMutableMap()
             }
 
             /** The amount being requested in cents. */
@@ -476,16 +480,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): SimulationInboundWireDrawdownRequestCreateBody =

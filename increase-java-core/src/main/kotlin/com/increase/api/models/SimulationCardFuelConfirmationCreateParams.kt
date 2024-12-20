@@ -50,18 +50,18 @@ constructor(
     @NoAutoDetect
     class SimulationCardFuelConfirmationCreateBody
     internal constructor(
-        private val amount: Long?,
-        private val cardPaymentId: String?,
+        private val amount: Long,
+        private val cardPaymentId: String,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /**
          * The amount of the fuel_confirmation in minor units in the card authorization's currency.
          */
-        @JsonProperty("amount") fun amount(): Long? = amount
+        @JsonProperty("amount") fun amount(): Long = amount
 
         /** The identifier of the Card Payment to create a fuel_confirmation on. */
-        @JsonProperty("card_payment_id") fun cardPaymentId(): String? = cardPaymentId
+        @JsonProperty("card_payment_id") fun cardPaymentId(): String = cardPaymentId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -84,9 +84,10 @@ constructor(
             internal fun from(
                 simulationCardFuelConfirmationCreateBody: SimulationCardFuelConfirmationCreateBody
             ) = apply {
-                this.amount = simulationCardFuelConfirmationCreateBody.amount
-                this.cardPaymentId = simulationCardFuelConfirmationCreateBody.cardPaymentId
-                additionalProperties(simulationCardFuelConfirmationCreateBody.additionalProperties)
+                amount = simulationCardFuelConfirmationCreateBody.amount
+                cardPaymentId = simulationCardFuelConfirmationCreateBody.cardPaymentId
+                additionalProperties =
+                    simulationCardFuelConfirmationCreateBody.additionalProperties.toMutableMap()
             }
 
             /**
@@ -101,16 +102,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): SimulationCardFuelConfirmationCreateBody =

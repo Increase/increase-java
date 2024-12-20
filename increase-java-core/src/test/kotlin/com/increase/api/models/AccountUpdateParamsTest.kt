@@ -24,7 +24,7 @@ class AccountUpdateParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.name()).isEqualTo("My renamed account")
+        assertThat(body.name()).contains("My renamed account")
     }
 
     @Test

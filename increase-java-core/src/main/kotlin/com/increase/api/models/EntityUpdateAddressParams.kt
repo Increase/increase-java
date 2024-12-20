@@ -13,6 +13,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import java.util.Objects
+import java.util.Optional
 
 class EntityUpdateAddressParams
 constructor(
@@ -53,7 +54,7 @@ constructor(
     @NoAutoDetect
     class EntityUpdateAddressBody
     internal constructor(
-        private val address: Address?,
+        private val address: Address,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -61,7 +62,7 @@ constructor(
          * The entity's physical address. Mail receiving locations like PO Boxes and PMB's are
          * disallowed.
          */
-        @JsonProperty("address") fun address(): Address? = address
+        @JsonProperty("address") fun address(): Address = address
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -81,8 +82,8 @@ constructor(
 
             @JvmSynthetic
             internal fun from(entityUpdateAddressBody: EntityUpdateAddressBody) = apply {
-                this.address = entityUpdateAddressBody.address
-                additionalProperties(entityUpdateAddressBody.additionalProperties)
+                address = entityUpdateAddressBody.address
+                additionalProperties = entityUpdateAddressBody.additionalProperties.toMutableMap()
             }
 
             /**
@@ -94,16 +95,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): EntityUpdateAddressBody =
@@ -304,31 +311,31 @@ constructor(
     @NoAutoDetect
     class Address
     private constructor(
-        private val city: String?,
-        private val line1: String?,
+        private val city: String,
+        private val line1: String,
         private val line2: String?,
-        private val state: String?,
-        private val zip: String?,
+        private val state: String,
+        private val zip: String,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /** The city of the address. */
-        @JsonProperty("city") fun city(): String? = city
+        @JsonProperty("city") fun city(): String = city
 
         /** The first line of the address. This is usually the street number and street. */
-        @JsonProperty("line1") fun line1(): String? = line1
+        @JsonProperty("line1") fun line1(): String = line1
 
         /** The second line of the address. This might be the floor or room number. */
-        @JsonProperty("line2") fun line2(): String? = line2
+        @JsonProperty("line2") fun line2(): Optional<String> = Optional.ofNullable(line2)
 
         /**
          * The two-letter United States Postal Service (USPS) abbreviation for the state of the
          * address.
          */
-        @JsonProperty("state") fun state(): String? = state
+        @JsonProperty("state") fun state(): String = state
 
         /** The ZIP code of the address. */
-        @JsonProperty("zip") fun zip(): String? = zip
+        @JsonProperty("zip") fun zip(): String = zip
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -352,12 +359,12 @@ constructor(
 
             @JvmSynthetic
             internal fun from(address: Address) = apply {
-                this.city = address.city
-                this.line1 = address.line1
-                this.line2 = address.line2
-                this.state = address.state
-                this.zip = address.zip
-                additionalProperties(address.additionalProperties)
+                city = address.city
+                line1 = address.line1
+                line2 = address.line2
+                state = address.state
+                zip = address.zip
+                additionalProperties = address.additionalProperties.toMutableMap()
             }
 
             /** The city of the address. */
@@ -380,16 +387,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Address =
