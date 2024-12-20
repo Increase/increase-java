@@ -61,7 +61,7 @@ class CardUpdateParamsTest {
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.billingAddress())
-            .isEqualTo(
+            .contains(
                 CardUpdateParams.BillingAddress.builder()
                     .city("x")
                     .line1("x")
@@ -70,17 +70,17 @@ class CardUpdateParamsTest {
                     .line2("x")
                     .build()
             )
-        assertThat(body.description()).isEqualTo("New description")
+        assertThat(body.description()).contains("New description")
         assertThat(body.digitalWallet())
-            .isEqualTo(
+            .contains(
                 CardUpdateParams.DigitalWallet.builder()
                     .digitalCardProfileId("digital_card_profile_id")
                     .email("x")
                     .phone("x")
                     .build()
             )
-        assertThat(body.entityId()).isEqualTo("entity_id")
-        assertThat(body.status()).isEqualTo(CardUpdateParams.Status.ACTIVE)
+        assertThat(body.entityId()).contains("entity_id")
+        assertThat(body.status()).contains(CardUpdateParams.Status.ACTIVE)
     }
 
     @Test

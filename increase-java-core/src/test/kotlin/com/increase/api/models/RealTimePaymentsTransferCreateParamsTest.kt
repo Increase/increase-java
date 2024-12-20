@@ -46,13 +46,13 @@ class RealTimePaymentsTransferCreateParamsTest {
         assertThat(body.creditorName()).isEqualTo("Ian Crease")
         assertThat(body.remittanceInformation()).isEqualTo("Invoice 29582")
         assertThat(body.sourceAccountNumberId()).isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
-        assertThat(body.debtorName()).isEqualTo("x")
-        assertThat(body.destinationAccountNumber()).isEqualTo("987654321")
-        assertThat(body.destinationRoutingNumber()).isEqualTo("101050001")
-        assertThat(body.externalAccountId()).isEqualTo("external_account_id")
-        assertThat(body.requireApproval()).isEqualTo(true)
-        assertThat(body.ultimateCreditorName()).isEqualTo("x")
-        assertThat(body.ultimateDebtorName()).isEqualTo("x")
+        assertThat(body.debtorName()).contains("x")
+        assertThat(body.destinationAccountNumber()).contains("987654321")
+        assertThat(body.destinationRoutingNumber()).contains("101050001")
+        assertThat(body.externalAccountId()).contains("external_account_id")
+        assertThat(body.requireApproval()).contains(true)
+        assertThat(body.ultimateCreditorName()).contains("x")
+        assertThat(body.ultimateDebtorName()).contains("x")
     }
 
     @Test

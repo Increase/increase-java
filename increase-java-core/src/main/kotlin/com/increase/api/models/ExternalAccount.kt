@@ -41,8 +41,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     /** The type of entity that owns the External Account. */
     fun accountHolder(): AccountHolder = accountHolder.getRequired("account_holder")
 
@@ -137,6 +135,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): ExternalAccount = apply {
         if (!validated) {
             accountHolder()
@@ -178,18 +178,18 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(externalAccount: ExternalAccount) = apply {
-            this.accountHolder = externalAccount.accountHolder
-            this.accountNumber = externalAccount.accountNumber
-            this.createdAt = externalAccount.createdAt
-            this.description = externalAccount.description
-            this.funding = externalAccount.funding
-            this.id = externalAccount.id
-            this.idempotencyKey = externalAccount.idempotencyKey
-            this.routingNumber = externalAccount.routingNumber
-            this.status = externalAccount.status
-            this.type = externalAccount.type
-            this.verificationStatus = externalAccount.verificationStatus
-            additionalProperties(externalAccount.additionalProperties)
+            accountHolder = externalAccount.accountHolder
+            accountNumber = externalAccount.accountNumber
+            createdAt = externalAccount.createdAt
+            description = externalAccount.description
+            funding = externalAccount.funding
+            id = externalAccount.id
+            idempotencyKey = externalAccount.idempotencyKey
+            routingNumber = externalAccount.routingNumber
+            status = externalAccount.status
+            type = externalAccount.type
+            verificationStatus = externalAccount.verificationStatus
+            additionalProperties = externalAccount.additionalProperties.toMutableMap()
         }
 
         /** The type of entity that owns the External Account. */
@@ -311,16 +311,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): ExternalAccount =

@@ -33,10 +33,10 @@ class EventSubscriptionCreateParamsTest {
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.url()).isEqualTo("https://website.com/webhooks")
-        assertThat(body.oauthConnectionId()).isEqualTo("oauth_connection_id")
+        assertThat(body.oauthConnectionId()).contains("oauth_connection_id")
         assertThat(body.selectedEventCategory())
-            .isEqualTo(EventSubscriptionCreateParams.SelectedEventCategory.ACCOUNT_CREATED)
-        assertThat(body.sharedSecret()).isEqualTo("x")
+            .contains(EventSubscriptionCreateParams.SelectedEventCategory.ACCOUNT_CREATED)
+        assertThat(body.sharedSecret()).contains("x")
     }
 
     @Test

@@ -139,9 +139,9 @@ class AchTransferCreateParamsTest {
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.amount()).isEqualTo(100L)
         assertThat(body.statementDescriptor()).isEqualTo("New ACH transfer")
-        assertThat(body.accountNumber()).isEqualTo("987654321")
+        assertThat(body.accountNumber()).contains("987654321")
         assertThat(body.addenda())
-            .isEqualTo(
+            .contains(
                 AchTransferCreateParams.Addenda.builder()
                     .category(AchTransferCreateParams.Addenda.Category.FREEFORM)
                     .freeform(
@@ -171,18 +171,18 @@ class AchTransferCreateParamsTest {
                     )
                     .build()
             )
-        assertThat(body.companyDescriptiveDate()).isEqualTo("x")
-        assertThat(body.companyDiscretionaryData()).isEqualTo("x")
-        assertThat(body.companyEntryDescription()).isEqualTo("x")
-        assertThat(body.companyName()).isEqualTo("x")
+        assertThat(body.companyDescriptiveDate()).contains("x")
+        assertThat(body.companyDiscretionaryData()).contains("x")
+        assertThat(body.companyEntryDescription()).contains("x")
+        assertThat(body.companyName()).contains("x")
         assertThat(body.destinationAccountHolder())
-            .isEqualTo(AchTransferCreateParams.DestinationAccountHolder.BUSINESS)
-        assertThat(body.externalAccountId()).isEqualTo("external_account_id")
-        assertThat(body.funding()).isEqualTo(AchTransferCreateParams.Funding.CHECKING)
-        assertThat(body.individualId()).isEqualTo("x")
-        assertThat(body.individualName()).isEqualTo("x")
+            .contains(AchTransferCreateParams.DestinationAccountHolder.BUSINESS)
+        assertThat(body.externalAccountId()).contains("external_account_id")
+        assertThat(body.funding()).contains(AchTransferCreateParams.Funding.CHECKING)
+        assertThat(body.individualId()).contains("x")
+        assertThat(body.individualName()).contains("x")
         assertThat(body.preferredEffectiveDate())
-            .isEqualTo(
+            .contains(
                 AchTransferCreateParams.PreferredEffectiveDate.builder()
                     .date(LocalDate.parse("2019-12-27"))
                     .settlementSchedule(
@@ -190,12 +190,12 @@ class AchTransferCreateParamsTest {
                     )
                     .build()
             )
-        assertThat(body.requireApproval()).isEqualTo(true)
-        assertThat(body.routingNumber()).isEqualTo("101050001")
+        assertThat(body.requireApproval()).contains(true)
+        assertThat(body.routingNumber()).contains("101050001")
         assertThat(body.standardEntryClassCode())
-            .isEqualTo(AchTransferCreateParams.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT)
+            .contains(AchTransferCreateParams.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT)
         assertThat(body.transactionTiming())
-            .isEqualTo(AchTransferCreateParams.TransactionTiming.SYNCHRONOUS)
+            .contains(AchTransferCreateParams.TransactionTiming.SYNCHRONOUS)
     }
 
     @Test

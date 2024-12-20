@@ -67,31 +67,32 @@ constructor(
     @NoAutoDetect
     class ExternalAccountCreateBody
     internal constructor(
-        private val accountNumber: String?,
-        private val description: String?,
-        private val routingNumber: String?,
+        private val accountNumber: String,
+        private val description: String,
+        private val routingNumber: String,
         private val accountHolder: AccountHolder?,
         private val funding: Funding?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /** The account number for the destination account. */
-        @JsonProperty("account_number") fun accountNumber(): String? = accountNumber
+        @JsonProperty("account_number") fun accountNumber(): String = accountNumber
 
         /** The name you choose for the Account. */
-        @JsonProperty("description") fun description(): String? = description
+        @JsonProperty("description") fun description(): String = description
 
         /**
          * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
          * account.
          */
-        @JsonProperty("routing_number") fun routingNumber(): String? = routingNumber
+        @JsonProperty("routing_number") fun routingNumber(): String = routingNumber
 
         /** The type of entity that owns the External Account. */
-        @JsonProperty("account_holder") fun accountHolder(): AccountHolder? = accountHolder
+        @JsonProperty("account_holder")
+        fun accountHolder(): Optional<AccountHolder> = Optional.ofNullable(accountHolder)
 
         /** The type of the destination account. Defaults to `checking`. */
-        @JsonProperty("funding") fun funding(): Funding? = funding
+        @JsonProperty("funding") fun funding(): Optional<Funding> = Optional.ofNullable(funding)
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -115,12 +116,12 @@ constructor(
 
             @JvmSynthetic
             internal fun from(externalAccountCreateBody: ExternalAccountCreateBody) = apply {
-                this.accountNumber = externalAccountCreateBody.accountNumber
-                this.description = externalAccountCreateBody.description
-                this.routingNumber = externalAccountCreateBody.routingNumber
-                this.accountHolder = externalAccountCreateBody.accountHolder
-                this.funding = externalAccountCreateBody.funding
-                additionalProperties(externalAccountCreateBody.additionalProperties)
+                accountNumber = externalAccountCreateBody.accountNumber
+                description = externalAccountCreateBody.description
+                routingNumber = externalAccountCreateBody.routingNumber
+                accountHolder = externalAccountCreateBody.accountHolder
+                funding = externalAccountCreateBody.funding
+                additionalProperties = externalAccountCreateBody.additionalProperties.toMutableMap()
             }
 
             /** The account number for the destination account. */
@@ -150,16 +151,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): ExternalAccountCreateBody =

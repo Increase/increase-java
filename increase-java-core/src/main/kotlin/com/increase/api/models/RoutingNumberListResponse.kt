@@ -31,8 +31,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     /** This routing number's support for ACH Transfers. */
     fun achTransfers(): AchTransfers = achTransfers.getRequired("ach_transfers")
 
@@ -82,6 +80,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): RoutingNumberListResponse = apply {
         if (!validated) {
             achTransfers()
@@ -114,13 +114,13 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(routingNumberListResponse: RoutingNumberListResponse) = apply {
-            this.achTransfers = routingNumberListResponse.achTransfers
-            this.name = routingNumberListResponse.name
-            this.realTimePaymentsTransfers = routingNumberListResponse.realTimePaymentsTransfers
-            this.routingNumber = routingNumberListResponse.routingNumber
-            this.type = routingNumberListResponse.type
-            this.wireTransfers = routingNumberListResponse.wireTransfers
-            additionalProperties(routingNumberListResponse.additionalProperties)
+            achTransfers = routingNumberListResponse.achTransfers
+            name = routingNumberListResponse.name
+            realTimePaymentsTransfers = routingNumberListResponse.realTimePaymentsTransfers
+            routingNumber = routingNumberListResponse.routingNumber
+            type = routingNumberListResponse.type
+            wireTransfers = routingNumberListResponse.wireTransfers
+            additionalProperties = routingNumberListResponse.additionalProperties.toMutableMap()
         }
 
         /** This routing number's support for ACH Transfers. */
@@ -188,16 +188,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): RoutingNumberListResponse =

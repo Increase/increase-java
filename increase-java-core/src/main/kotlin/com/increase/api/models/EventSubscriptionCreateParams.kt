@@ -64,7 +64,7 @@ constructor(
     @NoAutoDetect
     class EventSubscriptionCreateBody
     internal constructor(
-        private val url: String?,
+        private val url: String,
         private val oauthConnectionId: String?,
         private val selectedEventCategory: SelectedEventCategory?,
         private val sharedSecret: String?,
@@ -72,26 +72,29 @@ constructor(
     ) {
 
         /** The URL you'd like us to send webhooks to. */
-        @JsonProperty("url") fun url(): String? = url
+        @JsonProperty("url") fun url(): String = url
 
         /**
          * If specified, this subscription will only receive webhooks for Events associated with the
          * specified OAuth Connection.
          */
-        @JsonProperty("oauth_connection_id") fun oauthConnectionId(): String? = oauthConnectionId
+        @JsonProperty("oauth_connection_id")
+        fun oauthConnectionId(): Optional<String> = Optional.ofNullable(oauthConnectionId)
 
         /**
          * If specified, this subscription will only receive webhooks for Events with the specified
          * `category`.
          */
         @JsonProperty("selected_event_category")
-        fun selectedEventCategory(): SelectedEventCategory? = selectedEventCategory
+        fun selectedEventCategory(): Optional<SelectedEventCategory> =
+            Optional.ofNullable(selectedEventCategory)
 
         /**
          * The key that will be used to sign webhooks. If no value is passed, a random string will
          * be used as default.
          */
-        @JsonProperty("shared_secret") fun sharedSecret(): String? = sharedSecret
+        @JsonProperty("shared_secret")
+        fun sharedSecret(): Optional<String> = Optional.ofNullable(sharedSecret)
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -114,11 +117,12 @@ constructor(
 
             @JvmSynthetic
             internal fun from(eventSubscriptionCreateBody: EventSubscriptionCreateBody) = apply {
-                this.url = eventSubscriptionCreateBody.url
-                this.oauthConnectionId = eventSubscriptionCreateBody.oauthConnectionId
-                this.selectedEventCategory = eventSubscriptionCreateBody.selectedEventCategory
-                this.sharedSecret = eventSubscriptionCreateBody.sharedSecret
-                additionalProperties(eventSubscriptionCreateBody.additionalProperties)
+                url = eventSubscriptionCreateBody.url
+                oauthConnectionId = eventSubscriptionCreateBody.oauthConnectionId
+                selectedEventCategory = eventSubscriptionCreateBody.selectedEventCategory
+                sharedSecret = eventSubscriptionCreateBody.sharedSecret
+                additionalProperties =
+                    eventSubscriptionCreateBody.additionalProperties.toMutableMap()
             }
 
             /** The URL you'd like us to send webhooks to. */
@@ -151,16 +155,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): EventSubscriptionCreateBody =

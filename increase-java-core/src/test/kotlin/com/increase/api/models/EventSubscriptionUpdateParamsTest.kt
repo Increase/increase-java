@@ -24,7 +24,7 @@ class EventSubscriptionUpdateParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.status()).isEqualTo(EventSubscriptionUpdateParams.Status.ACTIVE)
+        assertThat(body.status()).contains(EventSubscriptionUpdateParams.Status.ACTIVE)
     }
 
     @Test

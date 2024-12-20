@@ -57,12 +57,12 @@ constructor(
     @NoAutoDetect
     class SimulationPhysicalCardAdvanceShipmentBody
     internal constructor(
-        private val shipmentStatus: ShipmentStatus?,
+        private val shipmentStatus: ShipmentStatus,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /** The shipment status to move the Physical Card to. */
-        @JsonProperty("shipment_status") fun shipmentStatus(): ShipmentStatus? = shipmentStatus
+        @JsonProperty("shipment_status") fun shipmentStatus(): ShipmentStatus = shipmentStatus
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -84,8 +84,9 @@ constructor(
             internal fun from(
                 simulationPhysicalCardAdvanceShipmentBody: SimulationPhysicalCardAdvanceShipmentBody
             ) = apply {
-                this.shipmentStatus = simulationPhysicalCardAdvanceShipmentBody.shipmentStatus
-                additionalProperties(simulationPhysicalCardAdvanceShipmentBody.additionalProperties)
+                shipmentStatus = simulationPhysicalCardAdvanceShipmentBody.shipmentStatus
+                additionalProperties =
+                    simulationPhysicalCardAdvanceShipmentBody.additionalProperties.toMutableMap()
             }
 
             /** The shipment status to move the Physical Card to. */
@@ -96,16 +97,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): SimulationPhysicalCardAdvanceShipmentBody =

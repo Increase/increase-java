@@ -46,8 +46,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     /** The bank the Account is with. */
     fun bank(): Bank = bank.getRequired("bank")
 
@@ -196,6 +194,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): Account = apply {
         if (!validated) {
             bank()
@@ -245,22 +245,22 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(account: Account) = apply {
-            this.bank = account.bank
-            this.closedAt = account.closedAt
-            this.createdAt = account.createdAt
-            this.currency = account.currency
-            this.entityId = account.entityId
-            this.id = account.id
-            this.idempotencyKey = account.idempotencyKey
-            this.informationalEntityId = account.informationalEntityId
-            this.interestAccrued = account.interestAccrued
-            this.interestAccruedAt = account.interestAccruedAt
-            this.interestRate = account.interestRate
-            this.name = account.name
-            this.programId = account.programId
-            this.status = account.status
-            this.type = account.type
-            additionalProperties(account.additionalProperties)
+            bank = account.bank
+            closedAt = account.closedAt
+            createdAt = account.createdAt
+            currency = account.currency
+            entityId = account.entityId
+            id = account.id
+            idempotencyKey = account.idempotencyKey
+            informationalEntityId = account.informationalEntityId
+            interestAccrued = account.interestAccrued
+            interestAccruedAt = account.interestAccruedAt
+            interestRate = account.interestRate
+            name = account.name
+            programId = account.programId
+            status = account.status
+            type = account.type
+            additionalProperties = account.additionalProperties.toMutableMap()
         }
 
         /** The bank the Account is with. */
@@ -450,16 +450,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): Account =

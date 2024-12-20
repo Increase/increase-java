@@ -31,10 +31,10 @@ class BookkeepingAccountCreateParamsTest {
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.name()).isEqualTo("New Account!")
-        assertThat(body.accountId()).isEqualTo("account_id")
+        assertThat(body.accountId()).contains("account_id")
         assertThat(body.complianceCategory())
-            .isEqualTo(BookkeepingAccountCreateParams.ComplianceCategory.COMMINGLED_CASH)
-        assertThat(body.entityId()).isEqualTo("entity_id")
+            .contains(BookkeepingAccountCreateParams.ComplianceCategory.COMMINGLED_CASH)
+        assertThat(body.entityId()).contains("entity_id")
     }
 
     @Test

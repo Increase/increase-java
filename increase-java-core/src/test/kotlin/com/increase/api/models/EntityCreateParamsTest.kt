@@ -843,7 +843,7 @@ class EntityCreateParamsTest {
         assertThat(body).isNotNull
         assertThat(body.structure()).isEqualTo(EntityCreateParams.Structure.CORPORATION)
         assertThat(body.corporation())
-            .isEqualTo(
+            .contains(
                 EntityCreateParams.Corporation.builder()
                     .address(
                         EntityCreateParams.Corporation.Address.builder()
@@ -951,9 +951,9 @@ class EntityCreateParamsTest {
                     .website("https://example.com")
                     .build()
             )
-        assertThat(body.description()).isEqualTo("x")
+        assertThat(body.description()).contains("x")
         assertThat(body.governmentAuthority())
-            .isEqualTo(
+            .contains(
                 EntityCreateParams.GovernmentAuthority.builder()
                     .address(
                         EntityCreateParams.GovernmentAuthority.Address.builder()
@@ -978,7 +978,7 @@ class EntityCreateParamsTest {
                     .build()
             )
         assertThat(body.joint())
-            .isEqualTo(
+            .contains(
                 EntityCreateParams.Joint.builder()
                     .individuals(
                         listOf(
@@ -1041,7 +1041,7 @@ class EntityCreateParamsTest {
                     .build()
             )
         assertThat(body.naturalPerson())
-            .isEqualTo(
+            .contains(
                 EntityCreateParams.NaturalPerson.builder()
                     .address(
                         EntityCreateParams.NaturalPerson.Address.builder()
@@ -1092,7 +1092,7 @@ class EntityCreateParamsTest {
                     .build()
             )
         assertThat(body.supplementalDocuments())
-            .isEqualTo(
+            .contains(
                 listOf(
                     EntityCreateParams.SupplementalDocument.builder()
                         .fileId("file_makxrc67oh9l6sg7w9yc")
@@ -1100,14 +1100,14 @@ class EntityCreateParamsTest {
                 )
             )
         assertThat(body.thirdPartyVerification())
-            .isEqualTo(
+            .contains(
                 EntityCreateParams.ThirdPartyVerification.builder()
                     .reference("x")
                     .vendor(EntityCreateParams.ThirdPartyVerification.Vendor.ALLOY)
                     .build()
             )
         assertThat(body.trust())
-            .isEqualTo(
+            .contains(
                 EntityCreateParams.Trust.builder()
                     .address(
                         EntityCreateParams.Trust.Address.builder()

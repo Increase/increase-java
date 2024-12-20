@@ -96,7 +96,7 @@ class PhysicalCardCreateParamsTest {
                     .method(PhysicalCardCreateParams.Shipment.Method.USPS)
                     .build()
             )
-        assertThat(body.physicalCardProfileId()).isEqualTo("physical_card_profile_id")
+        assertThat(body.physicalCardProfileId()).contains("physical_card_profile_id")
     }
 
     @Test

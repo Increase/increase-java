@@ -47,13 +47,13 @@ class AccountNumberCreateParamsTest {
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.name()).isEqualTo("Rent payments")
         assertThat(body.inboundAch())
-            .isEqualTo(
+            .contains(
                 AccountNumberCreateParams.InboundAch.builder()
                     .debitStatus(AccountNumberCreateParams.InboundAch.DebitStatus.ALLOWED)
                     .build()
             )
         assertThat(body.inboundChecks())
-            .isEqualTo(
+            .contains(
                 AccountNumberCreateParams.InboundChecks.builder()
                     .status(AccountNumberCreateParams.InboundChecks.Status.ALLOWED)
                     .build()

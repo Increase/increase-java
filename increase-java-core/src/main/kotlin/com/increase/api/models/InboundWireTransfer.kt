@@ -50,8 +50,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     /** The Account to which the transfer belongs. */
     fun accountId(): String = accountId.getRequired("account_id")
 
@@ -283,6 +281,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): InboundWireTransfer = apply {
         if (!validated) {
             accountId()
@@ -350,36 +350,36 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(inboundWireTransfer: InboundWireTransfer) = apply {
-            this.accountId = inboundWireTransfer.accountId
-            this.accountNumberId = inboundWireTransfer.accountNumberId
-            this.amount = inboundWireTransfer.amount
-            this.beneficiaryAddressLine1 = inboundWireTransfer.beneficiaryAddressLine1
-            this.beneficiaryAddressLine2 = inboundWireTransfer.beneficiaryAddressLine2
-            this.beneficiaryAddressLine3 = inboundWireTransfer.beneficiaryAddressLine3
-            this.beneficiaryName = inboundWireTransfer.beneficiaryName
-            this.beneficiaryReference = inboundWireTransfer.beneficiaryReference
-            this.description = inboundWireTransfer.description
-            this.id = inboundWireTransfer.id
-            this.inputMessageAccountabilityData = inboundWireTransfer.inputMessageAccountabilityData
-            this.originatorAddressLine1 = inboundWireTransfer.originatorAddressLine1
-            this.originatorAddressLine2 = inboundWireTransfer.originatorAddressLine2
-            this.originatorAddressLine3 = inboundWireTransfer.originatorAddressLine3
-            this.originatorName = inboundWireTransfer.originatorName
-            this.originatorRoutingNumber = inboundWireTransfer.originatorRoutingNumber
-            this.originatorToBeneficiaryInformation =
+            accountId = inboundWireTransfer.accountId
+            accountNumberId = inboundWireTransfer.accountNumberId
+            amount = inboundWireTransfer.amount
+            beneficiaryAddressLine1 = inboundWireTransfer.beneficiaryAddressLine1
+            beneficiaryAddressLine2 = inboundWireTransfer.beneficiaryAddressLine2
+            beneficiaryAddressLine3 = inboundWireTransfer.beneficiaryAddressLine3
+            beneficiaryName = inboundWireTransfer.beneficiaryName
+            beneficiaryReference = inboundWireTransfer.beneficiaryReference
+            description = inboundWireTransfer.description
+            id = inboundWireTransfer.id
+            inputMessageAccountabilityData = inboundWireTransfer.inputMessageAccountabilityData
+            originatorAddressLine1 = inboundWireTransfer.originatorAddressLine1
+            originatorAddressLine2 = inboundWireTransfer.originatorAddressLine2
+            originatorAddressLine3 = inboundWireTransfer.originatorAddressLine3
+            originatorName = inboundWireTransfer.originatorName
+            originatorRoutingNumber = inboundWireTransfer.originatorRoutingNumber
+            originatorToBeneficiaryInformation =
                 inboundWireTransfer.originatorToBeneficiaryInformation
-            this.originatorToBeneficiaryInformationLine1 =
+            originatorToBeneficiaryInformationLine1 =
                 inboundWireTransfer.originatorToBeneficiaryInformationLine1
-            this.originatorToBeneficiaryInformationLine2 =
+            originatorToBeneficiaryInformationLine2 =
                 inboundWireTransfer.originatorToBeneficiaryInformationLine2
-            this.originatorToBeneficiaryInformationLine3 =
+            originatorToBeneficiaryInformationLine3 =
                 inboundWireTransfer.originatorToBeneficiaryInformationLine3
-            this.originatorToBeneficiaryInformationLine4 =
+            originatorToBeneficiaryInformationLine4 =
                 inboundWireTransfer.originatorToBeneficiaryInformationLine4
-            this.senderReference = inboundWireTransfer.senderReference
-            this.status = inboundWireTransfer.status
-            this.type = inboundWireTransfer.type
-            additionalProperties(inboundWireTransfer.additionalProperties)
+            senderReference = inboundWireTransfer.senderReference
+            status = inboundWireTransfer.status
+            type = inboundWireTransfer.type
+            additionalProperties = inboundWireTransfer.additionalProperties.toMutableMap()
         }
 
         /** The Account to which the transfer belongs. */
@@ -672,16 +672,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): InboundWireTransfer =

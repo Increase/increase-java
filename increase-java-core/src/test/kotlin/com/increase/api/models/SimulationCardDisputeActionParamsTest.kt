@@ -28,7 +28,7 @@ class SimulationCardDisputeActionParamsTest {
         assertThat(body).isNotNull
         assertThat(body.status())
             .isEqualTo(SimulationCardDisputeActionParams.Status.PENDING_USER_INFORMATION)
-        assertThat(body.explanation()).isEqualTo("This was a valid recurring transaction")
+        assertThat(body.explanation()).contains("This was a valid recurring transaction")
     }
 
     @Test

@@ -36,8 +36,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     /** The identifier of the object that generated this Event. */
     fun associatedObjectId(): String = associatedObjectId.getRequired("associated_object_id")
 
@@ -88,6 +86,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): Event = apply {
         if (!validated) {
             associatedObjectId()
@@ -119,13 +119,13 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(event: Event) = apply {
-            this.associatedObjectId = event.associatedObjectId
-            this.associatedObjectType = event.associatedObjectType
-            this.category = event.category
-            this.createdAt = event.createdAt
-            this.id = event.id
-            this.type = event.type
-            additionalProperties(event.additionalProperties)
+            associatedObjectId = event.associatedObjectId
+            associatedObjectType = event.associatedObjectType
+            category = event.category
+            createdAt = event.createdAt
+            id = event.id
+            type = event.type
+            additionalProperties = event.additionalProperties.toMutableMap()
         }
 
         /** The identifier of the object that generated this Event. */
@@ -192,16 +192,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): Event =
