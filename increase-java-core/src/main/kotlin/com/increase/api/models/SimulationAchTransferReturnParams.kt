@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
@@ -14,6 +13,7 @@ import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
@@ -54,12 +54,13 @@ constructor(
         }
     }
 
-    @JsonDeserialize(builder = SimulationAchTransferReturnBody.Builder::class)
     @NoAutoDetect
     class SimulationAchTransferReturnBody
+    @JsonCreator
     internal constructor(
-        private val reason: Reason?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("reason") private val reason: Reason?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /**
@@ -96,14 +97,13 @@ constructor(
              * The reason why the Federal Reserve or destination bank returned this transfer.
              * Defaults to `no_account`.
              */
-            @JsonProperty("reason") fun reason(reason: Reason) = apply { this.reason = reason }
+            fun reason(reason: Reason) = apply { this.reason = reason }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

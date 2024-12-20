@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
@@ -14,6 +13,7 @@ import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
@@ -71,18 +71,19 @@ constructor(
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(builder = CheckTransferCreateBody.Builder::class)
     @NoAutoDetect
     class CheckTransferCreateBody
+    @JsonCreator
     internal constructor(
-        private val accountId: String,
-        private val amount: Long,
-        private val sourceAccountNumberId: String,
-        private val fulfillmentMethod: FulfillmentMethod?,
-        private val physicalCheck: PhysicalCheck?,
-        private val requireApproval: Boolean?,
-        private val thirdParty: ThirdParty?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("account_id") private val accountId: String,
+        @JsonProperty("amount") private val amount: Long,
+        @JsonProperty("source_account_number_id") private val sourceAccountNumberId: String,
+        @JsonProperty("fulfillment_method") private val fulfillmentMethod: FulfillmentMethod?,
+        @JsonProperty("physical_check") private val physicalCheck: PhysicalCheck?,
+        @JsonProperty("require_approval") private val requireApproval: Boolean?,
+        @JsonProperty("third_party") private val thirdParty: ThirdParty?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The identifier for the account that will send the transfer. */
@@ -158,23 +159,20 @@ constructor(
             }
 
             /** The identifier for the account that will send the transfer. */
-            @JsonProperty("account_id")
             fun accountId(accountId: String) = apply { this.accountId = accountId }
 
             /** The transfer amount in USD cents. */
-            @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long) = apply { this.amount = amount }
 
             /**
              * The identifier of the Account Number from which to send the transfer and print on the
              * check.
              */
-            @JsonProperty("source_account_number_id")
             fun sourceAccountNumberId(sourceAccountNumberId: String) = apply {
                 this.sourceAccountNumberId = sourceAccountNumberId
             }
 
             /** Whether Increase will print and mail the check or if you will do it yourself. */
-            @JsonProperty("fulfillment_method")
             fun fulfillmentMethod(fulfillmentMethod: FulfillmentMethod) = apply {
                 this.fulfillmentMethod = fulfillmentMethod
             }
@@ -184,13 +182,11 @@ constructor(
              * required if `fulfillment_method` is equal to `physical_check`. It must not be
              * included if any other `fulfillment_method` is provided.
              */
-            @JsonProperty("physical_check")
             fun physicalCheck(physicalCheck: PhysicalCheck) = apply {
                 this.physicalCheck = physicalCheck
             }
 
             /** Whether the transfer requires explicit approval via the dashboard or API. */
-            @JsonProperty("require_approval")
             fun requireApproval(requireApproval: Boolean) = apply {
                 this.requireApproval = requireApproval
             }
@@ -200,7 +196,6 @@ constructor(
              * `fulfillment_method` is equal to `third_party`. It must not be included if any other
              * `fulfillment_method` is provided.
              */
-            @JsonProperty("third_party")
             fun thirdParty(thirdParty: ThirdParty) = apply { this.thirdParty = thirdParty }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -208,7 +203,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -531,17 +525,18 @@ constructor(
      * `fulfillment_method` is equal to `physical_check`. It must not be included if any other
      * `fulfillment_method` is provided.
      */
-    @JsonDeserialize(builder = PhysicalCheck.Builder::class)
     @NoAutoDetect
     class PhysicalCheck
+    @JsonCreator
     private constructor(
-        private val mailingAddress: MailingAddress,
-        private val memo: String,
-        private val note: String?,
-        private val recipientName: String,
-        private val returnAddress: ReturnAddress?,
-        private val signatureText: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("mailing_address") private val mailingAddress: MailingAddress,
+        @JsonProperty("memo") private val memo: String,
+        @JsonProperty("note") private val note: String?,
+        @JsonProperty("recipient_name") private val recipientName: String,
+        @JsonProperty("return_address") private val returnAddress: ReturnAddress?,
+        @JsonProperty("signature_text") private val signatureText: String?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** Details for where Increase will mail the check. */
@@ -603,26 +598,23 @@ constructor(
             }
 
             /** Details for where Increase will mail the check. */
-            @JsonProperty("mailing_address")
             fun mailingAddress(mailingAddress: MailingAddress) = apply {
                 this.mailingAddress = mailingAddress
             }
 
             /** The descriptor that will be printed on the memo field on the check. */
-            @JsonProperty("memo") fun memo(memo: String) = apply { this.memo = memo }
+            fun memo(memo: String) = apply { this.memo = memo }
 
             /** The descriptor that will be printed on the letter included with the check. */
-            @JsonProperty("note") fun note(note: String) = apply { this.note = note }
+            fun note(note: String) = apply { this.note = note }
 
             /** The name that will be printed on the check in the 'To:' field. */
-            @JsonProperty("recipient_name")
             fun recipientName(recipientName: String) = apply { this.recipientName = recipientName }
 
             /**
              * The return address to be printed on the check. If omitted this will default to an
              * Increase-owned address that will mark checks as delivery failed and shred them.
              */
-            @JsonProperty("return_address")
             fun returnAddress(returnAddress: ReturnAddress) = apply {
                 this.returnAddress = returnAddress
             }
@@ -631,7 +623,6 @@ constructor(
              * The text that will appear as the signature on the check in cursive font. If not
              * provided, the check will be printed with 'No signature required'.
              */
-            @JsonProperty("signature_text")
             fun signatureText(signatureText: String) = apply { this.signatureText = signatureText }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -639,7 +630,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -667,17 +657,18 @@ constructor(
         }
 
         /** Details for where Increase will mail the check. */
-        @JsonDeserialize(builder = MailingAddress.Builder::class)
         @NoAutoDetect
         class MailingAddress
+        @JsonCreator
         private constructor(
-            private val city: String,
-            private val line1: String,
-            private val line2: String?,
-            private val name: String?,
-            private val postalCode: String,
-            private val state: String,
-            private val additionalProperties: Map<String, JsonValue>,
+            @JsonProperty("city") private val city: String,
+            @JsonProperty("line1") private val line1: String,
+            @JsonProperty("line2") private val line2: String?,
+            @JsonProperty("name") private val name: String?,
+            @JsonProperty("postal_code") private val postalCode: String,
+            @JsonProperty("state") private val state: String,
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
             /** The city component of the check's destination address. */
@@ -734,33 +725,31 @@ constructor(
                 }
 
                 /** The city component of the check's destination address. */
-                @JsonProperty("city") fun city(city: String) = apply { this.city = city }
+                fun city(city: String) = apply { this.city = city }
 
                 /** The first line of the address component of the check's destination address. */
-                @JsonProperty("line1") fun line1(line1: String) = apply { this.line1 = line1 }
+                fun line1(line1: String) = apply { this.line1 = line1 }
 
                 /** The second line of the address component of the check's destination address. */
-                @JsonProperty("line2") fun line2(line2: String) = apply { this.line2 = line2 }
+                fun line2(line2: String) = apply { this.line2 = line2 }
 
                 /**
                  * The name component of the check's destination address. Defaults to the provided
                  * `recipient_name` parameter.
                  */
-                @JsonProperty("name") fun name(name: String) = apply { this.name = name }
+                fun name(name: String) = apply { this.name = name }
 
                 /** The postal code component of the check's destination address. */
-                @JsonProperty("postal_code")
                 fun postalCode(postalCode: String) = apply { this.postalCode = postalCode }
 
                 /** The US state component of the check's destination address. */
-                @JsonProperty("state") fun state(state: String) = apply { this.state = state }
+                fun state(state: String) = apply { this.state = state }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
                     putAllAdditionalProperties(additionalProperties)
                 }
 
-                @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                     additionalProperties.put(key, value)
                 }
@@ -812,17 +801,18 @@ constructor(
          * The return address to be printed on the check. If omitted this will default to an
          * Increase-owned address that will mark checks as delivery failed and shred them.
          */
-        @JsonDeserialize(builder = ReturnAddress.Builder::class)
         @NoAutoDetect
         class ReturnAddress
+        @JsonCreator
         private constructor(
-            private val city: String,
-            private val line1: String,
-            private val line2: String?,
-            private val name: String,
-            private val postalCode: String,
-            private val state: String,
-            private val additionalProperties: Map<String, JsonValue>,
+            @JsonProperty("city") private val city: String,
+            @JsonProperty("line1") private val line1: String,
+            @JsonProperty("line2") private val line2: String?,
+            @JsonProperty("name") private val name: String,
+            @JsonProperty("postal_code") private val postalCode: String,
+            @JsonProperty("state") private val state: String,
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
             /** The city of the return address. */
@@ -876,30 +866,28 @@ constructor(
                 }
 
                 /** The city of the return address. */
-                @JsonProperty("city") fun city(city: String) = apply { this.city = city }
+                fun city(city: String) = apply { this.city = city }
 
                 /** The first line of the return address. */
-                @JsonProperty("line1") fun line1(line1: String) = apply { this.line1 = line1 }
+                fun line1(line1: String) = apply { this.line1 = line1 }
 
                 /** The second line of the return address. */
-                @JsonProperty("line2") fun line2(line2: String) = apply { this.line2 = line2 }
+                fun line2(line2: String) = apply { this.line2 = line2 }
 
                 /** The name of the return address. */
-                @JsonProperty("name") fun name(name: String) = apply { this.name = name }
+                fun name(name: String) = apply { this.name = name }
 
                 /** The postal code of the return address. */
-                @JsonProperty("postal_code")
                 fun postalCode(postalCode: String) = apply { this.postalCode = postalCode }
 
                 /** The US state of the return address. */
-                @JsonProperty("state") fun state(state: String) = apply { this.state = state }
+                fun state(state: String) = apply { this.state = state }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
                     putAllAdditionalProperties(additionalProperties)
                 }
 
-                @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                     additionalProperties.put(key, value)
                 }
@@ -970,12 +958,13 @@ constructor(
      * `fulfillment_method` is equal to `third_party`. It must not be included if any other
      * `fulfillment_method` is provided.
      */
-    @JsonDeserialize(builder = ThirdParty.Builder::class)
     @NoAutoDetect
     class ThirdParty
+    @JsonCreator
     private constructor(
-        private val checkNumber: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("check_number") private val checkNumber: String?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /**
@@ -1013,7 +1002,6 @@ constructor(
              * If this is omitted, Increase will generate a check number for you; you should inspect
              * the response and use that check number.
              */
-            @JsonProperty("check_number")
             fun checkNumber(checkNumber: String) = apply { this.checkNumber = checkNumber }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1021,7 +1009,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

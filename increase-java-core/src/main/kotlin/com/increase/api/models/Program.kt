@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
@@ -25,20 +25,30 @@ import java.util.Optional
  * behalf of your customers, or otherwise engaged in regulated activity, we will work together to
  * create additional Programs for you.
  */
-@JsonDeserialize(builder = Program.Builder::class)
 @NoAutoDetect
 class Program
+@JsonCreator
 private constructor(
-    private val bank: JsonField<Bank>,
-    private val billingAccountId: JsonField<String>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val defaultDigitalCardProfileId: JsonField<String>,
-    private val id: JsonField<String>,
-    private val interestRate: JsonField<String>,
-    private val name: JsonField<String>,
-    private val type: JsonField<Type>,
-    private val updatedAt: JsonField<OffsetDateTime>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("bank") @ExcludeMissing private val bank: JsonField<Bank> = JsonMissing.of(),
+    @JsonProperty("billing_account_id")
+    @ExcludeMissing
+    private val billingAccountId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("default_digital_card_profile_id")
+    @ExcludeMissing
+    private val defaultDigitalCardProfileId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("interest_rate")
+    @ExcludeMissing
+    private val interestRate: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("name") @ExcludeMissing private val name: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     /** The Bank the Program is with. */
@@ -176,8 +186,6 @@ private constructor(
         fun bank(bank: Bank) = bank(JsonField.of(bank))
 
         /** The Bank the Program is with. */
-        @JsonProperty("bank")
-        @ExcludeMissing
         fun bank(bank: JsonField<Bank>) = apply { this.bank = bank }
 
         /** The Program billing account. */
@@ -185,8 +193,6 @@ private constructor(
             billingAccountId(JsonField.of(billingAccountId))
 
         /** The Program billing account. */
-        @JsonProperty("billing_account_id")
-        @ExcludeMissing
         fun billingAccountId(billingAccountId: JsonField<String>) = apply {
             this.billingAccountId = billingAccountId
         }
@@ -201,8 +207,6 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Program was
          * created.
          */
-        @JsonProperty("created_at")
-        @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The default configuration for digital cards attached to this Program. */
@@ -210,8 +214,6 @@ private constructor(
             defaultDigitalCardProfileId(JsonField.of(defaultDigitalCardProfileId))
 
         /** The default configuration for digital cards attached to this Program. */
-        @JsonProperty("default_digital_card_profile_id")
-        @ExcludeMissing
         fun defaultDigitalCardProfileId(defaultDigitalCardProfileId: JsonField<String>) = apply {
             this.defaultDigitalCardProfileId = defaultDigitalCardProfileId
         }
@@ -220,7 +222,7 @@ private constructor(
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Program identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The Interest Rate currently being earned on the accounts in this program, as a string
@@ -234,8 +236,6 @@ private constructor(
          * containing a decimal number. For example, a 1% interest rate would be represented as
          * "0.01".
          */
-        @JsonProperty("interest_rate")
-        @ExcludeMissing
         fun interestRate(interestRate: JsonField<String>) = apply {
             this.interestRate = interestRate
         }
@@ -244,8 +244,6 @@ private constructor(
         fun name(name: String) = name(JsonField.of(name))
 
         /** The name of the Program. */
-        @JsonProperty("name")
-        @ExcludeMissing
         fun name(name: JsonField<String>) = apply { this.name = name }
 
         /**
@@ -256,8 +254,6 @@ private constructor(
         /**
          * A constant representing the object's type. For this resource it will always be `program`.
          */
-        @JsonProperty("type")
-        @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         /**
@@ -270,8 +266,6 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Program was last
          * updated.
          */
-        @JsonProperty("updated_at")
-        @ExcludeMissing
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -279,7 +273,6 @@ private constructor(
             putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
             additionalProperties.put(key, value)
         }

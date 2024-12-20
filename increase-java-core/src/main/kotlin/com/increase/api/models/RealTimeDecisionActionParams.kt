@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
@@ -14,6 +13,7 @@ import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
@@ -75,16 +75,19 @@ constructor(
         }
     }
 
-    @JsonDeserialize(builder = RealTimeDecisionActionBody.Builder::class)
     @NoAutoDetect
     class RealTimeDecisionActionBody
+    @JsonCreator
     internal constructor(
-        private val cardAuthentication: CardAuthentication?,
+        @JsonProperty("card_authentication") private val cardAuthentication: CardAuthentication?,
+        @JsonProperty("card_authentication_challenge")
         private val cardAuthenticationChallenge: CardAuthenticationChallenge?,
-        private val cardAuthorization: CardAuthorization?,
+        @JsonProperty("card_authorization") private val cardAuthorization: CardAuthorization?,
+        @JsonProperty("digital_wallet_authentication")
         private val digitalWalletAuthentication: DigitalWalletAuthentication?,
-        private val digitalWalletToken: DigitalWalletToken?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("digital_wallet_token") private val digitalWalletToken: DigitalWalletToken?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /**
@@ -162,7 +165,6 @@ constructor(
              * If the Real-Time Decision relates to a 3DS card authentication attempt, this object
              * contains your response to the authentication.
              */
-            @JsonProperty("card_authentication")
             fun cardAuthentication(cardAuthentication: CardAuthentication) = apply {
                 this.cardAuthentication = cardAuthentication
             }
@@ -171,7 +173,6 @@ constructor(
              * If the Real-Time Decision relates to 3DS card authentication challenge delivery, this
              * object contains your response.
              */
-            @JsonProperty("card_authentication_challenge")
             fun cardAuthenticationChallenge(
                 cardAuthenticationChallenge: CardAuthenticationChallenge
             ) = apply { this.cardAuthenticationChallenge = cardAuthenticationChallenge }
@@ -180,7 +181,6 @@ constructor(
              * If the Real-Time Decision relates to a card authorization attempt, this object
              * contains your response to the authorization.
              */
-            @JsonProperty("card_authorization")
             fun cardAuthorization(cardAuthorization: CardAuthorization) = apply {
                 this.cardAuthorization = cardAuthorization
             }
@@ -189,7 +189,6 @@ constructor(
              * If the Real-Time Decision relates to a digital wallet authentication attempt, this
              * object contains your response to the authentication.
              */
-            @JsonProperty("digital_wallet_authentication")
             fun digitalWalletAuthentication(
                 digitalWalletAuthentication: DigitalWalletAuthentication
             ) = apply { this.digitalWalletAuthentication = digitalWalletAuthentication }
@@ -198,7 +197,6 @@ constructor(
              * If the Real-Time Decision relates to a digital wallet token provisioning attempt,
              * this object contains your response to the attempt.
              */
-            @JsonProperty("digital_wallet_token")
             fun digitalWalletToken(digitalWalletToken: DigitalWalletToken) = apply {
                 this.digitalWalletToken = digitalWalletToken
             }
@@ -208,7 +206,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -473,12 +470,13 @@ constructor(
      * If the Real-Time Decision relates to a 3DS card authentication attempt, this object contains
      * your response to the authentication.
      */
-    @JsonDeserialize(builder = CardAuthentication.Builder::class)
     @NoAutoDetect
     class CardAuthentication
+    @JsonCreator
     private constructor(
-        private val decision: Decision,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("decision") private val decision: Decision,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** Whether the card authentication attempt should be approved or declined. */
@@ -507,7 +505,6 @@ constructor(
             }
 
             /** Whether the card authentication attempt should be approved or declined. */
-            @JsonProperty("decision")
             fun decision(decision: Decision) = apply { this.decision = decision }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -515,7 +512,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -622,12 +618,13 @@ constructor(
      * If the Real-Time Decision relates to 3DS card authentication challenge delivery, this object
      * contains your response.
      */
-    @JsonDeserialize(builder = CardAuthenticationChallenge.Builder::class)
     @NoAutoDetect
     class CardAuthenticationChallenge
+    @JsonCreator
     private constructor(
-        private val result: Result,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("result") private val result: Result,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /**
@@ -662,14 +659,13 @@ constructor(
              * Whether the card authentication challenge was successfully delivered to the
              * cardholder.
              */
-            @JsonProperty("result") fun result(result: Result) = apply { this.result = result }
+            fun result(result: Result) = apply { this.result = result }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -770,13 +766,14 @@ constructor(
      * If the Real-Time Decision relates to a card authorization attempt, this object contains your
      * response to the authorization.
      */
-    @JsonDeserialize(builder = CardAuthorization.Builder::class)
     @NoAutoDetect
     class CardAuthorization
+    @JsonCreator
     private constructor(
-        private val decision: Decision,
-        private val declineReason: DeclineReason?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("decision") private val decision: Decision,
+        @JsonProperty("decline_reason") private val declineReason: DeclineReason?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** Whether the card authorization should be approved or declined. */
@@ -814,14 +811,12 @@ constructor(
             }
 
             /** Whether the card authorization should be approved or declined. */
-            @JsonProperty("decision")
             fun decision(decision: Decision) = apply { this.decision = decision }
 
             /**
              * The reason the card authorization was declined. This translates to a specific decline
              * code that is sent to the card network.
              */
-            @JsonProperty("decline_reason")
             fun declineReason(declineReason: DeclineReason) = apply {
                 this.declineReason = declineReason
             }
@@ -831,7 +826,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -1014,13 +1008,14 @@ constructor(
      * If the Real-Time Decision relates to a digital wallet authentication attempt, this object
      * contains your response to the authentication.
      */
-    @JsonDeserialize(builder = DigitalWalletAuthentication.Builder::class)
     @NoAutoDetect
     class DigitalWalletAuthentication
+    @JsonCreator
     private constructor(
-        private val result: Result,
-        private val success: Success?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("result") private val result: Result,
+        @JsonProperty("success") private val success: Success?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** Whether your application was able to deliver the one-time passcode. */
@@ -1054,9 +1049,8 @@ constructor(
             }
 
             /** Whether your application was able to deliver the one-time passcode. */
-            @JsonProperty("result") fun result(result: Result) = apply { this.result = result }
+            fun result(result: Result) = apply { this.result = result }
 
-            @JsonProperty("success")
             fun success(success: Success) = apply { this.success = success }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1064,7 +1058,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -1144,13 +1137,14 @@ constructor(
             override fun toString() = value.toString()
         }
 
-        @JsonDeserialize(builder = Success.Builder::class)
         @NoAutoDetect
         class Success
+        @JsonCreator
         private constructor(
-            private val email: String?,
-            private val phone: String?,
-            private val additionalProperties: Map<String, JsonValue>,
+            @JsonProperty("email") private val email: String?,
+            @JsonProperty("phone") private val phone: String?,
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
             /** The email address that was used to verify the cardholder via one-time passcode. */
@@ -1189,20 +1183,19 @@ constructor(
                 /**
                  * The email address that was used to verify the cardholder via one-time passcode.
                  */
-                @JsonProperty("email") fun email(email: String) = apply { this.email = email }
+                fun email(email: String) = apply { this.email = email }
 
                 /**
                  * The phone number that was used to verify the cardholder via one-time passcode
                  * over SMS.
                  */
-                @JsonProperty("phone") fun phone(phone: String) = apply { this.phone = phone }
+                fun phone(phone: String) = apply { this.phone = phone }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
                     putAllAdditionalProperties(additionalProperties)
                 }
 
-                @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                     additionalProperties.put(key, value)
                 }
@@ -1268,13 +1261,14 @@ constructor(
      * If the Real-Time Decision relates to a digital wallet token provisioning attempt, this object
      * contains your response to the attempt.
      */
-    @JsonDeserialize(builder = DigitalWalletToken.Builder::class)
     @NoAutoDetect
     class DigitalWalletToken
+    @JsonCreator
     private constructor(
-        private val approval: Approval?,
-        private val decline: Decline?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("approval") private val approval: Approval?,
+        @JsonProperty("decline") private val decline: Decline?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /**
@@ -1317,14 +1311,12 @@ constructor(
              * If your application approves the provisioning attempt, this contains metadata about
              * the digital wallet token that will be generated.
              */
-            @JsonProperty("approval")
             fun approval(approval: Approval) = apply { this.approval = approval }
 
             /**
              * If your application declines the provisioning attempt, this contains details about
              * the decline.
              */
-            @JsonProperty("decline")
             fun decline(decline: Decline) = apply { this.decline = decline }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1332,7 +1324,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -1359,13 +1350,14 @@ constructor(
          * If your application approves the provisioning attempt, this contains metadata about the
          * digital wallet token that will be generated.
          */
-        @JsonDeserialize(builder = Approval.Builder::class)
         @NoAutoDetect
         class Approval
+        @JsonCreator
         private constructor(
-            private val email: String?,
-            private val phone: String?,
-            private val additionalProperties: Map<String, JsonValue>,
+            @JsonProperty("email") private val email: String?,
+            @JsonProperty("phone") private val phone: String?,
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
             /** An email address that can be used to verify the cardholder via one-time passcode. */
@@ -1404,20 +1396,19 @@ constructor(
                 /**
                  * An email address that can be used to verify the cardholder via one-time passcode.
                  */
-                @JsonProperty("email") fun email(email: String) = apply { this.email = email }
+                fun email(email: String) = apply { this.email = email }
 
                 /**
                  * A phone number that can be used to verify the cardholder via one-time passcode
                  * over SMS.
                  */
-                @JsonProperty("phone") fun phone(phone: String) = apply { this.phone = phone }
+                fun phone(phone: String) = apply { this.phone = phone }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
                     putAllAdditionalProperties(additionalProperties)
                 }
 
-                @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                     additionalProperties.put(key, value)
                 }
@@ -1465,12 +1456,13 @@ constructor(
          * If your application declines the provisioning attempt, this contains details about the
          * decline.
          */
-        @JsonDeserialize(builder = Decline.Builder::class)
         @NoAutoDetect
         class Decline
+        @JsonCreator
         private constructor(
-            private val reason: String?,
-            private val additionalProperties: Map<String, JsonValue>,
+            @JsonProperty("reason") private val reason: String?,
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
             /**
@@ -1505,14 +1497,13 @@ constructor(
                  * Why the tokenization attempt was declined. This is for logging purposes only and
                  * is not displayed to the end-user.
                  */
-                @JsonProperty("reason") fun reason(reason: String) = apply { this.reason = reason }
+                fun reason(reason: String) = apply { this.reason = reason }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
                     putAllAdditionalProperties(additionalProperties)
                 }
 
-                @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                     additionalProperties.put(key, value)
                 }

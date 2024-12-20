@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
@@ -23,17 +23,25 @@ import java.util.Optional
  * When a user authorizes your OAuth application, an OAuth Connection object is created. Learn more
  * about OAuth [here](https://increase.com/documentation/oauth).
  */
-@JsonDeserialize(builder = OAuthConnection.Builder::class)
 @NoAutoDetect
 class OAuthConnection
+@JsonCreator
 private constructor(
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val deletedAt: JsonField<OffsetDateTime>,
-    private val groupId: JsonField<String>,
-    private val id: JsonField<String>,
-    private val status: JsonField<Status>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("deleted_at")
+    @ExcludeMissing
+    private val deletedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("group_id")
+    @ExcludeMissing
+    private val groupId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("status")
+    @ExcludeMissing
+    private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     /**
@@ -147,8 +155,6 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth
          * Connection was created.
          */
-        @JsonProperty("created_at")
-        @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /**
@@ -161,30 +167,24 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth
          * Connection was deleted.
          */
-        @JsonProperty("deleted_at")
-        @ExcludeMissing
         fun deletedAt(deletedAt: JsonField<OffsetDateTime>) = apply { this.deletedAt = deletedAt }
 
         /** The identifier of the Group that has authorized your OAuth application. */
         fun groupId(groupId: String) = groupId(JsonField.of(groupId))
 
         /** The identifier of the Group that has authorized your OAuth application. */
-        @JsonProperty("group_id")
-        @ExcludeMissing
         fun groupId(groupId: JsonField<String>) = apply { this.groupId = groupId }
 
         /** The OAuth Connection's identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The OAuth Connection's identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** Whether the connection is active. */
         fun status(status: Status) = status(JsonField.of(status))
 
         /** Whether the connection is active. */
-        @JsonProperty("status")
-        @ExcludeMissing
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
@@ -197,8 +197,6 @@ private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `oauth_connection`.
          */
-        @JsonProperty("type")
-        @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -206,7 +204,6 @@ private constructor(
             putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
             additionalProperties.put(key, value)
         }

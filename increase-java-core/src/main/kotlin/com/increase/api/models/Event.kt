@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
@@ -23,17 +23,25 @@ import java.util.Objects
  * List Events endpoint and can be delivered to your application via webhooks. For more information,
  * see our [webhooks guide](https://increase.com/documentation/webhooks).
  */
-@JsonDeserialize(builder = Event.Builder::class)
 @NoAutoDetect
 class Event
+@JsonCreator
 private constructor(
-    private val associatedObjectId: JsonField<String>,
-    private val associatedObjectType: JsonField<String>,
-    private val category: JsonField<Category>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val id: JsonField<String>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("associated_object_id")
+    @ExcludeMissing
+    private val associatedObjectId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("associated_object_type")
+    @ExcludeMissing
+    private val associatedObjectType: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("category")
+    @ExcludeMissing
+    private val category: JsonField<Category> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     /** The identifier of the object that generated this Event. */
@@ -133,8 +141,6 @@ private constructor(
             associatedObjectId(JsonField.of(associatedObjectId))
 
         /** The identifier of the object that generated this Event. */
-        @JsonProperty("associated_object_id")
-        @ExcludeMissing
         fun associatedObjectId(associatedObjectId: JsonField<String>) = apply {
             this.associatedObjectId = associatedObjectId
         }
@@ -144,8 +150,6 @@ private constructor(
             associatedObjectType(JsonField.of(associatedObjectType))
 
         /** The type of the object that generated this Event. */
-        @JsonProperty("associated_object_type")
-        @ExcludeMissing
         fun associatedObjectType(associatedObjectType: JsonField<String>) = apply {
             this.associatedObjectType = associatedObjectType
         }
@@ -160,23 +164,19 @@ private constructor(
          * The category of the Event. We may add additional possible values for this enum over time;
          * your application should be able to handle such additions gracefully.
          */
-        @JsonProperty("category")
-        @ExcludeMissing
         fun category(category: JsonField<Category>) = apply { this.category = category }
 
         /** The time the Event was created. */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /** The time the Event was created. */
-        @JsonProperty("created_at")
-        @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The Event identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Event identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * A constant representing the object's type. For this resource it will always be `event`.
@@ -186,8 +186,6 @@ private constructor(
         /**
          * A constant representing the object's type. For this resource it will always be `event`.
          */
-        @JsonProperty("type")
-        @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -195,7 +193,6 @@ private constructor(
             putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
             additionalProperties.put(key, value)
         }

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
@@ -14,6 +13,7 @@ import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
@@ -61,13 +61,14 @@ constructor(
         }
     }
 
-    @JsonDeserialize(builder = SimulationCardDisputeActionBody.Builder::class)
     @NoAutoDetect
     class SimulationCardDisputeActionBody
+    @JsonCreator
     internal constructor(
-        private val status: Status,
-        private val explanation: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("status") private val status: Status,
+        @JsonProperty("explanation") private val explanation: String?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The status to move the dispute to. */
@@ -104,10 +105,9 @@ constructor(
                 }
 
             /** The status to move the dispute to. */
-            @JsonProperty("status") fun status(status: Status) = apply { this.status = status }
+            fun status(status: Status) = apply { this.status = status }
 
             /** Why the dispute was rejected. Not required for accepting disputes. */
-            @JsonProperty("explanation")
             fun explanation(explanation: String) = apply { this.explanation = explanation }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -115,7 +115,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

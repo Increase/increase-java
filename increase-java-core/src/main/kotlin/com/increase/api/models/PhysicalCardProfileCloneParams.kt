@@ -4,13 +4,14 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
@@ -69,16 +70,17 @@ constructor(
         }
     }
 
-    @JsonDeserialize(builder = PhysicalCardProfileCloneBody.Builder::class)
     @NoAutoDetect
     class PhysicalCardProfileCloneBody
+    @JsonCreator
     internal constructor(
-        private val carrierImageFileId: String?,
-        private val contactPhone: String?,
-        private val description: String?,
-        private val frontImageFileId: String?,
-        private val frontText: FrontText?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("carrier_image_file_id") private val carrierImageFileId: String?,
+        @JsonProperty("contact_phone") private val contactPhone: String?,
+        @JsonProperty("description") private val description: String?,
+        @JsonProperty("front_image_file_id") private val frontImageFileId: String?,
+        @JsonProperty("front_text") private val frontText: FrontText?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The identifier of the File containing the physical card's carrier image. */
@@ -136,21 +138,17 @@ constructor(
             }
 
             /** The identifier of the File containing the physical card's carrier image. */
-            @JsonProperty("carrier_image_file_id")
             fun carrierImageFileId(carrierImageFileId: String) = apply {
                 this.carrierImageFileId = carrierImageFileId
             }
 
             /** A phone number the user can contact to receive support for their card. */
-            @JsonProperty("contact_phone")
             fun contactPhone(contactPhone: String) = apply { this.contactPhone = contactPhone }
 
             /** A description you can use to identify the Card Profile. */
-            @JsonProperty("description")
             fun description(description: String) = apply { this.description = description }
 
             /** The identifier of the File containing the physical card's front image. */
-            @JsonProperty("front_image_file_id")
             fun frontImageFileId(frontImageFileId: String) = apply {
                 this.frontImageFileId = frontImageFileId
             }
@@ -159,7 +157,6 @@ constructor(
              * Text printed on the front of the card. Reach out to
              * [support@increase.com](mailto:support@increase.com) for more information.
              */
-            @JsonProperty("front_text")
             fun frontText(frontText: FrontText) = apply { this.frontText = frontText }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -167,7 +164,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -412,13 +408,14 @@ constructor(
      * Text printed on the front of the card. Reach out to
      * [support@increase.com](mailto:support@increase.com) for more information.
      */
-    @JsonDeserialize(builder = FrontText.Builder::class)
     @NoAutoDetect
     class FrontText
+    @JsonCreator
     private constructor(
-        private val line1: String,
-        private val line2: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("line1") private val line1: String,
+        @JsonProperty("line2") private val line2: String?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The first line of text on the front of the card. */
@@ -456,21 +453,20 @@ constructor(
             }
 
             /** The first line of text on the front of the card. */
-            @JsonProperty("line1") fun line1(line1: String) = apply { this.line1 = line1 }
+            fun line1(line1: String) = apply { this.line1 = line1 }
 
             /**
              * The second line of text on the front of the card. Providing a second line moves the
              * first line slightly higher and prints the second line in the spot where the first
              * line would have otherwise been printed.
              */
-            @JsonProperty("line2") fun line2(line2: String) = apply { this.line2 = line2 }
+            fun line2(line2: String) = apply { this.line2 = line2 }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

@@ -6,29 +6,37 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 
 /** Routing numbers are used to identify your bank in a financial transaction. */
-@JsonDeserialize(builder = RoutingNumberListResponse.Builder::class)
 @NoAutoDetect
 class RoutingNumberListResponse
+@JsonCreator
 private constructor(
-    private val achTransfers: JsonField<AchTransfers>,
-    private val name: JsonField<String>,
-    private val realTimePaymentsTransfers: JsonField<RealTimePaymentsTransfers>,
-    private val routingNumber: JsonField<String>,
-    private val type: JsonField<Type>,
-    private val wireTransfers: JsonField<WireTransfers>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("ach_transfers")
+    @ExcludeMissing
+    private val achTransfers: JsonField<AchTransfers> = JsonMissing.of(),
+    @JsonProperty("name") @ExcludeMissing private val name: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("real_time_payments_transfers")
+    @ExcludeMissing
+    private val realTimePaymentsTransfers: JsonField<RealTimePaymentsTransfers> = JsonMissing.of(),
+    @JsonProperty("routing_number")
+    @ExcludeMissing
+    private val routingNumber: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonProperty("wire_transfers")
+    @ExcludeMissing
+    private val wireTransfers: JsonField<WireTransfers> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     /** This routing number's support for ACH Transfers. */
@@ -127,8 +135,6 @@ private constructor(
         fun achTransfers(achTransfers: AchTransfers) = achTransfers(JsonField.of(achTransfers))
 
         /** This routing number's support for ACH Transfers. */
-        @JsonProperty("ach_transfers")
-        @ExcludeMissing
         fun achTransfers(achTransfers: JsonField<AchTransfers>) = apply {
             this.achTransfers = achTransfers
         }
@@ -137,8 +143,6 @@ private constructor(
         fun name(name: String) = name(JsonField.of(name))
 
         /** The name of the financial institution belonging to a routing number. */
-        @JsonProperty("name")
-        @ExcludeMissing
         fun name(name: JsonField<String>) = apply { this.name = name }
 
         /** This routing number's support for Real-Time Payments Transfers. */
@@ -146,8 +150,6 @@ private constructor(
             realTimePaymentsTransfers(JsonField.of(realTimePaymentsTransfers))
 
         /** This routing number's support for Real-Time Payments Transfers. */
-        @JsonProperty("real_time_payments_transfers")
-        @ExcludeMissing
         fun realTimePaymentsTransfers(
             realTimePaymentsTransfers: JsonField<RealTimePaymentsTransfers>
         ) = apply { this.realTimePaymentsTransfers = realTimePaymentsTransfers }
@@ -156,8 +158,6 @@ private constructor(
         fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
 
         /** The nine digit routing number identifier. */
-        @JsonProperty("routing_number")
-        @ExcludeMissing
         fun routingNumber(routingNumber: JsonField<String>) = apply {
             this.routingNumber = routingNumber
         }
@@ -172,16 +172,12 @@ private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `routing_number`.
          */
-        @JsonProperty("type")
-        @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         /** This routing number's support for Wire Transfers. */
         fun wireTransfers(wireTransfers: WireTransfers) = wireTransfers(JsonField.of(wireTransfers))
 
         /** This routing number's support for Wire Transfers. */
-        @JsonProperty("wire_transfers")
-        @ExcludeMissing
         fun wireTransfers(wireTransfers: JsonField<WireTransfers>) = apply {
             this.wireTransfers = wireTransfers
         }
@@ -191,7 +187,6 @@ private constructor(
             putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
             additionalProperties.put(key, value)
         }

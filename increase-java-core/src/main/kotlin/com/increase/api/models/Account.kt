@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.LocalDate
@@ -24,26 +24,48 @@ import java.util.Optional
  * Accounts are your bank accounts with Increase. They store money, receive transfers, and send
  * payments. They earn interest and have depository insurance.
  */
-@JsonDeserialize(builder = Account.Builder::class)
 @NoAutoDetect
 class Account
+@JsonCreator
 private constructor(
-    private val bank: JsonField<Bank>,
-    private val closedAt: JsonField<OffsetDateTime>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val currency: JsonField<Currency>,
-    private val entityId: JsonField<String>,
-    private val id: JsonField<String>,
-    private val idempotencyKey: JsonField<String>,
-    private val informationalEntityId: JsonField<String>,
-    private val interestAccrued: JsonField<String>,
-    private val interestAccruedAt: JsonField<LocalDate>,
-    private val interestRate: JsonField<String>,
-    private val name: JsonField<String>,
-    private val programId: JsonField<String>,
-    private val status: JsonField<Status>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("bank") @ExcludeMissing private val bank: JsonField<Bank> = JsonMissing.of(),
+    @JsonProperty("closed_at")
+    @ExcludeMissing
+    private val closedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("currency")
+    @ExcludeMissing
+    private val currency: JsonField<Currency> = JsonMissing.of(),
+    @JsonProperty("entity_id")
+    @ExcludeMissing
+    private val entityId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    private val idempotencyKey: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("informational_entity_id")
+    @ExcludeMissing
+    private val informationalEntityId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("interest_accrued")
+    @ExcludeMissing
+    private val interestAccrued: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("interest_accrued_at")
+    @ExcludeMissing
+    private val interestAccruedAt: JsonField<LocalDate> = JsonMissing.of(),
+    @JsonProperty("interest_rate")
+    @ExcludeMissing
+    private val interestRate: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("name") @ExcludeMissing private val name: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("program_id")
+    @ExcludeMissing
+    private val programId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("status")
+    @ExcludeMissing
+    private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     /** The bank the Account is with. */
@@ -267,8 +289,6 @@ private constructor(
         fun bank(bank: Bank) = bank(JsonField.of(bank))
 
         /** The bank the Account is with. */
-        @JsonProperty("bank")
-        @ExcludeMissing
         fun bank(bank: JsonField<Bank>) = apply { this.bank = bank }
 
         /**
@@ -281,8 +301,6 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was
          * closed.
          */
-        @JsonProperty("closed_at")
-        @ExcludeMissing
         fun closedAt(closedAt: JsonField<OffsetDateTime>) = apply { this.closedAt = closedAt }
 
         /**
@@ -295,31 +313,25 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was
          * created.
          */
-        @JsonProperty("created_at")
-        @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the Account currency. */
         fun currency(currency: Currency) = currency(JsonField.of(currency))
 
         /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the Account currency. */
-        @JsonProperty("currency")
-        @ExcludeMissing
         fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
         /** The identifier for the Entity the Account belongs to. */
         fun entityId(entityId: String) = entityId(JsonField.of(entityId))
 
         /** The identifier for the Entity the Account belongs to. */
-        @JsonProperty("entity_id")
-        @ExcludeMissing
         fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
 
         /** The Account identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Account identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -333,8 +345,6 @@ private constructor(
          * is used to ensure that a request is only processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        @JsonProperty("idempotency_key")
-        @ExcludeMissing
         fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
             this.idempotencyKey = idempotencyKey
         }
@@ -350,8 +360,6 @@ private constructor(
          * The identifier of an Entity that, while not owning the Account, is associated with its
          * activity.
          */
-        @JsonProperty("informational_entity_id")
-        @ExcludeMissing
         fun informationalEntityId(informationalEntityId: JsonField<String>) = apply {
             this.informationalEntityId = informationalEntityId
         }
@@ -367,8 +375,6 @@ private constructor(
          * The interest accrued but not yet paid, expressed as a string containing a floating-point
          * value.
          */
-        @JsonProperty("interest_accrued")
-        @ExcludeMissing
         fun interestAccrued(interestAccrued: JsonField<String>) = apply {
             this.interestAccrued = interestAccrued
         }
@@ -384,8 +390,6 @@ private constructor(
          * The latest [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which interest was
          * accrued.
          */
-        @JsonProperty("interest_accrued_at")
-        @ExcludeMissing
         fun interestAccruedAt(interestAccruedAt: JsonField<LocalDate>) = apply {
             this.interestAccruedAt = interestAccruedAt
         }
@@ -400,8 +404,6 @@ private constructor(
          * The Interest Rate currently being earned on the account, as a string containing a decimal
          * number. For example, a 1% interest rate would be represented as "0.01".
          */
-        @JsonProperty("interest_rate")
-        @ExcludeMissing
         fun interestRate(interestRate: JsonField<String>) = apply {
             this.interestRate = interestRate
         }
@@ -410,8 +412,6 @@ private constructor(
         fun name(name: String) = name(JsonField.of(name))
 
         /** The name you choose for the Account. */
-        @JsonProperty("name")
-        @ExcludeMissing
         fun name(name: JsonField<String>) = apply { this.name = name }
 
         /**
@@ -424,16 +424,12 @@ private constructor(
          * The identifier of the Program determining the compliance and commercial terms of this
          * Account.
          */
-        @JsonProperty("program_id")
-        @ExcludeMissing
         fun programId(programId: JsonField<String>) = apply { this.programId = programId }
 
         /** The status of the Account. */
         fun status(status: Status) = status(JsonField.of(status))
 
         /** The status of the Account. */
-        @JsonProperty("status")
-        @ExcludeMissing
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
@@ -444,8 +440,6 @@ private constructor(
         /**
          * A constant representing the object's type. For this resource it will always be `account`.
          */
-        @JsonProperty("type")
-        @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -453,7 +447,6 @@ private constructor(
             putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
             additionalProperties.put(key, value)
         }

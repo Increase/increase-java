@@ -4,13 +4,14 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.services.blocking.ProofOfAuthorizationRequestService
 import java.util.Objects
@@ -86,13 +87,15 @@ private constructor(
             )
     }
 
-    @JsonDeserialize(builder = Response.Builder::class)
     @NoAutoDetect
     class Response
+    @JsonCreator
     constructor(
-        private val data: JsonField<List<ProofOfAuthorizationRequest>>,
-        private val nextCursor: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("data")
+        private val data: JsonField<List<ProofOfAuthorizationRequest>> = JsonMissing.of(),
+        @JsonProperty("next_cursor") private val nextCursor: JsonField<String> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         private var validated: Boolean = false
@@ -156,17 +159,14 @@ private constructor(
 
             fun data(data: List<ProofOfAuthorizationRequest>) = data(JsonField.of(data))
 
-            @JsonProperty("data")
             fun data(data: JsonField<List<ProofOfAuthorizationRequest>>) = apply {
                 this.data = data
             }
 
             fun nextCursor(nextCursor: String) = nextCursor(JsonField.of(nextCursor))
 
-            @JsonProperty("next_cursor")
             fun nextCursor(nextCursor: JsonField<String>) = apply { this.nextCursor = nextCursor }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 this.additionalProperties.put(key, value)
             }
