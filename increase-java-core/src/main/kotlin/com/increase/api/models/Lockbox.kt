@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
@@ -23,20 +23,34 @@ import java.util.Optional
  * Lockboxes are physical locations that can receive mail containing paper checks. Increase will
  * automatically create a Check Deposit for checks received this way.
  */
-@JsonDeserialize(builder = Lockbox.Builder::class)
 @NoAutoDetect
 class Lockbox
+@JsonCreator
 private constructor(
-    private val accountId: JsonField<String>,
-    private val address: JsonField<Address>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val description: JsonField<String>,
-    private val id: JsonField<String>,
-    private val idempotencyKey: JsonField<String>,
-    private val recipientName: JsonField<String>,
-    private val status: JsonField<Status>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("account_id")
+    @ExcludeMissing
+    private val accountId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("address")
+    @ExcludeMissing
+    private val address: JsonField<Address> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("description")
+    @ExcludeMissing
+    private val description: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    private val idempotencyKey: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("recipient_name")
+    @ExcludeMissing
+    private val recipientName: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("status")
+    @ExcludeMissing
+    private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     /** The identifier for the Account checks sent to this lockbox will be deposited into. */
@@ -167,16 +181,12 @@ private constructor(
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
         /** The identifier for the Account checks sent to this lockbox will be deposited into. */
-        @JsonProperty("account_id")
-        @ExcludeMissing
         fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
         /** The mailing address for the Lockbox. */
         fun address(address: Address) = address(JsonField.of(address))
 
         /** The mailing address for the Lockbox. */
-        @JsonProperty("address")
-        @ExcludeMissing
         fun address(address: JsonField<Address>) = apply { this.address = address }
 
         /**
@@ -189,23 +199,19 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Lockbox was
          * created.
          */
-        @JsonProperty("created_at")
-        @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The description you choose for the Lockbox. */
         fun description(description: String) = description(JsonField.of(description))
 
         /** The description you choose for the Lockbox. */
-        @JsonProperty("description")
-        @ExcludeMissing
         fun description(description: JsonField<String>) = apply { this.description = description }
 
         /** The Lockbox identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Lockbox identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -219,8 +225,6 @@ private constructor(
          * is used to ensure that a request is only processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        @JsonProperty("idempotency_key")
-        @ExcludeMissing
         fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
             this.idempotencyKey = idempotencyKey
         }
@@ -229,8 +233,6 @@ private constructor(
         fun recipientName(recipientName: String) = recipientName(JsonField.of(recipientName))
 
         /** The recipient name you choose for the Lockbox. */
-        @JsonProperty("recipient_name")
-        @ExcludeMissing
         fun recipientName(recipientName: JsonField<String>) = apply {
             this.recipientName = recipientName
         }
@@ -239,8 +241,6 @@ private constructor(
         fun status(status: Status) = status(JsonField.of(status))
 
         /** This indicates if mail can be sent to this address. */
-        @JsonProperty("status")
-        @ExcludeMissing
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
@@ -251,8 +251,6 @@ private constructor(
         /**
          * A constant representing the object's type. For this resource it will always be `lockbox`.
          */
-        @JsonProperty("type")
-        @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -260,7 +258,6 @@ private constructor(
             putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
             additionalProperties.put(key, value)
         }
@@ -291,17 +288,30 @@ private constructor(
     }
 
     /** The mailing address for the Lockbox. */
-    @JsonDeserialize(builder = Address.Builder::class)
     @NoAutoDetect
     class Address
+    @JsonCreator
     private constructor(
-        private val city: JsonField<String>,
-        private val line1: JsonField<String>,
-        private val line2: JsonField<String>,
-        private val postalCode: JsonField<String>,
-        private val recipient: JsonField<String>,
-        private val state: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("city")
+        @ExcludeMissing
+        private val city: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("line1")
+        @ExcludeMissing
+        private val line1: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("line2")
+        @ExcludeMissing
+        private val line2: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("postal_code")
+        @ExcludeMissing
+        private val postalCode: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("recipient")
+        @ExcludeMissing
+        private val recipient: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("state")
+        @ExcludeMissing
+        private val state: JsonField<String> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The city of the address. */
@@ -404,32 +414,24 @@ private constructor(
             fun city(city: String) = city(JsonField.of(city))
 
             /** The city of the address. */
-            @JsonProperty("city")
-            @ExcludeMissing
             fun city(city: JsonField<String>) = apply { this.city = city }
 
             /** The first line of the address. */
             fun line1(line1: String) = line1(JsonField.of(line1))
 
             /** The first line of the address. */
-            @JsonProperty("line1")
-            @ExcludeMissing
             fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
             /** The second line of the address. */
             fun line2(line2: String) = line2(JsonField.of(line2))
 
             /** The second line of the address. */
-            @JsonProperty("line2")
-            @ExcludeMissing
             fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
             /** The postal code of the address. */
             fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
 
             /** The postal code of the address. */
-            @JsonProperty("postal_code")
-            @ExcludeMissing
             fun postalCode(postalCode: JsonField<String>) = apply { this.postalCode = postalCode }
 
             /**
@@ -444,8 +446,6 @@ private constructor(
              * when creating the address, as well as an ATTN suffix to help route the mail to your
              * lockbox. Mail senders must include this ATTN line to receive mail at this Lockbox.
              */
-            @JsonProperty("recipient")
-            @ExcludeMissing
             fun recipient(recipient: JsonField<String>) = apply { this.recipient = recipient }
 
             /**
@@ -458,8 +458,6 @@ private constructor(
              * The two-letter United States Postal Service (USPS) abbreviation for the state of the
              * address.
              */
-            @JsonProperty("state")
-            @ExcludeMissing
             fun state(state: JsonField<String>) = apply { this.state = state }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -467,7 +465,6 @@ private constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

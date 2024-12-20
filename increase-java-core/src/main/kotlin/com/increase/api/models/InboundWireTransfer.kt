@@ -6,48 +6,90 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 import java.util.Optional
 
 /** An Inbound Wire Transfer is a wire transfer initiated outside of Increase to your account. */
-@JsonDeserialize(builder = InboundWireTransfer.Builder::class)
 @NoAutoDetect
 class InboundWireTransfer
+@JsonCreator
 private constructor(
-    private val accountId: JsonField<String>,
-    private val accountNumberId: JsonField<String>,
-    private val amount: JsonField<Long>,
-    private val beneficiaryAddressLine1: JsonField<String>,
-    private val beneficiaryAddressLine2: JsonField<String>,
-    private val beneficiaryAddressLine3: JsonField<String>,
-    private val beneficiaryName: JsonField<String>,
-    private val beneficiaryReference: JsonField<String>,
-    private val description: JsonField<String>,
-    private val id: JsonField<String>,
-    private val inputMessageAccountabilityData: JsonField<String>,
-    private val originatorAddressLine1: JsonField<String>,
-    private val originatorAddressLine2: JsonField<String>,
-    private val originatorAddressLine3: JsonField<String>,
-    private val originatorName: JsonField<String>,
-    private val originatorRoutingNumber: JsonField<String>,
-    private val originatorToBeneficiaryInformation: JsonField<String>,
-    private val originatorToBeneficiaryInformationLine1: JsonField<String>,
-    private val originatorToBeneficiaryInformationLine2: JsonField<String>,
-    private val originatorToBeneficiaryInformationLine3: JsonField<String>,
-    private val originatorToBeneficiaryInformationLine4: JsonField<String>,
-    private val senderReference: JsonField<String>,
-    private val status: JsonField<Status>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("account_id")
+    @ExcludeMissing
+    private val accountId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("account_number_id")
+    @ExcludeMissing
+    private val accountNumberId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
+    @JsonProperty("beneficiary_address_line1")
+    @ExcludeMissing
+    private val beneficiaryAddressLine1: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("beneficiary_address_line2")
+    @ExcludeMissing
+    private val beneficiaryAddressLine2: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("beneficiary_address_line3")
+    @ExcludeMissing
+    private val beneficiaryAddressLine3: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("beneficiary_name")
+    @ExcludeMissing
+    private val beneficiaryName: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("beneficiary_reference")
+    @ExcludeMissing
+    private val beneficiaryReference: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("description")
+    @ExcludeMissing
+    private val description: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("input_message_accountability_data")
+    @ExcludeMissing
+    private val inputMessageAccountabilityData: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("originator_address_line1")
+    @ExcludeMissing
+    private val originatorAddressLine1: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("originator_address_line2")
+    @ExcludeMissing
+    private val originatorAddressLine2: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("originator_address_line3")
+    @ExcludeMissing
+    private val originatorAddressLine3: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("originator_name")
+    @ExcludeMissing
+    private val originatorName: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("originator_routing_number")
+    @ExcludeMissing
+    private val originatorRoutingNumber: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("originator_to_beneficiary_information")
+    @ExcludeMissing
+    private val originatorToBeneficiaryInformation: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("originator_to_beneficiary_information_line1")
+    @ExcludeMissing
+    private val originatorToBeneficiaryInformationLine1: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("originator_to_beneficiary_information_line2")
+    @ExcludeMissing
+    private val originatorToBeneficiaryInformationLine2: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("originator_to_beneficiary_information_line3")
+    @ExcludeMissing
+    private val originatorToBeneficiaryInformationLine3: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("originator_to_beneficiary_information_line4")
+    @ExcludeMissing
+    private val originatorToBeneficiaryInformationLine4: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("sender_reference")
+    @ExcludeMissing
+    private val senderReference: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("status")
+    @ExcludeMissing
+    private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     /** The Account to which the transfer belongs. */
@@ -386,8 +428,6 @@ private constructor(
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
         /** The Account to which the transfer belongs. */
-        @JsonProperty("account_id")
-        @ExcludeMissing
         fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
         /** The identifier of the Account Number to which this transfer was sent. */
@@ -395,8 +435,6 @@ private constructor(
             accountNumberId(JsonField.of(accountNumberId))
 
         /** The identifier of the Account Number to which this transfer was sent. */
-        @JsonProperty("account_number_id")
-        @ExcludeMissing
         fun accountNumberId(accountNumberId: JsonField<String>) = apply {
             this.accountNumberId = accountNumberId
         }
@@ -405,8 +443,6 @@ private constructor(
         fun amount(amount: Long) = amount(JsonField.of(amount))
 
         /** The amount in USD cents. */
-        @JsonProperty("amount")
-        @ExcludeMissing
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
         /** A free-form address field set by the sender. */
@@ -414,8 +450,6 @@ private constructor(
             beneficiaryAddressLine1(JsonField.of(beneficiaryAddressLine1))
 
         /** A free-form address field set by the sender. */
-        @JsonProperty("beneficiary_address_line1")
-        @ExcludeMissing
         fun beneficiaryAddressLine1(beneficiaryAddressLine1: JsonField<String>) = apply {
             this.beneficiaryAddressLine1 = beneficiaryAddressLine1
         }
@@ -425,8 +459,6 @@ private constructor(
             beneficiaryAddressLine2(JsonField.of(beneficiaryAddressLine2))
 
         /** A free-form address field set by the sender. */
-        @JsonProperty("beneficiary_address_line2")
-        @ExcludeMissing
         fun beneficiaryAddressLine2(beneficiaryAddressLine2: JsonField<String>) = apply {
             this.beneficiaryAddressLine2 = beneficiaryAddressLine2
         }
@@ -436,8 +468,6 @@ private constructor(
             beneficiaryAddressLine3(JsonField.of(beneficiaryAddressLine3))
 
         /** A free-form address field set by the sender. */
-        @JsonProperty("beneficiary_address_line3")
-        @ExcludeMissing
         fun beneficiaryAddressLine3(beneficiaryAddressLine3: JsonField<String>) = apply {
             this.beneficiaryAddressLine3 = beneficiaryAddressLine3
         }
@@ -447,8 +477,6 @@ private constructor(
             beneficiaryName(JsonField.of(beneficiaryName))
 
         /** A name set by the sender. */
-        @JsonProperty("beneficiary_name")
-        @ExcludeMissing
         fun beneficiaryName(beneficiaryName: JsonField<String>) = apply {
             this.beneficiaryName = beneficiaryName
         }
@@ -458,8 +486,6 @@ private constructor(
             beneficiaryReference(JsonField.of(beneficiaryReference))
 
         /** A free-form reference string set by the sender, to help identify the transfer. */
-        @JsonProperty("beneficiary_reference")
-        @ExcludeMissing
         fun beneficiaryReference(beneficiaryReference: JsonField<String>) = apply {
             this.beneficiaryReference = beneficiaryReference
         }
@@ -468,15 +494,13 @@ private constructor(
         fun description(description: String) = description(JsonField.of(description))
 
         /** An Increase-constructed description of the transfer. */
-        @JsonProperty("description")
-        @ExcludeMissing
         fun description(description: JsonField<String>) = apply { this.description = description }
 
         /** The inbound wire transfer's identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The inbound wire transfer's identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * A unique identifier available to the originating and receiving banks, commonly
@@ -491,8 +515,6 @@ private constructor(
          * abbreviated as IMAD. It is created when the wire is submitted to the Fedwire service and
          * is helpful when debugging wires with the originating bank.
          */
-        @JsonProperty("input_message_accountability_data")
-        @ExcludeMissing
         fun inputMessageAccountabilityData(inputMessageAccountabilityData: JsonField<String>) =
             apply {
                 this.inputMessageAccountabilityData = inputMessageAccountabilityData
@@ -503,8 +525,6 @@ private constructor(
             originatorAddressLine1(JsonField.of(originatorAddressLine1))
 
         /** The address of the wire originator, set by the sending bank. */
-        @JsonProperty("originator_address_line1")
-        @ExcludeMissing
         fun originatorAddressLine1(originatorAddressLine1: JsonField<String>) = apply {
             this.originatorAddressLine1 = originatorAddressLine1
         }
@@ -514,8 +534,6 @@ private constructor(
             originatorAddressLine2(JsonField.of(originatorAddressLine2))
 
         /** The address of the wire originator, set by the sending bank. */
-        @JsonProperty("originator_address_line2")
-        @ExcludeMissing
         fun originatorAddressLine2(originatorAddressLine2: JsonField<String>) = apply {
             this.originatorAddressLine2 = originatorAddressLine2
         }
@@ -525,8 +543,6 @@ private constructor(
             originatorAddressLine3(JsonField.of(originatorAddressLine3))
 
         /** The address of the wire originator, set by the sending bank. */
-        @JsonProperty("originator_address_line3")
-        @ExcludeMissing
         fun originatorAddressLine3(originatorAddressLine3: JsonField<String>) = apply {
             this.originatorAddressLine3 = originatorAddressLine3
         }
@@ -535,8 +551,6 @@ private constructor(
         fun originatorName(originatorName: String) = originatorName(JsonField.of(originatorName))
 
         /** The originator of the wire, set by the sending bank. */
-        @JsonProperty("originator_name")
-        @ExcludeMissing
         fun originatorName(originatorName: JsonField<String>) = apply {
             this.originatorName = originatorName
         }
@@ -552,8 +566,6 @@ private constructor(
          * The American Banking Association (ABA) routing number of the bank originating the
          * transfer.
          */
-        @JsonProperty("originator_routing_number")
-        @ExcludeMissing
         fun originatorRoutingNumber(originatorRoutingNumber: JsonField<String>) = apply {
             this.originatorRoutingNumber = originatorRoutingNumber
         }
@@ -563,8 +575,6 @@ private constructor(
             originatorToBeneficiaryInformation(JsonField.of(originatorToBeneficiaryInformation))
 
         /** An Increase-created concatenation of the Originator-to-Beneficiary lines. */
-        @JsonProperty("originator_to_beneficiary_information")
-        @ExcludeMissing
         fun originatorToBeneficiaryInformation(
             originatorToBeneficiaryInformation: JsonField<String>
         ) = apply { this.originatorToBeneficiaryInformation = originatorToBeneficiaryInformation }
@@ -578,8 +588,6 @@ private constructor(
             )
 
         /** A free-form message set by the wire originator. */
-        @JsonProperty("originator_to_beneficiary_information_line1")
-        @ExcludeMissing
         fun originatorToBeneficiaryInformationLine1(
             originatorToBeneficiaryInformationLine1: JsonField<String>
         ) = apply {
@@ -595,8 +603,6 @@ private constructor(
             )
 
         /** A free-form message set by the wire originator. */
-        @JsonProperty("originator_to_beneficiary_information_line2")
-        @ExcludeMissing
         fun originatorToBeneficiaryInformationLine2(
             originatorToBeneficiaryInformationLine2: JsonField<String>
         ) = apply {
@@ -612,8 +618,6 @@ private constructor(
             )
 
         /** A free-form message set by the wire originator. */
-        @JsonProperty("originator_to_beneficiary_information_line3")
-        @ExcludeMissing
         fun originatorToBeneficiaryInformationLine3(
             originatorToBeneficiaryInformationLine3: JsonField<String>
         ) = apply {
@@ -629,8 +633,6 @@ private constructor(
             )
 
         /** A free-form message set by the wire originator. */
-        @JsonProperty("originator_to_beneficiary_information_line4")
-        @ExcludeMissing
         fun originatorToBeneficiaryInformationLine4(
             originatorToBeneficiaryInformationLine4: JsonField<String>
         ) = apply {
@@ -642,8 +644,6 @@ private constructor(
             senderReference(JsonField.of(senderReference))
 
         /** The sending bank's reference number for the wire transfer. */
-        @JsonProperty("sender_reference")
-        @ExcludeMissing
         fun senderReference(senderReference: JsonField<String>) = apply {
             this.senderReference = senderReference
         }
@@ -652,8 +652,6 @@ private constructor(
         fun status(status: Status) = status(JsonField.of(status))
 
         /** The status of the transfer. */
-        @JsonProperty("status")
-        @ExcludeMissing
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
@@ -666,8 +664,6 @@ private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `inbound_wire_transfer`.
          */
-        @JsonProperty("type")
-        @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -675,7 +671,6 @@ private constructor(
             putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
             additionalProperties.put(key, value)
         }

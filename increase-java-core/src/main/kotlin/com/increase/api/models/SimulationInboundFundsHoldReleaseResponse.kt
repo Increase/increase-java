@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
@@ -23,21 +23,35 @@ import java.util.Optional
  * We hold funds for certain transaction types to account for return windows where funds might still
  * be clawed back by the sending institution.
  */
-@JsonDeserialize(builder = SimulationInboundFundsHoldReleaseResponse.Builder::class)
 @NoAutoDetect
 class SimulationInboundFundsHoldReleaseResponse
+@JsonCreator
 private constructor(
-    private val amount: JsonField<Long>,
-    private val automaticallyReleasesAt: JsonField<OffsetDateTime>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val currency: JsonField<Currency>,
-    private val heldTransactionId: JsonField<String>,
-    private val id: JsonField<String>,
-    private val pendingTransactionId: JsonField<String>,
-    private val releasedAt: JsonField<OffsetDateTime>,
-    private val status: JsonField<Status>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
+    @JsonProperty("automatically_releases_at")
+    @ExcludeMissing
+    private val automaticallyReleasesAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("currency")
+    @ExcludeMissing
+    private val currency: JsonField<Currency> = JsonMissing.of(),
+    @JsonProperty("held_transaction_id")
+    @ExcludeMissing
+    private val heldTransactionId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("pending_transaction_id")
+    @ExcludeMissing
+    private val pendingTransactionId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("released_at")
+    @ExcludeMissing
+    private val releasedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("status")
+    @ExcludeMissing
+    private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     /**
@@ -204,8 +218,6 @@ private constructor(
          * The held amount in the minor unit of the account's currency. For dollars, for example,
          * this is cents.
          */
-        @JsonProperty("amount")
-        @ExcludeMissing
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
         /**
@@ -219,8 +231,6 @@ private constructor(
          * When the hold will be released automatically. Certain conditions may cause it to be
          * released before this time.
          */
-        @JsonProperty("automatically_releases_at")
-        @ExcludeMissing
         fun automaticallyReleasesAt(automaticallyReleasesAt: JsonField<OffsetDateTime>) = apply {
             this.automaticallyReleasesAt = automaticallyReleasesAt
         }
@@ -235,16 +245,12 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the hold was
          * created.
          */
-        @JsonProperty("created_at")
-        @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the hold's currency. */
         fun currency(currency: Currency) = currency(JsonField.of(currency))
 
         /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the hold's currency. */
-        @JsonProperty("currency")
-        @ExcludeMissing
         fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
         /** The ID of the Transaction for which funds were held. */
@@ -252,8 +258,6 @@ private constructor(
             heldTransactionId(JsonField.of(heldTransactionId))
 
         /** The ID of the Transaction for which funds were held. */
-        @JsonProperty("held_transaction_id")
-        @ExcludeMissing
         fun heldTransactionId(heldTransactionId: JsonField<String>) = apply {
             this.heldTransactionId = heldTransactionId
         }
@@ -262,15 +266,13 @@ private constructor(
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Inbound Funds Hold identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The ID of the Pending Transaction representing the held funds. */
         fun pendingTransactionId(pendingTransactionId: String) =
             pendingTransactionId(JsonField.of(pendingTransactionId))
 
         /** The ID of the Pending Transaction representing the held funds. */
-        @JsonProperty("pending_transaction_id")
-        @ExcludeMissing
         fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {
             this.pendingTransactionId = pendingTransactionId
         }
@@ -279,8 +281,6 @@ private constructor(
         fun releasedAt(releasedAt: OffsetDateTime) = releasedAt(JsonField.of(releasedAt))
 
         /** When the hold was released (if it has been released). */
-        @JsonProperty("released_at")
-        @ExcludeMissing
         fun releasedAt(releasedAt: JsonField<OffsetDateTime>) = apply {
             this.releasedAt = releasedAt
         }
@@ -289,8 +289,6 @@ private constructor(
         fun status(status: Status) = status(JsonField.of(status))
 
         /** The status of the hold. */
-        @JsonProperty("status")
-        @ExcludeMissing
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
@@ -303,8 +301,6 @@ private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `inbound_funds_hold`.
          */
-        @JsonProperty("type")
-        @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -312,7 +308,6 @@ private constructor(
             putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
             additionalProperties.put(key, value)
         }

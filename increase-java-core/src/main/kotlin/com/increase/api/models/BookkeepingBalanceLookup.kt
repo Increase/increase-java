@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
@@ -20,14 +20,18 @@ import java.util.Objects
 /**
  * Represents a request to lookup the balance of an Bookkeeping Account at a given point in time.
  */
-@JsonDeserialize(builder = BookkeepingBalanceLookup.Builder::class)
 @NoAutoDetect
 class BookkeepingBalanceLookup
+@JsonCreator
 private constructor(
-    private val balance: JsonField<Long>,
-    private val bookkeepingAccountId: JsonField<String>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("balance")
+    @ExcludeMissing
+    private val balance: JsonField<Long> = JsonMissing.of(),
+    @JsonProperty("bookkeeping_account_id")
+    @ExcludeMissing
+    private val bookkeepingAccountId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     /**
@@ -109,8 +113,6 @@ private constructor(
          * The Bookkeeping Account's current balance, representing the sum of all Bookkeeping
          * Entries on the Bookkeeping Account.
          */
-        @JsonProperty("balance")
-        @ExcludeMissing
         fun balance(balance: JsonField<Long>) = apply { this.balance = balance }
 
         /** The identifier for the account for which the balance was queried. */
@@ -118,8 +120,6 @@ private constructor(
             bookkeepingAccountId(JsonField.of(bookkeepingAccountId))
 
         /** The identifier for the account for which the balance was queried. */
-        @JsonProperty("bookkeeping_account_id")
-        @ExcludeMissing
         fun bookkeepingAccountId(bookkeepingAccountId: JsonField<String>) = apply {
             this.bookkeepingAccountId = bookkeepingAccountId
         }
@@ -134,8 +134,6 @@ private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `bookkeeping_balance_lookup`.
          */
-        @JsonProperty("type")
-        @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -143,7 +141,6 @@ private constructor(
             putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
             additionalProperties.put(key, value)
         }

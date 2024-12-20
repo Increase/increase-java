@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
@@ -14,6 +13,7 @@ import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
@@ -74,18 +74,21 @@ constructor(
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(builder = ExportCreateBody.Builder::class)
     @NoAutoDetect
     class ExportCreateBody
+    @JsonCreator
     internal constructor(
-        private val category: Category,
+        @JsonProperty("category") private val category: Category,
+        @JsonProperty("account_statement_ofx")
         private val accountStatementOfx: AccountStatementOfx?,
-        private val balanceCsv: BalanceCsv?,
+        @JsonProperty("balance_csv") private val balanceCsv: BalanceCsv?,
+        @JsonProperty("bookkeeping_account_balance_csv")
         private val bookkeepingAccountBalanceCsv: BookkeepingAccountBalanceCsv?,
-        private val entityCsv: EntityCsv?,
-        private val transactionCsv: TransactionCsv?,
-        private val vendorCsv: JsonValue?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("entity_csv") private val entityCsv: EntityCsv?,
+        @JsonProperty("transaction_csv") private val transactionCsv: TransactionCsv?,
+        @JsonProperty("vendor_csv") private val vendorCsv: JsonValue?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The type of Export to create. */
@@ -158,45 +161,38 @@ constructor(
             }
 
             /** The type of Export to create. */
-            @JsonProperty("category")
             fun category(category: Category) = apply { this.category = category }
 
             /**
              * Options for the created export. Required if `category` is equal to
              * `account_statement_ofx`.
              */
-            @JsonProperty("account_statement_ofx")
             fun accountStatementOfx(accountStatementOfx: AccountStatementOfx) = apply {
                 this.accountStatementOfx = accountStatementOfx
             }
 
             /** Options for the created export. Required if `category` is equal to `balance_csv`. */
-            @JsonProperty("balance_csv")
             fun balanceCsv(balanceCsv: BalanceCsv) = apply { this.balanceCsv = balanceCsv }
 
             /**
              * Options for the created export. Required if `category` is equal to
              * `bookkeeping_account_balance_csv`.
              */
-            @JsonProperty("bookkeeping_account_balance_csv")
             fun bookkeepingAccountBalanceCsv(
                 bookkeepingAccountBalanceCsv: BookkeepingAccountBalanceCsv
             ) = apply { this.bookkeepingAccountBalanceCsv = bookkeepingAccountBalanceCsv }
 
             /** Options for the created export. Required if `category` is equal to `entity_csv`. */
-            @JsonProperty("entity_csv")
             fun entityCsv(entityCsv: EntityCsv) = apply { this.entityCsv = entityCsv }
 
             /**
              * Options for the created export. Required if `category` is equal to `transaction_csv`.
              */
-            @JsonProperty("transaction_csv")
             fun transactionCsv(transactionCsv: TransactionCsv) = apply {
                 this.transactionCsv = transactionCsv
             }
 
             /** Options for the created export. Required if `category` is equal to `vendor_csv`. */
-            @JsonProperty("vendor_csv")
             fun vendorCsv(vendorCsv: JsonValue) = apply { this.vendorCsv = vendorCsv }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -204,7 +200,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -537,13 +532,14 @@ constructor(
     /**
      * Options for the created export. Required if `category` is equal to `account_statement_ofx`.
      */
-    @JsonDeserialize(builder = AccountStatementOfx.Builder::class)
     @NoAutoDetect
     class AccountStatementOfx
+    @JsonCreator
     private constructor(
-        private val accountId: String,
-        private val createdAt: CreatedAt?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("account_id") private val accountId: String,
+        @JsonProperty("created_at") private val createdAt: CreatedAt?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The Account to create a statement for. */
@@ -578,11 +574,9 @@ constructor(
             }
 
             /** The Account to create a statement for. */
-            @JsonProperty("account_id")
             fun accountId(accountId: String) = apply { this.accountId = accountId }
 
             /** Filter results by time range on the `created_at` attribute. */
-            @JsonProperty("created_at")
             fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -590,7 +584,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -614,15 +607,16 @@ constructor(
         }
 
         /** Filter results by time range on the `created_at` attribute. */
-        @JsonDeserialize(builder = CreatedAt.Builder::class)
         @NoAutoDetect
         class CreatedAt
+        @JsonCreator
         private constructor(
-            private val after: OffsetDateTime?,
-            private val before: OffsetDateTime?,
-            private val onOrAfter: OffsetDateTime?,
-            private val onOrBefore: OffsetDateTime?,
-            private val additionalProperties: Map<String, JsonValue>,
+            @JsonProperty("after") private val after: OffsetDateTime?,
+            @JsonProperty("before") private val before: OffsetDateTime?,
+            @JsonProperty("on_or_after") private val onOrAfter: OffsetDateTime?,
+            @JsonProperty("on_or_before") private val onOrBefore: OffsetDateTime?,
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
             /**
@@ -685,28 +679,24 @@ constructor(
                  * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
                  * timestamp.
                  */
-                @JsonProperty("after")
                 fun after(after: OffsetDateTime) = apply { this.after = after }
 
                 /**
                  * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
                  * timestamp.
                  */
-                @JsonProperty("before")
                 fun before(before: OffsetDateTime) = apply { this.before = before }
 
                 /**
                  * Return results on or after this
                  * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
                  */
-                @JsonProperty("on_or_after")
                 fun onOrAfter(onOrAfter: OffsetDateTime) = apply { this.onOrAfter = onOrAfter }
 
                 /**
                  * Return results on or before this
                  * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
                  */
-                @JsonProperty("on_or_before")
                 fun onOrBefore(onOrBefore: OffsetDateTime) = apply { this.onOrBefore = onOrBefore }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -714,7 +704,6 @@ constructor(
                     putAllAdditionalProperties(additionalProperties)
                 }
 
-                @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                     additionalProperties.put(key, value)
                 }
@@ -779,14 +768,15 @@ constructor(
     }
 
     /** Options for the created export. Required if `category` is equal to `balance_csv`. */
-    @JsonDeserialize(builder = BalanceCsv.Builder::class)
     @NoAutoDetect
     class BalanceCsv
+    @JsonCreator
     private constructor(
-        private val accountId: String?,
-        private val createdAt: CreatedAt?,
-        private val programId: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("account_id") private val accountId: String?,
+        @JsonProperty("created_at") private val createdAt: CreatedAt?,
+        @JsonProperty("program_id") private val programId: String?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** Filter exported Transactions to the specified Account. */
@@ -828,15 +818,12 @@ constructor(
             }
 
             /** Filter exported Transactions to the specified Account. */
-            @JsonProperty("account_id")
             fun accountId(accountId: String) = apply { this.accountId = accountId }
 
             /** Filter results by time range on the `created_at` attribute. */
-            @JsonProperty("created_at")
             fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
             /** Filter exported Transactions to the specified Program. */
-            @JsonProperty("program_id")
             fun programId(programId: String) = apply { this.programId = programId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -844,7 +831,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -869,15 +855,16 @@ constructor(
         }
 
         /** Filter results by time range on the `created_at` attribute. */
-        @JsonDeserialize(builder = CreatedAt.Builder::class)
         @NoAutoDetect
         class CreatedAt
+        @JsonCreator
         private constructor(
-            private val after: OffsetDateTime?,
-            private val before: OffsetDateTime?,
-            private val onOrAfter: OffsetDateTime?,
-            private val onOrBefore: OffsetDateTime?,
-            private val additionalProperties: Map<String, JsonValue>,
+            @JsonProperty("after") private val after: OffsetDateTime?,
+            @JsonProperty("before") private val before: OffsetDateTime?,
+            @JsonProperty("on_or_after") private val onOrAfter: OffsetDateTime?,
+            @JsonProperty("on_or_before") private val onOrBefore: OffsetDateTime?,
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
             /**
@@ -940,28 +927,24 @@ constructor(
                  * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
                  * timestamp.
                  */
-                @JsonProperty("after")
                 fun after(after: OffsetDateTime) = apply { this.after = after }
 
                 /**
                  * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
                  * timestamp.
                  */
-                @JsonProperty("before")
                 fun before(before: OffsetDateTime) = apply { this.before = before }
 
                 /**
                  * Return results on or after this
                  * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
                  */
-                @JsonProperty("on_or_after")
                 fun onOrAfter(onOrAfter: OffsetDateTime) = apply { this.onOrAfter = onOrAfter }
 
                 /**
                  * Return results on or before this
                  * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
                  */
-                @JsonProperty("on_or_before")
                 fun onOrBefore(onOrBefore: OffsetDateTime) = apply { this.onOrBefore = onOrBefore }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -969,7 +952,6 @@ constructor(
                     putAllAdditionalProperties(additionalProperties)
                 }
 
-                @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                     additionalProperties.put(key, value)
                 }
@@ -1037,13 +1019,14 @@ constructor(
      * Options for the created export. Required if `category` is equal to
      * `bookkeeping_account_balance_csv`.
      */
-    @JsonDeserialize(builder = BookkeepingAccountBalanceCsv.Builder::class)
     @NoAutoDetect
     class BookkeepingAccountBalanceCsv
+    @JsonCreator
     private constructor(
-        private val bookkeepingAccountId: String?,
-        private val createdAt: CreatedAt?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("bookkeeping_account_id") private val bookkeepingAccountId: String?,
+        @JsonProperty("created_at") private val createdAt: CreatedAt?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** Filter exported Transactions to the specified Bookkeeping Account. */
@@ -1080,13 +1063,11 @@ constructor(
             }
 
             /** Filter exported Transactions to the specified Bookkeeping Account. */
-            @JsonProperty("bookkeeping_account_id")
             fun bookkeepingAccountId(bookkeepingAccountId: String) = apply {
                 this.bookkeepingAccountId = bookkeepingAccountId
             }
 
             /** Filter results by time range on the `created_at` attribute. */
-            @JsonProperty("created_at")
             fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1094,7 +1075,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -1118,15 +1098,16 @@ constructor(
         }
 
         /** Filter results by time range on the `created_at` attribute. */
-        @JsonDeserialize(builder = CreatedAt.Builder::class)
         @NoAutoDetect
         class CreatedAt
+        @JsonCreator
         private constructor(
-            private val after: OffsetDateTime?,
-            private val before: OffsetDateTime?,
-            private val onOrAfter: OffsetDateTime?,
-            private val onOrBefore: OffsetDateTime?,
-            private val additionalProperties: Map<String, JsonValue>,
+            @JsonProperty("after") private val after: OffsetDateTime?,
+            @JsonProperty("before") private val before: OffsetDateTime?,
+            @JsonProperty("on_or_after") private val onOrAfter: OffsetDateTime?,
+            @JsonProperty("on_or_before") private val onOrBefore: OffsetDateTime?,
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
             /**
@@ -1189,28 +1170,24 @@ constructor(
                  * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
                  * timestamp.
                  */
-                @JsonProperty("after")
                 fun after(after: OffsetDateTime) = apply { this.after = after }
 
                 /**
                  * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
                  * timestamp.
                  */
-                @JsonProperty("before")
                 fun before(before: OffsetDateTime) = apply { this.before = before }
 
                 /**
                  * Return results on or after this
                  * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
                  */
-                @JsonProperty("on_or_after")
                 fun onOrAfter(onOrAfter: OffsetDateTime) = apply { this.onOrAfter = onOrAfter }
 
                 /**
                  * Return results on or before this
                  * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
                  */
-                @JsonProperty("on_or_before")
                 fun onOrBefore(onOrBefore: OffsetDateTime) = apply { this.onOrBefore = onOrBefore }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1218,7 +1195,6 @@ constructor(
                     putAllAdditionalProperties(additionalProperties)
                 }
 
-                @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                     additionalProperties.put(key, value)
                 }
@@ -1283,12 +1259,13 @@ constructor(
     }
 
     /** Options for the created export. Required if `category` is equal to `entity_csv`. */
-    @JsonDeserialize(builder = EntityCsv.Builder::class)
     @NoAutoDetect
     class EntityCsv
+    @JsonCreator
     private constructor(
-        private val status: Status?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("status") private val status: Status?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** Entity statuses to filter by. */
@@ -1317,14 +1294,13 @@ constructor(
             }
 
             /** Entity statuses to filter by. */
-            @JsonProperty("status") fun status(status: Status) = apply { this.status = status }
+            fun status(status: Status) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -1343,12 +1319,13 @@ constructor(
         }
 
         /** Entity statuses to filter by. */
-        @JsonDeserialize(builder = Status.Builder::class)
         @NoAutoDetect
         class Status
+        @JsonCreator
         private constructor(
-            private val in_: List<In>,
-            private val additionalProperties: Map<String, JsonValue>,
+            @JsonProperty("in") private val in_: List<In>,
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
             /**
@@ -1383,14 +1360,13 @@ constructor(
                  * Entity statuses to filter by. For GET requests, this should be encoded as a
                  * comma-delimited string, such as `?in=one,two,three`.
                  */
-                @JsonProperty("in") fun in_(in_: List<In>) = apply { this.in_ = in_ }
+                fun in_(in_: List<In>) = apply { this.in_ = in_ }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
                     putAllAdditionalProperties(additionalProperties)
                 }
 
-                @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                     additionalProperties.put(key, value)
                 }
@@ -1514,14 +1490,15 @@ constructor(
     }
 
     /** Options for the created export. Required if `category` is equal to `transaction_csv`. */
-    @JsonDeserialize(builder = TransactionCsv.Builder::class)
     @NoAutoDetect
     class TransactionCsv
+    @JsonCreator
     private constructor(
-        private val accountId: String?,
-        private val createdAt: CreatedAt?,
-        private val programId: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("account_id") private val accountId: String?,
+        @JsonProperty("created_at") private val createdAt: CreatedAt?,
+        @JsonProperty("program_id") private val programId: String?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** Filter exported Transactions to the specified Account. */
@@ -1563,15 +1540,12 @@ constructor(
             }
 
             /** Filter exported Transactions to the specified Account. */
-            @JsonProperty("account_id")
             fun accountId(accountId: String) = apply { this.accountId = accountId }
 
             /** Filter results by time range on the `created_at` attribute. */
-            @JsonProperty("created_at")
             fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
             /** Filter exported Transactions to the specified Program. */
-            @JsonProperty("program_id")
             fun programId(programId: String) = apply { this.programId = programId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1579,7 +1553,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -1604,15 +1577,16 @@ constructor(
         }
 
         /** Filter results by time range on the `created_at` attribute. */
-        @JsonDeserialize(builder = CreatedAt.Builder::class)
         @NoAutoDetect
         class CreatedAt
+        @JsonCreator
         private constructor(
-            private val after: OffsetDateTime?,
-            private val before: OffsetDateTime?,
-            private val onOrAfter: OffsetDateTime?,
-            private val onOrBefore: OffsetDateTime?,
-            private val additionalProperties: Map<String, JsonValue>,
+            @JsonProperty("after") private val after: OffsetDateTime?,
+            @JsonProperty("before") private val before: OffsetDateTime?,
+            @JsonProperty("on_or_after") private val onOrAfter: OffsetDateTime?,
+            @JsonProperty("on_or_before") private val onOrBefore: OffsetDateTime?,
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
             /**
@@ -1675,28 +1649,24 @@ constructor(
                  * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
                  * timestamp.
                  */
-                @JsonProperty("after")
                 fun after(after: OffsetDateTime) = apply { this.after = after }
 
                 /**
                  * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
                  * timestamp.
                  */
-                @JsonProperty("before")
                 fun before(before: OffsetDateTime) = apply { this.before = before }
 
                 /**
                  * Return results on or after this
                  * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
                  */
-                @JsonProperty("on_or_after")
                 fun onOrAfter(onOrAfter: OffsetDateTime) = apply { this.onOrAfter = onOrAfter }
 
                 /**
                  * Return results on or before this
                  * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
                  */
-                @JsonProperty("on_or_before")
                 fun onOrBefore(onOrBefore: OffsetDateTime) = apply { this.onOrBefore = onOrBefore }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1704,7 +1674,6 @@ constructor(
                     putAllAdditionalProperties(additionalProperties)
                 }
 
-                @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                     additionalProperties.put(key, value)
                 }

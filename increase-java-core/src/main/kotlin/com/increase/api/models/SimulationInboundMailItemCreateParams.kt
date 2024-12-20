@@ -4,13 +4,14 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
@@ -51,14 +52,15 @@ constructor(
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(builder = SimulationInboundMailItemCreateBody.Builder::class)
     @NoAutoDetect
     class SimulationInboundMailItemCreateBody
+    @JsonCreator
     internal constructor(
-        private val amount: Long,
-        private val lockboxId: String,
-        private val contentsFileId: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("amount") private val amount: Long,
+        @JsonProperty("lockbox_id") private val lockboxId: String,
+        @JsonProperty("contents_file_id") private val contentsFileId: String?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The amount of the check to be simulated, in cents. */
@@ -104,17 +106,15 @@ constructor(
             }
 
             /** The amount of the check to be simulated, in cents. */
-            @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long) = apply { this.amount = amount }
 
             /** The identifier of the Lockbox to simulate inbound mail to. */
-            @JsonProperty("lockbox_id")
             fun lockboxId(lockboxId: String) = apply { this.lockboxId = lockboxId }
 
             /**
              * The file containing the PDF contents. If not present, a default check image file will
              * be used.
              */
-            @JsonProperty("contents_file_id")
             fun contentsFileId(contentsFileId: String) = apply {
                 this.contentsFileId = contentsFileId
             }
@@ -124,7 +124,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

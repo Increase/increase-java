@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
@@ -14,6 +13,7 @@ import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
@@ -59,15 +59,16 @@ constructor(
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(builder = BookkeepingAccountCreateBody.Builder::class)
     @NoAutoDetect
     class BookkeepingAccountCreateBody
+    @JsonCreator
     internal constructor(
-        private val name: String,
-        private val accountId: String?,
-        private val complianceCategory: ComplianceCategory?,
-        private val entityId: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("name") private val name: String,
+        @JsonProperty("account_id") private val accountId: String?,
+        @JsonProperty("compliance_category") private val complianceCategory: ComplianceCategory?,
+        @JsonProperty("entity_id") private val entityId: String?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The name you choose for the account. */
@@ -115,20 +116,17 @@ constructor(
             }
 
             /** The name you choose for the account. */
-            @JsonProperty("name") fun name(name: String) = apply { this.name = name }
+            fun name(name: String) = apply { this.name = name }
 
             /** The entity, if `compliance_category` is `commingled_cash`. */
-            @JsonProperty("account_id")
             fun accountId(accountId: String) = apply { this.accountId = accountId }
 
             /** The account compliance category. */
-            @JsonProperty("compliance_category")
             fun complianceCategory(complianceCategory: ComplianceCategory) = apply {
                 this.complianceCategory = complianceCategory
             }
 
             /** The entity, if `compliance_category` is `customer_balance`. */
-            @JsonProperty("entity_id")
             fun entityId(entityId: String) = apply { this.entityId = entityId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -136,7 +134,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
