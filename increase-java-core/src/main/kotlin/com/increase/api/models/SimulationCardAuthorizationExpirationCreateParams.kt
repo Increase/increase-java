@@ -4,13 +4,14 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
@@ -42,16 +43,17 @@ constructor(
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(builder = SimulationCardAuthorizationExpirationCreateBody.Builder::class)
     @NoAutoDetect
     class SimulationCardAuthorizationExpirationCreateBody
+    @JsonCreator
     internal constructor(
-        private val cardPaymentId: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("card_payment_id") private val cardPaymentId: String,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The identifier of the Card Payment to expire. */
-        @JsonProperty("card_payment_id") fun cardPaymentId(): String? = cardPaymentId
+        @JsonProperty("card_payment_id") fun cardPaymentId(): String = cardPaymentId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -74,28 +76,32 @@ constructor(
                 simulationCardAuthorizationExpirationCreateBody:
                     SimulationCardAuthorizationExpirationCreateBody
             ) = apply {
-                this.cardPaymentId = simulationCardAuthorizationExpirationCreateBody.cardPaymentId
-                additionalProperties(
+                cardPaymentId = simulationCardAuthorizationExpirationCreateBody.cardPaymentId
+                additionalProperties =
                     simulationCardAuthorizationExpirationCreateBody.additionalProperties
-                )
+                        .toMutableMap()
             }
 
             /** The identifier of the Card Payment to expire. */
-            @JsonProperty("card_payment_id")
             fun cardPaymentId(cardPaymentId: String) = apply { this.cardPaymentId = cardPaymentId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): SimulationCardAuthorizationExpirationCreateBody =

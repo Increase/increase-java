@@ -25,7 +25,7 @@ class CheckTransferStopPaymentParamsTest {
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.reason())
-            .isEqualTo(CheckTransferStopPaymentParams.Reason.MAIL_DELIVERY_FAILED)
+            .contains(CheckTransferStopPaymentParams.Reason.MAIL_DELIVERY_FAILED)
     }
 
     @Test

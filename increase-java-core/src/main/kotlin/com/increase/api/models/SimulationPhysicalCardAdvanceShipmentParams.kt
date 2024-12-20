@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
@@ -14,6 +13,7 @@ import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
@@ -53,16 +53,17 @@ constructor(
         }
     }
 
-    @JsonDeserialize(builder = SimulationPhysicalCardAdvanceShipmentBody.Builder::class)
     @NoAutoDetect
     class SimulationPhysicalCardAdvanceShipmentBody
+    @JsonCreator
     internal constructor(
-        private val shipmentStatus: ShipmentStatus?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("shipment_status") private val shipmentStatus: ShipmentStatus,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The shipment status to move the Physical Card to. */
-        @JsonProperty("shipment_status") fun shipmentStatus(): ShipmentStatus? = shipmentStatus
+        @JsonProperty("shipment_status") fun shipmentStatus(): ShipmentStatus = shipmentStatus
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -84,28 +85,33 @@ constructor(
             internal fun from(
                 simulationPhysicalCardAdvanceShipmentBody: SimulationPhysicalCardAdvanceShipmentBody
             ) = apply {
-                this.shipmentStatus = simulationPhysicalCardAdvanceShipmentBody.shipmentStatus
-                additionalProperties(simulationPhysicalCardAdvanceShipmentBody.additionalProperties)
+                shipmentStatus = simulationPhysicalCardAdvanceShipmentBody.shipmentStatus
+                additionalProperties =
+                    simulationPhysicalCardAdvanceShipmentBody.additionalProperties.toMutableMap()
             }
 
             /** The shipment status to move the Physical Card to. */
-            @JsonProperty("shipment_status")
             fun shipmentStatus(shipmentStatus: ShipmentStatus) = apply {
                 this.shipmentStatus = shipmentStatus
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): SimulationPhysicalCardAdvanceShipmentBody =

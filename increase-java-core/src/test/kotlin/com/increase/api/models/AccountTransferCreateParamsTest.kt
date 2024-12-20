@@ -34,7 +34,7 @@ class AccountTransferCreateParamsTest {
         assertThat(body.amount()).isEqualTo(100L)
         assertThat(body.description()).isEqualTo("Creating liquidity")
         assertThat(body.destinationAccountId()).isEqualTo("account_uf16sut2ct5bevmq3eh")
-        assertThat(body.requireApproval()).isEqualTo(true)
+        assertThat(body.requireApproval()).contains(true)
     }
 
     @Test

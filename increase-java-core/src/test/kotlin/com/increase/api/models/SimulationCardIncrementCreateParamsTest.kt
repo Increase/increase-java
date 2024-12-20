@@ -28,7 +28,7 @@ class SimulationCardIncrementCreateParamsTest {
         assertThat(body).isNotNull
         assertThat(body.amount()).isEqualTo(500L)
         assertThat(body.cardPaymentId()).isEqualTo("card_payment_nd3k2kacrqjli8482ave")
-        assertThat(body.eventSubscriptionId()).isEqualTo("event_subscription_id")
+        assertThat(body.eventSubscriptionId()).contains("event_subscription_id")
     }
 
     @Test

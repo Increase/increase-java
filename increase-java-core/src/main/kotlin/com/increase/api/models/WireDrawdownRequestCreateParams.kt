@@ -4,13 +4,14 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
@@ -91,45 +92,46 @@ constructor(
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(builder = WireDrawdownRequestCreateBody.Builder::class)
     @NoAutoDetect
     class WireDrawdownRequestCreateBody
+    @JsonCreator
     internal constructor(
-        private val accountNumberId: String?,
-        private val amount: Long?,
-        private val messageToRecipient: String?,
-        private val recipientAccountNumber: String?,
-        private val recipientName: String?,
-        private val recipientRoutingNumber: String?,
-        private val originatorAddressLine1: String?,
-        private val originatorAddressLine2: String?,
-        private val originatorAddressLine3: String?,
-        private val originatorName: String?,
-        private val recipientAddressLine1: String?,
-        private val recipientAddressLine2: String?,
-        private val recipientAddressLine3: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("account_number_id") private val accountNumberId: String,
+        @JsonProperty("amount") private val amount: Long,
+        @JsonProperty("message_to_recipient") private val messageToRecipient: String,
+        @JsonProperty("recipient_account_number") private val recipientAccountNumber: String,
+        @JsonProperty("recipient_name") private val recipientName: String,
+        @JsonProperty("recipient_routing_number") private val recipientRoutingNumber: String,
+        @JsonProperty("originator_address_line1") private val originatorAddressLine1: String?,
+        @JsonProperty("originator_address_line2") private val originatorAddressLine2: String?,
+        @JsonProperty("originator_address_line3") private val originatorAddressLine3: String?,
+        @JsonProperty("originator_name") private val originatorName: String?,
+        @JsonProperty("recipient_address_line1") private val recipientAddressLine1: String?,
+        @JsonProperty("recipient_address_line2") private val recipientAddressLine2: String?,
+        @JsonProperty("recipient_address_line3") private val recipientAddressLine3: String?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The Account Number to which the recipient should send funds. */
-        @JsonProperty("account_number_id") fun accountNumberId(): String? = accountNumberId
+        @JsonProperty("account_number_id") fun accountNumberId(): String = accountNumberId
 
         /** The amount requested from the recipient, in USD cents. */
-        @JsonProperty("amount") fun amount(): Long? = amount
+        @JsonProperty("amount") fun amount(): Long = amount
 
         /** A message the recipient will see as part of the request. */
-        @JsonProperty("message_to_recipient") fun messageToRecipient(): String? = messageToRecipient
+        @JsonProperty("message_to_recipient") fun messageToRecipient(): String = messageToRecipient
 
         /** The drawdown request's recipient's account number. */
         @JsonProperty("recipient_account_number")
-        fun recipientAccountNumber(): String? = recipientAccountNumber
+        fun recipientAccountNumber(): String = recipientAccountNumber
 
         /** The drawdown request's recipient's name. */
-        @JsonProperty("recipient_name") fun recipientName(): String? = recipientName
+        @JsonProperty("recipient_name") fun recipientName(): String = recipientName
 
         /** The drawdown request's recipient's routing number. */
         @JsonProperty("recipient_routing_number")
-        fun recipientRoutingNumber(): String? = recipientRoutingNumber
+        fun recipientRoutingNumber(): String = recipientRoutingNumber
 
         /**
          * The drawdown request originator's address line 1. This is only necessary if you're
@@ -137,7 +139,7 @@ constructor(
          * entity's details.
          */
         @JsonProperty("originator_address_line1")
-        fun originatorAddressLine1(): String? = originatorAddressLine1
+        fun originatorAddressLine1(): Optional<String> = Optional.ofNullable(originatorAddressLine1)
 
         /**
          * The drawdown request originator's address line 2. This is only necessary if you're
@@ -145,7 +147,7 @@ constructor(
          * entity's details.
          */
         @JsonProperty("originator_address_line2")
-        fun originatorAddressLine2(): String? = originatorAddressLine2
+        fun originatorAddressLine2(): Optional<String> = Optional.ofNullable(originatorAddressLine2)
 
         /**
          * The drawdown request originator's address line 3. This is only necessary if you're
@@ -153,25 +155,26 @@ constructor(
          * entity's details.
          */
         @JsonProperty("originator_address_line3")
-        fun originatorAddressLine3(): String? = originatorAddressLine3
+        fun originatorAddressLine3(): Optional<String> = Optional.ofNullable(originatorAddressLine3)
 
         /**
          * The drawdown request originator's name. This is only necessary if you're requesting a
          * payment to a commingled account. Otherwise, we'll use the associated entity's details.
          */
-        @JsonProperty("originator_name") fun originatorName(): String? = originatorName
+        @JsonProperty("originator_name")
+        fun originatorName(): Optional<String> = Optional.ofNullable(originatorName)
 
         /** Line 1 of the drawdown request's recipient's address. */
         @JsonProperty("recipient_address_line1")
-        fun recipientAddressLine1(): String? = recipientAddressLine1
+        fun recipientAddressLine1(): Optional<String> = Optional.ofNullable(recipientAddressLine1)
 
         /** Line 2 of the drawdown request's recipient's address. */
         @JsonProperty("recipient_address_line2")
-        fun recipientAddressLine2(): String? = recipientAddressLine2
+        fun recipientAddressLine2(): Optional<String> = Optional.ofNullable(recipientAddressLine2)
 
         /** Line 3 of the drawdown request's recipient's address. */
         @JsonProperty("recipient_address_line3")
-        fun recipientAddressLine3(): String? = recipientAddressLine3
+        fun recipientAddressLine3(): Optional<String> = Optional.ofNullable(recipientAddressLine3)
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -204,54 +207,45 @@ constructor(
             @JvmSynthetic
             internal fun from(wireDrawdownRequestCreateBody: WireDrawdownRequestCreateBody) =
                 apply {
-                    this.accountNumberId = wireDrawdownRequestCreateBody.accountNumberId
-                    this.amount = wireDrawdownRequestCreateBody.amount
-                    this.messageToRecipient = wireDrawdownRequestCreateBody.messageToRecipient
-                    this.recipientAccountNumber =
-                        wireDrawdownRequestCreateBody.recipientAccountNumber
-                    this.recipientName = wireDrawdownRequestCreateBody.recipientName
-                    this.recipientRoutingNumber =
-                        wireDrawdownRequestCreateBody.recipientRoutingNumber
-                    this.originatorAddressLine1 =
-                        wireDrawdownRequestCreateBody.originatorAddressLine1
-                    this.originatorAddressLine2 =
-                        wireDrawdownRequestCreateBody.originatorAddressLine2
-                    this.originatorAddressLine3 =
-                        wireDrawdownRequestCreateBody.originatorAddressLine3
-                    this.originatorName = wireDrawdownRequestCreateBody.originatorName
-                    this.recipientAddressLine1 = wireDrawdownRequestCreateBody.recipientAddressLine1
-                    this.recipientAddressLine2 = wireDrawdownRequestCreateBody.recipientAddressLine2
-                    this.recipientAddressLine3 = wireDrawdownRequestCreateBody.recipientAddressLine3
-                    additionalProperties(wireDrawdownRequestCreateBody.additionalProperties)
+                    accountNumberId = wireDrawdownRequestCreateBody.accountNumberId
+                    amount = wireDrawdownRequestCreateBody.amount
+                    messageToRecipient = wireDrawdownRequestCreateBody.messageToRecipient
+                    recipientAccountNumber = wireDrawdownRequestCreateBody.recipientAccountNumber
+                    recipientName = wireDrawdownRequestCreateBody.recipientName
+                    recipientRoutingNumber = wireDrawdownRequestCreateBody.recipientRoutingNumber
+                    originatorAddressLine1 = wireDrawdownRequestCreateBody.originatorAddressLine1
+                    originatorAddressLine2 = wireDrawdownRequestCreateBody.originatorAddressLine2
+                    originatorAddressLine3 = wireDrawdownRequestCreateBody.originatorAddressLine3
+                    originatorName = wireDrawdownRequestCreateBody.originatorName
+                    recipientAddressLine1 = wireDrawdownRequestCreateBody.recipientAddressLine1
+                    recipientAddressLine2 = wireDrawdownRequestCreateBody.recipientAddressLine2
+                    recipientAddressLine3 = wireDrawdownRequestCreateBody.recipientAddressLine3
+                    additionalProperties =
+                        wireDrawdownRequestCreateBody.additionalProperties.toMutableMap()
                 }
 
             /** The Account Number to which the recipient should send funds. */
-            @JsonProperty("account_number_id")
             fun accountNumberId(accountNumberId: String) = apply {
                 this.accountNumberId = accountNumberId
             }
 
             /** The amount requested from the recipient, in USD cents. */
-            @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long) = apply { this.amount = amount }
 
             /** A message the recipient will see as part of the request. */
-            @JsonProperty("message_to_recipient")
             fun messageToRecipient(messageToRecipient: String) = apply {
                 this.messageToRecipient = messageToRecipient
             }
 
             /** The drawdown request's recipient's account number. */
-            @JsonProperty("recipient_account_number")
             fun recipientAccountNumber(recipientAccountNumber: String) = apply {
                 this.recipientAccountNumber = recipientAccountNumber
             }
 
             /** The drawdown request's recipient's name. */
-            @JsonProperty("recipient_name")
             fun recipientName(recipientName: String) = apply { this.recipientName = recipientName }
 
             /** The drawdown request's recipient's routing number. */
-            @JsonProperty("recipient_routing_number")
             fun recipientRoutingNumber(recipientRoutingNumber: String) = apply {
                 this.recipientRoutingNumber = recipientRoutingNumber
             }
@@ -261,7 +255,6 @@ constructor(
              * requesting a payment to a commingled account. Otherwise, we'll use the associated
              * entity's details.
              */
-            @JsonProperty("originator_address_line1")
             fun originatorAddressLine1(originatorAddressLine1: String) = apply {
                 this.originatorAddressLine1 = originatorAddressLine1
             }
@@ -271,7 +264,6 @@ constructor(
              * requesting a payment to a commingled account. Otherwise, we'll use the associated
              * entity's details.
              */
-            @JsonProperty("originator_address_line2")
             fun originatorAddressLine2(originatorAddressLine2: String) = apply {
                 this.originatorAddressLine2 = originatorAddressLine2
             }
@@ -281,7 +273,6 @@ constructor(
              * requesting a payment to a commingled account. Otherwise, we'll use the associated
              * entity's details.
              */
-            @JsonProperty("originator_address_line3")
             fun originatorAddressLine3(originatorAddressLine3: String) = apply {
                 this.originatorAddressLine3 = originatorAddressLine3
             }
@@ -291,41 +282,42 @@ constructor(
              * payment to a commingled account. Otherwise, we'll use the associated entity's
              * details.
              */
-            @JsonProperty("originator_name")
             fun originatorName(originatorName: String) = apply {
                 this.originatorName = originatorName
             }
 
             /** Line 1 of the drawdown request's recipient's address. */
-            @JsonProperty("recipient_address_line1")
             fun recipientAddressLine1(recipientAddressLine1: String) = apply {
                 this.recipientAddressLine1 = recipientAddressLine1
             }
 
             /** Line 2 of the drawdown request's recipient's address. */
-            @JsonProperty("recipient_address_line2")
             fun recipientAddressLine2(recipientAddressLine2: String) = apply {
                 this.recipientAddressLine2 = recipientAddressLine2
             }
 
             /** Line 3 of the drawdown request's recipient's address. */
-            @JsonProperty("recipient_address_line3")
             fun recipientAddressLine3(recipientAddressLine3: String) = apply {
                 this.recipientAddressLine3 = recipientAddressLine3
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): WireDrawdownRequestCreateBody =

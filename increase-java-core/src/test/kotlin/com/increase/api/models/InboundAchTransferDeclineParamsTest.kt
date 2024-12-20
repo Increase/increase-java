@@ -25,7 +25,7 @@ class InboundAchTransferDeclineParamsTest {
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.reason())
-            .isEqualTo(InboundAchTransferDeclineParams.Reason.INSUFFICIENT_FUNDS)
+            .contains(InboundAchTransferDeclineParams.Reason.INSUFFICIENT_FUNDS)
     }
 
     @Test

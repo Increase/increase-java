@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
@@ -14,6 +13,7 @@ import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
@@ -60,20 +60,21 @@ constructor(
         }
     }
 
-    @JsonDeserialize(builder = SimulationAchTransferCreateNotificationOfChangeBody.Builder::class)
     @NoAutoDetect
     class SimulationAchTransferCreateNotificationOfChangeBody
+    @JsonCreator
     internal constructor(
-        private val changeCode: ChangeCode?,
-        private val correctedData: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("change_code") private val changeCode: ChangeCode,
+        @JsonProperty("corrected_data") private val correctedData: String,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The reason for the notification of change. */
-        @JsonProperty("change_code") fun changeCode(): ChangeCode? = changeCode
+        @JsonProperty("change_code") fun changeCode(): ChangeCode = changeCode
 
         /** The corrected data for the notification of change (e.g., a new routing number). */
-        @JsonProperty("corrected_data") fun correctedData(): String? = correctedData
+        @JsonProperty("corrected_data") fun correctedData(): String = correctedData
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -97,34 +98,36 @@ constructor(
                 simulationAchTransferCreateNotificationOfChangeBody:
                     SimulationAchTransferCreateNotificationOfChangeBody
             ) = apply {
-                this.changeCode = simulationAchTransferCreateNotificationOfChangeBody.changeCode
-                this.correctedData =
-                    simulationAchTransferCreateNotificationOfChangeBody.correctedData
-                additionalProperties(
+                changeCode = simulationAchTransferCreateNotificationOfChangeBody.changeCode
+                correctedData = simulationAchTransferCreateNotificationOfChangeBody.correctedData
+                additionalProperties =
                     simulationAchTransferCreateNotificationOfChangeBody.additionalProperties
-                )
+                        .toMutableMap()
             }
 
             /** The reason for the notification of change. */
-            @JsonProperty("change_code")
             fun changeCode(changeCode: ChangeCode) = apply { this.changeCode = changeCode }
 
             /** The corrected data for the notification of change (e.g., a new routing number). */
-            @JsonProperty("corrected_data")
             fun correctedData(correctedData: String) = apply { this.correctedData = correctedData }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): SimulationAchTransferCreateNotificationOfChangeBody =

@@ -36,12 +36,12 @@ class SimulationInboundRealTimePaymentsTransferCreateParamsTest {
         assertThat(body).isNotNull
         assertThat(body.accountNumberId()).isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
         assertThat(body.amount()).isEqualTo(1000L)
-        assertThat(body.debtorAccountNumber()).isEqualTo("x")
-        assertThat(body.debtorName()).isEqualTo("x")
-        assertThat(body.debtorRoutingNumber()).isEqualTo("xxxxxxxxx")
-        assertThat(body.remittanceInformation()).isEqualTo("x")
+        assertThat(body.debtorAccountNumber()).contains("x")
+        assertThat(body.debtorName()).contains("x")
+        assertThat(body.debtorRoutingNumber()).contains("xxxxxxxxx")
+        assertThat(body.remittanceInformation()).contains("x")
         assertThat(body.requestForPaymentId())
-            .isEqualTo("real_time_payments_request_for_payment_28kcliz1oevcnqyn9qp7")
+            .contains("real_time_payments_request_for_payment_28kcliz1oevcnqyn9qp7")
     }
 
     @Test

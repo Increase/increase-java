@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
@@ -20,17 +20,19 @@ import java.util.Objects
 /**
  * Represents a request to lookup the balance of an Bookkeeping Account at a given point in time.
  */
-@JsonDeserialize(builder = BookkeepingBalanceLookup.Builder::class)
 @NoAutoDetect
 class BookkeepingBalanceLookup
+@JsonCreator
 private constructor(
-    private val balance: JsonField<Long>,
-    private val bookkeepingAccountId: JsonField<String>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("balance")
+    @ExcludeMissing
+    private val balance: JsonField<Long> = JsonMissing.of(),
+    @JsonProperty("bookkeeping_account_id")
+    @ExcludeMissing
+    private val bookkeepingAccountId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
-
-    private var validated: Boolean = false
 
     /**
      * The Bookkeeping Account's current balance, representing the sum of all Bookkeeping Entries on
@@ -68,6 +70,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): BookkeepingBalanceLookup = apply {
         if (!validated) {
             balance()
@@ -93,10 +97,10 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(bookkeepingBalanceLookup: BookkeepingBalanceLookup) = apply {
-            this.balance = bookkeepingBalanceLookup.balance
-            this.bookkeepingAccountId = bookkeepingBalanceLookup.bookkeepingAccountId
-            this.type = bookkeepingBalanceLookup.type
-            additionalProperties(bookkeepingBalanceLookup.additionalProperties)
+            balance = bookkeepingBalanceLookup.balance
+            bookkeepingAccountId = bookkeepingBalanceLookup.bookkeepingAccountId
+            type = bookkeepingBalanceLookup.type
+            additionalProperties = bookkeepingBalanceLookup.additionalProperties.toMutableMap()
         }
 
         /**
@@ -109,8 +113,6 @@ private constructor(
          * The Bookkeeping Account's current balance, representing the sum of all Bookkeeping
          * Entries on the Bookkeeping Account.
          */
-        @JsonProperty("balance")
-        @ExcludeMissing
         fun balance(balance: JsonField<Long>) = apply { this.balance = balance }
 
         /** The identifier for the account for which the balance was queried. */
@@ -118,8 +120,6 @@ private constructor(
             bookkeepingAccountId(JsonField.of(bookkeepingAccountId))
 
         /** The identifier for the account for which the balance was queried. */
-        @JsonProperty("bookkeeping_account_id")
-        @ExcludeMissing
         fun bookkeepingAccountId(bookkeepingAccountId: JsonField<String>) = apply {
             this.bookkeepingAccountId = bookkeepingAccountId
         }
@@ -134,22 +134,25 @@ private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `bookkeeping_balance_lookup`.
          */
-        @JsonProperty("type")
-        @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): BookkeepingBalanceLookup =

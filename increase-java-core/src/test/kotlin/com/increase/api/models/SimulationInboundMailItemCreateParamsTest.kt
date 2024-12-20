@@ -28,7 +28,7 @@ class SimulationInboundMailItemCreateParamsTest {
         assertThat(body).isNotNull
         assertThat(body.amount()).isEqualTo(1000L)
         assertThat(body.lockboxId()).isEqualTo("lockbox_3xt21ok13q19advds4t5")
-        assertThat(body.contentsFileId()).isEqualTo("contents_file_id")
+        assertThat(body.contentsFileId()).contains("contents_file_id")
     }
 
     @Test

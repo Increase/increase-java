@@ -4,13 +4,14 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
@@ -50,24 +51,25 @@ constructor(
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(builder = SimulationInboundCheckDepositCreateBody.Builder::class)
     @NoAutoDetect
     class SimulationInboundCheckDepositCreateBody
+    @JsonCreator
     internal constructor(
-        private val accountNumberId: String?,
-        private val amount: Long?,
-        private val checkNumber: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("account_number_id") private val accountNumberId: String,
+        @JsonProperty("amount") private val amount: Long,
+        @JsonProperty("check_number") private val checkNumber: String,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The identifier of the Account Number the Inbound Check Deposit will be against. */
-        @JsonProperty("account_number_id") fun accountNumberId(): String? = accountNumberId
+        @JsonProperty("account_number_id") fun accountNumberId(): String = accountNumberId
 
         /** The check amount in cents. */
-        @JsonProperty("amount") fun amount(): Long? = amount
+        @JsonProperty("amount") fun amount(): Long = amount
 
         /** The check number on the check to be deposited. */
-        @JsonProperty("check_number") fun checkNumber(): String? = checkNumber
+        @JsonProperty("check_number") fun checkNumber(): String = checkNumber
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -91,37 +93,41 @@ constructor(
             internal fun from(
                 simulationInboundCheckDepositCreateBody: SimulationInboundCheckDepositCreateBody
             ) = apply {
-                this.accountNumberId = simulationInboundCheckDepositCreateBody.accountNumberId
-                this.amount = simulationInboundCheckDepositCreateBody.amount
-                this.checkNumber = simulationInboundCheckDepositCreateBody.checkNumber
-                additionalProperties(simulationInboundCheckDepositCreateBody.additionalProperties)
+                accountNumberId = simulationInboundCheckDepositCreateBody.accountNumberId
+                amount = simulationInboundCheckDepositCreateBody.amount
+                checkNumber = simulationInboundCheckDepositCreateBody.checkNumber
+                additionalProperties =
+                    simulationInboundCheckDepositCreateBody.additionalProperties.toMutableMap()
             }
 
             /** The identifier of the Account Number the Inbound Check Deposit will be against. */
-            @JsonProperty("account_number_id")
             fun accountNumberId(accountNumberId: String) = apply {
                 this.accountNumberId = accountNumberId
             }
 
             /** The check amount in cents. */
-            @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long) = apply { this.amount = amount }
 
             /** The check number on the check to be deposited. */
-            @JsonProperty("check_number")
             fun checkNumber(checkNumber: String) = apply { this.checkNumber = checkNumber }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): SimulationInboundCheckDepositCreateBody =

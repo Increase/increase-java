@@ -4,13 +4,14 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
@@ -51,24 +52,27 @@ constructor(
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(builder = LockboxCreateBody.Builder::class)
     @NoAutoDetect
     class LockboxCreateBody
+    @JsonCreator
     internal constructor(
-        private val accountId: String?,
-        private val description: String?,
-        private val recipientName: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("account_id") private val accountId: String,
+        @JsonProperty("description") private val description: String?,
+        @JsonProperty("recipient_name") private val recipientName: String?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The Account checks sent to this Lockbox should be deposited into. */
-        @JsonProperty("account_id") fun accountId(): String? = accountId
+        @JsonProperty("account_id") fun accountId(): String = accountId
 
         /** The description you choose for the Lockbox, for display purposes. */
-        @JsonProperty("description") fun description(): String? = description
+        @JsonProperty("description")
+        fun description(): Optional<String> = Optional.ofNullable(description)
 
         /** The name of the recipient that will receive mail at this location. */
-        @JsonProperty("recipient_name") fun recipientName(): String? = recipientName
+        @JsonProperty("recipient_name")
+        fun recipientName(): Optional<String> = Optional.ofNullable(recipientName)
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -90,36 +94,38 @@ constructor(
 
             @JvmSynthetic
             internal fun from(lockboxCreateBody: LockboxCreateBody) = apply {
-                this.accountId = lockboxCreateBody.accountId
-                this.description = lockboxCreateBody.description
-                this.recipientName = lockboxCreateBody.recipientName
-                additionalProperties(lockboxCreateBody.additionalProperties)
+                accountId = lockboxCreateBody.accountId
+                description = lockboxCreateBody.description
+                recipientName = lockboxCreateBody.recipientName
+                additionalProperties = lockboxCreateBody.additionalProperties.toMutableMap()
             }
 
             /** The Account checks sent to this Lockbox should be deposited into. */
-            @JsonProperty("account_id")
             fun accountId(accountId: String) = apply { this.accountId = accountId }
 
             /** The description you choose for the Lockbox, for display purposes. */
-            @JsonProperty("description")
             fun description(description: String) = apply { this.description = description }
 
             /** The name of the recipient that will receive mail at this location. */
-            @JsonProperty("recipient_name")
             fun recipientName(recipientName: String) = apply { this.recipientName = recipientName }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): LockboxCreateBody =

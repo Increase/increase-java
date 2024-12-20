@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
@@ -25,31 +25,60 @@ import java.util.Optional
  * applicable legal requirements, is readily identifiable as an authorization, and has clear and
  * readily understandable terms.
  */
-@JsonDeserialize(builder = ProofOfAuthorizationRequestSubmission.Builder::class)
 @NoAutoDetect
 class ProofOfAuthorizationRequestSubmission
+@JsonCreator
 private constructor(
-    private val authorizationTerms: JsonField<String>,
-    private val authorizedAt: JsonField<OffsetDateTime>,
-    private val authorizerCompany: JsonField<String>,
-    private val authorizerEmail: JsonField<String>,
-    private val authorizerIpAddress: JsonField<String>,
-    private val authorizerName: JsonField<String>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val customerHasBeenOffboarded: JsonField<Boolean>,
-    private val id: JsonField<String>,
-    private val idempotencyKey: JsonField<String>,
-    private val proofOfAuthorizationRequestId: JsonField<String>,
-    private val status: JsonField<Status>,
-    private val type: JsonField<Type>,
-    private val updatedAt: JsonField<OffsetDateTime>,
-    private val validatedAccountOwnershipViaCredential: JsonField<Boolean>,
-    private val validatedAccountOwnershipWithAccountStatement: JsonField<Boolean>,
-    private val validatedAccountOwnershipWithMicrodeposit: JsonField<Boolean>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("authorization_terms")
+    @ExcludeMissing
+    private val authorizationTerms: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("authorized_at")
+    @ExcludeMissing
+    private val authorizedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("authorizer_company")
+    @ExcludeMissing
+    private val authorizerCompany: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("authorizer_email")
+    @ExcludeMissing
+    private val authorizerEmail: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("authorizer_ip_address")
+    @ExcludeMissing
+    private val authorizerIpAddress: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("authorizer_name")
+    @ExcludeMissing
+    private val authorizerName: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("customer_has_been_offboarded")
+    @ExcludeMissing
+    private val customerHasBeenOffboarded: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    private val idempotencyKey: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("proof_of_authorization_request_id")
+    @ExcludeMissing
+    private val proofOfAuthorizationRequestId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("status")
+    @ExcludeMissing
+    private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("validated_account_ownership_via_credential")
+    @ExcludeMissing
+    private val validatedAccountOwnershipViaCredential: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("validated_account_ownership_with_account_statement")
+    @ExcludeMissing
+    private val validatedAccountOwnershipWithAccountStatement: JsonField<Boolean> =
+        JsonMissing.of(),
+    @JsonProperty("validated_account_ownership_with_microdeposit")
+    @ExcludeMissing
+    private val validatedAccountOwnershipWithMicrodeposit: JsonField<Boolean> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
-
-    private var validated: Boolean = false
 
     /** Terms of authorization. */
     fun authorizationTerms(): String = authorizationTerms.getRequired("authorization_terms")
@@ -208,6 +237,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): ProofOfAuthorizationRequestSubmission = apply {
         if (!validated) {
             authorizationTerms()
@@ -264,29 +295,30 @@ private constructor(
         internal fun from(
             proofOfAuthorizationRequestSubmission: ProofOfAuthorizationRequestSubmission
         ) = apply {
-            this.authorizationTerms = proofOfAuthorizationRequestSubmission.authorizationTerms
-            this.authorizedAt = proofOfAuthorizationRequestSubmission.authorizedAt
-            this.authorizerCompany = proofOfAuthorizationRequestSubmission.authorizerCompany
-            this.authorizerEmail = proofOfAuthorizationRequestSubmission.authorizerEmail
-            this.authorizerIpAddress = proofOfAuthorizationRequestSubmission.authorizerIpAddress
-            this.authorizerName = proofOfAuthorizationRequestSubmission.authorizerName
-            this.createdAt = proofOfAuthorizationRequestSubmission.createdAt
-            this.customerHasBeenOffboarded =
+            authorizationTerms = proofOfAuthorizationRequestSubmission.authorizationTerms
+            authorizedAt = proofOfAuthorizationRequestSubmission.authorizedAt
+            authorizerCompany = proofOfAuthorizationRequestSubmission.authorizerCompany
+            authorizerEmail = proofOfAuthorizationRequestSubmission.authorizerEmail
+            authorizerIpAddress = proofOfAuthorizationRequestSubmission.authorizerIpAddress
+            authorizerName = proofOfAuthorizationRequestSubmission.authorizerName
+            createdAt = proofOfAuthorizationRequestSubmission.createdAt
+            customerHasBeenOffboarded =
                 proofOfAuthorizationRequestSubmission.customerHasBeenOffboarded
-            this.id = proofOfAuthorizationRequestSubmission.id
-            this.idempotencyKey = proofOfAuthorizationRequestSubmission.idempotencyKey
-            this.proofOfAuthorizationRequestId =
+            id = proofOfAuthorizationRequestSubmission.id
+            idempotencyKey = proofOfAuthorizationRequestSubmission.idempotencyKey
+            proofOfAuthorizationRequestId =
                 proofOfAuthorizationRequestSubmission.proofOfAuthorizationRequestId
-            this.status = proofOfAuthorizationRequestSubmission.status
-            this.type = proofOfAuthorizationRequestSubmission.type
-            this.updatedAt = proofOfAuthorizationRequestSubmission.updatedAt
-            this.validatedAccountOwnershipViaCredential =
+            status = proofOfAuthorizationRequestSubmission.status
+            type = proofOfAuthorizationRequestSubmission.type
+            updatedAt = proofOfAuthorizationRequestSubmission.updatedAt
+            validatedAccountOwnershipViaCredential =
                 proofOfAuthorizationRequestSubmission.validatedAccountOwnershipViaCredential
-            this.validatedAccountOwnershipWithAccountStatement =
+            validatedAccountOwnershipWithAccountStatement =
                 proofOfAuthorizationRequestSubmission.validatedAccountOwnershipWithAccountStatement
-            this.validatedAccountOwnershipWithMicrodeposit =
+            validatedAccountOwnershipWithMicrodeposit =
                 proofOfAuthorizationRequestSubmission.validatedAccountOwnershipWithMicrodeposit
-            additionalProperties(proofOfAuthorizationRequestSubmission.additionalProperties)
+            additionalProperties =
+                proofOfAuthorizationRequestSubmission.additionalProperties.toMutableMap()
         }
 
         /** Terms of authorization. */
@@ -294,8 +326,6 @@ private constructor(
             authorizationTerms(JsonField.of(authorizationTerms))
 
         /** Terms of authorization. */
-        @JsonProperty("authorization_terms")
-        @ExcludeMissing
         fun authorizationTerms(authorizationTerms: JsonField<String>) = apply {
             this.authorizationTerms = authorizationTerms
         }
@@ -304,8 +334,6 @@ private constructor(
         fun authorizedAt(authorizedAt: OffsetDateTime) = authorizedAt(JsonField.of(authorizedAt))
 
         /** Time of authorization. */
-        @JsonProperty("authorized_at")
-        @ExcludeMissing
         fun authorizedAt(authorizedAt: JsonField<OffsetDateTime>) = apply {
             this.authorizedAt = authorizedAt
         }
@@ -315,8 +343,6 @@ private constructor(
             authorizerCompany(JsonField.of(authorizerCompany))
 
         /** Company of the authorizer. */
-        @JsonProperty("authorizer_company")
-        @ExcludeMissing
         fun authorizerCompany(authorizerCompany: JsonField<String>) = apply {
             this.authorizerCompany = authorizerCompany
         }
@@ -326,8 +352,6 @@ private constructor(
             authorizerEmail(JsonField.of(authorizerEmail))
 
         /** Email of the authorizer. */
-        @JsonProperty("authorizer_email")
-        @ExcludeMissing
         fun authorizerEmail(authorizerEmail: JsonField<String>) = apply {
             this.authorizerEmail = authorizerEmail
         }
@@ -337,8 +361,6 @@ private constructor(
             authorizerIpAddress(JsonField.of(authorizerIpAddress))
 
         /** IP address of the authorizer. */
-        @JsonProperty("authorizer_ip_address")
-        @ExcludeMissing
         fun authorizerIpAddress(authorizerIpAddress: JsonField<String>) = apply {
             this.authorizerIpAddress = authorizerIpAddress
         }
@@ -347,8 +369,6 @@ private constructor(
         fun authorizerName(authorizerName: String) = authorizerName(JsonField.of(authorizerName))
 
         /** Name of the authorizer. */
-        @JsonProperty("authorizer_name")
-        @ExcludeMissing
         fun authorizerName(authorizerName: JsonField<String>) = apply {
             this.authorizerName = authorizerName
         }
@@ -357,8 +377,6 @@ private constructor(
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /** The time the Proof of Authorization Request Submission was created. */
-        @JsonProperty("created_at")
-        @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** Whether the customer has been offboarded. */
@@ -366,8 +384,6 @@ private constructor(
             customerHasBeenOffboarded(JsonField.of(customerHasBeenOffboarded))
 
         /** Whether the customer has been offboarded. */
-        @JsonProperty("customer_has_been_offboarded")
-        @ExcludeMissing
         fun customerHasBeenOffboarded(customerHasBeenOffboarded: JsonField<Boolean>) = apply {
             this.customerHasBeenOffboarded = customerHasBeenOffboarded
         }
@@ -376,7 +392,7 @@ private constructor(
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Proof of Authorization Request Submission identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -390,8 +406,6 @@ private constructor(
          * is used to ensure that a request is only processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        @JsonProperty("idempotency_key")
-        @ExcludeMissing
         fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
             this.idempotencyKey = idempotencyKey
         }
@@ -401,8 +415,6 @@ private constructor(
             proofOfAuthorizationRequestId(JsonField.of(proofOfAuthorizationRequestId))
 
         /** ID of the proof of authorization request. */
-        @JsonProperty("proof_of_authorization_request_id")
-        @ExcludeMissing
         fun proofOfAuthorizationRequestId(proofOfAuthorizationRequestId: JsonField<String>) =
             apply {
                 this.proofOfAuthorizationRequestId = proofOfAuthorizationRequestId
@@ -412,8 +424,6 @@ private constructor(
         fun status(status: Status) = status(JsonField.of(status))
 
         /** Status of the proof of authorization request submission. */
-        @JsonProperty("status")
-        @ExcludeMissing
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
@@ -426,16 +436,12 @@ private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `proof_of_authorization_request_submission`.
          */
-        @JsonProperty("type")
-        @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         /** The time the Proof of Authorization Request Submission was last updated. */
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
         /** The time the Proof of Authorization Request Submission was last updated. */
-        @JsonProperty("updated_at")
-        @ExcludeMissing
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         /** Whether account ownership was validated via credential (for instance, Plaid). */
@@ -447,8 +453,6 @@ private constructor(
             )
 
         /** Whether account ownership was validated via credential (for instance, Plaid). */
-        @JsonProperty("validated_account_ownership_via_credential")
-        @ExcludeMissing
         fun validatedAccountOwnershipViaCredential(
             validatedAccountOwnershipViaCredential: JsonField<Boolean>
         ) = apply {
@@ -464,8 +468,6 @@ private constructor(
             )
 
         /** Whether account ownership was validated with an account statement. */
-        @JsonProperty("validated_account_ownership_with_account_statement")
-        @ExcludeMissing
         fun validatedAccountOwnershipWithAccountStatement(
             validatedAccountOwnershipWithAccountStatement: JsonField<Boolean>
         ) = apply {
@@ -482,8 +484,6 @@ private constructor(
             )
 
         /** Whether account ownership was validated with microdeposit. */
-        @JsonProperty("validated_account_ownership_with_microdeposit")
-        @ExcludeMissing
         fun validatedAccountOwnershipWithMicrodeposit(
             validatedAccountOwnershipWithMicrodeposit: JsonField<Boolean>
         ) = apply {
@@ -493,16 +493,21 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): ProofOfAuthorizationRequestSubmission =

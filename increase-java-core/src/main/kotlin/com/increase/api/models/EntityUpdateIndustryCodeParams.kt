@@ -4,13 +4,14 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
@@ -49,12 +50,13 @@ constructor(
         }
     }
 
-    @JsonDeserialize(builder = EntityUpdateIndustryCodeBody.Builder::class)
     @NoAutoDetect
     class EntityUpdateIndustryCodeBody
+    @JsonCreator
     internal constructor(
-        private val industryCode: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("industry_code") private val industryCode: String,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /**
@@ -63,7 +65,7 @@ constructor(
          * list of classification codes is available
          * [here](https://increase.com/documentation/data-dictionary#north-american-industry-classification-system-codes).
          */
-        @JsonProperty("industry_code") fun industryCode(): String? = industryCode
+        @JsonProperty("industry_code") fun industryCode(): String = industryCode
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -83,8 +85,9 @@ constructor(
 
             @JvmSynthetic
             internal fun from(entityUpdateIndustryCodeBody: EntityUpdateIndustryCodeBody) = apply {
-                this.industryCode = entityUpdateIndustryCodeBody.industryCode
-                additionalProperties(entityUpdateIndustryCodeBody.additionalProperties)
+                industryCode = entityUpdateIndustryCodeBody.industryCode
+                additionalProperties =
+                    entityUpdateIndustryCodeBody.additionalProperties.toMutableMap()
             }
 
             /**
@@ -93,21 +96,25 @@ constructor(
              * full list of classification codes is available
              * [here](https://increase.com/documentation/data-dictionary#north-american-industry-classification-system-codes).
              */
-            @JsonProperty("industry_code")
             fun industryCode(industryCode: String) = apply { this.industryCode = industryCode }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): EntityUpdateIndustryCodeBody =

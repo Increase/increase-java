@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.LocalDate
@@ -28,31 +28,57 @@ import java.util.Optional
  * accounts at different banks owned by the same individual. Please contact
  * [support@increase.com](mailto:support@increase.com) to enable this API for your team.
  */
-@JsonDeserialize(builder = RealTimePaymentsRequestForPayment.Builder::class)
 @NoAutoDetect
 class RealTimePaymentsRequestForPayment
+@JsonCreator
 private constructor(
-    private val amount: JsonField<Long>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val currency: JsonField<Currency>,
-    private val debtorName: JsonField<String>,
-    private val destinationAccountNumberId: JsonField<String>,
-    private val expiresAt: JsonField<LocalDate>,
-    private val fulfillmentTransactionId: JsonField<String>,
-    private val id: JsonField<String>,
-    private val idempotencyKey: JsonField<String>,
-    private val refusal: JsonField<Refusal>,
-    private val rejection: JsonField<Rejection>,
-    private val remittanceInformation: JsonField<String>,
-    private val sourceAccountNumber: JsonField<String>,
-    private val sourceRoutingNumber: JsonField<String>,
-    private val status: JsonField<Status>,
-    private val submission: JsonField<Submission>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("currency")
+    @ExcludeMissing
+    private val currency: JsonField<Currency> = JsonMissing.of(),
+    @JsonProperty("debtor_name")
+    @ExcludeMissing
+    private val debtorName: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("destination_account_number_id")
+    @ExcludeMissing
+    private val destinationAccountNumberId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("expires_at")
+    @ExcludeMissing
+    private val expiresAt: JsonField<LocalDate> = JsonMissing.of(),
+    @JsonProperty("fulfillment_transaction_id")
+    @ExcludeMissing
+    private val fulfillmentTransactionId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    private val idempotencyKey: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("refusal")
+    @ExcludeMissing
+    private val refusal: JsonField<Refusal> = JsonMissing.of(),
+    @JsonProperty("rejection")
+    @ExcludeMissing
+    private val rejection: JsonField<Rejection> = JsonMissing.of(),
+    @JsonProperty("remittance_information")
+    @ExcludeMissing
+    private val remittanceInformation: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("source_account_number")
+    @ExcludeMissing
+    private val sourceAccountNumber: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("source_routing_number")
+    @ExcludeMissing
+    private val sourceRoutingNumber: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("status")
+    @ExcludeMissing
+    private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("submission")
+    @ExcludeMissing
+    private val submission: JsonField<Submission> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
-
-    private var validated: Boolean = false
 
     /** The transfer amount in USD cents. */
     fun amount(): Long = amount.getRequired("amount")
@@ -225,6 +251,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): RealTimePaymentsRequestForPayment = apply {
         if (!validated) {
             amount()
@@ -279,34 +307,33 @@ private constructor(
         @JvmSynthetic
         internal fun from(realTimePaymentsRequestForPayment: RealTimePaymentsRequestForPayment) =
             apply {
-                this.amount = realTimePaymentsRequestForPayment.amount
-                this.createdAt = realTimePaymentsRequestForPayment.createdAt
-                this.currency = realTimePaymentsRequestForPayment.currency
-                this.debtorName = realTimePaymentsRequestForPayment.debtorName
-                this.destinationAccountNumberId =
+                amount = realTimePaymentsRequestForPayment.amount
+                createdAt = realTimePaymentsRequestForPayment.createdAt
+                currency = realTimePaymentsRequestForPayment.currency
+                debtorName = realTimePaymentsRequestForPayment.debtorName
+                destinationAccountNumberId =
                     realTimePaymentsRequestForPayment.destinationAccountNumberId
-                this.expiresAt = realTimePaymentsRequestForPayment.expiresAt
-                this.fulfillmentTransactionId =
+                expiresAt = realTimePaymentsRequestForPayment.expiresAt
+                fulfillmentTransactionId =
                     realTimePaymentsRequestForPayment.fulfillmentTransactionId
-                this.id = realTimePaymentsRequestForPayment.id
-                this.idempotencyKey = realTimePaymentsRequestForPayment.idempotencyKey
-                this.refusal = realTimePaymentsRequestForPayment.refusal
-                this.rejection = realTimePaymentsRequestForPayment.rejection
-                this.remittanceInformation = realTimePaymentsRequestForPayment.remittanceInformation
-                this.sourceAccountNumber = realTimePaymentsRequestForPayment.sourceAccountNumber
-                this.sourceRoutingNumber = realTimePaymentsRequestForPayment.sourceRoutingNumber
-                this.status = realTimePaymentsRequestForPayment.status
-                this.submission = realTimePaymentsRequestForPayment.submission
-                this.type = realTimePaymentsRequestForPayment.type
-                additionalProperties(realTimePaymentsRequestForPayment.additionalProperties)
+                id = realTimePaymentsRequestForPayment.id
+                idempotencyKey = realTimePaymentsRequestForPayment.idempotencyKey
+                refusal = realTimePaymentsRequestForPayment.refusal
+                rejection = realTimePaymentsRequestForPayment.rejection
+                remittanceInformation = realTimePaymentsRequestForPayment.remittanceInformation
+                sourceAccountNumber = realTimePaymentsRequestForPayment.sourceAccountNumber
+                sourceRoutingNumber = realTimePaymentsRequestForPayment.sourceRoutingNumber
+                status = realTimePaymentsRequestForPayment.status
+                submission = realTimePaymentsRequestForPayment.submission
+                type = realTimePaymentsRequestForPayment.type
+                additionalProperties =
+                    realTimePaymentsRequestForPayment.additionalProperties.toMutableMap()
             }
 
         /** The transfer amount in USD cents. */
         fun amount(amount: Long) = amount(JsonField.of(amount))
 
         /** The transfer amount in USD cents. */
-        @JsonProperty("amount")
-        @ExcludeMissing
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
         /**
@@ -319,8 +346,6 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the request
          * for payment was created.
          */
-        @JsonProperty("created_at")
-        @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /**
@@ -333,16 +358,12 @@ private constructor(
          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency.
          * For real-time payments transfers this is always equal to `USD`.
          */
-        @JsonProperty("currency")
-        @ExcludeMissing
         fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
         /** The name of the recipient the sender is requesting a transfer from. */
         fun debtorName(debtorName: String) = debtorName(JsonField.of(debtorName))
 
         /** The name of the recipient the sender is requesting a transfer from. */
-        @JsonProperty("debtor_name")
-        @ExcludeMissing
         fun debtorName(debtorName: JsonField<String>) = apply { this.debtorName = debtorName }
 
         /** The Account Number in which a successful transfer will arrive. */
@@ -350,8 +371,6 @@ private constructor(
             destinationAccountNumberId(JsonField.of(destinationAccountNumberId))
 
         /** The Account Number in which a successful transfer will arrive. */
-        @JsonProperty("destination_account_number_id")
-        @ExcludeMissing
         fun destinationAccountNumberId(destinationAccountNumberId: JsonField<String>) = apply {
             this.destinationAccountNumberId = destinationAccountNumberId
         }
@@ -366,8 +385,6 @@ private constructor(
          * The expiration time for this request, in UTC. The requestee will not be able to pay after
          * this date.
          */
-        @JsonProperty("expires_at")
-        @ExcludeMissing
         fun expiresAt(expiresAt: JsonField<LocalDate>) = apply { this.expiresAt = expiresAt }
 
         /** The transaction that fulfilled this request. */
@@ -375,8 +392,6 @@ private constructor(
             fulfillmentTransactionId(JsonField.of(fulfillmentTransactionId))
 
         /** The transaction that fulfilled this request. */
-        @JsonProperty("fulfillment_transaction_id")
-        @ExcludeMissing
         fun fulfillmentTransactionId(fulfillmentTransactionId: JsonField<String>) = apply {
             this.fulfillmentTransactionId = fulfillmentTransactionId
         }
@@ -385,7 +400,7 @@ private constructor(
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Real-Time Payments Request for Payment's identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -399,8 +414,6 @@ private constructor(
          * is used to ensure that a request is only processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        @JsonProperty("idempotency_key")
-        @ExcludeMissing
         fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
             this.idempotencyKey = idempotencyKey
         }
@@ -415,8 +428,6 @@ private constructor(
          * If the request for payment is refused by the destination financial institution or the
          * receiving customer, this will contain supplemental details.
          */
-        @JsonProperty("refusal")
-        @ExcludeMissing
         fun refusal(refusal: JsonField<Refusal>) = apply { this.refusal = refusal }
 
         /**
@@ -429,8 +440,6 @@ private constructor(
          * If the request for payment is rejected by Real-Time Payments or the destination financial
          * institution, this will contain supplemental details.
          */
-        @JsonProperty("rejection")
-        @ExcludeMissing
         fun rejection(rejection: JsonField<Rejection>) = apply { this.rejection = rejection }
 
         /** Unstructured information that will show on the recipient's bank statement. */
@@ -438,8 +447,6 @@ private constructor(
             remittanceInformation(JsonField.of(remittanceInformation))
 
         /** Unstructured information that will show on the recipient's bank statement. */
-        @JsonProperty("remittance_information")
-        @ExcludeMissing
         fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {
             this.remittanceInformation = remittanceInformation
         }
@@ -449,8 +456,6 @@ private constructor(
             sourceAccountNumber(JsonField.of(sourceAccountNumber))
 
         /** The account number the request is sent to. */
-        @JsonProperty("source_account_number")
-        @ExcludeMissing
         fun sourceAccountNumber(sourceAccountNumber: JsonField<String>) = apply {
             this.sourceAccountNumber = sourceAccountNumber
         }
@@ -460,8 +465,6 @@ private constructor(
             sourceRoutingNumber(JsonField.of(sourceRoutingNumber))
 
         /** The receiver's American Bankers' Association (ABA) Routing Transit Number (RTN). */
-        @JsonProperty("source_routing_number")
-        @ExcludeMissing
         fun sourceRoutingNumber(sourceRoutingNumber: JsonField<String>) = apply {
             this.sourceRoutingNumber = sourceRoutingNumber
         }
@@ -470,8 +473,6 @@ private constructor(
         fun status(status: Status) = status(JsonField.of(status))
 
         /** The lifecycle status of the request for payment. */
-        @JsonProperty("status")
-        @ExcludeMissing
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
@@ -484,8 +485,6 @@ private constructor(
          * After the request for payment is submitted to Real-Time Payments, this will contain
          * supplemental details.
          */
-        @JsonProperty("submission")
-        @ExcludeMissing
         fun submission(submission: JsonField<Submission>) = apply { this.submission = submission }
 
         /**
@@ -498,22 +497,25 @@ private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `real_time_payments_request_for_payment`.
          */
-        @JsonProperty("type")
-        @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): RealTimePaymentsRequestForPayment =
@@ -624,15 +626,16 @@ private constructor(
      * If the request for payment is refused by the destination financial institution or the
      * receiving customer, this will contain supplemental details.
      */
-    @JsonDeserialize(builder = Refusal.Builder::class)
     @NoAutoDetect
     class Refusal
+    @JsonCreator
     private constructor(
-        private val refusalReasonCode: JsonField<RefusalReasonCode>,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("refusal_reason_code")
+        @ExcludeMissing
+        private val refusalReasonCode: JsonField<RefusalReasonCode> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
-
-        private var validated: Boolean = false
 
         /**
          * The reason the request for payment was refused as provided by the recipient bank or the
@@ -652,6 +655,8 @@ private constructor(
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
 
         fun validate(): Refusal = apply {
             if (!validated) {
@@ -674,8 +679,8 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(refusal: Refusal) = apply {
-                this.refusalReasonCode = refusal.refusalReasonCode
-                additionalProperties(refusal.additionalProperties)
+                refusalReasonCode = refusal.refusalReasonCode
+                additionalProperties = refusal.additionalProperties.toMutableMap()
             }
 
             /**
@@ -689,24 +694,27 @@ private constructor(
              * The reason the request for payment was refused as provided by the recipient bank or
              * the customer.
              */
-            @JsonProperty("refusal_reason_code")
-            @ExcludeMissing
             fun refusalReasonCode(refusalReasonCode: JsonField<RefusalReasonCode>) = apply {
                 this.refusalReasonCode = refusalReasonCode
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Refusal = Refusal(refusalReasonCode, additionalProperties.toImmutable())
@@ -857,15 +865,16 @@ private constructor(
      * If the request for payment is rejected by Real-Time Payments or the destination financial
      * institution, this will contain supplemental details.
      */
-    @JsonDeserialize(builder = Rejection.Builder::class)
     @NoAutoDetect
     class Rejection
+    @JsonCreator
     private constructor(
-        private val rejectReasonCode: JsonField<RejectReasonCode>,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("reject_reason_code")
+        @ExcludeMissing
+        private val rejectReasonCode: JsonField<RejectReasonCode> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
-
-        private var validated: Boolean = false
 
         /**
          * The reason the request for payment was rejected as provided by the recipient bank or the
@@ -885,6 +894,8 @@ private constructor(
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
 
         fun validate(): Rejection = apply {
             if (!validated) {
@@ -907,8 +918,8 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(rejection: Rejection) = apply {
-                this.rejectReasonCode = rejection.rejectReasonCode
-                additionalProperties(rejection.additionalProperties)
+                rejectReasonCode = rejection.rejectReasonCode
+                additionalProperties = rejection.additionalProperties.toMutableMap()
             }
 
             /**
@@ -922,24 +933,27 @@ private constructor(
              * The reason the request for payment was rejected as provided by the recipient bank or
              * the Real-Time Payments network.
              */
-            @JsonProperty("reject_reason_code")
-            @ExcludeMissing
             fun rejectReasonCode(rejectReasonCode: JsonField<RejectReasonCode>) = apply {
                 this.rejectReasonCode = rejectReasonCode
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Rejection = Rejection(rejectReasonCode, additionalProperties.toImmutable())
@@ -1226,15 +1240,16 @@ private constructor(
      * After the request for payment is submitted to Real-Time Payments, this will contain
      * supplemental details.
      */
-    @JsonDeserialize(builder = Submission.Builder::class)
     @NoAutoDetect
     class Submission
+    @JsonCreator
     private constructor(
-        private val paymentInformationIdentification: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("payment_information_identification")
+        @ExcludeMissing
+        private val paymentInformationIdentification: JsonField<String> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
-
-        private var validated: Boolean = false
 
         /** The Real-Time Payments payment information identification of the request. */
         fun paymentInformationIdentification(): String =
@@ -1248,6 +1263,8 @@ private constructor(
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
 
         fun validate(): Submission = apply {
             if (!validated) {
@@ -1270,8 +1287,8 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(submission: Submission) = apply {
-                this.paymentInformationIdentification = submission.paymentInformationIdentification
-                additionalProperties(submission.additionalProperties)
+                paymentInformationIdentification = submission.paymentInformationIdentification
+                additionalProperties = submission.additionalProperties.toMutableMap()
             }
 
             /** The Real-Time Payments payment information identification of the request. */
@@ -1279,24 +1296,27 @@ private constructor(
                 paymentInformationIdentification(JsonField.of(paymentInformationIdentification))
 
             /** The Real-Time Payments payment information identification of the request. */
-            @JsonProperty("payment_information_identification")
-            @ExcludeMissing
             fun paymentInformationIdentification(
                 paymentInformationIdentification: JsonField<String>
             ) = apply { this.paymentInformationIdentification = paymentInformationIdentification }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Submission =

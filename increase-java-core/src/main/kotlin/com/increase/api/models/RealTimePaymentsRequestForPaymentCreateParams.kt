@@ -4,16 +4,18 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.time.LocalDate
 import java.util.Objects
+import java.util.Optional
 
 class RealTimePaymentsRequestForPaymentCreateParams
 constructor(
@@ -67,47 +69,49 @@ constructor(
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(builder = RealTimePaymentsRequestForPaymentCreateBody.Builder::class)
     @NoAutoDetect
     class RealTimePaymentsRequestForPaymentCreateBody
+    @JsonCreator
     internal constructor(
-        private val amount: Long?,
-        private val debtor: Debtor?,
-        private val destinationAccountNumberId: String?,
-        private val expiresAt: LocalDate?,
-        private val remittanceInformation: String?,
-        private val sourceAccountNumber: String?,
-        private val sourceRoutingNumber: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("amount") private val amount: Long,
+        @JsonProperty("debtor") private val debtor: Debtor,
+        @JsonProperty("destination_account_number_id")
+        private val destinationAccountNumberId: String,
+        @JsonProperty("expires_at") private val expiresAt: LocalDate,
+        @JsonProperty("remittance_information") private val remittanceInformation: String,
+        @JsonProperty("source_account_number") private val sourceAccountNumber: String,
+        @JsonProperty("source_routing_number") private val sourceRoutingNumber: String,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The requested amount in USD cents. Must be positive. */
-        @JsonProperty("amount") fun amount(): Long? = amount
+        @JsonProperty("amount") fun amount(): Long = amount
 
         /** Details of the person being requested to pay. */
-        @JsonProperty("debtor") fun debtor(): Debtor? = debtor
+        @JsonProperty("debtor") fun debtor(): Debtor = debtor
 
         /** The identifier of the Account Number where the funds will land. */
         @JsonProperty("destination_account_number_id")
-        fun destinationAccountNumberId(): String? = destinationAccountNumberId
+        fun destinationAccountNumberId(): String = destinationAccountNumberId
 
         /**
          * The expiration time for this request, in UTC. The requestee will not be able to pay after
          * this date.
          */
-        @JsonProperty("expires_at") fun expiresAt(): LocalDate? = expiresAt
+        @JsonProperty("expires_at") fun expiresAt(): LocalDate = expiresAt
 
         /** Unstructured information that will show on the requestee's bank statement. */
         @JsonProperty("remittance_information")
-        fun remittanceInformation(): String? = remittanceInformation
+        fun remittanceInformation(): String = remittanceInformation
 
         /** The account number the funds will be requested from. */
         @JsonProperty("source_account_number")
-        fun sourceAccountNumber(): String? = sourceAccountNumber
+        fun sourceAccountNumber(): String = sourceAccountNumber
 
         /** The requestee's American Bankers' Association (ABA) Routing Transit Number (RTN). */
         @JsonProperty("source_routing_number")
-        fun sourceRoutingNumber(): String? = sourceRoutingNumber
+        fun sourceRoutingNumber(): String = sourceRoutingNumber
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -136,30 +140,28 @@ constructor(
                 realTimePaymentsRequestForPaymentCreateBody:
                     RealTimePaymentsRequestForPaymentCreateBody
             ) = apply {
-                this.amount = realTimePaymentsRequestForPaymentCreateBody.amount
-                this.debtor = realTimePaymentsRequestForPaymentCreateBody.debtor
-                this.destinationAccountNumberId =
+                amount = realTimePaymentsRequestForPaymentCreateBody.amount
+                debtor = realTimePaymentsRequestForPaymentCreateBody.debtor
+                destinationAccountNumberId =
                     realTimePaymentsRequestForPaymentCreateBody.destinationAccountNumberId
-                this.expiresAt = realTimePaymentsRequestForPaymentCreateBody.expiresAt
-                this.remittanceInformation =
+                expiresAt = realTimePaymentsRequestForPaymentCreateBody.expiresAt
+                remittanceInformation =
                     realTimePaymentsRequestForPaymentCreateBody.remittanceInformation
-                this.sourceAccountNumber =
+                sourceAccountNumber =
                     realTimePaymentsRequestForPaymentCreateBody.sourceAccountNumber
-                this.sourceRoutingNumber =
+                sourceRoutingNumber =
                     realTimePaymentsRequestForPaymentCreateBody.sourceRoutingNumber
-                additionalProperties(
-                    realTimePaymentsRequestForPaymentCreateBody.additionalProperties
-                )
+                additionalProperties =
+                    realTimePaymentsRequestForPaymentCreateBody.additionalProperties.toMutableMap()
             }
 
             /** The requested amount in USD cents. Must be positive. */
-            @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long) = apply { this.amount = amount }
 
             /** Details of the person being requested to pay. */
-            @JsonProperty("debtor") fun debtor(debtor: Debtor) = apply { this.debtor = debtor }
+            fun debtor(debtor: Debtor) = apply { this.debtor = debtor }
 
             /** The identifier of the Account Number where the funds will land. */
-            @JsonProperty("destination_account_number_id")
             fun destinationAccountNumberId(destinationAccountNumberId: String) = apply {
                 this.destinationAccountNumberId = destinationAccountNumberId
             }
@@ -168,39 +170,40 @@ constructor(
              * The expiration time for this request, in UTC. The requestee will not be able to pay
              * after this date.
              */
-            @JsonProperty("expires_at")
             fun expiresAt(expiresAt: LocalDate) = apply { this.expiresAt = expiresAt }
 
             /** Unstructured information that will show on the requestee's bank statement. */
-            @JsonProperty("remittance_information")
             fun remittanceInformation(remittanceInformation: String) = apply {
                 this.remittanceInformation = remittanceInformation
             }
 
             /** The account number the funds will be requested from. */
-            @JsonProperty("source_account_number")
             fun sourceAccountNumber(sourceAccountNumber: String) = apply {
                 this.sourceAccountNumber = sourceAccountNumber
             }
 
             /** The requestee's American Bankers' Association (ABA) Routing Transit Number (RTN). */
-            @JsonProperty("source_routing_number")
             fun sourceRoutingNumber(sourceRoutingNumber: String) = apply {
                 this.sourceRoutingNumber = sourceRoutingNumber
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): RealTimePaymentsRequestForPaymentCreateBody =
@@ -462,20 +465,21 @@ constructor(
     }
 
     /** Details of the person being requested to pay. */
-    @JsonDeserialize(builder = Debtor.Builder::class)
     @NoAutoDetect
     class Debtor
+    @JsonCreator
     private constructor(
-        private val address: Address?,
-        private val name: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("address") private val address: Address,
+        @JsonProperty("name") private val name: String,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** Address of the debtor. */
-        @JsonProperty("address") fun address(): Address? = address
+        @JsonProperty("address") fun address(): Address = address
 
         /** The name of the debtor. */
-        @JsonProperty("name") fun name(): String? = name
+        @JsonProperty("name") fun name(): String = name
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -496,30 +500,34 @@ constructor(
 
             @JvmSynthetic
             internal fun from(debtor: Debtor) = apply {
-                this.address = debtor.address
-                this.name = debtor.name
-                additionalProperties(debtor.additionalProperties)
+                address = debtor.address
+                name = debtor.name
+                additionalProperties = debtor.additionalProperties.toMutableMap()
             }
 
             /** Address of the debtor. */
-            @JsonProperty("address")
             fun address(address: Address) = apply { this.address = address }
 
             /** The name of the debtor. */
-            @JsonProperty("name") fun name(name: String) = apply { this.name = name }
+            fun name(name: String) = apply { this.name = name }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Debtor =
@@ -531,28 +539,31 @@ constructor(
         }
 
         /** Address of the debtor. */
-        @JsonDeserialize(builder = Address.Builder::class)
         @NoAutoDetect
         class Address
+        @JsonCreator
         private constructor(
-            private val city: String?,
-            private val country: String?,
-            private val postCode: String?,
-            private val streetName: String?,
-            private val additionalProperties: Map<String, JsonValue>,
+            @JsonProperty("city") private val city: String?,
+            @JsonProperty("country") private val country: String,
+            @JsonProperty("post_code") private val postCode: String?,
+            @JsonProperty("street_name") private val streetName: String?,
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
             /** The town or city. */
-            @JsonProperty("city") fun city(): String? = city
+            @JsonProperty("city") fun city(): Optional<String> = Optional.ofNullable(city)
 
             /** The ISO 3166, Alpha-2 country code. */
-            @JsonProperty("country") fun country(): String? = country
+            @JsonProperty("country") fun country(): String = country
 
             /** The postal code or zip. */
-            @JsonProperty("post_code") fun postCode(): String? = postCode
+            @JsonProperty("post_code")
+            fun postCode(): Optional<String> = Optional.ofNullable(postCode)
 
             /** The street name without the street number. */
-            @JsonProperty("street_name") fun streetName(): String? = streetName
+            @JsonProperty("street_name")
+            fun streetName(): Optional<String> = Optional.ofNullable(streetName)
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -575,42 +586,46 @@ constructor(
 
                 @JvmSynthetic
                 internal fun from(address: Address) = apply {
-                    this.city = address.city
-                    this.country = address.country
-                    this.postCode = address.postCode
-                    this.streetName = address.streetName
-                    additionalProperties(address.additionalProperties)
+                    city = address.city
+                    country = address.country
+                    postCode = address.postCode
+                    streetName = address.streetName
+                    additionalProperties = address.additionalProperties.toMutableMap()
                 }
 
                 /** The town or city. */
-                @JsonProperty("city") fun city(city: String) = apply { this.city = city }
+                fun city(city: String) = apply { this.city = city }
 
                 /** The ISO 3166, Alpha-2 country code. */
-                @JsonProperty("country")
                 fun country(country: String) = apply { this.country = country }
 
                 /** The postal code or zip. */
-                @JsonProperty("post_code")
                 fun postCode(postCode: String) = apply { this.postCode = postCode }
 
                 /** The street name without the street number. */
-                @JsonProperty("street_name")
                 fun streetName(streetName: String) = apply { this.streetName = streetName }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
-                @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): Address =
                     Address(

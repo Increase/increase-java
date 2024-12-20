@@ -4,13 +4,14 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.time.OffsetDateTime
 import java.util.Objects
@@ -51,19 +52,21 @@ constructor(
         }
     }
 
-    @JsonDeserialize(builder = EntityConfirmBody.Builder::class)
     @NoAutoDetect
     class EntityConfirmBody
+    @JsonCreator
     internal constructor(
-        private val confirmedAt: OffsetDateTime?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("confirmed_at") private val confirmedAt: OffsetDateTime?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /**
          * When your user confirmed the Entity's details. If not provided, the current time will be
          * used.
          */
-        @JsonProperty("confirmed_at") fun confirmedAt(): OffsetDateTime? = confirmedAt
+        @JsonProperty("confirmed_at")
+        fun confirmedAt(): Optional<OffsetDateTime> = Optional.ofNullable(confirmedAt)
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -83,29 +86,33 @@ constructor(
 
             @JvmSynthetic
             internal fun from(entityConfirmBody: EntityConfirmBody) = apply {
-                this.confirmedAt = entityConfirmBody.confirmedAt
-                additionalProperties(entityConfirmBody.additionalProperties)
+                confirmedAt = entityConfirmBody.confirmedAt
+                additionalProperties = entityConfirmBody.additionalProperties.toMutableMap()
             }
 
             /**
              * When your user confirmed the Entity's details. If not provided, the current time will
              * be used.
              */
-            @JsonProperty("confirmed_at")
             fun confirmedAt(confirmedAt: OffsetDateTime) = apply { this.confirmedAt = confirmedAt }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): EntityConfirmBody =

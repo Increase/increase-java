@@ -54,18 +54,18 @@ class AchPrenotificationCreateParamsTest {
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.accountNumber()).isEqualTo("987654321")
         assertThat(body.routingNumber()).isEqualTo("101050001")
-        assertThat(body.addendum()).isEqualTo("x")
-        assertThat(body.companyDescriptiveDate()).isEqualTo("x")
-        assertThat(body.companyDiscretionaryData()).isEqualTo("x")
-        assertThat(body.companyEntryDescription()).isEqualTo("x")
-        assertThat(body.companyName()).isEqualTo("x")
+        assertThat(body.addendum()).contains("x")
+        assertThat(body.companyDescriptiveDate()).contains("x")
+        assertThat(body.companyDiscretionaryData()).contains("x")
+        assertThat(body.companyEntryDescription()).contains("x")
+        assertThat(body.companyName()).contains("x")
         assertThat(body.creditDebitIndicator())
-            .isEqualTo(AchPrenotificationCreateParams.CreditDebitIndicator.CREDIT)
-        assertThat(body.effectiveDate()).isEqualTo(LocalDate.parse("2019-12-27"))
-        assertThat(body.individualId()).isEqualTo("x")
-        assertThat(body.individualName()).isEqualTo("x")
+            .contains(AchPrenotificationCreateParams.CreditDebitIndicator.CREDIT)
+        assertThat(body.effectiveDate()).contains(LocalDate.parse("2019-12-27"))
+        assertThat(body.individualId()).contains("x")
+        assertThat(body.individualName()).contains("x")
         assertThat(body.standardEntryClassCode())
-            .isEqualTo(
+            .contains(
                 AchPrenotificationCreateParams.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT
             )
     }

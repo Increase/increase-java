@@ -26,8 +26,8 @@ class InboundAchTransferCreateNotificationOfChangeParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.updatedAccountNumber()).isEqualTo("987654321")
-        assertThat(body.updatedRoutingNumber()).isEqualTo("101050001")
+        assertThat(body.updatedAccountNumber()).contains("987654321")
+        assertThat(body.updatedRoutingNumber()).contains("101050001")
     }
 
     @Test

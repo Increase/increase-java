@@ -6,32 +6,40 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 
 /** An object containing the sensitive details (card number, cvc, etc) for a Card. */
-@JsonDeserialize(builder = CardDetails.Builder::class)
 @NoAutoDetect
 class CardDetails
+@JsonCreator
 private constructor(
-    private val cardId: JsonField<String>,
-    private val expirationMonth: JsonField<Long>,
-    private val expirationYear: JsonField<Long>,
-    private val primaryAccountNumber: JsonField<String>,
-    private val type: JsonField<Type>,
-    private val verificationCode: JsonField<String>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("card_id")
+    @ExcludeMissing
+    private val cardId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("expiration_month")
+    @ExcludeMissing
+    private val expirationMonth: JsonField<Long> = JsonMissing.of(),
+    @JsonProperty("expiration_year")
+    @ExcludeMissing
+    private val expirationYear: JsonField<Long> = JsonMissing.of(),
+    @JsonProperty("primary_account_number")
+    @ExcludeMissing
+    private val primaryAccountNumber: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonProperty("verification_code")
+    @ExcludeMissing
+    private val verificationCode: JsonField<String> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
-
-    private var validated: Boolean = false
 
     /** The identifier for the Card for which sensitive details have been returned. */
     fun cardId(): String = cardId.getRequired("card_id")
@@ -87,6 +95,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): CardDetails = apply {
         if (!validated) {
             cardId()
@@ -118,29 +128,25 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(cardDetails: CardDetails) = apply {
-            this.cardId = cardDetails.cardId
-            this.expirationMonth = cardDetails.expirationMonth
-            this.expirationYear = cardDetails.expirationYear
-            this.primaryAccountNumber = cardDetails.primaryAccountNumber
-            this.type = cardDetails.type
-            this.verificationCode = cardDetails.verificationCode
-            additionalProperties(cardDetails.additionalProperties)
+            cardId = cardDetails.cardId
+            expirationMonth = cardDetails.expirationMonth
+            expirationYear = cardDetails.expirationYear
+            primaryAccountNumber = cardDetails.primaryAccountNumber
+            type = cardDetails.type
+            verificationCode = cardDetails.verificationCode
+            additionalProperties = cardDetails.additionalProperties.toMutableMap()
         }
 
         /** The identifier for the Card for which sensitive details have been returned. */
         fun cardId(cardId: String) = cardId(JsonField.of(cardId))
 
         /** The identifier for the Card for which sensitive details have been returned. */
-        @JsonProperty("card_id")
-        @ExcludeMissing
         fun cardId(cardId: JsonField<String>) = apply { this.cardId = cardId }
 
         /** The month the card expires in M format (e.g., August is 8). */
         fun expirationMonth(expirationMonth: Long) = expirationMonth(JsonField.of(expirationMonth))
 
         /** The month the card expires in M format (e.g., August is 8). */
-        @JsonProperty("expiration_month")
-        @ExcludeMissing
         fun expirationMonth(expirationMonth: JsonField<Long>) = apply {
             this.expirationMonth = expirationMonth
         }
@@ -149,8 +155,6 @@ private constructor(
         fun expirationYear(expirationYear: Long) = expirationYear(JsonField.of(expirationYear))
 
         /** The year the card expires in YYYY format (e.g., 2025). */
-        @JsonProperty("expiration_year")
-        @ExcludeMissing
         fun expirationYear(expirationYear: JsonField<Long>) = apply {
             this.expirationYear = expirationYear
         }
@@ -160,8 +164,6 @@ private constructor(
             primaryAccountNumber(JsonField.of(primaryAccountNumber))
 
         /** The card number. */
-        @JsonProperty("primary_account_number")
-        @ExcludeMissing
         fun primaryAccountNumber(primaryAccountNumber: JsonField<String>) = apply {
             this.primaryAccountNumber = primaryAccountNumber
         }
@@ -176,8 +178,6 @@ private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `card_details`.
          */
-        @JsonProperty("type")
-        @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         /**
@@ -191,24 +191,27 @@ private constructor(
          * The three-digit verification code for the card. It's also known as the Card Verification
          * Code (CVC), the Card Verification Value (CVV), or the Card Identification (CID).
          */
-        @JsonProperty("verification_code")
-        @ExcludeMissing
         fun verificationCode(verificationCode: JsonField<String>) = apply {
             this.verificationCode = verificationCode
         }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): CardDetails =

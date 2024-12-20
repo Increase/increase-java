@@ -92,9 +92,9 @@ class CheckTransferCreateParamsTest {
         assertThat(body.amount()).isEqualTo(1000L)
         assertThat(body.sourceAccountNumberId()).isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
         assertThat(body.fulfillmentMethod())
-            .isEqualTo(CheckTransferCreateParams.FulfillmentMethod.PHYSICAL_CHECK)
+            .contains(CheckTransferCreateParams.FulfillmentMethod.PHYSICAL_CHECK)
         assertThat(body.physicalCheck())
-            .isEqualTo(
+            .contains(
                 CheckTransferCreateParams.PhysicalCheck.builder()
                     .mailingAddress(
                         CheckTransferCreateParams.PhysicalCheck.MailingAddress.builder()
@@ -122,9 +122,9 @@ class CheckTransferCreateParamsTest {
                     .signatureText("Ian Crease")
                     .build()
             )
-        assertThat(body.requireApproval()).isEqualTo(true)
+        assertThat(body.requireApproval()).contains(true)
         assertThat(body.thirdParty())
-            .isEqualTo(CheckTransferCreateParams.ThirdParty.builder().checkNumber("x").build())
+            .contains(CheckTransferCreateParams.ThirdParty.builder().checkNumber("x").build())
     }
 
     @Test

@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
@@ -23,19 +23,23 @@ import java.util.Objects
  * organization via the API, or (more commonly) OAuth platforms can retrieve information about the
  * organizations that have granted them access.
  */
-@JsonDeserialize(builder = Group.Builder::class)
 @NoAutoDetect
 class Group
+@JsonCreator
 private constructor(
-    private val achDebitStatus: JsonField<AchDebitStatus>,
-    private val activationStatus: JsonField<ActivationStatus>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val id: JsonField<String>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("ach_debit_status")
+    @ExcludeMissing
+    private val achDebitStatus: JsonField<AchDebitStatus> = JsonMissing.of(),
+    @JsonProperty("activation_status")
+    @ExcludeMissing
+    private val activationStatus: JsonField<ActivationStatus> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
-
-    private var validated: Boolean = false
 
     /** If the Group is allowed to create ACH debits. */
     fun achDebitStatus(): AchDebitStatus = achDebitStatus.getRequired("ach_debit_status")
@@ -75,6 +79,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): Group = apply {
         if (!validated) {
             achDebitStatus()
@@ -104,12 +110,12 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(group: Group) = apply {
-            this.achDebitStatus = group.achDebitStatus
-            this.activationStatus = group.activationStatus
-            this.createdAt = group.createdAt
-            this.id = group.id
-            this.type = group.type
-            additionalProperties(group.additionalProperties)
+            achDebitStatus = group.achDebitStatus
+            activationStatus = group.activationStatus
+            createdAt = group.createdAt
+            id = group.id
+            type = group.type
+            additionalProperties = group.additionalProperties.toMutableMap()
         }
 
         /** If the Group is allowed to create ACH debits. */
@@ -117,8 +123,6 @@ private constructor(
             achDebitStatus(JsonField.of(achDebitStatus))
 
         /** If the Group is allowed to create ACH debits. */
-        @JsonProperty("ach_debit_status")
-        @ExcludeMissing
         fun achDebitStatus(achDebitStatus: JsonField<AchDebitStatus>) = apply {
             this.achDebitStatus = achDebitStatus
         }
@@ -128,8 +132,6 @@ private constructor(
             activationStatus(JsonField.of(activationStatus))
 
         /** If the Group is activated or not. */
-        @JsonProperty("activation_status")
-        @ExcludeMissing
         fun activationStatus(activationStatus: JsonField<ActivationStatus>) = apply {
             this.activationStatus = activationStatus
         }
@@ -144,15 +146,13 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Group was
          * created.
          */
-        @JsonProperty("created_at")
-        @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The Group identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Group identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * A constant representing the object's type. For this resource it will always be `group`.
@@ -162,22 +162,25 @@ private constructor(
         /**
          * A constant representing the object's type. For this resource it will always be `group`.
          */
-        @JsonProperty("type")
-        @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): Group =

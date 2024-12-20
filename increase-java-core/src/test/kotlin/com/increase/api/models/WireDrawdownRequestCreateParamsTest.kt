@@ -52,13 +52,13 @@ class WireDrawdownRequestCreateParamsTest {
         assertThat(body.recipientAccountNumber()).isEqualTo("987654321")
         assertThat(body.recipientName()).isEqualTo("Ian Crease")
         assertThat(body.recipientRoutingNumber()).isEqualTo("101050001")
-        assertThat(body.originatorAddressLine1()).isEqualTo("x")
-        assertThat(body.originatorAddressLine2()).isEqualTo("x")
-        assertThat(body.originatorAddressLine3()).isEqualTo("x")
-        assertThat(body.originatorName()).isEqualTo("x")
-        assertThat(body.recipientAddressLine1()).isEqualTo("33 Liberty Street")
-        assertThat(body.recipientAddressLine2()).isEqualTo("New York, NY, 10045")
-        assertThat(body.recipientAddressLine3()).isEqualTo("x")
+        assertThat(body.originatorAddressLine1()).contains("x")
+        assertThat(body.originatorAddressLine2()).contains("x")
+        assertThat(body.originatorAddressLine3()).contains("x")
+        assertThat(body.originatorName()).contains("x")
+        assertThat(body.recipientAddressLine1()).contains("33 Liberty Street")
+        assertThat(body.recipientAddressLine2()).contains("New York, NY, 10045")
+        assertThat(body.recipientAddressLine3()).contains("x")
     }
 
     @Test

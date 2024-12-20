@@ -31,10 +31,10 @@ class OAuthTokenCreateParamsTest {
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.grantType()).isEqualTo(OAuthTokenCreateParams.GrantType.AUTHORIZATION_CODE)
-        assertThat(body.clientId()).isEqualTo("12345")
-        assertThat(body.clientSecret()).isEqualTo("supersecret")
-        assertThat(body.code()).isEqualTo("123")
-        assertThat(body.productionToken()).isEqualTo("x")
+        assertThat(body.clientId()).contains("12345")
+        assertThat(body.clientSecret()).contains("supersecret")
+        assertThat(body.code()).contains("123")
+        assertThat(body.productionToken()).contains("x")
     }
 
     @Test

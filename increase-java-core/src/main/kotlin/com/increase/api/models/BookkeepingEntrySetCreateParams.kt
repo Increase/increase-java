@@ -4,13 +4,14 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.time.OffsetDateTime
 import java.util.Objects
@@ -52,27 +53,29 @@ constructor(
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(builder = BookkeepingEntrySetCreateBody.Builder::class)
     @NoAutoDetect
     class BookkeepingEntrySetCreateBody
+    @JsonCreator
     internal constructor(
-        private val entries: List<Entry>?,
-        private val date: OffsetDateTime?,
-        private val transactionId: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("entries") private val entries: List<Entry>,
+        @JsonProperty("date") private val date: OffsetDateTime?,
+        @JsonProperty("transaction_id") private val transactionId: String?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The bookkeeping entries. */
-        @JsonProperty("entries") fun entries(): List<Entry>? = entries
+        @JsonProperty("entries") fun entries(): List<Entry> = entries
 
         /**
          * The date of the transaction. Optional if `transaction_id` is provided, in which case we
          * use the `date` of that transaction. Required otherwise.
          */
-        @JsonProperty("date") fun date(): OffsetDateTime? = date
+        @JsonProperty("date") fun date(): Optional<OffsetDateTime> = Optional.ofNullable(date)
 
         /** The identifier of the Transaction related to this entry set, if any. */
-        @JsonProperty("transaction_id") fun transactionId(): String? = transactionId
+        @JsonProperty("transaction_id")
+        fun transactionId(): Optional<String> = Optional.ofNullable(transactionId)
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -95,38 +98,42 @@ constructor(
             @JvmSynthetic
             internal fun from(bookkeepingEntrySetCreateBody: BookkeepingEntrySetCreateBody) =
                 apply {
-                    this.entries = bookkeepingEntrySetCreateBody.entries
-                    this.date = bookkeepingEntrySetCreateBody.date
-                    this.transactionId = bookkeepingEntrySetCreateBody.transactionId
-                    additionalProperties(bookkeepingEntrySetCreateBody.additionalProperties)
+                    entries = bookkeepingEntrySetCreateBody.entries.toMutableList()
+                    date = bookkeepingEntrySetCreateBody.date
+                    transactionId = bookkeepingEntrySetCreateBody.transactionId
+                    additionalProperties =
+                        bookkeepingEntrySetCreateBody.additionalProperties.toMutableMap()
                 }
 
             /** The bookkeeping entries. */
-            @JsonProperty("entries")
             fun entries(entries: List<Entry>) = apply { this.entries = entries }
 
             /**
              * The date of the transaction. Optional if `transaction_id` is provided, in which case
              * we use the `date` of that transaction. Required otherwise.
              */
-            @JsonProperty("date") fun date(date: OffsetDateTime) = apply { this.date = date }
+            fun date(date: OffsetDateTime) = apply { this.date = date }
 
             /** The identifier of the Transaction related to this entry set, if any. */
-            @JsonProperty("transaction_id")
             fun transactionId(transactionId: String) = apply { this.transactionId = transactionId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): BookkeepingEntrySetCreateBody =
@@ -335,23 +342,24 @@ constructor(
             )
     }
 
-    @JsonDeserialize(builder = Entry.Builder::class)
     @NoAutoDetect
     class Entry
+    @JsonCreator
     private constructor(
-        private val accountId: String?,
-        private val amount: Long?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("account_id") private val accountId: String,
+        @JsonProperty("amount") private val amount: Long,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The identifier for the Bookkeeping Account impacted by this entry. */
-        @JsonProperty("account_id") fun accountId(): String? = accountId
+        @JsonProperty("account_id") fun accountId(): String = accountId
 
         /**
          * The entry amount in the minor unit of the account currency. For dollars, for example,
          * this is cents. Debit entries have positive amounts; credit entries have negative amounts.
          */
-        @JsonProperty("amount") fun amount(): Long? = amount
+        @JsonProperty("amount") fun amount(): Long = amount
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -372,13 +380,12 @@ constructor(
 
             @JvmSynthetic
             internal fun from(entry: Entry) = apply {
-                this.accountId = entry.accountId
-                this.amount = entry.amount
-                additionalProperties(entry.additionalProperties)
+                accountId = entry.accountId
+                amount = entry.amount
+                additionalProperties = entry.additionalProperties.toMutableMap()
             }
 
             /** The identifier for the Bookkeeping Account impacted by this entry. */
-            @JsonProperty("account_id")
             fun accountId(accountId: String) = apply { this.accountId = accountId }
 
             /**
@@ -386,20 +393,25 @@ constructor(
              * this is cents. Debit entries have positive amounts; credit entries have negative
              * amounts.
              */
-            @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long) = apply { this.amount = amount }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Entry =

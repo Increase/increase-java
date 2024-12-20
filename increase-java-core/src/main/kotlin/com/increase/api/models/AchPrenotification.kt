@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
@@ -23,30 +23,56 @@ import java.util.Optional
  * ACH Prenotifications are one way you can verify account and routing numbers by Automated Clearing
  * House (ACH).
  */
-@JsonDeserialize(builder = AchPrenotification.Builder::class)
 @NoAutoDetect
 class AchPrenotification
+@JsonCreator
 private constructor(
-    private val accountNumber: JsonField<String>,
-    private val addendum: JsonField<String>,
-    private val companyDescriptiveDate: JsonField<String>,
-    private val companyDiscretionaryData: JsonField<String>,
-    private val companyEntryDescription: JsonField<String>,
-    private val companyName: JsonField<String>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val creditDebitIndicator: JsonField<CreditDebitIndicator>,
-    private val effectiveDate: JsonField<OffsetDateTime>,
-    private val id: JsonField<String>,
-    private val idempotencyKey: JsonField<String>,
-    private val notificationsOfChange: JsonField<List<NotificationsOfChange>>,
-    private val prenotificationReturn: JsonField<PrenotificationReturn>,
-    private val routingNumber: JsonField<String>,
-    private val status: JsonField<Status>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("account_number")
+    @ExcludeMissing
+    private val accountNumber: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("addendum")
+    @ExcludeMissing
+    private val addendum: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("company_descriptive_date")
+    @ExcludeMissing
+    private val companyDescriptiveDate: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("company_discretionary_data")
+    @ExcludeMissing
+    private val companyDiscretionaryData: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("company_entry_description")
+    @ExcludeMissing
+    private val companyEntryDescription: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("company_name")
+    @ExcludeMissing
+    private val companyName: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("credit_debit_indicator")
+    @ExcludeMissing
+    private val creditDebitIndicator: JsonField<CreditDebitIndicator> = JsonMissing.of(),
+    @JsonProperty("effective_date")
+    @ExcludeMissing
+    private val effectiveDate: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    private val idempotencyKey: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("notifications_of_change")
+    @ExcludeMissing
+    private val notificationsOfChange: JsonField<List<NotificationsOfChange>> = JsonMissing.of(),
+    @JsonProperty("prenotification_return")
+    @ExcludeMissing
+    private val prenotificationReturn: JsonField<PrenotificationReturn> = JsonMissing.of(),
+    @JsonProperty("routing_number")
+    @ExcludeMissing
+    private val routingNumber: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("status")
+    @ExcludeMissing
+    private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
-
-    private var validated: Boolean = false
 
     /** The destination account number. */
     fun accountNumber(): String = accountNumber.getRequired("account_number")
@@ -195,6 +221,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): AchPrenotification = apply {
         if (!validated) {
             accountNumber()
@@ -246,31 +274,29 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(achPrenotification: AchPrenotification) = apply {
-            this.accountNumber = achPrenotification.accountNumber
-            this.addendum = achPrenotification.addendum
-            this.companyDescriptiveDate = achPrenotification.companyDescriptiveDate
-            this.companyDiscretionaryData = achPrenotification.companyDiscretionaryData
-            this.companyEntryDescription = achPrenotification.companyEntryDescription
-            this.companyName = achPrenotification.companyName
-            this.createdAt = achPrenotification.createdAt
-            this.creditDebitIndicator = achPrenotification.creditDebitIndicator
-            this.effectiveDate = achPrenotification.effectiveDate
-            this.id = achPrenotification.id
-            this.idempotencyKey = achPrenotification.idempotencyKey
-            this.notificationsOfChange = achPrenotification.notificationsOfChange
-            this.prenotificationReturn = achPrenotification.prenotificationReturn
-            this.routingNumber = achPrenotification.routingNumber
-            this.status = achPrenotification.status
-            this.type = achPrenotification.type
-            additionalProperties(achPrenotification.additionalProperties)
+            accountNumber = achPrenotification.accountNumber
+            addendum = achPrenotification.addendum
+            companyDescriptiveDate = achPrenotification.companyDescriptiveDate
+            companyDiscretionaryData = achPrenotification.companyDiscretionaryData
+            companyEntryDescription = achPrenotification.companyEntryDescription
+            companyName = achPrenotification.companyName
+            createdAt = achPrenotification.createdAt
+            creditDebitIndicator = achPrenotification.creditDebitIndicator
+            effectiveDate = achPrenotification.effectiveDate
+            id = achPrenotification.id
+            idempotencyKey = achPrenotification.idempotencyKey
+            notificationsOfChange = achPrenotification.notificationsOfChange
+            prenotificationReturn = achPrenotification.prenotificationReturn
+            routingNumber = achPrenotification.routingNumber
+            status = achPrenotification.status
+            type = achPrenotification.type
+            additionalProperties = achPrenotification.additionalProperties.toMutableMap()
         }
 
         /** The destination account number. */
         fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
 
         /** The destination account number. */
-        @JsonProperty("account_number")
-        @ExcludeMissing
         fun accountNumber(accountNumber: JsonField<String>) = apply {
             this.accountNumber = accountNumber
         }
@@ -279,8 +305,6 @@ private constructor(
         fun addendum(addendum: String) = addendum(JsonField.of(addendum))
 
         /** Additional information for the recipient. */
-        @JsonProperty("addendum")
-        @ExcludeMissing
         fun addendum(addendum: JsonField<String>) = apply { this.addendum = addendum }
 
         /** The description of the date of the notification. */
@@ -288,8 +312,6 @@ private constructor(
             companyDescriptiveDate(JsonField.of(companyDescriptiveDate))
 
         /** The description of the date of the notification. */
-        @JsonProperty("company_descriptive_date")
-        @ExcludeMissing
         fun companyDescriptiveDate(companyDescriptiveDate: JsonField<String>) = apply {
             this.companyDescriptiveDate = companyDescriptiveDate
         }
@@ -299,8 +321,6 @@ private constructor(
             companyDiscretionaryData(JsonField.of(companyDiscretionaryData))
 
         /** Optional data associated with the notification. */
-        @JsonProperty("company_discretionary_data")
-        @ExcludeMissing
         fun companyDiscretionaryData(companyDiscretionaryData: JsonField<String>) = apply {
             this.companyDiscretionaryData = companyDiscretionaryData
         }
@@ -310,8 +330,6 @@ private constructor(
             companyEntryDescription(JsonField.of(companyEntryDescription))
 
         /** The description of the notification. */
-        @JsonProperty("company_entry_description")
-        @ExcludeMissing
         fun companyEntryDescription(companyEntryDescription: JsonField<String>) = apply {
             this.companyEntryDescription = companyEntryDescription
         }
@@ -320,8 +338,6 @@ private constructor(
         fun companyName(companyName: String) = companyName(JsonField.of(companyName))
 
         /** The name by which you know the company. */
-        @JsonProperty("company_name")
-        @ExcludeMissing
         fun companyName(companyName: JsonField<String>) = apply { this.companyName = companyName }
 
         /**
@@ -334,8 +350,6 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
          * prenotification was created.
          */
-        @JsonProperty("created_at")
-        @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** If the notification is for a future credit or debit. */
@@ -343,8 +357,6 @@ private constructor(
             creditDebitIndicator(JsonField.of(creditDebitIndicator))
 
         /** If the notification is for a future credit or debit. */
-        @JsonProperty("credit_debit_indicator")
-        @ExcludeMissing
         fun creditDebitIndicator(creditDebitIndicator: JsonField<CreditDebitIndicator>) = apply {
             this.creditDebitIndicator = creditDebitIndicator
         }
@@ -354,8 +366,6 @@ private constructor(
             effectiveDate(JsonField.of(effectiveDate))
 
         /** The effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
-        @JsonProperty("effective_date")
-        @ExcludeMissing
         fun effectiveDate(effectiveDate: JsonField<OffsetDateTime>) = apply {
             this.effectiveDate = effectiveDate
         }
@@ -364,7 +374,7 @@ private constructor(
         fun id(id: String) = id(JsonField.of(id))
 
         /** The ACH Prenotification's identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -378,8 +388,6 @@ private constructor(
          * is used to ensure that a request is only processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        @JsonProperty("idempotency_key")
-        @ExcludeMissing
         fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
             this.idempotencyKey = idempotencyKey
         }
@@ -395,8 +403,6 @@ private constructor(
          * If the receiving bank notifies that future transfers should use different details, this
          * will contain those details.
          */
-        @JsonProperty("notifications_of_change")
-        @ExcludeMissing
         fun notificationsOfChange(notificationsOfChange: JsonField<List<NotificationsOfChange>>) =
             apply {
                 this.notificationsOfChange = notificationsOfChange
@@ -407,8 +413,6 @@ private constructor(
             prenotificationReturn(JsonField.of(prenotificationReturn))
 
         /** If your prenotification is returned, this will contain details of the return. */
-        @JsonProperty("prenotification_return")
-        @ExcludeMissing
         fun prenotificationReturn(prenotificationReturn: JsonField<PrenotificationReturn>) = apply {
             this.prenotificationReturn = prenotificationReturn
         }
@@ -417,8 +421,6 @@ private constructor(
         fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
 
         /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
-        @JsonProperty("routing_number")
-        @ExcludeMissing
         fun routingNumber(routingNumber: JsonField<String>) = apply {
             this.routingNumber = routingNumber
         }
@@ -427,8 +429,6 @@ private constructor(
         fun status(status: Status) = status(JsonField.of(status))
 
         /** The lifecycle status of the ACH Prenotification. */
-        @JsonProperty("status")
-        @ExcludeMissing
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
@@ -441,22 +441,25 @@ private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `ach_prenotification`.
          */
-        @JsonProperty("type")
-        @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): AchPrenotification =
@@ -538,17 +541,22 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    @JsonDeserialize(builder = NotificationsOfChange.Builder::class)
     @NoAutoDetect
     class NotificationsOfChange
+    @JsonCreator
     private constructor(
-        private val changeCode: JsonField<ChangeCode>,
-        private val correctedData: JsonField<String>,
-        private val createdAt: JsonField<OffsetDateTime>,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("change_code")
+        @ExcludeMissing
+        private val changeCode: JsonField<ChangeCode> = JsonMissing.of(),
+        @JsonProperty("corrected_data")
+        @ExcludeMissing
+        private val correctedData: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
-
-        private var validated: Boolean = false
 
         /**
          * The required type of change that is being signaled by the receiving financial
@@ -596,6 +604,8 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+        private var validated: Boolean = false
+
         fun validate(): NotificationsOfChange = apply {
             if (!validated) {
                 changeCode()
@@ -621,10 +631,10 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(notificationsOfChange: NotificationsOfChange) = apply {
-                this.changeCode = notificationsOfChange.changeCode
-                this.correctedData = notificationsOfChange.correctedData
-                this.createdAt = notificationsOfChange.createdAt
-                additionalProperties(notificationsOfChange.additionalProperties)
+                changeCode = notificationsOfChange.changeCode
+                correctedData = notificationsOfChange.correctedData
+                createdAt = notificationsOfChange.createdAt
+                additionalProperties = notificationsOfChange.additionalProperties.toMutableMap()
             }
 
             /**
@@ -637,8 +647,6 @@ private constructor(
              * The required type of change that is being signaled by the receiving financial
              * institution.
              */
-            @JsonProperty("change_code")
-            @ExcludeMissing
             fun changeCode(changeCode: JsonField<ChangeCode>) = apply {
                 this.changeCode = changeCode
             }
@@ -659,8 +667,6 @@ private constructor(
              * 2 encourage changing the `funding` parameter to checking; numbers starting with a 3
              * encourage changing to savings.
              */
-            @JsonProperty("corrected_data")
-            @ExcludeMissing
             fun correctedData(correctedData: JsonField<String>) = apply {
                 this.correctedData = correctedData
             }
@@ -675,24 +681,27 @@ private constructor(
              * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
              * notification occurred.
              */
-            @JsonProperty("created_at")
-            @ExcludeMissing
             fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
                 this.createdAt = createdAt
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): NotificationsOfChange =
@@ -934,16 +943,19 @@ private constructor(
     }
 
     /** If your prenotification is returned, this will contain details of the return. */
-    @JsonDeserialize(builder = PrenotificationReturn.Builder::class)
     @NoAutoDetect
     class PrenotificationReturn
+    @JsonCreator
     private constructor(
-        private val createdAt: JsonField<OffsetDateTime>,
-        private val returnReasonCode: JsonField<ReturnReasonCode>,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("return_reason_code")
+        @ExcludeMissing
+        private val returnReasonCode: JsonField<ReturnReasonCode> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
-
-        private var validated: Boolean = false
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
@@ -970,6 +982,8 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+        private var validated: Boolean = false
+
         fun validate(): PrenotificationReturn = apply {
             if (!validated) {
                 createdAt()
@@ -993,9 +1007,9 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(prenotificationReturn: PrenotificationReturn) = apply {
-                this.createdAt = prenotificationReturn.createdAt
-                this.returnReasonCode = prenotificationReturn.returnReasonCode
-                additionalProperties(prenotificationReturn.additionalProperties)
+                createdAt = prenotificationReturn.createdAt
+                returnReasonCode = prenotificationReturn.returnReasonCode
+                additionalProperties = prenotificationReturn.additionalProperties.toMutableMap()
             }
 
             /**
@@ -1008,8 +1022,6 @@ private constructor(
              * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
              * Prenotification was returned.
              */
-            @JsonProperty("created_at")
-            @ExcludeMissing
             fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
                 this.createdAt = createdAt
             }
@@ -1019,24 +1031,27 @@ private constructor(
                 returnReasonCode(JsonField.of(returnReasonCode))
 
             /** Why the Prenotification was returned. */
-            @JsonProperty("return_reason_code")
-            @ExcludeMissing
             fun returnReasonCode(returnReasonCode: JsonField<ReturnReasonCode>) = apply {
                 this.returnReasonCode = returnReasonCode
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): PrenotificationReturn =

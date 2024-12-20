@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
@@ -21,17 +21,19 @@ import java.util.Objects
  * A token that is returned to your application when a user completes the OAuth flow and may be used
  * to authenticate requests. Learn more about OAuth [here](/documentation/oauth).
  */
-@JsonDeserialize(builder = OAuthToken.Builder::class)
 @NoAutoDetect
 class OAuthToken
+@JsonCreator
 private constructor(
-    private val accessToken: JsonField<String>,
-    private val tokenType: JsonField<TokenType>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("access_token")
+    @ExcludeMissing
+    private val accessToken: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("token_type")
+    @ExcludeMissing
+    private val tokenType: JsonField<TokenType> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
-
-    private var validated: Boolean = false
 
     /** You may use this token in place of an API key to make OAuth requests on a user's behalf. */
     fun accessToken(): String = accessToken.getRequired("access_token")
@@ -59,6 +61,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): OAuthToken = apply {
         if (!validated) {
             accessToken()
@@ -84,10 +88,10 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(oauthToken: OAuthToken) = apply {
-            this.accessToken = oauthToken.accessToken
-            this.tokenType = oauthToken.tokenType
-            this.type = oauthToken.type
-            additionalProperties(oauthToken.additionalProperties)
+            accessToken = oauthToken.accessToken
+            tokenType = oauthToken.tokenType
+            type = oauthToken.type
+            additionalProperties = oauthToken.additionalProperties.toMutableMap()
         }
 
         /**
@@ -98,16 +102,12 @@ private constructor(
         /**
          * You may use this token in place of an API key to make OAuth requests on a user's behalf.
          */
-        @JsonProperty("access_token")
-        @ExcludeMissing
         fun accessToken(accessToken: JsonField<String>) = apply { this.accessToken = accessToken }
 
         /** The type of OAuth token. */
         fun tokenType(tokenType: TokenType) = tokenType(JsonField.of(tokenType))
 
         /** The type of OAuth token. */
-        @JsonProperty("token_type")
-        @ExcludeMissing
         fun tokenType(tokenType: JsonField<TokenType>) = apply { this.tokenType = tokenType }
 
         /**
@@ -120,22 +120,25 @@ private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `oauth_token`.
          */
-        @JsonProperty("type")
-        @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): OAuthToken =

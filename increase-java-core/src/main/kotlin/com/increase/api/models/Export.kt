@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
@@ -25,22 +25,32 @@ import java.util.Optional
  * ready. For more information, please read our
  * [Exports documentation](https://increase.com/documentation/exports).
  */
-@JsonDeserialize(builder = Export.Builder::class)
 @NoAutoDetect
 class Export
+@JsonCreator
 private constructor(
-    private val category: JsonField<Category>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val fileDownloadUrl: JsonField<String>,
-    private val fileId: JsonField<String>,
-    private val id: JsonField<String>,
-    private val idempotencyKey: JsonField<String>,
-    private val status: JsonField<Status>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("category")
+    @ExcludeMissing
+    private val category: JsonField<Category> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("file_download_url")
+    @ExcludeMissing
+    private val fileDownloadUrl: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("file_id")
+    @ExcludeMissing
+    private val fileId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    private val idempotencyKey: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("status")
+    @ExcludeMissing
+    private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
-
-    private var validated: Boolean = false
 
     /**
      * The category of the Export. We may add additional possible values for this enum over time;
@@ -122,6 +132,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): Export = apply {
         if (!validated) {
             category()
@@ -157,15 +169,15 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(export: Export) = apply {
-            this.category = export.category
-            this.createdAt = export.createdAt
-            this.fileDownloadUrl = export.fileDownloadUrl
-            this.fileId = export.fileId
-            this.id = export.id
-            this.idempotencyKey = export.idempotencyKey
-            this.status = export.status
-            this.type = export.type
-            additionalProperties(export.additionalProperties)
+            category = export.category
+            createdAt = export.createdAt
+            fileDownloadUrl = export.fileDownloadUrl
+            fileId = export.fileId
+            id = export.id
+            idempotencyKey = export.idempotencyKey
+            status = export.status
+            type = export.type
+            additionalProperties = export.additionalProperties.toMutableMap()
         }
 
         /**
@@ -178,16 +190,12 @@ private constructor(
          * The category of the Export. We may add additional possible values for this enum over
          * time; your application should be able to handle that gracefully.
          */
-        @JsonProperty("category")
-        @ExcludeMissing
         fun category(category: JsonField<Category>) = apply { this.category = category }
 
         /** The time the Export was created. */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /** The time the Export was created. */
-        @JsonProperty("created_at")
-        @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /**
@@ -201,8 +209,6 @@ private constructor(
          * A URL at which the Export's file can be downloaded. This will be present when the
          * Export's status transitions to `complete`.
          */
-        @JsonProperty("file_download_url")
-        @ExcludeMissing
         fun fileDownloadUrl(fileDownloadUrl: JsonField<String>) = apply {
             this.fileDownloadUrl = fileDownloadUrl
         }
@@ -217,15 +223,13 @@ private constructor(
          * The File containing the contents of the Export. This will be present when the Export's
          * status transitions to `complete`.
          */
-        @JsonProperty("file_id")
-        @ExcludeMissing
         fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
         /** The Export identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Export identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -239,8 +243,6 @@ private constructor(
          * is used to ensure that a request is only processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        @JsonProperty("idempotency_key")
-        @ExcludeMissing
         fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
             this.idempotencyKey = idempotencyKey
         }
@@ -249,8 +251,6 @@ private constructor(
         fun status(status: Status) = status(JsonField.of(status))
 
         /** The status of the Export. */
-        @JsonProperty("status")
-        @ExcludeMissing
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
@@ -261,22 +261,25 @@ private constructor(
         /**
          * A constant representing the object's type. For this resource it will always be `export`.
          */
-        @JsonProperty("type")
-        @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): Export =

@@ -25,7 +25,7 @@ class SimulationAchTransferReturnParamsTest {
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.reason())
-            .isEqualTo(SimulationAchTransferReturnParams.Reason.INSUFFICIENT_FUND)
+            .contains(SimulationAchTransferReturnParams.Reason.INSUFFICIENT_FUND)
     }
 
     @Test

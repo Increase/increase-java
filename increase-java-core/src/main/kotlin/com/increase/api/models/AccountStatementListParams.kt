@@ -2,11 +2,9 @@
 
 package com.increase.api.models
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
-import com.increase.api.core.toImmutable
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
@@ -201,40 +199,38 @@ constructor(
             )
     }
 
-    @JsonDeserialize(builder = StatementPeriodStart.Builder::class)
-    @NoAutoDetect
     class StatementPeriodStart
     private constructor(
         private val after: OffsetDateTime?,
         private val before: OffsetDateTime?,
         private val onOrAfter: OffsetDateTime?,
         private val onOrBefore: OffsetDateTime?,
-        private val additionalProperties: Map<String, List<String>>,
+        private val additionalProperties: QueryParams,
     ) {
 
         /**
          * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
          */
-        fun after(): OffsetDateTime? = after
+        fun after(): Optional<OffsetDateTime> = Optional.ofNullable(after)
 
         /**
          * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
          */
-        fun before(): OffsetDateTime? = before
+        fun before(): Optional<OffsetDateTime> = Optional.ofNullable(before)
 
         /**
          * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
          * timestamp.
          */
-        fun onOrAfter(): OffsetDateTime? = onOrAfter
+        fun onOrAfter(): Optional<OffsetDateTime> = Optional.ofNullable(onOrAfter)
 
         /**
          * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
          * timestamp.
          */
-        fun onOrBefore(): OffsetDateTime? = onOrBefore
+        fun onOrBefore(): Optional<OffsetDateTime> = Optional.ofNullable(onOrBefore)
 
-        fun _additionalProperties(): Map<String, List<String>> = additionalProperties
+        fun _additionalProperties(): QueryParams = additionalProperties
 
         @JvmSynthetic
         internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
@@ -250,7 +246,7 @@ constructor(
             this.onOrBefore?.let {
                 putParam("on_or_before", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
             }
-            this.additionalProperties.forEach { key, values -> putParam(key, values) }
+            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
         }
 
         fun toBuilder() = Builder().from(this)
@@ -266,15 +262,15 @@ constructor(
             private var before: OffsetDateTime? = null
             private var onOrAfter: OffsetDateTime? = null
             private var onOrBefore: OffsetDateTime? = null
-            private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
+            private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
             @JvmSynthetic
             internal fun from(statementPeriodStart: StatementPeriodStart) = apply {
-                this.after = statementPeriodStart.after
-                this.before = statementPeriodStart.before
-                this.onOrAfter = statementPeriodStart.onOrAfter
-                this.onOrBefore = statementPeriodStart.onOrBefore
-                additionalProperties(statementPeriodStart.additionalProperties)
+                after = statementPeriodStart.after
+                before = statementPeriodStart.before
+                onOrAfter = statementPeriodStart.onOrAfter
+                onOrBefore = statementPeriodStart.onOrBefore
+                additionalProperties = statementPeriodStart.additionalProperties.toBuilder()
             }
 
             /**
@@ -301,19 +297,54 @@ constructor(
              */
             fun onOrBefore(onOrBefore: OffsetDateTime) = apply { this.onOrBefore = onOrBefore }
 
-            fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
+            fun additionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: String) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                additionalProperties.put(key, values)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun putAdditionalProperty(key: String, value: List<String>) = apply {
-                this.additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
+            fun putAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
                 apply {
                     this.additionalProperties.putAll(additionalProperties)
                 }
+
+            fun replaceAdditionalProperties(key: String, value: String) = apply {
+                additionalProperties.replace(key, value)
+            }
+
+            fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                additionalProperties.replace(key, values)
+            }
+
+            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.replaceAll(additionalProperties)
+            }
+
+            fun replaceAllAdditionalProperties(
+                additionalProperties: Map<String, Iterable<String>>
+            ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+            fun removeAdditionalProperties(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                additionalProperties.removeAll(keys)
+            }
 
             fun build(): StatementPeriodStart =
                 StatementPeriodStart(
@@ -321,7 +352,7 @@ constructor(
                     before,
                     onOrAfter,
                     onOrBefore,
-                    additionalProperties.toImmutable(),
+                    additionalProperties.build(),
                 )
         }
 

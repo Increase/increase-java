@@ -6,33 +6,39 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 
 /** A request for proof of authorization for one or more ACH debit transfers. */
-@JsonDeserialize(builder = ProofOfAuthorizationRequest.Builder::class)
 @NoAutoDetect
 class ProofOfAuthorizationRequest
+@JsonCreator
 private constructor(
-    private val achTransfers: JsonField<List<AchTransfer>>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val dueOn: JsonField<OffsetDateTime>,
-    private val id: JsonField<String>,
-    private val type: JsonField<Type>,
-    private val updatedAt: JsonField<OffsetDateTime>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("ach_transfers")
+    @ExcludeMissing
+    private val achTransfers: JsonField<List<AchTransfer>> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("due_on")
+    @ExcludeMissing
+    private val dueOn: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
-
-    private var validated: Boolean = false
 
     /** The ACH Transfers associated with the request. */
     fun achTransfers(): List<AchTransfer> = achTransfers.getRequired("ach_transfers")
@@ -80,6 +86,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): ProofOfAuthorizationRequest = apply {
         if (!validated) {
             achTransfers().forEach { it.validate() }
@@ -111,21 +119,19 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(proofOfAuthorizationRequest: ProofOfAuthorizationRequest) = apply {
-            this.achTransfers = proofOfAuthorizationRequest.achTransfers
-            this.createdAt = proofOfAuthorizationRequest.createdAt
-            this.dueOn = proofOfAuthorizationRequest.dueOn
-            this.id = proofOfAuthorizationRequest.id
-            this.type = proofOfAuthorizationRequest.type
-            this.updatedAt = proofOfAuthorizationRequest.updatedAt
-            additionalProperties(proofOfAuthorizationRequest.additionalProperties)
+            achTransfers = proofOfAuthorizationRequest.achTransfers
+            createdAt = proofOfAuthorizationRequest.createdAt
+            dueOn = proofOfAuthorizationRequest.dueOn
+            id = proofOfAuthorizationRequest.id
+            type = proofOfAuthorizationRequest.type
+            updatedAt = proofOfAuthorizationRequest.updatedAt
+            additionalProperties = proofOfAuthorizationRequest.additionalProperties.toMutableMap()
         }
 
         /** The ACH Transfers associated with the request. */
         fun achTransfers(achTransfers: List<AchTransfer>) = achTransfers(JsonField.of(achTransfers))
 
         /** The ACH Transfers associated with the request. */
-        @JsonProperty("ach_transfers")
-        @ExcludeMissing
         fun achTransfers(achTransfers: JsonField<List<AchTransfer>>) = apply {
             this.achTransfers = achTransfers
         }
@@ -134,23 +140,19 @@ private constructor(
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /** The time the Proof of Authorization Request was created. */
-        @JsonProperty("created_at")
-        @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The time the Proof of Authorization Request is due. */
         fun dueOn(dueOn: OffsetDateTime) = dueOn(JsonField.of(dueOn))
 
         /** The time the Proof of Authorization Request is due. */
-        @JsonProperty("due_on")
-        @ExcludeMissing
         fun dueOn(dueOn: JsonField<OffsetDateTime>) = apply { this.dueOn = dueOn }
 
         /** The Proof of Authorization Request identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Proof of Authorization Request identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -162,30 +164,31 @@ private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `proof_of_authorization_request`.
          */
-        @JsonProperty("type")
-        @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         /** The time the Proof of Authorization Request was last updated. */
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
         /** The time the Proof of Authorization Request was last updated. */
-        @JsonProperty("updated_at")
-        @ExcludeMissing
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): ProofOfAuthorizationRequest =
@@ -200,15 +203,14 @@ private constructor(
             )
     }
 
-    @JsonDeserialize(builder = AchTransfer.Builder::class)
     @NoAutoDetect
     class AchTransfer
+    @JsonCreator
     private constructor(
-        private val id: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
-
-        private var validated: Boolean = false
 
         /** The ACH Transfer identifier. */
         fun id(): String = id.getRequired("id")
@@ -219,6 +221,8 @@ private constructor(
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
 
         fun validate(): AchTransfer = apply {
             if (!validated) {
@@ -241,30 +245,33 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(achTransfer: AchTransfer) = apply {
-                this.id = achTransfer.id
-                additionalProperties(achTransfer.additionalProperties)
+                id = achTransfer.id
+                additionalProperties = achTransfer.additionalProperties.toMutableMap()
             }
 
             /** The ACH Transfer identifier. */
             fun id(id: String) = id(JsonField.of(id))
 
             /** The ACH Transfer identifier. */
-            @JsonProperty("id")
-            @ExcludeMissing
             fun id(id: JsonField<String>) = apply { this.id = id }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): AchTransfer = AchTransfer(id, additionalProperties.toImmutable())

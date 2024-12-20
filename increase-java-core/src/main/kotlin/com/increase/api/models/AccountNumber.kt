@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
@@ -25,25 +25,39 @@ import java.util.Optional
  * numbers can also be used to seamlessly reconcile inbound payments. Generating a unique account
  * number per vendor ensures you always know the originator of an incoming payment.
  */
-@JsonDeserialize(builder = AccountNumber.Builder::class)
 @NoAutoDetect
 class AccountNumber
+@JsonCreator
 private constructor(
-    private val accountId: JsonField<String>,
-    private val accountNumber: JsonField<String>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val id: JsonField<String>,
-    private val idempotencyKey: JsonField<String>,
-    private val inboundAch: JsonField<InboundAch>,
-    private val inboundChecks: JsonField<InboundChecks>,
-    private val name: JsonField<String>,
-    private val routingNumber: JsonField<String>,
-    private val status: JsonField<Status>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("account_id")
+    @ExcludeMissing
+    private val accountId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("account_number")
+    @ExcludeMissing
+    private val accountNumber: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    private val idempotencyKey: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("inbound_ach")
+    @ExcludeMissing
+    private val inboundAch: JsonField<InboundAch> = JsonMissing.of(),
+    @JsonProperty("inbound_checks")
+    @ExcludeMissing
+    private val inboundChecks: JsonField<InboundChecks> = JsonMissing.of(),
+    @JsonProperty("name") @ExcludeMissing private val name: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("routing_number")
+    @ExcludeMissing
+    private val routingNumber: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("status")
+    @ExcludeMissing
+    private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
-
-    private var validated: Boolean = false
 
     /** The identifier for the account this Account Number belongs to. */
     fun accountId(): String = accountId.getRequired("account_id")
@@ -136,6 +150,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): AccountNumber = apply {
         if (!validated) {
             accountId()
@@ -177,34 +193,30 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(accountNumber: AccountNumber) = apply {
-            this.accountId = accountNumber.accountId
+            accountId = accountNumber.accountId
             this.accountNumber = accountNumber.accountNumber
-            this.createdAt = accountNumber.createdAt
-            this.id = accountNumber.id
-            this.idempotencyKey = accountNumber.idempotencyKey
-            this.inboundAch = accountNumber.inboundAch
-            this.inboundChecks = accountNumber.inboundChecks
-            this.name = accountNumber.name
-            this.routingNumber = accountNumber.routingNumber
-            this.status = accountNumber.status
-            this.type = accountNumber.type
-            additionalProperties(accountNumber.additionalProperties)
+            createdAt = accountNumber.createdAt
+            id = accountNumber.id
+            idempotencyKey = accountNumber.idempotencyKey
+            inboundAch = accountNumber.inboundAch
+            inboundChecks = accountNumber.inboundChecks
+            name = accountNumber.name
+            routingNumber = accountNumber.routingNumber
+            status = accountNumber.status
+            type = accountNumber.type
+            additionalProperties = accountNumber.additionalProperties.toMutableMap()
         }
 
         /** The identifier for the account this Account Number belongs to. */
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
         /** The identifier for the account this Account Number belongs to. */
-        @JsonProperty("account_id")
-        @ExcludeMissing
         fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
         /** The account number. */
         fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
 
         /** The account number. */
-        @JsonProperty("account_number")
-        @ExcludeMissing
         fun accountNumber(accountNumber: JsonField<String>) = apply {
             this.accountNumber = accountNumber
         }
@@ -219,15 +231,13 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account Number
          * was created.
          */
-        @JsonProperty("created_at")
-        @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The Account Number identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Account Number identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -241,8 +251,6 @@ private constructor(
          * is used to ensure that a request is only processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        @JsonProperty("idempotency_key")
-        @ExcludeMissing
         fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
             this.idempotencyKey = idempotencyKey
         }
@@ -251,8 +259,6 @@ private constructor(
         fun inboundAch(inboundAch: InboundAch) = inboundAch(JsonField.of(inboundAch))
 
         /** Properties related to how this Account Number handles inbound ACH transfers. */
-        @JsonProperty("inbound_ach")
-        @ExcludeMissing
         fun inboundAch(inboundAch: JsonField<InboundAch>) = apply { this.inboundAch = inboundAch }
 
         /**
@@ -263,8 +269,6 @@ private constructor(
         /**
          * Properties related to how this Account Number should handle inbound check withdrawals.
          */
-        @JsonProperty("inbound_checks")
-        @ExcludeMissing
         fun inboundChecks(inboundChecks: JsonField<InboundChecks>) = apply {
             this.inboundChecks = inboundChecks
         }
@@ -273,16 +277,12 @@ private constructor(
         fun name(name: String) = name(JsonField.of(name))
 
         /** The name you choose for the Account Number. */
-        @JsonProperty("name")
-        @ExcludeMissing
         fun name(name: JsonField<String>) = apply { this.name = name }
 
         /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
         fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
 
         /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
-        @JsonProperty("routing_number")
-        @ExcludeMissing
         fun routingNumber(routingNumber: JsonField<String>) = apply {
             this.routingNumber = routingNumber
         }
@@ -291,8 +291,6 @@ private constructor(
         fun status(status: Status) = status(JsonField.of(status))
 
         /** This indicates if payments can be made to the Account Number. */
-        @JsonProperty("status")
-        @ExcludeMissing
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
@@ -305,22 +303,25 @@ private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `account_number`.
          */
-        @JsonProperty("type")
-        @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): AccountNumber =
@@ -341,15 +342,16 @@ private constructor(
     }
 
     /** Properties related to how this Account Number handles inbound ACH transfers. */
-    @JsonDeserialize(builder = InboundAch.Builder::class)
     @NoAutoDetect
     class InboundAch
+    @JsonCreator
     private constructor(
-        private val debitStatus: JsonField<DebitStatus>,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("debit_status")
+        @ExcludeMissing
+        private val debitStatus: JsonField<DebitStatus> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
-
-        private var validated: Boolean = false
 
         /**
          * Whether ACH debits are allowed against this Account Number. Note that they will still be
@@ -366,6 +368,8 @@ private constructor(
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
 
         fun validate(): InboundAch = apply {
             if (!validated) {
@@ -388,8 +392,8 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(inboundAch: InboundAch) = apply {
-                this.debitStatus = inboundAch.debitStatus
-                additionalProperties(inboundAch.additionalProperties)
+                debitStatus = inboundAch.debitStatus
+                additionalProperties = inboundAch.additionalProperties.toMutableMap()
             }
 
             /**
@@ -402,24 +406,27 @@ private constructor(
              * Whether ACH debits are allowed against this Account Number. Note that they will still
              * be declined if this is `allowed` if the Account Number is not active.
              */
-            @JsonProperty("debit_status")
-            @ExcludeMissing
             fun debitStatus(debitStatus: JsonField<DebitStatus>) = apply {
                 this.debitStatus = debitStatus
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): InboundAch = InboundAch(debitStatus, additionalProperties.toImmutable())
@@ -501,15 +508,16 @@ private constructor(
     }
 
     /** Properties related to how this Account Number should handle inbound check withdrawals. */
-    @JsonDeserialize(builder = InboundChecks.Builder::class)
     @NoAutoDetect
     class InboundChecks
+    @JsonCreator
     private constructor(
-        private val status: JsonField<Status>,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("status")
+        @ExcludeMissing
+        private val status: JsonField<Status> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
-
-        private var validated: Boolean = false
 
         /** How Increase should process checks with this account number printed on them. */
         fun status(): Status = status.getRequired("status")
@@ -520,6 +528,8 @@ private constructor(
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
 
         fun validate(): InboundChecks = apply {
             if (!validated) {
@@ -542,30 +552,33 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(inboundChecks: InboundChecks) = apply {
-                this.status = inboundChecks.status
-                additionalProperties(inboundChecks.additionalProperties)
+                status = inboundChecks.status
+                additionalProperties = inboundChecks.additionalProperties.toMutableMap()
             }
 
             /** How Increase should process checks with this account number printed on them. */
             fun status(status: Status) = status(JsonField.of(status))
 
             /** How Increase should process checks with this account number printed on them. */
-            @JsonProperty("status")
-            @ExcludeMissing
             fun status(status: JsonField<Status>) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): InboundChecks = InboundChecks(status, additionalProperties.toImmutable())

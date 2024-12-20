@@ -4,13 +4,14 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
@@ -59,32 +60,34 @@ constructor(
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(builder = CheckDepositCreateBody.Builder::class)
     @NoAutoDetect
     class CheckDepositCreateBody
+    @JsonCreator
     internal constructor(
-        private val accountId: String?,
-        private val amount: Long?,
-        private val backImageFileId: String?,
-        private val frontImageFileId: String?,
-        private val description: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("account_id") private val accountId: String,
+        @JsonProperty("amount") private val amount: Long,
+        @JsonProperty("back_image_file_id") private val backImageFileId: String,
+        @JsonProperty("front_image_file_id") private val frontImageFileId: String,
+        @JsonProperty("description") private val description: String?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The identifier for the Account to deposit the check in. */
-        @JsonProperty("account_id") fun accountId(): String? = accountId
+        @JsonProperty("account_id") fun accountId(): String = accountId
 
         /** The deposit amount in USD cents. */
-        @JsonProperty("amount") fun amount(): Long? = amount
+        @JsonProperty("amount") fun amount(): Long = amount
 
         /** The File containing the check's back image. */
-        @JsonProperty("back_image_file_id") fun backImageFileId(): String? = backImageFileId
+        @JsonProperty("back_image_file_id") fun backImageFileId(): String = backImageFileId
 
         /** The File containing the check's front image. */
-        @JsonProperty("front_image_file_id") fun frontImageFileId(): String? = frontImageFileId
+        @JsonProperty("front_image_file_id") fun frontImageFileId(): String = frontImageFileId
 
         /** The description you choose to give the Check Deposit, for display purposes only. */
-        @JsonProperty("description") fun description(): String? = description
+        @JsonProperty("description")
+        fun description(): Optional<String> = Optional.ofNullable(description)
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -108,49 +111,50 @@ constructor(
 
             @JvmSynthetic
             internal fun from(checkDepositCreateBody: CheckDepositCreateBody) = apply {
-                this.accountId = checkDepositCreateBody.accountId
-                this.amount = checkDepositCreateBody.amount
-                this.backImageFileId = checkDepositCreateBody.backImageFileId
-                this.frontImageFileId = checkDepositCreateBody.frontImageFileId
-                this.description = checkDepositCreateBody.description
-                additionalProperties(checkDepositCreateBody.additionalProperties)
+                accountId = checkDepositCreateBody.accountId
+                amount = checkDepositCreateBody.amount
+                backImageFileId = checkDepositCreateBody.backImageFileId
+                frontImageFileId = checkDepositCreateBody.frontImageFileId
+                description = checkDepositCreateBody.description
+                additionalProperties = checkDepositCreateBody.additionalProperties.toMutableMap()
             }
 
             /** The identifier for the Account to deposit the check in. */
-            @JsonProperty("account_id")
             fun accountId(accountId: String) = apply { this.accountId = accountId }
 
             /** The deposit amount in USD cents. */
-            @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long) = apply { this.amount = amount }
 
             /** The File containing the check's back image. */
-            @JsonProperty("back_image_file_id")
             fun backImageFileId(backImageFileId: String) = apply {
                 this.backImageFileId = backImageFileId
             }
 
             /** The File containing the check's front image. */
-            @JsonProperty("front_image_file_id")
             fun frontImageFileId(frontImageFileId: String) = apply {
                 this.frontImageFileId = frontImageFileId
             }
 
             /** The description you choose to give the Check Deposit, for display purposes only. */
-            @JsonProperty("description")
             fun description(description: String) = apply { this.description = description }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): CheckDepositCreateBody =

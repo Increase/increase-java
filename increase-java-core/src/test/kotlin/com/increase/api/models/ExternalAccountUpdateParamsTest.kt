@@ -31,10 +31,10 @@ class ExternalAccountUpdateParamsTest {
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.accountHolder())
-            .isEqualTo(ExternalAccountUpdateParams.AccountHolder.BUSINESS)
-        assertThat(body.description()).isEqualTo("New description")
-        assertThat(body.funding()).isEqualTo(ExternalAccountUpdateParams.Funding.CHECKING)
-        assertThat(body.status()).isEqualTo(ExternalAccountUpdateParams.Status.ACTIVE)
+            .contains(ExternalAccountUpdateParams.AccountHolder.BUSINESS)
+        assertThat(body.description()).contains("New description")
+        assertThat(body.funding()).contains(ExternalAccountUpdateParams.Funding.CHECKING)
+        assertThat(body.status()).contains(ExternalAccountUpdateParams.Status.ACTIVE)
     }
 
     @Test

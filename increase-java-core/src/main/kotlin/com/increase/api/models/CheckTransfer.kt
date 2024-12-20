@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
@@ -20,37 +20,75 @@ import java.util.Objects
 import java.util.Optional
 
 /** Check Transfers move funds from your Increase account by mailing a physical check. */
-@JsonDeserialize(builder = CheckTransfer.Builder::class)
 @NoAutoDetect
 class CheckTransfer
+@JsonCreator
 private constructor(
-    private val accountId: JsonField<String>,
-    private val accountNumber: JsonField<String>,
-    private val amount: JsonField<Long>,
-    private val approval: JsonField<Approval>,
-    private val approvedInboundCheckDepositId: JsonField<String>,
-    private val cancellation: JsonField<Cancellation>,
-    private val checkNumber: JsonField<String>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val createdBy: JsonField<CreatedBy>,
-    private val currency: JsonField<Currency>,
-    private val fulfillmentMethod: JsonField<FulfillmentMethod>,
-    private val id: JsonField<String>,
-    private val idempotencyKey: JsonField<String>,
-    private val mailing: JsonField<Mailing>,
-    private val pendingTransactionId: JsonField<String>,
-    private val physicalCheck: JsonField<PhysicalCheck>,
-    private val routingNumber: JsonField<String>,
-    private val sourceAccountNumberId: JsonField<String>,
-    private val status: JsonField<Status>,
-    private val stopPaymentRequest: JsonField<StopPaymentRequest>,
-    private val submission: JsonField<Submission>,
-    private val thirdParty: JsonField<ThirdParty>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("account_id")
+    @ExcludeMissing
+    private val accountId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("account_number")
+    @ExcludeMissing
+    private val accountNumber: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
+    @JsonProperty("approval")
+    @ExcludeMissing
+    private val approval: JsonField<Approval> = JsonMissing.of(),
+    @JsonProperty("approved_inbound_check_deposit_id")
+    @ExcludeMissing
+    private val approvedInboundCheckDepositId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("cancellation")
+    @ExcludeMissing
+    private val cancellation: JsonField<Cancellation> = JsonMissing.of(),
+    @JsonProperty("check_number")
+    @ExcludeMissing
+    private val checkNumber: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("created_by")
+    @ExcludeMissing
+    private val createdBy: JsonField<CreatedBy> = JsonMissing.of(),
+    @JsonProperty("currency")
+    @ExcludeMissing
+    private val currency: JsonField<Currency> = JsonMissing.of(),
+    @JsonProperty("fulfillment_method")
+    @ExcludeMissing
+    private val fulfillmentMethod: JsonField<FulfillmentMethod> = JsonMissing.of(),
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    private val idempotencyKey: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("mailing")
+    @ExcludeMissing
+    private val mailing: JsonField<Mailing> = JsonMissing.of(),
+    @JsonProperty("pending_transaction_id")
+    @ExcludeMissing
+    private val pendingTransactionId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("physical_check")
+    @ExcludeMissing
+    private val physicalCheck: JsonField<PhysicalCheck> = JsonMissing.of(),
+    @JsonProperty("routing_number")
+    @ExcludeMissing
+    private val routingNumber: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("source_account_number_id")
+    @ExcludeMissing
+    private val sourceAccountNumberId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("status")
+    @ExcludeMissing
+    private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("stop_payment_request")
+    @ExcludeMissing
+    private val stopPaymentRequest: JsonField<StopPaymentRequest> = JsonMissing.of(),
+    @JsonProperty("submission")
+    @ExcludeMissing
+    private val submission: JsonField<Submission> = JsonMissing.of(),
+    @JsonProperty("third_party")
+    @ExcludeMissing
+    private val thirdParty: JsonField<ThirdParty> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
-
-    private var validated: Boolean = false
 
     /** The identifier of the Account from which funds will be transferred. */
     fun accountId(): String = accountId.getRequired("account_id")
@@ -277,6 +315,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): CheckTransfer = apply {
         if (!validated) {
             accountId()
@@ -342,46 +382,42 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(checkTransfer: CheckTransfer) = apply {
-            this.accountId = checkTransfer.accountId
-            this.accountNumber = checkTransfer.accountNumber
-            this.amount = checkTransfer.amount
-            this.approval = checkTransfer.approval
-            this.approvedInboundCheckDepositId = checkTransfer.approvedInboundCheckDepositId
-            this.cancellation = checkTransfer.cancellation
-            this.checkNumber = checkTransfer.checkNumber
-            this.createdAt = checkTransfer.createdAt
-            this.createdBy = checkTransfer.createdBy
-            this.currency = checkTransfer.currency
-            this.fulfillmentMethod = checkTransfer.fulfillmentMethod
-            this.id = checkTransfer.id
-            this.idempotencyKey = checkTransfer.idempotencyKey
-            this.mailing = checkTransfer.mailing
-            this.pendingTransactionId = checkTransfer.pendingTransactionId
-            this.physicalCheck = checkTransfer.physicalCheck
-            this.routingNumber = checkTransfer.routingNumber
-            this.sourceAccountNumberId = checkTransfer.sourceAccountNumberId
-            this.status = checkTransfer.status
-            this.stopPaymentRequest = checkTransfer.stopPaymentRequest
-            this.submission = checkTransfer.submission
-            this.thirdParty = checkTransfer.thirdParty
-            this.type = checkTransfer.type
-            additionalProperties(checkTransfer.additionalProperties)
+            accountId = checkTransfer.accountId
+            accountNumber = checkTransfer.accountNumber
+            amount = checkTransfer.amount
+            approval = checkTransfer.approval
+            approvedInboundCheckDepositId = checkTransfer.approvedInboundCheckDepositId
+            cancellation = checkTransfer.cancellation
+            checkNumber = checkTransfer.checkNumber
+            createdAt = checkTransfer.createdAt
+            createdBy = checkTransfer.createdBy
+            currency = checkTransfer.currency
+            fulfillmentMethod = checkTransfer.fulfillmentMethod
+            id = checkTransfer.id
+            idempotencyKey = checkTransfer.idempotencyKey
+            mailing = checkTransfer.mailing
+            pendingTransactionId = checkTransfer.pendingTransactionId
+            physicalCheck = checkTransfer.physicalCheck
+            routingNumber = checkTransfer.routingNumber
+            sourceAccountNumberId = checkTransfer.sourceAccountNumberId
+            status = checkTransfer.status
+            stopPaymentRequest = checkTransfer.stopPaymentRequest
+            submission = checkTransfer.submission
+            thirdParty = checkTransfer.thirdParty
+            type = checkTransfer.type
+            additionalProperties = checkTransfer.additionalProperties.toMutableMap()
         }
 
         /** The identifier of the Account from which funds will be transferred. */
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
         /** The identifier of the Account from which funds will be transferred. */
-        @JsonProperty("account_id")
-        @ExcludeMissing
         fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
         /** The account number printed on the check. */
         fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
 
         /** The account number printed on the check. */
-        @JsonProperty("account_number")
-        @ExcludeMissing
         fun accountNumber(accountNumber: JsonField<String>) = apply {
             this.accountNumber = accountNumber
         }
@@ -390,8 +426,6 @@ private constructor(
         fun amount(amount: Long) = amount(JsonField.of(amount))
 
         /** The transfer amount in USD cents. */
-        @JsonProperty("amount")
-        @ExcludeMissing
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
         /**
@@ -404,8 +438,6 @@ private constructor(
          * If your account requires approvals for transfers and the transfer was approved, this will
          * contain details of the approval.
          */
-        @JsonProperty("approval")
-        @ExcludeMissing
         fun approval(approval: JsonField<Approval>) = apply { this.approval = approval }
 
         /**
@@ -419,8 +451,6 @@ private constructor(
          * If the Check Transfer was successfully deposited, this will contain the identifier of the
          * Inbound Check Deposit object with details of the deposit.
          */
-        @JsonProperty("approved_inbound_check_deposit_id")
-        @ExcludeMissing
         fun approvedInboundCheckDepositId(approvedInboundCheckDepositId: JsonField<String>) =
             apply {
                 this.approvedInboundCheckDepositId = approvedInboundCheckDepositId
@@ -436,8 +466,6 @@ private constructor(
          * If your account requires approvals for transfers and the transfer was not approved, this
          * will contain details of the cancellation.
          */
-        @JsonProperty("cancellation")
-        @ExcludeMissing
         fun cancellation(cancellation: JsonField<Cancellation>) = apply {
             this.cancellation = cancellation
         }
@@ -446,8 +474,6 @@ private constructor(
         fun checkNumber(checkNumber: String) = checkNumber(JsonField.of(checkNumber))
 
         /** The check number printed on the check. */
-        @JsonProperty("check_number")
-        @ExcludeMissing
         fun checkNumber(checkNumber: JsonField<String>) = apply { this.checkNumber = checkNumber }
 
         /**
@@ -460,24 +486,18 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
          * transfer was created.
          */
-        @JsonProperty("created_at")
-        @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** What object created the transfer, either via the API or the dashboard. */
         fun createdBy(createdBy: CreatedBy) = createdBy(JsonField.of(createdBy))
 
         /** What object created the transfer, either via the API or the dashboard. */
-        @JsonProperty("created_by")
-        @ExcludeMissing
         fun createdBy(createdBy: JsonField<CreatedBy>) = apply { this.createdBy = createdBy }
 
         /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's currency. */
         fun currency(currency: Currency) = currency(JsonField.of(currency))
 
         /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's currency. */
-        @JsonProperty("currency")
-        @ExcludeMissing
         fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
         /** Whether Increase will print and mail the check or if you will do it yourself. */
@@ -485,8 +505,6 @@ private constructor(
             fulfillmentMethod(JsonField.of(fulfillmentMethod))
 
         /** Whether Increase will print and mail the check or if you will do it yourself. */
-        @JsonProperty("fulfillment_method")
-        @ExcludeMissing
         fun fulfillmentMethod(fulfillmentMethod: JsonField<FulfillmentMethod>) = apply {
             this.fulfillmentMethod = fulfillmentMethod
         }
@@ -495,7 +513,7 @@ private constructor(
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Check transfer's identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -509,8 +527,6 @@ private constructor(
          * is used to ensure that a request is only processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        @JsonProperty("idempotency_key")
-        @ExcludeMissing
         fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
             this.idempotencyKey = idempotencyKey
         }
@@ -519,8 +535,6 @@ private constructor(
         fun mailing(mailing: Mailing) = mailing(JsonField.of(mailing))
 
         /** If the check has been mailed by Increase, this will contain details of the shipment. */
-        @JsonProperty("mailing")
-        @ExcludeMissing
         fun mailing(mailing: JsonField<Mailing>) = apply { this.mailing = mailing }
 
         /**
@@ -538,8 +552,6 @@ private constructor(
          * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
          * by someone else in your organization.
          */
-        @JsonProperty("pending_transaction_id")
-        @ExcludeMissing
         fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {
             this.pendingTransactionId = pendingTransactionId
         }
@@ -554,8 +566,6 @@ private constructor(
          * Details relating to the physical check that Increase will print and mail. Will be present
          * if and only if `fulfillment_method` is equal to `physical_check`.
          */
-        @JsonProperty("physical_check")
-        @ExcludeMissing
         fun physicalCheck(physicalCheck: JsonField<PhysicalCheck>) = apply {
             this.physicalCheck = physicalCheck
         }
@@ -564,8 +574,6 @@ private constructor(
         fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
 
         /** The routing number printed on the check. */
-        @JsonProperty("routing_number")
-        @ExcludeMissing
         fun routingNumber(routingNumber: JsonField<String>) = apply {
             this.routingNumber = routingNumber
         }
@@ -581,8 +589,6 @@ private constructor(
          * The identifier of the Account Number from which to send the transfer and print on the
          * check.
          */
-        @JsonProperty("source_account_number_id")
-        @ExcludeMissing
         fun sourceAccountNumberId(sourceAccountNumberId: JsonField<String>) = apply {
             this.sourceAccountNumberId = sourceAccountNumberId
         }
@@ -591,8 +597,6 @@ private constructor(
         fun status(status: Status) = status(JsonField.of(status))
 
         /** The lifecycle status of the transfer. */
-        @JsonProperty("status")
-        @ExcludeMissing
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
@@ -604,8 +608,6 @@ private constructor(
         /**
          * After a stop-payment is requested on the check, this will contain supplemental details.
          */
-        @JsonProperty("stop_payment_request")
-        @ExcludeMissing
         fun stopPaymentRequest(stopPaymentRequest: JsonField<StopPaymentRequest>) = apply {
             this.stopPaymentRequest = stopPaymentRequest
         }
@@ -614,8 +616,6 @@ private constructor(
         fun submission(submission: Submission) = submission(JsonField.of(submission))
 
         /** After the transfer is submitted, this will contain supplemental details. */
-        @JsonProperty("submission")
-        @ExcludeMissing
         fun submission(submission: JsonField<Submission>) = apply { this.submission = submission }
 
         /**
@@ -628,8 +628,6 @@ private constructor(
          * Details relating to the custom fulfillment you will perform. Will be present if and only
          * if `fulfillment_method` is equal to `third_party`.
          */
-        @JsonProperty("third_party")
-        @ExcludeMissing
         fun thirdParty(thirdParty: JsonField<ThirdParty>) = apply { this.thirdParty = thirdParty }
 
         /**
@@ -642,22 +640,25 @@ private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `check_transfer`.
          */
-        @JsonProperty("type")
-        @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): CheckTransfer =
@@ -693,16 +694,19 @@ private constructor(
      * If your account requires approvals for transfers and the transfer was approved, this will
      * contain details of the approval.
      */
-    @JsonDeserialize(builder = Approval.Builder::class)
     @NoAutoDetect
     class Approval
+    @JsonCreator
     private constructor(
-        private val approvedAt: JsonField<OffsetDateTime>,
-        private val approvedBy: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("approved_at")
+        @ExcludeMissing
+        private val approvedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("approved_by")
+        @ExcludeMissing
+        private val approvedBy: JsonField<String> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
-
-        private var validated: Boolean = false
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
@@ -731,6 +735,8 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+        private var validated: Boolean = false
+
         fun validate(): Approval = apply {
             if (!validated) {
                 approvedAt()
@@ -754,9 +760,9 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(approval: Approval) = apply {
-                this.approvedAt = approval.approvedAt
-                this.approvedBy = approval.approvedBy
-                additionalProperties(approval.additionalProperties)
+                approvedAt = approval.approvedAt
+                approvedBy = approval.approvedBy
+                additionalProperties = approval.additionalProperties.toMutableMap()
             }
 
             /**
@@ -769,8 +775,6 @@ private constructor(
              * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
              * transfer was approved.
              */
-            @JsonProperty("approved_at")
-            @ExcludeMissing
             fun approvedAt(approvedAt: JsonField<OffsetDateTime>) = apply {
                 this.approvedAt = approvedAt
             }
@@ -785,22 +789,25 @@ private constructor(
              * If the Transfer was approved by a user in the dashboard, the email address of that
              * user.
              */
-            @JsonProperty("approved_by")
-            @ExcludeMissing
             fun approvedBy(approvedBy: JsonField<String>) = apply { this.approvedBy = approvedBy }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Approval =
@@ -833,16 +840,19 @@ private constructor(
      * If your account requires approvals for transfers and the transfer was not approved, this will
      * contain details of the cancellation.
      */
-    @JsonDeserialize(builder = Cancellation.Builder::class)
     @NoAutoDetect
     class Cancellation
+    @JsonCreator
     private constructor(
-        private val canceledAt: JsonField<OffsetDateTime>,
-        private val canceledBy: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("canceled_at")
+        @ExcludeMissing
+        private val canceledAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("canceled_by")
+        @ExcludeMissing
+        private val canceledBy: JsonField<String> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
-
-        private var validated: Boolean = false
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
@@ -871,6 +881,8 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+        private var validated: Boolean = false
+
         fun validate(): Cancellation = apply {
             if (!validated) {
                 canceledAt()
@@ -894,9 +906,9 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(cancellation: Cancellation) = apply {
-                this.canceledAt = cancellation.canceledAt
-                this.canceledBy = cancellation.canceledBy
-                additionalProperties(cancellation.additionalProperties)
+                canceledAt = cancellation.canceledAt
+                canceledBy = cancellation.canceledBy
+                additionalProperties = cancellation.additionalProperties.toMutableMap()
             }
 
             /**
@@ -909,8 +921,6 @@ private constructor(
              * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
              * Transfer was canceled.
              */
-            @JsonProperty("canceled_at")
-            @ExcludeMissing
             fun canceledAt(canceledAt: JsonField<OffsetDateTime>) = apply {
                 this.canceledAt = canceledAt
             }
@@ -925,22 +935,25 @@ private constructor(
              * If the Transfer was canceled by a user in the dashboard, the email address of that
              * user.
              */
-            @JsonProperty("canceled_by")
-            @ExcludeMissing
             fun canceledBy(canceledBy: JsonField<String>) = apply { this.canceledBy = canceledBy }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Cancellation =
@@ -970,18 +983,23 @@ private constructor(
     }
 
     /** What object created the transfer, either via the API or the dashboard. */
-    @JsonDeserialize(builder = CreatedBy.Builder::class)
     @NoAutoDetect
     class CreatedBy
+    @JsonCreator
     private constructor(
-        private val apiKey: JsonField<ApiKey>,
-        private val category: JsonField<Category>,
-        private val oauthApplication: JsonField<OAuthApplication>,
-        private val user: JsonField<User>,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("api_key")
+        @ExcludeMissing
+        private val apiKey: JsonField<ApiKey> = JsonMissing.of(),
+        @JsonProperty("category")
+        @ExcludeMissing
+        private val category: JsonField<Category> = JsonMissing.of(),
+        @JsonProperty("oauth_application")
+        @ExcludeMissing
+        private val oauthApplication: JsonField<OAuthApplication> = JsonMissing.of(),
+        @JsonProperty("user") @ExcludeMissing private val user: JsonField<User> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
-
-        private var validated: Boolean = false
 
         /** If present, details about the API key that created the transfer. */
         fun apiKey(): Optional<ApiKey> = Optional.ofNullable(apiKey.getNullable("api_key"))
@@ -1014,6 +1032,8 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+        private var validated: Boolean = false
+
         fun validate(): CreatedBy = apply {
             if (!validated) {
                 apiKey().map { it.validate() }
@@ -1041,27 +1061,23 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(createdBy: CreatedBy) = apply {
-                this.apiKey = createdBy.apiKey
-                this.category = createdBy.category
-                this.oauthApplication = createdBy.oauthApplication
-                this.user = createdBy.user
-                additionalProperties(createdBy.additionalProperties)
+                apiKey = createdBy.apiKey
+                category = createdBy.category
+                oauthApplication = createdBy.oauthApplication
+                user = createdBy.user
+                additionalProperties = createdBy.additionalProperties.toMutableMap()
             }
 
             /** If present, details about the API key that created the transfer. */
             fun apiKey(apiKey: ApiKey) = apiKey(JsonField.of(apiKey))
 
             /** If present, details about the API key that created the transfer. */
-            @JsonProperty("api_key")
-            @ExcludeMissing
             fun apiKey(apiKey: JsonField<ApiKey>) = apply { this.apiKey = apiKey }
 
             /** The type of object that created this transfer. */
             fun category(category: Category) = category(JsonField.of(category))
 
             /** The type of object that created this transfer. */
-            @JsonProperty("category")
-            @ExcludeMissing
             fun category(category: JsonField<Category>) = apply { this.category = category }
 
             /** If present, details about the OAuth Application that created the transfer. */
@@ -1069,8 +1085,6 @@ private constructor(
                 oauthApplication(JsonField.of(oauthApplication))
 
             /** If present, details about the OAuth Application that created the transfer. */
-            @JsonProperty("oauth_application")
-            @ExcludeMissing
             fun oauthApplication(oauthApplication: JsonField<OAuthApplication>) = apply {
                 this.oauthApplication = oauthApplication
             }
@@ -1079,22 +1093,25 @@ private constructor(
             fun user(user: User) = user(JsonField.of(user))
 
             /** If present, details about the User that created the transfer. */
-            @JsonProperty("user")
-            @ExcludeMissing
             fun user(user: JsonField<User>) = apply { this.user = user }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): CreatedBy =
@@ -1108,15 +1125,16 @@ private constructor(
         }
 
         /** If present, details about the API key that created the transfer. */
-        @JsonDeserialize(builder = ApiKey.Builder::class)
         @NoAutoDetect
         class ApiKey
+        @JsonCreator
         private constructor(
-            private val description: JsonField<String>,
-            private val additionalProperties: Map<String, JsonValue>,
+            @JsonProperty("description")
+            @ExcludeMissing
+            private val description: JsonField<String> = JsonMissing.of(),
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
-
-            private var validated: Boolean = false
 
             /** The description set for the API key when it was created. */
             fun description(): Optional<String> =
@@ -1128,6 +1146,8 @@ private constructor(
             @JsonAnyGetter
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            private var validated: Boolean = false
 
             fun validate(): ApiKey = apply {
                 if (!validated) {
@@ -1150,34 +1170,39 @@ private constructor(
 
                 @JvmSynthetic
                 internal fun from(apiKey: ApiKey) = apply {
-                    this.description = apiKey.description
-                    additionalProperties(apiKey.additionalProperties)
+                    description = apiKey.description
+                    additionalProperties = apiKey.additionalProperties.toMutableMap()
                 }
 
                 /** The description set for the API key when it was created. */
                 fun description(description: String) = description(JsonField.of(description))
 
                 /** The description set for the API key when it was created. */
-                @JsonProperty("description")
-                @ExcludeMissing
                 fun description(description: JsonField<String>) = apply {
                     this.description = description
                 }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
-                @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): ApiKey = ApiKey(description, additionalProperties.toImmutable())
             }
@@ -1264,15 +1289,16 @@ private constructor(
         }
 
         /** If present, details about the OAuth Application that created the transfer. */
-        @JsonDeserialize(builder = OAuthApplication.Builder::class)
         @NoAutoDetect
         class OAuthApplication
+        @JsonCreator
         private constructor(
-            private val name: JsonField<String>,
-            private val additionalProperties: Map<String, JsonValue>,
+            @JsonProperty("name")
+            @ExcludeMissing
+            private val name: JsonField<String> = JsonMissing.of(),
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
-
-            private var validated: Boolean = false
 
             /** The name of the OAuth Application. */
             fun name(): String = name.getRequired("name")
@@ -1283,6 +1309,8 @@ private constructor(
             @JsonAnyGetter
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            private var validated: Boolean = false
 
             fun validate(): OAuthApplication = apply {
                 if (!validated) {
@@ -1305,32 +1333,37 @@ private constructor(
 
                 @JvmSynthetic
                 internal fun from(oauthApplication: OAuthApplication) = apply {
-                    this.name = oauthApplication.name
-                    additionalProperties(oauthApplication.additionalProperties)
+                    name = oauthApplication.name
+                    additionalProperties = oauthApplication.additionalProperties.toMutableMap()
                 }
 
                 /** The name of the OAuth Application. */
                 fun name(name: String) = name(JsonField.of(name))
 
                 /** The name of the OAuth Application. */
-                @JsonProperty("name")
-                @ExcludeMissing
                 fun name(name: JsonField<String>) = apply { this.name = name }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
-                @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): OAuthApplication =
                     OAuthApplication(name, additionalProperties.toImmutable())
@@ -1355,15 +1388,16 @@ private constructor(
         }
 
         /** If present, details about the User that created the transfer. */
-        @JsonDeserialize(builder = User.Builder::class)
         @NoAutoDetect
         class User
+        @JsonCreator
         private constructor(
-            private val email: JsonField<String>,
-            private val additionalProperties: Map<String, JsonValue>,
+            @JsonProperty("email")
+            @ExcludeMissing
+            private val email: JsonField<String> = JsonMissing.of(),
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
-
-            private var validated: Boolean = false
 
             /** The email address of the User. */
             fun email(): String = email.getRequired("email")
@@ -1374,6 +1408,8 @@ private constructor(
             @JsonAnyGetter
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            private var validated: Boolean = false
 
             fun validate(): User = apply {
                 if (!validated) {
@@ -1396,32 +1432,37 @@ private constructor(
 
                 @JvmSynthetic
                 internal fun from(user: User) = apply {
-                    this.email = user.email
-                    additionalProperties(user.additionalProperties)
+                    email = user.email
+                    additionalProperties = user.additionalProperties.toMutableMap()
                 }
 
                 /** The email address of the User. */
                 fun email(email: String) = email(JsonField.of(email))
 
                 /** The email address of the User. */
-                @JsonProperty("email")
-                @ExcludeMissing
                 fun email(email: JsonField<String>) = apply { this.email = email }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
-                @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): User = User(email, additionalProperties.toImmutable())
             }
@@ -1601,16 +1642,19 @@ private constructor(
     }
 
     /** If the check has been mailed by Increase, this will contain details of the shipment. */
-    @JsonDeserialize(builder = Mailing.Builder::class)
     @NoAutoDetect
     class Mailing
+    @JsonCreator
     private constructor(
-        private val imageId: JsonField<String>,
-        private val mailedAt: JsonField<OffsetDateTime>,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("image_id")
+        @ExcludeMissing
+        private val imageId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("mailed_at")
+        @ExcludeMissing
+        private val mailedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
-
-        private var validated: Boolean = false
 
         /**
          * The ID of the file corresponding to an image of the check that was mailed, if available.
@@ -1638,6 +1682,8 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+        private var validated: Boolean = false
+
         fun validate(): Mailing = apply {
             if (!validated) {
                 imageId()
@@ -1661,9 +1707,9 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(mailing: Mailing) = apply {
-                this.imageId = mailing.imageId
-                this.mailedAt = mailing.mailedAt
-                additionalProperties(mailing.additionalProperties)
+                imageId = mailing.imageId
+                mailedAt = mailing.mailedAt
+                additionalProperties = mailing.additionalProperties.toMutableMap()
             }
 
             /**
@@ -1676,8 +1722,6 @@ private constructor(
              * The ID of the file corresponding to an image of the check that was mailed, if
              * available.
              */
-            @JsonProperty("image_id")
-            @ExcludeMissing
             fun imageId(imageId: JsonField<String>) = apply { this.imageId = imageId }
 
             /**
@@ -1690,22 +1734,25 @@ private constructor(
              * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
              * check was mailed.
              */
-            @JsonProperty("mailed_at")
-            @ExcludeMissing
             fun mailedAt(mailedAt: JsonField<OffsetDateTime>) = apply { this.mailedAt = mailedAt }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Mailing =
@@ -1738,21 +1785,34 @@ private constructor(
      * Details relating to the physical check that Increase will print and mail. Will be present if
      * and only if `fulfillment_method` is equal to `physical_check`.
      */
-    @JsonDeserialize(builder = PhysicalCheck.Builder::class)
     @NoAutoDetect
     class PhysicalCheck
+    @JsonCreator
     private constructor(
-        private val mailingAddress: JsonField<MailingAddress>,
-        private val memo: JsonField<String>,
-        private val note: JsonField<String>,
-        private val recipientName: JsonField<String>,
-        private val returnAddress: JsonField<ReturnAddress>,
-        private val signatureText: JsonField<String>,
-        private val trackingUpdates: JsonField<List<TrackingUpdate>>,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("mailing_address")
+        @ExcludeMissing
+        private val mailingAddress: JsonField<MailingAddress> = JsonMissing.of(),
+        @JsonProperty("memo")
+        @ExcludeMissing
+        private val memo: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("note")
+        @ExcludeMissing
+        private val note: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("recipient_name")
+        @ExcludeMissing
+        private val recipientName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("return_address")
+        @ExcludeMissing
+        private val returnAddress: JsonField<ReturnAddress> = JsonMissing.of(),
+        @JsonProperty("signature_text")
+        @ExcludeMissing
+        private val signatureText: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("tracking_updates")
+        @ExcludeMissing
+        private val trackingUpdates: JsonField<List<TrackingUpdate>> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
-
-        private var validated: Boolean = false
 
         /** Details for where Increase will mail the check. */
         fun mailingAddress(): MailingAddress = mailingAddress.getRequired("mailing_address")
@@ -1809,6 +1869,8 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+        private var validated: Boolean = false
+
         fun validate(): PhysicalCheck = apply {
             if (!validated) {
                 mailingAddress().validate()
@@ -1842,14 +1904,14 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(physicalCheck: PhysicalCheck) = apply {
-                this.mailingAddress = physicalCheck.mailingAddress
-                this.memo = physicalCheck.memo
-                this.note = physicalCheck.note
-                this.recipientName = physicalCheck.recipientName
-                this.returnAddress = physicalCheck.returnAddress
-                this.signatureText = physicalCheck.signatureText
-                this.trackingUpdates = physicalCheck.trackingUpdates
-                additionalProperties(physicalCheck.additionalProperties)
+                mailingAddress = physicalCheck.mailingAddress
+                memo = physicalCheck.memo
+                note = physicalCheck.note
+                recipientName = physicalCheck.recipientName
+                returnAddress = physicalCheck.returnAddress
+                signatureText = physicalCheck.signatureText
+                trackingUpdates = physicalCheck.trackingUpdates
+                additionalProperties = physicalCheck.additionalProperties.toMutableMap()
             }
 
             /** Details for where Increase will mail the check. */
@@ -1857,8 +1919,6 @@ private constructor(
                 mailingAddress(JsonField.of(mailingAddress))
 
             /** Details for where Increase will mail the check. */
-            @JsonProperty("mailing_address")
-            @ExcludeMissing
             fun mailingAddress(mailingAddress: JsonField<MailingAddress>) = apply {
                 this.mailingAddress = mailingAddress
             }
@@ -1867,24 +1927,18 @@ private constructor(
             fun memo(memo: String) = memo(JsonField.of(memo))
 
             /** The descriptor that will be printed on the memo field on the check. */
-            @JsonProperty("memo")
-            @ExcludeMissing
             fun memo(memo: JsonField<String>) = apply { this.memo = memo }
 
             /** The descriptor that will be printed on the letter included with the check. */
             fun note(note: String) = note(JsonField.of(note))
 
             /** The descriptor that will be printed on the letter included with the check. */
-            @JsonProperty("note")
-            @ExcludeMissing
             fun note(note: JsonField<String>) = apply { this.note = note }
 
             /** The name that will be printed on the check. */
             fun recipientName(recipientName: String) = recipientName(JsonField.of(recipientName))
 
             /** The name that will be printed on the check. */
-            @JsonProperty("recipient_name")
-            @ExcludeMissing
             fun recipientName(recipientName: JsonField<String>) = apply {
                 this.recipientName = recipientName
             }
@@ -1894,8 +1948,6 @@ private constructor(
                 returnAddress(JsonField.of(returnAddress))
 
             /** The return address to be printed on the check. */
-            @JsonProperty("return_address")
-            @ExcludeMissing
             fun returnAddress(returnAddress: JsonField<ReturnAddress>) = apply {
                 this.returnAddress = returnAddress
             }
@@ -1910,8 +1962,6 @@ private constructor(
              * The text that will appear as the signature on the check in cursive font. If blank,
              * the check will be printed with 'No signature required'.
              */
-            @JsonProperty("signature_text")
-            @ExcludeMissing
             fun signatureText(signatureText: JsonField<String>) = apply {
                 this.signatureText = signatureText
             }
@@ -1921,24 +1971,27 @@ private constructor(
                 trackingUpdates(JsonField.of(trackingUpdates))
 
             /** Tracking updates relating to the physical check's delivery. */
-            @JsonProperty("tracking_updates")
-            @ExcludeMissing
             fun trackingUpdates(trackingUpdates: JsonField<List<TrackingUpdate>>) = apply {
                 this.trackingUpdates = trackingUpdates
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): PhysicalCheck =
@@ -1955,20 +2008,31 @@ private constructor(
         }
 
         /** Details for where Increase will mail the check. */
-        @JsonDeserialize(builder = MailingAddress.Builder::class)
         @NoAutoDetect
         class MailingAddress
+        @JsonCreator
         private constructor(
-            private val city: JsonField<String>,
-            private val line1: JsonField<String>,
-            private val line2: JsonField<String>,
-            private val name: JsonField<String>,
-            private val postalCode: JsonField<String>,
-            private val state: JsonField<String>,
-            private val additionalProperties: Map<String, JsonValue>,
+            @JsonProperty("city")
+            @ExcludeMissing
+            private val city: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("line1")
+            @ExcludeMissing
+            private val line1: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("line2")
+            @ExcludeMissing
+            private val line2: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("name")
+            @ExcludeMissing
+            private val name: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("postal_code")
+            @ExcludeMissing
+            private val postalCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("state")
+            @ExcludeMissing
+            private val state: JsonField<String> = JsonMissing.of(),
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
-
-            private var validated: Boolean = false
 
             /** The city of the check's destination. */
             fun city(): Optional<String> = Optional.ofNullable(city.getNullable("city"))
@@ -2010,6 +2074,8 @@ private constructor(
             @JsonAnyGetter
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            private var validated: Boolean = false
 
             fun validate(): MailingAddress = apply {
                 if (!validated) {
@@ -2042,53 +2108,43 @@ private constructor(
 
                 @JvmSynthetic
                 internal fun from(mailingAddress: MailingAddress) = apply {
-                    this.city = mailingAddress.city
-                    this.line1 = mailingAddress.line1
-                    this.line2 = mailingAddress.line2
-                    this.name = mailingAddress.name
-                    this.postalCode = mailingAddress.postalCode
-                    this.state = mailingAddress.state
-                    additionalProperties(mailingAddress.additionalProperties)
+                    city = mailingAddress.city
+                    line1 = mailingAddress.line1
+                    line2 = mailingAddress.line2
+                    name = mailingAddress.name
+                    postalCode = mailingAddress.postalCode
+                    state = mailingAddress.state
+                    additionalProperties = mailingAddress.additionalProperties.toMutableMap()
                 }
 
                 /** The city of the check's destination. */
                 fun city(city: String) = city(JsonField.of(city))
 
                 /** The city of the check's destination. */
-                @JsonProperty("city")
-                @ExcludeMissing
                 fun city(city: JsonField<String>) = apply { this.city = city }
 
                 /** The street address of the check's destination. */
                 fun line1(line1: String) = line1(JsonField.of(line1))
 
                 /** The street address of the check's destination. */
-                @JsonProperty("line1")
-                @ExcludeMissing
                 fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
                 /** The second line of the address of the check's destination. */
                 fun line2(line2: String) = line2(JsonField.of(line2))
 
                 /** The second line of the address of the check's destination. */
-                @JsonProperty("line2")
-                @ExcludeMissing
                 fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
                 /** The name component of the check's mailing address. */
                 fun name(name: String) = name(JsonField.of(name))
 
                 /** The name component of the check's mailing address. */
-                @JsonProperty("name")
-                @ExcludeMissing
                 fun name(name: JsonField<String>) = apply { this.name = name }
 
                 /** The postal code of the check's destination. */
                 fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
 
                 /** The postal code of the check's destination. */
-                @JsonProperty("postal_code")
-                @ExcludeMissing
                 fun postalCode(postalCode: JsonField<String>) = apply {
                     this.postalCode = postalCode
                 }
@@ -2097,24 +2153,29 @@ private constructor(
                 fun state(state: String) = state(JsonField.of(state))
 
                 /** The state of the check's destination. */
-                @JsonProperty("state")
-                @ExcludeMissing
                 fun state(state: JsonField<String>) = apply { this.state = state }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
-                @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): MailingAddress =
                     MailingAddress(
@@ -2147,20 +2208,31 @@ private constructor(
         }
 
         /** The return address to be printed on the check. */
-        @JsonDeserialize(builder = ReturnAddress.Builder::class)
         @NoAutoDetect
         class ReturnAddress
+        @JsonCreator
         private constructor(
-            private val city: JsonField<String>,
-            private val line1: JsonField<String>,
-            private val line2: JsonField<String>,
-            private val name: JsonField<String>,
-            private val postalCode: JsonField<String>,
-            private val state: JsonField<String>,
-            private val additionalProperties: Map<String, JsonValue>,
+            @JsonProperty("city")
+            @ExcludeMissing
+            private val city: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("line1")
+            @ExcludeMissing
+            private val line1: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("line2")
+            @ExcludeMissing
+            private val line2: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("name")
+            @ExcludeMissing
+            private val name: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("postal_code")
+            @ExcludeMissing
+            private val postalCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("state")
+            @ExcludeMissing
+            private val state: JsonField<String> = JsonMissing.of(),
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
-
-            private var validated: Boolean = false
 
             /** The city of the check's destination. */
             fun city(): Optional<String> = Optional.ofNullable(city.getNullable("city"))
@@ -2203,6 +2275,8 @@ private constructor(
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+            private var validated: Boolean = false
+
             fun validate(): ReturnAddress = apply {
                 if (!validated) {
                     city()
@@ -2234,53 +2308,43 @@ private constructor(
 
                 @JvmSynthetic
                 internal fun from(returnAddress: ReturnAddress) = apply {
-                    this.city = returnAddress.city
-                    this.line1 = returnAddress.line1
-                    this.line2 = returnAddress.line2
-                    this.name = returnAddress.name
-                    this.postalCode = returnAddress.postalCode
-                    this.state = returnAddress.state
-                    additionalProperties(returnAddress.additionalProperties)
+                    city = returnAddress.city
+                    line1 = returnAddress.line1
+                    line2 = returnAddress.line2
+                    name = returnAddress.name
+                    postalCode = returnAddress.postalCode
+                    state = returnAddress.state
+                    additionalProperties = returnAddress.additionalProperties.toMutableMap()
                 }
 
                 /** The city of the check's destination. */
                 fun city(city: String) = city(JsonField.of(city))
 
                 /** The city of the check's destination. */
-                @JsonProperty("city")
-                @ExcludeMissing
                 fun city(city: JsonField<String>) = apply { this.city = city }
 
                 /** The street address of the check's destination. */
                 fun line1(line1: String) = line1(JsonField.of(line1))
 
                 /** The street address of the check's destination. */
-                @JsonProperty("line1")
-                @ExcludeMissing
                 fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
                 /** The second line of the address of the check's destination. */
                 fun line2(line2: String) = line2(JsonField.of(line2))
 
                 /** The second line of the address of the check's destination. */
-                @JsonProperty("line2")
-                @ExcludeMissing
                 fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
                 /** The name component of the check's return address. */
                 fun name(name: String) = name(JsonField.of(name))
 
                 /** The name component of the check's return address. */
-                @JsonProperty("name")
-                @ExcludeMissing
                 fun name(name: JsonField<String>) = apply { this.name = name }
 
                 /** The postal code of the check's destination. */
                 fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
 
                 /** The postal code of the check's destination. */
-                @JsonProperty("postal_code")
-                @ExcludeMissing
                 fun postalCode(postalCode: JsonField<String>) = apply {
                     this.postalCode = postalCode
                 }
@@ -2289,24 +2353,29 @@ private constructor(
                 fun state(state: String) = state(JsonField.of(state))
 
                 /** The state of the check's destination. */
-                @JsonProperty("state")
-                @ExcludeMissing
                 fun state(state: JsonField<String>) = apply { this.state = state }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
-                @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): ReturnAddress =
                     ReturnAddress(
@@ -2338,17 +2407,22 @@ private constructor(
                 "ReturnAddress{city=$city, line1=$line1, line2=$line2, name=$name, postalCode=$postalCode, state=$state, additionalProperties=$additionalProperties}"
         }
 
-        @JsonDeserialize(builder = TrackingUpdate.Builder::class)
         @NoAutoDetect
         class TrackingUpdate
+        @JsonCreator
         private constructor(
-            private val category: JsonField<Category>,
-            private val createdAt: JsonField<OffsetDateTime>,
-            private val postalCode: JsonField<String>,
-            private val additionalProperties: Map<String, JsonValue>,
+            @JsonProperty("category")
+            @ExcludeMissing
+            private val category: JsonField<Category> = JsonMissing.of(),
+            @JsonProperty("created_at")
+            @ExcludeMissing
+            private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("postal_code")
+            @ExcludeMissing
+            private val postalCode: JsonField<String> = JsonMissing.of(),
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
-
-            private var validated: Boolean = false
 
             /** The type of tracking event. */
             fun category(): Category = category.getRequired("category")
@@ -2378,6 +2452,8 @@ private constructor(
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+            private var validated: Boolean = false
+
             fun validate(): TrackingUpdate = apply {
                 if (!validated) {
                     category()
@@ -2403,18 +2479,16 @@ private constructor(
 
                 @JvmSynthetic
                 internal fun from(trackingUpdate: TrackingUpdate) = apply {
-                    this.category = trackingUpdate.category
-                    this.createdAt = trackingUpdate.createdAt
-                    this.postalCode = trackingUpdate.postalCode
-                    additionalProperties(trackingUpdate.additionalProperties)
+                    category = trackingUpdate.category
+                    createdAt = trackingUpdate.createdAt
+                    postalCode = trackingUpdate.postalCode
+                    additionalProperties = trackingUpdate.additionalProperties.toMutableMap()
                 }
 
                 /** The type of tracking event. */
                 fun category(category: Category) = category(JsonField.of(category))
 
                 /** The type of tracking event. */
-                @JsonProperty("category")
-                @ExcludeMissing
                 fun category(category: JsonField<Category>) = apply { this.category = category }
 
                 /**
@@ -2427,8 +2501,6 @@ private constructor(
                  * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
                  * tracking event took place.
                  */
-                @JsonProperty("created_at")
-                @ExcludeMissing
                 fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
                     this.createdAt = createdAt
                 }
@@ -2437,26 +2509,31 @@ private constructor(
                 fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
 
                 /** The postal code where the event took place. */
-                @JsonProperty("postal_code")
-                @ExcludeMissing
                 fun postalCode(postalCode: JsonField<String>) = apply {
                     this.postalCode = postalCode
                 }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
-                @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): TrackingUpdate =
                     TrackingUpdate(
@@ -2678,18 +2755,23 @@ private constructor(
     }
 
     /** After a stop-payment is requested on the check, this will contain supplemental details. */
-    @JsonDeserialize(builder = StopPaymentRequest.Builder::class)
     @NoAutoDetect
     class StopPaymentRequest
+    @JsonCreator
     private constructor(
-        private val reason: JsonField<Reason>,
-        private val requestedAt: JsonField<OffsetDateTime>,
-        private val transferId: JsonField<String>,
-        private val type: JsonField<Type>,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("reason")
+        @ExcludeMissing
+        private val reason: JsonField<Reason> = JsonMissing.of(),
+        @JsonProperty("requested_at")
+        @ExcludeMissing
+        private val requestedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("transfer_id")
+        @ExcludeMissing
+        private val transferId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
-
-        private var validated: Boolean = false
 
         /** The reason why this transfer was stopped. */
         fun reason(): Reason = reason.getRequired("reason")
@@ -2725,6 +2807,8 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+        private var validated: Boolean = false
+
         fun validate(): StopPaymentRequest = apply {
             if (!validated) {
                 reason()
@@ -2752,27 +2836,23 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(stopPaymentRequest: StopPaymentRequest) = apply {
-                this.reason = stopPaymentRequest.reason
-                this.requestedAt = stopPaymentRequest.requestedAt
-                this.transferId = stopPaymentRequest.transferId
-                this.type = stopPaymentRequest.type
-                additionalProperties(stopPaymentRequest.additionalProperties)
+                reason = stopPaymentRequest.reason
+                requestedAt = stopPaymentRequest.requestedAt
+                transferId = stopPaymentRequest.transferId
+                type = stopPaymentRequest.type
+                additionalProperties = stopPaymentRequest.additionalProperties.toMutableMap()
             }
 
             /** The reason why this transfer was stopped. */
             fun reason(reason: Reason) = reason(JsonField.of(reason))
 
             /** The reason why this transfer was stopped. */
-            @JsonProperty("reason")
-            @ExcludeMissing
             fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
 
             /** The time the stop-payment was requested. */
             fun requestedAt(requestedAt: OffsetDateTime) = requestedAt(JsonField.of(requestedAt))
 
             /** The time the stop-payment was requested. */
-            @JsonProperty("requested_at")
-            @ExcludeMissing
             fun requestedAt(requestedAt: JsonField<OffsetDateTime>) = apply {
                 this.requestedAt = requestedAt
             }
@@ -2781,8 +2861,6 @@ private constructor(
             fun transferId(transferId: String) = transferId(JsonField.of(transferId))
 
             /** The ID of the check transfer that was stopped. */
-            @JsonProperty("transfer_id")
-            @ExcludeMissing
             fun transferId(transferId: JsonField<String>) = apply { this.transferId = transferId }
 
             /**
@@ -2795,22 +2873,25 @@ private constructor(
              * A constant representing the object's type. For this resource it will always be
              * `check_transfer_stop_payment_request`.
              */
-            @JsonProperty("type")
-            @ExcludeMissing
             fun type(type: JsonField<Type>) = apply { this.type = type }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): StopPaymentRequest =
@@ -2963,15 +3044,16 @@ private constructor(
     }
 
     /** After the transfer is submitted, this will contain supplemental details. */
-    @JsonDeserialize(builder = Submission.Builder::class)
     @NoAutoDetect
     class Submission
+    @JsonCreator
     private constructor(
-        private val submittedAt: JsonField<OffsetDateTime>,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("submitted_at")
+        @ExcludeMissing
+        private val submittedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
-
-        private var validated: Boolean = false
 
         /** When this check transfer was submitted to our check printer. */
         fun submittedAt(): OffsetDateTime = submittedAt.getRequired("submitted_at")
@@ -2982,6 +3064,8 @@ private constructor(
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
 
         fun validate(): Submission = apply {
             if (!validated) {
@@ -3004,32 +3088,35 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(submission: Submission) = apply {
-                this.submittedAt = submission.submittedAt
-                additionalProperties(submission.additionalProperties)
+                submittedAt = submission.submittedAt
+                additionalProperties = submission.additionalProperties.toMutableMap()
             }
 
             /** When this check transfer was submitted to our check printer. */
             fun submittedAt(submittedAt: OffsetDateTime) = submittedAt(JsonField.of(submittedAt))
 
             /** When this check transfer was submitted to our check printer. */
-            @JsonProperty("submitted_at")
-            @ExcludeMissing
             fun submittedAt(submittedAt: JsonField<OffsetDateTime>) = apply {
                 this.submittedAt = submittedAt
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Submission = Submission(submittedAt, additionalProperties.toImmutable())
@@ -3057,15 +3144,16 @@ private constructor(
      * Details relating to the custom fulfillment you will perform. Will be present if and only if
      * `fulfillment_method` is equal to `third_party`.
      */
-    @JsonDeserialize(builder = ThirdParty.Builder::class)
     @NoAutoDetect
     class ThirdParty
+    @JsonCreator
     private constructor(
-        private val checkNumber: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("check_number")
+        @ExcludeMissing
+        private val checkNumber: JsonField<String> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
-
-        private var validated: Boolean = false
 
         /** The check number that will be printed on the check. */
         fun checkNumber(): Optional<String> =
@@ -3077,6 +3165,8 @@ private constructor(
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
 
         fun validate(): ThirdParty = apply {
             if (!validated) {
@@ -3099,32 +3189,35 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(thirdParty: ThirdParty) = apply {
-                this.checkNumber = thirdParty.checkNumber
-                additionalProperties(thirdParty.additionalProperties)
+                checkNumber = thirdParty.checkNumber
+                additionalProperties = thirdParty.additionalProperties.toMutableMap()
             }
 
             /** The check number that will be printed on the check. */
             fun checkNumber(checkNumber: String) = checkNumber(JsonField.of(checkNumber))
 
             /** The check number that will be printed on the check. */
-            @JsonProperty("check_number")
-            @ExcludeMissing
             fun checkNumber(checkNumber: JsonField<String>) = apply {
                 this.checkNumber = checkNumber
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): ThirdParty = ThirdParty(checkNumber, additionalProperties.toImmutable())

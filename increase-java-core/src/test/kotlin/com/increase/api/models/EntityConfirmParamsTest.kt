@@ -25,7 +25,7 @@ class EntityConfirmParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.confirmedAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(body.confirmedAt()).contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
     }
 
     @Test

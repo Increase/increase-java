@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
@@ -24,28 +24,50 @@ import java.util.Optional
  * Apple Pay and Google Pay. For more information, see our guide on
  * [digital card artwork](https://increase.com/documentation/card-art).
  */
-@JsonDeserialize(builder = DigitalCardProfile.Builder::class)
 @NoAutoDetect
 class DigitalCardProfile
+@JsonCreator
 private constructor(
-    private val appIconFileId: JsonField<String>,
-    private val backgroundImageFileId: JsonField<String>,
-    private val cardDescription: JsonField<String>,
-    private val contactEmail: JsonField<String>,
-    private val contactPhone: JsonField<String>,
-    private val contactWebsite: JsonField<String>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val description: JsonField<String>,
-    private val id: JsonField<String>,
-    private val idempotencyKey: JsonField<String>,
-    private val issuerName: JsonField<String>,
-    private val status: JsonField<Status>,
-    private val textColor: JsonField<TextColor>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("app_icon_file_id")
+    @ExcludeMissing
+    private val appIconFileId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("background_image_file_id")
+    @ExcludeMissing
+    private val backgroundImageFileId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("card_description")
+    @ExcludeMissing
+    private val cardDescription: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("contact_email")
+    @ExcludeMissing
+    private val contactEmail: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("contact_phone")
+    @ExcludeMissing
+    private val contactPhone: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("contact_website")
+    @ExcludeMissing
+    private val contactWebsite: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("description")
+    @ExcludeMissing
+    private val description: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    private val idempotencyKey: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("issuer_name")
+    @ExcludeMissing
+    private val issuerName: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("status")
+    @ExcludeMissing
+    private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("text_color")
+    @ExcludeMissing
+    private val textColor: JsonField<TextColor> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
-
-    private var validated: Boolean = false
 
     /** The identifier of the File containing the card's icon image. */
     fun appIconFileId(): String = appIconFileId.getRequired("app_icon_file_id")
@@ -162,6 +184,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): DigitalCardProfile = apply {
         if (!validated) {
             appIconFileId()
@@ -209,29 +233,27 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(digitalCardProfile: DigitalCardProfile) = apply {
-            this.appIconFileId = digitalCardProfile.appIconFileId
-            this.backgroundImageFileId = digitalCardProfile.backgroundImageFileId
-            this.cardDescription = digitalCardProfile.cardDescription
-            this.contactEmail = digitalCardProfile.contactEmail
-            this.contactPhone = digitalCardProfile.contactPhone
-            this.contactWebsite = digitalCardProfile.contactWebsite
-            this.createdAt = digitalCardProfile.createdAt
-            this.description = digitalCardProfile.description
-            this.id = digitalCardProfile.id
-            this.idempotencyKey = digitalCardProfile.idempotencyKey
-            this.issuerName = digitalCardProfile.issuerName
-            this.status = digitalCardProfile.status
-            this.textColor = digitalCardProfile.textColor
-            this.type = digitalCardProfile.type
-            additionalProperties(digitalCardProfile.additionalProperties)
+            appIconFileId = digitalCardProfile.appIconFileId
+            backgroundImageFileId = digitalCardProfile.backgroundImageFileId
+            cardDescription = digitalCardProfile.cardDescription
+            contactEmail = digitalCardProfile.contactEmail
+            contactPhone = digitalCardProfile.contactPhone
+            contactWebsite = digitalCardProfile.contactWebsite
+            createdAt = digitalCardProfile.createdAt
+            description = digitalCardProfile.description
+            id = digitalCardProfile.id
+            idempotencyKey = digitalCardProfile.idempotencyKey
+            issuerName = digitalCardProfile.issuerName
+            status = digitalCardProfile.status
+            textColor = digitalCardProfile.textColor
+            type = digitalCardProfile.type
+            additionalProperties = digitalCardProfile.additionalProperties.toMutableMap()
         }
 
         /** The identifier of the File containing the card's icon image. */
         fun appIconFileId(appIconFileId: String) = appIconFileId(JsonField.of(appIconFileId))
 
         /** The identifier of the File containing the card's icon image. */
-        @JsonProperty("app_icon_file_id")
-        @ExcludeMissing
         fun appIconFileId(appIconFileId: JsonField<String>) = apply {
             this.appIconFileId = appIconFileId
         }
@@ -241,8 +263,6 @@ private constructor(
             backgroundImageFileId(JsonField.of(backgroundImageFileId))
 
         /** The identifier of the File containing the card's front image. */
-        @JsonProperty("background_image_file_id")
-        @ExcludeMissing
         fun backgroundImageFileId(backgroundImageFileId: JsonField<String>) = apply {
             this.backgroundImageFileId = backgroundImageFileId
         }
@@ -252,8 +272,6 @@ private constructor(
             cardDescription(JsonField.of(cardDescription))
 
         /** A user-facing description for the card itself. */
-        @JsonProperty("card_description")
-        @ExcludeMissing
         fun cardDescription(cardDescription: JsonField<String>) = apply {
             this.cardDescription = cardDescription
         }
@@ -262,8 +280,6 @@ private constructor(
         fun contactEmail(contactEmail: String) = contactEmail(JsonField.of(contactEmail))
 
         /** An email address the user can contact to receive support for their card. */
-        @JsonProperty("contact_email")
-        @ExcludeMissing
         fun contactEmail(contactEmail: JsonField<String>) = apply {
             this.contactEmail = contactEmail
         }
@@ -272,8 +288,6 @@ private constructor(
         fun contactPhone(contactPhone: String) = contactPhone(JsonField.of(contactPhone))
 
         /** A phone number the user can contact to receive support for their card. */
-        @JsonProperty("contact_phone")
-        @ExcludeMissing
         fun contactPhone(contactPhone: JsonField<String>) = apply {
             this.contactPhone = contactPhone
         }
@@ -282,8 +296,6 @@ private constructor(
         fun contactWebsite(contactWebsite: String) = contactWebsite(JsonField.of(contactWebsite))
 
         /** A website the user can visit to view and receive support for their card. */
-        @JsonProperty("contact_website")
-        @ExcludeMissing
         fun contactWebsite(contactWebsite: JsonField<String>) = apply {
             this.contactWebsite = contactWebsite
         }
@@ -298,23 +310,19 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
          * Dispute was created.
          */
-        @JsonProperty("created_at")
-        @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** A description you can use to identify the Card Profile. */
         fun description(description: String) = description(JsonField.of(description))
 
         /** A description you can use to identify the Card Profile. */
-        @JsonProperty("description")
-        @ExcludeMissing
         fun description(description: JsonField<String>) = apply { this.description = description }
 
         /** The Card Profile identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Card Profile identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -328,8 +336,6 @@ private constructor(
          * is used to ensure that a request is only processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        @JsonProperty("idempotency_key")
-        @ExcludeMissing
         fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
             this.idempotencyKey = idempotencyKey
         }
@@ -338,24 +344,18 @@ private constructor(
         fun issuerName(issuerName: String) = issuerName(JsonField.of(issuerName))
 
         /** A user-facing description for whoever is issuing the card. */
-        @JsonProperty("issuer_name")
-        @ExcludeMissing
         fun issuerName(issuerName: JsonField<String>) = apply { this.issuerName = issuerName }
 
         /** The status of the Card Profile. */
         fun status(status: Status) = status(JsonField.of(status))
 
         /** The status of the Card Profile. */
-        @JsonProperty("status")
-        @ExcludeMissing
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /** The Card's text color, specified as an RGB triple. */
         fun textColor(textColor: TextColor) = textColor(JsonField.of(textColor))
 
         /** The Card's text color, specified as an RGB triple. */
-        @JsonProperty("text_color")
-        @ExcludeMissing
         fun textColor(textColor: JsonField<TextColor>) = apply { this.textColor = textColor }
 
         /**
@@ -368,22 +368,25 @@ private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `digital_card_profile`.
          */
-        @JsonProperty("type")
-        @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): DigitalCardProfile =
@@ -476,17 +479,18 @@ private constructor(
     }
 
     /** The Card's text color, specified as an RGB triple. */
-    @JsonDeserialize(builder = TextColor.Builder::class)
     @NoAutoDetect
     class TextColor
+    @JsonCreator
     private constructor(
-        private val blue: JsonField<Long>,
-        private val green: JsonField<Long>,
-        private val red: JsonField<Long>,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("blue") @ExcludeMissing private val blue: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("green")
+        @ExcludeMissing
+        private val green: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("red") @ExcludeMissing private val red: JsonField<Long> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
-
-        private var validated: Boolean = false
 
         /** The value of the blue channel in the RGB color. */
         fun blue(): Long = blue.getRequired("blue")
@@ -509,6 +513,8 @@ private constructor(
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
 
         fun validate(): TextColor = apply {
             if (!validated) {
@@ -535,48 +541,47 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(textColor: TextColor) = apply {
-                this.blue = textColor.blue
-                this.green = textColor.green
-                this.red = textColor.red
-                additionalProperties(textColor.additionalProperties)
+                blue = textColor.blue
+                green = textColor.green
+                red = textColor.red
+                additionalProperties = textColor.additionalProperties.toMutableMap()
             }
 
             /** The value of the blue channel in the RGB color. */
             fun blue(blue: Long) = blue(JsonField.of(blue))
 
             /** The value of the blue channel in the RGB color. */
-            @JsonProperty("blue")
-            @ExcludeMissing
             fun blue(blue: JsonField<Long>) = apply { this.blue = blue }
 
             /** The value of the green channel in the RGB color. */
             fun green(green: Long) = green(JsonField.of(green))
 
             /** The value of the green channel in the RGB color. */
-            @JsonProperty("green")
-            @ExcludeMissing
             fun green(green: JsonField<Long>) = apply { this.green = green }
 
             /** The value of the red channel in the RGB color. */
             fun red(red: Long) = red(JsonField.of(red))
 
             /** The value of the red channel in the RGB color. */
-            @JsonProperty("red")
-            @ExcludeMissing
             fun red(red: JsonField<Long>) = apply { this.red = red }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): TextColor =

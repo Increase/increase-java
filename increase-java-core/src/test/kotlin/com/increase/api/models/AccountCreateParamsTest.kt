@@ -29,9 +29,9 @@ class AccountCreateParamsTest {
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.name()).isEqualTo("New Account!")
-        assertThat(body.entityId()).isEqualTo("entity_n8y8tnk2p9339ti393yi")
-        assertThat(body.informationalEntityId()).isEqualTo("informational_entity_id")
-        assertThat(body.programId()).isEqualTo("program_i2v2os4mwza1oetokh9i")
+        assertThat(body.entityId()).contains("entity_n8y8tnk2p9339ti393yi")
+        assertThat(body.informationalEntityId()).contains("informational_entity_id")
+        assertThat(body.programId()).contains("program_i2v2os4mwza1oetokh9i")
     }
 
     @Test

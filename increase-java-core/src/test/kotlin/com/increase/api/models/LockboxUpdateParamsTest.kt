@@ -28,9 +28,9 @@ class LockboxUpdateParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.description()).isEqualTo("x")
-        assertThat(body.recipientName()).isEqualTo("x")
-        assertThat(body.status()).isEqualTo(LockboxUpdateParams.Status.ACTIVE)
+        assertThat(body.description()).contains("x")
+        assertThat(body.recipientName()).contains("x")
+        assertThat(body.status()).contains(LockboxUpdateParams.Status.ACTIVE)
     }
 
     @Test

@@ -4,13 +4,14 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
@@ -111,140 +112,152 @@ constructor(
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(builder = SimulationInboundWireTransferCreateBody.Builder::class)
     @NoAutoDetect
     class SimulationInboundWireTransferCreateBody
+    @JsonCreator
     internal constructor(
-        private val accountNumberId: String?,
-        private val amount: Long?,
-        private val beneficiaryAddressLine1: String?,
-        private val beneficiaryAddressLine2: String?,
-        private val beneficiaryAddressLine3: String?,
-        private val beneficiaryName: String?,
-        private val beneficiaryReference: String?,
-        private val originatorAddressLine1: String?,
-        private val originatorAddressLine2: String?,
-        private val originatorAddressLine3: String?,
-        private val originatorName: String?,
-        private val originatorRoutingNumber: String?,
+        @JsonProperty("account_number_id") private val accountNumberId: String,
+        @JsonProperty("amount") private val amount: Long,
+        @JsonProperty("beneficiary_address_line1") private val beneficiaryAddressLine1: String?,
+        @JsonProperty("beneficiary_address_line2") private val beneficiaryAddressLine2: String?,
+        @JsonProperty("beneficiary_address_line3") private val beneficiaryAddressLine3: String?,
+        @JsonProperty("beneficiary_name") private val beneficiaryName: String?,
+        @JsonProperty("beneficiary_reference") private val beneficiaryReference: String?,
+        @JsonProperty("originator_address_line1") private val originatorAddressLine1: String?,
+        @JsonProperty("originator_address_line2") private val originatorAddressLine2: String?,
+        @JsonProperty("originator_address_line3") private val originatorAddressLine3: String?,
+        @JsonProperty("originator_name") private val originatorName: String?,
+        @JsonProperty("originator_routing_number") private val originatorRoutingNumber: String?,
+        @JsonProperty("originator_to_beneficiary_information_line1")
         private val originatorToBeneficiaryInformationLine1: String?,
+        @JsonProperty("originator_to_beneficiary_information_line2")
         private val originatorToBeneficiaryInformationLine2: String?,
+        @JsonProperty("originator_to_beneficiary_information_line3")
         private val originatorToBeneficiaryInformationLine3: String?,
+        @JsonProperty("originator_to_beneficiary_information_line4")
         private val originatorToBeneficiaryInformationLine4: String?,
-        private val senderReference: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("sender_reference") private val senderReference: String?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The identifier of the Account Number the inbound Wire Transfer is for. */
-        @JsonProperty("account_number_id") fun accountNumberId(): String? = accountNumberId
+        @JsonProperty("account_number_id") fun accountNumberId(): String = accountNumberId
 
         /** The transfer amount in cents. Must be positive. */
-        @JsonProperty("amount") fun amount(): Long? = amount
+        @JsonProperty("amount") fun amount(): Long = amount
 
         /**
          * The sending bank will set beneficiary_address_line1 in production. You can simulate any
          * value here.
          */
         @JsonProperty("beneficiary_address_line1")
-        fun beneficiaryAddressLine1(): String? = beneficiaryAddressLine1
+        fun beneficiaryAddressLine1(): Optional<String> =
+            Optional.ofNullable(beneficiaryAddressLine1)
 
         /**
          * The sending bank will set beneficiary_address_line2 in production. You can simulate any
          * value here.
          */
         @JsonProperty("beneficiary_address_line2")
-        fun beneficiaryAddressLine2(): String? = beneficiaryAddressLine2
+        fun beneficiaryAddressLine2(): Optional<String> =
+            Optional.ofNullable(beneficiaryAddressLine2)
 
         /**
          * The sending bank will set beneficiary_address_line3 in production. You can simulate any
          * value here.
          */
         @JsonProperty("beneficiary_address_line3")
-        fun beneficiaryAddressLine3(): String? = beneficiaryAddressLine3
+        fun beneficiaryAddressLine3(): Optional<String> =
+            Optional.ofNullable(beneficiaryAddressLine3)
 
         /**
          * The sending bank will set beneficiary_name in production. You can simulate any value
          * here.
          */
-        @JsonProperty("beneficiary_name") fun beneficiaryName(): String? = beneficiaryName
+        @JsonProperty("beneficiary_name")
+        fun beneficiaryName(): Optional<String> = Optional.ofNullable(beneficiaryName)
 
         /**
          * The sending bank will set beneficiary_reference in production. You can simulate any value
          * here.
          */
         @JsonProperty("beneficiary_reference")
-        fun beneficiaryReference(): String? = beneficiaryReference
+        fun beneficiaryReference(): Optional<String> = Optional.ofNullable(beneficiaryReference)
 
         /**
          * The sending bank will set originator_address_line1 in production. You can simulate any
          * value here.
          */
         @JsonProperty("originator_address_line1")
-        fun originatorAddressLine1(): String? = originatorAddressLine1
+        fun originatorAddressLine1(): Optional<String> = Optional.ofNullable(originatorAddressLine1)
 
         /**
          * The sending bank will set originator_address_line2 in production. You can simulate any
          * value here.
          */
         @JsonProperty("originator_address_line2")
-        fun originatorAddressLine2(): String? = originatorAddressLine2
+        fun originatorAddressLine2(): Optional<String> = Optional.ofNullable(originatorAddressLine2)
 
         /**
          * The sending bank will set originator_address_line3 in production. You can simulate any
          * value here.
          */
         @JsonProperty("originator_address_line3")
-        fun originatorAddressLine3(): String? = originatorAddressLine3
+        fun originatorAddressLine3(): Optional<String> = Optional.ofNullable(originatorAddressLine3)
 
         /**
          * The sending bank will set originator_name in production. You can simulate any value here.
          */
-        @JsonProperty("originator_name") fun originatorName(): String? = originatorName
+        @JsonProperty("originator_name")
+        fun originatorName(): Optional<String> = Optional.ofNullable(originatorName)
 
         /**
          * The sending bank will set originator_routing_number in production. You can simulate any
          * value here.
          */
         @JsonProperty("originator_routing_number")
-        fun originatorRoutingNumber(): String? = originatorRoutingNumber
+        fun originatorRoutingNumber(): Optional<String> =
+            Optional.ofNullable(originatorRoutingNumber)
 
         /**
          * The sending bank will set originator_to_beneficiary_information_line1 in production. You
          * can simulate any value here.
          */
         @JsonProperty("originator_to_beneficiary_information_line1")
-        fun originatorToBeneficiaryInformationLine1(): String? =
-            originatorToBeneficiaryInformationLine1
+        fun originatorToBeneficiaryInformationLine1(): Optional<String> =
+            Optional.ofNullable(originatorToBeneficiaryInformationLine1)
 
         /**
          * The sending bank will set originator_to_beneficiary_information_line2 in production. You
          * can simulate any value here.
          */
         @JsonProperty("originator_to_beneficiary_information_line2")
-        fun originatorToBeneficiaryInformationLine2(): String? =
-            originatorToBeneficiaryInformationLine2
+        fun originatorToBeneficiaryInformationLine2(): Optional<String> =
+            Optional.ofNullable(originatorToBeneficiaryInformationLine2)
 
         /**
          * The sending bank will set originator_to_beneficiary_information_line3 in production. You
          * can simulate any value here.
          */
         @JsonProperty("originator_to_beneficiary_information_line3")
-        fun originatorToBeneficiaryInformationLine3(): String? =
-            originatorToBeneficiaryInformationLine3
+        fun originatorToBeneficiaryInformationLine3(): Optional<String> =
+            Optional.ofNullable(originatorToBeneficiaryInformationLine3)
 
         /**
          * The sending bank will set originator_to_beneficiary_information_line4 in production. You
          * can simulate any value here.
          */
         @JsonProperty("originator_to_beneficiary_information_line4")
-        fun originatorToBeneficiaryInformationLine4(): String? =
-            originatorToBeneficiaryInformationLine4
+        fun originatorToBeneficiaryInformationLine4(): Optional<String> =
+            Optional.ofNullable(originatorToBeneficiaryInformationLine4)
 
         /**
          * The sending bank will set sender_reference in production. You can simulate any value
          * here.
          */
-        @JsonProperty("sender_reference") fun senderReference(): String? = senderReference
+        @JsonProperty("sender_reference")
+        fun senderReference(): Optional<String> = Optional.ofNullable(senderReference)
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -282,52 +295,50 @@ constructor(
             internal fun from(
                 simulationInboundWireTransferCreateBody: SimulationInboundWireTransferCreateBody
             ) = apply {
-                this.accountNumberId = simulationInboundWireTransferCreateBody.accountNumberId
-                this.amount = simulationInboundWireTransferCreateBody.amount
-                this.beneficiaryAddressLine1 =
+                accountNumberId = simulationInboundWireTransferCreateBody.accountNumberId
+                amount = simulationInboundWireTransferCreateBody.amount
+                beneficiaryAddressLine1 =
                     simulationInboundWireTransferCreateBody.beneficiaryAddressLine1
-                this.beneficiaryAddressLine2 =
+                beneficiaryAddressLine2 =
                     simulationInboundWireTransferCreateBody.beneficiaryAddressLine2
-                this.beneficiaryAddressLine3 =
+                beneficiaryAddressLine3 =
                     simulationInboundWireTransferCreateBody.beneficiaryAddressLine3
-                this.beneficiaryName = simulationInboundWireTransferCreateBody.beneficiaryName
-                this.beneficiaryReference =
-                    simulationInboundWireTransferCreateBody.beneficiaryReference
-                this.originatorAddressLine1 =
+                beneficiaryName = simulationInboundWireTransferCreateBody.beneficiaryName
+                beneficiaryReference = simulationInboundWireTransferCreateBody.beneficiaryReference
+                originatorAddressLine1 =
                     simulationInboundWireTransferCreateBody.originatorAddressLine1
-                this.originatorAddressLine2 =
+                originatorAddressLine2 =
                     simulationInboundWireTransferCreateBody.originatorAddressLine2
-                this.originatorAddressLine3 =
+                originatorAddressLine3 =
                     simulationInboundWireTransferCreateBody.originatorAddressLine3
-                this.originatorName = simulationInboundWireTransferCreateBody.originatorName
-                this.originatorRoutingNumber =
+                originatorName = simulationInboundWireTransferCreateBody.originatorName
+                originatorRoutingNumber =
                     simulationInboundWireTransferCreateBody.originatorRoutingNumber
-                this.originatorToBeneficiaryInformationLine1 =
+                originatorToBeneficiaryInformationLine1 =
                     simulationInboundWireTransferCreateBody.originatorToBeneficiaryInformationLine1
-                this.originatorToBeneficiaryInformationLine2 =
+                originatorToBeneficiaryInformationLine2 =
                     simulationInboundWireTransferCreateBody.originatorToBeneficiaryInformationLine2
-                this.originatorToBeneficiaryInformationLine3 =
+                originatorToBeneficiaryInformationLine3 =
                     simulationInboundWireTransferCreateBody.originatorToBeneficiaryInformationLine3
-                this.originatorToBeneficiaryInformationLine4 =
+                originatorToBeneficiaryInformationLine4 =
                     simulationInboundWireTransferCreateBody.originatorToBeneficiaryInformationLine4
-                this.senderReference = simulationInboundWireTransferCreateBody.senderReference
-                additionalProperties(simulationInboundWireTransferCreateBody.additionalProperties)
+                senderReference = simulationInboundWireTransferCreateBody.senderReference
+                additionalProperties =
+                    simulationInboundWireTransferCreateBody.additionalProperties.toMutableMap()
             }
 
             /** The identifier of the Account Number the inbound Wire Transfer is for. */
-            @JsonProperty("account_number_id")
             fun accountNumberId(accountNumberId: String) = apply {
                 this.accountNumberId = accountNumberId
             }
 
             /** The transfer amount in cents. Must be positive. */
-            @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long) = apply { this.amount = amount }
 
             /**
              * The sending bank will set beneficiary_address_line1 in production. You can simulate
              * any value here.
              */
-            @JsonProperty("beneficiary_address_line1")
             fun beneficiaryAddressLine1(beneficiaryAddressLine1: String) = apply {
                 this.beneficiaryAddressLine1 = beneficiaryAddressLine1
             }
@@ -336,7 +347,6 @@ constructor(
              * The sending bank will set beneficiary_address_line2 in production. You can simulate
              * any value here.
              */
-            @JsonProperty("beneficiary_address_line2")
             fun beneficiaryAddressLine2(beneficiaryAddressLine2: String) = apply {
                 this.beneficiaryAddressLine2 = beneficiaryAddressLine2
             }
@@ -345,7 +355,6 @@ constructor(
              * The sending bank will set beneficiary_address_line3 in production. You can simulate
              * any value here.
              */
-            @JsonProperty("beneficiary_address_line3")
             fun beneficiaryAddressLine3(beneficiaryAddressLine3: String) = apply {
                 this.beneficiaryAddressLine3 = beneficiaryAddressLine3
             }
@@ -354,7 +363,6 @@ constructor(
              * The sending bank will set beneficiary_name in production. You can simulate any value
              * here.
              */
-            @JsonProperty("beneficiary_name")
             fun beneficiaryName(beneficiaryName: String) = apply {
                 this.beneficiaryName = beneficiaryName
             }
@@ -363,7 +371,6 @@ constructor(
              * The sending bank will set beneficiary_reference in production. You can simulate any
              * value here.
              */
-            @JsonProperty("beneficiary_reference")
             fun beneficiaryReference(beneficiaryReference: String) = apply {
                 this.beneficiaryReference = beneficiaryReference
             }
@@ -372,7 +379,6 @@ constructor(
              * The sending bank will set originator_address_line1 in production. You can simulate
              * any value here.
              */
-            @JsonProperty("originator_address_line1")
             fun originatorAddressLine1(originatorAddressLine1: String) = apply {
                 this.originatorAddressLine1 = originatorAddressLine1
             }
@@ -381,7 +387,6 @@ constructor(
              * The sending bank will set originator_address_line2 in production. You can simulate
              * any value here.
              */
-            @JsonProperty("originator_address_line2")
             fun originatorAddressLine2(originatorAddressLine2: String) = apply {
                 this.originatorAddressLine2 = originatorAddressLine2
             }
@@ -390,7 +395,6 @@ constructor(
              * The sending bank will set originator_address_line3 in production. You can simulate
              * any value here.
              */
-            @JsonProperty("originator_address_line3")
             fun originatorAddressLine3(originatorAddressLine3: String) = apply {
                 this.originatorAddressLine3 = originatorAddressLine3
             }
@@ -399,7 +403,6 @@ constructor(
              * The sending bank will set originator_name in production. You can simulate any value
              * here.
              */
-            @JsonProperty("originator_name")
             fun originatorName(originatorName: String) = apply {
                 this.originatorName = originatorName
             }
@@ -408,7 +411,6 @@ constructor(
              * The sending bank will set originator_routing_number in production. You can simulate
              * any value here.
              */
-            @JsonProperty("originator_routing_number")
             fun originatorRoutingNumber(originatorRoutingNumber: String) = apply {
                 this.originatorRoutingNumber = originatorRoutingNumber
             }
@@ -417,7 +419,6 @@ constructor(
              * The sending bank will set originator_to_beneficiary_information_line1 in production.
              * You can simulate any value here.
              */
-            @JsonProperty("originator_to_beneficiary_information_line1")
             fun originatorToBeneficiaryInformationLine1(
                 originatorToBeneficiaryInformationLine1: String
             ) = apply {
@@ -429,7 +430,6 @@ constructor(
              * The sending bank will set originator_to_beneficiary_information_line2 in production.
              * You can simulate any value here.
              */
-            @JsonProperty("originator_to_beneficiary_information_line2")
             fun originatorToBeneficiaryInformationLine2(
                 originatorToBeneficiaryInformationLine2: String
             ) = apply {
@@ -441,7 +441,6 @@ constructor(
              * The sending bank will set originator_to_beneficiary_information_line3 in production.
              * You can simulate any value here.
              */
-            @JsonProperty("originator_to_beneficiary_information_line3")
             fun originatorToBeneficiaryInformationLine3(
                 originatorToBeneficiaryInformationLine3: String
             ) = apply {
@@ -453,7 +452,6 @@ constructor(
              * The sending bank will set originator_to_beneficiary_information_line4 in production.
              * You can simulate any value here.
              */
-            @JsonProperty("originator_to_beneficiary_information_line4")
             fun originatorToBeneficiaryInformationLine4(
                 originatorToBeneficiaryInformationLine4: String
             ) = apply {
@@ -465,23 +463,27 @@ constructor(
              * The sending bank will set sender_reference in production. You can simulate any value
              * here.
              */
-            @JsonProperty("sender_reference")
             fun senderReference(senderReference: String) = apply {
                 this.senderReference = senderReference
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): SimulationInboundWireTransferCreateBody =

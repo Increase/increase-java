@@ -62,8 +62,8 @@ class BookkeepingEntrySetCreateParamsTest {
                         .build()
                 )
             )
-        assertThat(body.date()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-        assertThat(body.transactionId()).isEqualTo("transaction_uyrp7fld2ium70oa7oi")
+        assertThat(body.date()).contains(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+        assertThat(body.transactionId()).contains("transaction_uyrp7fld2ium70oa7oi")
     }
 
     @Test

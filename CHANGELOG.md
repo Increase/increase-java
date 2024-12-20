@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.160.0 (2024-12-20)
+
+Full Changelog: [v0.159.0...v0.160.0](https://github.com/Increase/increase-java/compare/v0.159.0...v0.160.0)
+
+### ⚠ BREAKING CHANGES
+
+* **client:** switch query params objects to use `QueryParams` ([#666](https://github.com/Increase/increase-java/issues/666))
+
+### Refactors
+
+* **client:** switch query params objects to use `QueryParams` ([#666](https://github.com/Increase/increase-java/issues/666)) ([0687924](https://github.com/Increase/increase-java/commit/0687924d47ed59f60a3ea7b0fa1b9360a514530b))
+* **internal:** use constructor to deserialize json ([#668](https://github.com/Increase/increase-java/issues/668)) ([62773ca](https://github.com/Increase/increase-java/commit/62773ca6e39bcf8ecebdbb4d56c12923f4d8e363))
+
 ## 0.159.0 (2024-12-20)
 
 Full Changelog: [v0.158.0...v0.159.0](https://github.com/Increase/increase-java/compare/v0.158.0...v0.159.0)

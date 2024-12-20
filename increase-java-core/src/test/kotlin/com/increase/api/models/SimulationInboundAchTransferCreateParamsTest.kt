@@ -51,16 +51,16 @@ class SimulationInboundAchTransferCreateParamsTest {
         assertThat(body).isNotNull
         assertThat(body.accountNumberId()).isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
         assertThat(body.amount()).isEqualTo(1000L)
-        assertThat(body.companyDescriptiveDate()).isEqualTo("x")
-        assertThat(body.companyDiscretionaryData()).isEqualTo("x")
-        assertThat(body.companyEntryDescription()).isEqualTo("x")
-        assertThat(body.companyId()).isEqualTo("x")
-        assertThat(body.companyName()).isEqualTo("x")
-        assertThat(body.receiverIdNumber()).isEqualTo("x")
-        assertThat(body.receiverName()).isEqualTo("x")
-        assertThat(body.resolveAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(body.companyDescriptiveDate()).contains("x")
+        assertThat(body.companyDiscretionaryData()).contains("x")
+        assertThat(body.companyEntryDescription()).contains("x")
+        assertThat(body.companyId()).contains("x")
+        assertThat(body.companyName()).contains("x")
+        assertThat(body.receiverIdNumber()).contains("x")
+        assertThat(body.receiverName()).contains("x")
+        assertThat(body.resolveAt()).contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(body.standardEntryClassCode())
-            .isEqualTo(
+            .contains(
                 SimulationInboundAchTransferCreateParams.StandardEntryClassCode
                     .CORPORATE_CREDIT_OR_DEBIT
             )

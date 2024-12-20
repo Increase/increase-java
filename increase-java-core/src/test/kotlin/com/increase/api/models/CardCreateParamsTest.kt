@@ -60,7 +60,7 @@ class CardCreateParamsTest {
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.billingAddress())
-            .isEqualTo(
+            .contains(
                 CardCreateParams.BillingAddress.builder()
                     .city("x")
                     .line1("x")
@@ -69,16 +69,16 @@ class CardCreateParamsTest {
                     .line2("x")
                     .build()
             )
-        assertThat(body.description()).isEqualTo("Card for Ian Crease")
+        assertThat(body.description()).contains("Card for Ian Crease")
         assertThat(body.digitalWallet())
-            .isEqualTo(
+            .contains(
                 CardCreateParams.DigitalWallet.builder()
                     .digitalCardProfileId("digital_card_profile_id")
                     .email("x")
                     .phone("x")
                     .build()
             )
-        assertThat(body.entityId()).isEqualTo("entity_id")
+        assertThat(body.entityId()).contains("entity_id")
     }
 
     @Test

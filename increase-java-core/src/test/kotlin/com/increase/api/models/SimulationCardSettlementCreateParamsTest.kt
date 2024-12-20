@@ -29,7 +29,7 @@ class SimulationCardSettlementCreateParamsTest {
         assertThat(body.cardId()).isEqualTo("card_oubs0hwk5rn6knuecxg2")
         assertThat(body.pendingTransactionId())
             .isEqualTo("pending_transaction_k1sfetcau2qbvjbzgju4")
-        assertThat(body.amount()).isEqualTo(1L)
+        assertThat(body.amount()).contains(1L)
     }
 
     @Test

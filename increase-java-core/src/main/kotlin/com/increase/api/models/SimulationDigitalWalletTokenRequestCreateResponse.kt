@@ -6,30 +6,32 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 import java.util.Optional
 
 /** The results of a Digital Wallet Token simulation. */
-@JsonDeserialize(builder = SimulationDigitalWalletTokenRequestCreateResponse.Builder::class)
 @NoAutoDetect
 class SimulationDigitalWalletTokenRequestCreateResponse
+@JsonCreator
 private constructor(
-    private val declineReason: JsonField<DeclineReason>,
-    private val digitalWalletTokenId: JsonField<String>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("decline_reason")
+    @ExcludeMissing
+    private val declineReason: JsonField<DeclineReason> = JsonMissing.of(),
+    @JsonProperty("digital_wallet_token_id")
+    @ExcludeMissing
+    private val digitalWalletTokenId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
-
-    private var validated: Boolean = false
 
     /**
      * If the simulated tokenization attempt was declined, this field contains details as to why.
@@ -73,6 +75,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): SimulationDigitalWalletTokenRequestCreateResponse = apply {
         if (!validated) {
             declineReason()
@@ -101,13 +105,13 @@ private constructor(
             simulationDigitalWalletTokenRequestCreateResponse:
                 SimulationDigitalWalletTokenRequestCreateResponse
         ) = apply {
-            this.declineReason = simulationDigitalWalletTokenRequestCreateResponse.declineReason
-            this.digitalWalletTokenId =
+            declineReason = simulationDigitalWalletTokenRequestCreateResponse.declineReason
+            digitalWalletTokenId =
                 simulationDigitalWalletTokenRequestCreateResponse.digitalWalletTokenId
-            this.type = simulationDigitalWalletTokenRequestCreateResponse.type
-            additionalProperties(
+            type = simulationDigitalWalletTokenRequestCreateResponse.type
+            additionalProperties =
                 simulationDigitalWalletTokenRequestCreateResponse.additionalProperties
-            )
+                    .toMutableMap()
         }
 
         /**
@@ -120,8 +124,6 @@ private constructor(
          * If the simulated tokenization attempt was declined, this field contains details as to
          * why.
          */
-        @JsonProperty("decline_reason")
-        @ExcludeMissing
         fun declineReason(declineReason: JsonField<DeclineReason>) = apply {
             this.declineReason = declineReason
         }
@@ -137,8 +139,6 @@ private constructor(
          * If the simulated tokenization attempt was accepted, this field contains the id of the
          * Digital Wallet Token that was created.
          */
-        @JsonProperty("digital_wallet_token_id")
-        @ExcludeMissing
         fun digitalWalletTokenId(digitalWalletTokenId: JsonField<String>) = apply {
             this.digitalWalletTokenId = digitalWalletTokenId
         }
@@ -153,22 +153,25 @@ private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `inbound_digital_wallet_token_request_simulation_result`.
          */
-        @JsonProperty("type")
-        @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): SimulationDigitalWalletTokenRequestCreateResponse =

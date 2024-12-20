@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
@@ -14,6 +13,7 @@ import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
@@ -63,35 +63,37 @@ constructor(
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(builder = ExternalAccountCreateBody.Builder::class)
     @NoAutoDetect
     class ExternalAccountCreateBody
+    @JsonCreator
     internal constructor(
-        private val accountNumber: String?,
-        private val description: String?,
-        private val routingNumber: String?,
-        private val accountHolder: AccountHolder?,
-        private val funding: Funding?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("account_number") private val accountNumber: String,
+        @JsonProperty("description") private val description: String,
+        @JsonProperty("routing_number") private val routingNumber: String,
+        @JsonProperty("account_holder") private val accountHolder: AccountHolder?,
+        @JsonProperty("funding") private val funding: Funding?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The account number for the destination account. */
-        @JsonProperty("account_number") fun accountNumber(): String? = accountNumber
+        @JsonProperty("account_number") fun accountNumber(): String = accountNumber
 
         /** The name you choose for the Account. */
-        @JsonProperty("description") fun description(): String? = description
+        @JsonProperty("description") fun description(): String = description
 
         /**
          * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
          * account.
          */
-        @JsonProperty("routing_number") fun routingNumber(): String? = routingNumber
+        @JsonProperty("routing_number") fun routingNumber(): String = routingNumber
 
         /** The type of entity that owns the External Account. */
-        @JsonProperty("account_holder") fun accountHolder(): AccountHolder? = accountHolder
+        @JsonProperty("account_holder")
+        fun accountHolder(): Optional<AccountHolder> = Optional.ofNullable(accountHolder)
 
         /** The type of the destination account. Defaults to `checking`. */
-        @JsonProperty("funding") fun funding(): Funding? = funding
+        @JsonProperty("funding") fun funding(): Optional<Funding> = Optional.ofNullable(funding)
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -115,51 +117,51 @@ constructor(
 
             @JvmSynthetic
             internal fun from(externalAccountCreateBody: ExternalAccountCreateBody) = apply {
-                this.accountNumber = externalAccountCreateBody.accountNumber
-                this.description = externalAccountCreateBody.description
-                this.routingNumber = externalAccountCreateBody.routingNumber
-                this.accountHolder = externalAccountCreateBody.accountHolder
-                this.funding = externalAccountCreateBody.funding
-                additionalProperties(externalAccountCreateBody.additionalProperties)
+                accountNumber = externalAccountCreateBody.accountNumber
+                description = externalAccountCreateBody.description
+                routingNumber = externalAccountCreateBody.routingNumber
+                accountHolder = externalAccountCreateBody.accountHolder
+                funding = externalAccountCreateBody.funding
+                additionalProperties = externalAccountCreateBody.additionalProperties.toMutableMap()
             }
 
             /** The account number for the destination account. */
-            @JsonProperty("account_number")
             fun accountNumber(accountNumber: String) = apply { this.accountNumber = accountNumber }
 
             /** The name you choose for the Account. */
-            @JsonProperty("description")
             fun description(description: String) = apply { this.description = description }
 
             /**
              * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the
              * destination account.
              */
-            @JsonProperty("routing_number")
             fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
 
             /** The type of entity that owns the External Account. */
-            @JsonProperty("account_holder")
             fun accountHolder(accountHolder: AccountHolder) = apply {
                 this.accountHolder = accountHolder
             }
 
             /** The type of the destination account. Defaults to `checking`. */
-            @JsonProperty("funding")
             fun funding(funding: Funding) = apply { this.funding = funding }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): ExternalAccountCreateBody =

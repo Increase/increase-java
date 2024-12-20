@@ -55,8 +55,8 @@ class ProofOfAuthorizationRequestSubmissionCreateParamsTest {
         assertThat(body.validatedAccountOwnershipViaCredential()).isEqualTo(true)
         assertThat(body.validatedAccountOwnershipWithAccountStatement()).isEqualTo(true)
         assertThat(body.validatedAccountOwnershipWithMicrodeposit()).isEqualTo(true)
-        assertThat(body.authorizerCompany()).isEqualTo("National Phonograph Company")
-        assertThat(body.authorizerIpAddress()).isEqualTo("x")
+        assertThat(body.authorizerCompany()).contains("National Phonograph Company")
+        assertThat(body.authorizerIpAddress()).contains("x")
     }
 
     @Test
