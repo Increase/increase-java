@@ -36,12 +36,12 @@ class PhysicalCardProfileCloneParamsTest {
                 .build()
         val body = params.getBody()
         assertThat(body).isNotNull
-        assertThat(body.carrierImageFileId()).isEqualTo("carrier_image_file_id")
-        assertThat(body.contactPhone()).isEqualTo("x")
-        assertThat(body.description()).isEqualTo("x")
-        assertThat(body.frontImageFileId()).isEqualTo("file_o6aex13wm1jcc36sgcj1")
+        assertThat(body.carrierImageFileId()).contains("carrier_image_file_id")
+        assertThat(body.contactPhone()).contains("x")
+        assertThat(body.description()).contains("x")
+        assertThat(body.frontImageFileId()).contains("file_o6aex13wm1jcc36sgcj1")
         assertThat(body.frontText())
-            .isEqualTo(
+            .contains(
                 PhysicalCardProfileCloneParams.FrontText.builder().line1("x").line2("x").build()
             )
     }

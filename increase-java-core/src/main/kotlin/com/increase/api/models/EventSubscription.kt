@@ -40,8 +40,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     /** The time the event subscription was created. */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
@@ -127,6 +125,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): EventSubscription = apply {
         if (!validated) {
             createdAt()
@@ -162,15 +162,15 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(eventSubscription: EventSubscription) = apply {
-            this.createdAt = eventSubscription.createdAt
-            this.id = eventSubscription.id
-            this.idempotencyKey = eventSubscription.idempotencyKey
-            this.oauthConnectionId = eventSubscription.oauthConnectionId
-            this.selectedEventCategory = eventSubscription.selectedEventCategory
-            this.status = eventSubscription.status
-            this.type = eventSubscription.type
-            this.url = eventSubscription.url
-            additionalProperties(eventSubscription.additionalProperties)
+            createdAt = eventSubscription.createdAt
+            id = eventSubscription.id
+            idempotencyKey = eventSubscription.idempotencyKey
+            oauthConnectionId = eventSubscription.oauthConnectionId
+            selectedEventCategory = eventSubscription.selectedEventCategory
+            status = eventSubscription.status
+            type = eventSubscription.type
+            url = eventSubscription.url
+            additionalProperties = eventSubscription.additionalProperties.toMutableMap()
         }
 
         /** The time the event subscription was created. */
@@ -271,16 +271,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): EventSubscription =

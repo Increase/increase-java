@@ -31,8 +31,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     /** You may use this token in place of an API key to make OAuth requests on a user's behalf. */
     fun accessToken(): String = accessToken.getRequired("access_token")
 
@@ -59,6 +57,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): OAuthToken = apply {
         if (!validated) {
             accessToken()
@@ -84,10 +84,10 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(oauthToken: OAuthToken) = apply {
-            this.accessToken = oauthToken.accessToken
-            this.tokenType = oauthToken.tokenType
-            this.type = oauthToken.type
-            additionalProperties(oauthToken.additionalProperties)
+            accessToken = oauthToken.accessToken
+            tokenType = oauthToken.tokenType
+            type = oauthToken.type
+            additionalProperties = oauthToken.additionalProperties.toMutableMap()
         }
 
         /**
@@ -126,16 +126,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): OAuthToken =

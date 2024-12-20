@@ -50,8 +50,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     /**
      * If the Inbound Check Deposit was accepted, the
      * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which this took place.
@@ -252,6 +250,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): InboundCheckDeposit = apply {
         if (!validated) {
             acceptedAt()
@@ -311,28 +311,27 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(inboundCheckDeposit: InboundCheckDeposit) = apply {
-            this.acceptedAt = inboundCheckDeposit.acceptedAt
-            this.accountId = inboundCheckDeposit.accountId
-            this.accountNumberId = inboundCheckDeposit.accountNumberId
-            this.adjustments = inboundCheckDeposit.adjustments
-            this.amount = inboundCheckDeposit.amount
-            this.backImageFileId = inboundCheckDeposit.backImageFileId
-            this.bankOfFirstDepositRoutingNumber =
-                inboundCheckDeposit.bankOfFirstDepositRoutingNumber
-            this.checkNumber = inboundCheckDeposit.checkNumber
-            this.checkTransferId = inboundCheckDeposit.checkTransferId
-            this.createdAt = inboundCheckDeposit.createdAt
-            this.currency = inboundCheckDeposit.currency
-            this.declinedAt = inboundCheckDeposit.declinedAt
-            this.declinedTransactionId = inboundCheckDeposit.declinedTransactionId
-            this.depositReturn = inboundCheckDeposit.depositReturn
-            this.frontImageFileId = inboundCheckDeposit.frontImageFileId
-            this.id = inboundCheckDeposit.id
-            this.payeeNameAnalysis = inboundCheckDeposit.payeeNameAnalysis
-            this.status = inboundCheckDeposit.status
-            this.transactionId = inboundCheckDeposit.transactionId
-            this.type = inboundCheckDeposit.type
-            additionalProperties(inboundCheckDeposit.additionalProperties)
+            acceptedAt = inboundCheckDeposit.acceptedAt
+            accountId = inboundCheckDeposit.accountId
+            accountNumberId = inboundCheckDeposit.accountNumberId
+            adjustments = inboundCheckDeposit.adjustments
+            amount = inboundCheckDeposit.amount
+            backImageFileId = inboundCheckDeposit.backImageFileId
+            bankOfFirstDepositRoutingNumber = inboundCheckDeposit.bankOfFirstDepositRoutingNumber
+            checkNumber = inboundCheckDeposit.checkNumber
+            checkTransferId = inboundCheckDeposit.checkTransferId
+            createdAt = inboundCheckDeposit.createdAt
+            currency = inboundCheckDeposit.currency
+            declinedAt = inboundCheckDeposit.declinedAt
+            declinedTransactionId = inboundCheckDeposit.declinedTransactionId
+            depositReturn = inboundCheckDeposit.depositReturn
+            frontImageFileId = inboundCheckDeposit.frontImageFileId
+            id = inboundCheckDeposit.id
+            payeeNameAnalysis = inboundCheckDeposit.payeeNameAnalysis
+            status = inboundCheckDeposit.status
+            transactionId = inboundCheckDeposit.transactionId
+            type = inboundCheckDeposit.type
+            additionalProperties = inboundCheckDeposit.additionalProperties.toMutableMap()
         }
 
         /**
@@ -591,16 +590,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): InboundCheckDeposit =
@@ -640,8 +645,6 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         /** The time at which the return adjustment was received. */
         fun adjustedAt(): OffsetDateTime = adjustedAt.getRequired("adjusted_at")
 
@@ -670,6 +673,8 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+        private var validated: Boolean = false
+
         fun validate(): Adjustment = apply {
             if (!validated) {
                 adjustedAt()
@@ -697,11 +702,11 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(adjustment: Adjustment) = apply {
-                this.adjustedAt = adjustment.adjustedAt
-                this.amount = adjustment.amount
-                this.reason = adjustment.reason
-                this.transactionId = adjustment.transactionId
-                additionalProperties(adjustment.additionalProperties)
+                adjustedAt = adjustment.adjustedAt
+                amount = adjustment.amount
+                reason = adjustment.reason
+                transactionId = adjustment.transactionId
+                additionalProperties = adjustment.additionalProperties.toMutableMap()
             }
 
             /** The time at which the return adjustment was received. */
@@ -742,16 +747,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Adjustment =
@@ -937,8 +948,6 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         /** The reason the deposit was returned. */
         fun reason(): Reason = reason.getRequired("reason")
 
@@ -960,6 +969,8 @@ private constructor(
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
 
         fun validate(): DepositReturn = apply {
             if (!validated) {
@@ -986,10 +997,10 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(depositReturn: DepositReturn) = apply {
-                this.reason = depositReturn.reason
-                this.returnedAt = depositReturn.returnedAt
-                this.transactionId = depositReturn.transactionId
-                additionalProperties(depositReturn.additionalProperties)
+                reason = depositReturn.reason
+                returnedAt = depositReturn.returnedAt
+                transactionId = depositReturn.transactionId
+                additionalProperties = depositReturn.additionalProperties.toMutableMap()
             }
 
             /** The reason the deposit was returned. */
@@ -1022,16 +1033,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): DepositReturn =

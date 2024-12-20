@@ -36,8 +36,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth Connection
      * was created.
@@ -97,6 +95,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): OAuthConnection = apply {
         if (!validated) {
             createdAt()
@@ -128,13 +128,13 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(oauthConnection: OAuthConnection) = apply {
-            this.createdAt = oauthConnection.createdAt
-            this.deletedAt = oauthConnection.deletedAt
-            this.groupId = oauthConnection.groupId
-            this.id = oauthConnection.id
-            this.status = oauthConnection.status
-            this.type = oauthConnection.type
-            additionalProperties(oauthConnection.additionalProperties)
+            createdAt = oauthConnection.createdAt
+            deletedAt = oauthConnection.deletedAt
+            groupId = oauthConnection.groupId
+            id = oauthConnection.id
+            status = oauthConnection.status
+            type = oauthConnection.type
+            additionalProperties = oauthConnection.additionalProperties.toMutableMap()
         }
 
         /**
@@ -203,16 +203,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): OAuthConnection =

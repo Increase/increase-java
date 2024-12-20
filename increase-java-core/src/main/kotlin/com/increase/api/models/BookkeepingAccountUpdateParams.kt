@@ -53,12 +53,12 @@ constructor(
     @NoAutoDetect
     class BookkeepingAccountUpdateBody
     internal constructor(
-        private val name: String?,
+        private val name: String,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /** The name you choose for the account. */
-        @JsonProperty("name") fun name(): String? = name
+        @JsonProperty("name") fun name(): String = name
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -78,8 +78,9 @@ constructor(
 
             @JvmSynthetic
             internal fun from(bookkeepingAccountUpdateBody: BookkeepingAccountUpdateBody) = apply {
-                this.name = bookkeepingAccountUpdateBody.name
-                additionalProperties(bookkeepingAccountUpdateBody.additionalProperties)
+                name = bookkeepingAccountUpdateBody.name
+                additionalProperties =
+                    bookkeepingAccountUpdateBody.additionalProperties.toMutableMap()
             }
 
             /** The name you choose for the account. */
@@ -87,16 +88,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): BookkeepingAccountUpdateBody =

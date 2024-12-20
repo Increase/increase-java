@@ -60,24 +60,26 @@ constructor(
     @NoAutoDetect
     class SimulationInterestPaymentCreateBody
     internal constructor(
-        private val accountId: String?,
-        private val amount: Long?,
+        private val accountId: String,
+        private val amount: Long,
         private val periodEnd: OffsetDateTime?,
         private val periodStart: OffsetDateTime?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /** The identifier of the Account Number the Interest Payment is for. */
-        @JsonProperty("account_id") fun accountId(): String? = accountId
+        @JsonProperty("account_id") fun accountId(): String = accountId
 
         /** The interest amount in cents. Must be positive. */
-        @JsonProperty("amount") fun amount(): Long? = amount
+        @JsonProperty("amount") fun amount(): Long = amount
 
         /** The end of the interest period. If not provided, defaults to the current time. */
-        @JsonProperty("period_end") fun periodEnd(): OffsetDateTime? = periodEnd
+        @JsonProperty("period_end")
+        fun periodEnd(): Optional<OffsetDateTime> = Optional.ofNullable(periodEnd)
 
         /** The start of the interest period. If not provided, defaults to the current time. */
-        @JsonProperty("period_start") fun periodStart(): OffsetDateTime? = periodStart
+        @JsonProperty("period_start")
+        fun periodStart(): Optional<OffsetDateTime> = Optional.ofNullable(periodStart)
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -102,11 +104,12 @@ constructor(
             internal fun from(
                 simulationInterestPaymentCreateBody: SimulationInterestPaymentCreateBody
             ) = apply {
-                this.accountId = simulationInterestPaymentCreateBody.accountId
-                this.amount = simulationInterestPaymentCreateBody.amount
-                this.periodEnd = simulationInterestPaymentCreateBody.periodEnd
-                this.periodStart = simulationInterestPaymentCreateBody.periodStart
-                additionalProperties(simulationInterestPaymentCreateBody.additionalProperties)
+                accountId = simulationInterestPaymentCreateBody.accountId
+                amount = simulationInterestPaymentCreateBody.amount
+                periodEnd = simulationInterestPaymentCreateBody.periodEnd
+                periodStart = simulationInterestPaymentCreateBody.periodStart
+                additionalProperties =
+                    simulationInterestPaymentCreateBody.additionalProperties.toMutableMap()
             }
 
             /** The identifier of the Account Number the Interest Payment is for. */
@@ -126,16 +129,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): SimulationInterestPaymentCreateBody =

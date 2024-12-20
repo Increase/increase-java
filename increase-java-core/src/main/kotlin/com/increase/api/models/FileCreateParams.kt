@@ -3,7 +3,6 @@
 package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.ContentTypes
 import com.increase.api.core.Enum
 import com.increase.api.core.JsonField
@@ -48,12 +47,10 @@ constructor(
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(builder = FileCreateBody.Builder::class)
-    @NoAutoDetect
     class FileCreateBody
     internal constructor(
-        private val file: ByteArray?,
-        private val purpose: Purpose?,
+        private val file: ByteArray,
+        private val purpose: Purpose,
         private val description: String?,
     ) {
 
@@ -62,13 +59,13 @@ constructor(
          * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers
          * for the multipart/form-data protocol.
          */
-        fun file(): ByteArray? = file
+        fun file(): ByteArray = file
 
         /** What the File will be used for in Increase's systems. */
-        fun purpose(): Purpose? = purpose
+        fun purpose(): Purpose = purpose
 
         /** The description you choose to give the File. */
-        fun description(): String? = description
+        fun description(): Optional<String> = Optional.ofNullable(description)
 
         fun toBuilder() = Builder().from(this)
 
@@ -85,9 +82,9 @@ constructor(
 
             @JvmSynthetic
             internal fun from(fileCreateBody: FileCreateBody) = apply {
-                this.file = fileCreateBody.file
-                this.purpose = fileCreateBody.purpose
-                this.description = fileCreateBody.description
+                file = fileCreateBody.file
+                purpose = fileCreateBody.purpose
+                description = fileCreateBody.description
             }
 
             /**
@@ -102,6 +99,13 @@ constructor(
 
             /** The description you choose to give the File. */
             fun description(description: String) = apply { this.description = description }
+
+            fun build(): FileCreateBody =
+                FileCreateBody(
+                    checkNotNull(file) { "`file` is required but was not set" },
+                    checkNotNull(purpose) { "`purpose` is required but was not set" },
+                    description,
+                )
         }
 
         override fun equals(other: Any?): Boolean {

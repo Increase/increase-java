@@ -5,6 +5,7 @@ package com.increase.api.errors
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toImmutable
@@ -15,6 +16,7 @@ import java.util.Objects
 class IncreaseError
 private constructor(
     @JsonAnyGetter
+    @ExcludeMissing
     @get:JvmName("additionalProperties")
     val additionalProperties: Map<String, JsonValue>,
 ) {

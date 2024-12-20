@@ -47,19 +47,19 @@ class AccountNumberUpdateParamsTest {
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.inboundAch())
-            .isEqualTo(
+            .contains(
                 AccountNumberUpdateParams.InboundAch.builder()
                     .debitStatus(AccountNumberUpdateParams.InboundAch.DebitStatus.ALLOWED)
                     .build()
             )
         assertThat(body.inboundChecks())
-            .isEqualTo(
+            .contains(
                 AccountNumberUpdateParams.InboundChecks.builder()
                     .status(AccountNumberUpdateParams.InboundChecks.Status.ALLOWED)
                     .build()
             )
-        assertThat(body.name()).isEqualTo("x")
-        assertThat(body.status()).isEqualTo(AccountNumberUpdateParams.Status.ACTIVE)
+        assertThat(body.name()).contains("x")
+        assertThat(body.status()).contains(AccountNumberUpdateParams.Status.ACTIVE)
     }
 
     @Test

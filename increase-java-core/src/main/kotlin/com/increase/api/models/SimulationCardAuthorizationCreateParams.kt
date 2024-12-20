@@ -108,7 +108,7 @@ constructor(
     @NoAutoDetect
     class SimulationCardAuthorizationCreateBody
     internal constructor(
-        private val amount: Long?,
+        private val amount: Long,
         private val authenticatedCardPaymentId: String?,
         private val cardId: String?,
         private val declineReason: DeclineReason?,
@@ -127,30 +127,33 @@ constructor(
     ) {
 
         /** The authorization amount in cents. */
-        @JsonProperty("amount") fun amount(): Long? = amount
+        @JsonProperty("amount") fun amount(): Long = amount
 
         /**
          * The identifier of a Card Payment with a `card_authentication` if you want to simulate an
          * authenticated authorization.
          */
         @JsonProperty("authenticated_card_payment_id")
-        fun authenticatedCardPaymentId(): String? = authenticatedCardPaymentId
+        fun authenticatedCardPaymentId(): Optional<String> =
+            Optional.ofNullable(authenticatedCardPaymentId)
 
         /** The identifier of the Card to be authorized. */
-        @JsonProperty("card_id") fun cardId(): String? = cardId
+        @JsonProperty("card_id") fun cardId(): Optional<String> = Optional.ofNullable(cardId)
 
         /** Forces a card decline with a specific reason. No real time decision will be sent. */
-        @JsonProperty("decline_reason") fun declineReason(): DeclineReason? = declineReason
+        @JsonProperty("decline_reason")
+        fun declineReason(): Optional<DeclineReason> = Optional.ofNullable(declineReason)
 
         /** The identifier of the Digital Wallet Token to be authorized. */
         @JsonProperty("digital_wallet_token_id")
-        fun digitalWalletTokenId(): String? = digitalWalletTokenId
+        fun digitalWalletTokenId(): Optional<String> = Optional.ofNullable(digitalWalletTokenId)
 
         /**
          * The direction describes the direction the funds will move, either from the cardholder to
          * the merchant or from the merchant to the cardholder.
          */
-        @JsonProperty("direction") fun direction(): Direction? = direction
+        @JsonProperty("direction")
+        fun direction(): Optional<Direction> = Optional.ofNullable(direction)
 
         /**
          * The identifier of the Event Subscription to use. If provided, will override the default
@@ -159,41 +162,48 @@ constructor(
          * for testing purposes.
          */
         @JsonProperty("event_subscription_id")
-        fun eventSubscriptionId(): String? = eventSubscriptionId
+        fun eventSubscriptionId(): Optional<String> = Optional.ofNullable(eventSubscriptionId)
 
         /**
          * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
          * transacting with.
          */
-        @JsonProperty("merchant_acceptor_id") fun merchantAcceptorId(): String? = merchantAcceptorId
+        @JsonProperty("merchant_acceptor_id")
+        fun merchantAcceptorId(): Optional<String> = Optional.ofNullable(merchantAcceptorId)
 
         /**
          * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
          * transacting with.
          */
         @JsonProperty("merchant_category_code")
-        fun merchantCategoryCode(): String? = merchantCategoryCode
+        fun merchantCategoryCode(): Optional<String> = Optional.ofNullable(merchantCategoryCode)
 
         /** The city the merchant resides in. */
-        @JsonProperty("merchant_city") fun merchantCity(): String? = merchantCity
+        @JsonProperty("merchant_city")
+        fun merchantCity(): Optional<String> = Optional.ofNullable(merchantCity)
 
         /** The country the merchant resides in. */
-        @JsonProperty("merchant_country") fun merchantCountry(): String? = merchantCountry
+        @JsonProperty("merchant_country")
+        fun merchantCountry(): Optional<String> = Optional.ofNullable(merchantCountry)
 
         /** The merchant descriptor of the merchant the card is transacting with. */
-        @JsonProperty("merchant_descriptor") fun merchantDescriptor(): String? = merchantDescriptor
+        @JsonProperty("merchant_descriptor")
+        fun merchantDescriptor(): Optional<String> = Optional.ofNullable(merchantDescriptor)
 
         /** The state the merchant resides in. */
-        @JsonProperty("merchant_state") fun merchantState(): String? = merchantState
+        @JsonProperty("merchant_state")
+        fun merchantState(): Optional<String> = Optional.ofNullable(merchantState)
 
         /** The identifier of the Physical Card to be authorized. */
-        @JsonProperty("physical_card_id") fun physicalCardId(): String? = physicalCardId
+        @JsonProperty("physical_card_id")
+        fun physicalCardId(): Optional<String> = Optional.ofNullable(physicalCardId)
 
         /**
          * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
          * transacting with.
          */
-        @JsonProperty("terminal_id") fun terminalId(): String? = terminalId
+        @JsonProperty("terminal_id")
+        fun terminalId(): Optional<String> = Optional.ofNullable(terminalId)
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -229,25 +239,24 @@ constructor(
             internal fun from(
                 simulationCardAuthorizationCreateBody: SimulationCardAuthorizationCreateBody
             ) = apply {
-                this.amount = simulationCardAuthorizationCreateBody.amount
-                this.authenticatedCardPaymentId =
+                amount = simulationCardAuthorizationCreateBody.amount
+                authenticatedCardPaymentId =
                     simulationCardAuthorizationCreateBody.authenticatedCardPaymentId
-                this.cardId = simulationCardAuthorizationCreateBody.cardId
-                this.declineReason = simulationCardAuthorizationCreateBody.declineReason
-                this.digitalWalletTokenId =
-                    simulationCardAuthorizationCreateBody.digitalWalletTokenId
-                this.direction = simulationCardAuthorizationCreateBody.direction
-                this.eventSubscriptionId = simulationCardAuthorizationCreateBody.eventSubscriptionId
-                this.merchantAcceptorId = simulationCardAuthorizationCreateBody.merchantAcceptorId
-                this.merchantCategoryCode =
-                    simulationCardAuthorizationCreateBody.merchantCategoryCode
-                this.merchantCity = simulationCardAuthorizationCreateBody.merchantCity
-                this.merchantCountry = simulationCardAuthorizationCreateBody.merchantCountry
-                this.merchantDescriptor = simulationCardAuthorizationCreateBody.merchantDescriptor
-                this.merchantState = simulationCardAuthorizationCreateBody.merchantState
-                this.physicalCardId = simulationCardAuthorizationCreateBody.physicalCardId
-                this.terminalId = simulationCardAuthorizationCreateBody.terminalId
-                additionalProperties(simulationCardAuthorizationCreateBody.additionalProperties)
+                cardId = simulationCardAuthorizationCreateBody.cardId
+                declineReason = simulationCardAuthorizationCreateBody.declineReason
+                digitalWalletTokenId = simulationCardAuthorizationCreateBody.digitalWalletTokenId
+                direction = simulationCardAuthorizationCreateBody.direction
+                eventSubscriptionId = simulationCardAuthorizationCreateBody.eventSubscriptionId
+                merchantAcceptorId = simulationCardAuthorizationCreateBody.merchantAcceptorId
+                merchantCategoryCode = simulationCardAuthorizationCreateBody.merchantCategoryCode
+                merchantCity = simulationCardAuthorizationCreateBody.merchantCity
+                merchantCountry = simulationCardAuthorizationCreateBody.merchantCountry
+                merchantDescriptor = simulationCardAuthorizationCreateBody.merchantDescriptor
+                merchantState = simulationCardAuthorizationCreateBody.merchantState
+                physicalCardId = simulationCardAuthorizationCreateBody.physicalCardId
+                terminalId = simulationCardAuthorizationCreateBody.terminalId
+                additionalProperties =
+                    simulationCardAuthorizationCreateBody.additionalProperties.toMutableMap()
             }
 
             /** The authorization amount in cents. */
@@ -348,16 +357,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): SimulationCardAuthorizationCreateBody =

@@ -45,8 +45,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     /** The identifier of the File containing the card's icon image. */
     fun appIconFileId(): String = appIconFileId.getRequired("app_icon_file_id")
 
@@ -162,6 +160,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): DigitalCardProfile = apply {
         if (!validated) {
             appIconFileId()
@@ -209,21 +209,21 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(digitalCardProfile: DigitalCardProfile) = apply {
-            this.appIconFileId = digitalCardProfile.appIconFileId
-            this.backgroundImageFileId = digitalCardProfile.backgroundImageFileId
-            this.cardDescription = digitalCardProfile.cardDescription
-            this.contactEmail = digitalCardProfile.contactEmail
-            this.contactPhone = digitalCardProfile.contactPhone
-            this.contactWebsite = digitalCardProfile.contactWebsite
-            this.createdAt = digitalCardProfile.createdAt
-            this.description = digitalCardProfile.description
-            this.id = digitalCardProfile.id
-            this.idempotencyKey = digitalCardProfile.idempotencyKey
-            this.issuerName = digitalCardProfile.issuerName
-            this.status = digitalCardProfile.status
-            this.textColor = digitalCardProfile.textColor
-            this.type = digitalCardProfile.type
-            additionalProperties(digitalCardProfile.additionalProperties)
+            appIconFileId = digitalCardProfile.appIconFileId
+            backgroundImageFileId = digitalCardProfile.backgroundImageFileId
+            cardDescription = digitalCardProfile.cardDescription
+            contactEmail = digitalCardProfile.contactEmail
+            contactPhone = digitalCardProfile.contactPhone
+            contactWebsite = digitalCardProfile.contactWebsite
+            createdAt = digitalCardProfile.createdAt
+            description = digitalCardProfile.description
+            id = digitalCardProfile.id
+            idempotencyKey = digitalCardProfile.idempotencyKey
+            issuerName = digitalCardProfile.issuerName
+            status = digitalCardProfile.status
+            textColor = digitalCardProfile.textColor
+            type = digitalCardProfile.type
+            additionalProperties = digitalCardProfile.additionalProperties.toMutableMap()
         }
 
         /** The identifier of the File containing the card's icon image. */
@@ -374,16 +374,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): DigitalCardProfile =
@@ -486,8 +492,6 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         /** The value of the blue channel in the RGB color. */
         fun blue(): Long = blue.getRequired("blue")
 
@@ -509,6 +513,8 @@ private constructor(
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
 
         fun validate(): TextColor = apply {
             if (!validated) {
@@ -535,10 +541,10 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(textColor: TextColor) = apply {
-                this.blue = textColor.blue
-                this.green = textColor.green
-                this.red = textColor.red
-                additionalProperties(textColor.additionalProperties)
+                blue = textColor.blue
+                green = textColor.green
+                red = textColor.red
+                additionalProperties = textColor.additionalProperties.toMutableMap()
             }
 
             /** The value of the blue channel in the RGB color. */
@@ -567,16 +573,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): TextColor =

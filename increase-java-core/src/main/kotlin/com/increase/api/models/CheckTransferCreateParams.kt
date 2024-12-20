@@ -75,9 +75,9 @@ constructor(
     @NoAutoDetect
     class CheckTransferCreateBody
     internal constructor(
-        private val accountId: String?,
-        private val amount: Long?,
-        private val sourceAccountNumberId: String?,
+        private val accountId: String,
+        private val amount: Long,
+        private val sourceAccountNumberId: String,
         private val fulfillmentMethod: FulfillmentMethod?,
         private val physicalCheck: PhysicalCheck?,
         private val requireApproval: Boolean?,
@@ -86,38 +86,42 @@ constructor(
     ) {
 
         /** The identifier for the account that will send the transfer. */
-        @JsonProperty("account_id") fun accountId(): String? = accountId
+        @JsonProperty("account_id") fun accountId(): String = accountId
 
         /** The transfer amount in USD cents. */
-        @JsonProperty("amount") fun amount(): Long? = amount
+        @JsonProperty("amount") fun amount(): Long = amount
 
         /**
          * The identifier of the Account Number from which to send the transfer and print on the
          * check.
          */
         @JsonProperty("source_account_number_id")
-        fun sourceAccountNumberId(): String? = sourceAccountNumberId
+        fun sourceAccountNumberId(): String = sourceAccountNumberId
 
         /** Whether Increase will print and mail the check or if you will do it yourself. */
         @JsonProperty("fulfillment_method")
-        fun fulfillmentMethod(): FulfillmentMethod? = fulfillmentMethod
+        fun fulfillmentMethod(): Optional<FulfillmentMethod> =
+            Optional.ofNullable(fulfillmentMethod)
 
         /**
          * Details relating to the physical check that Increase will print and mail. This is
          * required if `fulfillment_method` is equal to `physical_check`. It must not be included if
          * any other `fulfillment_method` is provided.
          */
-        @JsonProperty("physical_check") fun physicalCheck(): PhysicalCheck? = physicalCheck
+        @JsonProperty("physical_check")
+        fun physicalCheck(): Optional<PhysicalCheck> = Optional.ofNullable(physicalCheck)
 
         /** Whether the transfer requires explicit approval via the dashboard or API. */
-        @JsonProperty("require_approval") fun requireApproval(): Boolean? = requireApproval
+        @JsonProperty("require_approval")
+        fun requireApproval(): Optional<Boolean> = Optional.ofNullable(requireApproval)
 
         /**
          * Details relating to the custom fulfillment you will perform. This is required if
          * `fulfillment_method` is equal to `third_party`. It must not be included if any other
          * `fulfillment_method` is provided.
          */
-        @JsonProperty("third_party") fun thirdParty(): ThirdParty? = thirdParty
+        @JsonProperty("third_party")
+        fun thirdParty(): Optional<ThirdParty> = Optional.ofNullable(thirdParty)
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -143,14 +147,14 @@ constructor(
 
             @JvmSynthetic
             internal fun from(checkTransferCreateBody: CheckTransferCreateBody) = apply {
-                this.accountId = checkTransferCreateBody.accountId
-                this.amount = checkTransferCreateBody.amount
-                this.sourceAccountNumberId = checkTransferCreateBody.sourceAccountNumberId
-                this.fulfillmentMethod = checkTransferCreateBody.fulfillmentMethod
-                this.physicalCheck = checkTransferCreateBody.physicalCheck
-                this.requireApproval = checkTransferCreateBody.requireApproval
-                this.thirdParty = checkTransferCreateBody.thirdParty
-                additionalProperties(checkTransferCreateBody.additionalProperties)
+                accountId = checkTransferCreateBody.accountId
+                amount = checkTransferCreateBody.amount
+                sourceAccountNumberId = checkTransferCreateBody.sourceAccountNumberId
+                fulfillmentMethod = checkTransferCreateBody.fulfillmentMethod
+                physicalCheck = checkTransferCreateBody.physicalCheck
+                requireApproval = checkTransferCreateBody.requireApproval
+                thirdParty = checkTransferCreateBody.thirdParty
+                additionalProperties = checkTransferCreateBody.additionalProperties.toMutableMap()
             }
 
             /** The identifier for the account that will send the transfer. */
@@ -201,16 +205,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): CheckTransferCreateBody =
@@ -525,38 +535,40 @@ constructor(
     @NoAutoDetect
     class PhysicalCheck
     private constructor(
-        private val mailingAddress: MailingAddress?,
-        private val memo: String?,
+        private val mailingAddress: MailingAddress,
+        private val memo: String,
         private val note: String?,
-        private val recipientName: String?,
+        private val recipientName: String,
         private val returnAddress: ReturnAddress?,
         private val signatureText: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /** Details for where Increase will mail the check. */
-        @JsonProperty("mailing_address") fun mailingAddress(): MailingAddress? = mailingAddress
+        @JsonProperty("mailing_address") fun mailingAddress(): MailingAddress = mailingAddress
 
         /** The descriptor that will be printed on the memo field on the check. */
-        @JsonProperty("memo") fun memo(): String? = memo
+        @JsonProperty("memo") fun memo(): String = memo
 
         /** The descriptor that will be printed on the letter included with the check. */
-        @JsonProperty("note") fun note(): String? = note
+        @JsonProperty("note") fun note(): Optional<String> = Optional.ofNullable(note)
 
         /** The name that will be printed on the check in the 'To:' field. */
-        @JsonProperty("recipient_name") fun recipientName(): String? = recipientName
+        @JsonProperty("recipient_name") fun recipientName(): String = recipientName
 
         /**
          * The return address to be printed on the check. If omitted this will default to an
          * Increase-owned address that will mark checks as delivery failed and shred them.
          */
-        @JsonProperty("return_address") fun returnAddress(): ReturnAddress? = returnAddress
+        @JsonProperty("return_address")
+        fun returnAddress(): Optional<ReturnAddress> = Optional.ofNullable(returnAddress)
 
         /**
          * The text that will appear as the signature on the check in cursive font. If not provided,
          * the check will be printed with 'No signature required'.
          */
-        @JsonProperty("signature_text") fun signatureText(): String? = signatureText
+        @JsonProperty("signature_text")
+        fun signatureText(): Optional<String> = Optional.ofNullable(signatureText)
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -581,13 +593,13 @@ constructor(
 
             @JvmSynthetic
             internal fun from(physicalCheck: PhysicalCheck) = apply {
-                this.mailingAddress = physicalCheck.mailingAddress
-                this.memo = physicalCheck.memo
-                this.note = physicalCheck.note
-                this.recipientName = physicalCheck.recipientName
-                this.returnAddress = physicalCheck.returnAddress
-                this.signatureText = physicalCheck.signatureText
-                additionalProperties(physicalCheck.additionalProperties)
+                mailingAddress = physicalCheck.mailingAddress
+                memo = physicalCheck.memo
+                note = physicalCheck.note
+                recipientName = physicalCheck.recipientName
+                returnAddress = physicalCheck.returnAddress
+                signatureText = physicalCheck.signatureText
+                additionalProperties = physicalCheck.additionalProperties.toMutableMap()
             }
 
             /** Details for where Increase will mail the check. */
@@ -624,16 +636,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): PhysicalCheck =
@@ -653,35 +671,35 @@ constructor(
         @NoAutoDetect
         class MailingAddress
         private constructor(
-            private val city: String?,
-            private val line1: String?,
+            private val city: String,
+            private val line1: String,
             private val line2: String?,
             private val name: String?,
-            private val postalCode: String?,
-            private val state: String?,
+            private val postalCode: String,
+            private val state: String,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
             /** The city component of the check's destination address. */
-            @JsonProperty("city") fun city(): String? = city
+            @JsonProperty("city") fun city(): String = city
 
             /** The first line of the address component of the check's destination address. */
-            @JsonProperty("line1") fun line1(): String? = line1
+            @JsonProperty("line1") fun line1(): String = line1
 
             /** The second line of the address component of the check's destination address. */
-            @JsonProperty("line2") fun line2(): String? = line2
+            @JsonProperty("line2") fun line2(): Optional<String> = Optional.ofNullable(line2)
 
             /**
              * The name component of the check's destination address. Defaults to the provided
              * `recipient_name` parameter.
              */
-            @JsonProperty("name") fun name(): String? = name
+            @JsonProperty("name") fun name(): Optional<String> = Optional.ofNullable(name)
 
             /** The postal code component of the check's destination address. */
-            @JsonProperty("postal_code") fun postalCode(): String? = postalCode
+            @JsonProperty("postal_code") fun postalCode(): String = postalCode
 
             /** The US state component of the check's destination address. */
-            @JsonProperty("state") fun state(): String? = state
+            @JsonProperty("state") fun state(): String = state
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -706,13 +724,13 @@ constructor(
 
                 @JvmSynthetic
                 internal fun from(mailingAddress: MailingAddress) = apply {
-                    this.city = mailingAddress.city
-                    this.line1 = mailingAddress.line1
-                    this.line2 = mailingAddress.line2
-                    this.name = mailingAddress.name
-                    this.postalCode = mailingAddress.postalCode
-                    this.state = mailingAddress.state
-                    additionalProperties(mailingAddress.additionalProperties)
+                    city = mailingAddress.city
+                    line1 = mailingAddress.line1
+                    line2 = mailingAddress.line2
+                    name = mailingAddress.name
+                    postalCode = mailingAddress.postalCode
+                    state = mailingAddress.state
+                    additionalProperties = mailingAddress.additionalProperties.toMutableMap()
                 }
 
                 /** The city component of the check's destination address. */
@@ -739,18 +757,26 @@ constructor(
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): MailingAddress =
                     MailingAddress(
@@ -790,32 +816,32 @@ constructor(
         @NoAutoDetect
         class ReturnAddress
         private constructor(
-            private val city: String?,
-            private val line1: String?,
+            private val city: String,
+            private val line1: String,
             private val line2: String?,
-            private val name: String?,
-            private val postalCode: String?,
-            private val state: String?,
+            private val name: String,
+            private val postalCode: String,
+            private val state: String,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
             /** The city of the return address. */
-            @JsonProperty("city") fun city(): String? = city
+            @JsonProperty("city") fun city(): String = city
 
             /** The first line of the return address. */
-            @JsonProperty("line1") fun line1(): String? = line1
+            @JsonProperty("line1") fun line1(): String = line1
 
             /** The second line of the return address. */
-            @JsonProperty("line2") fun line2(): String? = line2
+            @JsonProperty("line2") fun line2(): Optional<String> = Optional.ofNullable(line2)
 
             /** The name of the return address. */
-            @JsonProperty("name") fun name(): String? = name
+            @JsonProperty("name") fun name(): String = name
 
             /** The postal code of the return address. */
-            @JsonProperty("postal_code") fun postalCode(): String? = postalCode
+            @JsonProperty("postal_code") fun postalCode(): String = postalCode
 
             /** The US state of the return address. */
-            @JsonProperty("state") fun state(): String? = state
+            @JsonProperty("state") fun state(): String = state
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -840,13 +866,13 @@ constructor(
 
                 @JvmSynthetic
                 internal fun from(returnAddress: ReturnAddress) = apply {
-                    this.city = returnAddress.city
-                    this.line1 = returnAddress.line1
-                    this.line2 = returnAddress.line2
-                    this.name = returnAddress.name
-                    this.postalCode = returnAddress.postalCode
-                    this.state = returnAddress.state
-                    additionalProperties(returnAddress.additionalProperties)
+                    city = returnAddress.city
+                    line1 = returnAddress.line1
+                    line2 = returnAddress.line2
+                    name = returnAddress.name
+                    postalCode = returnAddress.postalCode
+                    state = returnAddress.state
+                    additionalProperties = returnAddress.additionalProperties.toMutableMap()
                 }
 
                 /** The city of the return address. */
@@ -870,18 +896,26 @@ constructor(
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): ReturnAddress =
                     ReturnAddress(
@@ -949,7 +983,8 @@ constructor(
          * this is omitted, Increase will generate a check number for you; you should inspect the
          * response and use that check number.
          */
-        @JsonProperty("check_number") fun checkNumber(): String? = checkNumber
+        @JsonProperty("check_number")
+        fun checkNumber(): Optional<String> = Optional.ofNullable(checkNumber)
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -969,8 +1004,8 @@ constructor(
 
             @JvmSynthetic
             internal fun from(thirdParty: ThirdParty) = apply {
-                this.checkNumber = thirdParty.checkNumber
-                additionalProperties(thirdParty.additionalProperties)
+                checkNumber = thirdParty.checkNumber
+                additionalProperties = thirdParty.additionalProperties.toMutableMap()
             }
 
             /**
@@ -983,16 +1018,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): ThirdParty = ThirdParty(checkNumber, additionalProperties.toImmutable())

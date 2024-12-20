@@ -40,7 +40,7 @@ class SimulationRealTimePaymentsTransferCompleteParamsTest {
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.rejection())
-            .isEqualTo(
+            .contains(
                 SimulationRealTimePaymentsTransferCompleteParams.Rejection.builder()
                     .rejectReasonCode(
                         SimulationRealTimePaymentsTransferCompleteParams.Rejection.RejectReasonCode

@@ -28,7 +28,7 @@ class CardDisputeCreateParamsTest {
         assertThat(body).isNotNull
         assertThat(body.disputedTransactionId()).isEqualTo("transaction_uyrp7fld2ium70oa7oi")
         assertThat(body.explanation()).isEqualTo("Unauthorized recurring transaction.")
-        assertThat(body.amount()).isEqualTo(1L)
+        assertThat(body.amount()).contains(1L)
     }
 
     @Test

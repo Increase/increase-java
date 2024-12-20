@@ -36,8 +36,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     /** The identifier for the Account the Entry belongs to. */
     fun accountId(): String = accountId.getRequired("account_id")
 
@@ -88,6 +86,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): BookkeepingEntry = apply {
         if (!validated) {
             accountId()
@@ -119,13 +119,13 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(bookkeepingEntry: BookkeepingEntry) = apply {
-            this.accountId = bookkeepingEntry.accountId
-            this.amount = bookkeepingEntry.amount
-            this.createdAt = bookkeepingEntry.createdAt
-            this.entrySetId = bookkeepingEntry.entrySetId
-            this.id = bookkeepingEntry.id
-            this.type = bookkeepingEntry.type
-            additionalProperties(bookkeepingEntry.additionalProperties)
+            accountId = bookkeepingEntry.accountId
+            amount = bookkeepingEntry.amount
+            createdAt = bookkeepingEntry.createdAt
+            entrySetId = bookkeepingEntry.entrySetId
+            id = bookkeepingEntry.id
+            type = bookkeepingEntry.type
+            additionalProperties = bookkeepingEntry.additionalProperties.toMutableMap()
         }
 
         /** The identifier for the Account the Entry belongs to. */
@@ -188,16 +188,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): BookkeepingEntry =

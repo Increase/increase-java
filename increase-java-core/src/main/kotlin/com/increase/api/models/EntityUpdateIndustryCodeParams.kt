@@ -53,7 +53,7 @@ constructor(
     @NoAutoDetect
     class EntityUpdateIndustryCodeBody
     internal constructor(
-        private val industryCode: String?,
+        private val industryCode: String,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -63,7 +63,7 @@ constructor(
          * list of classification codes is available
          * [here](https://increase.com/documentation/data-dictionary#north-american-industry-classification-system-codes).
          */
-        @JsonProperty("industry_code") fun industryCode(): String? = industryCode
+        @JsonProperty("industry_code") fun industryCode(): String = industryCode
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -83,8 +83,9 @@ constructor(
 
             @JvmSynthetic
             internal fun from(entityUpdateIndustryCodeBody: EntityUpdateIndustryCodeBody) = apply {
-                this.industryCode = entityUpdateIndustryCodeBody.industryCode
-                additionalProperties(entityUpdateIndustryCodeBody.additionalProperties)
+                industryCode = entityUpdateIndustryCodeBody.industryCode
+                additionalProperties =
+                    entityUpdateIndustryCodeBody.additionalProperties.toMutableMap()
             }
 
             /**
@@ -98,16 +99,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): EntityUpdateIndustryCodeBody =

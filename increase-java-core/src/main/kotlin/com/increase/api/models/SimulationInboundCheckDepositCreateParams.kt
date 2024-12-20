@@ -54,20 +54,20 @@ constructor(
     @NoAutoDetect
     class SimulationInboundCheckDepositCreateBody
     internal constructor(
-        private val accountNumberId: String?,
-        private val amount: Long?,
-        private val checkNumber: String?,
+        private val accountNumberId: String,
+        private val amount: Long,
+        private val checkNumber: String,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /** The identifier of the Account Number the Inbound Check Deposit will be against. */
-        @JsonProperty("account_number_id") fun accountNumberId(): String? = accountNumberId
+        @JsonProperty("account_number_id") fun accountNumberId(): String = accountNumberId
 
         /** The check amount in cents. */
-        @JsonProperty("amount") fun amount(): Long? = amount
+        @JsonProperty("amount") fun amount(): Long = amount
 
         /** The check number on the check to be deposited. */
-        @JsonProperty("check_number") fun checkNumber(): String? = checkNumber
+        @JsonProperty("check_number") fun checkNumber(): String = checkNumber
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -91,10 +91,11 @@ constructor(
             internal fun from(
                 simulationInboundCheckDepositCreateBody: SimulationInboundCheckDepositCreateBody
             ) = apply {
-                this.accountNumberId = simulationInboundCheckDepositCreateBody.accountNumberId
-                this.amount = simulationInboundCheckDepositCreateBody.amount
-                this.checkNumber = simulationInboundCheckDepositCreateBody.checkNumber
-                additionalProperties(simulationInboundCheckDepositCreateBody.additionalProperties)
+                accountNumberId = simulationInboundCheckDepositCreateBody.accountNumberId
+                amount = simulationInboundCheckDepositCreateBody.amount
+                checkNumber = simulationInboundCheckDepositCreateBody.checkNumber
+                additionalProperties =
+                    simulationInboundCheckDepositCreateBody.additionalProperties.toMutableMap()
             }
 
             /** The identifier of the Account Number the Inbound Check Deposit will be against. */
@@ -112,16 +113,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): SimulationInboundCheckDepositCreateBody =

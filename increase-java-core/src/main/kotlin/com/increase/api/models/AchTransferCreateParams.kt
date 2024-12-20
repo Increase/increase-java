@@ -127,9 +127,9 @@ constructor(
     @NoAutoDetect
     class AchTransferCreateBody
     internal constructor(
-        private val accountId: String?,
-        private val amount: Long?,
-        private val statementDescriptor: String?,
+        private val accountId: String,
+        private val amount: Long,
+        private val statementDescriptor: String,
         private val accountNumber: String?,
         private val addenda: Addenda?,
         private val companyDescriptiveDate: String?,
@@ -150,14 +150,14 @@ constructor(
     ) {
 
         /** The Increase identifier for the account that will send the transfer. */
-        @JsonProperty("account_id") fun accountId(): String? = accountId
+        @JsonProperty("account_id") fun accountId(): String = accountId
 
         /**
          * The transfer amount in USD cents. A positive amount originates a credit transfer pushing
          * funds to the receiving account. A negative amount originates a debit transfer pulling
          * funds from the receiving account.
          */
-        @JsonProperty("amount") fun amount(): Long? = amount
+        @JsonProperty("amount") fun amount(): Long = amount
 
         /**
          * A description you choose to give the transfer. This will be saved with the transfer
@@ -168,65 +168,73 @@ constructor(
          * on this fallback.
          */
         @JsonProperty("statement_descriptor")
-        fun statementDescriptor(): String? = statementDescriptor
+        fun statementDescriptor(): String = statementDescriptor
 
         /** The account number for the destination account. */
-        @JsonProperty("account_number") fun accountNumber(): String? = accountNumber
+        @JsonProperty("account_number")
+        fun accountNumber(): Optional<String> = Optional.ofNullable(accountNumber)
 
         /**
          * Additional information that will be sent to the recipient. This is included in the
          * transfer data sent to the receiving bank.
          */
-        @JsonProperty("addenda") fun addenda(): Addenda? = addenda
+        @JsonProperty("addenda") fun addenda(): Optional<Addenda> = Optional.ofNullable(addenda)
 
         /**
          * The description of the date of the transfer, usually in the format `YYMMDD`. This is
          * included in the transfer data sent to the receiving bank.
          */
         @JsonProperty("company_descriptive_date")
-        fun companyDescriptiveDate(): String? = companyDescriptiveDate
+        fun companyDescriptiveDate(): Optional<String> = Optional.ofNullable(companyDescriptiveDate)
 
         /**
          * The data you choose to associate with the transfer. This is included in the transfer data
          * sent to the receiving bank.
          */
         @JsonProperty("company_discretionary_data")
-        fun companyDiscretionaryData(): String? = companyDiscretionaryData
+        fun companyDiscretionaryData(): Optional<String> =
+            Optional.ofNullable(companyDiscretionaryData)
 
         /**
          * A description of the transfer. This is included in the transfer data sent to the
          * receiving bank.
          */
         @JsonProperty("company_entry_description")
-        fun companyEntryDescription(): String? = companyEntryDescription
+        fun companyEntryDescription(): Optional<String> =
+            Optional.ofNullable(companyEntryDescription)
 
         /**
          * The name by which the recipient knows you. This is included in the transfer data sent to
          * the receiving bank.
          */
-        @JsonProperty("company_name") fun companyName(): String? = companyName
+        @JsonProperty("company_name")
+        fun companyName(): Optional<String> = Optional.ofNullable(companyName)
 
         /** The type of entity that owns the account to which the ACH Transfer is being sent. */
         @JsonProperty("destination_account_holder")
-        fun destinationAccountHolder(): DestinationAccountHolder? = destinationAccountHolder
+        fun destinationAccountHolder(): Optional<DestinationAccountHolder> =
+            Optional.ofNullable(destinationAccountHolder)
 
         /**
          * The ID of an External Account to initiate a transfer to. If this parameter is provided,
          * `account_number`, `routing_number`, and `funding` must be absent.
          */
-        @JsonProperty("external_account_id") fun externalAccountId(): String? = externalAccountId
+        @JsonProperty("external_account_id")
+        fun externalAccountId(): Optional<String> = Optional.ofNullable(externalAccountId)
 
         /** The type of the account to which the transfer will be sent. */
-        @JsonProperty("funding") fun funding(): Funding? = funding
+        @JsonProperty("funding") fun funding(): Optional<Funding> = Optional.ofNullable(funding)
 
         /** Your identifier for the transfer recipient. */
-        @JsonProperty("individual_id") fun individualId(): String? = individualId
+        @JsonProperty("individual_id")
+        fun individualId(): Optional<String> = Optional.ofNullable(individualId)
 
         /**
          * The name of the transfer recipient. This value is informational and not verified by the
          * recipient's bank.
          */
-        @JsonProperty("individual_name") fun individualName(): String? = individualName
+        @JsonProperty("individual_name")
+        fun individualName(): Optional<String> = Optional.ofNullable(individualName)
 
         /**
          * Configuration for how the effective date of the transfer will be set. This determines
@@ -235,24 +243,29 @@ constructor(
          * set.
          */
         @JsonProperty("preferred_effective_date")
-        fun preferredEffectiveDate(): PreferredEffectiveDate? = preferredEffectiveDate
+        fun preferredEffectiveDate(): Optional<PreferredEffectiveDate> =
+            Optional.ofNullable(preferredEffectiveDate)
 
         /** Whether the transfer requires explicit approval via the dashboard or API. */
-        @JsonProperty("require_approval") fun requireApproval(): Boolean? = requireApproval
+        @JsonProperty("require_approval")
+        fun requireApproval(): Optional<Boolean> = Optional.ofNullable(requireApproval)
 
         /**
          * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
          * account.
          */
-        @JsonProperty("routing_number") fun routingNumber(): String? = routingNumber
+        @JsonProperty("routing_number")
+        fun routingNumber(): Optional<String> = Optional.ofNullable(routingNumber)
 
         /** The Standard Entry Class (SEC) code to use for the transfer. */
         @JsonProperty("standard_entry_class_code")
-        fun standardEntryClassCode(): StandardEntryClassCode? = standardEntryClassCode
+        fun standardEntryClassCode(): Optional<StandardEntryClassCode> =
+            Optional.ofNullable(standardEntryClassCode)
 
         /** The timing of the transaction. */
         @JsonProperty("transaction_timing")
-        fun transactionTiming(): TransactionTiming? = transactionTiming
+        fun transactionTiming(): Optional<TransactionTiming> =
+            Optional.ofNullable(transactionTiming)
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -290,26 +303,26 @@ constructor(
 
             @JvmSynthetic
             internal fun from(achTransferCreateBody: AchTransferCreateBody) = apply {
-                this.accountId = achTransferCreateBody.accountId
-                this.amount = achTransferCreateBody.amount
-                this.statementDescriptor = achTransferCreateBody.statementDescriptor
-                this.accountNumber = achTransferCreateBody.accountNumber
-                this.addenda = achTransferCreateBody.addenda
-                this.companyDescriptiveDate = achTransferCreateBody.companyDescriptiveDate
-                this.companyDiscretionaryData = achTransferCreateBody.companyDiscretionaryData
-                this.companyEntryDescription = achTransferCreateBody.companyEntryDescription
-                this.companyName = achTransferCreateBody.companyName
-                this.destinationAccountHolder = achTransferCreateBody.destinationAccountHolder
-                this.externalAccountId = achTransferCreateBody.externalAccountId
-                this.funding = achTransferCreateBody.funding
-                this.individualId = achTransferCreateBody.individualId
-                this.individualName = achTransferCreateBody.individualName
-                this.preferredEffectiveDate = achTransferCreateBody.preferredEffectiveDate
-                this.requireApproval = achTransferCreateBody.requireApproval
-                this.routingNumber = achTransferCreateBody.routingNumber
-                this.standardEntryClassCode = achTransferCreateBody.standardEntryClassCode
-                this.transactionTiming = achTransferCreateBody.transactionTiming
-                additionalProperties(achTransferCreateBody.additionalProperties)
+                accountId = achTransferCreateBody.accountId
+                amount = achTransferCreateBody.amount
+                statementDescriptor = achTransferCreateBody.statementDescriptor
+                accountNumber = achTransferCreateBody.accountNumber
+                addenda = achTransferCreateBody.addenda
+                companyDescriptiveDate = achTransferCreateBody.companyDescriptiveDate
+                companyDiscretionaryData = achTransferCreateBody.companyDiscretionaryData
+                companyEntryDescription = achTransferCreateBody.companyEntryDescription
+                companyName = achTransferCreateBody.companyName
+                destinationAccountHolder = achTransferCreateBody.destinationAccountHolder
+                externalAccountId = achTransferCreateBody.externalAccountId
+                funding = achTransferCreateBody.funding
+                individualId = achTransferCreateBody.individualId
+                individualName = achTransferCreateBody.individualName
+                preferredEffectiveDate = achTransferCreateBody.preferredEffectiveDate
+                requireApproval = achTransferCreateBody.requireApproval
+                routingNumber = achTransferCreateBody.routingNumber
+                standardEntryClassCode = achTransferCreateBody.standardEntryClassCode
+                transactionTiming = achTransferCreateBody.transactionTiming
+                additionalProperties = achTransferCreateBody.additionalProperties.toMutableMap()
             }
 
             /** The Increase identifier for the account that will send the transfer. */
@@ -452,16 +465,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): AchTransferCreateBody =
@@ -843,25 +862,25 @@ constructor(
     @NoAutoDetect
     class Addenda
     private constructor(
-        private val category: Category?,
+        private val category: Category,
         private val freeform: Freeform?,
         private val paymentOrderRemittanceAdvice: PaymentOrderRemittanceAdvice?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /** The type of addenda to pass with the transfer. */
-        @JsonProperty("category") fun category(): Category? = category
+        @JsonProperty("category") fun category(): Category = category
 
         /** Unstructured `payment_related_information` passed through with the transfer. */
-        @JsonProperty("freeform") fun freeform(): Freeform? = freeform
+        @JsonProperty("freeform") fun freeform(): Optional<Freeform> = Optional.ofNullable(freeform)
 
         /**
          * Structured ASC X12 820 remittance advice records. Please reach out to
          * [support@increase.com](mailto:support@increase.com) for more information.
          */
         @JsonProperty("payment_order_remittance_advice")
-        fun paymentOrderRemittanceAdvice(): PaymentOrderRemittanceAdvice? =
-            paymentOrderRemittanceAdvice
+        fun paymentOrderRemittanceAdvice(): Optional<PaymentOrderRemittanceAdvice> =
+            Optional.ofNullable(paymentOrderRemittanceAdvice)
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -883,10 +902,10 @@ constructor(
 
             @JvmSynthetic
             internal fun from(addenda: Addenda) = apply {
-                this.category = addenda.category
-                this.freeform = addenda.freeform
-                this.paymentOrderRemittanceAdvice = addenda.paymentOrderRemittanceAdvice
-                additionalProperties(addenda.additionalProperties)
+                category = addenda.category
+                freeform = addenda.freeform
+                paymentOrderRemittanceAdvice = addenda.paymentOrderRemittanceAdvice
+                additionalProperties = addenda.additionalProperties.toMutableMap()
             }
 
             /** The type of addenda to pass with the transfer. */
@@ -908,16 +927,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Addenda =
@@ -992,7 +1017,7 @@ constructor(
         @NoAutoDetect
         class Freeform
         private constructor(
-            private val entries: List<Entry>?,
+            private val entries: List<Entry>,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
@@ -1000,7 +1025,7 @@ constructor(
              * Each entry represents an addendum sent with the transfer. Please reach out to
              * [support@increase.com](mailto:support@increase.com) to send more than one addendum.
              */
-            @JsonProperty("entries") fun entries(): List<Entry>? = entries
+            @JsonProperty("entries") fun entries(): List<Entry> = entries
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -1020,8 +1045,8 @@ constructor(
 
                 @JvmSynthetic
                 internal fun from(freeform: Freeform) = apply {
-                    this.entries = freeform.entries
-                    additionalProperties(freeform.additionalProperties)
+                    entries = freeform.entries.toMutableList()
+                    additionalProperties = freeform.additionalProperties.toMutableMap()
                 }
 
                 /**
@@ -1034,18 +1059,26 @@ constructor(
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): Freeform =
                     Freeform(
@@ -1059,13 +1092,13 @@ constructor(
             @NoAutoDetect
             class Entry
             private constructor(
-                private val paymentRelatedInformation: String?,
+                private val paymentRelatedInformation: String,
                 private val additionalProperties: Map<String, JsonValue>,
             ) {
 
                 /** The payment related information passed in the addendum. */
                 @JsonProperty("payment_related_information")
-                fun paymentRelatedInformation(): String? = paymentRelatedInformation
+                fun paymentRelatedInformation(): String = paymentRelatedInformation
 
                 @JsonAnyGetter
                 @ExcludeMissing
@@ -1085,8 +1118,8 @@ constructor(
 
                     @JvmSynthetic
                     internal fun from(entry: Entry) = apply {
-                        this.paymentRelatedInformation = entry.paymentRelatedInformation
-                        additionalProperties(entry.additionalProperties)
+                        paymentRelatedInformation = entry.paymentRelatedInformation
+                        additionalProperties = entry.additionalProperties.toMutableMap()
                     }
 
                     /** The payment related information passed in the addendum. */
@@ -1097,18 +1130,26 @@ constructor(
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
-                        this.additionalProperties.putAll(additionalProperties)
+                        putAllAdditionalProperties(additionalProperties)
                     }
 
                     @JsonAnySetter
                     fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        this.additionalProperties.put(key, value)
+                        additionalProperties.put(key, value)
                     }
 
                     fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                         apply {
                             this.additionalProperties.putAll(additionalProperties)
                         }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
 
                     fun build(): Entry =
                         Entry(
@@ -1163,12 +1204,12 @@ constructor(
         @NoAutoDetect
         class PaymentOrderRemittanceAdvice
         private constructor(
-            private val invoices: List<Invoice>?,
+            private val invoices: List<Invoice>,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
             /** ASC X12 RMR records for this specific transfer. */
-            @JsonProperty("invoices") fun invoices(): List<Invoice>? = invoices
+            @JsonProperty("invoices") fun invoices(): List<Invoice> = invoices
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -1189,8 +1230,9 @@ constructor(
                 @JvmSynthetic
                 internal fun from(paymentOrderRemittanceAdvice: PaymentOrderRemittanceAdvice) =
                     apply {
-                        this.invoices = paymentOrderRemittanceAdvice.invoices
-                        additionalProperties(paymentOrderRemittanceAdvice.additionalProperties)
+                        invoices = paymentOrderRemittanceAdvice.invoices.toMutableList()
+                        additionalProperties =
+                            paymentOrderRemittanceAdvice.additionalProperties.toMutableMap()
                     }
 
                 /** ASC X12 RMR records for this specific transfer. */
@@ -1199,18 +1241,26 @@ constructor(
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): PaymentOrderRemittanceAdvice =
                     PaymentOrderRemittanceAdvice(
@@ -1224,21 +1274,21 @@ constructor(
             @NoAutoDetect
             class Invoice
             private constructor(
-                private val invoiceNumber: String?,
-                private val paidAmount: Long?,
+                private val invoiceNumber: String,
+                private val paidAmount: Long,
                 private val additionalProperties: Map<String, JsonValue>,
             ) {
 
                 /**
                  * The invoice number for this reference, determined in advance with the receiver.
                  */
-                @JsonProperty("invoice_number") fun invoiceNumber(): String? = invoiceNumber
+                @JsonProperty("invoice_number") fun invoiceNumber(): String = invoiceNumber
 
                 /**
                  * The amount that was paid for this invoice in the minor unit of its currency. For
                  * dollars, for example, this is cents.
                  */
-                @JsonProperty("paid_amount") fun paidAmount(): Long? = paidAmount
+                @JsonProperty("paid_amount") fun paidAmount(): Long = paidAmount
 
                 @JsonAnyGetter
                 @ExcludeMissing
@@ -1259,9 +1309,9 @@ constructor(
 
                     @JvmSynthetic
                     internal fun from(invoice: Invoice) = apply {
-                        this.invoiceNumber = invoice.invoiceNumber
-                        this.paidAmount = invoice.paidAmount
-                        additionalProperties(invoice.additionalProperties)
+                        invoiceNumber = invoice.invoiceNumber
+                        paidAmount = invoice.paidAmount
+                        additionalProperties = invoice.additionalProperties.toMutableMap()
                     }
 
                     /**
@@ -1282,18 +1332,26 @@ constructor(
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
-                        this.additionalProperties.putAll(additionalProperties)
+                        putAllAdditionalProperties(additionalProperties)
                     }
 
                     @JsonAnySetter
                     fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        this.additionalProperties.put(key, value)
+                        additionalProperties.put(key, value)
                     }
 
                     fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                         apply {
                             this.additionalProperties.putAll(additionalProperties)
                         }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
 
                     fun build(): Invoice =
                         Invoice(
@@ -1498,11 +1556,12 @@ constructor(
          * A specific date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format to use as
          * the effective date when submitting this transfer.
          */
-        @JsonProperty("date") fun date(): LocalDate? = date
+        @JsonProperty("date") fun date(): Optional<LocalDate> = Optional.ofNullable(date)
 
         /** A schedule by which Increase will choose an effective date for the transfer. */
         @JsonProperty("settlement_schedule")
-        fun settlementSchedule(): SettlementSchedule? = settlementSchedule
+        fun settlementSchedule(): Optional<SettlementSchedule> =
+            Optional.ofNullable(settlementSchedule)
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1523,9 +1582,9 @@ constructor(
 
             @JvmSynthetic
             internal fun from(preferredEffectiveDate: PreferredEffectiveDate) = apply {
-                this.date = preferredEffectiveDate.date
-                this.settlementSchedule = preferredEffectiveDate.settlementSchedule
-                additionalProperties(preferredEffectiveDate.additionalProperties)
+                date = preferredEffectiveDate.date
+                settlementSchedule = preferredEffectiveDate.settlementSchedule
+                additionalProperties = preferredEffectiveDate.additionalProperties.toMutableMap()
             }
 
             /**
@@ -1542,16 +1601,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): PreferredEffectiveDate =

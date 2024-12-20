@@ -3,7 +3,6 @@
 package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.JsonField
 import com.increase.api.core.NoAutoDetect
@@ -188,12 +187,10 @@ constructor(
             )
     }
 
-    @JsonDeserialize(builder = Status.Builder::class)
-    @NoAutoDetect
     class Status
     private constructor(
         private val in_: List<In>?,
-        private val additionalProperties: Map<String, List<String>>,
+        private val additionalProperties: QueryParams,
     ) {
 
         /**
@@ -201,14 +198,14 @@ constructor(
          * For GET requests, this should be encoded as a comma-delimited string, such as
          * `?in=one,two,three`.
          */
-        fun in_(): List<In>? = in_
+        fun in_(): Optional<List<In>> = Optional.ofNullable(in_)
 
-        fun _additionalProperties(): Map<String, List<String>> = additionalProperties
+        fun _additionalProperties(): QueryParams = additionalProperties
 
         @JvmSynthetic
         internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
             this.in_?.let { putParam("in", listOf(it.joinToString(separator = ","))) }
-            this.additionalProperties.forEach { key, values -> putParam(key, values) }
+            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
         }
 
         fun toBuilder() = Builder().from(this)
@@ -221,12 +218,12 @@ constructor(
         class Builder {
 
             private var in_: List<In>? = null
-            private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
+            private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
             @JvmSynthetic
             internal fun from(status: Status) = apply {
-                this.in_ = status.in_
-                additionalProperties(status.additionalProperties)
+                in_ = status.in_?.toMutableList()
+                additionalProperties = status.additionalProperties.toBuilder()
             }
 
             /**
@@ -236,21 +233,56 @@ constructor(
              */
             fun in_(in_: List<In>) = apply { this.in_ = in_ }
 
-            fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
+            fun additionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: String) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                additionalProperties.put(key, values)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun putAdditionalProperty(key: String, value: List<String>) = apply {
-                this.additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
+            fun putAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
                 apply {
                     this.additionalProperties.putAll(additionalProperties)
                 }
 
-            fun build(): Status = Status(in_?.toImmutable(), additionalProperties.toImmutable())
+            fun replaceAdditionalProperties(key: String, value: String) = apply {
+                additionalProperties.replace(key, value)
+            }
+
+            fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                additionalProperties.replace(key, values)
+            }
+
+            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.replaceAll(additionalProperties)
+            }
+
+            fun replaceAllAdditionalProperties(
+                additionalProperties: Map<String, Iterable<String>>
+            ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+            fun removeAdditionalProperties(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                additionalProperties.removeAll(keys)
+            }
+
+            fun build(): Status = Status(in_?.toImmutable(), additionalProperties.build())
         }
 
         class In
