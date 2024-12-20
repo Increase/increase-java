@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
@@ -22,20 +22,34 @@ import java.util.Objects
  * Account Statements are generated monthly for every active Account. You can access the statement's
  * data via the API or retrieve a PDF with its details via its associated File.
  */
-@JsonDeserialize(builder = AccountStatement.Builder::class)
 @NoAutoDetect
 class AccountStatement
+@JsonCreator
 private constructor(
-    private val accountId: JsonField<String>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val endingBalance: JsonField<Long>,
-    private val fileId: JsonField<String>,
-    private val id: JsonField<String>,
-    private val startingBalance: JsonField<Long>,
-    private val statementPeriodEnd: JsonField<OffsetDateTime>,
-    private val statementPeriodStart: JsonField<OffsetDateTime>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("account_id")
+    @ExcludeMissing
+    private val accountId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("ending_balance")
+    @ExcludeMissing
+    private val endingBalance: JsonField<Long> = JsonMissing.of(),
+    @JsonProperty("file_id")
+    @ExcludeMissing
+    private val fileId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("starting_balance")
+    @ExcludeMissing
+    private val startingBalance: JsonField<Long> = JsonMissing.of(),
+    @JsonProperty("statement_period_end")
+    @ExcludeMissing
+    private val statementPeriodEnd: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("statement_period_start")
+    @ExcludeMissing
+    private val statementPeriodStart: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     /** The identifier for the Account this Account Statement belongs to. */
@@ -181,8 +195,6 @@ private constructor(
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
         /** The identifier for the Account this Account Statement belongs to. */
-        @JsonProperty("account_id")
-        @ExcludeMissing
         fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
         /**
@@ -195,16 +207,12 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account
          * Statement was created.
          */
-        @JsonProperty("created_at")
-        @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The Account's balance at the start of its statement period. */
         fun endingBalance(endingBalance: Long) = endingBalance(JsonField.of(endingBalance))
 
         /** The Account's balance at the start of its statement period. */
-        @JsonProperty("ending_balance")
-        @ExcludeMissing
         fun endingBalance(endingBalance: JsonField<Long>) = apply {
             this.endingBalance = endingBalance
         }
@@ -213,22 +221,18 @@ private constructor(
         fun fileId(fileId: String) = fileId(JsonField.of(fileId))
 
         /** The identifier of the File containing a PDF of the statement. */
-        @JsonProperty("file_id")
-        @ExcludeMissing
         fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
         /** The Account Statement identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Account Statement identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The Account's balance at the start of its statement period. */
         fun startingBalance(startingBalance: Long) = startingBalance(JsonField.of(startingBalance))
 
         /** The Account's balance at the start of its statement period. */
-        @JsonProperty("starting_balance")
-        @ExcludeMissing
         fun startingBalance(startingBalance: JsonField<Long>) = apply {
             this.startingBalance = startingBalance
         }
@@ -244,8 +248,6 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the end of the
          * period the Account Statement covers.
          */
-        @JsonProperty("statement_period_end")
-        @ExcludeMissing
         fun statementPeriodEnd(statementPeriodEnd: JsonField<OffsetDateTime>) = apply {
             this.statementPeriodEnd = statementPeriodEnd
         }
@@ -261,8 +263,6 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the start of the
          * period the Account Statement covers.
          */
-        @JsonProperty("statement_period_start")
-        @ExcludeMissing
         fun statementPeriodStart(statementPeriodStart: JsonField<OffsetDateTime>) = apply {
             this.statementPeriodStart = statementPeriodStart
         }
@@ -277,8 +277,6 @@ private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `account_statement`.
          */
-        @JsonProperty("type")
-        @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -286,7 +284,6 @@ private constructor(
             putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
             additionalProperties.put(key, value)
         }

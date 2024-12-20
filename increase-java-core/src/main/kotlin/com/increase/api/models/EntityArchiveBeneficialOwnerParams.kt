@@ -4,13 +4,14 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
@@ -49,12 +50,13 @@ constructor(
         }
     }
 
-    @JsonDeserialize(builder = EntityArchiveBeneficialOwnerBody.Builder::class)
     @NoAutoDetect
     class EntityArchiveBeneficialOwnerBody
+    @JsonCreator
     internal constructor(
-        private val beneficialOwnerId: String,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("beneficial_owner_id") private val beneficialOwnerId: String,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /**
@@ -90,7 +92,6 @@ constructor(
              * The identifying details of anyone controlling or owning 25% or more of the
              * corporation.
              */
-            @JsonProperty("beneficial_owner_id")
             fun beneficialOwnerId(beneficialOwnerId: String) = apply {
                 this.beneficialOwnerId = beneficialOwnerId
             }
@@ -100,7 +101,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

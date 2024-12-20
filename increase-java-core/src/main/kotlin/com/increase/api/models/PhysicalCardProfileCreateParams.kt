@@ -4,13 +4,14 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
@@ -54,15 +55,16 @@ constructor(
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(builder = PhysicalCardProfileCreateBody.Builder::class)
     @NoAutoDetect
     class PhysicalCardProfileCreateBody
+    @JsonCreator
     internal constructor(
-        private val carrierImageFileId: String,
-        private val contactPhone: String,
-        private val description: String,
-        private val frontImageFileId: String,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("carrier_image_file_id") private val carrierImageFileId: String,
+        @JsonProperty("contact_phone") private val contactPhone: String,
+        @JsonProperty("description") private val description: String,
+        @JsonProperty("front_image_file_id") private val frontImageFileId: String,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The identifier of the File containing the physical card's carrier image. */
@@ -108,21 +110,17 @@ constructor(
                 }
 
             /** The identifier of the File containing the physical card's carrier image. */
-            @JsonProperty("carrier_image_file_id")
             fun carrierImageFileId(carrierImageFileId: String) = apply {
                 this.carrierImageFileId = carrierImageFileId
             }
 
             /** A phone number the user can contact to receive support for their card. */
-            @JsonProperty("contact_phone")
             fun contactPhone(contactPhone: String) = apply { this.contactPhone = contactPhone }
 
             /** A description you can use to identify the Card Profile. */
-            @JsonProperty("description")
             fun description(description: String) = apply { this.description = description }
 
             /** The identifier of the File containing the physical card's front image. */
-            @JsonProperty("front_image_file_id")
             fun frontImageFileId(frontImageFileId: String) = apply {
                 this.frontImageFileId = frontImageFileId
             }
@@ -132,7 +130,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

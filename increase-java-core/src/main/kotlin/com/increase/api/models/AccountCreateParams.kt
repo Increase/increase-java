@@ -4,13 +4,14 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
@@ -55,15 +56,16 @@ constructor(
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(builder = AccountCreateBody.Builder::class)
     @NoAutoDetect
     class AccountCreateBody
+    @JsonCreator
     internal constructor(
-        private val name: String,
-        private val entityId: String?,
-        private val informationalEntityId: String?,
-        private val programId: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("name") private val name: String,
+        @JsonProperty("entity_id") private val entityId: String?,
+        @JsonProperty("informational_entity_id") private val informationalEntityId: String?,
+        @JsonProperty("program_id") private val programId: String?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The name you choose for the Account. */
@@ -115,17 +117,15 @@ constructor(
             }
 
             /** The name you choose for the Account. */
-            @JsonProperty("name") fun name(name: String) = apply { this.name = name }
+            fun name(name: String) = apply { this.name = name }
 
             /** The identifier for the Entity that will own the Account. */
-            @JsonProperty("entity_id")
             fun entityId(entityId: String) = apply { this.entityId = entityId }
 
             /**
              * The identifier of an Entity that, while not owning the Account, is associated with
              * its activity. Its relationship to your group must be `informational`.
              */
-            @JsonProperty("informational_entity_id")
             fun informationalEntityId(informationalEntityId: String) = apply {
                 this.informationalEntityId = informationalEntityId
             }
@@ -134,7 +134,6 @@ constructor(
              * The identifier for the Program that this Account falls under. Required if you operate
              * more than one Program.
              */
-            @JsonProperty("program_id")
             fun programId(programId: String) = apply { this.programId = programId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -142,7 +141,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

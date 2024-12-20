@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
@@ -14,6 +13,7 @@ import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
@@ -60,13 +60,14 @@ constructor(
         }
     }
 
-    @JsonDeserialize(builder = SimulationAchTransferCreateNotificationOfChangeBody.Builder::class)
     @NoAutoDetect
     class SimulationAchTransferCreateNotificationOfChangeBody
+    @JsonCreator
     internal constructor(
-        private val changeCode: ChangeCode,
-        private val correctedData: String,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("change_code") private val changeCode: ChangeCode,
+        @JsonProperty("corrected_data") private val correctedData: String,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The reason for the notification of change. */
@@ -105,11 +106,9 @@ constructor(
             }
 
             /** The reason for the notification of change. */
-            @JsonProperty("change_code")
             fun changeCode(changeCode: ChangeCode) = apply { this.changeCode = changeCode }
 
             /** The corrected data for the notification of change (e.g., a new routing number). */
-            @JsonProperty("corrected_data")
             fun correctedData(correctedData: String) = apply { this.correctedData = correctedData }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -117,7 +116,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

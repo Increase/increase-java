@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
@@ -23,17 +23,25 @@ import java.util.Optional
  * Increase generates certain documents / forms automatically for your application; they can be
  * listed here.
  */
-@JsonDeserialize(builder = Document.Builder::class)
 @NoAutoDetect
 class Document
+@JsonCreator
 private constructor(
-    private val category: JsonField<Category>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val entityId: JsonField<String>,
-    private val fileId: JsonField<String>,
-    private val id: JsonField<String>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("category")
+    @ExcludeMissing
+    private val category: JsonField<Category> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("entity_id")
+    @ExcludeMissing
+    private val entityId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("file_id")
+    @ExcludeMissing
+    private val fileId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     /** The type of document. */
@@ -132,8 +140,6 @@ private constructor(
         fun category(category: Category) = category(JsonField.of(category))
 
         /** The type of document. */
-        @JsonProperty("category")
-        @ExcludeMissing
         fun category(category: JsonField<Category>) = apply { this.category = category }
 
         /**
@@ -146,31 +152,25 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Document was
          * created.
          */
-        @JsonProperty("created_at")
-        @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The identifier of the Entity the document was generated for. */
         fun entityId(entityId: String) = entityId(JsonField.of(entityId))
 
         /** The identifier of the Entity the document was generated for. */
-        @JsonProperty("entity_id")
-        @ExcludeMissing
         fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
 
         /** The identifier of the File containing the Document's contents. */
         fun fileId(fileId: String) = fileId(JsonField.of(fileId))
 
         /** The identifier of the File containing the Document's contents. */
-        @JsonProperty("file_id")
-        @ExcludeMissing
         fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
         /** The Document identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Document identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -182,8 +182,6 @@ private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `document`.
          */
-        @JsonProperty("type")
-        @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -191,7 +189,6 @@ private constructor(
             putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
             additionalProperties.put(key, value)
         }

@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
@@ -25,19 +25,29 @@ import java.util.Optional
  * through your [developer dashboard](https://dashboard.increase.com/developers/webhooks) or the
  * API. For more information, see our [webhooks guide](https://increase.com/documentation/webhooks).
  */
-@JsonDeserialize(builder = EventSubscription.Builder::class)
 @NoAutoDetect
 class EventSubscription
+@JsonCreator
 private constructor(
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val id: JsonField<String>,
-    private val idempotencyKey: JsonField<String>,
-    private val oauthConnectionId: JsonField<String>,
-    private val selectedEventCategory: JsonField<SelectedEventCategory>,
-    private val status: JsonField<Status>,
-    private val type: JsonField<Type>,
-    private val url: JsonField<String>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    private val idempotencyKey: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("oauth_connection_id")
+    @ExcludeMissing
+    private val oauthConnectionId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("selected_event_category")
+    @ExcludeMissing
+    private val selectedEventCategory: JsonField<SelectedEventCategory> = JsonMissing.of(),
+    @JsonProperty("status")
+    @ExcludeMissing
+    private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonProperty("url") @ExcludeMissing private val url: JsonField<String> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     /** The time the event subscription was created. */
@@ -177,15 +187,13 @@ private constructor(
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /** The time the event subscription was created. */
-        @JsonProperty("created_at")
-        @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The event subscription identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The event subscription identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -199,8 +207,6 @@ private constructor(
          * is used to ensure that a request is only processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        @JsonProperty("idempotency_key")
-        @ExcludeMissing
         fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
             this.idempotencyKey = idempotencyKey
         }
@@ -216,8 +222,6 @@ private constructor(
          * If specified, this subscription will only receive webhooks for Events associated with
          * this OAuth Connection.
          */
-        @JsonProperty("oauth_connection_id")
-        @ExcludeMissing
         fun oauthConnectionId(oauthConnectionId: JsonField<String>) = apply {
             this.oauthConnectionId = oauthConnectionId
         }
@@ -233,8 +237,6 @@ private constructor(
          * If specified, this subscription will only receive webhooks for Events with the specified
          * `category`.
          */
-        @JsonProperty("selected_event_category")
-        @ExcludeMissing
         fun selectedEventCategory(selectedEventCategory: JsonField<SelectedEventCategory>) = apply {
             this.selectedEventCategory = selectedEventCategory
         }
@@ -243,8 +245,6 @@ private constructor(
         fun status(status: Status) = status(JsonField.of(status))
 
         /** This indicates if we'll send notifications to this subscription. */
-        @JsonProperty("status")
-        @ExcludeMissing
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
@@ -257,16 +257,12 @@ private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `event_subscription`.
          */
-        @JsonProperty("type")
-        @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         /** The webhook url where we'll send notifications. */
         fun url(url: String) = url(JsonField.of(url))
 
         /** The webhook url where we'll send notifications. */
-        @JsonProperty("url")
-        @ExcludeMissing
         fun url(url: JsonField<String>) = apply { this.url = url }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -274,7 +270,6 @@ private constructor(
             putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
             additionalProperties.put(key, value)
         }

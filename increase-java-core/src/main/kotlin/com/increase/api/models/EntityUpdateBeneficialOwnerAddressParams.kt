@@ -4,13 +4,14 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
@@ -57,13 +58,14 @@ constructor(
         }
     }
 
-    @JsonDeserialize(builder = EntityUpdateBeneficialOwnerAddressBody.Builder::class)
     @NoAutoDetect
     class EntityUpdateBeneficialOwnerAddressBody
+    @JsonCreator
     internal constructor(
-        private val address: Address,
-        private val beneficialOwnerId: String,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("address") private val address: Address,
+        @JsonProperty("beneficial_owner_id") private val beneficialOwnerId: String,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /**
@@ -108,14 +110,12 @@ constructor(
              * The individual's physical address. Mail receiving locations like PO Boxes and PMB's
              * are disallowed.
              */
-            @JsonProperty("address")
             fun address(address: Address) = apply { this.address = address }
 
             /**
              * The identifying details of anyone controlling or owning 25% or more of the
              * corporation.
              */
-            @JsonProperty("beneficial_owner_id")
             fun beneficialOwnerId(beneficialOwnerId: String) = apply {
                 this.beneficialOwnerId = beneficialOwnerId
             }
@@ -125,7 +125,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -356,16 +355,17 @@ constructor(
      * The individual's physical address. Mail receiving locations like PO Boxes and PMB's are
      * disallowed.
      */
-    @JsonDeserialize(builder = Address.Builder::class)
     @NoAutoDetect
     class Address
+    @JsonCreator
     private constructor(
-        private val city: String,
-        private val line1: String,
-        private val line2: String?,
-        private val state: String,
-        private val zip: String,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("city") private val city: String,
+        @JsonProperty("line1") private val line1: String,
+        @JsonProperty("line2") private val line2: String?,
+        @JsonProperty("state") private val state: String,
+        @JsonProperty("zip") private val zip: String,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The city of the address. */
@@ -417,29 +417,28 @@ constructor(
             }
 
             /** The city of the address. */
-            @JsonProperty("city") fun city(city: String) = apply { this.city = city }
+            fun city(city: String) = apply { this.city = city }
 
             /** The first line of the address. This is usually the street number and street. */
-            @JsonProperty("line1") fun line1(line1: String) = apply { this.line1 = line1 }
+            fun line1(line1: String) = apply { this.line1 = line1 }
 
             /** The second line of the address. This might be the floor or room number. */
-            @JsonProperty("line2") fun line2(line2: String) = apply { this.line2 = line2 }
+            fun line2(line2: String) = apply { this.line2 = line2 }
 
             /**
              * The two-letter United States Postal Service (USPS) abbreviation for the state of the
              * address.
              */
-            @JsonProperty("state") fun state(state: String) = apply { this.state = state }
+            fun state(state: String) = apply { this.state = state }
 
             /** The ZIP code of the address. */
-            @JsonProperty("zip") fun zip(zip: String) = apply { this.zip = zip }
+            fun zip(zip: String) = apply { this.zip = zip }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

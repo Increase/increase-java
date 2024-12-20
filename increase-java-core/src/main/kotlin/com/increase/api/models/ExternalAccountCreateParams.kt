@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
@@ -14,6 +13,7 @@ import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
@@ -63,16 +63,17 @@ constructor(
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(builder = ExternalAccountCreateBody.Builder::class)
     @NoAutoDetect
     class ExternalAccountCreateBody
+    @JsonCreator
     internal constructor(
-        private val accountNumber: String,
-        private val description: String,
-        private val routingNumber: String,
-        private val accountHolder: AccountHolder?,
-        private val funding: Funding?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("account_number") private val accountNumber: String,
+        @JsonProperty("description") private val description: String,
+        @JsonProperty("routing_number") private val routingNumber: String,
+        @JsonProperty("account_holder") private val accountHolder: AccountHolder?,
+        @JsonProperty("funding") private val funding: Funding?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The account number for the destination account. */
@@ -125,28 +126,23 @@ constructor(
             }
 
             /** The account number for the destination account. */
-            @JsonProperty("account_number")
             fun accountNumber(accountNumber: String) = apply { this.accountNumber = accountNumber }
 
             /** The name you choose for the Account. */
-            @JsonProperty("description")
             fun description(description: String) = apply { this.description = description }
 
             /**
              * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the
              * destination account.
              */
-            @JsonProperty("routing_number")
             fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
 
             /** The type of entity that owns the External Account. */
-            @JsonProperty("account_holder")
             fun accountHolder(accountHolder: AccountHolder) = apply {
                 this.accountHolder = accountHolder
             }
 
             /** The type of the destination account. Defaults to `checking`. */
-            @JsonProperty("funding")
             fun funding(funding: Funding) = apply { this.funding = funding }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -154,7 +150,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

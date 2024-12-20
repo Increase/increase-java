@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
@@ -23,31 +23,65 @@ import java.util.Optional
  * Inbound Check Deposits are records of third-parties attempting to deposit checks against your
  * account.
  */
-@JsonDeserialize(builder = InboundCheckDeposit.Builder::class)
 @NoAutoDetect
 class InboundCheckDeposit
+@JsonCreator
 private constructor(
-    private val acceptedAt: JsonField<OffsetDateTime>,
-    private val accountId: JsonField<String>,
-    private val accountNumberId: JsonField<String>,
-    private val adjustments: JsonField<List<Adjustment>>,
-    private val amount: JsonField<Long>,
-    private val backImageFileId: JsonField<String>,
-    private val bankOfFirstDepositRoutingNumber: JsonField<String>,
-    private val checkNumber: JsonField<String>,
-    private val checkTransferId: JsonField<String>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val currency: JsonField<Currency>,
-    private val declinedAt: JsonField<OffsetDateTime>,
-    private val declinedTransactionId: JsonField<String>,
-    private val depositReturn: JsonField<DepositReturn>,
-    private val frontImageFileId: JsonField<String>,
-    private val id: JsonField<String>,
-    private val payeeNameAnalysis: JsonField<PayeeNameAnalysis>,
-    private val status: JsonField<Status>,
-    private val transactionId: JsonField<String>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("accepted_at")
+    @ExcludeMissing
+    private val acceptedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("account_id")
+    @ExcludeMissing
+    private val accountId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("account_number_id")
+    @ExcludeMissing
+    private val accountNumberId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("adjustments")
+    @ExcludeMissing
+    private val adjustments: JsonField<List<Adjustment>> = JsonMissing.of(),
+    @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
+    @JsonProperty("back_image_file_id")
+    @ExcludeMissing
+    private val backImageFileId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("bank_of_first_deposit_routing_number")
+    @ExcludeMissing
+    private val bankOfFirstDepositRoutingNumber: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("check_number")
+    @ExcludeMissing
+    private val checkNumber: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("check_transfer_id")
+    @ExcludeMissing
+    private val checkTransferId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("currency")
+    @ExcludeMissing
+    private val currency: JsonField<Currency> = JsonMissing.of(),
+    @JsonProperty("declined_at")
+    @ExcludeMissing
+    private val declinedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("declined_transaction_id")
+    @ExcludeMissing
+    private val declinedTransactionId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("deposit_return")
+    @ExcludeMissing
+    private val depositReturn: JsonField<DepositReturn> = JsonMissing.of(),
+    @JsonProperty("front_image_file_id")
+    @ExcludeMissing
+    private val frontImageFileId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("payee_name_analysis")
+    @ExcludeMissing
+    private val payeeNameAnalysis: JsonField<PayeeNameAnalysis> = JsonMissing.of(),
+    @JsonProperty("status")
+    @ExcludeMissing
+    private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("transaction_id")
+    @ExcludeMissing
+    private val transactionId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     /**
@@ -346,8 +380,6 @@ private constructor(
          * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which this took
          * place.
          */
-        @JsonProperty("accepted_at")
-        @ExcludeMissing
         fun acceptedAt(acceptedAt: JsonField<OffsetDateTime>) = apply {
             this.acceptedAt = acceptedAt
         }
@@ -356,8 +388,6 @@ private constructor(
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
         /** The Account the check is being deposited against. */
-        @JsonProperty("account_id")
-        @ExcludeMissing
         fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
         /** The Account Number the check is being deposited against. */
@@ -365,8 +395,6 @@ private constructor(
             accountNumberId(JsonField.of(accountNumberId))
 
         /** The Account Number the check is being deposited against. */
-        @JsonProperty("account_number_id")
-        @ExcludeMissing
         fun accountNumberId(accountNumberId: JsonField<String>) = apply {
             this.accountNumberId = accountNumberId
         }
@@ -381,8 +409,6 @@ private constructor(
          * If the deposit or the return was adjusted by the sending institution, this will contain
          * details of the adjustments.
          */
-        @JsonProperty("adjustments")
-        @ExcludeMissing
         fun adjustments(adjustments: JsonField<List<Adjustment>>) = apply {
             this.adjustments = adjustments
         }
@@ -391,8 +417,6 @@ private constructor(
         fun amount(amount: Long) = amount(JsonField.of(amount))
 
         /** The deposited amount in USD cents. */
-        @JsonProperty("amount")
-        @ExcludeMissing
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
         /** The ID for the File containing the image of the back of the check. */
@@ -400,8 +424,6 @@ private constructor(
             backImageFileId(JsonField.of(backImageFileId))
 
         /** The ID for the File containing the image of the back of the check. */
-        @JsonProperty("back_image_file_id")
-        @ExcludeMissing
         fun backImageFileId(backImageFileId: JsonField<String>) = apply {
             this.backImageFileId = backImageFileId
         }
@@ -419,8 +441,6 @@ private constructor(
          * depositing this check. In some rare cases, this is not transmitted via Check21 and the
          * value will be null.
          */
-        @JsonProperty("bank_of_first_deposit_routing_number")
-        @ExcludeMissing
         fun bankOfFirstDepositRoutingNumber(bankOfFirstDepositRoutingNumber: JsonField<String>) =
             apply {
                 this.bankOfFirstDepositRoutingNumber = bankOfFirstDepositRoutingNumber
@@ -430,8 +450,6 @@ private constructor(
         fun checkNumber(checkNumber: String) = checkNumber(JsonField.of(checkNumber))
 
         /** The check number printed on the check being deposited. */
-        @JsonProperty("check_number")
-        @ExcludeMissing
         fun checkNumber(checkNumber: JsonField<String>) = apply { this.checkNumber = checkNumber }
 
         /**
@@ -443,8 +461,6 @@ private constructor(
         /**
          * If this deposit is for an existing Check Transfer, the identifier of that Check Transfer.
          */
-        @JsonProperty("check_transfer_id")
-        @ExcludeMissing
         fun checkTransferId(checkTransferId: JsonField<String>) = apply {
             this.checkTransferId = checkTransferId
         }
@@ -459,16 +475,12 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the deposit
          * was attempted.
          */
-        @JsonProperty("created_at")
-        @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the deposit. */
         fun currency(currency: Currency) = currency(JsonField.of(currency))
 
         /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the deposit. */
-        @JsonProperty("currency")
-        @ExcludeMissing
         fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
         /**
@@ -483,8 +495,6 @@ private constructor(
          * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which this took
          * place.
          */
-        @JsonProperty("declined_at")
-        @ExcludeMissing
         fun declinedAt(declinedAt: JsonField<OffsetDateTime>) = apply {
             this.declinedAt = declinedAt
         }
@@ -500,8 +510,6 @@ private constructor(
          * If the deposit attempt has been rejected, the identifier of the Declined Transaction
          * object created as a result of the failed deposit.
          */
-        @JsonProperty("declined_transaction_id")
-        @ExcludeMissing
         fun declinedTransactionId(declinedTransactionId: JsonField<String>) = apply {
             this.declinedTransactionId = declinedTransactionId
         }
@@ -510,8 +518,6 @@ private constructor(
         fun depositReturn(depositReturn: DepositReturn) = depositReturn(JsonField.of(depositReturn))
 
         /** If you requested a return of this deposit, this will contain details of the return. */
-        @JsonProperty("deposit_return")
-        @ExcludeMissing
         fun depositReturn(depositReturn: JsonField<DepositReturn>) = apply {
             this.depositReturn = depositReturn
         }
@@ -521,8 +527,6 @@ private constructor(
             frontImageFileId(JsonField.of(frontImageFileId))
 
         /** The ID for the File containing the image of the front of the check. */
-        @JsonProperty("front_image_file_id")
-        @ExcludeMissing
         fun frontImageFileId(frontImageFileId: JsonField<String>) = apply {
             this.frontImageFileId = frontImageFileId
         }
@@ -531,7 +535,7 @@ private constructor(
         fun id(id: String) = id(JsonField.of(id))
 
         /** The deposit's identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * Whether the details on the check match the recipient name of the check transfer. This is
@@ -544,8 +548,6 @@ private constructor(
          * Whether the details on the check match the recipient name of the check transfer. This is
          * an optional feature, contact sales to enable.
          */
-        @JsonProperty("payee_name_analysis")
-        @ExcludeMissing
         fun payeeNameAnalysis(payeeNameAnalysis: JsonField<PayeeNameAnalysis>) = apply {
             this.payeeNameAnalysis = payeeNameAnalysis
         }
@@ -554,8 +556,6 @@ private constructor(
         fun status(status: Status) = status(JsonField.of(status))
 
         /** The status of the Inbound Check Deposit. */
-        @JsonProperty("status")
-        @ExcludeMissing
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
@@ -568,8 +568,6 @@ private constructor(
          * If the deposit attempt has been accepted, the identifier of the Transaction object
          * created as a result of the successful deposit.
          */
-        @JsonProperty("transaction_id")
-        @ExcludeMissing
         fun transactionId(transactionId: JsonField<String>) = apply {
             this.transactionId = transactionId
         }
@@ -584,8 +582,6 @@ private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `inbound_check_deposit`.
          */
-        @JsonProperty("type")
-        @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -593,7 +589,6 @@ private constructor(
             putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
             additionalProperties.put(key, value)
         }
@@ -634,15 +629,24 @@ private constructor(
             )
     }
 
-    @JsonDeserialize(builder = Adjustment.Builder::class)
     @NoAutoDetect
     class Adjustment
+    @JsonCreator
     private constructor(
-        private val adjustedAt: JsonField<OffsetDateTime>,
-        private val amount: JsonField<Long>,
-        private val reason: JsonField<Reason>,
-        private val transactionId: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("adjusted_at")
+        @ExcludeMissing
+        private val adjustedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("amount")
+        @ExcludeMissing
+        private val amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("reason")
+        @ExcludeMissing
+        private val reason: JsonField<Reason> = JsonMissing.of(),
+        @JsonProperty("transaction_id")
+        @ExcludeMissing
+        private val transactionId: JsonField<String> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The time at which the return adjustment was received. */
@@ -713,8 +717,6 @@ private constructor(
             fun adjustedAt(adjustedAt: OffsetDateTime) = adjustedAt(JsonField.of(adjustedAt))
 
             /** The time at which the return adjustment was received. */
-            @JsonProperty("adjusted_at")
-            @ExcludeMissing
             fun adjustedAt(adjustedAt: JsonField<OffsetDateTime>) = apply {
                 this.adjustedAt = adjustedAt
             }
@@ -723,24 +725,18 @@ private constructor(
             fun amount(amount: Long) = amount(JsonField.of(amount))
 
             /** The amount of the adjustment. */
-            @JsonProperty("amount")
-            @ExcludeMissing
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /** The reason for the adjustment. */
             fun reason(reason: Reason) = reason(JsonField.of(reason))
 
             /** The reason for the adjustment. */
-            @JsonProperty("reason")
-            @ExcludeMissing
             fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
 
             /** The id of the transaction for the adjustment. */
             fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
 
             /** The id of the transaction for the adjustment. */
-            @JsonProperty("transaction_id")
-            @ExcludeMissing
             fun transactionId(transactionId: JsonField<String>) = apply {
                 this.transactionId = transactionId
             }
@@ -750,7 +746,6 @@ private constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -938,14 +933,21 @@ private constructor(
     }
 
     /** If you requested a return of this deposit, this will contain details of the return. */
-    @JsonDeserialize(builder = DepositReturn.Builder::class)
     @NoAutoDetect
     class DepositReturn
+    @JsonCreator
     private constructor(
-        private val reason: JsonField<Reason>,
-        private val returnedAt: JsonField<OffsetDateTime>,
-        private val transactionId: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("reason")
+        @ExcludeMissing
+        private val reason: JsonField<Reason> = JsonMissing.of(),
+        @JsonProperty("returned_at")
+        @ExcludeMissing
+        private val returnedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("transaction_id")
+        @ExcludeMissing
+        private val transactionId: JsonField<String> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The reason the deposit was returned. */
@@ -1007,16 +1009,12 @@ private constructor(
             fun reason(reason: Reason) = reason(JsonField.of(reason))
 
             /** The reason the deposit was returned. */
-            @JsonProperty("reason")
-            @ExcludeMissing
             fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
 
             /** The time at which the deposit was returned. */
             fun returnedAt(returnedAt: OffsetDateTime) = returnedAt(JsonField.of(returnedAt))
 
             /** The time at which the deposit was returned. */
-            @JsonProperty("returned_at")
-            @ExcludeMissing
             fun returnedAt(returnedAt: JsonField<OffsetDateTime>) = apply {
                 this.returnedAt = returnedAt
             }
@@ -1025,8 +1023,6 @@ private constructor(
             fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
 
             /** The id of the transaction for the returned deposit. */
-            @JsonProperty("transaction_id")
-            @ExcludeMissing
             fun transactionId(transactionId: JsonField<String>) = apply {
                 this.transactionId = transactionId
             }
@@ -1036,7 +1032,6 @@ private constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

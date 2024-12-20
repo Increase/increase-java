@@ -4,13 +4,14 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.time.OffsetDateTime
 import java.util.Objects
@@ -86,22 +87,28 @@ constructor(
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(builder = ProofOfAuthorizationRequestSubmissionCreateBody.Builder::class)
     @NoAutoDetect
     class ProofOfAuthorizationRequestSubmissionCreateBody
+    @JsonCreator
     internal constructor(
-        private val authorizationTerms: String,
-        private val authorizedAt: OffsetDateTime,
-        private val authorizerEmail: String,
-        private val authorizerName: String,
+        @JsonProperty("authorization_terms") private val authorizationTerms: String,
+        @JsonProperty("authorized_at") private val authorizedAt: OffsetDateTime,
+        @JsonProperty("authorizer_email") private val authorizerEmail: String,
+        @JsonProperty("authorizer_name") private val authorizerName: String,
+        @JsonProperty("customer_has_been_offboarded")
         private val customerHasBeenOffboarded: Boolean,
+        @JsonProperty("proof_of_authorization_request_id")
         private val proofOfAuthorizationRequestId: String,
+        @JsonProperty("validated_account_ownership_via_credential")
         private val validatedAccountOwnershipViaCredential: Boolean,
+        @JsonProperty("validated_account_ownership_with_account_statement")
         private val validatedAccountOwnershipWithAccountStatement: Boolean,
+        @JsonProperty("validated_account_ownership_with_microdeposit")
         private val validatedAccountOwnershipWithMicrodeposit: Boolean,
-        private val authorizerCompany: String?,
-        private val authorizerIpAddress: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("authorizer_company") private val authorizerCompany: String?,
+        @JsonProperty("authorizer_ip_address") private val authorizerIpAddress: String?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** Terms of authorization. */
@@ -206,43 +213,36 @@ constructor(
             }
 
             /** Terms of authorization. */
-            @JsonProperty("authorization_terms")
             fun authorizationTerms(authorizationTerms: String) = apply {
                 this.authorizationTerms = authorizationTerms
             }
 
             /** Time of authorization. */
-            @JsonProperty("authorized_at")
             fun authorizedAt(authorizedAt: OffsetDateTime) = apply {
                 this.authorizedAt = authorizedAt
             }
 
             /** Email of the authorizer. */
-            @JsonProperty("authorizer_email")
             fun authorizerEmail(authorizerEmail: String) = apply {
                 this.authorizerEmail = authorizerEmail
             }
 
             /** Name of the authorizer. */
-            @JsonProperty("authorizer_name")
             fun authorizerName(authorizerName: String) = apply {
                 this.authorizerName = authorizerName
             }
 
             /** Whether the customer has been offboarded or suspended. */
-            @JsonProperty("customer_has_been_offboarded")
             fun customerHasBeenOffboarded(customerHasBeenOffboarded: Boolean) = apply {
                 this.customerHasBeenOffboarded = customerHasBeenOffboarded
             }
 
             /** ID of the proof of authorization request. */
-            @JsonProperty("proof_of_authorization_request_id")
             fun proofOfAuthorizationRequestId(proofOfAuthorizationRequestId: String) = apply {
                 this.proofOfAuthorizationRequestId = proofOfAuthorizationRequestId
             }
 
             /** Whether the account ownership was validated via credential (e.g. Plaid). */
-            @JsonProperty("validated_account_ownership_via_credential")
             fun validatedAccountOwnershipViaCredential(
                 validatedAccountOwnershipViaCredential: Boolean
             ) = apply {
@@ -250,7 +250,6 @@ constructor(
             }
 
             /** Whether the account ownership was validated with an account statement. */
-            @JsonProperty("validated_account_ownership_with_account_statement")
             fun validatedAccountOwnershipWithAccountStatement(
                 validatedAccountOwnershipWithAccountStatement: Boolean
             ) = apply {
@@ -259,7 +258,6 @@ constructor(
             }
 
             /** Whether the account ownership was validated with a microdeposit. */
-            @JsonProperty("validated_account_ownership_with_microdeposit")
             fun validatedAccountOwnershipWithMicrodeposit(
                 validatedAccountOwnershipWithMicrodeposit: Boolean
             ) = apply {
@@ -268,13 +266,11 @@ constructor(
             }
 
             /** Company of the authorizer. */
-            @JsonProperty("authorizer_company")
             fun authorizerCompany(authorizerCompany: String) = apply {
                 this.authorizerCompany = authorizerCompany
             }
 
             /** IP address of the authorizer. */
-            @JsonProperty("authorizer_ip_address")
             fun authorizerIpAddress(authorizerIpAddress: String) = apply {
                 this.authorizerIpAddress = authorizerIpAddress
             }
@@ -284,7 +280,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

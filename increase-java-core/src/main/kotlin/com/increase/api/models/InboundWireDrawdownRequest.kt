@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
@@ -23,34 +23,74 @@ import java.util.Optional
  * Inbound wire drawdown requests are requests from someone else to send them a wire. This feature
  * is in beta; reach out to [support@increase.com](mailto:support@increase.com) to learn more.
  */
-@JsonDeserialize(builder = InboundWireDrawdownRequest.Builder::class)
 @NoAutoDetect
 class InboundWireDrawdownRequest
+@JsonCreator
 private constructor(
-    private val amount: JsonField<Long>,
-    private val beneficiaryAccountNumber: JsonField<String>,
-    private val beneficiaryAddressLine1: JsonField<String>,
-    private val beneficiaryAddressLine2: JsonField<String>,
-    private val beneficiaryAddressLine3: JsonField<String>,
-    private val beneficiaryName: JsonField<String>,
-    private val beneficiaryRoutingNumber: JsonField<String>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val currency: JsonField<String>,
-    private val id: JsonField<String>,
-    private val messageToRecipient: JsonField<String>,
-    private val originatorAccountNumber: JsonField<String>,
-    private val originatorAddressLine1: JsonField<String>,
-    private val originatorAddressLine2: JsonField<String>,
-    private val originatorAddressLine3: JsonField<String>,
-    private val originatorName: JsonField<String>,
-    private val originatorRoutingNumber: JsonField<String>,
-    private val originatorToBeneficiaryInformationLine1: JsonField<String>,
-    private val originatorToBeneficiaryInformationLine2: JsonField<String>,
-    private val originatorToBeneficiaryInformationLine3: JsonField<String>,
-    private val originatorToBeneficiaryInformationLine4: JsonField<String>,
-    private val recipientAccountNumberId: JsonField<String>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
+    @JsonProperty("beneficiary_account_number")
+    @ExcludeMissing
+    private val beneficiaryAccountNumber: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("beneficiary_address_line1")
+    @ExcludeMissing
+    private val beneficiaryAddressLine1: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("beneficiary_address_line2")
+    @ExcludeMissing
+    private val beneficiaryAddressLine2: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("beneficiary_address_line3")
+    @ExcludeMissing
+    private val beneficiaryAddressLine3: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("beneficiary_name")
+    @ExcludeMissing
+    private val beneficiaryName: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("beneficiary_routing_number")
+    @ExcludeMissing
+    private val beneficiaryRoutingNumber: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("currency")
+    @ExcludeMissing
+    private val currency: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("message_to_recipient")
+    @ExcludeMissing
+    private val messageToRecipient: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("originator_account_number")
+    @ExcludeMissing
+    private val originatorAccountNumber: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("originator_address_line1")
+    @ExcludeMissing
+    private val originatorAddressLine1: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("originator_address_line2")
+    @ExcludeMissing
+    private val originatorAddressLine2: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("originator_address_line3")
+    @ExcludeMissing
+    private val originatorAddressLine3: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("originator_name")
+    @ExcludeMissing
+    private val originatorName: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("originator_routing_number")
+    @ExcludeMissing
+    private val originatorRoutingNumber: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("originator_to_beneficiary_information_line1")
+    @ExcludeMissing
+    private val originatorToBeneficiaryInformationLine1: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("originator_to_beneficiary_information_line2")
+    @ExcludeMissing
+    private val originatorToBeneficiaryInformationLine2: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("originator_to_beneficiary_information_line3")
+    @ExcludeMissing
+    private val originatorToBeneficiaryInformationLine3: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("originator_to_beneficiary_information_line4")
+    @ExcludeMissing
+    private val originatorToBeneficiaryInformationLine4: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("recipient_account_number_id")
+    @ExcludeMissing
+    private val recipientAccountNumberId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     /** The amount being requested in cents. */
@@ -384,8 +424,6 @@ private constructor(
         fun amount(amount: Long) = amount(JsonField.of(amount))
 
         /** The amount being requested in cents. */
-        @JsonProperty("amount")
-        @ExcludeMissing
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
         /** The drawdown request's beneficiary's account number. */
@@ -393,8 +431,6 @@ private constructor(
             beneficiaryAccountNumber(JsonField.of(beneficiaryAccountNumber))
 
         /** The drawdown request's beneficiary's account number. */
-        @JsonProperty("beneficiary_account_number")
-        @ExcludeMissing
         fun beneficiaryAccountNumber(beneficiaryAccountNumber: JsonField<String>) = apply {
             this.beneficiaryAccountNumber = beneficiaryAccountNumber
         }
@@ -404,8 +440,6 @@ private constructor(
             beneficiaryAddressLine1(JsonField.of(beneficiaryAddressLine1))
 
         /** Line 1 of the drawdown request's beneficiary's address. */
-        @JsonProperty("beneficiary_address_line1")
-        @ExcludeMissing
         fun beneficiaryAddressLine1(beneficiaryAddressLine1: JsonField<String>) = apply {
             this.beneficiaryAddressLine1 = beneficiaryAddressLine1
         }
@@ -415,8 +449,6 @@ private constructor(
             beneficiaryAddressLine2(JsonField.of(beneficiaryAddressLine2))
 
         /** Line 2 of the drawdown request's beneficiary's address. */
-        @JsonProperty("beneficiary_address_line2")
-        @ExcludeMissing
         fun beneficiaryAddressLine2(beneficiaryAddressLine2: JsonField<String>) = apply {
             this.beneficiaryAddressLine2 = beneficiaryAddressLine2
         }
@@ -426,8 +458,6 @@ private constructor(
             beneficiaryAddressLine3(JsonField.of(beneficiaryAddressLine3))
 
         /** Line 3 of the drawdown request's beneficiary's address. */
-        @JsonProperty("beneficiary_address_line3")
-        @ExcludeMissing
         fun beneficiaryAddressLine3(beneficiaryAddressLine3: JsonField<String>) = apply {
             this.beneficiaryAddressLine3 = beneficiaryAddressLine3
         }
@@ -437,8 +467,6 @@ private constructor(
             beneficiaryName(JsonField.of(beneficiaryName))
 
         /** The drawdown request's beneficiary's name. */
-        @JsonProperty("beneficiary_name")
-        @ExcludeMissing
         fun beneficiaryName(beneficiaryName: JsonField<String>) = apply {
             this.beneficiaryName = beneficiaryName
         }
@@ -448,8 +476,6 @@ private constructor(
             beneficiaryRoutingNumber(JsonField.of(beneficiaryRoutingNumber))
 
         /** The drawdown request's beneficiary's routing number. */
-        @JsonProperty("beneficiary_routing_number")
-        @ExcludeMissing
         fun beneficiaryRoutingNumber(beneficiaryRoutingNumber: JsonField<String>) = apply {
             this.beneficiaryRoutingNumber = beneficiaryRoutingNumber
         }
@@ -464,8 +490,6 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the inbound
          * wire drawdown requested was created.
          */
-        @JsonProperty("created_at")
-        @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /**
@@ -478,23 +502,19 @@ private constructor(
          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the amount being
          * requested. Will always be "USD".
          */
-        @JsonProperty("currency")
-        @ExcludeMissing
         fun currency(currency: JsonField<String>) = apply { this.currency = currency }
 
         /** The Wire drawdown request identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Wire drawdown request identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** A message from the drawdown request's originator. */
         fun messageToRecipient(messageToRecipient: String) =
             messageToRecipient(JsonField.of(messageToRecipient))
 
         /** A message from the drawdown request's originator. */
-        @JsonProperty("message_to_recipient")
-        @ExcludeMissing
         fun messageToRecipient(messageToRecipient: JsonField<String>) = apply {
             this.messageToRecipient = messageToRecipient
         }
@@ -504,8 +524,6 @@ private constructor(
             originatorAccountNumber(JsonField.of(originatorAccountNumber))
 
         /** The drawdown request's originator's account number. */
-        @JsonProperty("originator_account_number")
-        @ExcludeMissing
         fun originatorAccountNumber(originatorAccountNumber: JsonField<String>) = apply {
             this.originatorAccountNumber = originatorAccountNumber
         }
@@ -515,8 +533,6 @@ private constructor(
             originatorAddressLine1(JsonField.of(originatorAddressLine1))
 
         /** Line 1 of the drawdown request's originator's address. */
-        @JsonProperty("originator_address_line1")
-        @ExcludeMissing
         fun originatorAddressLine1(originatorAddressLine1: JsonField<String>) = apply {
             this.originatorAddressLine1 = originatorAddressLine1
         }
@@ -526,8 +542,6 @@ private constructor(
             originatorAddressLine2(JsonField.of(originatorAddressLine2))
 
         /** Line 2 of the drawdown request's originator's address. */
-        @JsonProperty("originator_address_line2")
-        @ExcludeMissing
         fun originatorAddressLine2(originatorAddressLine2: JsonField<String>) = apply {
             this.originatorAddressLine2 = originatorAddressLine2
         }
@@ -537,8 +551,6 @@ private constructor(
             originatorAddressLine3(JsonField.of(originatorAddressLine3))
 
         /** Line 3 of the drawdown request's originator's address. */
-        @JsonProperty("originator_address_line3")
-        @ExcludeMissing
         fun originatorAddressLine3(originatorAddressLine3: JsonField<String>) = apply {
             this.originatorAddressLine3 = originatorAddressLine3
         }
@@ -547,8 +559,6 @@ private constructor(
         fun originatorName(originatorName: String) = originatorName(JsonField.of(originatorName))
 
         /** The drawdown request's originator's name. */
-        @JsonProperty("originator_name")
-        @ExcludeMissing
         fun originatorName(originatorName: JsonField<String>) = apply {
             this.originatorName = originatorName
         }
@@ -558,8 +568,6 @@ private constructor(
             originatorRoutingNumber(JsonField.of(originatorRoutingNumber))
 
         /** The drawdown request's originator's routing number. */
-        @JsonProperty("originator_routing_number")
-        @ExcludeMissing
         fun originatorRoutingNumber(originatorRoutingNumber: JsonField<String>) = apply {
             this.originatorRoutingNumber = originatorRoutingNumber
         }
@@ -577,8 +585,6 @@ private constructor(
         /**
          * Line 1 of the information conveyed from the originator of the message to the beneficiary.
          */
-        @JsonProperty("originator_to_beneficiary_information_line1")
-        @ExcludeMissing
         fun originatorToBeneficiaryInformationLine1(
             originatorToBeneficiaryInformationLine1: JsonField<String>
         ) = apply {
@@ -598,8 +604,6 @@ private constructor(
         /**
          * Line 2 of the information conveyed from the originator of the message to the beneficiary.
          */
-        @JsonProperty("originator_to_beneficiary_information_line2")
-        @ExcludeMissing
         fun originatorToBeneficiaryInformationLine2(
             originatorToBeneficiaryInformationLine2: JsonField<String>
         ) = apply {
@@ -619,8 +623,6 @@ private constructor(
         /**
          * Line 3 of the information conveyed from the originator of the message to the beneficiary.
          */
-        @JsonProperty("originator_to_beneficiary_information_line3")
-        @ExcludeMissing
         fun originatorToBeneficiaryInformationLine3(
             originatorToBeneficiaryInformationLine3: JsonField<String>
         ) = apply {
@@ -640,8 +642,6 @@ private constructor(
         /**
          * Line 4 of the information conveyed from the originator of the message to the beneficiary.
          */
-        @JsonProperty("originator_to_beneficiary_information_line4")
-        @ExcludeMissing
         fun originatorToBeneficiaryInformationLine4(
             originatorToBeneficiaryInformationLine4: JsonField<String>
         ) = apply {
@@ -659,8 +659,6 @@ private constructor(
          * The Account Number from which the recipient of this request is being requested to send
          * funds.
          */
-        @JsonProperty("recipient_account_number_id")
-        @ExcludeMissing
         fun recipientAccountNumberId(recipientAccountNumberId: JsonField<String>) = apply {
             this.recipientAccountNumberId = recipientAccountNumberId
         }
@@ -675,8 +673,6 @@ private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `inbound_wire_drawdown_request`.
          */
-        @JsonProperty("type")
-        @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -684,7 +680,6 @@ private constructor(
             putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
             additionalProperties.put(key, value)
         }

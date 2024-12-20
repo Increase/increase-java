@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
@@ -24,18 +24,28 @@ import java.util.Optional
  * require annotating money movements using this API. Learn more in our
  * [guide to Bookkeeping](https://increase.com/documentation/bookkeeping#bookkeeping).
  */
-@JsonDeserialize(builder = BookkeepingEntrySet.Builder::class)
 @NoAutoDetect
 class BookkeepingEntrySet
+@JsonCreator
 private constructor(
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val date: JsonField<OffsetDateTime>,
-    private val entries: JsonField<List<Entry>>,
-    private val id: JsonField<String>,
-    private val idempotencyKey: JsonField<String>,
-    private val transactionId: JsonField<String>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("date")
+    @ExcludeMissing
+    private val date: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("entries")
+    @ExcludeMissing
+    private val entries: JsonField<List<Entry>> = JsonMissing.of(),
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    private val idempotencyKey: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("transaction_id")
+    @ExcludeMissing
+    private val transactionId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     /** When the entry set was created. */
@@ -149,31 +159,25 @@ private constructor(
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /** When the entry set was created. */
-        @JsonProperty("created_at")
-        @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The timestamp of the entry set. */
         fun date(date: OffsetDateTime) = date(JsonField.of(date))
 
         /** The timestamp of the entry set. */
-        @JsonProperty("date")
-        @ExcludeMissing
         fun date(date: JsonField<OffsetDateTime>) = apply { this.date = date }
 
         /** The entries. */
         fun entries(entries: List<Entry>) = entries(JsonField.of(entries))
 
         /** The entries. */
-        @JsonProperty("entries")
-        @ExcludeMissing
         fun entries(entries: JsonField<List<Entry>>) = apply { this.entries = entries }
 
         /** The entry set identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The entry set identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -187,8 +191,6 @@ private constructor(
          * is used to ensure that a request is only processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        @JsonProperty("idempotency_key")
-        @ExcludeMissing
         fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
             this.idempotencyKey = idempotencyKey
         }
@@ -197,8 +199,6 @@ private constructor(
         fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
 
         /** The transaction identifier, if any. */
-        @JsonProperty("transaction_id")
-        @ExcludeMissing
         fun transactionId(transactionId: JsonField<String>) = apply {
             this.transactionId = transactionId
         }
@@ -213,8 +213,6 @@ private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `bookkeeping_entry_set`.
          */
-        @JsonProperty("type")
-        @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -222,7 +220,6 @@ private constructor(
             putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
             additionalProperties.put(key, value)
         }
@@ -250,14 +247,19 @@ private constructor(
             )
     }
 
-    @JsonDeserialize(builder = Entry.Builder::class)
     @NoAutoDetect
     class Entry
+    @JsonCreator
     private constructor(
-        private val accountId: JsonField<String>,
-        private val amount: JsonField<Long>,
-        private val id: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("account_id")
+        @ExcludeMissing
+        private val accountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("amount")
+        @ExcludeMissing
+        private val amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The bookkeeping account impacted by the entry. */
@@ -319,24 +321,18 @@ private constructor(
             fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
             /** The bookkeeping account impacted by the entry. */
-            @JsonProperty("account_id")
-            @ExcludeMissing
             fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
             /** The amount of the entry in minor units. */
             fun amount(amount: Long) = amount(JsonField.of(amount))
 
             /** The amount of the entry in minor units. */
-            @JsonProperty("amount")
-            @ExcludeMissing
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /** The entry identifier. */
             fun id(id: String) = id(JsonField.of(id))
 
             /** The entry identifier. */
-            @JsonProperty("id")
-            @ExcludeMissing
             fun id(id: JsonField<String>) = apply { this.id = id }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -344,7 +340,6 @@ private constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
@@ -14,6 +13,7 @@ import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
@@ -89,22 +89,24 @@ constructor(
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(builder = SimulationInboundAchTransferCreateBody.Builder::class)
     @NoAutoDetect
     class SimulationInboundAchTransferCreateBody
+    @JsonCreator
     internal constructor(
-        private val accountNumberId: String,
-        private val amount: Long,
-        private val companyDescriptiveDate: String?,
-        private val companyDiscretionaryData: String?,
-        private val companyEntryDescription: String?,
-        private val companyId: String?,
-        private val companyName: String?,
-        private val receiverIdNumber: String?,
-        private val receiverName: String?,
-        private val resolveAt: OffsetDateTime?,
+        @JsonProperty("account_number_id") private val accountNumberId: String,
+        @JsonProperty("amount") private val amount: Long,
+        @JsonProperty("company_descriptive_date") private val companyDescriptiveDate: String?,
+        @JsonProperty("company_discretionary_data") private val companyDiscretionaryData: String?,
+        @JsonProperty("company_entry_description") private val companyEntryDescription: String?,
+        @JsonProperty("company_id") private val companyId: String?,
+        @JsonProperty("company_name") private val companyName: String?,
+        @JsonProperty("receiver_id_number") private val receiverIdNumber: String?,
+        @JsonProperty("receiver_name") private val receiverName: String?,
+        @JsonProperty("resolve_at") private val resolveAt: OffsetDateTime?,
+        @JsonProperty("standard_entry_class_code")
         private val standardEntryClassCode: StandardEntryClassCode?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The identifier of the Account Number the inbound ACH Transfer is for. */
@@ -209,7 +211,6 @@ constructor(
             }
 
             /** The identifier of the Account Number the inbound ACH Transfer is for. */
-            @JsonProperty("account_number_id")
             fun accountNumberId(accountNumberId: String) = apply {
                 this.accountNumberId = accountNumberId
             }
@@ -219,53 +220,44 @@ constructor(
              * funds to the receiving account. A negative amount originates a debit transfer pulling
              * funds from the receiving account.
              */
-            @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long) = apply { this.amount = amount }
 
             /** The description of the date of the transfer. */
-            @JsonProperty("company_descriptive_date")
             fun companyDescriptiveDate(companyDescriptiveDate: String) = apply {
                 this.companyDescriptiveDate = companyDescriptiveDate
             }
 
             /** Data associated with the transfer set by the sender. */
-            @JsonProperty("company_discretionary_data")
             fun companyDiscretionaryData(companyDiscretionaryData: String) = apply {
                 this.companyDiscretionaryData = companyDiscretionaryData
             }
 
             /** The description of the transfer set by the sender. */
-            @JsonProperty("company_entry_description")
             fun companyEntryDescription(companyEntryDescription: String) = apply {
                 this.companyEntryDescription = companyEntryDescription
             }
 
             /** The sender's company ID. */
-            @JsonProperty("company_id")
             fun companyId(companyId: String) = apply { this.companyId = companyId }
 
             /** The name of the sender. */
-            @JsonProperty("company_name")
             fun companyName(companyName: String) = apply { this.companyName = companyName }
 
             /** The ID of the receiver of the transfer. */
-            @JsonProperty("receiver_id_number")
             fun receiverIdNumber(receiverIdNumber: String) = apply {
                 this.receiverIdNumber = receiverIdNumber
             }
 
             /** The name of the receiver of the transfer. */
-            @JsonProperty("receiver_name")
             fun receiverName(receiverName: String) = apply { this.receiverName = receiverName }
 
             /**
              * The time at which the transfer should be resolved. If not provided will resolve
              * immediately.
              */
-            @JsonProperty("resolve_at")
             fun resolveAt(resolveAt: OffsetDateTime) = apply { this.resolveAt = resolveAt }
 
             /** The standard entry class code for the transfer. */
-            @JsonProperty("standard_entry_class_code")
             fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode) = apply {
                 this.standardEntryClassCode = standardEntryClassCode
             }
@@ -275,7 +267,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

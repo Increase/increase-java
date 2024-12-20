@@ -4,13 +4,14 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
@@ -51,14 +52,15 @@ constructor(
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(builder = CardDisputeCreateBody.Builder::class)
     @NoAutoDetect
     class CardDisputeCreateBody
+    @JsonCreator
     internal constructor(
-        private val disputedTransactionId: String,
-        private val explanation: String,
-        private val amount: Long?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("disputed_transaction_id") private val disputedTransactionId: String,
+        @JsonProperty("explanation") private val explanation: String,
+        @JsonProperty("amount") private val amount: Long?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /**
@@ -108,13 +110,11 @@ constructor(
              * The Transaction you wish to dispute. This Transaction must have a `source_type` of
              * `card_settlement`.
              */
-            @JsonProperty("disputed_transaction_id")
             fun disputedTransactionId(disputedTransactionId: String) = apply {
                 this.disputedTransactionId = disputedTransactionId
             }
 
             /** Why you are disputing this Transaction. */
-            @JsonProperty("explanation")
             fun explanation(explanation: String) = apply { this.explanation = explanation }
 
             /**
@@ -122,14 +122,13 @@ constructor(
              * optional and will default to the full amount of the transaction if not provided. If
              * provided, the amount must be less than or equal to the amount of the transaction.
              */
-            @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long) = apply { this.amount = amount }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

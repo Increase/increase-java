@@ -4,13 +4,14 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
@@ -83,22 +84,23 @@ constructor(
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(builder = RealTimePaymentsTransferCreateBody.Builder::class)
     @NoAutoDetect
     class RealTimePaymentsTransferCreateBody
+    @JsonCreator
     internal constructor(
-        private val amount: Long,
-        private val creditorName: String,
-        private val remittanceInformation: String,
-        private val sourceAccountNumberId: String,
-        private val debtorName: String?,
-        private val destinationAccountNumber: String?,
-        private val destinationRoutingNumber: String?,
-        private val externalAccountId: String?,
-        private val requireApproval: Boolean?,
-        private val ultimateCreditorName: String?,
-        private val ultimateDebtorName: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("amount") private val amount: Long,
+        @JsonProperty("creditor_name") private val creditorName: String,
+        @JsonProperty("remittance_information") private val remittanceInformation: String,
+        @JsonProperty("source_account_number_id") private val sourceAccountNumberId: String,
+        @JsonProperty("debtor_name") private val debtorName: String?,
+        @JsonProperty("destination_account_number") private val destinationAccountNumber: String?,
+        @JsonProperty("destination_routing_number") private val destinationRoutingNumber: String?,
+        @JsonProperty("external_account_id") private val externalAccountId: String?,
+        @JsonProperty("require_approval") private val requireApproval: Boolean?,
+        @JsonProperty("ultimate_creditor_name") private val ultimateCreditorName: String?,
+        @JsonProperty("ultimate_debtor_name") private val ultimateDebtorName: String?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The transfer amount in USD cents. For Real-Time Payments transfers, must be positive. */
@@ -207,20 +209,17 @@ constructor(
             /**
              * The transfer amount in USD cents. For Real-Time Payments transfers, must be positive.
              */
-            @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long) = apply { this.amount = amount }
 
             /** The name of the transfer's recipient. */
-            @JsonProperty("creditor_name")
             fun creditorName(creditorName: String) = apply { this.creditorName = creditorName }
 
             /** Unstructured information that will show on the recipient's bank statement. */
-            @JsonProperty("remittance_information")
             fun remittanceInformation(remittanceInformation: String) = apply {
                 this.remittanceInformation = remittanceInformation
             }
 
             /** The identifier of the Account Number from which to send the transfer. */
-            @JsonProperty("source_account_number_id")
             fun sourceAccountNumberId(sourceAccountNumberId: String) = apply {
                 this.sourceAccountNumberId = sourceAccountNumberId
             }
@@ -229,17 +228,14 @@ constructor(
              * The name of the transfer's sender. If not provided, defaults to the name of the
              * account's entity.
              */
-            @JsonProperty("debtor_name")
             fun debtorName(debtorName: String) = apply { this.debtorName = debtorName }
 
             /** The destination account number. */
-            @JsonProperty("destination_account_number")
             fun destinationAccountNumber(destinationAccountNumber: String) = apply {
                 this.destinationAccountNumber = destinationAccountNumber
             }
 
             /** The destination American Bankers' Association (ABA) Routing Transit Number (RTN). */
-            @JsonProperty("destination_routing_number")
             fun destinationRoutingNumber(destinationRoutingNumber: String) = apply {
                 this.destinationRoutingNumber = destinationRoutingNumber
             }
@@ -249,13 +245,11 @@ constructor(
              * provided, `destination_account_number` and `destination_routing_number` must be
              * absent.
              */
-            @JsonProperty("external_account_id")
             fun externalAccountId(externalAccountId: String) = apply {
                 this.externalAccountId = externalAccountId
             }
 
             /** Whether the transfer requires explicit approval via the dashboard or API. */
-            @JsonProperty("require_approval")
             fun requireApproval(requireApproval: Boolean) = apply {
                 this.requireApproval = requireApproval
             }
@@ -264,7 +258,6 @@ constructor(
              * The name of the ultimate recipient of the transfer. Set this if the creditor is an
              * intermediary receiving the payment for someone else.
              */
-            @JsonProperty("ultimate_creditor_name")
             fun ultimateCreditorName(ultimateCreditorName: String) = apply {
                 this.ultimateCreditorName = ultimateCreditorName
             }
@@ -273,7 +266,6 @@ constructor(
              * The name of the ultimate sender of the transfer. Set this if the funds are being sent
              * on behalf of someone who is not the account holder at Increase.
              */
-            @JsonProperty("ultimate_debtor_name")
             fun ultimateDebtorName(ultimateDebtorName: String) = apply {
                 this.ultimateDebtorName = ultimateDebtorName
             }
@@ -283,7 +275,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
