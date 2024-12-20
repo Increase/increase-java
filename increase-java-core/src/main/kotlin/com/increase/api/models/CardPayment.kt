@@ -14235,7 +14235,7 @@ private constructor(
             /** The Card Settlement identifier. */
             fun id(): String = id.getRequired("id")
 
-            /** Interchange assessed as a part of this transaciton. */
+            /** Interchange assessed as a part of this transaction. */
             fun interchange(): Optional<Interchange> =
                 Optional.ofNullable(interchange.getNullable("interchange"))
 
@@ -14331,7 +14331,7 @@ private constructor(
             /** The Card Settlement identifier. */
             @JsonProperty("id") @ExcludeMissing fun _id() = id
 
-            /** Interchange assessed as a part of this transaciton. */
+            /** Interchange assessed as a part of this transaction. */
             @JsonProperty("interchange") @ExcludeMissing fun _interchange() = interchange
 
             /**
@@ -14572,10 +14572,10 @@ private constructor(
                 @ExcludeMissing
                 fun id(id: JsonField<String>) = apply { this.id = id }
 
-                /** Interchange assessed as a part of this transaciton. */
+                /** Interchange assessed as a part of this transaction. */
                 fun interchange(interchange: Interchange) = interchange(JsonField.of(interchange))
 
-                /** Interchange assessed as a part of this transaciton. */
+                /** Interchange assessed as a part of this transaction. */
                 @JsonProperty("interchange")
                 @ExcludeMissing
                 fun interchange(interchange: JsonField<Interchange>) = apply {
@@ -15100,7 +15100,7 @@ private constructor(
                 override fun toString() = value.toString()
             }
 
-            /** Interchange assessed as a part of this transaciton. */
+            /** Interchange assessed as a part of this transaction. */
             @JsonDeserialize(builder = Interchange.Builder::class)
             @NoAutoDetect
             class Interchange
