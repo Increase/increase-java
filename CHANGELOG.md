@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.159.0 (2024-12-20)
+
+Full Changelog: [v0.158.0...v0.159.0](https://github.com/Increase/increase-java/compare/v0.158.0...v0.159.0)
+
+### Features
+
+* **api:** api update ([#664](https://github.com/Increase/increase-java/issues/664)) ([48e56c9](https://github.com/Increase/increase-java/commit/48e56c9fe3845acd95904cd08a554a257f04a45f))
+
+
+### Chores
+
+* **docs:** add example project ([#662](https://github.com/Increase/increase-java/issues/662)) ([dfe4f0c](https://github.com/Increase/increase-java/commit/dfe4f0ccd4f77cc7bdcac7066cdc0b1aba65399f))
+* **docs:** fix code block language ([#663](https://github.com/Increase/increase-java/issues/663)) ([48109e8](https://github.com/Increase/increase-java/commit/48109e8ffaf7002053288e24307943215002da1a))
+* **docs:** update readme ([#661](https://github.com/Increase/increase-java/issues/661)) ([c74b8e6](https://github.com/Increase/increase-java/commit/c74b8e693a492bace34b1775f5aae53eb62016cc))
+* update parameter examples in tests and docs ([#659](https://github.com/Increase/increase-java/issues/659)) ([493e7ac](https://github.com/Increase/increase-java/commit/493e7aceac7a3dd6eeef23604945073766218731))
+
 ## 0.158.0 (2024-12-18)
 
 Full Changelog: [v0.157.0...v0.158.0](https://github.com/Increase/increase-java/compare/v0.157.0...v0.158.0)
