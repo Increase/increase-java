@@ -34,8 +34,8 @@ class ExternalAccountCreateParamsTest {
         assertThat(body.description()).isEqualTo("Landlord")
         assertThat(body.routingNumber()).isEqualTo("101050001")
         assertThat(body.accountHolder())
-            .isEqualTo(ExternalAccountCreateParams.AccountHolder.BUSINESS)
-        assertThat(body.funding()).isEqualTo(ExternalAccountCreateParams.Funding.CHECKING)
+            .contains(ExternalAccountCreateParams.AccountHolder.BUSINESS)
+        assertThat(body.funding()).contains(ExternalAccountCreateParams.Funding.CHECKING)
     }
 
     @Test

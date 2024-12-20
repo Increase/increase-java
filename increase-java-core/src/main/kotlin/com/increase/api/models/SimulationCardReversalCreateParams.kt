@@ -51,19 +51,19 @@ constructor(
     @NoAutoDetect
     class SimulationCardReversalCreateBody
     internal constructor(
-        private val cardPaymentId: String?,
+        private val cardPaymentId: String,
         private val amount: Long?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /** The identifier of the Card Payment to create a reversal on. */
-        @JsonProperty("card_payment_id") fun cardPaymentId(): String? = cardPaymentId
+        @JsonProperty("card_payment_id") fun cardPaymentId(): String = cardPaymentId
 
         /**
          * The amount of the reversal in minor units in the card authorization's currency. This
          * defaults to the authorization amount.
          */
-        @JsonProperty("amount") fun amount(): Long? = amount
+        @JsonProperty("amount") fun amount(): Optional<Long> = Optional.ofNullable(amount)
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -85,9 +85,10 @@ constructor(
             @JvmSynthetic
             internal fun from(simulationCardReversalCreateBody: SimulationCardReversalCreateBody) =
                 apply {
-                    this.cardPaymentId = simulationCardReversalCreateBody.cardPaymentId
-                    this.amount = simulationCardReversalCreateBody.amount
-                    additionalProperties(simulationCardReversalCreateBody.additionalProperties)
+                    cardPaymentId = simulationCardReversalCreateBody.cardPaymentId
+                    amount = simulationCardReversalCreateBody.amount
+                    additionalProperties =
+                        simulationCardReversalCreateBody.additionalProperties.toMutableMap()
                 }
 
             /** The identifier of the Card Payment to create a reversal on. */
@@ -102,16 +103,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): SimulationCardReversalCreateBody =

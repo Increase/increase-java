@@ -49,8 +49,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     /** Terms of authorization. */
     fun authorizationTerms(): String = authorizationTerms.getRequired("authorization_terms")
 
@@ -208,6 +206,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): ProofOfAuthorizationRequestSubmission = apply {
         if (!validated) {
             authorizationTerms()
@@ -264,29 +264,30 @@ private constructor(
         internal fun from(
             proofOfAuthorizationRequestSubmission: ProofOfAuthorizationRequestSubmission
         ) = apply {
-            this.authorizationTerms = proofOfAuthorizationRequestSubmission.authorizationTerms
-            this.authorizedAt = proofOfAuthorizationRequestSubmission.authorizedAt
-            this.authorizerCompany = proofOfAuthorizationRequestSubmission.authorizerCompany
-            this.authorizerEmail = proofOfAuthorizationRequestSubmission.authorizerEmail
-            this.authorizerIpAddress = proofOfAuthorizationRequestSubmission.authorizerIpAddress
-            this.authorizerName = proofOfAuthorizationRequestSubmission.authorizerName
-            this.createdAt = proofOfAuthorizationRequestSubmission.createdAt
-            this.customerHasBeenOffboarded =
+            authorizationTerms = proofOfAuthorizationRequestSubmission.authorizationTerms
+            authorizedAt = proofOfAuthorizationRequestSubmission.authorizedAt
+            authorizerCompany = proofOfAuthorizationRequestSubmission.authorizerCompany
+            authorizerEmail = proofOfAuthorizationRequestSubmission.authorizerEmail
+            authorizerIpAddress = proofOfAuthorizationRequestSubmission.authorizerIpAddress
+            authorizerName = proofOfAuthorizationRequestSubmission.authorizerName
+            createdAt = proofOfAuthorizationRequestSubmission.createdAt
+            customerHasBeenOffboarded =
                 proofOfAuthorizationRequestSubmission.customerHasBeenOffboarded
-            this.id = proofOfAuthorizationRequestSubmission.id
-            this.idempotencyKey = proofOfAuthorizationRequestSubmission.idempotencyKey
-            this.proofOfAuthorizationRequestId =
+            id = proofOfAuthorizationRequestSubmission.id
+            idempotencyKey = proofOfAuthorizationRequestSubmission.idempotencyKey
+            proofOfAuthorizationRequestId =
                 proofOfAuthorizationRequestSubmission.proofOfAuthorizationRequestId
-            this.status = proofOfAuthorizationRequestSubmission.status
-            this.type = proofOfAuthorizationRequestSubmission.type
-            this.updatedAt = proofOfAuthorizationRequestSubmission.updatedAt
-            this.validatedAccountOwnershipViaCredential =
+            status = proofOfAuthorizationRequestSubmission.status
+            type = proofOfAuthorizationRequestSubmission.type
+            updatedAt = proofOfAuthorizationRequestSubmission.updatedAt
+            validatedAccountOwnershipViaCredential =
                 proofOfAuthorizationRequestSubmission.validatedAccountOwnershipViaCredential
-            this.validatedAccountOwnershipWithAccountStatement =
+            validatedAccountOwnershipWithAccountStatement =
                 proofOfAuthorizationRequestSubmission.validatedAccountOwnershipWithAccountStatement
-            this.validatedAccountOwnershipWithMicrodeposit =
+            validatedAccountOwnershipWithMicrodeposit =
                 proofOfAuthorizationRequestSubmission.validatedAccountOwnershipWithMicrodeposit
-            additionalProperties(proofOfAuthorizationRequestSubmission.additionalProperties)
+            additionalProperties =
+                proofOfAuthorizationRequestSubmission.additionalProperties.toMutableMap()
         }
 
         /** Terms of authorization. */
@@ -493,16 +494,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): ProofOfAuthorizationRequestSubmission =

@@ -46,12 +46,12 @@ constructor(
     @NoAutoDetect
     class SimulationCardAuthorizationExpirationCreateBody
     internal constructor(
-        private val cardPaymentId: String?,
+        private val cardPaymentId: String,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /** The identifier of the Card Payment to expire. */
-        @JsonProperty("card_payment_id") fun cardPaymentId(): String? = cardPaymentId
+        @JsonProperty("card_payment_id") fun cardPaymentId(): String = cardPaymentId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -74,10 +74,10 @@ constructor(
                 simulationCardAuthorizationExpirationCreateBody:
                     SimulationCardAuthorizationExpirationCreateBody
             ) = apply {
-                this.cardPaymentId = simulationCardAuthorizationExpirationCreateBody.cardPaymentId
-                additionalProperties(
+                cardPaymentId = simulationCardAuthorizationExpirationCreateBody.cardPaymentId
+                additionalProperties =
                     simulationCardAuthorizationExpirationCreateBody.additionalProperties
-                )
+                        .toMutableMap()
             }
 
             /** The identifier of the Card Payment to expire. */
@@ -86,16 +86,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): SimulationCardAuthorizationExpirationCreateBody =

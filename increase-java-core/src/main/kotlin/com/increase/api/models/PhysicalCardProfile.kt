@@ -43,8 +43,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     /** The identifier of the File containing the physical card's back image. */
     fun backImageFileId(): Optional<String> =
         Optional.ofNullable(backImageFileId.getNullable("back_image_file_id"))
@@ -148,6 +146,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): PhysicalCardProfile = apply {
         if (!validated) {
             backImageFileId()
@@ -191,19 +191,19 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(physicalCardProfile: PhysicalCardProfile) = apply {
-            this.backImageFileId = physicalCardProfile.backImageFileId
-            this.carrierImageFileId = physicalCardProfile.carrierImageFileId
-            this.contactPhone = physicalCardProfile.contactPhone
-            this.createdAt = physicalCardProfile.createdAt
-            this.creator = physicalCardProfile.creator
-            this.description = physicalCardProfile.description
-            this.frontImageFileId = physicalCardProfile.frontImageFileId
-            this.id = physicalCardProfile.id
-            this.idempotencyKey = physicalCardProfile.idempotencyKey
-            this.isDefault = physicalCardProfile.isDefault
-            this.status = physicalCardProfile.status
-            this.type = physicalCardProfile.type
-            additionalProperties(physicalCardProfile.additionalProperties)
+            backImageFileId = physicalCardProfile.backImageFileId
+            carrierImageFileId = physicalCardProfile.carrierImageFileId
+            contactPhone = physicalCardProfile.contactPhone
+            createdAt = physicalCardProfile.createdAt
+            creator = physicalCardProfile.creator
+            description = physicalCardProfile.description
+            frontImageFileId = physicalCardProfile.frontImageFileId
+            id = physicalCardProfile.id
+            idempotencyKey = physicalCardProfile.idempotencyKey
+            isDefault = physicalCardProfile.isDefault
+            status = physicalCardProfile.status
+            type = physicalCardProfile.type
+            additionalProperties = physicalCardProfile.additionalProperties.toMutableMap()
         }
 
         /** The identifier of the File containing the physical card's back image. */
@@ -339,16 +339,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): PhysicalCardProfile =

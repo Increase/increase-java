@@ -54,8 +54,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     /** If your transfer is accepted, this will contain details of the acceptance. */
     fun acceptance(): Optional<Acceptance> =
         Optional.ofNullable(acceptance.getNullable("acceptance"))
@@ -284,6 +282,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): InboundAchTransfer = apply {
         if (!validated) {
             acceptance().map { it.validate() }
@@ -356,36 +356,34 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(inboundAchTransfer: InboundAchTransfer) = apply {
-            this.acceptance = inboundAchTransfer.acceptance
-            this.accountId = inboundAchTransfer.accountId
-            this.accountNumberId = inboundAchTransfer.accountNumberId
-            this.addenda = inboundAchTransfer.addenda
-            this.amount = inboundAchTransfer.amount
-            this.automaticallyResolvesAt = inboundAchTransfer.automaticallyResolvesAt
-            this.decline = inboundAchTransfer.decline
-            this.direction = inboundAchTransfer.direction
-            this.effectiveDate = inboundAchTransfer.effectiveDate
-            this.expectedSettlementSchedule = inboundAchTransfer.expectedSettlementSchedule
-            this.id = inboundAchTransfer.id
-            this.internationalAddenda = inboundAchTransfer.internationalAddenda
-            this.notificationOfChange = inboundAchTransfer.notificationOfChange
-            this.originatorCompanyDescriptiveDate =
-                inboundAchTransfer.originatorCompanyDescriptiveDate
-            this.originatorCompanyDiscretionaryData =
+            acceptance = inboundAchTransfer.acceptance
+            accountId = inboundAchTransfer.accountId
+            accountNumberId = inboundAchTransfer.accountNumberId
+            addenda = inboundAchTransfer.addenda
+            amount = inboundAchTransfer.amount
+            automaticallyResolvesAt = inboundAchTransfer.automaticallyResolvesAt
+            decline = inboundAchTransfer.decline
+            direction = inboundAchTransfer.direction
+            effectiveDate = inboundAchTransfer.effectiveDate
+            expectedSettlementSchedule = inboundAchTransfer.expectedSettlementSchedule
+            id = inboundAchTransfer.id
+            internationalAddenda = inboundAchTransfer.internationalAddenda
+            notificationOfChange = inboundAchTransfer.notificationOfChange
+            originatorCompanyDescriptiveDate = inboundAchTransfer.originatorCompanyDescriptiveDate
+            originatorCompanyDiscretionaryData =
                 inboundAchTransfer.originatorCompanyDiscretionaryData
-            this.originatorCompanyEntryDescription =
-                inboundAchTransfer.originatorCompanyEntryDescription
-            this.originatorCompanyId = inboundAchTransfer.originatorCompanyId
-            this.originatorCompanyName = inboundAchTransfer.originatorCompanyName
-            this.originatorRoutingNumber = inboundAchTransfer.originatorRoutingNumber
-            this.receiverIdNumber = inboundAchTransfer.receiverIdNumber
-            this.receiverName = inboundAchTransfer.receiverName
-            this.standardEntryClassCode = inboundAchTransfer.standardEntryClassCode
-            this.status = inboundAchTransfer.status
-            this.traceNumber = inboundAchTransfer.traceNumber
-            this.transferReturn = inboundAchTransfer.transferReturn
-            this.type = inboundAchTransfer.type
-            additionalProperties(inboundAchTransfer.additionalProperties)
+            originatorCompanyEntryDescription = inboundAchTransfer.originatorCompanyEntryDescription
+            originatorCompanyId = inboundAchTransfer.originatorCompanyId
+            originatorCompanyName = inboundAchTransfer.originatorCompanyName
+            originatorRoutingNumber = inboundAchTransfer.originatorRoutingNumber
+            receiverIdNumber = inboundAchTransfer.receiverIdNumber
+            receiverName = inboundAchTransfer.receiverName
+            standardEntryClassCode = inboundAchTransfer.standardEntryClassCode
+            status = inboundAchTransfer.status
+            traceNumber = inboundAchTransfer.traceNumber
+            transferReturn = inboundAchTransfer.transferReturn
+            type = inboundAchTransfer.type
+            additionalProperties = inboundAchTransfer.additionalProperties.toMutableMap()
         }
 
         /** If your transfer is accepted, this will contain details of the acceptance. */
@@ -674,16 +672,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): InboundAchTransfer =
@@ -728,8 +732,6 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         /** The time at which the transfer was accepted. */
         fun acceptedAt(): OffsetDateTime = acceptedAt.getRequired("accepted_at")
 
@@ -745,6 +747,8 @@ private constructor(
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
 
         fun validate(): Acceptance = apply {
             if (!validated) {
@@ -769,9 +773,9 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(acceptance: Acceptance) = apply {
-                this.acceptedAt = acceptance.acceptedAt
-                this.transactionId = acceptance.transactionId
-                additionalProperties(acceptance.additionalProperties)
+                acceptedAt = acceptance.acceptedAt
+                transactionId = acceptance.transactionId
+                additionalProperties = acceptance.additionalProperties.toMutableMap()
             }
 
             /** The time at which the transfer was accepted. */
@@ -796,16 +800,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Acceptance =
@@ -844,8 +854,6 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         /** The type of addendum. */
         fun category(): Category = category.getRequired("category")
 
@@ -861,6 +869,8 @@ private constructor(
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
 
         fun validate(): Addenda = apply {
             if (!validated) {
@@ -885,9 +895,9 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(addenda: Addenda) = apply {
-                this.category = addenda.category
-                this.freeform = addenda.freeform
-                additionalProperties(addenda.additionalProperties)
+                category = addenda.category
+                freeform = addenda.freeform
+                additionalProperties = addenda.additionalProperties.toMutableMap()
             }
 
             /** The type of addendum. */
@@ -908,16 +918,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Addenda =
@@ -988,8 +1004,6 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
-            private var validated: Boolean = false
-
             /** Each entry represents an addendum received from the originator. */
             fun entries(): List<Entry> = entries.getRequired("entries")
 
@@ -999,6 +1013,8 @@ private constructor(
             @JsonAnyGetter
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            private var validated: Boolean = false
 
             fun validate(): Freeform = apply {
                 if (!validated) {
@@ -1021,8 +1037,8 @@ private constructor(
 
                 @JvmSynthetic
                 internal fun from(freeform: Freeform) = apply {
-                    this.entries = freeform.entries
-                    additionalProperties(freeform.additionalProperties)
+                    entries = freeform.entries
+                    additionalProperties = freeform.additionalProperties.toMutableMap()
                 }
 
                 /** Each entry represents an addendum received from the originator. */
@@ -1035,18 +1051,26 @@ private constructor(
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): Freeform =
                     Freeform(entries.map { it.toImmutable() }, additionalProperties.toImmutable())
@@ -1060,8 +1084,6 @@ private constructor(
                 private val additionalProperties: Map<String, JsonValue>,
             ) {
 
-                private var validated: Boolean = false
-
                 /** The payment related information passed in the addendum. */
                 fun paymentRelatedInformation(): String =
                     paymentRelatedInformation.getRequired("payment_related_information")
@@ -1074,6 +1096,8 @@ private constructor(
                 @JsonAnyGetter
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                private var validated: Boolean = false
 
                 fun validate(): Entry = apply {
                     if (!validated) {
@@ -1096,8 +1120,8 @@ private constructor(
 
                     @JvmSynthetic
                     internal fun from(entry: Entry) = apply {
-                        this.paymentRelatedInformation = entry.paymentRelatedInformation
-                        additionalProperties(entry.additionalProperties)
+                        paymentRelatedInformation = entry.paymentRelatedInformation
+                        additionalProperties = entry.additionalProperties.toMutableMap()
                     }
 
                     /** The payment related information passed in the addendum. */
@@ -1114,18 +1138,26 @@ private constructor(
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
-                        this.additionalProperties.putAll(additionalProperties)
+                        putAllAdditionalProperties(additionalProperties)
                     }
 
                     @JsonAnySetter
                     fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                        this.additionalProperties.put(key, value)
+                        additionalProperties.put(key, value)
                     }
 
                     fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                         apply {
                             this.additionalProperties.putAll(additionalProperties)
                         }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
 
                     fun build(): Entry =
                         Entry(paymentRelatedInformation, additionalProperties.toImmutable())
@@ -1196,8 +1228,6 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         /** The time at which the transfer was declined. */
         fun declinedAt(): OffsetDateTime = declinedAt.getRequired("declined_at")
 
@@ -1222,6 +1252,8 @@ private constructor(
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
 
         fun validate(): Decline = apply {
             if (!validated) {
@@ -1248,10 +1280,10 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(decline: Decline) = apply {
-                this.declinedAt = decline.declinedAt
-                this.declinedTransactionId = decline.declinedTransactionId
-                this.reason = decline.reason
-                additionalProperties(decline.additionalProperties)
+                declinedAt = decline.declinedAt
+                declinedTransactionId = decline.declinedTransactionId
+                reason = decline.reason
+                additionalProperties = decline.additionalProperties.toMutableMap()
             }
 
             /** The time at which the transfer was declined. */
@@ -1285,16 +1317,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Decline =
@@ -1649,8 +1687,6 @@ private constructor(
         private val receivingDepositoryFinancialInstitutionName: JsonField<String>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
-
-        private var validated: Boolean = false
 
         /**
          * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country code of
@@ -2077,6 +2113,8 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+        private var validated: Boolean = false
+
         fun validate(): InternationalAddenda = apply {
             if (!validated) {
                 destinationCountryCode()
@@ -2177,52 +2215,51 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(internationalAddenda: InternationalAddenda) = apply {
-                this.destinationCountryCode = internationalAddenda.destinationCountryCode
-                this.destinationCurrencyCode = internationalAddenda.destinationCurrencyCode
-                this.foreignExchangeIndicator = internationalAddenda.foreignExchangeIndicator
-                this.foreignExchangeReference = internationalAddenda.foreignExchangeReference
-                this.foreignExchangeReferenceIndicator =
+                destinationCountryCode = internationalAddenda.destinationCountryCode
+                destinationCurrencyCode = internationalAddenda.destinationCurrencyCode
+                foreignExchangeIndicator = internationalAddenda.foreignExchangeIndicator
+                foreignExchangeReference = internationalAddenda.foreignExchangeReference
+                foreignExchangeReferenceIndicator =
                     internationalAddenda.foreignExchangeReferenceIndicator
-                this.foreignPaymentAmount = internationalAddenda.foreignPaymentAmount
-                this.foreignTraceNumber = internationalAddenda.foreignTraceNumber
-                this.internationalTransactionTypeCode =
+                foreignPaymentAmount = internationalAddenda.foreignPaymentAmount
+                foreignTraceNumber = internationalAddenda.foreignTraceNumber
+                internationalTransactionTypeCode =
                     internationalAddenda.internationalTransactionTypeCode
-                this.originatingCurrencyCode = internationalAddenda.originatingCurrencyCode
-                this.originatingDepositoryFinancialInstitutionBranchCountry =
+                originatingCurrencyCode = internationalAddenda.originatingCurrencyCode
+                originatingDepositoryFinancialInstitutionBranchCountry =
                     internationalAddenda.originatingDepositoryFinancialInstitutionBranchCountry
-                this.originatingDepositoryFinancialInstitutionId =
+                originatingDepositoryFinancialInstitutionId =
                     internationalAddenda.originatingDepositoryFinancialInstitutionId
-                this.originatingDepositoryFinancialInstitutionIdQualifier =
+                originatingDepositoryFinancialInstitutionIdQualifier =
                     internationalAddenda.originatingDepositoryFinancialInstitutionIdQualifier
-                this.originatingDepositoryFinancialInstitutionName =
+                originatingDepositoryFinancialInstitutionName =
                     internationalAddenda.originatingDepositoryFinancialInstitutionName
-                this.originatorCity = internationalAddenda.originatorCity
-                this.originatorCountry = internationalAddenda.originatorCountry
-                this.originatorIdentification = internationalAddenda.originatorIdentification
-                this.originatorName = internationalAddenda.originatorName
-                this.originatorPostalCode = internationalAddenda.originatorPostalCode
-                this.originatorStateOrProvince = internationalAddenda.originatorStateOrProvince
-                this.originatorStreetAddress = internationalAddenda.originatorStreetAddress
-                this.paymentRelatedInformation = internationalAddenda.paymentRelatedInformation
-                this.paymentRelatedInformation2 = internationalAddenda.paymentRelatedInformation2
-                this.receiverCity = internationalAddenda.receiverCity
-                this.receiverCountry = internationalAddenda.receiverCountry
-                this.receiverIdentificationNumber =
-                    internationalAddenda.receiverIdentificationNumber
-                this.receiverPostalCode = internationalAddenda.receiverPostalCode
-                this.receiverStateOrProvince = internationalAddenda.receiverStateOrProvince
-                this.receiverStreetAddress = internationalAddenda.receiverStreetAddress
-                this.receivingCompanyOrIndividualName =
+                originatorCity = internationalAddenda.originatorCity
+                originatorCountry = internationalAddenda.originatorCountry
+                originatorIdentification = internationalAddenda.originatorIdentification
+                originatorName = internationalAddenda.originatorName
+                originatorPostalCode = internationalAddenda.originatorPostalCode
+                originatorStateOrProvince = internationalAddenda.originatorStateOrProvince
+                originatorStreetAddress = internationalAddenda.originatorStreetAddress
+                paymentRelatedInformation = internationalAddenda.paymentRelatedInformation
+                paymentRelatedInformation2 = internationalAddenda.paymentRelatedInformation2
+                receiverCity = internationalAddenda.receiverCity
+                receiverCountry = internationalAddenda.receiverCountry
+                receiverIdentificationNumber = internationalAddenda.receiverIdentificationNumber
+                receiverPostalCode = internationalAddenda.receiverPostalCode
+                receiverStateOrProvince = internationalAddenda.receiverStateOrProvince
+                receiverStreetAddress = internationalAddenda.receiverStreetAddress
+                receivingCompanyOrIndividualName =
                     internationalAddenda.receivingCompanyOrIndividualName
-                this.receivingDepositoryFinancialInstitutionCountry =
+                receivingDepositoryFinancialInstitutionCountry =
                     internationalAddenda.receivingDepositoryFinancialInstitutionCountry
-                this.receivingDepositoryFinancialInstitutionId =
+                receivingDepositoryFinancialInstitutionId =
                     internationalAddenda.receivingDepositoryFinancialInstitutionId
-                this.receivingDepositoryFinancialInstitutionIdQualifier =
+                receivingDepositoryFinancialInstitutionIdQualifier =
                     internationalAddenda.receivingDepositoryFinancialInstitutionIdQualifier
-                this.receivingDepositoryFinancialInstitutionName =
+                receivingDepositoryFinancialInstitutionName =
                     internationalAddenda.receivingDepositoryFinancialInstitutionName
-                additionalProperties(internationalAddenda.additionalProperties)
+                additionalProperties = internationalAddenda.additionalProperties.toMutableMap()
             }
 
             /**
@@ -2756,16 +2793,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): InternationalAddenda =
@@ -3279,8 +3322,6 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         /** The new account number provided in the notification of change. */
         fun updatedAccountNumber(): Optional<String> =
             Optional.ofNullable(updatedAccountNumber.getNullable("updated_account_number"))
@@ -3302,6 +3343,8 @@ private constructor(
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
 
         fun validate(): NotificationOfChange = apply {
             if (!validated) {
@@ -3326,9 +3369,9 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(notificationOfChange: NotificationOfChange) = apply {
-                this.updatedAccountNumber = notificationOfChange.updatedAccountNumber
-                this.updatedRoutingNumber = notificationOfChange.updatedRoutingNumber
-                additionalProperties(notificationOfChange.additionalProperties)
+                updatedAccountNumber = notificationOfChange.updatedAccountNumber
+                updatedRoutingNumber = notificationOfChange.updatedRoutingNumber
+                additionalProperties = notificationOfChange.additionalProperties.toMutableMap()
             }
 
             /** The new account number provided in the notification of change. */
@@ -3355,16 +3398,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): NotificationOfChange =
@@ -3614,8 +3663,6 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         /** The reason for the transfer return. */
         fun reason(): Reason = reason.getRequired("reason")
 
@@ -3637,6 +3684,8 @@ private constructor(
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
 
         fun validate(): TransferReturn = apply {
             if (!validated) {
@@ -3663,10 +3712,10 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(transferReturn: TransferReturn) = apply {
-                this.reason = transferReturn.reason
-                this.returnedAt = transferReturn.returnedAt
-                this.transactionId = transferReturn.transactionId
-                additionalProperties(transferReturn.additionalProperties)
+                reason = transferReturn.reason
+                returnedAt = transferReturn.returnedAt
+                transactionId = transferReturn.transactionId
+                additionalProperties = transferReturn.additionalProperties.toMutableMap()
             }
 
             /** The reason for the transfer return. */
@@ -3699,16 +3748,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): TransferReturn =

@@ -63,7 +63,8 @@ constructor(
     ) {
 
         /** If set, the simulation will reject the transfer. */
-        @JsonProperty("rejection") fun rejection(): Rejection? = rejection
+        @JsonProperty("rejection")
+        fun rejection(): Optional<Rejection> = Optional.ofNullable(rejection)
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -86,10 +87,10 @@ constructor(
                 simulationRealTimePaymentsTransferCompleteBody:
                     SimulationRealTimePaymentsTransferCompleteBody
             ) = apply {
-                this.rejection = simulationRealTimePaymentsTransferCompleteBody.rejection
-                additionalProperties(
+                rejection = simulationRealTimePaymentsTransferCompleteBody.rejection
+                additionalProperties =
                     simulationRealTimePaymentsTransferCompleteBody.additionalProperties
-                )
+                        .toMutableMap()
             }
 
             /** If set, the simulation will reject the transfer. */
@@ -98,16 +99,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): SimulationRealTimePaymentsTransferCompleteBody =
@@ -313,13 +320,13 @@ constructor(
     @NoAutoDetect
     class Rejection
     private constructor(
-        private val rejectReasonCode: RejectReasonCode?,
+        private val rejectReasonCode: RejectReasonCode,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /** The reason code that the simulated rejection will have. */
         @JsonProperty("reject_reason_code")
-        fun rejectReasonCode(): RejectReasonCode? = rejectReasonCode
+        fun rejectReasonCode(): RejectReasonCode = rejectReasonCode
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -339,8 +346,8 @@ constructor(
 
             @JvmSynthetic
             internal fun from(rejection: Rejection) = apply {
-                this.rejectReasonCode = rejection.rejectReasonCode
-                additionalProperties(rejection.additionalProperties)
+                rejectReasonCode = rejection.rejectReasonCode
+                additionalProperties = rejection.additionalProperties.toMutableMap()
             }
 
             /** The reason code that the simulated rejection will have. */
@@ -351,16 +358,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Rejection =

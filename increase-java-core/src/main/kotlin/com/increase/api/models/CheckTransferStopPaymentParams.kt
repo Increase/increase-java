@@ -63,7 +63,7 @@ constructor(
     ) {
 
         /** The reason why this transfer should be stopped. */
-        @JsonProperty("reason") fun reason(): Reason? = reason
+        @JsonProperty("reason") fun reason(): Optional<Reason> = Optional.ofNullable(reason)
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -83,8 +83,9 @@ constructor(
 
             @JvmSynthetic
             internal fun from(checkTransferStopPaymentBody: CheckTransferStopPaymentBody) = apply {
-                this.reason = checkTransferStopPaymentBody.reason
-                additionalProperties(checkTransferStopPaymentBody.additionalProperties)
+                reason = checkTransferStopPaymentBody.reason
+                additionalProperties =
+                    checkTransferStopPaymentBody.additionalProperties.toMutableMap()
             }
 
             /** The reason why this transfer should be stopped. */
@@ -92,16 +93,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): CheckTransferStopPaymentBody =

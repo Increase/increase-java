@@ -55,17 +55,17 @@ constructor(
     @NoAutoDetect
     class SimulationCardIncrementCreateBody
     internal constructor(
-        private val amount: Long?,
-        private val cardPaymentId: String?,
+        private val amount: Long,
+        private val cardPaymentId: String,
         private val eventSubscriptionId: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /** The amount of the increment in minor units in the card authorization's currency. */
-        @JsonProperty("amount") fun amount(): Long? = amount
+        @JsonProperty("amount") fun amount(): Long = amount
 
         /** The identifier of the Card Payment to create a increment on. */
-        @JsonProperty("card_payment_id") fun cardPaymentId(): String? = cardPaymentId
+        @JsonProperty("card_payment_id") fun cardPaymentId(): String = cardPaymentId
 
         /**
          * The identifier of the Event Subscription to use. If provided, will override the default
@@ -74,7 +74,7 @@ constructor(
          * for testing purposes.
          */
         @JsonProperty("event_subscription_id")
-        fun eventSubscriptionId(): String? = eventSubscriptionId
+        fun eventSubscriptionId(): Optional<String> = Optional.ofNullable(eventSubscriptionId)
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -98,10 +98,11 @@ constructor(
             internal fun from(
                 simulationCardIncrementCreateBody: SimulationCardIncrementCreateBody
             ) = apply {
-                this.amount = simulationCardIncrementCreateBody.amount
-                this.cardPaymentId = simulationCardIncrementCreateBody.cardPaymentId
-                this.eventSubscriptionId = simulationCardIncrementCreateBody.eventSubscriptionId
-                additionalProperties(simulationCardIncrementCreateBody.additionalProperties)
+                amount = simulationCardIncrementCreateBody.amount
+                cardPaymentId = simulationCardIncrementCreateBody.cardPaymentId
+                eventSubscriptionId = simulationCardIncrementCreateBody.eventSubscriptionId
+                additionalProperties =
+                    simulationCardIncrementCreateBody.additionalProperties.toMutableMap()
             }
 
             /** The amount of the increment in minor units in the card authorization's currency. */
@@ -124,16 +125,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): SimulationCardIncrementCreateBody =

@@ -60,8 +60,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     /** The Account to which the transfer belongs. */
     fun accountId(): String = accountId.getRequired("account_id")
 
@@ -324,6 +322,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): WireTransfer = apply {
         if (!validated) {
             accountId()
@@ -401,36 +401,36 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(wireTransfer: WireTransfer) = apply {
-            this.accountId = wireTransfer.accountId
-            this.accountNumber = wireTransfer.accountNumber
-            this.amount = wireTransfer.amount
-            this.approval = wireTransfer.approval
-            this.beneficiaryAddressLine1 = wireTransfer.beneficiaryAddressLine1
-            this.beneficiaryAddressLine2 = wireTransfer.beneficiaryAddressLine2
-            this.beneficiaryAddressLine3 = wireTransfer.beneficiaryAddressLine3
-            this.beneficiaryName = wireTransfer.beneficiaryName
-            this.cancellation = wireTransfer.cancellation
-            this.createdAt = wireTransfer.createdAt
-            this.createdBy = wireTransfer.createdBy
-            this.currency = wireTransfer.currency
-            this.externalAccountId = wireTransfer.externalAccountId
-            this.id = wireTransfer.id
-            this.idempotencyKey = wireTransfer.idempotencyKey
-            this.messageToRecipient = wireTransfer.messageToRecipient
-            this.network = wireTransfer.network
-            this.originatorAddressLine1 = wireTransfer.originatorAddressLine1
-            this.originatorAddressLine2 = wireTransfer.originatorAddressLine2
-            this.originatorAddressLine3 = wireTransfer.originatorAddressLine3
-            this.originatorName = wireTransfer.originatorName
-            this.pendingTransactionId = wireTransfer.pendingTransactionId
-            this.reversal = wireTransfer.reversal
-            this.routingNumber = wireTransfer.routingNumber
-            this.sourceAccountNumberId = wireTransfer.sourceAccountNumberId
-            this.status = wireTransfer.status
-            this.submission = wireTransfer.submission
-            this.transactionId = wireTransfer.transactionId
-            this.type = wireTransfer.type
-            additionalProperties(wireTransfer.additionalProperties)
+            accountId = wireTransfer.accountId
+            accountNumber = wireTransfer.accountNumber
+            amount = wireTransfer.amount
+            approval = wireTransfer.approval
+            beneficiaryAddressLine1 = wireTransfer.beneficiaryAddressLine1
+            beneficiaryAddressLine2 = wireTransfer.beneficiaryAddressLine2
+            beneficiaryAddressLine3 = wireTransfer.beneficiaryAddressLine3
+            beneficiaryName = wireTransfer.beneficiaryName
+            cancellation = wireTransfer.cancellation
+            createdAt = wireTransfer.createdAt
+            createdBy = wireTransfer.createdBy
+            currency = wireTransfer.currency
+            externalAccountId = wireTransfer.externalAccountId
+            id = wireTransfer.id
+            idempotencyKey = wireTransfer.idempotencyKey
+            messageToRecipient = wireTransfer.messageToRecipient
+            network = wireTransfer.network
+            originatorAddressLine1 = wireTransfer.originatorAddressLine1
+            originatorAddressLine2 = wireTransfer.originatorAddressLine2
+            originatorAddressLine3 = wireTransfer.originatorAddressLine3
+            originatorName = wireTransfer.originatorName
+            pendingTransactionId = wireTransfer.pendingTransactionId
+            reversal = wireTransfer.reversal
+            routingNumber = wireTransfer.routingNumber
+            sourceAccountNumberId = wireTransfer.sourceAccountNumberId
+            status = wireTransfer.status
+            submission = wireTransfer.submission
+            transactionId = wireTransfer.transactionId
+            type = wireTransfer.type
+            additionalProperties = wireTransfer.additionalProperties.toMutableMap()
         }
 
         /** The Account to which the transfer belongs. */
@@ -758,16 +758,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): WireTransfer =
@@ -818,8 +824,6 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
          * transfer was approved.
@@ -847,6 +851,8 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+        private var validated: Boolean = false
+
         fun validate(): Approval = apply {
             if (!validated) {
                 approvedAt()
@@ -870,9 +876,9 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(approval: Approval) = apply {
-                this.approvedAt = approval.approvedAt
-                this.approvedBy = approval.approvedBy
-                additionalProperties(approval.additionalProperties)
+                approvedAt = approval.approvedAt
+                approvedBy = approval.approvedBy
+                additionalProperties = approval.additionalProperties.toMutableMap()
             }
 
             /**
@@ -907,16 +913,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Approval =
@@ -958,8 +970,6 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
          * Transfer was canceled.
@@ -987,6 +997,8 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+        private var validated: Boolean = false
+
         fun validate(): Cancellation = apply {
             if (!validated) {
                 canceledAt()
@@ -1010,9 +1022,9 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(cancellation: Cancellation) = apply {
-                this.canceledAt = cancellation.canceledAt
-                this.canceledBy = cancellation.canceledBy
-                additionalProperties(cancellation.additionalProperties)
+                canceledAt = cancellation.canceledAt
+                canceledBy = cancellation.canceledBy
+                additionalProperties = cancellation.additionalProperties.toMutableMap()
             }
 
             /**
@@ -1047,16 +1059,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Cancellation =
@@ -1097,8 +1115,6 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         /** If present, details about the API key that created the transfer. */
         fun apiKey(): Optional<ApiKey> = Optional.ofNullable(apiKey.getNullable("api_key"))
 
@@ -1130,6 +1146,8 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+        private var validated: Boolean = false
+
         fun validate(): CreatedBy = apply {
             if (!validated) {
                 apiKey().map { it.validate() }
@@ -1157,11 +1175,11 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(createdBy: CreatedBy) = apply {
-                this.apiKey = createdBy.apiKey
-                this.category = createdBy.category
-                this.oauthApplication = createdBy.oauthApplication
-                this.user = createdBy.user
-                additionalProperties(createdBy.additionalProperties)
+                apiKey = createdBy.apiKey
+                category = createdBy.category
+                oauthApplication = createdBy.oauthApplication
+                user = createdBy.user
+                additionalProperties = createdBy.additionalProperties.toMutableMap()
             }
 
             /** If present, details about the API key that created the transfer. */
@@ -1201,16 +1219,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): CreatedBy =
@@ -1232,8 +1256,6 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
-            private var validated: Boolean = false
-
             /** The description set for the API key when it was created. */
             fun description(): Optional<String> =
                 Optional.ofNullable(description.getNullable("description"))
@@ -1244,6 +1266,8 @@ private constructor(
             @JsonAnyGetter
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            private var validated: Boolean = false
 
             fun validate(): ApiKey = apply {
                 if (!validated) {
@@ -1266,8 +1290,8 @@ private constructor(
 
                 @JvmSynthetic
                 internal fun from(apiKey: ApiKey) = apply {
-                    this.description = apiKey.description
-                    additionalProperties(apiKey.additionalProperties)
+                    description = apiKey.description
+                    additionalProperties = apiKey.additionalProperties.toMutableMap()
                 }
 
                 /** The description set for the API key when it was created. */
@@ -1282,18 +1306,26 @@ private constructor(
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): ApiKey = ApiKey(description, additionalProperties.toImmutable())
             }
@@ -1388,8 +1420,6 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
-            private var validated: Boolean = false
-
             /** The name of the OAuth Application. */
             fun name(): String = name.getRequired("name")
 
@@ -1399,6 +1429,8 @@ private constructor(
             @JsonAnyGetter
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            private var validated: Boolean = false
 
             fun validate(): OAuthApplication = apply {
                 if (!validated) {
@@ -1421,8 +1453,8 @@ private constructor(
 
                 @JvmSynthetic
                 internal fun from(oauthApplication: OAuthApplication) = apply {
-                    this.name = oauthApplication.name
-                    additionalProperties(oauthApplication.additionalProperties)
+                    name = oauthApplication.name
+                    additionalProperties = oauthApplication.additionalProperties.toMutableMap()
                 }
 
                 /** The name of the OAuth Application. */
@@ -1435,18 +1467,26 @@ private constructor(
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): OAuthApplication =
                     OAuthApplication(name, additionalProperties.toImmutable())
@@ -1479,8 +1519,6 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
-            private var validated: Boolean = false
-
             /** The email address of the User. */
             fun email(): String = email.getRequired("email")
 
@@ -1490,6 +1528,8 @@ private constructor(
             @JsonAnyGetter
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            private var validated: Boolean = false
 
             fun validate(): User = apply {
                 if (!validated) {
@@ -1512,8 +1552,8 @@ private constructor(
 
                 @JvmSynthetic
                 internal fun from(user: User) = apply {
-                    this.email = user.email
-                    additionalProperties(user.additionalProperties)
+                    email = user.email
+                    additionalProperties = user.additionalProperties.toMutableMap()
                 }
 
                 /** The email address of the User. */
@@ -1526,18 +1566,26 @@ private constructor(
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): User = User(email, additionalProperties.toImmutable())
             }
@@ -1735,8 +1783,6 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         /** The amount that was reversed in USD cents. */
         fun amount(): Long = amount.getRequired("amount")
 
@@ -1900,6 +1946,8 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+        private var validated: Boolean = false
+
         fun validate(): Reversal = apply {
             if (!validated) {
                 amount()
@@ -1956,28 +2004,27 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(reversal: Reversal) = apply {
-                this.amount = reversal.amount
-                this.createdAt = reversal.createdAt
-                this.description = reversal.description
-                this.financialInstitutionToFinancialInstitutionInformation =
+                amount = reversal.amount
+                createdAt = reversal.createdAt
+                description = reversal.description
+                financialInstitutionToFinancialInstitutionInformation =
                     reversal.financialInstitutionToFinancialInstitutionInformation
-                this.inputCycleDate = reversal.inputCycleDate
-                this.inputMessageAccountabilityData = reversal.inputMessageAccountabilityData
-                this.inputSequenceNumber = reversal.inputSequenceNumber
-                this.inputSource = reversal.inputSource
-                this.originatorRoutingNumber = reversal.originatorRoutingNumber
-                this.previousMessageInputCycleDate = reversal.previousMessageInputCycleDate
-                this.previousMessageInputMessageAccountabilityData =
+                inputCycleDate = reversal.inputCycleDate
+                inputMessageAccountabilityData = reversal.inputMessageAccountabilityData
+                inputSequenceNumber = reversal.inputSequenceNumber
+                inputSource = reversal.inputSource
+                originatorRoutingNumber = reversal.originatorRoutingNumber
+                previousMessageInputCycleDate = reversal.previousMessageInputCycleDate
+                previousMessageInputMessageAccountabilityData =
                     reversal.previousMessageInputMessageAccountabilityData
-                this.previousMessageInputSequenceNumber =
-                    reversal.previousMessageInputSequenceNumber
-                this.previousMessageInputSource = reversal.previousMessageInputSource
-                this.receiverFinancialInstitutionInformation =
+                previousMessageInputSequenceNumber = reversal.previousMessageInputSequenceNumber
+                previousMessageInputSource = reversal.previousMessageInputSource
+                receiverFinancialInstitutionInformation =
                     reversal.receiverFinancialInstitutionInformation
-                this.senderReference = reversal.senderReference
-                this.transactionId = reversal.transactionId
-                this.wireTransferId = reversal.wireTransferId
-                additionalProperties(reversal.additionalProperties)
+                senderReference = reversal.senderReference
+                transactionId = reversal.transactionId
+                wireTransferId = reversal.wireTransferId
+                additionalProperties = reversal.additionalProperties.toMutableMap()
             }
 
             /** The amount that was reversed in USD cents. */
@@ -2213,16 +2260,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Reversal =
@@ -2375,8 +2428,6 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         /** The accountability data for the submission. */
         fun inputMessageAccountabilityData(): String =
             inputMessageAccountabilityData.getRequired("input_message_accountability_data")
@@ -2395,6 +2446,8 @@ private constructor(
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
 
         fun validate(): Submission = apply {
             if (!validated) {
@@ -2419,9 +2472,9 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(submission: Submission) = apply {
-                this.inputMessageAccountabilityData = submission.inputMessageAccountabilityData
-                this.submittedAt = submission.submittedAt
-                additionalProperties(submission.additionalProperties)
+                inputMessageAccountabilityData = submission.inputMessageAccountabilityData
+                submittedAt = submission.submittedAt
+                additionalProperties = submission.additionalProperties.toMutableMap()
             }
 
             /** The accountability data for the submission. */
@@ -2448,16 +2501,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Submission =

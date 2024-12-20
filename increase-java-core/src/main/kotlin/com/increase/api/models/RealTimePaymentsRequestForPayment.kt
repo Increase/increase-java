@@ -52,8 +52,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     /** The transfer amount in USD cents. */
     fun amount(): Long = amount.getRequired("amount")
 
@@ -225,6 +223,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): RealTimePaymentsRequestForPayment = apply {
         if (!validated) {
             amount()
@@ -279,26 +279,27 @@ private constructor(
         @JvmSynthetic
         internal fun from(realTimePaymentsRequestForPayment: RealTimePaymentsRequestForPayment) =
             apply {
-                this.amount = realTimePaymentsRequestForPayment.amount
-                this.createdAt = realTimePaymentsRequestForPayment.createdAt
-                this.currency = realTimePaymentsRequestForPayment.currency
-                this.debtorName = realTimePaymentsRequestForPayment.debtorName
-                this.destinationAccountNumberId =
+                amount = realTimePaymentsRequestForPayment.amount
+                createdAt = realTimePaymentsRequestForPayment.createdAt
+                currency = realTimePaymentsRequestForPayment.currency
+                debtorName = realTimePaymentsRequestForPayment.debtorName
+                destinationAccountNumberId =
                     realTimePaymentsRequestForPayment.destinationAccountNumberId
-                this.expiresAt = realTimePaymentsRequestForPayment.expiresAt
-                this.fulfillmentTransactionId =
+                expiresAt = realTimePaymentsRequestForPayment.expiresAt
+                fulfillmentTransactionId =
                     realTimePaymentsRequestForPayment.fulfillmentTransactionId
-                this.id = realTimePaymentsRequestForPayment.id
-                this.idempotencyKey = realTimePaymentsRequestForPayment.idempotencyKey
-                this.refusal = realTimePaymentsRequestForPayment.refusal
-                this.rejection = realTimePaymentsRequestForPayment.rejection
-                this.remittanceInformation = realTimePaymentsRequestForPayment.remittanceInformation
-                this.sourceAccountNumber = realTimePaymentsRequestForPayment.sourceAccountNumber
-                this.sourceRoutingNumber = realTimePaymentsRequestForPayment.sourceRoutingNumber
-                this.status = realTimePaymentsRequestForPayment.status
-                this.submission = realTimePaymentsRequestForPayment.submission
-                this.type = realTimePaymentsRequestForPayment.type
-                additionalProperties(realTimePaymentsRequestForPayment.additionalProperties)
+                id = realTimePaymentsRequestForPayment.id
+                idempotencyKey = realTimePaymentsRequestForPayment.idempotencyKey
+                refusal = realTimePaymentsRequestForPayment.refusal
+                rejection = realTimePaymentsRequestForPayment.rejection
+                remittanceInformation = realTimePaymentsRequestForPayment.remittanceInformation
+                sourceAccountNumber = realTimePaymentsRequestForPayment.sourceAccountNumber
+                sourceRoutingNumber = realTimePaymentsRequestForPayment.sourceRoutingNumber
+                status = realTimePaymentsRequestForPayment.status
+                submission = realTimePaymentsRequestForPayment.submission
+                type = realTimePaymentsRequestForPayment.type
+                additionalProperties =
+                    realTimePaymentsRequestForPayment.additionalProperties.toMutableMap()
             }
 
         /** The transfer amount in USD cents. */
@@ -504,16 +505,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): RealTimePaymentsRequestForPayment =
@@ -632,8 +639,6 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         /**
          * The reason the request for payment was refused as provided by the recipient bank or the
          * customer.
@@ -652,6 +657,8 @@ private constructor(
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
 
         fun validate(): Refusal = apply {
             if (!validated) {
@@ -674,8 +681,8 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(refusal: Refusal) = apply {
-                this.refusalReasonCode = refusal.refusalReasonCode
-                additionalProperties(refusal.additionalProperties)
+                refusalReasonCode = refusal.refusalReasonCode
+                additionalProperties = refusal.additionalProperties.toMutableMap()
             }
 
             /**
@@ -697,16 +704,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Refusal = Refusal(refusalReasonCode, additionalProperties.toImmutable())
@@ -865,8 +878,6 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         /**
          * The reason the request for payment was rejected as provided by the recipient bank or the
          * Real-Time Payments network.
@@ -885,6 +896,8 @@ private constructor(
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
 
         fun validate(): Rejection = apply {
             if (!validated) {
@@ -907,8 +920,8 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(rejection: Rejection) = apply {
-                this.rejectReasonCode = rejection.rejectReasonCode
-                additionalProperties(rejection.additionalProperties)
+                rejectReasonCode = rejection.rejectReasonCode
+                additionalProperties = rejection.additionalProperties.toMutableMap()
             }
 
             /**
@@ -930,16 +943,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Rejection = Rejection(rejectReasonCode, additionalProperties.toImmutable())
@@ -1234,8 +1253,6 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         /** The Real-Time Payments payment information identification of the request. */
         fun paymentInformationIdentification(): String =
             paymentInformationIdentification.getRequired("payment_information_identification")
@@ -1248,6 +1265,8 @@ private constructor(
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
 
         fun validate(): Submission = apply {
             if (!validated) {
@@ -1270,8 +1289,8 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(submission: Submission) = apply {
-                this.paymentInformationIdentification = submission.paymentInformationIdentification
-                additionalProperties(submission.additionalProperties)
+                paymentInformationIdentification = submission.paymentInformationIdentification
+                additionalProperties = submission.additionalProperties.toMutableMap()
             }
 
             /** The Real-Time Payments payment information identification of the request. */
@@ -1287,16 +1306,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Submission =

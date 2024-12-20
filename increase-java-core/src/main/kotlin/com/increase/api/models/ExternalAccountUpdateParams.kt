@@ -81,16 +81,18 @@ constructor(
     ) {
 
         /** The type of entity that owns the External Account. */
-        @JsonProperty("account_holder") fun accountHolder(): AccountHolder? = accountHolder
+        @JsonProperty("account_holder")
+        fun accountHolder(): Optional<AccountHolder> = Optional.ofNullable(accountHolder)
 
         /** The description you choose to give the external account. */
-        @JsonProperty("description") fun description(): String? = description
+        @JsonProperty("description")
+        fun description(): Optional<String> = Optional.ofNullable(description)
 
         /** The funding type of the External Account. */
-        @JsonProperty("funding") fun funding(): Funding? = funding
+        @JsonProperty("funding") fun funding(): Optional<Funding> = Optional.ofNullable(funding)
 
         /** The status of the External Account. */
-        @JsonProperty("status") fun status(): Status? = status
+        @JsonProperty("status") fun status(): Optional<Status> = Optional.ofNullable(status)
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -113,11 +115,11 @@ constructor(
 
             @JvmSynthetic
             internal fun from(externalAccountUpdateBody: ExternalAccountUpdateBody) = apply {
-                this.accountHolder = externalAccountUpdateBody.accountHolder
-                this.description = externalAccountUpdateBody.description
-                this.funding = externalAccountUpdateBody.funding
-                this.status = externalAccountUpdateBody.status
-                additionalProperties(externalAccountUpdateBody.additionalProperties)
+                accountHolder = externalAccountUpdateBody.accountHolder
+                description = externalAccountUpdateBody.description
+                funding = externalAccountUpdateBody.funding
+                status = externalAccountUpdateBody.status
+                additionalProperties = externalAccountUpdateBody.additionalProperties.toMutableMap()
             }
 
             /** The type of entity that owns the External Account. */
@@ -139,16 +141,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): ExternalAccountUpdateBody =

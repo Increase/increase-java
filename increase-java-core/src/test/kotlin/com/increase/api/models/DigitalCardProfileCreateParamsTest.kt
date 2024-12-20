@@ -55,11 +55,11 @@ class DigitalCardProfileCreateParamsTest {
         assertThat(body.cardDescription()).isEqualTo("MyBank Signature Card")
         assertThat(body.description()).isEqualTo("My Card Profile")
         assertThat(body.issuerName()).isEqualTo("MyBank")
-        assertThat(body.contactEmail()).isEqualTo("user@example.com")
-        assertThat(body.contactPhone()).isEqualTo("+18885551212")
-        assertThat(body.contactWebsite()).isEqualTo("https://example.com")
+        assertThat(body.contactEmail()).contains("user@example.com")
+        assertThat(body.contactPhone()).contains("+18885551212")
+        assertThat(body.contactWebsite()).contains("https://example.com")
         assertThat(body.textColor())
-            .isEqualTo(
+            .contains(
                 DigitalCardProfileCreateParams.TextColor.builder()
                     .blue(59L)
                     .green(43L)

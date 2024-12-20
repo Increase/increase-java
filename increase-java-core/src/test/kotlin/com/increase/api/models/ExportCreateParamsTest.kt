@@ -154,7 +154,7 @@ class ExportCreateParamsTest {
         assertThat(body).isNotNull
         assertThat(body.category()).isEqualTo(ExportCreateParams.Category.ACCOUNT_STATEMENT_OFX)
         assertThat(body.accountStatementOfx())
-            .isEqualTo(
+            .contains(
                 ExportCreateParams.AccountStatementOfx.builder()
                     .accountId("account_id")
                     .createdAt(
@@ -168,7 +168,7 @@ class ExportCreateParamsTest {
                     .build()
             )
         assertThat(body.balanceCsv())
-            .isEqualTo(
+            .contains(
                 ExportCreateParams.BalanceCsv.builder()
                     .accountId("account_id")
                     .createdAt(
@@ -183,7 +183,7 @@ class ExportCreateParamsTest {
                     .build()
             )
         assertThat(body.bookkeepingAccountBalanceCsv())
-            .isEqualTo(
+            .contains(
                 ExportCreateParams.BookkeepingAccountBalanceCsv.builder()
                     .bookkeepingAccountId("bookkeeping_account_id")
                     .createdAt(
@@ -197,7 +197,7 @@ class ExportCreateParamsTest {
                     .build()
             )
         assertThat(body.entityCsv())
-            .isEqualTo(
+            .contains(
                 ExportCreateParams.EntityCsv.builder()
                     .status(
                         ExportCreateParams.EntityCsv.Status.builder()
@@ -207,7 +207,7 @@ class ExportCreateParamsTest {
                     .build()
             )
         assertThat(body.transactionCsv())
-            .isEqualTo(
+            .contains(
                 ExportCreateParams.TransactionCsv.builder()
                     .accountId("account_in71c4amph0vgo2qllky")
                     .createdAt(
@@ -221,7 +221,7 @@ class ExportCreateParamsTest {
                     .programId("program_id")
                     .build()
             )
-        assertThat(body.vendorCsv()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
+        assertThat(body.vendorCsv()).contains(JsonValue.from(mapOf<String, Any>()))
     }
 
     @Test

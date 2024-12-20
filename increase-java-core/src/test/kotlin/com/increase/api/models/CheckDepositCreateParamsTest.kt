@@ -34,7 +34,7 @@ class CheckDepositCreateParamsTest {
         assertThat(body.amount()).isEqualTo(1000L)
         assertThat(body.backImageFileId()).isEqualTo("file_26khfk98mzfz90a11oqx")
         assertThat(body.frontImageFileId()).isEqualTo("file_hkv175ovmc2tb2v2zbrm")
-        assertThat(body.description()).isEqualTo("Vendor payment")
+        assertThat(body.description()).contains("Vendor payment")
     }
 
     @Test

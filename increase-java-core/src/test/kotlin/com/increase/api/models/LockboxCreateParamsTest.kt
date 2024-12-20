@@ -27,8 +27,8 @@ class LockboxCreateParamsTest {
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
-        assertThat(body.description()).isEqualTo("Rent payments")
-        assertThat(body.recipientName()).isEqualTo("x")
+        assertThat(body.description()).contains("Rent payments")
+        assertThat(body.recipientName()).contains("x")
     }
 
     @Test

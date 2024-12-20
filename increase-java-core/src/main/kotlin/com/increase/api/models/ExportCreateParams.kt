@@ -78,7 +78,7 @@ constructor(
     @NoAutoDetect
     class ExportCreateBody
     internal constructor(
-        private val category: Category?,
+        private val category: Category,
         private val accountStatementOfx: AccountStatementOfx?,
         private val balanceCsv: BalanceCsv?,
         private val bookkeepingAccountBalanceCsv: BookkeepingAccountBalanceCsv?,
@@ -89,34 +89,39 @@ constructor(
     ) {
 
         /** The type of Export to create. */
-        @JsonProperty("category") fun category(): Category? = category
+        @JsonProperty("category") fun category(): Category = category
 
         /**
          * Options for the created export. Required if `category` is equal to
          * `account_statement_ofx`.
          */
         @JsonProperty("account_statement_ofx")
-        fun accountStatementOfx(): AccountStatementOfx? = accountStatementOfx
+        fun accountStatementOfx(): Optional<AccountStatementOfx> =
+            Optional.ofNullable(accountStatementOfx)
 
         /** Options for the created export. Required if `category` is equal to `balance_csv`. */
-        @JsonProperty("balance_csv") fun balanceCsv(): BalanceCsv? = balanceCsv
+        @JsonProperty("balance_csv")
+        fun balanceCsv(): Optional<BalanceCsv> = Optional.ofNullable(balanceCsv)
 
         /**
          * Options for the created export. Required if `category` is equal to
          * `bookkeeping_account_balance_csv`.
          */
         @JsonProperty("bookkeeping_account_balance_csv")
-        fun bookkeepingAccountBalanceCsv(): BookkeepingAccountBalanceCsv? =
-            bookkeepingAccountBalanceCsv
+        fun bookkeepingAccountBalanceCsv(): Optional<BookkeepingAccountBalanceCsv> =
+            Optional.ofNullable(bookkeepingAccountBalanceCsv)
 
         /** Options for the created export. Required if `category` is equal to `entity_csv`. */
-        @JsonProperty("entity_csv") fun entityCsv(): EntityCsv? = entityCsv
+        @JsonProperty("entity_csv")
+        fun entityCsv(): Optional<EntityCsv> = Optional.ofNullable(entityCsv)
 
         /** Options for the created export. Required if `category` is equal to `transaction_csv`. */
-        @JsonProperty("transaction_csv") fun transactionCsv(): TransactionCsv? = transactionCsv
+        @JsonProperty("transaction_csv")
+        fun transactionCsv(): Optional<TransactionCsv> = Optional.ofNullable(transactionCsv)
 
         /** Options for the created export. Required if `category` is equal to `vendor_csv`. */
-        @JsonProperty("vendor_csv") fun vendorCsv(): JsonValue? = vendorCsv
+        @JsonProperty("vendor_csv")
+        fun vendorCsv(): Optional<JsonValue> = Optional.ofNullable(vendorCsv)
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -142,14 +147,14 @@ constructor(
 
             @JvmSynthetic
             internal fun from(exportCreateBody: ExportCreateBody) = apply {
-                this.category = exportCreateBody.category
-                this.accountStatementOfx = exportCreateBody.accountStatementOfx
-                this.balanceCsv = exportCreateBody.balanceCsv
-                this.bookkeepingAccountBalanceCsv = exportCreateBody.bookkeepingAccountBalanceCsv
-                this.entityCsv = exportCreateBody.entityCsv
-                this.transactionCsv = exportCreateBody.transactionCsv
-                this.vendorCsv = exportCreateBody.vendorCsv
-                additionalProperties(exportCreateBody.additionalProperties)
+                category = exportCreateBody.category
+                accountStatementOfx = exportCreateBody.accountStatementOfx
+                balanceCsv = exportCreateBody.balanceCsv
+                bookkeepingAccountBalanceCsv = exportCreateBody.bookkeepingAccountBalanceCsv
+                entityCsv = exportCreateBody.entityCsv
+                transactionCsv = exportCreateBody.transactionCsv
+                vendorCsv = exportCreateBody.vendorCsv
+                additionalProperties = exportCreateBody.additionalProperties.toMutableMap()
             }
 
             /** The type of Export to create. */
@@ -196,16 +201,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): ExportCreateBody =
@@ -530,16 +541,17 @@ constructor(
     @NoAutoDetect
     class AccountStatementOfx
     private constructor(
-        private val accountId: String?,
+        private val accountId: String,
         private val createdAt: CreatedAt?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /** The Account to create a statement for. */
-        @JsonProperty("account_id") fun accountId(): String? = accountId
+        @JsonProperty("account_id") fun accountId(): String = accountId
 
         /** Filter results by time range on the `created_at` attribute. */
-        @JsonProperty("created_at") fun createdAt(): CreatedAt? = createdAt
+        @JsonProperty("created_at")
+        fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -560,9 +572,9 @@ constructor(
 
             @JvmSynthetic
             internal fun from(accountStatementOfx: AccountStatementOfx) = apply {
-                this.accountId = accountStatementOfx.accountId
-                this.createdAt = accountStatementOfx.createdAt
-                additionalProperties(accountStatementOfx.additionalProperties)
+                accountId = accountStatementOfx.accountId
+                createdAt = accountStatementOfx.createdAt
+                additionalProperties = accountStatementOfx.additionalProperties.toMutableMap()
             }
 
             /** The Account to create a statement for. */
@@ -575,16 +587,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): AccountStatementOfx =
@@ -611,25 +629,29 @@ constructor(
              * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            @JsonProperty("after") fun after(): OffsetDateTime? = after
+            @JsonProperty("after")
+            fun after(): Optional<OffsetDateTime> = Optional.ofNullable(after)
 
             /**
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            @JsonProperty("before") fun before(): OffsetDateTime? = before
+            @JsonProperty("before")
+            fun before(): Optional<OffsetDateTime> = Optional.ofNullable(before)
 
             /**
              * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            @JsonProperty("on_or_after") fun onOrAfter(): OffsetDateTime? = onOrAfter
+            @JsonProperty("on_or_after")
+            fun onOrAfter(): Optional<OffsetDateTime> = Optional.ofNullable(onOrAfter)
 
             /**
              * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            @JsonProperty("on_or_before") fun onOrBefore(): OffsetDateTime? = onOrBefore
+            @JsonProperty("on_or_before")
+            fun onOrBefore(): Optional<OffsetDateTime> = Optional.ofNullable(onOrBefore)
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -652,11 +674,11 @@ constructor(
 
                 @JvmSynthetic
                 internal fun from(createdAt: CreatedAt) = apply {
-                    this.after = createdAt.after
-                    this.before = createdAt.before
-                    this.onOrAfter = createdAt.onOrAfter
-                    this.onOrBefore = createdAt.onOrBefore
-                    additionalProperties(createdAt.additionalProperties)
+                    after = createdAt.after
+                    before = createdAt.before
+                    onOrAfter = createdAt.onOrAfter
+                    onOrBefore = createdAt.onOrBefore
+                    additionalProperties = createdAt.additionalProperties.toMutableMap()
                 }
 
                 /**
@@ -689,18 +711,26 @@ constructor(
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): CreatedAt =
                     CreatedAt(
@@ -760,13 +790,16 @@ constructor(
     ) {
 
         /** Filter exported Transactions to the specified Account. */
-        @JsonProperty("account_id") fun accountId(): String? = accountId
+        @JsonProperty("account_id")
+        fun accountId(): Optional<String> = Optional.ofNullable(accountId)
 
         /** Filter results by time range on the `created_at` attribute. */
-        @JsonProperty("created_at") fun createdAt(): CreatedAt? = createdAt
+        @JsonProperty("created_at")
+        fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
 
         /** Filter exported Transactions to the specified Program. */
-        @JsonProperty("program_id") fun programId(): String? = programId
+        @JsonProperty("program_id")
+        fun programId(): Optional<String> = Optional.ofNullable(programId)
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -788,10 +821,10 @@ constructor(
 
             @JvmSynthetic
             internal fun from(balanceCsv: BalanceCsv) = apply {
-                this.accountId = balanceCsv.accountId
-                this.createdAt = balanceCsv.createdAt
-                this.programId = balanceCsv.programId
-                additionalProperties(balanceCsv.additionalProperties)
+                accountId = balanceCsv.accountId
+                createdAt = balanceCsv.createdAt
+                programId = balanceCsv.programId
+                additionalProperties = balanceCsv.additionalProperties.toMutableMap()
             }
 
             /** Filter exported Transactions to the specified Account. */
@@ -808,16 +841,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): BalanceCsv =
@@ -845,25 +884,29 @@ constructor(
              * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            @JsonProperty("after") fun after(): OffsetDateTime? = after
+            @JsonProperty("after")
+            fun after(): Optional<OffsetDateTime> = Optional.ofNullable(after)
 
             /**
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            @JsonProperty("before") fun before(): OffsetDateTime? = before
+            @JsonProperty("before")
+            fun before(): Optional<OffsetDateTime> = Optional.ofNullable(before)
 
             /**
              * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            @JsonProperty("on_or_after") fun onOrAfter(): OffsetDateTime? = onOrAfter
+            @JsonProperty("on_or_after")
+            fun onOrAfter(): Optional<OffsetDateTime> = Optional.ofNullable(onOrAfter)
 
             /**
              * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            @JsonProperty("on_or_before") fun onOrBefore(): OffsetDateTime? = onOrBefore
+            @JsonProperty("on_or_before")
+            fun onOrBefore(): Optional<OffsetDateTime> = Optional.ofNullable(onOrBefore)
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -886,11 +929,11 @@ constructor(
 
                 @JvmSynthetic
                 internal fun from(createdAt: CreatedAt) = apply {
-                    this.after = createdAt.after
-                    this.before = createdAt.before
-                    this.onOrAfter = createdAt.onOrAfter
-                    this.onOrBefore = createdAt.onOrBefore
-                    additionalProperties(createdAt.additionalProperties)
+                    after = createdAt.after
+                    before = createdAt.before
+                    onOrAfter = createdAt.onOrAfter
+                    onOrBefore = createdAt.onOrBefore
+                    additionalProperties = createdAt.additionalProperties.toMutableMap()
                 }
 
                 /**
@@ -923,18 +966,26 @@ constructor(
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): CreatedAt =
                     CreatedAt(
@@ -997,10 +1048,11 @@ constructor(
 
         /** Filter exported Transactions to the specified Bookkeeping Account. */
         @JsonProperty("bookkeeping_account_id")
-        fun bookkeepingAccountId(): String? = bookkeepingAccountId
+        fun bookkeepingAccountId(): Optional<String> = Optional.ofNullable(bookkeepingAccountId)
 
         /** Filter results by time range on the `created_at` attribute. */
-        @JsonProperty("created_at") fun createdAt(): CreatedAt? = createdAt
+        @JsonProperty("created_at")
+        fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1021,9 +1073,10 @@ constructor(
 
             @JvmSynthetic
             internal fun from(bookkeepingAccountBalanceCsv: BookkeepingAccountBalanceCsv) = apply {
-                this.bookkeepingAccountId = bookkeepingAccountBalanceCsv.bookkeepingAccountId
-                this.createdAt = bookkeepingAccountBalanceCsv.createdAt
-                additionalProperties(bookkeepingAccountBalanceCsv.additionalProperties)
+                bookkeepingAccountId = bookkeepingAccountBalanceCsv.bookkeepingAccountId
+                createdAt = bookkeepingAccountBalanceCsv.createdAt
+                additionalProperties =
+                    bookkeepingAccountBalanceCsv.additionalProperties.toMutableMap()
             }
 
             /** Filter exported Transactions to the specified Bookkeeping Account. */
@@ -1038,16 +1091,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): BookkeepingAccountBalanceCsv =
@@ -1074,25 +1133,29 @@ constructor(
              * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            @JsonProperty("after") fun after(): OffsetDateTime? = after
+            @JsonProperty("after")
+            fun after(): Optional<OffsetDateTime> = Optional.ofNullable(after)
 
             /**
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            @JsonProperty("before") fun before(): OffsetDateTime? = before
+            @JsonProperty("before")
+            fun before(): Optional<OffsetDateTime> = Optional.ofNullable(before)
 
             /**
              * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            @JsonProperty("on_or_after") fun onOrAfter(): OffsetDateTime? = onOrAfter
+            @JsonProperty("on_or_after")
+            fun onOrAfter(): Optional<OffsetDateTime> = Optional.ofNullable(onOrAfter)
 
             /**
              * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            @JsonProperty("on_or_before") fun onOrBefore(): OffsetDateTime? = onOrBefore
+            @JsonProperty("on_or_before")
+            fun onOrBefore(): Optional<OffsetDateTime> = Optional.ofNullable(onOrBefore)
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -1115,11 +1178,11 @@ constructor(
 
                 @JvmSynthetic
                 internal fun from(createdAt: CreatedAt) = apply {
-                    this.after = createdAt.after
-                    this.before = createdAt.before
-                    this.onOrAfter = createdAt.onOrAfter
-                    this.onOrBefore = createdAt.onOrBefore
-                    additionalProperties(createdAt.additionalProperties)
+                    after = createdAt.after
+                    before = createdAt.before
+                    onOrAfter = createdAt.onOrAfter
+                    onOrBefore = createdAt.onOrBefore
+                    additionalProperties = createdAt.additionalProperties.toMutableMap()
                 }
 
                 /**
@@ -1152,18 +1215,26 @@ constructor(
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): CreatedAt =
                     CreatedAt(
@@ -1221,7 +1292,7 @@ constructor(
     ) {
 
         /** Entity statuses to filter by. */
-        @JsonProperty("status") fun status(): Status? = status
+        @JsonProperty("status") fun status(): Optional<Status> = Optional.ofNullable(status)
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1241,8 +1312,8 @@ constructor(
 
             @JvmSynthetic
             internal fun from(entityCsv: EntityCsv) = apply {
-                this.status = entityCsv.status
-                additionalProperties(entityCsv.additionalProperties)
+                status = entityCsv.status
+                additionalProperties = entityCsv.additionalProperties.toMutableMap()
             }
 
             /** Entity statuses to filter by. */
@@ -1250,16 +1321,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): EntityCsv = EntityCsv(status, additionalProperties.toImmutable())
@@ -1270,7 +1347,7 @@ constructor(
         @NoAutoDetect
         class Status
         private constructor(
-            private val in_: List<In>?,
+            private val in_: List<In>,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
@@ -1278,7 +1355,7 @@ constructor(
              * Entity statuses to filter by. For GET requests, this should be encoded as a
              * comma-delimited string, such as `?in=one,two,three`.
              */
-            @JsonProperty("in") fun in_(): List<In>? = in_
+            @JsonProperty("in") fun in_(): List<In> = in_
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -1298,8 +1375,8 @@ constructor(
 
                 @JvmSynthetic
                 internal fun from(status: Status) = apply {
-                    this.in_ = status.in_
-                    additionalProperties(status.additionalProperties)
+                    in_ = status.in_.toMutableList()
+                    additionalProperties = status.additionalProperties.toMutableMap()
                 }
 
                 /**
@@ -1310,18 +1387,26 @@ constructor(
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): Status =
                     Status(
@@ -1440,13 +1525,16 @@ constructor(
     ) {
 
         /** Filter exported Transactions to the specified Account. */
-        @JsonProperty("account_id") fun accountId(): String? = accountId
+        @JsonProperty("account_id")
+        fun accountId(): Optional<String> = Optional.ofNullable(accountId)
 
         /** Filter results by time range on the `created_at` attribute. */
-        @JsonProperty("created_at") fun createdAt(): CreatedAt? = createdAt
+        @JsonProperty("created_at")
+        fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
 
         /** Filter exported Transactions to the specified Program. */
-        @JsonProperty("program_id") fun programId(): String? = programId
+        @JsonProperty("program_id")
+        fun programId(): Optional<String> = Optional.ofNullable(programId)
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1468,10 +1556,10 @@ constructor(
 
             @JvmSynthetic
             internal fun from(transactionCsv: TransactionCsv) = apply {
-                this.accountId = transactionCsv.accountId
-                this.createdAt = transactionCsv.createdAt
-                this.programId = transactionCsv.programId
-                additionalProperties(transactionCsv.additionalProperties)
+                accountId = transactionCsv.accountId
+                createdAt = transactionCsv.createdAt
+                programId = transactionCsv.programId
+                additionalProperties = transactionCsv.additionalProperties.toMutableMap()
             }
 
             /** Filter exported Transactions to the specified Account. */
@@ -1488,16 +1576,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): TransactionCsv =
@@ -1525,25 +1619,29 @@ constructor(
              * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            @JsonProperty("after") fun after(): OffsetDateTime? = after
+            @JsonProperty("after")
+            fun after(): Optional<OffsetDateTime> = Optional.ofNullable(after)
 
             /**
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            @JsonProperty("before") fun before(): OffsetDateTime? = before
+            @JsonProperty("before")
+            fun before(): Optional<OffsetDateTime> = Optional.ofNullable(before)
 
             /**
              * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            @JsonProperty("on_or_after") fun onOrAfter(): OffsetDateTime? = onOrAfter
+            @JsonProperty("on_or_after")
+            fun onOrAfter(): Optional<OffsetDateTime> = Optional.ofNullable(onOrAfter)
 
             /**
              * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            @JsonProperty("on_or_before") fun onOrBefore(): OffsetDateTime? = onOrBefore
+            @JsonProperty("on_or_before")
+            fun onOrBefore(): Optional<OffsetDateTime> = Optional.ofNullable(onOrBefore)
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -1566,11 +1664,11 @@ constructor(
 
                 @JvmSynthetic
                 internal fun from(createdAt: CreatedAt) = apply {
-                    this.after = createdAt.after
-                    this.before = createdAt.before
-                    this.onOrAfter = createdAt.onOrAfter
-                    this.onOrBefore = createdAt.onOrBefore
-                    additionalProperties(createdAt.additionalProperties)
+                    after = createdAt.after
+                    before = createdAt.before
+                    onOrAfter = createdAt.onOrAfter
+                    onOrBefore = createdAt.onOrBefore
+                    additionalProperties = createdAt.additionalProperties.toMutableMap()
                 }
 
                 /**
@@ -1603,18 +1701,26 @@ constructor(
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): CreatedAt =
                     CreatedAt(

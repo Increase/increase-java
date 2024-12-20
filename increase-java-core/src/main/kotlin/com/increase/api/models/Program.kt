@@ -41,8 +41,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     /** The Bank the Program is with. */
     fun bank(): Bank = bank.getRequired("bank")
 
@@ -123,6 +121,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): Program = apply {
         if (!validated) {
             bank()
@@ -160,16 +160,16 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(program: Program) = apply {
-            this.bank = program.bank
-            this.billingAccountId = program.billingAccountId
-            this.createdAt = program.createdAt
-            this.defaultDigitalCardProfileId = program.defaultDigitalCardProfileId
-            this.id = program.id
-            this.interestRate = program.interestRate
-            this.name = program.name
-            this.type = program.type
-            this.updatedAt = program.updatedAt
-            additionalProperties(program.additionalProperties)
+            bank = program.bank
+            billingAccountId = program.billingAccountId
+            createdAt = program.createdAt
+            defaultDigitalCardProfileId = program.defaultDigitalCardProfileId
+            id = program.id
+            interestRate = program.interestRate
+            name = program.name
+            type = program.type
+            updatedAt = program.updatedAt
+            additionalProperties = program.additionalProperties.toMutableMap()
         }
 
         /** The Bank the Program is with. */
@@ -276,16 +276,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): Program =

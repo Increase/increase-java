@@ -25,7 +25,7 @@ class SimulationCardReversalCreateParamsTest {
         val body = params.getBody()
         assertThat(body).isNotNull
         assertThat(body.cardPaymentId()).isEqualTo("card_payment_nd3k2kacrqjli8482ave")
-        assertThat(body.amount()).isEqualTo(1L)
+        assertThat(body.amount()).contains(1L)
     }
 
     @Test
