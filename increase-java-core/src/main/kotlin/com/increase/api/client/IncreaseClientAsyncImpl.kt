@@ -76,6 +76,8 @@ import com.increase.api.services.async.IntrafiExclusionServiceAsync
 import com.increase.api.services.async.IntrafiExclusionServiceAsyncImpl
 import com.increase.api.services.async.LockboxServiceAsync
 import com.increase.api.services.async.LockboxServiceAsyncImpl
+import com.increase.api.services.async.OAuthApplicationServiceAsync
+import com.increase.api.services.async.OAuthApplicationServiceAsyncImpl
 import com.increase.api.services.async.OAuthConnectionServiceAsync
 import com.increase.api.services.async.OAuthConnectionServiceAsyncImpl
 import com.increase.api.services.async.OAuthTokenServiceAsync
@@ -311,6 +313,10 @@ constructor(
         GroupServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
+    private val oauthApplications: OAuthApplicationServiceAsync by lazy {
+        OAuthApplicationServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
     private val oauthConnections: OAuthConnectionServiceAsync by lazy {
         OAuthConnectionServiceAsyncImpl(clientOptionsWithUserAgent)
     }
@@ -441,6 +447,8 @@ constructor(
     override fun bookkeepingEntries(): BookkeepingEntryServiceAsync = bookkeepingEntries
 
     override fun groups(): GroupServiceAsync = groups
+
+    override fun oauthApplications(): OAuthApplicationServiceAsync = oauthApplications
 
     override fun oauthConnections(): OAuthConnectionServiceAsync = oauthConnections
 
