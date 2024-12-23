@@ -38,6 +38,7 @@ import com.increase.api.services.blocking.IntrafiAccountEnrollmentService
 import com.increase.api.services.blocking.IntrafiBalanceService
 import com.increase.api.services.blocking.IntrafiExclusionService
 import com.increase.api.services.blocking.LockboxService
+import com.increase.api.services.blocking.OAuthApplicationService
 import com.increase.api.services.blocking.OAuthConnectionService
 import com.increase.api.services.blocking.OAuthTokenService
 import com.increase.api.services.blocking.PendingTransactionService
@@ -151,6 +152,8 @@ interface IncreaseClient {
     fun bookkeepingEntries(): BookkeepingEntryService
 
     fun groups(): GroupService
+
+    fun oauthApplications(): OAuthApplicationService
 
     fun oauthConnections(): OAuthConnectionService
 
