@@ -20,8 +20,9 @@ import java.util.Objects
 import java.util.Optional
 
 /**
- * Create an OAuth Application via the Dashboard. Learn more about OAuth
- * [here](https://increase.com/documentation/oauth).
+ * An OAuth Application lets you build an application for others to use with their Increase data.
+ * You can create an OAuth Application via the Dashboard and read information about it with the API.
+ * Learn more about OAuth [here](https://increase.com/documentation/oauth).
  */
 @NoAutoDetect
 class OAuthApplication
