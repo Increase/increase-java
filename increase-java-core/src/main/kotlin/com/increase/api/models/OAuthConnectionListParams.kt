@@ -85,7 +85,7 @@ constructor(
          */
         fun limit(limit: Long) = apply { this.limit = limit }
 
-        /** The identifier of the OAuth Application to filter by. */
+        /** Filter results to only include OAuth Connections for a specific OAuth Application. */
         fun oauthApplicationId(oauthApplicationId: String) = apply {
             this.oauthApplicationId = oauthApplicationId
         }
