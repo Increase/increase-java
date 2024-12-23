@@ -20,8 +20,9 @@ import java.util.Objects
 
 /**
  * Groups represent organizations using Increase. You can retrieve information about your own
- * organization via the API, or (more commonly) OAuth platforms can retrieve information about the
- * organizations that have granted them access.
+ * organization via the API. More commonly, OAuth platforms can retrieve information about the
+ * organizations that have granted them access. Learn more about OAuth
+ * [here](https://increase.com/documentation/oauth).
  */
 @NoAutoDetect
 class Group
