@@ -13,6 +13,7 @@ class OAuthConnectionListParamsTest {
         OAuthConnectionListParams.builder()
             .cursor("cursor")
             .limit(1L)
+            .oauthApplicationId("oauth_application_id")
             .status(
                 OAuthConnectionListParams.Status.builder()
                     .in_(listOf(OAuthConnectionListParams.Status.In.ACTIVE))
@@ -27,6 +28,7 @@ class OAuthConnectionListParamsTest {
             OAuthConnectionListParams.builder()
                 .cursor("cursor")
                 .limit(1L)
+                .oauthApplicationId("oauth_application_id")
                 .status(
                     OAuthConnectionListParams.Status.builder()
                         .in_(listOf(OAuthConnectionListParams.Status.In.ACTIVE))
@@ -36,6 +38,7 @@ class OAuthConnectionListParamsTest {
         val expected = QueryParams.builder()
         expected.put("cursor", "cursor")
         expected.put("limit", "1")
+        expected.put("oauth_application_id", "oauth_application_id")
         OAuthConnectionListParams.Status.builder()
             .in_(listOf(OAuthConnectionListParams.Status.In.ACTIVE))
             .build()

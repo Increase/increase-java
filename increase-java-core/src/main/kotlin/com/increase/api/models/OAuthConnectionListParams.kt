@@ -17,6 +17,7 @@ class OAuthConnectionListParams
 constructor(
     private val cursor: String?,
     private val limit: Long?,
+    private val oauthApplicationId: String?,
     private val status: Status?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -25,6 +26,8 @@ constructor(
     fun cursor(): Optional<String> = Optional.ofNullable(cursor)
 
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
+
+    fun oauthApplicationId(): Optional<String> = Optional.ofNullable(oauthApplicationId)
 
     fun status(): Optional<Status> = Optional.ofNullable(status)
 
@@ -39,6 +42,9 @@ constructor(
         val queryParams = QueryParams.builder()
         this.cursor?.let { queryParams.put("cursor", listOf(it.toString())) }
         this.limit?.let { queryParams.put("limit", listOf(it.toString())) }
+        this.oauthApplicationId?.let {
+            queryParams.put("oauth_application_id", listOf(it.toString()))
+        }
         this.status?.forEachQueryParam { key, values -> queryParams.put("status.$key", values) }
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
@@ -56,6 +62,7 @@ constructor(
 
         private var cursor: String? = null
         private var limit: Long? = null
+        private var oauthApplicationId: String? = null
         private var status: Status? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
@@ -64,6 +71,7 @@ constructor(
         internal fun from(oauthConnectionListParams: OAuthConnectionListParams) = apply {
             cursor = oauthConnectionListParams.cursor
             limit = oauthConnectionListParams.limit
+            oauthApplicationId = oauthConnectionListParams.oauthApplicationId
             status = oauthConnectionListParams.status
             additionalHeaders = oauthConnectionListParams.additionalHeaders.toBuilder()
             additionalQueryParams = oauthConnectionListParams.additionalQueryParams.toBuilder()
@@ -76,6 +84,11 @@ constructor(
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
          */
         fun limit(limit: Long) = apply { this.limit = limit }
+
+        /** The identifier of the OAuth Application to filter by. */
+        fun oauthApplicationId(oauthApplicationId: String) = apply {
+            this.oauthApplicationId = oauthApplicationId
+        }
 
         fun status(status: Status) = apply { this.status = status }
 
@@ -181,6 +194,7 @@ constructor(
             OAuthConnectionListParams(
                 cursor,
                 limit,
+                oauthApplicationId,
                 status,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -364,11 +378,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is OAuthConnectionListParams && cursor == other.cursor && limit == other.limit && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is OAuthConnectionListParams && cursor == other.cursor && limit == other.limit && oauthApplicationId == other.oauthApplicationId && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cursor, limit, status, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cursor, limit, oauthApplicationId, status, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "OAuthConnectionListParams{cursor=$cursor, limit=$limit, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "OAuthConnectionListParams{cursor=$cursor, limit=$limit, oauthApplicationId=$oauthApplicationId, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

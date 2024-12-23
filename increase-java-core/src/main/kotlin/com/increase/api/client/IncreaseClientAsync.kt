@@ -38,6 +38,7 @@ import com.increase.api.services.async.IntrafiAccountEnrollmentServiceAsync
 import com.increase.api.services.async.IntrafiBalanceServiceAsync
 import com.increase.api.services.async.IntrafiExclusionServiceAsync
 import com.increase.api.services.async.LockboxServiceAsync
+import com.increase.api.services.async.OAuthApplicationServiceAsync
 import com.increase.api.services.async.OAuthConnectionServiceAsync
 import com.increase.api.services.async.OAuthTokenServiceAsync
 import com.increase.api.services.async.PendingTransactionServiceAsync
@@ -151,6 +152,8 @@ interface IncreaseClientAsync {
     fun bookkeepingEntries(): BookkeepingEntryServiceAsync
 
     fun groups(): GroupServiceAsync
+
+    fun oauthApplications(): OAuthApplicationServiceAsync
 
     fun oauthConnections(): OAuthConnectionServiceAsync
 
