@@ -18761,8 +18761,8 @@ private constructor(
         ) {
 
             /** The account on which the interest was accrued. */
-            fun accruedOnAccountId(): Optional<String> =
-                Optional.ofNullable(accruedOnAccountId.getNullable("accrued_on_account_id"))
+            fun accruedOnAccountId(): String =
+                accruedOnAccountId.getRequired("accrued_on_account_id")
 
             /**
              * The amount in the minor unit of the transaction's currency. For dollars, for example,
