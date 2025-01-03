@@ -1,5 +1,33 @@
 # Changelog
 
+## 0.160.0 (2025-01-03)
+
+Full Changelog: [v0.159.0...v0.160.0](https://github.com/Increase/increase-java/compare/v0.159.0...v0.160.0)
+
+### ⚠ BREAKING CHANGES
+
+* **client:** switch query params objects to use `QueryParams` ([#666](https://github.com/Increase/increase-java/issues/666))
+
+### Features
+
+* **api:** api update ([#669](https://github.com/Increase/increase-java/issues/669)) ([a48d436](https://github.com/Increase/increase-java/commit/a48d436999cefec232bffb44a9aae5eb9074014d))
+* **api:** api update ([#670](https://github.com/Increase/increase-java/issues/670)) ([31d9fe0](https://github.com/Increase/increase-java/commit/31d9fe00d3c7949105fabe83d56de1a3cbe7a4e4))
+* **api:** api update ([#671](https://github.com/Increase/increase-java/issues/671)) ([ea1ed7d](https://github.com/Increase/increase-java/commit/ea1ed7d87b439dcd9ad648ae548522037234b9d5))
+* **api:** api update ([#673](https://github.com/Increase/increase-java/issues/673)) ([74ec930](https://github.com/Increase/increase-java/commit/74ec930838db53278d85fa7d2a5110e5368b159f))
+* **api:** api update ([#674](https://github.com/Increase/increase-java/issues/674)) ([05926fd](https://github.com/Increase/increase-java/commit/05926fdb2c16ced7b9e2d583b84faa6c535d4840))
+
+
+### Chores
+
+* **internal:** codegen related update ([#672](https://github.com/Increase/increase-java/issues/672)) ([2dd8d70](https://github.com/Increase/increase-java/commit/2dd8d70f19bde02e31f341acd24521c2a6ceb5ee))
+* **internal:** codegen related update ([#675](https://github.com/Increase/increase-java/issues/675)) ([88f1f82](https://github.com/Increase/increase-java/commit/88f1f82bf6b6e0964a55e61160079a6cd5fc0324))
+
+
+### Refactors
+
+* **client:** switch query params objects to use `QueryParams` ([#666](https://github.com/Increase/increase-java/issues/666)) ([0687924](https://github.com/Increase/increase-java/commit/0687924d47ed59f60a3ea7b0fa1b9360a514530b))
+* **internal:** use constructor to deserialize json ([#668](https://github.com/Increase/increase-java/issues/668)) ([62773ca](https://github.com/Increase/increase-java/commit/62773ca6e39bcf8ecebdbb4d56c12923f4d8e363))
+
 ## 0.159.0 (2024-12-20)
 
 Full Changelog: [v0.158.0...v0.159.0](https://github.com/Increase/increase-java/compare/v0.158.0...v0.159.0)
