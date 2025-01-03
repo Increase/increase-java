@@ -18,6 +18,7 @@ constructor(
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
+    /** The identifier of the Check Deposit you wish to submit. */
     fun checkDepositId(): String = checkDepositId
 
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -27,9 +28,8 @@ constructor(
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     @JvmSynthetic
-    internal fun getBody(): Optional<Map<String, JsonValue>> {
-        return Optional.ofNullable(additionalBodyProperties.ifEmpty { null })
-    }
+    internal fun getBody(): Optional<Map<String, JsonValue>> =
+        Optional.ofNullable(additionalBodyProperties.ifEmpty { null })
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 

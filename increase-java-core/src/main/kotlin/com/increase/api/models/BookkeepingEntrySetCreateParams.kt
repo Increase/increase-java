@@ -19,35 +19,30 @@ import java.util.Optional
 
 class BookkeepingEntrySetCreateParams
 constructor(
-    private val entries: List<Entry>,
-    private val date: OffsetDateTime?,
-    private val transactionId: String?,
+    private val body: BookkeepingEntrySetCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun entries(): List<Entry> = entries
+    /** The bookkeeping entries. */
+    fun entries(): List<Entry> = body.entries()
 
-    fun date(): Optional<OffsetDateTime> = Optional.ofNullable(date)
+    /**
+     * The date of the transaction. Optional if `transaction_id` is provided, in which case we use
+     * the `date` of that transaction. Required otherwise.
+     */
+    fun date(): Optional<OffsetDateTime> = body.date()
 
-    fun transactionId(): Optional<String> = Optional.ofNullable(transactionId)
+    /** The identifier of the Transaction related to this entry set, if any. */
+    fun transactionId(): Optional<String> = body.transactionId()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): BookkeepingEntrySetCreateBody {
-        return BookkeepingEntrySetCreateBody(
-            entries,
-            date,
-            transactionId,
-            additionalBodyProperties,
-        )
-    }
+    @JvmSynthetic internal fun getBody(): BookkeepingEntrySetCreateBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -90,7 +85,7 @@ constructor(
 
         class Builder {
 
-            private var entries: List<Entry>? = null
+            private var entries: MutableList<Entry>? = null
             private var date: OffsetDateTime? = null
             private var transactionId: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -106,7 +101,12 @@ constructor(
                 }
 
             /** The bookkeeping entries. */
-            fun entries(entries: List<Entry>) = apply { this.entries = entries }
+            fun entries(entries: List<Entry>) = apply { this.entries = entries.toMutableList() }
+
+            /** The bookkeeping entries. */
+            fun addEntry(entry: Entry) = apply {
+                entries = (entries ?: mutableListOf()).apply { add(entry) }
+            }
 
             /**
              * The date of the transaction. Optional if `transaction_id` is provided, in which case
@@ -173,43 +173,34 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var entries: MutableList<Entry> = mutableListOf()
-        private var date: OffsetDateTime? = null
-        private var transactionId: String? = null
+        private var body: BookkeepingEntrySetCreateBody.Builder =
+            BookkeepingEntrySetCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(bookkeepingEntrySetCreateParams: BookkeepingEntrySetCreateParams) =
             apply {
-                entries = bookkeepingEntrySetCreateParams.entries.toMutableList()
-                date = bookkeepingEntrySetCreateParams.date
-                transactionId = bookkeepingEntrySetCreateParams.transactionId
+                body = bookkeepingEntrySetCreateParams.body.toBuilder()
                 additionalHeaders = bookkeepingEntrySetCreateParams.additionalHeaders.toBuilder()
                 additionalQueryParams =
                     bookkeepingEntrySetCreateParams.additionalQueryParams.toBuilder()
-                additionalBodyProperties =
-                    bookkeepingEntrySetCreateParams.additionalBodyProperties.toMutableMap()
             }
 
         /** The bookkeeping entries. */
-        fun entries(entries: List<Entry>) = apply {
-            this.entries.clear()
-            this.entries.addAll(entries)
-        }
+        fun entries(entries: List<Entry>) = apply { body.entries(entries) }
 
         /** The bookkeeping entries. */
-        fun addEntry(entry: Entry) = apply { this.entries.add(entry) }
+        fun addEntry(entry: Entry) = apply { body.addEntry(entry) }
 
         /**
          * The date of the transaction. Optional if `transaction_id` is provided, in which case we
          * use the `date` of that transaction. Required otherwise.
          */
-        fun date(date: OffsetDateTime) = apply { this.date = date }
+        fun date(date: OffsetDateTime) = apply { body.date(date) }
 
         /** The identifier of the Transaction related to this entry set, if any. */
-        fun transactionId(transactionId: String) = apply { this.transactionId = transactionId }
+        fun transactionId(transactionId: String) = apply { body.transactionId(transactionId) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -310,35 +301,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): BookkeepingEntrySetCreateParams =
             BookkeepingEntrySetCreateParams(
-                entries.toImmutable(),
-                date,
-                transactionId,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -445,11 +430,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is BookkeepingEntrySetCreateParams && entries == other.entries && date == other.date && transactionId == other.transactionId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is BookkeepingEntrySetCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(entries, date, transactionId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "BookkeepingEntrySetCreateParams{entries=$entries, date=$date, transactionId=$transactionId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "BookkeepingEntrySetCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

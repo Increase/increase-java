@@ -18,87 +18,84 @@ import java.util.Optional
 
 class WireTransferCreateParams
 constructor(
-    private val accountId: String,
-    private val amount: Long,
-    private val beneficiaryName: String,
-    private val messageToRecipient: String,
-    private val accountNumber: String?,
-    private val beneficiaryAddressLine1: String?,
-    private val beneficiaryAddressLine2: String?,
-    private val beneficiaryAddressLine3: String?,
-    private val externalAccountId: String?,
-    private val originatorAddressLine1: String?,
-    private val originatorAddressLine2: String?,
-    private val originatorAddressLine3: String?,
-    private val originatorName: String?,
-    private val requireApproval: Boolean?,
-    private val routingNumber: String?,
-    private val sourceAccountNumberId: String?,
+    private val body: WireTransferCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun accountId(): String = accountId
+    /** The identifier for the account that will send the transfer. */
+    fun accountId(): String = body.accountId()
 
-    fun amount(): Long = amount
+    /** The transfer amount in USD cents. */
+    fun amount(): Long = body.amount()
 
-    fun beneficiaryName(): String = beneficiaryName
+    /** The beneficiary's name. */
+    fun beneficiaryName(): String = body.beneficiaryName()
 
-    fun messageToRecipient(): String = messageToRecipient
+    /** The message that will show on the recipient's bank statement. */
+    fun messageToRecipient(): String = body.messageToRecipient()
 
-    fun accountNumber(): Optional<String> = Optional.ofNullable(accountNumber)
+    /** The account number for the destination account. */
+    fun accountNumber(): Optional<String> = body.accountNumber()
 
-    fun beneficiaryAddressLine1(): Optional<String> = Optional.ofNullable(beneficiaryAddressLine1)
+    /** The beneficiary's address line 1. */
+    fun beneficiaryAddressLine1(): Optional<String> = body.beneficiaryAddressLine1()
 
-    fun beneficiaryAddressLine2(): Optional<String> = Optional.ofNullable(beneficiaryAddressLine2)
+    /** The beneficiary's address line 2. */
+    fun beneficiaryAddressLine2(): Optional<String> = body.beneficiaryAddressLine2()
 
-    fun beneficiaryAddressLine3(): Optional<String> = Optional.ofNullable(beneficiaryAddressLine3)
+    /** The beneficiary's address line 3. */
+    fun beneficiaryAddressLine3(): Optional<String> = body.beneficiaryAddressLine3()
 
-    fun externalAccountId(): Optional<String> = Optional.ofNullable(externalAccountId)
+    /**
+     * The ID of an External Account to initiate a transfer to. If this parameter is provided,
+     * `account_number` and `routing_number` must be absent.
+     */
+    fun externalAccountId(): Optional<String> = body.externalAccountId()
 
-    fun originatorAddressLine1(): Optional<String> = Optional.ofNullable(originatorAddressLine1)
+    /**
+     * The originator's address line 1. This is only necessary if you're transferring from a
+     * commingled account. Otherwise, we'll use the associated entity's details.
+     */
+    fun originatorAddressLine1(): Optional<String> = body.originatorAddressLine1()
 
-    fun originatorAddressLine2(): Optional<String> = Optional.ofNullable(originatorAddressLine2)
+    /**
+     * The originator's address line 2. This is only necessary if you're transferring from a
+     * commingled account. Otherwise, we'll use the associated entity's details.
+     */
+    fun originatorAddressLine2(): Optional<String> = body.originatorAddressLine2()
 
-    fun originatorAddressLine3(): Optional<String> = Optional.ofNullable(originatorAddressLine3)
+    /**
+     * The originator's address line 3. This is only necessary if you're transferring from a
+     * commingled account. Otherwise, we'll use the associated entity's details.
+     */
+    fun originatorAddressLine3(): Optional<String> = body.originatorAddressLine3()
 
-    fun originatorName(): Optional<String> = Optional.ofNullable(originatorName)
+    /**
+     * The originator's name. This is only necessary if you're transferring from a commingled
+     * account. Otherwise, we'll use the associated entity's details.
+     */
+    fun originatorName(): Optional<String> = body.originatorName()
 
-    fun requireApproval(): Optional<Boolean> = Optional.ofNullable(requireApproval)
+    /** Whether the transfer requires explicit approval via the dashboard or API. */
+    fun requireApproval(): Optional<Boolean> = body.requireApproval()
 
-    fun routingNumber(): Optional<String> = Optional.ofNullable(routingNumber)
+    /**
+     * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
+     * account.
+     */
+    fun routingNumber(): Optional<String> = body.routingNumber()
 
-    fun sourceAccountNumberId(): Optional<String> = Optional.ofNullable(sourceAccountNumberId)
+    /** The ID of an Account Number that will be passed to the wire's recipient */
+    fun sourceAccountNumberId(): Optional<String> = body.sourceAccountNumberId()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): WireTransferCreateBody {
-        return WireTransferCreateBody(
-            accountId,
-            amount,
-            beneficiaryName,
-            messageToRecipient,
-            accountNumber,
-            beneficiaryAddressLine1,
-            beneficiaryAddressLine2,
-            beneficiaryAddressLine3,
-            externalAccountId,
-            originatorAddressLine1,
-            originatorAddressLine2,
-            originatorAddressLine3,
-            originatorName,
-            requireApproval,
-            routingNumber,
-            sourceAccountNumberId,
-            additionalBodyProperties,
-        )
-    }
+    @JvmSynthetic internal fun getBody(): WireTransferCreateBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -424,82 +421,49 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var accountId: String? = null
-        private var amount: Long? = null
-        private var beneficiaryName: String? = null
-        private var messageToRecipient: String? = null
-        private var accountNumber: String? = null
-        private var beneficiaryAddressLine1: String? = null
-        private var beneficiaryAddressLine2: String? = null
-        private var beneficiaryAddressLine3: String? = null
-        private var externalAccountId: String? = null
-        private var originatorAddressLine1: String? = null
-        private var originatorAddressLine2: String? = null
-        private var originatorAddressLine3: String? = null
-        private var originatorName: String? = null
-        private var requireApproval: Boolean? = null
-        private var routingNumber: String? = null
-        private var sourceAccountNumberId: String? = null
+        private var body: WireTransferCreateBody.Builder = WireTransferCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(wireTransferCreateParams: WireTransferCreateParams) = apply {
-            accountId = wireTransferCreateParams.accountId
-            amount = wireTransferCreateParams.amount
-            beneficiaryName = wireTransferCreateParams.beneficiaryName
-            messageToRecipient = wireTransferCreateParams.messageToRecipient
-            accountNumber = wireTransferCreateParams.accountNumber
-            beneficiaryAddressLine1 = wireTransferCreateParams.beneficiaryAddressLine1
-            beneficiaryAddressLine2 = wireTransferCreateParams.beneficiaryAddressLine2
-            beneficiaryAddressLine3 = wireTransferCreateParams.beneficiaryAddressLine3
-            externalAccountId = wireTransferCreateParams.externalAccountId
-            originatorAddressLine1 = wireTransferCreateParams.originatorAddressLine1
-            originatorAddressLine2 = wireTransferCreateParams.originatorAddressLine2
-            originatorAddressLine3 = wireTransferCreateParams.originatorAddressLine3
-            originatorName = wireTransferCreateParams.originatorName
-            requireApproval = wireTransferCreateParams.requireApproval
-            routingNumber = wireTransferCreateParams.routingNumber
-            sourceAccountNumberId = wireTransferCreateParams.sourceAccountNumberId
+            body = wireTransferCreateParams.body.toBuilder()
             additionalHeaders = wireTransferCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = wireTransferCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                wireTransferCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier for the account that will send the transfer. */
-        fun accountId(accountId: String) = apply { this.accountId = accountId }
+        fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
         /** The transfer amount in USD cents. */
-        fun amount(amount: Long) = apply { this.amount = amount }
+        fun amount(amount: Long) = apply { body.amount(amount) }
 
         /** The beneficiary's name. */
         fun beneficiaryName(beneficiaryName: String) = apply {
-            this.beneficiaryName = beneficiaryName
+            body.beneficiaryName(beneficiaryName)
         }
 
         /** The message that will show on the recipient's bank statement. */
         fun messageToRecipient(messageToRecipient: String) = apply {
-            this.messageToRecipient = messageToRecipient
+            body.messageToRecipient(messageToRecipient)
         }
 
         /** The account number for the destination account. */
-        fun accountNumber(accountNumber: String) = apply { this.accountNumber = accountNumber }
+        fun accountNumber(accountNumber: String) = apply { body.accountNumber(accountNumber) }
 
         /** The beneficiary's address line 1. */
         fun beneficiaryAddressLine1(beneficiaryAddressLine1: String) = apply {
-            this.beneficiaryAddressLine1 = beneficiaryAddressLine1
+            body.beneficiaryAddressLine1(beneficiaryAddressLine1)
         }
 
         /** The beneficiary's address line 2. */
         fun beneficiaryAddressLine2(beneficiaryAddressLine2: String) = apply {
-            this.beneficiaryAddressLine2 = beneficiaryAddressLine2
+            body.beneficiaryAddressLine2(beneficiaryAddressLine2)
         }
 
         /** The beneficiary's address line 3. */
         fun beneficiaryAddressLine3(beneficiaryAddressLine3: String) = apply {
-            this.beneficiaryAddressLine3 = beneficiaryAddressLine3
+            body.beneficiaryAddressLine3(beneficiaryAddressLine3)
         }
 
         /**
@@ -507,7 +471,7 @@ constructor(
          * `account_number` and `routing_number` must be absent.
          */
         fun externalAccountId(externalAccountId: String) = apply {
-            this.externalAccountId = externalAccountId
+            body.externalAccountId(externalAccountId)
         }
 
         /**
@@ -515,7 +479,7 @@ constructor(
          * commingled account. Otherwise, we'll use the associated entity's details.
          */
         fun originatorAddressLine1(originatorAddressLine1: String) = apply {
-            this.originatorAddressLine1 = originatorAddressLine1
+            body.originatorAddressLine1(originatorAddressLine1)
         }
 
         /**
@@ -523,7 +487,7 @@ constructor(
          * commingled account. Otherwise, we'll use the associated entity's details.
          */
         fun originatorAddressLine2(originatorAddressLine2: String) = apply {
-            this.originatorAddressLine2 = originatorAddressLine2
+            body.originatorAddressLine2(originatorAddressLine2)
         }
 
         /**
@@ -531,29 +495,29 @@ constructor(
          * commingled account. Otherwise, we'll use the associated entity's details.
          */
         fun originatorAddressLine3(originatorAddressLine3: String) = apply {
-            this.originatorAddressLine3 = originatorAddressLine3
+            body.originatorAddressLine3(originatorAddressLine3)
         }
 
         /**
          * The originator's name. This is only necessary if you're transferring from a commingled
          * account. Otherwise, we'll use the associated entity's details.
          */
-        fun originatorName(originatorName: String) = apply { this.originatorName = originatorName }
+        fun originatorName(originatorName: String) = apply { body.originatorName(originatorName) }
 
         /** Whether the transfer requires explicit approval via the dashboard or API. */
         fun requireApproval(requireApproval: Boolean) = apply {
-            this.requireApproval = requireApproval
+            body.requireApproval(requireApproval)
         }
 
         /**
          * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
          * account.
          */
-        fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
+        fun routingNumber(routingNumber: String) = apply { body.routingNumber(routingNumber) }
 
         /** The ID of an Account Number that will be passed to the wire's recipient */
         fun sourceAccountNumberId(sourceAccountNumberId: String) = apply {
-            this.sourceAccountNumberId = sourceAccountNumberId
+            body.sourceAccountNumberId(sourceAccountNumberId)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -655,50 +619,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): WireTransferCreateParams =
             WireTransferCreateParams(
-                checkNotNull(accountId) { "`accountId` is required but was not set" },
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(beneficiaryName) { "`beneficiaryName` is required but was not set" },
-                checkNotNull(messageToRecipient) {
-                    "`messageToRecipient` is required but was not set"
-                },
-                accountNumber,
-                beneficiaryAddressLine1,
-                beneficiaryAddressLine2,
-                beneficiaryAddressLine3,
-                externalAccountId,
-                originatorAddressLine1,
-                originatorAddressLine2,
-                originatorAddressLine3,
-                originatorName,
-                requireApproval,
-                routingNumber,
-                sourceAccountNumberId,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -707,11 +650,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is WireTransferCreateParams && accountId == other.accountId && amount == other.amount && beneficiaryName == other.beneficiaryName && messageToRecipient == other.messageToRecipient && accountNumber == other.accountNumber && beneficiaryAddressLine1 == other.beneficiaryAddressLine1 && beneficiaryAddressLine2 == other.beneficiaryAddressLine2 && beneficiaryAddressLine3 == other.beneficiaryAddressLine3 && externalAccountId == other.externalAccountId && originatorAddressLine1 == other.originatorAddressLine1 && originatorAddressLine2 == other.originatorAddressLine2 && originatorAddressLine3 == other.originatorAddressLine3 && originatorName == other.originatorName && requireApproval == other.requireApproval && routingNumber == other.routingNumber && sourceAccountNumberId == other.sourceAccountNumberId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is WireTransferCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, amount, beneficiaryName, messageToRecipient, accountNumber, beneficiaryAddressLine1, beneficiaryAddressLine2, beneficiaryAddressLine3, externalAccountId, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, requireApproval, routingNumber, sourceAccountNumberId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "WireTransferCreateParams{accountId=$accountId, amount=$amount, beneficiaryName=$beneficiaryName, messageToRecipient=$messageToRecipient, accountNumber=$accountNumber, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, externalAccountId=$externalAccountId, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, requireApproval=$requireApproval, routingNumber=$routingNumber, sourceAccountNumberId=$sourceAccountNumberId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "WireTransferCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

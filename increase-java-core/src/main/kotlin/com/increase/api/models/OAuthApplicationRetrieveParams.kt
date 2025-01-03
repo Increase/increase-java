@@ -14,6 +14,7 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** The identifier of the OAuth Application. */
     fun oauthApplicationId(): String = oauthApplicationId
 
     fun _additionalHeaders(): Headers = additionalHeaders

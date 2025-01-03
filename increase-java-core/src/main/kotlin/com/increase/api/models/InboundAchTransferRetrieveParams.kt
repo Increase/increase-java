@@ -14,6 +14,7 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** The identifier of the Inbound ACH Transfer to get details for. */
     fun inboundAchTransferId(): String = inboundAchTransferId
 
     fun _additionalHeaders(): Headers = additionalHeaders

@@ -18,67 +18,63 @@ import java.util.Optional
 
 class RealTimePaymentsTransferCreateParams
 constructor(
-    private val amount: Long,
-    private val creditorName: String,
-    private val remittanceInformation: String,
-    private val sourceAccountNumberId: String,
-    private val debtorName: String?,
-    private val destinationAccountNumber: String?,
-    private val destinationRoutingNumber: String?,
-    private val externalAccountId: String?,
-    private val requireApproval: Boolean?,
-    private val ultimateCreditorName: String?,
-    private val ultimateDebtorName: String?,
+    private val body: RealTimePaymentsTransferCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun amount(): Long = amount
+    /** The transfer amount in USD cents. For Real-Time Payments transfers, must be positive. */
+    fun amount(): Long = body.amount()
 
-    fun creditorName(): String = creditorName
+    /** The name of the transfer's recipient. */
+    fun creditorName(): String = body.creditorName()
 
-    fun remittanceInformation(): String = remittanceInformation
+    /** Unstructured information that will show on the recipient's bank statement. */
+    fun remittanceInformation(): String = body.remittanceInformation()
 
-    fun sourceAccountNumberId(): String = sourceAccountNumberId
+    /** The identifier of the Account Number from which to send the transfer. */
+    fun sourceAccountNumberId(): String = body.sourceAccountNumberId()
 
-    fun debtorName(): Optional<String> = Optional.ofNullable(debtorName)
+    /**
+     * The name of the transfer's sender. If not provided, defaults to the name of the account's
+     * entity.
+     */
+    fun debtorName(): Optional<String> = body.debtorName()
 
-    fun destinationAccountNumber(): Optional<String> = Optional.ofNullable(destinationAccountNumber)
+    /** The destination account number. */
+    fun destinationAccountNumber(): Optional<String> = body.destinationAccountNumber()
 
-    fun destinationRoutingNumber(): Optional<String> = Optional.ofNullable(destinationRoutingNumber)
+    /** The destination American Bankers' Association (ABA) Routing Transit Number (RTN). */
+    fun destinationRoutingNumber(): Optional<String> = body.destinationRoutingNumber()
 
-    fun externalAccountId(): Optional<String> = Optional.ofNullable(externalAccountId)
+    /**
+     * The ID of an External Account to initiate a transfer to. If this parameter is provided,
+     * `destination_account_number` and `destination_routing_number` must be absent.
+     */
+    fun externalAccountId(): Optional<String> = body.externalAccountId()
 
-    fun requireApproval(): Optional<Boolean> = Optional.ofNullable(requireApproval)
+    /** Whether the transfer requires explicit approval via the dashboard or API. */
+    fun requireApproval(): Optional<Boolean> = body.requireApproval()
 
-    fun ultimateCreditorName(): Optional<String> = Optional.ofNullable(ultimateCreditorName)
+    /**
+     * The name of the ultimate recipient of the transfer. Set this if the creditor is an
+     * intermediary receiving the payment for someone else.
+     */
+    fun ultimateCreditorName(): Optional<String> = body.ultimateCreditorName()
 
-    fun ultimateDebtorName(): Optional<String> = Optional.ofNullable(ultimateDebtorName)
+    /**
+     * The name of the ultimate sender of the transfer. Set this if the funds are being sent on
+     * behalf of someone who is not the account holder at Increase.
+     */
+    fun ultimateDebtorName(): Optional<String> = body.ultimateDebtorName()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): RealTimePaymentsTransferCreateBody {
-        return RealTimePaymentsTransferCreateBody(
-            amount,
-            creditorName,
-            remittanceInformation,
-            sourceAccountNumberId,
-            debtorName,
-            destinationAccountNumber,
-            destinationRoutingNumber,
-            externalAccountId,
-            requireApproval,
-            ultimateCreditorName,
-            ultimateDebtorName,
-            additionalBodyProperties,
-        )
-    }
+    @JvmSynthetic internal fun getBody(): RealTimePaymentsTransferCreateBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -338,73 +334,51 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var amount: Long? = null
-        private var creditorName: String? = null
-        private var remittanceInformation: String? = null
-        private var sourceAccountNumberId: String? = null
-        private var debtorName: String? = null
-        private var destinationAccountNumber: String? = null
-        private var destinationRoutingNumber: String? = null
-        private var externalAccountId: String? = null
-        private var requireApproval: Boolean? = null
-        private var ultimateCreditorName: String? = null
-        private var ultimateDebtorName: String? = null
+        private var body: RealTimePaymentsTransferCreateBody.Builder =
+            RealTimePaymentsTransferCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(
             realTimePaymentsTransferCreateParams: RealTimePaymentsTransferCreateParams
         ) = apply {
-            amount = realTimePaymentsTransferCreateParams.amount
-            creditorName = realTimePaymentsTransferCreateParams.creditorName
-            remittanceInformation = realTimePaymentsTransferCreateParams.remittanceInformation
-            sourceAccountNumberId = realTimePaymentsTransferCreateParams.sourceAccountNumberId
-            debtorName = realTimePaymentsTransferCreateParams.debtorName
-            destinationAccountNumber = realTimePaymentsTransferCreateParams.destinationAccountNumber
-            destinationRoutingNumber = realTimePaymentsTransferCreateParams.destinationRoutingNumber
-            externalAccountId = realTimePaymentsTransferCreateParams.externalAccountId
-            requireApproval = realTimePaymentsTransferCreateParams.requireApproval
-            ultimateCreditorName = realTimePaymentsTransferCreateParams.ultimateCreditorName
-            ultimateDebtorName = realTimePaymentsTransferCreateParams.ultimateDebtorName
+            body = realTimePaymentsTransferCreateParams.body.toBuilder()
             additionalHeaders = realTimePaymentsTransferCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams =
                 realTimePaymentsTransferCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                realTimePaymentsTransferCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The transfer amount in USD cents. For Real-Time Payments transfers, must be positive. */
-        fun amount(amount: Long) = apply { this.amount = amount }
+        fun amount(amount: Long) = apply { body.amount(amount) }
 
         /** The name of the transfer's recipient. */
-        fun creditorName(creditorName: String) = apply { this.creditorName = creditorName }
+        fun creditorName(creditorName: String) = apply { body.creditorName(creditorName) }
 
         /** Unstructured information that will show on the recipient's bank statement. */
         fun remittanceInformation(remittanceInformation: String) = apply {
-            this.remittanceInformation = remittanceInformation
+            body.remittanceInformation(remittanceInformation)
         }
 
         /** The identifier of the Account Number from which to send the transfer. */
         fun sourceAccountNumberId(sourceAccountNumberId: String) = apply {
-            this.sourceAccountNumberId = sourceAccountNumberId
+            body.sourceAccountNumberId(sourceAccountNumberId)
         }
 
         /**
          * The name of the transfer's sender. If not provided, defaults to the name of the account's
          * entity.
          */
-        fun debtorName(debtorName: String) = apply { this.debtorName = debtorName }
+        fun debtorName(debtorName: String) = apply { body.debtorName(debtorName) }
 
         /** The destination account number. */
         fun destinationAccountNumber(destinationAccountNumber: String) = apply {
-            this.destinationAccountNumber = destinationAccountNumber
+            body.destinationAccountNumber(destinationAccountNumber)
         }
 
         /** The destination American Bankers' Association (ABA) Routing Transit Number (RTN). */
         fun destinationRoutingNumber(destinationRoutingNumber: String) = apply {
-            this.destinationRoutingNumber = destinationRoutingNumber
+            body.destinationRoutingNumber(destinationRoutingNumber)
         }
 
         /**
@@ -412,12 +386,12 @@ constructor(
          * `destination_account_number` and `destination_routing_number` must be absent.
          */
         fun externalAccountId(externalAccountId: String) = apply {
-            this.externalAccountId = externalAccountId
+            body.externalAccountId(externalAccountId)
         }
 
         /** Whether the transfer requires explicit approval via the dashboard or API. */
         fun requireApproval(requireApproval: Boolean) = apply {
-            this.requireApproval = requireApproval
+            body.requireApproval(requireApproval)
         }
 
         /**
@@ -425,7 +399,7 @@ constructor(
          * intermediary receiving the payment for someone else.
          */
         fun ultimateCreditorName(ultimateCreditorName: String) = apply {
-            this.ultimateCreditorName = ultimateCreditorName
+            body.ultimateCreditorName(ultimateCreditorName)
         }
 
         /**
@@ -433,7 +407,7 @@ constructor(
          * behalf of someone who is not the account holder at Increase.
          */
         fun ultimateDebtorName(ultimateDebtorName: String) = apply {
-            this.ultimateDebtorName = ultimateDebtorName
+            body.ultimateDebtorName(ultimateDebtorName)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -535,47 +509,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): RealTimePaymentsTransferCreateParams =
             RealTimePaymentsTransferCreateParams(
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(creditorName) { "`creditorName` is required but was not set" },
-                checkNotNull(remittanceInformation) {
-                    "`remittanceInformation` is required but was not set"
-                },
-                checkNotNull(sourceAccountNumberId) {
-                    "`sourceAccountNumberId` is required but was not set"
-                },
-                debtorName,
-                destinationAccountNumber,
-                destinationRoutingNumber,
-                externalAccountId,
-                requireApproval,
-                ultimateCreditorName,
-                ultimateDebtorName,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -584,11 +540,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is RealTimePaymentsTransferCreateParams && amount == other.amount && creditorName == other.creditorName && remittanceInformation == other.remittanceInformation && sourceAccountNumberId == other.sourceAccountNumberId && debtorName == other.debtorName && destinationAccountNumber == other.destinationAccountNumber && destinationRoutingNumber == other.destinationRoutingNumber && externalAccountId == other.externalAccountId && requireApproval == other.requireApproval && ultimateCreditorName == other.ultimateCreditorName && ultimateDebtorName == other.ultimateDebtorName && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is RealTimePaymentsTransferCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(amount, creditorName, remittanceInformation, sourceAccountNumberId, debtorName, destinationAccountNumber, destinationRoutingNumber, externalAccountId, requireApproval, ultimateCreditorName, ultimateDebtorName, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "RealTimePaymentsTransferCreateParams{amount=$amount, creditorName=$creditorName, remittanceInformation=$remittanceInformation, sourceAccountNumberId=$sourceAccountNumberId, debtorName=$debtorName, destinationAccountNumber=$destinationAccountNumber, destinationRoutingNumber=$destinationRoutingNumber, externalAccountId=$externalAccountId, requireApproval=$requireApproval, ultimateCreditorName=$ultimateCreditorName, ultimateDebtorName=$ultimateDebtorName, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "RealTimePaymentsTransferCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

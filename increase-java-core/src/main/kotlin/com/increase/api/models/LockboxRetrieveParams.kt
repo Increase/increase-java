@@ -14,6 +14,7 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** The identifier of the Lockbox to retrieve. */
     fun lockboxId(): String = lockboxId
 
     fun _additionalHeaders(): Headers = additionalHeaders

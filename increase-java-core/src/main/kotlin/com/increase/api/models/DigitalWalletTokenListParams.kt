@@ -20,12 +20,15 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** Filter Digital Wallet Tokens to ones belonging to the specified Card. */
     fun cardId(): Optional<String> = Optional.ofNullable(cardId)
 
     fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
 
+    /** Return the page of entries after this one. */
     fun cursor(): Optional<String> = Optional.ofNullable(cursor)
 
+    /** Limit the size of the list that is returned. The default (and maximum) is 100 objects. */
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
     fun _additionalHeaders(): Headers = additionalHeaders

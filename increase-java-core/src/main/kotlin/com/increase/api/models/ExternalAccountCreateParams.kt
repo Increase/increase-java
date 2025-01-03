@@ -21,43 +21,36 @@ import java.util.Optional
 
 class ExternalAccountCreateParams
 constructor(
-    private val accountNumber: String,
-    private val description: String,
-    private val routingNumber: String,
-    private val accountHolder: AccountHolder?,
-    private val funding: Funding?,
+    private val body: ExternalAccountCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun accountNumber(): String = accountNumber
+    /** The account number for the destination account. */
+    fun accountNumber(): String = body.accountNumber()
 
-    fun description(): String = description
+    /** The name you choose for the Account. */
+    fun description(): String = body.description()
 
-    fun routingNumber(): String = routingNumber
+    /**
+     * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
+     * account.
+     */
+    fun routingNumber(): String = body.routingNumber()
 
-    fun accountHolder(): Optional<AccountHolder> = Optional.ofNullable(accountHolder)
+    /** The type of entity that owns the External Account. */
+    fun accountHolder(): Optional<AccountHolder> = body.accountHolder()
 
-    fun funding(): Optional<Funding> = Optional.ofNullable(funding)
+    /** The type of the destination account. Defaults to `checking`. */
+    fun funding(): Optional<Funding> = body.funding()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): ExternalAccountCreateBody {
-        return ExternalAccountCreateBody(
-            accountNumber,
-            description,
-            routingNumber,
-            accountHolder,
-            funding,
-            additionalBodyProperties,
-        )
-    }
+    @JvmSynthetic internal fun getBody(): ExternalAccountCreateBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -203,47 +196,36 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var accountNumber: String? = null
-        private var description: String? = null
-        private var routingNumber: String? = null
-        private var accountHolder: AccountHolder? = null
-        private var funding: Funding? = null
+        private var body: ExternalAccountCreateBody.Builder = ExternalAccountCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(externalAccountCreateParams: ExternalAccountCreateParams) = apply {
-            accountNumber = externalAccountCreateParams.accountNumber
-            description = externalAccountCreateParams.description
-            routingNumber = externalAccountCreateParams.routingNumber
-            accountHolder = externalAccountCreateParams.accountHolder
-            funding = externalAccountCreateParams.funding
+            body = externalAccountCreateParams.body.toBuilder()
             additionalHeaders = externalAccountCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = externalAccountCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                externalAccountCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The account number for the destination account. */
-        fun accountNumber(accountNumber: String) = apply { this.accountNumber = accountNumber }
+        fun accountNumber(accountNumber: String) = apply { body.accountNumber(accountNumber) }
 
         /** The name you choose for the Account. */
-        fun description(description: String) = apply { this.description = description }
+        fun description(description: String) = apply { body.description(description) }
 
         /**
          * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
          * account.
          */
-        fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
+        fun routingNumber(routingNumber: String) = apply { body.routingNumber(routingNumber) }
 
         /** The type of entity that owns the External Account. */
         fun accountHolder(accountHolder: AccountHolder) = apply {
-            this.accountHolder = accountHolder
+            body.accountHolder(accountHolder)
         }
 
         /** The type of the destination account. Defaults to `checking`. */
-        fun funding(funding: Funding) = apply { this.funding = funding }
+        fun funding(funding: Funding) = apply { body.funding(funding) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -344,37 +326,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): ExternalAccountCreateParams =
             ExternalAccountCreateParams(
-                checkNotNull(accountNumber) { "`accountNumber` is required but was not set" },
-                checkNotNull(description) { "`description` is required but was not set" },
-                checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
-                accountHolder,
-                funding,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -509,11 +483,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is ExternalAccountCreateParams && accountNumber == other.accountNumber && description == other.description && routingNumber == other.routingNumber && accountHolder == other.accountHolder && funding == other.funding && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is ExternalAccountCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountNumber, description, routingNumber, accountHolder, funding, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "ExternalAccountCreateParams{accountNumber=$accountNumber, description=$description, routingNumber=$routingNumber, accountHolder=$accountHolder, funding=$funding, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "ExternalAccountCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

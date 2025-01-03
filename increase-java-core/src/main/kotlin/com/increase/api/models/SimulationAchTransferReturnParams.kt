@@ -22,26 +22,27 @@ import java.util.Optional
 class SimulationAchTransferReturnParams
 constructor(
     private val achTransferId: String,
-    private val reason: Reason?,
+    private val body: SimulationAchTransferReturnBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
+    /** The identifier of the ACH Transfer you wish to return. */
     fun achTransferId(): String = achTransferId
 
-    fun reason(): Optional<Reason> = Optional.ofNullable(reason)
+    /**
+     * The reason why the Federal Reserve or destination bank returned this transfer. Defaults to
+     * `no_account`.
+     */
+    fun reason(): Optional<Reason> = body.reason()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): SimulationAchTransferReturnBody {
-        return SimulationAchTransferReturnBody(reason, additionalBodyProperties)
-    }
+    @JvmSynthetic internal fun getBody(): SimulationAchTransferReturnBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -151,21 +152,19 @@ constructor(
     class Builder {
 
         private var achTransferId: String? = null
-        private var reason: Reason? = null
+        private var body: SimulationAchTransferReturnBody.Builder =
+            SimulationAchTransferReturnBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(simulationAchTransferReturnParams: SimulationAchTransferReturnParams) =
             apply {
                 achTransferId = simulationAchTransferReturnParams.achTransferId
-                reason = simulationAchTransferReturnParams.reason
+                body = simulationAchTransferReturnParams.body.toBuilder()
                 additionalHeaders = simulationAchTransferReturnParams.additionalHeaders.toBuilder()
                 additionalQueryParams =
                     simulationAchTransferReturnParams.additionalQueryParams.toBuilder()
-                additionalBodyProperties =
-                    simulationAchTransferReturnParams.additionalBodyProperties.toMutableMap()
             }
 
         /** The identifier of the ACH Transfer you wish to return. */
@@ -175,7 +174,7 @@ constructor(
          * The reason why the Federal Reserve or destination bank returned this transfer. Defaults
          * to `no_account`.
          */
-        fun reason(reason: Reason) = apply { this.reason = reason }
+        fun reason(reason: Reason) = apply { body.reason(reason) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -276,34 +275,30 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): SimulationAchTransferReturnParams =
             SimulationAchTransferReturnParams(
                 checkNotNull(achTransferId) { "`achTransferId` is required but was not set" },
-                reason,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -854,11 +849,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is SimulationAchTransferReturnParams && achTransferId == other.achTransferId && reason == other.reason && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is SimulationAchTransferReturnParams && achTransferId == other.achTransferId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(achTransferId, reason, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(achTransferId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "SimulationAchTransferReturnParams{achTransferId=$achTransferId, reason=$reason, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "SimulationAchTransferReturnParams{achTransferId=$achTransferId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

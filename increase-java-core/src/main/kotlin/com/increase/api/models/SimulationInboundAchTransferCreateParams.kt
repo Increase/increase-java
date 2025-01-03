@@ -22,68 +22,57 @@ import java.util.Optional
 
 class SimulationInboundAchTransferCreateParams
 constructor(
-    private val accountNumberId: String,
-    private val amount: Long,
-    private val companyDescriptiveDate: String?,
-    private val companyDiscretionaryData: String?,
-    private val companyEntryDescription: String?,
-    private val companyId: String?,
-    private val companyName: String?,
-    private val receiverIdNumber: String?,
-    private val receiverName: String?,
-    private val resolveAt: OffsetDateTime?,
-    private val standardEntryClassCode: StandardEntryClassCode?,
+    private val body: SimulationInboundAchTransferCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun accountNumberId(): String = accountNumberId
+    /** The identifier of the Account Number the inbound ACH Transfer is for. */
+    fun accountNumberId(): String = body.accountNumberId()
 
-    fun amount(): Long = amount
+    /**
+     * The transfer amount in cents. A positive amount originates a credit transfer pushing funds to
+     * the receiving account. A negative amount originates a debit transfer pulling funds from the
+     * receiving account.
+     */
+    fun amount(): Long = body.amount()
 
-    fun companyDescriptiveDate(): Optional<String> = Optional.ofNullable(companyDescriptiveDate)
+    /** The description of the date of the transfer. */
+    fun companyDescriptiveDate(): Optional<String> = body.companyDescriptiveDate()
 
-    fun companyDiscretionaryData(): Optional<String> = Optional.ofNullable(companyDiscretionaryData)
+    /** Data associated with the transfer set by the sender. */
+    fun companyDiscretionaryData(): Optional<String> = body.companyDiscretionaryData()
 
-    fun companyEntryDescription(): Optional<String> = Optional.ofNullable(companyEntryDescription)
+    /** The description of the transfer set by the sender. */
+    fun companyEntryDescription(): Optional<String> = body.companyEntryDescription()
 
-    fun companyId(): Optional<String> = Optional.ofNullable(companyId)
+    /** The sender's company ID. */
+    fun companyId(): Optional<String> = body.companyId()
 
-    fun companyName(): Optional<String> = Optional.ofNullable(companyName)
+    /** The name of the sender. */
+    fun companyName(): Optional<String> = body.companyName()
 
-    fun receiverIdNumber(): Optional<String> = Optional.ofNullable(receiverIdNumber)
+    /** The ID of the receiver of the transfer. */
+    fun receiverIdNumber(): Optional<String> = body.receiverIdNumber()
 
-    fun receiverName(): Optional<String> = Optional.ofNullable(receiverName)
+    /** The name of the receiver of the transfer. */
+    fun receiverName(): Optional<String> = body.receiverName()
 
-    fun resolveAt(): Optional<OffsetDateTime> = Optional.ofNullable(resolveAt)
+    /**
+     * The time at which the transfer should be resolved. If not provided will resolve immediately.
+     */
+    fun resolveAt(): Optional<OffsetDateTime> = body.resolveAt()
 
-    fun standardEntryClassCode(): Optional<StandardEntryClassCode> =
-        Optional.ofNullable(standardEntryClassCode)
+    /** The standard entry class code for the transfer. */
+    fun standardEntryClassCode(): Optional<StandardEntryClassCode> = body.standardEntryClassCode()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): SimulationInboundAchTransferCreateBody {
-        return SimulationInboundAchTransferCreateBody(
-            accountNumberId,
-            amount,
-            companyDescriptiveDate,
-            companyDiscretionaryData,
-            companyEntryDescription,
-            companyId,
-            companyName,
-            receiverIdNumber,
-            receiverName,
-            resolveAt,
-            standardEntryClassCode,
-            additionalBodyProperties,
-        )
-    }
+    @JvmSynthetic internal fun getBody(): SimulationInboundAchTransferCreateBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -328,49 +317,25 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var accountNumberId: String? = null
-        private var amount: Long? = null
-        private var companyDescriptiveDate: String? = null
-        private var companyDiscretionaryData: String? = null
-        private var companyEntryDescription: String? = null
-        private var companyId: String? = null
-        private var companyName: String? = null
-        private var receiverIdNumber: String? = null
-        private var receiverName: String? = null
-        private var resolveAt: OffsetDateTime? = null
-        private var standardEntryClassCode: StandardEntryClassCode? = null
+        private var body: SimulationInboundAchTransferCreateBody.Builder =
+            SimulationInboundAchTransferCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(
             simulationInboundAchTransferCreateParams: SimulationInboundAchTransferCreateParams
         ) = apply {
-            accountNumberId = simulationInboundAchTransferCreateParams.accountNumberId
-            amount = simulationInboundAchTransferCreateParams.amount
-            companyDescriptiveDate = simulationInboundAchTransferCreateParams.companyDescriptiveDate
-            companyDiscretionaryData =
-                simulationInboundAchTransferCreateParams.companyDiscretionaryData
-            companyEntryDescription =
-                simulationInboundAchTransferCreateParams.companyEntryDescription
-            companyId = simulationInboundAchTransferCreateParams.companyId
-            companyName = simulationInboundAchTransferCreateParams.companyName
-            receiverIdNumber = simulationInboundAchTransferCreateParams.receiverIdNumber
-            receiverName = simulationInboundAchTransferCreateParams.receiverName
-            resolveAt = simulationInboundAchTransferCreateParams.resolveAt
-            standardEntryClassCode = simulationInboundAchTransferCreateParams.standardEntryClassCode
+            body = simulationInboundAchTransferCreateParams.body.toBuilder()
             additionalHeaders =
                 simulationInboundAchTransferCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams =
                 simulationInboundAchTransferCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                simulationInboundAchTransferCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier of the Account Number the inbound ACH Transfer is for. */
         fun accountNumberId(accountNumberId: String) = apply {
-            this.accountNumberId = accountNumberId
+            body.accountNumberId(accountNumberId)
         }
 
         /**
@@ -378,46 +343,46 @@ constructor(
          * funds to the receiving account. A negative amount originates a debit transfer pulling
          * funds from the receiving account.
          */
-        fun amount(amount: Long) = apply { this.amount = amount }
+        fun amount(amount: Long) = apply { body.amount(amount) }
 
         /** The description of the date of the transfer. */
         fun companyDescriptiveDate(companyDescriptiveDate: String) = apply {
-            this.companyDescriptiveDate = companyDescriptiveDate
+            body.companyDescriptiveDate(companyDescriptiveDate)
         }
 
         /** Data associated with the transfer set by the sender. */
         fun companyDiscretionaryData(companyDiscretionaryData: String) = apply {
-            this.companyDiscretionaryData = companyDiscretionaryData
+            body.companyDiscretionaryData(companyDiscretionaryData)
         }
 
         /** The description of the transfer set by the sender. */
         fun companyEntryDescription(companyEntryDescription: String) = apply {
-            this.companyEntryDescription = companyEntryDescription
+            body.companyEntryDescription(companyEntryDescription)
         }
 
         /** The sender's company ID. */
-        fun companyId(companyId: String) = apply { this.companyId = companyId }
+        fun companyId(companyId: String) = apply { body.companyId(companyId) }
 
         /** The name of the sender. */
-        fun companyName(companyName: String) = apply { this.companyName = companyName }
+        fun companyName(companyName: String) = apply { body.companyName(companyName) }
 
         /** The ID of the receiver of the transfer. */
         fun receiverIdNumber(receiverIdNumber: String) = apply {
-            this.receiverIdNumber = receiverIdNumber
+            body.receiverIdNumber(receiverIdNumber)
         }
 
         /** The name of the receiver of the transfer. */
-        fun receiverName(receiverName: String) = apply { this.receiverName = receiverName }
+        fun receiverName(receiverName: String) = apply { body.receiverName(receiverName) }
 
         /**
          * The time at which the transfer should be resolved. If not provided will resolve
          * immediately.
          */
-        fun resolveAt(resolveAt: OffsetDateTime) = apply { this.resolveAt = resolveAt }
+        fun resolveAt(resolveAt: OffsetDateTime) = apply { body.resolveAt(resolveAt) }
 
         /** The standard entry class code for the transfer. */
         fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode) = apply {
-            this.standardEntryClassCode = standardEntryClassCode
+            body.standardEntryClassCode(standardEntryClassCode)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -519,43 +484,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): SimulationInboundAchTransferCreateParams =
             SimulationInboundAchTransferCreateParams(
-                checkNotNull(accountNumberId) { "`accountNumberId` is required but was not set" },
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                companyDescriptiveDate,
-                companyDiscretionaryData,
-                companyEntryDescription,
-                companyId,
-                companyName,
-                receiverIdNumber,
-                receiverName,
-                resolveAt,
-                standardEntryClassCode,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -705,11 +656,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is SimulationInboundAchTransferCreateParams && accountNumberId == other.accountNumberId && amount == other.amount && companyDescriptiveDate == other.companyDescriptiveDate && companyDiscretionaryData == other.companyDiscretionaryData && companyEntryDescription == other.companyEntryDescription && companyId == other.companyId && companyName == other.companyName && receiverIdNumber == other.receiverIdNumber && receiverName == other.receiverName && resolveAt == other.resolveAt && standardEntryClassCode == other.standardEntryClassCode && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is SimulationInboundAchTransferCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountNumberId, amount, companyDescriptiveDate, companyDiscretionaryData, companyEntryDescription, companyId, companyName, receiverIdNumber, receiverName, resolveAt, standardEntryClassCode, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "SimulationInboundAchTransferCreateParams{accountNumberId=$accountNumberId, amount=$amount, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyId=$companyId, companyName=$companyName, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, resolveAt=$resolveAt, standardEntryClassCode=$standardEntryClassCode, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "SimulationInboundAchTransferCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

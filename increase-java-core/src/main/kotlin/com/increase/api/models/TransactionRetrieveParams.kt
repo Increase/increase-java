@@ -14,6 +14,7 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** The identifier of the Transaction to retrieve. */
     fun transactionId(): String = transactionId
 
     fun _additionalHeaders(): Headers = additionalHeaders

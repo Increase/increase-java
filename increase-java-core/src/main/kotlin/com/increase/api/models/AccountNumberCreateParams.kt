@@ -21,39 +21,30 @@ import java.util.Optional
 
 class AccountNumberCreateParams
 constructor(
-    private val accountId: String,
-    private val name: String,
-    private val inboundAch: InboundAch?,
-    private val inboundChecks: InboundChecks?,
+    private val body: AccountNumberCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun accountId(): String = accountId
+    /** The Account the Account Number should belong to. */
+    fun accountId(): String = body.accountId()
 
-    fun name(): String = name
+    /** The name you choose for the Account Number. */
+    fun name(): String = body.name()
 
-    fun inboundAch(): Optional<InboundAch> = Optional.ofNullable(inboundAch)
+    /** Options related to how this Account Number should handle inbound ACH transfers. */
+    fun inboundAch(): Optional<InboundAch> = body.inboundAch()
 
-    fun inboundChecks(): Optional<InboundChecks> = Optional.ofNullable(inboundChecks)
+    /** Options related to how this Account Number should handle inbound check withdrawals. */
+    fun inboundChecks(): Optional<InboundChecks> = body.inboundChecks()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): AccountNumberCreateBody {
-        return AccountNumberCreateBody(
-            accountId,
-            name,
-            inboundAch,
-            inboundChecks,
-            additionalBodyProperties,
-        )
-    }
+    @JvmSynthetic internal fun getBody(): AccountNumberCreateBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -186,38 +177,29 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var accountId: String? = null
-        private var name: String? = null
-        private var inboundAch: InboundAch? = null
-        private var inboundChecks: InboundChecks? = null
+        private var body: AccountNumberCreateBody.Builder = AccountNumberCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(accountNumberCreateParams: AccountNumberCreateParams) = apply {
-            accountId = accountNumberCreateParams.accountId
-            name = accountNumberCreateParams.name
-            inboundAch = accountNumberCreateParams.inboundAch
-            inboundChecks = accountNumberCreateParams.inboundChecks
+            body = accountNumberCreateParams.body.toBuilder()
             additionalHeaders = accountNumberCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = accountNumberCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                accountNumberCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The Account the Account Number should belong to. */
-        fun accountId(accountId: String) = apply { this.accountId = accountId }
+        fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
         /** The name you choose for the Account Number. */
-        fun name(name: String) = apply { this.name = name }
+        fun name(name: String) = apply { body.name(name) }
 
         /** Options related to how this Account Number should handle inbound ACH transfers. */
-        fun inboundAch(inboundAch: InboundAch) = apply { this.inboundAch = inboundAch }
+        fun inboundAch(inboundAch: InboundAch) = apply { body.inboundAch(inboundAch) }
 
         /** Options related to how this Account Number should handle inbound check withdrawals. */
         fun inboundChecks(inboundChecks: InboundChecks) = apply {
-            this.inboundChecks = inboundChecks
+            body.inboundChecks(inboundChecks)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -319,36 +301,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): AccountNumberCreateParams =
             AccountNumberCreateParams(
-                checkNotNull(accountId) { "`accountId` is required but was not set" },
-                checkNotNull(name) { "`name` is required but was not set" },
-                inboundAch,
-                inboundChecks,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -649,11 +624,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is AccountNumberCreateParams && accountId == other.accountId && name == other.name && inboundAch == other.inboundAch && inboundChecks == other.inboundChecks && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is AccountNumberCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, name, inboundAch, inboundChecks, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "AccountNumberCreateParams{accountId=$accountId, name=$name, inboundAch=$inboundAch, inboundChecks=$inboundChecks, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "AccountNumberCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

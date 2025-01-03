@@ -14,6 +14,7 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** The identifier of the Inbound Check Deposit to get details for. */
     fun inboundCheckDepositId(): String = inboundCheckDepositId
 
     fun _additionalHeaders(): Headers = additionalHeaders

@@ -14,6 +14,7 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** The identifier of the Proof of Authorization Request Submission. */
     fun proofOfAuthorizationRequestSubmissionId(): String = proofOfAuthorizationRequestSubmissionId
 
     fun _additionalHeaders(): Headers = additionalHeaders

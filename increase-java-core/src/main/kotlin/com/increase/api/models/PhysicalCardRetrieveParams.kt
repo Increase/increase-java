@@ -14,6 +14,7 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** The identifier of the Physical Card. */
     fun physicalCardId(): String = physicalCardId
 
     fun _additionalHeaders(): Headers = additionalHeaders

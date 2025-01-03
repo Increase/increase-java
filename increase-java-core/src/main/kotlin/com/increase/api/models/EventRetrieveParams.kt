@@ -14,6 +14,7 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** The identifier of the Event. */
     fun eventId(): String = eventId
 
     fun _additionalHeaders(): Headers = additionalHeaders

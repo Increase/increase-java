@@ -18,6 +18,11 @@ constructor(
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
+    /**
+     * The identifier of the IntraFi Exclusion request to archive. It may take 5 business days for
+     * an exclusion removal to be processed. Removing an exclusion does not guarantee that funds
+     * will be swept to the previously-excluded bank.
+     */
     fun intrafiExclusionId(): String = intrafiExclusionId
 
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -27,9 +32,8 @@ constructor(
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     @JvmSynthetic
-    internal fun getBody(): Optional<Map<String, JsonValue>> {
-        return Optional.ofNullable(additionalBodyProperties.ifEmpty { null })
-    }
+    internal fun getBody(): Optional<Map<String, JsonValue>> =
+        Optional.ofNullable(additionalBodyProperties.ifEmpty { null })
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 

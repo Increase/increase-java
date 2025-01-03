@@ -19,39 +19,30 @@ import java.util.Optional
 
 class SimulationInterestPaymentCreateParams
 constructor(
-    private val accountId: String,
-    private val amount: Long,
-    private val periodEnd: OffsetDateTime?,
-    private val periodStart: OffsetDateTime?,
+    private val body: SimulationInterestPaymentCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun accountId(): String = accountId
+    /** The identifier of the Account Number the Interest Payment is for. */
+    fun accountId(): String = body.accountId()
 
-    fun amount(): Long = amount
+    /** The interest amount in cents. Must be positive. */
+    fun amount(): Long = body.amount()
 
-    fun periodEnd(): Optional<OffsetDateTime> = Optional.ofNullable(periodEnd)
+    /** The end of the interest period. If not provided, defaults to the current time. */
+    fun periodEnd(): Optional<OffsetDateTime> = body.periodEnd()
 
-    fun periodStart(): Optional<OffsetDateTime> = Optional.ofNullable(periodStart)
+    /** The start of the interest period. If not provided, defaults to the current time. */
+    fun periodStart(): Optional<OffsetDateTime> = body.periodStart()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): SimulationInterestPaymentCreateBody {
-        return SimulationInterestPaymentCreateBody(
-            accountId,
-            amount,
-            periodEnd,
-            periodStart,
-            additionalBodyProperties,
-        )
-    }
+    @JvmSynthetic internal fun getBody(): SimulationInterestPaymentCreateBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -183,40 +174,32 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var accountId: String? = null
-        private var amount: Long? = null
-        private var periodEnd: OffsetDateTime? = null
-        private var periodStart: OffsetDateTime? = null
+        private var body: SimulationInterestPaymentCreateBody.Builder =
+            SimulationInterestPaymentCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(
             simulationInterestPaymentCreateParams: SimulationInterestPaymentCreateParams
         ) = apply {
-            accountId = simulationInterestPaymentCreateParams.accountId
-            amount = simulationInterestPaymentCreateParams.amount
-            periodEnd = simulationInterestPaymentCreateParams.periodEnd
-            periodStart = simulationInterestPaymentCreateParams.periodStart
+            body = simulationInterestPaymentCreateParams.body.toBuilder()
             additionalHeaders = simulationInterestPaymentCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams =
                 simulationInterestPaymentCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                simulationInterestPaymentCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier of the Account Number the Interest Payment is for. */
-        fun accountId(accountId: String) = apply { this.accountId = accountId }
+        fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
         /** The interest amount in cents. Must be positive. */
-        fun amount(amount: Long) = apply { this.amount = amount }
+        fun amount(amount: Long) = apply { body.amount(amount) }
 
         /** The end of the interest period. If not provided, defaults to the current time. */
-        fun periodEnd(periodEnd: OffsetDateTime) = apply { this.periodEnd = periodEnd }
+        fun periodEnd(periodEnd: OffsetDateTime) = apply { body.periodEnd(periodEnd) }
 
         /** The start of the interest period. If not provided, defaults to the current time. */
-        fun periodStart(periodStart: OffsetDateTime) = apply { this.periodStart = periodStart }
+        fun periodStart(periodStart: OffsetDateTime) = apply { body.periodStart(periodStart) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -317,36 +300,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): SimulationInterestPaymentCreateParams =
             SimulationInterestPaymentCreateParams(
-                checkNotNull(accountId) { "`accountId` is required but was not set" },
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                periodEnd,
-                periodStart,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -355,11 +331,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is SimulationInterestPaymentCreateParams && accountId == other.accountId && amount == other.amount && periodEnd == other.periodEnd && periodStart == other.periodStart && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is SimulationInterestPaymentCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, amount, periodEnd, periodStart, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "SimulationInterestPaymentCreateParams{accountId=$accountId, amount=$amount, periodEnd=$periodEnd, periodStart=$periodStart, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "SimulationInterestPaymentCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
