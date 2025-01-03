@@ -14,6 +14,7 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** The identifier of the Account Statement to retrieve. */
     fun accountStatementId(): String = accountStatementId
 
     fun _additionalHeaders(): Headers = additionalHeaders

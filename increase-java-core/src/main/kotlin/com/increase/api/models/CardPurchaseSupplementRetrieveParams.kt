@@ -14,6 +14,7 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** The identifier of the Card Purchase Supplement. */
     fun cardPurchaseSupplementId(): String = cardPurchaseSupplementId
 
     fun _additionalHeaders(): Headers = additionalHeaders

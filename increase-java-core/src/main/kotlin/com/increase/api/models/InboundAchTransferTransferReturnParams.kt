@@ -21,26 +21,30 @@ import java.util.Objects
 class InboundAchTransferTransferReturnParams
 constructor(
     private val inboundAchTransferId: String,
-    private val reason: Reason,
+    private val body: InboundAchTransferTransferReturnBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
+    /**
+     * The identifier of the Inbound ACH Transfer to return to the originating financial
+     * institution.
+     */
     fun inboundAchTransferId(): String = inboundAchTransferId
 
-    fun reason(): Reason = reason
+    /**
+     * The reason why this transfer will be returned. The most usual return codes are
+     * `payment_stopped` for debits and `credit_entry_refused_by_receiver` for credits.
+     */
+    fun reason(): Reason = body.reason()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): InboundAchTransferTransferReturnBody {
-        return InboundAchTransferTransferReturnBody(reason, additionalBodyProperties)
-    }
+    @JvmSynthetic internal fun getBody(): InboundAchTransferTransferReturnBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -154,22 +158,20 @@ constructor(
     class Builder {
 
         private var inboundAchTransferId: String? = null
-        private var reason: Reason? = null
+        private var body: InboundAchTransferTransferReturnBody.Builder =
+            InboundAchTransferTransferReturnBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(
             inboundAchTransferTransferReturnParams: InboundAchTransferTransferReturnParams
         ) = apply {
             inboundAchTransferId = inboundAchTransferTransferReturnParams.inboundAchTransferId
-            reason = inboundAchTransferTransferReturnParams.reason
+            body = inboundAchTransferTransferReturnParams.body.toBuilder()
             additionalHeaders = inboundAchTransferTransferReturnParams.additionalHeaders.toBuilder()
             additionalQueryParams =
                 inboundAchTransferTransferReturnParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                inboundAchTransferTransferReturnParams.additionalBodyProperties.toMutableMap()
         }
 
         /**
@@ -184,7 +186,7 @@ constructor(
          * The reason why this transfer will be returned. The most usual return codes are
          * `payment_stopped` for debits and `credit_entry_refused_by_receiver` for credits.
          */
-        fun reason(reason: Reason) = apply { this.reason = reason }
+        fun reason(reason: Reason) = apply { body.reason(reason) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -285,25 +287,22 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): InboundAchTransferTransferReturnParams =
@@ -311,10 +310,9 @@ constructor(
                 checkNotNull(inboundAchTransferId) {
                     "`inboundAchTransferId` is required but was not set"
                 },
-                checkNotNull(reason) { "`reason` is required but was not set" },
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -445,11 +443,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is InboundAchTransferTransferReturnParams && inboundAchTransferId == other.inboundAchTransferId && reason == other.reason && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is InboundAchTransferTransferReturnParams && inboundAchTransferId == other.inboundAchTransferId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(inboundAchTransferId, reason, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(inboundAchTransferId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "InboundAchTransferTransferReturnParams{inboundAchTransferId=$inboundAchTransferId, reason=$reason, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "InboundAchTransferTransferReturnParams{inboundAchTransferId=$inboundAchTransferId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -21,51 +21,49 @@ import java.util.Optional
 
 class CheckTransferCreateParams
 constructor(
-    private val accountId: String,
-    private val amount: Long,
-    private val sourceAccountNumberId: String,
-    private val fulfillmentMethod: FulfillmentMethod?,
-    private val physicalCheck: PhysicalCheck?,
-    private val requireApproval: Boolean?,
-    private val thirdParty: ThirdParty?,
+    private val body: CheckTransferCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun accountId(): String = accountId
+    /** The identifier for the account that will send the transfer. */
+    fun accountId(): String = body.accountId()
 
-    fun amount(): Long = amount
+    /** The transfer amount in USD cents. */
+    fun amount(): Long = body.amount()
 
-    fun sourceAccountNumberId(): String = sourceAccountNumberId
+    /**
+     * The identifier of the Account Number from which to send the transfer and print on the check.
+     */
+    fun sourceAccountNumberId(): String = body.sourceAccountNumberId()
 
-    fun fulfillmentMethod(): Optional<FulfillmentMethod> = Optional.ofNullable(fulfillmentMethod)
+    /** Whether Increase will print and mail the check or if you will do it yourself. */
+    fun fulfillmentMethod(): Optional<FulfillmentMethod> = body.fulfillmentMethod()
 
-    fun physicalCheck(): Optional<PhysicalCheck> = Optional.ofNullable(physicalCheck)
+    /**
+     * Details relating to the physical check that Increase will print and mail. This is required if
+     * `fulfillment_method` is equal to `physical_check`. It must not be included if any other
+     * `fulfillment_method` is provided.
+     */
+    fun physicalCheck(): Optional<PhysicalCheck> = body.physicalCheck()
 
-    fun requireApproval(): Optional<Boolean> = Optional.ofNullable(requireApproval)
+    /** Whether the transfer requires explicit approval via the dashboard or API. */
+    fun requireApproval(): Optional<Boolean> = body.requireApproval()
 
-    fun thirdParty(): Optional<ThirdParty> = Optional.ofNullable(thirdParty)
+    /**
+     * Details relating to the custom fulfillment you will perform. This is required if
+     * `fulfillment_method` is equal to `third_party`. It must not be included if any other
+     * `fulfillment_method` is provided.
+     */
+    fun thirdParty(): Optional<ThirdParty> = body.thirdParty()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): CheckTransferCreateBody {
-        return CheckTransferCreateBody(
-            accountId,
-            amount,
-            sourceAccountNumberId,
-            fulfillmentMethod,
-            physicalCheck,
-            requireApproval,
-            thirdParty,
-            additionalBodyProperties,
-        )
-    }
+    @JvmSynthetic internal fun getBody(): CheckTransferCreateBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -260,49 +258,34 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var accountId: String? = null
-        private var amount: Long? = null
-        private var sourceAccountNumberId: String? = null
-        private var fulfillmentMethod: FulfillmentMethod? = null
-        private var physicalCheck: PhysicalCheck? = null
-        private var requireApproval: Boolean? = null
-        private var thirdParty: ThirdParty? = null
+        private var body: CheckTransferCreateBody.Builder = CheckTransferCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(checkTransferCreateParams: CheckTransferCreateParams) = apply {
-            accountId = checkTransferCreateParams.accountId
-            amount = checkTransferCreateParams.amount
-            sourceAccountNumberId = checkTransferCreateParams.sourceAccountNumberId
-            fulfillmentMethod = checkTransferCreateParams.fulfillmentMethod
-            physicalCheck = checkTransferCreateParams.physicalCheck
-            requireApproval = checkTransferCreateParams.requireApproval
-            thirdParty = checkTransferCreateParams.thirdParty
+            body = checkTransferCreateParams.body.toBuilder()
             additionalHeaders = checkTransferCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = checkTransferCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                checkTransferCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier for the account that will send the transfer. */
-        fun accountId(accountId: String) = apply { this.accountId = accountId }
+        fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
         /** The transfer amount in USD cents. */
-        fun amount(amount: Long) = apply { this.amount = amount }
+        fun amount(amount: Long) = apply { body.amount(amount) }
 
         /**
          * The identifier of the Account Number from which to send the transfer and print on the
          * check.
          */
         fun sourceAccountNumberId(sourceAccountNumberId: String) = apply {
-            this.sourceAccountNumberId = sourceAccountNumberId
+            body.sourceAccountNumberId(sourceAccountNumberId)
         }
 
         /** Whether Increase will print and mail the check or if you will do it yourself. */
         fun fulfillmentMethod(fulfillmentMethod: FulfillmentMethod) = apply {
-            this.fulfillmentMethod = fulfillmentMethod
+            body.fulfillmentMethod(fulfillmentMethod)
         }
 
         /**
@@ -311,12 +294,12 @@ constructor(
          * any other `fulfillment_method` is provided.
          */
         fun physicalCheck(physicalCheck: PhysicalCheck) = apply {
-            this.physicalCheck = physicalCheck
+            body.physicalCheck(physicalCheck)
         }
 
         /** Whether the transfer requires explicit approval via the dashboard or API. */
         fun requireApproval(requireApproval: Boolean) = apply {
-            this.requireApproval = requireApproval
+            body.requireApproval(requireApproval)
         }
 
         /**
@@ -324,7 +307,7 @@ constructor(
          * `fulfillment_method` is equal to `third_party`. It must not be included if any other
          * `fulfillment_method` is provided.
          */
-        fun thirdParty(thirdParty: ThirdParty) = apply { this.thirdParty = thirdParty }
+        fun thirdParty(thirdParty: ThirdParty) = apply { body.thirdParty(thirdParty) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -425,41 +408,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): CheckTransferCreateParams =
             CheckTransferCreateParams(
-                checkNotNull(accountId) { "`accountId` is required but was not set" },
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(sourceAccountNumberId) {
-                    "`sourceAccountNumberId` is required but was not set"
-                },
-                fulfillmentMethod,
-                physicalCheck,
-                requireApproval,
-                thirdParty,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -1049,11 +1020,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is CheckTransferCreateParams && accountId == other.accountId && amount == other.amount && sourceAccountNumberId == other.sourceAccountNumberId && fulfillmentMethod == other.fulfillmentMethod && physicalCheck == other.physicalCheck && requireApproval == other.requireApproval && thirdParty == other.thirdParty && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is CheckTransferCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, amount, sourceAccountNumberId, fulfillmentMethod, physicalCheck, requireApproval, thirdParty, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "CheckTransferCreateParams{accountId=$accountId, amount=$amount, sourceAccountNumberId=$sourceAccountNumberId, fulfillmentMethod=$fulfillmentMethod, physicalCheck=$physicalCheck, requireApproval=$requireApproval, thirdParty=$thirdParty, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "CheckTransferCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

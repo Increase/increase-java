@@ -18,35 +18,30 @@ import java.util.Optional
 
 class SimulationCardSettlementCreateParams
 constructor(
-    private val cardId: String,
-    private val pendingTransactionId: String,
-    private val amount: Long?,
+    private val body: SimulationCardSettlementCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun cardId(): String = cardId
+    /** The identifier of the Card to create a settlement on. */
+    fun cardId(): String = body.cardId()
 
-    fun pendingTransactionId(): String = pendingTransactionId
+    /** The identifier of the Pending Transaction for the Card Authorization you wish to settle. */
+    fun pendingTransactionId(): String = body.pendingTransactionId()
 
-    fun amount(): Optional<Long> = Optional.ofNullable(amount)
+    /**
+     * The amount to be settled. This defaults to the amount of the Pending Transaction being
+     * settled.
+     */
+    fun amount(): Optional<Long> = body.amount()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): SimulationCardSettlementCreateBody {
-        return SimulationCardSettlementCreateBody(
-            cardId,
-            pendingTransactionId,
-            amount,
-            additionalBodyProperties,
-        )
-    }
+    @JvmSynthetic internal fun getBody(): SimulationCardSettlementCreateBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -182,42 +177,36 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var cardId: String? = null
-        private var pendingTransactionId: String? = null
-        private var amount: Long? = null
+        private var body: SimulationCardSettlementCreateBody.Builder =
+            SimulationCardSettlementCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(
             simulationCardSettlementCreateParams: SimulationCardSettlementCreateParams
         ) = apply {
-            cardId = simulationCardSettlementCreateParams.cardId
-            pendingTransactionId = simulationCardSettlementCreateParams.pendingTransactionId
-            amount = simulationCardSettlementCreateParams.amount
+            body = simulationCardSettlementCreateParams.body.toBuilder()
             additionalHeaders = simulationCardSettlementCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams =
                 simulationCardSettlementCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                simulationCardSettlementCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier of the Card to create a settlement on. */
-        fun cardId(cardId: String) = apply { this.cardId = cardId }
+        fun cardId(cardId: String) = apply { body.cardId(cardId) }
 
         /**
          * The identifier of the Pending Transaction for the Card Authorization you wish to settle.
          */
         fun pendingTransactionId(pendingTransactionId: String) = apply {
-            this.pendingTransactionId = pendingTransactionId
+            body.pendingTransactionId(pendingTransactionId)
         }
 
         /**
          * The amount to be settled. This defaults to the amount of the Pending Transaction being
          * settled.
          */
-        fun amount(amount: Long) = apply { this.amount = amount }
+        fun amount(amount: Long) = apply { body.amount(amount) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -318,37 +307,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): SimulationCardSettlementCreateParams =
             SimulationCardSettlementCreateParams(
-                checkNotNull(cardId) { "`cardId` is required but was not set" },
-                checkNotNull(pendingTransactionId) {
-                    "`pendingTransactionId` is required but was not set"
-                },
-                amount,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -357,11 +338,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is SimulationCardSettlementCreateParams && cardId == other.cardId && pendingTransactionId == other.pendingTransactionId && amount == other.amount && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is SimulationCardSettlementCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cardId, pendingTransactionId, amount, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "SimulationCardSettlementCreateParams{cardId=$cardId, pendingTransactionId=$pendingTransactionId, amount=$amount, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "SimulationCardSettlementCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

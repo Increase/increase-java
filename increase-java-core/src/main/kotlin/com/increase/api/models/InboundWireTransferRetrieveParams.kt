@@ -14,6 +14,7 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** The identifier of the Inbound Wire Transfer to get details for. */
     fun inboundWireTransferId(): String = inboundWireTransferId
 
     fun _additionalHeaders(): Headers = additionalHeaders

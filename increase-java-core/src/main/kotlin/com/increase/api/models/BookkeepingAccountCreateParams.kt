@@ -21,39 +21,30 @@ import java.util.Optional
 
 class BookkeepingAccountCreateParams
 constructor(
-    private val name: String,
-    private val accountId: String?,
-    private val complianceCategory: ComplianceCategory?,
-    private val entityId: String?,
+    private val body: BookkeepingAccountCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun name(): String = name
+    /** The name you choose for the account. */
+    fun name(): String = body.name()
 
-    fun accountId(): Optional<String> = Optional.ofNullable(accountId)
+    /** The entity, if `compliance_category` is `commingled_cash`. */
+    fun accountId(): Optional<String> = body.accountId()
 
-    fun complianceCategory(): Optional<ComplianceCategory> = Optional.ofNullable(complianceCategory)
+    /** The account compliance category. */
+    fun complianceCategory(): Optional<ComplianceCategory> = body.complianceCategory()
 
-    fun entityId(): Optional<String> = Optional.ofNullable(entityId)
+    /** The entity, if `compliance_category` is `customer_balance`. */
+    fun entityId(): Optional<String> = body.entityId()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): BookkeepingAccountCreateBody {
-        return BookkeepingAccountCreateBody(
-            name,
-            accountId,
-            complianceCategory,
-            entityId,
-            additionalBodyProperties,
-        )
-    }
+    @JvmSynthetic internal fun getBody(): BookkeepingAccountCreateBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -186,39 +177,31 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var name: String? = null
-        private var accountId: String? = null
-        private var complianceCategory: ComplianceCategory? = null
-        private var entityId: String? = null
+        private var body: BookkeepingAccountCreateBody.Builder =
+            BookkeepingAccountCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(bookkeepingAccountCreateParams: BookkeepingAccountCreateParams) = apply {
-            name = bookkeepingAccountCreateParams.name
-            accountId = bookkeepingAccountCreateParams.accountId
-            complianceCategory = bookkeepingAccountCreateParams.complianceCategory
-            entityId = bookkeepingAccountCreateParams.entityId
+            body = bookkeepingAccountCreateParams.body.toBuilder()
             additionalHeaders = bookkeepingAccountCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = bookkeepingAccountCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                bookkeepingAccountCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The name you choose for the account. */
-        fun name(name: String) = apply { this.name = name }
+        fun name(name: String) = apply { body.name(name) }
 
         /** The entity, if `compliance_category` is `commingled_cash`. */
-        fun accountId(accountId: String) = apply { this.accountId = accountId }
+        fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
         /** The account compliance category. */
         fun complianceCategory(complianceCategory: ComplianceCategory) = apply {
-            this.complianceCategory = complianceCategory
+            body.complianceCategory(complianceCategory)
         }
 
         /** The entity, if `compliance_category` is `customer_balance`. */
-        fun entityId(entityId: String) = apply { this.entityId = entityId }
+        fun entityId(entityId: String) = apply { body.entityId(entityId) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -319,36 +302,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): BookkeepingAccountCreateParams =
             BookkeepingAccountCreateParams(
-                checkNotNull(name) { "`name` is required but was not set" },
-                accountId,
-                complianceCategory,
-                entityId,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -414,11 +390,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is BookkeepingAccountCreateParams && name == other.name && accountId == other.accountId && complianceCategory == other.complianceCategory && entityId == other.entityId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is BookkeepingAccountCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(name, accountId, complianceCategory, entityId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "BookkeepingAccountCreateParams{name=$name, accountId=$accountId, complianceCategory=$complianceCategory, entityId=$entityId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "BookkeepingAccountCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

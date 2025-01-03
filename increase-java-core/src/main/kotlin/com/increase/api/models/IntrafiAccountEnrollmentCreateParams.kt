@@ -17,31 +17,24 @@ import java.util.Objects
 
 class IntrafiAccountEnrollmentCreateParams
 constructor(
-    private val accountId: String,
-    private val emailAddress: String,
+    private val body: IntrafiAccountEnrollmentCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun accountId(): String = accountId
+    /** The identifier for the account to be added to IntraFi. */
+    fun accountId(): String = body.accountId()
 
-    fun emailAddress(): String = emailAddress
+    /** The contact email for the account owner, to be shared with IntraFi. */
+    fun emailAddress(): String = body.emailAddress()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): IntrafiAccountEnrollmentCreateBody {
-        return IntrafiAccountEnrollmentCreateBody(
-            accountId,
-            emailAddress,
-            additionalBodyProperties,
-        )
-    }
+    @JvmSynthetic internal fun getBody(): IntrafiAccountEnrollmentCreateBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -151,30 +144,26 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var accountId: String? = null
-        private var emailAddress: String? = null
+        private var body: IntrafiAccountEnrollmentCreateBody.Builder =
+            IntrafiAccountEnrollmentCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(
             intrafiAccountEnrollmentCreateParams: IntrafiAccountEnrollmentCreateParams
         ) = apply {
-            accountId = intrafiAccountEnrollmentCreateParams.accountId
-            emailAddress = intrafiAccountEnrollmentCreateParams.emailAddress
+            body = intrafiAccountEnrollmentCreateParams.body.toBuilder()
             additionalHeaders = intrafiAccountEnrollmentCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams =
                 intrafiAccountEnrollmentCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                intrafiAccountEnrollmentCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier for the account to be added to IntraFi. */
-        fun accountId(accountId: String) = apply { this.accountId = accountId }
+        fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
         /** The contact email for the account owner, to be shared with IntraFi. */
-        fun emailAddress(emailAddress: String) = apply { this.emailAddress = emailAddress }
+        fun emailAddress(emailAddress: String) = apply { body.emailAddress(emailAddress) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -275,34 +264,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): IntrafiAccountEnrollmentCreateParams =
             IntrafiAccountEnrollmentCreateParams(
-                checkNotNull(accountId) { "`accountId` is required but was not set" },
-                checkNotNull(emailAddress) { "`emailAddress` is required but was not set" },
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -311,11 +295,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is IntrafiAccountEnrollmentCreateParams && accountId == other.accountId && emailAddress == other.emailAddress && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is IntrafiAccountEnrollmentCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, emailAddress, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "IntrafiAccountEnrollmentCreateParams{accountId=$accountId, emailAddress=$emailAddress, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "IntrafiAccountEnrollmentCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

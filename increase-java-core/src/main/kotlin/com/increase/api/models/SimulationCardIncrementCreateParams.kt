@@ -18,35 +18,32 @@ import java.util.Optional
 
 class SimulationCardIncrementCreateParams
 constructor(
-    private val amount: Long,
-    private val cardPaymentId: String,
-    private val eventSubscriptionId: String?,
+    private val body: SimulationCardIncrementCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun amount(): Long = amount
+    /** The amount of the increment in minor units in the card authorization's currency. */
+    fun amount(): Long = body.amount()
 
-    fun cardPaymentId(): String = cardPaymentId
+    /** The identifier of the Card Payment to create a increment on. */
+    fun cardPaymentId(): String = body.cardPaymentId()
 
-    fun eventSubscriptionId(): Optional<String> = Optional.ofNullable(eventSubscriptionId)
+    /**
+     * The identifier of the Event Subscription to use. If provided, will override the default real
+     * time event subscription. Because you can only create one real time decision event
+     * subscription, you can use this field to route events to any specified event subscription for
+     * testing purposes.
+     */
+    fun eventSubscriptionId(): Optional<String> = body.eventSubscriptionId()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): SimulationCardIncrementCreateBody {
-        return SimulationCardIncrementCreateBody(
-            amount,
-            cardPaymentId,
-            eventSubscriptionId,
-            additionalBodyProperties,
-        )
-    }
+    @JvmSynthetic internal fun getBody(): SimulationCardIncrementCreateBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -179,32 +176,26 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var amount: Long? = null
-        private var cardPaymentId: String? = null
-        private var eventSubscriptionId: String? = null
+        private var body: SimulationCardIncrementCreateBody.Builder =
+            SimulationCardIncrementCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(
             simulationCardIncrementCreateParams: SimulationCardIncrementCreateParams
         ) = apply {
-            amount = simulationCardIncrementCreateParams.amount
-            cardPaymentId = simulationCardIncrementCreateParams.cardPaymentId
-            eventSubscriptionId = simulationCardIncrementCreateParams.eventSubscriptionId
+            body = simulationCardIncrementCreateParams.body.toBuilder()
             additionalHeaders = simulationCardIncrementCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams =
                 simulationCardIncrementCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                simulationCardIncrementCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The amount of the increment in minor units in the card authorization's currency. */
-        fun amount(amount: Long) = apply { this.amount = amount }
+        fun amount(amount: Long) = apply { body.amount(amount) }
 
         /** The identifier of the Card Payment to create a increment on. */
-        fun cardPaymentId(cardPaymentId: String) = apply { this.cardPaymentId = cardPaymentId }
+        fun cardPaymentId(cardPaymentId: String) = apply { body.cardPaymentId(cardPaymentId) }
 
         /**
          * The identifier of the Event Subscription to use. If provided, will override the default
@@ -213,7 +204,7 @@ constructor(
          * for testing purposes.
          */
         fun eventSubscriptionId(eventSubscriptionId: String) = apply {
-            this.eventSubscriptionId = eventSubscriptionId
+            body.eventSubscriptionId(eventSubscriptionId)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -315,35 +306,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): SimulationCardIncrementCreateParams =
             SimulationCardIncrementCreateParams(
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(cardPaymentId) { "`cardPaymentId` is required but was not set" },
-                eventSubscriptionId,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -352,11 +337,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is SimulationCardIncrementCreateParams && amount == other.amount && cardPaymentId == other.cardPaymentId && eventSubscriptionId == other.eventSubscriptionId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is SimulationCardIncrementCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(amount, cardPaymentId, eventSubscriptionId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "SimulationCardIncrementCreateParams{amount=$amount, cardPaymentId=$cardPaymentId, eventSubscriptionId=$eventSubscriptionId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "SimulationCardIncrementCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

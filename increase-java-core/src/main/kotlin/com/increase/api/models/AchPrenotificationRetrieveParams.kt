@@ -14,6 +14,7 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** The identifier of the ACH Prenotification to retrieve. */
     fun achPrenotificationId(): String = achPrenotificationId
 
     fun _additionalHeaders(): Headers = additionalHeaders

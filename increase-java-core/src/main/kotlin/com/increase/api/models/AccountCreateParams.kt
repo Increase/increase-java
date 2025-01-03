@@ -18,39 +18,36 @@ import java.util.Optional
 
 class AccountCreateParams
 constructor(
-    private val name: String,
-    private val entityId: String?,
-    private val informationalEntityId: String?,
-    private val programId: String?,
+    private val body: AccountCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun name(): String = name
+    /** The name you choose for the Account. */
+    fun name(): String = body.name()
 
-    fun entityId(): Optional<String> = Optional.ofNullable(entityId)
+    /** The identifier for the Entity that will own the Account. */
+    fun entityId(): Optional<String> = body.entityId()
 
-    fun informationalEntityId(): Optional<String> = Optional.ofNullable(informationalEntityId)
+    /**
+     * The identifier of an Entity that, while not owning the Account, is associated with its
+     * activity. Its relationship to your group must be `informational`.
+     */
+    fun informationalEntityId(): Optional<String> = body.informationalEntityId()
 
-    fun programId(): Optional<String> = Optional.ofNullable(programId)
+    /**
+     * The identifier for the Program that this Account falls under. Required if you operate more
+     * than one Program.
+     */
+    fun programId(): Optional<String> = body.programId()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): AccountCreateBody {
-        return AccountCreateBody(
-            name,
-            entityId,
-            informationalEntityId,
-            programId,
-            additionalBodyProperties,
-        )
-    }
+    @JvmSynthetic internal fun getBody(): AccountCreateBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -193,44 +190,36 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var name: String? = null
-        private var entityId: String? = null
-        private var informationalEntityId: String? = null
-        private var programId: String? = null
+        private var body: AccountCreateBody.Builder = AccountCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(accountCreateParams: AccountCreateParams) = apply {
-            name = accountCreateParams.name
-            entityId = accountCreateParams.entityId
-            informationalEntityId = accountCreateParams.informationalEntityId
-            programId = accountCreateParams.programId
+            body = accountCreateParams.body.toBuilder()
             additionalHeaders = accountCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = accountCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties = accountCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The name you choose for the Account. */
-        fun name(name: String) = apply { this.name = name }
+        fun name(name: String) = apply { body.name(name) }
 
         /** The identifier for the Entity that will own the Account. */
-        fun entityId(entityId: String) = apply { this.entityId = entityId }
+        fun entityId(entityId: String) = apply { body.entityId(entityId) }
 
         /**
          * The identifier of an Entity that, while not owning the Account, is associated with its
          * activity. Its relationship to your group must be `informational`.
          */
         fun informationalEntityId(informationalEntityId: String) = apply {
-            this.informationalEntityId = informationalEntityId
+            body.informationalEntityId(informationalEntityId)
         }
 
         /**
          * The identifier for the Program that this Account falls under. Required if you operate
          * more than one Program.
          */
-        fun programId(programId: String) = apply { this.programId = programId }
+        fun programId(programId: String) = apply { body.programId(programId) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -331,36 +320,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): AccountCreateParams =
             AccountCreateParams(
-                checkNotNull(name) { "`name` is required but was not set" },
-                entityId,
-                informationalEntityId,
-                programId,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -369,11 +351,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is AccountCreateParams && name == other.name && entityId == other.entityId && informationalEntityId == other.informationalEntityId && programId == other.programId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is AccountCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(name, entityId, informationalEntityId, programId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "AccountCreateParams{name=$name, entityId=$entityId, informationalEntityId=$informationalEntityId, programId=$programId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "AccountCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

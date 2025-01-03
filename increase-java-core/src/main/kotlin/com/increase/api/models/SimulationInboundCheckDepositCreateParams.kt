@@ -17,35 +17,27 @@ import java.util.Objects
 
 class SimulationInboundCheckDepositCreateParams
 constructor(
-    private val accountNumberId: String,
-    private val amount: Long,
-    private val checkNumber: String,
+    private val body: SimulationInboundCheckDepositCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun accountNumberId(): String = accountNumberId
+    /** The identifier of the Account Number the Inbound Check Deposit will be against. */
+    fun accountNumberId(): String = body.accountNumberId()
 
-    fun amount(): Long = amount
+    /** The check amount in cents. */
+    fun amount(): Long = body.amount()
 
-    fun checkNumber(): String = checkNumber
+    /** The check number on the check to be deposited. */
+    fun checkNumber(): String = body.checkNumber()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): SimulationInboundCheckDepositCreateBody {
-        return SimulationInboundCheckDepositCreateBody(
-            accountNumberId,
-            amount,
-            checkNumber,
-            additionalBodyProperties,
-        )
-    }
+    @JvmSynthetic internal fun getBody(): SimulationInboundCheckDepositCreateBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -169,38 +161,32 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var accountNumberId: String? = null
-        private var amount: Long? = null
-        private var checkNumber: String? = null
+        private var body: SimulationInboundCheckDepositCreateBody.Builder =
+            SimulationInboundCheckDepositCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(
             simulationInboundCheckDepositCreateParams: SimulationInboundCheckDepositCreateParams
         ) = apply {
-            accountNumberId = simulationInboundCheckDepositCreateParams.accountNumberId
-            amount = simulationInboundCheckDepositCreateParams.amount
-            checkNumber = simulationInboundCheckDepositCreateParams.checkNumber
+            body = simulationInboundCheckDepositCreateParams.body.toBuilder()
             additionalHeaders =
                 simulationInboundCheckDepositCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams =
                 simulationInboundCheckDepositCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                simulationInboundCheckDepositCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier of the Account Number the Inbound Check Deposit will be against. */
         fun accountNumberId(accountNumberId: String) = apply {
-            this.accountNumberId = accountNumberId
+            body.accountNumberId(accountNumberId)
         }
 
         /** The check amount in cents. */
-        fun amount(amount: Long) = apply { this.amount = amount }
+        fun amount(amount: Long) = apply { body.amount(amount) }
 
         /** The check number on the check to be deposited. */
-        fun checkNumber(checkNumber: String) = apply { this.checkNumber = checkNumber }
+        fun checkNumber(checkNumber: String) = apply { body.checkNumber(checkNumber) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -301,35 +287,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): SimulationInboundCheckDepositCreateParams =
             SimulationInboundCheckDepositCreateParams(
-                checkNotNull(accountNumberId) { "`accountNumberId` is required but was not set" },
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(checkNumber) { "`checkNumber` is required but was not set" },
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -338,11 +318,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is SimulationInboundCheckDepositCreateParams && accountNumberId == other.accountNumberId && amount == other.amount && checkNumber == other.checkNumber && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is SimulationInboundCheckDepositCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountNumberId, amount, checkNumber, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "SimulationInboundCheckDepositCreateParams{accountNumberId=$accountNumberId, amount=$amount, checkNumber=$checkNumber, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "SimulationInboundCheckDepositCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

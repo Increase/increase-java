@@ -22,41 +22,33 @@ import java.util.Optional
 class AccountNumberUpdateParams
 constructor(
     private val accountNumberId: String,
-    private val inboundAch: InboundAch?,
-    private val inboundChecks: InboundChecks?,
-    private val name: String?,
-    private val status: Status?,
+    private val body: AccountNumberUpdateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
+    /** The identifier of the Account Number. */
     fun accountNumberId(): String = accountNumberId
 
-    fun inboundAch(): Optional<InboundAch> = Optional.ofNullable(inboundAch)
+    /** Options related to how this Account Number handles inbound ACH transfers. */
+    fun inboundAch(): Optional<InboundAch> = body.inboundAch()
 
-    fun inboundChecks(): Optional<InboundChecks> = Optional.ofNullable(inboundChecks)
+    /** Options related to how this Account Number should handle inbound check withdrawals. */
+    fun inboundChecks(): Optional<InboundChecks> = body.inboundChecks()
 
-    fun name(): Optional<String> = Optional.ofNullable(name)
+    /** The name you choose for the Account Number. */
+    fun name(): Optional<String> = body.name()
 
-    fun status(): Optional<Status> = Optional.ofNullable(status)
+    /** This indicates if transfers can be made to the Account Number. */
+    fun status(): Optional<Status> = body.status()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): AccountNumberUpdateBody {
-        return AccountNumberUpdateBody(
-            inboundAch,
-            inboundChecks,
-            name,
-            status,
-            additionalBodyProperties,
-        )
-    }
+    @JvmSynthetic internal fun getBody(): AccountNumberUpdateBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -197,25 +189,16 @@ constructor(
     class Builder {
 
         private var accountNumberId: String? = null
-        private var inboundAch: InboundAch? = null
-        private var inboundChecks: InboundChecks? = null
-        private var name: String? = null
-        private var status: Status? = null
+        private var body: AccountNumberUpdateBody.Builder = AccountNumberUpdateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(accountNumberUpdateParams: AccountNumberUpdateParams) = apply {
             accountNumberId = accountNumberUpdateParams.accountNumberId
-            inboundAch = accountNumberUpdateParams.inboundAch
-            inboundChecks = accountNumberUpdateParams.inboundChecks
-            name = accountNumberUpdateParams.name
-            status = accountNumberUpdateParams.status
+            body = accountNumberUpdateParams.body.toBuilder()
             additionalHeaders = accountNumberUpdateParams.additionalHeaders.toBuilder()
             additionalQueryParams = accountNumberUpdateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                accountNumberUpdateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier of the Account Number. */
@@ -224,18 +207,18 @@ constructor(
         }
 
         /** Options related to how this Account Number handles inbound ACH transfers. */
-        fun inboundAch(inboundAch: InboundAch) = apply { this.inboundAch = inboundAch }
+        fun inboundAch(inboundAch: InboundAch) = apply { body.inboundAch(inboundAch) }
 
         /** Options related to how this Account Number should handle inbound check withdrawals. */
         fun inboundChecks(inboundChecks: InboundChecks) = apply {
-            this.inboundChecks = inboundChecks
+            body.inboundChecks(inboundChecks)
         }
 
         /** The name you choose for the Account Number. */
-        fun name(name: String) = apply { this.name = name }
+        fun name(name: String) = apply { body.name(name) }
 
         /** This indicates if transfers can be made to the Account Number. */
-        fun status(status: Status) = apply { this.status = status }
+        fun status(status: Status) = apply { body.status(status) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -336,37 +319,30 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): AccountNumberUpdateParams =
             AccountNumberUpdateParams(
                 checkNotNull(accountNumberId) { "`accountNumberId` is required but was not set" },
-                inboundAch,
-                inboundChecks,
-                name,
-                status,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -719,11 +695,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is AccountNumberUpdateParams && accountNumberId == other.accountNumberId && inboundAch == other.inboundAch && inboundChecks == other.inboundChecks && name == other.name && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is AccountNumberUpdateParams && accountNumberId == other.accountNumberId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountNumberId, inboundAch, inboundChecks, name, status, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountNumberId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "AccountNumberUpdateParams{accountNumberId=$accountNumberId, inboundAch=$inboundAch, inboundChecks=$inboundChecks, name=$name, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "AccountNumberUpdateParams{accountNumberId=$accountNumberId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

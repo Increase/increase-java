@@ -14,6 +14,7 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** The identifier of the Check Transfer. */
     fun checkTransferId(): String = checkTransferId
 
     fun _additionalHeaders(): Headers = additionalHeaders

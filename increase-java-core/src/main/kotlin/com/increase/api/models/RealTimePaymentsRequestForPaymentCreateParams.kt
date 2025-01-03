@@ -19,51 +19,42 @@ import java.util.Optional
 
 class RealTimePaymentsRequestForPaymentCreateParams
 constructor(
-    private val amount: Long,
-    private val debtor: Debtor,
-    private val destinationAccountNumberId: String,
-    private val expiresAt: LocalDate,
-    private val remittanceInformation: String,
-    private val sourceAccountNumber: String,
-    private val sourceRoutingNumber: String,
+    private val body: RealTimePaymentsRequestForPaymentCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun amount(): Long = amount
+    /** The requested amount in USD cents. Must be positive. */
+    fun amount(): Long = body.amount()
 
-    fun debtor(): Debtor = debtor
+    /** Details of the person being requested to pay. */
+    fun debtor(): Debtor = body.debtor()
 
-    fun destinationAccountNumberId(): String = destinationAccountNumberId
+    /** The identifier of the Account Number where the funds will land. */
+    fun destinationAccountNumberId(): String = body.destinationAccountNumberId()
 
-    fun expiresAt(): LocalDate = expiresAt
+    /**
+     * The expiration time for this request, in UTC. The requestee will not be able to pay after
+     * this date.
+     */
+    fun expiresAt(): LocalDate = body.expiresAt()
 
-    fun remittanceInformation(): String = remittanceInformation
+    /** Unstructured information that will show on the requestee's bank statement. */
+    fun remittanceInformation(): String = body.remittanceInformation()
 
-    fun sourceAccountNumber(): String = sourceAccountNumber
+    /** The account number the funds will be requested from. */
+    fun sourceAccountNumber(): String = body.sourceAccountNumber()
 
-    fun sourceRoutingNumber(): String = sourceRoutingNumber
+    /** The requestee's American Bankers' Association (ABA) Routing Transit Number (RTN). */
+    fun sourceRoutingNumber(): String = body.sourceRoutingNumber()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): RealTimePaymentsRequestForPaymentCreateBody {
-        return RealTimePaymentsRequestForPaymentCreateBody(
-            amount,
-            debtor,
-            destinationAccountNumberId,
-            expiresAt,
-            remittanceInformation,
-            sourceAccountNumber,
-            sourceRoutingNumber,
-            additionalBodyProperties,
-        )
-    }
+    @JvmSynthetic internal fun getBody(): RealTimePaymentsRequestForPaymentCreateBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -255,70 +246,53 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var amount: Long? = null
-        private var debtor: Debtor? = null
-        private var destinationAccountNumberId: String? = null
-        private var expiresAt: LocalDate? = null
-        private var remittanceInformation: String? = null
-        private var sourceAccountNumber: String? = null
-        private var sourceRoutingNumber: String? = null
+        private var body: RealTimePaymentsRequestForPaymentCreateBody.Builder =
+            RealTimePaymentsRequestForPaymentCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(
             realTimePaymentsRequestForPaymentCreateParams:
                 RealTimePaymentsRequestForPaymentCreateParams
         ) = apply {
-            amount = realTimePaymentsRequestForPaymentCreateParams.amount
-            debtor = realTimePaymentsRequestForPaymentCreateParams.debtor
-            destinationAccountNumberId =
-                realTimePaymentsRequestForPaymentCreateParams.destinationAccountNumberId
-            expiresAt = realTimePaymentsRequestForPaymentCreateParams.expiresAt
-            remittanceInformation =
-                realTimePaymentsRequestForPaymentCreateParams.remittanceInformation
-            sourceAccountNumber = realTimePaymentsRequestForPaymentCreateParams.sourceAccountNumber
-            sourceRoutingNumber = realTimePaymentsRequestForPaymentCreateParams.sourceRoutingNumber
+            body = realTimePaymentsRequestForPaymentCreateParams.body.toBuilder()
             additionalHeaders =
                 realTimePaymentsRequestForPaymentCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams =
                 realTimePaymentsRequestForPaymentCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                realTimePaymentsRequestForPaymentCreateParams.additionalBodyProperties
-                    .toMutableMap()
         }
 
         /** The requested amount in USD cents. Must be positive. */
-        fun amount(amount: Long) = apply { this.amount = amount }
+        fun amount(amount: Long) = apply { body.amount(amount) }
 
         /** Details of the person being requested to pay. */
-        fun debtor(debtor: Debtor) = apply { this.debtor = debtor }
+        fun debtor(debtor: Debtor) = apply { body.debtor(debtor) }
 
         /** The identifier of the Account Number where the funds will land. */
         fun destinationAccountNumberId(destinationAccountNumberId: String) = apply {
-            this.destinationAccountNumberId = destinationAccountNumberId
+            body.destinationAccountNumberId(destinationAccountNumberId)
         }
 
         /**
          * The expiration time for this request, in UTC. The requestee will not be able to pay after
          * this date.
          */
-        fun expiresAt(expiresAt: LocalDate) = apply { this.expiresAt = expiresAt }
+        fun expiresAt(expiresAt: LocalDate) = apply { body.expiresAt(expiresAt) }
 
         /** Unstructured information that will show on the requestee's bank statement. */
         fun remittanceInformation(remittanceInformation: String) = apply {
-            this.remittanceInformation = remittanceInformation
+            body.remittanceInformation(remittanceInformation)
         }
 
         /** The account number the funds will be requested from. */
         fun sourceAccountNumber(sourceAccountNumber: String) = apply {
-            this.sourceAccountNumber = sourceAccountNumber
+            body.sourceAccountNumber(sourceAccountNumber)
         }
 
         /** The requestee's American Bankers' Association (ABA) Routing Transit Number (RTN). */
         fun sourceRoutingNumber(sourceRoutingNumber: String) = apply {
-            this.sourceRoutingNumber = sourceRoutingNumber
+            body.sourceRoutingNumber(sourceRoutingNumber)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -420,47 +394,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): RealTimePaymentsRequestForPaymentCreateParams =
             RealTimePaymentsRequestForPaymentCreateParams(
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(debtor) { "`debtor` is required but was not set" },
-                checkNotNull(destinationAccountNumberId) {
-                    "`destinationAccountNumberId` is required but was not set"
-                },
-                checkNotNull(expiresAt) { "`expiresAt` is required but was not set" },
-                checkNotNull(remittanceInformation) {
-                    "`remittanceInformation` is required but was not set"
-                },
-                checkNotNull(sourceAccountNumber) {
-                    "`sourceAccountNumber` is required but was not set"
-                },
-                checkNotNull(sourceRoutingNumber) {
-                    "`sourceRoutingNumber` is required but was not set"
-                },
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -678,11 +634,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is RealTimePaymentsRequestForPaymentCreateParams && amount == other.amount && debtor == other.debtor && destinationAccountNumberId == other.destinationAccountNumberId && expiresAt == other.expiresAt && remittanceInformation == other.remittanceInformation && sourceAccountNumber == other.sourceAccountNumber && sourceRoutingNumber == other.sourceRoutingNumber && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is RealTimePaymentsRequestForPaymentCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(amount, debtor, destinationAccountNumberId, expiresAt, remittanceInformation, sourceAccountNumber, sourceRoutingNumber, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "RealTimePaymentsRequestForPaymentCreateParams{amount=$amount, debtor=$debtor, destinationAccountNumberId=$destinationAccountNumberId, expiresAt=$expiresAt, remittanceInformation=$remittanceInformation, sourceAccountNumber=$sourceAccountNumber, sourceRoutingNumber=$sourceRoutingNumber, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "RealTimePaymentsRequestForPaymentCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

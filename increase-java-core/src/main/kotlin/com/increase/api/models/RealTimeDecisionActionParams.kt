@@ -22,47 +22,53 @@ import java.util.Optional
 class RealTimeDecisionActionParams
 constructor(
     private val realTimeDecisionId: String,
-    private val cardAuthentication: CardAuthentication?,
-    private val cardAuthenticationChallenge: CardAuthenticationChallenge?,
-    private val cardAuthorization: CardAuthorization?,
-    private val digitalWalletAuthentication: DigitalWalletAuthentication?,
-    private val digitalWalletToken: DigitalWalletToken?,
+    private val body: RealTimeDecisionActionBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
+    /** The identifier of the Real-Time Decision. */
     fun realTimeDecisionId(): String = realTimeDecisionId
 
-    fun cardAuthentication(): Optional<CardAuthentication> = Optional.ofNullable(cardAuthentication)
+    /**
+     * If the Real-Time Decision relates to a 3DS card authentication attempt, this object contains
+     * your response to the authentication.
+     */
+    fun cardAuthentication(): Optional<CardAuthentication> = body.cardAuthentication()
 
+    /**
+     * If the Real-Time Decision relates to 3DS card authentication challenge delivery, this object
+     * contains your response.
+     */
     fun cardAuthenticationChallenge(): Optional<CardAuthenticationChallenge> =
-        Optional.ofNullable(cardAuthenticationChallenge)
+        body.cardAuthenticationChallenge()
 
-    fun cardAuthorization(): Optional<CardAuthorization> = Optional.ofNullable(cardAuthorization)
+    /**
+     * If the Real-Time Decision relates to a card authorization attempt, this object contains your
+     * response to the authorization.
+     */
+    fun cardAuthorization(): Optional<CardAuthorization> = body.cardAuthorization()
 
+    /**
+     * If the Real-Time Decision relates to a digital wallet authentication attempt, this object
+     * contains your response to the authentication.
+     */
     fun digitalWalletAuthentication(): Optional<DigitalWalletAuthentication> =
-        Optional.ofNullable(digitalWalletAuthentication)
+        body.digitalWalletAuthentication()
 
-    fun digitalWalletToken(): Optional<DigitalWalletToken> = Optional.ofNullable(digitalWalletToken)
+    /**
+     * If the Real-Time Decision relates to a digital wallet token provisioning attempt, this object
+     * contains your response to the attempt.
+     */
+    fun digitalWalletToken(): Optional<DigitalWalletToken> = body.digitalWalletToken()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): RealTimeDecisionActionBody {
-        return RealTimeDecisionActionBody(
-            cardAuthentication,
-            cardAuthenticationChallenge,
-            cardAuthorization,
-            digitalWalletAuthentication,
-            digitalWalletToken,
-            additionalBodyProperties,
-        )
-    }
+    @JvmSynthetic internal fun getBody(): RealTimeDecisionActionBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -260,27 +266,16 @@ constructor(
     class Builder {
 
         private var realTimeDecisionId: String? = null
-        private var cardAuthentication: CardAuthentication? = null
-        private var cardAuthenticationChallenge: CardAuthenticationChallenge? = null
-        private var cardAuthorization: CardAuthorization? = null
-        private var digitalWalletAuthentication: DigitalWalletAuthentication? = null
-        private var digitalWalletToken: DigitalWalletToken? = null
+        private var body: RealTimeDecisionActionBody.Builder = RealTimeDecisionActionBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(realTimeDecisionActionParams: RealTimeDecisionActionParams) = apply {
             realTimeDecisionId = realTimeDecisionActionParams.realTimeDecisionId
-            cardAuthentication = realTimeDecisionActionParams.cardAuthentication
-            cardAuthenticationChallenge = realTimeDecisionActionParams.cardAuthenticationChallenge
-            cardAuthorization = realTimeDecisionActionParams.cardAuthorization
-            digitalWalletAuthentication = realTimeDecisionActionParams.digitalWalletAuthentication
-            digitalWalletToken = realTimeDecisionActionParams.digitalWalletToken
+            body = realTimeDecisionActionParams.body.toBuilder()
             additionalHeaders = realTimeDecisionActionParams.additionalHeaders.toBuilder()
             additionalQueryParams = realTimeDecisionActionParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                realTimeDecisionActionParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier of the Real-Time Decision. */
@@ -293,7 +288,7 @@ constructor(
          * contains your response to the authentication.
          */
         fun cardAuthentication(cardAuthentication: CardAuthentication) = apply {
-            this.cardAuthentication = cardAuthentication
+            body.cardAuthentication(cardAuthentication)
         }
 
         /**
@@ -302,7 +297,7 @@ constructor(
          */
         fun cardAuthenticationChallenge(cardAuthenticationChallenge: CardAuthenticationChallenge) =
             apply {
-                this.cardAuthenticationChallenge = cardAuthenticationChallenge
+                body.cardAuthenticationChallenge(cardAuthenticationChallenge)
             }
 
         /**
@@ -310,7 +305,7 @@ constructor(
          * your response to the authorization.
          */
         fun cardAuthorization(cardAuthorization: CardAuthorization) = apply {
-            this.cardAuthorization = cardAuthorization
+            body.cardAuthorization(cardAuthorization)
         }
 
         /**
@@ -319,7 +314,7 @@ constructor(
          */
         fun digitalWalletAuthentication(digitalWalletAuthentication: DigitalWalletAuthentication) =
             apply {
-                this.digitalWalletAuthentication = digitalWalletAuthentication
+                body.digitalWalletAuthentication(digitalWalletAuthentication)
             }
 
         /**
@@ -327,7 +322,7 @@ constructor(
          * object contains your response to the attempt.
          */
         fun digitalWalletToken(digitalWalletToken: DigitalWalletToken) = apply {
-            this.digitalWalletToken = digitalWalletToken
+            body.digitalWalletToken(digitalWalletToken)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -429,25 +424,22 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): RealTimeDecisionActionParams =
@@ -455,14 +447,9 @@ constructor(
                 checkNotNull(realTimeDecisionId) {
                     "`realTimeDecisionId` is required but was not set"
                 },
-                cardAuthentication,
-                cardAuthenticationChallenge,
-                cardAuthorization,
-                digitalWalletAuthentication,
-                digitalWalletToken,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -1565,11 +1552,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is RealTimeDecisionActionParams && realTimeDecisionId == other.realTimeDecisionId && cardAuthentication == other.cardAuthentication && cardAuthenticationChallenge == other.cardAuthenticationChallenge && cardAuthorization == other.cardAuthorization && digitalWalletAuthentication == other.digitalWalletAuthentication && digitalWalletToken == other.digitalWalletToken && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is RealTimeDecisionActionParams && realTimeDecisionId == other.realTimeDecisionId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(realTimeDecisionId, cardAuthentication, cardAuthenticationChallenge, cardAuthorization, digitalWalletAuthentication, digitalWalletToken, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(realTimeDecisionId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "RealTimeDecisionActionParams{realTimeDecisionId=$realTimeDecisionId, cardAuthentication=$cardAuthentication, cardAuthenticationChallenge=$cardAuthenticationChallenge, cardAuthorization=$cardAuthorization, digitalWalletAuthentication=$digitalWalletAuthentication, digitalWalletToken=$digitalWalletToken, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "RealTimeDecisionActionParams{realTimeDecisionId=$realTimeDecisionId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
