@@ -18,26 +18,31 @@ import java.util.Objects
 class EntityUpdateIndustryCodeParams
 constructor(
     private val entityId: String,
-    private val industryCode: String,
+    private val body: EntityUpdateIndustryCodeBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
+    /**
+     * The identifier of the Entity to update. This endpoint only accepts `corporation` entities.
+     */
     fun entityId(): String = entityId
 
-    fun industryCode(): String = industryCode
+    /**
+     * The North American Industry Classification System (NAICS) code for the corporation's primary
+     * line of business. This is a number, like `5132` for `Software Publishers`. A full list of
+     * classification codes is available
+     * [here](https://increase.com/documentation/data-dictionary#north-american-industry-classification-system-codes).
+     */
+    fun industryCode(): String = body.industryCode()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): EntityUpdateIndustryCodeBody {
-        return EntityUpdateIndustryCodeBody(industryCode, additionalBodyProperties)
-    }
+    @JvmSynthetic internal fun getBody(): EntityUpdateIndustryCodeBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -153,19 +158,17 @@ constructor(
     class Builder {
 
         private var entityId: String? = null
-        private var industryCode: String? = null
+        private var body: EntityUpdateIndustryCodeBody.Builder =
+            EntityUpdateIndustryCodeBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(entityUpdateIndustryCodeParams: EntityUpdateIndustryCodeParams) = apply {
             entityId = entityUpdateIndustryCodeParams.entityId
-            industryCode = entityUpdateIndustryCodeParams.industryCode
+            body = entityUpdateIndustryCodeParams.body.toBuilder()
             additionalHeaders = entityUpdateIndustryCodeParams.additionalHeaders.toBuilder()
             additionalQueryParams = entityUpdateIndustryCodeParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                entityUpdateIndustryCodeParams.additionalBodyProperties.toMutableMap()
         }
 
         /**
@@ -180,7 +183,7 @@ constructor(
          * list of classification codes is available
          * [here](https://increase.com/documentation/data-dictionary#north-american-industry-classification-system-codes).
          */
-        fun industryCode(industryCode: String) = apply { this.industryCode = industryCode }
+        fun industryCode(industryCode: String) = apply { body.industryCode(industryCode) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -281,34 +284,30 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): EntityUpdateIndustryCodeParams =
             EntityUpdateIndustryCodeParams(
                 checkNotNull(entityId) { "`entityId` is required but was not set" },
-                checkNotNull(industryCode) { "`industryCode` is required but was not set" },
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -317,11 +316,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is EntityUpdateIndustryCodeParams && entityId == other.entityId && industryCode == other.industryCode && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is EntityUpdateIndustryCodeParams && entityId == other.entityId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(entityId, industryCode, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(entityId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "EntityUpdateIndustryCodeParams{entityId=$entityId, industryCode=$industryCode, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "EntityUpdateIndustryCodeParams{entityId=$entityId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -14,6 +14,7 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** The identifier of the Account to get balances for. */
     fun accountId(): String = accountId
 
     fun _additionalHeaders(): Headers = additionalHeaders

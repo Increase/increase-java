@@ -14,6 +14,7 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** The identifier of the Inbound Real-Time Payments Transfer to get details for. */
     fun inboundRealTimePaymentsTransferId(): String = inboundRealTimePaymentsTransferId
 
     fun _additionalHeaders(): Headers = additionalHeaders

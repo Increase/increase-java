@@ -14,6 +14,7 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** The identifier of the Account Transfer. */
     fun accountTransferId(): String = accountTransferId
 
     fun _additionalHeaders(): Headers = additionalHeaders

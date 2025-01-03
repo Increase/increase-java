@@ -17,31 +17,24 @@ import java.util.Objects
 
 class SimulationCardFuelConfirmationCreateParams
 constructor(
-    private val amount: Long,
-    private val cardPaymentId: String,
+    private val body: SimulationCardFuelConfirmationCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun amount(): Long = amount
+    /** The amount of the fuel_confirmation in minor units in the card authorization's currency. */
+    fun amount(): Long = body.amount()
 
-    fun cardPaymentId(): String = cardPaymentId
+    /** The identifier of the Card Payment to create a fuel_confirmation on. */
+    fun cardPaymentId(): String = body.cardPaymentId()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): SimulationCardFuelConfirmationCreateBody {
-        return SimulationCardFuelConfirmationCreateBody(
-            amount,
-            cardPaymentId,
-            additionalBodyProperties,
-        )
-    }
+    @JvmSynthetic internal fun getBody(): SimulationCardFuelConfirmationCreateBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -156,33 +149,29 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var amount: Long? = null
-        private var cardPaymentId: String? = null
+        private var body: SimulationCardFuelConfirmationCreateBody.Builder =
+            SimulationCardFuelConfirmationCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(
             simulationCardFuelConfirmationCreateParams: SimulationCardFuelConfirmationCreateParams
         ) = apply {
-            amount = simulationCardFuelConfirmationCreateParams.amount
-            cardPaymentId = simulationCardFuelConfirmationCreateParams.cardPaymentId
+            body = simulationCardFuelConfirmationCreateParams.body.toBuilder()
             additionalHeaders =
                 simulationCardFuelConfirmationCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams =
                 simulationCardFuelConfirmationCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                simulationCardFuelConfirmationCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /**
          * The amount of the fuel_confirmation in minor units in the card authorization's currency.
          */
-        fun amount(amount: Long) = apply { this.amount = amount }
+        fun amount(amount: Long) = apply { body.amount(amount) }
 
         /** The identifier of the Card Payment to create a fuel_confirmation on. */
-        fun cardPaymentId(cardPaymentId: String) = apply { this.cardPaymentId = cardPaymentId }
+        fun cardPaymentId(cardPaymentId: String) = apply { body.cardPaymentId(cardPaymentId) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -283,34 +272,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): SimulationCardFuelConfirmationCreateParams =
             SimulationCardFuelConfirmationCreateParams(
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(cardPaymentId) { "`cardPaymentId` is required but was not set" },
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -319,11 +303,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is SimulationCardFuelConfirmationCreateParams && amount == other.amount && cardPaymentId == other.cardPaymentId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is SimulationCardFuelConfirmationCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(amount, cardPaymentId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "SimulationCardFuelConfirmationCreateParams{amount=$amount, cardPaymentId=$cardPaymentId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "SimulationCardFuelConfirmationCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

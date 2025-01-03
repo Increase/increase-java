@@ -14,6 +14,7 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** The identifier of the Inbound Wire Drawdown Request to retrieve. */
     fun inboundWireDrawdownRequestId(): String = inboundWireDrawdownRequestId
 
     fun _additionalHeaders(): Headers = additionalHeaders

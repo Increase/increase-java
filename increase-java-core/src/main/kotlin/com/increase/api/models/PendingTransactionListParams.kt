@@ -28,16 +28,20 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** Filter pending transactions to those belonging to the specified Account. */
     fun accountId(): Optional<String> = Optional.ofNullable(accountId)
 
     fun category(): Optional<Category> = Optional.ofNullable(category)
 
     fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
 
+    /** Return the page of entries after this one. */
     fun cursor(): Optional<String> = Optional.ofNullable(cursor)
 
+    /** Limit the size of the list that is returned. The default (and maximum) is 100 objects. */
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
+    /** Filter pending transactions to those belonging to the specified Route. */
     fun routeId(): Optional<String> = Optional.ofNullable(routeId)
 
     fun status(): Optional<Status> = Optional.ofNullable(status)
@@ -258,7 +262,7 @@ constructor(
 
         class Builder {
 
-            private var in_: List<In>? = null
+            private var in_: MutableList<In>? = null
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
             @JvmSynthetic
@@ -271,7 +275,15 @@ constructor(
              * Return results whose value is in the provided list. For GET requests, this should be
              * encoded as a comma-delimited string, such as `?in=one,two,three`.
              */
-            fun in_(in_: List<In>) = apply { this.in_ = in_ }
+            fun in_(in_: List<In>) = apply { this.in_ = in_.toMutableList() }
+
+            /**
+             * Return results whose value is in the provided list. For GET requests, this should be
+             * encoded as a comma-delimited string, such as `?in=one,two,three`.
+             */
+            fun addIn(in_: In) = apply {
+                this.in_ = (this.in_ ?: mutableListOf()).apply { add(in_) }
+            }
 
             fun additionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.clear()
@@ -656,7 +668,7 @@ constructor(
 
         class Builder {
 
-            private var in_: List<In>? = null
+            private var in_: MutableList<In>? = null
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
             @JvmSynthetic
@@ -670,7 +682,16 @@ constructor(
              * Pending Transactions in with status `pending` will be returned. For GET requests,
              * this should be encoded as a comma-delimited string, such as `?in=one,two,three`.
              */
-            fun in_(in_: List<In>) = apply { this.in_ = in_ }
+            fun in_(in_: List<In>) = apply { this.in_ = in_.toMutableList() }
+
+            /**
+             * Filter Pending Transactions for those with the specified status. By default only
+             * Pending Transactions in with status `pending` will be returned. For GET requests,
+             * this should be encoded as a comma-delimited string, such as `?in=one,two,three`.
+             */
+            fun addIn(in_: In) = apply {
+                this.in_ = (this.in_ ?: mutableListOf()).apply { add(in_) }
+            }
 
             fun additionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.clear()

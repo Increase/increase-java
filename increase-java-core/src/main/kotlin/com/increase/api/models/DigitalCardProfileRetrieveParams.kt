@@ -14,6 +14,7 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** The identifier of the Digital Card Profile. */
     fun digitalCardProfileId(): String = digitalCardProfileId
 
     fun _additionalHeaders(): Headers = additionalHeaders

@@ -22,102 +22,114 @@ import java.util.Optional
 
 class AchTransferCreateParams
 constructor(
-    private val accountId: String,
-    private val amount: Long,
-    private val statementDescriptor: String,
-    private val accountNumber: String?,
-    private val addenda: Addenda?,
-    private val companyDescriptiveDate: String?,
-    private val companyDiscretionaryData: String?,
-    private val companyEntryDescription: String?,
-    private val companyName: String?,
-    private val destinationAccountHolder: DestinationAccountHolder?,
-    private val externalAccountId: String?,
-    private val funding: Funding?,
-    private val individualId: String?,
-    private val individualName: String?,
-    private val preferredEffectiveDate: PreferredEffectiveDate?,
-    private val requireApproval: Boolean?,
-    private val routingNumber: String?,
-    private val standardEntryClassCode: StandardEntryClassCode?,
-    private val transactionTiming: TransactionTiming?,
+    private val body: AchTransferCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun accountId(): String = accountId
+    /** The Increase identifier for the account that will send the transfer. */
+    fun accountId(): String = body.accountId()
 
-    fun amount(): Long = amount
+    /**
+     * The transfer amount in USD cents. A positive amount originates a credit transfer pushing
+     * funds to the receiving account. A negative amount originates a debit transfer pulling funds
+     * from the receiving account.
+     */
+    fun amount(): Long = body.amount()
 
-    fun statementDescriptor(): String = statementDescriptor
+    /**
+     * A description you choose to give the transfer. This will be saved with the transfer details,
+     * displayed in the dashboard, and returned by the API. If `individual_name` and `company_name`
+     * are not explicitly set by this API, the `statement_descriptor` will be sent in those fields
+     * to the receiving bank to help the customer recognize the transfer. You are highly encouraged
+     * to pass `individual_name` and `company_name` instead of relying on this fallback.
+     */
+    fun statementDescriptor(): String = body.statementDescriptor()
 
-    fun accountNumber(): Optional<String> = Optional.ofNullable(accountNumber)
+    /** The account number for the destination account. */
+    fun accountNumber(): Optional<String> = body.accountNumber()
 
-    fun addenda(): Optional<Addenda> = Optional.ofNullable(addenda)
+    /**
+     * Additional information that will be sent to the recipient. This is included in the transfer
+     * data sent to the receiving bank.
+     */
+    fun addenda(): Optional<Addenda> = body.addenda()
 
-    fun companyDescriptiveDate(): Optional<String> = Optional.ofNullable(companyDescriptiveDate)
+    /**
+     * The description of the date of the transfer, usually in the format `YYMMDD`. This is included
+     * in the transfer data sent to the receiving bank.
+     */
+    fun companyDescriptiveDate(): Optional<String> = body.companyDescriptiveDate()
 
-    fun companyDiscretionaryData(): Optional<String> = Optional.ofNullable(companyDiscretionaryData)
+    /**
+     * The data you choose to associate with the transfer. This is included in the transfer data
+     * sent to the receiving bank.
+     */
+    fun companyDiscretionaryData(): Optional<String> = body.companyDiscretionaryData()
 
-    fun companyEntryDescription(): Optional<String> = Optional.ofNullable(companyEntryDescription)
+    /**
+     * A description of the transfer. This is included in the transfer data sent to the receiving
+     * bank.
+     */
+    fun companyEntryDescription(): Optional<String> = body.companyEntryDescription()
 
-    fun companyName(): Optional<String> = Optional.ofNullable(companyName)
+    /**
+     * The name by which the recipient knows you. This is included in the transfer data sent to the
+     * receiving bank.
+     */
+    fun companyName(): Optional<String> = body.companyName()
 
+    /** The type of entity that owns the account to which the ACH Transfer is being sent. */
     fun destinationAccountHolder(): Optional<DestinationAccountHolder> =
-        Optional.ofNullable(destinationAccountHolder)
+        body.destinationAccountHolder()
 
-    fun externalAccountId(): Optional<String> = Optional.ofNullable(externalAccountId)
+    /**
+     * The ID of an External Account to initiate a transfer to. If this parameter is provided,
+     * `account_number`, `routing_number`, and `funding` must be absent.
+     */
+    fun externalAccountId(): Optional<String> = body.externalAccountId()
 
-    fun funding(): Optional<Funding> = Optional.ofNullable(funding)
+    /** The type of the account to which the transfer will be sent. */
+    fun funding(): Optional<Funding> = body.funding()
 
-    fun individualId(): Optional<String> = Optional.ofNullable(individualId)
+    /** Your identifier for the transfer recipient. */
+    fun individualId(): Optional<String> = body.individualId()
 
-    fun individualName(): Optional<String> = Optional.ofNullable(individualName)
+    /**
+     * The name of the transfer recipient. This value is informational and not verified by the
+     * recipient's bank.
+     */
+    fun individualName(): Optional<String> = body.individualName()
 
-    fun preferredEffectiveDate(): Optional<PreferredEffectiveDate> =
-        Optional.ofNullable(preferredEffectiveDate)
+    /**
+     * Configuration for how the effective date of the transfer will be set. This determines
+     * same-day vs future-dated settlement timing. If not set, defaults to a `settlement_schedule`
+     * of `same_day`. If set, exactly one of the child attributes must be set.
+     */
+    fun preferredEffectiveDate(): Optional<PreferredEffectiveDate> = body.preferredEffectiveDate()
 
-    fun requireApproval(): Optional<Boolean> = Optional.ofNullable(requireApproval)
+    /** Whether the transfer requires explicit approval via the dashboard or API. */
+    fun requireApproval(): Optional<Boolean> = body.requireApproval()
 
-    fun routingNumber(): Optional<String> = Optional.ofNullable(routingNumber)
+    /**
+     * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
+     * account.
+     */
+    fun routingNumber(): Optional<String> = body.routingNumber()
 
-    fun standardEntryClassCode(): Optional<StandardEntryClassCode> =
-        Optional.ofNullable(standardEntryClassCode)
+    /** The Standard Entry Class (SEC) code to use for the transfer. */
+    fun standardEntryClassCode(): Optional<StandardEntryClassCode> = body.standardEntryClassCode()
 
-    fun transactionTiming(): Optional<TransactionTiming> = Optional.ofNullable(transactionTiming)
+    /** The timing of the transaction. */
+    fun transactionTiming(): Optional<TransactionTiming> = body.transactionTiming()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): AchTransferCreateBody {
-        return AchTransferCreateBody(
-            accountId,
-            amount,
-            statementDescriptor,
-            accountNumber,
-            addenda,
-            companyDescriptiveDate,
-            companyDiscretionaryData,
-            companyEntryDescription,
-            companyName,
-            destinationAccountHolder,
-            externalAccountId,
-            funding,
-            individualId,
-            individualName,
-            preferredEffectiveDate,
-            requireApproval,
-            routingNumber,
-            standardEntryClassCode,
-            transactionTiming,
-            additionalBodyProperties,
-        )
-    }
+    @JvmSynthetic internal fun getBody(): AchTransferCreateBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -523,65 +535,26 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var accountId: String? = null
-        private var amount: Long? = null
-        private var statementDescriptor: String? = null
-        private var accountNumber: String? = null
-        private var addenda: Addenda? = null
-        private var companyDescriptiveDate: String? = null
-        private var companyDiscretionaryData: String? = null
-        private var companyEntryDescription: String? = null
-        private var companyName: String? = null
-        private var destinationAccountHolder: DestinationAccountHolder? = null
-        private var externalAccountId: String? = null
-        private var funding: Funding? = null
-        private var individualId: String? = null
-        private var individualName: String? = null
-        private var preferredEffectiveDate: PreferredEffectiveDate? = null
-        private var requireApproval: Boolean? = null
-        private var routingNumber: String? = null
-        private var standardEntryClassCode: StandardEntryClassCode? = null
-        private var transactionTiming: TransactionTiming? = null
+        private var body: AchTransferCreateBody.Builder = AchTransferCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(achTransferCreateParams: AchTransferCreateParams) = apply {
-            accountId = achTransferCreateParams.accountId
-            amount = achTransferCreateParams.amount
-            statementDescriptor = achTransferCreateParams.statementDescriptor
-            accountNumber = achTransferCreateParams.accountNumber
-            addenda = achTransferCreateParams.addenda
-            companyDescriptiveDate = achTransferCreateParams.companyDescriptiveDate
-            companyDiscretionaryData = achTransferCreateParams.companyDiscretionaryData
-            companyEntryDescription = achTransferCreateParams.companyEntryDescription
-            companyName = achTransferCreateParams.companyName
-            destinationAccountHolder = achTransferCreateParams.destinationAccountHolder
-            externalAccountId = achTransferCreateParams.externalAccountId
-            funding = achTransferCreateParams.funding
-            individualId = achTransferCreateParams.individualId
-            individualName = achTransferCreateParams.individualName
-            preferredEffectiveDate = achTransferCreateParams.preferredEffectiveDate
-            requireApproval = achTransferCreateParams.requireApproval
-            routingNumber = achTransferCreateParams.routingNumber
-            standardEntryClassCode = achTransferCreateParams.standardEntryClassCode
-            transactionTiming = achTransferCreateParams.transactionTiming
+            body = achTransferCreateParams.body.toBuilder()
             additionalHeaders = achTransferCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = achTransferCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                achTransferCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The Increase identifier for the account that will send the transfer. */
-        fun accountId(accountId: String) = apply { this.accountId = accountId }
+        fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
         /**
          * The transfer amount in USD cents. A positive amount originates a credit transfer pushing
          * funds to the receiving account. A negative amount originates a debit transfer pulling
          * funds from the receiving account.
          */
-        fun amount(amount: Long) = apply { this.amount = amount }
+        fun amount(amount: Long) = apply { body.amount(amount) }
 
         /**
          * A description you choose to give the transfer. This will be saved with the transfer
@@ -592,24 +565,24 @@ constructor(
          * on this fallback.
          */
         fun statementDescriptor(statementDescriptor: String) = apply {
-            this.statementDescriptor = statementDescriptor
+            body.statementDescriptor(statementDescriptor)
         }
 
         /** The account number for the destination account. */
-        fun accountNumber(accountNumber: String) = apply { this.accountNumber = accountNumber }
+        fun accountNumber(accountNumber: String) = apply { body.accountNumber(accountNumber) }
 
         /**
          * Additional information that will be sent to the recipient. This is included in the
          * transfer data sent to the receiving bank.
          */
-        fun addenda(addenda: Addenda) = apply { this.addenda = addenda }
+        fun addenda(addenda: Addenda) = apply { body.addenda(addenda) }
 
         /**
          * The description of the date of the transfer, usually in the format `YYMMDD`. This is
          * included in the transfer data sent to the receiving bank.
          */
         fun companyDescriptiveDate(companyDescriptiveDate: String) = apply {
-            this.companyDescriptiveDate = companyDescriptiveDate
+            body.companyDescriptiveDate(companyDescriptiveDate)
         }
 
         /**
@@ -617,7 +590,7 @@ constructor(
          * sent to the receiving bank.
          */
         fun companyDiscretionaryData(companyDiscretionaryData: String) = apply {
-            this.companyDiscretionaryData = companyDiscretionaryData
+            body.companyDiscretionaryData(companyDiscretionaryData)
         }
 
         /**
@@ -625,18 +598,18 @@ constructor(
          * receiving bank.
          */
         fun companyEntryDescription(companyEntryDescription: String) = apply {
-            this.companyEntryDescription = companyEntryDescription
+            body.companyEntryDescription(companyEntryDescription)
         }
 
         /**
          * The name by which the recipient knows you. This is included in the transfer data sent to
          * the receiving bank.
          */
-        fun companyName(companyName: String) = apply { this.companyName = companyName }
+        fun companyName(companyName: String) = apply { body.companyName(companyName) }
 
         /** The type of entity that owns the account to which the ACH Transfer is being sent. */
         fun destinationAccountHolder(destinationAccountHolder: DestinationAccountHolder) = apply {
-            this.destinationAccountHolder = destinationAccountHolder
+            body.destinationAccountHolder(destinationAccountHolder)
         }
 
         /**
@@ -644,20 +617,20 @@ constructor(
          * `account_number`, `routing_number`, and `funding` must be absent.
          */
         fun externalAccountId(externalAccountId: String) = apply {
-            this.externalAccountId = externalAccountId
+            body.externalAccountId(externalAccountId)
         }
 
         /** The type of the account to which the transfer will be sent. */
-        fun funding(funding: Funding) = apply { this.funding = funding }
+        fun funding(funding: Funding) = apply { body.funding(funding) }
 
         /** Your identifier for the transfer recipient. */
-        fun individualId(individualId: String) = apply { this.individualId = individualId }
+        fun individualId(individualId: String) = apply { body.individualId(individualId) }
 
         /**
          * The name of the transfer recipient. This value is informational and not verified by the
          * recipient's bank.
          */
-        fun individualName(individualName: String) = apply { this.individualName = individualName }
+        fun individualName(individualName: String) = apply { body.individualName(individualName) }
 
         /**
          * Configuration for how the effective date of the transfer will be set. This determines
@@ -666,28 +639,28 @@ constructor(
          * set.
          */
         fun preferredEffectiveDate(preferredEffectiveDate: PreferredEffectiveDate) = apply {
-            this.preferredEffectiveDate = preferredEffectiveDate
+            body.preferredEffectiveDate(preferredEffectiveDate)
         }
 
         /** Whether the transfer requires explicit approval via the dashboard or API. */
         fun requireApproval(requireApproval: Boolean) = apply {
-            this.requireApproval = requireApproval
+            body.requireApproval(requireApproval)
         }
 
         /**
          * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
          * account.
          */
-        fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
+        fun routingNumber(routingNumber: String) = apply { body.routingNumber(routingNumber) }
 
         /** The Standard Entry Class (SEC) code to use for the transfer. */
         fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode) = apply {
-            this.standardEntryClassCode = standardEntryClassCode
+            body.standardEntryClassCode(standardEntryClassCode)
         }
 
         /** The timing of the transaction. */
         fun transactionTiming(transactionTiming: TransactionTiming) = apply {
-            this.transactionTiming = transactionTiming
+            body.transactionTiming(transactionTiming)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -789,53 +762,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): AchTransferCreateParams =
             AchTransferCreateParams(
-                checkNotNull(accountId) { "`accountId` is required but was not set" },
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(statementDescriptor) {
-                    "`statementDescriptor` is required but was not set"
-                },
-                accountNumber,
-                addenda,
-                companyDescriptiveDate,
-                companyDiscretionaryData,
-                companyEntryDescription,
-                companyName,
-                destinationAccountHolder,
-                externalAccountId,
-                funding,
-                individualId,
-                individualName,
-                preferredEffectiveDate,
-                requireApproval,
-                routingNumber,
-                standardEntryClassCode,
-                transactionTiming,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -1024,7 +973,7 @@ constructor(
 
             class Builder {
 
-                private var entries: List<Entry>? = null
+                private var entries: MutableList<Entry>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -1038,7 +987,16 @@ constructor(
                  * [support@increase.com](mailto:support@increase.com) to send more than one
                  * addendum.
                  */
-                fun entries(entries: List<Entry>) = apply { this.entries = entries }
+                fun entries(entries: List<Entry>) = apply { this.entries = entries.toMutableList() }
+
+                /**
+                 * Each entry represents an addendum sent with the transfer. Please reach out to
+                 * [support@increase.com](mailto:support@increase.com) to send more than one
+                 * addendum.
+                 */
+                fun addEntry(entry: Entry) = apply {
+                    entries = (entries ?: mutableListOf()).apply { add(entry) }
+                }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -1207,7 +1165,7 @@ constructor(
 
             class Builder {
 
-                private var invoices: List<Invoice>? = null
+                private var invoices: MutableList<Invoice>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -1219,7 +1177,14 @@ constructor(
                     }
 
                 /** ASC X12 RMR records for this specific transfer. */
-                fun invoices(invoices: List<Invoice>) = apply { this.invoices = invoices }
+                fun invoices(invoices: List<Invoice>) = apply {
+                    this.invoices = invoices.toMutableList()
+                }
+
+                /** ASC X12 RMR records for this specific transfer. */
+                fun addInvoice(invoice: Invoice) = apply {
+                    invoices = (invoices ?: mutableListOf()).apply { add(invoice) }
+                }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -1811,11 +1776,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is AchTransferCreateParams && accountId == other.accountId && amount == other.amount && statementDescriptor == other.statementDescriptor && accountNumber == other.accountNumber && addenda == other.addenda && companyDescriptiveDate == other.companyDescriptiveDate && companyDiscretionaryData == other.companyDiscretionaryData && companyEntryDescription == other.companyEntryDescription && companyName == other.companyName && destinationAccountHolder == other.destinationAccountHolder && externalAccountId == other.externalAccountId && funding == other.funding && individualId == other.individualId && individualName == other.individualName && preferredEffectiveDate == other.preferredEffectiveDate && requireApproval == other.requireApproval && routingNumber == other.routingNumber && standardEntryClassCode == other.standardEntryClassCode && transactionTiming == other.transactionTiming && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is AchTransferCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, amount, statementDescriptor, accountNumber, addenda, companyDescriptiveDate, companyDiscretionaryData, companyEntryDescription, companyName, destinationAccountHolder, externalAccountId, funding, individualId, individualName, preferredEffectiveDate, requireApproval, routingNumber, standardEntryClassCode, transactionTiming, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "AchTransferCreateParams{accountId=$accountId, amount=$amount, statementDescriptor=$statementDescriptor, accountNumber=$accountNumber, addenda=$addenda, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, destinationAccountHolder=$destinationAccountHolder, externalAccountId=$externalAccountId, funding=$funding, individualId=$individualId, individualName=$individualName, preferredEffectiveDate=$preferredEffectiveDate, requireApproval=$requireApproval, routingNumber=$routingNumber, standardEntryClassCode=$standardEntryClassCode, transactionTiming=$transactionTiming, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "AchTransferCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

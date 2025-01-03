@@ -21,14 +21,22 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** Filter Physical Cards to ones belonging to the specified Card. */
     fun cardId(): Optional<String> = Optional.ofNullable(cardId)
 
     fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
 
+    /** Return the page of entries after this one. */
     fun cursor(): Optional<String> = Optional.ofNullable(cursor)
 
+    /**
+     * Filter records to the one with the specified `idempotency_key` you chose for that object.
+     * This value is unique across Increase and is used to ensure that a request is only processed
+     * once. Learn more about [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
     fun idempotencyKey(): Optional<String> = Optional.ofNullable(idempotencyKey)
 
+    /** Limit the size of the list that is returned. The default (and maximum) is 100 objects. */
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
     fun _additionalHeaders(): Headers = additionalHeaders

@@ -14,6 +14,7 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** The identifier of the Digital Wallet Token. */
     fun digitalWalletTokenId(): String = digitalWalletTokenId
 
     fun _additionalHeaders(): Headers = additionalHeaders

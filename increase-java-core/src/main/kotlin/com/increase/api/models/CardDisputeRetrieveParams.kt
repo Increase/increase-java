@@ -14,6 +14,7 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** The identifier of the Card Dispute. */
     fun cardDisputeId(): String = cardDisputeId
 
     fun _additionalHeaders(): Headers = additionalHeaders

@@ -19,45 +19,39 @@ import java.util.Optional
 class PhysicalCardProfileCloneParams
 constructor(
     private val physicalCardProfileId: String,
-    private val carrierImageFileId: String?,
-    private val contactPhone: String?,
-    private val description: String?,
-    private val frontImageFileId: String?,
-    private val frontText: FrontText?,
+    private val body: PhysicalCardProfileCloneBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
+    /** The identifier of the Physical Card Profile to clone. */
     fun physicalCardProfileId(): String = physicalCardProfileId
 
-    fun carrierImageFileId(): Optional<String> = Optional.ofNullable(carrierImageFileId)
+    /** The identifier of the File containing the physical card's carrier image. */
+    fun carrierImageFileId(): Optional<String> = body.carrierImageFileId()
 
-    fun contactPhone(): Optional<String> = Optional.ofNullable(contactPhone)
+    /** A phone number the user can contact to receive support for their card. */
+    fun contactPhone(): Optional<String> = body.contactPhone()
 
-    fun description(): Optional<String> = Optional.ofNullable(description)
+    /** A description you can use to identify the Card Profile. */
+    fun description(): Optional<String> = body.description()
 
-    fun frontImageFileId(): Optional<String> = Optional.ofNullable(frontImageFileId)
+    /** The identifier of the File containing the physical card's front image. */
+    fun frontImageFileId(): Optional<String> = body.frontImageFileId()
 
-    fun frontText(): Optional<FrontText> = Optional.ofNullable(frontText)
+    /**
+     * Text printed on the front of the card. Reach out to
+     * [support@increase.com](mailto:support@increase.com) for more information.
+     */
+    fun frontText(): Optional<FrontText> = body.frontText()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): PhysicalCardProfileCloneBody {
-        return PhysicalCardProfileCloneBody(
-            carrierImageFileId,
-            contactPhone,
-            description,
-            frontImageFileId,
-            frontText,
-            additionalBodyProperties,
-        )
-    }
+    @JvmSynthetic internal fun getBody(): PhysicalCardProfileCloneBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -218,27 +212,17 @@ constructor(
     class Builder {
 
         private var physicalCardProfileId: String? = null
-        private var carrierImageFileId: String? = null
-        private var contactPhone: String? = null
-        private var description: String? = null
-        private var frontImageFileId: String? = null
-        private var frontText: FrontText? = null
+        private var body: PhysicalCardProfileCloneBody.Builder =
+            PhysicalCardProfileCloneBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(physicalCardProfileCloneParams: PhysicalCardProfileCloneParams) = apply {
             physicalCardProfileId = physicalCardProfileCloneParams.physicalCardProfileId
-            carrierImageFileId = physicalCardProfileCloneParams.carrierImageFileId
-            contactPhone = physicalCardProfileCloneParams.contactPhone
-            description = physicalCardProfileCloneParams.description
-            frontImageFileId = physicalCardProfileCloneParams.frontImageFileId
-            frontText = physicalCardProfileCloneParams.frontText
+            body = physicalCardProfileCloneParams.body.toBuilder()
             additionalHeaders = physicalCardProfileCloneParams.additionalHeaders.toBuilder()
             additionalQueryParams = physicalCardProfileCloneParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                physicalCardProfileCloneParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier of the Physical Card Profile to clone. */
@@ -248,25 +232,25 @@ constructor(
 
         /** The identifier of the File containing the physical card's carrier image. */
         fun carrierImageFileId(carrierImageFileId: String) = apply {
-            this.carrierImageFileId = carrierImageFileId
+            body.carrierImageFileId(carrierImageFileId)
         }
 
         /** A phone number the user can contact to receive support for their card. */
-        fun contactPhone(contactPhone: String) = apply { this.contactPhone = contactPhone }
+        fun contactPhone(contactPhone: String) = apply { body.contactPhone(contactPhone) }
 
         /** A description you can use to identify the Card Profile. */
-        fun description(description: String) = apply { this.description = description }
+        fun description(description: String) = apply { body.description(description) }
 
         /** The identifier of the File containing the physical card's front image. */
         fun frontImageFileId(frontImageFileId: String) = apply {
-            this.frontImageFileId = frontImageFileId
+            body.frontImageFileId(frontImageFileId)
         }
 
         /**
          * Text printed on the front of the card. Reach out to
          * [support@increase.com](mailto:support@increase.com) for more information.
          */
-        fun frontText(frontText: FrontText) = apply { this.frontText = frontText }
+        fun frontText(frontText: FrontText) = apply { body.frontText(frontText) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -367,25 +351,22 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): PhysicalCardProfileCloneParams =
@@ -393,14 +374,9 @@ constructor(
                 checkNotNull(physicalCardProfileId) {
                     "`physicalCardProfileId` is required but was not set"
                 },
-                carrierImageFileId,
-                contactPhone,
-                description,
-                frontImageFileId,
-                frontText,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -512,11 +488,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is PhysicalCardProfileCloneParams && physicalCardProfileId == other.physicalCardProfileId && carrierImageFileId == other.carrierImageFileId && contactPhone == other.contactPhone && description == other.description && frontImageFileId == other.frontImageFileId && frontText == other.frontText && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is PhysicalCardProfileCloneParams && physicalCardProfileId == other.physicalCardProfileId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(physicalCardProfileId, carrierImageFileId, contactPhone, description, frontImageFileId, frontText, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(physicalCardProfileId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "PhysicalCardProfileCloneParams{physicalCardProfileId=$physicalCardProfileId, carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, description=$description, frontImageFileId=$frontImageFileId, frontText=$frontText, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "PhysicalCardProfileCloneParams{physicalCardProfileId=$physicalCardProfileId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

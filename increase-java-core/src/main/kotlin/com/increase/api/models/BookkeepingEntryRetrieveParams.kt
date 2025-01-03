@@ -14,6 +14,7 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** The identifier of the Bookkeeping Entry. */
     fun bookkeepingEntryId(): String = bookkeepingEntryId
 
     fun _additionalHeaders(): Headers = additionalHeaders

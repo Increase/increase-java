@@ -22,77 +22,63 @@ import java.util.Optional
 
 class AchPrenotificationCreateParams
 constructor(
-    private val accountId: String,
-    private val accountNumber: String,
-    private val routingNumber: String,
-    private val addendum: String?,
-    private val companyDescriptiveDate: String?,
-    private val companyDiscretionaryData: String?,
-    private val companyEntryDescription: String?,
-    private val companyName: String?,
-    private val creditDebitIndicator: CreditDebitIndicator?,
-    private val effectiveDate: LocalDate?,
-    private val individualId: String?,
-    private val individualName: String?,
-    private val standardEntryClassCode: StandardEntryClassCode?,
+    private val body: AchPrenotificationCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun accountId(): String = accountId
+    /** The Increase identifier for the account that will send the transfer. */
+    fun accountId(): String = body.accountId()
 
-    fun accountNumber(): String = accountNumber
+    /** The account number for the destination account. */
+    fun accountNumber(): String = body.accountNumber()
 
-    fun routingNumber(): String = routingNumber
+    /**
+     * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
+     * account.
+     */
+    fun routingNumber(): String = body.routingNumber()
 
-    fun addendum(): Optional<String> = Optional.ofNullable(addendum)
+    /** Additional information that will be sent to the recipient. */
+    fun addendum(): Optional<String> = body.addendum()
 
-    fun companyDescriptiveDate(): Optional<String> = Optional.ofNullable(companyDescriptiveDate)
+    /** The description of the date of the transfer. */
+    fun companyDescriptiveDate(): Optional<String> = body.companyDescriptiveDate()
 
-    fun companyDiscretionaryData(): Optional<String> = Optional.ofNullable(companyDiscretionaryData)
+    /** The data you choose to associate with the transfer. */
+    fun companyDiscretionaryData(): Optional<String> = body.companyDiscretionaryData()
 
-    fun companyEntryDescription(): Optional<String> = Optional.ofNullable(companyEntryDescription)
+    /** The description of the transfer you wish to be shown to the recipient. */
+    fun companyEntryDescription(): Optional<String> = body.companyEntryDescription()
 
-    fun companyName(): Optional<String> = Optional.ofNullable(companyName)
+    /** The name by which the recipient knows you. */
+    fun companyName(): Optional<String> = body.companyName()
 
-    fun creditDebitIndicator(): Optional<CreditDebitIndicator> =
-        Optional.ofNullable(creditDebitIndicator)
+    /** Whether the Prenotification is for a future debit or credit. */
+    fun creditDebitIndicator(): Optional<CreditDebitIndicator> = body.creditDebitIndicator()
 
-    fun effectiveDate(): Optional<LocalDate> = Optional.ofNullable(effectiveDate)
+    /** The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
+    fun effectiveDate(): Optional<LocalDate> = body.effectiveDate()
 
-    fun individualId(): Optional<String> = Optional.ofNullable(individualId)
+    /** Your identifier for the transfer recipient. */
+    fun individualId(): Optional<String> = body.individualId()
 
-    fun individualName(): Optional<String> = Optional.ofNullable(individualName)
+    /**
+     * The name of the transfer recipient. This value is information and not verified by the
+     * recipient's bank.
+     */
+    fun individualName(): Optional<String> = body.individualName()
 
-    fun standardEntryClassCode(): Optional<StandardEntryClassCode> =
-        Optional.ofNullable(standardEntryClassCode)
+    /** The Standard Entry Class (SEC) code to use for the ACH Prenotification. */
+    fun standardEntryClassCode(): Optional<StandardEntryClassCode> = body.standardEntryClassCode()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): AchPrenotificationCreateBody {
-        return AchPrenotificationCreateBody(
-            accountId,
-            accountNumber,
-            routingNumber,
-            addendum,
-            companyDescriptiveDate,
-            companyDiscretionaryData,
-            companyEntryDescription,
-            companyName,
-            creditDebitIndicator,
-            effectiveDate,
-            individualId,
-            individualName,
-            standardEntryClassCode,
-            additionalBodyProperties,
-        )
-    }
+    @JvmSynthetic internal fun getBody(): AchPrenotificationCreateBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -356,99 +342,73 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var accountId: String? = null
-        private var accountNumber: String? = null
-        private var routingNumber: String? = null
-        private var addendum: String? = null
-        private var companyDescriptiveDate: String? = null
-        private var companyDiscretionaryData: String? = null
-        private var companyEntryDescription: String? = null
-        private var companyName: String? = null
-        private var creditDebitIndicator: CreditDebitIndicator? = null
-        private var effectiveDate: LocalDate? = null
-        private var individualId: String? = null
-        private var individualName: String? = null
-        private var standardEntryClassCode: StandardEntryClassCode? = null
+        private var body: AchPrenotificationCreateBody.Builder =
+            AchPrenotificationCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(achPrenotificationCreateParams: AchPrenotificationCreateParams) = apply {
-            accountId = achPrenotificationCreateParams.accountId
-            accountNumber = achPrenotificationCreateParams.accountNumber
-            routingNumber = achPrenotificationCreateParams.routingNumber
-            addendum = achPrenotificationCreateParams.addendum
-            companyDescriptiveDate = achPrenotificationCreateParams.companyDescriptiveDate
-            companyDiscretionaryData = achPrenotificationCreateParams.companyDiscretionaryData
-            companyEntryDescription = achPrenotificationCreateParams.companyEntryDescription
-            companyName = achPrenotificationCreateParams.companyName
-            creditDebitIndicator = achPrenotificationCreateParams.creditDebitIndicator
-            effectiveDate = achPrenotificationCreateParams.effectiveDate
-            individualId = achPrenotificationCreateParams.individualId
-            individualName = achPrenotificationCreateParams.individualName
-            standardEntryClassCode = achPrenotificationCreateParams.standardEntryClassCode
+            body = achPrenotificationCreateParams.body.toBuilder()
             additionalHeaders = achPrenotificationCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = achPrenotificationCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                achPrenotificationCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The Increase identifier for the account that will send the transfer. */
-        fun accountId(accountId: String) = apply { this.accountId = accountId }
+        fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
         /** The account number for the destination account. */
-        fun accountNumber(accountNumber: String) = apply { this.accountNumber = accountNumber }
+        fun accountNumber(accountNumber: String) = apply { body.accountNumber(accountNumber) }
 
         /**
          * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
          * account.
          */
-        fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
+        fun routingNumber(routingNumber: String) = apply { body.routingNumber(routingNumber) }
 
         /** Additional information that will be sent to the recipient. */
-        fun addendum(addendum: String) = apply { this.addendum = addendum }
+        fun addendum(addendum: String) = apply { body.addendum(addendum) }
 
         /** The description of the date of the transfer. */
         fun companyDescriptiveDate(companyDescriptiveDate: String) = apply {
-            this.companyDescriptiveDate = companyDescriptiveDate
+            body.companyDescriptiveDate(companyDescriptiveDate)
         }
 
         /** The data you choose to associate with the transfer. */
         fun companyDiscretionaryData(companyDiscretionaryData: String) = apply {
-            this.companyDiscretionaryData = companyDiscretionaryData
+            body.companyDiscretionaryData(companyDiscretionaryData)
         }
 
         /** The description of the transfer you wish to be shown to the recipient. */
         fun companyEntryDescription(companyEntryDescription: String) = apply {
-            this.companyEntryDescription = companyEntryDescription
+            body.companyEntryDescription(companyEntryDescription)
         }
 
         /** The name by which the recipient knows you. */
-        fun companyName(companyName: String) = apply { this.companyName = companyName }
+        fun companyName(companyName: String) = apply { body.companyName(companyName) }
 
         /** Whether the Prenotification is for a future debit or credit. */
         fun creditDebitIndicator(creditDebitIndicator: CreditDebitIndicator) = apply {
-            this.creditDebitIndicator = creditDebitIndicator
+            body.creditDebitIndicator(creditDebitIndicator)
         }
 
         /**
          * The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
          */
-        fun effectiveDate(effectiveDate: LocalDate) = apply { this.effectiveDate = effectiveDate }
+        fun effectiveDate(effectiveDate: LocalDate) = apply { body.effectiveDate(effectiveDate) }
 
         /** Your identifier for the transfer recipient. */
-        fun individualId(individualId: String) = apply { this.individualId = individualId }
+        fun individualId(individualId: String) = apply { body.individualId(individualId) }
 
         /**
          * The name of the transfer recipient. This value is information and not verified by the
          * recipient's bank.
          */
-        fun individualName(individualName: String) = apply { this.individualName = individualName }
+        fun individualName(individualName: String) = apply { body.individualName(individualName) }
 
         /** The Standard Entry Class (SEC) code to use for the ACH Prenotification. */
         fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode) = apply {
-            this.standardEntryClassCode = standardEntryClassCode
+            body.standardEntryClassCode(standardEntryClassCode)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -550,45 +510,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): AchPrenotificationCreateParams =
             AchPrenotificationCreateParams(
-                checkNotNull(accountId) { "`accountId` is required but was not set" },
-                checkNotNull(accountNumber) { "`accountNumber` is required but was not set" },
-                checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
-                addendum,
-                companyDescriptiveDate,
-                companyDiscretionaryData,
-                companyEntryDescription,
-                companyName,
-                creditDebitIndicator,
-                effectiveDate,
-                individualId,
-                individualName,
-                standardEntryClassCode,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -723,11 +667,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is AchPrenotificationCreateParams && accountId == other.accountId && accountNumber == other.accountNumber && routingNumber == other.routingNumber && addendum == other.addendum && companyDescriptiveDate == other.companyDescriptiveDate && companyDiscretionaryData == other.companyDiscretionaryData && companyEntryDescription == other.companyEntryDescription && companyName == other.companyName && creditDebitIndicator == other.creditDebitIndicator && effectiveDate == other.effectiveDate && individualId == other.individualId && individualName == other.individualName && standardEntryClassCode == other.standardEntryClassCode && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is AchPrenotificationCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, accountNumber, routingNumber, addendum, companyDescriptiveDate, companyDiscretionaryData, companyEntryDescription, companyName, creditDebitIndicator, effectiveDate, individualId, individualName, standardEntryClassCode, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "AchPrenotificationCreateParams{accountId=$accountId, accountNumber=$accountNumber, routingNumber=$routingNumber, addendum=$addendum, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, creditDebitIndicator=$creditDebitIndicator, effectiveDate=$effectiveDate, individualId=$individualId, individualName=$individualName, standardEntryClassCode=$standardEntryClassCode, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "AchPrenotificationCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

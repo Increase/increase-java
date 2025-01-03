@@ -17,39 +17,30 @@ import java.util.Objects
 
 class PhysicalCardProfileCreateParams
 constructor(
-    private val carrierImageFileId: String,
-    private val contactPhone: String,
-    private val description: String,
-    private val frontImageFileId: String,
+    private val body: PhysicalCardProfileCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun carrierImageFileId(): String = carrierImageFileId
+    /** The identifier of the File containing the physical card's carrier image. */
+    fun carrierImageFileId(): String = body.carrierImageFileId()
 
-    fun contactPhone(): String = contactPhone
+    /** A phone number the user can contact to receive support for their card. */
+    fun contactPhone(): String = body.contactPhone()
 
-    fun description(): String = description
+    /** A description you can use to identify the Card Profile. */
+    fun description(): String = body.description()
 
-    fun frontImageFileId(): String = frontImageFileId
+    /** The identifier of the File containing the physical card's front image. */
+    fun frontImageFileId(): String = body.frontImageFileId()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): PhysicalCardProfileCreateBody {
-        return PhysicalCardProfileCreateBody(
-            carrierImageFileId,
-            contactPhone,
-            description,
-            frontImageFileId,
-            additionalBodyProperties,
-        )
-    }
+    @JvmSynthetic internal fun getBody(): PhysicalCardProfileCreateBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -186,42 +177,34 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var carrierImageFileId: String? = null
-        private var contactPhone: String? = null
-        private var description: String? = null
-        private var frontImageFileId: String? = null
+        private var body: PhysicalCardProfileCreateBody.Builder =
+            PhysicalCardProfileCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(physicalCardProfileCreateParams: PhysicalCardProfileCreateParams) =
             apply {
-                carrierImageFileId = physicalCardProfileCreateParams.carrierImageFileId
-                contactPhone = physicalCardProfileCreateParams.contactPhone
-                description = physicalCardProfileCreateParams.description
-                frontImageFileId = physicalCardProfileCreateParams.frontImageFileId
+                body = physicalCardProfileCreateParams.body.toBuilder()
                 additionalHeaders = physicalCardProfileCreateParams.additionalHeaders.toBuilder()
                 additionalQueryParams =
                     physicalCardProfileCreateParams.additionalQueryParams.toBuilder()
-                additionalBodyProperties =
-                    physicalCardProfileCreateParams.additionalBodyProperties.toMutableMap()
             }
 
         /** The identifier of the File containing the physical card's carrier image. */
         fun carrierImageFileId(carrierImageFileId: String) = apply {
-            this.carrierImageFileId = carrierImageFileId
+            body.carrierImageFileId(carrierImageFileId)
         }
 
         /** A phone number the user can contact to receive support for their card. */
-        fun contactPhone(contactPhone: String) = apply { this.contactPhone = contactPhone }
+        fun contactPhone(contactPhone: String) = apply { body.contactPhone(contactPhone) }
 
         /** A description you can use to identify the Card Profile. */
-        fun description(description: String) = apply { this.description = description }
+        fun description(description: String) = apply { body.description(description) }
 
         /** The identifier of the File containing the physical card's front image. */
         fun frontImageFileId(frontImageFileId: String) = apply {
-            this.frontImageFileId = frontImageFileId
+            body.frontImageFileId(frontImageFileId)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -323,38 +306,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): PhysicalCardProfileCreateParams =
             PhysicalCardProfileCreateParams(
-                checkNotNull(carrierImageFileId) {
-                    "`carrierImageFileId` is required but was not set"
-                },
-                checkNotNull(contactPhone) { "`contactPhone` is required but was not set" },
-                checkNotNull(description) { "`description` is required but was not set" },
-                checkNotNull(frontImageFileId) { "`frontImageFileId` is required but was not set" },
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -363,11 +337,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is PhysicalCardProfileCreateParams && carrierImageFileId == other.carrierImageFileId && contactPhone == other.contactPhone && description == other.description && frontImageFileId == other.frontImageFileId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is PhysicalCardProfileCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(carrierImageFileId, contactPhone, description, frontImageFileId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "PhysicalCardProfileCreateParams{carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, description=$description, frontImageFileId=$frontImageFileId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "PhysicalCardProfileCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

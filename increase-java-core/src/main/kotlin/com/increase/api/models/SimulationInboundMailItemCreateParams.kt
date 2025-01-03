@@ -18,35 +18,30 @@ import java.util.Optional
 
 class SimulationInboundMailItemCreateParams
 constructor(
-    private val amount: Long,
-    private val lockboxId: String,
-    private val contentsFileId: String?,
+    private val body: SimulationInboundMailItemCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun amount(): Long = amount
+    /** The amount of the check to be simulated, in cents. */
+    fun amount(): Long = body.amount()
 
-    fun lockboxId(): String = lockboxId
+    /** The identifier of the Lockbox to simulate inbound mail to. */
+    fun lockboxId(): String = body.lockboxId()
 
-    fun contentsFileId(): Optional<String> = Optional.ofNullable(contentsFileId)
+    /**
+     * The file containing the PDF contents. If not present, a default check image file will be
+     * used.
+     */
+    fun contentsFileId(): Optional<String> = body.contentsFileId()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): SimulationInboundMailItemCreateBody {
-        return SimulationInboundMailItemCreateBody(
-            amount,
-            lockboxId,
-            contentsFileId,
-            additionalBodyProperties,
-        )
-    }
+    @JvmSynthetic internal fun getBody(): SimulationInboundMailItemCreateBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -175,38 +170,32 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var amount: Long? = null
-        private var lockboxId: String? = null
-        private var contentsFileId: String? = null
+        private var body: SimulationInboundMailItemCreateBody.Builder =
+            SimulationInboundMailItemCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(
             simulationInboundMailItemCreateParams: SimulationInboundMailItemCreateParams
         ) = apply {
-            amount = simulationInboundMailItemCreateParams.amount
-            lockboxId = simulationInboundMailItemCreateParams.lockboxId
-            contentsFileId = simulationInboundMailItemCreateParams.contentsFileId
+            body = simulationInboundMailItemCreateParams.body.toBuilder()
             additionalHeaders = simulationInboundMailItemCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams =
                 simulationInboundMailItemCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                simulationInboundMailItemCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The amount of the check to be simulated, in cents. */
-        fun amount(amount: Long) = apply { this.amount = amount }
+        fun amount(amount: Long) = apply { body.amount(amount) }
 
         /** The identifier of the Lockbox to simulate inbound mail to. */
-        fun lockboxId(lockboxId: String) = apply { this.lockboxId = lockboxId }
+        fun lockboxId(lockboxId: String) = apply { body.lockboxId(lockboxId) }
 
         /**
          * The file containing the PDF contents. If not present, a default check image file will be
          * used.
          */
-        fun contentsFileId(contentsFileId: String) = apply { this.contentsFileId = contentsFileId }
+        fun contentsFileId(contentsFileId: String) = apply { body.contentsFileId(contentsFileId) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -307,35 +296,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): SimulationInboundMailItemCreateParams =
             SimulationInboundMailItemCreateParams(
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(lockboxId) { "`lockboxId` is required but was not set" },
-                contentsFileId,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -344,11 +327,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is SimulationInboundMailItemCreateParams && amount == other.amount && lockboxId == other.lockboxId && contentsFileId == other.contentsFileId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is SimulationInboundMailItemCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(amount, lockboxId, contentsFileId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "SimulationInboundMailItemCreateParams{amount=$amount, lockboxId=$lockboxId, contentsFileId=$contentsFileId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "SimulationInboundMailItemCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

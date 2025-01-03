@@ -14,6 +14,7 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** The identifier of the File. */
     fun fileId(): String = fileId
 
     fun _additionalHeaders(): Headers = additionalHeaders

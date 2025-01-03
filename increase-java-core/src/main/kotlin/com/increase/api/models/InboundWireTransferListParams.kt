@@ -26,16 +26,21 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** Filter Inbound Wire Tranfers to ones belonging to the specified Account. */
     fun accountId(): Optional<String> = Optional.ofNullable(accountId)
 
+    /** Filter Inbound Wire Tranfers to ones belonging to the specified Account Number. */
     fun accountNumberId(): Optional<String> = Optional.ofNullable(accountNumberId)
 
     fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
 
+    /** Return the page of entries after this one. */
     fun cursor(): Optional<String> = Optional.ofNullable(cursor)
 
+    /** Limit the size of the list that is returned. The default (and maximum) is 100 objects. */
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
+    /** Filter Inbound Wire Transfers to those with the specified status. */
     fun status(): Optional<Status> = Optional.ofNullable(status)
 
     fun _additionalHeaders(): Headers = additionalHeaders

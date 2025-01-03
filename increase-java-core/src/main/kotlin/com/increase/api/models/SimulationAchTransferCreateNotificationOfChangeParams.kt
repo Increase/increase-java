@@ -21,33 +21,27 @@ import java.util.Objects
 class SimulationAchTransferCreateNotificationOfChangeParams
 constructor(
     private val achTransferId: String,
-    private val changeCode: ChangeCode,
-    private val correctedData: String,
+    private val body: SimulationAchTransferCreateNotificationOfChangeBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
+    /** The identifier of the ACH Transfer you wish to create a notification of change for. */
     fun achTransferId(): String = achTransferId
 
-    fun changeCode(): ChangeCode = changeCode
+    /** The reason for the notification of change. */
+    fun changeCode(): ChangeCode = body.changeCode()
 
-    fun correctedData(): String = correctedData
+    /** The corrected data for the notification of change (e.g., a new routing number). */
+    fun correctedData(): String = body.correctedData()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): SimulationAchTransferCreateNotificationOfChangeBody {
-        return SimulationAchTransferCreateNotificationOfChangeBody(
-            changeCode,
-            correctedData,
-            additionalBodyProperties,
-        )
-    }
+    @JvmSynthetic internal fun getBody(): SimulationAchTransferCreateNotificationOfChangeBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -167,11 +161,10 @@ constructor(
     class Builder {
 
         private var achTransferId: String? = null
-        private var changeCode: ChangeCode? = null
-        private var correctedData: String? = null
+        private var body: SimulationAchTransferCreateNotificationOfChangeBody.Builder =
+            SimulationAchTransferCreateNotificationOfChangeBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(
@@ -179,26 +172,22 @@ constructor(
                 SimulationAchTransferCreateNotificationOfChangeParams
         ) = apply {
             achTransferId = simulationAchTransferCreateNotificationOfChangeParams.achTransferId
-            changeCode = simulationAchTransferCreateNotificationOfChangeParams.changeCode
-            correctedData = simulationAchTransferCreateNotificationOfChangeParams.correctedData
+            body = simulationAchTransferCreateNotificationOfChangeParams.body.toBuilder()
             additionalHeaders =
                 simulationAchTransferCreateNotificationOfChangeParams.additionalHeaders.toBuilder()
             additionalQueryParams =
                 simulationAchTransferCreateNotificationOfChangeParams.additionalQueryParams
                     .toBuilder()
-            additionalBodyProperties =
-                simulationAchTransferCreateNotificationOfChangeParams.additionalBodyProperties
-                    .toMutableMap()
         }
 
         /** The identifier of the ACH Transfer you wish to create a notification of change for. */
         fun achTransferId(achTransferId: String) = apply { this.achTransferId = achTransferId }
 
         /** The reason for the notification of change. */
-        fun changeCode(changeCode: ChangeCode) = apply { this.changeCode = changeCode }
+        fun changeCode(changeCode: ChangeCode) = apply { body.changeCode(changeCode) }
 
         /** The corrected data for the notification of change (e.g., a new routing number). */
-        fun correctedData(correctedData: String) = apply { this.correctedData = correctedData }
+        fun correctedData(correctedData: String) = apply { body.correctedData(correctedData) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -299,35 +288,30 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): SimulationAchTransferCreateNotificationOfChangeParams =
             SimulationAchTransferCreateNotificationOfChangeParams(
                 checkNotNull(achTransferId) { "`achTransferId` is required but was not set" },
-                checkNotNull(changeCode) { "`changeCode` is required but was not set" },
-                checkNotNull(correctedData) { "`correctedData` is required but was not set" },
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -540,11 +524,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is SimulationAchTransferCreateNotificationOfChangeParams && achTransferId == other.achTransferId && changeCode == other.changeCode && correctedData == other.correctedData && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is SimulationAchTransferCreateNotificationOfChangeParams && achTransferId == other.achTransferId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(achTransferId, changeCode, correctedData, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(achTransferId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "SimulationAchTransferCreateNotificationOfChangeParams{achTransferId=$achTransferId, changeCode=$changeCode, correctedData=$correctedData, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "SimulationAchTransferCreateNotificationOfChangeParams{achTransferId=$achTransferId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

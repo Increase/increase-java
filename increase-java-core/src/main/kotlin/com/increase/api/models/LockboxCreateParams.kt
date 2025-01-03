@@ -18,35 +18,27 @@ import java.util.Optional
 
 class LockboxCreateParams
 constructor(
-    private val accountId: String,
-    private val description: String?,
-    private val recipientName: String?,
+    private val body: LockboxCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun accountId(): String = accountId
+    /** The Account checks sent to this Lockbox should be deposited into. */
+    fun accountId(): String = body.accountId()
 
-    fun description(): Optional<String> = Optional.ofNullable(description)
+    /** The description you choose for the Lockbox, for display purposes. */
+    fun description(): Optional<String> = body.description()
 
-    fun recipientName(): Optional<String> = Optional.ofNullable(recipientName)
+    /** The name of the recipient that will receive mail at this location. */
+    fun recipientName(): Optional<String> = body.recipientName()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): LockboxCreateBody {
-        return LockboxCreateBody(
-            accountId,
-            description,
-            recipientName,
-            additionalBodyProperties,
-        )
-    }
+    @JvmSynthetic internal fun getBody(): LockboxCreateBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -165,31 +157,25 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var accountId: String? = null
-        private var description: String? = null
-        private var recipientName: String? = null
+        private var body: LockboxCreateBody.Builder = LockboxCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(lockboxCreateParams: LockboxCreateParams) = apply {
-            accountId = lockboxCreateParams.accountId
-            description = lockboxCreateParams.description
-            recipientName = lockboxCreateParams.recipientName
+            body = lockboxCreateParams.body.toBuilder()
             additionalHeaders = lockboxCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = lockboxCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties = lockboxCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The Account checks sent to this Lockbox should be deposited into. */
-        fun accountId(accountId: String) = apply { this.accountId = accountId }
+        fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
         /** The description you choose for the Lockbox, for display purposes. */
-        fun description(description: String) = apply { this.description = description }
+        fun description(description: String) = apply { body.description(description) }
 
         /** The name of the recipient that will receive mail at this location. */
-        fun recipientName(recipientName: String) = apply { this.recipientName = recipientName }
+        fun recipientName(recipientName: String) = apply { body.recipientName(recipientName) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -290,35 +276,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): LockboxCreateParams =
             LockboxCreateParams(
-                checkNotNull(accountId) { "`accountId` is required but was not set" },
-                description,
-                recipientName,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -327,11 +307,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is LockboxCreateParams && accountId == other.accountId && description == other.description && recipientName == other.recipientName && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is LockboxCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, description, recipientName, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "LockboxCreateParams{accountId=$accountId, description=$description, recipientName=$recipientName, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "LockboxCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

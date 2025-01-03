@@ -18,43 +18,41 @@ import java.util.Optional
 
 class CardCreateParams
 constructor(
-    private val accountId: String,
-    private val billingAddress: BillingAddress?,
-    private val description: String?,
-    private val digitalWallet: DigitalWallet?,
-    private val entityId: String?,
+    private val body: CardCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun accountId(): String = accountId
+    /** The Account the card should belong to. */
+    fun accountId(): String = body.accountId()
 
-    fun billingAddress(): Optional<BillingAddress> = Optional.ofNullable(billingAddress)
+    /** The card's billing address. */
+    fun billingAddress(): Optional<BillingAddress> = body.billingAddress()
 
-    fun description(): Optional<String> = Optional.ofNullable(description)
+    /** The description you choose to give the card. */
+    fun description(): Optional<String> = body.description()
 
-    fun digitalWallet(): Optional<DigitalWallet> = Optional.ofNullable(digitalWallet)
+    /**
+     * The contact information used in the two-factor steps for digital wallet card creation. To add
+     * the card to a digital wallet, you may supply an email or phone number with this request.
+     * Otherwise, subscribe and then action a Real Time Decision with the category
+     * `digital_wallet_token_requested` or `digital_wallet_authentication_requested`.
+     */
+    fun digitalWallet(): Optional<DigitalWallet> = body.digitalWallet()
 
-    fun entityId(): Optional<String> = Optional.ofNullable(entityId)
+    /**
+     * The Entity the card belongs to. You only need to supply this in rare situations when the card
+     * is not for the Account holder.
+     */
+    fun entityId(): Optional<String> = body.entityId()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): CardCreateBody {
-        return CardCreateBody(
-            accountId,
-            billingAddress,
-            description,
-            digitalWallet,
-            entityId,
-            additionalBodyProperties,
-        )
-    }
+    @JvmSynthetic internal fun getBody(): CardCreateBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -215,37 +213,27 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var accountId: String? = null
-        private var billingAddress: BillingAddress? = null
-        private var description: String? = null
-        private var digitalWallet: DigitalWallet? = null
-        private var entityId: String? = null
+        private var body: CardCreateBody.Builder = CardCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(cardCreateParams: CardCreateParams) = apply {
-            accountId = cardCreateParams.accountId
-            billingAddress = cardCreateParams.billingAddress
-            description = cardCreateParams.description
-            digitalWallet = cardCreateParams.digitalWallet
-            entityId = cardCreateParams.entityId
+            body = cardCreateParams.body.toBuilder()
             additionalHeaders = cardCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = cardCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties = cardCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The Account the card should belong to. */
-        fun accountId(accountId: String) = apply { this.accountId = accountId }
+        fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
         /** The card's billing address. */
         fun billingAddress(billingAddress: BillingAddress) = apply {
-            this.billingAddress = billingAddress
+            body.billingAddress(billingAddress)
         }
 
         /** The description you choose to give the card. */
-        fun description(description: String) = apply { this.description = description }
+        fun description(description: String) = apply { body.description(description) }
 
         /**
          * The contact information used in the two-factor steps for digital wallet card creation. To
@@ -254,14 +242,14 @@ constructor(
          * `digital_wallet_token_requested` or `digital_wallet_authentication_requested`.
          */
         fun digitalWallet(digitalWallet: DigitalWallet) = apply {
-            this.digitalWallet = digitalWallet
+            body.digitalWallet(digitalWallet)
         }
 
         /**
          * The Entity the card belongs to. You only need to supply this in rare situations when the
          * card is not for the Account holder.
          */
-        fun entityId(entityId: String) = apply { this.entityId = entityId }
+        fun entityId(entityId: String) = apply { body.entityId(entityId) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -362,37 +350,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): CardCreateParams =
             CardCreateParams(
-                checkNotNull(accountId) { "`accountId` is required but was not set" },
-                billingAddress,
-                description,
-                digitalWallet,
-                entityId,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -645,11 +625,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is CardCreateParams && accountId == other.accountId && billingAddress == other.billingAddress && description == other.description && digitalWallet == other.digitalWallet && entityId == other.entityId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is CardCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, billingAddress, description, digitalWallet, entityId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "CardCreateParams{accountId=$accountId, billingAddress=$billingAddress, description=$description, digitalWallet=$digitalWallet, entityId=$entityId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "CardCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

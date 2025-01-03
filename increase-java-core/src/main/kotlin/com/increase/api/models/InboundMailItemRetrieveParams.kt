@@ -14,6 +14,7 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** The identifier of the Inbound Mail Item to retrieve. */
     fun inboundMailItemId(): String = inboundMailItemId
 
     fun _additionalHeaders(): Headers = additionalHeaders

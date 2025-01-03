@@ -14,6 +14,7 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** The identifier of the Document to retrieve. */
     fun documentId(): String = documentId
 
     fun _additionalHeaders(): Headers = additionalHeaders

@@ -17,24 +17,24 @@ import java.util.Objects
 
 class SimulationCardRefundCreateParams
 constructor(
-    private val transactionId: String,
+    private val body: SimulationCardRefundCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun transactionId(): String = transactionId
+    /**
+     * The identifier for the Transaction to refund. The Transaction's source must have a category
+     * of card_settlement.
+     */
+    fun transactionId(): String = body.transactionId()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): SimulationCardRefundCreateBody {
-        return SimulationCardRefundCreateBody(transactionId, additionalBodyProperties)
-    }
+    @JvmSynthetic internal fun getBody(): SimulationCardRefundCreateBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -139,27 +139,25 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var transactionId: String? = null
+        private var body: SimulationCardRefundCreateBody.Builder =
+            SimulationCardRefundCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(simulationCardRefundCreateParams: SimulationCardRefundCreateParams) =
             apply {
-                transactionId = simulationCardRefundCreateParams.transactionId
+                body = simulationCardRefundCreateParams.body.toBuilder()
                 additionalHeaders = simulationCardRefundCreateParams.additionalHeaders.toBuilder()
                 additionalQueryParams =
                     simulationCardRefundCreateParams.additionalQueryParams.toBuilder()
-                additionalBodyProperties =
-                    simulationCardRefundCreateParams.additionalBodyProperties.toMutableMap()
             }
 
         /**
          * The identifier for the Transaction to refund. The Transaction's source must have a
          * category of card_settlement.
          */
-        fun transactionId(transactionId: String) = apply { this.transactionId = transactionId }
+        fun transactionId(transactionId: String) = apply { body.transactionId(transactionId) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -260,33 +258,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): SimulationCardRefundCreateParams =
             SimulationCardRefundCreateParams(
-                checkNotNull(transactionId) { "`transactionId` is required but was not set" },
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -295,11 +289,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is SimulationCardRefundCreateParams && transactionId == other.transactionId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is SimulationCardRefundCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(transactionId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "SimulationCardRefundCreateParams{transactionId=$transactionId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "SimulationCardRefundCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -24,10 +24,17 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /**
+     * The file contents. This should follow the specifications of
+     * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers for
+     * the multipart/form-data protocol.
+     */
     fun file(): MultipartFormValue<ByteArray> = file
 
+    /** What the File will be used for in Increase's systems. */
     fun purpose(): MultipartFormValue<Purpose> = purpose
 
+    /** The description you choose to give the File. */
     fun description(): Optional<MultipartFormValue<String>> = Optional.ofNullable(description)
 
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -35,96 +42,16 @@ constructor(
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
     @JvmSynthetic
-    internal fun getBody(): Array<MultipartFormValue<*>?> {
-        return arrayOf(
-            file,
-            purpose,
-            description,
+    internal fun getBody(): Array<MultipartFormValue<*>?> =
+        arrayOf(
+            file(),
+            purpose(),
+            description().orElse(null),
         )
-    }
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
     @JvmSynthetic internal fun getQueryParams(): QueryParams = additionalQueryParams
-
-    class FileCreateBody
-    internal constructor(
-        private val file: ByteArray,
-        private val purpose: Purpose,
-        private val description: String?,
-    ) {
-
-        /**
-         * The file contents. This should follow the specifications of
-         * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers
-         * for the multipart/form-data protocol.
-         */
-        fun file(): ByteArray = file
-
-        /** What the File will be used for in Increase's systems. */
-        fun purpose(): Purpose = purpose
-
-        /** The description you choose to give the File. */
-        fun description(): Optional<String> = Optional.ofNullable(description)
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            @JvmStatic fun builder() = Builder()
-        }
-
-        class Builder {
-
-            private var file: ByteArray? = null
-            private var purpose: Purpose? = null
-            private var description: String? = null
-
-            @JvmSynthetic
-            internal fun from(fileCreateBody: FileCreateBody) = apply {
-                file = fileCreateBody.file
-                purpose = fileCreateBody.purpose
-                description = fileCreateBody.description
-            }
-
-            /**
-             * The file contents. This should follow the specifications of
-             * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file
-             * transfers for the multipart/form-data protocol.
-             */
-            fun file(file: ByteArray) = apply { this.file = file }
-
-            /** What the File will be used for in Increase's systems. */
-            fun purpose(purpose: Purpose) = apply { this.purpose = purpose }
-
-            /** The description you choose to give the File. */
-            fun description(description: String) = apply { this.description = description }
-
-            fun build(): FileCreateBody =
-                FileCreateBody(
-                    checkNotNull(file) { "`file` is required but was not set" },
-                    checkNotNull(purpose) { "`purpose` is required but was not set" },
-                    description,
-                )
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is FileCreateBody && file == other.file && purpose == other.purpose && description == other.description /* spotless:on */
-        }
-
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(file, purpose, description) }
-        /* spotless:on */
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "FileCreateBody{file=$file, purpose=$purpose, description=$description}"
-    }
 
     fun toBuilder() = Builder().from(this)
 
@@ -161,19 +88,34 @@ constructor(
             filename: String? = null,
             contentType: ContentType = ContentTypes.DefaultBinary
         ) = apply {
-            this.file = MultipartFormValue.fromByteArray("file", content, contentType, filename)
+            this.file =
+                MultipartFormValue.fromByteArray(
+                    "file",
+                    content,
+                    contentType,
+                    filename,
+                )
         }
 
         /** What the File will be used for in Increase's systems. */
         fun purpose(purpose: Purpose, contentType: ContentType = ContentTypes.DefaultText) = apply {
-            this.purpose = MultipartFormValue.fromEnum("purpose", purpose, contentType)
+            this.purpose =
+                MultipartFormValue.fromEnum(
+                    "purpose",
+                    purpose,
+                    contentType,
+                )
         }
 
         /** The description you choose to give the File. */
         fun description(description: String, contentType: ContentType = ContentTypes.DefaultText) =
             apply {
                 this.description =
-                    MultipartFormValue.fromString("description", description, contentType)
+                    MultipartFormValue.fromString(
+                        "description",
+                        description,
+                        contentType,
+                    )
             }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {

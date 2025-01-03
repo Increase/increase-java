@@ -14,6 +14,7 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** The identifier of the Check Deposit to retrieve. */
     fun checkDepositId(): String = checkDepositId
 
     fun _additionalHeaders(): Headers = additionalHeaders
