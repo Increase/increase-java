@@ -21,26 +21,24 @@ import java.util.Objects
 class SimulationPhysicalCardAdvanceShipmentParams
 constructor(
     private val physicalCardId: String,
-    private val shipmentStatus: ShipmentStatus,
+    private val body: SimulationPhysicalCardAdvanceShipmentBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
+    /** The Physical Card you would like to action. */
     fun physicalCardId(): String = physicalCardId
 
-    fun shipmentStatus(): ShipmentStatus = shipmentStatus
+    /** The shipment status to move the Physical Card to. */
+    fun shipmentStatus(): ShipmentStatus = body.shipmentStatus()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): SimulationPhysicalCardAdvanceShipmentBody {
-        return SimulationPhysicalCardAdvanceShipmentBody(shipmentStatus, additionalBodyProperties)
-    }
+    @JvmSynthetic internal fun getBody(): SimulationPhysicalCardAdvanceShipmentBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -150,23 +148,21 @@ constructor(
     class Builder {
 
         private var physicalCardId: String? = null
-        private var shipmentStatus: ShipmentStatus? = null
+        private var body: SimulationPhysicalCardAdvanceShipmentBody.Builder =
+            SimulationPhysicalCardAdvanceShipmentBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(
             simulationPhysicalCardAdvanceShipmentParams: SimulationPhysicalCardAdvanceShipmentParams
         ) = apply {
             physicalCardId = simulationPhysicalCardAdvanceShipmentParams.physicalCardId
-            shipmentStatus = simulationPhysicalCardAdvanceShipmentParams.shipmentStatus
+            body = simulationPhysicalCardAdvanceShipmentParams.body.toBuilder()
             additionalHeaders =
                 simulationPhysicalCardAdvanceShipmentParams.additionalHeaders.toBuilder()
             additionalQueryParams =
                 simulationPhysicalCardAdvanceShipmentParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                simulationPhysicalCardAdvanceShipmentParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The Physical Card you would like to action. */
@@ -174,7 +170,7 @@ constructor(
 
         /** The shipment status to move the Physical Card to. */
         fun shipmentStatus(shipmentStatus: ShipmentStatus) = apply {
-            this.shipmentStatus = shipmentStatus
+            body.shipmentStatus(shipmentStatus)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -276,34 +272,30 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): SimulationPhysicalCardAdvanceShipmentParams =
             SimulationPhysicalCardAdvanceShipmentParams(
                 checkNotNull(physicalCardId) { "`physicalCardId` is required but was not set" },
-                checkNotNull(shipmentStatus) { "`shipmentStatus` is required but was not set" },
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -399,11 +391,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is SimulationPhysicalCardAdvanceShipmentParams && physicalCardId == other.physicalCardId && shipmentStatus == other.shipmentStatus && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is SimulationPhysicalCardAdvanceShipmentParams && physicalCardId == other.physicalCardId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(physicalCardId, shipmentStatus, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(physicalCardId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "SimulationPhysicalCardAdvanceShipmentParams{physicalCardId=$physicalCardId, shipmentStatus=$shipmentStatus, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "SimulationPhysicalCardAdvanceShipmentParams{physicalCardId=$physicalCardId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

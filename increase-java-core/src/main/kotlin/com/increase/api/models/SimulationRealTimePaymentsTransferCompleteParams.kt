@@ -22,26 +22,24 @@ import java.util.Optional
 class SimulationRealTimePaymentsTransferCompleteParams
 constructor(
     private val realTimePaymentsTransferId: String,
-    private val rejection: Rejection?,
+    private val body: SimulationRealTimePaymentsTransferCompleteBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
+    /** The identifier of the Real-Time Payments Transfer you wish to complete. */
     fun realTimePaymentsTransferId(): String = realTimePaymentsTransferId
 
-    fun rejection(): Optional<Rejection> = Optional.ofNullable(rejection)
+    /** If set, the simulation will reject the transfer. */
+    fun rejection(): Optional<Rejection> = body.rejection()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): SimulationRealTimePaymentsTransferCompleteBody {
-        return SimulationRealTimePaymentsTransferCompleteBody(rejection, additionalBodyProperties)
-    }
+    @JvmSynthetic internal fun getBody(): SimulationRealTimePaymentsTransferCompleteBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -152,10 +150,10 @@ constructor(
     class Builder {
 
         private var realTimePaymentsTransferId: String? = null
-        private var rejection: Rejection? = null
+        private var body: SimulationRealTimePaymentsTransferCompleteBody.Builder =
+            SimulationRealTimePaymentsTransferCompleteBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(
@@ -164,14 +162,11 @@ constructor(
         ) = apply {
             realTimePaymentsTransferId =
                 simulationRealTimePaymentsTransferCompleteParams.realTimePaymentsTransferId
-            rejection = simulationRealTimePaymentsTransferCompleteParams.rejection
+            body = simulationRealTimePaymentsTransferCompleteParams.body.toBuilder()
             additionalHeaders =
                 simulationRealTimePaymentsTransferCompleteParams.additionalHeaders.toBuilder()
             additionalQueryParams =
                 simulationRealTimePaymentsTransferCompleteParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                simulationRealTimePaymentsTransferCompleteParams.additionalBodyProperties
-                    .toMutableMap()
         }
 
         /** The identifier of the Real-Time Payments Transfer you wish to complete. */
@@ -180,7 +175,7 @@ constructor(
         }
 
         /** If set, the simulation will reject the transfer. */
-        fun rejection(rejection: Rejection) = apply { this.rejection = rejection }
+        fun rejection(rejection: Rejection) = apply { body.rejection(rejection) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -281,25 +276,22 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): SimulationRealTimePaymentsTransferCompleteParams =
@@ -307,10 +299,9 @@ constructor(
                 checkNotNull(realTimePaymentsTransferId) {
                     "`realTimePaymentsTransferId` is required but was not set"
                 },
-                rejection,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -584,11 +575,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is SimulationRealTimePaymentsTransferCompleteParams && realTimePaymentsTransferId == other.realTimePaymentsTransferId && rejection == other.rejection && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is SimulationRealTimePaymentsTransferCompleteParams && realTimePaymentsTransferId == other.realTimePaymentsTransferId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(realTimePaymentsTransferId, rejection, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(realTimePaymentsTransferId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "SimulationRealTimePaymentsTransferCompleteParams{realTimePaymentsTransferId=$realTimePaymentsTransferId, rejection=$rejection, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "SimulationRealTimePaymentsTransferCompleteParams{realTimePaymentsTransferId=$realTimePaymentsTransferId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

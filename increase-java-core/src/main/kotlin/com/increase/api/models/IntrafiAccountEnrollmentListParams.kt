@@ -24,12 +24,20 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** Filter IntraFi Account Enrollments to the one belonging to an account. */
     fun accountId(): Optional<String> = Optional.ofNullable(accountId)
 
+    /** Return the page of entries after this one. */
     fun cursor(): Optional<String> = Optional.ofNullable(cursor)
 
+    /**
+     * Filter records to the one with the specified `idempotency_key` you chose for that object.
+     * This value is unique across Increase and is used to ensure that a request is only processed
+     * once. Learn more about [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
     fun idempotencyKey(): Optional<String> = Optional.ofNullable(idempotencyKey)
 
+    /** Limit the size of the list that is returned. The default (and maximum) is 100 objects. */
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
     fun status(): Optional<Status> = Optional.ofNullable(status)
@@ -244,7 +252,7 @@ constructor(
 
         class Builder {
 
-            private var in_: List<In>? = null
+            private var in_: MutableList<In>? = null
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
             @JvmSynthetic
@@ -258,7 +266,16 @@ constructor(
              * For GET requests, this should be encoded as a comma-delimited string, such as
              * `?in=one,two,three`.
              */
-            fun in_(in_: List<In>) = apply { this.in_ = in_ }
+            fun in_(in_: List<In>) = apply { this.in_ = in_.toMutableList() }
+
+            /**
+             * Filter IntraFi Account Enrollments for those with the specified status or statuses.
+             * For GET requests, this should be encoded as a comma-delimited string, such as
+             * `?in=one,two,three`.
+             */
+            fun addIn(in_: In) = apply {
+                this.in_ = (this.in_ ?: mutableListOf()).apply { add(in_) }
+            }
 
             fun additionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.clear()

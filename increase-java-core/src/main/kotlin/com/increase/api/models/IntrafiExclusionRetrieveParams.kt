@@ -14,6 +14,7 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** The identifier of the IntraFi Exclusion to retrieve. */
     fun intrafiExclusionId(): String = intrafiExclusionId
 
     fun _additionalHeaders(): Headers = additionalHeaders

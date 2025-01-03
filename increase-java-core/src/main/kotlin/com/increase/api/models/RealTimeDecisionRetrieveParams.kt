@@ -14,6 +14,7 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** The identifier of the Real-Time Decision. */
     fun realTimeDecisionId(): String = realTimeDecisionId
 
     fun _additionalHeaders(): Headers = additionalHeaders

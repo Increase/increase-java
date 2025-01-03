@@ -18,26 +18,24 @@ import java.util.Objects
 class BookkeepingAccountUpdateParams
 constructor(
     private val bookkeepingAccountId: String,
-    private val name: String,
+    private val body: BookkeepingAccountUpdateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
+    /** The bookkeeping account you would like to update. */
     fun bookkeepingAccountId(): String = bookkeepingAccountId
 
-    fun name(): String = name
+    /** The name you choose for the account. */
+    fun name(): String = body.name()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): BookkeepingAccountUpdateBody {
-        return BookkeepingAccountUpdateBody(name, additionalBodyProperties)
-    }
+    @JvmSynthetic internal fun getBody(): BookkeepingAccountUpdateBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -143,19 +141,17 @@ constructor(
     class Builder {
 
         private var bookkeepingAccountId: String? = null
-        private var name: String? = null
+        private var body: BookkeepingAccountUpdateBody.Builder =
+            BookkeepingAccountUpdateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(bookkeepingAccountUpdateParams: BookkeepingAccountUpdateParams) = apply {
             bookkeepingAccountId = bookkeepingAccountUpdateParams.bookkeepingAccountId
-            name = bookkeepingAccountUpdateParams.name
+            body = bookkeepingAccountUpdateParams.body.toBuilder()
             additionalHeaders = bookkeepingAccountUpdateParams.additionalHeaders.toBuilder()
             additionalQueryParams = bookkeepingAccountUpdateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                bookkeepingAccountUpdateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The bookkeeping account you would like to update. */
@@ -164,7 +160,7 @@ constructor(
         }
 
         /** The name you choose for the account. */
-        fun name(name: String) = apply { this.name = name }
+        fun name(name: String) = apply { body.name(name) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -265,25 +261,22 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): BookkeepingAccountUpdateParams =
@@ -291,10 +284,9 @@ constructor(
                 checkNotNull(bookkeepingAccountId) {
                     "`bookkeepingAccountId` is required but was not set"
                 },
-                checkNotNull(name) { "`name` is required but was not set" },
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -303,11 +295,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is BookkeepingAccountUpdateParams && bookkeepingAccountId == other.bookkeepingAccountId && name == other.name && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is BookkeepingAccountUpdateParams && bookkeepingAccountId == other.bookkeepingAccountId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(bookkeepingAccountId, name, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(bookkeepingAccountId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "BookkeepingAccountUpdateParams{bookkeepingAccountId=$bookkeepingAccountId, name=$name, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "BookkeepingAccountUpdateParams{bookkeepingAccountId=$bookkeepingAccountId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

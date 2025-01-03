@@ -14,6 +14,7 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** The identifier of the Real-Time Payments Request for Payment. */
     fun requestForPaymentId(): String = requestForPaymentId
 
     fun _additionalHeaders(): Headers = additionalHeaders

@@ -21,14 +21,18 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** Filter Inbound Check Deposits to those belonging to the specified Account. */
     fun accountId(): Optional<String> = Optional.ofNullable(accountId)
 
+    /** Filter Inbound Check Deposits to those belonging to the specified Check Transfer. */
     fun checkTransferId(): Optional<String> = Optional.ofNullable(checkTransferId)
 
     fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
 
+    /** Return the page of entries after this one. */
     fun cursor(): Optional<String> = Optional.ofNullable(cursor)
 
+    /** Limit the size of the list that is returned. The default (and maximum) is 100 objects. */
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
     fun _additionalHeaders(): Headers = additionalHeaders

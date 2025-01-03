@@ -30,10 +30,13 @@ constructor(
 
     fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
 
+    /** Return the page of entries after this one. */
     fun cursor(): Optional<String> = Optional.ofNullable(cursor)
 
+    /** Filter Documents to ones belonging to the specified Entity. */
     fun entityId(): Optional<String> = Optional.ofNullable(entityId)
 
+    /** Limit the size of the list that is returned. The default (and maximum) is 100 objects. */
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -239,7 +242,7 @@ constructor(
 
         class Builder {
 
-            private var in_: List<In>? = null
+            private var in_: MutableList<In>? = null
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
             @JvmSynthetic
@@ -253,7 +256,16 @@ constructor(
              * requests, this should be encoded as a comma-delimited string, such as
              * `?in=one,two,three`.
              */
-            fun in_(in_: List<In>) = apply { this.in_ = in_ }
+            fun in_(in_: List<In>) = apply { this.in_ = in_.toMutableList() }
+
+            /**
+             * Filter Documents for those with the specified category or categories. For GET
+             * requests, this should be encoded as a comma-delimited string, such as
+             * `?in=one,two,three`.
+             */
+            fun addIn(in_: In) = apply {
+                this.in_ = (this.in_ ?: mutableListOf()).apply { add(in_) }
+            }
 
             fun additionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.clear()

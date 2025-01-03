@@ -18,43 +18,33 @@ import java.util.Optional
 
 class CheckDepositCreateParams
 constructor(
-    private val accountId: String,
-    private val amount: Long,
-    private val backImageFileId: String,
-    private val frontImageFileId: String,
-    private val description: String?,
+    private val body: CheckDepositCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun accountId(): String = accountId
+    /** The identifier for the Account to deposit the check in. */
+    fun accountId(): String = body.accountId()
 
-    fun amount(): Long = amount
+    /** The deposit amount in USD cents. */
+    fun amount(): Long = body.amount()
 
-    fun backImageFileId(): String = backImageFileId
+    /** The File containing the check's back image. */
+    fun backImageFileId(): String = body.backImageFileId()
 
-    fun frontImageFileId(): String = frontImageFileId
+    /** The File containing the check's front image. */
+    fun frontImageFileId(): String = body.frontImageFileId()
 
-    fun description(): Optional<String> = Optional.ofNullable(description)
+    /** The description you choose to give the Check Deposit, for display purposes only. */
+    fun description(): Optional<String> = body.description()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): CheckDepositCreateBody {
-        return CheckDepositCreateBody(
-            accountId,
-            amount,
-            backImageFileId,
-            frontImageFileId,
-            description,
-            additionalBodyProperties,
-        )
-    }
+    @JvmSynthetic internal fun getBody(): CheckDepositCreateBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -200,46 +190,35 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var accountId: String? = null
-        private var amount: Long? = null
-        private var backImageFileId: String? = null
-        private var frontImageFileId: String? = null
-        private var description: String? = null
+        private var body: CheckDepositCreateBody.Builder = CheckDepositCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(checkDepositCreateParams: CheckDepositCreateParams) = apply {
-            accountId = checkDepositCreateParams.accountId
-            amount = checkDepositCreateParams.amount
-            backImageFileId = checkDepositCreateParams.backImageFileId
-            frontImageFileId = checkDepositCreateParams.frontImageFileId
-            description = checkDepositCreateParams.description
+            body = checkDepositCreateParams.body.toBuilder()
             additionalHeaders = checkDepositCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = checkDepositCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                checkDepositCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier for the Account to deposit the check in. */
-        fun accountId(accountId: String) = apply { this.accountId = accountId }
+        fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
         /** The deposit amount in USD cents. */
-        fun amount(amount: Long) = apply { this.amount = amount }
+        fun amount(amount: Long) = apply { body.amount(amount) }
 
         /** The File containing the check's back image. */
         fun backImageFileId(backImageFileId: String) = apply {
-            this.backImageFileId = backImageFileId
+            body.backImageFileId(backImageFileId)
         }
 
         /** The File containing the check's front image. */
         fun frontImageFileId(frontImageFileId: String) = apply {
-            this.frontImageFileId = frontImageFileId
+            body.frontImageFileId(frontImageFileId)
         }
 
         /** The description you choose to give the Check Deposit, for display purposes only. */
-        fun description(description: String) = apply { this.description = description }
+        fun description(description: String) = apply { body.description(description) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -340,37 +319,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): CheckDepositCreateParams =
             CheckDepositCreateParams(
-                checkNotNull(accountId) { "`accountId` is required but was not set" },
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(backImageFileId) { "`backImageFileId` is required but was not set" },
-                checkNotNull(frontImageFileId) { "`frontImageFileId` is required but was not set" },
-                description,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -379,11 +350,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is CheckDepositCreateParams && accountId == other.accountId && amount == other.amount && backImageFileId == other.backImageFileId && frontImageFileId == other.frontImageFileId && description == other.description && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is CheckDepositCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, amount, backImageFileId, frontImageFileId, description, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "CheckDepositCreateParams{accountId=$accountId, amount=$amount, backImageFileId=$backImageFileId, frontImageFileId=$frontImageFileId, description=$description, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "CheckDepositCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

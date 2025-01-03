@@ -14,6 +14,7 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** The identifier of the Export to retrieve. */
     fun exportId(): String = exportId
 
     fun _additionalHeaders(): Headers = additionalHeaders

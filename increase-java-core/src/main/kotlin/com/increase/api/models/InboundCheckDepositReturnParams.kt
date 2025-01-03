@@ -21,26 +21,24 @@ import java.util.Objects
 class InboundCheckDepositReturnParams
 constructor(
     private val inboundCheckDepositId: String,
-    private val reason: Reason,
+    private val body: InboundCheckDepositReturnBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
+    /** The identifier of the Inbound Check Deposit to return. */
     fun inboundCheckDepositId(): String = inboundCheckDepositId
 
-    fun reason(): Reason = reason
+    /** The reason to return the Inbound Check Deposit. */
+    fun reason(): Reason = body.reason()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): InboundCheckDepositReturnBody {
-        return InboundCheckDepositReturnBody(reason, additionalBodyProperties)
-    }
+    @JvmSynthetic internal fun getBody(): InboundCheckDepositReturnBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -147,21 +145,19 @@ constructor(
     class Builder {
 
         private var inboundCheckDepositId: String? = null
-        private var reason: Reason? = null
+        private var body: InboundCheckDepositReturnBody.Builder =
+            InboundCheckDepositReturnBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(inboundCheckDepositReturnParams: InboundCheckDepositReturnParams) =
             apply {
                 inboundCheckDepositId = inboundCheckDepositReturnParams.inboundCheckDepositId
-                reason = inboundCheckDepositReturnParams.reason
+                body = inboundCheckDepositReturnParams.body.toBuilder()
                 additionalHeaders = inboundCheckDepositReturnParams.additionalHeaders.toBuilder()
                 additionalQueryParams =
                     inboundCheckDepositReturnParams.additionalQueryParams.toBuilder()
-                additionalBodyProperties =
-                    inboundCheckDepositReturnParams.additionalBodyProperties.toMutableMap()
             }
 
         /** The identifier of the Inbound Check Deposit to return. */
@@ -170,7 +166,7 @@ constructor(
         }
 
         /** The reason to return the Inbound Check Deposit. */
-        fun reason(reason: Reason) = apply { this.reason = reason }
+        fun reason(reason: Reason) = apply { body.reason(reason) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -271,25 +267,22 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): InboundCheckDepositReturnParams =
@@ -297,10 +290,9 @@ constructor(
                 checkNotNull(inboundCheckDepositId) {
                     "`inboundCheckDepositId` is required but was not set"
                 },
-                checkNotNull(reason) { "`reason` is required but was not set" },
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -384,11 +376,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is InboundCheckDepositReturnParams && inboundCheckDepositId == other.inboundCheckDepositId && reason == other.reason && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is InboundCheckDepositReturnParams && inboundCheckDepositId == other.inboundCheckDepositId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(inboundCheckDepositId, reason, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(inboundCheckDepositId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "InboundCheckDepositReturnParams{inboundCheckDepositId=$inboundCheckDepositId, reason=$reason, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "InboundCheckDepositReturnParams{inboundCheckDepositId=$inboundCheckDepositId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

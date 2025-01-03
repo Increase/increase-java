@@ -14,6 +14,7 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** The identifier of the Pending Transaction. */
     fun pendingTransactionId(): String = pendingTransactionId
 
     fun _additionalHeaders(): Headers = additionalHeaders

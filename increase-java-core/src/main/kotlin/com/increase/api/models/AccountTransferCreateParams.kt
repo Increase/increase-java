@@ -18,43 +18,36 @@ import java.util.Optional
 
 class AccountTransferCreateParams
 constructor(
-    private val accountId: String,
-    private val amount: Long,
-    private val description: String,
-    private val destinationAccountId: String,
-    private val requireApproval: Boolean?,
+    private val body: AccountTransferCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun accountId(): String = accountId
+    /** The identifier for the account that will send the transfer. */
+    fun accountId(): String = body.accountId()
 
-    fun amount(): Long = amount
+    /**
+     * The transfer amount in the minor unit of the account currency. For dollars, for example, this
+     * is cents.
+     */
+    fun amount(): Long = body.amount()
 
-    fun description(): String = description
+    /** The description you choose to give the transfer. */
+    fun description(): String = body.description()
 
-    fun destinationAccountId(): String = destinationAccountId
+    /** The identifier for the account that will receive the transfer. */
+    fun destinationAccountId(): String = body.destinationAccountId()
 
-    fun requireApproval(): Optional<Boolean> = Optional.ofNullable(requireApproval)
+    /** Whether the transfer requires explicit approval via the dashboard or API. */
+    fun requireApproval(): Optional<Boolean> = body.requireApproval()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): AccountTransferCreateBody {
-        return AccountTransferCreateBody(
-            accountId,
-            amount,
-            description,
-            destinationAccountId,
-            requireApproval,
-            additionalBodyProperties,
-        )
-    }
+    @JvmSynthetic internal fun getBody(): AccountTransferCreateBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -205,48 +198,37 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var accountId: String? = null
-        private var amount: Long? = null
-        private var description: String? = null
-        private var destinationAccountId: String? = null
-        private var requireApproval: Boolean? = null
+        private var body: AccountTransferCreateBody.Builder = AccountTransferCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(accountTransferCreateParams: AccountTransferCreateParams) = apply {
-            accountId = accountTransferCreateParams.accountId
-            amount = accountTransferCreateParams.amount
-            description = accountTransferCreateParams.description
-            destinationAccountId = accountTransferCreateParams.destinationAccountId
-            requireApproval = accountTransferCreateParams.requireApproval
+            body = accountTransferCreateParams.body.toBuilder()
             additionalHeaders = accountTransferCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = accountTransferCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                accountTransferCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier for the account that will send the transfer. */
-        fun accountId(accountId: String) = apply { this.accountId = accountId }
+        fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
         /**
          * The transfer amount in the minor unit of the account currency. For dollars, for example,
          * this is cents.
          */
-        fun amount(amount: Long) = apply { this.amount = amount }
+        fun amount(amount: Long) = apply { body.amount(amount) }
 
         /** The description you choose to give the transfer. */
-        fun description(description: String) = apply { this.description = description }
+        fun description(description: String) = apply { body.description(description) }
 
         /** The identifier for the account that will receive the transfer. */
         fun destinationAccountId(destinationAccountId: String) = apply {
-            this.destinationAccountId = destinationAccountId
+            body.destinationAccountId(destinationAccountId)
         }
 
         /** Whether the transfer requires explicit approval via the dashboard or API. */
         fun requireApproval(requireApproval: Boolean) = apply {
-            this.requireApproval = requireApproval
+            body.requireApproval(requireApproval)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -348,39 +330,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): AccountTransferCreateParams =
             AccountTransferCreateParams(
-                checkNotNull(accountId) { "`accountId` is required but was not set" },
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(description) { "`description` is required but was not set" },
-                checkNotNull(destinationAccountId) {
-                    "`destinationAccountId` is required but was not set"
-                },
-                requireApproval,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -389,11 +361,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is AccountTransferCreateParams && accountId == other.accountId && amount == other.amount && description == other.description && destinationAccountId == other.destinationAccountId && requireApproval == other.requireApproval && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is AccountTransferCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, amount, description, destinationAccountId, requireApproval, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "AccountTransferCreateParams{accountId=$accountId, amount=$amount, description=$description, destinationAccountId=$destinationAccountId, requireApproval=$requireApproval, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "AccountTransferCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

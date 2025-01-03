@@ -22,41 +22,33 @@ import java.util.Optional
 class ExternalAccountUpdateParams
 constructor(
     private val externalAccountId: String,
-    private val accountHolder: AccountHolder?,
-    private val description: String?,
-    private val funding: Funding?,
-    private val status: Status?,
+    private val body: ExternalAccountUpdateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
+    /** The external account identifier. */
     fun externalAccountId(): String = externalAccountId
 
-    fun accountHolder(): Optional<AccountHolder> = Optional.ofNullable(accountHolder)
+    /** The type of entity that owns the External Account. */
+    fun accountHolder(): Optional<AccountHolder> = body.accountHolder()
 
-    fun description(): Optional<String> = Optional.ofNullable(description)
+    /** The description you choose to give the external account. */
+    fun description(): Optional<String> = body.description()
 
-    fun funding(): Optional<Funding> = Optional.ofNullable(funding)
+    /** The funding type of the External Account. */
+    fun funding(): Optional<Funding> = body.funding()
 
-    fun status(): Optional<Status> = Optional.ofNullable(status)
+    /** The status of the External Account. */
+    fun status(): Optional<Status> = body.status()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): ExternalAccountUpdateBody {
-        return ExternalAccountUpdateBody(
-            accountHolder,
-            description,
-            funding,
-            status,
-            additionalBodyProperties,
-        )
-    }
+    @JvmSynthetic internal fun getBody(): ExternalAccountUpdateBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -195,25 +187,16 @@ constructor(
     class Builder {
 
         private var externalAccountId: String? = null
-        private var accountHolder: AccountHolder? = null
-        private var description: String? = null
-        private var funding: Funding? = null
-        private var status: Status? = null
+        private var body: ExternalAccountUpdateBody.Builder = ExternalAccountUpdateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(externalAccountUpdateParams: ExternalAccountUpdateParams) = apply {
             externalAccountId = externalAccountUpdateParams.externalAccountId
-            accountHolder = externalAccountUpdateParams.accountHolder
-            description = externalAccountUpdateParams.description
-            funding = externalAccountUpdateParams.funding
-            status = externalAccountUpdateParams.status
+            body = externalAccountUpdateParams.body.toBuilder()
             additionalHeaders = externalAccountUpdateParams.additionalHeaders.toBuilder()
             additionalQueryParams = externalAccountUpdateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                externalAccountUpdateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The external account identifier. */
@@ -223,17 +206,17 @@ constructor(
 
         /** The type of entity that owns the External Account. */
         fun accountHolder(accountHolder: AccountHolder) = apply {
-            this.accountHolder = accountHolder
+            body.accountHolder(accountHolder)
         }
 
         /** The description you choose to give the external account. */
-        fun description(description: String) = apply { this.description = description }
+        fun description(description: String) = apply { body.description(description) }
 
         /** The funding type of the External Account. */
-        fun funding(funding: Funding) = apply { this.funding = funding }
+        fun funding(funding: Funding) = apply { body.funding(funding) }
 
         /** The status of the External Account. */
-        fun status(status: Status) = apply { this.status = status }
+        fun status(status: Status) = apply { body.status(status) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -334,25 +317,22 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): ExternalAccountUpdateParams =
@@ -360,13 +340,9 @@ constructor(
                 checkNotNull(externalAccountId) {
                     "`externalAccountId` is required but was not set"
                 },
-                accountHolder,
-                description,
-                funding,
-                status,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -552,11 +528,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is ExternalAccountUpdateParams && externalAccountId == other.externalAccountId && accountHolder == other.accountHolder && description == other.description && funding == other.funding && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is ExternalAccountUpdateParams && externalAccountId == other.externalAccountId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(externalAccountId, accountHolder, description, funding, status, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(externalAccountId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "ExternalAccountUpdateParams{externalAccountId=$externalAccountId, accountHolder=$accountHolder, description=$description, funding=$funding, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "ExternalAccountUpdateParams{externalAccountId=$externalAccountId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

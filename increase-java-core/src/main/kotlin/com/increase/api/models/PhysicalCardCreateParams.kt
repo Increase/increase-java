@@ -21,39 +21,33 @@ import java.util.Optional
 
 class PhysicalCardCreateParams
 constructor(
-    private val cardId: String,
-    private val cardholder: Cardholder,
-    private val shipment: Shipment,
-    private val physicalCardProfileId: String?,
+    private val body: PhysicalCardCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun cardId(): String = cardId
+    /** The underlying card representing this physical card. */
+    fun cardId(): String = body.cardId()
 
-    fun cardholder(): Cardholder = cardholder
+    /** Details about the cardholder, as it will appear on the physical card. */
+    fun cardholder(): Cardholder = body.cardholder()
 
-    fun shipment(): Shipment = shipment
+    /** The details used to ship this physical card. */
+    fun shipment(): Shipment = body.shipment()
 
-    fun physicalCardProfileId(): Optional<String> = Optional.ofNullable(physicalCardProfileId)
+    /**
+     * The physical card profile to use for this physical card. The latest default physical card
+     * profile will be used if not provided.
+     */
+    fun physicalCardProfileId(): Optional<String> = body.physicalCardProfileId()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): PhysicalCardCreateBody {
-        return PhysicalCardCreateBody(
-            cardId,
-            cardholder,
-            shipment,
-            physicalCardProfileId,
-            additionalBodyProperties,
-        )
-    }
+    @JvmSynthetic internal fun getBody(): PhysicalCardCreateBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -189,41 +183,32 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var cardId: String? = null
-        private var cardholder: Cardholder? = null
-        private var shipment: Shipment? = null
-        private var physicalCardProfileId: String? = null
+        private var body: PhysicalCardCreateBody.Builder = PhysicalCardCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(physicalCardCreateParams: PhysicalCardCreateParams) = apply {
-            cardId = physicalCardCreateParams.cardId
-            cardholder = physicalCardCreateParams.cardholder
-            shipment = physicalCardCreateParams.shipment
-            physicalCardProfileId = physicalCardCreateParams.physicalCardProfileId
+            body = physicalCardCreateParams.body.toBuilder()
             additionalHeaders = physicalCardCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = physicalCardCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                physicalCardCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The underlying card representing this physical card. */
-        fun cardId(cardId: String) = apply { this.cardId = cardId }
+        fun cardId(cardId: String) = apply { body.cardId(cardId) }
 
         /** Details about the cardholder, as it will appear on the physical card. */
-        fun cardholder(cardholder: Cardholder) = apply { this.cardholder = cardholder }
+        fun cardholder(cardholder: Cardholder) = apply { body.cardholder(cardholder) }
 
         /** The details used to ship this physical card. */
-        fun shipment(shipment: Shipment) = apply { this.shipment = shipment }
+        fun shipment(shipment: Shipment) = apply { body.shipment(shipment) }
 
         /**
          * The physical card profile to use for this physical card. The latest default physical card
          * profile will be used if not provided.
          */
         fun physicalCardProfileId(physicalCardProfileId: String) = apply {
-            this.physicalCardProfileId = physicalCardProfileId
+            body.physicalCardProfileId(physicalCardProfileId)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -325,36 +310,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): PhysicalCardCreateParams =
             PhysicalCardCreateParams(
-                checkNotNull(cardId) { "`cardId` is required but was not set" },
-                checkNotNull(cardholder) { "`cardholder` is required but was not set" },
-                checkNotNull(shipment) { "`shipment` is required but was not set" },
-                physicalCardProfileId,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -766,11 +744,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is PhysicalCardCreateParams && cardId == other.cardId && cardholder == other.cardholder && shipment == other.shipment && physicalCardProfileId == other.physicalCardProfileId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is PhysicalCardCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cardId, cardholder, shipment, physicalCardProfileId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "PhysicalCardCreateParams{cardId=$cardId, cardholder=$cardholder, shipment=$shipment, physicalCardProfileId=$physicalCardProfileId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "PhysicalCardCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

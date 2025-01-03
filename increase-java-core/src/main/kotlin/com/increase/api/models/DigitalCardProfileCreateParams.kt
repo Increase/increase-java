@@ -18,59 +18,45 @@ import java.util.Optional
 
 class DigitalCardProfileCreateParams
 constructor(
-    private val appIconFileId: String,
-    private val backgroundImageFileId: String,
-    private val cardDescription: String,
-    private val description: String,
-    private val issuerName: String,
-    private val contactEmail: String?,
-    private val contactPhone: String?,
-    private val contactWebsite: String?,
-    private val textColor: TextColor?,
+    private val body: DigitalCardProfileCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun appIconFileId(): String = appIconFileId
+    /** The identifier of the File containing the card's icon image. */
+    fun appIconFileId(): String = body.appIconFileId()
 
-    fun backgroundImageFileId(): String = backgroundImageFileId
+    /** The identifier of the File containing the card's front image. */
+    fun backgroundImageFileId(): String = body.backgroundImageFileId()
 
-    fun cardDescription(): String = cardDescription
+    /** A user-facing description for the card itself. */
+    fun cardDescription(): String = body.cardDescription()
 
-    fun description(): String = description
+    /** A description you can use to identify the Card Profile. */
+    fun description(): String = body.description()
 
-    fun issuerName(): String = issuerName
+    /** A user-facing description for whoever is issuing the card. */
+    fun issuerName(): String = body.issuerName()
 
-    fun contactEmail(): Optional<String> = Optional.ofNullable(contactEmail)
+    /** An email address the user can contact to receive support for their card. */
+    fun contactEmail(): Optional<String> = body.contactEmail()
 
-    fun contactPhone(): Optional<String> = Optional.ofNullable(contactPhone)
+    /** A phone number the user can contact to receive support for their card. */
+    fun contactPhone(): Optional<String> = body.contactPhone()
 
-    fun contactWebsite(): Optional<String> = Optional.ofNullable(contactWebsite)
+    /** A website the user can visit to view and receive support for their card. */
+    fun contactWebsite(): Optional<String> = body.contactWebsite()
 
-    fun textColor(): Optional<TextColor> = Optional.ofNullable(textColor)
+    /** The Card's text color, specified as an RGB triple. The default is white. */
+    fun textColor(): Optional<TextColor> = body.textColor()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): DigitalCardProfileCreateBody {
-        return DigitalCardProfileCreateBody(
-            appIconFileId,
-            backgroundImageFileId,
-            cardDescription,
-            description,
-            issuerName,
-            contactEmail,
-            contactPhone,
-            contactWebsite,
-            textColor,
-            additionalBodyProperties,
-        )
-    }
+    @JvmSynthetic internal fun getBody(): DigitalCardProfileCreateBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -263,66 +249,48 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var appIconFileId: String? = null
-        private var backgroundImageFileId: String? = null
-        private var cardDescription: String? = null
-        private var description: String? = null
-        private var issuerName: String? = null
-        private var contactEmail: String? = null
-        private var contactPhone: String? = null
-        private var contactWebsite: String? = null
-        private var textColor: TextColor? = null
+        private var body: DigitalCardProfileCreateBody.Builder =
+            DigitalCardProfileCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(digitalCardProfileCreateParams: DigitalCardProfileCreateParams) = apply {
-            appIconFileId = digitalCardProfileCreateParams.appIconFileId
-            backgroundImageFileId = digitalCardProfileCreateParams.backgroundImageFileId
-            cardDescription = digitalCardProfileCreateParams.cardDescription
-            description = digitalCardProfileCreateParams.description
-            issuerName = digitalCardProfileCreateParams.issuerName
-            contactEmail = digitalCardProfileCreateParams.contactEmail
-            contactPhone = digitalCardProfileCreateParams.contactPhone
-            contactWebsite = digitalCardProfileCreateParams.contactWebsite
-            textColor = digitalCardProfileCreateParams.textColor
+            body = digitalCardProfileCreateParams.body.toBuilder()
             additionalHeaders = digitalCardProfileCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = digitalCardProfileCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                digitalCardProfileCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier of the File containing the card's icon image. */
-        fun appIconFileId(appIconFileId: String) = apply { this.appIconFileId = appIconFileId }
+        fun appIconFileId(appIconFileId: String) = apply { body.appIconFileId(appIconFileId) }
 
         /** The identifier of the File containing the card's front image. */
         fun backgroundImageFileId(backgroundImageFileId: String) = apply {
-            this.backgroundImageFileId = backgroundImageFileId
+            body.backgroundImageFileId(backgroundImageFileId)
         }
 
         /** A user-facing description for the card itself. */
         fun cardDescription(cardDescription: String) = apply {
-            this.cardDescription = cardDescription
+            body.cardDescription(cardDescription)
         }
 
         /** A description you can use to identify the Card Profile. */
-        fun description(description: String) = apply { this.description = description }
+        fun description(description: String) = apply { body.description(description) }
 
         /** A user-facing description for whoever is issuing the card. */
-        fun issuerName(issuerName: String) = apply { this.issuerName = issuerName }
+        fun issuerName(issuerName: String) = apply { body.issuerName(issuerName) }
 
         /** An email address the user can contact to receive support for their card. */
-        fun contactEmail(contactEmail: String) = apply { this.contactEmail = contactEmail }
+        fun contactEmail(contactEmail: String) = apply { body.contactEmail(contactEmail) }
 
         /** A phone number the user can contact to receive support for their card. */
-        fun contactPhone(contactPhone: String) = apply { this.contactPhone = contactPhone }
+        fun contactPhone(contactPhone: String) = apply { body.contactPhone(contactPhone) }
 
         /** A website the user can visit to view and receive support for their card. */
-        fun contactWebsite(contactWebsite: String) = apply { this.contactWebsite = contactWebsite }
+        fun contactWebsite(contactWebsite: String) = apply { body.contactWebsite(contactWebsite) }
 
         /** The Card's text color, specified as an RGB triple. The default is white. */
-        fun textColor(textColor: TextColor) = apply { this.textColor = textColor }
+        fun textColor(textColor: TextColor) = apply { body.textColor(textColor) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -423,43 +391,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): DigitalCardProfileCreateParams =
             DigitalCardProfileCreateParams(
-                checkNotNull(appIconFileId) { "`appIconFileId` is required but was not set" },
-                checkNotNull(backgroundImageFileId) {
-                    "`backgroundImageFileId` is required but was not set"
-                },
-                checkNotNull(cardDescription) { "`cardDescription` is required but was not set" },
-                checkNotNull(description) { "`description` is required but was not set" },
-                checkNotNull(issuerName) { "`issuerName` is required but was not set" },
-                contactEmail,
-                contactPhone,
-                contactWebsite,
-                textColor,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -570,11 +524,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is DigitalCardProfileCreateParams && appIconFileId == other.appIconFileId && backgroundImageFileId == other.backgroundImageFileId && cardDescription == other.cardDescription && description == other.description && issuerName == other.issuerName && contactEmail == other.contactEmail && contactPhone == other.contactPhone && contactWebsite == other.contactWebsite && textColor == other.textColor && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is DigitalCardProfileCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(appIconFileId, backgroundImageFileId, cardDescription, description, issuerName, contactEmail, contactPhone, contactWebsite, textColor, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "DigitalCardProfileCreateParams{appIconFileId=$appIconFileId, backgroundImageFileId=$backgroundImageFileId, cardDescription=$cardDescription, description=$description, issuerName=$issuerName, contactEmail=$contactEmail, contactPhone=$contactPhone, contactWebsite=$contactWebsite, textColor=$textColor, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "DigitalCardProfileCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

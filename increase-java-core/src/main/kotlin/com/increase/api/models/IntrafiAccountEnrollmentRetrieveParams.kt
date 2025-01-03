@@ -14,6 +14,7 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** The identifier of the IntraFi Account Enrollment to retrieve. */
     fun intrafiAccountEnrollmentId(): String = intrafiAccountEnrollmentId
 
     fun _additionalHeaders(): Headers = additionalHeaders

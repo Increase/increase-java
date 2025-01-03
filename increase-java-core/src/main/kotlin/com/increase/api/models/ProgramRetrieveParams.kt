@@ -14,6 +14,7 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** The identifier of the Program to retrieve. */
     fun programId(): String = programId
 
     fun _additionalHeaders(): Headers = additionalHeaders

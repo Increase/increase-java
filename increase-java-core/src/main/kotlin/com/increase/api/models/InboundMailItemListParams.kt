@@ -22,10 +22,13 @@ constructor(
 
     fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
 
+    /** Return the page of entries after this one. */
     fun cursor(): Optional<String> = Optional.ofNullable(cursor)
 
+    /** Limit the size of the list that is returned. The default (and maximum) is 100 objects. */
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
+    /** Filter Inbound Mail Items to ones sent to the provided Lockbox. */
     fun lockboxId(): Optional<String> = Optional.ofNullable(lockboxId)
 
     fun _additionalHeaders(): Headers = additionalHeaders

@@ -18,35 +18,34 @@ import java.util.Optional
 
 class CardDisputeCreateParams
 constructor(
-    private val disputedTransactionId: String,
-    private val explanation: String,
-    private val amount: Long?,
+    private val body: CardDisputeCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun disputedTransactionId(): String = disputedTransactionId
+    /**
+     * The Transaction you wish to dispute. This Transaction must have a `source_type` of
+     * `card_settlement`.
+     */
+    fun disputedTransactionId(): String = body.disputedTransactionId()
 
-    fun explanation(): String = explanation
+    /** Why you are disputing this Transaction. */
+    fun explanation(): String = body.explanation()
 
-    fun amount(): Optional<Long> = Optional.ofNullable(amount)
+    /**
+     * The monetary amount of the part of the transaction that is being disputed. This is optional
+     * and will default to the full amount of the transaction if not provided. If provided, the
+     * amount must be less than or equal to the amount of the transaction.
+     */
+    fun amount(): Optional<Long> = body.amount()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): CardDisputeCreateBody {
-        return CardDisputeCreateBody(
-            disputedTransactionId,
-            explanation,
-            amount,
-            additionalBodyProperties,
-        )
-    }
+    @JvmSynthetic internal fun getBody(): CardDisputeCreateBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -182,22 +181,15 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var disputedTransactionId: String? = null
-        private var explanation: String? = null
-        private var amount: Long? = null
+        private var body: CardDisputeCreateBody.Builder = CardDisputeCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(cardDisputeCreateParams: CardDisputeCreateParams) = apply {
-            disputedTransactionId = cardDisputeCreateParams.disputedTransactionId
-            explanation = cardDisputeCreateParams.explanation
-            amount = cardDisputeCreateParams.amount
+            body = cardDisputeCreateParams.body.toBuilder()
             additionalHeaders = cardDisputeCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = cardDisputeCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                cardDisputeCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /**
@@ -205,18 +197,18 @@ constructor(
          * `card_settlement`.
          */
         fun disputedTransactionId(disputedTransactionId: String) = apply {
-            this.disputedTransactionId = disputedTransactionId
+            body.disputedTransactionId(disputedTransactionId)
         }
 
         /** Why you are disputing this Transaction. */
-        fun explanation(explanation: String) = apply { this.explanation = explanation }
+        fun explanation(explanation: String) = apply { body.explanation(explanation) }
 
         /**
          * The monetary amount of the part of the transaction that is being disputed. This is
          * optional and will default to the full amount of the transaction if not provided. If
          * provided, the amount must be less than or equal to the amount of the transaction.
          */
-        fun amount(amount: Long) = apply { this.amount = amount }
+        fun amount(amount: Long) = apply { body.amount(amount) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -317,37 +309,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): CardDisputeCreateParams =
             CardDisputeCreateParams(
-                checkNotNull(disputedTransactionId) {
-                    "`disputedTransactionId` is required but was not set"
-                },
-                checkNotNull(explanation) { "`explanation` is required but was not set" },
-                amount,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -356,11 +340,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is CardDisputeCreateParams && disputedTransactionId == other.disputedTransactionId && explanation == other.explanation && amount == other.amount && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is CardDisputeCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(disputedTransactionId, explanation, amount, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "CardDisputeCreateParams{disputedTransactionId=$disputedTransactionId, explanation=$explanation, amount=$amount, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "CardDisputeCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

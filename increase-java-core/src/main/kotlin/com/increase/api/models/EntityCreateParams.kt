@@ -22,62 +22,58 @@ import java.util.Optional
 
 class EntityCreateParams
 constructor(
-    private val structure: Structure,
-    private val corporation: Corporation?,
-    private val description: String?,
-    private val governmentAuthority: GovernmentAuthority?,
-    private val joint: Joint?,
-    private val naturalPerson: NaturalPerson?,
-    private val supplementalDocuments: List<SupplementalDocument>?,
-    private val thirdPartyVerification: ThirdPartyVerification?,
-    private val trust: Trust?,
+    private val body: EntityCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun structure(): Structure = structure
+    /** The type of Entity to create. */
+    fun structure(): Structure = body.structure()
 
-    fun corporation(): Optional<Corporation> = Optional.ofNullable(corporation)
+    /**
+     * Details of the corporation entity to create. Required if `structure` is equal to
+     * `corporation`.
+     */
+    fun corporation(): Optional<Corporation> = body.corporation()
 
-    fun description(): Optional<String> = Optional.ofNullable(description)
+    /** The description you choose to give the entity. */
+    fun description(): Optional<String> = body.description()
 
-    fun governmentAuthority(): Optional<GovernmentAuthority> =
-        Optional.ofNullable(governmentAuthority)
+    /**
+     * Details of the Government Authority entity to create. Required if `structure` is equal to
+     * `Government Authority`.
+     */
+    fun governmentAuthority(): Optional<GovernmentAuthority> = body.governmentAuthority()
 
-    fun joint(): Optional<Joint> = Optional.ofNullable(joint)
+    /** Details of the joint entity to create. Required if `structure` is equal to `joint`. */
+    fun joint(): Optional<Joint> = body.joint()
 
-    fun naturalPerson(): Optional<NaturalPerson> = Optional.ofNullable(naturalPerson)
+    /**
+     * Details of the natural person entity to create. Required if `structure` is equal to
+     * `natural_person`. Natural people entities should be submitted with `social_security_number`
+     * or `individual_taxpayer_identification_number` identification methods.
+     */
+    fun naturalPerson(): Optional<NaturalPerson> = body.naturalPerson()
 
-    fun supplementalDocuments(): Optional<List<SupplementalDocument>> =
-        Optional.ofNullable(supplementalDocuments)
+    /** Additional documentation associated with the entity. */
+    fun supplementalDocuments(): Optional<List<SupplementalDocument>> = body.supplementalDocuments()
 
-    fun thirdPartyVerification(): Optional<ThirdPartyVerification> =
-        Optional.ofNullable(thirdPartyVerification)
+    /**
+     * A reference to data stored in a third-party verification service. Your integration may or may
+     * not use this field.
+     */
+    fun thirdPartyVerification(): Optional<ThirdPartyVerification> = body.thirdPartyVerification()
 
-    fun trust(): Optional<Trust> = Optional.ofNullable(trust)
+    /** Details of the trust entity to create. Required if `structure` is equal to `trust`. */
+    fun trust(): Optional<Trust> = body.trust()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    @JvmSynthetic
-    internal fun getBody(): EntityCreateBody {
-        return EntityCreateBody(
-            structure,
-            corporation,
-            description,
-            governmentAuthority,
-            joint,
-            naturalPerson,
-            supplementalDocuments,
-            thirdPartyVerification,
-            trust,
-            additionalBodyProperties,
-        )
-    }
+    @JvmSynthetic internal fun getBody(): EntityCreateBody = body
 
     @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
 
@@ -171,7 +167,7 @@ constructor(
             private var governmentAuthority: GovernmentAuthority? = null
             private var joint: Joint? = null
             private var naturalPerson: NaturalPerson? = null
-            private var supplementalDocuments: List<SupplementalDocument>? = null
+            private var supplementalDocuments: MutableList<SupplementalDocument>? = null
             private var thirdPartyVerification: ThirdPartyVerification? = null
             private var trust: Trust? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -227,7 +223,13 @@ constructor(
 
             /** Additional documentation associated with the entity. */
             fun supplementalDocuments(supplementalDocuments: List<SupplementalDocument>) = apply {
-                this.supplementalDocuments = supplementalDocuments
+                this.supplementalDocuments = supplementalDocuments.toMutableList()
+            }
+
+            /** Additional documentation associated with the entity. */
+            fun addSupplementalDocument(supplementalDocument: SupplementalDocument) = apply {
+                supplementalDocuments =
+                    (supplementalDocuments ?: mutableListOf()).apply { add(supplementalDocument) }
             }
 
             /**
@@ -305,58 +307,39 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var structure: Structure? = null
-        private var corporation: Corporation? = null
-        private var description: String? = null
-        private var governmentAuthority: GovernmentAuthority? = null
-        private var joint: Joint? = null
-        private var naturalPerson: NaturalPerson? = null
-        private var supplementalDocuments: MutableList<SupplementalDocument> = mutableListOf()
-        private var thirdPartyVerification: ThirdPartyVerification? = null
-        private var trust: Trust? = null
+        private var body: EntityCreateBody.Builder = EntityCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(entityCreateParams: EntityCreateParams) = apply {
-            structure = entityCreateParams.structure
-            corporation = entityCreateParams.corporation
-            description = entityCreateParams.description
-            governmentAuthority = entityCreateParams.governmentAuthority
-            joint = entityCreateParams.joint
-            naturalPerson = entityCreateParams.naturalPerson
-            supplementalDocuments =
-                entityCreateParams.supplementalDocuments?.toMutableList() ?: mutableListOf()
-            thirdPartyVerification = entityCreateParams.thirdPartyVerification
-            trust = entityCreateParams.trust
+            body = entityCreateParams.body.toBuilder()
             additionalHeaders = entityCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = entityCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties = entityCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The type of Entity to create. */
-        fun structure(structure: Structure) = apply { this.structure = structure }
+        fun structure(structure: Structure) = apply { body.structure(structure) }
 
         /**
          * Details of the corporation entity to create. Required if `structure` is equal to
          * `corporation`.
          */
-        fun corporation(corporation: Corporation) = apply { this.corporation = corporation }
+        fun corporation(corporation: Corporation) = apply { body.corporation(corporation) }
 
         /** The description you choose to give the entity. */
-        fun description(description: String) = apply { this.description = description }
+        fun description(description: String) = apply { body.description(description) }
 
         /**
          * Details of the Government Authority entity to create. Required if `structure` is equal to
          * `Government Authority`.
          */
         fun governmentAuthority(governmentAuthority: GovernmentAuthority) = apply {
-            this.governmentAuthority = governmentAuthority
+            body.governmentAuthority(governmentAuthority)
         }
 
         /** Details of the joint entity to create. Required if `structure` is equal to `joint`. */
-        fun joint(joint: Joint) = apply { this.joint = joint }
+        fun joint(joint: Joint) = apply { body.joint(joint) }
 
         /**
          * Details of the natural person entity to create. Required if `structure` is equal to
@@ -365,18 +348,17 @@ constructor(
          * methods.
          */
         fun naturalPerson(naturalPerson: NaturalPerson) = apply {
-            this.naturalPerson = naturalPerson
+            body.naturalPerson(naturalPerson)
         }
 
         /** Additional documentation associated with the entity. */
         fun supplementalDocuments(supplementalDocuments: List<SupplementalDocument>) = apply {
-            this.supplementalDocuments.clear()
-            this.supplementalDocuments.addAll(supplementalDocuments)
+            body.supplementalDocuments(supplementalDocuments)
         }
 
         /** Additional documentation associated with the entity. */
         fun addSupplementalDocument(supplementalDocument: SupplementalDocument) = apply {
-            this.supplementalDocuments.add(supplementalDocument)
+            body.addSupplementalDocument(supplementalDocument)
         }
 
         /**
@@ -384,11 +366,11 @@ constructor(
          * may not use this field.
          */
         fun thirdPartyVerification(thirdPartyVerification: ThirdPartyVerification) = apply {
-            this.thirdPartyVerification = thirdPartyVerification
+            body.thirdPartyVerification(thirdPartyVerification)
         }
 
         /** Details of the trust entity to create. Required if `structure` is equal to `trust`. */
-        fun trust(trust: Trust) = apply { this.trust = trust }
+        fun trust(trust: Trust) = apply { body.trust(trust) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -489,41 +471,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): EntityCreateParams =
             EntityCreateParams(
-                checkNotNull(structure) { "`structure` is required but was not set" },
-                corporation,
-                description,
-                governmentAuthority,
-                joint,
-                naturalPerson,
-                supplementalDocuments.toImmutable().ifEmpty { null },
-                thirdPartyVerification,
-                trust,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -672,7 +642,7 @@ constructor(
         class Builder {
 
             private var address: Address? = null
-            private var beneficialOwners: List<BeneficialOwner>? = null
+            private var beneficialOwners: MutableList<BeneficialOwner>? = null
             private var incorporationState: String? = null
             private var industryCode: String? = null
             private var name: String? = null
@@ -703,7 +673,16 @@ constructor(
              * corporation.
              */
             fun beneficialOwners(beneficialOwners: List<BeneficialOwner>) = apply {
-                this.beneficialOwners = beneficialOwners
+                this.beneficialOwners = beneficialOwners.toMutableList()
+            }
+
+            /**
+             * The identifying details of anyone controlling or owning 25% or more of the
+             * corporation.
+             */
+            fun addBeneficialOwner(beneficialOwner: BeneficialOwner) = apply {
+                beneficialOwners =
+                    (beneficialOwners ?: mutableListOf()).apply { add(beneficialOwner) }
             }
 
             /**
@@ -940,7 +919,7 @@ constructor(
 
                 private var companyTitle: String? = null
                 private var individual: Individual? = null
-                private var prongs: List<Prong>? = null
+                private var prongs: MutableList<Prong>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -962,7 +941,16 @@ constructor(
                  * option is required, if a person is both a control person and owner, submit an
                  * array containing both.
                  */
-                fun prongs(prongs: List<Prong>) = apply { this.prongs = prongs }
+                fun prongs(prongs: List<Prong>) = apply { this.prongs = prongs.toMutableList() }
+
+                /**
+                 * Why this person is considered a beneficial owner of the entity. At least one
+                 * option is required, if a person is both a control person and owner, submit an
+                 * array containing both.
+                 */
+                fun addProng(prong: Prong) = apply {
+                    prongs = (prongs ?: mutableListOf()).apply { add(prong) }
+                }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -2087,7 +2075,7 @@ constructor(
         class Builder {
 
             private var address: Address? = null
-            private var authorizedPersons: List<AuthorizedPerson>? = null
+            private var authorizedPersons: MutableList<AuthorizedPerson>? = null
             private var category: Category? = null
             private var name: String? = null
             private var taxIdentifier: String? = null
@@ -2113,7 +2101,13 @@ constructor(
 
             /** The identifying details of authorized officials acting on the entity's behalf. */
             fun authorizedPersons(authorizedPersons: List<AuthorizedPerson>) = apply {
-                this.authorizedPersons = authorizedPersons
+                this.authorizedPersons = authorizedPersons.toMutableList()
+            }
+
+            /** The identifying details of authorized officials acting on the entity's behalf. */
+            fun addAuthorizedPerson(authorizedPerson: AuthorizedPerson) = apply {
+                authorizedPersons =
+                    (authorizedPersons ?: mutableListOf()).apply { add(authorizedPerson) }
             }
 
             /** The category of the government authority. */
@@ -2479,7 +2473,7 @@ constructor(
 
         class Builder {
 
-            private var individuals: List<Individual>? = null
+            private var individuals: MutableList<Individual>? = null
             private var name: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -2492,7 +2486,12 @@ constructor(
 
             /** The two individuals that share control of the entity. */
             fun individuals(individuals: List<Individual>) = apply {
-                this.individuals = individuals
+                this.individuals = individuals.toMutableList()
+            }
+
+            /** The two individuals that share control of the entity. */
+            fun addIndividual(individual: Individual) = apply {
+                individuals = (individuals ?: mutableListOf()).apply { add(individual) }
             }
 
             /** The name of the joint entity. */
@@ -4655,7 +4654,7 @@ constructor(
             private var grantor: Grantor? = null
             private var name: String? = null
             private var taxIdentifier: String? = null
-            private var trustees: List<Trustee>? = null
+            private var trustees: MutableList<Trustee>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -4710,7 +4709,14 @@ constructor(
             fun taxIdentifier(taxIdentifier: String) = apply { this.taxIdentifier = taxIdentifier }
 
             /** The trustees of the trust. */
-            fun trustees(trustees: List<Trustee>) = apply { this.trustees = trustees }
+            fun trustees(trustees: List<Trustee>) = apply {
+                this.trustees = trustees.toMutableList()
+            }
+
+            /** The trustees of the trust. */
+            fun addTrustee(trustee: Trustee) = apply {
+                trustees = (trustees ?: mutableListOf()).apply { add(trustee) }
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -6968,11 +6974,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is EntityCreateParams && structure == other.structure && corporation == other.corporation && description == other.description && governmentAuthority == other.governmentAuthority && joint == other.joint && naturalPerson == other.naturalPerson && supplementalDocuments == other.supplementalDocuments && thirdPartyVerification == other.thirdPartyVerification && trust == other.trust && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is EntityCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(structure, corporation, description, governmentAuthority, joint, naturalPerson, supplementalDocuments, thirdPartyVerification, trust, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "EntityCreateParams{structure=$structure, corporation=$corporation, description=$description, governmentAuthority=$governmentAuthority, joint=$joint, naturalPerson=$naturalPerson, supplementalDocuments=$supplementalDocuments, thirdPartyVerification=$thirdPartyVerification, trust=$trust, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "EntityCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

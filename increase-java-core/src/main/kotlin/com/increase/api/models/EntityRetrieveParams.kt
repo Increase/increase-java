@@ -14,6 +14,7 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** The identifier of the Entity to retrieve. */
     fun entityId(): String = entityId
 
     fun _additionalHeaders(): Headers = additionalHeaders
