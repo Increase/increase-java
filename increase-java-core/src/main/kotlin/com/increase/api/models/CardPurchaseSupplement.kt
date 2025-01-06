@@ -27,10 +27,10 @@ import java.util.Optional
 class CardPurchaseSupplement
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("card_payment_id")
     @ExcludeMissing
     private val cardPaymentId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("invoice")
     @ExcludeMissing
     private val invoice: JsonField<Invoice> = JsonMissing.of(),
@@ -44,12 +44,12 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
+    /** The Card Purchase Supplement identifier. */
+    fun id(): String = id.getRequired("id")
+
     /** The ID of the Card Payment this transaction belongs to. */
     fun cardPaymentId(): Optional<String> =
         Optional.ofNullable(cardPaymentId.getNullable("card_payment_id"))
-
-    /** The Card Purchase Supplement identifier. */
-    fun id(): String = id.getRequired("id")
 
     /** Invoice-level information about the payment. */
     fun invoice(): Optional<Invoice> = Optional.ofNullable(invoice.getNullable("invoice"))
@@ -67,11 +67,11 @@ private constructor(
      */
     fun type(): Type = type.getRequired("type")
 
-    /** The ID of the Card Payment this transaction belongs to. */
-    @JsonProperty("card_payment_id") @ExcludeMissing fun _cardPaymentId() = cardPaymentId
-
     /** The Card Purchase Supplement identifier. */
     @JsonProperty("id") @ExcludeMissing fun _id() = id
+
+    /** The ID of the Card Payment this transaction belongs to. */
+    @JsonProperty("card_payment_id") @ExcludeMissing fun _cardPaymentId() = cardPaymentId
 
     /** Invoice-level information about the payment. */
     @JsonProperty("invoice") @ExcludeMissing fun _invoice() = invoice
@@ -96,8 +96,8 @@ private constructor(
 
     fun validate(): CardPurchaseSupplement = apply {
         if (!validated) {
-            cardPaymentId()
             id()
+            cardPaymentId()
             invoice().map { it.validate() }
             lineItems().map { it.forEach { it.validate() } }
             transactionId()
@@ -115,8 +115,8 @@ private constructor(
 
     class Builder {
 
-        private var cardPaymentId: JsonField<String> = JsonMissing.of()
         private var id: JsonField<String> = JsonMissing.of()
+        private var cardPaymentId: JsonField<String> = JsonMissing.of()
         private var invoice: JsonField<Invoice> = JsonMissing.of()
         private var lineItems: JsonField<List<LineItem>> = JsonMissing.of()
         private var transactionId: JsonField<String> = JsonMissing.of()
@@ -125,14 +125,20 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(cardPurchaseSupplement: CardPurchaseSupplement) = apply {
-            cardPaymentId = cardPurchaseSupplement.cardPaymentId
             id = cardPurchaseSupplement.id
+            cardPaymentId = cardPurchaseSupplement.cardPaymentId
             invoice = cardPurchaseSupplement.invoice
             lineItems = cardPurchaseSupplement.lineItems
             transactionId = cardPurchaseSupplement.transactionId
             type = cardPurchaseSupplement.type
             additionalProperties = cardPurchaseSupplement.additionalProperties.toMutableMap()
         }
+
+        /** The Card Purchase Supplement identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The Card Purchase Supplement identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The ID of the Card Payment this transaction belongs to. */
         fun cardPaymentId(cardPaymentId: String) = cardPaymentId(JsonField.of(cardPaymentId))
@@ -141,12 +147,6 @@ private constructor(
         fun cardPaymentId(cardPaymentId: JsonField<String>) = apply {
             this.cardPaymentId = cardPaymentId
         }
-
-        /** The Card Purchase Supplement identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The Card Purchase Supplement identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** Invoice-level information about the payment. */
         fun invoice(invoice: Invoice) = invoice(JsonField.of(invoice))
@@ -201,8 +201,8 @@ private constructor(
 
         fun build(): CardPurchaseSupplement =
             CardPurchaseSupplement(
-                cardPaymentId,
                 id,
+                cardPaymentId,
                 invoice,
                 lineItems.map { it.toImmutable() },
                 transactionId,
@@ -842,6 +842,7 @@ private constructor(
     class LineItem
     @JsonCreator
     private constructor(
+        @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
         @JsonProperty("detail_indicator")
         @ExcludeMissing
         private val detailIndicator: JsonField<DetailIndicator> = JsonMissing.of(),
@@ -854,7 +855,6 @@ private constructor(
         @JsonProperty("discount_treatment_code")
         @ExcludeMissing
         private val discountTreatmentCode: JsonField<DiscountTreatmentCode> = JsonMissing.of(),
-        @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
         @JsonProperty("item_commodity_code")
         @ExcludeMissing
         private val itemCommodityCode: JsonField<String> = JsonMissing.of(),
@@ -895,6 +895,9 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
+        /** The Card Purchase Supplement Line Item identifier. */
+        fun id(): String = id.getRequired("id")
+
         /** Indicates the type of line item. */
         fun detailIndicator(): Optional<DetailIndicator> =
             Optional.ofNullable(detailIndicator.getNullable("detail_indicator"))
@@ -910,9 +913,6 @@ private constructor(
         /** Indicates how the merchant applied the discount for this specific line item. */
         fun discountTreatmentCode(): Optional<DiscountTreatmentCode> =
             Optional.ofNullable(discountTreatmentCode.getNullable("discount_treatment_code"))
-
-        /** The Card Purchase Supplement Line Item identifier. */
-        fun id(): String = id.getRequired("id")
 
         /** Code used to categorize the purchase item. */
         fun itemCommodityCode(): Optional<String> =
@@ -963,6 +963,9 @@ private constructor(
         fun unitOfMeasureCode(): Optional<String> =
             Optional.ofNullable(unitOfMeasureCode.getNullable("unit_of_measure_code"))
 
+        /** The Card Purchase Supplement Line Item identifier. */
+        @JsonProperty("id") @ExcludeMissing fun _id() = id
+
         /** Indicates the type of line item. */
         @JsonProperty("detail_indicator") @ExcludeMissing fun _detailIndicator() = detailIndicator
 
@@ -978,9 +981,6 @@ private constructor(
         @JsonProperty("discount_treatment_code")
         @ExcludeMissing
         fun _discountTreatmentCode() = discountTreatmentCode
-
-        /** The Card Purchase Supplement Line Item identifier. */
-        @JsonProperty("id") @ExcludeMissing fun _id() = id
 
         /** Code used to categorize the purchase item. */
         @JsonProperty("item_commodity_code")
@@ -1038,11 +1038,11 @@ private constructor(
 
         fun validate(): LineItem = apply {
             if (!validated) {
+                id()
                 detailIndicator()
                 discountAmount()
                 discountCurrency()
                 discountTreatmentCode()
-                id()
                 itemCommodityCode()
                 itemDescriptor()
                 itemQuantity()
@@ -1068,11 +1068,11 @@ private constructor(
 
         class Builder {
 
+            private var id: JsonField<String> = JsonMissing.of()
             private var detailIndicator: JsonField<DetailIndicator> = JsonMissing.of()
             private var discountAmount: JsonField<Long> = JsonMissing.of()
             private var discountCurrency: JsonField<String> = JsonMissing.of()
             private var discountTreatmentCode: JsonField<DiscountTreatmentCode> = JsonMissing.of()
-            private var id: JsonField<String> = JsonMissing.of()
             private var itemCommodityCode: JsonField<String> = JsonMissing.of()
             private var itemDescriptor: JsonField<String> = JsonMissing.of()
             private var itemQuantity: JsonField<String> = JsonMissing.of()
@@ -1089,11 +1089,11 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(lineItem: LineItem) = apply {
+                id = lineItem.id
                 detailIndicator = lineItem.detailIndicator
                 discountAmount = lineItem.discountAmount
                 discountCurrency = lineItem.discountCurrency
                 discountTreatmentCode = lineItem.discountTreatmentCode
-                id = lineItem.id
                 itemCommodityCode = lineItem.itemCommodityCode
                 itemDescriptor = lineItem.itemDescriptor
                 itemQuantity = lineItem.itemQuantity
@@ -1108,6 +1108,12 @@ private constructor(
                 unitOfMeasureCode = lineItem.unitOfMeasureCode
                 additionalProperties = lineItem.additionalProperties.toMutableMap()
             }
+
+            /** The Card Purchase Supplement Line Item identifier. */
+            fun id(id: String) = id(JsonField.of(id))
+
+            /** The Card Purchase Supplement Line Item identifier. */
+            fun id(id: JsonField<String>) = apply { this.id = id }
 
             /** Indicates the type of line item. */
             fun detailIndicator(detailIndicator: DetailIndicator) =
@@ -1144,12 +1150,6 @@ private constructor(
                 apply {
                     this.discountTreatmentCode = discountTreatmentCode
                 }
-
-            /** The Card Purchase Supplement Line Item identifier. */
-            fun id(id: String) = id(JsonField.of(id))
-
-            /** The Card Purchase Supplement Line Item identifier. */
-            fun id(id: JsonField<String>) = apply { this.id = id }
 
             /** Code used to categorize the purchase item. */
             fun itemCommodityCode(itemCommodityCode: String) =
@@ -1276,11 +1276,11 @@ private constructor(
 
             fun build(): LineItem =
                 LineItem(
+                    id,
                     detailIndicator,
                     discountAmount,
                     discountCurrency,
                     discountTreatmentCode,
-                    id,
                     itemCommodityCode,
                     itemDescriptor,
                     itemQuantity,
@@ -1441,17 +1441,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LineItem && detailIndicator == other.detailIndicator && discountAmount == other.discountAmount && discountCurrency == other.discountCurrency && discountTreatmentCode == other.discountTreatmentCode && id == other.id && itemCommodityCode == other.itemCommodityCode && itemDescriptor == other.itemDescriptor && itemQuantity == other.itemQuantity && productCode == other.productCode && salesTaxAmount == other.salesTaxAmount && salesTaxCurrency == other.salesTaxCurrency && salesTaxRate == other.salesTaxRate && totalAmount == other.totalAmount && totalAmountCurrency == other.totalAmountCurrency && unitCost == other.unitCost && unitCostCurrency == other.unitCostCurrency && unitOfMeasureCode == other.unitOfMeasureCode && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is LineItem && id == other.id && detailIndicator == other.detailIndicator && discountAmount == other.discountAmount && discountCurrency == other.discountCurrency && discountTreatmentCode == other.discountTreatmentCode && itemCommodityCode == other.itemCommodityCode && itemDescriptor == other.itemDescriptor && itemQuantity == other.itemQuantity && productCode == other.productCode && salesTaxAmount == other.salesTaxAmount && salesTaxCurrency == other.salesTaxCurrency && salesTaxRate == other.salesTaxRate && totalAmount == other.totalAmount && totalAmountCurrency == other.totalAmountCurrency && unitCost == other.unitCost && unitCostCurrency == other.unitCostCurrency && unitOfMeasureCode == other.unitOfMeasureCode && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(detailIndicator, discountAmount, discountCurrency, discountTreatmentCode, id, itemCommodityCode, itemDescriptor, itemQuantity, productCode, salesTaxAmount, salesTaxCurrency, salesTaxRate, totalAmount, totalAmountCurrency, unitCost, unitCostCurrency, unitOfMeasureCode, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(id, detailIndicator, discountAmount, discountCurrency, discountTreatmentCode, itemCommodityCode, itemDescriptor, itemQuantity, productCode, salesTaxAmount, salesTaxCurrency, salesTaxRate, totalAmount, totalAmountCurrency, unitCost, unitCostCurrency, unitOfMeasureCode, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "LineItem{detailIndicator=$detailIndicator, discountAmount=$discountAmount, discountCurrency=$discountCurrency, discountTreatmentCode=$discountTreatmentCode, id=$id, itemCommodityCode=$itemCommodityCode, itemDescriptor=$itemDescriptor, itemQuantity=$itemQuantity, productCode=$productCode, salesTaxAmount=$salesTaxAmount, salesTaxCurrency=$salesTaxCurrency, salesTaxRate=$salesTaxRate, totalAmount=$totalAmount, totalAmountCurrency=$totalAmountCurrency, unitCost=$unitCost, unitCostCurrency=$unitCostCurrency, unitOfMeasureCode=$unitOfMeasureCode, additionalProperties=$additionalProperties}"
+            "LineItem{id=$id, detailIndicator=$detailIndicator, discountAmount=$discountAmount, discountCurrency=$discountCurrency, discountTreatmentCode=$discountTreatmentCode, itemCommodityCode=$itemCommodityCode, itemDescriptor=$itemDescriptor, itemQuantity=$itemQuantity, productCode=$productCode, salesTaxAmount=$salesTaxAmount, salesTaxCurrency=$salesTaxCurrency, salesTaxRate=$salesTaxRate, totalAmount=$totalAmount, totalAmountCurrency=$totalAmountCurrency, unitCost=$unitCost, unitCostCurrency=$unitCostCurrency, unitOfMeasureCode=$unitOfMeasureCode, additionalProperties=$additionalProperties}"
     }
 
     class Type
@@ -1510,15 +1510,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is CardPurchaseSupplement && cardPaymentId == other.cardPaymentId && id == other.id && invoice == other.invoice && lineItems == other.lineItems && transactionId == other.transactionId && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is CardPurchaseSupplement && id == other.id && cardPaymentId == other.cardPaymentId && invoice == other.invoice && lineItems == other.lineItems && transactionId == other.transactionId && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(cardPaymentId, id, invoice, lineItems, transactionId, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, cardPaymentId, invoice, lineItems, transactionId, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CardPurchaseSupplement{cardPaymentId=$cardPaymentId, id=$id, invoice=$invoice, lineItems=$lineItems, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+        "CardPurchaseSupplement{id=$id, cardPaymentId=$cardPaymentId, invoice=$invoice, lineItems=$lineItems, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 }

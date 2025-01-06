@@ -29,6 +29,7 @@ import java.util.Optional
 class Program
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("bank") @ExcludeMissing private val bank: JsonField<Bank> = JsonMissing.of(),
     @JsonProperty("billing_account_id")
     @ExcludeMissing
@@ -39,7 +40,6 @@ private constructor(
     @JsonProperty("default_digital_card_profile_id")
     @ExcludeMissing
     private val defaultDigitalCardProfileId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("interest_rate")
     @ExcludeMissing
     private val interestRate: JsonField<String> = JsonMissing.of(),
@@ -50,6 +50,9 @@ private constructor(
     private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
+
+    /** The Program identifier. */
+    fun id(): String = id.getRequired("id")
 
     /** The Bank the Program is with. */
     fun bank(): Bank = bank.getRequired("bank")
@@ -69,9 +72,6 @@ private constructor(
             defaultDigitalCardProfileId.getNullable("default_digital_card_profile_id")
         )
 
-    /** The Program identifier. */
-    fun id(): String = id.getRequired("id")
-
     /**
      * The Interest Rate currently being earned on the accounts in this program, as a string
      * containing a decimal number. For example, a 1% interest rate would be represented as "0.01".
@@ -90,6 +90,9 @@ private constructor(
      */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
+    /** The Program identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
     /** The Bank the Program is with. */
     @JsonProperty("bank") @ExcludeMissing fun _bank() = bank
 
@@ -105,9 +108,6 @@ private constructor(
     @JsonProperty("default_digital_card_profile_id")
     @ExcludeMissing
     fun _defaultDigitalCardProfileId() = defaultDigitalCardProfileId
-
-    /** The Program identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * The Interest Rate currently being earned on the accounts in this program, as a string
@@ -135,11 +135,11 @@ private constructor(
 
     fun validate(): Program = apply {
         if (!validated) {
+            id()
             bank()
             billingAccountId()
             createdAt()
             defaultDigitalCardProfileId()
-            id()
             interestRate()
             name()
             type()
@@ -157,11 +157,11 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var bank: JsonField<Bank> = JsonMissing.of()
         private var billingAccountId: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var defaultDigitalCardProfileId: JsonField<String> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var interestRate: JsonField<String> = JsonMissing.of()
         private var name: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
@@ -170,17 +170,23 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(program: Program) = apply {
+            id = program.id
             bank = program.bank
             billingAccountId = program.billingAccountId
             createdAt = program.createdAt
             defaultDigitalCardProfileId = program.defaultDigitalCardProfileId
-            id = program.id
             interestRate = program.interestRate
             name = program.name
             type = program.type
             updatedAt = program.updatedAt
             additionalProperties = program.additionalProperties.toMutableMap()
         }
+
+        /** The Program identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The Program identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The Bank the Program is with. */
         fun bank(bank: Bank) = bank(JsonField.of(bank))
@@ -217,12 +223,6 @@ private constructor(
         fun defaultDigitalCardProfileId(defaultDigitalCardProfileId: JsonField<String>) = apply {
             this.defaultDigitalCardProfileId = defaultDigitalCardProfileId
         }
-
-        /** The Program identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The Program identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The Interest Rate currently being earned on the accounts in this program, as a string
@@ -289,11 +289,11 @@ private constructor(
 
         fun build(): Program =
             Program(
+                id,
                 bank,
                 billingAccountId,
                 createdAt,
                 defaultDigitalCardProfileId,
-                id,
                 interestRate,
                 name,
                 type,
@@ -421,15 +421,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Program && bank == other.bank && billingAccountId == other.billingAccountId && createdAt == other.createdAt && defaultDigitalCardProfileId == other.defaultDigitalCardProfileId && id == other.id && interestRate == other.interestRate && name == other.name && type == other.type && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is Program && id == other.id && bank == other.bank && billingAccountId == other.billingAccountId && createdAt == other.createdAt && defaultDigitalCardProfileId == other.defaultDigitalCardProfileId && interestRate == other.interestRate && name == other.name && type == other.type && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(bank, billingAccountId, createdAt, defaultDigitalCardProfileId, id, interestRate, name, type, updatedAt, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, bank, billingAccountId, createdAt, defaultDigitalCardProfileId, interestRate, name, type, updatedAt, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Program{bank=$bank, billingAccountId=$billingAccountId, createdAt=$createdAt, defaultDigitalCardProfileId=$defaultDigitalCardProfileId, id=$id, interestRate=$interestRate, name=$name, type=$type, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "Program{id=$id, bank=$bank, billingAccountId=$billingAccountId, createdAt=$createdAt, defaultDigitalCardProfileId=$defaultDigitalCardProfileId, interestRate=$interestRate, name=$name, type=$type, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

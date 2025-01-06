@@ -28,6 +28,7 @@ import java.util.Optional
 class Account
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("bank") @ExcludeMissing private val bank: JsonField<Bank> = JsonMissing.of(),
     @JsonProperty("closed_at")
     @ExcludeMissing
@@ -41,7 +42,6 @@ private constructor(
     @JsonProperty("entity_id")
     @ExcludeMissing
     private val entityId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     private val idempotencyKey: JsonField<String> = JsonMissing.of(),
@@ -68,6 +68,9 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
+    /** The Account identifier. */
+    fun id(): String = id.getRequired("id")
+
     /** The bank the Account is with. */
     fun bank(): Bank = bank.getRequired("bank")
 
@@ -87,9 +90,6 @@ private constructor(
 
     /** The identifier for the Entity the Account belongs to. */
     fun entityId(): Optional<String> = Optional.ofNullable(entityId.getNullable("entity_id"))
-
-    /** The Account identifier. */
-    fun id(): String = id.getRequired("id")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -140,6 +140,9 @@ private constructor(
     /** A constant representing the object's type. For this resource it will always be `account`. */
     fun type(): Type = type.getRequired("type")
 
+    /** The Account identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
     /** The bank the Account is with. */
     @JsonProperty("bank") @ExcludeMissing fun _bank() = bank
 
@@ -158,9 +161,6 @@ private constructor(
 
     /** The identifier for the Entity the Account belongs to. */
     @JsonProperty("entity_id") @ExcludeMissing fun _entityId() = entityId
-
-    /** The Account identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -220,12 +220,12 @@ private constructor(
 
     fun validate(): Account = apply {
         if (!validated) {
+            id()
             bank()
             closedAt()
             createdAt()
             currency()
             entityId()
-            id()
             idempotencyKey()
             informationalEntityId()
             interestAccrued()
@@ -248,12 +248,12 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var bank: JsonField<Bank> = JsonMissing.of()
         private var closedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var currency: JsonField<Currency> = JsonMissing.of()
         private var entityId: JsonField<String> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var informationalEntityId: JsonField<String> = JsonMissing.of()
         private var interestAccrued: JsonField<String> = JsonMissing.of()
@@ -267,12 +267,12 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(account: Account) = apply {
+            id = account.id
             bank = account.bank
             closedAt = account.closedAt
             createdAt = account.createdAt
             currency = account.currency
             entityId = account.entityId
-            id = account.id
             idempotencyKey = account.idempotencyKey
             informationalEntityId = account.informationalEntityId
             interestAccrued = account.interestAccrued
@@ -284,6 +284,12 @@ private constructor(
             type = account.type
             additionalProperties = account.additionalProperties.toMutableMap()
         }
+
+        /** The Account identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The Account identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The bank the Account is with. */
         fun bank(bank: Bank) = bank(JsonField.of(bank))
@@ -326,12 +332,6 @@ private constructor(
 
         /** The identifier for the Entity the Account belongs to. */
         fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
-
-        /** The Account identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The Account identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -463,12 +463,12 @@ private constructor(
 
         fun build(): Account =
             Account(
+                id,
                 bank,
                 closedAt,
                 createdAt,
                 currency,
                 entityId,
-                id,
                 idempotencyKey,
                 informationalEntityId,
                 interestAccrued,
@@ -739,15 +739,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Account && bank == other.bank && closedAt == other.closedAt && createdAt == other.createdAt && currency == other.currency && entityId == other.entityId && id == other.id && idempotencyKey == other.idempotencyKey && informationalEntityId == other.informationalEntityId && interestAccrued == other.interestAccrued && interestAccruedAt == other.interestAccruedAt && interestRate == other.interestRate && name == other.name && programId == other.programId && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is Account && id == other.id && bank == other.bank && closedAt == other.closedAt && createdAt == other.createdAt && currency == other.currency && entityId == other.entityId && idempotencyKey == other.idempotencyKey && informationalEntityId == other.informationalEntityId && interestAccrued == other.interestAccrued && interestAccruedAt == other.interestAccruedAt && interestRate == other.interestRate && name == other.name && programId == other.programId && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(bank, closedAt, createdAt, currency, entityId, id, idempotencyKey, informationalEntityId, interestAccrued, interestAccruedAt, interestRate, name, programId, status, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, bank, closedAt, createdAt, currency, entityId, idempotencyKey, informationalEntityId, interestAccrued, interestAccruedAt, interestRate, name, programId, status, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Account{bank=$bank, closedAt=$closedAt, createdAt=$createdAt, currency=$currency, entityId=$entityId, id=$id, idempotencyKey=$idempotencyKey, informationalEntityId=$informationalEntityId, interestAccrued=$interestAccrued, interestAccruedAt=$interestAccruedAt, interestRate=$interestRate, name=$name, programId=$programId, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "Account{id=$id, bank=$bank, closedAt=$closedAt, createdAt=$createdAt, currency=$currency, entityId=$entityId, idempotencyKey=$idempotencyKey, informationalEntityId=$informationalEntityId, interestAccrued=$interestAccrued, interestAccruedAt=$interestAccruedAt, interestRate=$interestRate, name=$name, programId=$programId, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

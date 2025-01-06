@@ -27,6 +27,7 @@ import java.util.Optional
 class InboundCheckDeposit
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("accepted_at")
     @ExcludeMissing
     private val acceptedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -70,7 +71,6 @@ private constructor(
     @JsonProperty("front_image_file_id")
     @ExcludeMissing
     private val frontImageFileId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("payee_name_analysis")
     @ExcludeMissing
     private val payeeNameAnalysis: JsonField<PayeeNameAnalysis> = JsonMissing.of(),
@@ -83,6 +83,9 @@ private constructor(
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
+
+    /** The deposit's identifier. */
+    fun id(): String = id.getRequired("id")
 
     /**
      * If the Inbound Check Deposit was accepted, the
@@ -160,9 +163,6 @@ private constructor(
     fun frontImageFileId(): Optional<String> =
         Optional.ofNullable(frontImageFileId.getNullable("front_image_file_id"))
 
-    /** The deposit's identifier. */
-    fun id(): String = id.getRequired("id")
-
     /**
      * Whether the details on the check match the recipient name of the check transfer. This is an
      * optional feature, contact sales to enable.
@@ -185,6 +185,9 @@ private constructor(
      * `inbound_check_deposit`.
      */
     fun type(): Type = type.getRequired("type")
+
+    /** The deposit's identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * If the Inbound Check Deposit was accepted, the
@@ -254,9 +257,6 @@ private constructor(
     /** The ID for the File containing the image of the front of the check. */
     @JsonProperty("front_image_file_id") @ExcludeMissing fun _frontImageFileId() = frontImageFileId
 
-    /** The deposit's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
     /**
      * Whether the details on the check match the recipient name of the check transfer. This is an
      * optional feature, contact sales to enable.
@@ -288,6 +288,7 @@ private constructor(
 
     fun validate(): InboundCheckDeposit = apply {
         if (!validated) {
+            id()
             acceptedAt()
             accountId()
             accountNumberId()
@@ -303,7 +304,6 @@ private constructor(
             declinedTransactionId()
             depositReturn().map { it.validate() }
             frontImageFileId()
-            id()
             payeeNameAnalysis()
             status()
             transactionId()
@@ -321,6 +321,7 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var acceptedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var accountId: JsonField<String> = JsonMissing.of()
         private var accountNumberId: JsonField<String> = JsonMissing.of()
@@ -336,7 +337,6 @@ private constructor(
         private var declinedTransactionId: JsonField<String> = JsonMissing.of()
         private var depositReturn: JsonField<DepositReturn> = JsonMissing.of()
         private var frontImageFileId: JsonField<String> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var payeeNameAnalysis: JsonField<PayeeNameAnalysis> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var transactionId: JsonField<String> = JsonMissing.of()
@@ -345,6 +345,7 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(inboundCheckDeposit: InboundCheckDeposit) = apply {
+            id = inboundCheckDeposit.id
             acceptedAt = inboundCheckDeposit.acceptedAt
             accountId = inboundCheckDeposit.accountId
             accountNumberId = inboundCheckDeposit.accountNumberId
@@ -360,13 +361,18 @@ private constructor(
             declinedTransactionId = inboundCheckDeposit.declinedTransactionId
             depositReturn = inboundCheckDeposit.depositReturn
             frontImageFileId = inboundCheckDeposit.frontImageFileId
-            id = inboundCheckDeposit.id
             payeeNameAnalysis = inboundCheckDeposit.payeeNameAnalysis
             status = inboundCheckDeposit.status
             transactionId = inboundCheckDeposit.transactionId
             type = inboundCheckDeposit.type
             additionalProperties = inboundCheckDeposit.additionalProperties.toMutableMap()
         }
+
+        /** The deposit's identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The deposit's identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * If the Inbound Check Deposit was accepted, the
@@ -531,12 +537,6 @@ private constructor(
             this.frontImageFileId = frontImageFileId
         }
 
-        /** The deposit's identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The deposit's identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
-
         /**
          * Whether the details on the check match the recipient name of the check transfer. This is
          * an optional feature, contact sales to enable.
@@ -605,6 +605,7 @@ private constructor(
 
         fun build(): InboundCheckDeposit =
             InboundCheckDeposit(
+                id,
                 acceptedAt,
                 accountId,
                 accountNumberId,
@@ -620,7 +621,6 @@ private constructor(
                 declinedTransactionId,
                 depositReturn,
                 frontImageFileId,
-                id,
                 payeeNameAnalysis,
                 status,
                 transactionId,
@@ -1342,15 +1342,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InboundCheckDeposit && acceptedAt == other.acceptedAt && accountId == other.accountId && accountNumberId == other.accountNumberId && adjustments == other.adjustments && amount == other.amount && backImageFileId == other.backImageFileId && bankOfFirstDepositRoutingNumber == other.bankOfFirstDepositRoutingNumber && checkNumber == other.checkNumber && checkTransferId == other.checkTransferId && createdAt == other.createdAt && currency == other.currency && declinedAt == other.declinedAt && declinedTransactionId == other.declinedTransactionId && depositReturn == other.depositReturn && frontImageFileId == other.frontImageFileId && id == other.id && payeeNameAnalysis == other.payeeNameAnalysis && status == other.status && transactionId == other.transactionId && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is InboundCheckDeposit && id == other.id && acceptedAt == other.acceptedAt && accountId == other.accountId && accountNumberId == other.accountNumberId && adjustments == other.adjustments && amount == other.amount && backImageFileId == other.backImageFileId && bankOfFirstDepositRoutingNumber == other.bankOfFirstDepositRoutingNumber && checkNumber == other.checkNumber && checkTransferId == other.checkTransferId && createdAt == other.createdAt && currency == other.currency && declinedAt == other.declinedAt && declinedTransactionId == other.declinedTransactionId && depositReturn == other.depositReturn && frontImageFileId == other.frontImageFileId && payeeNameAnalysis == other.payeeNameAnalysis && status == other.status && transactionId == other.transactionId && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(acceptedAt, accountId, accountNumberId, adjustments, amount, backImageFileId, bankOfFirstDepositRoutingNumber, checkNumber, checkTransferId, createdAt, currency, declinedAt, declinedTransactionId, depositReturn, frontImageFileId, id, payeeNameAnalysis, status, transactionId, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, acceptedAt, accountId, accountNumberId, adjustments, amount, backImageFileId, bankOfFirstDepositRoutingNumber, checkNumber, checkTransferId, createdAt, currency, declinedAt, declinedTransactionId, depositReturn, frontImageFileId, payeeNameAnalysis, status, transactionId, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InboundCheckDeposit{acceptedAt=$acceptedAt, accountId=$accountId, accountNumberId=$accountNumberId, adjustments=$adjustments, amount=$amount, backImageFileId=$backImageFileId, bankOfFirstDepositRoutingNumber=$bankOfFirstDepositRoutingNumber, checkNumber=$checkNumber, checkTransferId=$checkTransferId, createdAt=$createdAt, currency=$currency, declinedAt=$declinedAt, declinedTransactionId=$declinedTransactionId, depositReturn=$depositReturn, frontImageFileId=$frontImageFileId, id=$id, payeeNameAnalysis=$payeeNameAnalysis, status=$status, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+        "InboundCheckDeposit{id=$id, acceptedAt=$acceptedAt, accountId=$accountId, accountNumberId=$accountNumberId, adjustments=$adjustments, amount=$amount, backImageFileId=$backImageFileId, bankOfFirstDepositRoutingNumber=$bankOfFirstDepositRoutingNumber, checkNumber=$checkNumber, checkTransferId=$checkTransferId, createdAt=$createdAt, currency=$currency, declinedAt=$declinedAt, declinedTransactionId=$declinedTransactionId, depositReturn=$depositReturn, frontImageFileId=$frontImageFileId, payeeNameAnalysis=$payeeNameAnalysis, status=$status, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 }

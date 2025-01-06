@@ -27,6 +27,7 @@ import java.util.Objects
 class BookkeepingEntry
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("account_id")
     @ExcludeMissing
     private val accountId: JsonField<String> = JsonMissing.of(),
@@ -37,10 +38,12 @@ private constructor(
     @JsonProperty("entry_set_id")
     @ExcludeMissing
     private val entrySetId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
+
+    /** The entry identifier. */
+    fun id(): String = id.getRequired("id")
 
     /** The identifier for the Account the Entry belongs to. */
     fun accountId(): String = accountId.getRequired("account_id")
@@ -56,14 +59,14 @@ private constructor(
     /** The identifier for the Account the Entry belongs to. */
     fun entrySetId(): String = entrySetId.getRequired("entry_set_id")
 
-    /** The entry identifier. */
-    fun id(): String = id.getRequired("id")
-
     /**
      * A constant representing the object's type. For this resource it will always be
      * `bookkeeping_entry`.
      */
     fun type(): Type = type.getRequired("type")
+
+    /** The entry identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /** The identifier for the Account the Entry belongs to. */
     @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
@@ -79,9 +82,6 @@ private constructor(
     /** The identifier for the Account the Entry belongs to. */
     @JsonProperty("entry_set_id") @ExcludeMissing fun _entrySetId() = entrySetId
 
-    /** The entry identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
     /**
      * A constant representing the object's type. For this resource it will always be
      * `bookkeeping_entry`.
@@ -96,11 +96,11 @@ private constructor(
 
     fun validate(): BookkeepingEntry = apply {
         if (!validated) {
+            id()
             accountId()
             amount()
             createdAt()
             entrySetId()
-            id()
             type()
             validated = true
         }
@@ -115,24 +115,30 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var accountId: JsonField<String> = JsonMissing.of()
         private var amount: JsonField<Long> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var entrySetId: JsonField<String> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(bookkeepingEntry: BookkeepingEntry) = apply {
+            id = bookkeepingEntry.id
             accountId = bookkeepingEntry.accountId
             amount = bookkeepingEntry.amount
             createdAt = bookkeepingEntry.createdAt
             entrySetId = bookkeepingEntry.entrySetId
-            id = bookkeepingEntry.id
             type = bookkeepingEntry.type
             additionalProperties = bookkeepingEntry.additionalProperties.toMutableMap()
         }
+
+        /** The entry identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The entry identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The identifier for the Account the Entry belongs to. */
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
@@ -163,12 +169,6 @@ private constructor(
 
         /** The identifier for the Account the Entry belongs to. */
         fun entrySetId(entrySetId: JsonField<String>) = apply { this.entrySetId = entrySetId }
-
-        /** The entry identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The entry identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -203,11 +203,11 @@ private constructor(
 
         fun build(): BookkeepingEntry =
             BookkeepingEntry(
+                id,
                 accountId,
                 amount,
                 createdAt,
                 entrySetId,
-                id,
                 type,
                 additionalProperties.toImmutable(),
             )
@@ -269,15 +269,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is BookkeepingEntry && accountId == other.accountId && amount == other.amount && createdAt == other.createdAt && entrySetId == other.entrySetId && id == other.id && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is BookkeepingEntry && id == other.id && accountId == other.accountId && amount == other.amount && createdAt == other.createdAt && entrySetId == other.entrySetId && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(accountId, amount, createdAt, entrySetId, id, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, accountId, amount, createdAt, entrySetId, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "BookkeepingEntry{accountId=$accountId, amount=$amount, createdAt=$createdAt, entrySetId=$entrySetId, id=$id, type=$type, additionalProperties=$additionalProperties}"
+        "BookkeepingEntry{id=$id, accountId=$accountId, amount=$amount, createdAt=$createdAt, entrySetId=$entrySetId, type=$type, additionalProperties=$additionalProperties}"
 }

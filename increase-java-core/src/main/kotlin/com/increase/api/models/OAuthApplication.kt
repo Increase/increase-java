@@ -28,6 +28,7 @@ import java.util.Optional
 class OAuthApplication
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("client_id")
     @ExcludeMissing
     private val clientId: JsonField<String> = JsonMissing.of(),
@@ -37,7 +38,6 @@ private constructor(
     @JsonProperty("deleted_at")
     @ExcludeMissing
     private val deletedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("name") @ExcludeMissing private val name: JsonField<String> = JsonMissing.of(),
     @JsonProperty("status")
     @ExcludeMissing
@@ -45,6 +45,9 @@ private constructor(
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
+
+    /** The OAuth Application's identifier. */
+    fun id(): String = id.getRequired("id")
 
     /** The OAuth Application's client_id. Use this to authenticate with the OAuth Application. */
     fun clientId(): String = clientId.getRequired("client_id")
@@ -62,9 +65,6 @@ private constructor(
     fun deletedAt(): Optional<OffsetDateTime> =
         Optional.ofNullable(deletedAt.getNullable("deleted_at"))
 
-    /** The OAuth Application's identifier. */
-    fun id(): String = id.getRequired("id")
-
     /** The name you chose for this OAuth Application. */
     fun name(): Optional<String> = Optional.ofNullable(name.getNullable("name"))
 
@@ -76,6 +76,9 @@ private constructor(
      * `oauth_application`.
      */
     fun type(): Type = type.getRequired("type")
+
+    /** The OAuth Application's identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /** The OAuth Application's client_id. Use this to authenticate with the OAuth Application. */
     @JsonProperty("client_id") @ExcludeMissing fun _clientId() = clientId
@@ -91,9 +94,6 @@ private constructor(
      * was deleted.
      */
     @JsonProperty("deleted_at") @ExcludeMissing fun _deletedAt() = deletedAt
-
-    /** The OAuth Application's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /** The name you chose for this OAuth Application. */
     @JsonProperty("name") @ExcludeMissing fun _name() = name
@@ -115,10 +115,10 @@ private constructor(
 
     fun validate(): OAuthApplication = apply {
         if (!validated) {
+            id()
             clientId()
             createdAt()
             deletedAt()
-            id()
             name()
             status()
             type()
@@ -135,10 +135,10 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var clientId: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var deletedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var name: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
@@ -146,15 +146,21 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(oauthApplication: OAuthApplication) = apply {
+            id = oauthApplication.id
             clientId = oauthApplication.clientId
             createdAt = oauthApplication.createdAt
             deletedAt = oauthApplication.deletedAt
-            id = oauthApplication.id
             name = oauthApplication.name
             status = oauthApplication.status
             type = oauthApplication.type
             additionalProperties = oauthApplication.additionalProperties.toMutableMap()
         }
+
+        /** The OAuth Application's identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The OAuth Application's identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The OAuth Application's client_id. Use this to authenticate with the OAuth Application.
@@ -189,12 +195,6 @@ private constructor(
          * Application was deleted.
          */
         fun deletedAt(deletedAt: JsonField<OffsetDateTime>) = apply { this.deletedAt = deletedAt }
-
-        /** The OAuth Application's identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The OAuth Application's identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The name you chose for this OAuth Application. */
         fun name(name: String) = name(JsonField.of(name))
@@ -241,10 +241,10 @@ private constructor(
 
         fun build(): OAuthApplication =
             OAuthApplication(
+                id,
                 clientId,
                 createdAt,
                 deletedAt,
-                id,
                 name,
                 status,
                 type,
@@ -365,15 +365,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is OAuthApplication && clientId == other.clientId && createdAt == other.createdAt && deletedAt == other.deletedAt && id == other.id && name == other.name && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is OAuthApplication && id == other.id && clientId == other.clientId && createdAt == other.createdAt && deletedAt == other.deletedAt && name == other.name && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(clientId, createdAt, deletedAt, id, name, status, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, clientId, createdAt, deletedAt, name, status, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "OAuthApplication{clientId=$clientId, createdAt=$createdAt, deletedAt=$deletedAt, id=$id, name=$name, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "OAuthApplication{id=$id, clientId=$clientId, createdAt=$createdAt, deletedAt=$deletedAt, name=$name, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

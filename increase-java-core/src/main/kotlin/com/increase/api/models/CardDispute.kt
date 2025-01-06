@@ -27,6 +27,7 @@ import java.util.Optional
 class CardDispute
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("acceptance")
     @ExcludeMissing
     private val acceptance: JsonField<Acceptance> = JsonMissing.of(),
@@ -40,7 +41,6 @@ private constructor(
     @JsonProperty("explanation")
     @ExcludeMissing
     private val explanation: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     private val idempotencyKey: JsonField<String> = JsonMissing.of(),
@@ -55,6 +55,9 @@ private constructor(
     @JsonProperty("win") @ExcludeMissing private val win: JsonField<Win> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
+
+    /** The Card Dispute identifier. */
+    fun id(): String = id.getRequired("id")
 
     /**
      * If the Card Dispute's status is `accepted`, this will contain details of the successful
@@ -78,9 +81,6 @@ private constructor(
 
     /** Why you disputed the Transaction in question. */
     fun explanation(): String = explanation.getRequired("explanation")
-
-    /** The Card Dispute identifier. */
-    fun id(): String = id.getRequired("id")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -111,6 +111,9 @@ private constructor(
     /** If the Card Dispute's status is `won`, this will contain details of the won dispute. */
     fun win(): Optional<Win> = Optional.ofNullable(win.getNullable("win"))
 
+    /** The Card Dispute identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
     /**
      * If the Card Dispute's status is `accepted`, this will contain details of the successful
      * dispute.
@@ -133,9 +136,6 @@ private constructor(
 
     /** Why you disputed the Transaction in question. */
     @JsonProperty("explanation") @ExcludeMissing fun _explanation() = explanation
-
-    /** The Card Dispute identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -173,12 +173,12 @@ private constructor(
 
     fun validate(): CardDispute = apply {
         if (!validated) {
+            id()
             acceptance().map { it.validate() }
             amount()
             createdAt()
             disputedTransactionId()
             explanation()
-            id()
             idempotencyKey()
             loss().map { it.validate() }
             rejection().map { it.validate() }
@@ -198,12 +198,12 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var acceptance: JsonField<Acceptance> = JsonMissing.of()
         private var amount: JsonField<Long> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var disputedTransactionId: JsonField<String> = JsonMissing.of()
         private var explanation: JsonField<String> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var loss: JsonField<Loss> = JsonMissing.of()
         private var rejection: JsonField<Rejection> = JsonMissing.of()
@@ -214,12 +214,12 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(cardDispute: CardDispute) = apply {
+            id = cardDispute.id
             acceptance = cardDispute.acceptance
             amount = cardDispute.amount
             createdAt = cardDispute.createdAt
             disputedTransactionId = cardDispute.disputedTransactionId
             explanation = cardDispute.explanation
-            id = cardDispute.id
             idempotencyKey = cardDispute.idempotencyKey
             loss = cardDispute.loss
             rejection = cardDispute.rejection
@@ -228,6 +228,12 @@ private constructor(
             win = cardDispute.win
             additionalProperties = cardDispute.additionalProperties.toMutableMap()
         }
+
+        /** The Card Dispute identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The Card Dispute identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * If the Card Dispute's status is `accepted`, this will contain details of the successful
@@ -273,12 +279,6 @@ private constructor(
 
         /** Why you disputed the Transaction in question. */
         fun explanation(explanation: JsonField<String>) = apply { this.explanation = explanation }
-
-        /** The Card Dispute identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The Card Dispute identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -363,12 +363,12 @@ private constructor(
 
         fun build(): CardDispute =
             CardDispute(
+                id,
                 acceptance,
                 amount,
                 createdAt,
                 disputedTransactionId,
                 explanation,
-                id,
                 idempotencyKey,
                 loss,
                 rejection,
@@ -1162,15 +1162,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is CardDispute && acceptance == other.acceptance && amount == other.amount && createdAt == other.createdAt && disputedTransactionId == other.disputedTransactionId && explanation == other.explanation && id == other.id && idempotencyKey == other.idempotencyKey && loss == other.loss && rejection == other.rejection && status == other.status && type == other.type && win == other.win && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is CardDispute && id == other.id && acceptance == other.acceptance && amount == other.amount && createdAt == other.createdAt && disputedTransactionId == other.disputedTransactionId && explanation == other.explanation && idempotencyKey == other.idempotencyKey && loss == other.loss && rejection == other.rejection && status == other.status && type == other.type && win == other.win && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(acceptance, amount, createdAt, disputedTransactionId, explanation, id, idempotencyKey, loss, rejection, status, type, win, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, acceptance, amount, createdAt, disputedTransactionId, explanation, idempotencyKey, loss, rejection, status, type, win, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CardDispute{acceptance=$acceptance, amount=$amount, createdAt=$createdAt, disputedTransactionId=$disputedTransactionId, explanation=$explanation, id=$id, idempotencyKey=$idempotencyKey, loss=$loss, rejection=$rejection, status=$status, type=$type, win=$win, additionalProperties=$additionalProperties}"
+        "CardDispute{id=$id, acceptance=$acceptance, amount=$amount, createdAt=$createdAt, disputedTransactionId=$disputedTransactionId, explanation=$explanation, idempotencyKey=$idempotencyKey, loss=$loss, rejection=$rejection, status=$status, type=$type, win=$win, additionalProperties=$additionalProperties}"
 }
