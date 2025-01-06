@@ -24,13 +24,13 @@ import java.util.Optional
 class InboundMailItem
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("created_at")
     @ExcludeMissing
     private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonProperty("file_id")
     @ExcludeMissing
     private val fileId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("lockbox_id")
     @ExcludeMissing
     private val lockboxId: JsonField<String> = JsonMissing.of(),
@@ -47,6 +47,9 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
+    /** The Inbound Mail Item identifier. */
+    fun id(): String = id.getRequired("id")
+
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Inbound Mail Item
      * was created.
@@ -55,9 +58,6 @@ private constructor(
 
     /** The identifier for the File containing the scanned contents of the mail item. */
     fun fileId(): String = fileId.getRequired("file_id")
-
-    /** The Inbound Mail Item identifier. */
-    fun id(): String = id.getRequired("id")
 
     /**
      * The identifier for the Lockbox that received this mail item. For mail items that could not be
@@ -82,6 +82,9 @@ private constructor(
      */
     fun type(): Type = type.getRequired("type")
 
+    /** The Inbound Mail Item identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Inbound Mail Item
      * was created.
@@ -90,9 +93,6 @@ private constructor(
 
     /** The identifier for the File containing the scanned contents of the mail item. */
     @JsonProperty("file_id") @ExcludeMissing fun _fileId() = fileId
-
-    /** The Inbound Mail Item identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * The identifier for the Lockbox that received this mail item. For mail items that could not be
@@ -123,9 +123,9 @@ private constructor(
 
     fun validate(): InboundMailItem = apply {
         if (!validated) {
+            id()
             createdAt()
             fileId()
-            id()
             lockboxId()
             recipientName()
             rejectionReason()
@@ -144,9 +144,9 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var fileId: JsonField<String> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var lockboxId: JsonField<String> = JsonMissing.of()
         private var recipientName: JsonField<String> = JsonMissing.of()
         private var rejectionReason: JsonField<RejectionReason> = JsonMissing.of()
@@ -156,9 +156,9 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(inboundMailItem: InboundMailItem) = apply {
+            id = inboundMailItem.id
             createdAt = inboundMailItem.createdAt
             fileId = inboundMailItem.fileId
-            id = inboundMailItem.id
             lockboxId = inboundMailItem.lockboxId
             recipientName = inboundMailItem.recipientName
             rejectionReason = inboundMailItem.rejectionReason
@@ -166,6 +166,12 @@ private constructor(
             type = inboundMailItem.type
             additionalProperties = inboundMailItem.additionalProperties.toMutableMap()
         }
+
+        /** The Inbound Mail Item identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The Inbound Mail Item identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Inbound Mail
@@ -184,12 +190,6 @@ private constructor(
 
         /** The identifier for the File containing the scanned contents of the mail item. */
         fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
-
-        /** The Inbound Mail Item identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The Inbound Mail Item identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The identifier for the Lockbox that received this mail item. For mail items that could
@@ -259,9 +259,9 @@ private constructor(
 
         fun build(): InboundMailItem =
             InboundMailItem(
+                id,
                 createdAt,
                 fileId,
-                id,
                 lockboxId,
                 recipientName,
                 rejectionReason,
@@ -453,15 +453,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InboundMailItem && createdAt == other.createdAt && fileId == other.fileId && id == other.id && lockboxId == other.lockboxId && recipientName == other.recipientName && rejectionReason == other.rejectionReason && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is InboundMailItem && id == other.id && createdAt == other.createdAt && fileId == other.fileId && lockboxId == other.lockboxId && recipientName == other.recipientName && rejectionReason == other.rejectionReason && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(createdAt, fileId, id, lockboxId, recipientName, rejectionReason, status, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, createdAt, fileId, lockboxId, recipientName, rejectionReason, status, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InboundMailItem{createdAt=$createdAt, fileId=$fileId, id=$id, lockboxId=$lockboxId, recipientName=$recipientName, rejectionReason=$rejectionReason, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "InboundMailItem{id=$id, createdAt=$createdAt, fileId=$fileId, lockboxId=$lockboxId, recipientName=$recipientName, rejectionReason=$rejectionReason, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

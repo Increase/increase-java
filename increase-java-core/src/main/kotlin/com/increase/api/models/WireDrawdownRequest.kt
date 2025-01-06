@@ -26,6 +26,7 @@ import java.util.Optional
 class WireDrawdownRequest
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("account_number_id")
     @ExcludeMissing
     private val accountNumberId: JsonField<String> = JsonMissing.of(),
@@ -36,7 +37,6 @@ private constructor(
     @JsonProperty("fulfillment_inbound_wire_transfer_id")
     @ExcludeMissing
     private val fulfillmentInboundWireTransferId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     private val idempotencyKey: JsonField<String> = JsonMissing.of(),
@@ -83,6 +83,9 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
+    /** The Wire drawdown request identifier. */
+    fun id(): String = id.getRequired("id")
+
     /**
      * The Account Number to which the recipient of this request is being requested to send funds.
      */
@@ -105,9 +108,6 @@ private constructor(
         Optional.ofNullable(
             fulfillmentInboundWireTransferId.getNullable("fulfillment_inbound_wire_transfer_id")
         )
-
-    /** The Wire drawdown request identifier. */
-    fun id(): String = id.getRequired("id")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -175,6 +175,9 @@ private constructor(
      */
     fun type(): Type = type.getRequired("type")
 
+    /** The Wire drawdown request identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
     /**
      * The Account Number to which the recipient of this request is being requested to send funds.
      */
@@ -196,9 +199,6 @@ private constructor(
     @JsonProperty("fulfillment_inbound_wire_transfer_id")
     @ExcludeMissing
     fun _fulfillmentInboundWireTransferId() = fulfillmentInboundWireTransferId
-
-    /** The Wire drawdown request identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -280,11 +280,11 @@ private constructor(
 
     fun validate(): WireDrawdownRequest = apply {
         if (!validated) {
+            id()
             accountNumberId()
             amount()
             currency()
             fulfillmentInboundWireTransferId()
-            id()
             idempotencyKey()
             messageToRecipient()
             originatorAddressLine1()
@@ -313,11 +313,11 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var accountNumberId: JsonField<String> = JsonMissing.of()
         private var amount: JsonField<Long> = JsonMissing.of()
         private var currency: JsonField<String> = JsonMissing.of()
         private var fulfillmentInboundWireTransferId: JsonField<String> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var messageToRecipient: JsonField<String> = JsonMissing.of()
         private var originatorAddressLine1: JsonField<String> = JsonMissing.of()
@@ -337,11 +337,11 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(wireDrawdownRequest: WireDrawdownRequest) = apply {
+            id = wireDrawdownRequest.id
             accountNumberId = wireDrawdownRequest.accountNumberId
             amount = wireDrawdownRequest.amount
             currency = wireDrawdownRequest.currency
             fulfillmentInboundWireTransferId = wireDrawdownRequest.fulfillmentInboundWireTransferId
-            id = wireDrawdownRequest.id
             idempotencyKey = wireDrawdownRequest.idempotencyKey
             messageToRecipient = wireDrawdownRequest.messageToRecipient
             originatorAddressLine1 = wireDrawdownRequest.originatorAddressLine1
@@ -359,6 +359,12 @@ private constructor(
             type = wireDrawdownRequest.type
             additionalProperties = wireDrawdownRequest.additionalProperties.toMutableMap()
         }
+
+        /** The Wire drawdown request identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The Wire drawdown request identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The Account Number to which the recipient of this request is being requested to send
@@ -408,12 +414,6 @@ private constructor(
             apply {
                 this.fulfillmentInboundWireTransferId = fulfillmentInboundWireTransferId
             }
-
-        /** The Wire drawdown request identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The Wire drawdown request identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -579,11 +579,11 @@ private constructor(
 
         fun build(): WireDrawdownRequest =
             WireDrawdownRequest(
+                id,
                 accountNumberId,
                 amount,
                 currency,
                 fulfillmentInboundWireTransferId,
-                id,
                 idempotencyKey,
                 messageToRecipient,
                 originatorAddressLine1,
@@ -845,15 +845,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is WireDrawdownRequest && accountNumberId == other.accountNumberId && amount == other.amount && currency == other.currency && fulfillmentInboundWireTransferId == other.fulfillmentInboundWireTransferId && id == other.id && idempotencyKey == other.idempotencyKey && messageToRecipient == other.messageToRecipient && originatorAddressLine1 == other.originatorAddressLine1 && originatorAddressLine2 == other.originatorAddressLine2 && originatorAddressLine3 == other.originatorAddressLine3 && originatorName == other.originatorName && recipientAccountNumber == other.recipientAccountNumber && recipientAddressLine1 == other.recipientAddressLine1 && recipientAddressLine2 == other.recipientAddressLine2 && recipientAddressLine3 == other.recipientAddressLine3 && recipientName == other.recipientName && recipientRoutingNumber == other.recipientRoutingNumber && status == other.status && submission == other.submission && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is WireDrawdownRequest && id == other.id && accountNumberId == other.accountNumberId && amount == other.amount && currency == other.currency && fulfillmentInboundWireTransferId == other.fulfillmentInboundWireTransferId && idempotencyKey == other.idempotencyKey && messageToRecipient == other.messageToRecipient && originatorAddressLine1 == other.originatorAddressLine1 && originatorAddressLine2 == other.originatorAddressLine2 && originatorAddressLine3 == other.originatorAddressLine3 && originatorName == other.originatorName && recipientAccountNumber == other.recipientAccountNumber && recipientAddressLine1 == other.recipientAddressLine1 && recipientAddressLine2 == other.recipientAddressLine2 && recipientAddressLine3 == other.recipientAddressLine3 && recipientName == other.recipientName && recipientRoutingNumber == other.recipientRoutingNumber && status == other.status && submission == other.submission && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(accountNumberId, amount, currency, fulfillmentInboundWireTransferId, id, idempotencyKey, messageToRecipient, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, recipientAccountNumber, recipientAddressLine1, recipientAddressLine2, recipientAddressLine3, recipientName, recipientRoutingNumber, status, submission, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, accountNumberId, amount, currency, fulfillmentInboundWireTransferId, idempotencyKey, messageToRecipient, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, recipientAccountNumber, recipientAddressLine1, recipientAddressLine2, recipientAddressLine3, recipientName, recipientRoutingNumber, status, submission, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "WireDrawdownRequest{accountNumberId=$accountNumberId, amount=$amount, currency=$currency, fulfillmentInboundWireTransferId=$fulfillmentInboundWireTransferId, id=$id, idempotencyKey=$idempotencyKey, messageToRecipient=$messageToRecipient, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, recipientAccountNumber=$recipientAccountNumber, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, recipientName=$recipientName, recipientRoutingNumber=$recipientRoutingNumber, status=$status, submission=$submission, type=$type, additionalProperties=$additionalProperties}"
+        "WireDrawdownRequest{id=$id, accountNumberId=$accountNumberId, amount=$amount, currency=$currency, fulfillmentInboundWireTransferId=$fulfillmentInboundWireTransferId, idempotencyKey=$idempotencyKey, messageToRecipient=$messageToRecipient, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, recipientAccountNumber=$recipientAccountNumber, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, recipientName=$recipientName, recipientRoutingNumber=$recipientRoutingNumber, status=$status, submission=$submission, type=$type, additionalProperties=$additionalProperties}"
 }

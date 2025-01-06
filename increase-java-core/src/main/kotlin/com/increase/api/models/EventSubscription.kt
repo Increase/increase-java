@@ -29,10 +29,10 @@ import java.util.Optional
 class EventSubscription
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("created_at")
     @ExcludeMissing
     private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     private val idempotencyKey: JsonField<String> = JsonMissing.of(),
@@ -50,11 +50,11 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
-    /** The time the event subscription was created. */
-    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
-
     /** The event subscription identifier. */
     fun id(): String = id.getRequired("id")
+
+    /** The time the event subscription was created. */
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -90,11 +90,11 @@ private constructor(
     /** The webhook url where we'll send notifications. */
     fun url(): String = url.getRequired("url")
 
-    /** The time the event subscription was created. */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
-
     /** The event subscription identifier. */
     @JsonProperty("id") @ExcludeMissing fun _id() = id
+
+    /** The time the event subscription was created. */
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -139,8 +139,8 @@ private constructor(
 
     fun validate(): EventSubscription = apply {
         if (!validated) {
-            createdAt()
             id()
+            createdAt()
             idempotencyKey()
             oauthConnectionId()
             selectedEventCategory()
@@ -160,8 +160,8 @@ private constructor(
 
     class Builder {
 
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var id: JsonField<String> = JsonMissing.of()
+        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var oauthConnectionId: JsonField<String> = JsonMissing.of()
         private var selectedEventCategory: JsonField<SelectedEventCategory> = JsonMissing.of()
@@ -172,8 +172,8 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(eventSubscription: EventSubscription) = apply {
-            createdAt = eventSubscription.createdAt
             id = eventSubscription.id
+            createdAt = eventSubscription.createdAt
             idempotencyKey = eventSubscription.idempotencyKey
             oauthConnectionId = eventSubscription.oauthConnectionId
             selectedEventCategory = eventSubscription.selectedEventCategory
@@ -183,17 +183,17 @@ private constructor(
             additionalProperties = eventSubscription.additionalProperties.toMutableMap()
         }
 
-        /** The time the event subscription was created. */
-        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
-
-        /** The time the event subscription was created. */
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
-
         /** The event subscription identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The event subscription identifier. */
         fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /** The time the event subscription was created. */
+        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+        /** The time the event subscription was created. */
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -286,8 +286,8 @@ private constructor(
 
         fun build(): EventSubscription =
             EventSubscription(
-                createdAt,
                 id,
+                createdAt,
                 idempotencyKey,
                 oauthConnectionId,
                 selectedEventCategory,
@@ -1055,15 +1055,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is EventSubscription && createdAt == other.createdAt && id == other.id && idempotencyKey == other.idempotencyKey && oauthConnectionId == other.oauthConnectionId && selectedEventCategory == other.selectedEventCategory && status == other.status && type == other.type && url == other.url && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is EventSubscription && id == other.id && createdAt == other.createdAt && idempotencyKey == other.idempotencyKey && oauthConnectionId == other.oauthConnectionId && selectedEventCategory == other.selectedEventCategory && status == other.status && type == other.type && url == other.url && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(createdAt, id, idempotencyKey, oauthConnectionId, selectedEventCategory, status, type, url, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, createdAt, idempotencyKey, oauthConnectionId, selectedEventCategory, status, type, url, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "EventSubscription{createdAt=$createdAt, id=$id, idempotencyKey=$idempotencyKey, oauthConnectionId=$oauthConnectionId, selectedEventCategory=$selectedEventCategory, status=$status, type=$type, url=$url, additionalProperties=$additionalProperties}"
+        "EventSubscription{id=$id, createdAt=$createdAt, idempotencyKey=$idempotencyKey, oauthConnectionId=$oauthConnectionId, selectedEventCategory=$selectedEventCategory, status=$status, type=$type, url=$url, additionalProperties=$additionalProperties}"
 }

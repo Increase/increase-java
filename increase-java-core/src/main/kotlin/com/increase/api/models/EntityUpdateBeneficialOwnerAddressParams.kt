@@ -350,9 +350,9 @@ constructor(
     private constructor(
         @JsonProperty("city") private val city: String,
         @JsonProperty("line1") private val line1: String,
-        @JsonProperty("line2") private val line2: String?,
         @JsonProperty("state") private val state: String,
         @JsonProperty("zip") private val zip: String,
+        @JsonProperty("line2") private val line2: String?,
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
@@ -363,9 +363,6 @@ constructor(
         /** The first line of the address. This is usually the street number and street. */
         @JsonProperty("line1") fun line1(): String = line1
 
-        /** The second line of the address. This might be the floor or room number. */
-        @JsonProperty("line2") fun line2(): Optional<String> = Optional.ofNullable(line2)
-
         /**
          * The two-letter United States Postal Service (USPS) abbreviation for the state of the
          * address.
@@ -374,6 +371,9 @@ constructor(
 
         /** The ZIP code of the address. */
         @JsonProperty("zip") fun zip(): String = zip
+
+        /** The second line of the address. This might be the floor or room number. */
+        @JsonProperty("line2") fun line2(): Optional<String> = Optional.ofNullable(line2)
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -390,18 +390,18 @@ constructor(
 
             private var city: String? = null
             private var line1: String? = null
-            private var line2: String? = null
             private var state: String? = null
             private var zip: String? = null
+            private var line2: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(address: Address) = apply {
                 city = address.city
                 line1 = address.line1
-                line2 = address.line2
                 state = address.state
                 zip = address.zip
+                line2 = address.line2
                 additionalProperties = address.additionalProperties.toMutableMap()
             }
 
@@ -411,9 +411,6 @@ constructor(
             /** The first line of the address. This is usually the street number and street. */
             fun line1(line1: String) = apply { this.line1 = line1 }
 
-            /** The second line of the address. This might be the floor or room number. */
-            fun line2(line2: String) = apply { this.line2 = line2 }
-
             /**
              * The two-letter United States Postal Service (USPS) abbreviation for the state of the
              * address.
@@ -422,6 +419,9 @@ constructor(
 
             /** The ZIP code of the address. */
             fun zip(zip: String) = apply { this.zip = zip }
+
+            /** The second line of the address. This might be the floor or room number. */
+            fun line2(line2: String) = apply { this.line2 = line2 }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -446,9 +446,9 @@ constructor(
                 Address(
                     checkNotNull(city) { "`city` is required but was not set" },
                     checkNotNull(line1) { "`line1` is required but was not set" },
-                    line2,
                     checkNotNull(state) { "`state` is required but was not set" },
                     checkNotNull(zip) { "`zip` is required but was not set" },
+                    line2,
                     additionalProperties.toImmutable(),
                 )
         }
@@ -458,17 +458,17 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Address && city == other.city && line1 == other.line1 && line2 == other.line2 && state == other.state && zip == other.zip && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Address && city == other.city && line1 == other.line1 && state == other.state && zip == other.zip && line2 == other.line2 && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(city, line1, line2, state, zip, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(city, line1, state, zip, line2, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Address{city=$city, line1=$line1, line2=$line2, state=$state, zip=$zip, additionalProperties=$additionalProperties}"
+            "Address{city=$city, line1=$line1, state=$state, zip=$zip, line2=$line2, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

@@ -27,6 +27,7 @@ import java.util.Optional
 class SimulationInboundFundsHoldReleaseResponse
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
     @JsonProperty("automatically_releases_at")
     @ExcludeMissing
@@ -40,7 +41,6 @@ private constructor(
     @JsonProperty("held_transaction_id")
     @ExcludeMissing
     private val heldTransactionId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("pending_transaction_id")
     @ExcludeMissing
     private val pendingTransactionId: JsonField<String> = JsonMissing.of(),
@@ -53,6 +53,9 @@ private constructor(
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
+
+    /** The Inbound Funds Hold identifier. */
+    fun id(): String = id.getRequired("id")
 
     /**
      * The held amount in the minor unit of the account's currency. For dollars, for example, this
@@ -79,9 +82,6 @@ private constructor(
     fun heldTransactionId(): Optional<String> =
         Optional.ofNullable(heldTransactionId.getNullable("held_transaction_id"))
 
-    /** The Inbound Funds Hold identifier. */
-    fun id(): String = id.getRequired("id")
-
     /** The ID of the Pending Transaction representing the held funds. */
     fun pendingTransactionId(): Optional<String> =
         Optional.ofNullable(pendingTransactionId.getNullable("pending_transaction_id"))
@@ -98,6 +98,9 @@ private constructor(
      * `inbound_funds_hold`.
      */
     fun type(): Type = type.getRequired("type")
+
+    /** The Inbound Funds Hold identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * The held amount in the minor unit of the account's currency. For dollars, for example, this
@@ -126,9 +129,6 @@ private constructor(
     @ExcludeMissing
     fun _heldTransactionId() = heldTransactionId
 
-    /** The Inbound Funds Hold identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
     /** The ID of the Pending Transaction representing the held funds. */
     @JsonProperty("pending_transaction_id")
     @ExcludeMissing
@@ -154,12 +154,12 @@ private constructor(
 
     fun validate(): SimulationInboundFundsHoldReleaseResponse = apply {
         if (!validated) {
+            id()
             amount()
             automaticallyReleasesAt()
             createdAt()
             currency()
             heldTransactionId()
-            id()
             pendingTransactionId()
             releasedAt()
             status()
@@ -177,12 +177,12 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var amount: JsonField<Long> = JsonMissing.of()
         private var automaticallyReleasesAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var currency: JsonField<Currency> = JsonMissing.of()
         private var heldTransactionId: JsonField<String> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var pendingTransactionId: JsonField<String> = JsonMissing.of()
         private var releasedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
@@ -193,13 +193,13 @@ private constructor(
         internal fun from(
             simulationInboundFundsHoldReleaseResponse: SimulationInboundFundsHoldReleaseResponse
         ) = apply {
+            id = simulationInboundFundsHoldReleaseResponse.id
             amount = simulationInboundFundsHoldReleaseResponse.amount
             automaticallyReleasesAt =
                 simulationInboundFundsHoldReleaseResponse.automaticallyReleasesAt
             createdAt = simulationInboundFundsHoldReleaseResponse.createdAt
             currency = simulationInboundFundsHoldReleaseResponse.currency
             heldTransactionId = simulationInboundFundsHoldReleaseResponse.heldTransactionId
-            id = simulationInboundFundsHoldReleaseResponse.id
             pendingTransactionId = simulationInboundFundsHoldReleaseResponse.pendingTransactionId
             releasedAt = simulationInboundFundsHoldReleaseResponse.releasedAt
             status = simulationInboundFundsHoldReleaseResponse.status
@@ -207,6 +207,12 @@ private constructor(
             additionalProperties =
                 simulationInboundFundsHoldReleaseResponse.additionalProperties.toMutableMap()
         }
+
+        /** The Inbound Funds Hold identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The Inbound Funds Hold identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The held amount in the minor unit of the account's currency. For dollars, for example,
@@ -261,12 +267,6 @@ private constructor(
         fun heldTransactionId(heldTransactionId: JsonField<String>) = apply {
             this.heldTransactionId = heldTransactionId
         }
-
-        /** The Inbound Funds Hold identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The Inbound Funds Hold identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The ID of the Pending Transaction representing the held funds. */
         fun pendingTransactionId(pendingTransactionId: String) =
@@ -324,12 +324,12 @@ private constructor(
 
         fun build(): SimulationInboundFundsHoldReleaseResponse =
             SimulationInboundFundsHoldReleaseResponse(
+                id,
                 amount,
                 automaticallyReleasesAt,
                 createdAt,
                 currency,
                 heldTransactionId,
-                id,
                 pendingTransactionId,
                 releasedAt,
                 status,
@@ -532,15 +532,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is SimulationInboundFundsHoldReleaseResponse && amount == other.amount && automaticallyReleasesAt == other.automaticallyReleasesAt && createdAt == other.createdAt && currency == other.currency && heldTransactionId == other.heldTransactionId && id == other.id && pendingTransactionId == other.pendingTransactionId && releasedAt == other.releasedAt && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is SimulationInboundFundsHoldReleaseResponse && id == other.id && amount == other.amount && automaticallyReleasesAt == other.automaticallyReleasesAt && createdAt == other.createdAt && currency == other.currency && heldTransactionId == other.heldTransactionId && pendingTransactionId == other.pendingTransactionId && releasedAt == other.releasedAt && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(amount, automaticallyReleasesAt, createdAt, currency, heldTransactionId, id, pendingTransactionId, releasedAt, status, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, amount, automaticallyReleasesAt, createdAt, currency, heldTransactionId, pendingTransactionId, releasedAt, status, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "SimulationInboundFundsHoldReleaseResponse{amount=$amount, automaticallyReleasesAt=$automaticallyReleasesAt, createdAt=$createdAt, currency=$currency, heldTransactionId=$heldTransactionId, id=$id, pendingTransactionId=$pendingTransactionId, releasedAt=$releasedAt, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "SimulationInboundFundsHoldReleaseResponse{id=$id, amount=$amount, automaticallyReleasesAt=$automaticallyReleasesAt, createdAt=$createdAt, currency=$currency, heldTransactionId=$heldTransactionId, pendingTransactionId=$pendingTransactionId, releasedAt=$releasedAt, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

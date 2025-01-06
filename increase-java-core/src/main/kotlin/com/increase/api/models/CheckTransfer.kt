@@ -24,6 +24,7 @@ import java.util.Optional
 class CheckTransfer
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("account_id")
     @ExcludeMissing
     private val accountId: JsonField<String> = JsonMissing.of(),
@@ -55,7 +56,6 @@ private constructor(
     @JsonProperty("fulfillment_method")
     @ExcludeMissing
     private val fulfillmentMethod: JsonField<FulfillmentMethod> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     private val idempotencyKey: JsonField<String> = JsonMissing.of(),
@@ -89,6 +89,9 @@ private constructor(
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
+
+    /** The Check transfer's identifier. */
+    fun id(): String = id.getRequired("id")
 
     /** The identifier of the Account from which funds will be transferred. */
     fun accountId(): String = accountId.getRequired("account_id")
@@ -138,9 +141,6 @@ private constructor(
 
     /** Whether Increase will print and mail the check or if you will do it yourself. */
     fun fulfillmentMethod(): FulfillmentMethod = fulfillmentMethod.getRequired("fulfillment_method")
-
-    /** The Check transfer's identifier. */
-    fun id(): String = id.getRequired("id")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -202,6 +202,9 @@ private constructor(
      */
     fun type(): Type = type.getRequired("type")
 
+    /** The Check transfer's identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
     /** The identifier of the Account from which funds will be transferred. */
     @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
 
@@ -248,9 +251,6 @@ private constructor(
 
     /** Whether Increase will print and mail the check or if you will do it yourself. */
     @JsonProperty("fulfillment_method") @ExcludeMissing fun _fulfillmentMethod() = fulfillmentMethod
-
-    /** The Check transfer's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -319,6 +319,7 @@ private constructor(
 
     fun validate(): CheckTransfer = apply {
         if (!validated) {
+            id()
             accountId()
             accountNumber()
             amount()
@@ -330,7 +331,6 @@ private constructor(
             createdBy().map { it.validate() }
             currency()
             fulfillmentMethod()
-            id()
             idempotencyKey()
             mailing().map { it.validate() }
             pendingTransactionId()
@@ -355,6 +355,7 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var accountId: JsonField<String> = JsonMissing.of()
         private var accountNumber: JsonField<String> = JsonMissing.of()
         private var amount: JsonField<Long> = JsonMissing.of()
@@ -366,7 +367,6 @@ private constructor(
         private var createdBy: JsonField<CreatedBy> = JsonMissing.of()
         private var currency: JsonField<Currency> = JsonMissing.of()
         private var fulfillmentMethod: JsonField<FulfillmentMethod> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var mailing: JsonField<Mailing> = JsonMissing.of()
         private var pendingTransactionId: JsonField<String> = JsonMissing.of()
@@ -382,6 +382,7 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(checkTransfer: CheckTransfer) = apply {
+            id = checkTransfer.id
             accountId = checkTransfer.accountId
             accountNumber = checkTransfer.accountNumber
             amount = checkTransfer.amount
@@ -393,7 +394,6 @@ private constructor(
             createdBy = checkTransfer.createdBy
             currency = checkTransfer.currency
             fulfillmentMethod = checkTransfer.fulfillmentMethod
-            id = checkTransfer.id
             idempotencyKey = checkTransfer.idempotencyKey
             mailing = checkTransfer.mailing
             pendingTransactionId = checkTransfer.pendingTransactionId
@@ -407,6 +407,12 @@ private constructor(
             type = checkTransfer.type
             additionalProperties = checkTransfer.additionalProperties.toMutableMap()
         }
+
+        /** The Check transfer's identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The Check transfer's identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The identifier of the Account from which funds will be transferred. */
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
@@ -508,12 +514,6 @@ private constructor(
         fun fulfillmentMethod(fulfillmentMethod: JsonField<FulfillmentMethod>) = apply {
             this.fulfillmentMethod = fulfillmentMethod
         }
-
-        /** The Check transfer's identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The Check transfer's identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -663,6 +663,7 @@ private constructor(
 
         fun build(): CheckTransfer =
             CheckTransfer(
+                id,
                 accountId,
                 accountNumber,
                 amount,
@@ -674,7 +675,6 @@ private constructor(
                 createdBy,
                 currency,
                 fulfillmentMethod,
-                id,
                 idempotencyKey,
                 mailing,
                 pendingTransactionId,
@@ -3297,15 +3297,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is CheckTransfer && accountId == other.accountId && accountNumber == other.accountNumber && amount == other.amount && approval == other.approval && approvedInboundCheckDepositId == other.approvedInboundCheckDepositId && cancellation == other.cancellation && checkNumber == other.checkNumber && createdAt == other.createdAt && createdBy == other.createdBy && currency == other.currency && fulfillmentMethod == other.fulfillmentMethod && id == other.id && idempotencyKey == other.idempotencyKey && mailing == other.mailing && pendingTransactionId == other.pendingTransactionId && physicalCheck == other.physicalCheck && routingNumber == other.routingNumber && sourceAccountNumberId == other.sourceAccountNumberId && status == other.status && stopPaymentRequest == other.stopPaymentRequest && submission == other.submission && thirdParty == other.thirdParty && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is CheckTransfer && id == other.id && accountId == other.accountId && accountNumber == other.accountNumber && amount == other.amount && approval == other.approval && approvedInboundCheckDepositId == other.approvedInboundCheckDepositId && cancellation == other.cancellation && checkNumber == other.checkNumber && createdAt == other.createdAt && createdBy == other.createdBy && currency == other.currency && fulfillmentMethod == other.fulfillmentMethod && idempotencyKey == other.idempotencyKey && mailing == other.mailing && pendingTransactionId == other.pendingTransactionId && physicalCheck == other.physicalCheck && routingNumber == other.routingNumber && sourceAccountNumberId == other.sourceAccountNumberId && status == other.status && stopPaymentRequest == other.stopPaymentRequest && submission == other.submission && thirdParty == other.thirdParty && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(accountId, accountNumber, amount, approval, approvedInboundCheckDepositId, cancellation, checkNumber, createdAt, createdBy, currency, fulfillmentMethod, id, idempotencyKey, mailing, pendingTransactionId, physicalCheck, routingNumber, sourceAccountNumberId, status, stopPaymentRequest, submission, thirdParty, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, accountId, accountNumber, amount, approval, approvedInboundCheckDepositId, cancellation, checkNumber, createdAt, createdBy, currency, fulfillmentMethod, idempotencyKey, mailing, pendingTransactionId, physicalCheck, routingNumber, sourceAccountNumberId, status, stopPaymentRequest, submission, thirdParty, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CheckTransfer{accountId=$accountId, accountNumber=$accountNumber, amount=$amount, approval=$approval, approvedInboundCheckDepositId=$approvedInboundCheckDepositId, cancellation=$cancellation, checkNumber=$checkNumber, createdAt=$createdAt, createdBy=$createdBy, currency=$currency, fulfillmentMethod=$fulfillmentMethod, id=$id, idempotencyKey=$idempotencyKey, mailing=$mailing, pendingTransactionId=$pendingTransactionId, physicalCheck=$physicalCheck, routingNumber=$routingNumber, sourceAccountNumberId=$sourceAccountNumberId, status=$status, stopPaymentRequest=$stopPaymentRequest, submission=$submission, thirdParty=$thirdParty, type=$type, additionalProperties=$additionalProperties}"
+        "CheckTransfer{id=$id, accountId=$accountId, accountNumber=$accountNumber, amount=$amount, approval=$approval, approvedInboundCheckDepositId=$approvedInboundCheckDepositId, cancellation=$cancellation, checkNumber=$checkNumber, createdAt=$createdAt, createdBy=$createdBy, currency=$currency, fulfillmentMethod=$fulfillmentMethod, idempotencyKey=$idempotencyKey, mailing=$mailing, pendingTransactionId=$pendingTransactionId, physicalCheck=$physicalCheck, routingNumber=$routingNumber, sourceAccountNumberId=$sourceAccountNumberId, status=$status, stopPaymentRequest=$stopPaymentRequest, submission=$submission, thirdParty=$thirdParty, type=$type, additionalProperties=$additionalProperties}"
 }

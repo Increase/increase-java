@@ -28,6 +28,7 @@ import java.util.Optional
 class DigitalCardProfile
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("app_icon_file_id")
     @ExcludeMissing
     private val appIconFileId: JsonField<String> = JsonMissing.of(),
@@ -52,7 +53,6 @@ private constructor(
     @JsonProperty("description")
     @ExcludeMissing
     private val description: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     private val idempotencyKey: JsonField<String> = JsonMissing.of(),
@@ -68,6 +68,9 @@ private constructor(
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
+
+    /** The Card Profile identifier. */
+    fun id(): String = id.getRequired("id")
 
     /** The identifier of the File containing the card's icon image. */
     fun appIconFileId(): String = appIconFileId.getRequired("app_icon_file_id")
@@ -100,9 +103,6 @@ private constructor(
     /** A description you can use to identify the Card Profile. */
     fun description(): String = description.getRequired("description")
 
-    /** The Card Profile identifier. */
-    fun id(): String = id.getRequired("id")
-
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
@@ -125,6 +125,9 @@ private constructor(
      * `digital_card_profile`.
      */
     fun type(): Type = type.getRequired("type")
+
+    /** The Card Profile identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /** The identifier of the File containing the card's icon image. */
     @JsonProperty("app_icon_file_id") @ExcludeMissing fun _appIconFileId() = appIconFileId
@@ -154,9 +157,6 @@ private constructor(
 
     /** A description you can use to identify the Card Profile. */
     @JsonProperty("description") @ExcludeMissing fun _description() = description
-
-    /** The Card Profile identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -188,6 +188,7 @@ private constructor(
 
     fun validate(): DigitalCardProfile = apply {
         if (!validated) {
+            id()
             appIconFileId()
             backgroundImageFileId()
             cardDescription()
@@ -196,7 +197,6 @@ private constructor(
             contactWebsite()
             createdAt()
             description()
-            id()
             idempotencyKey()
             issuerName()
             status()
@@ -215,6 +215,7 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var appIconFileId: JsonField<String> = JsonMissing.of()
         private var backgroundImageFileId: JsonField<String> = JsonMissing.of()
         private var cardDescription: JsonField<String> = JsonMissing.of()
@@ -223,7 +224,6 @@ private constructor(
         private var contactWebsite: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var description: JsonField<String> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var issuerName: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
@@ -233,6 +233,7 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(digitalCardProfile: DigitalCardProfile) = apply {
+            id = digitalCardProfile.id
             appIconFileId = digitalCardProfile.appIconFileId
             backgroundImageFileId = digitalCardProfile.backgroundImageFileId
             cardDescription = digitalCardProfile.cardDescription
@@ -241,7 +242,6 @@ private constructor(
             contactWebsite = digitalCardProfile.contactWebsite
             createdAt = digitalCardProfile.createdAt
             description = digitalCardProfile.description
-            id = digitalCardProfile.id
             idempotencyKey = digitalCardProfile.idempotencyKey
             issuerName = digitalCardProfile.issuerName
             status = digitalCardProfile.status
@@ -249,6 +249,12 @@ private constructor(
             type = digitalCardProfile.type
             additionalProperties = digitalCardProfile.additionalProperties.toMutableMap()
         }
+
+        /** The Card Profile identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The Card Profile identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The identifier of the File containing the card's icon image. */
         fun appIconFileId(appIconFileId: String) = appIconFileId(JsonField.of(appIconFileId))
@@ -318,12 +324,6 @@ private constructor(
         /** A description you can use to identify the Card Profile. */
         fun description(description: JsonField<String>) = apply { this.description = description }
 
-        /** The Card Profile identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The Card Profile identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
-
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
          * is used to ensure that a request is only processed once. Learn more about
@@ -391,6 +391,7 @@ private constructor(
 
         fun build(): DigitalCardProfile =
             DigitalCardProfile(
+                id,
                 appIconFileId,
                 backgroundImageFileId,
                 cardDescription,
@@ -399,7 +400,6 @@ private constructor(
                 contactWebsite,
                 createdAt,
                 description,
-                id,
                 idempotencyKey,
                 issuerName,
                 status,
@@ -667,15 +667,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is DigitalCardProfile && appIconFileId == other.appIconFileId && backgroundImageFileId == other.backgroundImageFileId && cardDescription == other.cardDescription && contactEmail == other.contactEmail && contactPhone == other.contactPhone && contactWebsite == other.contactWebsite && createdAt == other.createdAt && description == other.description && id == other.id && idempotencyKey == other.idempotencyKey && issuerName == other.issuerName && status == other.status && textColor == other.textColor && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is DigitalCardProfile && id == other.id && appIconFileId == other.appIconFileId && backgroundImageFileId == other.backgroundImageFileId && cardDescription == other.cardDescription && contactEmail == other.contactEmail && contactPhone == other.contactPhone && contactWebsite == other.contactWebsite && createdAt == other.createdAt && description == other.description && idempotencyKey == other.idempotencyKey && issuerName == other.issuerName && status == other.status && textColor == other.textColor && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(appIconFileId, backgroundImageFileId, cardDescription, contactEmail, contactPhone, contactWebsite, createdAt, description, id, idempotencyKey, issuerName, status, textColor, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, appIconFileId, backgroundImageFileId, cardDescription, contactEmail, contactPhone, contactWebsite, createdAt, description, idempotencyKey, issuerName, status, textColor, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "DigitalCardProfile{appIconFileId=$appIconFileId, backgroundImageFileId=$backgroundImageFileId, cardDescription=$cardDescription, contactEmail=$contactEmail, contactPhone=$contactPhone, contactWebsite=$contactWebsite, createdAt=$createdAt, description=$description, id=$id, idempotencyKey=$idempotencyKey, issuerName=$issuerName, status=$status, textColor=$textColor, type=$type, additionalProperties=$additionalProperties}"
+        "DigitalCardProfile{id=$id, appIconFileId=$appIconFileId, backgroundImageFileId=$backgroundImageFileId, cardDescription=$cardDescription, contactEmail=$contactEmail, contactPhone=$contactPhone, contactWebsite=$contactWebsite, createdAt=$createdAt, description=$description, idempotencyKey=$idempotencyKey, issuerName=$issuerName, status=$status, textColor=$textColor, type=$type, additionalProperties=$additionalProperties}"
 }

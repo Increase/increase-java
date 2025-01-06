@@ -502,8 +502,8 @@ constructor(
     private constructor(
         @JsonProperty("mailing_address") private val mailingAddress: MailingAddress,
         @JsonProperty("memo") private val memo: String,
-        @JsonProperty("note") private val note: String?,
         @JsonProperty("recipient_name") private val recipientName: String,
+        @JsonProperty("note") private val note: String?,
         @JsonProperty("return_address") private val returnAddress: ReturnAddress?,
         @JsonProperty("signature_text") private val signatureText: String?,
         @JsonAnySetter
@@ -516,11 +516,11 @@ constructor(
         /** The descriptor that will be printed on the memo field on the check. */
         @JsonProperty("memo") fun memo(): String = memo
 
-        /** The descriptor that will be printed on the letter included with the check. */
-        @JsonProperty("note") fun note(): Optional<String> = Optional.ofNullable(note)
-
         /** The name that will be printed on the check in the 'To:' field. */
         @JsonProperty("recipient_name") fun recipientName(): String = recipientName
+
+        /** The descriptor that will be printed on the letter included with the check. */
+        @JsonProperty("note") fun note(): Optional<String> = Optional.ofNullable(note)
 
         /**
          * The return address to be printed on the check. If omitted this will default to an
@@ -551,8 +551,8 @@ constructor(
 
             private var mailingAddress: MailingAddress? = null
             private var memo: String? = null
-            private var note: String? = null
             private var recipientName: String? = null
+            private var note: String? = null
             private var returnAddress: ReturnAddress? = null
             private var signatureText: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -561,8 +561,8 @@ constructor(
             internal fun from(physicalCheck: PhysicalCheck) = apply {
                 mailingAddress = physicalCheck.mailingAddress
                 memo = physicalCheck.memo
-                note = physicalCheck.note
                 recipientName = physicalCheck.recipientName
+                note = physicalCheck.note
                 returnAddress = physicalCheck.returnAddress
                 signatureText = physicalCheck.signatureText
                 additionalProperties = physicalCheck.additionalProperties.toMutableMap()
@@ -576,11 +576,11 @@ constructor(
             /** The descriptor that will be printed on the memo field on the check. */
             fun memo(memo: String) = apply { this.memo = memo }
 
-            /** The descriptor that will be printed on the letter included with the check. */
-            fun note(note: String) = apply { this.note = note }
-
             /** The name that will be printed on the check in the 'To:' field. */
             fun recipientName(recipientName: String) = apply { this.recipientName = recipientName }
+
+            /** The descriptor that will be printed on the letter included with the check. */
+            fun note(note: String) = apply { this.note = note }
 
             /**
              * The return address to be printed on the check. If omitted this will default to an
@@ -619,8 +619,8 @@ constructor(
                 PhysicalCheck(
                     checkNotNull(mailingAddress) { "`mailingAddress` is required but was not set" },
                     checkNotNull(memo) { "`memo` is required but was not set" },
-                    note,
                     checkNotNull(recipientName) { "`recipientName` is required but was not set" },
+                    note,
                     returnAddress,
                     signatureText,
                     additionalProperties.toImmutable(),
@@ -634,10 +634,10 @@ constructor(
         private constructor(
             @JsonProperty("city") private val city: String,
             @JsonProperty("line1") private val line1: String,
-            @JsonProperty("line2") private val line2: String?,
-            @JsonProperty("name") private val name: String?,
             @JsonProperty("postal_code") private val postalCode: String,
             @JsonProperty("state") private val state: String,
+            @JsonProperty("line2") private val line2: String?,
+            @JsonProperty("name") private val name: String?,
             @JsonAnySetter
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
@@ -648,6 +648,12 @@ constructor(
             /** The first line of the address component of the check's destination address. */
             @JsonProperty("line1") fun line1(): String = line1
 
+            /** The postal code component of the check's destination address. */
+            @JsonProperty("postal_code") fun postalCode(): String = postalCode
+
+            /** The US state component of the check's destination address. */
+            @JsonProperty("state") fun state(): String = state
+
             /** The second line of the address component of the check's destination address. */
             @JsonProperty("line2") fun line2(): Optional<String> = Optional.ofNullable(line2)
 
@@ -656,12 +662,6 @@ constructor(
              * `recipient_name` parameter.
              */
             @JsonProperty("name") fun name(): Optional<String> = Optional.ofNullable(name)
-
-            /** The postal code component of the check's destination address. */
-            @JsonProperty("postal_code") fun postalCode(): String = postalCode
-
-            /** The US state component of the check's destination address. */
-            @JsonProperty("state") fun state(): String = state
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -678,20 +678,20 @@ constructor(
 
                 private var city: String? = null
                 private var line1: String? = null
-                private var line2: String? = null
-                private var name: String? = null
                 private var postalCode: String? = null
                 private var state: String? = null
+                private var line2: String? = null
+                private var name: String? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
                 internal fun from(mailingAddress: MailingAddress) = apply {
                     city = mailingAddress.city
                     line1 = mailingAddress.line1
-                    line2 = mailingAddress.line2
-                    name = mailingAddress.name
                     postalCode = mailingAddress.postalCode
                     state = mailingAddress.state
+                    line2 = mailingAddress.line2
+                    name = mailingAddress.name
                     additionalProperties = mailingAddress.additionalProperties.toMutableMap()
                 }
 
@@ -701,6 +701,12 @@ constructor(
                 /** The first line of the address component of the check's destination address. */
                 fun line1(line1: String) = apply { this.line1 = line1 }
 
+                /** The postal code component of the check's destination address. */
+                fun postalCode(postalCode: String) = apply { this.postalCode = postalCode }
+
+                /** The US state component of the check's destination address. */
+                fun state(state: String) = apply { this.state = state }
+
                 /** The second line of the address component of the check's destination address. */
                 fun line2(line2: String) = apply { this.line2 = line2 }
 
@@ -709,12 +715,6 @@ constructor(
                  * `recipient_name` parameter.
                  */
                 fun name(name: String) = apply { this.name = name }
-
-                /** The postal code component of the check's destination address. */
-                fun postalCode(postalCode: String) = apply { this.postalCode = postalCode }
-
-                /** The US state component of the check's destination address. */
-                fun state(state: String) = apply { this.state = state }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -742,10 +742,10 @@ constructor(
                     MailingAddress(
                         checkNotNull(city) { "`city` is required but was not set" },
                         checkNotNull(line1) { "`line1` is required but was not set" },
-                        line2,
-                        name,
                         checkNotNull(postalCode) { "`postalCode` is required but was not set" },
                         checkNotNull(state) { "`state` is required but was not set" },
+                        line2,
+                        name,
                         additionalProperties.toImmutable(),
                     )
             }
@@ -755,17 +755,17 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is MailingAddress && city == other.city && line1 == other.line1 && line2 == other.line2 && name == other.name && postalCode == other.postalCode && state == other.state && additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is MailingAddress && city == other.city && line1 == other.line1 && postalCode == other.postalCode && state == other.state && line2 == other.line2 && name == other.name && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(city, line1, line2, name, postalCode, state, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(city, line1, postalCode, state, line2, name, additionalProperties) }
             /* spotless:on */
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "MailingAddress{city=$city, line1=$line1, line2=$line2, name=$name, postalCode=$postalCode, state=$state, additionalProperties=$additionalProperties}"
+                "MailingAddress{city=$city, line1=$line1, postalCode=$postalCode, state=$state, line2=$line2, name=$name, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -778,10 +778,10 @@ constructor(
         private constructor(
             @JsonProperty("city") private val city: String,
             @JsonProperty("line1") private val line1: String,
-            @JsonProperty("line2") private val line2: String?,
             @JsonProperty("name") private val name: String,
             @JsonProperty("postal_code") private val postalCode: String,
             @JsonProperty("state") private val state: String,
+            @JsonProperty("line2") private val line2: String?,
             @JsonAnySetter
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
@@ -792,9 +792,6 @@ constructor(
             /** The first line of the return address. */
             @JsonProperty("line1") fun line1(): String = line1
 
-            /** The second line of the return address. */
-            @JsonProperty("line2") fun line2(): Optional<String> = Optional.ofNullable(line2)
-
             /** The name of the return address. */
             @JsonProperty("name") fun name(): String = name
 
@@ -803,6 +800,9 @@ constructor(
 
             /** The US state of the return address. */
             @JsonProperty("state") fun state(): String = state
+
+            /** The second line of the return address. */
+            @JsonProperty("line2") fun line2(): Optional<String> = Optional.ofNullable(line2)
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -819,20 +819,20 @@ constructor(
 
                 private var city: String? = null
                 private var line1: String? = null
-                private var line2: String? = null
                 private var name: String? = null
                 private var postalCode: String? = null
                 private var state: String? = null
+                private var line2: String? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
                 internal fun from(returnAddress: ReturnAddress) = apply {
                     city = returnAddress.city
                     line1 = returnAddress.line1
-                    line2 = returnAddress.line2
                     name = returnAddress.name
                     postalCode = returnAddress.postalCode
                     state = returnAddress.state
+                    line2 = returnAddress.line2
                     additionalProperties = returnAddress.additionalProperties.toMutableMap()
                 }
 
@@ -842,9 +842,6 @@ constructor(
                 /** The first line of the return address. */
                 fun line1(line1: String) = apply { this.line1 = line1 }
 
-                /** The second line of the return address. */
-                fun line2(line2: String) = apply { this.line2 = line2 }
-
                 /** The name of the return address. */
                 fun name(name: String) = apply { this.name = name }
 
@@ -853,6 +850,9 @@ constructor(
 
                 /** The US state of the return address. */
                 fun state(state: String) = apply { this.state = state }
+
+                /** The second line of the return address. */
+                fun line2(line2: String) = apply { this.line2 = line2 }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -880,10 +880,10 @@ constructor(
                     ReturnAddress(
                         checkNotNull(city) { "`city` is required but was not set" },
                         checkNotNull(line1) { "`line1` is required but was not set" },
-                        line2,
                         checkNotNull(name) { "`name` is required but was not set" },
                         checkNotNull(postalCode) { "`postalCode` is required but was not set" },
                         checkNotNull(state) { "`state` is required but was not set" },
+                        line2,
                         additionalProperties.toImmutable(),
                     )
             }
@@ -893,17 +893,17 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is ReturnAddress && city == other.city && line1 == other.line1 && line2 == other.line2 && name == other.name && postalCode == other.postalCode && state == other.state && additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is ReturnAddress && city == other.city && line1 == other.line1 && name == other.name && postalCode == other.postalCode && state == other.state && line2 == other.line2 && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(city, line1, line2, name, postalCode, state, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(city, line1, name, postalCode, state, line2, additionalProperties) }
             /* spotless:on */
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "ReturnAddress{city=$city, line1=$line1, line2=$line2, name=$name, postalCode=$postalCode, state=$state, additionalProperties=$additionalProperties}"
+                "ReturnAddress{city=$city, line1=$line1, name=$name, postalCode=$postalCode, state=$state, line2=$line2, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {
@@ -911,17 +911,17 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is PhysicalCheck && mailingAddress == other.mailingAddress && memo == other.memo && note == other.note && recipientName == other.recipientName && returnAddress == other.returnAddress && signatureText == other.signatureText && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is PhysicalCheck && mailingAddress == other.mailingAddress && memo == other.memo && recipientName == other.recipientName && note == other.note && returnAddress == other.returnAddress && signatureText == other.signatureText && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(mailingAddress, memo, note, recipientName, returnAddress, signatureText, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(mailingAddress, memo, recipientName, note, returnAddress, signatureText, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "PhysicalCheck{mailingAddress=$mailingAddress, memo=$memo, note=$note, recipientName=$recipientName, returnAddress=$returnAddress, signatureText=$signatureText, additionalProperties=$additionalProperties}"
+            "PhysicalCheck{mailingAddress=$mailingAddress, memo=$memo, recipientName=$recipientName, note=$note, returnAddress=$returnAddress, signatureText=$signatureText, additionalProperties=$additionalProperties}"
     }
 
     /**

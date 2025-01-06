@@ -394,9 +394,9 @@ constructor(
     private constructor(
         @JsonProperty("city") private val city: String,
         @JsonProperty("line1") private val line1: String,
-        @JsonProperty("line2") private val line2: String?,
         @JsonProperty("postal_code") private val postalCode: String,
         @JsonProperty("state") private val state: String,
+        @JsonProperty("line2") private val line2: String?,
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
@@ -407,14 +407,14 @@ constructor(
         /** The first line of the billing address. */
         @JsonProperty("line1") fun line1(): String = line1
 
-        /** The second line of the billing address. */
-        @JsonProperty("line2") fun line2(): Optional<String> = Optional.ofNullable(line2)
-
         /** The postal code of the billing address. */
         @JsonProperty("postal_code") fun postalCode(): String = postalCode
 
         /** The US state of the billing address. */
         @JsonProperty("state") fun state(): String = state
+
+        /** The second line of the billing address. */
+        @JsonProperty("line2") fun line2(): Optional<String> = Optional.ofNullable(line2)
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -431,18 +431,18 @@ constructor(
 
             private var city: String? = null
             private var line1: String? = null
-            private var line2: String? = null
             private var postalCode: String? = null
             private var state: String? = null
+            private var line2: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(billingAddress: BillingAddress) = apply {
                 city = billingAddress.city
                 line1 = billingAddress.line1
-                line2 = billingAddress.line2
                 postalCode = billingAddress.postalCode
                 state = billingAddress.state
+                line2 = billingAddress.line2
                 additionalProperties = billingAddress.additionalProperties.toMutableMap()
             }
 
@@ -452,14 +452,14 @@ constructor(
             /** The first line of the billing address. */
             fun line1(line1: String) = apply { this.line1 = line1 }
 
-            /** The second line of the billing address. */
-            fun line2(line2: String) = apply { this.line2 = line2 }
-
             /** The postal code of the billing address. */
             fun postalCode(postalCode: String) = apply { this.postalCode = postalCode }
 
             /** The US state of the billing address. */
             fun state(state: String) = apply { this.state = state }
+
+            /** The second line of the billing address. */
+            fun line2(line2: String) = apply { this.line2 = line2 }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -484,9 +484,9 @@ constructor(
                 BillingAddress(
                     checkNotNull(city) { "`city` is required but was not set" },
                     checkNotNull(line1) { "`line1` is required but was not set" },
-                    line2,
                     checkNotNull(postalCode) { "`postalCode` is required but was not set" },
                     checkNotNull(state) { "`state` is required but was not set" },
+                    line2,
                     additionalProperties.toImmutable(),
                 )
         }
@@ -496,17 +496,17 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is BillingAddress && city == other.city && line1 == other.line1 && line2 == other.line2 && postalCode == other.postalCode && state == other.state && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is BillingAddress && city == other.city && line1 == other.line1 && postalCode == other.postalCode && state == other.state && line2 == other.line2 && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(city, line1, line2, postalCode, state, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(city, line1, postalCode, state, line2, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "BillingAddress{city=$city, line1=$line1, line2=$line2, postalCode=$postalCode, state=$state, additionalProperties=$additionalProperties}"
+            "BillingAddress{city=$city, line1=$line1, postalCode=$postalCode, state=$state, line2=$line2, additionalProperties=$additionalProperties}"
     }
 
     /**

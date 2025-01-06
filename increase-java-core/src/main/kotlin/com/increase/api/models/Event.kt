@@ -27,6 +27,7 @@ import java.util.Objects
 class Event
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("associated_object_id")
     @ExcludeMissing
     private val associatedObjectId: JsonField<String> = JsonMissing.of(),
@@ -39,10 +40,12 @@ private constructor(
     @JsonProperty("created_at")
     @ExcludeMissing
     private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
+
+    /** The Event identifier. */
+    fun id(): String = id.getRequired("id")
 
     /** The identifier of the object that generated this Event. */
     fun associatedObjectId(): String = associatedObjectId.getRequired("associated_object_id")
@@ -59,11 +62,11 @@ private constructor(
     /** The time the Event was created. */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /** The Event identifier. */
-    fun id(): String = id.getRequired("id")
-
     /** A constant representing the object's type. For this resource it will always be `event`. */
     fun type(): Type = type.getRequired("type")
+
+    /** The Event identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /** The identifier of the object that generated this Event. */
     @JsonProperty("associated_object_id")
@@ -84,9 +87,6 @@ private constructor(
     /** The time the Event was created. */
     @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
-    /** The Event identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
     /** A constant representing the object's type. For this resource it will always be `event`. */
     @JsonProperty("type") @ExcludeMissing fun _type() = type
 
@@ -98,11 +98,11 @@ private constructor(
 
     fun validate(): Event = apply {
         if (!validated) {
+            id()
             associatedObjectId()
             associatedObjectType()
             category()
             createdAt()
-            id()
             type()
             validated = true
         }
@@ -117,24 +117,30 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var associatedObjectId: JsonField<String> = JsonMissing.of()
         private var associatedObjectType: JsonField<String> = JsonMissing.of()
         private var category: JsonField<Category> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(event: Event) = apply {
+            id = event.id
             associatedObjectId = event.associatedObjectId
             associatedObjectType = event.associatedObjectType
             category = event.category
             createdAt = event.createdAt
-            id = event.id
             type = event.type
             additionalProperties = event.additionalProperties.toMutableMap()
         }
+
+        /** The Event identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The Event identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The identifier of the object that generated this Event. */
         fun associatedObjectId(associatedObjectId: String) =
@@ -172,12 +178,6 @@ private constructor(
         /** The time the Event was created. */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
-        /** The Event identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The Event identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
-
         /**
          * A constant representing the object's type. For this resource it will always be `event`.
          */
@@ -209,11 +209,11 @@ private constructor(
 
         fun build(): Event =
             Event(
+                id,
                 associatedObjectId,
                 associatedObjectType,
                 category,
                 createdAt,
-                id,
                 type,
                 additionalProperties.toImmutable(),
             )
@@ -907,15 +907,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Event && associatedObjectId == other.associatedObjectId && associatedObjectType == other.associatedObjectType && category == other.category && createdAt == other.createdAt && id == other.id && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is Event && id == other.id && associatedObjectId == other.associatedObjectId && associatedObjectType == other.associatedObjectType && category == other.category && createdAt == other.createdAt && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(associatedObjectId, associatedObjectType, category, createdAt, id, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, associatedObjectId, associatedObjectType, category, createdAt, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Event{associatedObjectId=$associatedObjectId, associatedObjectType=$associatedObjectType, category=$category, createdAt=$createdAt, id=$id, type=$type, additionalProperties=$additionalProperties}"
+        "Event{id=$id, associatedObjectId=$associatedObjectId, associatedObjectType=$associatedObjectType, category=$category, createdAt=$createdAt, type=$type, additionalProperties=$additionalProperties}"
 }

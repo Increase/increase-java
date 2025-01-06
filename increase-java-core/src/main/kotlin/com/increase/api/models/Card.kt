@@ -28,6 +28,7 @@ import java.util.Optional
 class Card
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("account_id")
     @ExcludeMissing
     private val accountId: JsonField<String> = JsonMissing.of(),
@@ -52,7 +53,6 @@ private constructor(
     @JsonProperty("expiration_year")
     @ExcludeMissing
     private val expirationYear: JsonField<Long> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     private val idempotencyKey: JsonField<String> = JsonMissing.of(),
@@ -63,6 +63,9 @@ private constructor(
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
+
+    /** The card identifier. */
+    fun id(): String = id.getRequired("id")
 
     /** The identifier for the account this card belongs to. */
     fun accountId(): String = accountId.getRequired("account_id")
@@ -96,9 +99,6 @@ private constructor(
     /** The year the card expires in YYYY format (e.g., 2025). */
     fun expirationYear(): Long = expirationYear.getRequired("expiration_year")
 
-    /** The card identifier. */
-    fun id(): String = id.getRequired("id")
-
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
@@ -115,6 +115,9 @@ private constructor(
 
     /** A constant representing the object's type. For this resource it will always be `card`. */
     fun type(): Type = type.getRequired("type")
+
+    /** The card identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /** The identifier for the account this card belongs to. */
     @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
@@ -146,9 +149,6 @@ private constructor(
     /** The year the card expires in YYYY format (e.g., 2025). */
     @JsonProperty("expiration_year") @ExcludeMissing fun _expirationYear() = expirationYear
 
-    /** The card identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
@@ -173,6 +173,7 @@ private constructor(
 
     fun validate(): Card = apply {
         if (!validated) {
+            id()
             accountId()
             billingAddress().validate()
             createdAt()
@@ -181,7 +182,6 @@ private constructor(
             entityId()
             expirationMonth()
             expirationYear()
-            id()
             idempotencyKey()
             last4()
             status()
@@ -199,6 +199,7 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var accountId: JsonField<String> = JsonMissing.of()
         private var billingAddress: JsonField<BillingAddress> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
@@ -207,7 +208,6 @@ private constructor(
         private var entityId: JsonField<String> = JsonMissing.of()
         private var expirationMonth: JsonField<Long> = JsonMissing.of()
         private var expirationYear: JsonField<Long> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var last4: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
@@ -216,6 +216,7 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(card: Card) = apply {
+            id = card.id
             accountId = card.accountId
             billingAddress = card.billingAddress
             createdAt = card.createdAt
@@ -224,13 +225,18 @@ private constructor(
             entityId = card.entityId
             expirationMonth = card.expirationMonth
             expirationYear = card.expirationYear
-            id = card.id
             idempotencyKey = card.idempotencyKey
             last4 = card.last4
             status = card.status
             type = card.type
             additionalProperties = card.additionalProperties.toMutableMap()
         }
+
+        /** The card identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The card identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The identifier for the account this card belongs to. */
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
@@ -301,12 +307,6 @@ private constructor(
             this.expirationYear = expirationYear
         }
 
-        /** The card identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The card identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
-
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
          * is used to ensure that a request is only processed once. Learn more about
@@ -366,6 +366,7 @@ private constructor(
 
         fun build(): Card =
             Card(
+                id,
                 accountId,
                 billingAddress,
                 createdAt,
@@ -374,7 +375,6 @@ private constructor(
                 entityId,
                 expirationMonth,
                 expirationYear,
-                id,
                 idempotencyKey,
                 last4,
                 status,
@@ -858,15 +858,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Card && accountId == other.accountId && billingAddress == other.billingAddress && createdAt == other.createdAt && description == other.description && digitalWallet == other.digitalWallet && entityId == other.entityId && expirationMonth == other.expirationMonth && expirationYear == other.expirationYear && id == other.id && idempotencyKey == other.idempotencyKey && last4 == other.last4 && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is Card && id == other.id && accountId == other.accountId && billingAddress == other.billingAddress && createdAt == other.createdAt && description == other.description && digitalWallet == other.digitalWallet && entityId == other.entityId && expirationMonth == other.expirationMonth && expirationYear == other.expirationYear && idempotencyKey == other.idempotencyKey && last4 == other.last4 && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(accountId, billingAddress, createdAt, description, digitalWallet, entityId, expirationMonth, expirationYear, id, idempotencyKey, last4, status, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, accountId, billingAddress, createdAt, description, digitalWallet, entityId, expirationMonth, expirationYear, idempotencyKey, last4, status, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Card{accountId=$accountId, billingAddress=$billingAddress, createdAt=$createdAt, description=$description, digitalWallet=$digitalWallet, entityId=$entityId, expirationMonth=$expirationMonth, expirationYear=$expirationYear, id=$id, idempotencyKey=$idempotencyKey, last4=$last4, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "Card{id=$id, accountId=$accountId, billingAddress=$billingAddress, createdAt=$createdAt, description=$description, digitalWallet=$digitalWallet, entityId=$entityId, expirationMonth=$expirationMonth, expirationYear=$expirationYear, idempotencyKey=$idempotencyKey, last4=$last4, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

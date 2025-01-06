@@ -32,6 +32,7 @@ import java.util.Optional
 class RealTimePaymentsRequestForPayment
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
     @JsonProperty("created_at")
     @ExcludeMissing
@@ -51,7 +52,6 @@ private constructor(
     @JsonProperty("fulfillment_transaction_id")
     @ExcludeMissing
     private val fulfillmentTransactionId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     private val idempotencyKey: JsonField<String> = JsonMissing.of(),
@@ -79,6 +79,9 @@ private constructor(
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
+
+    /** The Real-Time Payments Request for Payment's identifier. */
+    fun id(): String = id.getRequired("id")
 
     /** The transfer amount in USD cents. */
     fun amount(): Long = amount.getRequired("amount")
@@ -111,9 +114,6 @@ private constructor(
     /** The transaction that fulfilled this request. */
     fun fulfillmentTransactionId(): Optional<String> =
         Optional.ofNullable(fulfillmentTransactionId.getNullable("fulfillment_transaction_id"))
-
-    /** The Real-Time Payments Request for Payment's identifier. */
-    fun id(): String = id.getRequired("id")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -161,6 +161,9 @@ private constructor(
      */
     fun type(): Type = type.getRequired("type")
 
+    /** The Real-Time Payments Request for Payment's identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
     /** The transfer amount in USD cents. */
     @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
@@ -194,9 +197,6 @@ private constructor(
     @JsonProperty("fulfillment_transaction_id")
     @ExcludeMissing
     fun _fulfillmentTransactionId() = fulfillmentTransactionId
-
-    /** The Real-Time Payments Request for Payment's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -255,6 +255,7 @@ private constructor(
 
     fun validate(): RealTimePaymentsRequestForPayment = apply {
         if (!validated) {
+            id()
             amount()
             createdAt()
             currency()
@@ -262,7 +263,6 @@ private constructor(
             destinationAccountNumberId()
             expiresAt()
             fulfillmentTransactionId()
-            id()
             idempotencyKey()
             refusal().map { it.validate() }
             rejection().map { it.validate() }
@@ -285,6 +285,7 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var amount: JsonField<Long> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var currency: JsonField<Currency> = JsonMissing.of()
@@ -292,7 +293,6 @@ private constructor(
         private var destinationAccountNumberId: JsonField<String> = JsonMissing.of()
         private var expiresAt: JsonField<LocalDate> = JsonMissing.of()
         private var fulfillmentTransactionId: JsonField<String> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var refusal: JsonField<Refusal> = JsonMissing.of()
         private var rejection: JsonField<Rejection> = JsonMissing.of()
@@ -307,6 +307,7 @@ private constructor(
         @JvmSynthetic
         internal fun from(realTimePaymentsRequestForPayment: RealTimePaymentsRequestForPayment) =
             apply {
+                id = realTimePaymentsRequestForPayment.id
                 amount = realTimePaymentsRequestForPayment.amount
                 createdAt = realTimePaymentsRequestForPayment.createdAt
                 currency = realTimePaymentsRequestForPayment.currency
@@ -316,7 +317,6 @@ private constructor(
                 expiresAt = realTimePaymentsRequestForPayment.expiresAt
                 fulfillmentTransactionId =
                     realTimePaymentsRequestForPayment.fulfillmentTransactionId
-                id = realTimePaymentsRequestForPayment.id
                 idempotencyKey = realTimePaymentsRequestForPayment.idempotencyKey
                 refusal = realTimePaymentsRequestForPayment.refusal
                 rejection = realTimePaymentsRequestForPayment.rejection
@@ -329,6 +329,12 @@ private constructor(
                 additionalProperties =
                     realTimePaymentsRequestForPayment.additionalProperties.toMutableMap()
             }
+
+        /** The Real-Time Payments Request for Payment's identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The Real-Time Payments Request for Payment's identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The transfer amount in USD cents. */
         fun amount(amount: Long) = amount(JsonField.of(amount))
@@ -395,12 +401,6 @@ private constructor(
         fun fulfillmentTransactionId(fulfillmentTransactionId: JsonField<String>) = apply {
             this.fulfillmentTransactionId = fulfillmentTransactionId
         }
-
-        /** The Real-Time Payments Request for Payment's identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The Real-Time Payments Request for Payment's identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -520,6 +520,7 @@ private constructor(
 
         fun build(): RealTimePaymentsRequestForPayment =
             RealTimePaymentsRequestForPayment(
+                id,
                 amount,
                 createdAt,
                 currency,
@@ -527,7 +528,6 @@ private constructor(
                 destinationAccountNumberId,
                 expiresAt,
                 fulfillmentTransactionId,
-                id,
                 idempotencyKey,
                 refusal,
                 rejection,
@@ -1401,15 +1401,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is RealTimePaymentsRequestForPayment && amount == other.amount && createdAt == other.createdAt && currency == other.currency && debtorName == other.debtorName && destinationAccountNumberId == other.destinationAccountNumberId && expiresAt == other.expiresAt && fulfillmentTransactionId == other.fulfillmentTransactionId && id == other.id && idempotencyKey == other.idempotencyKey && refusal == other.refusal && rejection == other.rejection && remittanceInformation == other.remittanceInformation && sourceAccountNumber == other.sourceAccountNumber && sourceRoutingNumber == other.sourceRoutingNumber && status == other.status && submission == other.submission && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is RealTimePaymentsRequestForPayment && id == other.id && amount == other.amount && createdAt == other.createdAt && currency == other.currency && debtorName == other.debtorName && destinationAccountNumberId == other.destinationAccountNumberId && expiresAt == other.expiresAt && fulfillmentTransactionId == other.fulfillmentTransactionId && idempotencyKey == other.idempotencyKey && refusal == other.refusal && rejection == other.rejection && remittanceInformation == other.remittanceInformation && sourceAccountNumber == other.sourceAccountNumber && sourceRoutingNumber == other.sourceRoutingNumber && status == other.status && submission == other.submission && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(amount, createdAt, currency, debtorName, destinationAccountNumberId, expiresAt, fulfillmentTransactionId, id, idempotencyKey, refusal, rejection, remittanceInformation, sourceAccountNumber, sourceRoutingNumber, status, submission, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, amount, createdAt, currency, debtorName, destinationAccountNumberId, expiresAt, fulfillmentTransactionId, idempotencyKey, refusal, rejection, remittanceInformation, sourceAccountNumber, sourceRoutingNumber, status, submission, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "RealTimePaymentsRequestForPayment{amount=$amount, createdAt=$createdAt, currency=$currency, debtorName=$debtorName, destinationAccountNumberId=$destinationAccountNumberId, expiresAt=$expiresAt, fulfillmentTransactionId=$fulfillmentTransactionId, id=$id, idempotencyKey=$idempotencyKey, refusal=$refusal, rejection=$rejection, remittanceInformation=$remittanceInformation, sourceAccountNumber=$sourceAccountNumber, sourceRoutingNumber=$sourceRoutingNumber, status=$status, submission=$submission, type=$type, additionalProperties=$additionalProperties}"
+        "RealTimePaymentsRequestForPayment{id=$id, amount=$amount, createdAt=$createdAt, currency=$currency, debtorName=$debtorName, destinationAccountNumberId=$destinationAccountNumberId, expiresAt=$expiresAt, fulfillmentTransactionId=$fulfillmentTransactionId, idempotencyKey=$idempotencyKey, refusal=$refusal, rejection=$rejection, remittanceInformation=$remittanceInformation, sourceAccountNumber=$sourceAccountNumber, sourceRoutingNumber=$sourceRoutingNumber, status=$status, submission=$submission, type=$type, additionalProperties=$additionalProperties}"
 }
