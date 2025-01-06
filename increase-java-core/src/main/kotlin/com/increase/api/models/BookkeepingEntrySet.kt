@@ -28,6 +28,7 @@ import java.util.Optional
 class BookkeepingEntrySet
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("created_at")
     @ExcludeMissing
     private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -37,7 +38,6 @@ private constructor(
     @JsonProperty("entries")
     @ExcludeMissing
     private val entries: JsonField<List<Entry>> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     private val idempotencyKey: JsonField<String> = JsonMissing.of(),
@@ -48,6 +48,9 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
+    /** The entry set identifier. */
+    fun id(): String = id.getRequired("id")
+
     /** When the entry set was created. */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
@@ -56,9 +59,6 @@ private constructor(
 
     /** The entries. */
     fun entries(): List<Entry> = entries.getRequired("entries")
-
-    /** The entry set identifier. */
-    fun id(): String = id.getRequired("id")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -78,6 +78,9 @@ private constructor(
      */
     fun type(): Type = type.getRequired("type")
 
+    /** The entry set identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
     /** When the entry set was created. */
     @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
@@ -86,9 +89,6 @@ private constructor(
 
     /** The entries. */
     @JsonProperty("entries") @ExcludeMissing fun _entries() = entries
-
-    /** The entry set identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -114,10 +114,10 @@ private constructor(
 
     fun validate(): BookkeepingEntrySet = apply {
         if (!validated) {
+            id()
             createdAt()
             date()
             entries().forEach { it.validate() }
-            id()
             idempotencyKey()
             transactionId()
             type()
@@ -134,10 +134,10 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var date: JsonField<OffsetDateTime> = JsonMissing.of()
         private var entries: JsonField<List<Entry>> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var transactionId: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
@@ -145,15 +145,21 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(bookkeepingEntrySet: BookkeepingEntrySet) = apply {
+            id = bookkeepingEntrySet.id
             createdAt = bookkeepingEntrySet.createdAt
             date = bookkeepingEntrySet.date
             entries = bookkeepingEntrySet.entries
-            id = bookkeepingEntrySet.id
             idempotencyKey = bookkeepingEntrySet.idempotencyKey
             transactionId = bookkeepingEntrySet.transactionId
             type = bookkeepingEntrySet.type
             additionalProperties = bookkeepingEntrySet.additionalProperties.toMutableMap()
         }
+
+        /** The entry set identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The entry set identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** When the entry set was created. */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
@@ -172,12 +178,6 @@ private constructor(
 
         /** The entries. */
         fun entries(entries: JsonField<List<Entry>>) = apply { this.entries = entries }
-
-        /** The entry set identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The entry set identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -236,10 +236,10 @@ private constructor(
 
         fun build(): BookkeepingEntrySet =
             BookkeepingEntrySet(
+                id,
                 createdAt,
                 date,
                 entries.map { it.toImmutable() },
-                id,
                 idempotencyKey,
                 transactionId,
                 type,
@@ -251,16 +251,19 @@ private constructor(
     class Entry
     @JsonCreator
     private constructor(
+        @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
         @JsonProperty("account_id")
         @ExcludeMissing
         private val accountId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("amount")
         @ExcludeMissing
         private val amount: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
+
+        /** The entry identifier. */
+        fun id(): String = id.getRequired("id")
 
         /** The bookkeeping account impacted by the entry. */
         fun accountId(): String = accountId.getRequired("account_id")
@@ -269,16 +272,13 @@ private constructor(
         fun amount(): Long = amount.getRequired("amount")
 
         /** The entry identifier. */
-        fun id(): String = id.getRequired("id")
+        @JsonProperty("id") @ExcludeMissing fun _id() = id
 
         /** The bookkeeping account impacted by the entry. */
         @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
 
         /** The amount of the entry in minor units. */
         @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
-
-        /** The entry identifier. */
-        @JsonProperty("id") @ExcludeMissing fun _id() = id
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -288,9 +288,9 @@ private constructor(
 
         fun validate(): Entry = apply {
             if (!validated) {
+                id()
                 accountId()
                 amount()
-                id()
                 validated = true
             }
         }
@@ -304,18 +304,24 @@ private constructor(
 
         class Builder {
 
+            private var id: JsonField<String> = JsonMissing.of()
             private var accountId: JsonField<String> = JsonMissing.of()
             private var amount: JsonField<Long> = JsonMissing.of()
-            private var id: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(entry: Entry) = apply {
+                id = entry.id
                 accountId = entry.accountId
                 amount = entry.amount
-                id = entry.id
                 additionalProperties = entry.additionalProperties.toMutableMap()
             }
+
+            /** The entry identifier. */
+            fun id(id: String) = id(JsonField.of(id))
+
+            /** The entry identifier. */
+            fun id(id: JsonField<String>) = apply { this.id = id }
 
             /** The bookkeeping account impacted by the entry. */
             fun accountId(accountId: String) = accountId(JsonField.of(accountId))
@@ -328,12 +334,6 @@ private constructor(
 
             /** The amount of the entry in minor units. */
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
-
-            /** The entry identifier. */
-            fun id(id: String) = id(JsonField.of(id))
-
-            /** The entry identifier. */
-            fun id(id: JsonField<String>) = apply { this.id = id }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -356,9 +356,9 @@ private constructor(
 
             fun build(): Entry =
                 Entry(
+                    id,
                     accountId,
                     amount,
-                    id,
                     additionalProperties.toImmutable(),
                 )
         }
@@ -368,17 +368,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Entry && accountId == other.accountId && amount == other.amount && id == other.id && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Entry && id == other.id && accountId == other.accountId && amount == other.amount && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(accountId, amount, id, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(id, accountId, amount, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Entry{accountId=$accountId, amount=$amount, id=$id, additionalProperties=$additionalProperties}"
+            "Entry{id=$id, accountId=$accountId, amount=$amount, additionalProperties=$additionalProperties}"
     }
 
     class Type
@@ -437,15 +437,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is BookkeepingEntrySet && createdAt == other.createdAt && date == other.date && entries == other.entries && id == other.id && idempotencyKey == other.idempotencyKey && transactionId == other.transactionId && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is BookkeepingEntrySet && id == other.id && createdAt == other.createdAt && date == other.date && entries == other.entries && idempotencyKey == other.idempotencyKey && transactionId == other.transactionId && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(createdAt, date, entries, id, idempotencyKey, transactionId, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, createdAt, date, entries, idempotencyKey, transactionId, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "BookkeepingEntrySet{createdAt=$createdAt, date=$date, entries=$entries, id=$id, idempotencyKey=$idempotencyKey, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+        "BookkeepingEntrySet{id=$id, createdAt=$createdAt, date=$date, entries=$entries, idempotencyKey=$idempotencyKey, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 }

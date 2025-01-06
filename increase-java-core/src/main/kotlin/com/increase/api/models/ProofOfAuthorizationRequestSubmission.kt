@@ -29,6 +29,7 @@ import java.util.Optional
 class ProofOfAuthorizationRequestSubmission
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("authorization_terms")
     @ExcludeMissing
     private val authorizationTerms: JsonField<String> = JsonMissing.of(),
@@ -53,7 +54,6 @@ private constructor(
     @JsonProperty("customer_has_been_offboarded")
     @ExcludeMissing
     private val customerHasBeenOffboarded: JsonField<Boolean> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     private val idempotencyKey: JsonField<String> = JsonMissing.of(),
@@ -79,6 +79,9 @@ private constructor(
     private val validatedAccountOwnershipWithMicrodeposit: JsonField<Boolean> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
+
+    /** The Proof of Authorization Request Submission identifier. */
+    fun id(): String = id.getRequired("id")
 
     /** Terms of authorization. */
     fun authorizationTerms(): String = authorizationTerms.getRequired("authorization_terms")
@@ -108,9 +111,6 @@ private constructor(
     /** Whether the customer has been offboarded. */
     fun customerHasBeenOffboarded(): Optional<Boolean> =
         Optional.ofNullable(customerHasBeenOffboarded.getNullable("customer_has_been_offboarded"))
-
-    /** The Proof of Authorization Request Submission identifier. */
-    fun id(): String = id.getRequired("id")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -160,6 +160,9 @@ private constructor(
             )
         )
 
+    /** The Proof of Authorization Request Submission identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
     /** Terms of authorization. */
     @JsonProperty("authorization_terms")
     @ExcludeMissing
@@ -189,9 +192,6 @@ private constructor(
     @JsonProperty("customer_has_been_offboarded")
     @ExcludeMissing
     fun _customerHasBeenOffboarded() = customerHasBeenOffboarded
-
-    /** The Proof of Authorization Request Submission identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -241,6 +241,7 @@ private constructor(
 
     fun validate(): ProofOfAuthorizationRequestSubmission = apply {
         if (!validated) {
+            id()
             authorizationTerms()
             authorizedAt()
             authorizerCompany()
@@ -249,7 +250,6 @@ private constructor(
             authorizerName()
             createdAt()
             customerHasBeenOffboarded()
-            id()
             idempotencyKey()
             proofOfAuthorizationRequestId()
             status()
@@ -271,6 +271,7 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var authorizationTerms: JsonField<String> = JsonMissing.of()
         private var authorizedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var authorizerCompany: JsonField<String> = JsonMissing.of()
@@ -279,7 +280,6 @@ private constructor(
         private var authorizerName: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var customerHasBeenOffboarded: JsonField<Boolean> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var proofOfAuthorizationRequestId: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
@@ -295,6 +295,7 @@ private constructor(
         internal fun from(
             proofOfAuthorizationRequestSubmission: ProofOfAuthorizationRequestSubmission
         ) = apply {
+            id = proofOfAuthorizationRequestSubmission.id
             authorizationTerms = proofOfAuthorizationRequestSubmission.authorizationTerms
             authorizedAt = proofOfAuthorizationRequestSubmission.authorizedAt
             authorizerCompany = proofOfAuthorizationRequestSubmission.authorizerCompany
@@ -304,7 +305,6 @@ private constructor(
             createdAt = proofOfAuthorizationRequestSubmission.createdAt
             customerHasBeenOffboarded =
                 proofOfAuthorizationRequestSubmission.customerHasBeenOffboarded
-            id = proofOfAuthorizationRequestSubmission.id
             idempotencyKey = proofOfAuthorizationRequestSubmission.idempotencyKey
             proofOfAuthorizationRequestId =
                 proofOfAuthorizationRequestSubmission.proofOfAuthorizationRequestId
@@ -320,6 +320,12 @@ private constructor(
             additionalProperties =
                 proofOfAuthorizationRequestSubmission.additionalProperties.toMutableMap()
         }
+
+        /** The Proof of Authorization Request Submission identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The Proof of Authorization Request Submission identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** Terms of authorization. */
         fun authorizationTerms(authorizationTerms: String) =
@@ -387,12 +393,6 @@ private constructor(
         fun customerHasBeenOffboarded(customerHasBeenOffboarded: JsonField<Boolean>) = apply {
             this.customerHasBeenOffboarded = customerHasBeenOffboarded
         }
-
-        /** The Proof of Authorization Request Submission identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The Proof of Authorization Request Submission identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -512,6 +512,7 @@ private constructor(
 
         fun build(): ProofOfAuthorizationRequestSubmission =
             ProofOfAuthorizationRequestSubmission(
+                id,
                 authorizationTerms,
                 authorizedAt,
                 authorizerCompany,
@@ -520,7 +521,6 @@ private constructor(
                 authorizerName,
                 createdAt,
                 customerHasBeenOffboarded,
-                id,
                 idempotencyKey,
                 proofOfAuthorizationRequestId,
                 status,
@@ -668,15 +668,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ProofOfAuthorizationRequestSubmission && authorizationTerms == other.authorizationTerms && authorizedAt == other.authorizedAt && authorizerCompany == other.authorizerCompany && authorizerEmail == other.authorizerEmail && authorizerIpAddress == other.authorizerIpAddress && authorizerName == other.authorizerName && createdAt == other.createdAt && customerHasBeenOffboarded == other.customerHasBeenOffboarded && id == other.id && idempotencyKey == other.idempotencyKey && proofOfAuthorizationRequestId == other.proofOfAuthorizationRequestId && status == other.status && type == other.type && updatedAt == other.updatedAt && validatedAccountOwnershipViaCredential == other.validatedAccountOwnershipViaCredential && validatedAccountOwnershipWithAccountStatement == other.validatedAccountOwnershipWithAccountStatement && validatedAccountOwnershipWithMicrodeposit == other.validatedAccountOwnershipWithMicrodeposit && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is ProofOfAuthorizationRequestSubmission && id == other.id && authorizationTerms == other.authorizationTerms && authorizedAt == other.authorizedAt && authorizerCompany == other.authorizerCompany && authorizerEmail == other.authorizerEmail && authorizerIpAddress == other.authorizerIpAddress && authorizerName == other.authorizerName && createdAt == other.createdAt && customerHasBeenOffboarded == other.customerHasBeenOffboarded && idempotencyKey == other.idempotencyKey && proofOfAuthorizationRequestId == other.proofOfAuthorizationRequestId && status == other.status && type == other.type && updatedAt == other.updatedAt && validatedAccountOwnershipViaCredential == other.validatedAccountOwnershipViaCredential && validatedAccountOwnershipWithAccountStatement == other.validatedAccountOwnershipWithAccountStatement && validatedAccountOwnershipWithMicrodeposit == other.validatedAccountOwnershipWithMicrodeposit && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(authorizationTerms, authorizedAt, authorizerCompany, authorizerEmail, authorizerIpAddress, authorizerName, createdAt, customerHasBeenOffboarded, id, idempotencyKey, proofOfAuthorizationRequestId, status, type, updatedAt, validatedAccountOwnershipViaCredential, validatedAccountOwnershipWithAccountStatement, validatedAccountOwnershipWithMicrodeposit, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, authorizationTerms, authorizedAt, authorizerCompany, authorizerEmail, authorizerIpAddress, authorizerName, createdAt, customerHasBeenOffboarded, idempotencyKey, proofOfAuthorizationRequestId, status, type, updatedAt, validatedAccountOwnershipViaCredential, validatedAccountOwnershipWithAccountStatement, validatedAccountOwnershipWithMicrodeposit, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ProofOfAuthorizationRequestSubmission{authorizationTerms=$authorizationTerms, authorizedAt=$authorizedAt, authorizerCompany=$authorizerCompany, authorizerEmail=$authorizerEmail, authorizerIpAddress=$authorizerIpAddress, authorizerName=$authorizerName, createdAt=$createdAt, customerHasBeenOffboarded=$customerHasBeenOffboarded, id=$id, idempotencyKey=$idempotencyKey, proofOfAuthorizationRequestId=$proofOfAuthorizationRequestId, status=$status, type=$type, updatedAt=$updatedAt, validatedAccountOwnershipViaCredential=$validatedAccountOwnershipViaCredential, validatedAccountOwnershipWithAccountStatement=$validatedAccountOwnershipWithAccountStatement, validatedAccountOwnershipWithMicrodeposit=$validatedAccountOwnershipWithMicrodeposit, additionalProperties=$additionalProperties}"
+        "ProofOfAuthorizationRequestSubmission{id=$id, authorizationTerms=$authorizationTerms, authorizedAt=$authorizedAt, authorizerCompany=$authorizerCompany, authorizerEmail=$authorizerEmail, authorizerIpAddress=$authorizerIpAddress, authorizerName=$authorizerName, createdAt=$createdAt, customerHasBeenOffboarded=$customerHasBeenOffboarded, idempotencyKey=$idempotencyKey, proofOfAuthorizationRequestId=$proofOfAuthorizationRequestId, status=$status, type=$type, updatedAt=$updatedAt, validatedAccountOwnershipViaCredential=$validatedAccountOwnershipViaCredential, validatedAccountOwnershipWithAccountStatement=$validatedAccountOwnershipWithAccountStatement, validatedAccountOwnershipWithMicrodeposit=$validatedAccountOwnershipWithMicrodeposit, additionalProperties=$additionalProperties}"
 }

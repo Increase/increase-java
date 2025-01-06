@@ -28,6 +28,7 @@ import java.util.Optional
 class RealTimeDecision
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("card_authentication")
     @ExcludeMissing
     private val cardAuthentication: JsonField<CardAuthentication> = JsonMissing.of(),
@@ -51,7 +52,6 @@ private constructor(
     @JsonProperty("digital_wallet_token")
     @ExcludeMissing
     private val digitalWalletToken: JsonField<DigitalWalletToken> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("status")
     @ExcludeMissing
     private val status: JsonField<Status> = JsonMissing.of(),
@@ -61,6 +61,9 @@ private constructor(
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
+
+    /** The Real-Time Decision identifier. */
+    fun id(): String = id.getRequired("id")
 
     /** Fields related to a 3DS authentication attempt. */
     fun cardAuthentication(): Optional<CardAuthentication> =
@@ -95,9 +98,6 @@ private constructor(
     fun digitalWalletToken(): Optional<DigitalWalletToken> =
         Optional.ofNullable(digitalWalletToken.getNullable("digital_wallet_token"))
 
-    /** The Real-Time Decision identifier. */
-    fun id(): String = id.getRequired("id")
-
     /** The status of the Real-Time Decision. */
     fun status(): Status = status.getRequired("status")
 
@@ -112,6 +112,9 @@ private constructor(
      * `real_time_decision`.
      */
     fun type(): Type = type.getRequired("type")
+
+    /** The Real-Time Decision identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /** Fields related to a 3DS authentication attempt. */
     @JsonProperty("card_authentication")
@@ -145,9 +148,6 @@ private constructor(
     @ExcludeMissing
     fun _digitalWalletToken() = digitalWalletToken
 
-    /** The Real-Time Decision identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
     /** The status of the Real-Time Decision. */
     @JsonProperty("status") @ExcludeMissing fun _status() = status
 
@@ -171,6 +171,7 @@ private constructor(
 
     fun validate(): RealTimeDecision = apply {
         if (!validated) {
+            id()
             cardAuthentication().map { it.validate() }
             cardAuthenticationChallenge().map { it.validate() }
             cardAuthorization().map { it.validate() }
@@ -178,7 +179,6 @@ private constructor(
             createdAt()
             digitalWalletAuthentication().map { it.validate() }
             digitalWalletToken().map { it.validate() }
-            id()
             status()
             timeoutAt()
             type()
@@ -195,6 +195,7 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var cardAuthentication: JsonField<CardAuthentication> = JsonMissing.of()
         private var cardAuthenticationChallenge: JsonField<CardAuthenticationChallenge> =
             JsonMissing.of()
@@ -204,7 +205,6 @@ private constructor(
         private var digitalWalletAuthentication: JsonField<DigitalWalletAuthentication> =
             JsonMissing.of()
         private var digitalWalletToken: JsonField<DigitalWalletToken> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var timeoutAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
@@ -212,6 +212,7 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(realTimeDecision: RealTimeDecision) = apply {
+            id = realTimeDecision.id
             cardAuthentication = realTimeDecision.cardAuthentication
             cardAuthenticationChallenge = realTimeDecision.cardAuthenticationChallenge
             cardAuthorization = realTimeDecision.cardAuthorization
@@ -219,12 +220,17 @@ private constructor(
             createdAt = realTimeDecision.createdAt
             digitalWalletAuthentication = realTimeDecision.digitalWalletAuthentication
             digitalWalletToken = realTimeDecision.digitalWalletToken
-            id = realTimeDecision.id
             status = realTimeDecision.status
             timeoutAt = realTimeDecision.timeoutAt
             type = realTimeDecision.type
             additionalProperties = realTimeDecision.additionalProperties.toMutableMap()
         }
+
+        /** The Real-Time Decision identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The Real-Time Decision identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** Fields related to a 3DS authentication attempt. */
         fun cardAuthentication(cardAuthentication: CardAuthentication) =
@@ -289,12 +295,6 @@ private constructor(
             this.digitalWalletToken = digitalWalletToken
         }
 
-        /** The Real-Time Decision identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The Real-Time Decision identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
-
         /** The status of the Real-Time Decision. */
         fun status(status: Status) = status(JsonField.of(status))
 
@@ -346,6 +346,7 @@ private constructor(
 
         fun build(): RealTimeDecision =
             RealTimeDecision(
+                id,
                 cardAuthentication,
                 cardAuthenticationChallenge,
                 cardAuthorization,
@@ -353,7 +354,6 @@ private constructor(
                 createdAt,
                 digitalWalletAuthentication,
                 digitalWalletToken,
-                id,
                 status,
                 timeoutAt,
                 type,
@@ -4656,15 +4656,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is RealTimeDecision && cardAuthentication == other.cardAuthentication && cardAuthenticationChallenge == other.cardAuthenticationChallenge && cardAuthorization == other.cardAuthorization && category == other.category && createdAt == other.createdAt && digitalWalletAuthentication == other.digitalWalletAuthentication && digitalWalletToken == other.digitalWalletToken && id == other.id && status == other.status && timeoutAt == other.timeoutAt && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is RealTimeDecision && id == other.id && cardAuthentication == other.cardAuthentication && cardAuthenticationChallenge == other.cardAuthenticationChallenge && cardAuthorization == other.cardAuthorization && category == other.category && createdAt == other.createdAt && digitalWalletAuthentication == other.digitalWalletAuthentication && digitalWalletToken == other.digitalWalletToken && status == other.status && timeoutAt == other.timeoutAt && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(cardAuthentication, cardAuthenticationChallenge, cardAuthorization, category, createdAt, digitalWalletAuthentication, digitalWalletToken, id, status, timeoutAt, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, cardAuthentication, cardAuthenticationChallenge, cardAuthorization, category, createdAt, digitalWalletAuthentication, digitalWalletToken, status, timeoutAt, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "RealTimeDecision{cardAuthentication=$cardAuthentication, cardAuthenticationChallenge=$cardAuthenticationChallenge, cardAuthorization=$cardAuthorization, category=$category, createdAt=$createdAt, digitalWalletAuthentication=$digitalWalletAuthentication, digitalWalletToken=$digitalWalletToken, id=$id, status=$status, timeoutAt=$timeoutAt, type=$type, additionalProperties=$additionalProperties}"
+        "RealTimeDecision{id=$id, cardAuthentication=$cardAuthentication, cardAuthenticationChallenge=$cardAuthenticationChallenge, cardAuthorization=$cardAuthorization, category=$category, createdAt=$createdAt, digitalWalletAuthentication=$digitalWalletAuthentication, digitalWalletToken=$digitalWalletToken, status=$status, timeoutAt=$timeoutAt, type=$type, additionalProperties=$additionalProperties}"
 }

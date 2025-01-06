@@ -509,12 +509,12 @@ constructor(
         private constructor(
             @JsonProperty("city") private val city: String,
             @JsonProperty("line1") private val line1: String,
-            @JsonProperty("line2") private val line2: String?,
-            @JsonProperty("line3") private val line3: String?,
             @JsonProperty("name") private val name: String,
-            @JsonProperty("phone_number") private val phoneNumber: String?,
             @JsonProperty("postal_code") private val postalCode: String,
             @JsonProperty("state") private val state: String,
+            @JsonProperty("line2") private val line2: String?,
+            @JsonProperty("line3") private val line3: String?,
+            @JsonProperty("phone_number") private val phoneNumber: String?,
             @JsonAnySetter
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
@@ -525,24 +525,24 @@ constructor(
             /** The first line of the shipping address. */
             @JsonProperty("line1") fun line1(): String = line1
 
-            /** The second line of the shipping address. */
-            @JsonProperty("line2") fun line2(): Optional<String> = Optional.ofNullable(line2)
-
-            /** The third line of the shipping address. */
-            @JsonProperty("line3") fun line3(): Optional<String> = Optional.ofNullable(line3)
-
             /** The name of the recipient. */
             @JsonProperty("name") fun name(): String = name
-
-            /** The phone number of the recipient. */
-            @JsonProperty("phone_number")
-            fun phoneNumber(): Optional<String> = Optional.ofNullable(phoneNumber)
 
             /** The postal code of the shipping address. */
             @JsonProperty("postal_code") fun postalCode(): String = postalCode
 
             /** The US state of the shipping address. */
             @JsonProperty("state") fun state(): String = state
+
+            /** The second line of the shipping address. */
+            @JsonProperty("line2") fun line2(): Optional<String> = Optional.ofNullable(line2)
+
+            /** The third line of the shipping address. */
+            @JsonProperty("line3") fun line3(): Optional<String> = Optional.ofNullable(line3)
+
+            /** The phone number of the recipient. */
+            @JsonProperty("phone_number")
+            fun phoneNumber(): Optional<String> = Optional.ofNullable(phoneNumber)
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -559,24 +559,24 @@ constructor(
 
                 private var city: String? = null
                 private var line1: String? = null
-                private var line2: String? = null
-                private var line3: String? = null
                 private var name: String? = null
-                private var phoneNumber: String? = null
                 private var postalCode: String? = null
                 private var state: String? = null
+                private var line2: String? = null
+                private var line3: String? = null
+                private var phoneNumber: String? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
                 internal fun from(address: Address) = apply {
                     city = address.city
                     line1 = address.line1
-                    line2 = address.line2
-                    line3 = address.line3
                     name = address.name
-                    phoneNumber = address.phoneNumber
                     postalCode = address.postalCode
                     state = address.state
+                    line2 = address.line2
+                    line3 = address.line3
+                    phoneNumber = address.phoneNumber
                     additionalProperties = address.additionalProperties.toMutableMap()
                 }
 
@@ -586,23 +586,23 @@ constructor(
                 /** The first line of the shipping address. */
                 fun line1(line1: String) = apply { this.line1 = line1 }
 
-                /** The second line of the shipping address. */
-                fun line2(line2: String) = apply { this.line2 = line2 }
-
-                /** The third line of the shipping address. */
-                fun line3(line3: String) = apply { this.line3 = line3 }
-
                 /** The name of the recipient. */
                 fun name(name: String) = apply { this.name = name }
-
-                /** The phone number of the recipient. */
-                fun phoneNumber(phoneNumber: String) = apply { this.phoneNumber = phoneNumber }
 
                 /** The postal code of the shipping address. */
                 fun postalCode(postalCode: String) = apply { this.postalCode = postalCode }
 
                 /** The US state of the shipping address. */
                 fun state(state: String) = apply { this.state = state }
+
+                /** The second line of the shipping address. */
+                fun line2(line2: String) = apply { this.line2 = line2 }
+
+                /** The third line of the shipping address. */
+                fun line3(line3: String) = apply { this.line3 = line3 }
+
+                /** The phone number of the recipient. */
+                fun phoneNumber(phoneNumber: String) = apply { this.phoneNumber = phoneNumber }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -630,12 +630,12 @@ constructor(
                     Address(
                         checkNotNull(city) { "`city` is required but was not set" },
                         checkNotNull(line1) { "`line1` is required but was not set" },
-                        line2,
-                        line3,
                         checkNotNull(name) { "`name` is required but was not set" },
-                        phoneNumber,
                         checkNotNull(postalCode) { "`postalCode` is required but was not set" },
                         checkNotNull(state) { "`state` is required but was not set" },
+                        line2,
+                        line3,
+                        phoneNumber,
                         additionalProperties.toImmutable(),
                     )
             }
@@ -645,17 +645,17 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Address && city == other.city && line1 == other.line1 && line2 == other.line2 && line3 == other.line3 && name == other.name && phoneNumber == other.phoneNumber && postalCode == other.postalCode && state == other.state && additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is Address && city == other.city && line1 == other.line1 && name == other.name && postalCode == other.postalCode && state == other.state && line2 == other.line2 && line3 == other.line3 && phoneNumber == other.phoneNumber && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(city, line1, line2, line3, name, phoneNumber, postalCode, state, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(city, line1, name, postalCode, state, line2, line3, phoneNumber, additionalProperties) }
             /* spotless:on */
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "Address{city=$city, line1=$line1, line2=$line2, line3=$line3, name=$name, phoneNumber=$phoneNumber, postalCode=$postalCode, state=$state, additionalProperties=$additionalProperties}"
+                "Address{city=$city, line1=$line1, name=$name, postalCode=$postalCode, state=$state, line2=$line2, line3=$line3, phoneNumber=$phoneNumber, additionalProperties=$additionalProperties}"
         }
 
         class Method

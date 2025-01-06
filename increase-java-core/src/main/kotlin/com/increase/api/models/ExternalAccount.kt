@@ -27,6 +27,7 @@ import java.util.Optional
 class ExternalAccount
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("account_holder")
     @ExcludeMissing
     private val accountHolder: JsonField<AccountHolder> = JsonMissing.of(),
@@ -42,7 +43,6 @@ private constructor(
     @JsonProperty("funding")
     @ExcludeMissing
     private val funding: JsonField<Funding> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     private val idempotencyKey: JsonField<String> = JsonMissing.of(),
@@ -58,6 +58,9 @@ private constructor(
     private val verificationStatus: JsonField<VerificationStatus> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
+
+    /** The External Account's identifier. */
+    fun id(): String = id.getRequired("id")
 
     /** The type of entity that owns the External Account. */
     fun accountHolder(): AccountHolder = accountHolder.getRequired("account_holder")
@@ -76,9 +79,6 @@ private constructor(
 
     /** The type of the account to which the transfer will be sent. */
     fun funding(): Funding = funding.getRequired("funding")
-
-    /** The External Account's identifier. */
-    fun id(): String = id.getRequired("id")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -104,6 +104,9 @@ private constructor(
     fun verificationStatus(): VerificationStatus =
         verificationStatus.getRequired("verification_status")
 
+    /** The External Account's identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
     /** The type of entity that owns the External Account. */
     @JsonProperty("account_holder") @ExcludeMissing fun _accountHolder() = accountHolder
 
@@ -121,9 +124,6 @@ private constructor(
 
     /** The type of the account to which the transfer will be sent. */
     @JsonProperty("funding") @ExcludeMissing fun _funding() = funding
-
-    /** The External Account's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -157,12 +157,12 @@ private constructor(
 
     fun validate(): ExternalAccount = apply {
         if (!validated) {
+            id()
             accountHolder()
             accountNumber()
             createdAt()
             description()
             funding()
-            id()
             idempotencyKey()
             routingNumber()
             status()
@@ -181,12 +181,12 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var accountHolder: JsonField<AccountHolder> = JsonMissing.of()
         private var accountNumber: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var description: JsonField<String> = JsonMissing.of()
         private var funding: JsonField<Funding> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var routingNumber: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
@@ -196,12 +196,12 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(externalAccount: ExternalAccount) = apply {
+            id = externalAccount.id
             accountHolder = externalAccount.accountHolder
             accountNumber = externalAccount.accountNumber
             createdAt = externalAccount.createdAt
             description = externalAccount.description
             funding = externalAccount.funding
-            id = externalAccount.id
             idempotencyKey = externalAccount.idempotencyKey
             routingNumber = externalAccount.routingNumber
             status = externalAccount.status
@@ -209,6 +209,12 @@ private constructor(
             verificationStatus = externalAccount.verificationStatus
             additionalProperties = externalAccount.additionalProperties.toMutableMap()
         }
+
+        /** The External Account's identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The External Account's identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The type of entity that owns the External Account. */
         fun accountHolder(accountHolder: AccountHolder) = accountHolder(JsonField.of(accountHolder))
@@ -249,12 +255,6 @@ private constructor(
 
         /** The type of the account to which the transfer will be sent. */
         fun funding(funding: JsonField<Funding>) = apply { this.funding = funding }
-
-        /** The External Account's identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The External Account's identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -328,12 +328,12 @@ private constructor(
 
         fun build(): ExternalAccount =
             ExternalAccount(
+                id,
                 accountHolder,
                 accountNumber,
                 createdAt,
                 description,
                 funding,
-                id,
                 idempotencyKey,
                 routingNumber,
                 status,
@@ -645,15 +645,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ExternalAccount && accountHolder == other.accountHolder && accountNumber == other.accountNumber && createdAt == other.createdAt && description == other.description && funding == other.funding && id == other.id && idempotencyKey == other.idempotencyKey && routingNumber == other.routingNumber && status == other.status && type == other.type && verificationStatus == other.verificationStatus && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is ExternalAccount && id == other.id && accountHolder == other.accountHolder && accountNumber == other.accountNumber && createdAt == other.createdAt && description == other.description && funding == other.funding && idempotencyKey == other.idempotencyKey && routingNumber == other.routingNumber && status == other.status && type == other.type && verificationStatus == other.verificationStatus && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(accountHolder, accountNumber, createdAt, description, funding, id, idempotencyKey, routingNumber, status, type, verificationStatus, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, accountHolder, accountNumber, createdAt, description, funding, idempotencyKey, routingNumber, status, type, verificationStatus, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ExternalAccount{accountHolder=$accountHolder, accountNumber=$accountNumber, createdAt=$createdAt, description=$description, funding=$funding, id=$id, idempotencyKey=$idempotencyKey, routingNumber=$routingNumber, status=$status, type=$type, verificationStatus=$verificationStatus, additionalProperties=$additionalProperties}"
+        "ExternalAccount{id=$id, accountHolder=$accountHolder, accountNumber=$accountNumber, createdAt=$createdAt, description=$description, funding=$funding, idempotencyKey=$idempotencyKey, routingNumber=$routingNumber, status=$status, type=$type, verificationStatus=$verificationStatus, additionalProperties=$additionalProperties}"
 }

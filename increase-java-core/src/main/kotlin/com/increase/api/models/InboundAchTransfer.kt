@@ -25,6 +25,7 @@ import java.util.Optional
 class InboundAchTransfer
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("acceptance")
     @ExcludeMissing
     private val acceptance: JsonField<Acceptance> = JsonMissing.of(),
@@ -54,7 +55,6 @@ private constructor(
     @ExcludeMissing
     private val expectedSettlementSchedule: JsonField<ExpectedSettlementSchedule> =
         JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("international_addenda")
     @ExcludeMissing
     private val internationalAddenda: JsonField<InternationalAddenda> = JsonMissing.of(),
@@ -101,6 +101,9 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
+    /** The inbound ACH transfer's identifier. */
+    fun id(): String = id.getRequired("id")
+
     /** If your transfer is accepted, this will contain details of the acceptance. */
     fun acceptance(): Optional<Acceptance> =
         Optional.ofNullable(acceptance.getNullable("acceptance"))
@@ -136,9 +139,6 @@ private constructor(
     /** The settlement schedule the transfer is expected to follow. */
     fun expectedSettlementSchedule(): ExpectedSettlementSchedule =
         expectedSettlementSchedule.getRequired("expected_settlement_schedule")
-
-    /** The inbound ACH transfer's identifier. */
-    fun id(): String = id.getRequired("id")
 
     /**
      * If the Inbound ACH Transfer has a Standard Entry Class Code of IAT, this will contain fields
@@ -211,6 +211,9 @@ private constructor(
      */
     fun type(): Type = type.getRequired("type")
 
+    /** The inbound ACH transfer's identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
     /** If your transfer is accepted, this will contain details of the acceptance. */
     @JsonProperty("acceptance") @ExcludeMissing fun _acceptance() = acceptance
 
@@ -247,9 +250,6 @@ private constructor(
     @JsonProperty("expected_settlement_schedule")
     @ExcludeMissing
     fun _expectedSettlementSchedule() = expectedSettlementSchedule
-
-    /** The inbound ACH transfer's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * If the Inbound ACH Transfer has a Standard Entry Class Code of IAT, this will contain fields
@@ -333,6 +333,7 @@ private constructor(
 
     fun validate(): InboundAchTransfer = apply {
         if (!validated) {
+            id()
             acceptance().map { it.validate() }
             accountId()
             accountNumberId()
@@ -343,7 +344,6 @@ private constructor(
             direction()
             effectiveDate()
             expectedSettlementSchedule()
-            id()
             internationalAddenda().map { it.validate() }
             notificationOfChange().map { it.validate() }
             originatorCompanyDescriptiveDate()
@@ -372,6 +372,7 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var acceptance: JsonField<Acceptance> = JsonMissing.of()
         private var accountId: JsonField<String> = JsonMissing.of()
         private var accountNumberId: JsonField<String> = JsonMissing.of()
@@ -383,7 +384,6 @@ private constructor(
         private var effectiveDate: JsonField<LocalDate> = JsonMissing.of()
         private var expectedSettlementSchedule: JsonField<ExpectedSettlementSchedule> =
             JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var internationalAddenda: JsonField<InternationalAddenda> = JsonMissing.of()
         private var notificationOfChange: JsonField<NotificationOfChange> = JsonMissing.of()
         private var originatorCompanyDescriptiveDate: JsonField<String> = JsonMissing.of()
@@ -403,6 +403,7 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(inboundAchTransfer: InboundAchTransfer) = apply {
+            id = inboundAchTransfer.id
             acceptance = inboundAchTransfer.acceptance
             accountId = inboundAchTransfer.accountId
             accountNumberId = inboundAchTransfer.accountNumberId
@@ -413,7 +414,6 @@ private constructor(
             direction = inboundAchTransfer.direction
             effectiveDate = inboundAchTransfer.effectiveDate
             expectedSettlementSchedule = inboundAchTransfer.expectedSettlementSchedule
-            id = inboundAchTransfer.id
             internationalAddenda = inboundAchTransfer.internationalAddenda
             notificationOfChange = inboundAchTransfer.notificationOfChange
             originatorCompanyDescriptiveDate = inboundAchTransfer.originatorCompanyDescriptiveDate
@@ -432,6 +432,12 @@ private constructor(
             type = inboundAchTransfer.type
             additionalProperties = inboundAchTransfer.additionalProperties.toMutableMap()
         }
+
+        /** The inbound ACH transfer's identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The inbound ACH transfer's identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** If your transfer is accepted, this will contain details of the acceptance. */
         fun acceptance(acceptance: Acceptance) = acceptance(JsonField.of(acceptance))
@@ -509,12 +515,6 @@ private constructor(
         fun expectedSettlementSchedule(
             expectedSettlementSchedule: JsonField<ExpectedSettlementSchedule>
         ) = apply { this.expectedSettlementSchedule = expectedSettlementSchedule }
-
-        /** The inbound ACH transfer's identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The inbound ACH transfer's identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * If the Inbound ACH Transfer has a Standard Entry Class Code of IAT, this will contain
@@ -688,6 +688,7 @@ private constructor(
 
         fun build(): InboundAchTransfer =
             InboundAchTransfer(
+                id,
                 acceptance,
                 accountId,
                 accountNumberId,
@@ -698,7 +699,6 @@ private constructor(
                 direction,
                 effectiveDate,
                 expectedSettlementSchedule,
-                id,
                 internationalAddenda,
                 notificationOfChange,
                 originatorCompanyDescriptiveDate,
@@ -3979,15 +3979,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InboundAchTransfer && acceptance == other.acceptance && accountId == other.accountId && accountNumberId == other.accountNumberId && addenda == other.addenda && amount == other.amount && automaticallyResolvesAt == other.automaticallyResolvesAt && decline == other.decline && direction == other.direction && effectiveDate == other.effectiveDate && expectedSettlementSchedule == other.expectedSettlementSchedule && id == other.id && internationalAddenda == other.internationalAddenda && notificationOfChange == other.notificationOfChange && originatorCompanyDescriptiveDate == other.originatorCompanyDescriptiveDate && originatorCompanyDiscretionaryData == other.originatorCompanyDiscretionaryData && originatorCompanyEntryDescription == other.originatorCompanyEntryDescription && originatorCompanyId == other.originatorCompanyId && originatorCompanyName == other.originatorCompanyName && originatorRoutingNumber == other.originatorRoutingNumber && receiverIdNumber == other.receiverIdNumber && receiverName == other.receiverName && standardEntryClassCode == other.standardEntryClassCode && status == other.status && traceNumber == other.traceNumber && transferReturn == other.transferReturn && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is InboundAchTransfer && id == other.id && acceptance == other.acceptance && accountId == other.accountId && accountNumberId == other.accountNumberId && addenda == other.addenda && amount == other.amount && automaticallyResolvesAt == other.automaticallyResolvesAt && decline == other.decline && direction == other.direction && effectiveDate == other.effectiveDate && expectedSettlementSchedule == other.expectedSettlementSchedule && internationalAddenda == other.internationalAddenda && notificationOfChange == other.notificationOfChange && originatorCompanyDescriptiveDate == other.originatorCompanyDescriptiveDate && originatorCompanyDiscretionaryData == other.originatorCompanyDiscretionaryData && originatorCompanyEntryDescription == other.originatorCompanyEntryDescription && originatorCompanyId == other.originatorCompanyId && originatorCompanyName == other.originatorCompanyName && originatorRoutingNumber == other.originatorRoutingNumber && receiverIdNumber == other.receiverIdNumber && receiverName == other.receiverName && standardEntryClassCode == other.standardEntryClassCode && status == other.status && traceNumber == other.traceNumber && transferReturn == other.transferReturn && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(acceptance, accountId, accountNumberId, addenda, amount, automaticallyResolvesAt, decline, direction, effectiveDate, expectedSettlementSchedule, id, internationalAddenda, notificationOfChange, originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData, originatorCompanyEntryDescription, originatorCompanyId, originatorCompanyName, originatorRoutingNumber, receiverIdNumber, receiverName, standardEntryClassCode, status, traceNumber, transferReturn, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, acceptance, accountId, accountNumberId, addenda, amount, automaticallyResolvesAt, decline, direction, effectiveDate, expectedSettlementSchedule, internationalAddenda, notificationOfChange, originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData, originatorCompanyEntryDescription, originatorCompanyId, originatorCompanyName, originatorRoutingNumber, receiverIdNumber, receiverName, standardEntryClassCode, status, traceNumber, transferReturn, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InboundAchTransfer{acceptance=$acceptance, accountId=$accountId, accountNumberId=$accountNumberId, addenda=$addenda, amount=$amount, automaticallyResolvesAt=$automaticallyResolvesAt, decline=$decline, direction=$direction, effectiveDate=$effectiveDate, expectedSettlementSchedule=$expectedSettlementSchedule, id=$id, internationalAddenda=$internationalAddenda, notificationOfChange=$notificationOfChange, originatorCompanyDescriptiveDate=$originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData=$originatorCompanyDiscretionaryData, originatorCompanyEntryDescription=$originatorCompanyEntryDescription, originatorCompanyId=$originatorCompanyId, originatorCompanyName=$originatorCompanyName, originatorRoutingNumber=$originatorRoutingNumber, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, standardEntryClassCode=$standardEntryClassCode, status=$status, traceNumber=$traceNumber, transferReturn=$transferReturn, type=$type, additionalProperties=$additionalProperties}"
+        "InboundAchTransfer{id=$id, acceptance=$acceptance, accountId=$accountId, accountNumberId=$accountNumberId, addenda=$addenda, amount=$amount, automaticallyResolvesAt=$automaticallyResolvesAt, decline=$decline, direction=$direction, effectiveDate=$effectiveDate, expectedSettlementSchedule=$expectedSettlementSchedule, internationalAddenda=$internationalAddenda, notificationOfChange=$notificationOfChange, originatorCompanyDescriptiveDate=$originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData=$originatorCompanyDiscretionaryData, originatorCompanyEntryDescription=$originatorCompanyEntryDescription, originatorCompanyId=$originatorCompanyId, originatorCompanyName=$originatorCompanyName, originatorRoutingNumber=$originatorRoutingNumber, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, standardEntryClassCode=$standardEntryClassCode, status=$status, traceNumber=$traceNumber, transferReturn=$transferReturn, type=$type, additionalProperties=$additionalProperties}"
 }

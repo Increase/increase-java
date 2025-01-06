@@ -26,6 +26,7 @@ import java.util.Objects
 class AccountStatement
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("account_id")
     @ExcludeMissing
     private val accountId: JsonField<String> = JsonMissing.of(),
@@ -38,7 +39,6 @@ private constructor(
     @JsonProperty("file_id")
     @ExcludeMissing
     private val fileId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("starting_balance")
     @ExcludeMissing
     private val startingBalance: JsonField<Long> = JsonMissing.of(),
@@ -51,6 +51,9 @@ private constructor(
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
+
+    /** The Account Statement identifier. */
+    fun id(): String = id.getRequired("id")
 
     /** The identifier for the Account this Account Statement belongs to. */
     fun accountId(): String = accountId.getRequired("account_id")
@@ -66,9 +69,6 @@ private constructor(
 
     /** The identifier of the File containing a PDF of the statement. */
     fun fileId(): String = fileId.getRequired("file_id")
-
-    /** The Account Statement identifier. */
-    fun id(): String = id.getRequired("id")
 
     /** The Account's balance at the start of its statement period. */
     fun startingBalance(): Long = startingBalance.getRequired("starting_balance")
@@ -93,6 +93,9 @@ private constructor(
      */
     fun type(): Type = type.getRequired("type")
 
+    /** The Account Statement identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
     /** The identifier for the Account this Account Statement belongs to. */
     @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
 
@@ -107,9 +110,6 @@ private constructor(
 
     /** The identifier of the File containing a PDF of the statement. */
     @JsonProperty("file_id") @ExcludeMissing fun _fileId() = fileId
-
-    /** The Account Statement identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /** The Account's balance at the start of its statement period. */
     @JsonProperty("starting_balance") @ExcludeMissing fun _startingBalance() = startingBalance
@@ -144,11 +144,11 @@ private constructor(
 
     fun validate(): AccountStatement = apply {
         if (!validated) {
+            id()
             accountId()
             createdAt()
             endingBalance()
             fileId()
-            id()
             startingBalance()
             statementPeriodEnd()
             statementPeriodStart()
@@ -166,11 +166,11 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var accountId: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var endingBalance: JsonField<Long> = JsonMissing.of()
         private var fileId: JsonField<String> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var startingBalance: JsonField<Long> = JsonMissing.of()
         private var statementPeriodEnd: JsonField<OffsetDateTime> = JsonMissing.of()
         private var statementPeriodStart: JsonField<OffsetDateTime> = JsonMissing.of()
@@ -179,17 +179,23 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(accountStatement: AccountStatement) = apply {
+            id = accountStatement.id
             accountId = accountStatement.accountId
             createdAt = accountStatement.createdAt
             endingBalance = accountStatement.endingBalance
             fileId = accountStatement.fileId
-            id = accountStatement.id
             startingBalance = accountStatement.startingBalance
             statementPeriodEnd = accountStatement.statementPeriodEnd
             statementPeriodStart = accountStatement.statementPeriodStart
             type = accountStatement.type
             additionalProperties = accountStatement.additionalProperties.toMutableMap()
         }
+
+        /** The Account Statement identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The Account Statement identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The identifier for the Account this Account Statement belongs to. */
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
@@ -222,12 +228,6 @@ private constructor(
 
         /** The identifier of the File containing a PDF of the statement. */
         fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
-
-        /** The Account Statement identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The Account Statement identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The Account's balance at the start of its statement period. */
         fun startingBalance(startingBalance: Long) = startingBalance(JsonField.of(startingBalance))
@@ -300,11 +300,11 @@ private constructor(
 
         fun build(): AccountStatement =
             AccountStatement(
+                id,
                 accountId,
                 createdAt,
                 endingBalance,
                 fileId,
-                id,
                 startingBalance,
                 statementPeriodEnd,
                 statementPeriodStart,
@@ -369,15 +369,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is AccountStatement && accountId == other.accountId && createdAt == other.createdAt && endingBalance == other.endingBalance && fileId == other.fileId && id == other.id && startingBalance == other.startingBalance && statementPeriodEnd == other.statementPeriodEnd && statementPeriodStart == other.statementPeriodStart && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is AccountStatement && id == other.id && accountId == other.accountId && createdAt == other.createdAt && endingBalance == other.endingBalance && fileId == other.fileId && startingBalance == other.startingBalance && statementPeriodEnd == other.statementPeriodEnd && statementPeriodStart == other.statementPeriodStart && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(accountId, createdAt, endingBalance, fileId, id, startingBalance, statementPeriodEnd, statementPeriodStart, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, accountId, createdAt, endingBalance, fileId, startingBalance, statementPeriodEnd, statementPeriodStart, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "AccountStatement{accountId=$accountId, createdAt=$createdAt, endingBalance=$endingBalance, fileId=$fileId, id=$id, startingBalance=$startingBalance, statementPeriodEnd=$statementPeriodEnd, statementPeriodStart=$statementPeriodStart, type=$type, additionalProperties=$additionalProperties}"
+        "AccountStatement{id=$id, accountId=$accountId, createdAt=$createdAt, endingBalance=$endingBalance, fileId=$fileId, startingBalance=$startingBalance, statementPeriodEnd=$statementPeriodEnd, statementPeriodStart=$statementPeriodStart, type=$type, additionalProperties=$additionalProperties}"
 }
