@@ -166,37 +166,70 @@ constructor(
             }
 
             /** The identifier of the File containing the card's icon image. */
-            fun appIconFileId(appIconFileId: String) = apply { this.appIconFileId = appIconFileId }
+            fun appIconFileId(appIconFileId: String?) = apply { this.appIconFileId = appIconFileId }
+
+            /** The identifier of the File containing the card's icon image. */
+            fun appIconFileId(appIconFileId: Optional<String>) =
+                appIconFileId(appIconFileId.orElse(null))
 
             /** The identifier of the File containing the card's front image. */
-            fun backgroundImageFileId(backgroundImageFileId: String) = apply {
+            fun backgroundImageFileId(backgroundImageFileId: String?) = apply {
                 this.backgroundImageFileId = backgroundImageFileId
             }
 
+            /** The identifier of the File containing the card's front image. */
+            fun backgroundImageFileId(backgroundImageFileId: Optional<String>) =
+                backgroundImageFileId(backgroundImageFileId.orElse(null))
+
             /** A user-facing description for the card itself. */
-            fun cardDescription(cardDescription: String) = apply {
+            fun cardDescription(cardDescription: String?) = apply {
                 this.cardDescription = cardDescription
             }
 
+            /** A user-facing description for the card itself. */
+            fun cardDescription(cardDescription: Optional<String>) =
+                cardDescription(cardDescription.orElse(null))
+
             /** An email address the user can contact to receive support for their card. */
-            fun contactEmail(contactEmail: String) = apply { this.contactEmail = contactEmail }
+            fun contactEmail(contactEmail: String?) = apply { this.contactEmail = contactEmail }
+
+            /** An email address the user can contact to receive support for their card. */
+            fun contactEmail(contactEmail: Optional<String>) =
+                contactEmail(contactEmail.orElse(null))
 
             /** A phone number the user can contact to receive support for their card. */
-            fun contactPhone(contactPhone: String) = apply { this.contactPhone = contactPhone }
+            fun contactPhone(contactPhone: String?) = apply { this.contactPhone = contactPhone }
+
+            /** A phone number the user can contact to receive support for their card. */
+            fun contactPhone(contactPhone: Optional<String>) =
+                contactPhone(contactPhone.orElse(null))
 
             /** A website the user can visit to view and receive support for their card. */
-            fun contactWebsite(contactWebsite: String) = apply {
+            fun contactWebsite(contactWebsite: String?) = apply {
                 this.contactWebsite = contactWebsite
             }
 
+            /** A website the user can visit to view and receive support for their card. */
+            fun contactWebsite(contactWebsite: Optional<String>) =
+                contactWebsite(contactWebsite.orElse(null))
+
             /** A description you can use to identify the Card Profile. */
-            fun description(description: String) = apply { this.description = description }
+            fun description(description: String?) = apply { this.description = description }
+
+            /** A description you can use to identify the Card Profile. */
+            fun description(description: Optional<String>) = description(description.orElse(null))
 
             /** A user-facing description for whoever is issuing the card. */
-            fun issuerName(issuerName: String) = apply { this.issuerName = issuerName }
+            fun issuerName(issuerName: String?) = apply { this.issuerName = issuerName }
+
+            /** A user-facing description for whoever is issuing the card. */
+            fun issuerName(issuerName: Optional<String>) = issuerName(issuerName.orElse(null))
 
             /** The Card's text color, specified as an RGB triple. The default is white. */
-            fun textColor(textColor: TextColor) = apply { this.textColor = textColor }
+            fun textColor(textColor: TextColor?) = apply { this.textColor = textColor }
+
+            /** The Card's text color, specified as an RGB triple. The default is white. */
+            fun textColor(textColor: Optional<TextColor>) = textColor(textColor.orElse(null))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -280,35 +313,66 @@ constructor(
         }
 
         /** The identifier of the File containing the card's icon image. */
-        fun appIconFileId(appIconFileId: String) = apply { body.appIconFileId(appIconFileId) }
+        fun appIconFileId(appIconFileId: String?) = apply { body.appIconFileId(appIconFileId) }
+
+        /** The identifier of the File containing the card's icon image. */
+        fun appIconFileId(appIconFileId: Optional<String>) =
+            appIconFileId(appIconFileId.orElse(null))
 
         /** The identifier of the File containing the card's front image. */
-        fun backgroundImageFileId(backgroundImageFileId: String) = apply {
+        fun backgroundImageFileId(backgroundImageFileId: String?) = apply {
             body.backgroundImageFileId(backgroundImageFileId)
         }
 
+        /** The identifier of the File containing the card's front image. */
+        fun backgroundImageFileId(backgroundImageFileId: Optional<String>) =
+            backgroundImageFileId(backgroundImageFileId.orElse(null))
+
         /** A user-facing description for the card itself. */
-        fun cardDescription(cardDescription: String) = apply {
+        fun cardDescription(cardDescription: String?) = apply {
             body.cardDescription(cardDescription)
         }
 
+        /** A user-facing description for the card itself. */
+        fun cardDescription(cardDescription: Optional<String>) =
+            cardDescription(cardDescription.orElse(null))
+
         /** An email address the user can contact to receive support for their card. */
-        fun contactEmail(contactEmail: String) = apply { body.contactEmail(contactEmail) }
+        fun contactEmail(contactEmail: String?) = apply { body.contactEmail(contactEmail) }
+
+        /** An email address the user can contact to receive support for their card. */
+        fun contactEmail(contactEmail: Optional<String>) = contactEmail(contactEmail.orElse(null))
 
         /** A phone number the user can contact to receive support for their card. */
-        fun contactPhone(contactPhone: String) = apply { body.contactPhone(contactPhone) }
+        fun contactPhone(contactPhone: String?) = apply { body.contactPhone(contactPhone) }
+
+        /** A phone number the user can contact to receive support for their card. */
+        fun contactPhone(contactPhone: Optional<String>) = contactPhone(contactPhone.orElse(null))
 
         /** A website the user can visit to view and receive support for their card. */
-        fun contactWebsite(contactWebsite: String) = apply { body.contactWebsite(contactWebsite) }
+        fun contactWebsite(contactWebsite: String?) = apply { body.contactWebsite(contactWebsite) }
+
+        /** A website the user can visit to view and receive support for their card. */
+        fun contactWebsite(contactWebsite: Optional<String>) =
+            contactWebsite(contactWebsite.orElse(null))
 
         /** A description you can use to identify the Card Profile. */
-        fun description(description: String) = apply { body.description(description) }
+        fun description(description: String?) = apply { body.description(description) }
+
+        /** A description you can use to identify the Card Profile. */
+        fun description(description: Optional<String>) = description(description.orElse(null))
 
         /** A user-facing description for whoever is issuing the card. */
-        fun issuerName(issuerName: String) = apply { body.issuerName(issuerName) }
+        fun issuerName(issuerName: String?) = apply { body.issuerName(issuerName) }
+
+        /** A user-facing description for whoever is issuing the card. */
+        fun issuerName(issuerName: Optional<String>) = issuerName(issuerName.orElse(null))
 
         /** The Card's text color, specified as an RGB triple. The default is white. */
-        fun textColor(textColor: TextColor) = apply { body.textColor(textColor) }
+        fun textColor(textColor: TextColor?) = apply { body.textColor(textColor) }
+
+        /** The Card's text color, specified as an RGB triple. The default is white. */
+        fun textColor(textColor: Optional<TextColor>) = textColor(textColor.orElse(null))
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

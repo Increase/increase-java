@@ -83,7 +83,10 @@ constructor(
         }
 
         /** Return the page of entries after this one. */
-        fun cursor(cursor: String) = apply { this.cursor = cursor }
+        fun cursor(cursor: String?) = apply { this.cursor = cursor }
+
+        /** Return the page of entries after this one. */
+        fun cursor(cursor: Optional<String>) = cursor(cursor.orElse(null))
 
         /**
          * Filter records to the one with the specified `idempotency_key` you chose for that object.
@@ -91,14 +94,36 @@ constructor(
          * processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: String) = apply { this.idempotencyKey = idempotencyKey }
+        fun idempotencyKey(idempotencyKey: String?) = apply { this.idempotencyKey = idempotencyKey }
+
+        /**
+         * Filter records to the one with the specified `idempotency_key` you chose for that object.
+         * This value is unique across Increase and is used to ensure that a request is only
+         * processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: Optional<String>) =
+            idempotencyKey(idempotencyKey.orElse(null))
 
         /**
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
          */
-        fun limit(limit: Long) = apply { this.limit = limit }
+        fun limit(limit: Long?) = apply { this.limit = limit }
 
-        fun status(status: Status) = apply { this.status = status }
+        /**
+         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
+         */
+        fun limit(limit: Long) = limit(limit as Long?)
+
+        /**
+         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
+         */
+        @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
+        fun limit(limit: Optional<Long>) = limit(limit.orElse(null) as Long?)
+
+        fun status(status: Status?) = apply { this.status = status }
+
+        fun status(status: Optional<Status>) = status(status.orElse(null))
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -253,7 +278,14 @@ constructor(
              * statuses. For GET requests, this should be encoded as a comma-delimited string, such
              * as `?in=one,two,three`.
              */
-            fun in_(in_: List<In>) = apply { this.in_ = in_.toMutableList() }
+            fun in_(in_: List<In>?) = apply { this.in_ = in_?.toMutableList() }
+
+            /**
+             * Filter Digital Card Profiles for those with the specified digital wallet status or
+             * statuses. For GET requests, this should be encoded as a comma-delimited string, such
+             * as `?in=one,two,three`.
+             */
+            fun in_(in_: Optional<List<In>>) = in_(in_.orElse(null))
 
             /**
              * Filter Digital Card Profiles for those with the specified digital wallet status or

@@ -363,43 +363,86 @@ constructor(
             }
 
             /** Line 1 of the drawdown request's beneficiary's address. */
-            fun beneficiaryAddressLine1(beneficiaryAddressLine1: String) = apply {
+            fun beneficiaryAddressLine1(beneficiaryAddressLine1: String?) = apply {
                 this.beneficiaryAddressLine1 = beneficiaryAddressLine1
             }
 
+            /** Line 1 of the drawdown request's beneficiary's address. */
+            fun beneficiaryAddressLine1(beneficiaryAddressLine1: Optional<String>) =
+                beneficiaryAddressLine1(beneficiaryAddressLine1.orElse(null))
+
             /** Line 2 of the drawdown request's beneficiary's address. */
-            fun beneficiaryAddressLine2(beneficiaryAddressLine2: String) = apply {
+            fun beneficiaryAddressLine2(beneficiaryAddressLine2: String?) = apply {
                 this.beneficiaryAddressLine2 = beneficiaryAddressLine2
             }
 
+            /** Line 2 of the drawdown request's beneficiary's address. */
+            fun beneficiaryAddressLine2(beneficiaryAddressLine2: Optional<String>) =
+                beneficiaryAddressLine2(beneficiaryAddressLine2.orElse(null))
+
             /** Line 3 of the drawdown request's beneficiary's address. */
-            fun beneficiaryAddressLine3(beneficiaryAddressLine3: String) = apply {
+            fun beneficiaryAddressLine3(beneficiaryAddressLine3: String?) = apply {
                 this.beneficiaryAddressLine3 = beneficiaryAddressLine3
             }
 
+            /** Line 3 of the drawdown request's beneficiary's address. */
+            fun beneficiaryAddressLine3(beneficiaryAddressLine3: Optional<String>) =
+                beneficiaryAddressLine3(beneficiaryAddressLine3.orElse(null))
+
             /** The drawdown request's beneficiary's name. */
-            fun beneficiaryName(beneficiaryName: String) = apply {
+            fun beneficiaryName(beneficiaryName: String?) = apply {
                 this.beneficiaryName = beneficiaryName
             }
 
+            /** The drawdown request's beneficiary's name. */
+            fun beneficiaryName(beneficiaryName: Optional<String>) =
+                beneficiaryName(beneficiaryName.orElse(null))
+
             /** Line 1 of the drawdown request's originator's address. */
-            fun originatorAddressLine1(originatorAddressLine1: String) = apply {
+            fun originatorAddressLine1(originatorAddressLine1: String?) = apply {
                 this.originatorAddressLine1 = originatorAddressLine1
             }
 
+            /** Line 1 of the drawdown request's originator's address. */
+            fun originatorAddressLine1(originatorAddressLine1: Optional<String>) =
+                originatorAddressLine1(originatorAddressLine1.orElse(null))
+
             /** Line 2 of the drawdown request's originator's address. */
-            fun originatorAddressLine2(originatorAddressLine2: String) = apply {
+            fun originatorAddressLine2(originatorAddressLine2: String?) = apply {
                 this.originatorAddressLine2 = originatorAddressLine2
             }
 
+            /** Line 2 of the drawdown request's originator's address. */
+            fun originatorAddressLine2(originatorAddressLine2: Optional<String>) =
+                originatorAddressLine2(originatorAddressLine2.orElse(null))
+
             /** Line 3 of the drawdown request's originator's address. */
-            fun originatorAddressLine3(originatorAddressLine3: String) = apply {
+            fun originatorAddressLine3(originatorAddressLine3: String?) = apply {
                 this.originatorAddressLine3 = originatorAddressLine3
             }
 
+            /** Line 3 of the drawdown request's originator's address. */
+            fun originatorAddressLine3(originatorAddressLine3: Optional<String>) =
+                originatorAddressLine3(originatorAddressLine3.orElse(null))
+
             /** The drawdown request's originator's name. */
-            fun originatorName(originatorName: String) = apply {
+            fun originatorName(originatorName: String?) = apply {
                 this.originatorName = originatorName
+            }
+
+            /** The drawdown request's originator's name. */
+            fun originatorName(originatorName: Optional<String>) =
+                originatorName(originatorName.orElse(null))
+
+            /**
+             * Line 1 of the information conveyed from the originator of the message to the
+             * beneficiary.
+             */
+            fun originatorToBeneficiaryInformationLine1(
+                originatorToBeneficiaryInformationLine1: String?
+            ) = apply {
+                this.originatorToBeneficiaryInformationLine1 =
+                    originatorToBeneficiaryInformationLine1
             }
 
             /**
@@ -407,10 +450,21 @@ constructor(
              * beneficiary.
              */
             fun originatorToBeneficiaryInformationLine1(
-                originatorToBeneficiaryInformationLine1: String
+                originatorToBeneficiaryInformationLine1: Optional<String>
+            ) =
+                originatorToBeneficiaryInformationLine1(
+                    originatorToBeneficiaryInformationLine1.orElse(null)
+                )
+
+            /**
+             * Line 2 of the information conveyed from the originator of the message to the
+             * beneficiary.
+             */
+            fun originatorToBeneficiaryInformationLine2(
+                originatorToBeneficiaryInformationLine2: String?
             ) = apply {
-                this.originatorToBeneficiaryInformationLine1 =
-                    originatorToBeneficiaryInformationLine1
+                this.originatorToBeneficiaryInformationLine2 =
+                    originatorToBeneficiaryInformationLine2
             }
 
             /**
@@ -418,10 +472,21 @@ constructor(
              * beneficiary.
              */
             fun originatorToBeneficiaryInformationLine2(
-                originatorToBeneficiaryInformationLine2: String
+                originatorToBeneficiaryInformationLine2: Optional<String>
+            ) =
+                originatorToBeneficiaryInformationLine2(
+                    originatorToBeneficiaryInformationLine2.orElse(null)
+                )
+
+            /**
+             * Line 3 of the information conveyed from the originator of the message to the
+             * beneficiary.
+             */
+            fun originatorToBeneficiaryInformationLine3(
+                originatorToBeneficiaryInformationLine3: String?
             ) = apply {
-                this.originatorToBeneficiaryInformationLine2 =
-                    originatorToBeneficiaryInformationLine2
+                this.originatorToBeneficiaryInformationLine3 =
+                    originatorToBeneficiaryInformationLine3
             }
 
             /**
@@ -429,10 +494,21 @@ constructor(
              * beneficiary.
              */
             fun originatorToBeneficiaryInformationLine3(
-                originatorToBeneficiaryInformationLine3: String
+                originatorToBeneficiaryInformationLine3: Optional<String>
+            ) =
+                originatorToBeneficiaryInformationLine3(
+                    originatorToBeneficiaryInformationLine3.orElse(null)
+                )
+
+            /**
+             * Line 4 of the information conveyed from the originator of the message to the
+             * beneficiary.
+             */
+            fun originatorToBeneficiaryInformationLine4(
+                originatorToBeneficiaryInformationLine4: String?
             ) = apply {
-                this.originatorToBeneficiaryInformationLine3 =
-                    originatorToBeneficiaryInformationLine3
+                this.originatorToBeneficiaryInformationLine4 =
+                    originatorToBeneficiaryInformationLine4
             }
 
             /**
@@ -440,11 +516,11 @@ constructor(
              * beneficiary.
              */
             fun originatorToBeneficiaryInformationLine4(
-                originatorToBeneficiaryInformationLine4: String
-            ) = apply {
-                this.originatorToBeneficiaryInformationLine4 =
-                    originatorToBeneficiaryInformationLine4
-            }
+                originatorToBeneficiaryInformationLine4: Optional<String>
+            ) =
+                originatorToBeneficiaryInformationLine4(
+                    originatorToBeneficiaryInformationLine4.orElse(null)
+                )
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -591,78 +667,150 @@ constructor(
         }
 
         /** Line 1 of the drawdown request's beneficiary's address. */
-        fun beneficiaryAddressLine1(beneficiaryAddressLine1: String) = apply {
+        fun beneficiaryAddressLine1(beneficiaryAddressLine1: String?) = apply {
             body.beneficiaryAddressLine1(beneficiaryAddressLine1)
         }
 
+        /** Line 1 of the drawdown request's beneficiary's address. */
+        fun beneficiaryAddressLine1(beneficiaryAddressLine1: Optional<String>) =
+            beneficiaryAddressLine1(beneficiaryAddressLine1.orElse(null))
+
         /** Line 2 of the drawdown request's beneficiary's address. */
-        fun beneficiaryAddressLine2(beneficiaryAddressLine2: String) = apply {
+        fun beneficiaryAddressLine2(beneficiaryAddressLine2: String?) = apply {
             body.beneficiaryAddressLine2(beneficiaryAddressLine2)
         }
 
+        /** Line 2 of the drawdown request's beneficiary's address. */
+        fun beneficiaryAddressLine2(beneficiaryAddressLine2: Optional<String>) =
+            beneficiaryAddressLine2(beneficiaryAddressLine2.orElse(null))
+
         /** Line 3 of the drawdown request's beneficiary's address. */
-        fun beneficiaryAddressLine3(beneficiaryAddressLine3: String) = apply {
+        fun beneficiaryAddressLine3(beneficiaryAddressLine3: String?) = apply {
             body.beneficiaryAddressLine3(beneficiaryAddressLine3)
         }
 
+        /** Line 3 of the drawdown request's beneficiary's address. */
+        fun beneficiaryAddressLine3(beneficiaryAddressLine3: Optional<String>) =
+            beneficiaryAddressLine3(beneficiaryAddressLine3.orElse(null))
+
         /** The drawdown request's beneficiary's name. */
-        fun beneficiaryName(beneficiaryName: String) = apply {
+        fun beneficiaryName(beneficiaryName: String?) = apply {
             body.beneficiaryName(beneficiaryName)
         }
 
+        /** The drawdown request's beneficiary's name. */
+        fun beneficiaryName(beneficiaryName: Optional<String>) =
+            beneficiaryName(beneficiaryName.orElse(null))
+
         /** Line 1 of the drawdown request's originator's address. */
-        fun originatorAddressLine1(originatorAddressLine1: String) = apply {
+        fun originatorAddressLine1(originatorAddressLine1: String?) = apply {
             body.originatorAddressLine1(originatorAddressLine1)
         }
 
+        /** Line 1 of the drawdown request's originator's address. */
+        fun originatorAddressLine1(originatorAddressLine1: Optional<String>) =
+            originatorAddressLine1(originatorAddressLine1.orElse(null))
+
         /** Line 2 of the drawdown request's originator's address. */
-        fun originatorAddressLine2(originatorAddressLine2: String) = apply {
+        fun originatorAddressLine2(originatorAddressLine2: String?) = apply {
             body.originatorAddressLine2(originatorAddressLine2)
         }
 
+        /** Line 2 of the drawdown request's originator's address. */
+        fun originatorAddressLine2(originatorAddressLine2: Optional<String>) =
+            originatorAddressLine2(originatorAddressLine2.orElse(null))
+
         /** Line 3 of the drawdown request's originator's address. */
-        fun originatorAddressLine3(originatorAddressLine3: String) = apply {
+        fun originatorAddressLine3(originatorAddressLine3: String?) = apply {
             body.originatorAddressLine3(originatorAddressLine3)
         }
 
+        /** Line 3 of the drawdown request's originator's address. */
+        fun originatorAddressLine3(originatorAddressLine3: Optional<String>) =
+            originatorAddressLine3(originatorAddressLine3.orElse(null))
+
         /** The drawdown request's originator's name. */
-        fun originatorName(originatorName: String) = apply { body.originatorName(originatorName) }
+        fun originatorName(originatorName: String?) = apply { body.originatorName(originatorName) }
+
+        /** The drawdown request's originator's name. */
+        fun originatorName(originatorName: Optional<String>) =
+            originatorName(originatorName.orElse(null))
 
         /**
          * Line 1 of the information conveyed from the originator of the message to the beneficiary.
          */
         fun originatorToBeneficiaryInformationLine1(
-            originatorToBeneficiaryInformationLine1: String
+            originatorToBeneficiaryInformationLine1: String?
         ) = apply {
             body.originatorToBeneficiaryInformationLine1(originatorToBeneficiaryInformationLine1)
+        }
+
+        /**
+         * Line 1 of the information conveyed from the originator of the message to the beneficiary.
+         */
+        fun originatorToBeneficiaryInformationLine1(
+            originatorToBeneficiaryInformationLine1: Optional<String>
+        ) =
+            originatorToBeneficiaryInformationLine1(
+                originatorToBeneficiaryInformationLine1.orElse(null)
+            )
+
+        /**
+         * Line 2 of the information conveyed from the originator of the message to the beneficiary.
+         */
+        fun originatorToBeneficiaryInformationLine2(
+            originatorToBeneficiaryInformationLine2: String?
+        ) = apply {
+            body.originatorToBeneficiaryInformationLine2(originatorToBeneficiaryInformationLine2)
         }
 
         /**
          * Line 2 of the information conveyed from the originator of the message to the beneficiary.
          */
         fun originatorToBeneficiaryInformationLine2(
-            originatorToBeneficiaryInformationLine2: String
+            originatorToBeneficiaryInformationLine2: Optional<String>
+        ) =
+            originatorToBeneficiaryInformationLine2(
+                originatorToBeneficiaryInformationLine2.orElse(null)
+            )
+
+        /**
+         * Line 3 of the information conveyed from the originator of the message to the beneficiary.
+         */
+        fun originatorToBeneficiaryInformationLine3(
+            originatorToBeneficiaryInformationLine3: String?
         ) = apply {
-            body.originatorToBeneficiaryInformationLine2(originatorToBeneficiaryInformationLine2)
+            body.originatorToBeneficiaryInformationLine3(originatorToBeneficiaryInformationLine3)
         }
 
         /**
          * Line 3 of the information conveyed from the originator of the message to the beneficiary.
          */
         fun originatorToBeneficiaryInformationLine3(
-            originatorToBeneficiaryInformationLine3: String
+            originatorToBeneficiaryInformationLine3: Optional<String>
+        ) =
+            originatorToBeneficiaryInformationLine3(
+                originatorToBeneficiaryInformationLine3.orElse(null)
+            )
+
+        /**
+         * Line 4 of the information conveyed from the originator of the message to the beneficiary.
+         */
+        fun originatorToBeneficiaryInformationLine4(
+            originatorToBeneficiaryInformationLine4: String?
         ) = apply {
-            body.originatorToBeneficiaryInformationLine3(originatorToBeneficiaryInformationLine3)
+            body.originatorToBeneficiaryInformationLine4(originatorToBeneficiaryInformationLine4)
         }
 
         /**
          * Line 4 of the information conveyed from the originator of the message to the beneficiary.
          */
         fun originatorToBeneficiaryInformationLine4(
-            originatorToBeneficiaryInformationLine4: String
-        ) = apply {
-            body.originatorToBeneficiaryInformationLine4(originatorToBeneficiaryInformationLine4)
-        }
+            originatorToBeneficiaryInformationLine4: Optional<String>
+        ) =
+            originatorToBeneficiaryInformationLine4(
+                originatorToBeneficiaryInformationLine4.orElse(null)
+            )
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

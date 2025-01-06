@@ -132,26 +132,47 @@ constructor(
             }
 
             /** The identifier of the File containing the physical card's carrier image. */
-            fun carrierImageFileId(carrierImageFileId: String) = apply {
+            fun carrierImageFileId(carrierImageFileId: String?) = apply {
                 this.carrierImageFileId = carrierImageFileId
             }
 
+            /** The identifier of the File containing the physical card's carrier image. */
+            fun carrierImageFileId(carrierImageFileId: Optional<String>) =
+                carrierImageFileId(carrierImageFileId.orElse(null))
+
             /** A phone number the user can contact to receive support for their card. */
-            fun contactPhone(contactPhone: String) = apply { this.contactPhone = contactPhone }
+            fun contactPhone(contactPhone: String?) = apply { this.contactPhone = contactPhone }
+
+            /** A phone number the user can contact to receive support for their card. */
+            fun contactPhone(contactPhone: Optional<String>) =
+                contactPhone(contactPhone.orElse(null))
 
             /** A description you can use to identify the Card Profile. */
-            fun description(description: String) = apply { this.description = description }
+            fun description(description: String?) = apply { this.description = description }
+
+            /** A description you can use to identify the Card Profile. */
+            fun description(description: Optional<String>) = description(description.orElse(null))
 
             /** The identifier of the File containing the physical card's front image. */
-            fun frontImageFileId(frontImageFileId: String) = apply {
+            fun frontImageFileId(frontImageFileId: String?) = apply {
                 this.frontImageFileId = frontImageFileId
             }
+
+            /** The identifier of the File containing the physical card's front image. */
+            fun frontImageFileId(frontImageFileId: Optional<String>) =
+                frontImageFileId(frontImageFileId.orElse(null))
 
             /**
              * Text printed on the front of the card. Reach out to
              * [support@increase.com](mailto:support@increase.com) for more information.
              */
-            fun frontText(frontText: FrontText) = apply { this.frontText = frontText }
+            fun frontText(frontText: FrontText?) = apply { this.frontText = frontText }
+
+            /**
+             * Text printed on the front of the card. Reach out to
+             * [support@increase.com](mailto:support@increase.com) for more information.
+             */
+            fun frontText(frontText: Optional<FrontText>) = frontText(frontText.orElse(null))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -231,26 +252,46 @@ constructor(
         }
 
         /** The identifier of the File containing the physical card's carrier image. */
-        fun carrierImageFileId(carrierImageFileId: String) = apply {
+        fun carrierImageFileId(carrierImageFileId: String?) = apply {
             body.carrierImageFileId(carrierImageFileId)
         }
 
+        /** The identifier of the File containing the physical card's carrier image. */
+        fun carrierImageFileId(carrierImageFileId: Optional<String>) =
+            carrierImageFileId(carrierImageFileId.orElse(null))
+
         /** A phone number the user can contact to receive support for their card. */
-        fun contactPhone(contactPhone: String) = apply { body.contactPhone(contactPhone) }
+        fun contactPhone(contactPhone: String?) = apply { body.contactPhone(contactPhone) }
+
+        /** A phone number the user can contact to receive support for their card. */
+        fun contactPhone(contactPhone: Optional<String>) = contactPhone(contactPhone.orElse(null))
 
         /** A description you can use to identify the Card Profile. */
-        fun description(description: String) = apply { body.description(description) }
+        fun description(description: String?) = apply { body.description(description) }
+
+        /** A description you can use to identify the Card Profile. */
+        fun description(description: Optional<String>) = description(description.orElse(null))
 
         /** The identifier of the File containing the physical card's front image. */
-        fun frontImageFileId(frontImageFileId: String) = apply {
+        fun frontImageFileId(frontImageFileId: String?) = apply {
             body.frontImageFileId(frontImageFileId)
         }
+
+        /** The identifier of the File containing the physical card's front image. */
+        fun frontImageFileId(frontImageFileId: Optional<String>) =
+            frontImageFileId(frontImageFileId.orElse(null))
 
         /**
          * Text printed on the front of the card. Reach out to
          * [support@increase.com](mailto:support@increase.com) for more information.
          */
-        fun frontText(frontText: FrontText) = apply { body.frontText(frontText) }
+        fun frontText(frontText: FrontText?) = apply { body.frontText(frontText) }
+
+        /**
+         * Text printed on the front of the card. Reach out to
+         * [support@increase.com](mailto:support@increase.com) for more information.
+         */
+        fun frontText(frontText: Optional<FrontText>) = frontText(frontText.orElse(null))
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -436,7 +477,14 @@ constructor(
              * first line slightly higher and prints the second line in the spot where the first
              * line would have otherwise been printed.
              */
-            fun line2(line2: String) = apply { this.line2 = line2 }
+            fun line2(line2: String?) = apply { this.line2 = line2 }
+
+            /**
+             * The second line of text on the front of the card. Providing a second line moves the
+             * first line slightly higher and prints the second line in the spot where the first
+             * line would have otherwise been printed.
+             */
+            fun line2(line2: Optional<String>) = line2(line2.orElse(null))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()

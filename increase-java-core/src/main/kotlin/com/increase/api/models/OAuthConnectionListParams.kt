@@ -81,19 +81,39 @@ constructor(
         }
 
         /** Return the page of entries after this one. */
-        fun cursor(cursor: String) = apply { this.cursor = cursor }
+        fun cursor(cursor: String?) = apply { this.cursor = cursor }
+
+        /** Return the page of entries after this one. */
+        fun cursor(cursor: Optional<String>) = cursor(cursor.orElse(null))
 
         /**
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
          */
-        fun limit(limit: Long) = apply { this.limit = limit }
+        fun limit(limit: Long?) = apply { this.limit = limit }
+
+        /**
+         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
+         */
+        fun limit(limit: Long) = limit(limit as Long?)
+
+        /**
+         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
+         */
+        @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
+        fun limit(limit: Optional<Long>) = limit(limit.orElse(null) as Long?)
 
         /** Filter results to only include OAuth Connections for a specific OAuth Application. */
-        fun oauthApplicationId(oauthApplicationId: String) = apply {
+        fun oauthApplicationId(oauthApplicationId: String?) = apply {
             this.oauthApplicationId = oauthApplicationId
         }
 
-        fun status(status: Status) = apply { this.status = status }
+        /** Filter results to only include OAuth Connections for a specific OAuth Application. */
+        fun oauthApplicationId(oauthApplicationId: Optional<String>) =
+            oauthApplicationId(oauthApplicationId.orElse(null))
+
+        fun status(status: Status?) = apply { this.status = status }
+
+        fun status(status: Optional<Status>) = status(status.orElse(null))
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -248,7 +268,14 @@ constructor(
              * ones. For GET requests, this should be encoded as a comma-delimited string, such as
              * `?in=one,two,three`.
              */
-            fun in_(in_: List<In>) = apply { this.in_ = in_.toMutableList() }
+            fun in_(in_: List<In>?) = apply { this.in_ = in_?.toMutableList() }
+
+            /**
+             * Filter to OAuth Connections by their status. By default, return only the `active`
+             * ones. For GET requests, this should be encoded as a comma-delimited string, such as
+             * `?in=one,two,three`.
+             */
+            fun in_(in_: Optional<List<In>>) = in_(in_.orElse(null))
 
             /**
              * Filter to OAuth Connections by their status. By default, return only the `active`

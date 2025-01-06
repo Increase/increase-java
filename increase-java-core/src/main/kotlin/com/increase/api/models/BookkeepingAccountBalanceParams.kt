@@ -78,7 +78,10 @@ constructor(
         }
 
         /** The moment to query the balance at. If not set, returns the current balances. */
-        fun atTime(atTime: OffsetDateTime) = apply { this.atTime = atTime }
+        fun atTime(atTime: OffsetDateTime?) = apply { this.atTime = atTime }
+
+        /** The moment to query the balance at. If not set, returns the current balances. */
+        fun atTime(atTime: Optional<OffsetDateTime>) = atTime(atTime.orElse(null))
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

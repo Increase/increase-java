@@ -379,7 +379,11 @@ constructor(
             }
 
             /** This person's role or title within the entity. */
-            fun companyTitle(companyTitle: String) = apply { this.companyTitle = companyTitle }
+            fun companyTitle(companyTitle: String?) = apply { this.companyTitle = companyTitle }
+
+            /** This person's role or title within the entity. */
+            fun companyTitle(companyTitle: Optional<String>) =
+                companyTitle(companyTitle.orElse(null))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -499,9 +503,28 @@ constructor(
                  * tax id (either a Social Security Number or Individual Taxpayer Identification
                  * Number).
                  */
-                fun confirmedNoUsTaxId(confirmedNoUsTaxId: Boolean) = apply {
+                fun confirmedNoUsTaxId(confirmedNoUsTaxId: Boolean?) = apply {
                     this.confirmedNoUsTaxId = confirmedNoUsTaxId
                 }
+
+                /**
+                 * The identification method for an individual can only be a passport, driver's
+                 * license, or other document if you've confirmed the individual does not have a US
+                 * tax id (either a Social Security Number or Individual Taxpayer Identification
+                 * Number).
+                 */
+                fun confirmedNoUsTaxId(confirmedNoUsTaxId: Boolean) =
+                    confirmedNoUsTaxId(confirmedNoUsTaxId as Boolean?)
+
+                /**
+                 * The identification method for an individual can only be a passport, driver's
+                 * license, or other document if you've confirmed the individual does not have a US
+                 * tax id (either a Social Security Number or Individual Taxpayer Identification
+                 * Number).
+                 */
+                @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
+                fun confirmedNoUsTaxId(confirmedNoUsTaxId: Optional<Boolean>) =
+                    confirmedNoUsTaxId(confirmedNoUsTaxId.orElse(null) as Boolean?)
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -621,7 +644,10 @@ constructor(
                     fun zip(zip: String) = apply { this.zip = zip }
 
                     /** The second line of the address. This might be the floor or room number. */
-                    fun line2(line2: String) = apply { this.line2 = line2 }
+                    fun line2(line2: String?) = apply { this.line2 = line2 }
+
+                    /** The second line of the address. This might be the floor or room number. */
+                    fun line2(line2: Optional<String>) = line2(line2.orElse(null))
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
@@ -760,21 +786,40 @@ constructor(
                      * Information about the United States driver's license used for identification.
                      * Required if `method` is equal to `drivers_license`.
                      */
-                    fun driversLicense(driversLicense: DriversLicense) = apply {
+                    fun driversLicense(driversLicense: DriversLicense?) = apply {
                         this.driversLicense = driversLicense
                     }
+
+                    /**
+                     * Information about the United States driver's license used for identification.
+                     * Required if `method` is equal to `drivers_license`.
+                     */
+                    fun driversLicense(driversLicense: Optional<DriversLicense>) =
+                        driversLicense(driversLicense.orElse(null))
 
                     /**
                      * Information about the identification document provided. Required if `method`
                      * is equal to `other`.
                      */
-                    fun other(other: Other) = apply { this.other = other }
+                    fun other(other: Other?) = apply { this.other = other }
+
+                    /**
+                     * Information about the identification document provided. Required if `method`
+                     * is equal to `other`.
+                     */
+                    fun other(other: Optional<Other>) = other(other.orElse(null))
 
                     /**
                      * Information about the passport used for identification. Required if `method`
                      * is equal to `passport`.
                      */
-                    fun passport(passport: Passport) = apply { this.passport = passport }
+                    fun passport(passport: Passport?) = apply { this.passport = passport }
+
+                    /**
+                     * Information about the passport used for identification. Required if `method`
+                     * is equal to `passport`.
+                     */
+                    fun passport(passport: Optional<Passport>) = passport(passport.orElse(null))
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
@@ -965,7 +1010,13 @@ constructor(
                         /**
                          * The identifier of the File containing the back of the driver's license.
                          */
-                        fun backFileId(backFileId: String) = apply { this.backFileId = backFileId }
+                        fun backFileId(backFileId: String?) = apply { this.backFileId = backFileId }
+
+                        /**
+                         * The identifier of the File containing the back of the driver's license.
+                         */
+                        fun backFileId(backFileId: Optional<String>) =
+                            backFileId(backFileId.orElse(null))
 
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                             apply {
@@ -1108,12 +1159,23 @@ constructor(
                          * The identifier of the File containing the back of the document. Not every
                          * document has a reverse side.
                          */
-                        fun backFileId(backFileId: String) = apply { this.backFileId = backFileId }
+                        fun backFileId(backFileId: String?) = apply { this.backFileId = backFileId }
+
+                        /**
+                         * The identifier of the File containing the back of the document. Not every
+                         * document has a reverse side.
+                         */
+                        fun backFileId(backFileId: Optional<String>) =
+                            backFileId(backFileId.orElse(null))
 
                         /** The document's expiration date in YYYY-MM-DD format. */
-                        fun expirationDate(expirationDate: LocalDate) = apply {
+                        fun expirationDate(expirationDate: LocalDate?) = apply {
                             this.expirationDate = expirationDate
                         }
+
+                        /** The document's expiration date in YYYY-MM-DD format. */
+                        fun expirationDate(expirationDate: Optional<LocalDate>) =
+                            expirationDate(expirationDate.orElse(null))
 
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                             apply {

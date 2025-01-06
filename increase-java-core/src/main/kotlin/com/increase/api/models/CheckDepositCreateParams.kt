@@ -126,7 +126,10 @@ constructor(
             }
 
             /** The description you choose to give the Check Deposit, for display purposes only. */
-            fun description(description: String) = apply { this.description = description }
+            fun description(description: String?) = apply { this.description = description }
+
+            /** The description you choose to give the Check Deposit, for display purposes only. */
+            fun description(description: Optional<String>) = description(description.orElse(null))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -218,7 +221,10 @@ constructor(
         }
 
         /** The description you choose to give the Check Deposit, for display purposes only. */
-        fun description(description: String) = apply { body.description(description) }
+        fun description(description: String?) = apply { body.description(description) }
+
+        /** The description you choose to give the Check Deposit, for display purposes only. */
+        fun description(description: Optional<String>) = description(description.orElse(null))
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

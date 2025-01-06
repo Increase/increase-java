@@ -117,7 +117,20 @@ constructor(
              * The amount to be settled. This defaults to the amount of the Pending Transaction
              * being settled.
              */
-            fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long?) = apply { this.amount = amount }
+
+            /**
+             * The amount to be settled. This defaults to the amount of the Pending Transaction
+             * being settled.
+             */
+            fun amount(amount: Long) = amount(amount as Long?)
+
+            /**
+             * The amount to be settled. This defaults to the amount of the Pending Transaction
+             * being settled.
+             */
+            @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
+            fun amount(amount: Optional<Long>) = amount(amount.orElse(null) as Long?)
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -206,7 +219,20 @@ constructor(
          * The amount to be settled. This defaults to the amount of the Pending Transaction being
          * settled.
          */
-        fun amount(amount: Long) = apply { body.amount(amount) }
+        fun amount(amount: Long?) = apply { body.amount(amount) }
+
+        /**
+         * The amount to be settled. This defaults to the amount of the Pending Transaction being
+         * settled.
+         */
+        fun amount(amount: Long) = amount(amount as Long?)
+
+        /**
+         * The amount to be settled. This defaults to the amount of the Pending Transaction being
+         * settled.
+         */
+        @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
+        fun amount(amount: Optional<Long>) = amount(amount.orElse(null) as Long?)
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
