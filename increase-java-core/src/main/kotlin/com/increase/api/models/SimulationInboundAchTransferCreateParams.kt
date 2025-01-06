@@ -212,44 +212,80 @@ constructor(
             fun amount(amount: Long) = apply { this.amount = amount }
 
             /** The description of the date of the transfer. */
-            fun companyDescriptiveDate(companyDescriptiveDate: String) = apply {
+            fun companyDescriptiveDate(companyDescriptiveDate: String?) = apply {
                 this.companyDescriptiveDate = companyDescriptiveDate
             }
 
+            /** The description of the date of the transfer. */
+            fun companyDescriptiveDate(companyDescriptiveDate: Optional<String>) =
+                companyDescriptiveDate(companyDescriptiveDate.orElse(null))
+
             /** Data associated with the transfer set by the sender. */
-            fun companyDiscretionaryData(companyDiscretionaryData: String) = apply {
+            fun companyDiscretionaryData(companyDiscretionaryData: String?) = apply {
                 this.companyDiscretionaryData = companyDiscretionaryData
             }
 
+            /** Data associated with the transfer set by the sender. */
+            fun companyDiscretionaryData(companyDiscretionaryData: Optional<String>) =
+                companyDiscretionaryData(companyDiscretionaryData.orElse(null))
+
             /** The description of the transfer set by the sender. */
-            fun companyEntryDescription(companyEntryDescription: String) = apply {
+            fun companyEntryDescription(companyEntryDescription: String?) = apply {
                 this.companyEntryDescription = companyEntryDescription
             }
 
+            /** The description of the transfer set by the sender. */
+            fun companyEntryDescription(companyEntryDescription: Optional<String>) =
+                companyEntryDescription(companyEntryDescription.orElse(null))
+
             /** The sender's company ID. */
-            fun companyId(companyId: String) = apply { this.companyId = companyId }
+            fun companyId(companyId: String?) = apply { this.companyId = companyId }
+
+            /** The sender's company ID. */
+            fun companyId(companyId: Optional<String>) = companyId(companyId.orElse(null))
 
             /** The name of the sender. */
-            fun companyName(companyName: String) = apply { this.companyName = companyName }
+            fun companyName(companyName: String?) = apply { this.companyName = companyName }
+
+            /** The name of the sender. */
+            fun companyName(companyName: Optional<String>) = companyName(companyName.orElse(null))
 
             /** The ID of the receiver of the transfer. */
-            fun receiverIdNumber(receiverIdNumber: String) = apply {
+            fun receiverIdNumber(receiverIdNumber: String?) = apply {
                 this.receiverIdNumber = receiverIdNumber
             }
 
+            /** The ID of the receiver of the transfer. */
+            fun receiverIdNumber(receiverIdNumber: Optional<String>) =
+                receiverIdNumber(receiverIdNumber.orElse(null))
+
             /** The name of the receiver of the transfer. */
-            fun receiverName(receiverName: String) = apply { this.receiverName = receiverName }
+            fun receiverName(receiverName: String?) = apply { this.receiverName = receiverName }
+
+            /** The name of the receiver of the transfer. */
+            fun receiverName(receiverName: Optional<String>) =
+                receiverName(receiverName.orElse(null))
 
             /**
              * The time at which the transfer should be resolved. If not provided will resolve
              * immediately.
              */
-            fun resolveAt(resolveAt: OffsetDateTime) = apply { this.resolveAt = resolveAt }
+            fun resolveAt(resolveAt: OffsetDateTime?) = apply { this.resolveAt = resolveAt }
+
+            /**
+             * The time at which the transfer should be resolved. If not provided will resolve
+             * immediately.
+             */
+            fun resolveAt(resolveAt: Optional<OffsetDateTime>) = resolveAt(resolveAt.orElse(null))
 
             /** The standard entry class code for the transfer. */
-            fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode) = apply {
+            fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode?) = apply {
                 this.standardEntryClassCode = standardEntryClassCode
             }
+
+            /** The standard entry class code for the transfer. */
+            fun standardEntryClassCode(standardEntryClassCode: Optional<StandardEntryClassCode>) =
+                standardEntryClassCode(standardEntryClassCode.orElse(null))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -346,44 +382,79 @@ constructor(
         fun amount(amount: Long) = apply { body.amount(amount) }
 
         /** The description of the date of the transfer. */
-        fun companyDescriptiveDate(companyDescriptiveDate: String) = apply {
+        fun companyDescriptiveDate(companyDescriptiveDate: String?) = apply {
             body.companyDescriptiveDate(companyDescriptiveDate)
         }
 
+        /** The description of the date of the transfer. */
+        fun companyDescriptiveDate(companyDescriptiveDate: Optional<String>) =
+            companyDescriptiveDate(companyDescriptiveDate.orElse(null))
+
         /** Data associated with the transfer set by the sender. */
-        fun companyDiscretionaryData(companyDiscretionaryData: String) = apply {
+        fun companyDiscretionaryData(companyDiscretionaryData: String?) = apply {
             body.companyDiscretionaryData(companyDiscretionaryData)
         }
 
+        /** Data associated with the transfer set by the sender. */
+        fun companyDiscretionaryData(companyDiscretionaryData: Optional<String>) =
+            companyDiscretionaryData(companyDiscretionaryData.orElse(null))
+
         /** The description of the transfer set by the sender. */
-        fun companyEntryDescription(companyEntryDescription: String) = apply {
+        fun companyEntryDescription(companyEntryDescription: String?) = apply {
             body.companyEntryDescription(companyEntryDescription)
         }
 
+        /** The description of the transfer set by the sender. */
+        fun companyEntryDescription(companyEntryDescription: Optional<String>) =
+            companyEntryDescription(companyEntryDescription.orElse(null))
+
         /** The sender's company ID. */
-        fun companyId(companyId: String) = apply { body.companyId(companyId) }
+        fun companyId(companyId: String?) = apply { body.companyId(companyId) }
+
+        /** The sender's company ID. */
+        fun companyId(companyId: Optional<String>) = companyId(companyId.orElse(null))
 
         /** The name of the sender. */
-        fun companyName(companyName: String) = apply { body.companyName(companyName) }
+        fun companyName(companyName: String?) = apply { body.companyName(companyName) }
+
+        /** The name of the sender. */
+        fun companyName(companyName: Optional<String>) = companyName(companyName.orElse(null))
 
         /** The ID of the receiver of the transfer. */
-        fun receiverIdNumber(receiverIdNumber: String) = apply {
+        fun receiverIdNumber(receiverIdNumber: String?) = apply {
             body.receiverIdNumber(receiverIdNumber)
         }
 
+        /** The ID of the receiver of the transfer. */
+        fun receiverIdNumber(receiverIdNumber: Optional<String>) =
+            receiverIdNumber(receiverIdNumber.orElse(null))
+
         /** The name of the receiver of the transfer. */
-        fun receiverName(receiverName: String) = apply { body.receiverName(receiverName) }
+        fun receiverName(receiverName: String?) = apply { body.receiverName(receiverName) }
+
+        /** The name of the receiver of the transfer. */
+        fun receiverName(receiverName: Optional<String>) = receiverName(receiverName.orElse(null))
 
         /**
          * The time at which the transfer should be resolved. If not provided will resolve
          * immediately.
          */
-        fun resolveAt(resolveAt: OffsetDateTime) = apply { body.resolveAt(resolveAt) }
+        fun resolveAt(resolveAt: OffsetDateTime?) = apply { body.resolveAt(resolveAt) }
+
+        /**
+         * The time at which the transfer should be resolved. If not provided will resolve
+         * immediately.
+         */
+        fun resolveAt(resolveAt: Optional<OffsetDateTime>) = resolveAt(resolveAt.orElse(null))
 
         /** The standard entry class code for the transfer. */
-        fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode) = apply {
+        fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode?) = apply {
             body.standardEntryClassCode(standardEntryClassCode)
         }
+
+        /** The standard entry class code for the transfer. */
+        fun standardEntryClassCode(standardEntryClassCode: Optional<StandardEntryClassCode>) =
+            standardEntryClassCode(standardEntryClassCode.orElse(null))
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

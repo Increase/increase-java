@@ -170,18 +170,33 @@ constructor(
             fun issuerName(issuerName: String) = apply { this.issuerName = issuerName }
 
             /** An email address the user can contact to receive support for their card. */
-            fun contactEmail(contactEmail: String) = apply { this.contactEmail = contactEmail }
+            fun contactEmail(contactEmail: String?) = apply { this.contactEmail = contactEmail }
+
+            /** An email address the user can contact to receive support for their card. */
+            fun contactEmail(contactEmail: Optional<String>) =
+                contactEmail(contactEmail.orElse(null))
 
             /** A phone number the user can contact to receive support for their card. */
-            fun contactPhone(contactPhone: String) = apply { this.contactPhone = contactPhone }
+            fun contactPhone(contactPhone: String?) = apply { this.contactPhone = contactPhone }
+
+            /** A phone number the user can contact to receive support for their card. */
+            fun contactPhone(contactPhone: Optional<String>) =
+                contactPhone(contactPhone.orElse(null))
 
             /** A website the user can visit to view and receive support for their card. */
-            fun contactWebsite(contactWebsite: String) = apply {
+            fun contactWebsite(contactWebsite: String?) = apply {
                 this.contactWebsite = contactWebsite
             }
 
+            /** A website the user can visit to view and receive support for their card. */
+            fun contactWebsite(contactWebsite: Optional<String>) =
+                contactWebsite(contactWebsite.orElse(null))
+
             /** The Card's text color, specified as an RGB triple. The default is white. */
-            fun textColor(textColor: TextColor) = apply { this.textColor = textColor }
+            fun textColor(textColor: TextColor?) = apply { this.textColor = textColor }
+
+            /** The Card's text color, specified as an RGB triple. The default is white. */
+            fun textColor(textColor: Optional<TextColor>) = textColor(textColor.orElse(null))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -281,16 +296,29 @@ constructor(
         fun issuerName(issuerName: String) = apply { body.issuerName(issuerName) }
 
         /** An email address the user can contact to receive support for their card. */
-        fun contactEmail(contactEmail: String) = apply { body.contactEmail(contactEmail) }
+        fun contactEmail(contactEmail: String?) = apply { body.contactEmail(contactEmail) }
+
+        /** An email address the user can contact to receive support for their card. */
+        fun contactEmail(contactEmail: Optional<String>) = contactEmail(contactEmail.orElse(null))
 
         /** A phone number the user can contact to receive support for their card. */
-        fun contactPhone(contactPhone: String) = apply { body.contactPhone(contactPhone) }
+        fun contactPhone(contactPhone: String?) = apply { body.contactPhone(contactPhone) }
+
+        /** A phone number the user can contact to receive support for their card. */
+        fun contactPhone(contactPhone: Optional<String>) = contactPhone(contactPhone.orElse(null))
 
         /** A website the user can visit to view and receive support for their card. */
-        fun contactWebsite(contactWebsite: String) = apply { body.contactWebsite(contactWebsite) }
+        fun contactWebsite(contactWebsite: String?) = apply { body.contactWebsite(contactWebsite) }
+
+        /** A website the user can visit to view and receive support for their card. */
+        fun contactWebsite(contactWebsite: Optional<String>) =
+            contactWebsite(contactWebsite.orElse(null))
 
         /** The Card's text color, specified as an RGB triple. The default is white. */
-        fun textColor(textColor: TextColor) = apply { body.textColor(textColor) }
+        fun textColor(textColor: TextColor?) = apply { body.textColor(textColor) }
+
+        /** The Card's text color, specified as an RGB triple. The default is white. */
+        fun textColor(textColor: Optional<TextColor>) = textColor(textColor.orElse(null))
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

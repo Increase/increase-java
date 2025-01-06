@@ -79,10 +79,16 @@ constructor(
         }
 
         /** Return the page of entries after this one. */
-        fun cursor(cursor: String) = apply { this.cursor = cursor }
+        fun cursor(cursor: String?) = apply { this.cursor = cursor }
+
+        /** Return the page of entries after this one. */
+        fun cursor(cursor: Optional<String>) = cursor(cursor.orElse(null))
 
         /** Filter IntraFi Exclusions for those belonging to the specified Entity. */
-        fun entityId(entityId: String) = apply { this.entityId = entityId }
+        fun entityId(entityId: String?) = apply { this.entityId = entityId }
+
+        /** Filter IntraFi Exclusions for those belonging to the specified Entity. */
+        fun entityId(entityId: Optional<String>) = entityId(entityId.orElse(null))
 
         /**
          * Filter records to the one with the specified `idempotency_key` you chose for that object.
@@ -90,12 +96,32 @@ constructor(
          * processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: String) = apply { this.idempotencyKey = idempotencyKey }
+        fun idempotencyKey(idempotencyKey: String?) = apply { this.idempotencyKey = idempotencyKey }
+
+        /**
+         * Filter records to the one with the specified `idempotency_key` you chose for that object.
+         * This value is unique across Increase and is used to ensure that a request is only
+         * processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: Optional<String>) =
+            idempotencyKey(idempotencyKey.orElse(null))
 
         /**
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
          */
-        fun limit(limit: Long) = apply { this.limit = limit }
+        fun limit(limit: Long?) = apply { this.limit = limit }
+
+        /**
+         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
+         */
+        fun limit(limit: Long) = limit(limit as Long?)
+
+        /**
+         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
+         */
+        @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
+        fun limit(limit: Optional<Long>) = limit(limit.orElse(null) as Long?)
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

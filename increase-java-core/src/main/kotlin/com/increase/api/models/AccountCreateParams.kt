@@ -117,21 +117,37 @@ constructor(
             fun name(name: String) = apply { this.name = name }
 
             /** The identifier for the Entity that will own the Account. */
-            fun entityId(entityId: String) = apply { this.entityId = entityId }
+            fun entityId(entityId: String?) = apply { this.entityId = entityId }
+
+            /** The identifier for the Entity that will own the Account. */
+            fun entityId(entityId: Optional<String>) = entityId(entityId.orElse(null))
 
             /**
              * The identifier of an Entity that, while not owning the Account, is associated with
              * its activity. Its relationship to your group must be `informational`.
              */
-            fun informationalEntityId(informationalEntityId: String) = apply {
+            fun informationalEntityId(informationalEntityId: String?) = apply {
                 this.informationalEntityId = informationalEntityId
             }
+
+            /**
+             * The identifier of an Entity that, while not owning the Account, is associated with
+             * its activity. Its relationship to your group must be `informational`.
+             */
+            fun informationalEntityId(informationalEntityId: Optional<String>) =
+                informationalEntityId(informationalEntityId.orElse(null))
 
             /**
              * The identifier for the Program that this Account falls under. Required if you operate
              * more than one Program.
              */
-            fun programId(programId: String) = apply { this.programId = programId }
+            fun programId(programId: String?) = apply { this.programId = programId }
+
+            /**
+             * The identifier for the Program that this Account falls under. Required if you operate
+             * more than one Program.
+             */
+            fun programId(programId: Optional<String>) = programId(programId.orElse(null))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -205,21 +221,37 @@ constructor(
         fun name(name: String) = apply { body.name(name) }
 
         /** The identifier for the Entity that will own the Account. */
-        fun entityId(entityId: String) = apply { body.entityId(entityId) }
+        fun entityId(entityId: String?) = apply { body.entityId(entityId) }
+
+        /** The identifier for the Entity that will own the Account. */
+        fun entityId(entityId: Optional<String>) = entityId(entityId.orElse(null))
 
         /**
          * The identifier of an Entity that, while not owning the Account, is associated with its
          * activity. Its relationship to your group must be `informational`.
          */
-        fun informationalEntityId(informationalEntityId: String) = apply {
+        fun informationalEntityId(informationalEntityId: String?) = apply {
             body.informationalEntityId(informationalEntityId)
         }
+
+        /**
+         * The identifier of an Entity that, while not owning the Account, is associated with its
+         * activity. Its relationship to your group must be `informational`.
+         */
+        fun informationalEntityId(informationalEntityId: Optional<String>) =
+            informationalEntityId(informationalEntityId.orElse(null))
 
         /**
          * The identifier for the Program that this Account falls under. Required if you operate
          * more than one Program.
          */
-        fun programId(programId: String) = apply { body.programId(programId) }
+        fun programId(programId: String?) = apply { body.programId(programId) }
+
+        /**
+         * The identifier for the Program that this Account falls under. Required if you operate
+         * more than one Program.
+         */
+        fun programId(programId: Optional<String>) = programId(programId.orElse(null))
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

@@ -131,12 +131,19 @@ constructor(
             fun accountId(accountId: String) = apply { this.accountId = accountId }
 
             /** The card's billing address. */
-            fun billingAddress(billingAddress: BillingAddress) = apply {
+            fun billingAddress(billingAddress: BillingAddress?) = apply {
                 this.billingAddress = billingAddress
             }
 
+            /** The card's billing address. */
+            fun billingAddress(billingAddress: Optional<BillingAddress>) =
+                billingAddress(billingAddress.orElse(null))
+
             /** The description you choose to give the card. */
-            fun description(description: String) = apply { this.description = description }
+            fun description(description: String?) = apply { this.description = description }
+
+            /** The description you choose to give the card. */
+            fun description(description: Optional<String>) = description(description.orElse(null))
 
             /**
              * The contact information used in the two-factor steps for digital wallet card
@@ -145,15 +152,31 @@ constructor(
              * with the category `digital_wallet_token_requested` or
              * `digital_wallet_authentication_requested`.
              */
-            fun digitalWallet(digitalWallet: DigitalWallet) = apply {
+            fun digitalWallet(digitalWallet: DigitalWallet?) = apply {
                 this.digitalWallet = digitalWallet
             }
+
+            /**
+             * The contact information used in the two-factor steps for digital wallet card
+             * creation. To add the card to a digital wallet, you may supply an email or phone
+             * number with this request. Otherwise, subscribe and then action a Real Time Decision
+             * with the category `digital_wallet_token_requested` or
+             * `digital_wallet_authentication_requested`.
+             */
+            fun digitalWallet(digitalWallet: Optional<DigitalWallet>) =
+                digitalWallet(digitalWallet.orElse(null))
 
             /**
              * The Entity the card belongs to. You only need to supply this in rare situations when
              * the card is not for the Account holder.
              */
-            fun entityId(entityId: String) = apply { this.entityId = entityId }
+            fun entityId(entityId: String?) = apply { this.entityId = entityId }
+
+            /**
+             * The Entity the card belongs to. You only need to supply this in rare situations when
+             * the card is not for the Account holder.
+             */
+            fun entityId(entityId: Optional<String>) = entityId(entityId.orElse(null))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -228,12 +251,19 @@ constructor(
         fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
         /** The card's billing address. */
-        fun billingAddress(billingAddress: BillingAddress) = apply {
+        fun billingAddress(billingAddress: BillingAddress?) = apply {
             body.billingAddress(billingAddress)
         }
 
+        /** The card's billing address. */
+        fun billingAddress(billingAddress: Optional<BillingAddress>) =
+            billingAddress(billingAddress.orElse(null))
+
         /** The description you choose to give the card. */
-        fun description(description: String) = apply { body.description(description) }
+        fun description(description: String?) = apply { body.description(description) }
+
+        /** The description you choose to give the card. */
+        fun description(description: Optional<String>) = description(description.orElse(null))
 
         /**
          * The contact information used in the two-factor steps for digital wallet card creation. To
@@ -241,15 +271,30 @@ constructor(
          * request. Otherwise, subscribe and then action a Real Time Decision with the category
          * `digital_wallet_token_requested` or `digital_wallet_authentication_requested`.
          */
-        fun digitalWallet(digitalWallet: DigitalWallet) = apply {
+        fun digitalWallet(digitalWallet: DigitalWallet?) = apply {
             body.digitalWallet(digitalWallet)
         }
+
+        /**
+         * The contact information used in the two-factor steps for digital wallet card creation. To
+         * add the card to a digital wallet, you may supply an email or phone number with this
+         * request. Otherwise, subscribe and then action a Real Time Decision with the category
+         * `digital_wallet_token_requested` or `digital_wallet_authentication_requested`.
+         */
+        fun digitalWallet(digitalWallet: Optional<DigitalWallet>) =
+            digitalWallet(digitalWallet.orElse(null))
 
         /**
          * The Entity the card belongs to. You only need to supply this in rare situations when the
          * card is not for the Account holder.
          */
-        fun entityId(entityId: String) = apply { body.entityId(entityId) }
+        fun entityId(entityId: String?) = apply { body.entityId(entityId) }
+
+        /**
+         * The Entity the card belongs to. You only need to supply this in rare situations when the
+         * card is not for the Account holder.
+         */
+        fun entityId(entityId: Optional<String>) = entityId(entityId.orElse(null))
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -448,7 +493,10 @@ constructor(
             fun state(state: String) = apply { this.state = state }
 
             /** The second line of the billing address. */
-            fun line2(line2: String) = apply { this.line2 = line2 }
+            fun line2(line2: String?) = apply { this.line2 = line2 }
+
+            /** The second line of the billing address. */
+            fun line2(line2: Optional<String>) = line2(line2.orElse(null))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -558,21 +606,37 @@ constructor(
             }
 
             /** The digital card profile assigned to this digital card. */
-            fun digitalCardProfileId(digitalCardProfileId: String) = apply {
+            fun digitalCardProfileId(digitalCardProfileId: String?) = apply {
                 this.digitalCardProfileId = digitalCardProfileId
             }
+
+            /** The digital card profile assigned to this digital card. */
+            fun digitalCardProfileId(digitalCardProfileId: Optional<String>) =
+                digitalCardProfileId(digitalCardProfileId.orElse(null))
 
             /**
              * An email address that can be used to contact and verify the cardholder via one-time
              * passcode over email.
              */
-            fun email(email: String) = apply { this.email = email }
+            fun email(email: String?) = apply { this.email = email }
+
+            /**
+             * An email address that can be used to contact and verify the cardholder via one-time
+             * passcode over email.
+             */
+            fun email(email: Optional<String>) = email(email.orElse(null))
 
             /**
              * A phone number that can be used to contact and verify the cardholder via one-time
              * passcode over SMS.
              */
-            fun phone(phone: String) = apply { this.phone = phone }
+            fun phone(phone: String?) = apply { this.phone = phone }
+
+            /**
+             * A phone number that can be used to contact and verify the cardholder via one-time
+             * passcode over SMS.
+             */
+            fun phone(phone: Optional<String>) = phone(phone.orElse(null))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()

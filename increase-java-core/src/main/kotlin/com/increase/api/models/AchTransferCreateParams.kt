@@ -364,70 +364,143 @@ constructor(
             }
 
             /** The account number for the destination account. */
-            fun accountNumber(accountNumber: String) = apply { this.accountNumber = accountNumber }
+            fun accountNumber(accountNumber: String?) = apply { this.accountNumber = accountNumber }
+
+            /** The account number for the destination account. */
+            fun accountNumber(accountNumber: Optional<String>) =
+                accountNumber(accountNumber.orElse(null))
 
             /**
              * Additional information that will be sent to the recipient. This is included in the
              * transfer data sent to the receiving bank.
              */
-            fun addenda(addenda: Addenda) = apply { this.addenda = addenda }
+            fun addenda(addenda: Addenda?) = apply { this.addenda = addenda }
+
+            /**
+             * Additional information that will be sent to the recipient. This is included in the
+             * transfer data sent to the receiving bank.
+             */
+            fun addenda(addenda: Optional<Addenda>) = addenda(addenda.orElse(null))
 
             /**
              * The description of the date of the transfer, usually in the format `YYMMDD`. This is
              * included in the transfer data sent to the receiving bank.
              */
-            fun companyDescriptiveDate(companyDescriptiveDate: String) = apply {
+            fun companyDescriptiveDate(companyDescriptiveDate: String?) = apply {
                 this.companyDescriptiveDate = companyDescriptiveDate
+            }
+
+            /**
+             * The description of the date of the transfer, usually in the format `YYMMDD`. This is
+             * included in the transfer data sent to the receiving bank.
+             */
+            fun companyDescriptiveDate(companyDescriptiveDate: Optional<String>) =
+                companyDescriptiveDate(companyDescriptiveDate.orElse(null))
+
+            /**
+             * The data you choose to associate with the transfer. This is included in the transfer
+             * data sent to the receiving bank.
+             */
+            fun companyDiscretionaryData(companyDiscretionaryData: String?) = apply {
+                this.companyDiscretionaryData = companyDiscretionaryData
             }
 
             /**
              * The data you choose to associate with the transfer. This is included in the transfer
              * data sent to the receiving bank.
              */
-            fun companyDiscretionaryData(companyDiscretionaryData: String) = apply {
-                this.companyDiscretionaryData = companyDiscretionaryData
+            fun companyDiscretionaryData(companyDiscretionaryData: Optional<String>) =
+                companyDiscretionaryData(companyDiscretionaryData.orElse(null))
+
+            /**
+             * A description of the transfer. This is included in the transfer data sent to the
+             * receiving bank.
+             */
+            fun companyEntryDescription(companyEntryDescription: String?) = apply {
+                this.companyEntryDescription = companyEntryDescription
             }
 
             /**
              * A description of the transfer. This is included in the transfer data sent to the
              * receiving bank.
              */
-            fun companyEntryDescription(companyEntryDescription: String) = apply {
-                this.companyEntryDescription = companyEntryDescription
-            }
+            fun companyEntryDescription(companyEntryDescription: Optional<String>) =
+                companyEntryDescription(companyEntryDescription.orElse(null))
 
             /**
              * The name by which the recipient knows you. This is included in the transfer data sent
              * to the receiving bank.
              */
-            fun companyName(companyName: String) = apply { this.companyName = companyName }
+            fun companyName(companyName: String?) = apply { this.companyName = companyName }
+
+            /**
+             * The name by which the recipient knows you. This is included in the transfer data sent
+             * to the receiving bank.
+             */
+            fun companyName(companyName: Optional<String>) = companyName(companyName.orElse(null))
 
             /** The type of entity that owns the account to which the ACH Transfer is being sent. */
-            fun destinationAccountHolder(destinationAccountHolder: DestinationAccountHolder) =
+            fun destinationAccountHolder(destinationAccountHolder: DestinationAccountHolder?) =
                 apply {
                     this.destinationAccountHolder = destinationAccountHolder
                 }
+
+            /** The type of entity that owns the account to which the ACH Transfer is being sent. */
+            fun destinationAccountHolder(
+                destinationAccountHolder: Optional<DestinationAccountHolder>
+            ) = destinationAccountHolder(destinationAccountHolder.orElse(null))
 
             /**
              * The ID of an External Account to initiate a transfer to. If this parameter is
              * provided, `account_number`, `routing_number`, and `funding` must be absent.
              */
-            fun externalAccountId(externalAccountId: String) = apply {
+            fun externalAccountId(externalAccountId: String?) = apply {
                 this.externalAccountId = externalAccountId
             }
 
+            /**
+             * The ID of an External Account to initiate a transfer to. If this parameter is
+             * provided, `account_number`, `routing_number`, and `funding` must be absent.
+             */
+            fun externalAccountId(externalAccountId: Optional<String>) =
+                externalAccountId(externalAccountId.orElse(null))
+
             /** The type of the account to which the transfer will be sent. */
-            fun funding(funding: Funding) = apply { this.funding = funding }
+            fun funding(funding: Funding?) = apply { this.funding = funding }
+
+            /** The type of the account to which the transfer will be sent. */
+            fun funding(funding: Optional<Funding>) = funding(funding.orElse(null))
 
             /** Your identifier for the transfer recipient. */
-            fun individualId(individualId: String) = apply { this.individualId = individualId }
+            fun individualId(individualId: String?) = apply { this.individualId = individualId }
+
+            /** Your identifier for the transfer recipient. */
+            fun individualId(individualId: Optional<String>) =
+                individualId(individualId.orElse(null))
 
             /**
              * The name of the transfer recipient. This value is informational and not verified by
              * the recipient's bank.
              */
-            fun individualName(individualName: String) = apply {
+            fun individualName(individualName: String?) = apply {
                 this.individualName = individualName
+            }
+
+            /**
+             * The name of the transfer recipient. This value is informational and not verified by
+             * the recipient's bank.
+             */
+            fun individualName(individualName: Optional<String>) =
+                individualName(individualName.orElse(null))
+
+            /**
+             * Configuration for how the effective date of the transfer will be set. This determines
+             * same-day vs future-dated settlement timing. If not set, defaults to a
+             * `settlement_schedule` of `same_day`. If set, exactly one of the child attributes must
+             * be set.
+             */
+            fun preferredEffectiveDate(preferredEffectiveDate: PreferredEffectiveDate?) = apply {
+                this.preferredEffectiveDate = preferredEffectiveDate
             }
 
             /**
@@ -436,30 +509,53 @@ constructor(
              * `settlement_schedule` of `same_day`. If set, exactly one of the child attributes must
              * be set.
              */
-            fun preferredEffectiveDate(preferredEffectiveDate: PreferredEffectiveDate) = apply {
-                this.preferredEffectiveDate = preferredEffectiveDate
+            fun preferredEffectiveDate(preferredEffectiveDate: Optional<PreferredEffectiveDate>) =
+                preferredEffectiveDate(preferredEffectiveDate.orElse(null))
+
+            /** Whether the transfer requires explicit approval via the dashboard or API. */
+            fun requireApproval(requireApproval: Boolean?) = apply {
+                this.requireApproval = requireApproval
             }
 
             /** Whether the transfer requires explicit approval via the dashboard or API. */
-            fun requireApproval(requireApproval: Boolean) = apply {
-                this.requireApproval = requireApproval
-            }
+            fun requireApproval(requireApproval: Boolean) =
+                requireApproval(requireApproval as Boolean?)
+
+            /** Whether the transfer requires explicit approval via the dashboard or API. */
+            @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
+            fun requireApproval(requireApproval: Optional<Boolean>) =
+                requireApproval(requireApproval.orElse(null) as Boolean?)
 
             /**
              * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the
              * destination account.
              */
-            fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
+            fun routingNumber(routingNumber: String?) = apply { this.routingNumber = routingNumber }
+
+            /**
+             * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the
+             * destination account.
+             */
+            fun routingNumber(routingNumber: Optional<String>) =
+                routingNumber(routingNumber.orElse(null))
 
             /** The Standard Entry Class (SEC) code to use for the transfer. */
-            fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode) = apply {
+            fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode?) = apply {
                 this.standardEntryClassCode = standardEntryClassCode
             }
 
+            /** The Standard Entry Class (SEC) code to use for the transfer. */
+            fun standardEntryClassCode(standardEntryClassCode: Optional<StandardEntryClassCode>) =
+                standardEntryClassCode(standardEntryClassCode.orElse(null))
+
             /** The timing of the transaction. */
-            fun transactionTiming(transactionTiming: TransactionTiming) = apply {
+            fun transactionTiming(transactionTiming: TransactionTiming?) = apply {
                 this.transactionTiming = transactionTiming
             }
+
+            /** The timing of the transaction. */
+            fun transactionTiming(transactionTiming: Optional<TransactionTiming>) =
+                transactionTiming(transactionTiming.orElse(null))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -569,68 +665,129 @@ constructor(
         }
 
         /** The account number for the destination account. */
-        fun accountNumber(accountNumber: String) = apply { body.accountNumber(accountNumber) }
+        fun accountNumber(accountNumber: String?) = apply { body.accountNumber(accountNumber) }
+
+        /** The account number for the destination account. */
+        fun accountNumber(accountNumber: Optional<String>) =
+            accountNumber(accountNumber.orElse(null))
 
         /**
          * Additional information that will be sent to the recipient. This is included in the
          * transfer data sent to the receiving bank.
          */
-        fun addenda(addenda: Addenda) = apply { body.addenda(addenda) }
+        fun addenda(addenda: Addenda?) = apply { body.addenda(addenda) }
+
+        /**
+         * Additional information that will be sent to the recipient. This is included in the
+         * transfer data sent to the receiving bank.
+         */
+        fun addenda(addenda: Optional<Addenda>) = addenda(addenda.orElse(null))
 
         /**
          * The description of the date of the transfer, usually in the format `YYMMDD`. This is
          * included in the transfer data sent to the receiving bank.
          */
-        fun companyDescriptiveDate(companyDescriptiveDate: String) = apply {
+        fun companyDescriptiveDate(companyDescriptiveDate: String?) = apply {
             body.companyDescriptiveDate(companyDescriptiveDate)
+        }
+
+        /**
+         * The description of the date of the transfer, usually in the format `YYMMDD`. This is
+         * included in the transfer data sent to the receiving bank.
+         */
+        fun companyDescriptiveDate(companyDescriptiveDate: Optional<String>) =
+            companyDescriptiveDate(companyDescriptiveDate.orElse(null))
+
+        /**
+         * The data you choose to associate with the transfer. This is included in the transfer data
+         * sent to the receiving bank.
+         */
+        fun companyDiscretionaryData(companyDiscretionaryData: String?) = apply {
+            body.companyDiscretionaryData(companyDiscretionaryData)
         }
 
         /**
          * The data you choose to associate with the transfer. This is included in the transfer data
          * sent to the receiving bank.
          */
-        fun companyDiscretionaryData(companyDiscretionaryData: String) = apply {
-            body.companyDiscretionaryData(companyDiscretionaryData)
+        fun companyDiscretionaryData(companyDiscretionaryData: Optional<String>) =
+            companyDiscretionaryData(companyDiscretionaryData.orElse(null))
+
+        /**
+         * A description of the transfer. This is included in the transfer data sent to the
+         * receiving bank.
+         */
+        fun companyEntryDescription(companyEntryDescription: String?) = apply {
+            body.companyEntryDescription(companyEntryDescription)
         }
 
         /**
          * A description of the transfer. This is included in the transfer data sent to the
          * receiving bank.
          */
-        fun companyEntryDescription(companyEntryDescription: String) = apply {
-            body.companyEntryDescription(companyEntryDescription)
-        }
+        fun companyEntryDescription(companyEntryDescription: Optional<String>) =
+            companyEntryDescription(companyEntryDescription.orElse(null))
 
         /**
          * The name by which the recipient knows you. This is included in the transfer data sent to
          * the receiving bank.
          */
-        fun companyName(companyName: String) = apply { body.companyName(companyName) }
+        fun companyName(companyName: String?) = apply { body.companyName(companyName) }
+
+        /**
+         * The name by which the recipient knows you. This is included in the transfer data sent to
+         * the receiving bank.
+         */
+        fun companyName(companyName: Optional<String>) = companyName(companyName.orElse(null))
 
         /** The type of entity that owns the account to which the ACH Transfer is being sent. */
-        fun destinationAccountHolder(destinationAccountHolder: DestinationAccountHolder) = apply {
+        fun destinationAccountHolder(destinationAccountHolder: DestinationAccountHolder?) = apply {
             body.destinationAccountHolder(destinationAccountHolder)
+        }
+
+        /** The type of entity that owns the account to which the ACH Transfer is being sent. */
+        fun destinationAccountHolder(destinationAccountHolder: Optional<DestinationAccountHolder>) =
+            destinationAccountHolder(destinationAccountHolder.orElse(null))
+
+        /**
+         * The ID of an External Account to initiate a transfer to. If this parameter is provided,
+         * `account_number`, `routing_number`, and `funding` must be absent.
+         */
+        fun externalAccountId(externalAccountId: String?) = apply {
+            body.externalAccountId(externalAccountId)
         }
 
         /**
          * The ID of an External Account to initiate a transfer to. If this parameter is provided,
          * `account_number`, `routing_number`, and `funding` must be absent.
          */
-        fun externalAccountId(externalAccountId: String) = apply {
-            body.externalAccountId(externalAccountId)
-        }
+        fun externalAccountId(externalAccountId: Optional<String>) =
+            externalAccountId(externalAccountId.orElse(null))
 
         /** The type of the account to which the transfer will be sent. */
-        fun funding(funding: Funding) = apply { body.funding(funding) }
+        fun funding(funding: Funding?) = apply { body.funding(funding) }
+
+        /** The type of the account to which the transfer will be sent. */
+        fun funding(funding: Optional<Funding>) = funding(funding.orElse(null))
 
         /** Your identifier for the transfer recipient. */
-        fun individualId(individualId: String) = apply { body.individualId(individualId) }
+        fun individualId(individualId: String?) = apply { body.individualId(individualId) }
+
+        /** Your identifier for the transfer recipient. */
+        fun individualId(individualId: Optional<String>) = individualId(individualId.orElse(null))
 
         /**
          * The name of the transfer recipient. This value is informational and not verified by the
          * recipient's bank.
          */
-        fun individualName(individualName: String) = apply { body.individualName(individualName) }
+        fun individualName(individualName: String?) = apply { body.individualName(individualName) }
+
+        /**
+         * The name of the transfer recipient. This value is informational and not verified by the
+         * recipient's bank.
+         */
+        fun individualName(individualName: Optional<String>) =
+            individualName(individualName.orElse(null))
 
         /**
          * Configuration for how the effective date of the transfer will be set. This determines
@@ -638,30 +795,62 @@ constructor(
          * `settlement_schedule` of `same_day`. If set, exactly one of the child attributes must be
          * set.
          */
-        fun preferredEffectiveDate(preferredEffectiveDate: PreferredEffectiveDate) = apply {
+        fun preferredEffectiveDate(preferredEffectiveDate: PreferredEffectiveDate?) = apply {
             body.preferredEffectiveDate(preferredEffectiveDate)
         }
 
+        /**
+         * Configuration for how the effective date of the transfer will be set. This determines
+         * same-day vs future-dated settlement timing. If not set, defaults to a
+         * `settlement_schedule` of `same_day`. If set, exactly one of the child attributes must be
+         * set.
+         */
+        fun preferredEffectiveDate(preferredEffectiveDate: Optional<PreferredEffectiveDate>) =
+            preferredEffectiveDate(preferredEffectiveDate.orElse(null))
+
         /** Whether the transfer requires explicit approval via the dashboard or API. */
-        fun requireApproval(requireApproval: Boolean) = apply {
+        fun requireApproval(requireApproval: Boolean?) = apply {
             body.requireApproval(requireApproval)
         }
+
+        /** Whether the transfer requires explicit approval via the dashboard or API. */
+        fun requireApproval(requireApproval: Boolean) = requireApproval(requireApproval as Boolean?)
+
+        /** Whether the transfer requires explicit approval via the dashboard or API. */
+        @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
+        fun requireApproval(requireApproval: Optional<Boolean>) =
+            requireApproval(requireApproval.orElse(null) as Boolean?)
 
         /**
          * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
          * account.
          */
-        fun routingNumber(routingNumber: String) = apply { body.routingNumber(routingNumber) }
+        fun routingNumber(routingNumber: String?) = apply { body.routingNumber(routingNumber) }
+
+        /**
+         * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
+         * account.
+         */
+        fun routingNumber(routingNumber: Optional<String>) =
+            routingNumber(routingNumber.orElse(null))
 
         /** The Standard Entry Class (SEC) code to use for the transfer. */
-        fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode) = apply {
+        fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode?) = apply {
             body.standardEntryClassCode(standardEntryClassCode)
         }
 
+        /** The Standard Entry Class (SEC) code to use for the transfer. */
+        fun standardEntryClassCode(standardEntryClassCode: Optional<StandardEntryClassCode>) =
+            standardEntryClassCode(standardEntryClassCode.orElse(null))
+
         /** The timing of the transaction. */
-        fun transactionTiming(transactionTiming: TransactionTiming) = apply {
+        fun transactionTiming(transactionTiming: TransactionTiming?) = apply {
             body.transactionTiming(transactionTiming)
         }
+
+        /** The timing of the transaction. */
+        fun transactionTiming(transactionTiming: Optional<TransactionTiming>) =
+            transactionTiming(transactionTiming.orElse(null))
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -848,15 +1037,26 @@ constructor(
             fun category(category: Category) = apply { this.category = category }
 
             /** Unstructured `payment_related_information` passed through with the transfer. */
-            fun freeform(freeform: Freeform) = apply { this.freeform = freeform }
+            fun freeform(freeform: Freeform?) = apply { this.freeform = freeform }
+
+            /** Unstructured `payment_related_information` passed through with the transfer. */
+            fun freeform(freeform: Optional<Freeform>) = freeform(freeform.orElse(null))
 
             /**
              * Structured ASC X12 820 remittance advice records. Please reach out to
              * [support@increase.com](mailto:support@increase.com) for more information.
              */
             fun paymentOrderRemittanceAdvice(
-                paymentOrderRemittanceAdvice: PaymentOrderRemittanceAdvice
+                paymentOrderRemittanceAdvice: PaymentOrderRemittanceAdvice?
             ) = apply { this.paymentOrderRemittanceAdvice = paymentOrderRemittanceAdvice }
+
+            /**
+             * Structured ASC X12 820 remittance advice records. Please reach out to
+             * [support@increase.com](mailto:support@increase.com) for more information.
+             */
+            fun paymentOrderRemittanceAdvice(
+                paymentOrderRemittanceAdvice: Optional<PaymentOrderRemittanceAdvice>
+            ) = paymentOrderRemittanceAdvice(paymentOrderRemittanceAdvice.orElse(null))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1536,12 +1736,22 @@ constructor(
              * A specific date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format to use
              * as the effective date when submitting this transfer.
              */
-            fun date(date: LocalDate) = apply { this.date = date }
+            fun date(date: LocalDate?) = apply { this.date = date }
+
+            /**
+             * A specific date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format to use
+             * as the effective date when submitting this transfer.
+             */
+            fun date(date: Optional<LocalDate>) = date(date.orElse(null))
 
             /** A schedule by which Increase will choose an effective date for the transfer. */
-            fun settlementSchedule(settlementSchedule: SettlementSchedule) = apply {
+            fun settlementSchedule(settlementSchedule: SettlementSchedule?) = apply {
                 this.settlementSchedule = settlementSchedule
             }
+
+            /** A schedule by which Increase will choose an effective date for the transfer. */
+            fun settlementSchedule(settlementSchedule: Optional<SettlementSchedule>) =
+                settlementSchedule(settlementSchedule.orElse(null))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()

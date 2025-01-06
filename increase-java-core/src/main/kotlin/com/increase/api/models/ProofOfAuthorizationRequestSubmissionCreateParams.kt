@@ -251,14 +251,22 @@ constructor(
             }
 
             /** Company of the authorizer. */
-            fun authorizerCompany(authorizerCompany: String) = apply {
+            fun authorizerCompany(authorizerCompany: String?) = apply {
                 this.authorizerCompany = authorizerCompany
             }
 
+            /** Company of the authorizer. */
+            fun authorizerCompany(authorizerCompany: Optional<String>) =
+                authorizerCompany(authorizerCompany.orElse(null))
+
             /** IP address of the authorizer. */
-            fun authorizerIpAddress(authorizerIpAddress: String) = apply {
+            fun authorizerIpAddress(authorizerIpAddress: String?) = apply {
                 this.authorizerIpAddress = authorizerIpAddress
             }
+
+            /** IP address of the authorizer. */
+            fun authorizerIpAddress(authorizerIpAddress: Optional<String>) =
+                authorizerIpAddress(authorizerIpAddress.orElse(null))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -407,14 +415,22 @@ constructor(
         }
 
         /** Company of the authorizer. */
-        fun authorizerCompany(authorizerCompany: String) = apply {
+        fun authorizerCompany(authorizerCompany: String?) = apply {
             body.authorizerCompany(authorizerCompany)
         }
 
+        /** Company of the authorizer. */
+        fun authorizerCompany(authorizerCompany: Optional<String>) =
+            authorizerCompany(authorizerCompany.orElse(null))
+
         /** IP address of the authorizer. */
-        fun authorizerIpAddress(authorizerIpAddress: String) = apply {
+        fun authorizerIpAddress(authorizerIpAddress: String?) = apply {
             body.authorizerIpAddress(authorizerIpAddress)
         }
+
+        /** IP address of the authorizer. */
+        fun authorizerIpAddress(authorizerIpAddress: Optional<String>) =
+            authorizerIpAddress(authorizerIpAddress.orElse(null))
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

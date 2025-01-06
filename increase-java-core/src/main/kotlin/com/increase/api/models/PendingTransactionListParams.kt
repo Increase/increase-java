@@ -102,24 +102,50 @@ constructor(
         }
 
         /** Filter pending transactions to those belonging to the specified Account. */
-        fun accountId(accountId: String) = apply { this.accountId = accountId }
+        fun accountId(accountId: String?) = apply { this.accountId = accountId }
 
-        fun category(category: Category) = apply { this.category = category }
+        /** Filter pending transactions to those belonging to the specified Account. */
+        fun accountId(accountId: Optional<String>) = accountId(accountId.orElse(null))
 
-        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
+        fun category(category: Category?) = apply { this.category = category }
+
+        fun category(category: Optional<Category>) = category(category.orElse(null))
+
+        fun createdAt(createdAt: CreatedAt?) = apply { this.createdAt = createdAt }
+
+        fun createdAt(createdAt: Optional<CreatedAt>) = createdAt(createdAt.orElse(null))
 
         /** Return the page of entries after this one. */
-        fun cursor(cursor: String) = apply { this.cursor = cursor }
+        fun cursor(cursor: String?) = apply { this.cursor = cursor }
+
+        /** Return the page of entries after this one. */
+        fun cursor(cursor: Optional<String>) = cursor(cursor.orElse(null))
 
         /**
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
          */
-        fun limit(limit: Long) = apply { this.limit = limit }
+        fun limit(limit: Long?) = apply { this.limit = limit }
+
+        /**
+         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
+         */
+        fun limit(limit: Long) = limit(limit as Long?)
+
+        /**
+         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
+         */
+        @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
+        fun limit(limit: Optional<Long>) = limit(limit.orElse(null) as Long?)
 
         /** Filter pending transactions to those belonging to the specified Route. */
-        fun routeId(routeId: String) = apply { this.routeId = routeId }
+        fun routeId(routeId: String?) = apply { this.routeId = routeId }
 
-        fun status(status: Status) = apply { this.status = status }
+        /** Filter pending transactions to those belonging to the specified Route. */
+        fun routeId(routeId: Optional<String>) = routeId(routeId.orElse(null))
+
+        fun status(status: Status?) = apply { this.status = status }
+
+        fun status(status: Optional<Status>) = status(status.orElse(null))
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -275,7 +301,13 @@ constructor(
              * Return results whose value is in the provided list. For GET requests, this should be
              * encoded as a comma-delimited string, such as `?in=one,two,three`.
              */
-            fun in_(in_: List<In>) = apply { this.in_ = in_.toMutableList() }
+            fun in_(in_: List<In>?) = apply { this.in_ = in_?.toMutableList() }
+
+            /**
+             * Return results whose value is in the provided list. For GET requests, this should be
+             * encoded as a comma-delimited string, such as `?in=one,two,three`.
+             */
+            fun in_(in_: Optional<List<In>>) = in_(in_.orElse(null))
 
             /**
              * Return results whose value is in the provided list. For GET requests, this should be
@@ -541,25 +573,50 @@ constructor(
              * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun after(after: OffsetDateTime) = apply { this.after = after }
+            fun after(after: OffsetDateTime?) = apply { this.after = after }
+
+            /**
+             * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+             * timestamp.
+             */
+            fun after(after: Optional<OffsetDateTime>) = after(after.orElse(null))
 
             /**
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun before(before: OffsetDateTime) = apply { this.before = before }
+            fun before(before: OffsetDateTime?) = apply { this.before = before }
+
+            /**
+             * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+             * timestamp.
+             */
+            fun before(before: Optional<OffsetDateTime>) = before(before.orElse(null))
 
             /**
              * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun onOrAfter(onOrAfter: OffsetDateTime) = apply { this.onOrAfter = onOrAfter }
+            fun onOrAfter(onOrAfter: OffsetDateTime?) = apply { this.onOrAfter = onOrAfter }
+
+            /**
+             * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+             * timestamp.
+             */
+            fun onOrAfter(onOrAfter: Optional<OffsetDateTime>) = onOrAfter(onOrAfter.orElse(null))
 
             /**
              * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun onOrBefore(onOrBefore: OffsetDateTime) = apply { this.onOrBefore = onOrBefore }
+            fun onOrBefore(onOrBefore: OffsetDateTime?) = apply { this.onOrBefore = onOrBefore }
+
+            /**
+             * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+             * timestamp.
+             */
+            fun onOrBefore(onOrBefore: Optional<OffsetDateTime>) =
+                onOrBefore(onOrBefore.orElse(null))
 
             fun additionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.clear()
@@ -682,7 +739,14 @@ constructor(
              * Pending Transactions in with status `pending` will be returned. For GET requests,
              * this should be encoded as a comma-delimited string, such as `?in=one,two,three`.
              */
-            fun in_(in_: List<In>) = apply { this.in_ = in_.toMutableList() }
+            fun in_(in_: List<In>?) = apply { this.in_ = in_?.toMutableList() }
+
+            /**
+             * Filter Pending Transactions for those with the specified status. By default only
+             * Pending Transactions in with status `pending` will be returned. For GET requests,
+             * this should be encoded as a comma-delimited string, such as `?in=one,two,three`.
+             */
+            fun in_(in_: Optional<List<In>>) = in_(in_.orElse(null))
 
             /**
              * Filter Pending Transactions for those with the specified status. By default only

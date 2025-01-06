@@ -152,27 +152,46 @@ constructor(
             fun amount(amount: Long) = apply { this.amount = amount }
 
             /** The account number of the account that sent the transfer. */
-            fun debtorAccountNumber(debtorAccountNumber: String) = apply {
+            fun debtorAccountNumber(debtorAccountNumber: String?) = apply {
                 this.debtorAccountNumber = debtorAccountNumber
             }
 
+            /** The account number of the account that sent the transfer. */
+            fun debtorAccountNumber(debtorAccountNumber: Optional<String>) =
+                debtorAccountNumber(debtorAccountNumber.orElse(null))
+
             /** The name provided by the sender of the transfer. */
-            fun debtorName(debtorName: String) = apply { this.debtorName = debtorName }
+            fun debtorName(debtorName: String?) = apply { this.debtorName = debtorName }
+
+            /** The name provided by the sender of the transfer. */
+            fun debtorName(debtorName: Optional<String>) = debtorName(debtorName.orElse(null))
 
             /** The routing number of the account that sent the transfer. */
-            fun debtorRoutingNumber(debtorRoutingNumber: String) = apply {
+            fun debtorRoutingNumber(debtorRoutingNumber: String?) = apply {
                 this.debtorRoutingNumber = debtorRoutingNumber
             }
 
+            /** The routing number of the account that sent the transfer. */
+            fun debtorRoutingNumber(debtorRoutingNumber: Optional<String>) =
+                debtorRoutingNumber(debtorRoutingNumber.orElse(null))
+
             /** Additional information included with the transfer. */
-            fun remittanceInformation(remittanceInformation: String) = apply {
+            fun remittanceInformation(remittanceInformation: String?) = apply {
                 this.remittanceInformation = remittanceInformation
             }
 
+            /** Additional information included with the transfer. */
+            fun remittanceInformation(remittanceInformation: Optional<String>) =
+                remittanceInformation(remittanceInformation.orElse(null))
+
             /** The identifier of a pending Request for Payment that this transfer will fulfill. */
-            fun requestForPaymentId(requestForPaymentId: String) = apply {
+            fun requestForPaymentId(requestForPaymentId: String?) = apply {
                 this.requestForPaymentId = requestForPaymentId
             }
+
+            /** The identifier of a pending Request for Payment that this transfer will fulfill. */
+            fun requestForPaymentId(requestForPaymentId: Optional<String>) =
+                requestForPaymentId(requestForPaymentId.orElse(null))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -263,27 +282,46 @@ constructor(
         fun amount(amount: Long) = apply { body.amount(amount) }
 
         /** The account number of the account that sent the transfer. */
-        fun debtorAccountNumber(debtorAccountNumber: String) = apply {
+        fun debtorAccountNumber(debtorAccountNumber: String?) = apply {
             body.debtorAccountNumber(debtorAccountNumber)
         }
 
+        /** The account number of the account that sent the transfer. */
+        fun debtorAccountNumber(debtorAccountNumber: Optional<String>) =
+            debtorAccountNumber(debtorAccountNumber.orElse(null))
+
         /** The name provided by the sender of the transfer. */
-        fun debtorName(debtorName: String) = apply { body.debtorName(debtorName) }
+        fun debtorName(debtorName: String?) = apply { body.debtorName(debtorName) }
+
+        /** The name provided by the sender of the transfer. */
+        fun debtorName(debtorName: Optional<String>) = debtorName(debtorName.orElse(null))
 
         /** The routing number of the account that sent the transfer. */
-        fun debtorRoutingNumber(debtorRoutingNumber: String) = apply {
+        fun debtorRoutingNumber(debtorRoutingNumber: String?) = apply {
             body.debtorRoutingNumber(debtorRoutingNumber)
         }
 
+        /** The routing number of the account that sent the transfer. */
+        fun debtorRoutingNumber(debtorRoutingNumber: Optional<String>) =
+            debtorRoutingNumber(debtorRoutingNumber.orElse(null))
+
         /** Additional information included with the transfer. */
-        fun remittanceInformation(remittanceInformation: String) = apply {
+        fun remittanceInformation(remittanceInformation: String?) = apply {
             body.remittanceInformation(remittanceInformation)
         }
 
+        /** Additional information included with the transfer. */
+        fun remittanceInformation(remittanceInformation: Optional<String>) =
+            remittanceInformation(remittanceInformation.orElse(null))
+
         /** The identifier of a pending Request for Payment that this transfer will fulfill. */
-        fun requestForPaymentId(requestForPaymentId: String) = apply {
+        fun requestForPaymentId(requestForPaymentId: String?) = apply {
             body.requestForPaymentId(requestForPaymentId)
         }
+
+        /** The identifier of a pending Request for Payment that this transfer will fulfill. */
+        fun requestForPaymentId(requestForPaymentId: Optional<String>) =
+            requestForPaymentId(requestForPaymentId.orElse(null))
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
