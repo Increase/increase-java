@@ -28,6 +28,7 @@ import java.util.Optional
 class DeclinedTransaction
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("account_id")
     @ExcludeMissing
     private val accountId: JsonField<String> = JsonMissing.of(),
@@ -41,7 +42,6 @@ private constructor(
     @JsonProperty("description")
     @ExcludeMissing
     private val description: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("route_id")
     @ExcludeMissing
     private val routeId: JsonField<String> = JsonMissing.of(),
@@ -54,6 +54,9 @@ private constructor(
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
+
+    /** The Declined Transaction identifier. */
+    fun id(): String = id.getRequired("id")
 
     /** The identifier for the Account the Declined Transaction belongs to. */
     fun accountId(): String = accountId.getRequired("account_id")
@@ -79,9 +82,6 @@ private constructor(
     /** This is the description the vendor provides. */
     fun description(): String = description.getRequired("description")
 
-    /** The Declined Transaction identifier. */
-    fun id(): String = id.getRequired("id")
-
     /**
      * The identifier for the route this Declined Transaction came through. Routes are things like
      * cards and ACH details.
@@ -106,6 +106,9 @@ private constructor(
      */
     fun type(): Type = type.getRequired("type")
 
+    /** The Declined Transaction identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
     /** The identifier for the Account the Declined Transaction belongs to. */
     @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
 
@@ -129,9 +132,6 @@ private constructor(
 
     /** This is the description the vendor provides. */
     @JsonProperty("description") @ExcludeMissing fun _description() = description
-
-    /** The Declined Transaction identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * The identifier for the route this Declined Transaction came through. Routes are things like
@@ -165,12 +165,12 @@ private constructor(
 
     fun validate(): DeclinedTransaction = apply {
         if (!validated) {
+            id()
             accountId()
             amount()
             createdAt()
             currency()
             description()
-            id()
             routeId()
             routeType()
             source().validate()
@@ -188,12 +188,12 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var accountId: JsonField<String> = JsonMissing.of()
         private var amount: JsonField<Long> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var currency: JsonField<Currency> = JsonMissing.of()
         private var description: JsonField<String> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var routeId: JsonField<String> = JsonMissing.of()
         private var routeType: JsonField<RouteType> = JsonMissing.of()
         private var source: JsonField<Source> = JsonMissing.of()
@@ -202,18 +202,24 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(declinedTransaction: DeclinedTransaction) = apply {
+            id = declinedTransaction.id
             accountId = declinedTransaction.accountId
             amount = declinedTransaction.amount
             createdAt = declinedTransaction.createdAt
             currency = declinedTransaction.currency
             description = declinedTransaction.description
-            id = declinedTransaction.id
             routeId = declinedTransaction.routeId
             routeType = declinedTransaction.routeType
             source = declinedTransaction.source
             type = declinedTransaction.type
             additionalProperties = declinedTransaction.additionalProperties.toMutableMap()
         }
+
+        /** The Declined Transaction identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The Declined Transaction identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The identifier for the Account the Declined Transaction belongs to. */
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
@@ -264,12 +270,6 @@ private constructor(
 
         /** This is the description the vendor provides. */
         fun description(description: JsonField<String>) = apply { this.description = description }
-
-        /** The Declined Transaction identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The Declined Transaction identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The identifier for the route this Declined Transaction came through. Routes are things
@@ -340,12 +340,12 @@ private constructor(
 
         fun build(): DeclinedTransaction =
             DeclinedTransaction(
+                id,
                 accountId,
                 amount,
                 createdAt,
                 currency,
                 description,
-                id,
                 routeId,
                 routeType,
                 source,
@@ -853,12 +853,12 @@ private constructor(
         class AchDecline
         @JsonCreator
         private constructor(
-            @JsonProperty("amount")
-            @ExcludeMissing
-            private val amount: JsonField<Long> = JsonMissing.of(),
             @JsonProperty("id")
             @ExcludeMissing
             private val id: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("amount")
+            @ExcludeMissing
+            private val amount: JsonField<Long> = JsonMissing.of(),
             @JsonProperty("inbound_ach_transfer_id")
             @ExcludeMissing
             private val inboundAchTransferId: JsonField<String> = JsonMissing.of(),
@@ -893,11 +893,11 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
-            /** The declined amount in USD cents. */
-            fun amount(): Long = amount.getRequired("amount")
-
             /** The ACH Decline's identifier. */
             fun id(): String = id.getRequired("id")
+
+            /** The declined amount in USD cents. */
+            fun amount(): Long = amount.getRequired("amount")
 
             /** The identifier of the Inbound ACH Transfer object associated with this decline. */
             fun inboundAchTransferId(): String =
@@ -947,11 +947,11 @@ private constructor(
              */
             fun type(): Type = type.getRequired("type")
 
-            /** The declined amount in USD cents. */
-            @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
-
             /** The ACH Decline's identifier. */
             @JsonProperty("id") @ExcludeMissing fun _id() = id
+
+            /** The declined amount in USD cents. */
+            @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
             /** The identifier of the Inbound ACH Transfer object associated with this decline. */
             @JsonProperty("inbound_ach_transfer_id")
@@ -1006,8 +1006,8 @@ private constructor(
 
             fun validate(): AchDecline = apply {
                 if (!validated) {
-                    amount()
                     id()
+                    amount()
                     inboundAchTransferId()
                     originatorCompanyDescriptiveDate()
                     originatorCompanyDiscretionaryData()
@@ -1031,8 +1031,8 @@ private constructor(
 
             class Builder {
 
-                private var amount: JsonField<Long> = JsonMissing.of()
                 private var id: JsonField<String> = JsonMissing.of()
+                private var amount: JsonField<Long> = JsonMissing.of()
                 private var inboundAchTransferId: JsonField<String> = JsonMissing.of()
                 private var originatorCompanyDescriptiveDate: JsonField<String> = JsonMissing.of()
                 private var originatorCompanyDiscretionaryData: JsonField<String> = JsonMissing.of()
@@ -1047,8 +1047,8 @@ private constructor(
 
                 @JvmSynthetic
                 internal fun from(achDecline: AchDecline) = apply {
-                    amount = achDecline.amount
                     id = achDecline.id
+                    amount = achDecline.amount
                     inboundAchTransferId = achDecline.inboundAchTransferId
                     originatorCompanyDescriptiveDate = achDecline.originatorCompanyDescriptiveDate
                     originatorCompanyDiscretionaryData =
@@ -1063,17 +1063,17 @@ private constructor(
                     additionalProperties = achDecline.additionalProperties.toMutableMap()
                 }
 
-                /** The declined amount in USD cents. */
-                fun amount(amount: Long) = amount(JsonField.of(amount))
-
-                /** The declined amount in USD cents. */
-                fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
-
                 /** The ACH Decline's identifier. */
                 fun id(id: String) = id(JsonField.of(id))
 
                 /** The ACH Decline's identifier. */
                 fun id(id: JsonField<String>) = apply { this.id = id }
+
+                /** The declined amount in USD cents. */
+                fun amount(amount: Long) = amount(JsonField.of(amount))
+
+                /** The declined amount in USD cents. */
+                fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
                 /**
                  * The identifier of the Inbound ACH Transfer object associated with this decline.
@@ -1197,8 +1197,8 @@ private constructor(
 
                 fun build(): AchDecline =
                     AchDecline(
-                        amount,
                         id,
+                        amount,
                         inboundAchTransferId,
                         originatorCompanyDescriptiveDate,
                         originatorCompanyDiscretionaryData,
@@ -1436,17 +1436,17 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is AchDecline && amount == other.amount && id == other.id && inboundAchTransferId == other.inboundAchTransferId && originatorCompanyDescriptiveDate == other.originatorCompanyDescriptiveDate && originatorCompanyDiscretionaryData == other.originatorCompanyDiscretionaryData && originatorCompanyId == other.originatorCompanyId && originatorCompanyName == other.originatorCompanyName && reason == other.reason && receiverIdNumber == other.receiverIdNumber && receiverName == other.receiverName && traceNumber == other.traceNumber && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is AchDecline && id == other.id && amount == other.amount && inboundAchTransferId == other.inboundAchTransferId && originatorCompanyDescriptiveDate == other.originatorCompanyDescriptiveDate && originatorCompanyDiscretionaryData == other.originatorCompanyDiscretionaryData && originatorCompanyId == other.originatorCompanyId && originatorCompanyName == other.originatorCompanyName && reason == other.reason && receiverIdNumber == other.receiverIdNumber && receiverName == other.receiverName && traceNumber == other.traceNumber && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(amount, id, inboundAchTransferId, originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData, originatorCompanyId, originatorCompanyName, reason, receiverIdNumber, receiverName, traceNumber, type, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(id, amount, inboundAchTransferId, originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData, originatorCompanyId, originatorCompanyName, reason, receiverIdNumber, receiverName, traceNumber, type, additionalProperties) }
             /* spotless:on */
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "AchDecline{amount=$amount, id=$id, inboundAchTransferId=$inboundAchTransferId, originatorCompanyDescriptiveDate=$originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData=$originatorCompanyDiscretionaryData, originatorCompanyId=$originatorCompanyId, originatorCompanyName=$originatorCompanyName, reason=$reason, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, traceNumber=$traceNumber, type=$type, additionalProperties=$additionalProperties}"
+                "AchDecline{id=$id, amount=$amount, inboundAchTransferId=$inboundAchTransferId, originatorCompanyDescriptiveDate=$originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData=$originatorCompanyDiscretionaryData, originatorCompanyId=$originatorCompanyId, originatorCompanyName=$originatorCompanyName, reason=$reason, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, traceNumber=$traceNumber, type=$type, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -1457,6 +1457,9 @@ private constructor(
         class CardDecline
         @JsonCreator
         private constructor(
+            @JsonProperty("id")
+            @ExcludeMissing
+            private val id: JsonField<String> = JsonMissing.of(),
             @JsonProperty("actioner")
             @ExcludeMissing
             private val actioner: JsonField<Actioner> = JsonMissing.of(),
@@ -1478,9 +1481,6 @@ private constructor(
             @JsonProperty("direction")
             @ExcludeMissing
             private val direction: JsonField<Direction> = JsonMissing.of(),
-            @JsonProperty("id")
-            @ExcludeMissing
-            private val id: JsonField<String> = JsonMissing.of(),
             @JsonProperty("merchant_acceptor_id")
             @ExcludeMissing
             private val merchantAcceptorId: JsonField<String> = JsonMissing.of(),
@@ -1543,6 +1543,9 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
+            /** The Card Decline identifier. */
+            fun id(): String = id.getRequired("id")
+
             /**
              * Whether this authorization was approved by Increase, the card network through
              * stand-in processing, or the user through a real-time decision.
@@ -1580,9 +1583,6 @@ private constructor(
              * to the merchant or from the merchant to the cardholder.
              */
             fun direction(): Direction = direction.getRequired("direction")
-
-            /** The Card Decline identifier. */
-            fun id(): String = id.getRequired("id")
 
             /**
              * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -1680,6 +1680,9 @@ private constructor(
             /** Fields related to verification of cardholder-provided values. */
             fun verification(): Verification = verification.getRequired("verification")
 
+            /** The Card Decline identifier. */
+            @JsonProperty("id") @ExcludeMissing fun _id() = id
+
             /**
              * Whether this authorization was approved by Increase, the card network through
              * stand-in processing, or the user through a real-time decision.
@@ -1719,9 +1722,6 @@ private constructor(
              * to the merchant or from the merchant to the cardholder.
              */
             @JsonProperty("direction") @ExcludeMissing fun _direction() = direction
-
-            /** The Card Decline identifier. */
-            @JsonProperty("id") @ExcludeMissing fun _id() = id
 
             /**
              * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -1838,6 +1838,7 @@ private constructor(
 
             fun validate(): CardDecline = apply {
                 if (!validated) {
+                    id()
                     actioner()
                     amount()
                     cardPaymentId()
@@ -1845,7 +1846,6 @@ private constructor(
                     declinedTransactionId()
                     digitalWalletTokenId()
                     direction()
-                    id()
                     merchantAcceptorId()
                     merchantCategoryCode()
                     merchantCity()
@@ -1878,6 +1878,7 @@ private constructor(
 
             class Builder {
 
+                private var id: JsonField<String> = JsonMissing.of()
                 private var actioner: JsonField<Actioner> = JsonMissing.of()
                 private var amount: JsonField<Long> = JsonMissing.of()
                 private var cardPaymentId: JsonField<String> = JsonMissing.of()
@@ -1885,7 +1886,6 @@ private constructor(
                 private var declinedTransactionId: JsonField<String> = JsonMissing.of()
                 private var digitalWalletTokenId: JsonField<String> = JsonMissing.of()
                 private var direction: JsonField<Direction> = JsonMissing.of()
-                private var id: JsonField<String> = JsonMissing.of()
                 private var merchantAcceptorId: JsonField<String> = JsonMissing.of()
                 private var merchantCategoryCode: JsonField<String> = JsonMissing.of()
                 private var merchantCity: JsonField<String> = JsonMissing.of()
@@ -1910,6 +1910,7 @@ private constructor(
 
                 @JvmSynthetic
                 internal fun from(cardDecline: CardDecline) = apply {
+                    id = cardDecline.id
                     actioner = cardDecline.actioner
                     amount = cardDecline.amount
                     cardPaymentId = cardDecline.cardPaymentId
@@ -1917,7 +1918,6 @@ private constructor(
                     declinedTransactionId = cardDecline.declinedTransactionId
                     digitalWalletTokenId = cardDecline.digitalWalletTokenId
                     direction = cardDecline.direction
-                    id = cardDecline.id
                     merchantAcceptorId = cardDecline.merchantAcceptorId
                     merchantCategoryCode = cardDecline.merchantCategoryCode
                     merchantCity = cardDecline.merchantCity
@@ -1939,6 +1939,12 @@ private constructor(
                     verification = cardDecline.verification
                     additionalProperties = cardDecline.additionalProperties.toMutableMap()
                 }
+
+                /** The Card Decline identifier. */
+                fun id(id: String) = id(JsonField.of(id))
+
+                /** The Card Decline identifier. */
+                fun id(id: JsonField<String>) = apply { this.id = id }
 
                 /**
                  * Whether this authorization was approved by Increase, the card network through
@@ -2022,12 +2028,6 @@ private constructor(
                 fun direction(direction: JsonField<Direction>) = apply {
                     this.direction = direction
                 }
-
-                /** The Card Decline identifier. */
-                fun id(id: String) = id(JsonField.of(id))
-
-                /** The Card Decline identifier. */
-                fun id(id: JsonField<String>) = apply { this.id = id }
 
                 /**
                  * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -2281,6 +2281,7 @@ private constructor(
 
                 fun build(): CardDecline =
                     CardDecline(
+                        id,
                         actioner,
                         amount,
                         cardPaymentId,
@@ -2288,7 +2289,6 @@ private constructor(
                         declinedTransactionId,
                         digitalWalletTokenId,
                         direction,
-                        id,
                         merchantAcceptorId,
                         merchantCategoryCode,
                         merchantCity,
@@ -4371,17 +4371,17 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is CardDecline && actioner == other.actioner && amount == other.amount && cardPaymentId == other.cardPaymentId && currency == other.currency && declinedTransactionId == other.declinedTransactionId && digitalWalletTokenId == other.digitalWalletTokenId && direction == other.direction && id == other.id && merchantAcceptorId == other.merchantAcceptorId && merchantCategoryCode == other.merchantCategoryCode && merchantCity == other.merchantCity && merchantCountry == other.merchantCountry && merchantDescriptor == other.merchantDescriptor && merchantPostalCode == other.merchantPostalCode && merchantState == other.merchantState && networkDetails == other.networkDetails && networkIdentifiers == other.networkIdentifiers && networkRiskScore == other.networkRiskScore && physicalCardId == other.physicalCardId && presentmentAmount == other.presentmentAmount && presentmentCurrency == other.presentmentCurrency && processingCategory == other.processingCategory && realTimeDecisionId == other.realTimeDecisionId && realTimeDecisionReason == other.realTimeDecisionReason && reason == other.reason && terminalId == other.terminalId && verification == other.verification && additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is CardDecline && id == other.id && actioner == other.actioner && amount == other.amount && cardPaymentId == other.cardPaymentId && currency == other.currency && declinedTransactionId == other.declinedTransactionId && digitalWalletTokenId == other.digitalWalletTokenId && direction == other.direction && merchantAcceptorId == other.merchantAcceptorId && merchantCategoryCode == other.merchantCategoryCode && merchantCity == other.merchantCity && merchantCountry == other.merchantCountry && merchantDescriptor == other.merchantDescriptor && merchantPostalCode == other.merchantPostalCode && merchantState == other.merchantState && networkDetails == other.networkDetails && networkIdentifiers == other.networkIdentifiers && networkRiskScore == other.networkRiskScore && physicalCardId == other.physicalCardId && presentmentAmount == other.presentmentAmount && presentmentCurrency == other.presentmentCurrency && processingCategory == other.processingCategory && realTimeDecisionId == other.realTimeDecisionId && realTimeDecisionReason == other.realTimeDecisionReason && reason == other.reason && terminalId == other.terminalId && verification == other.verification && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(actioner, amount, cardPaymentId, currency, declinedTransactionId, digitalWalletTokenId, direction, id, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantDescriptor, merchantPostalCode, merchantState, networkDetails, networkIdentifiers, networkRiskScore, physicalCardId, presentmentAmount, presentmentCurrency, processingCategory, realTimeDecisionId, realTimeDecisionReason, reason, terminalId, verification, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(id, actioner, amount, cardPaymentId, currency, declinedTransactionId, digitalWalletTokenId, direction, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantDescriptor, merchantPostalCode, merchantState, networkDetails, networkIdentifiers, networkRiskScore, physicalCardId, presentmentAmount, presentmentCurrency, processingCategory, realTimeDecisionId, realTimeDecisionReason, reason, terminalId, verification, additionalProperties) }
             /* spotless:on */
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CardDecline{actioner=$actioner, amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, declinedTransactionId=$declinedTransactionId, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, id=$id, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, realTimeDecisionId=$realTimeDecisionId, realTimeDecisionReason=$realTimeDecisionReason, reason=$reason, terminalId=$terminalId, verification=$verification, additionalProperties=$additionalProperties}"
+                "CardDecline{id=$id, actioner=$actioner, amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, declinedTransactionId=$declinedTransactionId, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, realTimeDecisionId=$realTimeDecisionId, realTimeDecisionReason=$realTimeDecisionReason, reason=$reason, terminalId=$terminalId, verification=$verification, additionalProperties=$additionalProperties}"
         }
 
         class Category
@@ -6145,15 +6145,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is DeclinedTransaction && accountId == other.accountId && amount == other.amount && createdAt == other.createdAt && currency == other.currency && description == other.description && id == other.id && routeId == other.routeId && routeType == other.routeType && source == other.source && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is DeclinedTransaction && id == other.id && accountId == other.accountId && amount == other.amount && createdAt == other.createdAt && currency == other.currency && description == other.description && routeId == other.routeId && routeType == other.routeType && source == other.source && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(accountId, amount, createdAt, currency, description, id, routeId, routeType, source, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, accountId, amount, createdAt, currency, description, routeId, routeType, source, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "DeclinedTransaction{accountId=$accountId, amount=$amount, createdAt=$createdAt, currency=$currency, description=$description, id=$id, routeId=$routeId, routeType=$routeType, source=$source, type=$type, additionalProperties=$additionalProperties}"
+        "DeclinedTransaction{id=$id, accountId=$accountId, amount=$amount, createdAt=$createdAt, currency=$currency, description=$description, routeId=$routeId, routeType=$routeType, source=$source, type=$type, additionalProperties=$additionalProperties}"
 }

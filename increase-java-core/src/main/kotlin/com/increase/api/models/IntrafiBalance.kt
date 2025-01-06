@@ -27,6 +27,7 @@ import java.util.Optional
 class IntrafiBalance
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("balances")
     @ExcludeMissing
     private val balances: JsonField<List<Balance>> = JsonMissing.of(),
@@ -36,13 +37,15 @@ private constructor(
     @JsonProperty("effective_date")
     @ExcludeMissing
     private val effectiveDate: JsonField<LocalDate> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("total_balance")
     @ExcludeMissing
     private val totalBalance: JsonField<Long> = JsonMissing.of(),
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
+
+    /** The identifier of this balance. */
+    fun id(): String = id.getRequired("id")
 
     /**
      * Each entry represents a balance held at a different bank. IntraFi separates the total balance
@@ -56,9 +59,6 @@ private constructor(
     /** The date this balance reflects. */
     fun effectiveDate(): LocalDate = effectiveDate.getRequired("effective_date")
 
-    /** The identifier of this balance. */
-    fun id(): String = id.getRequired("id")
-
     /**
      * The total balance, in minor units of `currency`. Increase reports this balance to IntraFi
      * daily.
@@ -71,6 +71,9 @@ private constructor(
      */
     fun type(): Type = type.getRequired("type")
 
+    /** The identifier of this balance. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
     /**
      * Each entry represents a balance held at a different bank. IntraFi separates the total balance
      * across many participating banks in the network.
@@ -82,9 +85,6 @@ private constructor(
 
     /** The date this balance reflects. */
     @JsonProperty("effective_date") @ExcludeMissing fun _effectiveDate() = effectiveDate
-
-    /** The identifier of this balance. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * The total balance, in minor units of `currency`. Increase reports this balance to IntraFi
@@ -106,10 +106,10 @@ private constructor(
 
     fun validate(): IntrafiBalance = apply {
         if (!validated) {
+            id()
             balances().forEach { it.validate() }
             currency()
             effectiveDate()
-            id()
             totalBalance()
             type()
             validated = true
@@ -125,24 +125,30 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var balances: JsonField<List<Balance>> = JsonMissing.of()
         private var currency: JsonField<Currency> = JsonMissing.of()
         private var effectiveDate: JsonField<LocalDate> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var totalBalance: JsonField<Long> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(intrafiBalance: IntrafiBalance) = apply {
+            id = intrafiBalance.id
             balances = intrafiBalance.balances
             currency = intrafiBalance.currency
             effectiveDate = intrafiBalance.effectiveDate
-            id = intrafiBalance.id
             totalBalance = intrafiBalance.totalBalance
             type = intrafiBalance.type
             additionalProperties = intrafiBalance.additionalProperties.toMutableMap()
         }
+
+        /** The identifier of this balance. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The identifier of this balance. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * Each entry represents a balance held at a different bank. IntraFi separates the total
@@ -169,12 +175,6 @@ private constructor(
         fun effectiveDate(effectiveDate: JsonField<LocalDate>) = apply {
             this.effectiveDate = effectiveDate
         }
-
-        /** The identifier of this balance. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The identifier of this balance. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The total balance, in minor units of `currency`. Increase reports this balance to IntraFi
@@ -221,10 +221,10 @@ private constructor(
 
         fun build(): IntrafiBalance =
             IntrafiBalance(
+                id,
                 balances.map { it.toImmutable() },
                 currency,
                 effectiveDate,
-                id,
                 totalBalance,
                 type,
                 additionalProperties.toImmutable(),
@@ -235,6 +235,7 @@ private constructor(
     class Balance
     @JsonCreator
     private constructor(
+        @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
         @JsonProperty("balance")
         @ExcludeMissing
         private val balance: JsonField<Long> = JsonMissing.of(),
@@ -247,10 +248,12 @@ private constructor(
         @JsonProperty("fdic_certificate_number")
         @ExcludeMissing
         private val fdicCertificateNumber: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
+
+        /** The identifier of this balance. */
+        fun id(): String = id.getRequired("id")
 
         /** The balance, in minor units of `currency`, held with this bank. */
         fun balance(): Long = balance.getRequired("balance")
@@ -271,7 +274,7 @@ private constructor(
             fdicCertificateNumber.getRequired("fdic_certificate_number")
 
         /** The identifier of this balance. */
-        fun id(): String = id.getRequired("id")
+        @JsonProperty("id") @ExcludeMissing fun _id() = id
 
         /** The balance, in minor units of `currency`, held with this bank. */
         @JsonProperty("balance") @ExcludeMissing fun _balance() = balance
@@ -291,9 +294,6 @@ private constructor(
         @ExcludeMissing
         fun _fdicCertificateNumber() = fdicCertificateNumber
 
-        /** The identifier of this balance. */
-        @JsonProperty("id") @ExcludeMissing fun _id() = id
-
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -302,11 +302,11 @@ private constructor(
 
         fun validate(): Balance = apply {
             if (!validated) {
+                id()
                 balance()
                 bank()
                 bankLocation().map { it.validate() }
                 fdicCertificateNumber()
-                id()
                 validated = true
             }
         }
@@ -320,22 +320,28 @@ private constructor(
 
         class Builder {
 
+            private var id: JsonField<String> = JsonMissing.of()
             private var balance: JsonField<Long> = JsonMissing.of()
             private var bank: JsonField<String> = JsonMissing.of()
             private var bankLocation: JsonField<BankLocation> = JsonMissing.of()
             private var fdicCertificateNumber: JsonField<String> = JsonMissing.of()
-            private var id: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(balance: Balance) = apply {
+                id = balance.id
                 this.balance = balance.balance
                 bank = balance.bank
                 bankLocation = balance.bankLocation
                 fdicCertificateNumber = balance.fdicCertificateNumber
-                id = balance.id
                 additionalProperties = balance.additionalProperties.toMutableMap()
             }
+
+            /** The identifier of this balance. */
+            fun id(id: String) = id(JsonField.of(id))
+
+            /** The identifier of this balance. */
+            fun id(id: JsonField<String>) = apply { this.id = id }
 
             /** The balance, in minor units of `currency`, held with this bank. */
             fun balance(balance: Long) = balance(JsonField.of(balance))
@@ -374,12 +380,6 @@ private constructor(
                 this.fdicCertificateNumber = fdicCertificateNumber
             }
 
-            /** The identifier of this balance. */
-            fun id(id: String) = id(JsonField.of(id))
-
-            /** The identifier of this balance. */
-            fun id(id: JsonField<String>) = apply { this.id = id }
-
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -401,11 +401,11 @@ private constructor(
 
             fun build(): Balance =
                 Balance(
+                    id,
                     balance,
                     bank,
                     bankLocation,
                     fdicCertificateNumber,
-                    id,
                     additionalProperties.toImmutable(),
                 )
         }
@@ -536,17 +536,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Balance && balance == other.balance && bank == other.bank && bankLocation == other.bankLocation && fdicCertificateNumber == other.fdicCertificateNumber && id == other.id && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Balance && id == other.id && balance == other.balance && bank == other.bank && bankLocation == other.bankLocation && fdicCertificateNumber == other.fdicCertificateNumber && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(balance, bank, bankLocation, fdicCertificateNumber, id, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(id, balance, bank, bankLocation, fdicCertificateNumber, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Balance{balance=$balance, bank=$bank, bankLocation=$bankLocation, fdicCertificateNumber=$fdicCertificateNumber, id=$id, additionalProperties=$additionalProperties}"
+            "Balance{id=$id, balance=$balance, bank=$bank, bankLocation=$bankLocation, fdicCertificateNumber=$fdicCertificateNumber, additionalProperties=$additionalProperties}"
     }
 
     class Currency
@@ -686,15 +686,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is IntrafiBalance && balances == other.balances && currency == other.currency && effectiveDate == other.effectiveDate && id == other.id && totalBalance == other.totalBalance && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is IntrafiBalance && id == other.id && balances == other.balances && currency == other.currency && effectiveDate == other.effectiveDate && totalBalance == other.totalBalance && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(balances, currency, effectiveDate, id, totalBalance, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, balances, currency, effectiveDate, totalBalance, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "IntrafiBalance{balances=$balances, currency=$currency, effectiveDate=$effectiveDate, id=$id, totalBalance=$totalBalance, type=$type, additionalProperties=$additionalProperties}"
+        "IntrafiBalance{id=$id, balances=$balances, currency=$currency, effectiveDate=$effectiveDate, totalBalance=$totalBalance, type=$type, additionalProperties=$additionalProperties}"
 }

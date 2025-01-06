@@ -27,6 +27,7 @@ import java.util.Optional
 class OAuthConnection
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("created_at")
     @ExcludeMissing
     private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -36,7 +37,6 @@ private constructor(
     @JsonProperty("group_id")
     @ExcludeMissing
     private val groupId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("oauth_application_id")
     @ExcludeMissing
     private val oauthApplicationId: JsonField<String> = JsonMissing.of(),
@@ -46,6 +46,9 @@ private constructor(
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
+
+    /** The OAuth Connection's identifier. */
+    fun id(): String = id.getRequired("id")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth Connection
@@ -63,9 +66,6 @@ private constructor(
     /** The identifier of the Group that has authorized your OAuth application. */
     fun groupId(): String = groupId.getRequired("group_id")
 
-    /** The OAuth Connection's identifier. */
-    fun id(): String = id.getRequired("id")
-
     /** The identifier of the OAuth application this connection is for. */
     fun oauthApplicationId(): String = oauthApplicationId.getRequired("oauth_application_id")
 
@@ -77,6 +77,9 @@ private constructor(
      * `oauth_connection`.
      */
     fun type(): Type = type.getRequired("type")
+
+    /** The OAuth Connection's identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth Connection
@@ -92,9 +95,6 @@ private constructor(
 
     /** The identifier of the Group that has authorized your OAuth application. */
     @JsonProperty("group_id") @ExcludeMissing fun _groupId() = groupId
-
-    /** The OAuth Connection's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /** The identifier of the OAuth application this connection is for. */
     @JsonProperty("oauth_application_id")
@@ -118,10 +118,10 @@ private constructor(
 
     fun validate(): OAuthConnection = apply {
         if (!validated) {
+            id()
             createdAt()
             deletedAt()
             groupId()
-            id()
             oauthApplicationId()
             status()
             type()
@@ -138,10 +138,10 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var deletedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var groupId: JsonField<String> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var oauthApplicationId: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
@@ -149,15 +149,21 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(oauthConnection: OAuthConnection) = apply {
+            id = oauthConnection.id
             createdAt = oauthConnection.createdAt
             deletedAt = oauthConnection.deletedAt
             groupId = oauthConnection.groupId
-            id = oauthConnection.id
             oauthApplicationId = oauthConnection.oauthApplicationId
             status = oauthConnection.status
             type = oauthConnection.type
             additionalProperties = oauthConnection.additionalProperties.toMutableMap()
         }
+
+        /** The OAuth Connection's identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The OAuth Connection's identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth
@@ -188,12 +194,6 @@ private constructor(
 
         /** The identifier of the Group that has authorized your OAuth application. */
         fun groupId(groupId: JsonField<String>) = apply { this.groupId = groupId }
-
-        /** The OAuth Connection's identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The OAuth Connection's identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The identifier of the OAuth application this connection is for. */
         fun oauthApplicationId(oauthApplicationId: String) =
@@ -243,10 +243,10 @@ private constructor(
 
         fun build(): OAuthConnection =
             OAuthConnection(
+                id,
                 createdAt,
                 deletedAt,
                 groupId,
-                id,
                 oauthApplicationId,
                 status,
                 type,
@@ -367,15 +367,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is OAuthConnection && createdAt == other.createdAt && deletedAt == other.deletedAt && groupId == other.groupId && id == other.id && oauthApplicationId == other.oauthApplicationId && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is OAuthConnection && id == other.id && createdAt == other.createdAt && deletedAt == other.deletedAt && groupId == other.groupId && oauthApplicationId == other.oauthApplicationId && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(createdAt, deletedAt, groupId, id, oauthApplicationId, status, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, createdAt, deletedAt, groupId, oauthApplicationId, status, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "OAuthConnection{createdAt=$createdAt, deletedAt=$deletedAt, groupId=$groupId, id=$id, oauthApplicationId=$oauthApplicationId, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "OAuthConnection{id=$id, createdAt=$createdAt, deletedAt=$deletedAt, groupId=$groupId, oauthApplicationId=$oauthApplicationId, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

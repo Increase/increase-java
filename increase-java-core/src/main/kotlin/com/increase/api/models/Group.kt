@@ -28,6 +28,7 @@ import java.util.Objects
 class Group
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("ach_debit_status")
     @ExcludeMissing
     private val achDebitStatus: JsonField<AchDebitStatus> = JsonMissing.of(),
@@ -37,10 +38,12 @@ private constructor(
     @JsonProperty("created_at")
     @ExcludeMissing
     private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
+
+    /** The Group identifier. */
+    fun id(): String = id.getRequired("id")
 
     /** If the Group is allowed to create ACH debits. */
     fun achDebitStatus(): AchDebitStatus = achDebitStatus.getRequired("ach_debit_status")
@@ -53,11 +56,11 @@ private constructor(
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /** The Group identifier. */
-    fun id(): String = id.getRequired("id")
-
     /** A constant representing the object's type. For this resource it will always be `group`. */
     fun type(): Type = type.getRequired("type")
+
+    /** The Group identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /** If the Group is allowed to create ACH debits. */
     @JsonProperty("ach_debit_status") @ExcludeMissing fun _achDebitStatus() = achDebitStatus
@@ -70,9 +73,6 @@ private constructor(
      */
     @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
-    /** The Group identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
     /** A constant representing the object's type. For this resource it will always be `group`. */
     @JsonProperty("type") @ExcludeMissing fun _type() = type
 
@@ -84,10 +84,10 @@ private constructor(
 
     fun validate(): Group = apply {
         if (!validated) {
+            id()
             achDebitStatus()
             activationStatus()
             createdAt()
-            id()
             type()
             validated = true
         }
@@ -102,22 +102,28 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var achDebitStatus: JsonField<AchDebitStatus> = JsonMissing.of()
         private var activationStatus: JsonField<ActivationStatus> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(group: Group) = apply {
+            id = group.id
             achDebitStatus = group.achDebitStatus
             activationStatus = group.activationStatus
             createdAt = group.createdAt
-            id = group.id
             type = group.type
             additionalProperties = group.additionalProperties.toMutableMap()
         }
+
+        /** The Group identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The Group identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** If the Group is allowed to create ACH debits. */
         fun achDebitStatus(achDebitStatus: AchDebitStatus) =
@@ -148,12 +154,6 @@ private constructor(
          * created.
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
-
-        /** The Group identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The Group identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * A constant representing the object's type. For this resource it will always be `group`.
@@ -186,10 +186,10 @@ private constructor(
 
         fun build(): Group =
             Group(
+                id,
                 achDebitStatus,
                 activationStatus,
                 createdAt,
-                id,
                 type,
                 additionalProperties.toImmutable(),
             )
@@ -365,15 +365,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Group && achDebitStatus == other.achDebitStatus && activationStatus == other.activationStatus && createdAt == other.createdAt && id == other.id && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is Group && id == other.id && achDebitStatus == other.achDebitStatus && activationStatus == other.activationStatus && createdAt == other.createdAt && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(achDebitStatus, activationStatus, createdAt, id, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, achDebitStatus, activationStatus, createdAt, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Group{achDebitStatus=$achDebitStatus, activationStatus=$activationStatus, createdAt=$createdAt, id=$id, type=$type, additionalProperties=$additionalProperties}"
+        "Group{id=$id, achDebitStatus=$achDebitStatus, activationStatus=$activationStatus, createdAt=$createdAt, type=$type, additionalProperties=$additionalProperties}"
 }

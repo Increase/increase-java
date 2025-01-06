@@ -23,6 +23,7 @@ import java.util.Objects
 class ProofOfAuthorizationRequest
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("ach_transfers")
     @ExcludeMissing
     private val achTransfers: JsonField<List<AchTransfer>> = JsonMissing.of(),
@@ -32,13 +33,15 @@ private constructor(
     @JsonProperty("due_on")
     @ExcludeMissing
     private val dueOn: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonProperty("updated_at")
     @ExcludeMissing
     private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
+
+    /** The Proof of Authorization Request identifier. */
+    fun id(): String = id.getRequired("id")
 
     /** The ACH Transfers associated with the request. */
     fun achTransfers(): List<AchTransfer> = achTransfers.getRequired("ach_transfers")
@@ -49,9 +52,6 @@ private constructor(
     /** The time the Proof of Authorization Request is due. */
     fun dueOn(): OffsetDateTime = dueOn.getRequired("due_on")
 
-    /** The Proof of Authorization Request identifier. */
-    fun id(): String = id.getRequired("id")
-
     /**
      * A constant representing the object's type. For this resource it will always be
      * `proof_of_authorization_request`.
@@ -61,6 +61,9 @@ private constructor(
     /** The time the Proof of Authorization Request was last updated. */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
+    /** The Proof of Authorization Request identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
     /** The ACH Transfers associated with the request. */
     @JsonProperty("ach_transfers") @ExcludeMissing fun _achTransfers() = achTransfers
 
@@ -69,9 +72,6 @@ private constructor(
 
     /** The time the Proof of Authorization Request is due. */
     @JsonProperty("due_on") @ExcludeMissing fun _dueOn() = dueOn
-
-    /** The Proof of Authorization Request identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -90,10 +90,10 @@ private constructor(
 
     fun validate(): ProofOfAuthorizationRequest = apply {
         if (!validated) {
+            id()
             achTransfers().forEach { it.validate() }
             createdAt()
             dueOn()
-            id()
             type()
             updatedAt()
             validated = true
@@ -109,24 +109,30 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var achTransfers: JsonField<List<AchTransfer>> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var dueOn: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(proofOfAuthorizationRequest: ProofOfAuthorizationRequest) = apply {
+            id = proofOfAuthorizationRequest.id
             achTransfers = proofOfAuthorizationRequest.achTransfers
             createdAt = proofOfAuthorizationRequest.createdAt
             dueOn = proofOfAuthorizationRequest.dueOn
-            id = proofOfAuthorizationRequest.id
             type = proofOfAuthorizationRequest.type
             updatedAt = proofOfAuthorizationRequest.updatedAt
             additionalProperties = proofOfAuthorizationRequest.additionalProperties.toMutableMap()
         }
+
+        /** The Proof of Authorization Request identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The Proof of Authorization Request identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The ACH Transfers associated with the request. */
         fun achTransfers(achTransfers: List<AchTransfer>) = achTransfers(JsonField.of(achTransfers))
@@ -147,12 +153,6 @@ private constructor(
 
         /** The time the Proof of Authorization Request is due. */
         fun dueOn(dueOn: JsonField<OffsetDateTime>) = apply { this.dueOn = dueOn }
-
-        /** The Proof of Authorization Request identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The Proof of Authorization Request identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -193,10 +193,10 @@ private constructor(
 
         fun build(): ProofOfAuthorizationRequest =
             ProofOfAuthorizationRequest(
+                id,
                 achTransfers.map { it.toImmutable() },
                 createdAt,
                 dueOn,
-                id,
                 type,
                 updatedAt,
                 additionalProperties.toImmutable(),
@@ -350,15 +350,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ProofOfAuthorizationRequest && achTransfers == other.achTransfers && createdAt == other.createdAt && dueOn == other.dueOn && id == other.id && type == other.type && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is ProofOfAuthorizationRequest && id == other.id && achTransfers == other.achTransfers && createdAt == other.createdAt && dueOn == other.dueOn && type == other.type && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(achTransfers, createdAt, dueOn, id, type, updatedAt, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, achTransfers, createdAt, dueOn, type, updatedAt, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ProofOfAuthorizationRequest{achTransfers=$achTransfers, createdAt=$createdAt, dueOn=$dueOn, id=$id, type=$type, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "ProofOfAuthorizationRequest{id=$id, achTransfers=$achTransfers, createdAt=$createdAt, dueOn=$dueOn, type=$type, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

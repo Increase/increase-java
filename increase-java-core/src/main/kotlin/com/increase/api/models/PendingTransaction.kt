@@ -26,6 +26,7 @@ import java.util.Optional
 class PendingTransaction
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("account_id")
     @ExcludeMissing
     private val accountId: JsonField<String> = JsonMissing.of(),
@@ -42,7 +43,6 @@ private constructor(
     @JsonProperty("description")
     @ExcludeMissing
     private val description: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("route_id")
     @ExcludeMissing
     private val routeId: JsonField<String> = JsonMissing.of(),
@@ -58,6 +58,9 @@ private constructor(
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
+
+    /** The Pending Transaction identifier. */
+    fun id(): String = id.getRequired("id")
 
     /** The identifier for the account this Pending Transaction belongs to. */
     fun accountId(): String = accountId.getRequired("account_id")
@@ -93,9 +96,6 @@ private constructor(
      */
     fun description(): String = description.getRequired("description")
 
-    /** The Pending Transaction identifier. */
-    fun id(): String = id.getRequired("id")
-
     /**
      * The identifier for the route this Pending Transaction came through. Routes are things like
      * cards and ACH details.
@@ -120,6 +120,9 @@ private constructor(
      * `pending_transaction`.
      */
     fun type(): Type = type.getRequired("type")
+
+    /** The Pending Transaction identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /** The identifier for the account this Pending Transaction belongs to. */
     @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
@@ -154,9 +157,6 @@ private constructor(
      */
     @JsonProperty("description") @ExcludeMissing fun _description() = description
 
-    /** The Pending Transaction identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
     /**
      * The identifier for the route this Pending Transaction came through. Routes are things like
      * cards and ACH details.
@@ -190,13 +190,13 @@ private constructor(
 
     fun validate(): PendingTransaction = apply {
         if (!validated) {
+            id()
             accountId()
             amount()
             completedAt()
             createdAt()
             currency()
             description()
-            id()
             routeId()
             routeType()
             source().validate()
@@ -215,13 +215,13 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var accountId: JsonField<String> = JsonMissing.of()
         private var amount: JsonField<Long> = JsonMissing.of()
         private var completedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var currency: JsonField<Currency> = JsonMissing.of()
         private var description: JsonField<String> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var routeId: JsonField<String> = JsonMissing.of()
         private var routeType: JsonField<RouteType> = JsonMissing.of()
         private var source: JsonField<Source> = JsonMissing.of()
@@ -231,13 +231,13 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(pendingTransaction: PendingTransaction) = apply {
+            id = pendingTransaction.id
             accountId = pendingTransaction.accountId
             amount = pendingTransaction.amount
             completedAt = pendingTransaction.completedAt
             createdAt = pendingTransaction.createdAt
             currency = pendingTransaction.currency
             description = pendingTransaction.description
-            id = pendingTransaction.id
             routeId = pendingTransaction.routeId
             routeType = pendingTransaction.routeType
             source = pendingTransaction.source
@@ -245,6 +245,12 @@ private constructor(
             type = pendingTransaction.type
             additionalProperties = pendingTransaction.additionalProperties.toMutableMap()
         }
+
+        /** The Pending Transaction identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The Pending Transaction identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The identifier for the account this Pending Transaction belongs to. */
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
@@ -313,12 +319,6 @@ private constructor(
          * a Pending Transaction related to a payment, this is the description the vendor provides.
          */
         fun description(description: JsonField<String>) = apply { this.description = description }
-
-        /** The Pending Transaction identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The Pending Transaction identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The identifier for the route this Pending Transaction came through. Routes are things
@@ -391,13 +391,13 @@ private constructor(
 
         fun build(): PendingTransaction =
             PendingTransaction(
+                id,
                 accountId,
                 amount,
                 completedAt,
                 createdAt,
                 currency,
                 description,
-                id,
                 routeId,
                 routeType,
                 source,
@@ -1371,6 +1371,9 @@ private constructor(
         class CardAuthorization
         @JsonCreator
         private constructor(
+            @JsonProperty("id")
+            @ExcludeMissing
+            private val id: JsonField<String> = JsonMissing.of(),
             @JsonProperty("actioner")
             @ExcludeMissing
             private val actioner: JsonField<Actioner> = JsonMissing.of(),
@@ -1392,9 +1395,6 @@ private constructor(
             @JsonProperty("expires_at")
             @ExcludeMissing
             private val expiresAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-            @JsonProperty("id")
-            @ExcludeMissing
-            private val id: JsonField<String> = JsonMissing.of(),
             @JsonProperty("merchant_acceptor_id")
             @ExcludeMissing
             private val merchantAcceptorId: JsonField<String> = JsonMissing.of(),
@@ -1456,6 +1456,9 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
+            /** The Card Authorization identifier. */
+            fun id(): String = id.getRequired("id")
+
             /**
              * Whether this authorization was approved by Increase, the card network through
              * stand-in processing, or the user through a real-time decision.
@@ -1495,9 +1498,6 @@ private constructor(
              * expire and the pending transaction will be released.
              */
             fun expiresAt(): OffsetDateTime = expiresAt.getRequired("expires_at")
-
-            /** The Card Authorization identifier. */
-            fun id(): String = id.getRequired("id")
 
             /**
              * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -1598,6 +1598,9 @@ private constructor(
             /** Fields related to verification of cardholder-provided values. */
             fun verification(): Verification = verification.getRequired("verification")
 
+            /** The Card Authorization identifier. */
+            @JsonProperty("id") @ExcludeMissing fun _id() = id
+
             /**
              * Whether this authorization was approved by Increase, the card network through
              * stand-in processing, or the user through a real-time decision.
@@ -1638,9 +1641,6 @@ private constructor(
              * expire and the pending transaction will be released.
              */
             @JsonProperty("expires_at") @ExcludeMissing fun _expiresAt() = expiresAt
-
-            /** The Card Authorization identifier. */
-            @JsonProperty("id") @ExcludeMissing fun _id() = id
 
             /**
              * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -1760,6 +1760,7 @@ private constructor(
 
             fun validate(): CardAuthorization = apply {
                 if (!validated) {
+                    id()
                     actioner()
                     amount()
                     cardPaymentId()
@@ -1767,7 +1768,6 @@ private constructor(
                     digitalWalletTokenId()
                     direction()
                     expiresAt()
-                    id()
                     merchantAcceptorId()
                     merchantCategoryCode()
                     merchantCity()
@@ -1800,6 +1800,7 @@ private constructor(
 
             class Builder {
 
+                private var id: JsonField<String> = JsonMissing.of()
                 private var actioner: JsonField<Actioner> = JsonMissing.of()
                 private var amount: JsonField<Long> = JsonMissing.of()
                 private var cardPaymentId: JsonField<String> = JsonMissing.of()
@@ -1807,7 +1808,6 @@ private constructor(
                 private var digitalWalletTokenId: JsonField<String> = JsonMissing.of()
                 private var direction: JsonField<Direction> = JsonMissing.of()
                 private var expiresAt: JsonField<OffsetDateTime> = JsonMissing.of()
-                private var id: JsonField<String> = JsonMissing.of()
                 private var merchantAcceptorId: JsonField<String> = JsonMissing.of()
                 private var merchantCategoryCode: JsonField<String> = JsonMissing.of()
                 private var merchantCity: JsonField<String> = JsonMissing.of()
@@ -1831,6 +1831,7 @@ private constructor(
 
                 @JvmSynthetic
                 internal fun from(cardAuthorization: CardAuthorization) = apply {
+                    id = cardAuthorization.id
                     actioner = cardAuthorization.actioner
                     amount = cardAuthorization.amount
                     cardPaymentId = cardAuthorization.cardPaymentId
@@ -1838,7 +1839,6 @@ private constructor(
                     digitalWalletTokenId = cardAuthorization.digitalWalletTokenId
                     direction = cardAuthorization.direction
                     expiresAt = cardAuthorization.expiresAt
-                    id = cardAuthorization.id
                     merchantAcceptorId = cardAuthorization.merchantAcceptorId
                     merchantCategoryCode = cardAuthorization.merchantCategoryCode
                     merchantCity = cardAuthorization.merchantCity
@@ -1860,6 +1860,12 @@ private constructor(
                     verification = cardAuthorization.verification
                     additionalProperties = cardAuthorization.additionalProperties.toMutableMap()
                 }
+
+                /** The Card Authorization identifier. */
+                fun id(id: String) = id(JsonField.of(id))
+
+                /** The Card Authorization identifier. */
+                fun id(id: JsonField<String>) = apply { this.id = id }
 
                 /**
                  * Whether this authorization was approved by Increase, the card network through
@@ -1948,12 +1954,6 @@ private constructor(
                 fun expiresAt(expiresAt: JsonField<OffsetDateTime>) = apply {
                     this.expiresAt = expiresAt
                 }
-
-                /** The Card Authorization identifier. */
-                fun id(id: String) = id(JsonField.of(id))
-
-                /** The Card Authorization identifier. */
-                fun id(id: JsonField<String>) = apply { this.id = id }
 
                 /**
                  * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -2209,6 +2209,7 @@ private constructor(
 
                 fun build(): CardAuthorization =
                     CardAuthorization(
+                        id,
                         actioner,
                         amount,
                         cardPaymentId,
@@ -2216,7 +2217,6 @@ private constructor(
                         digitalWalletTokenId,
                         direction,
                         expiresAt,
-                        id,
                         merchantAcceptorId,
                         merchantCategoryCode,
                         merchantCity,
@@ -4129,17 +4129,17 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is CardAuthorization && actioner == other.actioner && amount == other.amount && cardPaymentId == other.cardPaymentId && currency == other.currency && digitalWalletTokenId == other.digitalWalletTokenId && direction == other.direction && expiresAt == other.expiresAt && id == other.id && merchantAcceptorId == other.merchantAcceptorId && merchantCategoryCode == other.merchantCategoryCode && merchantCity == other.merchantCity && merchantCountry == other.merchantCountry && merchantDescriptor == other.merchantDescriptor && merchantPostalCode == other.merchantPostalCode && merchantState == other.merchantState && networkDetails == other.networkDetails && networkIdentifiers == other.networkIdentifiers && networkRiskScore == other.networkRiskScore && pendingTransactionId == other.pendingTransactionId && physicalCardId == other.physicalCardId && presentmentAmount == other.presentmentAmount && presentmentCurrency == other.presentmentCurrency && processingCategory == other.processingCategory && realTimeDecisionId == other.realTimeDecisionId && terminalId == other.terminalId && type == other.type && verification == other.verification && additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is CardAuthorization && id == other.id && actioner == other.actioner && amount == other.amount && cardPaymentId == other.cardPaymentId && currency == other.currency && digitalWalletTokenId == other.digitalWalletTokenId && direction == other.direction && expiresAt == other.expiresAt && merchantAcceptorId == other.merchantAcceptorId && merchantCategoryCode == other.merchantCategoryCode && merchantCity == other.merchantCity && merchantCountry == other.merchantCountry && merchantDescriptor == other.merchantDescriptor && merchantPostalCode == other.merchantPostalCode && merchantState == other.merchantState && networkDetails == other.networkDetails && networkIdentifiers == other.networkIdentifiers && networkRiskScore == other.networkRiskScore && pendingTransactionId == other.pendingTransactionId && physicalCardId == other.physicalCardId && presentmentAmount == other.presentmentAmount && presentmentCurrency == other.presentmentCurrency && processingCategory == other.processingCategory && realTimeDecisionId == other.realTimeDecisionId && terminalId == other.terminalId && type == other.type && verification == other.verification && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(actioner, amount, cardPaymentId, currency, digitalWalletTokenId, direction, expiresAt, id, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantDescriptor, merchantPostalCode, merchantState, networkDetails, networkIdentifiers, networkRiskScore, pendingTransactionId, physicalCardId, presentmentAmount, presentmentCurrency, processingCategory, realTimeDecisionId, terminalId, type, verification, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(id, actioner, amount, cardPaymentId, currency, digitalWalletTokenId, direction, expiresAt, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantDescriptor, merchantPostalCode, merchantState, networkDetails, networkIdentifiers, networkRiskScore, pendingTransactionId, physicalCardId, presentmentAmount, presentmentCurrency, processingCategory, realTimeDecisionId, terminalId, type, verification, additionalProperties) }
             /* spotless:on */
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CardAuthorization{actioner=$actioner, amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, expiresAt=$expiresAt, id=$id, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, pendingTransactionId=$pendingTransactionId, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, realTimeDecisionId=$realTimeDecisionId, terminalId=$terminalId, type=$type, verification=$verification, additionalProperties=$additionalProperties}"
+                "CardAuthorization{id=$id, actioner=$actioner, amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, expiresAt=$expiresAt, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, pendingTransactionId=$pendingTransactionId, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, realTimeDecisionId=$realTimeDecisionId, terminalId=$terminalId, type=$type, verification=$verification, additionalProperties=$additionalProperties}"
         }
 
         class Category
@@ -4810,6 +4810,9 @@ private constructor(
         class InboundFundsHold
         @JsonCreator
         private constructor(
+            @JsonProperty("id")
+            @ExcludeMissing
+            private val id: JsonField<String> = JsonMissing.of(),
             @JsonProperty("amount")
             @ExcludeMissing
             private val amount: JsonField<Long> = JsonMissing.of(),
@@ -4825,9 +4828,6 @@ private constructor(
             @JsonProperty("held_transaction_id")
             @ExcludeMissing
             private val heldTransactionId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("id")
-            @ExcludeMissing
-            private val id: JsonField<String> = JsonMissing.of(),
             @JsonProperty("pending_transaction_id")
             @ExcludeMissing
             private val pendingTransactionId: JsonField<String> = JsonMissing.of(),
@@ -4843,6 +4843,9 @@ private constructor(
             @JsonAnySetter
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
+
+            /** The Inbound Funds Hold identifier. */
+            fun id(): String = id.getRequired("id")
 
             /**
              * The held amount in the minor unit of the account's currency. For dollars, for
@@ -4872,9 +4875,6 @@ private constructor(
             fun heldTransactionId(): Optional<String> =
                 Optional.ofNullable(heldTransactionId.getNullable("held_transaction_id"))
 
-            /** The Inbound Funds Hold identifier. */
-            fun id(): String = id.getRequired("id")
-
             /** The ID of the Pending Transaction representing the held funds. */
             fun pendingTransactionId(): Optional<String> =
                 Optional.ofNullable(pendingTransactionId.getNullable("pending_transaction_id"))
@@ -4891,6 +4891,9 @@ private constructor(
              * `inbound_funds_hold`.
              */
             fun type(): Type = type.getRequired("type")
+
+            /** The Inbound Funds Hold identifier. */
+            @JsonProperty("id") @ExcludeMissing fun _id() = id
 
             /**
              * The held amount in the minor unit of the account's currency. For dollars, for
@@ -4922,9 +4925,6 @@ private constructor(
             @ExcludeMissing
             fun _heldTransactionId() = heldTransactionId
 
-            /** The Inbound Funds Hold identifier. */
-            @JsonProperty("id") @ExcludeMissing fun _id() = id
-
             /** The ID of the Pending Transaction representing the held funds. */
             @JsonProperty("pending_transaction_id")
             @ExcludeMissing
@@ -4950,12 +4950,12 @@ private constructor(
 
             fun validate(): InboundFundsHold = apply {
                 if (!validated) {
+                    id()
                     amount()
                     automaticallyReleasesAt()
                     createdAt()
                     currency()
                     heldTransactionId()
-                    id()
                     pendingTransactionId()
                     releasedAt()
                     status()
@@ -4973,12 +4973,12 @@ private constructor(
 
             class Builder {
 
+                private var id: JsonField<String> = JsonMissing.of()
                 private var amount: JsonField<Long> = JsonMissing.of()
                 private var automaticallyReleasesAt: JsonField<OffsetDateTime> = JsonMissing.of()
                 private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
                 private var currency: JsonField<Currency> = JsonMissing.of()
                 private var heldTransactionId: JsonField<String> = JsonMissing.of()
-                private var id: JsonField<String> = JsonMissing.of()
                 private var pendingTransactionId: JsonField<String> = JsonMissing.of()
                 private var releasedAt: JsonField<OffsetDateTime> = JsonMissing.of()
                 private var status: JsonField<Status> = JsonMissing.of()
@@ -4987,18 +4987,24 @@ private constructor(
 
                 @JvmSynthetic
                 internal fun from(inboundFundsHold: InboundFundsHold) = apply {
+                    id = inboundFundsHold.id
                     amount = inboundFundsHold.amount
                     automaticallyReleasesAt = inboundFundsHold.automaticallyReleasesAt
                     createdAt = inboundFundsHold.createdAt
                     currency = inboundFundsHold.currency
                     heldTransactionId = inboundFundsHold.heldTransactionId
-                    id = inboundFundsHold.id
                     pendingTransactionId = inboundFundsHold.pendingTransactionId
                     releasedAt = inboundFundsHold.releasedAt
                     status = inboundFundsHold.status
                     type = inboundFundsHold.type
                     additionalProperties = inboundFundsHold.additionalProperties.toMutableMap()
                 }
+
+                /** The Inbound Funds Hold identifier. */
+                fun id(id: String) = id(JsonField.of(id))
+
+                /** The Inbound Funds Hold identifier. */
+                fun id(id: JsonField<String>) = apply { this.id = id }
 
                 /**
                  * The held amount in the minor unit of the account's currency. For dollars, for
@@ -5063,12 +5069,6 @@ private constructor(
                     this.heldTransactionId = heldTransactionId
                 }
 
-                /** The Inbound Funds Hold identifier. */
-                fun id(id: String) = id(JsonField.of(id))
-
-                /** The Inbound Funds Hold identifier. */
-                fun id(id: JsonField<String>) = apply { this.id = id }
-
                 /** The ID of the Pending Transaction representing the held funds. */
                 fun pendingTransactionId(pendingTransactionId: String) =
                     pendingTransactionId(JsonField.of(pendingTransactionId))
@@ -5128,12 +5128,12 @@ private constructor(
 
                 fun build(): InboundFundsHold =
                     InboundFundsHold(
+                        id,
                         amount,
                         automaticallyReleasesAt,
                         createdAt,
                         currency,
                         heldTransactionId,
-                        id,
                         pendingTransactionId,
                         releasedAt,
                         status,
@@ -5336,17 +5336,17 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is InboundFundsHold && amount == other.amount && automaticallyReleasesAt == other.automaticallyReleasesAt && createdAt == other.createdAt && currency == other.currency && heldTransactionId == other.heldTransactionId && id == other.id && pendingTransactionId == other.pendingTransactionId && releasedAt == other.releasedAt && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is InboundFundsHold && id == other.id && amount == other.amount && automaticallyReleasesAt == other.automaticallyReleasesAt && createdAt == other.createdAt && currency == other.currency && heldTransactionId == other.heldTransactionId && pendingTransactionId == other.pendingTransactionId && releasedAt == other.releasedAt && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(amount, automaticallyReleasesAt, createdAt, currency, heldTransactionId, id, pendingTransactionId, releasedAt, status, type, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(id, amount, automaticallyReleasesAt, createdAt, currency, heldTransactionId, pendingTransactionId, releasedAt, status, type, additionalProperties) }
             /* spotless:on */
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "InboundFundsHold{amount=$amount, automaticallyReleasesAt=$automaticallyReleasesAt, createdAt=$createdAt, currency=$currency, heldTransactionId=$heldTransactionId, id=$id, pendingTransactionId=$pendingTransactionId, releasedAt=$releasedAt, status=$status, type=$type, additionalProperties=$additionalProperties}"
+                "InboundFundsHold{id=$id, amount=$amount, automaticallyReleasesAt=$automaticallyReleasesAt, createdAt=$createdAt, currency=$currency, heldTransactionId=$heldTransactionId, pendingTransactionId=$pendingTransactionId, releasedAt=$releasedAt, status=$status, type=$type, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -5829,15 +5829,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is PendingTransaction && accountId == other.accountId && amount == other.amount && completedAt == other.completedAt && createdAt == other.createdAt && currency == other.currency && description == other.description && id == other.id && routeId == other.routeId && routeType == other.routeType && source == other.source && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is PendingTransaction && id == other.id && accountId == other.accountId && amount == other.amount && completedAt == other.completedAt && createdAt == other.createdAt && currency == other.currency && description == other.description && routeId == other.routeId && routeType == other.routeType && source == other.source && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(accountId, amount, completedAt, createdAt, currency, description, id, routeId, routeType, source, status, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, accountId, amount, completedAt, createdAt, currency, description, routeId, routeType, source, status, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PendingTransaction{accountId=$accountId, amount=$amount, completedAt=$completedAt, createdAt=$createdAt, currency=$currency, description=$description, id=$id, routeId=$routeId, routeType=$routeType, source=$source, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "PendingTransaction{id=$id, accountId=$accountId, amount=$amount, completedAt=$completedAt, createdAt=$createdAt, currency=$currency, description=$description, routeId=$routeId, routeType=$routeType, source=$source, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

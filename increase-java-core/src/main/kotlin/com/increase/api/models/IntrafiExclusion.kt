@@ -28,6 +28,7 @@ import java.util.Optional
 class IntrafiExclusion
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("bank_name")
     @ExcludeMissing
     private val bankName: JsonField<String> = JsonMissing.of(),
@@ -40,7 +41,6 @@ private constructor(
     @JsonProperty("fdic_certificate_number")
     @ExcludeMissing
     private val fdicCertificateNumber: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     private val idempotencyKey: JsonField<String> = JsonMissing.of(),
@@ -53,6 +53,9 @@ private constructor(
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
+
+    /** The identifier of this exclusion request. */
+    fun id(): String = id.getRequired("id")
 
     /** The name of the excluded institution. */
     fun bankName(): String = bankName.getRequired("bank_name")
@@ -67,9 +70,6 @@ private constructor(
     /** The Federal Deposit Insurance Corporation's certificate number for the institution. */
     fun fdicCertificateNumber(): Optional<String> =
         Optional.ofNullable(fdicCertificateNumber.getNullable("fdic_certificate_number"))
-
-    /** The identifier of this exclusion request. */
-    fun id(): String = id.getRequired("id")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -92,6 +92,9 @@ private constructor(
      */
     fun type(): Type = type.getRequired("type")
 
+    /** The identifier of this exclusion request. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
     /** The name of the excluded institution. */
     @JsonProperty("bank_name") @ExcludeMissing fun _bankName() = bankName
 
@@ -105,9 +108,6 @@ private constructor(
     @JsonProperty("fdic_certificate_number")
     @ExcludeMissing
     fun _fdicCertificateNumber() = fdicCertificateNumber
-
-    /** The identifier of this exclusion request. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -136,11 +136,11 @@ private constructor(
 
     fun validate(): IntrafiExclusion = apply {
         if (!validated) {
+            id()
             bankName()
             entityId()
             excludedAt()
             fdicCertificateNumber()
-            id()
             idempotencyKey()
             status()
             submittedAt()
@@ -158,11 +158,11 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var bankName: JsonField<String> = JsonMissing.of()
         private var entityId: JsonField<String> = JsonMissing.of()
         private var excludedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var fdicCertificateNumber: JsonField<String> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var submittedAt: JsonField<OffsetDateTime> = JsonMissing.of()
@@ -171,17 +171,23 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(intrafiExclusion: IntrafiExclusion) = apply {
+            id = intrafiExclusion.id
             bankName = intrafiExclusion.bankName
             entityId = intrafiExclusion.entityId
             excludedAt = intrafiExclusion.excludedAt
             fdicCertificateNumber = intrafiExclusion.fdicCertificateNumber
-            id = intrafiExclusion.id
             idempotencyKey = intrafiExclusion.idempotencyKey
             status = intrafiExclusion.status
             submittedAt = intrafiExclusion.submittedAt
             type = intrafiExclusion.type
             additionalProperties = intrafiExclusion.additionalProperties.toMutableMap()
         }
+
+        /** The identifier of this exclusion request. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The identifier of this exclusion request. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The name of the excluded institution. */
         fun bankName(bankName: String) = bankName(JsonField.of(bankName))
@@ -211,12 +217,6 @@ private constructor(
         fun fdicCertificateNumber(fdicCertificateNumber: JsonField<String>) = apply {
             this.fdicCertificateNumber = fdicCertificateNumber
         }
-
-        /** The identifier of this exclusion request. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The identifier of this exclusion request. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -281,11 +281,11 @@ private constructor(
 
         fun build(): IntrafiExclusion =
             IntrafiExclusion(
+                id,
                 bankName,
                 entityId,
                 excludedAt,
                 fdicCertificateNumber,
-                id,
                 idempotencyKey,
                 status,
                 submittedAt,
@@ -413,15 +413,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is IntrafiExclusion && bankName == other.bankName && entityId == other.entityId && excludedAt == other.excludedAt && fdicCertificateNumber == other.fdicCertificateNumber && id == other.id && idempotencyKey == other.idempotencyKey && status == other.status && submittedAt == other.submittedAt && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is IntrafiExclusion && id == other.id && bankName == other.bankName && entityId == other.entityId && excludedAt == other.excludedAt && fdicCertificateNumber == other.fdicCertificateNumber && idempotencyKey == other.idempotencyKey && status == other.status && submittedAt == other.submittedAt && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(bankName, entityId, excludedAt, fdicCertificateNumber, id, idempotencyKey, status, submittedAt, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, bankName, entityId, excludedAt, fdicCertificateNumber, idempotencyKey, status, submittedAt, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "IntrafiExclusion{bankName=$bankName, entityId=$entityId, excludedAt=$excludedAt, fdicCertificateNumber=$fdicCertificateNumber, id=$id, idempotencyKey=$idempotencyKey, status=$status, submittedAt=$submittedAt, type=$type, additionalProperties=$additionalProperties}"
+        "IntrafiExclusion{id=$id, bankName=$bankName, entityId=$entityId, excludedAt=$excludedAt, fdicCertificateNumber=$fdicCertificateNumber, idempotencyKey=$idempotencyKey, status=$status, submittedAt=$submittedAt, type=$type, additionalProperties=$additionalProperties}"
 }

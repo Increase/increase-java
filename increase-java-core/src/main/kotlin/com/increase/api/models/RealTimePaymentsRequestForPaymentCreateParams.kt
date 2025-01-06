@@ -499,19 +499,19 @@ constructor(
         class Address
         @JsonCreator
         private constructor(
-            @JsonProperty("city") private val city: String?,
             @JsonProperty("country") private val country: String,
+            @JsonProperty("city") private val city: String?,
             @JsonProperty("post_code") private val postCode: String?,
             @JsonProperty("street_name") private val streetName: String?,
             @JsonAnySetter
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
-            /** The town or city. */
-            @JsonProperty("city") fun city(): Optional<String> = Optional.ofNullable(city)
-
             /** The ISO 3166, Alpha-2 country code. */
             @JsonProperty("country") fun country(): String = country
+
+            /** The town or city. */
+            @JsonProperty("city") fun city(): Optional<String> = Optional.ofNullable(city)
 
             /** The postal code or zip. */
             @JsonProperty("post_code")
@@ -534,26 +534,26 @@ constructor(
 
             class Builder {
 
-                private var city: String? = null
                 private var country: String? = null
+                private var city: String? = null
                 private var postCode: String? = null
                 private var streetName: String? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
                 internal fun from(address: Address) = apply {
-                    city = address.city
                     country = address.country
+                    city = address.city
                     postCode = address.postCode
                     streetName = address.streetName
                     additionalProperties = address.additionalProperties.toMutableMap()
                 }
 
-                /** The town or city. */
-                fun city(city: String) = apply { this.city = city }
-
                 /** The ISO 3166, Alpha-2 country code. */
                 fun country(country: String) = apply { this.country = country }
+
+                /** The town or city. */
+                fun city(city: String) = apply { this.city = city }
 
                 /** The postal code or zip. */
                 fun postCode(postCode: String) = apply { this.postCode = postCode }
@@ -585,8 +585,8 @@ constructor(
 
                 fun build(): Address =
                     Address(
-                        city,
                         checkNotNull(country) { "`country` is required but was not set" },
+                        city,
                         postCode,
                         streetName,
                         additionalProperties.toImmutable(),
@@ -598,17 +598,17 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Address && city == other.city && country == other.country && postCode == other.postCode && streetName == other.streetName && additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is Address && country == other.country && city == other.city && postCode == other.postCode && streetName == other.streetName && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(city, country, postCode, streetName, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(country, city, postCode, streetName, additionalProperties) }
             /* spotless:on */
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "Address{city=$city, country=$country, postCode=$postCode, streetName=$streetName, additionalProperties=$additionalProperties}"
+                "Address{country=$country, city=$city, postCode=$postCode, streetName=$streetName, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {

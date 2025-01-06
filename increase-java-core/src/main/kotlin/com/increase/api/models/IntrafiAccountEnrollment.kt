@@ -29,10 +29,10 @@ import java.util.Optional
 class IntrafiAccountEnrollment
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("account_id")
     @ExcludeMissing
     private val accountId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     private val idempotencyKey: JsonField<String> = JsonMissing.of(),
@@ -46,11 +46,11 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
-    /** The identifier of the Increase Account being swept into the network. */
-    fun accountId(): String = accountId.getRequired("account_id")
-
     /** The identifier of this enrollment at IntraFi. */
     fun id(): String = id.getRequired("id")
+
+    /** The identifier of the Increase Account being swept into the network. */
+    fun accountId(): String = accountId.getRequired("account_id")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -78,11 +78,11 @@ private constructor(
      */
     fun type(): Type = type.getRequired("type")
 
-    /** The identifier of the Increase Account being swept into the network. */
-    @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
-
     /** The identifier of this enrollment at IntraFi. */
     @JsonProperty("id") @ExcludeMissing fun _id() = id
+
+    /** The identifier of the Increase Account being swept into the network. */
+    @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -117,8 +117,8 @@ private constructor(
 
     fun validate(): IntrafiAccountEnrollment = apply {
         if (!validated) {
-            accountId()
             id()
+            accountId()
             idempotencyKey()
             intrafiId()
             status()
@@ -136,8 +136,8 @@ private constructor(
 
     class Builder {
 
-        private var accountId: JsonField<String> = JsonMissing.of()
         private var id: JsonField<String> = JsonMissing.of()
+        private var accountId: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var intrafiId: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
@@ -146,8 +146,8 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(intrafiAccountEnrollment: IntrafiAccountEnrollment) = apply {
-            accountId = intrafiAccountEnrollment.accountId
             id = intrafiAccountEnrollment.id
+            accountId = intrafiAccountEnrollment.accountId
             idempotencyKey = intrafiAccountEnrollment.idempotencyKey
             intrafiId = intrafiAccountEnrollment.intrafiId
             status = intrafiAccountEnrollment.status
@@ -155,17 +155,17 @@ private constructor(
             additionalProperties = intrafiAccountEnrollment.additionalProperties.toMutableMap()
         }
 
-        /** The identifier of the Increase Account being swept into the network. */
-        fun accountId(accountId: String) = accountId(JsonField.of(accountId))
-
-        /** The identifier of the Increase Account being swept into the network. */
-        fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
-
         /** The identifier of this enrollment at IntraFi. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The identifier of this enrollment at IntraFi. */
         fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /** The identifier of the Increase Account being swept into the network. */
+        fun accountId(accountId: String) = accountId(JsonField.of(accountId))
+
+        /** The identifier of the Increase Account being swept into the network. */
+        fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -240,8 +240,8 @@ private constructor(
 
         fun build(): IntrafiAccountEnrollment =
             IntrafiAccountEnrollment(
-                accountId,
                 id,
+                accountId,
                 idempotencyKey,
                 intrafiId,
                 status,
@@ -381,15 +381,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is IntrafiAccountEnrollment && accountId == other.accountId && id == other.id && idempotencyKey == other.idempotencyKey && intrafiId == other.intrafiId && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is IntrafiAccountEnrollment && id == other.id && accountId == other.accountId && idempotencyKey == other.idempotencyKey && intrafiId == other.intrafiId && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(accountId, id, idempotencyKey, intrafiId, status, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, accountId, idempotencyKey, intrafiId, status, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "IntrafiAccountEnrollment{accountId=$accountId, id=$id, idempotencyKey=$idempotencyKey, intrafiId=$intrafiId, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "IntrafiAccountEnrollment{id=$id, accountId=$accountId, idempotencyKey=$idempotencyKey, intrafiId=$intrafiId, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

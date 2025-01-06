@@ -29,6 +29,7 @@ import java.util.Optional
 class Export
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("category")
     @ExcludeMissing
     private val category: JsonField<Category> = JsonMissing.of(),
@@ -41,7 +42,6 @@ private constructor(
     @JsonProperty("file_id")
     @ExcludeMissing
     private val fileId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     private val idempotencyKey: JsonField<String> = JsonMissing.of(),
@@ -51,6 +51,9 @@ private constructor(
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
+
+    /** The Export identifier. */
+    fun id(): String = id.getRequired("id")
 
     /**
      * The category of the Export. We may add additional possible values for this enum over time;
@@ -74,9 +77,6 @@ private constructor(
      */
     fun fileId(): Optional<String> = Optional.ofNullable(fileId.getNullable("file_id"))
 
-    /** The Export identifier. */
-    fun id(): String = id.getRequired("id")
-
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
@@ -90,6 +90,9 @@ private constructor(
 
     /** A constant representing the object's type. For this resource it will always be `export`. */
     fun type(): Type = type.getRequired("type")
+
+    /** The Export identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * The category of the Export. We may add additional possible values for this enum over time;
@@ -112,9 +115,6 @@ private constructor(
      */
     @JsonProperty("file_id") @ExcludeMissing fun _fileId() = fileId
 
-    /** The Export identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
@@ -136,11 +136,11 @@ private constructor(
 
     fun validate(): Export = apply {
         if (!validated) {
+            id()
             category()
             createdAt()
             fileDownloadUrl()
             fileId()
-            id()
             idempotencyKey()
             status()
             type()
@@ -157,11 +157,11 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var category: JsonField<Category> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var fileDownloadUrl: JsonField<String> = JsonMissing.of()
         private var fileId: JsonField<String> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
@@ -169,16 +169,22 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(export: Export) = apply {
+            id = export.id
             category = export.category
             createdAt = export.createdAt
             fileDownloadUrl = export.fileDownloadUrl
             fileId = export.fileId
-            id = export.id
             idempotencyKey = export.idempotencyKey
             status = export.status
             type = export.type
             additionalProperties = export.additionalProperties.toMutableMap()
         }
+
+        /** The Export identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The Export identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The category of the Export. We may add additional possible values for this enum over
@@ -224,12 +230,6 @@ private constructor(
          * status transitions to `complete`.
          */
         fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
-
-        /** The Export identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The Export identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -284,11 +284,11 @@ private constructor(
 
         fun build(): Export =
             Export(
+                id,
                 category,
                 createdAt,
                 fileDownloadUrl,
                 fileId,
-                id,
                 idempotencyKey,
                 status,
                 type,
@@ -502,15 +502,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Export && category == other.category && createdAt == other.createdAt && fileDownloadUrl == other.fileDownloadUrl && fileId == other.fileId && id == other.id && idempotencyKey == other.idempotencyKey && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is Export && id == other.id && category == other.category && createdAt == other.createdAt && fileDownloadUrl == other.fileDownloadUrl && fileId == other.fileId && idempotencyKey == other.idempotencyKey && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(category, createdAt, fileDownloadUrl, fileId, id, idempotencyKey, status, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, category, createdAt, fileDownloadUrl, fileId, idempotencyKey, status, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Export{category=$category, createdAt=$createdAt, fileDownloadUrl=$fileDownloadUrl, fileId=$fileId, id=$id, idempotencyKey=$idempotencyKey, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "Export{id=$id, category=$category, createdAt=$createdAt, fileDownloadUrl=$fileDownloadUrl, fileId=$fileId, idempotencyKey=$idempotencyKey, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }
