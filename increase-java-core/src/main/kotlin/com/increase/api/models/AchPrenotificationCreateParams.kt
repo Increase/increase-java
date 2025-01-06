@@ -227,54 +227,98 @@ constructor(
             fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
 
             /** Additional information that will be sent to the recipient. */
-            fun addendum(addendum: String) = apply { this.addendum = addendum }
+            fun addendum(addendum: String?) = apply { this.addendum = addendum }
+
+            /** Additional information that will be sent to the recipient. */
+            fun addendum(addendum: Optional<String>) = addendum(addendum.orElse(null))
 
             /** The description of the date of the transfer. */
-            fun companyDescriptiveDate(companyDescriptiveDate: String) = apply {
+            fun companyDescriptiveDate(companyDescriptiveDate: String?) = apply {
                 this.companyDescriptiveDate = companyDescriptiveDate
             }
 
+            /** The description of the date of the transfer. */
+            fun companyDescriptiveDate(companyDescriptiveDate: Optional<String>) =
+                companyDescriptiveDate(companyDescriptiveDate.orElse(null))
+
             /** The data you choose to associate with the transfer. */
-            fun companyDiscretionaryData(companyDiscretionaryData: String) = apply {
+            fun companyDiscretionaryData(companyDiscretionaryData: String?) = apply {
                 this.companyDiscretionaryData = companyDiscretionaryData
             }
 
+            /** The data you choose to associate with the transfer. */
+            fun companyDiscretionaryData(companyDiscretionaryData: Optional<String>) =
+                companyDiscretionaryData(companyDiscretionaryData.orElse(null))
+
             /** The description of the transfer you wish to be shown to the recipient. */
-            fun companyEntryDescription(companyEntryDescription: String) = apply {
+            fun companyEntryDescription(companyEntryDescription: String?) = apply {
                 this.companyEntryDescription = companyEntryDescription
             }
 
+            /** The description of the transfer you wish to be shown to the recipient. */
+            fun companyEntryDescription(companyEntryDescription: Optional<String>) =
+                companyEntryDescription(companyEntryDescription.orElse(null))
+
             /** The name by which the recipient knows you. */
-            fun companyName(companyName: String) = apply { this.companyName = companyName }
+            fun companyName(companyName: String?) = apply { this.companyName = companyName }
+
+            /** The name by which the recipient knows you. */
+            fun companyName(companyName: Optional<String>) = companyName(companyName.orElse(null))
 
             /** Whether the Prenotification is for a future debit or credit. */
-            fun creditDebitIndicator(creditDebitIndicator: CreditDebitIndicator) = apply {
+            fun creditDebitIndicator(creditDebitIndicator: CreditDebitIndicator?) = apply {
                 this.creditDebitIndicator = creditDebitIndicator
+            }
+
+            /** Whether the Prenotification is for a future debit or credit. */
+            fun creditDebitIndicator(creditDebitIndicator: Optional<CreditDebitIndicator>) =
+                creditDebitIndicator(creditDebitIndicator.orElse(null))
+
+            /**
+             * The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+             * format.
+             */
+            fun effectiveDate(effectiveDate: LocalDate?) = apply {
+                this.effectiveDate = effectiveDate
             }
 
             /**
              * The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * format.
              */
-            fun effectiveDate(effectiveDate: LocalDate) = apply {
-                this.effectiveDate = effectiveDate
-            }
+            fun effectiveDate(effectiveDate: Optional<LocalDate>) =
+                effectiveDate(effectiveDate.orElse(null))
 
             /** Your identifier for the transfer recipient. */
-            fun individualId(individualId: String) = apply { this.individualId = individualId }
+            fun individualId(individualId: String?) = apply { this.individualId = individualId }
+
+            /** Your identifier for the transfer recipient. */
+            fun individualId(individualId: Optional<String>) =
+                individualId(individualId.orElse(null))
 
             /**
              * The name of the transfer recipient. This value is information and not verified by the
              * recipient's bank.
              */
-            fun individualName(individualName: String) = apply {
+            fun individualName(individualName: String?) = apply {
                 this.individualName = individualName
             }
 
+            /**
+             * The name of the transfer recipient. This value is information and not verified by the
+             * recipient's bank.
+             */
+            fun individualName(individualName: Optional<String>) =
+                individualName(individualName.orElse(null))
+
             /** The Standard Entry Class (SEC) code to use for the ACH Prenotification. */
-            fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode) = apply {
+            fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode?) = apply {
                 this.standardEntryClassCode = standardEntryClassCode
             }
+
+            /** The Standard Entry Class (SEC) code to use for the ACH Prenotification. */
+            fun standardEntryClassCode(standardEntryClassCode: Optional<StandardEntryClassCode>) =
+                standardEntryClassCode(standardEntryClassCode.orElse(null))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -367,49 +411,91 @@ constructor(
         fun routingNumber(routingNumber: String) = apply { body.routingNumber(routingNumber) }
 
         /** Additional information that will be sent to the recipient. */
-        fun addendum(addendum: String) = apply { body.addendum(addendum) }
+        fun addendum(addendum: String?) = apply { body.addendum(addendum) }
+
+        /** Additional information that will be sent to the recipient. */
+        fun addendum(addendum: Optional<String>) = addendum(addendum.orElse(null))
 
         /** The description of the date of the transfer. */
-        fun companyDescriptiveDate(companyDescriptiveDate: String) = apply {
+        fun companyDescriptiveDate(companyDescriptiveDate: String?) = apply {
             body.companyDescriptiveDate(companyDescriptiveDate)
         }
 
+        /** The description of the date of the transfer. */
+        fun companyDescriptiveDate(companyDescriptiveDate: Optional<String>) =
+            companyDescriptiveDate(companyDescriptiveDate.orElse(null))
+
         /** The data you choose to associate with the transfer. */
-        fun companyDiscretionaryData(companyDiscretionaryData: String) = apply {
+        fun companyDiscretionaryData(companyDiscretionaryData: String?) = apply {
             body.companyDiscretionaryData(companyDiscretionaryData)
         }
 
+        /** The data you choose to associate with the transfer. */
+        fun companyDiscretionaryData(companyDiscretionaryData: Optional<String>) =
+            companyDiscretionaryData(companyDiscretionaryData.orElse(null))
+
         /** The description of the transfer you wish to be shown to the recipient. */
-        fun companyEntryDescription(companyEntryDescription: String) = apply {
+        fun companyEntryDescription(companyEntryDescription: String?) = apply {
             body.companyEntryDescription(companyEntryDescription)
         }
 
+        /** The description of the transfer you wish to be shown to the recipient. */
+        fun companyEntryDescription(companyEntryDescription: Optional<String>) =
+            companyEntryDescription(companyEntryDescription.orElse(null))
+
         /** The name by which the recipient knows you. */
-        fun companyName(companyName: String) = apply { body.companyName(companyName) }
+        fun companyName(companyName: String?) = apply { body.companyName(companyName) }
+
+        /** The name by which the recipient knows you. */
+        fun companyName(companyName: Optional<String>) = companyName(companyName.orElse(null))
 
         /** Whether the Prenotification is for a future debit or credit. */
-        fun creditDebitIndicator(creditDebitIndicator: CreditDebitIndicator) = apply {
+        fun creditDebitIndicator(creditDebitIndicator: CreditDebitIndicator?) = apply {
             body.creditDebitIndicator(creditDebitIndicator)
         }
+
+        /** Whether the Prenotification is for a future debit or credit. */
+        fun creditDebitIndicator(creditDebitIndicator: Optional<CreditDebitIndicator>) =
+            creditDebitIndicator(creditDebitIndicator.orElse(null))
 
         /**
          * The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
          */
-        fun effectiveDate(effectiveDate: LocalDate) = apply { body.effectiveDate(effectiveDate) }
+        fun effectiveDate(effectiveDate: LocalDate?) = apply { body.effectiveDate(effectiveDate) }
+
+        /**
+         * The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+         */
+        fun effectiveDate(effectiveDate: Optional<LocalDate>) =
+            effectiveDate(effectiveDate.orElse(null))
 
         /** Your identifier for the transfer recipient. */
-        fun individualId(individualId: String) = apply { body.individualId(individualId) }
+        fun individualId(individualId: String?) = apply { body.individualId(individualId) }
+
+        /** Your identifier for the transfer recipient. */
+        fun individualId(individualId: Optional<String>) = individualId(individualId.orElse(null))
 
         /**
          * The name of the transfer recipient. This value is information and not verified by the
          * recipient's bank.
          */
-        fun individualName(individualName: String) = apply { body.individualName(individualName) }
+        fun individualName(individualName: String?) = apply { body.individualName(individualName) }
+
+        /**
+         * The name of the transfer recipient. This value is information and not verified by the
+         * recipient's bank.
+         */
+        fun individualName(individualName: Optional<String>) =
+            individualName(individualName.orElse(null))
 
         /** The Standard Entry Class (SEC) code to use for the ACH Prenotification. */
-        fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode) = apply {
+        fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode?) = apply {
             body.standardEntryClassCode(standardEntryClassCode)
         }
+
+        /** The Standard Entry Class (SEC) code to use for the ACH Prenotification. */
+        fun standardEntryClassCode(standardEntryClassCode: Optional<StandardEntryClassCode>) =
+            standardEntryClassCode(standardEntryClassCode.orElse(null))
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

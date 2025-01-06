@@ -133,23 +133,44 @@ constructor(
              * If specified, this subscription will only receive webhooks for Events associated with
              * the specified OAuth Connection.
              */
-            fun oauthConnectionId(oauthConnectionId: String) = apply {
+            fun oauthConnectionId(oauthConnectionId: String?) = apply {
                 this.oauthConnectionId = oauthConnectionId
+            }
+
+            /**
+             * If specified, this subscription will only receive webhooks for Events associated with
+             * the specified OAuth Connection.
+             */
+            fun oauthConnectionId(oauthConnectionId: Optional<String>) =
+                oauthConnectionId(oauthConnectionId.orElse(null))
+
+            /**
+             * If specified, this subscription will only receive webhooks for Events with the
+             * specified `category`.
+             */
+            fun selectedEventCategory(selectedEventCategory: SelectedEventCategory?) = apply {
+                this.selectedEventCategory = selectedEventCategory
             }
 
             /**
              * If specified, this subscription will only receive webhooks for Events with the
              * specified `category`.
              */
-            fun selectedEventCategory(selectedEventCategory: SelectedEventCategory) = apply {
-                this.selectedEventCategory = selectedEventCategory
-            }
+            fun selectedEventCategory(selectedEventCategory: Optional<SelectedEventCategory>) =
+                selectedEventCategory(selectedEventCategory.orElse(null))
 
             /**
              * The key that will be used to sign webhooks. If no value is passed, a random string
              * will be used as default.
              */
-            fun sharedSecret(sharedSecret: String) = apply { this.sharedSecret = sharedSecret }
+            fun sharedSecret(sharedSecret: String?) = apply { this.sharedSecret = sharedSecret }
+
+            /**
+             * The key that will be used to sign webhooks. If no value is passed, a random string
+             * will be used as default.
+             */
+            fun sharedSecret(sharedSecret: Optional<String>) =
+                sharedSecret(sharedSecret.orElse(null))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -227,23 +248,43 @@ constructor(
          * If specified, this subscription will only receive webhooks for Events associated with the
          * specified OAuth Connection.
          */
-        fun oauthConnectionId(oauthConnectionId: String) = apply {
+        fun oauthConnectionId(oauthConnectionId: String?) = apply {
             body.oauthConnectionId(oauthConnectionId)
+        }
+
+        /**
+         * If specified, this subscription will only receive webhooks for Events associated with the
+         * specified OAuth Connection.
+         */
+        fun oauthConnectionId(oauthConnectionId: Optional<String>) =
+            oauthConnectionId(oauthConnectionId.orElse(null))
+
+        /**
+         * If specified, this subscription will only receive webhooks for Events with the specified
+         * `category`.
+         */
+        fun selectedEventCategory(selectedEventCategory: SelectedEventCategory?) = apply {
+            body.selectedEventCategory(selectedEventCategory)
         }
 
         /**
          * If specified, this subscription will only receive webhooks for Events with the specified
          * `category`.
          */
-        fun selectedEventCategory(selectedEventCategory: SelectedEventCategory) = apply {
-            body.selectedEventCategory(selectedEventCategory)
-        }
+        fun selectedEventCategory(selectedEventCategory: Optional<SelectedEventCategory>) =
+            selectedEventCategory(selectedEventCategory.orElse(null))
 
         /**
          * The key that will be used to sign webhooks. If no value is passed, a random string will
          * be used as default.
          */
-        fun sharedSecret(sharedSecret: String) = apply { body.sharedSecret(sharedSecret) }
+        fun sharedSecret(sharedSecret: String?) = apply { body.sharedSecret(sharedSecret) }
+
+        /**
+         * The key that will be used to sign webhooks. If no value is passed, a random string will
+         * be used as default.
+         */
+        fun sharedSecret(sharedSecret: Optional<String>) = sharedSecret(sharedSecret.orElse(null))
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

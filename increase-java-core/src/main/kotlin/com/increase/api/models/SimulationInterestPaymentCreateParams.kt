@@ -112,10 +112,17 @@ constructor(
             fun amount(amount: Long) = apply { this.amount = amount }
 
             /** The end of the interest period. If not provided, defaults to the current time. */
-            fun periodEnd(periodEnd: OffsetDateTime) = apply { this.periodEnd = periodEnd }
+            fun periodEnd(periodEnd: OffsetDateTime?) = apply { this.periodEnd = periodEnd }
+
+            /** The end of the interest period. If not provided, defaults to the current time. */
+            fun periodEnd(periodEnd: Optional<OffsetDateTime>) = periodEnd(periodEnd.orElse(null))
 
             /** The start of the interest period. If not provided, defaults to the current time. */
-            fun periodStart(periodStart: OffsetDateTime) = apply { this.periodStart = periodStart }
+            fun periodStart(periodStart: OffsetDateTime?) = apply { this.periodStart = periodStart }
+
+            /** The start of the interest period. If not provided, defaults to the current time. */
+            fun periodStart(periodStart: Optional<OffsetDateTime>) =
+                periodStart(periodStart.orElse(null))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -196,10 +203,17 @@ constructor(
         fun amount(amount: Long) = apply { body.amount(amount) }
 
         /** The end of the interest period. If not provided, defaults to the current time. */
-        fun periodEnd(periodEnd: OffsetDateTime) = apply { body.periodEnd(periodEnd) }
+        fun periodEnd(periodEnd: OffsetDateTime?) = apply { body.periodEnd(periodEnd) }
+
+        /** The end of the interest period. If not provided, defaults to the current time. */
+        fun periodEnd(periodEnd: Optional<OffsetDateTime>) = periodEnd(periodEnd.orElse(null))
 
         /** The start of the interest period. If not provided, defaults to the current time. */
-        fun periodStart(periodStart: OffsetDateTime) = apply { body.periodStart(periodStart) }
+        fun periodStart(periodStart: OffsetDateTime?) = apply { body.periodStart(periodStart) }
+
+        /** The start of the interest period. If not provided, defaults to the current time. */
+        fun periodStart(periodStart: Optional<OffsetDateTime>) =
+            periodStart(periodStart.orElse(null))
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

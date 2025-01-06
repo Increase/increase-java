@@ -134,9 +134,18 @@ constructor(
             }
 
             /** Whether the transfer requires explicit approval via the dashboard or API. */
-            fun requireApproval(requireApproval: Boolean) = apply {
+            fun requireApproval(requireApproval: Boolean?) = apply {
                 this.requireApproval = requireApproval
             }
+
+            /** Whether the transfer requires explicit approval via the dashboard or API. */
+            fun requireApproval(requireApproval: Boolean) =
+                requireApproval(requireApproval as Boolean?)
+
+            /** Whether the transfer requires explicit approval via the dashboard or API. */
+            @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
+            fun requireApproval(requireApproval: Optional<Boolean>) =
+                requireApproval(requireApproval.orElse(null) as Boolean?)
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -227,9 +236,17 @@ constructor(
         }
 
         /** Whether the transfer requires explicit approval via the dashboard or API. */
-        fun requireApproval(requireApproval: Boolean) = apply {
+        fun requireApproval(requireApproval: Boolean?) = apply {
             body.requireApproval(requireApproval)
         }
+
+        /** Whether the transfer requires explicit approval via the dashboard or API. */
+        fun requireApproval(requireApproval: Boolean) = requireApproval(requireApproval as Boolean?)
+
+        /** Whether the transfer requires explicit approval via the dashboard or API. */
+        @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
+        fun requireApproval(requireApproval: Optional<Boolean>) =
+            requireApproval(requireApproval.orElse(null) as Boolean?)
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

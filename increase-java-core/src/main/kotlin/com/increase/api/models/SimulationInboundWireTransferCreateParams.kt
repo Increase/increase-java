@@ -357,80 +357,161 @@ constructor(
              * The sending bank will set beneficiary_address_line1 in production. You can simulate
              * any value here.
              */
-            fun beneficiaryAddressLine1(beneficiaryAddressLine1: String) = apply {
+            fun beneficiaryAddressLine1(beneficiaryAddressLine1: String?) = apply {
                 this.beneficiaryAddressLine1 = beneficiaryAddressLine1
+            }
+
+            /**
+             * The sending bank will set beneficiary_address_line1 in production. You can simulate
+             * any value here.
+             */
+            fun beneficiaryAddressLine1(beneficiaryAddressLine1: Optional<String>) =
+                beneficiaryAddressLine1(beneficiaryAddressLine1.orElse(null))
+
+            /**
+             * The sending bank will set beneficiary_address_line2 in production. You can simulate
+             * any value here.
+             */
+            fun beneficiaryAddressLine2(beneficiaryAddressLine2: String?) = apply {
+                this.beneficiaryAddressLine2 = beneficiaryAddressLine2
             }
 
             /**
              * The sending bank will set beneficiary_address_line2 in production. You can simulate
              * any value here.
              */
-            fun beneficiaryAddressLine2(beneficiaryAddressLine2: String) = apply {
-                this.beneficiaryAddressLine2 = beneficiaryAddressLine2
+            fun beneficiaryAddressLine2(beneficiaryAddressLine2: Optional<String>) =
+                beneficiaryAddressLine2(beneficiaryAddressLine2.orElse(null))
+
+            /**
+             * The sending bank will set beneficiary_address_line3 in production. You can simulate
+             * any value here.
+             */
+            fun beneficiaryAddressLine3(beneficiaryAddressLine3: String?) = apply {
+                this.beneficiaryAddressLine3 = beneficiaryAddressLine3
             }
 
             /**
              * The sending bank will set beneficiary_address_line3 in production. You can simulate
              * any value here.
              */
-            fun beneficiaryAddressLine3(beneficiaryAddressLine3: String) = apply {
-                this.beneficiaryAddressLine3 = beneficiaryAddressLine3
+            fun beneficiaryAddressLine3(beneficiaryAddressLine3: Optional<String>) =
+                beneficiaryAddressLine3(beneficiaryAddressLine3.orElse(null))
+
+            /**
+             * The sending bank will set beneficiary_name in production. You can simulate any value
+             * here.
+             */
+            fun beneficiaryName(beneficiaryName: String?) = apply {
+                this.beneficiaryName = beneficiaryName
             }
 
             /**
              * The sending bank will set beneficiary_name in production. You can simulate any value
              * here.
              */
-            fun beneficiaryName(beneficiaryName: String) = apply {
-                this.beneficiaryName = beneficiaryName
+            fun beneficiaryName(beneficiaryName: Optional<String>) =
+                beneficiaryName(beneficiaryName.orElse(null))
+
+            /**
+             * The sending bank will set beneficiary_reference in production. You can simulate any
+             * value here.
+             */
+            fun beneficiaryReference(beneficiaryReference: String?) = apply {
+                this.beneficiaryReference = beneficiaryReference
             }
 
             /**
              * The sending bank will set beneficiary_reference in production. You can simulate any
              * value here.
              */
-            fun beneficiaryReference(beneficiaryReference: String) = apply {
-                this.beneficiaryReference = beneficiaryReference
+            fun beneficiaryReference(beneficiaryReference: Optional<String>) =
+                beneficiaryReference(beneficiaryReference.orElse(null))
+
+            /**
+             * The sending bank will set originator_address_line1 in production. You can simulate
+             * any value here.
+             */
+            fun originatorAddressLine1(originatorAddressLine1: String?) = apply {
+                this.originatorAddressLine1 = originatorAddressLine1
             }
 
             /**
              * The sending bank will set originator_address_line1 in production. You can simulate
              * any value here.
              */
-            fun originatorAddressLine1(originatorAddressLine1: String) = apply {
-                this.originatorAddressLine1 = originatorAddressLine1
+            fun originatorAddressLine1(originatorAddressLine1: Optional<String>) =
+                originatorAddressLine1(originatorAddressLine1.orElse(null))
+
+            /**
+             * The sending bank will set originator_address_line2 in production. You can simulate
+             * any value here.
+             */
+            fun originatorAddressLine2(originatorAddressLine2: String?) = apply {
+                this.originatorAddressLine2 = originatorAddressLine2
             }
 
             /**
              * The sending bank will set originator_address_line2 in production. You can simulate
              * any value here.
              */
-            fun originatorAddressLine2(originatorAddressLine2: String) = apply {
-                this.originatorAddressLine2 = originatorAddressLine2
+            fun originatorAddressLine2(originatorAddressLine2: Optional<String>) =
+                originatorAddressLine2(originatorAddressLine2.orElse(null))
+
+            /**
+             * The sending bank will set originator_address_line3 in production. You can simulate
+             * any value here.
+             */
+            fun originatorAddressLine3(originatorAddressLine3: String?) = apply {
+                this.originatorAddressLine3 = originatorAddressLine3
             }
 
             /**
              * The sending bank will set originator_address_line3 in production. You can simulate
              * any value here.
              */
-            fun originatorAddressLine3(originatorAddressLine3: String) = apply {
-                this.originatorAddressLine3 = originatorAddressLine3
+            fun originatorAddressLine3(originatorAddressLine3: Optional<String>) =
+                originatorAddressLine3(originatorAddressLine3.orElse(null))
+
+            /**
+             * The sending bank will set originator_name in production. You can simulate any value
+             * here.
+             */
+            fun originatorName(originatorName: String?) = apply {
+                this.originatorName = originatorName
             }
 
             /**
              * The sending bank will set originator_name in production. You can simulate any value
              * here.
              */
-            fun originatorName(originatorName: String) = apply {
-                this.originatorName = originatorName
+            fun originatorName(originatorName: Optional<String>) =
+                originatorName(originatorName.orElse(null))
+
+            /**
+             * The sending bank will set originator_routing_number in production. You can simulate
+             * any value here.
+             */
+            fun originatorRoutingNumber(originatorRoutingNumber: String?) = apply {
+                this.originatorRoutingNumber = originatorRoutingNumber
             }
 
             /**
              * The sending bank will set originator_routing_number in production. You can simulate
              * any value here.
              */
-            fun originatorRoutingNumber(originatorRoutingNumber: String) = apply {
-                this.originatorRoutingNumber = originatorRoutingNumber
+            fun originatorRoutingNumber(originatorRoutingNumber: Optional<String>) =
+                originatorRoutingNumber(originatorRoutingNumber.orElse(null))
+
+            /**
+             * The sending bank will set originator_to_beneficiary_information_line1 in production.
+             * You can simulate any value here.
+             */
+            fun originatorToBeneficiaryInformationLine1(
+                originatorToBeneficiaryInformationLine1: String?
+            ) = apply {
+                this.originatorToBeneficiaryInformationLine1 =
+                    originatorToBeneficiaryInformationLine1
             }
 
             /**
@@ -438,10 +519,21 @@ constructor(
              * You can simulate any value here.
              */
             fun originatorToBeneficiaryInformationLine1(
-                originatorToBeneficiaryInformationLine1: String
+                originatorToBeneficiaryInformationLine1: Optional<String>
+            ) =
+                originatorToBeneficiaryInformationLine1(
+                    originatorToBeneficiaryInformationLine1.orElse(null)
+                )
+
+            /**
+             * The sending bank will set originator_to_beneficiary_information_line2 in production.
+             * You can simulate any value here.
+             */
+            fun originatorToBeneficiaryInformationLine2(
+                originatorToBeneficiaryInformationLine2: String?
             ) = apply {
-                this.originatorToBeneficiaryInformationLine1 =
-                    originatorToBeneficiaryInformationLine1
+                this.originatorToBeneficiaryInformationLine2 =
+                    originatorToBeneficiaryInformationLine2
             }
 
             /**
@@ -449,10 +541,21 @@ constructor(
              * You can simulate any value here.
              */
             fun originatorToBeneficiaryInformationLine2(
-                originatorToBeneficiaryInformationLine2: String
+                originatorToBeneficiaryInformationLine2: Optional<String>
+            ) =
+                originatorToBeneficiaryInformationLine2(
+                    originatorToBeneficiaryInformationLine2.orElse(null)
+                )
+
+            /**
+             * The sending bank will set originator_to_beneficiary_information_line3 in production.
+             * You can simulate any value here.
+             */
+            fun originatorToBeneficiaryInformationLine3(
+                originatorToBeneficiaryInformationLine3: String?
             ) = apply {
-                this.originatorToBeneficiaryInformationLine2 =
-                    originatorToBeneficiaryInformationLine2
+                this.originatorToBeneficiaryInformationLine3 =
+                    originatorToBeneficiaryInformationLine3
             }
 
             /**
@@ -460,10 +563,21 @@ constructor(
              * You can simulate any value here.
              */
             fun originatorToBeneficiaryInformationLine3(
-                originatorToBeneficiaryInformationLine3: String
+                originatorToBeneficiaryInformationLine3: Optional<String>
+            ) =
+                originatorToBeneficiaryInformationLine3(
+                    originatorToBeneficiaryInformationLine3.orElse(null)
+                )
+
+            /**
+             * The sending bank will set originator_to_beneficiary_information_line4 in production.
+             * You can simulate any value here.
+             */
+            fun originatorToBeneficiaryInformationLine4(
+                originatorToBeneficiaryInformationLine4: String?
             ) = apply {
-                this.originatorToBeneficiaryInformationLine3 =
-                    originatorToBeneficiaryInformationLine3
+                this.originatorToBeneficiaryInformationLine4 =
+                    originatorToBeneficiaryInformationLine4
             }
 
             /**
@@ -471,19 +585,26 @@ constructor(
              * You can simulate any value here.
              */
             fun originatorToBeneficiaryInformationLine4(
-                originatorToBeneficiaryInformationLine4: String
-            ) = apply {
-                this.originatorToBeneficiaryInformationLine4 =
-                    originatorToBeneficiaryInformationLine4
+                originatorToBeneficiaryInformationLine4: Optional<String>
+            ) =
+                originatorToBeneficiaryInformationLine4(
+                    originatorToBeneficiaryInformationLine4.orElse(null)
+                )
+
+            /**
+             * The sending bank will set sender_reference in production. You can simulate any value
+             * here.
+             */
+            fun senderReference(senderReference: String?) = apply {
+                this.senderReference = senderReference
             }
 
             /**
              * The sending bank will set sender_reference in production. You can simulate any value
              * here.
              */
-            fun senderReference(senderReference: String) = apply {
-                this.senderReference = senderReference
-            }
+            fun senderReference(senderReference: Optional<String>) =
+                senderReference(senderReference.orElse(null))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -585,77 +706,156 @@ constructor(
          * The sending bank will set beneficiary_address_line1 in production. You can simulate any
          * value here.
          */
-        fun beneficiaryAddressLine1(beneficiaryAddressLine1: String) = apply {
+        fun beneficiaryAddressLine1(beneficiaryAddressLine1: String?) = apply {
             body.beneficiaryAddressLine1(beneficiaryAddressLine1)
+        }
+
+        /**
+         * The sending bank will set beneficiary_address_line1 in production. You can simulate any
+         * value here.
+         */
+        fun beneficiaryAddressLine1(beneficiaryAddressLine1: Optional<String>) =
+            beneficiaryAddressLine1(beneficiaryAddressLine1.orElse(null))
+
+        /**
+         * The sending bank will set beneficiary_address_line2 in production. You can simulate any
+         * value here.
+         */
+        fun beneficiaryAddressLine2(beneficiaryAddressLine2: String?) = apply {
+            body.beneficiaryAddressLine2(beneficiaryAddressLine2)
         }
 
         /**
          * The sending bank will set beneficiary_address_line2 in production. You can simulate any
          * value here.
          */
-        fun beneficiaryAddressLine2(beneficiaryAddressLine2: String) = apply {
-            body.beneficiaryAddressLine2(beneficiaryAddressLine2)
+        fun beneficiaryAddressLine2(beneficiaryAddressLine2: Optional<String>) =
+            beneficiaryAddressLine2(beneficiaryAddressLine2.orElse(null))
+
+        /**
+         * The sending bank will set beneficiary_address_line3 in production. You can simulate any
+         * value here.
+         */
+        fun beneficiaryAddressLine3(beneficiaryAddressLine3: String?) = apply {
+            body.beneficiaryAddressLine3(beneficiaryAddressLine3)
         }
 
         /**
          * The sending bank will set beneficiary_address_line3 in production. You can simulate any
          * value here.
          */
-        fun beneficiaryAddressLine3(beneficiaryAddressLine3: String) = apply {
-            body.beneficiaryAddressLine3(beneficiaryAddressLine3)
+        fun beneficiaryAddressLine3(beneficiaryAddressLine3: Optional<String>) =
+            beneficiaryAddressLine3(beneficiaryAddressLine3.orElse(null))
+
+        /**
+         * The sending bank will set beneficiary_name in production. You can simulate any value
+         * here.
+         */
+        fun beneficiaryName(beneficiaryName: String?) = apply {
+            body.beneficiaryName(beneficiaryName)
         }
 
         /**
          * The sending bank will set beneficiary_name in production. You can simulate any value
          * here.
          */
-        fun beneficiaryName(beneficiaryName: String) = apply {
-            body.beneficiaryName(beneficiaryName)
+        fun beneficiaryName(beneficiaryName: Optional<String>) =
+            beneficiaryName(beneficiaryName.orElse(null))
+
+        /**
+         * The sending bank will set beneficiary_reference in production. You can simulate any value
+         * here.
+         */
+        fun beneficiaryReference(beneficiaryReference: String?) = apply {
+            body.beneficiaryReference(beneficiaryReference)
         }
 
         /**
          * The sending bank will set beneficiary_reference in production. You can simulate any value
          * here.
          */
-        fun beneficiaryReference(beneficiaryReference: String) = apply {
-            body.beneficiaryReference(beneficiaryReference)
+        fun beneficiaryReference(beneficiaryReference: Optional<String>) =
+            beneficiaryReference(beneficiaryReference.orElse(null))
+
+        /**
+         * The sending bank will set originator_address_line1 in production. You can simulate any
+         * value here.
+         */
+        fun originatorAddressLine1(originatorAddressLine1: String?) = apply {
+            body.originatorAddressLine1(originatorAddressLine1)
         }
 
         /**
          * The sending bank will set originator_address_line1 in production. You can simulate any
          * value here.
          */
-        fun originatorAddressLine1(originatorAddressLine1: String) = apply {
-            body.originatorAddressLine1(originatorAddressLine1)
+        fun originatorAddressLine1(originatorAddressLine1: Optional<String>) =
+            originatorAddressLine1(originatorAddressLine1.orElse(null))
+
+        /**
+         * The sending bank will set originator_address_line2 in production. You can simulate any
+         * value here.
+         */
+        fun originatorAddressLine2(originatorAddressLine2: String?) = apply {
+            body.originatorAddressLine2(originatorAddressLine2)
         }
 
         /**
          * The sending bank will set originator_address_line2 in production. You can simulate any
          * value here.
          */
-        fun originatorAddressLine2(originatorAddressLine2: String) = apply {
-            body.originatorAddressLine2(originatorAddressLine2)
+        fun originatorAddressLine2(originatorAddressLine2: Optional<String>) =
+            originatorAddressLine2(originatorAddressLine2.orElse(null))
+
+        /**
+         * The sending bank will set originator_address_line3 in production. You can simulate any
+         * value here.
+         */
+        fun originatorAddressLine3(originatorAddressLine3: String?) = apply {
+            body.originatorAddressLine3(originatorAddressLine3)
         }
 
         /**
          * The sending bank will set originator_address_line3 in production. You can simulate any
          * value here.
          */
-        fun originatorAddressLine3(originatorAddressLine3: String) = apply {
-            body.originatorAddressLine3(originatorAddressLine3)
-        }
+        fun originatorAddressLine3(originatorAddressLine3: Optional<String>) =
+            originatorAddressLine3(originatorAddressLine3.orElse(null))
 
         /**
          * The sending bank will set originator_name in production. You can simulate any value here.
          */
-        fun originatorName(originatorName: String) = apply { body.originatorName(originatorName) }
+        fun originatorName(originatorName: String?) = apply { body.originatorName(originatorName) }
+
+        /**
+         * The sending bank will set originator_name in production. You can simulate any value here.
+         */
+        fun originatorName(originatorName: Optional<String>) =
+            originatorName(originatorName.orElse(null))
 
         /**
          * The sending bank will set originator_routing_number in production. You can simulate any
          * value here.
          */
-        fun originatorRoutingNumber(originatorRoutingNumber: String) = apply {
+        fun originatorRoutingNumber(originatorRoutingNumber: String?) = apply {
             body.originatorRoutingNumber(originatorRoutingNumber)
+        }
+
+        /**
+         * The sending bank will set originator_routing_number in production. You can simulate any
+         * value here.
+         */
+        fun originatorRoutingNumber(originatorRoutingNumber: Optional<String>) =
+            originatorRoutingNumber(originatorRoutingNumber.orElse(null))
+
+        /**
+         * The sending bank will set originator_to_beneficiary_information_line1 in production. You
+         * can simulate any value here.
+         */
+        fun originatorToBeneficiaryInformationLine1(
+            originatorToBeneficiaryInformationLine1: String?
+        ) = apply {
+            body.originatorToBeneficiaryInformationLine1(originatorToBeneficiaryInformationLine1)
         }
 
         /**
@@ -663,9 +863,20 @@ constructor(
          * can simulate any value here.
          */
         fun originatorToBeneficiaryInformationLine1(
-            originatorToBeneficiaryInformationLine1: String
+            originatorToBeneficiaryInformationLine1: Optional<String>
+        ) =
+            originatorToBeneficiaryInformationLine1(
+                originatorToBeneficiaryInformationLine1.orElse(null)
+            )
+
+        /**
+         * The sending bank will set originator_to_beneficiary_information_line2 in production. You
+         * can simulate any value here.
+         */
+        fun originatorToBeneficiaryInformationLine2(
+            originatorToBeneficiaryInformationLine2: String?
         ) = apply {
-            body.originatorToBeneficiaryInformationLine1(originatorToBeneficiaryInformationLine1)
+            body.originatorToBeneficiaryInformationLine2(originatorToBeneficiaryInformationLine2)
         }
 
         /**
@@ -673,9 +884,20 @@ constructor(
          * can simulate any value here.
          */
         fun originatorToBeneficiaryInformationLine2(
-            originatorToBeneficiaryInformationLine2: String
+            originatorToBeneficiaryInformationLine2: Optional<String>
+        ) =
+            originatorToBeneficiaryInformationLine2(
+                originatorToBeneficiaryInformationLine2.orElse(null)
+            )
+
+        /**
+         * The sending bank will set originator_to_beneficiary_information_line3 in production. You
+         * can simulate any value here.
+         */
+        fun originatorToBeneficiaryInformationLine3(
+            originatorToBeneficiaryInformationLine3: String?
         ) = apply {
-            body.originatorToBeneficiaryInformationLine2(originatorToBeneficiaryInformationLine2)
+            body.originatorToBeneficiaryInformationLine3(originatorToBeneficiaryInformationLine3)
         }
 
         /**
@@ -683,9 +905,20 @@ constructor(
          * can simulate any value here.
          */
         fun originatorToBeneficiaryInformationLine3(
-            originatorToBeneficiaryInformationLine3: String
+            originatorToBeneficiaryInformationLine3: Optional<String>
+        ) =
+            originatorToBeneficiaryInformationLine3(
+                originatorToBeneficiaryInformationLine3.orElse(null)
+            )
+
+        /**
+         * The sending bank will set originator_to_beneficiary_information_line4 in production. You
+         * can simulate any value here.
+         */
+        fun originatorToBeneficiaryInformationLine4(
+            originatorToBeneficiaryInformationLine4: String?
         ) = apply {
-            body.originatorToBeneficiaryInformationLine3(originatorToBeneficiaryInformationLine3)
+            body.originatorToBeneficiaryInformationLine4(originatorToBeneficiaryInformationLine4)
         }
 
         /**
@@ -693,18 +926,26 @@ constructor(
          * can simulate any value here.
          */
         fun originatorToBeneficiaryInformationLine4(
-            originatorToBeneficiaryInformationLine4: String
-        ) = apply {
-            body.originatorToBeneficiaryInformationLine4(originatorToBeneficiaryInformationLine4)
+            originatorToBeneficiaryInformationLine4: Optional<String>
+        ) =
+            originatorToBeneficiaryInformationLine4(
+                originatorToBeneficiaryInformationLine4.orElse(null)
+            )
+
+        /**
+         * The sending bank will set sender_reference in production. You can simulate any value
+         * here.
+         */
+        fun senderReference(senderReference: String?) = apply {
+            body.senderReference(senderReference)
         }
 
         /**
          * The sending bank will set sender_reference in production. You can simulate any value
          * here.
          */
-        fun senderReference(senderReference: String) = apply {
-            body.senderReference(senderReference)
-        }
+        fun senderReference(senderReference: Optional<String>) =
+            senderReference(senderReference.orElse(null))
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
