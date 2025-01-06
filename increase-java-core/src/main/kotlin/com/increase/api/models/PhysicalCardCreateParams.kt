@@ -122,9 +122,16 @@ constructor(
              * The physical card profile to use for this physical card. The latest default physical
              * card profile will be used if not provided.
              */
-            fun physicalCardProfileId(physicalCardProfileId: String) = apply {
+            fun physicalCardProfileId(physicalCardProfileId: String?) = apply {
                 this.physicalCardProfileId = physicalCardProfileId
             }
+
+            /**
+             * The physical card profile to use for this physical card. The latest default physical
+             * card profile will be used if not provided.
+             */
+            fun physicalCardProfileId(physicalCardProfileId: Optional<String>) =
+                physicalCardProfileId(physicalCardProfileId.orElse(null))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -207,9 +214,16 @@ constructor(
          * The physical card profile to use for this physical card. The latest default physical card
          * profile will be used if not provided.
          */
-        fun physicalCardProfileId(physicalCardProfileId: String) = apply {
+        fun physicalCardProfileId(physicalCardProfileId: String?) = apply {
             body.physicalCardProfileId(physicalCardProfileId)
         }
+
+        /**
+         * The physical card profile to use for this physical card. The latest default physical card
+         * profile will be used if not provided.
+         */
+        fun physicalCardProfileId(physicalCardProfileId: Optional<String>) =
+            physicalCardProfileId(physicalCardProfileId.orElse(null))
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -596,13 +610,23 @@ constructor(
                 fun state(state: String) = apply { this.state = state }
 
                 /** The second line of the shipping address. */
-                fun line2(line2: String) = apply { this.line2 = line2 }
+                fun line2(line2: String?) = apply { this.line2 = line2 }
+
+                /** The second line of the shipping address. */
+                fun line2(line2: Optional<String>) = line2(line2.orElse(null))
 
                 /** The third line of the shipping address. */
-                fun line3(line3: String) = apply { this.line3 = line3 }
+                fun line3(line3: String?) = apply { this.line3 = line3 }
+
+                /** The third line of the shipping address. */
+                fun line3(line3: Optional<String>) = line3(line3.orElse(null))
 
                 /** The phone number of the recipient. */
-                fun phoneNumber(phoneNumber: String) = apply { this.phoneNumber = phoneNumber }
+                fun phoneNumber(phoneNumber: String?) = apply { this.phoneNumber = phoneNumber }
+
+                /** The phone number of the recipient. */
+                fun phoneNumber(phoneNumber: Optional<String>) =
+                    phoneNumber(phoneNumber.orElse(null))
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()

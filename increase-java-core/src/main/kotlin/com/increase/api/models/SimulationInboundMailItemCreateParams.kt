@@ -110,9 +110,16 @@ constructor(
              * The file containing the PDF contents. If not present, a default check image file will
              * be used.
              */
-            fun contentsFileId(contentsFileId: String) = apply {
+            fun contentsFileId(contentsFileId: String?) = apply {
                 this.contentsFileId = contentsFileId
             }
+
+            /**
+             * The file containing the PDF contents. If not present, a default check image file will
+             * be used.
+             */
+            fun contentsFileId(contentsFileId: Optional<String>) =
+                contentsFileId(contentsFileId.orElse(null))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -195,7 +202,14 @@ constructor(
          * The file containing the PDF contents. If not present, a default check image file will be
          * used.
          */
-        fun contentsFileId(contentsFileId: String) = apply { body.contentsFileId(contentsFileId) }
+        fun contentsFileId(contentsFileId: String?) = apply { body.contentsFileId(contentsFileId) }
+
+        /**
+         * The file containing the PDF contents. If not present, a default check image file will be
+         * used.
+         */
+        fun contentsFileId(contentsFileId: Optional<String>) =
+            contentsFileId(contentsFileId.orElse(null))
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

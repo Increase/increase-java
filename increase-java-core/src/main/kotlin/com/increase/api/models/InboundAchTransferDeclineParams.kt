@@ -100,7 +100,14 @@ constructor(
              * codes will be `payment_stopped` for debits and `credit_entry_refused_by_receiver` for
              * credits.
              */
-            fun reason(reason: Reason) = apply { this.reason = reason }
+            fun reason(reason: Reason?) = apply { this.reason = reason }
+
+            /**
+             * The reason why this transfer will be returned. If this parameter is unset, the return
+             * codes will be `payment_stopped` for debits and `credit_entry_refused_by_receiver` for
+             * credits.
+             */
+            fun reason(reason: Optional<Reason>) = reason(reason.orElse(null))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -179,7 +186,14 @@ constructor(
          * codes will be `payment_stopped` for debits and `credit_entry_refused_by_receiver` for
          * credits.
          */
-        fun reason(reason: Reason) = apply { body.reason(reason) }
+        fun reason(reason: Reason?) = apply { body.reason(reason) }
+
+        /**
+         * The reason why this transfer will be returned. If this parameter is unset, the return
+         * codes will be `payment_stopped` for debits and `credit_entry_refused_by_receiver` for
+         * credits.
+         */
+        fun reason(reason: Optional<Reason>) = reason(reason.orElse(null))
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

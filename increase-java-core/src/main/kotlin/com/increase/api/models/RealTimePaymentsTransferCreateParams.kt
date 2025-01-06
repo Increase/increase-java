@@ -224,16 +224,39 @@ constructor(
              * The name of the transfer's sender. If not provided, defaults to the name of the
              * account's entity.
              */
-            fun debtorName(debtorName: String) = apply { this.debtorName = debtorName }
+            fun debtorName(debtorName: String?) = apply { this.debtorName = debtorName }
+
+            /**
+             * The name of the transfer's sender. If not provided, defaults to the name of the
+             * account's entity.
+             */
+            fun debtorName(debtorName: Optional<String>) = debtorName(debtorName.orElse(null))
 
             /** The destination account number. */
-            fun destinationAccountNumber(destinationAccountNumber: String) = apply {
+            fun destinationAccountNumber(destinationAccountNumber: String?) = apply {
                 this.destinationAccountNumber = destinationAccountNumber
             }
 
+            /** The destination account number. */
+            fun destinationAccountNumber(destinationAccountNumber: Optional<String>) =
+                destinationAccountNumber(destinationAccountNumber.orElse(null))
+
             /** The destination American Bankers' Association (ABA) Routing Transit Number (RTN). */
-            fun destinationRoutingNumber(destinationRoutingNumber: String) = apply {
+            fun destinationRoutingNumber(destinationRoutingNumber: String?) = apply {
                 this.destinationRoutingNumber = destinationRoutingNumber
+            }
+
+            /** The destination American Bankers' Association (ABA) Routing Transit Number (RTN). */
+            fun destinationRoutingNumber(destinationRoutingNumber: Optional<String>) =
+                destinationRoutingNumber(destinationRoutingNumber.orElse(null))
+
+            /**
+             * The ID of an External Account to initiate a transfer to. If this parameter is
+             * provided, `destination_account_number` and `destination_routing_number` must be
+             * absent.
+             */
+            fun externalAccountId(externalAccountId: String?) = apply {
+                this.externalAccountId = externalAccountId
             }
 
             /**
@@ -241,30 +264,52 @@ constructor(
              * provided, `destination_account_number` and `destination_routing_number` must be
              * absent.
              */
-            fun externalAccountId(externalAccountId: String) = apply {
-                this.externalAccountId = externalAccountId
+            fun externalAccountId(externalAccountId: Optional<String>) =
+                externalAccountId(externalAccountId.orElse(null))
+
+            /** Whether the transfer requires explicit approval via the dashboard or API. */
+            fun requireApproval(requireApproval: Boolean?) = apply {
+                this.requireApproval = requireApproval
             }
 
             /** Whether the transfer requires explicit approval via the dashboard or API. */
-            fun requireApproval(requireApproval: Boolean) = apply {
-                this.requireApproval = requireApproval
+            fun requireApproval(requireApproval: Boolean) =
+                requireApproval(requireApproval as Boolean?)
+
+            /** Whether the transfer requires explicit approval via the dashboard or API. */
+            @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
+            fun requireApproval(requireApproval: Optional<Boolean>) =
+                requireApproval(requireApproval.orElse(null) as Boolean?)
+
+            /**
+             * The name of the ultimate recipient of the transfer. Set this if the creditor is an
+             * intermediary receiving the payment for someone else.
+             */
+            fun ultimateCreditorName(ultimateCreditorName: String?) = apply {
+                this.ultimateCreditorName = ultimateCreditorName
             }
 
             /**
              * The name of the ultimate recipient of the transfer. Set this if the creditor is an
              * intermediary receiving the payment for someone else.
              */
-            fun ultimateCreditorName(ultimateCreditorName: String) = apply {
-                this.ultimateCreditorName = ultimateCreditorName
+            fun ultimateCreditorName(ultimateCreditorName: Optional<String>) =
+                ultimateCreditorName(ultimateCreditorName.orElse(null))
+
+            /**
+             * The name of the ultimate sender of the transfer. Set this if the funds are being sent
+             * on behalf of someone who is not the account holder at Increase.
+             */
+            fun ultimateDebtorName(ultimateDebtorName: String?) = apply {
+                this.ultimateDebtorName = ultimateDebtorName
             }
 
             /**
              * The name of the ultimate sender of the transfer. Set this if the funds are being sent
              * on behalf of someone who is not the account holder at Increase.
              */
-            fun ultimateDebtorName(ultimateDebtorName: String) = apply {
-                this.ultimateDebtorName = ultimateDebtorName
-            }
+            fun ultimateDebtorName(ultimateDebtorName: Optional<String>) =
+                ultimateDebtorName(ultimateDebtorName.orElse(null))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -369,46 +414,89 @@ constructor(
          * The name of the transfer's sender. If not provided, defaults to the name of the account's
          * entity.
          */
-        fun debtorName(debtorName: String) = apply { body.debtorName(debtorName) }
+        fun debtorName(debtorName: String?) = apply { body.debtorName(debtorName) }
+
+        /**
+         * The name of the transfer's sender. If not provided, defaults to the name of the account's
+         * entity.
+         */
+        fun debtorName(debtorName: Optional<String>) = debtorName(debtorName.orElse(null))
 
         /** The destination account number. */
-        fun destinationAccountNumber(destinationAccountNumber: String) = apply {
+        fun destinationAccountNumber(destinationAccountNumber: String?) = apply {
             body.destinationAccountNumber(destinationAccountNumber)
         }
 
+        /** The destination account number. */
+        fun destinationAccountNumber(destinationAccountNumber: Optional<String>) =
+            destinationAccountNumber(destinationAccountNumber.orElse(null))
+
         /** The destination American Bankers' Association (ABA) Routing Transit Number (RTN). */
-        fun destinationRoutingNumber(destinationRoutingNumber: String) = apply {
+        fun destinationRoutingNumber(destinationRoutingNumber: String?) = apply {
             body.destinationRoutingNumber(destinationRoutingNumber)
+        }
+
+        /** The destination American Bankers' Association (ABA) Routing Transit Number (RTN). */
+        fun destinationRoutingNumber(destinationRoutingNumber: Optional<String>) =
+            destinationRoutingNumber(destinationRoutingNumber.orElse(null))
+
+        /**
+         * The ID of an External Account to initiate a transfer to. If this parameter is provided,
+         * `destination_account_number` and `destination_routing_number` must be absent.
+         */
+        fun externalAccountId(externalAccountId: String?) = apply {
+            body.externalAccountId(externalAccountId)
         }
 
         /**
          * The ID of an External Account to initiate a transfer to. If this parameter is provided,
          * `destination_account_number` and `destination_routing_number` must be absent.
          */
-        fun externalAccountId(externalAccountId: String) = apply {
-            body.externalAccountId(externalAccountId)
+        fun externalAccountId(externalAccountId: Optional<String>) =
+            externalAccountId(externalAccountId.orElse(null))
+
+        /** Whether the transfer requires explicit approval via the dashboard or API. */
+        fun requireApproval(requireApproval: Boolean?) = apply {
+            body.requireApproval(requireApproval)
         }
 
         /** Whether the transfer requires explicit approval via the dashboard or API. */
-        fun requireApproval(requireApproval: Boolean) = apply {
-            body.requireApproval(requireApproval)
+        fun requireApproval(requireApproval: Boolean) = requireApproval(requireApproval as Boolean?)
+
+        /** Whether the transfer requires explicit approval via the dashboard or API. */
+        @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
+        fun requireApproval(requireApproval: Optional<Boolean>) =
+            requireApproval(requireApproval.orElse(null) as Boolean?)
+
+        /**
+         * The name of the ultimate recipient of the transfer. Set this if the creditor is an
+         * intermediary receiving the payment for someone else.
+         */
+        fun ultimateCreditorName(ultimateCreditorName: String?) = apply {
+            body.ultimateCreditorName(ultimateCreditorName)
         }
 
         /**
          * The name of the ultimate recipient of the transfer. Set this if the creditor is an
          * intermediary receiving the payment for someone else.
          */
-        fun ultimateCreditorName(ultimateCreditorName: String) = apply {
-            body.ultimateCreditorName(ultimateCreditorName)
+        fun ultimateCreditorName(ultimateCreditorName: Optional<String>) =
+            ultimateCreditorName(ultimateCreditorName.orElse(null))
+
+        /**
+         * The name of the ultimate sender of the transfer. Set this if the funds are being sent on
+         * behalf of someone who is not the account holder at Increase.
+         */
+        fun ultimateDebtorName(ultimateDebtorName: String?) = apply {
+            body.ultimateDebtorName(ultimateDebtorName)
         }
 
         /**
          * The name of the ultimate sender of the transfer. Set this if the funds are being sent on
          * behalf of someone who is not the account holder at Increase.
          */
-        fun ultimateDebtorName(ultimateDebtorName: String) = apply {
-            body.ultimateDebtorName(ultimateDebtorName)
-        }
+        fun ultimateDebtorName(ultimateDebtorName: Optional<String>) =
+            ultimateDebtorName(ultimateDebtorName.orElse(null))
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

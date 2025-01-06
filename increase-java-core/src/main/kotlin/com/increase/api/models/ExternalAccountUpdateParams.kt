@@ -116,18 +116,31 @@ constructor(
             }
 
             /** The type of entity that owns the External Account. */
-            fun accountHolder(accountHolder: AccountHolder) = apply {
+            fun accountHolder(accountHolder: AccountHolder?) = apply {
                 this.accountHolder = accountHolder
             }
 
+            /** The type of entity that owns the External Account. */
+            fun accountHolder(accountHolder: Optional<AccountHolder>) =
+                accountHolder(accountHolder.orElse(null))
+
             /** The description you choose to give the external account. */
-            fun description(description: String) = apply { this.description = description }
+            fun description(description: String?) = apply { this.description = description }
+
+            /** The description you choose to give the external account. */
+            fun description(description: Optional<String>) = description(description.orElse(null))
 
             /** The funding type of the External Account. */
-            fun funding(funding: Funding) = apply { this.funding = funding }
+            fun funding(funding: Funding?) = apply { this.funding = funding }
+
+            /** The funding type of the External Account. */
+            fun funding(funding: Optional<Funding>) = funding(funding.orElse(null))
 
             /** The status of the External Account. */
-            fun status(status: Status) = apply { this.status = status }
+            fun status(status: Status?) = apply { this.status = status }
+
+            /** The status of the External Account. */
+            fun status(status: Optional<Status>) = status(status.orElse(null))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -205,18 +218,31 @@ constructor(
         }
 
         /** The type of entity that owns the External Account. */
-        fun accountHolder(accountHolder: AccountHolder) = apply {
+        fun accountHolder(accountHolder: AccountHolder?) = apply {
             body.accountHolder(accountHolder)
         }
 
+        /** The type of entity that owns the External Account. */
+        fun accountHolder(accountHolder: Optional<AccountHolder>) =
+            accountHolder(accountHolder.orElse(null))
+
         /** The description you choose to give the external account. */
-        fun description(description: String) = apply { body.description(description) }
+        fun description(description: String?) = apply { body.description(description) }
+
+        /** The description you choose to give the external account. */
+        fun description(description: Optional<String>) = description(description.orElse(null))
 
         /** The funding type of the External Account. */
-        fun funding(funding: Funding) = apply { body.funding(funding) }
+        fun funding(funding: Funding?) = apply { body.funding(funding) }
+
+        /** The funding type of the External Account. */
+        fun funding(funding: Optional<Funding>) = funding(funding.orElse(null))
 
         /** The status of the External Account. */
-        fun status(status: Status) = apply { body.status(status) }
+        fun status(status: Status?) = apply { body.status(status) }
+
+        /** The status of the External Account. */
+        fun status(status: Optional<Status>) = status(status.orElse(null))
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

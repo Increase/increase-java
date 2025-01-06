@@ -110,15 +110,25 @@ constructor(
             fun name(name: String) = apply { this.name = name }
 
             /** The entity, if `compliance_category` is `commingled_cash`. */
-            fun accountId(accountId: String) = apply { this.accountId = accountId }
+            fun accountId(accountId: String?) = apply { this.accountId = accountId }
+
+            /** The entity, if `compliance_category` is `commingled_cash`. */
+            fun accountId(accountId: Optional<String>) = accountId(accountId.orElse(null))
 
             /** The account compliance category. */
-            fun complianceCategory(complianceCategory: ComplianceCategory) = apply {
+            fun complianceCategory(complianceCategory: ComplianceCategory?) = apply {
                 this.complianceCategory = complianceCategory
             }
 
+            /** The account compliance category. */
+            fun complianceCategory(complianceCategory: Optional<ComplianceCategory>) =
+                complianceCategory(complianceCategory.orElse(null))
+
             /** The entity, if `compliance_category` is `customer_balance`. */
-            fun entityId(entityId: String) = apply { this.entityId = entityId }
+            fun entityId(entityId: String?) = apply { this.entityId = entityId }
+
+            /** The entity, if `compliance_category` is `customer_balance`. */
+            fun entityId(entityId: Optional<String>) = entityId(entityId.orElse(null))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -193,15 +203,25 @@ constructor(
         fun name(name: String) = apply { body.name(name) }
 
         /** The entity, if `compliance_category` is `commingled_cash`. */
-        fun accountId(accountId: String) = apply { body.accountId(accountId) }
+        fun accountId(accountId: String?) = apply { body.accountId(accountId) }
+
+        /** The entity, if `compliance_category` is `commingled_cash`. */
+        fun accountId(accountId: Optional<String>) = accountId(accountId.orElse(null))
 
         /** The account compliance category. */
-        fun complianceCategory(complianceCategory: ComplianceCategory) = apply {
+        fun complianceCategory(complianceCategory: ComplianceCategory?) = apply {
             body.complianceCategory(complianceCategory)
         }
 
+        /** The account compliance category. */
+        fun complianceCategory(complianceCategory: Optional<ComplianceCategory>) =
+            complianceCategory(complianceCategory.orElse(null))
+
         /** The entity, if `compliance_category` is `customer_balance`. */
-        fun entityId(entityId: String) = apply { body.entityId(entityId) }
+        fun entityId(entityId: String?) = apply { body.entityId(entityId) }
+
+        /** The entity, if `compliance_category` is `customer_balance`. */
+        fun entityId(entityId: Optional<String>) = entityId(entityId.orElse(null))
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

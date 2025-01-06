@@ -102,14 +102,22 @@ constructor(
             }
 
             /** The updated account number to send in the notification of change. */
-            fun updatedAccountNumber(updatedAccountNumber: String) = apply {
+            fun updatedAccountNumber(updatedAccountNumber: String?) = apply {
                 this.updatedAccountNumber = updatedAccountNumber
             }
 
+            /** The updated account number to send in the notification of change. */
+            fun updatedAccountNumber(updatedAccountNumber: Optional<String>) =
+                updatedAccountNumber(updatedAccountNumber.orElse(null))
+
             /** The updated routing number to send in the notification of change. */
-            fun updatedRoutingNumber(updatedRoutingNumber: String) = apply {
+            fun updatedRoutingNumber(updatedRoutingNumber: String?) = apply {
                 this.updatedRoutingNumber = updatedRoutingNumber
             }
+
+            /** The updated routing number to send in the notification of change. */
+            fun updatedRoutingNumber(updatedRoutingNumber: Optional<String>) =
+                updatedRoutingNumber(updatedRoutingNumber.orElse(null))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -194,14 +202,22 @@ constructor(
         }
 
         /** The updated account number to send in the notification of change. */
-        fun updatedAccountNumber(updatedAccountNumber: String) = apply {
+        fun updatedAccountNumber(updatedAccountNumber: String?) = apply {
             body.updatedAccountNumber(updatedAccountNumber)
         }
 
+        /** The updated account number to send in the notification of change. */
+        fun updatedAccountNumber(updatedAccountNumber: Optional<String>) =
+            updatedAccountNumber(updatedAccountNumber.orElse(null))
+
         /** The updated routing number to send in the notification of change. */
-        fun updatedRoutingNumber(updatedRoutingNumber: String) = apply {
+        fun updatedRoutingNumber(updatedRoutingNumber: String?) = apply {
             body.updatedRoutingNumber(updatedRoutingNumber)
         }
+
+        /** The updated routing number to send in the notification of change. */
+        fun updatedRoutingNumber(updatedRoutingNumber: Optional<String>) =
+            updatedRoutingNumber(updatedRoutingNumber.orElse(null))
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

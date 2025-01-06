@@ -102,7 +102,10 @@ constructor(
             fun status(status: Status) = apply { this.status = status }
 
             /** Why the dispute was rejected. Not required for accepting disputes. */
-            fun explanation(explanation: String) = apply { this.explanation = explanation }
+            fun explanation(explanation: String?) = apply { this.explanation = explanation }
+
+            /** Why the dispute was rejected. Not required for accepting disputes. */
+            fun explanation(explanation: Optional<String>) = explanation(explanation.orElse(null))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -182,7 +185,10 @@ constructor(
         fun status(status: Status) = apply { body.status(status) }
 
         /** Why the dispute was rejected. Not required for accepting disputes. */
-        fun explanation(explanation: String) = apply { body.explanation(explanation) }
+        fun explanation(explanation: String?) = apply { body.explanation(explanation) }
+
+        /** Why the dispute was rejected. Not required for accepting disputes. */
+        fun explanation(explanation: Optional<String>) = explanation(explanation.orElse(null))
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

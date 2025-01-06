@@ -84,7 +84,10 @@ constructor(
             }
 
             /** The new name of the Account. */
-            fun name(name: String) = apply { this.name = name }
+            fun name(name: String?) = apply { this.name = name }
+
+            /** The new name of the Account. */
+            fun name(name: Optional<String>) = name(name.orElse(null))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -154,7 +157,10 @@ constructor(
         fun accountId(accountId: String) = apply { this.accountId = accountId }
 
         /** The new name of the Account. */
-        fun name(name: String) = apply { body.name(name) }
+        fun name(name: String?) = apply { body.name(name) }
+
+        /** The new name of the Account. */
+        fun name(name: Optional<String>) = name(name.orElse(null))
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

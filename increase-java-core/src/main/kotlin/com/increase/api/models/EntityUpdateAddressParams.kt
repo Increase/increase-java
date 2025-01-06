@@ -378,7 +378,10 @@ constructor(
             fun zip(zip: String) = apply { this.zip = zip }
 
             /** The second line of the address. This might be the floor or room number. */
-            fun line2(line2: String) = apply { this.line2 = line2 }
+            fun line2(line2: String?) = apply { this.line2 = line2 }
+
+            /** The second line of the address. This might be the floor or room number. */
+            fun line2(line2: Optional<String>) = line2(line2.orElse(null))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
