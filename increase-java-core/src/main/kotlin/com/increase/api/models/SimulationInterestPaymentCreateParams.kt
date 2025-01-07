@@ -17,6 +17,10 @@ import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
 
+/**
+ * Simulates an interest payment to your account. In production, this happens automatically on the
+ * first of each month.
+ */
 class SimulationInterestPaymentCreateParams
 constructor(
     private val body: SimulationInterestPaymentCreateBody,

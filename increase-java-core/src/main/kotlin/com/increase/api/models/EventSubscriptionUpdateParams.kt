@@ -19,6 +19,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 import java.util.Optional
 
+/** Update an Event Subscription */
 class EventSubscriptionUpdateParams
 constructor(
     private val eventSubscriptionId: String,

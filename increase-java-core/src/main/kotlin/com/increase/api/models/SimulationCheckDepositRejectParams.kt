@@ -10,6 +10,10 @@ import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
 
+/**
+ * Simulates the rejection of a [Check Deposit](#check-deposits) by Increase due to factors like
+ * poor image quality. This Check Deposit must first have a `status` of `pending`.
+ */
 class SimulationCheckDepositRejectParams
 constructor(
     private val checkDepositId: String,

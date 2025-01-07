@@ -16,6 +16,10 @@ import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
 
+/**
+ * Simulates an [Inbound Real-Time Payments Transfer](#inbound-real-time-payments-transfers) to your
+ * account. Real-Time Payments are a beta feature.
+ */
 class SimulationInboundRealTimePaymentsTransferCreateParams
 constructor(
     private val body: SimulationInboundRealTimePaymentsTransferCreateBody,

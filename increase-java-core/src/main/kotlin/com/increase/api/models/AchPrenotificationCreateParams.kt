@@ -20,6 +20,7 @@ import java.time.LocalDate
 import java.util.Objects
 import java.util.Optional
 
+/** Create an ACH Prenotification */
 class AchPrenotificationCreateParams
 constructor(
     private val body: AchPrenotificationCreateBody,

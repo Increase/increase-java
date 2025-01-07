@@ -15,6 +15,7 @@ import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
+/** Enroll an account in the IntraFi deposit sweep network */
 class IntrafiAccountEnrollmentCreateParams
 constructor(
     private val body: IntrafiAccountEnrollmentCreateBody,

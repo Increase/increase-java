@@ -20,6 +20,7 @@ import java.time.LocalDate
 import java.util.Objects
 import java.util.Optional
 
+/** Create an ACH Transfer */
 class AchTransferCreateParams
 constructor(
     private val body: AchTransferCreateBody,

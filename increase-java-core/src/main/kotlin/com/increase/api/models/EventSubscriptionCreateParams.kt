@@ -19,6 +19,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 import java.util.Optional
 
+/** Create an Event Subscription */
 class EventSubscriptionCreateParams
 constructor(
     private val body: EventSubscriptionCreateBody,

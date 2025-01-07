@@ -7,6 +7,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
 
+/** Retrieve an OAuth Connection */
 class OAuthConnectionRetrieveParams
 constructor(
     private val oauthConnectionId: String,

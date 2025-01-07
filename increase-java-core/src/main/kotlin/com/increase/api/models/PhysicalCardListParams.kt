@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter
 import java.util.Objects
 import java.util.Optional
 
+/** List Physical Cards */
 class PhysicalCardListParams
 constructor(
     private val cardId: String?,

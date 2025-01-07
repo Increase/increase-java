@@ -18,6 +18,10 @@ import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 
+/**
+ * This endpoint allows you to simulate advancing the shipment status of a Physical Card, to
+ * simulate e.g., that a physical card was attempted shipped but then failed delivery.
+ */
 class SimulationPhysicalCardAdvanceShipmentParams
 constructor(
     private val physicalCardId: String,

@@ -13,6 +13,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 import java.util.Optional
 
+/** List IntraFi Account Enrollments */
 class IntrafiAccountEnrollmentListParams
 constructor(
     private val accountId: String?,

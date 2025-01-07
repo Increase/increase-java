@@ -12,6 +12,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 import java.util.Optional
 
+/** List Wire Drawdown Requests */
 class WireDrawdownRequestListParams
 constructor(
     private val cursor: String?,

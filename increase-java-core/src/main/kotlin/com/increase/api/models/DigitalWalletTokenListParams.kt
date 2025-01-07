@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter
 import java.util.Objects
 import java.util.Optional
 
+/** List Digital Wallet Tokens */
 class DigitalWalletTokenListParams
 constructor(
     private val cardId: String?,

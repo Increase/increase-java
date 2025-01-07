@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
 
+/** Simulates an [Inbound Wire Transfer](#inbound-wire-transfers) to your account. */
 class SimulationInboundWireTransferCreateParams
 constructor(
     private val body: SimulationInboundWireTransferCreateBody,

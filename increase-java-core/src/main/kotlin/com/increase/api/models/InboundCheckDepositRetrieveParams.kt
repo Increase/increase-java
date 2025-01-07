@@ -7,6 +7,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
 
+/** Retrieve an Inbound Check Deposit */
 class InboundCheckDepositRetrieveParams
 constructor(
     private val inboundCheckDepositId: String,

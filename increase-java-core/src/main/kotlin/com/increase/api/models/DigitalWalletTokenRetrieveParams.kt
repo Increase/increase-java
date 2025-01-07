@@ -7,6 +7,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
 
+/** Retrieve a Digital Wallet Token */
 class DigitalWalletTokenRetrieveParams
 constructor(
     private val digitalWalletTokenId: String,

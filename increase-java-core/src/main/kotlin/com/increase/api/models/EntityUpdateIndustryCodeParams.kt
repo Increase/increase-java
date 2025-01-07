@@ -15,6 +15,7 @@ import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
+/** Update the industry code for a corporate Entity */
 class EntityUpdateIndustryCodeParams
 constructor(
     private val entityId: String,

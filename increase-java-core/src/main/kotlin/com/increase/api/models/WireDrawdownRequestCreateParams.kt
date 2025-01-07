@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
 
+/** Create a Wire Drawdown Request */
 class WireDrawdownRequestCreateParams
 constructor(
     private val body: WireDrawdownRequestCreateBody,

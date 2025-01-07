@@ -7,6 +7,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
 
+/** Retrieve an Account */
 class AccountRetrieveParams
 constructor(
     private val accountId: String,

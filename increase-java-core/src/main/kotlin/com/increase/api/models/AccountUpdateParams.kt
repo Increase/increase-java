@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
 
+/** Update an Account */
 class AccountUpdateParams
 constructor(
     private val accountId: String,

@@ -19,6 +19,14 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 import java.util.Optional
 
+/**
+ * Simulates a purchase authorization on a [Card](#cards). Depending on the balance available to the
+ * card and the `amount` submitted, the authorization activity will result in a
+ * [Pending Transaction](#pending-transactions) of type `card_authorization` or a
+ * [Declined Transaction](#declined-transactions) of type `card_decline`. You can pass either a Card
+ * id or a [Digital Wallet Token](#digital-wallet-tokens) id to simulate the two different ways
+ * purchases can be made.
+ */
 class SimulationCardAuthorizationCreateParams
 constructor(
     private val body: SimulationCardAuthorizationCreateBody,

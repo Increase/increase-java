@@ -7,6 +7,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
 
+/** Retrieve a Real-Time Decision */
 class RealTimeDecisionRetrieveParams
 constructor(
     private val realTimeDecisionId: String,
