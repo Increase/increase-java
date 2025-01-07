@@ -19,6 +19,11 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 import java.util.Optional
 
+/**
+ * Simulates submission of a [Real-Time Payments Transfer](#real-time-payments-transfers) and
+ * handling the response from the destination financial institution. This transfer must first have a
+ * `status` of `pending_submission`.
+ */
 class SimulationRealTimePaymentsTransferCompleteParams
 constructor(
     private val realTimePaymentsTransferId: String,

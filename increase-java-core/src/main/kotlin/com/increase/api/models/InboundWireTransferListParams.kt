@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter
 import java.util.Objects
 import java.util.Optional
 
+/** List Inbound Wire Transfers */
 class InboundWireTransferListParams
 constructor(
     private val accountId: String?,

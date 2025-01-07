@@ -13,6 +13,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 import java.util.Optional
 
+/** List External Accounts */
 class ExternalAccountListParams
 constructor(
     private val cursor: String?,

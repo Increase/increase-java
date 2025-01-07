@@ -8,6 +8,7 @@ import com.increase.api.core.http.QueryParams
 import java.util.Objects
 import java.util.Optional
 
+/** List Proof of Authorization Request Submissions */
 class ProofOfAuthorizationRequestSubmissionListParams
 constructor(
     private val cursor: String?,

@@ -10,6 +10,7 @@ import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
 
+/** Close an Account */
 class AccountCloseParams
 constructor(
     private val accountId: String,

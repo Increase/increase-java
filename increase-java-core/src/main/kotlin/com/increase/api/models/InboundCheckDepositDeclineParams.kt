@@ -10,6 +10,7 @@ import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
 
+/** Decline an Inbound Check Deposit */
 class InboundCheckDepositDeclineParams
 constructor(
     private val inboundCheckDepositId: String,

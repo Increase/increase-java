@@ -15,6 +15,7 @@ import java.time.format.DateTimeFormatter
 import java.util.Objects
 import java.util.Optional
 
+/** List Card Disputes */
 class CardDisputeListParams
 constructor(
     private val createdAt: CreatedAt?,

@@ -10,6 +10,7 @@ import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
 
+/** Cancel a pending Wire Transfer */
 class WireTransferCancelParams
 constructor(
     private val wireTransferId: String,

@@ -20,6 +20,7 @@ import java.time.LocalDate
 import java.util.Objects
 import java.util.Optional
 
+/** Create an Entity */
 class EntityCreateParams
 constructor(
     private val body: EntityCreateBody,

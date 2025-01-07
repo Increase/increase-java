@@ -15,6 +15,7 @@ import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
+/** Archive a beneficial owner for a corporate Entity */
 class EntityArchiveBeneficialOwnerParams
 constructor(
     private val entityId: String,

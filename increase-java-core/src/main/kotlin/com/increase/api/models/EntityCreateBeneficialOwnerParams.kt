@@ -20,6 +20,7 @@ import java.time.LocalDate
 import java.util.Objects
 import java.util.Optional
 
+/** Create a beneficial owner for a corporate Entity */
 class EntityCreateBeneficialOwnerParams
 constructor(
     private val entityId: String,

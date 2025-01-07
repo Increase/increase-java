@@ -10,6 +10,10 @@ import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
 
+/**
+ * Simulates the submission of a [Wire Transfer](#wire-transfers) to the Federal Reserve. This
+ * transfer must first have a `status` of `pending_approval` or `pending_creating`.
+ */
 class SimulationWireTransferSubmitParams
 constructor(
     private val wireTransferId: String,

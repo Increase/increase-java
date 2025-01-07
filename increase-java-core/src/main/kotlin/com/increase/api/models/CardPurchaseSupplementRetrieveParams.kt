@@ -7,6 +7,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
 
+/** Retrieve a Card Purchase Supplement */
 class CardPurchaseSupplementRetrieveParams
 constructor(
     private val cardPurchaseSupplementId: String,

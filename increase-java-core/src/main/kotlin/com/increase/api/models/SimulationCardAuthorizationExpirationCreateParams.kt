@@ -15,6 +15,7 @@ import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
+/** Simulates expiring a Card Authorization immediately. */
 class SimulationCardAuthorizationExpirationCreateParams
 constructor(
     private val body: SimulationCardAuthorizationExpirationCreateBody,

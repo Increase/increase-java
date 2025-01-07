@@ -7,6 +7,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
 
+/** Get an IntraFi Exclusion */
 class IntrafiExclusionRetrieveParams
 constructor(
     private val intrafiExclusionId: String,

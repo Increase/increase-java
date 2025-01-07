@@ -15,6 +15,7 @@ import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
+/** Simulates a user attempting add a [Card](#cards) to a digital wallet such as Apple Pay. */
 class SimulationDigitalWalletTokenRequestCreateParams
 constructor(
     private val body: SimulationDigitalWalletTokenRequestCreateBody,

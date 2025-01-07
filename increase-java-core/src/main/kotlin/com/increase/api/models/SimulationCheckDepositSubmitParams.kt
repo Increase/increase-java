@@ -10,6 +10,10 @@ import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
 
+/**
+ * Simulates the submission of a [Check Deposit](#check-deposits) to the Federal Reserve. This Check
+ * Deposit must first have a `status` of `pending`.
+ */
 class SimulationCheckDepositSubmitParams
 constructor(
     private val checkDepositId: String,

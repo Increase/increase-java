@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
 
+/** Create a Lockbox */
 class LockboxCreateParams
 constructor(
     private val body: LockboxCreateBody,

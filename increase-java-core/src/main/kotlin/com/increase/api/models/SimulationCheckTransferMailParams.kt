@@ -10,6 +10,11 @@ import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
 
+/**
+ * Simulates the mailing of a [Check Transfer](#check-transfers), which happens periodically
+ * throughout the day in production but can be sped up in sandbox. This transfer must first have a
+ * `status` of `pending_approval` or `pending_submission`.
+ */
 class SimulationCheckTransferMailParams
 constructor(
     private val checkTransferId: String,

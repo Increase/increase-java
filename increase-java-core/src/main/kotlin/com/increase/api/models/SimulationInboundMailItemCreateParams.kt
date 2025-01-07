@@ -16,6 +16,10 @@ import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
 
+/**
+ * Simulates an inbound mail item to your account, as if someone had mailed a physical check to one
+ * of your account's Lockboxes.
+ */
 class SimulationInboundMailItemCreateParams
 constructor(
     private val body: SimulationInboundMailItemCreateBody,

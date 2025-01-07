@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter
 import java.util.Objects
 import java.util.Optional
 
+/** List Account Transfers */
 class AccountTransferListParams
 constructor(
     private val accountId: String?,
