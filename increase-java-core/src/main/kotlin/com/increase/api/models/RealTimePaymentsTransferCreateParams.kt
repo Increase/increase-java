@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
 
+/** Create a Real-Time Payments Transfer */
 class RealTimePaymentsTransferCreateParams
 constructor(
     private val body: RealTimePaymentsTransferCreateBody,

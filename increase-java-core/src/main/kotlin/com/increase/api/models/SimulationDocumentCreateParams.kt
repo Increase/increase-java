@@ -15,6 +15,7 @@ import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
+/** Simulates an tax document being created for an account. */
 class SimulationDocumentCreateParams
 constructor(
     private val body: SimulationDocumentCreateBody,

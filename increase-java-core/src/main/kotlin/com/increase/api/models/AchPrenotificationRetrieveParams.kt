@@ -7,6 +7,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
 
+/** Retrieve an ACH Prenotification */
 class AchPrenotificationRetrieveParams
 constructor(
     private val achPrenotificationId: String,

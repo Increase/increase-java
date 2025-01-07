@@ -20,6 +20,7 @@ import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
 
+/** Create an Export */
 class ExportCreateParams
 constructor(
     private val body: ExportCreateBody,

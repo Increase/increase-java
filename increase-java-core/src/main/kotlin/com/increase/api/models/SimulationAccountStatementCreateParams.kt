@@ -15,6 +15,10 @@ import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
+/**
+ * Simulates an [Account Statement](#account-statements) being created for an account. In
+ * production, Account Statements are generated once per month.
+ */
 class SimulationAccountStatementCreateParams
 constructor(
     private val body: SimulationAccountStatementCreateBody,

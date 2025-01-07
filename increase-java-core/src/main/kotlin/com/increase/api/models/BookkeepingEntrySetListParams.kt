@@ -8,6 +8,7 @@ import com.increase.api.core.http.QueryParams
 import java.util.Objects
 import java.util.Optional
 
+/** List Bookkeeping Entry Sets */
 class BookkeepingEntrySetListParams
 constructor(
     private val cursor: String?,

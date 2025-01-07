@@ -7,6 +7,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
 
+/** Retrieve an Entity */
 class EntityRetrieveParams
 constructor(
     private val entityId: String,

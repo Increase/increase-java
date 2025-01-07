@@ -10,6 +10,7 @@ import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
 
+/** Approve a Check Transfer */
 class CheckTransferApproveParams
 constructor(
     private val checkTransferId: String,

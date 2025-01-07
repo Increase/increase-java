@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter
 import java.util.Objects
 import java.util.Optional
 
+/** List Proof of Authorization Requests */
 class ProofOfAuthorizationRequestListParams
 constructor(
     private val createdAt: CreatedAt?,

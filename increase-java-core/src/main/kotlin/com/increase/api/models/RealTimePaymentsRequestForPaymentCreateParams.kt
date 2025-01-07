@@ -17,6 +17,7 @@ import java.time.LocalDate
 import java.util.Objects
 import java.util.Optional
 
+/** Create a Real-Time Payments Request for Payment */
 class RealTimePaymentsRequestForPaymentCreateParams
 constructor(
     private val body: RealTimePaymentsRequestForPaymentCreateBody,

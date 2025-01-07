@@ -10,6 +10,11 @@ import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
 
+/**
+ * Simulates the reversal of a [Wire Transfer](#wire-transfers) by the Federal Reserve due to error
+ * conditions. This will also create a [Transaction](#transaction) to account for the returned
+ * funds. This Wire Transfer must first have a `status` of `complete`.
+ */
 class SimulationWireTransferReverseParams
 constructor(
     private val wireTransferId: String,

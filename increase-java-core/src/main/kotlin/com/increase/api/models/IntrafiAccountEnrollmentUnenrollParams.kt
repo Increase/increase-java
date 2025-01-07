@@ -10,6 +10,7 @@ import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
 
+/** Unenroll an account from IntraFi */
 class IntrafiAccountEnrollmentUnenrollParams
 constructor(
     private val intrafiAccountEnrollmentId: String,

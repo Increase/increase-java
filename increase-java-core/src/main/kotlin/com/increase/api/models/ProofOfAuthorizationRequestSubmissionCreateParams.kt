@@ -17,6 +17,7 @@ import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
 
+/** Submit Proof of Authorization */
 class ProofOfAuthorizationRequestSubmissionCreateParams
 constructor(
     private val body: ProofOfAuthorizationRequestSubmissionCreateBody,

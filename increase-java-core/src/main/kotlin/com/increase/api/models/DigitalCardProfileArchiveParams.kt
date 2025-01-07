@@ -10,6 +10,7 @@ import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
 
+/** Archive a Digital Card Profile */
 class DigitalCardProfileArchiveParams
 constructor(
     private val digitalCardProfileId: String,

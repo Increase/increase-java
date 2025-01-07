@@ -19,6 +19,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 import java.util.Optional
 
+/** Create a Bookkeeping Account */
 class BookkeepingAccountCreateParams
 constructor(
     private val body: BookkeepingAccountCreateBody,

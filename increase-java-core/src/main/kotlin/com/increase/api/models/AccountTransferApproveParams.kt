@@ -10,6 +10,7 @@ import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
 
+/** Approve an Account Transfer */
 class AccountTransferApproveParams
 constructor(
     private val accountTransferId: String,

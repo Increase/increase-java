@@ -15,6 +15,7 @@ import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
+/** Create a supplemental document for an Entity */
 class SupplementalDocumentCreateParams
 constructor(
     private val body: SupplementalDocumentCreateBody,

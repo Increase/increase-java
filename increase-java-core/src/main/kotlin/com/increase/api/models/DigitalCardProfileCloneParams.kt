@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
 
+/** Clones a Digital Card Profile */
 class DigitalCardProfileCloneParams
 constructor(
     private val digitalCardProfileId: String,

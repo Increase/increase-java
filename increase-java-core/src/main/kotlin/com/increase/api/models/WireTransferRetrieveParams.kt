@@ -7,6 +7,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
 
+/** Retrieve a Wire Transfer */
 class WireTransferRetrieveParams
 constructor(
     private val wireTransferId: String,

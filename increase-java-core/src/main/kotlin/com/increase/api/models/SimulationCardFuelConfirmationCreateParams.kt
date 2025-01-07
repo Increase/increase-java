@@ -15,6 +15,11 @@ import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
+/**
+ * Simulates the fuel confirmation of an authorization by a card acquirer. This happens
+ * asynchronously right after a fuel pump transaction is completed. A fuel confirmation can only
+ * happen once per authorization.
+ */
 class SimulationCardFuelConfirmationCreateParams
 constructor(
     private val body: SimulationCardFuelConfirmationCreateBody,
