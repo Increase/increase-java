@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -39,11 +41,23 @@ constructor(
      */
     fun contentsFileId(): Optional<String> = body.contentsFileId()
 
+    /** The amount of the check to be simulated, in cents. */
+    fun _amount(): JsonField<Long> = body._amount()
+
+    /** The identifier of the Lockbox to simulate inbound mail to. */
+    fun _lockboxId(): JsonField<String> = body._lockboxId()
+
+    /**
+     * The file containing the PDF contents. If not present, a default check image file will be
+     * used.
+     */
+    fun _contentsFileId(): JsonField<String> = body._contentsFileId()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     @JvmSynthetic internal fun getBody(): SimulationInboundMailItemCreateBody = body
 
@@ -55,29 +69,60 @@ constructor(
     class SimulationInboundMailItemCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("amount") private val amount: Long,
-        @JsonProperty("lockbox_id") private val lockboxId: String,
-        @JsonProperty("contents_file_id") private val contentsFileId: String?,
+        @JsonProperty("amount")
+        @ExcludeMissing
+        private val amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("lockbox_id")
+        @ExcludeMissing
+        private val lockboxId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("contents_file_id")
+        @ExcludeMissing
+        private val contentsFileId: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The amount of the check to be simulated, in cents. */
-        @JsonProperty("amount") fun amount(): Long = amount
+        fun amount(): Long = amount.getRequired("amount")
 
         /** The identifier of the Lockbox to simulate inbound mail to. */
-        @JsonProperty("lockbox_id") fun lockboxId(): String = lockboxId
+        fun lockboxId(): String = lockboxId.getRequired("lockbox_id")
+
+        /**
+         * The file containing the PDF contents. If not present, a default check image file will be
+         * used.
+         */
+        fun contentsFileId(): Optional<String> =
+            Optional.ofNullable(contentsFileId.getNullable("contents_file_id"))
+
+        /** The amount of the check to be simulated, in cents. */
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+        /** The identifier of the Lockbox to simulate inbound mail to. */
+        @JsonProperty("lockbox_id") @ExcludeMissing fun _lockboxId(): JsonField<String> = lockboxId
 
         /**
          * The file containing the PDF contents. If not present, a default check image file will be
          * used.
          */
         @JsonProperty("contents_file_id")
-        fun contentsFileId(): Optional<String> = Optional.ofNullable(contentsFileId)
+        @ExcludeMissing
+        fun _contentsFileId(): JsonField<String> = contentsFileId
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): SimulationInboundMailItemCreateBody = apply {
+            if (!validated) {
+                amount()
+                lockboxId()
+                contentsFileId()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -88,9 +133,9 @@ constructor(
 
         class Builder {
 
-            private var amount: Long? = null
-            private var lockboxId: String? = null
-            private var contentsFileId: String? = null
+            private var amount: JsonField<Long>? = null
+            private var lockboxId: JsonField<String>? = null
+            private var contentsFileId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -105,25 +150,31 @@ constructor(
             }
 
             /** The amount of the check to be simulated, in cents. */
-            fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long) = amount(JsonField.of(amount))
+
+            /** The amount of the check to be simulated, in cents. */
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /** The identifier of the Lockbox to simulate inbound mail to. */
-            fun lockboxId(lockboxId: String) = apply { this.lockboxId = lockboxId }
+            fun lockboxId(lockboxId: String) = lockboxId(JsonField.of(lockboxId))
+
+            /** The identifier of the Lockbox to simulate inbound mail to. */
+            fun lockboxId(lockboxId: JsonField<String>) = apply { this.lockboxId = lockboxId }
 
             /**
              * The file containing the PDF contents. If not present, a default check image file will
              * be used.
              */
-            fun contentsFileId(contentsFileId: String?) = apply {
+            fun contentsFileId(contentsFileId: String) =
+                contentsFileId(JsonField.of(contentsFileId))
+
+            /**
+             * The file containing the PDF contents. If not present, a default check image file will
+             * be used.
+             */
+            fun contentsFileId(contentsFileId: JsonField<String>) = apply {
                 this.contentsFileId = contentsFileId
             }
-
-            /**
-             * The file containing the PDF contents. If not present, a default check image file will
-             * be used.
-             */
-            fun contentsFileId(contentsFileId: Optional<String>) =
-                contentsFileId(contentsFileId.orElse(null))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -199,21 +250,47 @@ constructor(
         /** The amount of the check to be simulated, in cents. */
         fun amount(amount: Long) = apply { body.amount(amount) }
 
+        /** The amount of the check to be simulated, in cents. */
+        fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
+
         /** The identifier of the Lockbox to simulate inbound mail to. */
         fun lockboxId(lockboxId: String) = apply { body.lockboxId(lockboxId) }
 
-        /**
-         * The file containing the PDF contents. If not present, a default check image file will be
-         * used.
-         */
-        fun contentsFileId(contentsFileId: String?) = apply { body.contentsFileId(contentsFileId) }
+        /** The identifier of the Lockbox to simulate inbound mail to. */
+        fun lockboxId(lockboxId: JsonField<String>) = apply { body.lockboxId(lockboxId) }
 
         /**
          * The file containing the PDF contents. If not present, a default check image file will be
          * used.
          */
-        fun contentsFileId(contentsFileId: Optional<String>) =
-            contentsFileId(contentsFileId.orElse(null))
+        fun contentsFileId(contentsFileId: String) = apply { body.contentsFileId(contentsFileId) }
+
+        /**
+         * The file containing the PDF contents. If not present, a default check image file will be
+         * used.
+         */
+        fun contentsFileId(contentsFileId: JsonField<String>) = apply {
+            body.contentsFileId(contentsFileId)
+        }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -311,25 +388,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): SimulationInboundMailItemCreateParams =

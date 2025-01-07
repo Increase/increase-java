@@ -33,6 +33,8 @@ class InboundCheckDepositTest {
                 .checkTransferId("check_transfer_30b43acfu9vw8fyc4f5")
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .currency(InboundCheckDeposit.Currency.CAD)
+                .declinedAt(null)
+                .declinedTransactionId(null)
                 .depositReturn(
                     InboundCheckDeposit.DepositReturn.builder()
                         .reason(InboundCheckDeposit.DepositReturn.Reason.ALTERED_OR_FICTITIOUS)
@@ -71,6 +73,8 @@ class InboundCheckDepositTest {
         assertThat(inboundCheckDeposit.createdAt())
             .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(inboundCheckDeposit.currency()).isEqualTo(InboundCheckDeposit.Currency.CAD)
+        assertThat(inboundCheckDeposit.declinedAt()).isEmpty
+        assertThat(inboundCheckDeposit.declinedTransactionId()).isEmpty
         assertThat(inboundCheckDeposit.depositReturn())
             .contains(
                 InboundCheckDeposit.DepositReturn.builder()

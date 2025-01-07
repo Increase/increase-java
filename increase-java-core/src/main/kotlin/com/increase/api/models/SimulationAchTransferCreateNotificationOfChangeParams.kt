@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -36,11 +37,17 @@ constructor(
     /** The corrected data for the notification of change (e.g., a new routing number). */
     fun correctedData(): String = body.correctedData()
 
+    /** The reason for the notification of change. */
+    fun _changeCode(): JsonField<ChangeCode> = body._changeCode()
+
+    /** The corrected data for the notification of change (e.g., a new routing number). */
+    fun _correctedData(): JsonField<String> = body._correctedData()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     @JvmSynthetic internal fun getBody(): SimulationAchTransferCreateNotificationOfChangeBody = body
 
@@ -59,21 +66,45 @@ constructor(
     class SimulationAchTransferCreateNotificationOfChangeBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("change_code") private val changeCode: ChangeCode,
-        @JsonProperty("corrected_data") private val correctedData: String,
+        @JsonProperty("change_code")
+        @ExcludeMissing
+        private val changeCode: JsonField<ChangeCode> = JsonMissing.of(),
+        @JsonProperty("corrected_data")
+        @ExcludeMissing
+        private val correctedData: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The reason for the notification of change. */
-        @JsonProperty("change_code") fun changeCode(): ChangeCode = changeCode
+        fun changeCode(): ChangeCode = changeCode.getRequired("change_code")
 
         /** The corrected data for the notification of change (e.g., a new routing number). */
-        @JsonProperty("corrected_data") fun correctedData(): String = correctedData
+        fun correctedData(): String = correctedData.getRequired("corrected_data")
+
+        /** The reason for the notification of change. */
+        @JsonProperty("change_code")
+        @ExcludeMissing
+        fun _changeCode(): JsonField<ChangeCode> = changeCode
+
+        /** The corrected data for the notification of change (e.g., a new routing number). */
+        @JsonProperty("corrected_data")
+        @ExcludeMissing
+        fun _correctedData(): JsonField<String> = correctedData
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): SimulationAchTransferCreateNotificationOfChangeBody = apply {
+            if (!validated) {
+                changeCode()
+                correctedData()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -84,8 +115,8 @@ constructor(
 
         class Builder {
 
-            private var changeCode: ChangeCode? = null
-            private var correctedData: String? = null
+            private var changeCode: JsonField<ChangeCode>? = null
+            private var correctedData: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -101,10 +132,20 @@ constructor(
             }
 
             /** The reason for the notification of change. */
-            fun changeCode(changeCode: ChangeCode) = apply { this.changeCode = changeCode }
+            fun changeCode(changeCode: ChangeCode) = changeCode(JsonField.of(changeCode))
+
+            /** The reason for the notification of change. */
+            fun changeCode(changeCode: JsonField<ChangeCode>) = apply {
+                this.changeCode = changeCode
+            }
 
             /** The corrected data for the notification of change (e.g., a new routing number). */
-            fun correctedData(correctedData: String) = apply { this.correctedData = correctedData }
+            fun correctedData(correctedData: String) = correctedData(JsonField.of(correctedData))
+
+            /** The corrected data for the notification of change (e.g., a new routing number). */
+            fun correctedData(correctedData: JsonField<String>) = apply {
+                this.correctedData = correctedData
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -187,8 +228,35 @@ constructor(
         /** The reason for the notification of change. */
         fun changeCode(changeCode: ChangeCode) = apply { body.changeCode(changeCode) }
 
+        /** The reason for the notification of change. */
+        fun changeCode(changeCode: JsonField<ChangeCode>) = apply { body.changeCode(changeCode) }
+
         /** The corrected data for the notification of change (e.g., a new routing number). */
         fun correctedData(correctedData: String) = apply { body.correctedData(correctedData) }
+
+        /** The corrected data for the notification of change (e.g., a new routing number). */
+        fun correctedData(correctedData: JsonField<String>) = apply {
+            body.correctedData(correctedData)
+        }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -286,25 +354,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): SimulationAchTransferCreateNotificationOfChangeParams =

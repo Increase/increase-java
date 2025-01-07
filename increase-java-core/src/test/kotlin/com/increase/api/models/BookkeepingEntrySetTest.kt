@@ -29,6 +29,8 @@ class BookkeepingEntrySetTest {
                             .build()
                     )
                 )
+                .idempotencyKey(null)
+                .transactionId(null)
                 .type(BookkeepingEntrySet.Type.BOOKKEEPING_ENTRY_SET)
                 .build()
         assertThat(bookkeepingEntrySet).isNotNull
@@ -50,6 +52,8 @@ class BookkeepingEntrySetTest {
                     .amount(-1750L)
                     .build()
             )
+        assertThat(bookkeepingEntrySet.idempotencyKey()).isEmpty
+        assertThat(bookkeepingEntrySet.transactionId()).isEmpty
         assertThat(bookkeepingEntrySet.type())
             .isEqualTo(BookkeepingEntrySet.Type.BOOKKEEPING_ENTRY_SET)
     }

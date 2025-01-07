@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -61,11 +63,47 @@ constructor(
     /** IP address of the authorizer. */
     fun authorizerIpAddress(): Optional<String> = body.authorizerIpAddress()
 
+    /** Terms of authorization. */
+    fun _authorizationTerms(): JsonField<String> = body._authorizationTerms()
+
+    /** Time of authorization. */
+    fun _authorizedAt(): JsonField<OffsetDateTime> = body._authorizedAt()
+
+    /** Email of the authorizer. */
+    fun _authorizerEmail(): JsonField<String> = body._authorizerEmail()
+
+    /** Name of the authorizer. */
+    fun _authorizerName(): JsonField<String> = body._authorizerName()
+
+    /** Whether the customer has been offboarded or suspended. */
+    fun _customerHasBeenOffboarded(): JsonField<Boolean> = body._customerHasBeenOffboarded()
+
+    /** ID of the proof of authorization request. */
+    fun _proofOfAuthorizationRequestId(): JsonField<String> = body._proofOfAuthorizationRequestId()
+
+    /** Whether the account ownership was validated via credential (e.g. Plaid). */
+    fun _validatedAccountOwnershipViaCredential(): JsonField<Boolean> =
+        body._validatedAccountOwnershipViaCredential()
+
+    /** Whether the account ownership was validated with an account statement. */
+    fun _validatedAccountOwnershipWithAccountStatement(): JsonField<Boolean> =
+        body._validatedAccountOwnershipWithAccountStatement()
+
+    /** Whether the account ownership was validated with a microdeposit. */
+    fun _validatedAccountOwnershipWithMicrodeposit(): JsonField<Boolean> =
+        body._validatedAccountOwnershipWithMicrodeposit()
+
+    /** Company of the authorizer. */
+    fun _authorizerCompany(): JsonField<String> = body._authorizerCompany()
+
+    /** IP address of the authorizer. */
+    fun _authorizerIpAddress(): JsonField<String> = body._authorizerIpAddress()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     @JvmSynthetic internal fun getBody(): ProofOfAuthorizationRequestSubmissionCreateBody = body
 
@@ -77,72 +115,171 @@ constructor(
     class ProofOfAuthorizationRequestSubmissionCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("authorization_terms") private val authorizationTerms: String,
-        @JsonProperty("authorized_at") private val authorizedAt: OffsetDateTime,
-        @JsonProperty("authorizer_email") private val authorizerEmail: String,
-        @JsonProperty("authorizer_name") private val authorizerName: String,
+        @JsonProperty("authorization_terms")
+        @ExcludeMissing
+        private val authorizationTerms: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("authorized_at")
+        @ExcludeMissing
+        private val authorizedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("authorizer_email")
+        @ExcludeMissing
+        private val authorizerEmail: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("authorizer_name")
+        @ExcludeMissing
+        private val authorizerName: JsonField<String> = JsonMissing.of(),
         @JsonProperty("customer_has_been_offboarded")
-        private val customerHasBeenOffboarded: Boolean,
+        @ExcludeMissing
+        private val customerHasBeenOffboarded: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("proof_of_authorization_request_id")
-        private val proofOfAuthorizationRequestId: String,
+        @ExcludeMissing
+        private val proofOfAuthorizationRequestId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("validated_account_ownership_via_credential")
-        private val validatedAccountOwnershipViaCredential: Boolean,
+        @ExcludeMissing
+        private val validatedAccountOwnershipViaCredential: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("validated_account_ownership_with_account_statement")
-        private val validatedAccountOwnershipWithAccountStatement: Boolean,
+        @ExcludeMissing
+        private val validatedAccountOwnershipWithAccountStatement: JsonField<Boolean> =
+            JsonMissing.of(),
         @JsonProperty("validated_account_ownership_with_microdeposit")
-        private val validatedAccountOwnershipWithMicrodeposit: Boolean,
-        @JsonProperty("authorizer_company") private val authorizerCompany: String?,
-        @JsonProperty("authorizer_ip_address") private val authorizerIpAddress: String?,
+        @ExcludeMissing
+        private val validatedAccountOwnershipWithMicrodeposit: JsonField<Boolean> =
+            JsonMissing.of(),
+        @JsonProperty("authorizer_company")
+        @ExcludeMissing
+        private val authorizerCompany: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("authorizer_ip_address")
+        @ExcludeMissing
+        private val authorizerIpAddress: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** Terms of authorization. */
-        @JsonProperty("authorization_terms") fun authorizationTerms(): String = authorizationTerms
+        fun authorizationTerms(): String = authorizationTerms.getRequired("authorization_terms")
 
         /** Time of authorization. */
-        @JsonProperty("authorized_at") fun authorizedAt(): OffsetDateTime = authorizedAt
+        fun authorizedAt(): OffsetDateTime = authorizedAt.getRequired("authorized_at")
 
         /** Email of the authorizer. */
-        @JsonProperty("authorizer_email") fun authorizerEmail(): String = authorizerEmail
+        fun authorizerEmail(): String = authorizerEmail.getRequired("authorizer_email")
 
         /** Name of the authorizer. */
-        @JsonProperty("authorizer_name") fun authorizerName(): String = authorizerName
+        fun authorizerName(): String = authorizerName.getRequired("authorizer_name")
+
+        /** Whether the customer has been offboarded or suspended. */
+        fun customerHasBeenOffboarded(): Boolean =
+            customerHasBeenOffboarded.getRequired("customer_has_been_offboarded")
+
+        /** ID of the proof of authorization request. */
+        fun proofOfAuthorizationRequestId(): String =
+            proofOfAuthorizationRequestId.getRequired("proof_of_authorization_request_id")
+
+        /** Whether the account ownership was validated via credential (e.g. Plaid). */
+        fun validatedAccountOwnershipViaCredential(): Boolean =
+            validatedAccountOwnershipViaCredential.getRequired(
+                "validated_account_ownership_via_credential"
+            )
+
+        /** Whether the account ownership was validated with an account statement. */
+        fun validatedAccountOwnershipWithAccountStatement(): Boolean =
+            validatedAccountOwnershipWithAccountStatement.getRequired(
+                "validated_account_ownership_with_account_statement"
+            )
+
+        /** Whether the account ownership was validated with a microdeposit. */
+        fun validatedAccountOwnershipWithMicrodeposit(): Boolean =
+            validatedAccountOwnershipWithMicrodeposit.getRequired(
+                "validated_account_ownership_with_microdeposit"
+            )
+
+        /** Company of the authorizer. */
+        fun authorizerCompany(): Optional<String> =
+            Optional.ofNullable(authorizerCompany.getNullable("authorizer_company"))
+
+        /** IP address of the authorizer. */
+        fun authorizerIpAddress(): Optional<String> =
+            Optional.ofNullable(authorizerIpAddress.getNullable("authorizer_ip_address"))
+
+        /** Terms of authorization. */
+        @JsonProperty("authorization_terms")
+        @ExcludeMissing
+        fun _authorizationTerms(): JsonField<String> = authorizationTerms
+
+        /** Time of authorization. */
+        @JsonProperty("authorized_at")
+        @ExcludeMissing
+        fun _authorizedAt(): JsonField<OffsetDateTime> = authorizedAt
+
+        /** Email of the authorizer. */
+        @JsonProperty("authorizer_email")
+        @ExcludeMissing
+        fun _authorizerEmail(): JsonField<String> = authorizerEmail
+
+        /** Name of the authorizer. */
+        @JsonProperty("authorizer_name")
+        @ExcludeMissing
+        fun _authorizerName(): JsonField<String> = authorizerName
 
         /** Whether the customer has been offboarded or suspended. */
         @JsonProperty("customer_has_been_offboarded")
-        fun customerHasBeenOffboarded(): Boolean = customerHasBeenOffboarded
+        @ExcludeMissing
+        fun _customerHasBeenOffboarded(): JsonField<Boolean> = customerHasBeenOffboarded
 
         /** ID of the proof of authorization request. */
         @JsonProperty("proof_of_authorization_request_id")
-        fun proofOfAuthorizationRequestId(): String = proofOfAuthorizationRequestId
+        @ExcludeMissing
+        fun _proofOfAuthorizationRequestId(): JsonField<String> = proofOfAuthorizationRequestId
 
         /** Whether the account ownership was validated via credential (e.g. Plaid). */
         @JsonProperty("validated_account_ownership_via_credential")
-        fun validatedAccountOwnershipViaCredential(): Boolean =
+        @ExcludeMissing
+        fun _validatedAccountOwnershipViaCredential(): JsonField<Boolean> =
             validatedAccountOwnershipViaCredential
 
         /** Whether the account ownership was validated with an account statement. */
         @JsonProperty("validated_account_ownership_with_account_statement")
-        fun validatedAccountOwnershipWithAccountStatement(): Boolean =
+        @ExcludeMissing
+        fun _validatedAccountOwnershipWithAccountStatement(): JsonField<Boolean> =
             validatedAccountOwnershipWithAccountStatement
 
         /** Whether the account ownership was validated with a microdeposit. */
         @JsonProperty("validated_account_ownership_with_microdeposit")
-        fun validatedAccountOwnershipWithMicrodeposit(): Boolean =
+        @ExcludeMissing
+        fun _validatedAccountOwnershipWithMicrodeposit(): JsonField<Boolean> =
             validatedAccountOwnershipWithMicrodeposit
 
         /** Company of the authorizer. */
         @JsonProperty("authorizer_company")
-        fun authorizerCompany(): Optional<String> = Optional.ofNullable(authorizerCompany)
+        @ExcludeMissing
+        fun _authorizerCompany(): JsonField<String> = authorizerCompany
 
         /** IP address of the authorizer. */
         @JsonProperty("authorizer_ip_address")
-        fun authorizerIpAddress(): Optional<String> = Optional.ofNullable(authorizerIpAddress)
+        @ExcludeMissing
+        fun _authorizerIpAddress(): JsonField<String> = authorizerIpAddress
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): ProofOfAuthorizationRequestSubmissionCreateBody = apply {
+            if (!validated) {
+                authorizationTerms()
+                authorizedAt()
+                authorizerEmail()
+                authorizerName()
+                customerHasBeenOffboarded()
+                proofOfAuthorizationRequestId()
+                validatedAccountOwnershipViaCredential()
+                validatedAccountOwnershipWithAccountStatement()
+                validatedAccountOwnershipWithMicrodeposit()
+                authorizerCompany()
+                authorizerIpAddress()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -153,17 +290,17 @@ constructor(
 
         class Builder {
 
-            private var authorizationTerms: String? = null
-            private var authorizedAt: OffsetDateTime? = null
-            private var authorizerEmail: String? = null
-            private var authorizerName: String? = null
-            private var customerHasBeenOffboarded: Boolean? = null
-            private var proofOfAuthorizationRequestId: String? = null
-            private var validatedAccountOwnershipViaCredential: Boolean? = null
-            private var validatedAccountOwnershipWithAccountStatement: Boolean? = null
-            private var validatedAccountOwnershipWithMicrodeposit: Boolean? = null
-            private var authorizerCompany: String? = null
-            private var authorizerIpAddress: String? = null
+            private var authorizationTerms: JsonField<String>? = null
+            private var authorizedAt: JsonField<OffsetDateTime>? = null
+            private var authorizerEmail: JsonField<String>? = null
+            private var authorizerName: JsonField<String>? = null
+            private var customerHasBeenOffboarded: JsonField<Boolean>? = null
+            private var proofOfAuthorizationRequestId: JsonField<String>? = null
+            private var validatedAccountOwnershipViaCredential: JsonField<Boolean>? = null
+            private var validatedAccountOwnershipWithAccountStatement: JsonField<Boolean>? = null
+            private var validatedAccountOwnershipWithMicrodeposit: JsonField<Boolean>? = null
+            private var authorizerCompany: JsonField<String> = JsonMissing.of()
+            private var authorizerIpAddress: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -199,38 +336,71 @@ constructor(
             }
 
             /** Terms of authorization. */
-            fun authorizationTerms(authorizationTerms: String) = apply {
+            fun authorizationTerms(authorizationTerms: String) =
+                authorizationTerms(JsonField.of(authorizationTerms))
+
+            /** Terms of authorization. */
+            fun authorizationTerms(authorizationTerms: JsonField<String>) = apply {
                 this.authorizationTerms = authorizationTerms
             }
 
             /** Time of authorization. */
-            fun authorizedAt(authorizedAt: OffsetDateTime) = apply {
+            fun authorizedAt(authorizedAt: OffsetDateTime) =
+                authorizedAt(JsonField.of(authorizedAt))
+
+            /** Time of authorization. */
+            fun authorizedAt(authorizedAt: JsonField<OffsetDateTime>) = apply {
                 this.authorizedAt = authorizedAt
             }
 
             /** Email of the authorizer. */
-            fun authorizerEmail(authorizerEmail: String) = apply {
+            fun authorizerEmail(authorizerEmail: String) =
+                authorizerEmail(JsonField.of(authorizerEmail))
+
+            /** Email of the authorizer. */
+            fun authorizerEmail(authorizerEmail: JsonField<String>) = apply {
                 this.authorizerEmail = authorizerEmail
             }
 
             /** Name of the authorizer. */
-            fun authorizerName(authorizerName: String) = apply {
+            fun authorizerName(authorizerName: String) =
+                authorizerName(JsonField.of(authorizerName))
+
+            /** Name of the authorizer. */
+            fun authorizerName(authorizerName: JsonField<String>) = apply {
                 this.authorizerName = authorizerName
             }
 
             /** Whether the customer has been offboarded or suspended. */
-            fun customerHasBeenOffboarded(customerHasBeenOffboarded: Boolean) = apply {
+            fun customerHasBeenOffboarded(customerHasBeenOffboarded: Boolean) =
+                customerHasBeenOffboarded(JsonField.of(customerHasBeenOffboarded))
+
+            /** Whether the customer has been offboarded or suspended. */
+            fun customerHasBeenOffboarded(customerHasBeenOffboarded: JsonField<Boolean>) = apply {
                 this.customerHasBeenOffboarded = customerHasBeenOffboarded
             }
 
             /** ID of the proof of authorization request. */
-            fun proofOfAuthorizationRequestId(proofOfAuthorizationRequestId: String) = apply {
-                this.proofOfAuthorizationRequestId = proofOfAuthorizationRequestId
-            }
+            fun proofOfAuthorizationRequestId(proofOfAuthorizationRequestId: String) =
+                proofOfAuthorizationRequestId(JsonField.of(proofOfAuthorizationRequestId))
+
+            /** ID of the proof of authorization request. */
+            fun proofOfAuthorizationRequestId(proofOfAuthorizationRequestId: JsonField<String>) =
+                apply {
+                    this.proofOfAuthorizationRequestId = proofOfAuthorizationRequestId
+                }
 
             /** Whether the account ownership was validated via credential (e.g. Plaid). */
             fun validatedAccountOwnershipViaCredential(
                 validatedAccountOwnershipViaCredential: Boolean
+            ) =
+                validatedAccountOwnershipViaCredential(
+                    JsonField.of(validatedAccountOwnershipViaCredential)
+                )
+
+            /** Whether the account ownership was validated via credential (e.g. Plaid). */
+            fun validatedAccountOwnershipViaCredential(
+                validatedAccountOwnershipViaCredential: JsonField<Boolean>
             ) = apply {
                 this.validatedAccountOwnershipViaCredential = validatedAccountOwnershipViaCredential
             }
@@ -238,6 +408,14 @@ constructor(
             /** Whether the account ownership was validated with an account statement. */
             fun validatedAccountOwnershipWithAccountStatement(
                 validatedAccountOwnershipWithAccountStatement: Boolean
+            ) =
+                validatedAccountOwnershipWithAccountStatement(
+                    JsonField.of(validatedAccountOwnershipWithAccountStatement)
+                )
+
+            /** Whether the account ownership was validated with an account statement. */
+            fun validatedAccountOwnershipWithAccountStatement(
+                validatedAccountOwnershipWithAccountStatement: JsonField<Boolean>
             ) = apply {
                 this.validatedAccountOwnershipWithAccountStatement =
                     validatedAccountOwnershipWithAccountStatement
@@ -246,28 +424,36 @@ constructor(
             /** Whether the account ownership was validated with a microdeposit. */
             fun validatedAccountOwnershipWithMicrodeposit(
                 validatedAccountOwnershipWithMicrodeposit: Boolean
+            ) =
+                validatedAccountOwnershipWithMicrodeposit(
+                    JsonField.of(validatedAccountOwnershipWithMicrodeposit)
+                )
+
+            /** Whether the account ownership was validated with a microdeposit. */
+            fun validatedAccountOwnershipWithMicrodeposit(
+                validatedAccountOwnershipWithMicrodeposit: JsonField<Boolean>
             ) = apply {
                 this.validatedAccountOwnershipWithMicrodeposit =
                     validatedAccountOwnershipWithMicrodeposit
             }
 
             /** Company of the authorizer. */
-            fun authorizerCompany(authorizerCompany: String?) = apply {
+            fun authorizerCompany(authorizerCompany: String) =
+                authorizerCompany(JsonField.of(authorizerCompany))
+
+            /** Company of the authorizer. */
+            fun authorizerCompany(authorizerCompany: JsonField<String>) = apply {
                 this.authorizerCompany = authorizerCompany
             }
 
-            /** Company of the authorizer. */
-            fun authorizerCompany(authorizerCompany: Optional<String>) =
-                authorizerCompany(authorizerCompany.orElse(null))
+            /** IP address of the authorizer. */
+            fun authorizerIpAddress(authorizerIpAddress: String) =
+                authorizerIpAddress(JsonField.of(authorizerIpAddress))
 
             /** IP address of the authorizer. */
-            fun authorizerIpAddress(authorizerIpAddress: String?) = apply {
+            fun authorizerIpAddress(authorizerIpAddress: JsonField<String>) = apply {
                 this.authorizerIpAddress = authorizerIpAddress
             }
-
-            /** IP address of the authorizer. */
-            fun authorizerIpAddress(authorizerIpAddress: Optional<String>) =
-                authorizerIpAddress(authorizerIpAddress.orElse(null))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -369,19 +555,44 @@ constructor(
             body.authorizationTerms(authorizationTerms)
         }
 
+        /** Terms of authorization. */
+        fun authorizationTerms(authorizationTerms: JsonField<String>) = apply {
+            body.authorizationTerms(authorizationTerms)
+        }
+
         /** Time of authorization. */
         fun authorizedAt(authorizedAt: OffsetDateTime) = apply { body.authorizedAt(authorizedAt) }
+
+        /** Time of authorization. */
+        fun authorizedAt(authorizedAt: JsonField<OffsetDateTime>) = apply {
+            body.authorizedAt(authorizedAt)
+        }
 
         /** Email of the authorizer. */
         fun authorizerEmail(authorizerEmail: String) = apply {
             body.authorizerEmail(authorizerEmail)
         }
 
+        /** Email of the authorizer. */
+        fun authorizerEmail(authorizerEmail: JsonField<String>) = apply {
+            body.authorizerEmail(authorizerEmail)
+        }
+
         /** Name of the authorizer. */
         fun authorizerName(authorizerName: String) = apply { body.authorizerName(authorizerName) }
 
+        /** Name of the authorizer. */
+        fun authorizerName(authorizerName: JsonField<String>) = apply {
+            body.authorizerName(authorizerName)
+        }
+
         /** Whether the customer has been offboarded or suspended. */
         fun customerHasBeenOffboarded(customerHasBeenOffboarded: Boolean) = apply {
+            body.customerHasBeenOffboarded(customerHasBeenOffboarded)
+        }
+
+        /** Whether the customer has been offboarded or suspended. */
+        fun customerHasBeenOffboarded(customerHasBeenOffboarded: JsonField<Boolean>) = apply {
             body.customerHasBeenOffboarded(customerHasBeenOffboarded)
         }
 
@@ -390,6 +601,12 @@ constructor(
             body.proofOfAuthorizationRequestId(proofOfAuthorizationRequestId)
         }
 
+        /** ID of the proof of authorization request. */
+        fun proofOfAuthorizationRequestId(proofOfAuthorizationRequestId: JsonField<String>) =
+            apply {
+                body.proofOfAuthorizationRequestId(proofOfAuthorizationRequestId)
+            }
+
         /** Whether the account ownership was validated via credential (e.g. Plaid). */
         fun validatedAccountOwnershipViaCredential(
             validatedAccountOwnershipViaCredential: Boolean
@@ -397,9 +614,25 @@ constructor(
             body.validatedAccountOwnershipViaCredential(validatedAccountOwnershipViaCredential)
         }
 
+        /** Whether the account ownership was validated via credential (e.g. Plaid). */
+        fun validatedAccountOwnershipViaCredential(
+            validatedAccountOwnershipViaCredential: JsonField<Boolean>
+        ) = apply {
+            body.validatedAccountOwnershipViaCredential(validatedAccountOwnershipViaCredential)
+        }
+
         /** Whether the account ownership was validated with an account statement. */
         fun validatedAccountOwnershipWithAccountStatement(
             validatedAccountOwnershipWithAccountStatement: Boolean
+        ) = apply {
+            body.validatedAccountOwnershipWithAccountStatement(
+                validatedAccountOwnershipWithAccountStatement
+            )
+        }
+
+        /** Whether the account ownership was validated with an account statement. */
+        fun validatedAccountOwnershipWithAccountStatement(
+            validatedAccountOwnershipWithAccountStatement: JsonField<Boolean>
         ) = apply {
             body.validatedAccountOwnershipWithAccountStatement(
                 validatedAccountOwnershipWithAccountStatement
@@ -415,23 +648,53 @@ constructor(
             )
         }
 
+        /** Whether the account ownership was validated with a microdeposit. */
+        fun validatedAccountOwnershipWithMicrodeposit(
+            validatedAccountOwnershipWithMicrodeposit: JsonField<Boolean>
+        ) = apply {
+            body.validatedAccountOwnershipWithMicrodeposit(
+                validatedAccountOwnershipWithMicrodeposit
+            )
+        }
+
         /** Company of the authorizer. */
-        fun authorizerCompany(authorizerCompany: String?) = apply {
+        fun authorizerCompany(authorizerCompany: String) = apply {
             body.authorizerCompany(authorizerCompany)
         }
 
         /** Company of the authorizer. */
-        fun authorizerCompany(authorizerCompany: Optional<String>) =
-            authorizerCompany(authorizerCompany.orElse(null))
+        fun authorizerCompany(authorizerCompany: JsonField<String>) = apply {
+            body.authorizerCompany(authorizerCompany)
+        }
 
         /** IP address of the authorizer. */
-        fun authorizerIpAddress(authorizerIpAddress: String?) = apply {
+        fun authorizerIpAddress(authorizerIpAddress: String) = apply {
             body.authorizerIpAddress(authorizerIpAddress)
         }
 
         /** IP address of the authorizer. */
-        fun authorizerIpAddress(authorizerIpAddress: Optional<String>) =
-            authorizerIpAddress(authorizerIpAddress.orElse(null))
+        fun authorizerIpAddress(authorizerIpAddress: JsonField<String>) = apply {
+            body.authorizerIpAddress(authorizerIpAddress)
+        }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -529,25 +792,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): ProofOfAuthorizationRequestSubmissionCreateParams =

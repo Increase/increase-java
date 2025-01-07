@@ -62,25 +62,31 @@ private constructor(
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
     /** The Proof of Authorization Request identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** The ACH Transfers associated with the request. */
-    @JsonProperty("ach_transfers") @ExcludeMissing fun _achTransfers() = achTransfers
+    @JsonProperty("ach_transfers")
+    @ExcludeMissing
+    fun _achTransfers(): JsonField<List<AchTransfer>> = achTransfers
 
     /** The time the Proof of Authorization Request was created. */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** The time the Proof of Authorization Request is due. */
-    @JsonProperty("due_on") @ExcludeMissing fun _dueOn() = dueOn
+    @JsonProperty("due_on") @ExcludeMissing fun _dueOn(): JsonField<OffsetDateTime> = dueOn
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `proof_of_authorization_request`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     /** The time the Proof of Authorization Request was last updated. */
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -109,18 +115,18 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var achTransfers: JsonField<List<AchTransfer>> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var dueOn: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var achTransfers: JsonField<MutableList<AchTransfer>>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var dueOn: JsonField<OffsetDateTime>? = null
+        private var type: JsonField<Type>? = null
+        private var updatedAt: JsonField<OffsetDateTime>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(proofOfAuthorizationRequest: ProofOfAuthorizationRequest) = apply {
             id = proofOfAuthorizationRequest.id
-            achTransfers = proofOfAuthorizationRequest.achTransfers
+            achTransfers = proofOfAuthorizationRequest.achTransfers.map { it.toMutableList() }
             createdAt = proofOfAuthorizationRequest.createdAt
             dueOn = proofOfAuthorizationRequest.dueOn
             type = proofOfAuthorizationRequest.type
@@ -139,7 +145,21 @@ private constructor(
 
         /** The ACH Transfers associated with the request. */
         fun achTransfers(achTransfers: JsonField<List<AchTransfer>>) = apply {
-            this.achTransfers = achTransfers
+            this.achTransfers = achTransfers.map { it.toMutableList() }
+        }
+
+        /** The ACH Transfers associated with the request. */
+        fun addAchTransfer(achTransfer: AchTransfer) = apply {
+            achTransfers =
+                (achTransfers ?: JsonField.of(mutableListOf())).apply {
+                    asKnown()
+                        .orElseThrow {
+                            IllegalStateException(
+                                "Field was set to non-list type: ${javaClass.simpleName}"
+                            )
+                        }
+                        .add(achTransfer)
+                }
         }
 
         /** The time the Proof of Authorization Request was created. */
@@ -193,12 +213,13 @@ private constructor(
 
         fun build(): ProofOfAuthorizationRequest =
             ProofOfAuthorizationRequest(
-                id,
-                achTransfers.map { it.toImmutable() },
-                createdAt,
-                dueOn,
-                type,
-                updatedAt,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(achTransfers) { "`achTransfers` is required but was not set" }
+                    .map { it.toImmutable() },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(dueOn) { "`dueOn` is required but was not set" },
+                checkNotNull(type) { "`type` is required but was not set" },
+                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }
@@ -216,7 +237,7 @@ private constructor(
         fun id(): String = id.getRequired("id")
 
         /** The ACH Transfer identifier. */
-        @JsonProperty("id") @ExcludeMissing fun _id() = id
+        @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -240,7 +261,7 @@ private constructor(
 
         class Builder {
 
-            private var id: JsonField<String> = JsonMissing.of()
+            private var id: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -274,7 +295,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): AchTransfer = AchTransfer(id, additionalProperties.toImmutable())
+            fun build(): AchTransfer =
+                AchTransfer(
+                    checkNotNull(id) { "`id` is required but was not set" },
+                    additionalProperties.toImmutable()
+                )
         }
 
         override fun equals(other: Any?): Boolean {

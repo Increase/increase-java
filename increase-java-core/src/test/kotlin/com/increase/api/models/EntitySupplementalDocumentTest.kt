@@ -15,6 +15,7 @@ class EntitySupplementalDocumentTest {
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .entityId("entity_n8y8tnk2p9339ti393yi")
                 .fileId("file_makxrc67oh9l6sg7w9yc")
+                .idempotencyKey(null)
                 .type(EntitySupplementalDocument.Type.ENTITY_SUPPLEMENTAL_DOCUMENT)
                 .build()
         assertThat(entitySupplementalDocument).isNotNull
@@ -22,6 +23,7 @@ class EntitySupplementalDocumentTest {
             .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(entitySupplementalDocument.entityId()).isEqualTo("entity_n8y8tnk2p9339ti393yi")
         assertThat(entitySupplementalDocument.fileId()).isEqualTo("file_makxrc67oh9l6sg7w9yc")
+        assertThat(entitySupplementalDocument.idempotencyKey()).isEmpty
         assertThat(entitySupplementalDocument.type())
             .isEqualTo(EntitySupplementalDocument.Type.ENTITY_SUPPLEMENTAL_DOCUMENT)
     }

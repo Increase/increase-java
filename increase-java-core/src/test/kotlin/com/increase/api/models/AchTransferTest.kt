@@ -56,6 +56,7 @@ class AchTransferTest {
                 .approval(
                     AchTransfer.Approval.builder()
                         .approvedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .approvedBy(null)
                         .build()
                 )
                 .cancellation(
@@ -64,6 +65,9 @@ class AchTransferTest {
                         .canceledBy("canceled_by")
                         .build()
                 )
+                .companyDescriptiveDate(null)
+                .companyDiscretionaryData(null)
+                .companyEntryDescription(null)
                 .companyName("National Phonograph Company")
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .createdBy(
@@ -86,6 +90,7 @@ class AchTransferTest {
                 .destinationAccountHolder(AchTransfer.DestinationAccountHolder.BUSINESS)
                 .externalAccountId("external_account_ukk55lr923a3ac0pp7iv")
                 .funding(AchTransfer.Funding.CHECKING)
+                .idempotencyKey(null)
                 .inboundFundsHold(
                     AchTransfer.InboundFundsHold.builder()
                         .id("id")
@@ -100,6 +105,7 @@ class AchTransferTest {
                         .type(AchTransfer.InboundFundsHold.Type.INBOUND_FUNDS_HOLD)
                         .build()
                 )
+                .individualId(null)
                 .individualName("Ian Crease")
                 .network(AchTransfer.Network.ACH)
                 .notificationsOfChange(
@@ -114,8 +120,10 @@ class AchTransferTest {
                             .build()
                     )
                 )
+                .pendingTransactionId(null)
                 .preferredEffectiveDate(
                     AchTransfer.PreferredEffectiveDate.builder()
+                        .date(null)
                         .settlementSchedule(
                             AchTransfer.PreferredEffectiveDate.SettlementSchedule.SAME_DAY
                         )
@@ -199,6 +207,7 @@ class AchTransferTest {
             .contains(
                 AchTransfer.Approval.builder()
                     .approvedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                    .approvedBy(null)
                     .build()
             )
         assertThat(achTransfer.cancellation())
@@ -208,6 +217,9 @@ class AchTransferTest {
                     .canceledBy("canceled_by")
                     .build()
             )
+        assertThat(achTransfer.companyDescriptiveDate()).isEmpty
+        assertThat(achTransfer.companyDiscretionaryData()).isEmpty
+        assertThat(achTransfer.companyEntryDescription()).isEmpty
         assertThat(achTransfer.companyName()).contains("National Phonograph Company")
         assertThat(achTransfer.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(achTransfer.createdBy())
@@ -229,6 +241,7 @@ class AchTransferTest {
         assertThat(achTransfer.externalAccountId())
             .contains("external_account_ukk55lr923a3ac0pp7iv")
         assertThat(achTransfer.funding()).isEqualTo(AchTransfer.Funding.CHECKING)
+        assertThat(achTransfer.idempotencyKey()).isEmpty
         assertThat(achTransfer.inboundFundsHold())
             .contains(
                 AchTransfer.InboundFundsHold.builder()
@@ -244,6 +257,7 @@ class AchTransferTest {
                     .type(AchTransfer.InboundFundsHold.Type.INBOUND_FUNDS_HOLD)
                     .build()
             )
+        assertThat(achTransfer.individualId()).isEmpty
         assertThat(achTransfer.individualName()).contains("Ian Crease")
         assertThat(achTransfer.network()).isEqualTo(AchTransfer.Network.ACH)
         assertThat(achTransfer.notificationsOfChange())
@@ -256,9 +270,11 @@ class AchTransferTest {
                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                     .build()
             )
+        assertThat(achTransfer.pendingTransactionId()).isEmpty
         assertThat(achTransfer.preferredEffectiveDate())
             .isEqualTo(
                 AchTransfer.PreferredEffectiveDate.builder()
+                    .date(null)
                     .settlementSchedule(
                         AchTransfer.PreferredEffectiveDate.SettlementSchedule.SAME_DAY
                     )

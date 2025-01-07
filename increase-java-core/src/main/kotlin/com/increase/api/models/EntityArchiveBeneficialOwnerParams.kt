@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -30,11 +32,14 @@ constructor(
     /** The identifying details of anyone controlling or owning 25% or more of the corporation. */
     fun beneficialOwnerId(): String = body.beneficialOwnerId()
 
+    /** The identifying details of anyone controlling or owning 25% or more of the corporation. */
+    fun _beneficialOwnerId(): JsonField<String> = body._beneficialOwnerId()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     @JvmSynthetic internal fun getBody(): EntityArchiveBeneficialOwnerBody = body
 
@@ -53,7 +58,9 @@ constructor(
     class EntityArchiveBeneficialOwnerBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("beneficial_owner_id") private val beneficialOwnerId: String,
+        @JsonProperty("beneficial_owner_id")
+        @ExcludeMissing
+        private val beneficialOwnerId: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
@@ -61,11 +68,27 @@ constructor(
         /**
          * The identifying details of anyone controlling or owning 25% or more of the corporation.
          */
-        @JsonProperty("beneficial_owner_id") fun beneficialOwnerId(): String = beneficialOwnerId
+        fun beneficialOwnerId(): String = beneficialOwnerId.getRequired("beneficial_owner_id")
+
+        /**
+         * The identifying details of anyone controlling or owning 25% or more of the corporation.
+         */
+        @JsonProperty("beneficial_owner_id")
+        @ExcludeMissing
+        fun _beneficialOwnerId(): JsonField<String> = beneficialOwnerId
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): EntityArchiveBeneficialOwnerBody = apply {
+            if (!validated) {
+                beneficialOwnerId()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -76,7 +99,7 @@ constructor(
 
         class Builder {
 
-            private var beneficialOwnerId: String? = null
+            private var beneficialOwnerId: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -91,7 +114,14 @@ constructor(
              * The identifying details of anyone controlling or owning 25% or more of the
              * corporation.
              */
-            fun beneficialOwnerId(beneficialOwnerId: String) = apply {
+            fun beneficialOwnerId(beneficialOwnerId: String) =
+                beneficialOwnerId(JsonField.of(beneficialOwnerId))
+
+            /**
+             * The identifying details of anyone controlling or owning 25% or more of the
+             * corporation.
+             */
+            fun beneficialOwnerId(beneficialOwnerId: JsonField<String>) = apply {
                 this.beneficialOwnerId = beneficialOwnerId
             }
 
@@ -177,6 +207,32 @@ constructor(
          */
         fun beneficialOwnerId(beneficialOwnerId: String) = apply {
             body.beneficialOwnerId(beneficialOwnerId)
+        }
+
+        /**
+         * The identifying details of anyone controlling or owning 25% or more of the corporation.
+         */
+        fun beneficialOwnerId(beneficialOwnerId: JsonField<String>) = apply {
+            body.beneficialOwnerId(beneficialOwnerId)
+        }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -275,25 +331,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): EntityArchiveBeneficialOwnerParams =

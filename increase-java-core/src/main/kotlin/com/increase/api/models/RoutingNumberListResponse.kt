@@ -62,27 +62,34 @@ private constructor(
     fun wireTransfers(): WireTransfers = wireTransfers.getRequired("wire_transfers")
 
     /** This routing number's support for ACH Transfers. */
-    @JsonProperty("ach_transfers") @ExcludeMissing fun _achTransfers() = achTransfers
+    @JsonProperty("ach_transfers")
+    @ExcludeMissing
+    fun _achTransfers(): JsonField<AchTransfers> = achTransfers
 
     /** The name of the financial institution belonging to a routing number. */
-    @JsonProperty("name") @ExcludeMissing fun _name() = name
+    @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
     /** This routing number's support for Real-Time Payments Transfers. */
     @JsonProperty("real_time_payments_transfers")
     @ExcludeMissing
-    fun _realTimePaymentsTransfers() = realTimePaymentsTransfers
+    fun _realTimePaymentsTransfers(): JsonField<RealTimePaymentsTransfers> =
+        realTimePaymentsTransfers
 
     /** The nine digit routing number identifier. */
-    @JsonProperty("routing_number") @ExcludeMissing fun _routingNumber() = routingNumber
+    @JsonProperty("routing_number")
+    @ExcludeMissing
+    fun _routingNumber(): JsonField<String> = routingNumber
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `routing_number`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     /** This routing number's support for Wire Transfers. */
-    @JsonProperty("wire_transfers") @ExcludeMissing fun _wireTransfers() = wireTransfers
+    @JsonProperty("wire_transfers")
+    @ExcludeMissing
+    fun _wireTransfers(): JsonField<WireTransfers> = wireTransfers
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -111,13 +118,12 @@ private constructor(
 
     class Builder {
 
-        private var achTransfers: JsonField<AchTransfers> = JsonMissing.of()
-        private var name: JsonField<String> = JsonMissing.of()
-        private var realTimePaymentsTransfers: JsonField<RealTimePaymentsTransfers> =
-            JsonMissing.of()
-        private var routingNumber: JsonField<String> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
-        private var wireTransfers: JsonField<WireTransfers> = JsonMissing.of()
+        private var achTransfers: JsonField<AchTransfers>? = null
+        private var name: JsonField<String>? = null
+        private var realTimePaymentsTransfers: JsonField<RealTimePaymentsTransfers>? = null
+        private var routingNumber: JsonField<String>? = null
+        private var type: JsonField<Type>? = null
+        private var wireTransfers: JsonField<WireTransfers>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -203,12 +209,14 @@ private constructor(
 
         fun build(): RoutingNumberListResponse =
             RoutingNumberListResponse(
-                achTransfers,
-                name,
-                realTimePaymentsTransfers,
-                routingNumber,
-                type,
-                wireTransfers,
+                checkNotNull(achTransfers) { "`achTransfers` is required but was not set" },
+                checkNotNull(name) { "`name` is required but was not set" },
+                checkNotNull(realTimePaymentsTransfers) {
+                    "`realTimePaymentsTransfers` is required but was not set"
+                },
+                checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
+                checkNotNull(type) { "`type` is required but was not set" },
+                checkNotNull(wireTransfers) { "`wireTransfers` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }

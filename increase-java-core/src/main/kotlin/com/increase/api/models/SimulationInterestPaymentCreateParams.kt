@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -40,11 +42,23 @@ constructor(
     /** The start of the interest period. If not provided, defaults to the current time. */
     fun periodStart(): Optional<OffsetDateTime> = body.periodStart()
 
+    /** The identifier of the Account Number the Interest Payment is for. */
+    fun _accountId(): JsonField<String> = body._accountId()
+
+    /** The interest amount in cents. Must be positive. */
+    fun _amount(): JsonField<Long> = body._amount()
+
+    /** The end of the interest period. If not provided, defaults to the current time. */
+    fun _periodEnd(): JsonField<OffsetDateTime> = body._periodEnd()
+
+    /** The start of the interest period. If not provided, defaults to the current time. */
+    fun _periodStart(): JsonField<OffsetDateTime> = body._periodStart()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     @JvmSynthetic internal fun getBody(): SimulationInterestPaymentCreateBody = body
 
@@ -56,31 +70,67 @@ constructor(
     class SimulationInterestPaymentCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("account_id") private val accountId: String,
-        @JsonProperty("amount") private val amount: Long,
-        @JsonProperty("period_end") private val periodEnd: OffsetDateTime?,
-        @JsonProperty("period_start") private val periodStart: OffsetDateTime?,
+        @JsonProperty("account_id")
+        @ExcludeMissing
+        private val accountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("amount")
+        @ExcludeMissing
+        private val amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("period_end")
+        @ExcludeMissing
+        private val periodEnd: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("period_start")
+        @ExcludeMissing
+        private val periodStart: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The identifier of the Account Number the Interest Payment is for. */
-        @JsonProperty("account_id") fun accountId(): String = accountId
+        fun accountId(): String = accountId.getRequired("account_id")
 
         /** The interest amount in cents. Must be positive. */
-        @JsonProperty("amount") fun amount(): Long = amount
+        fun amount(): Long = amount.getRequired("amount")
+
+        /** The end of the interest period. If not provided, defaults to the current time. */
+        fun periodEnd(): Optional<OffsetDateTime> =
+            Optional.ofNullable(periodEnd.getNullable("period_end"))
+
+        /** The start of the interest period. If not provided, defaults to the current time. */
+        fun periodStart(): Optional<OffsetDateTime> =
+            Optional.ofNullable(periodStart.getNullable("period_start"))
+
+        /** The identifier of the Account Number the Interest Payment is for. */
+        @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
+
+        /** The interest amount in cents. Must be positive. */
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
         /** The end of the interest period. If not provided, defaults to the current time. */
         @JsonProperty("period_end")
-        fun periodEnd(): Optional<OffsetDateTime> = Optional.ofNullable(periodEnd)
+        @ExcludeMissing
+        fun _periodEnd(): JsonField<OffsetDateTime> = periodEnd
 
         /** The start of the interest period. If not provided, defaults to the current time. */
         @JsonProperty("period_start")
-        fun periodStart(): Optional<OffsetDateTime> = Optional.ofNullable(periodStart)
+        @ExcludeMissing
+        fun _periodStart(): JsonField<OffsetDateTime> = periodStart
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): SimulationInterestPaymentCreateBody = apply {
+            if (!validated) {
+                accountId()
+                amount()
+                periodEnd()
+                periodStart()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -91,10 +141,10 @@ constructor(
 
         class Builder {
 
-            private var accountId: String? = null
-            private var amount: Long? = null
-            private var periodEnd: OffsetDateTime? = null
-            private var periodStart: OffsetDateTime? = null
+            private var accountId: JsonField<String>? = null
+            private var amount: JsonField<Long>? = null
+            private var periodEnd: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var periodStart: JsonField<OffsetDateTime> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -110,23 +160,32 @@ constructor(
             }
 
             /** The identifier of the Account Number the Interest Payment is for. */
-            fun accountId(accountId: String) = apply { this.accountId = accountId }
+            fun accountId(accountId: String) = accountId(JsonField.of(accountId))
+
+            /** The identifier of the Account Number the Interest Payment is for. */
+            fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
             /** The interest amount in cents. Must be positive. */
-            fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long) = amount(JsonField.of(amount))
+
+            /** The interest amount in cents. Must be positive. */
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /** The end of the interest period. If not provided, defaults to the current time. */
-            fun periodEnd(periodEnd: OffsetDateTime?) = apply { this.periodEnd = periodEnd }
+            fun periodEnd(periodEnd: OffsetDateTime) = periodEnd(JsonField.of(periodEnd))
 
             /** The end of the interest period. If not provided, defaults to the current time. */
-            fun periodEnd(periodEnd: Optional<OffsetDateTime>) = periodEnd(periodEnd.orElse(null))
+            fun periodEnd(periodEnd: JsonField<OffsetDateTime>) = apply {
+                this.periodEnd = periodEnd
+            }
 
             /** The start of the interest period. If not provided, defaults to the current time. */
-            fun periodStart(periodStart: OffsetDateTime?) = apply { this.periodStart = periodStart }
+            fun periodStart(periodStart: OffsetDateTime) = periodStart(JsonField.of(periodStart))
 
             /** The start of the interest period. If not provided, defaults to the current time. */
-            fun periodStart(periodStart: Optional<OffsetDateTime>) =
-                periodStart(periodStart.orElse(null))
+            fun periodStart(periodStart: JsonField<OffsetDateTime>) = apply {
+                this.periodStart = periodStart
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -203,21 +262,47 @@ constructor(
         /** The identifier of the Account Number the Interest Payment is for. */
         fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
+        /** The identifier of the Account Number the Interest Payment is for. */
+        fun accountId(accountId: JsonField<String>) = apply { body.accountId(accountId) }
+
         /** The interest amount in cents. Must be positive. */
         fun amount(amount: Long) = apply { body.amount(amount) }
 
-        /** The end of the interest period. If not provided, defaults to the current time. */
-        fun periodEnd(periodEnd: OffsetDateTime?) = apply { body.periodEnd(periodEnd) }
+        /** The interest amount in cents. Must be positive. */
+        fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
 
         /** The end of the interest period. If not provided, defaults to the current time. */
-        fun periodEnd(periodEnd: Optional<OffsetDateTime>) = periodEnd(periodEnd.orElse(null))
+        fun periodEnd(periodEnd: OffsetDateTime) = apply { body.periodEnd(periodEnd) }
+
+        /** The end of the interest period. If not provided, defaults to the current time. */
+        fun periodEnd(periodEnd: JsonField<OffsetDateTime>) = apply { body.periodEnd(periodEnd) }
 
         /** The start of the interest period. If not provided, defaults to the current time. */
-        fun periodStart(periodStart: OffsetDateTime?) = apply { body.periodStart(periodStart) }
+        fun periodStart(periodStart: OffsetDateTime) = apply { body.periodStart(periodStart) }
 
         /** The start of the interest period. If not provided, defaults to the current time. */
-        fun periodStart(periodStart: Optional<OffsetDateTime>) =
-            periodStart(periodStart.orElse(null))
+        fun periodStart(periodStart: JsonField<OffsetDateTime>) = apply {
+            body.periodStart(periodStart)
+        }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -315,25 +400,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): SimulationInterestPaymentCreateParams =

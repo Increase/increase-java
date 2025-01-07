@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -49,11 +51,35 @@ constructor(
     /** The requestee's American Bankers' Association (ABA) Routing Transit Number (RTN). */
     fun sourceRoutingNumber(): String = body.sourceRoutingNumber()
 
+    /** The requested amount in USD cents. Must be positive. */
+    fun _amount(): JsonField<Long> = body._amount()
+
+    /** Details of the person being requested to pay. */
+    fun _debtor(): JsonField<Debtor> = body._debtor()
+
+    /** The identifier of the Account Number where the funds will land. */
+    fun _destinationAccountNumberId(): JsonField<String> = body._destinationAccountNumberId()
+
+    /**
+     * The expiration time for this request, in UTC. The requestee will not be able to pay after
+     * this date.
+     */
+    fun _expiresAt(): JsonField<LocalDate> = body._expiresAt()
+
+    /** Unstructured information that will show on the requestee's bank statement. */
+    fun _remittanceInformation(): JsonField<String> = body._remittanceInformation()
+
+    /** The account number the funds will be requested from. */
+    fun _sourceAccountNumber(): JsonField<String> = body._sourceAccountNumber()
+
+    /** The requestee's American Bankers' Association (ABA) Routing Transit Number (RTN). */
+    fun _sourceRoutingNumber(): JsonField<String> = body._sourceRoutingNumber()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     @JvmSynthetic internal fun getBody(): RealTimePaymentsRequestForPaymentCreateBody = body
 
@@ -65,49 +91,109 @@ constructor(
     class RealTimePaymentsRequestForPaymentCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("amount") private val amount: Long,
-        @JsonProperty("debtor") private val debtor: Debtor,
+        @JsonProperty("amount")
+        @ExcludeMissing
+        private val amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("debtor")
+        @ExcludeMissing
+        private val debtor: JsonField<Debtor> = JsonMissing.of(),
         @JsonProperty("destination_account_number_id")
-        private val destinationAccountNumberId: String,
-        @JsonProperty("expires_at") private val expiresAt: LocalDate,
-        @JsonProperty("remittance_information") private val remittanceInformation: String,
-        @JsonProperty("source_account_number") private val sourceAccountNumber: String,
-        @JsonProperty("source_routing_number") private val sourceRoutingNumber: String,
+        @ExcludeMissing
+        private val destinationAccountNumberId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("expires_at")
+        @ExcludeMissing
+        private val expiresAt: JsonField<LocalDate> = JsonMissing.of(),
+        @JsonProperty("remittance_information")
+        @ExcludeMissing
+        private val remittanceInformation: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("source_account_number")
+        @ExcludeMissing
+        private val sourceAccountNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("source_routing_number")
+        @ExcludeMissing
+        private val sourceRoutingNumber: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The requested amount in USD cents. Must be positive. */
-        @JsonProperty("amount") fun amount(): Long = amount
+        fun amount(): Long = amount.getRequired("amount")
 
         /** Details of the person being requested to pay. */
-        @JsonProperty("debtor") fun debtor(): Debtor = debtor
+        fun debtor(): Debtor = debtor.getRequired("debtor")
 
         /** The identifier of the Account Number where the funds will land. */
-        @JsonProperty("destination_account_number_id")
-        fun destinationAccountNumberId(): String = destinationAccountNumberId
+        fun destinationAccountNumberId(): String =
+            destinationAccountNumberId.getRequired("destination_account_number_id")
 
         /**
          * The expiration time for this request, in UTC. The requestee will not be able to pay after
          * this date.
          */
-        @JsonProperty("expires_at") fun expiresAt(): LocalDate = expiresAt
+        fun expiresAt(): LocalDate = expiresAt.getRequired("expires_at")
+
+        /** Unstructured information that will show on the requestee's bank statement. */
+        fun remittanceInformation(): String =
+            remittanceInformation.getRequired("remittance_information")
+
+        /** The account number the funds will be requested from. */
+        fun sourceAccountNumber(): String = sourceAccountNumber.getRequired("source_account_number")
+
+        /** The requestee's American Bankers' Association (ABA) Routing Transit Number (RTN). */
+        fun sourceRoutingNumber(): String = sourceRoutingNumber.getRequired("source_routing_number")
+
+        /** The requested amount in USD cents. Must be positive. */
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+        /** Details of the person being requested to pay. */
+        @JsonProperty("debtor") @ExcludeMissing fun _debtor(): JsonField<Debtor> = debtor
+
+        /** The identifier of the Account Number where the funds will land. */
+        @JsonProperty("destination_account_number_id")
+        @ExcludeMissing
+        fun _destinationAccountNumberId(): JsonField<String> = destinationAccountNumberId
+
+        /**
+         * The expiration time for this request, in UTC. The requestee will not be able to pay after
+         * this date.
+         */
+        @JsonProperty("expires_at")
+        @ExcludeMissing
+        fun _expiresAt(): JsonField<LocalDate> = expiresAt
 
         /** Unstructured information that will show on the requestee's bank statement. */
         @JsonProperty("remittance_information")
-        fun remittanceInformation(): String = remittanceInformation
+        @ExcludeMissing
+        fun _remittanceInformation(): JsonField<String> = remittanceInformation
 
         /** The account number the funds will be requested from. */
         @JsonProperty("source_account_number")
-        fun sourceAccountNumber(): String = sourceAccountNumber
+        @ExcludeMissing
+        fun _sourceAccountNumber(): JsonField<String> = sourceAccountNumber
 
         /** The requestee's American Bankers' Association (ABA) Routing Transit Number (RTN). */
         @JsonProperty("source_routing_number")
-        fun sourceRoutingNumber(): String = sourceRoutingNumber
+        @ExcludeMissing
+        fun _sourceRoutingNumber(): JsonField<String> = sourceRoutingNumber
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): RealTimePaymentsRequestForPaymentCreateBody = apply {
+            if (!validated) {
+                amount()
+                debtor().validate()
+                destinationAccountNumberId()
+                expiresAt()
+                remittanceInformation()
+                sourceAccountNumber()
+                sourceRoutingNumber()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -118,13 +204,13 @@ constructor(
 
         class Builder {
 
-            private var amount: Long? = null
-            private var debtor: Debtor? = null
-            private var destinationAccountNumberId: String? = null
-            private var expiresAt: LocalDate? = null
-            private var remittanceInformation: String? = null
-            private var sourceAccountNumber: String? = null
-            private var sourceRoutingNumber: String? = null
+            private var amount: JsonField<Long>? = null
+            private var debtor: JsonField<Debtor>? = null
+            private var destinationAccountNumberId: JsonField<String>? = null
+            private var expiresAt: JsonField<LocalDate>? = null
+            private var remittanceInformation: JsonField<String>? = null
+            private var sourceAccountNumber: JsonField<String>? = null
+            private var sourceRoutingNumber: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -148,13 +234,23 @@ constructor(
             }
 
             /** The requested amount in USD cents. Must be positive. */
-            fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long) = amount(JsonField.of(amount))
+
+            /** The requested amount in USD cents. Must be positive. */
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /** Details of the person being requested to pay. */
-            fun debtor(debtor: Debtor) = apply { this.debtor = debtor }
+            fun debtor(debtor: Debtor) = debtor(JsonField.of(debtor))
+
+            /** Details of the person being requested to pay. */
+            fun debtor(debtor: JsonField<Debtor>) = apply { this.debtor = debtor }
 
             /** The identifier of the Account Number where the funds will land. */
-            fun destinationAccountNumberId(destinationAccountNumberId: String) = apply {
+            fun destinationAccountNumberId(destinationAccountNumberId: String) =
+                destinationAccountNumberId(JsonField.of(destinationAccountNumberId))
+
+            /** The identifier of the Account Number where the funds will land. */
+            fun destinationAccountNumberId(destinationAccountNumberId: JsonField<String>) = apply {
                 this.destinationAccountNumberId = destinationAccountNumberId
             }
 
@@ -162,20 +258,38 @@ constructor(
              * The expiration time for this request, in UTC. The requestee will not be able to pay
              * after this date.
              */
-            fun expiresAt(expiresAt: LocalDate) = apply { this.expiresAt = expiresAt }
+            fun expiresAt(expiresAt: LocalDate) = expiresAt(JsonField.of(expiresAt))
+
+            /**
+             * The expiration time for this request, in UTC. The requestee will not be able to pay
+             * after this date.
+             */
+            fun expiresAt(expiresAt: JsonField<LocalDate>) = apply { this.expiresAt = expiresAt }
 
             /** Unstructured information that will show on the requestee's bank statement. */
-            fun remittanceInformation(remittanceInformation: String) = apply {
+            fun remittanceInformation(remittanceInformation: String) =
+                remittanceInformation(JsonField.of(remittanceInformation))
+
+            /** Unstructured information that will show on the requestee's bank statement. */
+            fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {
                 this.remittanceInformation = remittanceInformation
             }
 
             /** The account number the funds will be requested from. */
-            fun sourceAccountNumber(sourceAccountNumber: String) = apply {
+            fun sourceAccountNumber(sourceAccountNumber: String) =
+                sourceAccountNumber(JsonField.of(sourceAccountNumber))
+
+            /** The account number the funds will be requested from. */
+            fun sourceAccountNumber(sourceAccountNumber: JsonField<String>) = apply {
                 this.sourceAccountNumber = sourceAccountNumber
             }
 
             /** The requestee's American Bankers' Association (ABA) Routing Transit Number (RTN). */
-            fun sourceRoutingNumber(sourceRoutingNumber: String) = apply {
+            fun sourceRoutingNumber(sourceRoutingNumber: String) =
+                sourceRoutingNumber(JsonField.of(sourceRoutingNumber))
+
+            /** The requestee's American Bankers' Association (ABA) Routing Transit Number (RTN). */
+            fun sourceRoutingNumber(sourceRoutingNumber: JsonField<String>) = apply {
                 this.sourceRoutingNumber = sourceRoutingNumber
             }
 
@@ -267,11 +381,22 @@ constructor(
         /** The requested amount in USD cents. Must be positive. */
         fun amount(amount: Long) = apply { body.amount(amount) }
 
+        /** The requested amount in USD cents. Must be positive. */
+        fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
+
         /** Details of the person being requested to pay. */
         fun debtor(debtor: Debtor) = apply { body.debtor(debtor) }
 
+        /** Details of the person being requested to pay. */
+        fun debtor(debtor: JsonField<Debtor>) = apply { body.debtor(debtor) }
+
         /** The identifier of the Account Number where the funds will land. */
         fun destinationAccountNumberId(destinationAccountNumberId: String) = apply {
+            body.destinationAccountNumberId(destinationAccountNumberId)
+        }
+
+        /** The identifier of the Account Number where the funds will land. */
+        fun destinationAccountNumberId(destinationAccountNumberId: JsonField<String>) = apply {
             body.destinationAccountNumberId(destinationAccountNumberId)
         }
 
@@ -281,8 +406,19 @@ constructor(
          */
         fun expiresAt(expiresAt: LocalDate) = apply { body.expiresAt(expiresAt) }
 
+        /**
+         * The expiration time for this request, in UTC. The requestee will not be able to pay after
+         * this date.
+         */
+        fun expiresAt(expiresAt: JsonField<LocalDate>) = apply { body.expiresAt(expiresAt) }
+
         /** Unstructured information that will show on the requestee's bank statement. */
         fun remittanceInformation(remittanceInformation: String) = apply {
+            body.remittanceInformation(remittanceInformation)
+        }
+
+        /** Unstructured information that will show on the requestee's bank statement. */
+        fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {
             body.remittanceInformation(remittanceInformation)
         }
 
@@ -291,9 +427,38 @@ constructor(
             body.sourceAccountNumber(sourceAccountNumber)
         }
 
+        /** The account number the funds will be requested from. */
+        fun sourceAccountNumber(sourceAccountNumber: JsonField<String>) = apply {
+            body.sourceAccountNumber(sourceAccountNumber)
+        }
+
         /** The requestee's American Bankers' Association (ABA) Routing Transit Number (RTN). */
         fun sourceRoutingNumber(sourceRoutingNumber: String) = apply {
             body.sourceRoutingNumber(sourceRoutingNumber)
+        }
+
+        /** The requestee's American Bankers' Association (ABA) Routing Transit Number (RTN). */
+        fun sourceRoutingNumber(sourceRoutingNumber: JsonField<String>) = apply {
+            body.sourceRoutingNumber(sourceRoutingNumber)
+        }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -394,25 +559,6 @@ constructor(
             additionalQueryParams.removeAll(keys)
         }
 
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
-        }
-
         fun build(): RealTimePaymentsRequestForPaymentCreateParams =
             RealTimePaymentsRequestForPaymentCreateParams(
                 body.build(),
@@ -426,21 +572,41 @@ constructor(
     class Debtor
     @JsonCreator
     private constructor(
-        @JsonProperty("address") private val address: Address,
-        @JsonProperty("name") private val name: String,
+        @JsonProperty("address")
+        @ExcludeMissing
+        private val address: JsonField<Address> = JsonMissing.of(),
+        @JsonProperty("name")
+        @ExcludeMissing
+        private val name: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** Address of the debtor. */
-        @JsonProperty("address") fun address(): Address = address
+        fun address(): Address = address.getRequired("address")
 
         /** The name of the debtor. */
-        @JsonProperty("name") fun name(): String = name
+        fun name(): String = name.getRequired("name")
+
+        /** Address of the debtor. */
+        @JsonProperty("address") @ExcludeMissing fun _address(): JsonField<Address> = address
+
+        /** The name of the debtor. */
+        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): Debtor = apply {
+            if (!validated) {
+                address().validate()
+                name()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -451,8 +617,8 @@ constructor(
 
         class Builder {
 
-            private var address: Address? = null
-            private var name: String? = null
+            private var address: JsonField<Address>? = null
+            private var name: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -463,10 +629,16 @@ constructor(
             }
 
             /** Address of the debtor. */
-            fun address(address: Address) = apply { this.address = address }
+            fun address(address: Address) = address(JsonField.of(address))
+
+            /** Address of the debtor. */
+            fun address(address: JsonField<Address>) = apply { this.address = address }
 
             /** The name of the debtor. */
-            fun name(name: String) = apply { this.name = name }
+            fun name(name: String) = name(JsonField.of(name))
+
+            /** The name of the debtor. */
+            fun name(name: JsonField<String>) = apply { this.name = name }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -500,31 +672,65 @@ constructor(
         class Address
         @JsonCreator
         private constructor(
-            @JsonProperty("country") private val country: String,
-            @JsonProperty("city") private val city: String?,
-            @JsonProperty("post_code") private val postCode: String?,
-            @JsonProperty("street_name") private val streetName: String?,
+            @JsonProperty("country")
+            @ExcludeMissing
+            private val country: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("city")
+            @ExcludeMissing
+            private val city: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("post_code")
+            @ExcludeMissing
+            private val postCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("street_name")
+            @ExcludeMissing
+            private val streetName: JsonField<String> = JsonMissing.of(),
             @JsonAnySetter
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
             /** The ISO 3166, Alpha-2 country code. */
-            @JsonProperty("country") fun country(): String = country
+            fun country(): String = country.getRequired("country")
 
             /** The town or city. */
-            @JsonProperty("city") fun city(): Optional<String> = Optional.ofNullable(city)
+            fun city(): Optional<String> = Optional.ofNullable(city.getNullable("city"))
 
             /** The postal code or zip. */
-            @JsonProperty("post_code")
-            fun postCode(): Optional<String> = Optional.ofNullable(postCode)
+            fun postCode(): Optional<String> =
+                Optional.ofNullable(postCode.getNullable("post_code"))
+
+            /** The street name without the street number. */
+            fun streetName(): Optional<String> =
+                Optional.ofNullable(streetName.getNullable("street_name"))
+
+            /** The ISO 3166, Alpha-2 country code. */
+            @JsonProperty("country") @ExcludeMissing fun _country(): JsonField<String> = country
+
+            /** The town or city. */
+            @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
+
+            /** The postal code or zip. */
+            @JsonProperty("post_code") @ExcludeMissing fun _postCode(): JsonField<String> = postCode
 
             /** The street name without the street number. */
             @JsonProperty("street_name")
-            fun streetName(): Optional<String> = Optional.ofNullable(streetName)
+            @ExcludeMissing
+            fun _streetName(): JsonField<String> = streetName
 
             @JsonAnyGetter
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            private var validated: Boolean = false
+
+            fun validate(): Address = apply {
+                if (!validated) {
+                    country()
+                    city()
+                    postCode()
+                    streetName()
+                    validated = true
+                }
+            }
 
             fun toBuilder() = Builder().from(this)
 
@@ -535,10 +741,10 @@ constructor(
 
             class Builder {
 
-                private var country: String? = null
-                private var city: String? = null
-                private var postCode: String? = null
-                private var streetName: String? = null
+                private var country: JsonField<String>? = null
+                private var city: JsonField<String> = JsonMissing.of()
+                private var postCode: JsonField<String> = JsonMissing.of()
+                private var streetName: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -551,25 +757,30 @@ constructor(
                 }
 
                 /** The ISO 3166, Alpha-2 country code. */
-                fun country(country: String) = apply { this.country = country }
+                fun country(country: String) = country(JsonField.of(country))
+
+                /** The ISO 3166, Alpha-2 country code. */
+                fun country(country: JsonField<String>) = apply { this.country = country }
 
                 /** The town or city. */
-                fun city(city: String?) = apply { this.city = city }
+                fun city(city: String) = city(JsonField.of(city))
 
                 /** The town or city. */
-                fun city(city: Optional<String>) = city(city.orElse(null))
+                fun city(city: JsonField<String>) = apply { this.city = city }
 
                 /** The postal code or zip. */
-                fun postCode(postCode: String?) = apply { this.postCode = postCode }
+                fun postCode(postCode: String) = postCode(JsonField.of(postCode))
 
                 /** The postal code or zip. */
-                fun postCode(postCode: Optional<String>) = postCode(postCode.orElse(null))
+                fun postCode(postCode: JsonField<String>) = apply { this.postCode = postCode }
 
                 /** The street name without the street number. */
-                fun streetName(streetName: String?) = apply { this.streetName = streetName }
+                fun streetName(streetName: String) = streetName(JsonField.of(streetName))
 
                 /** The street name without the street number. */
-                fun streetName(streetName: Optional<String>) = streetName(streetName.orElse(null))
+                fun streetName(streetName: JsonField<String>) = apply {
+                    this.streetName = streetName
+                }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()

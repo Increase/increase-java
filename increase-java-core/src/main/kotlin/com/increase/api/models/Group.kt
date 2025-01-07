@@ -60,21 +60,27 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The Group identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** If the Group is allowed to create ACH debits. */
-    @JsonProperty("ach_debit_status") @ExcludeMissing fun _achDebitStatus() = achDebitStatus
+    @JsonProperty("ach_debit_status")
+    @ExcludeMissing
+    fun _achDebitStatus(): JsonField<AchDebitStatus> = achDebitStatus
 
     /** If the Group is activated or not. */
-    @JsonProperty("activation_status") @ExcludeMissing fun _activationStatus() = activationStatus
+    @JsonProperty("activation_status")
+    @ExcludeMissing
+    fun _activationStatus(): JsonField<ActivationStatus> = activationStatus
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Group was created.
      */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** A constant representing the object's type. For this resource it will always be `group`. */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -102,11 +108,11 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var achDebitStatus: JsonField<AchDebitStatus> = JsonMissing.of()
-        private var activationStatus: JsonField<ActivationStatus> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var achDebitStatus: JsonField<AchDebitStatus>? = null
+        private var activationStatus: JsonField<ActivationStatus>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -186,11 +192,11 @@ private constructor(
 
         fun build(): Group =
             Group(
-                id,
-                achDebitStatus,
-                activationStatus,
-                createdAt,
-                type,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(achDebitStatus) { "`achDebitStatus` is required but was not set" },
+                checkNotNull(activationStatus) { "`activationStatus` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(type) { "`type` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }

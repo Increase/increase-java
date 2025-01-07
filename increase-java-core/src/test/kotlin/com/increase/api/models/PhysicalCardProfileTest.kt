@@ -20,6 +20,7 @@ class PhysicalCardProfileTest {
                 .creator(PhysicalCardProfile.Creator.INCREASE)
                 .description("Corporate logo card")
                 .frontImageFileId("file_makxrc67oh9l6sg7w9yc")
+                .idempotencyKey(null)
                 .isDefault(false)
                 .status(PhysicalCardProfile.Status.PENDING_CREATING)
                 .type(PhysicalCardProfile.Type.PHYSICAL_CARD_PROFILE)
@@ -34,6 +35,7 @@ class PhysicalCardProfileTest {
         assertThat(physicalCardProfile.creator()).isEqualTo(PhysicalCardProfile.Creator.INCREASE)
         assertThat(physicalCardProfile.description()).isEqualTo("Corporate logo card")
         assertThat(physicalCardProfile.frontImageFileId()).contains("file_makxrc67oh9l6sg7w9yc")
+        assertThat(physicalCardProfile.idempotencyKey()).isEmpty
         assertThat(physicalCardProfile.isDefault()).isEqualTo(false)
         assertThat(physicalCardProfile.status())
             .isEqualTo(PhysicalCardProfile.Status.PENDING_CREATING)

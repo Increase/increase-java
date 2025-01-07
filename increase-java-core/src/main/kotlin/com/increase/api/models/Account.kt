@@ -141,33 +141,37 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The Account identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** The bank the Account is with. */
-    @JsonProperty("bank") @ExcludeMissing fun _bank() = bank
+    @JsonProperty("bank") @ExcludeMissing fun _bank(): JsonField<Bank> = bank
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was closed.
      */
-    @JsonProperty("closed_at") @ExcludeMissing fun _closedAt() = closedAt
+    @JsonProperty("closed_at") @ExcludeMissing fun _closedAt(): JsonField<OffsetDateTime> = closedAt
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was created.
      */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the Account currency. */
-    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+    @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
 
     /** The identifier for the Entity the Account belongs to. */
-    @JsonProperty("entity_id") @ExcludeMissing fun _entityId() = entityId
+    @JsonProperty("entity_id") @ExcludeMissing fun _entityId(): JsonField<String> = entityId
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
      * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
     /**
      * The identifier of an Entity that, while not owning the Account, is associated with its
@@ -175,13 +179,15 @@ private constructor(
      */
     @JsonProperty("informational_entity_id")
     @ExcludeMissing
-    fun _informationalEntityId() = informationalEntityId
+    fun _informationalEntityId(): JsonField<String> = informationalEntityId
 
     /**
      * The interest accrued but not yet paid, expressed as a string containing a floating-point
      * value.
      */
-    @JsonProperty("interest_accrued") @ExcludeMissing fun _interestAccrued() = interestAccrued
+    @JsonProperty("interest_accrued")
+    @ExcludeMissing
+    fun _interestAccrued(): JsonField<String> = interestAccrued
 
     /**
      * The latest [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which interest was
@@ -189,28 +195,30 @@ private constructor(
      */
     @JsonProperty("interest_accrued_at")
     @ExcludeMissing
-    fun _interestAccruedAt() = interestAccruedAt
+    fun _interestAccruedAt(): JsonField<LocalDate> = interestAccruedAt
 
     /**
      * The Interest Rate currently being earned on the account, as a string containing a decimal
      * number. For example, a 1% interest rate would be represented as "0.01".
      */
-    @JsonProperty("interest_rate") @ExcludeMissing fun _interestRate() = interestRate
+    @JsonProperty("interest_rate")
+    @ExcludeMissing
+    fun _interestRate(): JsonField<String> = interestRate
 
     /** The name you choose for the Account. */
-    @JsonProperty("name") @ExcludeMissing fun _name() = name
+    @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
     /**
      * The identifier of the Program determining the compliance and commercial terms of this
      * Account.
      */
-    @JsonProperty("program_id") @ExcludeMissing fun _programId() = programId
+    @JsonProperty("program_id") @ExcludeMissing fun _programId(): JsonField<String> = programId
 
     /** The status of the Account. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /** A constant representing the object's type. For this resource it will always be `account`. */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -248,21 +256,21 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var bank: JsonField<Bank> = JsonMissing.of()
-        private var closedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var currency: JsonField<Currency> = JsonMissing.of()
-        private var entityId: JsonField<String> = JsonMissing.of()
-        private var idempotencyKey: JsonField<String> = JsonMissing.of()
-        private var informationalEntityId: JsonField<String> = JsonMissing.of()
-        private var interestAccrued: JsonField<String> = JsonMissing.of()
-        private var interestAccruedAt: JsonField<LocalDate> = JsonMissing.of()
-        private var interestRate: JsonField<String> = JsonMissing.of()
-        private var name: JsonField<String> = JsonMissing.of()
-        private var programId: JsonField<String> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var bank: JsonField<Bank>? = null
+        private var closedAt: JsonField<OffsetDateTime>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var currency: JsonField<Currency>? = null
+        private var entityId: JsonField<String>? = null
+        private var idempotencyKey: JsonField<String>? = null
+        private var informationalEntityId: JsonField<String>? = null
+        private var interestAccrued: JsonField<String>? = null
+        private var interestAccruedAt: JsonField<LocalDate>? = null
+        private var interestRate: JsonField<String>? = null
+        private var name: JsonField<String>? = null
+        private var programId: JsonField<String>? = null
+        private var status: JsonField<Status>? = null
+        private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -301,7 +309,13 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was
          * closed.
          */
-        fun closedAt(closedAt: OffsetDateTime) = closedAt(JsonField.of(closedAt))
+        fun closedAt(closedAt: OffsetDateTime?) = closedAt(JsonField.ofNullable(closedAt))
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was
+         * closed.
+         */
+        fun closedAt(closedAt: Optional<OffsetDateTime>) = closedAt(closedAt.orElse(null))
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was
@@ -328,7 +342,10 @@ private constructor(
         fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
         /** The identifier for the Entity the Account belongs to. */
-        fun entityId(entityId: String) = entityId(JsonField.of(entityId))
+        fun entityId(entityId: String?) = entityId(JsonField.ofNullable(entityId))
+
+        /** The identifier for the Entity the Account belongs to. */
+        fun entityId(entityId: Optional<String>) = entityId(entityId.orElse(null))
 
         /** The identifier for the Entity the Account belongs to. */
         fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
@@ -338,7 +355,16 @@ private constructor(
          * is used to ensure that a request is only processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+        fun idempotencyKey(idempotencyKey: String?) =
+            idempotencyKey(JsonField.ofNullable(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: Optional<String>) =
+            idempotencyKey(idempotencyKey.orElse(null))
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -353,8 +379,15 @@ private constructor(
          * The identifier of an Entity that, while not owning the Account, is associated with its
          * activity.
          */
-        fun informationalEntityId(informationalEntityId: String) =
-            informationalEntityId(JsonField.of(informationalEntityId))
+        fun informationalEntityId(informationalEntityId: String?) =
+            informationalEntityId(JsonField.ofNullable(informationalEntityId))
+
+        /**
+         * The identifier of an Entity that, while not owning the Account, is associated with its
+         * activity.
+         */
+        fun informationalEntityId(informationalEntityId: Optional<String>) =
+            informationalEntityId(informationalEntityId.orElse(null))
 
         /**
          * The identifier of an Entity that, while not owning the Account, is associated with its
@@ -383,8 +416,15 @@ private constructor(
          * The latest [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which interest was
          * accrued.
          */
-        fun interestAccruedAt(interestAccruedAt: LocalDate) =
-            interestAccruedAt(JsonField.of(interestAccruedAt))
+        fun interestAccruedAt(interestAccruedAt: LocalDate?) =
+            interestAccruedAt(JsonField.ofNullable(interestAccruedAt))
+
+        /**
+         * The latest [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which interest was
+         * accrued.
+         */
+        fun interestAccruedAt(interestAccruedAt: Optional<LocalDate>) =
+            interestAccruedAt(interestAccruedAt.orElse(null))
 
         /**
          * The latest [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which interest was
@@ -463,21 +503,25 @@ private constructor(
 
         fun build(): Account =
             Account(
-                id,
-                bank,
-                closedAt,
-                createdAt,
-                currency,
-                entityId,
-                idempotencyKey,
-                informationalEntityId,
-                interestAccrued,
-                interestAccruedAt,
-                interestRate,
-                name,
-                programId,
-                status,
-                type,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(bank) { "`bank` is required but was not set" },
+                checkNotNull(closedAt) { "`closedAt` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(currency) { "`currency` is required but was not set" },
+                checkNotNull(entityId) { "`entityId` is required but was not set" },
+                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
+                checkNotNull(informationalEntityId) {
+                    "`informationalEntityId` is required but was not set"
+                },
+                checkNotNull(interestAccrued) { "`interestAccrued` is required but was not set" },
+                checkNotNull(interestAccruedAt) {
+                    "`interestAccruedAt` is required but was not set"
+                },
+                checkNotNull(interestRate) { "`interestRate` is required but was not set" },
+                checkNotNull(name) { "`name` is required but was not set" },
+                checkNotNull(programId) { "`programId` is required but was not set" },
+                checkNotNull(status) { "`status` is required but was not set" },
+                checkNotNull(type) { "`type` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }

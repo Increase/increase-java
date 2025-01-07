@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -41,11 +43,23 @@ constructor(
      */
     fun amount(): Optional<Long> = body.amount()
 
+    /** The identifier of the Card to create a settlement on. */
+    fun _cardId(): JsonField<String> = body._cardId()
+
+    /** The identifier of the Pending Transaction for the Card Authorization you wish to settle. */
+    fun _pendingTransactionId(): JsonField<String> = body._pendingTransactionId()
+
+    /**
+     * The amount to be settled. This defaults to the amount of the Pending Transaction being
+     * settled.
+     */
+    fun _amount(): JsonField<Long> = body._amount()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     @JvmSynthetic internal fun getBody(): SimulationCardSettlementCreateBody = body
 
@@ -57,31 +71,64 @@ constructor(
     class SimulationCardSettlementCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("card_id") private val cardId: String,
-        @JsonProperty("pending_transaction_id") private val pendingTransactionId: String,
-        @JsonProperty("amount") private val amount: Long?,
+        @JsonProperty("card_id")
+        @ExcludeMissing
+        private val cardId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("pending_transaction_id")
+        @ExcludeMissing
+        private val pendingTransactionId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("amount")
+        @ExcludeMissing
+        private val amount: JsonField<Long> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The identifier of the Card to create a settlement on. */
-        @JsonProperty("card_id") fun cardId(): String = cardId
+        fun cardId(): String = cardId.getRequired("card_id")
 
         /**
          * The identifier of the Pending Transaction for the Card Authorization you wish to settle.
          */
-        @JsonProperty("pending_transaction_id")
-        fun pendingTransactionId(): String = pendingTransactionId
+        fun pendingTransactionId(): String =
+            pendingTransactionId.getRequired("pending_transaction_id")
 
         /**
          * The amount to be settled. This defaults to the amount of the Pending Transaction being
          * settled.
          */
-        @JsonProperty("amount") fun amount(): Optional<Long> = Optional.ofNullable(amount)
+        fun amount(): Optional<Long> = Optional.ofNullable(amount.getNullable("amount"))
+
+        /** The identifier of the Card to create a settlement on. */
+        @JsonProperty("card_id") @ExcludeMissing fun _cardId(): JsonField<String> = cardId
+
+        /**
+         * The identifier of the Pending Transaction for the Card Authorization you wish to settle.
+         */
+        @JsonProperty("pending_transaction_id")
+        @ExcludeMissing
+        fun _pendingTransactionId(): JsonField<String> = pendingTransactionId
+
+        /**
+         * The amount to be settled. This defaults to the amount of the Pending Transaction being
+         * settled.
+         */
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): SimulationCardSettlementCreateBody = apply {
+            if (!validated) {
+                cardId()
+                pendingTransactionId()
+                amount()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -92,9 +139,9 @@ constructor(
 
         class Builder {
 
-            private var cardId: String? = null
-            private var pendingTransactionId: String? = null
-            private var amount: Long? = null
+            private var cardId: JsonField<String>? = null
+            private var pendingTransactionId: JsonField<String>? = null
+            private var amount: JsonField<Long> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -109,13 +156,23 @@ constructor(
             }
 
             /** The identifier of the Card to create a settlement on. */
-            fun cardId(cardId: String) = apply { this.cardId = cardId }
+            fun cardId(cardId: String) = cardId(JsonField.of(cardId))
+
+            /** The identifier of the Card to create a settlement on. */
+            fun cardId(cardId: JsonField<String>) = apply { this.cardId = cardId }
 
             /**
              * The identifier of the Pending Transaction for the Card Authorization you wish to
              * settle.
              */
-            fun pendingTransactionId(pendingTransactionId: String) = apply {
+            fun pendingTransactionId(pendingTransactionId: String) =
+                pendingTransactionId(JsonField.of(pendingTransactionId))
+
+            /**
+             * The identifier of the Pending Transaction for the Card Authorization you wish to
+             * settle.
+             */
+            fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {
                 this.pendingTransactionId = pendingTransactionId
             }
 
@@ -123,20 +180,13 @@ constructor(
              * The amount to be settled. This defaults to the amount of the Pending Transaction
              * being settled.
              */
-            fun amount(amount: Long?) = apply { this.amount = amount }
+            fun amount(amount: Long) = amount(JsonField.of(amount))
 
             /**
              * The amount to be settled. This defaults to the amount of the Pending Transaction
              * being settled.
              */
-            fun amount(amount: Long) = amount(amount as Long?)
-
-            /**
-             * The amount to be settled. This defaults to the amount of the Pending Transaction
-             * being settled.
-             */
-            @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
-            fun amount(amount: Optional<Long>) = amount(amount.orElse(null) as Long?)
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -214,6 +264,9 @@ constructor(
         /** The identifier of the Card to create a settlement on. */
         fun cardId(cardId: String) = apply { body.cardId(cardId) }
 
+        /** The identifier of the Card to create a settlement on. */
+        fun cardId(cardId: JsonField<String>) = apply { body.cardId(cardId) }
+
         /**
          * The identifier of the Pending Transaction for the Card Authorization you wish to settle.
          */
@@ -222,23 +275,42 @@ constructor(
         }
 
         /**
-         * The amount to be settled. This defaults to the amount of the Pending Transaction being
-         * settled.
+         * The identifier of the Pending Transaction for the Card Authorization you wish to settle.
          */
-        fun amount(amount: Long?) = apply { body.amount(amount) }
+        fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {
+            body.pendingTransactionId(pendingTransactionId)
+        }
 
         /**
          * The amount to be settled. This defaults to the amount of the Pending Transaction being
          * settled.
          */
-        fun amount(amount: Long) = amount(amount as Long?)
+        fun amount(amount: Long) = apply { body.amount(amount) }
 
         /**
          * The amount to be settled. This defaults to the amount of the Pending Transaction being
          * settled.
          */
-        @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
-        fun amount(amount: Optional<Long>) = amount(amount.orElse(null) as Long?)
+        fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -336,25 +408,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): SimulationCardSettlementCreateParams =

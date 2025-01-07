@@ -36,6 +36,7 @@ class RealTimeDecisionTest {
                         .accountId("account_in71c4amph0vgo2qllky")
                         .cardId("card_oubs0hwk5rn6knuecxg2")
                         .decision(RealTimeDecision.CardAuthorization.Decision.APPROVE)
+                        .digitalWalletTokenId(null)
                         .direction(RealTimeDecision.CardAuthorization.Direction.SETTLEMENT)
                         .merchantAcceptorId("5665270011000168")
                         .merchantCategoryCode("5734")
@@ -78,6 +79,7 @@ class RealTimeDecisionTest {
                                 .build()
                         )
                         .networkRiskScore(10L)
+                        .physicalCardId(null)
                         .presentmentAmount(100L)
                         .presentmentCurrency("USD")
                         .processingCategory(
@@ -194,6 +196,7 @@ class RealTimeDecisionTest {
                     .accountId("account_in71c4amph0vgo2qllky")
                     .cardId("card_oubs0hwk5rn6knuecxg2")
                     .decision(RealTimeDecision.CardAuthorization.Decision.APPROVE)
+                    .digitalWalletTokenId(null)
                     .direction(RealTimeDecision.CardAuthorization.Direction.SETTLEMENT)
                     .merchantAcceptorId("5665270011000168")
                     .merchantCategoryCode("5734")
@@ -236,6 +239,7 @@ class RealTimeDecisionTest {
                             .build()
                     )
                     .networkRiskScore(10L)
+                    .physicalCardId(null)
                     .presentmentAmount(100L)
                     .presentmentCurrency("USD")
                     .processingCategory(

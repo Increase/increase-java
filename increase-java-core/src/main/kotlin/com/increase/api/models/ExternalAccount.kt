@@ -105,49 +105,59 @@ private constructor(
         verificationStatus.getRequired("verification_status")
 
     /** The External Account's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** The type of entity that owns the External Account. */
-    @JsonProperty("account_holder") @ExcludeMissing fun _accountHolder() = accountHolder
+    @JsonProperty("account_holder")
+    @ExcludeMissing
+    fun _accountHolder(): JsonField<AccountHolder> = accountHolder
 
     /** The destination account number. */
-    @JsonProperty("account_number") @ExcludeMissing fun _accountNumber() = accountNumber
+    @JsonProperty("account_number")
+    @ExcludeMissing
+    fun _accountNumber(): JsonField<String> = accountNumber
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the External
      * Account was created.
      */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** The External Account's description for display purposes. */
-    @JsonProperty("description") @ExcludeMissing fun _description() = description
+    @JsonProperty("description") @ExcludeMissing fun _description(): JsonField<String> = description
 
     /** The type of the account to which the transfer will be sent. */
-    @JsonProperty("funding") @ExcludeMissing fun _funding() = funding
+    @JsonProperty("funding") @ExcludeMissing fun _funding(): JsonField<Funding> = funding
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
      * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
     /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
-    @JsonProperty("routing_number") @ExcludeMissing fun _routingNumber() = routingNumber
+    @JsonProperty("routing_number")
+    @ExcludeMissing
+    fun _routingNumber(): JsonField<String> = routingNumber
 
     /** The External Account's status. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `external_account`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     /** If you have verified ownership of the External Account. */
     @JsonProperty("verification_status")
     @ExcludeMissing
-    fun _verificationStatus() = verificationStatus
+    fun _verificationStatus(): JsonField<VerificationStatus> = verificationStatus
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -181,17 +191,17 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var accountHolder: JsonField<AccountHolder> = JsonMissing.of()
-        private var accountNumber: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var description: JsonField<String> = JsonMissing.of()
-        private var funding: JsonField<Funding> = JsonMissing.of()
-        private var idempotencyKey: JsonField<String> = JsonMissing.of()
-        private var routingNumber: JsonField<String> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
-        private var verificationStatus: JsonField<VerificationStatus> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var accountHolder: JsonField<AccountHolder>? = null
+        private var accountNumber: JsonField<String>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var description: JsonField<String>? = null
+        private var funding: JsonField<Funding>? = null
+        private var idempotencyKey: JsonField<String>? = null
+        private var routingNumber: JsonField<String>? = null
+        private var status: JsonField<Status>? = null
+        private var type: JsonField<Type>? = null
+        private var verificationStatus: JsonField<VerificationStatus>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -261,7 +271,16 @@ private constructor(
          * is used to ensure that a request is only processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+        fun idempotencyKey(idempotencyKey: String?) =
+            idempotencyKey(JsonField.ofNullable(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: Optional<String>) =
+            idempotencyKey(idempotencyKey.orElse(null))
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -328,17 +347,19 @@ private constructor(
 
         fun build(): ExternalAccount =
             ExternalAccount(
-                id,
-                accountHolder,
-                accountNumber,
-                createdAt,
-                description,
-                funding,
-                idempotencyKey,
-                routingNumber,
-                status,
-                type,
-                verificationStatus,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(accountHolder) { "`accountHolder` is required but was not set" },
+                checkNotNull(accountNumber) { "`accountNumber` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(description) { "`description` is required but was not set" },
+                checkNotNull(funding) { "`funding` is required but was not set" },
+                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
+                checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
+                checkNotNull(status) { "`status` is required but was not set" },
+                checkNotNull(type) { "`type` is required but was not set" },
+                checkNotNull(verificationStatus) {
+                    "`verificationStatus` is required but was not set"
+                },
                 additionalProperties.toImmutable(),
             )
     }

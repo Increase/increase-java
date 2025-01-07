@@ -53,18 +53,18 @@ private constructor(
      * The Bookkeeping Account's current balance, representing the sum of all Bookkeeping Entries on
      * the Bookkeeping Account.
      */
-    @JsonProperty("balance") @ExcludeMissing fun _balance() = balance
+    @JsonProperty("balance") @ExcludeMissing fun _balance(): JsonField<Long> = balance
 
     /** The identifier for the account for which the balance was queried. */
     @JsonProperty("bookkeeping_account_id")
     @ExcludeMissing
-    fun _bookkeepingAccountId() = bookkeepingAccountId
+    fun _bookkeepingAccountId(): JsonField<String> = bookkeepingAccountId
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `bookkeeping_balance_lookup`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -90,9 +90,9 @@ private constructor(
 
     class Builder {
 
-        private var balance: JsonField<Long> = JsonMissing.of()
-        private var bookkeepingAccountId: JsonField<String> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
+        private var balance: JsonField<Long>? = null
+        private var bookkeepingAccountId: JsonField<String>? = null
+        private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -157,9 +157,11 @@ private constructor(
 
         fun build(): BookkeepingBalanceLookup =
             BookkeepingBalanceLookup(
-                balance,
-                bookkeepingAccountId,
-                type,
+                checkNotNull(balance) { "`balance` is required but was not set" },
+                checkNotNull(bookkeepingAccountId) {
+                    "`bookkeepingAccountId` is required but was not set"
+                },
+                checkNotNull(type) { "`type` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }

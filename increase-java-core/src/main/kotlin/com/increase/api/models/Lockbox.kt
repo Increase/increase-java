@@ -90,37 +90,43 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The Lockbox identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** The identifier for the Account checks sent to this lockbox will be deposited into. */
-    @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
+    @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
     /** The mailing address for the Lockbox. */
-    @JsonProperty("address") @ExcludeMissing fun _address() = address
+    @JsonProperty("address") @ExcludeMissing fun _address(): JsonField<Address> = address
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Lockbox was created.
      */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** The description you choose for the Lockbox. */
-    @JsonProperty("description") @ExcludeMissing fun _description() = description
+    @JsonProperty("description") @ExcludeMissing fun _description(): JsonField<String> = description
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
      * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
     /** The recipient name you choose for the Lockbox. */
-    @JsonProperty("recipient_name") @ExcludeMissing fun _recipientName() = recipientName
+    @JsonProperty("recipient_name")
+    @ExcludeMissing
+    fun _recipientName(): JsonField<String> = recipientName
 
     /** This indicates if mail can be sent to this address. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /** A constant representing the object's type. For this resource it will always be `lockbox`. */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -152,15 +158,15 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var accountId: JsonField<String> = JsonMissing.of()
-        private var address: JsonField<Address> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var description: JsonField<String> = JsonMissing.of()
-        private var idempotencyKey: JsonField<String> = JsonMissing.of()
-        private var recipientName: JsonField<String> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var accountId: JsonField<String>? = null
+        private var address: JsonField<Address>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var description: JsonField<String>? = null
+        private var idempotencyKey: JsonField<String>? = null
+        private var recipientName: JsonField<String>? = null
+        private var status: JsonField<Status>? = null
+        private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -208,7 +214,10 @@ private constructor(
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The description you choose for the Lockbox. */
-        fun description(description: String) = description(JsonField.of(description))
+        fun description(description: String?) = description(JsonField.ofNullable(description))
+
+        /** The description you choose for the Lockbox. */
+        fun description(description: Optional<String>) = description(description.orElse(null))
 
         /** The description you choose for the Lockbox. */
         fun description(description: JsonField<String>) = apply { this.description = description }
@@ -218,7 +227,16 @@ private constructor(
          * is used to ensure that a request is only processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+        fun idempotencyKey(idempotencyKey: String?) =
+            idempotencyKey(JsonField.ofNullable(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: Optional<String>) =
+            idempotencyKey(idempotencyKey.orElse(null))
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -230,7 +248,12 @@ private constructor(
         }
 
         /** The recipient name you choose for the Lockbox. */
-        fun recipientName(recipientName: String) = recipientName(JsonField.of(recipientName))
+        fun recipientName(recipientName: String?) =
+            recipientName(JsonField.ofNullable(recipientName))
+
+        /** The recipient name you choose for the Lockbox. */
+        fun recipientName(recipientName: Optional<String>) =
+            recipientName(recipientName.orElse(null))
 
         /** The recipient name you choose for the Lockbox. */
         fun recipientName(recipientName: JsonField<String>) = apply {
@@ -274,15 +297,15 @@ private constructor(
 
         fun build(): Lockbox =
             Lockbox(
-                id,
-                accountId,
-                address,
-                createdAt,
-                description,
-                idempotencyKey,
-                recipientName,
-                status,
-                type,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(accountId) { "`accountId` is required but was not set" },
+                checkNotNull(address) { "`address` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(description) { "`description` is required but was not set" },
+                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
+                checkNotNull(recipientName) { "`recipientName` is required but was not set" },
+                checkNotNull(status) { "`status` is required but was not set" },
+                checkNotNull(type) { "`type` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }
@@ -340,29 +363,31 @@ private constructor(
         fun state(): String = state.getRequired("state")
 
         /** The city of the address. */
-        @JsonProperty("city") @ExcludeMissing fun _city() = city
+        @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
 
         /** The first line of the address. */
-        @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
+        @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
         /** The second line of the address. */
-        @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
+        @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
         /** The postal code of the address. */
-        @JsonProperty("postal_code") @ExcludeMissing fun _postalCode() = postalCode
+        @JsonProperty("postal_code")
+        @ExcludeMissing
+        fun _postalCode(): JsonField<String> = postalCode
 
         /**
          * The recipient line of the address. This will include the recipient name you provide when
          * creating the address, as well as an ATTN suffix to help route the mail to your lockbox.
          * Mail senders must include this ATTN line to receive mail at this Lockbox.
          */
-        @JsonProperty("recipient") @ExcludeMissing fun _recipient() = recipient
+        @JsonProperty("recipient") @ExcludeMissing fun _recipient(): JsonField<String> = recipient
 
         /**
          * The two-letter United States Postal Service (USPS) abbreviation for the state of the
          * address.
          */
-        @JsonProperty("state") @ExcludeMissing fun _state() = state
+        @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -391,12 +416,12 @@ private constructor(
 
         class Builder {
 
-            private var city: JsonField<String> = JsonMissing.of()
-            private var line1: JsonField<String> = JsonMissing.of()
-            private var line2: JsonField<String> = JsonMissing.of()
-            private var postalCode: JsonField<String> = JsonMissing.of()
-            private var recipient: JsonField<String> = JsonMissing.of()
-            private var state: JsonField<String> = JsonMissing.of()
+            private var city: JsonField<String>? = null
+            private var line1: JsonField<String>? = null
+            private var line2: JsonField<String>? = null
+            private var postalCode: JsonField<String>? = null
+            private var recipient: JsonField<String>? = null
+            private var state: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -439,7 +464,14 @@ private constructor(
              * when creating the address, as well as an ATTN suffix to help route the mail to your
              * lockbox. Mail senders must include this ATTN line to receive mail at this Lockbox.
              */
-            fun recipient(recipient: String) = recipient(JsonField.of(recipient))
+            fun recipient(recipient: String?) = recipient(JsonField.ofNullable(recipient))
+
+            /**
+             * The recipient line of the address. This will include the recipient name you provide
+             * when creating the address, as well as an ATTN suffix to help route the mail to your
+             * lockbox. Mail senders must include this ATTN line to receive mail at this Lockbox.
+             */
+            fun recipient(recipient: Optional<String>) = recipient(recipient.orElse(null))
 
             /**
              * The recipient line of the address. This will include the recipient name you provide
@@ -481,12 +513,12 @@ private constructor(
 
             fun build(): Address =
                 Address(
-                    city,
-                    line1,
-                    line2,
-                    postalCode,
-                    recipient,
-                    state,
+                    checkNotNull(city) { "`city` is required but was not set" },
+                    checkNotNull(line1) { "`line1` is required but was not set" },
+                    checkNotNull(line2) { "`line2` is required but was not set" },
+                    checkNotNull(postalCode) { "`postalCode` is required but was not set" },
+                    checkNotNull(recipient) { "`recipient` is required but was not set" },
+                    checkNotNull(state) { "`state` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }

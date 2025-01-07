@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -73,11 +74,57 @@ constructor(
     /** The Standard Entry Class (SEC) code to use for the ACH Prenotification. */
     fun standardEntryClassCode(): Optional<StandardEntryClassCode> = body.standardEntryClassCode()
 
+    /** The Increase identifier for the account that will send the transfer. */
+    fun _accountId(): JsonField<String> = body._accountId()
+
+    /** The account number for the destination account. */
+    fun _accountNumber(): JsonField<String> = body._accountNumber()
+
+    /**
+     * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
+     * account.
+     */
+    fun _routingNumber(): JsonField<String> = body._routingNumber()
+
+    /** Additional information that will be sent to the recipient. */
+    fun _addendum(): JsonField<String> = body._addendum()
+
+    /** The description of the date of the transfer. */
+    fun _companyDescriptiveDate(): JsonField<String> = body._companyDescriptiveDate()
+
+    /** The data you choose to associate with the transfer. */
+    fun _companyDiscretionaryData(): JsonField<String> = body._companyDiscretionaryData()
+
+    /** The description of the transfer you wish to be shown to the recipient. */
+    fun _companyEntryDescription(): JsonField<String> = body._companyEntryDescription()
+
+    /** The name by which the recipient knows you. */
+    fun _companyName(): JsonField<String> = body._companyName()
+
+    /** Whether the Prenotification is for a future debit or credit. */
+    fun _creditDebitIndicator(): JsonField<CreditDebitIndicator> = body._creditDebitIndicator()
+
+    /** The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
+    fun _effectiveDate(): JsonField<LocalDate> = body._effectiveDate()
+
+    /** Your identifier for the transfer recipient. */
+    fun _individualId(): JsonField<String> = body._individualId()
+
+    /**
+     * The name of the transfer recipient. This value is information and not verified by the
+     * recipient's bank.
+     */
+    fun _individualName(): JsonField<String> = body._individualName()
+
+    /** The Standard Entry Class (SEC) code to use for the ACH Prenotification. */
+    fun _standardEntryClassCode(): JsonField<StandardEntryClassCode> =
+        body._standardEntryClassCode()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     @JvmSynthetic internal fun getBody(): AchPrenotificationCreateBody = body
 
@@ -89,88 +136,198 @@ constructor(
     class AchPrenotificationCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("account_id") private val accountId: String,
-        @JsonProperty("account_number") private val accountNumber: String,
-        @JsonProperty("routing_number") private val routingNumber: String,
-        @JsonProperty("addendum") private val addendum: String?,
-        @JsonProperty("company_descriptive_date") private val companyDescriptiveDate: String?,
-        @JsonProperty("company_discretionary_data") private val companyDiscretionaryData: String?,
-        @JsonProperty("company_entry_description") private val companyEntryDescription: String?,
-        @JsonProperty("company_name") private val companyName: String?,
+        @JsonProperty("account_id")
+        @ExcludeMissing
+        private val accountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("account_number")
+        @ExcludeMissing
+        private val accountNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("routing_number")
+        @ExcludeMissing
+        private val routingNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("addendum")
+        @ExcludeMissing
+        private val addendum: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("company_descriptive_date")
+        @ExcludeMissing
+        private val companyDescriptiveDate: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("company_discretionary_data")
+        @ExcludeMissing
+        private val companyDiscretionaryData: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("company_entry_description")
+        @ExcludeMissing
+        private val companyEntryDescription: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("company_name")
+        @ExcludeMissing
+        private val companyName: JsonField<String> = JsonMissing.of(),
         @JsonProperty("credit_debit_indicator")
-        private val creditDebitIndicator: CreditDebitIndicator?,
-        @JsonProperty("effective_date") private val effectiveDate: LocalDate?,
-        @JsonProperty("individual_id") private val individualId: String?,
-        @JsonProperty("individual_name") private val individualName: String?,
+        @ExcludeMissing
+        private val creditDebitIndicator: JsonField<CreditDebitIndicator> = JsonMissing.of(),
+        @JsonProperty("effective_date")
+        @ExcludeMissing
+        private val effectiveDate: JsonField<LocalDate> = JsonMissing.of(),
+        @JsonProperty("individual_id")
+        @ExcludeMissing
+        private val individualId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("individual_name")
+        @ExcludeMissing
+        private val individualName: JsonField<String> = JsonMissing.of(),
         @JsonProperty("standard_entry_class_code")
-        private val standardEntryClassCode: StandardEntryClassCode?,
+        @ExcludeMissing
+        private val standardEntryClassCode: JsonField<StandardEntryClassCode> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The Increase identifier for the account that will send the transfer. */
-        @JsonProperty("account_id") fun accountId(): String = accountId
+        fun accountId(): String = accountId.getRequired("account_id")
 
         /** The account number for the destination account. */
-        @JsonProperty("account_number") fun accountNumber(): String = accountNumber
+        fun accountNumber(): String = accountNumber.getRequired("account_number")
 
         /**
          * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
          * account.
          */
-        @JsonProperty("routing_number") fun routingNumber(): String = routingNumber
+        fun routingNumber(): String = routingNumber.getRequired("routing_number")
 
         /** Additional information that will be sent to the recipient. */
-        @JsonProperty("addendum") fun addendum(): Optional<String> = Optional.ofNullable(addendum)
+        fun addendum(): Optional<String> = Optional.ofNullable(addendum.getNullable("addendum"))
+
+        /** The description of the date of the transfer. */
+        fun companyDescriptiveDate(): Optional<String> =
+            Optional.ofNullable(companyDescriptiveDate.getNullable("company_descriptive_date"))
+
+        /** The data you choose to associate with the transfer. */
+        fun companyDiscretionaryData(): Optional<String> =
+            Optional.ofNullable(companyDiscretionaryData.getNullable("company_discretionary_data"))
+
+        /** The description of the transfer you wish to be shown to the recipient. */
+        fun companyEntryDescription(): Optional<String> =
+            Optional.ofNullable(companyEntryDescription.getNullable("company_entry_description"))
+
+        /** The name by which the recipient knows you. */
+        fun companyName(): Optional<String> =
+            Optional.ofNullable(companyName.getNullable("company_name"))
+
+        /** Whether the Prenotification is for a future debit or credit. */
+        fun creditDebitIndicator(): Optional<CreditDebitIndicator> =
+            Optional.ofNullable(creditDebitIndicator.getNullable("credit_debit_indicator"))
+
+        /**
+         * The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+         */
+        fun effectiveDate(): Optional<LocalDate> =
+            Optional.ofNullable(effectiveDate.getNullable("effective_date"))
+
+        /** Your identifier for the transfer recipient. */
+        fun individualId(): Optional<String> =
+            Optional.ofNullable(individualId.getNullable("individual_id"))
+
+        /**
+         * The name of the transfer recipient. This value is information and not verified by the
+         * recipient's bank.
+         */
+        fun individualName(): Optional<String> =
+            Optional.ofNullable(individualName.getNullable("individual_name"))
+
+        /** The Standard Entry Class (SEC) code to use for the ACH Prenotification. */
+        fun standardEntryClassCode(): Optional<StandardEntryClassCode> =
+            Optional.ofNullable(standardEntryClassCode.getNullable("standard_entry_class_code"))
+
+        /** The Increase identifier for the account that will send the transfer. */
+        @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
+
+        /** The account number for the destination account. */
+        @JsonProperty("account_number")
+        @ExcludeMissing
+        fun _accountNumber(): JsonField<String> = accountNumber
+
+        /**
+         * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
+         * account.
+         */
+        @JsonProperty("routing_number")
+        @ExcludeMissing
+        fun _routingNumber(): JsonField<String> = routingNumber
+
+        /** Additional information that will be sent to the recipient. */
+        @JsonProperty("addendum") @ExcludeMissing fun _addendum(): JsonField<String> = addendum
 
         /** The description of the date of the transfer. */
         @JsonProperty("company_descriptive_date")
-        fun companyDescriptiveDate(): Optional<String> = Optional.ofNullable(companyDescriptiveDate)
+        @ExcludeMissing
+        fun _companyDescriptiveDate(): JsonField<String> = companyDescriptiveDate
 
         /** The data you choose to associate with the transfer. */
         @JsonProperty("company_discretionary_data")
-        fun companyDiscretionaryData(): Optional<String> =
-            Optional.ofNullable(companyDiscretionaryData)
+        @ExcludeMissing
+        fun _companyDiscretionaryData(): JsonField<String> = companyDiscretionaryData
 
         /** The description of the transfer you wish to be shown to the recipient. */
         @JsonProperty("company_entry_description")
-        fun companyEntryDescription(): Optional<String> =
-            Optional.ofNullable(companyEntryDescription)
+        @ExcludeMissing
+        fun _companyEntryDescription(): JsonField<String> = companyEntryDescription
 
         /** The name by which the recipient knows you. */
         @JsonProperty("company_name")
-        fun companyName(): Optional<String> = Optional.ofNullable(companyName)
+        @ExcludeMissing
+        fun _companyName(): JsonField<String> = companyName
 
         /** Whether the Prenotification is for a future debit or credit. */
         @JsonProperty("credit_debit_indicator")
-        fun creditDebitIndicator(): Optional<CreditDebitIndicator> =
-            Optional.ofNullable(creditDebitIndicator)
+        @ExcludeMissing
+        fun _creditDebitIndicator(): JsonField<CreditDebitIndicator> = creditDebitIndicator
 
         /**
          * The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
          */
         @JsonProperty("effective_date")
-        fun effectiveDate(): Optional<LocalDate> = Optional.ofNullable(effectiveDate)
+        @ExcludeMissing
+        fun _effectiveDate(): JsonField<LocalDate> = effectiveDate
 
         /** Your identifier for the transfer recipient. */
         @JsonProperty("individual_id")
-        fun individualId(): Optional<String> = Optional.ofNullable(individualId)
+        @ExcludeMissing
+        fun _individualId(): JsonField<String> = individualId
 
         /**
          * The name of the transfer recipient. This value is information and not verified by the
          * recipient's bank.
          */
         @JsonProperty("individual_name")
-        fun individualName(): Optional<String> = Optional.ofNullable(individualName)
+        @ExcludeMissing
+        fun _individualName(): JsonField<String> = individualName
 
         /** The Standard Entry Class (SEC) code to use for the ACH Prenotification. */
         @JsonProperty("standard_entry_class_code")
-        fun standardEntryClassCode(): Optional<StandardEntryClassCode> =
-            Optional.ofNullable(standardEntryClassCode)
+        @ExcludeMissing
+        fun _standardEntryClassCode(): JsonField<StandardEntryClassCode> = standardEntryClassCode
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): AchPrenotificationCreateBody = apply {
+            if (!validated) {
+                accountId()
+                accountNumber()
+                routingNumber()
+                addendum()
+                companyDescriptiveDate()
+                companyDiscretionaryData()
+                companyEntryDescription()
+                companyName()
+                creditDebitIndicator()
+                effectiveDate()
+                individualId()
+                individualName()
+                standardEntryClassCode()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -181,19 +338,19 @@ constructor(
 
         class Builder {
 
-            private var accountId: String? = null
-            private var accountNumber: String? = null
-            private var routingNumber: String? = null
-            private var addendum: String? = null
-            private var companyDescriptiveDate: String? = null
-            private var companyDiscretionaryData: String? = null
-            private var companyEntryDescription: String? = null
-            private var companyName: String? = null
-            private var creditDebitIndicator: CreditDebitIndicator? = null
-            private var effectiveDate: LocalDate? = null
-            private var individualId: String? = null
-            private var individualName: String? = null
-            private var standardEntryClassCode: StandardEntryClassCode? = null
+            private var accountId: JsonField<String>? = null
+            private var accountNumber: JsonField<String>? = null
+            private var routingNumber: JsonField<String>? = null
+            private var addendum: JsonField<String> = JsonMissing.of()
+            private var companyDescriptiveDate: JsonField<String> = JsonMissing.of()
+            private var companyDiscretionaryData: JsonField<String> = JsonMissing.of()
+            private var companyEntryDescription: JsonField<String> = JsonMissing.of()
+            private var companyName: JsonField<String> = JsonMissing.of()
+            private var creditDebitIndicator: JsonField<CreditDebitIndicator> = JsonMissing.of()
+            private var effectiveDate: JsonField<LocalDate> = JsonMissing.of()
+            private var individualId: JsonField<String> = JsonMissing.of()
+            private var individualName: JsonField<String> = JsonMissing.of()
+            private var standardEntryClassCode: JsonField<StandardEntryClassCode> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -216,110 +373,130 @@ constructor(
             }
 
             /** The Increase identifier for the account that will send the transfer. */
-            fun accountId(accountId: String) = apply { this.accountId = accountId }
+            fun accountId(accountId: String) = accountId(JsonField.of(accountId))
+
+            /** The Increase identifier for the account that will send the transfer. */
+            fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
             /** The account number for the destination account. */
-            fun accountNumber(accountNumber: String) = apply { this.accountNumber = accountNumber }
+            fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
+
+            /** The account number for the destination account. */
+            fun accountNumber(accountNumber: JsonField<String>) = apply {
+                this.accountNumber = accountNumber
+            }
 
             /**
              * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the
              * destination account.
              */
-            fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
+            fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
+
+            /**
+             * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the
+             * destination account.
+             */
+            fun routingNumber(routingNumber: JsonField<String>) = apply {
+                this.routingNumber = routingNumber
+            }
 
             /** Additional information that will be sent to the recipient. */
-            fun addendum(addendum: String?) = apply { this.addendum = addendum }
+            fun addendum(addendum: String) = addendum(JsonField.of(addendum))
 
             /** Additional information that will be sent to the recipient. */
-            fun addendum(addendum: Optional<String>) = addendum(addendum.orElse(null))
+            fun addendum(addendum: JsonField<String>) = apply { this.addendum = addendum }
 
             /** The description of the date of the transfer. */
-            fun companyDescriptiveDate(companyDescriptiveDate: String?) = apply {
+            fun companyDescriptiveDate(companyDescriptiveDate: String) =
+                companyDescriptiveDate(JsonField.of(companyDescriptiveDate))
+
+            /** The description of the date of the transfer. */
+            fun companyDescriptiveDate(companyDescriptiveDate: JsonField<String>) = apply {
                 this.companyDescriptiveDate = companyDescriptiveDate
             }
 
-            /** The description of the date of the transfer. */
-            fun companyDescriptiveDate(companyDescriptiveDate: Optional<String>) =
-                companyDescriptiveDate(companyDescriptiveDate.orElse(null))
+            /** The data you choose to associate with the transfer. */
+            fun companyDiscretionaryData(companyDiscretionaryData: String) =
+                companyDiscretionaryData(JsonField.of(companyDiscretionaryData))
 
             /** The data you choose to associate with the transfer. */
-            fun companyDiscretionaryData(companyDiscretionaryData: String?) = apply {
+            fun companyDiscretionaryData(companyDiscretionaryData: JsonField<String>) = apply {
                 this.companyDiscretionaryData = companyDiscretionaryData
             }
 
-            /** The data you choose to associate with the transfer. */
-            fun companyDiscretionaryData(companyDiscretionaryData: Optional<String>) =
-                companyDiscretionaryData(companyDiscretionaryData.orElse(null))
+            /** The description of the transfer you wish to be shown to the recipient. */
+            fun companyEntryDescription(companyEntryDescription: String) =
+                companyEntryDescription(JsonField.of(companyEntryDescription))
 
             /** The description of the transfer you wish to be shown to the recipient. */
-            fun companyEntryDescription(companyEntryDescription: String?) = apply {
+            fun companyEntryDescription(companyEntryDescription: JsonField<String>) = apply {
                 this.companyEntryDescription = companyEntryDescription
             }
 
-            /** The description of the transfer you wish to be shown to the recipient. */
-            fun companyEntryDescription(companyEntryDescription: Optional<String>) =
-                companyEntryDescription(companyEntryDescription.orElse(null))
+            /** The name by which the recipient knows you. */
+            fun companyName(companyName: String) = companyName(JsonField.of(companyName))
 
             /** The name by which the recipient knows you. */
-            fun companyName(companyName: String?) = apply { this.companyName = companyName }
-
-            /** The name by which the recipient knows you. */
-            fun companyName(companyName: Optional<String>) = companyName(companyName.orElse(null))
-
-            /** Whether the Prenotification is for a future debit or credit. */
-            fun creditDebitIndicator(creditDebitIndicator: CreditDebitIndicator?) = apply {
-                this.creditDebitIndicator = creditDebitIndicator
+            fun companyName(companyName: JsonField<String>) = apply {
+                this.companyName = companyName
             }
 
             /** Whether the Prenotification is for a future debit or credit. */
-            fun creditDebitIndicator(creditDebitIndicator: Optional<CreditDebitIndicator>) =
-                creditDebitIndicator(creditDebitIndicator.orElse(null))
+            fun creditDebitIndicator(creditDebitIndicator: CreditDebitIndicator) =
+                creditDebitIndicator(JsonField.of(creditDebitIndicator))
+
+            /** Whether the Prenotification is for a future debit or credit. */
+            fun creditDebitIndicator(creditDebitIndicator: JsonField<CreditDebitIndicator>) =
+                apply {
+                    this.creditDebitIndicator = creditDebitIndicator
+                }
 
             /**
              * The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * format.
              */
-            fun effectiveDate(effectiveDate: LocalDate?) = apply {
+            fun effectiveDate(effectiveDate: LocalDate) = effectiveDate(JsonField.of(effectiveDate))
+
+            /**
+             * The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+             * format.
+             */
+            fun effectiveDate(effectiveDate: JsonField<LocalDate>) = apply {
                 this.effectiveDate = effectiveDate
             }
 
-            /**
-             * The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * format.
-             */
-            fun effectiveDate(effectiveDate: Optional<LocalDate>) =
-                effectiveDate(effectiveDate.orElse(null))
+            /** Your identifier for the transfer recipient. */
+            fun individualId(individualId: String) = individualId(JsonField.of(individualId))
 
             /** Your identifier for the transfer recipient. */
-            fun individualId(individualId: String?) = apply { this.individualId = individualId }
-
-            /** Your identifier for the transfer recipient. */
-            fun individualId(individualId: Optional<String>) =
-                individualId(individualId.orElse(null))
+            fun individualId(individualId: JsonField<String>) = apply {
+                this.individualId = individualId
+            }
 
             /**
              * The name of the transfer recipient. This value is information and not verified by the
              * recipient's bank.
              */
-            fun individualName(individualName: String?) = apply {
+            fun individualName(individualName: String) =
+                individualName(JsonField.of(individualName))
+
+            /**
+             * The name of the transfer recipient. This value is information and not verified by the
+             * recipient's bank.
+             */
+            fun individualName(individualName: JsonField<String>) = apply {
                 this.individualName = individualName
             }
 
-            /**
-             * The name of the transfer recipient. This value is information and not verified by the
-             * recipient's bank.
-             */
-            fun individualName(individualName: Optional<String>) =
-                individualName(individualName.orElse(null))
+            /** The Standard Entry Class (SEC) code to use for the ACH Prenotification. */
+            fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode) =
+                standardEntryClassCode(JsonField.of(standardEntryClassCode))
 
             /** The Standard Entry Class (SEC) code to use for the ACH Prenotification. */
-            fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode?) = apply {
-                this.standardEntryClassCode = standardEntryClassCode
-            }
-
-            /** The Standard Entry Class (SEC) code to use for the ACH Prenotification. */
-            fun standardEntryClassCode(standardEntryClassCode: Optional<StandardEntryClassCode>) =
-                standardEntryClassCode(standardEntryClassCode.orElse(null))
+            fun standardEntryClassCode(standardEntryClassCode: JsonField<StandardEntryClassCode>) =
+                apply {
+                    this.standardEntryClassCode = standardEntryClassCode
+                }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -402,8 +579,16 @@ constructor(
         /** The Increase identifier for the account that will send the transfer. */
         fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
+        /** The Increase identifier for the account that will send the transfer. */
+        fun accountId(accountId: JsonField<String>) = apply { body.accountId(accountId) }
+
         /** The account number for the destination account. */
         fun accountNumber(accountNumber: String) = apply { body.accountNumber(accountNumber) }
+
+        /** The account number for the destination account. */
+        fun accountNumber(accountNumber: JsonField<String>) = apply {
+            body.accountNumber(accountNumber)
+        }
 
         /**
          * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
@@ -411,92 +596,129 @@ constructor(
          */
         fun routingNumber(routingNumber: String) = apply { body.routingNumber(routingNumber) }
 
-        /** Additional information that will be sent to the recipient. */
-        fun addendum(addendum: String?) = apply { body.addendum(addendum) }
+        /**
+         * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
+         * account.
+         */
+        fun routingNumber(routingNumber: JsonField<String>) = apply {
+            body.routingNumber(routingNumber)
+        }
 
         /** Additional information that will be sent to the recipient. */
-        fun addendum(addendum: Optional<String>) = addendum(addendum.orElse(null))
+        fun addendum(addendum: String) = apply { body.addendum(addendum) }
+
+        /** Additional information that will be sent to the recipient. */
+        fun addendum(addendum: JsonField<String>) = apply { body.addendum(addendum) }
 
         /** The description of the date of the transfer. */
-        fun companyDescriptiveDate(companyDescriptiveDate: String?) = apply {
+        fun companyDescriptiveDate(companyDescriptiveDate: String) = apply {
             body.companyDescriptiveDate(companyDescriptiveDate)
         }
 
         /** The description of the date of the transfer. */
-        fun companyDescriptiveDate(companyDescriptiveDate: Optional<String>) =
-            companyDescriptiveDate(companyDescriptiveDate.orElse(null))
+        fun companyDescriptiveDate(companyDescriptiveDate: JsonField<String>) = apply {
+            body.companyDescriptiveDate(companyDescriptiveDate)
+        }
 
         /** The data you choose to associate with the transfer. */
-        fun companyDiscretionaryData(companyDiscretionaryData: String?) = apply {
+        fun companyDiscretionaryData(companyDiscretionaryData: String) = apply {
             body.companyDiscretionaryData(companyDiscretionaryData)
         }
 
         /** The data you choose to associate with the transfer. */
-        fun companyDiscretionaryData(companyDiscretionaryData: Optional<String>) =
-            companyDiscretionaryData(companyDiscretionaryData.orElse(null))
+        fun companyDiscretionaryData(companyDiscretionaryData: JsonField<String>) = apply {
+            body.companyDiscretionaryData(companyDiscretionaryData)
+        }
 
         /** The description of the transfer you wish to be shown to the recipient. */
-        fun companyEntryDescription(companyEntryDescription: String?) = apply {
+        fun companyEntryDescription(companyEntryDescription: String) = apply {
             body.companyEntryDescription(companyEntryDescription)
         }
 
         /** The description of the transfer you wish to be shown to the recipient. */
-        fun companyEntryDescription(companyEntryDescription: Optional<String>) =
-            companyEntryDescription(companyEntryDescription.orElse(null))
+        fun companyEntryDescription(companyEntryDescription: JsonField<String>) = apply {
+            body.companyEntryDescription(companyEntryDescription)
+        }
 
         /** The name by which the recipient knows you. */
-        fun companyName(companyName: String?) = apply { body.companyName(companyName) }
+        fun companyName(companyName: String) = apply { body.companyName(companyName) }
 
         /** The name by which the recipient knows you. */
-        fun companyName(companyName: Optional<String>) = companyName(companyName.orElse(null))
+        fun companyName(companyName: JsonField<String>) = apply { body.companyName(companyName) }
 
         /** Whether the Prenotification is for a future debit or credit. */
-        fun creditDebitIndicator(creditDebitIndicator: CreditDebitIndicator?) = apply {
+        fun creditDebitIndicator(creditDebitIndicator: CreditDebitIndicator) = apply {
             body.creditDebitIndicator(creditDebitIndicator)
         }
 
         /** Whether the Prenotification is for a future debit or credit. */
-        fun creditDebitIndicator(creditDebitIndicator: Optional<CreditDebitIndicator>) =
-            creditDebitIndicator(creditDebitIndicator.orElse(null))
+        fun creditDebitIndicator(creditDebitIndicator: JsonField<CreditDebitIndicator>) = apply {
+            body.creditDebitIndicator(creditDebitIndicator)
+        }
 
         /**
          * The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
          */
-        fun effectiveDate(effectiveDate: LocalDate?) = apply { body.effectiveDate(effectiveDate) }
+        fun effectiveDate(effectiveDate: LocalDate) = apply { body.effectiveDate(effectiveDate) }
 
         /**
          * The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
          */
-        fun effectiveDate(effectiveDate: Optional<LocalDate>) =
-            effectiveDate(effectiveDate.orElse(null))
+        fun effectiveDate(effectiveDate: JsonField<LocalDate>) = apply {
+            body.effectiveDate(effectiveDate)
+        }
 
         /** Your identifier for the transfer recipient. */
-        fun individualId(individualId: String?) = apply { body.individualId(individualId) }
+        fun individualId(individualId: String) = apply { body.individualId(individualId) }
 
         /** Your identifier for the transfer recipient. */
-        fun individualId(individualId: Optional<String>) = individualId(individualId.orElse(null))
+        fun individualId(individualId: JsonField<String>) = apply {
+            body.individualId(individualId)
+        }
 
         /**
          * The name of the transfer recipient. This value is information and not verified by the
          * recipient's bank.
          */
-        fun individualName(individualName: String?) = apply { body.individualName(individualName) }
+        fun individualName(individualName: String) = apply { body.individualName(individualName) }
 
         /**
          * The name of the transfer recipient. This value is information and not verified by the
          * recipient's bank.
          */
-        fun individualName(individualName: Optional<String>) =
-            individualName(individualName.orElse(null))
+        fun individualName(individualName: JsonField<String>) = apply {
+            body.individualName(individualName)
+        }
 
         /** The Standard Entry Class (SEC) code to use for the ACH Prenotification. */
-        fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode?) = apply {
+        fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode) = apply {
             body.standardEntryClassCode(standardEntryClassCode)
         }
 
         /** The Standard Entry Class (SEC) code to use for the ACH Prenotification. */
-        fun standardEntryClassCode(standardEntryClassCode: Optional<StandardEntryClassCode>) =
-            standardEntryClassCode(standardEntryClassCode.orElse(null))
+        fun standardEntryClassCode(standardEntryClassCode: JsonField<StandardEntryClassCode>) =
+            apply {
+                body.standardEntryClassCode(standardEntryClassCode)
+            }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -594,25 +816,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): AchPrenotificationCreateParams =

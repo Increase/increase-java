@@ -76,34 +76,36 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The account identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** The API Account associated with this bookkeeping account. */
-    @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
+    @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
     /** The compliance category of the account. */
     @JsonProperty("compliance_category")
     @ExcludeMissing
-    fun _complianceCategory() = complianceCategory
+    fun _complianceCategory(): JsonField<ComplianceCategory> = complianceCategory
 
     /** The Entity associated with this bookkeeping account. */
-    @JsonProperty("entity_id") @ExcludeMissing fun _entityId() = entityId
+    @JsonProperty("entity_id") @ExcludeMissing fun _entityId(): JsonField<String> = entityId
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
      * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
     /** The name you choose for the account. */
-    @JsonProperty("name") @ExcludeMissing fun _name() = name
+    @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `bookkeeping_account`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -133,13 +135,13 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var accountId: JsonField<String> = JsonMissing.of()
-        private var complianceCategory: JsonField<ComplianceCategory> = JsonMissing.of()
-        private var entityId: JsonField<String> = JsonMissing.of()
-        private var idempotencyKey: JsonField<String> = JsonMissing.of()
-        private var name: JsonField<String> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var accountId: JsonField<String>? = null
+        private var complianceCategory: JsonField<ComplianceCategory>? = null
+        private var entityId: JsonField<String>? = null
+        private var idempotencyKey: JsonField<String>? = null
+        private var name: JsonField<String>? = null
+        private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -161,14 +163,21 @@ private constructor(
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The API Account associated with this bookkeeping account. */
-        fun accountId(accountId: String) = accountId(JsonField.of(accountId))
+        fun accountId(accountId: String?) = accountId(JsonField.ofNullable(accountId))
+
+        /** The API Account associated with this bookkeeping account. */
+        fun accountId(accountId: Optional<String>) = accountId(accountId.orElse(null))
 
         /** The API Account associated with this bookkeeping account. */
         fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
         /** The compliance category of the account. */
-        fun complianceCategory(complianceCategory: ComplianceCategory) =
-            complianceCategory(JsonField.of(complianceCategory))
+        fun complianceCategory(complianceCategory: ComplianceCategory?) =
+            complianceCategory(JsonField.ofNullable(complianceCategory))
+
+        /** The compliance category of the account. */
+        fun complianceCategory(complianceCategory: Optional<ComplianceCategory>) =
+            complianceCategory(complianceCategory.orElse(null))
 
         /** The compliance category of the account. */
         fun complianceCategory(complianceCategory: JsonField<ComplianceCategory>) = apply {
@@ -176,7 +185,10 @@ private constructor(
         }
 
         /** The Entity associated with this bookkeeping account. */
-        fun entityId(entityId: String) = entityId(JsonField.of(entityId))
+        fun entityId(entityId: String?) = entityId(JsonField.ofNullable(entityId))
+
+        /** The Entity associated with this bookkeeping account. */
+        fun entityId(entityId: Optional<String>) = entityId(entityId.orElse(null))
 
         /** The Entity associated with this bookkeeping account. */
         fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
@@ -186,7 +198,16 @@ private constructor(
          * is used to ensure that a request is only processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+        fun idempotencyKey(idempotencyKey: String?) =
+            idempotencyKey(JsonField.ofNullable(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: Optional<String>) =
+            idempotencyKey(idempotencyKey.orElse(null))
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -236,13 +257,15 @@ private constructor(
 
         fun build(): BookkeepingAccount =
             BookkeepingAccount(
-                id,
-                accountId,
-                complianceCategory,
-                entityId,
-                idempotencyKey,
-                name,
-                type,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(accountId) { "`accountId` is required but was not set" },
+                checkNotNull(complianceCategory) {
+                    "`complianceCategory` is required but was not set"
+                },
+                checkNotNull(entityId) { "`entityId` is required but was not set" },
+                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
+                checkNotNull(name) { "`name` is required but was not set" },
+                checkNotNull(type) { "`type` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }

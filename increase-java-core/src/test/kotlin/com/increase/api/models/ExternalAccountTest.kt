@@ -18,6 +18,7 @@ class ExternalAccountTest {
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .description("Landlord")
                 .funding(ExternalAccount.Funding.CHECKING)
+                .idempotencyKey(null)
                 .routingNumber("101050001")
                 .status(ExternalAccount.Status.ACTIVE)
                 .type(ExternalAccount.Type.EXTERNAL_ACCOUNT)
@@ -32,6 +33,7 @@ class ExternalAccountTest {
             .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(externalAccount.description()).isEqualTo("Landlord")
         assertThat(externalAccount.funding()).isEqualTo(ExternalAccount.Funding.CHECKING)
+        assertThat(externalAccount.idempotencyKey()).isEmpty
         assertThat(externalAccount.routingNumber()).isEqualTo("101050001")
         assertThat(externalAccount.status()).isEqualTo(ExternalAccount.Status.ACTIVE)
         assertThat(externalAccount.type()).isEqualTo(ExternalAccount.Type.EXTERNAL_ACCOUNT)

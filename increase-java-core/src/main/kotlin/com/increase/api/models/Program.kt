@@ -91,41 +91,49 @@ private constructor(
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
     /** The Program identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** The Bank the Program is with. */
-    @JsonProperty("bank") @ExcludeMissing fun _bank() = bank
+    @JsonProperty("bank") @ExcludeMissing fun _bank(): JsonField<Bank> = bank
 
     /** The Program billing account. */
-    @JsonProperty("billing_account_id") @ExcludeMissing fun _billingAccountId() = billingAccountId
+    @JsonProperty("billing_account_id")
+    @ExcludeMissing
+    fun _billingAccountId(): JsonField<String> = billingAccountId
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Program was created.
      */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** The default configuration for digital cards attached to this Program. */
     @JsonProperty("default_digital_card_profile_id")
     @ExcludeMissing
-    fun _defaultDigitalCardProfileId() = defaultDigitalCardProfileId
+    fun _defaultDigitalCardProfileId(): JsonField<String> = defaultDigitalCardProfileId
 
     /**
      * The Interest Rate currently being earned on the accounts in this program, as a string
      * containing a decimal number. For example, a 1% interest rate would be represented as "0.01".
      */
-    @JsonProperty("interest_rate") @ExcludeMissing fun _interestRate() = interestRate
+    @JsonProperty("interest_rate")
+    @ExcludeMissing
+    fun _interestRate(): JsonField<String> = interestRate
 
     /** The name of the Program. */
-    @JsonProperty("name") @ExcludeMissing fun _name() = name
+    @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
     /** A constant representing the object's type. For this resource it will always be `program`. */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Program was last
      * updated.
      */
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -157,15 +165,15 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var bank: JsonField<Bank> = JsonMissing.of()
-        private var billingAccountId: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var defaultDigitalCardProfileId: JsonField<String> = JsonMissing.of()
-        private var interestRate: JsonField<String> = JsonMissing.of()
-        private var name: JsonField<String> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var bank: JsonField<Bank>? = null
+        private var billingAccountId: JsonField<String>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var defaultDigitalCardProfileId: JsonField<String>? = null
+        private var interestRate: JsonField<String>? = null
+        private var name: JsonField<String>? = null
+        private var type: JsonField<Type>? = null
+        private var updatedAt: JsonField<OffsetDateTime>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -195,8 +203,12 @@ private constructor(
         fun bank(bank: JsonField<Bank>) = apply { this.bank = bank }
 
         /** The Program billing account. */
-        fun billingAccountId(billingAccountId: String) =
-            billingAccountId(JsonField.of(billingAccountId))
+        fun billingAccountId(billingAccountId: String?) =
+            billingAccountId(JsonField.ofNullable(billingAccountId))
+
+        /** The Program billing account. */
+        fun billingAccountId(billingAccountId: Optional<String>) =
+            billingAccountId(billingAccountId.orElse(null))
 
         /** The Program billing account. */
         fun billingAccountId(billingAccountId: JsonField<String>) = apply {
@@ -216,8 +228,12 @@ private constructor(
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The default configuration for digital cards attached to this Program. */
-        fun defaultDigitalCardProfileId(defaultDigitalCardProfileId: String) =
-            defaultDigitalCardProfileId(JsonField.of(defaultDigitalCardProfileId))
+        fun defaultDigitalCardProfileId(defaultDigitalCardProfileId: String?) =
+            defaultDigitalCardProfileId(JsonField.ofNullable(defaultDigitalCardProfileId))
+
+        /** The default configuration for digital cards attached to this Program. */
+        fun defaultDigitalCardProfileId(defaultDigitalCardProfileId: Optional<String>) =
+            defaultDigitalCardProfileId(defaultDigitalCardProfileId.orElse(null))
 
         /** The default configuration for digital cards attached to this Program. */
         fun defaultDigitalCardProfileId(defaultDigitalCardProfileId: JsonField<String>) = apply {
@@ -289,15 +305,17 @@ private constructor(
 
         fun build(): Program =
             Program(
-                id,
-                bank,
-                billingAccountId,
-                createdAt,
-                defaultDigitalCardProfileId,
-                interestRate,
-                name,
-                type,
-                updatedAt,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(bank) { "`bank` is required but was not set" },
+                checkNotNull(billingAccountId) { "`billingAccountId` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(defaultDigitalCardProfileId) {
+                    "`defaultDigitalCardProfileId` is required but was not set"
+                },
+                checkNotNull(interestRate) { "`interestRate` is required but was not set" },
+                checkNotNull(name) { "`name` is required but was not set" },
+                checkNotNull(type) { "`type` is required but was not set" },
+                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }

@@ -162,90 +162,96 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The Real-Time Payments Request for Payment's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** The transfer amount in USD cents. */
-    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+    @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the request for
      * payment was created.
      */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /**
      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency. For
      * real-time payments transfers this is always equal to `USD`.
      */
-    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+    @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
 
     /** The name of the recipient the sender is requesting a transfer from. */
-    @JsonProperty("debtor_name") @ExcludeMissing fun _debtorName() = debtorName
+    @JsonProperty("debtor_name") @ExcludeMissing fun _debtorName(): JsonField<String> = debtorName
 
     /** The Account Number in which a successful transfer will arrive. */
     @JsonProperty("destination_account_number_id")
     @ExcludeMissing
-    fun _destinationAccountNumberId() = destinationAccountNumberId
+    fun _destinationAccountNumberId(): JsonField<String> = destinationAccountNumberId
 
     /**
      * The expiration time for this request, in UTC. The requestee will not be able to pay after
      * this date.
      */
-    @JsonProperty("expires_at") @ExcludeMissing fun _expiresAt() = expiresAt
+    @JsonProperty("expires_at") @ExcludeMissing fun _expiresAt(): JsonField<LocalDate> = expiresAt
 
     /** The transaction that fulfilled this request. */
     @JsonProperty("fulfillment_transaction_id")
     @ExcludeMissing
-    fun _fulfillmentTransactionId() = fulfillmentTransactionId
+    fun _fulfillmentTransactionId(): JsonField<String> = fulfillmentTransactionId
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
      * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
     /**
      * If the request for payment is refused by the destination financial institution or the
      * receiving customer, this will contain supplemental details.
      */
-    @JsonProperty("refusal") @ExcludeMissing fun _refusal() = refusal
+    @JsonProperty("refusal") @ExcludeMissing fun _refusal(): JsonField<Refusal> = refusal
 
     /**
      * If the request for payment is rejected by Real-Time Payments or the destination financial
      * institution, this will contain supplemental details.
      */
-    @JsonProperty("rejection") @ExcludeMissing fun _rejection() = rejection
+    @JsonProperty("rejection") @ExcludeMissing fun _rejection(): JsonField<Rejection> = rejection
 
     /** Unstructured information that will show on the recipient's bank statement. */
     @JsonProperty("remittance_information")
     @ExcludeMissing
-    fun _remittanceInformation() = remittanceInformation
+    fun _remittanceInformation(): JsonField<String> = remittanceInformation
 
     /** The account number the request is sent to. */
     @JsonProperty("source_account_number")
     @ExcludeMissing
-    fun _sourceAccountNumber() = sourceAccountNumber
+    fun _sourceAccountNumber(): JsonField<String> = sourceAccountNumber
 
     /** The receiver's American Bankers' Association (ABA) Routing Transit Number (RTN). */
     @JsonProperty("source_routing_number")
     @ExcludeMissing
-    fun _sourceRoutingNumber() = sourceRoutingNumber
+    fun _sourceRoutingNumber(): JsonField<String> = sourceRoutingNumber
 
     /** The lifecycle status of the request for payment. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /**
      * After the request for payment is submitted to Real-Time Payments, this will contain
      * supplemental details.
      */
-    @JsonProperty("submission") @ExcludeMissing fun _submission() = submission
+    @JsonProperty("submission")
+    @ExcludeMissing
+    fun _submission(): JsonField<Submission> = submission
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `real_time_payments_request_for_payment`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -285,23 +291,23 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var amount: JsonField<Long> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var currency: JsonField<Currency> = JsonMissing.of()
-        private var debtorName: JsonField<String> = JsonMissing.of()
-        private var destinationAccountNumberId: JsonField<String> = JsonMissing.of()
-        private var expiresAt: JsonField<LocalDate> = JsonMissing.of()
-        private var fulfillmentTransactionId: JsonField<String> = JsonMissing.of()
-        private var idempotencyKey: JsonField<String> = JsonMissing.of()
-        private var refusal: JsonField<Refusal> = JsonMissing.of()
-        private var rejection: JsonField<Rejection> = JsonMissing.of()
-        private var remittanceInformation: JsonField<String> = JsonMissing.of()
-        private var sourceAccountNumber: JsonField<String> = JsonMissing.of()
-        private var sourceRoutingNumber: JsonField<String> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var submission: JsonField<Submission> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var amount: JsonField<Long>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var currency: JsonField<Currency>? = null
+        private var debtorName: JsonField<String>? = null
+        private var destinationAccountNumberId: JsonField<String>? = null
+        private var expiresAt: JsonField<LocalDate>? = null
+        private var fulfillmentTransactionId: JsonField<String>? = null
+        private var idempotencyKey: JsonField<String>? = null
+        private var refusal: JsonField<Refusal>? = null
+        private var rejection: JsonField<Rejection>? = null
+        private var remittanceInformation: JsonField<String>? = null
+        private var sourceAccountNumber: JsonField<String>? = null
+        private var sourceRoutingNumber: JsonField<String>? = null
+        private var status: JsonField<Status>? = null
+        private var submission: JsonField<Submission>? = null
+        private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -394,8 +400,12 @@ private constructor(
         fun expiresAt(expiresAt: JsonField<LocalDate>) = apply { this.expiresAt = expiresAt }
 
         /** The transaction that fulfilled this request. */
-        fun fulfillmentTransactionId(fulfillmentTransactionId: String) =
-            fulfillmentTransactionId(JsonField.of(fulfillmentTransactionId))
+        fun fulfillmentTransactionId(fulfillmentTransactionId: String?) =
+            fulfillmentTransactionId(JsonField.ofNullable(fulfillmentTransactionId))
+
+        /** The transaction that fulfilled this request. */
+        fun fulfillmentTransactionId(fulfillmentTransactionId: Optional<String>) =
+            fulfillmentTransactionId(fulfillmentTransactionId.orElse(null))
 
         /** The transaction that fulfilled this request. */
         fun fulfillmentTransactionId(fulfillmentTransactionId: JsonField<String>) = apply {
@@ -407,7 +417,16 @@ private constructor(
          * is used to ensure that a request is only processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+        fun idempotencyKey(idempotencyKey: String?) =
+            idempotencyKey(JsonField.ofNullable(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: Optional<String>) =
+            idempotencyKey(idempotencyKey.orElse(null))
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -422,7 +441,13 @@ private constructor(
          * If the request for payment is refused by the destination financial institution or the
          * receiving customer, this will contain supplemental details.
          */
-        fun refusal(refusal: Refusal) = refusal(JsonField.of(refusal))
+        fun refusal(refusal: Refusal?) = refusal(JsonField.ofNullable(refusal))
+
+        /**
+         * If the request for payment is refused by the destination financial institution or the
+         * receiving customer, this will contain supplemental details.
+         */
+        fun refusal(refusal: Optional<Refusal>) = refusal(refusal.orElse(null))
 
         /**
          * If the request for payment is refused by the destination financial institution or the
@@ -434,7 +459,13 @@ private constructor(
          * If the request for payment is rejected by Real-Time Payments or the destination financial
          * institution, this will contain supplemental details.
          */
-        fun rejection(rejection: Rejection) = rejection(JsonField.of(rejection))
+        fun rejection(rejection: Rejection?) = rejection(JsonField.ofNullable(rejection))
+
+        /**
+         * If the request for payment is rejected by Real-Time Payments or the destination financial
+         * institution, this will contain supplemental details.
+         */
+        fun rejection(rejection: Optional<Rejection>) = rejection(rejection.orElse(null))
 
         /**
          * If the request for payment is rejected by Real-Time Payments or the destination financial
@@ -479,7 +510,13 @@ private constructor(
          * After the request for payment is submitted to Real-Time Payments, this will contain
          * supplemental details.
          */
-        fun submission(submission: Submission) = submission(JsonField.of(submission))
+        fun submission(submission: Submission?) = submission(JsonField.ofNullable(submission))
+
+        /**
+         * After the request for payment is submitted to Real-Time Payments, this will contain
+         * supplemental details.
+         */
+        fun submission(submission: Optional<Submission>) = submission(submission.orElse(null))
 
         /**
          * After the request for payment is submitted to Real-Time Payments, this will contain
@@ -520,23 +557,33 @@ private constructor(
 
         fun build(): RealTimePaymentsRequestForPayment =
             RealTimePaymentsRequestForPayment(
-                id,
-                amount,
-                createdAt,
-                currency,
-                debtorName,
-                destinationAccountNumberId,
-                expiresAt,
-                fulfillmentTransactionId,
-                idempotencyKey,
-                refusal,
-                rejection,
-                remittanceInformation,
-                sourceAccountNumber,
-                sourceRoutingNumber,
-                status,
-                submission,
-                type,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(amount) { "`amount` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(currency) { "`currency` is required but was not set" },
+                checkNotNull(debtorName) { "`debtorName` is required but was not set" },
+                checkNotNull(destinationAccountNumberId) {
+                    "`destinationAccountNumberId` is required but was not set"
+                },
+                checkNotNull(expiresAt) { "`expiresAt` is required but was not set" },
+                checkNotNull(fulfillmentTransactionId) {
+                    "`fulfillmentTransactionId` is required but was not set"
+                },
+                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
+                checkNotNull(refusal) { "`refusal` is required but was not set" },
+                checkNotNull(rejection) { "`rejection` is required but was not set" },
+                checkNotNull(remittanceInformation) {
+                    "`remittanceInformation` is required but was not set"
+                },
+                checkNotNull(sourceAccountNumber) {
+                    "`sourceAccountNumber` is required but was not set"
+                },
+                checkNotNull(sourceRoutingNumber) {
+                    "`sourceRoutingNumber` is required but was not set"
+                },
+                checkNotNull(status) { "`status` is required but was not set" },
+                checkNotNull(submission) { "`submission` is required but was not set" },
+                checkNotNull(type) { "`type` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }
@@ -650,7 +697,7 @@ private constructor(
          */
         @JsonProperty("refusal_reason_code")
         @ExcludeMissing
-        fun _refusalReasonCode() = refusalReasonCode
+        fun _refusalReasonCode(): JsonField<RefusalReasonCode> = refusalReasonCode
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -674,7 +721,7 @@ private constructor(
 
         class Builder {
 
-            private var refusalReasonCode: JsonField<RefusalReasonCode> = JsonMissing.of()
+            private var refusalReasonCode: JsonField<RefusalReasonCode>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -717,7 +764,13 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): Refusal = Refusal(refusalReasonCode, additionalProperties.toImmutable())
+            fun build(): Refusal =
+                Refusal(
+                    checkNotNull(refusalReasonCode) {
+                        "`refusalReasonCode` is required but was not set"
+                    },
+                    additionalProperties.toImmutable()
+                )
         }
 
         class RefusalReasonCode
@@ -889,7 +942,7 @@ private constructor(
          */
         @JsonProperty("reject_reason_code")
         @ExcludeMissing
-        fun _rejectReasonCode() = rejectReasonCode
+        fun _rejectReasonCode(): JsonField<RejectReasonCode> = rejectReasonCode
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -913,7 +966,7 @@ private constructor(
 
         class Builder {
 
-            private var rejectReasonCode: JsonField<RejectReasonCode> = JsonMissing.of()
+            private var rejectReasonCode: JsonField<RejectReasonCode>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -956,7 +1009,13 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): Rejection = Rejection(rejectReasonCode, additionalProperties.toImmutable())
+            fun build(): Rejection =
+                Rejection(
+                    checkNotNull(rejectReasonCode) {
+                        "`rejectReasonCode` is required but was not set"
+                    },
+                    additionalProperties.toImmutable()
+                )
         }
 
         class RejectReasonCode
@@ -1258,7 +1317,8 @@ private constructor(
         /** The Real-Time Payments payment information identification of the request. */
         @JsonProperty("payment_information_identification")
         @ExcludeMissing
-        fun _paymentInformationIdentification() = paymentInformationIdentification
+        fun _paymentInformationIdentification(): JsonField<String> =
+            paymentInformationIdentification
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1282,7 +1342,7 @@ private constructor(
 
         class Builder {
 
-            private var paymentInformationIdentification: JsonField<String> = JsonMissing.of()
+            private var paymentInformationIdentification: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -1320,7 +1380,12 @@ private constructor(
             }
 
             fun build(): Submission =
-                Submission(paymentInformationIdentification, additionalProperties.toImmutable())
+                Submission(
+                    checkNotNull(paymentInformationIdentification) {
+                        "`paymentInformationIdentification` is required but was not set"
+                    },
+                    additionalProperties.toImmutable()
+                )
         }
 
         override fun equals(other: Any?): Boolean {

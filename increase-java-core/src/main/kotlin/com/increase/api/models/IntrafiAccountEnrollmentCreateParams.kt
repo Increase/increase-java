@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -29,11 +31,17 @@ constructor(
     /** The contact email for the account owner, to be shared with IntraFi. */
     fun emailAddress(): String = body.emailAddress()
 
+    /** The identifier for the account to be added to IntraFi. */
+    fun _accountId(): JsonField<String> = body._accountId()
+
+    /** The contact email for the account owner, to be shared with IntraFi. */
+    fun _emailAddress(): JsonField<String> = body._emailAddress()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     @JvmSynthetic internal fun getBody(): IntrafiAccountEnrollmentCreateBody = body
 
@@ -45,21 +53,43 @@ constructor(
     class IntrafiAccountEnrollmentCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("account_id") private val accountId: String,
-        @JsonProperty("email_address") private val emailAddress: String,
+        @JsonProperty("account_id")
+        @ExcludeMissing
+        private val accountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("email_address")
+        @ExcludeMissing
+        private val emailAddress: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The identifier for the account to be added to IntraFi. */
-        @JsonProperty("account_id") fun accountId(): String = accountId
+        fun accountId(): String = accountId.getRequired("account_id")
 
         /** The contact email for the account owner, to be shared with IntraFi. */
-        @JsonProperty("email_address") fun emailAddress(): String = emailAddress
+        fun emailAddress(): String = emailAddress.getRequired("email_address")
+
+        /** The identifier for the account to be added to IntraFi. */
+        @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
+
+        /** The contact email for the account owner, to be shared with IntraFi. */
+        @JsonProperty("email_address")
+        @ExcludeMissing
+        fun _emailAddress(): JsonField<String> = emailAddress
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): IntrafiAccountEnrollmentCreateBody = apply {
+            if (!validated) {
+                accountId()
+                emailAddress()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -70,8 +100,8 @@ constructor(
 
         class Builder {
 
-            private var accountId: String? = null
-            private var emailAddress: String? = null
+            private var accountId: JsonField<String>? = null
+            private var emailAddress: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -85,10 +115,18 @@ constructor(
             }
 
             /** The identifier for the account to be added to IntraFi. */
-            fun accountId(accountId: String) = apply { this.accountId = accountId }
+            fun accountId(accountId: String) = accountId(JsonField.of(accountId))
+
+            /** The identifier for the account to be added to IntraFi. */
+            fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
             /** The contact email for the account owner, to be shared with IntraFi. */
-            fun emailAddress(emailAddress: String) = apply { this.emailAddress = emailAddress }
+            fun emailAddress(emailAddress: String) = emailAddress(JsonField.of(emailAddress))
+
+            /** The contact email for the account owner, to be shared with IntraFi. */
+            fun emailAddress(emailAddress: JsonField<String>) = apply {
+                this.emailAddress = emailAddress
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -163,8 +201,35 @@ constructor(
         /** The identifier for the account to be added to IntraFi. */
         fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
+        /** The identifier for the account to be added to IntraFi. */
+        fun accountId(accountId: JsonField<String>) = apply { body.accountId(accountId) }
+
         /** The contact email for the account owner, to be shared with IntraFi. */
         fun emailAddress(emailAddress: String) = apply { body.emailAddress(emailAddress) }
+
+        /** The contact email for the account owner, to be shared with IntraFi. */
+        fun emailAddress(emailAddress: JsonField<String>) = apply {
+            body.emailAddress(emailAddress)
+        }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -262,25 +327,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): IntrafiAccountEnrollmentCreateParams =

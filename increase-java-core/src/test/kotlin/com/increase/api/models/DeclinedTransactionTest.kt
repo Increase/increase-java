@@ -28,6 +28,8 @@ class DeclinedTransactionTest {
                                 .id("ach_decline_72v1mcwxudctq56efipa")
                                 .amount(1750L)
                                 .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
+                                .originatorCompanyDescriptiveDate(null)
+                                .originatorCompanyDiscretionaryData(null)
                                 .originatorCompanyId("0987654321")
                                 .originatorCompanyName("BIG BANK")
                                 .reason(
@@ -47,6 +49,7 @@ class DeclinedTransactionTest {
                                 .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                 .currency(DeclinedTransaction.Source.CardDecline.Currency.CAD)
                                 .declinedTransactionId("declined_transaction_17jbn0yyhvkt4v4ooym8")
+                                .digitalWalletTokenId(null)
                                 .direction(
                                     DeclinedTransaction.Source.CardDecline.Direction.SETTLEMENT
                                 )
@@ -56,6 +59,7 @@ class DeclinedTransactionTest {
                                 .merchantCountry("US")
                                 .merchantDescriptor("AMAZON.COM")
                                 .merchantPostalCode("10045")
+                                .merchantState(null)
                                 .networkDetails(
                                     DeclinedTransaction.Source.CardDecline.NetworkDetails.builder()
                                         .category(
@@ -101,12 +105,14 @@ class DeclinedTransactionTest {
                                         .build()
                                 )
                                 .networkRiskScore(10L)
+                                .physicalCardId(null)
                                 .presentmentAmount(-1000L)
                                 .presentmentCurrency("USD")
                                 .processingCategory(
                                     DeclinedTransaction.Source.CardDecline.ProcessingCategory
                                         .ACCOUNT_FUNDING
                                 )
+                                .realTimeDecisionId(null)
                                 .realTimeDecisionReason(
                                     DeclinedTransaction.Source.CardDecline.RealTimeDecisionReason
                                         .INSUFFICIENT_FUNDS
@@ -156,7 +162,9 @@ class DeclinedTransactionTest {
                             DeclinedTransaction.Source.CheckDecline.builder()
                                 .amount(-1000L)
                                 .auxiliaryOnUs("99999")
+                                .backImageFileId(null)
                                 .checkTransferId("check_transfer_30b43acfu9vw8fyc4f5")
+                                .frontImageFileId(null)
                                 .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
                                 .reason(
                                     DeclinedTransaction.Source.CheckDecline.Reason
@@ -239,6 +247,8 @@ class DeclinedTransactionTest {
                             .id("ach_decline_72v1mcwxudctq56efipa")
                             .amount(1750L)
                             .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
+                            .originatorCompanyDescriptiveDate(null)
+                            .originatorCompanyDiscretionaryData(null)
                             .originatorCompanyId("0987654321")
                             .originatorCompanyName("BIG BANK")
                             .reason(DeclinedTransaction.Source.AchDecline.Reason.ACH_ROUTE_CANCELED)
@@ -256,6 +266,7 @@ class DeclinedTransactionTest {
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                             .currency(DeclinedTransaction.Source.CardDecline.Currency.CAD)
                             .declinedTransactionId("declined_transaction_17jbn0yyhvkt4v4ooym8")
+                            .digitalWalletTokenId(null)
                             .direction(DeclinedTransaction.Source.CardDecline.Direction.SETTLEMENT)
                             .merchantAcceptorId("5665270011000168")
                             .merchantCategoryCode("5734")
@@ -263,6 +274,7 @@ class DeclinedTransactionTest {
                             .merchantCountry("US")
                             .merchantDescriptor("AMAZON.COM")
                             .merchantPostalCode("10045")
+                            .merchantState(null)
                             .networkDetails(
                                 DeclinedTransaction.Source.CardDecline.NetworkDetails.builder()
                                     .category(
@@ -306,12 +318,14 @@ class DeclinedTransactionTest {
                                     .build()
                             )
                             .networkRiskScore(10L)
+                            .physicalCardId(null)
                             .presentmentAmount(-1000L)
                             .presentmentCurrency("USD")
                             .processingCategory(
                                 DeclinedTransaction.Source.CardDecline.ProcessingCategory
                                     .ACCOUNT_FUNDING
                             )
+                            .realTimeDecisionId(null)
                             .realTimeDecisionReason(
                                 DeclinedTransaction.Source.CardDecline.RealTimeDecisionReason
                                     .INSUFFICIENT_FUNDS
@@ -357,7 +371,9 @@ class DeclinedTransactionTest {
                         DeclinedTransaction.Source.CheckDecline.builder()
                             .amount(-1000L)
                             .auxiliaryOnUs("99999")
+                            .backImageFileId(null)
                             .checkTransferId("check_transfer_30b43acfu9vw8fyc4f5")
+                            .frontImageFileId(null)
                             .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
                             .reason(
                                 DeclinedTransaction.Source.CheckDecline.Reason.ACH_ROUTE_DISABLED

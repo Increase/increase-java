@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -69,11 +71,56 @@ constructor(
      */
     fun ultimateDebtorName(): Optional<String> = body.ultimateDebtorName()
 
+    /** The transfer amount in USD cents. For Real-Time Payments transfers, must be positive. */
+    fun _amount(): JsonField<Long> = body._amount()
+
+    /** The name of the transfer's recipient. */
+    fun _creditorName(): JsonField<String> = body._creditorName()
+
+    /** Unstructured information that will show on the recipient's bank statement. */
+    fun _remittanceInformation(): JsonField<String> = body._remittanceInformation()
+
+    /** The identifier of the Account Number from which to send the transfer. */
+    fun _sourceAccountNumberId(): JsonField<String> = body._sourceAccountNumberId()
+
+    /**
+     * The name of the transfer's sender. If not provided, defaults to the name of the account's
+     * entity.
+     */
+    fun _debtorName(): JsonField<String> = body._debtorName()
+
+    /** The destination account number. */
+    fun _destinationAccountNumber(): JsonField<String> = body._destinationAccountNumber()
+
+    /** The destination American Bankers' Association (ABA) Routing Transit Number (RTN). */
+    fun _destinationRoutingNumber(): JsonField<String> = body._destinationRoutingNumber()
+
+    /**
+     * The ID of an External Account to initiate a transfer to. If this parameter is provided,
+     * `destination_account_number` and `destination_routing_number` must be absent.
+     */
+    fun _externalAccountId(): JsonField<String> = body._externalAccountId()
+
+    /** Whether the transfer requires explicit approval via the dashboard or API. */
+    fun _requireApproval(): JsonField<Boolean> = body._requireApproval()
+
+    /**
+     * The name of the ultimate recipient of the transfer. Set this if the creditor is an
+     * intermediary receiving the payment for someone else.
+     */
+    fun _ultimateCreditorName(): JsonField<String> = body._ultimateCreditorName()
+
+    /**
+     * The name of the ultimate sender of the transfer. Set this if the funds are being sent on
+     * behalf of someone who is not the account holder at Increase.
+     */
+    fun _ultimateDebtorName(): JsonField<String> = body._ultimateDebtorName()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     @JvmSynthetic internal fun getBody(): RealTimePaymentsTransferCreateBody = body
 
@@ -85,80 +132,184 @@ constructor(
     class RealTimePaymentsTransferCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("amount") private val amount: Long,
-        @JsonProperty("creditor_name") private val creditorName: String,
-        @JsonProperty("remittance_information") private val remittanceInformation: String,
-        @JsonProperty("source_account_number_id") private val sourceAccountNumberId: String,
-        @JsonProperty("debtor_name") private val debtorName: String?,
-        @JsonProperty("destination_account_number") private val destinationAccountNumber: String?,
-        @JsonProperty("destination_routing_number") private val destinationRoutingNumber: String?,
-        @JsonProperty("external_account_id") private val externalAccountId: String?,
-        @JsonProperty("require_approval") private val requireApproval: Boolean?,
-        @JsonProperty("ultimate_creditor_name") private val ultimateCreditorName: String?,
-        @JsonProperty("ultimate_debtor_name") private val ultimateDebtorName: String?,
+        @JsonProperty("amount")
+        @ExcludeMissing
+        private val amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("creditor_name")
+        @ExcludeMissing
+        private val creditorName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("remittance_information")
+        @ExcludeMissing
+        private val remittanceInformation: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("source_account_number_id")
+        @ExcludeMissing
+        private val sourceAccountNumberId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("debtor_name")
+        @ExcludeMissing
+        private val debtorName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("destination_account_number")
+        @ExcludeMissing
+        private val destinationAccountNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("destination_routing_number")
+        @ExcludeMissing
+        private val destinationRoutingNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("external_account_id")
+        @ExcludeMissing
+        private val externalAccountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("require_approval")
+        @ExcludeMissing
+        private val requireApproval: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("ultimate_creditor_name")
+        @ExcludeMissing
+        private val ultimateCreditorName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("ultimate_debtor_name")
+        @ExcludeMissing
+        private val ultimateDebtorName: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The transfer amount in USD cents. For Real-Time Payments transfers, must be positive. */
-        @JsonProperty("amount") fun amount(): Long = amount
+        fun amount(): Long = amount.getRequired("amount")
 
         /** The name of the transfer's recipient. */
-        @JsonProperty("creditor_name") fun creditorName(): String = creditorName
+        fun creditorName(): String = creditorName.getRequired("creditor_name")
+
+        /** Unstructured information that will show on the recipient's bank statement. */
+        fun remittanceInformation(): String =
+            remittanceInformation.getRequired("remittance_information")
+
+        /** The identifier of the Account Number from which to send the transfer. */
+        fun sourceAccountNumberId(): String =
+            sourceAccountNumberId.getRequired("source_account_number_id")
+
+        /**
+         * The name of the transfer's sender. If not provided, defaults to the name of the account's
+         * entity.
+         */
+        fun debtorName(): Optional<String> =
+            Optional.ofNullable(debtorName.getNullable("debtor_name"))
+
+        /** The destination account number. */
+        fun destinationAccountNumber(): Optional<String> =
+            Optional.ofNullable(destinationAccountNumber.getNullable("destination_account_number"))
+
+        /** The destination American Bankers' Association (ABA) Routing Transit Number (RTN). */
+        fun destinationRoutingNumber(): Optional<String> =
+            Optional.ofNullable(destinationRoutingNumber.getNullable("destination_routing_number"))
+
+        /**
+         * The ID of an External Account to initiate a transfer to. If this parameter is provided,
+         * `destination_account_number` and `destination_routing_number` must be absent.
+         */
+        fun externalAccountId(): Optional<String> =
+            Optional.ofNullable(externalAccountId.getNullable("external_account_id"))
+
+        /** Whether the transfer requires explicit approval via the dashboard or API. */
+        fun requireApproval(): Optional<Boolean> =
+            Optional.ofNullable(requireApproval.getNullable("require_approval"))
+
+        /**
+         * The name of the ultimate recipient of the transfer. Set this if the creditor is an
+         * intermediary receiving the payment for someone else.
+         */
+        fun ultimateCreditorName(): Optional<String> =
+            Optional.ofNullable(ultimateCreditorName.getNullable("ultimate_creditor_name"))
+
+        /**
+         * The name of the ultimate sender of the transfer. Set this if the funds are being sent on
+         * behalf of someone who is not the account holder at Increase.
+         */
+        fun ultimateDebtorName(): Optional<String> =
+            Optional.ofNullable(ultimateDebtorName.getNullable("ultimate_debtor_name"))
+
+        /** The transfer amount in USD cents. For Real-Time Payments transfers, must be positive. */
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+        /** The name of the transfer's recipient. */
+        @JsonProperty("creditor_name")
+        @ExcludeMissing
+        fun _creditorName(): JsonField<String> = creditorName
 
         /** Unstructured information that will show on the recipient's bank statement. */
         @JsonProperty("remittance_information")
-        fun remittanceInformation(): String = remittanceInformation
+        @ExcludeMissing
+        fun _remittanceInformation(): JsonField<String> = remittanceInformation
 
         /** The identifier of the Account Number from which to send the transfer. */
         @JsonProperty("source_account_number_id")
-        fun sourceAccountNumberId(): String = sourceAccountNumberId
+        @ExcludeMissing
+        fun _sourceAccountNumberId(): JsonField<String> = sourceAccountNumberId
 
         /**
          * The name of the transfer's sender. If not provided, defaults to the name of the account's
          * entity.
          */
         @JsonProperty("debtor_name")
-        fun debtorName(): Optional<String> = Optional.ofNullable(debtorName)
+        @ExcludeMissing
+        fun _debtorName(): JsonField<String> = debtorName
 
         /** The destination account number. */
         @JsonProperty("destination_account_number")
-        fun destinationAccountNumber(): Optional<String> =
-            Optional.ofNullable(destinationAccountNumber)
+        @ExcludeMissing
+        fun _destinationAccountNumber(): JsonField<String> = destinationAccountNumber
 
         /** The destination American Bankers' Association (ABA) Routing Transit Number (RTN). */
         @JsonProperty("destination_routing_number")
-        fun destinationRoutingNumber(): Optional<String> =
-            Optional.ofNullable(destinationRoutingNumber)
+        @ExcludeMissing
+        fun _destinationRoutingNumber(): JsonField<String> = destinationRoutingNumber
 
         /**
          * The ID of an External Account to initiate a transfer to. If this parameter is provided,
          * `destination_account_number` and `destination_routing_number` must be absent.
          */
         @JsonProperty("external_account_id")
-        fun externalAccountId(): Optional<String> = Optional.ofNullable(externalAccountId)
+        @ExcludeMissing
+        fun _externalAccountId(): JsonField<String> = externalAccountId
 
         /** Whether the transfer requires explicit approval via the dashboard or API. */
         @JsonProperty("require_approval")
-        fun requireApproval(): Optional<Boolean> = Optional.ofNullable(requireApproval)
+        @ExcludeMissing
+        fun _requireApproval(): JsonField<Boolean> = requireApproval
 
         /**
          * The name of the ultimate recipient of the transfer. Set this if the creditor is an
          * intermediary receiving the payment for someone else.
          */
         @JsonProperty("ultimate_creditor_name")
-        fun ultimateCreditorName(): Optional<String> = Optional.ofNullable(ultimateCreditorName)
+        @ExcludeMissing
+        fun _ultimateCreditorName(): JsonField<String> = ultimateCreditorName
 
         /**
          * The name of the ultimate sender of the transfer. Set this if the funds are being sent on
          * behalf of someone who is not the account holder at Increase.
          */
         @JsonProperty("ultimate_debtor_name")
-        fun ultimateDebtorName(): Optional<String> = Optional.ofNullable(ultimateDebtorName)
+        @ExcludeMissing
+        fun _ultimateDebtorName(): JsonField<String> = ultimateDebtorName
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): RealTimePaymentsTransferCreateBody = apply {
+            if (!validated) {
+                amount()
+                creditorName()
+                remittanceInformation()
+                sourceAccountNumberId()
+                debtorName()
+                destinationAccountNumber()
+                destinationRoutingNumber()
+                externalAccountId()
+                requireApproval()
+                ultimateCreditorName()
+                ultimateDebtorName()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -169,17 +320,17 @@ constructor(
 
         class Builder {
 
-            private var amount: Long? = null
-            private var creditorName: String? = null
-            private var remittanceInformation: String? = null
-            private var sourceAccountNumberId: String? = null
-            private var debtorName: String? = null
-            private var destinationAccountNumber: String? = null
-            private var destinationRoutingNumber: String? = null
-            private var externalAccountId: String? = null
-            private var requireApproval: Boolean? = null
-            private var ultimateCreditorName: String? = null
-            private var ultimateDebtorName: String? = null
+            private var amount: JsonField<Long>? = null
+            private var creditorName: JsonField<String>? = null
+            private var remittanceInformation: JsonField<String>? = null
+            private var sourceAccountNumberId: JsonField<String>? = null
+            private var debtorName: JsonField<String> = JsonMissing.of()
+            private var destinationAccountNumber: JsonField<String> = JsonMissing.of()
+            private var destinationRoutingNumber: JsonField<String> = JsonMissing.of()
+            private var externalAccountId: JsonField<String> = JsonMissing.of()
+            private var requireApproval: JsonField<Boolean> = JsonMissing.of()
+            private var ultimateCreditorName: JsonField<String> = JsonMissing.of()
+            private var ultimateDebtorName: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -206,18 +357,36 @@ constructor(
             /**
              * The transfer amount in USD cents. For Real-Time Payments transfers, must be positive.
              */
-            fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long) = amount(JsonField.of(amount))
+
+            /**
+             * The transfer amount in USD cents. For Real-Time Payments transfers, must be positive.
+             */
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /** The name of the transfer's recipient. */
-            fun creditorName(creditorName: String) = apply { this.creditorName = creditorName }
+            fun creditorName(creditorName: String) = creditorName(JsonField.of(creditorName))
+
+            /** The name of the transfer's recipient. */
+            fun creditorName(creditorName: JsonField<String>) = apply {
+                this.creditorName = creditorName
+            }
 
             /** Unstructured information that will show on the recipient's bank statement. */
-            fun remittanceInformation(remittanceInformation: String) = apply {
+            fun remittanceInformation(remittanceInformation: String) =
+                remittanceInformation(JsonField.of(remittanceInformation))
+
+            /** Unstructured information that will show on the recipient's bank statement. */
+            fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {
                 this.remittanceInformation = remittanceInformation
             }
 
             /** The identifier of the Account Number from which to send the transfer. */
-            fun sourceAccountNumberId(sourceAccountNumberId: String) = apply {
+            fun sourceAccountNumberId(sourceAccountNumberId: String) =
+                sourceAccountNumberId(JsonField.of(sourceAccountNumberId))
+
+            /** The identifier of the Account Number from which to send the transfer. */
+            fun sourceAccountNumberId(sourceAccountNumberId: JsonField<String>) = apply {
                 this.sourceAccountNumberId = sourceAccountNumberId
             }
 
@@ -225,92 +394,87 @@ constructor(
              * The name of the transfer's sender. If not provided, defaults to the name of the
              * account's entity.
              */
-            fun debtorName(debtorName: String?) = apply { this.debtorName = debtorName }
+            fun debtorName(debtorName: String) = debtorName(JsonField.of(debtorName))
 
             /**
              * The name of the transfer's sender. If not provided, defaults to the name of the
              * account's entity.
              */
-            fun debtorName(debtorName: Optional<String>) = debtorName(debtorName.orElse(null))
+            fun debtorName(debtorName: JsonField<String>) = apply { this.debtorName = debtorName }
 
             /** The destination account number. */
-            fun destinationAccountNumber(destinationAccountNumber: String?) = apply {
+            fun destinationAccountNumber(destinationAccountNumber: String) =
+                destinationAccountNumber(JsonField.of(destinationAccountNumber))
+
+            /** The destination account number. */
+            fun destinationAccountNumber(destinationAccountNumber: JsonField<String>) = apply {
                 this.destinationAccountNumber = destinationAccountNumber
             }
 
-            /** The destination account number. */
-            fun destinationAccountNumber(destinationAccountNumber: Optional<String>) =
-                destinationAccountNumber(destinationAccountNumber.orElse(null))
+            /** The destination American Bankers' Association (ABA) Routing Transit Number (RTN). */
+            fun destinationRoutingNumber(destinationRoutingNumber: String) =
+                destinationRoutingNumber(JsonField.of(destinationRoutingNumber))
 
             /** The destination American Bankers' Association (ABA) Routing Transit Number (RTN). */
-            fun destinationRoutingNumber(destinationRoutingNumber: String?) = apply {
+            fun destinationRoutingNumber(destinationRoutingNumber: JsonField<String>) = apply {
                 this.destinationRoutingNumber = destinationRoutingNumber
             }
 
-            /** The destination American Bankers' Association (ABA) Routing Transit Number (RTN). */
-            fun destinationRoutingNumber(destinationRoutingNumber: Optional<String>) =
-                destinationRoutingNumber(destinationRoutingNumber.orElse(null))
+            /**
+             * The ID of an External Account to initiate a transfer to. If this parameter is
+             * provided, `destination_account_number` and `destination_routing_number` must be
+             * absent.
+             */
+            fun externalAccountId(externalAccountId: String) =
+                externalAccountId(JsonField.of(externalAccountId))
 
             /**
              * The ID of an External Account to initiate a transfer to. If this parameter is
              * provided, `destination_account_number` and `destination_routing_number` must be
              * absent.
              */
-            fun externalAccountId(externalAccountId: String?) = apply {
+            fun externalAccountId(externalAccountId: JsonField<String>) = apply {
                 this.externalAccountId = externalAccountId
-            }
-
-            /**
-             * The ID of an External Account to initiate a transfer to. If this parameter is
-             * provided, `destination_account_number` and `destination_routing_number` must be
-             * absent.
-             */
-            fun externalAccountId(externalAccountId: Optional<String>) =
-                externalAccountId(externalAccountId.orElse(null))
-
-            /** Whether the transfer requires explicit approval via the dashboard or API. */
-            fun requireApproval(requireApproval: Boolean?) = apply {
-                this.requireApproval = requireApproval
             }
 
             /** Whether the transfer requires explicit approval via the dashboard or API. */
             fun requireApproval(requireApproval: Boolean) =
-                requireApproval(requireApproval as Boolean?)
+                requireApproval(JsonField.of(requireApproval))
 
             /** Whether the transfer requires explicit approval via the dashboard or API. */
-            @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
-            fun requireApproval(requireApproval: Optional<Boolean>) =
-                requireApproval(requireApproval.orElse(null) as Boolean?)
+            fun requireApproval(requireApproval: JsonField<Boolean>) = apply {
+                this.requireApproval = requireApproval
+            }
 
             /**
              * The name of the ultimate recipient of the transfer. Set this if the creditor is an
              * intermediary receiving the payment for someone else.
              */
-            fun ultimateCreditorName(ultimateCreditorName: String?) = apply {
+            fun ultimateCreditorName(ultimateCreditorName: String) =
+                ultimateCreditorName(JsonField.of(ultimateCreditorName))
+
+            /**
+             * The name of the ultimate recipient of the transfer. Set this if the creditor is an
+             * intermediary receiving the payment for someone else.
+             */
+            fun ultimateCreditorName(ultimateCreditorName: JsonField<String>) = apply {
                 this.ultimateCreditorName = ultimateCreditorName
             }
 
             /**
-             * The name of the ultimate recipient of the transfer. Set this if the creditor is an
-             * intermediary receiving the payment for someone else.
+             * The name of the ultimate sender of the transfer. Set this if the funds are being sent
+             * on behalf of someone who is not the account holder at Increase.
              */
-            fun ultimateCreditorName(ultimateCreditorName: Optional<String>) =
-                ultimateCreditorName(ultimateCreditorName.orElse(null))
+            fun ultimateDebtorName(ultimateDebtorName: String) =
+                ultimateDebtorName(JsonField.of(ultimateDebtorName))
 
             /**
              * The name of the ultimate sender of the transfer. Set this if the funds are being sent
              * on behalf of someone who is not the account holder at Increase.
              */
-            fun ultimateDebtorName(ultimateDebtorName: String?) = apply {
+            fun ultimateDebtorName(ultimateDebtorName: JsonField<String>) = apply {
                 this.ultimateDebtorName = ultimateDebtorName
             }
-
-            /**
-             * The name of the ultimate sender of the transfer. Set this if the funds are being sent
-             * on behalf of someone who is not the account holder at Increase.
-             */
-            fun ultimateDebtorName(ultimateDebtorName: Optional<String>) =
-                ultimateDebtorName(ultimateDebtorName.orElse(null))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -398,11 +562,24 @@ constructor(
         /** The transfer amount in USD cents. For Real-Time Payments transfers, must be positive. */
         fun amount(amount: Long) = apply { body.amount(amount) }
 
+        /** The transfer amount in USD cents. For Real-Time Payments transfers, must be positive. */
+        fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
+
         /** The name of the transfer's recipient. */
         fun creditorName(creditorName: String) = apply { body.creditorName(creditorName) }
 
+        /** The name of the transfer's recipient. */
+        fun creditorName(creditorName: JsonField<String>) = apply {
+            body.creditorName(creditorName)
+        }
+
         /** Unstructured information that will show on the recipient's bank statement. */
         fun remittanceInformation(remittanceInformation: String) = apply {
+            body.remittanceInformation(remittanceInformation)
+        }
+
+        /** Unstructured information that will show on the recipient's bank statement. */
+        fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {
             body.remittanceInformation(remittanceInformation)
         }
 
@@ -411,41 +588,48 @@ constructor(
             body.sourceAccountNumberId(sourceAccountNumberId)
         }
 
-        /**
-         * The name of the transfer's sender. If not provided, defaults to the name of the account's
-         * entity.
-         */
-        fun debtorName(debtorName: String?) = apply { body.debtorName(debtorName) }
+        /** The identifier of the Account Number from which to send the transfer. */
+        fun sourceAccountNumberId(sourceAccountNumberId: JsonField<String>) = apply {
+            body.sourceAccountNumberId(sourceAccountNumberId)
+        }
 
         /**
          * The name of the transfer's sender. If not provided, defaults to the name of the account's
          * entity.
          */
-        fun debtorName(debtorName: Optional<String>) = debtorName(debtorName.orElse(null))
+        fun debtorName(debtorName: String) = apply { body.debtorName(debtorName) }
+
+        /**
+         * The name of the transfer's sender. If not provided, defaults to the name of the account's
+         * entity.
+         */
+        fun debtorName(debtorName: JsonField<String>) = apply { body.debtorName(debtorName) }
 
         /** The destination account number. */
-        fun destinationAccountNumber(destinationAccountNumber: String?) = apply {
+        fun destinationAccountNumber(destinationAccountNumber: String) = apply {
             body.destinationAccountNumber(destinationAccountNumber)
         }
 
         /** The destination account number. */
-        fun destinationAccountNumber(destinationAccountNumber: Optional<String>) =
-            destinationAccountNumber(destinationAccountNumber.orElse(null))
+        fun destinationAccountNumber(destinationAccountNumber: JsonField<String>) = apply {
+            body.destinationAccountNumber(destinationAccountNumber)
+        }
 
         /** The destination American Bankers' Association (ABA) Routing Transit Number (RTN). */
-        fun destinationRoutingNumber(destinationRoutingNumber: String?) = apply {
+        fun destinationRoutingNumber(destinationRoutingNumber: String) = apply {
             body.destinationRoutingNumber(destinationRoutingNumber)
         }
 
         /** The destination American Bankers' Association (ABA) Routing Transit Number (RTN). */
-        fun destinationRoutingNumber(destinationRoutingNumber: Optional<String>) =
-            destinationRoutingNumber(destinationRoutingNumber.orElse(null))
+        fun destinationRoutingNumber(destinationRoutingNumber: JsonField<String>) = apply {
+            body.destinationRoutingNumber(destinationRoutingNumber)
+        }
 
         /**
          * The ID of an External Account to initiate a transfer to. If this parameter is provided,
          * `destination_account_number` and `destination_routing_number` must be absent.
          */
-        fun externalAccountId(externalAccountId: String?) = apply {
+        fun externalAccountId(externalAccountId: String) = apply {
             body.externalAccountId(externalAccountId)
         }
 
@@ -453,27 +637,25 @@ constructor(
          * The ID of an External Account to initiate a transfer to. If this parameter is provided,
          * `destination_account_number` and `destination_routing_number` must be absent.
          */
-        fun externalAccountId(externalAccountId: Optional<String>) =
-            externalAccountId(externalAccountId.orElse(null))
+        fun externalAccountId(externalAccountId: JsonField<String>) = apply {
+            body.externalAccountId(externalAccountId)
+        }
 
         /** Whether the transfer requires explicit approval via the dashboard or API. */
-        fun requireApproval(requireApproval: Boolean?) = apply {
+        fun requireApproval(requireApproval: Boolean) = apply {
             body.requireApproval(requireApproval)
         }
 
         /** Whether the transfer requires explicit approval via the dashboard or API. */
-        fun requireApproval(requireApproval: Boolean) = requireApproval(requireApproval as Boolean?)
-
-        /** Whether the transfer requires explicit approval via the dashboard or API. */
-        @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
-        fun requireApproval(requireApproval: Optional<Boolean>) =
-            requireApproval(requireApproval.orElse(null) as Boolean?)
+        fun requireApproval(requireApproval: JsonField<Boolean>) = apply {
+            body.requireApproval(requireApproval)
+        }
 
         /**
          * The name of the ultimate recipient of the transfer. Set this if the creditor is an
          * intermediary receiving the payment for someone else.
          */
-        fun ultimateCreditorName(ultimateCreditorName: String?) = apply {
+        fun ultimateCreditorName(ultimateCreditorName: String) = apply {
             body.ultimateCreditorName(ultimateCreditorName)
         }
 
@@ -481,14 +663,15 @@ constructor(
          * The name of the ultimate recipient of the transfer. Set this if the creditor is an
          * intermediary receiving the payment for someone else.
          */
-        fun ultimateCreditorName(ultimateCreditorName: Optional<String>) =
-            ultimateCreditorName(ultimateCreditorName.orElse(null))
+        fun ultimateCreditorName(ultimateCreditorName: JsonField<String>) = apply {
+            body.ultimateCreditorName(ultimateCreditorName)
+        }
 
         /**
          * The name of the ultimate sender of the transfer. Set this if the funds are being sent on
          * behalf of someone who is not the account holder at Increase.
          */
-        fun ultimateDebtorName(ultimateDebtorName: String?) = apply {
+        fun ultimateDebtorName(ultimateDebtorName: String) = apply {
             body.ultimateDebtorName(ultimateDebtorName)
         }
 
@@ -496,8 +679,28 @@ constructor(
          * The name of the ultimate sender of the transfer. Set this if the funds are being sent on
          * behalf of someone who is not the account holder at Increase.
          */
-        fun ultimateDebtorName(ultimateDebtorName: Optional<String>) =
-            ultimateDebtorName(ultimateDebtorName.orElse(null))
+        fun ultimateDebtorName(ultimateDebtorName: JsonField<String>) = apply {
+            body.ultimateDebtorName(ultimateDebtorName)
+        }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -595,25 +798,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): RealTimePaymentsTransferCreateParams =

@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -42,11 +43,26 @@ constructor(
      */
     fun physicalCardProfileId(): Optional<String> = body.physicalCardProfileId()
 
+    /** The underlying card representing this physical card. */
+    fun _cardId(): JsonField<String> = body._cardId()
+
+    /** Details about the cardholder, as it will appear on the physical card. */
+    fun _cardholder(): JsonField<Cardholder> = body._cardholder()
+
+    /** The details used to ship this physical card. */
+    fun _shipment(): JsonField<Shipment> = body._shipment()
+
+    /**
+     * The physical card profile to use for this physical card. The latest default physical card
+     * profile will be used if not provided.
+     */
+    fun _physicalCardProfileId(): JsonField<String> = body._physicalCardProfileId()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     @JvmSynthetic internal fun getBody(): PhysicalCardCreateBody = body
 
@@ -58,33 +74,72 @@ constructor(
     class PhysicalCardCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("card_id") private val cardId: String,
-        @JsonProperty("cardholder") private val cardholder: Cardholder,
-        @JsonProperty("shipment") private val shipment: Shipment,
-        @JsonProperty("physical_card_profile_id") private val physicalCardProfileId: String?,
+        @JsonProperty("card_id")
+        @ExcludeMissing
+        private val cardId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("cardholder")
+        @ExcludeMissing
+        private val cardholder: JsonField<Cardholder> = JsonMissing.of(),
+        @JsonProperty("shipment")
+        @ExcludeMissing
+        private val shipment: JsonField<Shipment> = JsonMissing.of(),
+        @JsonProperty("physical_card_profile_id")
+        @ExcludeMissing
+        private val physicalCardProfileId: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The underlying card representing this physical card. */
-        @JsonProperty("card_id") fun cardId(): String = cardId
+        fun cardId(): String = cardId.getRequired("card_id")
 
         /** Details about the cardholder, as it will appear on the physical card. */
-        @JsonProperty("cardholder") fun cardholder(): Cardholder = cardholder
+        fun cardholder(): Cardholder = cardholder.getRequired("cardholder")
 
         /** The details used to ship this physical card. */
-        @JsonProperty("shipment") fun shipment(): Shipment = shipment
+        fun shipment(): Shipment = shipment.getRequired("shipment")
+
+        /**
+         * The physical card profile to use for this physical card. The latest default physical card
+         * profile will be used if not provided.
+         */
+        fun physicalCardProfileId(): Optional<String> =
+            Optional.ofNullable(physicalCardProfileId.getNullable("physical_card_profile_id"))
+
+        /** The underlying card representing this physical card. */
+        @JsonProperty("card_id") @ExcludeMissing fun _cardId(): JsonField<String> = cardId
+
+        /** Details about the cardholder, as it will appear on the physical card. */
+        @JsonProperty("cardholder")
+        @ExcludeMissing
+        fun _cardholder(): JsonField<Cardholder> = cardholder
+
+        /** The details used to ship this physical card. */
+        @JsonProperty("shipment") @ExcludeMissing fun _shipment(): JsonField<Shipment> = shipment
 
         /**
          * The physical card profile to use for this physical card. The latest default physical card
          * profile will be used if not provided.
          */
         @JsonProperty("physical_card_profile_id")
-        fun physicalCardProfileId(): Optional<String> = Optional.ofNullable(physicalCardProfileId)
+        @ExcludeMissing
+        fun _physicalCardProfileId(): JsonField<String> = physicalCardProfileId
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): PhysicalCardCreateBody = apply {
+            if (!validated) {
+                cardId()
+                cardholder().validate()
+                shipment().validate()
+                physicalCardProfileId()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -95,10 +150,10 @@ constructor(
 
         class Builder {
 
-            private var cardId: String? = null
-            private var cardholder: Cardholder? = null
-            private var shipment: Shipment? = null
-            private var physicalCardProfileId: String? = null
+            private var cardId: JsonField<String>? = null
+            private var cardholder: JsonField<Cardholder>? = null
+            private var shipment: JsonField<Shipment>? = null
+            private var physicalCardProfileId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -111,28 +166,39 @@ constructor(
             }
 
             /** The underlying card representing this physical card. */
-            fun cardId(cardId: String) = apply { this.cardId = cardId }
+            fun cardId(cardId: String) = cardId(JsonField.of(cardId))
+
+            /** The underlying card representing this physical card. */
+            fun cardId(cardId: JsonField<String>) = apply { this.cardId = cardId }
 
             /** Details about the cardholder, as it will appear on the physical card. */
-            fun cardholder(cardholder: Cardholder) = apply { this.cardholder = cardholder }
+            fun cardholder(cardholder: Cardholder) = cardholder(JsonField.of(cardholder))
 
-            /** The details used to ship this physical card. */
-            fun shipment(shipment: Shipment) = apply { this.shipment = shipment }
-
-            /**
-             * The physical card profile to use for this physical card. The latest default physical
-             * card profile will be used if not provided.
-             */
-            fun physicalCardProfileId(physicalCardProfileId: String?) = apply {
-                this.physicalCardProfileId = physicalCardProfileId
+            /** Details about the cardholder, as it will appear on the physical card. */
+            fun cardholder(cardholder: JsonField<Cardholder>) = apply {
+                this.cardholder = cardholder
             }
 
+            /** The details used to ship this physical card. */
+            fun shipment(shipment: Shipment) = shipment(JsonField.of(shipment))
+
+            /** The details used to ship this physical card. */
+            fun shipment(shipment: JsonField<Shipment>) = apply { this.shipment = shipment }
+
             /**
              * The physical card profile to use for this physical card. The latest default physical
              * card profile will be used if not provided.
              */
-            fun physicalCardProfileId(physicalCardProfileId: Optional<String>) =
-                physicalCardProfileId(physicalCardProfileId.orElse(null))
+            fun physicalCardProfileId(physicalCardProfileId: String) =
+                physicalCardProfileId(JsonField.of(physicalCardProfileId))
+
+            /**
+             * The physical card profile to use for this physical card. The latest default physical
+             * card profile will be used if not provided.
+             */
+            fun physicalCardProfileId(physicalCardProfileId: JsonField<String>) = apply {
+                this.physicalCardProfileId = physicalCardProfileId
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -205,17 +271,26 @@ constructor(
         /** The underlying card representing this physical card. */
         fun cardId(cardId: String) = apply { body.cardId(cardId) }
 
+        /** The underlying card representing this physical card. */
+        fun cardId(cardId: JsonField<String>) = apply { body.cardId(cardId) }
+
         /** Details about the cardholder, as it will appear on the physical card. */
         fun cardholder(cardholder: Cardholder) = apply { body.cardholder(cardholder) }
 
+        /** Details about the cardholder, as it will appear on the physical card. */
+        fun cardholder(cardholder: JsonField<Cardholder>) = apply { body.cardholder(cardholder) }
+
         /** The details used to ship this physical card. */
         fun shipment(shipment: Shipment) = apply { body.shipment(shipment) }
+
+        /** The details used to ship this physical card. */
+        fun shipment(shipment: JsonField<Shipment>) = apply { body.shipment(shipment) }
 
         /**
          * The physical card profile to use for this physical card. The latest default physical card
          * profile will be used if not provided.
          */
-        fun physicalCardProfileId(physicalCardProfileId: String?) = apply {
+        fun physicalCardProfileId(physicalCardProfileId: String) = apply {
             body.physicalCardProfileId(physicalCardProfileId)
         }
 
@@ -223,8 +298,28 @@ constructor(
          * The physical card profile to use for this physical card. The latest default physical card
          * profile will be used if not provided.
          */
-        fun physicalCardProfileId(physicalCardProfileId: Optional<String>) =
-            physicalCardProfileId(physicalCardProfileId.orElse(null))
+        fun physicalCardProfileId(physicalCardProfileId: JsonField<String>) = apply {
+            body.physicalCardProfileId(physicalCardProfileId)
+        }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -324,25 +419,6 @@ constructor(
             additionalQueryParams.removeAll(keys)
         }
 
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
-        }
-
         fun build(): PhysicalCardCreateParams =
             PhysicalCardCreateParams(
                 body.build(),
@@ -356,21 +432,41 @@ constructor(
     class Cardholder
     @JsonCreator
     private constructor(
-        @JsonProperty("first_name") private val firstName: String,
-        @JsonProperty("last_name") private val lastName: String,
+        @JsonProperty("first_name")
+        @ExcludeMissing
+        private val firstName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("last_name")
+        @ExcludeMissing
+        private val lastName: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The cardholder's first name. */
-        @JsonProperty("first_name") fun firstName(): String = firstName
+        fun firstName(): String = firstName.getRequired("first_name")
 
         /** The cardholder's last name. */
-        @JsonProperty("last_name") fun lastName(): String = lastName
+        fun lastName(): String = lastName.getRequired("last_name")
+
+        /** The cardholder's first name. */
+        @JsonProperty("first_name") @ExcludeMissing fun _firstName(): JsonField<String> = firstName
+
+        /** The cardholder's last name. */
+        @JsonProperty("last_name") @ExcludeMissing fun _lastName(): JsonField<String> = lastName
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): Cardholder = apply {
+            if (!validated) {
+                firstName()
+                lastName()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -381,8 +477,8 @@ constructor(
 
         class Builder {
 
-            private var firstName: String? = null
-            private var lastName: String? = null
+            private var firstName: JsonField<String>? = null
+            private var lastName: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -393,10 +489,16 @@ constructor(
             }
 
             /** The cardholder's first name. */
-            fun firstName(firstName: String) = apply { this.firstName = firstName }
+            fun firstName(firstName: String) = firstName(JsonField.of(firstName))
+
+            /** The cardholder's first name. */
+            fun firstName(firstName: JsonField<String>) = apply { this.firstName = firstName }
 
             /** The cardholder's last name. */
-            fun lastName(lastName: String) = apply { this.lastName = lastName }
+            fun lastName(lastName: String) = lastName(JsonField.of(lastName))
+
+            /** The cardholder's last name. */
+            fun lastName(lastName: JsonField<String>) = apply { this.lastName = lastName }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -448,21 +550,41 @@ constructor(
     class Shipment
     @JsonCreator
     private constructor(
-        @JsonProperty("address") private val address: Address,
-        @JsonProperty("method") private val method: Method,
+        @JsonProperty("address")
+        @ExcludeMissing
+        private val address: JsonField<Address> = JsonMissing.of(),
+        @JsonProperty("method")
+        @ExcludeMissing
+        private val method: JsonField<Method> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The address to where the card should be shipped. */
-        @JsonProperty("address") fun address(): Address = address
+        fun address(): Address = address.getRequired("address")
 
         /** The shipping method to use. */
-        @JsonProperty("method") fun method(): Method = method
+        fun method(): Method = method.getRequired("method")
+
+        /** The address to where the card should be shipped. */
+        @JsonProperty("address") @ExcludeMissing fun _address(): JsonField<Address> = address
+
+        /** The shipping method to use. */
+        @JsonProperty("method") @ExcludeMissing fun _method(): JsonField<Method> = method
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): Shipment = apply {
+            if (!validated) {
+                address().validate()
+                method()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -473,8 +595,8 @@ constructor(
 
         class Builder {
 
-            private var address: Address? = null
-            private var method: Method? = null
+            private var address: JsonField<Address>? = null
+            private var method: JsonField<Method>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -485,10 +607,16 @@ constructor(
             }
 
             /** The address to where the card should be shipped. */
-            fun address(address: Address) = apply { this.address = address }
+            fun address(address: Address) = address(JsonField.of(address))
+
+            /** The address to where the card should be shipped. */
+            fun address(address: JsonField<Address>) = apply { this.address = address }
 
             /** The shipping method to use. */
-            fun method(method: Method) = apply { this.method = method }
+            fun method(method: Method) = method(JsonField.of(method))
+
+            /** The shipping method to use. */
+            fun method(method: JsonField<Method>) = apply { this.method = method }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -522,46 +650,106 @@ constructor(
         class Address
         @JsonCreator
         private constructor(
-            @JsonProperty("city") private val city: String,
-            @JsonProperty("line1") private val line1: String,
-            @JsonProperty("name") private val name: String,
-            @JsonProperty("postal_code") private val postalCode: String,
-            @JsonProperty("state") private val state: String,
-            @JsonProperty("line2") private val line2: String?,
-            @JsonProperty("line3") private val line3: String?,
-            @JsonProperty("phone_number") private val phoneNumber: String?,
+            @JsonProperty("city")
+            @ExcludeMissing
+            private val city: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("line1")
+            @ExcludeMissing
+            private val line1: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("name")
+            @ExcludeMissing
+            private val name: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("postal_code")
+            @ExcludeMissing
+            private val postalCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("state")
+            @ExcludeMissing
+            private val state: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("line2")
+            @ExcludeMissing
+            private val line2: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("line3")
+            @ExcludeMissing
+            private val line3: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("phone_number")
+            @ExcludeMissing
+            private val phoneNumber: JsonField<String> = JsonMissing.of(),
             @JsonAnySetter
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
             /** The city of the shipping address. */
-            @JsonProperty("city") fun city(): String = city
+            fun city(): String = city.getRequired("city")
 
             /** The first line of the shipping address. */
-            @JsonProperty("line1") fun line1(): String = line1
+            fun line1(): String = line1.getRequired("line1")
 
             /** The name of the recipient. */
-            @JsonProperty("name") fun name(): String = name
+            fun name(): String = name.getRequired("name")
 
             /** The postal code of the shipping address. */
-            @JsonProperty("postal_code") fun postalCode(): String = postalCode
+            fun postalCode(): String = postalCode.getRequired("postal_code")
 
             /** The US state of the shipping address. */
-            @JsonProperty("state") fun state(): String = state
+            fun state(): String = state.getRequired("state")
 
             /** The second line of the shipping address. */
-            @JsonProperty("line2") fun line2(): Optional<String> = Optional.ofNullable(line2)
+            fun line2(): Optional<String> = Optional.ofNullable(line2.getNullable("line2"))
 
             /** The third line of the shipping address. */
-            @JsonProperty("line3") fun line3(): Optional<String> = Optional.ofNullable(line3)
+            fun line3(): Optional<String> = Optional.ofNullable(line3.getNullable("line3"))
+
+            /** The phone number of the recipient. */
+            fun phoneNumber(): Optional<String> =
+                Optional.ofNullable(phoneNumber.getNullable("phone_number"))
+
+            /** The city of the shipping address. */
+            @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
+
+            /** The first line of the shipping address. */
+            @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
+
+            /** The name of the recipient. */
+            @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+            /** The postal code of the shipping address. */
+            @JsonProperty("postal_code")
+            @ExcludeMissing
+            fun _postalCode(): JsonField<String> = postalCode
+
+            /** The US state of the shipping address. */
+            @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
+
+            /** The second line of the shipping address. */
+            @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
+
+            /** The third line of the shipping address. */
+            @JsonProperty("line3") @ExcludeMissing fun _line3(): JsonField<String> = line3
 
             /** The phone number of the recipient. */
             @JsonProperty("phone_number")
-            fun phoneNumber(): Optional<String> = Optional.ofNullable(phoneNumber)
+            @ExcludeMissing
+            fun _phoneNumber(): JsonField<String> = phoneNumber
 
             @JsonAnyGetter
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            private var validated: Boolean = false
+
+            fun validate(): Address = apply {
+                if (!validated) {
+                    city()
+                    line1()
+                    name()
+                    postalCode()
+                    state()
+                    line2()
+                    line3()
+                    phoneNumber()
+                    validated = true
+                }
+            }
 
             fun toBuilder() = Builder().from(this)
 
@@ -572,14 +760,14 @@ constructor(
 
             class Builder {
 
-                private var city: String? = null
-                private var line1: String? = null
-                private var name: String? = null
-                private var postalCode: String? = null
-                private var state: String? = null
-                private var line2: String? = null
-                private var line3: String? = null
-                private var phoneNumber: String? = null
+                private var city: JsonField<String>? = null
+                private var line1: JsonField<String>? = null
+                private var name: JsonField<String>? = null
+                private var postalCode: JsonField<String>? = null
+                private var state: JsonField<String>? = null
+                private var line2: JsonField<String> = JsonMissing.of()
+                private var line3: JsonField<String> = JsonMissing.of()
+                private var phoneNumber: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -596,38 +784,56 @@ constructor(
                 }
 
                 /** The city of the shipping address. */
-                fun city(city: String) = apply { this.city = city }
+                fun city(city: String) = city(JsonField.of(city))
+
+                /** The city of the shipping address. */
+                fun city(city: JsonField<String>) = apply { this.city = city }
 
                 /** The first line of the shipping address. */
-                fun line1(line1: String) = apply { this.line1 = line1 }
+                fun line1(line1: String) = line1(JsonField.of(line1))
+
+                /** The first line of the shipping address. */
+                fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
                 /** The name of the recipient. */
-                fun name(name: String) = apply { this.name = name }
+                fun name(name: String) = name(JsonField.of(name))
+
+                /** The name of the recipient. */
+                fun name(name: JsonField<String>) = apply { this.name = name }
 
                 /** The postal code of the shipping address. */
-                fun postalCode(postalCode: String) = apply { this.postalCode = postalCode }
+                fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
+
+                /** The postal code of the shipping address. */
+                fun postalCode(postalCode: JsonField<String>) = apply {
+                    this.postalCode = postalCode
+                }
 
                 /** The US state of the shipping address. */
-                fun state(state: String) = apply { this.state = state }
+                fun state(state: String) = state(JsonField.of(state))
+
+                /** The US state of the shipping address. */
+                fun state(state: JsonField<String>) = apply { this.state = state }
 
                 /** The second line of the shipping address. */
-                fun line2(line2: String?) = apply { this.line2 = line2 }
+                fun line2(line2: String) = line2(JsonField.of(line2))
 
                 /** The second line of the shipping address. */
-                fun line2(line2: Optional<String>) = line2(line2.orElse(null))
+                fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
                 /** The third line of the shipping address. */
-                fun line3(line3: String?) = apply { this.line3 = line3 }
+                fun line3(line3: String) = line3(JsonField.of(line3))
 
                 /** The third line of the shipping address. */
-                fun line3(line3: Optional<String>) = line3(line3.orElse(null))
+                fun line3(line3: JsonField<String>) = apply { this.line3 = line3 }
 
                 /** The phone number of the recipient. */
-                fun phoneNumber(phoneNumber: String?) = apply { this.phoneNumber = phoneNumber }
+                fun phoneNumber(phoneNumber: String) = phoneNumber(JsonField.of(phoneNumber))
 
                 /** The phone number of the recipient. */
-                fun phoneNumber(phoneNumber: Optional<String>) =
-                    phoneNumber(phoneNumber.orElse(null))
+                fun phoneNumber(phoneNumber: JsonField<String>) = apply {
+                    this.phoneNumber = phoneNumber
+                }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()

@@ -94,25 +94,31 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The Account Statement identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** The identifier for the Account this Account Statement belongs to. */
-    @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
+    @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account Statement
      * was created.
      */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** The Account's balance at the start of its statement period. */
-    @JsonProperty("ending_balance") @ExcludeMissing fun _endingBalance() = endingBalance
+    @JsonProperty("ending_balance")
+    @ExcludeMissing
+    fun _endingBalance(): JsonField<Long> = endingBalance
 
     /** The identifier of the File containing a PDF of the statement. */
-    @JsonProperty("file_id") @ExcludeMissing fun _fileId() = fileId
+    @JsonProperty("file_id") @ExcludeMissing fun _fileId(): JsonField<String> = fileId
 
     /** The Account's balance at the start of its statement period. */
-    @JsonProperty("starting_balance") @ExcludeMissing fun _startingBalance() = startingBalance
+    @JsonProperty("starting_balance")
+    @ExcludeMissing
+    fun _startingBalance(): JsonField<Long> = startingBalance
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the end of the
@@ -120,7 +126,7 @@ private constructor(
      */
     @JsonProperty("statement_period_end")
     @ExcludeMissing
-    fun _statementPeriodEnd() = statementPeriodEnd
+    fun _statementPeriodEnd(): JsonField<OffsetDateTime> = statementPeriodEnd
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the start of the
@@ -128,13 +134,13 @@ private constructor(
      */
     @JsonProperty("statement_period_start")
     @ExcludeMissing
-    fun _statementPeriodStart() = statementPeriodStart
+    fun _statementPeriodStart(): JsonField<OffsetDateTime> = statementPeriodStart
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `account_statement`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -166,15 +172,15 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var accountId: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var endingBalance: JsonField<Long> = JsonMissing.of()
-        private var fileId: JsonField<String> = JsonMissing.of()
-        private var startingBalance: JsonField<Long> = JsonMissing.of()
-        private var statementPeriodEnd: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var statementPeriodStart: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var accountId: JsonField<String>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var endingBalance: JsonField<Long>? = null
+        private var fileId: JsonField<String>? = null
+        private var startingBalance: JsonField<Long>? = null
+        private var statementPeriodEnd: JsonField<OffsetDateTime>? = null
+        private var statementPeriodStart: JsonField<OffsetDateTime>? = null
+        private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -300,15 +306,19 @@ private constructor(
 
         fun build(): AccountStatement =
             AccountStatement(
-                id,
-                accountId,
-                createdAt,
-                endingBalance,
-                fileId,
-                startingBalance,
-                statementPeriodEnd,
-                statementPeriodStart,
-                type,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(accountId) { "`accountId` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(endingBalance) { "`endingBalance` is required but was not set" },
+                checkNotNull(fileId) { "`fileId` is required but was not set" },
+                checkNotNull(startingBalance) { "`startingBalance` is required but was not set" },
+                checkNotNull(statementPeriodEnd) {
+                    "`statementPeriodEnd` is required but was not set"
+                },
+                checkNotNull(statementPeriodStart) {
+                    "`statementPeriodStart` is required but was not set"
+                },
+                checkNotNull(type) { "`type` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }
