@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -40,11 +42,27 @@ constructor(
      */
     fun amount(): Optional<Long> = body.amount()
 
+    /**
+     * The Transaction you wish to dispute. This Transaction must have a `source_type` of
+     * `card_settlement`.
+     */
+    fun _disputedTransactionId(): JsonField<String> = body._disputedTransactionId()
+
+    /** Why you are disputing this Transaction. */
+    fun _explanation(): JsonField<String> = body._explanation()
+
+    /**
+     * The monetary amount of the part of the transaction that is being disputed. This is optional
+     * and will default to the full amount of the transaction if not provided. If provided, the
+     * amount must be less than or equal to the amount of the transaction.
+     */
+    fun _amount(): JsonField<Long> = body._amount()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     @JvmSynthetic internal fun getBody(): CardDisputeCreateBody = body
 
@@ -56,9 +74,15 @@ constructor(
     class CardDisputeCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("disputed_transaction_id") private val disputedTransactionId: String,
-        @JsonProperty("explanation") private val explanation: String,
-        @JsonProperty("amount") private val amount: Long?,
+        @JsonProperty("disputed_transaction_id")
+        @ExcludeMissing
+        private val disputedTransactionId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("explanation")
+        @ExcludeMissing
+        private val explanation: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("amount")
+        @ExcludeMissing
+        private val amount: JsonField<Long> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
@@ -67,22 +91,53 @@ constructor(
          * The Transaction you wish to dispute. This Transaction must have a `source_type` of
          * `card_settlement`.
          */
-        @JsonProperty("disputed_transaction_id")
-        fun disputedTransactionId(): String = disputedTransactionId
+        fun disputedTransactionId(): String =
+            disputedTransactionId.getRequired("disputed_transaction_id")
 
         /** Why you are disputing this Transaction. */
-        @JsonProperty("explanation") fun explanation(): String = explanation
+        fun explanation(): String = explanation.getRequired("explanation")
 
         /**
          * The monetary amount of the part of the transaction that is being disputed. This is
          * optional and will default to the full amount of the transaction if not provided. If
          * provided, the amount must be less than or equal to the amount of the transaction.
          */
-        @JsonProperty("amount") fun amount(): Optional<Long> = Optional.ofNullable(amount)
+        fun amount(): Optional<Long> = Optional.ofNullable(amount.getNullable("amount"))
+
+        /**
+         * The Transaction you wish to dispute. This Transaction must have a `source_type` of
+         * `card_settlement`.
+         */
+        @JsonProperty("disputed_transaction_id")
+        @ExcludeMissing
+        fun _disputedTransactionId(): JsonField<String> = disputedTransactionId
+
+        /** Why you are disputing this Transaction. */
+        @JsonProperty("explanation")
+        @ExcludeMissing
+        fun _explanation(): JsonField<String> = explanation
+
+        /**
+         * The monetary amount of the part of the transaction that is being disputed. This is
+         * optional and will default to the full amount of the transaction if not provided. If
+         * provided, the amount must be less than or equal to the amount of the transaction.
+         */
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): CardDisputeCreateBody = apply {
+            if (!validated) {
+                disputedTransactionId()
+                explanation()
+                amount()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -93,9 +148,9 @@ constructor(
 
         class Builder {
 
-            private var disputedTransactionId: String? = null
-            private var explanation: String? = null
-            private var amount: Long? = null
+            private var disputedTransactionId: JsonField<String>? = null
+            private var explanation: JsonField<String>? = null
+            private var amount: JsonField<Long> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -110,34 +165,38 @@ constructor(
              * The Transaction you wish to dispute. This Transaction must have a `source_type` of
              * `card_settlement`.
              */
-            fun disputedTransactionId(disputedTransactionId: String) = apply {
+            fun disputedTransactionId(disputedTransactionId: String) =
+                disputedTransactionId(JsonField.of(disputedTransactionId))
+
+            /**
+             * The Transaction you wish to dispute. This Transaction must have a `source_type` of
+             * `card_settlement`.
+             */
+            fun disputedTransactionId(disputedTransactionId: JsonField<String>) = apply {
                 this.disputedTransactionId = disputedTransactionId
             }
 
             /** Why you are disputing this Transaction. */
-            fun explanation(explanation: String) = apply { this.explanation = explanation }
+            fun explanation(explanation: String) = explanation(JsonField.of(explanation))
+
+            /** Why you are disputing this Transaction. */
+            fun explanation(explanation: JsonField<String>) = apply {
+                this.explanation = explanation
+            }
 
             /**
              * The monetary amount of the part of the transaction that is being disputed. This is
              * optional and will default to the full amount of the transaction if not provided. If
              * provided, the amount must be less than or equal to the amount of the transaction.
              */
-            fun amount(amount: Long?) = apply { this.amount = amount }
+            fun amount(amount: Long) = amount(JsonField.of(amount))
 
             /**
              * The monetary amount of the part of the transaction that is being disputed. This is
              * optional and will default to the full amount of the transaction if not provided. If
              * provided, the amount must be less than or equal to the amount of the transaction.
              */
-            fun amount(amount: Long) = amount(amount as Long?)
-
-            /**
-             * The monetary amount of the part of the transaction that is being disputed. This is
-             * optional and will default to the full amount of the transaction if not provided. If
-             * provided, the amount must be less than or equal to the amount of the transaction.
-             */
-            @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
-            fun amount(amount: Optional<Long>) = amount(amount.orElse(null) as Long?)
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -216,30 +275,52 @@ constructor(
             body.disputedTransactionId(disputedTransactionId)
         }
 
+        /**
+         * The Transaction you wish to dispute. This Transaction must have a `source_type` of
+         * `card_settlement`.
+         */
+        fun disputedTransactionId(disputedTransactionId: JsonField<String>) = apply {
+            body.disputedTransactionId(disputedTransactionId)
+        }
+
         /** Why you are disputing this Transaction. */
         fun explanation(explanation: String) = apply { body.explanation(explanation) }
 
-        /**
-         * The monetary amount of the part of the transaction that is being disputed. This is
-         * optional and will default to the full amount of the transaction if not provided. If
-         * provided, the amount must be less than or equal to the amount of the transaction.
-         */
-        fun amount(amount: Long?) = apply { body.amount(amount) }
+        /** Why you are disputing this Transaction. */
+        fun explanation(explanation: JsonField<String>) = apply { body.explanation(explanation) }
 
         /**
          * The monetary amount of the part of the transaction that is being disputed. This is
          * optional and will default to the full amount of the transaction if not provided. If
          * provided, the amount must be less than or equal to the amount of the transaction.
          */
-        fun amount(amount: Long) = amount(amount as Long?)
+        fun amount(amount: Long) = apply { body.amount(amount) }
 
         /**
          * The monetary amount of the part of the transaction that is being disputed. This is
          * optional and will default to the full amount of the transaction if not provided. If
          * provided, the amount must be less than or equal to the amount of the transaction.
          */
-        @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
-        fun amount(amount: Optional<Long>) = amount(amount.orElse(null) as Long?)
+        fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -337,25 +418,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): CardDisputeCreateParams =

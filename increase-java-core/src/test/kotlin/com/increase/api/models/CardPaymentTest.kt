@@ -18,6 +18,7 @@ class CardPaymentTest {
                 .accountId("account_in71c4amph0vgo2qllky")
                 .cardId("card_oubs0hwk5rn6knuecxg2")
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                .digitalWalletTokenId(null)
                 .elements(
                     listOf(
                         CardPayment.Element.builder()
@@ -28,6 +29,7 @@ class CardPaymentTest {
                                     .amount(100L)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                     .currency(CardPayment.Element.CardAuthorization.Currency.CAD)
+                                    .digitalWalletTokenId(null)
                                     .direction(
                                         CardPayment.Element.CardAuthorization.Direction.SETTLEMENT
                                     )
@@ -85,12 +87,15 @@ class CardPaymentTest {
                                             .build()
                                     )
                                     .networkRiskScore(10L)
+                                    .pendingTransactionId(null)
+                                    .physicalCardId(null)
                                     .presentmentAmount(100L)
                                     .presentmentCurrency("USD")
                                     .processingCategory(
                                         CardPayment.Element.CardAuthorization.ProcessingCategory
                                             .ACCOUNT_FUNDING
                                     )
+                                    .realTimeDecisionId(null)
                                     .terminalId("RCN5VNXS")
                                     .type(
                                         CardPayment.Element.CardAuthorization.Type
@@ -159,6 +164,7 @@ class CardPaymentTest {
                                     .declinedTransactionId(
                                         "declined_transaction_17jbn0yyhvkt4v4ooym8"
                                     )
+                                    .digitalWalletTokenId(null)
                                     .direction(CardPayment.Element.CardDecline.Direction.SETTLEMENT)
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
@@ -166,6 +172,7 @@ class CardPaymentTest {
                                     .merchantCountry("US")
                                     .merchantDescriptor("AMAZON.COM")
                                     .merchantPostalCode("10045")
+                                    .merchantState(null)
                                     .networkDetails(
                                         CardPayment.Element.CardDecline.NetworkDetails.builder()
                                             .category(
@@ -209,12 +216,14 @@ class CardPaymentTest {
                                             .build()
                                     )
                                     .networkRiskScore(10L)
+                                    .physicalCardId(null)
                                     .presentmentAmount(-1000L)
                                     .presentmentCurrency("USD")
                                     .processingCategory(
                                         CardPayment.Element.CardDecline.ProcessingCategory
                                             .ACCOUNT_FUNDING
                                     )
+                                    .realTimeDecisionId(null)
                                     .realTimeDecisionReason(
                                         CardPayment.Element.CardDecline.RealTimeDecisionReason
                                             .INSUFFICIENT_FUNDS
@@ -299,6 +308,7 @@ class CardPaymentTest {
                                     .pendingTransactionId(
                                         "pending_transaction_k1sfetcau2qbvjbzgju4"
                                     )
+                                    .realTimeDecisionId(null)
                                     .type(CardPayment.Element.CardIncrement.Type.CARD_INCREMENT)
                                     .updatedAuthorizationAmount(120L)
                                     .build()
@@ -388,6 +398,7 @@ class CardPaymentTest {
                                                     .build()
                                             )
                                             .customerReferenceIdentifier("51201")
+                                            .localTaxAmount(null)
                                             .localTaxCurrency("usd")
                                             .lodging(
                                                 CardPayment.Element.CardRefund.PurchaseDetails
@@ -423,6 +434,7 @@ class CardPaymentTest {
                                                     .totalTaxCurrency("usd")
                                                     .build()
                                             )
+                                            .nationalTaxAmount(null)
                                             .nationalTaxCurrency("usd")
                                             .purchaseIdentifier("10203")
                                             .purchaseIdentifierFormat(
@@ -584,6 +596,7 @@ class CardPaymentTest {
                                 CardPayment.Element.CardSettlement.builder()
                                     .id("card_settlement_khv5kfeu0vndj291omg6")
                                     .amount(100L)
+                                    .cardAuthorization(null)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                     .cashback(
                                         CardPayment.Element.CardSettlement.Cashback.builder()
@@ -621,6 +634,7 @@ class CardPaymentTest {
                                             .transactionId("627199945183184")
                                             .build()
                                     )
+                                    .pendingTransactionId(null)
                                     .presentmentAmount(100L)
                                     .presentmentCurrency("USD")
                                     .purchaseDetails(
@@ -668,6 +682,7 @@ class CardPaymentTest {
                                                     .build()
                                             )
                                             .customerReferenceIdentifier("51201")
+                                            .localTaxAmount(null)
                                             .localTaxCurrency("usd")
                                             .lodging(
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
@@ -703,6 +718,7 @@ class CardPaymentTest {
                                                     .totalTaxCurrency("usd")
                                                     .build()
                                             )
+                                            .nationalTaxAmount(null)
                                             .nationalTaxCurrency("usd")
                                             .purchaseIdentifier("10203")
                                             .purchaseIdentifierFormat(
@@ -834,6 +850,7 @@ class CardPaymentTest {
                                     .actioner(CardPayment.Element.CardValidation.Actioner.USER)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                     .currency(CardPayment.Element.CardValidation.Currency.CAD)
+                                    .digitalWalletTokenId(null)
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
                                     .merchantCity("New York")
@@ -886,6 +903,8 @@ class CardPaymentTest {
                                             .build()
                                     )
                                     .networkRiskScore(10L)
+                                    .physicalCardId(null)
+                                    .realTimeDecisionId(null)
                                     .terminalId("RCN5VNXS")
                                     .type(CardPayment.Element.CardValidation.Type.CARD_VALIDATION)
                                     .verification(
@@ -936,6 +955,7 @@ class CardPaymentTest {
                                     .amount(100L)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                     .currency(CardPayment.Element.CardAuthorization.Currency.CAD)
+                                    .digitalWalletTokenId(null)
                                     .direction(
                                         CardPayment.Element.CardAuthorization.Direction.SETTLEMENT
                                     )
@@ -993,12 +1013,15 @@ class CardPaymentTest {
                                             .build()
                                     )
                                     .networkRiskScore(10L)
+                                    .pendingTransactionId(null)
+                                    .physicalCardId(null)
                                     .presentmentAmount(100L)
                                     .presentmentCurrency("USD")
                                     .processingCategory(
                                         CardPayment.Element.CardAuthorization.ProcessingCategory
                                             .ACCOUNT_FUNDING
                                     )
+                                    .realTimeDecisionId(null)
                                     .terminalId("RCN5VNXS")
                                     .type(
                                         CardPayment.Element.CardAuthorization.Type
@@ -1067,6 +1090,7 @@ class CardPaymentTest {
                                     .declinedTransactionId(
                                         "declined_transaction_17jbn0yyhvkt4v4ooym8"
                                     )
+                                    .digitalWalletTokenId(null)
                                     .direction(CardPayment.Element.CardDecline.Direction.SETTLEMENT)
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
@@ -1074,6 +1098,7 @@ class CardPaymentTest {
                                     .merchantCountry("US")
                                     .merchantDescriptor("AMAZON.COM")
                                     .merchantPostalCode("10045")
+                                    .merchantState(null)
                                     .networkDetails(
                                         CardPayment.Element.CardDecline.NetworkDetails.builder()
                                             .category(
@@ -1117,12 +1142,14 @@ class CardPaymentTest {
                                             .build()
                                     )
                                     .networkRiskScore(10L)
+                                    .physicalCardId(null)
                                     .presentmentAmount(-1000L)
                                     .presentmentCurrency("USD")
                                     .processingCategory(
                                         CardPayment.Element.CardDecline.ProcessingCategory
                                             .ACCOUNT_FUNDING
                                     )
+                                    .realTimeDecisionId(null)
                                     .realTimeDecisionReason(
                                         CardPayment.Element.CardDecline.RealTimeDecisionReason
                                             .INSUFFICIENT_FUNDS
@@ -1207,6 +1234,7 @@ class CardPaymentTest {
                                     .pendingTransactionId(
                                         "pending_transaction_k1sfetcau2qbvjbzgju4"
                                     )
+                                    .realTimeDecisionId(null)
                                     .type(CardPayment.Element.CardIncrement.Type.CARD_INCREMENT)
                                     .updatedAuthorizationAmount(120L)
                                     .build()
@@ -1296,6 +1324,7 @@ class CardPaymentTest {
                                                     .build()
                                             )
                                             .customerReferenceIdentifier("51201")
+                                            .localTaxAmount(null)
                                             .localTaxCurrency("usd")
                                             .lodging(
                                                 CardPayment.Element.CardRefund.PurchaseDetails
@@ -1331,6 +1360,7 @@ class CardPaymentTest {
                                                     .totalTaxCurrency("usd")
                                                     .build()
                                             )
+                                            .nationalTaxAmount(null)
                                             .nationalTaxCurrency("usd")
                                             .purchaseIdentifier("10203")
                                             .purchaseIdentifierFormat(
@@ -1492,6 +1522,7 @@ class CardPaymentTest {
                                 CardPayment.Element.CardSettlement.builder()
                                     .id("card_settlement_khv5kfeu0vndj291omg6")
                                     .amount(100L)
+                                    .cardAuthorization(null)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                     .cashback(
                                         CardPayment.Element.CardSettlement.Cashback.builder()
@@ -1529,6 +1560,7 @@ class CardPaymentTest {
                                             .transactionId("627199945183184")
                                             .build()
                                     )
+                                    .pendingTransactionId(null)
                                     .presentmentAmount(100L)
                                     .presentmentCurrency("USD")
                                     .purchaseDetails(
@@ -1576,6 +1608,7 @@ class CardPaymentTest {
                                                     .build()
                                             )
                                             .customerReferenceIdentifier("51201")
+                                            .localTaxAmount(null)
                                             .localTaxCurrency("usd")
                                             .lodging(
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
@@ -1611,6 +1644,7 @@ class CardPaymentTest {
                                                     .totalTaxCurrency("usd")
                                                     .build()
                                             )
+                                            .nationalTaxAmount(null)
                                             .nationalTaxCurrency("usd")
                                             .purchaseIdentifier("10203")
                                             .purchaseIdentifierFormat(
@@ -1742,6 +1776,7 @@ class CardPaymentTest {
                                     .actioner(CardPayment.Element.CardValidation.Actioner.USER)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                     .currency(CardPayment.Element.CardValidation.Currency.CAD)
+                                    .digitalWalletTokenId(null)
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
                                     .merchantCity("New York")
@@ -1794,6 +1829,8 @@ class CardPaymentTest {
                                             .build()
                                     )
                                     .networkRiskScore(10L)
+                                    .physicalCardId(null)
+                                    .realTimeDecisionId(null)
                                     .terminalId("RCN5VNXS")
                                     .type(CardPayment.Element.CardValidation.Type.CARD_VALIDATION)
                                     .verification(
@@ -1844,6 +1881,7 @@ class CardPaymentTest {
                                     .amount(100L)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                     .currency(CardPayment.Element.CardAuthorization.Currency.CAD)
+                                    .digitalWalletTokenId(null)
                                     .direction(
                                         CardPayment.Element.CardAuthorization.Direction.SETTLEMENT
                                     )
@@ -1901,12 +1939,15 @@ class CardPaymentTest {
                                             .build()
                                     )
                                     .networkRiskScore(10L)
+                                    .pendingTransactionId(null)
+                                    .physicalCardId(null)
                                     .presentmentAmount(100L)
                                     .presentmentCurrency("USD")
                                     .processingCategory(
                                         CardPayment.Element.CardAuthorization.ProcessingCategory
                                             .ACCOUNT_FUNDING
                                     )
+                                    .realTimeDecisionId(null)
                                     .terminalId("RCN5VNXS")
                                     .type(
                                         CardPayment.Element.CardAuthorization.Type
@@ -1975,6 +2016,7 @@ class CardPaymentTest {
                                     .declinedTransactionId(
                                         "declined_transaction_17jbn0yyhvkt4v4ooym8"
                                     )
+                                    .digitalWalletTokenId(null)
                                     .direction(CardPayment.Element.CardDecline.Direction.SETTLEMENT)
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
@@ -1982,6 +2024,7 @@ class CardPaymentTest {
                                     .merchantCountry("US")
                                     .merchantDescriptor("AMAZON.COM")
                                     .merchantPostalCode("10045")
+                                    .merchantState(null)
                                     .networkDetails(
                                         CardPayment.Element.CardDecline.NetworkDetails.builder()
                                             .category(
@@ -2025,12 +2068,14 @@ class CardPaymentTest {
                                             .build()
                                     )
                                     .networkRiskScore(10L)
+                                    .physicalCardId(null)
                                     .presentmentAmount(-1000L)
                                     .presentmentCurrency("USD")
                                     .processingCategory(
                                         CardPayment.Element.CardDecline.ProcessingCategory
                                             .ACCOUNT_FUNDING
                                     )
+                                    .realTimeDecisionId(null)
                                     .realTimeDecisionReason(
                                         CardPayment.Element.CardDecline.RealTimeDecisionReason
                                             .INSUFFICIENT_FUNDS
@@ -2115,6 +2160,7 @@ class CardPaymentTest {
                                     .pendingTransactionId(
                                         "pending_transaction_k1sfetcau2qbvjbzgju4"
                                     )
+                                    .realTimeDecisionId(null)
                                     .type(CardPayment.Element.CardIncrement.Type.CARD_INCREMENT)
                                     .updatedAuthorizationAmount(120L)
                                     .build()
@@ -2204,6 +2250,7 @@ class CardPaymentTest {
                                                     .build()
                                             )
                                             .customerReferenceIdentifier("51201")
+                                            .localTaxAmount(null)
                                             .localTaxCurrency("usd")
                                             .lodging(
                                                 CardPayment.Element.CardRefund.PurchaseDetails
@@ -2239,6 +2286,7 @@ class CardPaymentTest {
                                                     .totalTaxCurrency("usd")
                                                     .build()
                                             )
+                                            .nationalTaxAmount(null)
                                             .nationalTaxCurrency("usd")
                                             .purchaseIdentifier("10203")
                                             .purchaseIdentifierFormat(
@@ -2400,6 +2448,7 @@ class CardPaymentTest {
                                 CardPayment.Element.CardSettlement.builder()
                                     .id("card_settlement_khv5kfeu0vndj291omg6")
                                     .amount(100L)
+                                    .cardAuthorization(null)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                     .cashback(
                                         CardPayment.Element.CardSettlement.Cashback.builder()
@@ -2437,6 +2486,7 @@ class CardPaymentTest {
                                             .transactionId("627199945183184")
                                             .build()
                                     )
+                                    .pendingTransactionId(null)
                                     .presentmentAmount(100L)
                                     .presentmentCurrency("USD")
                                     .purchaseDetails(
@@ -2484,6 +2534,7 @@ class CardPaymentTest {
                                                     .build()
                                             )
                                             .customerReferenceIdentifier("51201")
+                                            .localTaxAmount(null)
                                             .localTaxCurrency("usd")
                                             .lodging(
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
@@ -2519,6 +2570,7 @@ class CardPaymentTest {
                                                     .totalTaxCurrency("usd")
                                                     .build()
                                             )
+                                            .nationalTaxAmount(null)
                                             .nationalTaxCurrency("usd")
                                             .purchaseIdentifier("10203")
                                             .purchaseIdentifierFormat(
@@ -2650,6 +2702,7 @@ class CardPaymentTest {
                                     .actioner(CardPayment.Element.CardValidation.Actioner.USER)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                     .currency(CardPayment.Element.CardValidation.Currency.CAD)
+                                    .digitalWalletTokenId(null)
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
                                     .merchantCity("New York")
@@ -2702,6 +2755,8 @@ class CardPaymentTest {
                                             .build()
                                     )
                                     .networkRiskScore(10L)
+                                    .physicalCardId(null)
+                                    .realTimeDecisionId(null)
                                     .terminalId("RCN5VNXS")
                                     .type(CardPayment.Element.CardValidation.Type.CARD_VALIDATION)
                                     .verification(
@@ -2752,6 +2807,7 @@ class CardPaymentTest {
                                     .amount(100L)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                     .currency(CardPayment.Element.CardAuthorization.Currency.CAD)
+                                    .digitalWalletTokenId(null)
                                     .direction(
                                         CardPayment.Element.CardAuthorization.Direction.SETTLEMENT
                                     )
@@ -2809,12 +2865,15 @@ class CardPaymentTest {
                                             .build()
                                     )
                                     .networkRiskScore(10L)
+                                    .pendingTransactionId(null)
+                                    .physicalCardId(null)
                                     .presentmentAmount(100L)
                                     .presentmentCurrency("USD")
                                     .processingCategory(
                                         CardPayment.Element.CardAuthorization.ProcessingCategory
                                             .ACCOUNT_FUNDING
                                     )
+                                    .realTimeDecisionId(null)
                                     .terminalId("RCN5VNXS")
                                     .type(
                                         CardPayment.Element.CardAuthorization.Type
@@ -2883,6 +2942,7 @@ class CardPaymentTest {
                                     .declinedTransactionId(
                                         "declined_transaction_17jbn0yyhvkt4v4ooym8"
                                     )
+                                    .digitalWalletTokenId(null)
                                     .direction(CardPayment.Element.CardDecline.Direction.SETTLEMENT)
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
@@ -2890,6 +2950,7 @@ class CardPaymentTest {
                                     .merchantCountry("US")
                                     .merchantDescriptor("AMAZON.COM")
                                     .merchantPostalCode("10045")
+                                    .merchantState(null)
                                     .networkDetails(
                                         CardPayment.Element.CardDecline.NetworkDetails.builder()
                                             .category(
@@ -2933,12 +2994,14 @@ class CardPaymentTest {
                                             .build()
                                     )
                                     .networkRiskScore(10L)
+                                    .physicalCardId(null)
                                     .presentmentAmount(-1000L)
                                     .presentmentCurrency("USD")
                                     .processingCategory(
                                         CardPayment.Element.CardDecline.ProcessingCategory
                                             .ACCOUNT_FUNDING
                                     )
+                                    .realTimeDecisionId(null)
                                     .realTimeDecisionReason(
                                         CardPayment.Element.CardDecline.RealTimeDecisionReason
                                             .INSUFFICIENT_FUNDS
@@ -3023,6 +3086,7 @@ class CardPaymentTest {
                                     .pendingTransactionId(
                                         "pending_transaction_k1sfetcau2qbvjbzgju4"
                                     )
+                                    .realTimeDecisionId(null)
                                     .type(CardPayment.Element.CardIncrement.Type.CARD_INCREMENT)
                                     .updatedAuthorizationAmount(120L)
                                     .build()
@@ -3112,6 +3176,7 @@ class CardPaymentTest {
                                                     .build()
                                             )
                                             .customerReferenceIdentifier("51201")
+                                            .localTaxAmount(null)
                                             .localTaxCurrency("usd")
                                             .lodging(
                                                 CardPayment.Element.CardRefund.PurchaseDetails
@@ -3147,6 +3212,7 @@ class CardPaymentTest {
                                                     .totalTaxCurrency("usd")
                                                     .build()
                                             )
+                                            .nationalTaxAmount(null)
                                             .nationalTaxCurrency("usd")
                                             .purchaseIdentifier("10203")
                                             .purchaseIdentifierFormat(
@@ -3308,6 +3374,7 @@ class CardPaymentTest {
                                 CardPayment.Element.CardSettlement.builder()
                                     .id("card_settlement_khv5kfeu0vndj291omg6")
                                     .amount(100L)
+                                    .cardAuthorization(null)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                     .cashback(
                                         CardPayment.Element.CardSettlement.Cashback.builder()
@@ -3345,6 +3412,7 @@ class CardPaymentTest {
                                             .transactionId("627199945183184")
                                             .build()
                                     )
+                                    .pendingTransactionId(null)
                                     .presentmentAmount(100L)
                                     .presentmentCurrency("USD")
                                     .purchaseDetails(
@@ -3392,6 +3460,7 @@ class CardPaymentTest {
                                                     .build()
                                             )
                                             .customerReferenceIdentifier("51201")
+                                            .localTaxAmount(null)
                                             .localTaxCurrency("usd")
                                             .lodging(
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
@@ -3427,6 +3496,7 @@ class CardPaymentTest {
                                                     .totalTaxCurrency("usd")
                                                     .build()
                                             )
+                                            .nationalTaxAmount(null)
                                             .nationalTaxCurrency("usd")
                                             .purchaseIdentifier("10203")
                                             .purchaseIdentifierFormat(
@@ -3558,6 +3628,7 @@ class CardPaymentTest {
                                     .actioner(CardPayment.Element.CardValidation.Actioner.USER)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                     .currency(CardPayment.Element.CardValidation.Currency.CAD)
+                                    .digitalWalletTokenId(null)
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
                                     .merchantCity("New York")
@@ -3610,6 +3681,8 @@ class CardPaymentTest {
                                             .build()
                                     )
                                     .networkRiskScore(10L)
+                                    .physicalCardId(null)
+                                    .realTimeDecisionId(null)
                                     .terminalId("RCN5VNXS")
                                     .type(CardPayment.Element.CardValidation.Type.CARD_VALIDATION)
                                     .verification(
@@ -3654,6 +3727,7 @@ class CardPaymentTest {
                             .build(),
                     )
                 )
+                .physicalCardId(null)
                 .state(
                     CardPayment.State.builder()
                         .authorizedAmount(100L)
@@ -3670,6 +3744,7 @@ class CardPaymentTest {
         assertThat(cardPayment.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(cardPayment.cardId()).isEqualTo("card_oubs0hwk5rn6knuecxg2")
         assertThat(cardPayment.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+        assertThat(cardPayment.digitalWalletTokenId()).isEmpty
         assertThat(cardPayment.elements())
             .containsExactly(
                 CardPayment.Element.builder()
@@ -3680,6 +3755,7 @@ class CardPaymentTest {
                             .amount(100L)
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                             .currency(CardPayment.Element.CardAuthorization.Currency.CAD)
+                            .digitalWalletTokenId(null)
                             .direction(CardPayment.Element.CardAuthorization.Direction.SETTLEMENT)
                             .expiresAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                             .merchantAcceptorId("5665270011000168")
@@ -3729,12 +3805,15 @@ class CardPaymentTest {
                                     .build()
                             )
                             .networkRiskScore(10L)
+                            .pendingTransactionId(null)
+                            .physicalCardId(null)
                             .presentmentAmount(100L)
                             .presentmentCurrency("USD")
                             .processingCategory(
                                 CardPayment.Element.CardAuthorization.ProcessingCategory
                                     .ACCOUNT_FUNDING
                             )
+                            .realTimeDecisionId(null)
                             .terminalId("RCN5VNXS")
                             .type(CardPayment.Element.CardAuthorization.Type.CARD_AUTHORIZATION)
                             .verification(
@@ -3792,6 +3871,7 @@ class CardPaymentTest {
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                             .currency(CardPayment.Element.CardDecline.Currency.CAD)
                             .declinedTransactionId("declined_transaction_17jbn0yyhvkt4v4ooym8")
+                            .digitalWalletTokenId(null)
                             .direction(CardPayment.Element.CardDecline.Direction.SETTLEMENT)
                             .merchantAcceptorId("5665270011000168")
                             .merchantCategoryCode("5734")
@@ -3799,6 +3879,7 @@ class CardPaymentTest {
                             .merchantCountry("US")
                             .merchantDescriptor("AMAZON.COM")
                             .merchantPostalCode("10045")
+                            .merchantState(null)
                             .networkDetails(
                                 CardPayment.Element.CardDecline.NetworkDetails.builder()
                                     .category(
@@ -3834,11 +3915,13 @@ class CardPaymentTest {
                                     .build()
                             )
                             .networkRiskScore(10L)
+                            .physicalCardId(null)
                             .presentmentAmount(-1000L)
                             .presentmentCurrency("USD")
                             .processingCategory(
                                 CardPayment.Element.CardDecline.ProcessingCategory.ACCOUNT_FUNDING
                             )
+                            .realTimeDecisionId(null)
                             .realTimeDecisionReason(
                                 CardPayment.Element.CardDecline.RealTimeDecisionReason
                                     .INSUFFICIENT_FUNDS
@@ -3917,6 +4000,7 @@ class CardPaymentTest {
                             )
                             .networkRiskScore(10L)
                             .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
+                            .realTimeDecisionId(null)
                             .type(CardPayment.Element.CardIncrement.Type.CARD_INCREMENT)
                             .updatedAuthorizationAmount(120L)
                             .build()
@@ -3994,6 +4078,7 @@ class CardPaymentTest {
                                             .build()
                                     )
                                     .customerReferenceIdentifier("51201")
+                                    .localTaxAmount(null)
                                     .localTaxCurrency("usd")
                                     .lodging(
                                         CardPayment.Element.CardRefund.PurchaseDetails.Lodging
@@ -4026,6 +4111,7 @@ class CardPaymentTest {
                                             .totalTaxCurrency("usd")
                                             .build()
                                     )
+                                    .nationalTaxAmount(null)
                                     .nationalTaxCurrency("usd")
                                     .purchaseIdentifier("10203")
                                     .purchaseIdentifierFormat(
@@ -4174,6 +4260,7 @@ class CardPaymentTest {
                         CardPayment.Element.CardSettlement.builder()
                             .id("card_settlement_khv5kfeu0vndj291omg6")
                             .amount(100L)
+                            .cardAuthorization(null)
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                             .cashback(
                                 CardPayment.Element.CardSettlement.Cashback.builder()
@@ -4207,6 +4294,7 @@ class CardPaymentTest {
                                     .transactionId("627199945183184")
                                     .build()
                             )
+                            .pendingTransactionId(null)
                             .presentmentAmount(100L)
                             .presentmentCurrency("USD")
                             .purchaseDetails(
@@ -4245,6 +4333,7 @@ class CardPaymentTest {
                                             .build()
                                     )
                                     .customerReferenceIdentifier("51201")
+                                    .localTaxAmount(null)
                                     .localTaxCurrency("usd")
                                     .lodging(
                                         CardPayment.Element.CardSettlement.PurchaseDetails.Lodging
@@ -4277,6 +4366,7 @@ class CardPaymentTest {
                                             .totalTaxCurrency("usd")
                                             .build()
                                     )
+                                    .nationalTaxAmount(null)
                                     .nationalTaxCurrency("usd")
                                     .purchaseIdentifier("10203")
                                     .purchaseIdentifierFormat(
@@ -4399,6 +4489,7 @@ class CardPaymentTest {
                             .actioner(CardPayment.Element.CardValidation.Actioner.USER)
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                             .currency(CardPayment.Element.CardValidation.Currency.CAD)
+                            .digitalWalletTokenId(null)
                             .merchantAcceptorId("5665270011000168")
                             .merchantCategoryCode("5734")
                             .merchantCity("New York")
@@ -4445,6 +4536,8 @@ class CardPaymentTest {
                                     .build()
                             )
                             .networkRiskScore(10L)
+                            .physicalCardId(null)
+                            .realTimeDecisionId(null)
                             .terminalId("RCN5VNXS")
                             .type(CardPayment.Element.CardValidation.Type.CARD_VALIDATION)
                             .verification(
@@ -4493,6 +4586,7 @@ class CardPaymentTest {
                             .amount(100L)
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                             .currency(CardPayment.Element.CardAuthorization.Currency.CAD)
+                            .digitalWalletTokenId(null)
                             .direction(CardPayment.Element.CardAuthorization.Direction.SETTLEMENT)
                             .expiresAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                             .merchantAcceptorId("5665270011000168")
@@ -4542,12 +4636,15 @@ class CardPaymentTest {
                                     .build()
                             )
                             .networkRiskScore(10L)
+                            .pendingTransactionId(null)
+                            .physicalCardId(null)
                             .presentmentAmount(100L)
                             .presentmentCurrency("USD")
                             .processingCategory(
                                 CardPayment.Element.CardAuthorization.ProcessingCategory
                                     .ACCOUNT_FUNDING
                             )
+                            .realTimeDecisionId(null)
                             .terminalId("RCN5VNXS")
                             .type(CardPayment.Element.CardAuthorization.Type.CARD_AUTHORIZATION)
                             .verification(
@@ -4605,6 +4702,7 @@ class CardPaymentTest {
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                             .currency(CardPayment.Element.CardDecline.Currency.CAD)
                             .declinedTransactionId("declined_transaction_17jbn0yyhvkt4v4ooym8")
+                            .digitalWalletTokenId(null)
                             .direction(CardPayment.Element.CardDecline.Direction.SETTLEMENT)
                             .merchantAcceptorId("5665270011000168")
                             .merchantCategoryCode("5734")
@@ -4612,6 +4710,7 @@ class CardPaymentTest {
                             .merchantCountry("US")
                             .merchantDescriptor("AMAZON.COM")
                             .merchantPostalCode("10045")
+                            .merchantState(null)
                             .networkDetails(
                                 CardPayment.Element.CardDecline.NetworkDetails.builder()
                                     .category(
@@ -4647,11 +4746,13 @@ class CardPaymentTest {
                                     .build()
                             )
                             .networkRiskScore(10L)
+                            .physicalCardId(null)
                             .presentmentAmount(-1000L)
                             .presentmentCurrency("USD")
                             .processingCategory(
                                 CardPayment.Element.CardDecline.ProcessingCategory.ACCOUNT_FUNDING
                             )
+                            .realTimeDecisionId(null)
                             .realTimeDecisionReason(
                                 CardPayment.Element.CardDecline.RealTimeDecisionReason
                                     .INSUFFICIENT_FUNDS
@@ -4730,6 +4831,7 @@ class CardPaymentTest {
                             )
                             .networkRiskScore(10L)
                             .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
+                            .realTimeDecisionId(null)
                             .type(CardPayment.Element.CardIncrement.Type.CARD_INCREMENT)
                             .updatedAuthorizationAmount(120L)
                             .build()
@@ -4807,6 +4909,7 @@ class CardPaymentTest {
                                             .build()
                                     )
                                     .customerReferenceIdentifier("51201")
+                                    .localTaxAmount(null)
                                     .localTaxCurrency("usd")
                                     .lodging(
                                         CardPayment.Element.CardRefund.PurchaseDetails.Lodging
@@ -4839,6 +4942,7 @@ class CardPaymentTest {
                                             .totalTaxCurrency("usd")
                                             .build()
                                     )
+                                    .nationalTaxAmount(null)
                                     .nationalTaxCurrency("usd")
                                     .purchaseIdentifier("10203")
                                     .purchaseIdentifierFormat(
@@ -4987,6 +5091,7 @@ class CardPaymentTest {
                         CardPayment.Element.CardSettlement.builder()
                             .id("card_settlement_khv5kfeu0vndj291omg6")
                             .amount(100L)
+                            .cardAuthorization(null)
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                             .cashback(
                                 CardPayment.Element.CardSettlement.Cashback.builder()
@@ -5020,6 +5125,7 @@ class CardPaymentTest {
                                     .transactionId("627199945183184")
                                     .build()
                             )
+                            .pendingTransactionId(null)
                             .presentmentAmount(100L)
                             .presentmentCurrency("USD")
                             .purchaseDetails(
@@ -5058,6 +5164,7 @@ class CardPaymentTest {
                                             .build()
                                     )
                                     .customerReferenceIdentifier("51201")
+                                    .localTaxAmount(null)
                                     .localTaxCurrency("usd")
                                     .lodging(
                                         CardPayment.Element.CardSettlement.PurchaseDetails.Lodging
@@ -5090,6 +5197,7 @@ class CardPaymentTest {
                                             .totalTaxCurrency("usd")
                                             .build()
                                     )
+                                    .nationalTaxAmount(null)
                                     .nationalTaxCurrency("usd")
                                     .purchaseIdentifier("10203")
                                     .purchaseIdentifierFormat(
@@ -5212,6 +5320,7 @@ class CardPaymentTest {
                             .actioner(CardPayment.Element.CardValidation.Actioner.USER)
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                             .currency(CardPayment.Element.CardValidation.Currency.CAD)
+                            .digitalWalletTokenId(null)
                             .merchantAcceptorId("5665270011000168")
                             .merchantCategoryCode("5734")
                             .merchantCity("New York")
@@ -5258,6 +5367,8 @@ class CardPaymentTest {
                                     .build()
                             )
                             .networkRiskScore(10L)
+                            .physicalCardId(null)
+                            .realTimeDecisionId(null)
                             .terminalId("RCN5VNXS")
                             .type(CardPayment.Element.CardValidation.Type.CARD_VALIDATION)
                             .verification(
@@ -5306,6 +5417,7 @@ class CardPaymentTest {
                             .amount(100L)
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                             .currency(CardPayment.Element.CardAuthorization.Currency.CAD)
+                            .digitalWalletTokenId(null)
                             .direction(CardPayment.Element.CardAuthorization.Direction.SETTLEMENT)
                             .expiresAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                             .merchantAcceptorId("5665270011000168")
@@ -5355,12 +5467,15 @@ class CardPaymentTest {
                                     .build()
                             )
                             .networkRiskScore(10L)
+                            .pendingTransactionId(null)
+                            .physicalCardId(null)
                             .presentmentAmount(100L)
                             .presentmentCurrency("USD")
                             .processingCategory(
                                 CardPayment.Element.CardAuthorization.ProcessingCategory
                                     .ACCOUNT_FUNDING
                             )
+                            .realTimeDecisionId(null)
                             .terminalId("RCN5VNXS")
                             .type(CardPayment.Element.CardAuthorization.Type.CARD_AUTHORIZATION)
                             .verification(
@@ -5418,6 +5533,7 @@ class CardPaymentTest {
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                             .currency(CardPayment.Element.CardDecline.Currency.CAD)
                             .declinedTransactionId("declined_transaction_17jbn0yyhvkt4v4ooym8")
+                            .digitalWalletTokenId(null)
                             .direction(CardPayment.Element.CardDecline.Direction.SETTLEMENT)
                             .merchantAcceptorId("5665270011000168")
                             .merchantCategoryCode("5734")
@@ -5425,6 +5541,7 @@ class CardPaymentTest {
                             .merchantCountry("US")
                             .merchantDescriptor("AMAZON.COM")
                             .merchantPostalCode("10045")
+                            .merchantState(null)
                             .networkDetails(
                                 CardPayment.Element.CardDecline.NetworkDetails.builder()
                                     .category(
@@ -5460,11 +5577,13 @@ class CardPaymentTest {
                                     .build()
                             )
                             .networkRiskScore(10L)
+                            .physicalCardId(null)
                             .presentmentAmount(-1000L)
                             .presentmentCurrency("USD")
                             .processingCategory(
                                 CardPayment.Element.CardDecline.ProcessingCategory.ACCOUNT_FUNDING
                             )
+                            .realTimeDecisionId(null)
                             .realTimeDecisionReason(
                                 CardPayment.Element.CardDecline.RealTimeDecisionReason
                                     .INSUFFICIENT_FUNDS
@@ -5543,6 +5662,7 @@ class CardPaymentTest {
                             )
                             .networkRiskScore(10L)
                             .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
+                            .realTimeDecisionId(null)
                             .type(CardPayment.Element.CardIncrement.Type.CARD_INCREMENT)
                             .updatedAuthorizationAmount(120L)
                             .build()
@@ -5620,6 +5740,7 @@ class CardPaymentTest {
                                             .build()
                                     )
                                     .customerReferenceIdentifier("51201")
+                                    .localTaxAmount(null)
                                     .localTaxCurrency("usd")
                                     .lodging(
                                         CardPayment.Element.CardRefund.PurchaseDetails.Lodging
@@ -5652,6 +5773,7 @@ class CardPaymentTest {
                                             .totalTaxCurrency("usd")
                                             .build()
                                     )
+                                    .nationalTaxAmount(null)
                                     .nationalTaxCurrency("usd")
                                     .purchaseIdentifier("10203")
                                     .purchaseIdentifierFormat(
@@ -5800,6 +5922,7 @@ class CardPaymentTest {
                         CardPayment.Element.CardSettlement.builder()
                             .id("card_settlement_khv5kfeu0vndj291omg6")
                             .amount(100L)
+                            .cardAuthorization(null)
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                             .cashback(
                                 CardPayment.Element.CardSettlement.Cashback.builder()
@@ -5833,6 +5956,7 @@ class CardPaymentTest {
                                     .transactionId("627199945183184")
                                     .build()
                             )
+                            .pendingTransactionId(null)
                             .presentmentAmount(100L)
                             .presentmentCurrency("USD")
                             .purchaseDetails(
@@ -5871,6 +5995,7 @@ class CardPaymentTest {
                                             .build()
                                     )
                                     .customerReferenceIdentifier("51201")
+                                    .localTaxAmount(null)
                                     .localTaxCurrency("usd")
                                     .lodging(
                                         CardPayment.Element.CardSettlement.PurchaseDetails.Lodging
@@ -5903,6 +6028,7 @@ class CardPaymentTest {
                                             .totalTaxCurrency("usd")
                                             .build()
                                     )
+                                    .nationalTaxAmount(null)
                                     .nationalTaxCurrency("usd")
                                     .purchaseIdentifier("10203")
                                     .purchaseIdentifierFormat(
@@ -6025,6 +6151,7 @@ class CardPaymentTest {
                             .actioner(CardPayment.Element.CardValidation.Actioner.USER)
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                             .currency(CardPayment.Element.CardValidation.Currency.CAD)
+                            .digitalWalletTokenId(null)
                             .merchantAcceptorId("5665270011000168")
                             .merchantCategoryCode("5734")
                             .merchantCity("New York")
@@ -6071,6 +6198,8 @@ class CardPaymentTest {
                                     .build()
                             )
                             .networkRiskScore(10L)
+                            .physicalCardId(null)
+                            .realTimeDecisionId(null)
                             .terminalId("RCN5VNXS")
                             .type(CardPayment.Element.CardValidation.Type.CARD_VALIDATION)
                             .verification(
@@ -6119,6 +6248,7 @@ class CardPaymentTest {
                             .amount(100L)
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                             .currency(CardPayment.Element.CardAuthorization.Currency.CAD)
+                            .digitalWalletTokenId(null)
                             .direction(CardPayment.Element.CardAuthorization.Direction.SETTLEMENT)
                             .expiresAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                             .merchantAcceptorId("5665270011000168")
@@ -6168,12 +6298,15 @@ class CardPaymentTest {
                                     .build()
                             )
                             .networkRiskScore(10L)
+                            .pendingTransactionId(null)
+                            .physicalCardId(null)
                             .presentmentAmount(100L)
                             .presentmentCurrency("USD")
                             .processingCategory(
                                 CardPayment.Element.CardAuthorization.ProcessingCategory
                                     .ACCOUNT_FUNDING
                             )
+                            .realTimeDecisionId(null)
                             .terminalId("RCN5VNXS")
                             .type(CardPayment.Element.CardAuthorization.Type.CARD_AUTHORIZATION)
                             .verification(
@@ -6231,6 +6364,7 @@ class CardPaymentTest {
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                             .currency(CardPayment.Element.CardDecline.Currency.CAD)
                             .declinedTransactionId("declined_transaction_17jbn0yyhvkt4v4ooym8")
+                            .digitalWalletTokenId(null)
                             .direction(CardPayment.Element.CardDecline.Direction.SETTLEMENT)
                             .merchantAcceptorId("5665270011000168")
                             .merchantCategoryCode("5734")
@@ -6238,6 +6372,7 @@ class CardPaymentTest {
                             .merchantCountry("US")
                             .merchantDescriptor("AMAZON.COM")
                             .merchantPostalCode("10045")
+                            .merchantState(null)
                             .networkDetails(
                                 CardPayment.Element.CardDecline.NetworkDetails.builder()
                                     .category(
@@ -6273,11 +6408,13 @@ class CardPaymentTest {
                                     .build()
                             )
                             .networkRiskScore(10L)
+                            .physicalCardId(null)
                             .presentmentAmount(-1000L)
                             .presentmentCurrency("USD")
                             .processingCategory(
                                 CardPayment.Element.CardDecline.ProcessingCategory.ACCOUNT_FUNDING
                             )
+                            .realTimeDecisionId(null)
                             .realTimeDecisionReason(
                                 CardPayment.Element.CardDecline.RealTimeDecisionReason
                                     .INSUFFICIENT_FUNDS
@@ -6356,6 +6493,7 @@ class CardPaymentTest {
                             )
                             .networkRiskScore(10L)
                             .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
+                            .realTimeDecisionId(null)
                             .type(CardPayment.Element.CardIncrement.Type.CARD_INCREMENT)
                             .updatedAuthorizationAmount(120L)
                             .build()
@@ -6433,6 +6571,7 @@ class CardPaymentTest {
                                             .build()
                                     )
                                     .customerReferenceIdentifier("51201")
+                                    .localTaxAmount(null)
                                     .localTaxCurrency("usd")
                                     .lodging(
                                         CardPayment.Element.CardRefund.PurchaseDetails.Lodging
@@ -6465,6 +6604,7 @@ class CardPaymentTest {
                                             .totalTaxCurrency("usd")
                                             .build()
                                     )
+                                    .nationalTaxAmount(null)
                                     .nationalTaxCurrency("usd")
                                     .purchaseIdentifier("10203")
                                     .purchaseIdentifierFormat(
@@ -6613,6 +6753,7 @@ class CardPaymentTest {
                         CardPayment.Element.CardSettlement.builder()
                             .id("card_settlement_khv5kfeu0vndj291omg6")
                             .amount(100L)
+                            .cardAuthorization(null)
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                             .cashback(
                                 CardPayment.Element.CardSettlement.Cashback.builder()
@@ -6646,6 +6787,7 @@ class CardPaymentTest {
                                     .transactionId("627199945183184")
                                     .build()
                             )
+                            .pendingTransactionId(null)
                             .presentmentAmount(100L)
                             .presentmentCurrency("USD")
                             .purchaseDetails(
@@ -6684,6 +6826,7 @@ class CardPaymentTest {
                                             .build()
                                     )
                                     .customerReferenceIdentifier("51201")
+                                    .localTaxAmount(null)
                                     .localTaxCurrency("usd")
                                     .lodging(
                                         CardPayment.Element.CardSettlement.PurchaseDetails.Lodging
@@ -6716,6 +6859,7 @@ class CardPaymentTest {
                                             .totalTaxCurrency("usd")
                                             .build()
                                     )
+                                    .nationalTaxAmount(null)
                                     .nationalTaxCurrency("usd")
                                     .purchaseIdentifier("10203")
                                     .purchaseIdentifierFormat(
@@ -6838,6 +6982,7 @@ class CardPaymentTest {
                             .actioner(CardPayment.Element.CardValidation.Actioner.USER)
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                             .currency(CardPayment.Element.CardValidation.Currency.CAD)
+                            .digitalWalletTokenId(null)
                             .merchantAcceptorId("5665270011000168")
                             .merchantCategoryCode("5734")
                             .merchantCity("New York")
@@ -6884,6 +7029,8 @@ class CardPaymentTest {
                                     .build()
                             )
                             .networkRiskScore(10L)
+                            .physicalCardId(null)
+                            .realTimeDecisionId(null)
                             .terminalId("RCN5VNXS")
                             .type(CardPayment.Element.CardValidation.Type.CARD_VALIDATION)
                             .verification(
@@ -6925,6 +7072,7 @@ class CardPaymentTest {
                     .other(JsonValue.from(mapOf<String, Any>()))
                     .build()
             )
+        assertThat(cardPayment.physicalCardId()).isEmpty
         assertThat(cardPayment.state())
             .isEqualTo(
                 CardPayment.State.builder()

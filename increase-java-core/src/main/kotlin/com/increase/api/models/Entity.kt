@@ -147,20 +147,24 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The entity's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /**
      * Details of the corporation entity. Will be present if `structure` is equal to `corporation`.
      */
-    @JsonProperty("corporation") @ExcludeMissing fun _corporation() = corporation
+    @JsonProperty("corporation")
+    @ExcludeMissing
+    fun _corporation(): JsonField<Corporation> = corporation
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Entity was created.
      */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** The entity's description for display purposes. */
-    @JsonProperty("description") @ExcludeMissing fun _description() = description
+    @JsonProperty("description") @ExcludeMissing fun _description(): JsonField<String> = description
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Entity's details
@@ -168,7 +172,7 @@ private constructor(
      */
     @JsonProperty("details_confirmed_at")
     @ExcludeMissing
-    fun _detailsConfirmedAt() = detailsConfirmedAt
+    fun _detailsConfirmedAt(): JsonField<OffsetDateTime> = detailsConfirmedAt
 
     /**
      * Details of the government authority entity. Will be present if `structure` is equal to
@@ -176,29 +180,33 @@ private constructor(
      */
     @JsonProperty("government_authority")
     @ExcludeMissing
-    fun _governmentAuthority() = governmentAuthority
+    fun _governmentAuthority(): JsonField<GovernmentAuthority> = governmentAuthority
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
      * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
     /** Details of the joint entity. Will be present if `structure` is equal to `joint`. */
-    @JsonProperty("joint") @ExcludeMissing fun _joint() = joint
+    @JsonProperty("joint") @ExcludeMissing fun _joint(): JsonField<Joint> = joint
 
     /**
      * Details of the natural person entity. Will be present if `structure` is equal to
      * `natural_person`.
      */
-    @JsonProperty("natural_person") @ExcludeMissing fun _naturalPerson() = naturalPerson
+    @JsonProperty("natural_person")
+    @ExcludeMissing
+    fun _naturalPerson(): JsonField<NaturalPerson> = naturalPerson
 
     /** The status of the entity. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /** The entity's legal structure. */
-    @JsonProperty("structure") @ExcludeMissing fun _structure() = structure
+    @JsonProperty("structure") @ExcludeMissing fun _structure(): JsonField<Structure> = structure
 
     /**
      * Additional documentation associated with the entity. This is limited to the first 10
@@ -207,7 +215,8 @@ private constructor(
      */
     @JsonProperty("supplemental_documents")
     @ExcludeMissing
-    fun _supplementalDocuments() = supplementalDocuments
+    fun _supplementalDocuments(): JsonField<List<EntitySupplementalDocument>> =
+        supplementalDocuments
 
     /**
      * A reference to data stored in a third-party verification service. Your integration may or may
@@ -215,13 +224,13 @@ private constructor(
      */
     @JsonProperty("third_party_verification")
     @ExcludeMissing
-    fun _thirdPartyVerification() = thirdPartyVerification
+    fun _thirdPartyVerification(): JsonField<ThirdPartyVerification> = thirdPartyVerification
 
     /** Details of the trust entity. Will be present if `structure` is equal to `trust`. */
-    @JsonProperty("trust") @ExcludeMissing fun _trust() = trust
+    @JsonProperty("trust") @ExcludeMissing fun _trust(): JsonField<Trust> = trust
 
     /** A constant representing the object's type. For this resource it will always be `entity`. */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -259,22 +268,22 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var corporation: JsonField<Corporation> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var description: JsonField<String> = JsonMissing.of()
-        private var detailsConfirmedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var governmentAuthority: JsonField<GovernmentAuthority> = JsonMissing.of()
-        private var idempotencyKey: JsonField<String> = JsonMissing.of()
-        private var joint: JsonField<Joint> = JsonMissing.of()
-        private var naturalPerson: JsonField<NaturalPerson> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var structure: JsonField<Structure> = JsonMissing.of()
-        private var supplementalDocuments: JsonField<List<EntitySupplementalDocument>> =
-            JsonMissing.of()
-        private var thirdPartyVerification: JsonField<ThirdPartyVerification> = JsonMissing.of()
-        private var trust: JsonField<Trust> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var corporation: JsonField<Corporation>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var description: JsonField<String>? = null
+        private var detailsConfirmedAt: JsonField<OffsetDateTime>? = null
+        private var governmentAuthority: JsonField<GovernmentAuthority>? = null
+        private var idempotencyKey: JsonField<String>? = null
+        private var joint: JsonField<Joint>? = null
+        private var naturalPerson: JsonField<NaturalPerson>? = null
+        private var status: JsonField<Status>? = null
+        private var structure: JsonField<Structure>? = null
+        private var supplementalDocuments: JsonField<MutableList<EntitySupplementalDocument>>? =
+            null
+        private var thirdPartyVerification: JsonField<ThirdPartyVerification>? = null
+        private var trust: JsonField<Trust>? = null
+        private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -290,7 +299,7 @@ private constructor(
             naturalPerson = entity.naturalPerson
             status = entity.status
             structure = entity.structure
-            supplementalDocuments = entity.supplementalDocuments
+            supplementalDocuments = entity.supplementalDocuments.map { it.toMutableList() }
             thirdPartyVerification = entity.thirdPartyVerification
             trust = entity.trust
             type = entity.type
@@ -307,7 +316,13 @@ private constructor(
          * Details of the corporation entity. Will be present if `structure` is equal to
          * `corporation`.
          */
-        fun corporation(corporation: Corporation) = corporation(JsonField.of(corporation))
+        fun corporation(corporation: Corporation?) = corporation(JsonField.ofNullable(corporation))
+
+        /**
+         * Details of the corporation entity. Will be present if `structure` is equal to
+         * `corporation`.
+         */
+        fun corporation(corporation: Optional<Corporation>) = corporation(corporation.orElse(null))
 
         /**
          * Details of the corporation entity. Will be present if `structure` is equal to
@@ -330,7 +345,10 @@ private constructor(
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The entity's description for display purposes. */
-        fun description(description: String) = description(JsonField.of(description))
+        fun description(description: String?) = description(JsonField.ofNullable(description))
+
+        /** The entity's description for display purposes. */
+        fun description(description: Optional<String>) = description(description.orElse(null))
 
         /** The entity's description for display purposes. */
         fun description(description: JsonField<String>) = apply { this.description = description }
@@ -339,8 +357,15 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Entity's details
          * were most recently confirmed.
          */
-        fun detailsConfirmedAt(detailsConfirmedAt: OffsetDateTime) =
-            detailsConfirmedAt(JsonField.of(detailsConfirmedAt))
+        fun detailsConfirmedAt(detailsConfirmedAt: OffsetDateTime?) =
+            detailsConfirmedAt(JsonField.ofNullable(detailsConfirmedAt))
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Entity's details
+         * were most recently confirmed.
+         */
+        fun detailsConfirmedAt(detailsConfirmedAt: Optional<OffsetDateTime>) =
+            detailsConfirmedAt(detailsConfirmedAt.orElse(null))
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Entity's details
@@ -354,8 +379,15 @@ private constructor(
          * Details of the government authority entity. Will be present if `structure` is equal to
          * `government_authority`.
          */
-        fun governmentAuthority(governmentAuthority: GovernmentAuthority) =
-            governmentAuthority(JsonField.of(governmentAuthority))
+        fun governmentAuthority(governmentAuthority: GovernmentAuthority?) =
+            governmentAuthority(JsonField.ofNullable(governmentAuthority))
+
+        /**
+         * Details of the government authority entity. Will be present if `structure` is equal to
+         * `government_authority`.
+         */
+        fun governmentAuthority(governmentAuthority: Optional<GovernmentAuthority>) =
+            governmentAuthority(governmentAuthority.orElse(null))
 
         /**
          * Details of the government authority entity. Will be present if `structure` is equal to
@@ -370,7 +402,16 @@ private constructor(
          * is used to ensure that a request is only processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+        fun idempotencyKey(idempotencyKey: String?) =
+            idempotencyKey(JsonField.ofNullable(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: Optional<String>) =
+            idempotencyKey(idempotencyKey.orElse(null))
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -382,7 +423,10 @@ private constructor(
         }
 
         /** Details of the joint entity. Will be present if `structure` is equal to `joint`. */
-        fun joint(joint: Joint) = joint(JsonField.of(joint))
+        fun joint(joint: Joint?) = joint(JsonField.ofNullable(joint))
+
+        /** Details of the joint entity. Will be present if `structure` is equal to `joint`. */
+        fun joint(joint: Optional<Joint>) = joint(joint.orElse(null))
 
         /** Details of the joint entity. Will be present if `structure` is equal to `joint`. */
         fun joint(joint: JsonField<Joint>) = apply { this.joint = joint }
@@ -391,7 +435,15 @@ private constructor(
          * Details of the natural person entity. Will be present if `structure` is equal to
          * `natural_person`.
          */
-        fun naturalPerson(naturalPerson: NaturalPerson) = naturalPerson(JsonField.of(naturalPerson))
+        fun naturalPerson(naturalPerson: NaturalPerson?) =
+            naturalPerson(JsonField.ofNullable(naturalPerson))
+
+        /**
+         * Details of the natural person entity. Will be present if `structure` is equal to
+         * `natural_person`.
+         */
+        fun naturalPerson(naturalPerson: Optional<NaturalPerson>) =
+            naturalPerson(naturalPerson.orElse(null))
 
         /**
          * Details of the natural person entity. Will be present if `structure` is equal to
@@ -428,14 +480,39 @@ private constructor(
          */
         fun supplementalDocuments(
             supplementalDocuments: JsonField<List<EntitySupplementalDocument>>
-        ) = apply { this.supplementalDocuments = supplementalDocuments }
+        ) = apply { this.supplementalDocuments = supplementalDocuments.map { it.toMutableList() } }
+
+        /**
+         * Additional documentation associated with the entity. This is limited to the first 10
+         * documents for an entity. If an entity has more than 10 documents, use the GET
+         * /entity_supplemental_documents list endpoint to retrieve them.
+         */
+        fun addSupplementalDocument(supplementalDocument: EntitySupplementalDocument) = apply {
+            supplementalDocuments =
+                (supplementalDocuments ?: JsonField.of(mutableListOf())).apply {
+                    asKnown()
+                        .orElseThrow {
+                            IllegalStateException(
+                                "Field was set to non-list type: ${javaClass.simpleName}"
+                            )
+                        }
+                        .add(supplementalDocument)
+                }
+        }
 
         /**
          * A reference to data stored in a third-party verification service. Your integration may or
          * may not use this field.
          */
-        fun thirdPartyVerification(thirdPartyVerification: ThirdPartyVerification) =
-            thirdPartyVerification(JsonField.of(thirdPartyVerification))
+        fun thirdPartyVerification(thirdPartyVerification: ThirdPartyVerification?) =
+            thirdPartyVerification(JsonField.ofNullable(thirdPartyVerification))
+
+        /**
+         * A reference to data stored in a third-party verification service. Your integration may or
+         * may not use this field.
+         */
+        fun thirdPartyVerification(thirdPartyVerification: Optional<ThirdPartyVerification>) =
+            thirdPartyVerification(thirdPartyVerification.orElse(null))
 
         /**
          * A reference to data stored in a third-party verification service. Your integration may or
@@ -447,7 +524,10 @@ private constructor(
             }
 
         /** Details of the trust entity. Will be present if `structure` is equal to `trust`. */
-        fun trust(trust: Trust) = trust(JsonField.of(trust))
+        fun trust(trust: Trust?) = trust(JsonField.ofNullable(trust))
+
+        /** Details of the trust entity. Will be present if `structure` is equal to `trust`. */
+        fun trust(trust: Optional<Trust>) = trust(trust.orElse(null))
 
         /** Details of the trust entity. Will be present if `structure` is equal to `trust`. */
         fun trust(trust: JsonField<Trust>) = apply { this.trust = trust }
@@ -483,21 +563,30 @@ private constructor(
 
         fun build(): Entity =
             Entity(
-                id,
-                corporation,
-                createdAt,
-                description,
-                detailsConfirmedAt,
-                governmentAuthority,
-                idempotencyKey,
-                joint,
-                naturalPerson,
-                status,
-                structure,
-                supplementalDocuments.map { it.toImmutable() },
-                thirdPartyVerification,
-                trust,
-                type,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(corporation) { "`corporation` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(description) { "`description` is required but was not set" },
+                checkNotNull(detailsConfirmedAt) {
+                    "`detailsConfirmedAt` is required but was not set"
+                },
+                checkNotNull(governmentAuthority) {
+                    "`governmentAuthority` is required but was not set"
+                },
+                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
+                checkNotNull(joint) { "`joint` is required but was not set" },
+                checkNotNull(naturalPerson) { "`naturalPerson` is required but was not set" },
+                checkNotNull(status) { "`status` is required but was not set" },
+                checkNotNull(structure) { "`structure` is required but was not set" },
+                checkNotNull(supplementalDocuments) {
+                        "`supplementalDocuments` is required but was not set"
+                    }
+                    .map { it.toImmutable() },
+                checkNotNull(thirdPartyVerification) {
+                    "`thirdPartyVerification` is required but was not set"
+                },
+                checkNotNull(trust) { "`trust` is required but was not set" },
+                checkNotNull(type) { "`type` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }
@@ -568,14 +657,14 @@ private constructor(
         fun website(): Optional<String> = Optional.ofNullable(website.getNullable("website"))
 
         /** The corporation's address. */
-        @JsonProperty("address") @ExcludeMissing fun _address() = address
+        @JsonProperty("address") @ExcludeMissing fun _address(): JsonField<Address> = address
 
         /**
          * The identifying details of anyone controlling or owning 25% or more of the corporation.
          */
         @JsonProperty("beneficial_owners")
         @ExcludeMissing
-        fun _beneficialOwners() = beneficialOwners
+        fun _beneficialOwners(): JsonField<List<BeneficialOwner>> = beneficialOwners
 
         /**
          * The two-letter United States Postal Service (USPS) abbreviation for the corporation's
@@ -583,22 +672,26 @@ private constructor(
          */
         @JsonProperty("incorporation_state")
         @ExcludeMissing
-        fun _incorporationState() = incorporationState
+        fun _incorporationState(): JsonField<String> = incorporationState
 
         /**
          * The numeric North American Industry Classification System (NAICS) code submitted for the
          * corporation.
          */
-        @JsonProperty("industry_code") @ExcludeMissing fun _industryCode() = industryCode
+        @JsonProperty("industry_code")
+        @ExcludeMissing
+        fun _industryCode(): JsonField<String> = industryCode
 
         /** The legal name of the corporation. */
-        @JsonProperty("name") @ExcludeMissing fun _name() = name
+        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
         /** The Employer Identification Number (EIN) for the corporation. */
-        @JsonProperty("tax_identifier") @ExcludeMissing fun _taxIdentifier() = taxIdentifier
+        @JsonProperty("tax_identifier")
+        @ExcludeMissing
+        fun _taxIdentifier(): JsonField<String> = taxIdentifier
 
         /** The website of the corporation. */
-        @JsonProperty("website") @ExcludeMissing fun _website() = website
+        @JsonProperty("website") @ExcludeMissing fun _website(): JsonField<String> = website
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -628,19 +721,19 @@ private constructor(
 
         class Builder {
 
-            private var address: JsonField<Address> = JsonMissing.of()
-            private var beneficialOwners: JsonField<List<BeneficialOwner>> = JsonMissing.of()
-            private var incorporationState: JsonField<String> = JsonMissing.of()
-            private var industryCode: JsonField<String> = JsonMissing.of()
-            private var name: JsonField<String> = JsonMissing.of()
-            private var taxIdentifier: JsonField<String> = JsonMissing.of()
-            private var website: JsonField<String> = JsonMissing.of()
+            private var address: JsonField<Address>? = null
+            private var beneficialOwners: JsonField<MutableList<BeneficialOwner>>? = null
+            private var incorporationState: JsonField<String>? = null
+            private var industryCode: JsonField<String>? = null
+            private var name: JsonField<String>? = null
+            private var taxIdentifier: JsonField<String>? = null
+            private var website: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(corporation: Corporation) = apply {
                 address = corporation.address
-                beneficialOwners = corporation.beneficialOwners
+                beneficialOwners = corporation.beneficialOwners.map { it.toMutableList() }
                 incorporationState = corporation.incorporationState
                 industryCode = corporation.industryCode
                 name = corporation.name
@@ -667,15 +760,39 @@ private constructor(
              * corporation.
              */
             fun beneficialOwners(beneficialOwners: JsonField<List<BeneficialOwner>>) = apply {
-                this.beneficialOwners = beneficialOwners
+                this.beneficialOwners = beneficialOwners.map { it.toMutableList() }
+            }
+
+            /**
+             * The identifying details of anyone controlling or owning 25% or more of the
+             * corporation.
+             */
+            fun addBeneficialOwner(beneficialOwner: BeneficialOwner) = apply {
+                beneficialOwners =
+                    (beneficialOwners ?: JsonField.of(mutableListOf())).apply {
+                        asKnown()
+                            .orElseThrow {
+                                IllegalStateException(
+                                    "Field was set to non-list type: ${javaClass.simpleName}"
+                                )
+                            }
+                            .add(beneficialOwner)
+                    }
             }
 
             /**
              * The two-letter United States Postal Service (USPS) abbreviation for the corporation's
              * state of incorporation.
              */
-            fun incorporationState(incorporationState: String) =
-                incorporationState(JsonField.of(incorporationState))
+            fun incorporationState(incorporationState: String?) =
+                incorporationState(JsonField.ofNullable(incorporationState))
+
+            /**
+             * The two-letter United States Postal Service (USPS) abbreviation for the corporation's
+             * state of incorporation.
+             */
+            fun incorporationState(incorporationState: Optional<String>) =
+                incorporationState(incorporationState.orElse(null))
 
             /**
              * The two-letter United States Postal Service (USPS) abbreviation for the corporation's
@@ -689,7 +806,15 @@ private constructor(
              * The numeric North American Industry Classification System (NAICS) code submitted for
              * the corporation.
              */
-            fun industryCode(industryCode: String) = industryCode(JsonField.of(industryCode))
+            fun industryCode(industryCode: String?) =
+                industryCode(JsonField.ofNullable(industryCode))
+
+            /**
+             * The numeric North American Industry Classification System (NAICS) code submitted for
+             * the corporation.
+             */
+            fun industryCode(industryCode: Optional<String>) =
+                industryCode(industryCode.orElse(null))
 
             /**
              * The numeric North American Industry Classification System (NAICS) code submitted for
@@ -706,7 +831,12 @@ private constructor(
             fun name(name: JsonField<String>) = apply { this.name = name }
 
             /** The Employer Identification Number (EIN) for the corporation. */
-            fun taxIdentifier(taxIdentifier: String) = taxIdentifier(JsonField.of(taxIdentifier))
+            fun taxIdentifier(taxIdentifier: String?) =
+                taxIdentifier(JsonField.ofNullable(taxIdentifier))
+
+            /** The Employer Identification Number (EIN) for the corporation. */
+            fun taxIdentifier(taxIdentifier: Optional<String>) =
+                taxIdentifier(taxIdentifier.orElse(null))
 
             /** The Employer Identification Number (EIN) for the corporation. */
             fun taxIdentifier(taxIdentifier: JsonField<String>) = apply {
@@ -714,7 +844,10 @@ private constructor(
             }
 
             /** The website of the corporation. */
-            fun website(website: String) = website(JsonField.of(website))
+            fun website(website: String?) = website(JsonField.ofNullable(website))
+
+            /** The website of the corporation. */
+            fun website(website: Optional<String>) = website(website.orElse(null))
 
             /** The website of the corporation. */
             fun website(website: JsonField<String>) = apply { this.website = website }
@@ -740,13 +873,18 @@ private constructor(
 
             fun build(): Corporation =
                 Corporation(
-                    address,
-                    beneficialOwners.map { it.toImmutable() },
-                    incorporationState,
-                    industryCode,
-                    name,
-                    taxIdentifier,
-                    website,
+                    checkNotNull(address) { "`address` is required but was not set" },
+                    checkNotNull(beneficialOwners) {
+                            "`beneficialOwners` is required but was not set"
+                        }
+                        .map { it.toImmutable() },
+                    checkNotNull(incorporationState) {
+                        "`incorporationState` is required but was not set"
+                    },
+                    checkNotNull(industryCode) { "`industryCode` is required but was not set" },
+                    checkNotNull(name) { "`name` is required but was not set" },
+                    checkNotNull(taxIdentifier) { "`taxIdentifier` is required but was not set" },
+                    checkNotNull(website) { "`website` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -794,22 +932,22 @@ private constructor(
             fun zip(): String = zip.getRequired("zip")
 
             /** The city of the address. */
-            @JsonProperty("city") @ExcludeMissing fun _city() = city
+            @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
 
             /** The first line of the address. */
-            @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
+            @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
             /** The second line of the address. */
-            @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
+            @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
             /**
              * The two-letter United States Postal Service (USPS) abbreviation for the state of the
              * address.
              */
-            @JsonProperty("state") @ExcludeMissing fun _state() = state
+            @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
             /** The ZIP code of the address. */
-            @JsonProperty("zip") @ExcludeMissing fun _zip() = zip
+            @JsonProperty("zip") @ExcludeMissing fun _zip(): JsonField<String> = zip
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -837,11 +975,11 @@ private constructor(
 
             class Builder {
 
-                private var city: JsonField<String> = JsonMissing.of()
-                private var line1: JsonField<String> = JsonMissing.of()
-                private var line2: JsonField<String> = JsonMissing.of()
-                private var state: JsonField<String> = JsonMissing.of()
-                private var zip: JsonField<String> = JsonMissing.of()
+                private var city: JsonField<String>? = null
+                private var line1: JsonField<String>? = null
+                private var line2: JsonField<String>? = null
+                private var state: JsonField<String>? = null
+                private var zip: JsonField<String>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -867,7 +1005,10 @@ private constructor(
                 fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
                 /** The second line of the address. */
-                fun line2(line2: String) = line2(JsonField.of(line2))
+                fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
+
+                /** The second line of the address. */
+                fun line2(line2: Optional<String>) = line2(line2.orElse(null))
 
                 /** The second line of the address. */
                 fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
@@ -914,11 +1055,11 @@ private constructor(
 
                 fun build(): Address =
                     Address(
-                        city,
-                        line1,
-                        line2,
-                        state,
-                        zip,
+                        checkNotNull(city) { "`city` is required but was not set" },
+                        checkNotNull(line1) { "`line1` is required but was not set" },
+                        checkNotNull(line2) { "`line2` is required but was not set" },
+                        checkNotNull(state) { "`state` is required but was not set" },
+                        checkNotNull(zip) { "`zip` is required but was not set" },
                         additionalProperties.toImmutable(),
                     )
             }
@@ -977,16 +1118,20 @@ private constructor(
             /** The identifier of this beneficial owner. */
             @JsonProperty("beneficial_owner_id")
             @ExcludeMissing
-            fun _beneficialOwnerId() = beneficialOwnerId
+            fun _beneficialOwnerId(): JsonField<String> = beneficialOwnerId
 
             /** This person's role or title within the entity. */
-            @JsonProperty("company_title") @ExcludeMissing fun _companyTitle() = companyTitle
+            @JsonProperty("company_title")
+            @ExcludeMissing
+            fun _companyTitle(): JsonField<String> = companyTitle
 
             /** Personal details for the beneficial owner. */
-            @JsonProperty("individual") @ExcludeMissing fun _individual() = individual
+            @JsonProperty("individual")
+            @ExcludeMissing
+            fun _individual(): JsonField<Individual> = individual
 
             /** Why this person is considered a beneficial owner of the entity. */
-            @JsonProperty("prong") @ExcludeMissing fun _prong() = prong
+            @JsonProperty("prong") @ExcludeMissing fun _prong(): JsonField<Prong> = prong
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -1013,10 +1158,10 @@ private constructor(
 
             class Builder {
 
-                private var beneficialOwnerId: JsonField<String> = JsonMissing.of()
-                private var companyTitle: JsonField<String> = JsonMissing.of()
-                private var individual: JsonField<Individual> = JsonMissing.of()
-                private var prong: JsonField<Prong> = JsonMissing.of()
+                private var beneficialOwnerId: JsonField<String>? = null
+                private var companyTitle: JsonField<String>? = null
+                private var individual: JsonField<Individual>? = null
+                private var prong: JsonField<Prong>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -1038,7 +1183,12 @@ private constructor(
                 }
 
                 /** This person's role or title within the entity. */
-                fun companyTitle(companyTitle: String) = companyTitle(JsonField.of(companyTitle))
+                fun companyTitle(companyTitle: String?) =
+                    companyTitle(JsonField.ofNullable(companyTitle))
+
+                /** This person's role or title within the entity. */
+                fun companyTitle(companyTitle: Optional<String>) =
+                    companyTitle(companyTitle.orElse(null))
 
                 /** This person's role or title within the entity. */
                 fun companyTitle(companyTitle: JsonField<String>) = apply {
@@ -1083,10 +1233,12 @@ private constructor(
 
                 fun build(): BeneficialOwner =
                     BeneficialOwner(
-                        beneficialOwnerId,
-                        companyTitle,
-                        individual,
-                        prong,
+                        checkNotNull(beneficialOwnerId) {
+                            "`beneficialOwnerId` is required but was not set"
+                        },
+                        checkNotNull(companyTitle) { "`companyTitle` is required but was not set" },
+                        checkNotNull(individual) { "`individual` is required but was not set" },
+                        checkNotNull(prong) { "`prong` is required but was not set" },
                         additionalProperties.toImmutable(),
                     )
             }
@@ -1125,18 +1277,22 @@ private constructor(
                 fun name(): String = name.getRequired("name")
 
                 /** The person's address. */
-                @JsonProperty("address") @ExcludeMissing fun _address() = address
+                @JsonProperty("address")
+                @ExcludeMissing
+                fun _address(): JsonField<Address> = address
 
                 /** The person's date of birth in YYYY-MM-DD format. */
-                @JsonProperty("date_of_birth") @ExcludeMissing fun _dateOfBirth() = dateOfBirth
+                @JsonProperty("date_of_birth")
+                @ExcludeMissing
+                fun _dateOfBirth(): JsonField<LocalDate> = dateOfBirth
 
                 /** A means of verifying the person's identity. */
                 @JsonProperty("identification")
                 @ExcludeMissing
-                fun _identification() = identification
+                fun _identification(): JsonField<Identification> = identification
 
                 /** The person's legal name. */
-                @JsonProperty("name") @ExcludeMissing fun _name() = name
+                @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
                 @JsonAnyGetter
                 @ExcludeMissing
@@ -1163,10 +1319,10 @@ private constructor(
 
                 class Builder {
 
-                    private var address: JsonField<Address> = JsonMissing.of()
-                    private var dateOfBirth: JsonField<LocalDate> = JsonMissing.of()
-                    private var identification: JsonField<Identification> = JsonMissing.of()
-                    private var name: JsonField<String> = JsonMissing.of()
+                    private var address: JsonField<Address>? = null
+                    private var dateOfBirth: JsonField<LocalDate>? = null
+                    private var identification: JsonField<Identification>? = null
+                    private var name: JsonField<String>? = null
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
@@ -1231,10 +1387,14 @@ private constructor(
 
                     fun build(): Individual =
                         Individual(
-                            address,
-                            dateOfBirth,
-                            identification,
-                            name,
+                            checkNotNull(address) { "`address` is required but was not set" },
+                            checkNotNull(dateOfBirth) {
+                                "`dateOfBirth` is required but was not set"
+                            },
+                            checkNotNull(identification) {
+                                "`identification` is required but was not set"
+                            },
+                            checkNotNull(name) { "`name` is required but was not set" },
                             additionalProperties.toImmutable(),
                         )
                 }
@@ -1282,22 +1442,22 @@ private constructor(
                     fun zip(): String = zip.getRequired("zip")
 
                     /** The city of the address. */
-                    @JsonProperty("city") @ExcludeMissing fun _city() = city
+                    @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
 
                     /** The first line of the address. */
-                    @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
+                    @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
                     /** The second line of the address. */
-                    @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
+                    @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
                     /**
                      * The two-letter United States Postal Service (USPS) abbreviation for the state
                      * of the address.
                      */
-                    @JsonProperty("state") @ExcludeMissing fun _state() = state
+                    @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
                     /** The ZIP code of the address. */
-                    @JsonProperty("zip") @ExcludeMissing fun _zip() = zip
+                    @JsonProperty("zip") @ExcludeMissing fun _zip(): JsonField<String> = zip
 
                     @JsonAnyGetter
                     @ExcludeMissing
@@ -1325,11 +1485,11 @@ private constructor(
 
                     class Builder {
 
-                        private var city: JsonField<String> = JsonMissing.of()
-                        private var line1: JsonField<String> = JsonMissing.of()
-                        private var line2: JsonField<String> = JsonMissing.of()
-                        private var state: JsonField<String> = JsonMissing.of()
-                        private var zip: JsonField<String> = JsonMissing.of()
+                        private var city: JsonField<String>? = null
+                        private var line1: JsonField<String>? = null
+                        private var line2: JsonField<String>? = null
+                        private var state: JsonField<String>? = null
+                        private var zip: JsonField<String>? = null
                         private var additionalProperties: MutableMap<String, JsonValue> =
                             mutableMapOf()
 
@@ -1356,7 +1516,10 @@ private constructor(
                         fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
                         /** The second line of the address. */
-                        fun line2(line2: String) = line2(JsonField.of(line2))
+                        fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
+
+                        /** The second line of the address. */
+                        fun line2(line2: Optional<String>) = line2(line2.orElse(null))
 
                         /** The second line of the address. */
                         fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
@@ -1403,11 +1566,11 @@ private constructor(
 
                         fun build(): Address =
                             Address(
-                                city,
-                                line1,
-                                line2,
-                                state,
-                                zip,
+                                checkNotNull(city) { "`city` is required but was not set" },
+                                checkNotNull(line1) { "`line1` is required but was not set" },
+                                checkNotNull(line2) { "`line2` is required but was not set" },
+                                checkNotNull(state) { "`state` is required but was not set" },
+                                checkNotNull(zip) { "`zip` is required but was not set" },
                                 additionalProperties.toImmutable(),
                             )
                     }
@@ -1455,13 +1618,17 @@ private constructor(
                     fun numberLast4(): String = numberLast4.getRequired("number_last4")
 
                     /** A method that can be used to verify the individual's identity. */
-                    @JsonProperty("method") @ExcludeMissing fun _method() = method
+                    @JsonProperty("method")
+                    @ExcludeMissing
+                    fun _method(): JsonField<Method> = method
 
                     /**
                      * The last 4 digits of the identification number that can be used to verify the
                      * individual's identity.
                      */
-                    @JsonProperty("number_last4") @ExcludeMissing fun _numberLast4() = numberLast4
+                    @JsonProperty("number_last4")
+                    @ExcludeMissing
+                    fun _numberLast4(): JsonField<String> = numberLast4
 
                     @JsonAnyGetter
                     @ExcludeMissing
@@ -1486,8 +1653,8 @@ private constructor(
 
                     class Builder {
 
-                        private var method: JsonField<Method> = JsonMissing.of()
-                        private var numberLast4: JsonField<String> = JsonMissing.of()
+                        private var method: JsonField<Method>? = null
+                        private var numberLast4: JsonField<String>? = null
                         private var additionalProperties: MutableMap<String, JsonValue> =
                             mutableMapOf()
 
@@ -1544,8 +1711,10 @@ private constructor(
 
                         fun build(): Identification =
                             Identification(
-                                method,
-                                numberLast4,
+                                checkNotNull(method) { "`method` is required but was not set" },
+                                checkNotNull(numberLast4) {
+                                    "`numberLast4` is required but was not set"
+                                },
                                 additionalProperties.toImmutable(),
                             )
                     }
@@ -1810,24 +1979,26 @@ private constructor(
         fun website(): Optional<String> = Optional.ofNullable(website.getNullable("website"))
 
         /** The government authority's address. */
-        @JsonProperty("address") @ExcludeMissing fun _address() = address
+        @JsonProperty("address") @ExcludeMissing fun _address(): JsonField<Address> = address
 
         /** The identifying details of authorized persons of the government authority. */
         @JsonProperty("authorized_persons")
         @ExcludeMissing
-        fun _authorizedPersons() = authorizedPersons
+        fun _authorizedPersons(): JsonField<List<AuthorizedPerson>> = authorizedPersons
 
         /** The category of the government authority. */
-        @JsonProperty("category") @ExcludeMissing fun _category() = category
+        @JsonProperty("category") @ExcludeMissing fun _category(): JsonField<Category> = category
 
         /** The government authority's name. */
-        @JsonProperty("name") @ExcludeMissing fun _name() = name
+        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
         /** The Employer Identification Number (EIN) of the government authority. */
-        @JsonProperty("tax_identifier") @ExcludeMissing fun _taxIdentifier() = taxIdentifier
+        @JsonProperty("tax_identifier")
+        @ExcludeMissing
+        fun _taxIdentifier(): JsonField<String> = taxIdentifier
 
         /** The government authority's website. */
-        @JsonProperty("website") @ExcludeMissing fun _website() = website
+        @JsonProperty("website") @ExcludeMissing fun _website(): JsonField<String> = website
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1856,18 +2027,18 @@ private constructor(
 
         class Builder {
 
-            private var address: JsonField<Address> = JsonMissing.of()
-            private var authorizedPersons: JsonField<List<AuthorizedPerson>> = JsonMissing.of()
-            private var category: JsonField<Category> = JsonMissing.of()
-            private var name: JsonField<String> = JsonMissing.of()
-            private var taxIdentifier: JsonField<String> = JsonMissing.of()
-            private var website: JsonField<String> = JsonMissing.of()
+            private var address: JsonField<Address>? = null
+            private var authorizedPersons: JsonField<MutableList<AuthorizedPerson>>? = null
+            private var category: JsonField<Category>? = null
+            private var name: JsonField<String>? = null
+            private var taxIdentifier: JsonField<String>? = null
+            private var website: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(governmentAuthority: GovernmentAuthority) = apply {
                 address = governmentAuthority.address
-                authorizedPersons = governmentAuthority.authorizedPersons
+                authorizedPersons = governmentAuthority.authorizedPersons.map { it.toMutableList() }
                 category = governmentAuthority.category
                 name = governmentAuthority.name
                 taxIdentifier = governmentAuthority.taxIdentifier
@@ -1887,7 +2058,21 @@ private constructor(
 
             /** The identifying details of authorized persons of the government authority. */
             fun authorizedPersons(authorizedPersons: JsonField<List<AuthorizedPerson>>) = apply {
-                this.authorizedPersons = authorizedPersons
+                this.authorizedPersons = authorizedPersons.map { it.toMutableList() }
+            }
+
+            /** The identifying details of authorized persons of the government authority. */
+            fun addAuthorizedPerson(authorizedPerson: AuthorizedPerson) = apply {
+                authorizedPersons =
+                    (authorizedPersons ?: JsonField.of(mutableListOf())).apply {
+                        asKnown()
+                            .orElseThrow {
+                                IllegalStateException(
+                                    "Field was set to non-list type: ${javaClass.simpleName}"
+                                )
+                            }
+                            .add(authorizedPerson)
+                    }
             }
 
             /** The category of the government authority. */
@@ -1903,7 +2088,12 @@ private constructor(
             fun name(name: JsonField<String>) = apply { this.name = name }
 
             /** The Employer Identification Number (EIN) of the government authority. */
-            fun taxIdentifier(taxIdentifier: String) = taxIdentifier(JsonField.of(taxIdentifier))
+            fun taxIdentifier(taxIdentifier: String?) =
+                taxIdentifier(JsonField.ofNullable(taxIdentifier))
+
+            /** The Employer Identification Number (EIN) of the government authority. */
+            fun taxIdentifier(taxIdentifier: Optional<String>) =
+                taxIdentifier(taxIdentifier.orElse(null))
 
             /** The Employer Identification Number (EIN) of the government authority. */
             fun taxIdentifier(taxIdentifier: JsonField<String>) = apply {
@@ -1911,7 +2101,10 @@ private constructor(
             }
 
             /** The government authority's website. */
-            fun website(website: String) = website(JsonField.of(website))
+            fun website(website: String?) = website(JsonField.ofNullable(website))
+
+            /** The government authority's website. */
+            fun website(website: Optional<String>) = website(website.orElse(null))
 
             /** The government authority's website. */
             fun website(website: JsonField<String>) = apply { this.website = website }
@@ -1937,12 +2130,15 @@ private constructor(
 
             fun build(): GovernmentAuthority =
                 GovernmentAuthority(
-                    address,
-                    authorizedPersons.map { it.toImmutable() },
-                    category,
-                    name,
-                    taxIdentifier,
-                    website,
+                    checkNotNull(address) { "`address` is required but was not set" },
+                    checkNotNull(authorizedPersons) {
+                            "`authorizedPersons` is required but was not set"
+                        }
+                        .map { it.toImmutable() },
+                    checkNotNull(category) { "`category` is required but was not set" },
+                    checkNotNull(name) { "`name` is required but was not set" },
+                    checkNotNull(taxIdentifier) { "`taxIdentifier` is required but was not set" },
+                    checkNotNull(website) { "`website` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1990,22 +2186,22 @@ private constructor(
             fun zip(): String = zip.getRequired("zip")
 
             /** The city of the address. */
-            @JsonProperty("city") @ExcludeMissing fun _city() = city
+            @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
 
             /** The first line of the address. */
-            @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
+            @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
             /** The second line of the address. */
-            @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
+            @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
             /**
              * The two-letter United States Postal Service (USPS) abbreviation for the state of the
              * address.
              */
-            @JsonProperty("state") @ExcludeMissing fun _state() = state
+            @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
             /** The ZIP code of the address. */
-            @JsonProperty("zip") @ExcludeMissing fun _zip() = zip
+            @JsonProperty("zip") @ExcludeMissing fun _zip(): JsonField<String> = zip
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -2033,11 +2229,11 @@ private constructor(
 
             class Builder {
 
-                private var city: JsonField<String> = JsonMissing.of()
-                private var line1: JsonField<String> = JsonMissing.of()
-                private var line2: JsonField<String> = JsonMissing.of()
-                private var state: JsonField<String> = JsonMissing.of()
-                private var zip: JsonField<String> = JsonMissing.of()
+                private var city: JsonField<String>? = null
+                private var line1: JsonField<String>? = null
+                private var line2: JsonField<String>? = null
+                private var state: JsonField<String>? = null
+                private var zip: JsonField<String>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -2063,7 +2259,10 @@ private constructor(
                 fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
                 /** The second line of the address. */
-                fun line2(line2: String) = line2(JsonField.of(line2))
+                fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
+
+                /** The second line of the address. */
+                fun line2(line2: Optional<String>) = line2(line2.orElse(null))
 
                 /** The second line of the address. */
                 fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
@@ -2110,11 +2309,11 @@ private constructor(
 
                 fun build(): Address =
                     Address(
-                        city,
-                        line1,
-                        line2,
-                        state,
-                        zip,
+                        checkNotNull(city) { "`city` is required but was not set" },
+                        checkNotNull(line1) { "`line1` is required but was not set" },
+                        checkNotNull(line2) { "`line2` is required but was not set" },
+                        checkNotNull(state) { "`state` is required but was not set" },
+                        checkNotNull(zip) { "`zip` is required but was not set" },
                         additionalProperties.toImmutable(),
                     )
             }
@@ -2161,10 +2360,10 @@ private constructor(
             /** The identifier of this authorized person. */
             @JsonProperty("authorized_person_id")
             @ExcludeMissing
-            fun _authorizedPersonId() = authorizedPersonId
+            fun _authorizedPersonId(): JsonField<String> = authorizedPersonId
 
             /** The person's legal name. */
-            @JsonProperty("name") @ExcludeMissing fun _name() = name
+            @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -2189,8 +2388,8 @@ private constructor(
 
             class Builder {
 
-                private var authorizedPersonId: JsonField<String> = JsonMissing.of()
-                private var name: JsonField<String> = JsonMissing.of()
+                private var authorizedPersonId: JsonField<String>? = null
+                private var name: JsonField<String>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -2239,8 +2438,10 @@ private constructor(
 
                 fun build(): AuthorizedPerson =
                     AuthorizedPerson(
-                        authorizedPersonId,
-                        name,
+                        checkNotNull(authorizedPersonId) {
+                            "`authorizedPersonId` is required but was not set"
+                        },
+                        checkNotNull(name) { "`name` is required but was not set" },
                         additionalProperties.toImmutable(),
                     )
             }
@@ -2354,10 +2555,12 @@ private constructor(
         fun name(): String = name.getRequired("name")
 
         /** The two individuals that share control of the entity. */
-        @JsonProperty("individuals") @ExcludeMissing fun _individuals() = individuals
+        @JsonProperty("individuals")
+        @ExcludeMissing
+        fun _individuals(): JsonField<List<Individual>> = individuals
 
         /** The entity's name. */
-        @JsonProperty("name") @ExcludeMissing fun _name() = name
+        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -2382,13 +2585,13 @@ private constructor(
 
         class Builder {
 
-            private var individuals: JsonField<List<Individual>> = JsonMissing.of()
-            private var name: JsonField<String> = JsonMissing.of()
+            private var individuals: JsonField<MutableList<Individual>>? = null
+            private var name: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(joint: Joint) = apply {
-                individuals = joint.individuals
+                individuals = joint.individuals.map { it.toMutableList() }
                 name = joint.name
                 additionalProperties = joint.additionalProperties.toMutableMap()
             }
@@ -2398,7 +2601,21 @@ private constructor(
 
             /** The two individuals that share control of the entity. */
             fun individuals(individuals: JsonField<List<Individual>>) = apply {
-                this.individuals = individuals
+                this.individuals = individuals.map { it.toMutableList() }
+            }
+
+            /** The two individuals that share control of the entity. */
+            fun addIndividual(individual: Individual) = apply {
+                individuals =
+                    (individuals ?: JsonField.of(mutableListOf())).apply {
+                        asKnown()
+                            .orElseThrow {
+                                IllegalStateException(
+                                    "Field was set to non-list type: ${javaClass.simpleName}"
+                                )
+                            }
+                            .add(individual)
+                    }
             }
 
             /** The entity's name. */
@@ -2428,8 +2645,9 @@ private constructor(
 
             fun build(): Joint =
                 Joint(
-                    individuals.map { it.toImmutable() },
-                    name,
+                    checkNotNull(individuals) { "`individuals` is required but was not set" }
+                        .map { it.toImmutable() },
+                    checkNotNull(name) { "`name` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -2467,16 +2685,20 @@ private constructor(
             fun name(): String = name.getRequired("name")
 
             /** The person's address. */
-            @JsonProperty("address") @ExcludeMissing fun _address() = address
+            @JsonProperty("address") @ExcludeMissing fun _address(): JsonField<Address> = address
 
             /** The person's date of birth in YYYY-MM-DD format. */
-            @JsonProperty("date_of_birth") @ExcludeMissing fun _dateOfBirth() = dateOfBirth
+            @JsonProperty("date_of_birth")
+            @ExcludeMissing
+            fun _dateOfBirth(): JsonField<LocalDate> = dateOfBirth
 
             /** A means of verifying the person's identity. */
-            @JsonProperty("identification") @ExcludeMissing fun _identification() = identification
+            @JsonProperty("identification")
+            @ExcludeMissing
+            fun _identification(): JsonField<Identification> = identification
 
             /** The person's legal name. */
-            @JsonProperty("name") @ExcludeMissing fun _name() = name
+            @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -2503,10 +2725,10 @@ private constructor(
 
             class Builder {
 
-                private var address: JsonField<Address> = JsonMissing.of()
-                private var dateOfBirth: JsonField<LocalDate> = JsonMissing.of()
-                private var identification: JsonField<Identification> = JsonMissing.of()
-                private var name: JsonField<String> = JsonMissing.of()
+                private var address: JsonField<Address>? = null
+                private var dateOfBirth: JsonField<LocalDate>? = null
+                private var identification: JsonField<Identification>? = null
+                private var name: JsonField<String>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -2571,10 +2793,12 @@ private constructor(
 
                 fun build(): Individual =
                     Individual(
-                        address,
-                        dateOfBirth,
-                        identification,
-                        name,
+                        checkNotNull(address) { "`address` is required but was not set" },
+                        checkNotNull(dateOfBirth) { "`dateOfBirth` is required but was not set" },
+                        checkNotNull(identification) {
+                            "`identification` is required but was not set"
+                        },
+                        checkNotNull(name) { "`name` is required but was not set" },
                         additionalProperties.toImmutable(),
                     )
             }
@@ -2622,22 +2846,22 @@ private constructor(
                 fun zip(): String = zip.getRequired("zip")
 
                 /** The city of the address. */
-                @JsonProperty("city") @ExcludeMissing fun _city() = city
+                @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
 
                 /** The first line of the address. */
-                @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
+                @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
                 /** The second line of the address. */
-                @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
+                @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
                 /**
                  * The two-letter United States Postal Service (USPS) abbreviation for the state of
                  * the address.
                  */
-                @JsonProperty("state") @ExcludeMissing fun _state() = state
+                @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
                 /** The ZIP code of the address. */
-                @JsonProperty("zip") @ExcludeMissing fun _zip() = zip
+                @JsonProperty("zip") @ExcludeMissing fun _zip(): JsonField<String> = zip
 
                 @JsonAnyGetter
                 @ExcludeMissing
@@ -2665,11 +2889,11 @@ private constructor(
 
                 class Builder {
 
-                    private var city: JsonField<String> = JsonMissing.of()
-                    private var line1: JsonField<String> = JsonMissing.of()
-                    private var line2: JsonField<String> = JsonMissing.of()
-                    private var state: JsonField<String> = JsonMissing.of()
-                    private var zip: JsonField<String> = JsonMissing.of()
+                    private var city: JsonField<String>? = null
+                    private var line1: JsonField<String>? = null
+                    private var line2: JsonField<String>? = null
+                    private var state: JsonField<String>? = null
+                    private var zip: JsonField<String>? = null
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
@@ -2695,7 +2919,10 @@ private constructor(
                     fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
                     /** The second line of the address. */
-                    fun line2(line2: String) = line2(JsonField.of(line2))
+                    fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
+
+                    /** The second line of the address. */
+                    fun line2(line2: Optional<String>) = line2(line2.orElse(null))
 
                     /** The second line of the address. */
                     fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
@@ -2742,11 +2969,11 @@ private constructor(
 
                     fun build(): Address =
                         Address(
-                            city,
-                            line1,
-                            line2,
-                            state,
-                            zip,
+                            checkNotNull(city) { "`city` is required but was not set" },
+                            checkNotNull(line1) { "`line1` is required but was not set" },
+                            checkNotNull(line2) { "`line2` is required but was not set" },
+                            checkNotNull(state) { "`state` is required but was not set" },
+                            checkNotNull(zip) { "`zip` is required but was not set" },
                             additionalProperties.toImmutable(),
                         )
                 }
@@ -2794,13 +3021,15 @@ private constructor(
                 fun numberLast4(): String = numberLast4.getRequired("number_last4")
 
                 /** A method that can be used to verify the individual's identity. */
-                @JsonProperty("method") @ExcludeMissing fun _method() = method
+                @JsonProperty("method") @ExcludeMissing fun _method(): JsonField<Method> = method
 
                 /**
                  * The last 4 digits of the identification number that can be used to verify the
                  * individual's identity.
                  */
-                @JsonProperty("number_last4") @ExcludeMissing fun _numberLast4() = numberLast4
+                @JsonProperty("number_last4")
+                @ExcludeMissing
+                fun _numberLast4(): JsonField<String> = numberLast4
 
                 @JsonAnyGetter
                 @ExcludeMissing
@@ -2825,8 +3054,8 @@ private constructor(
 
                 class Builder {
 
-                    private var method: JsonField<Method> = JsonMissing.of()
-                    private var numberLast4: JsonField<String> = JsonMissing.of()
+                    private var method: JsonField<Method>? = null
+                    private var numberLast4: JsonField<String>? = null
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
@@ -2880,8 +3109,10 @@ private constructor(
 
                     fun build(): Identification =
                         Identification(
-                            method,
-                            numberLast4,
+                            checkNotNull(method) { "`method` is required but was not set" },
+                            checkNotNull(numberLast4) {
+                                "`numberLast4` is required but was not set"
+                            },
                             additionalProperties.toImmutable(),
                         )
                 }
@@ -3057,16 +3288,20 @@ private constructor(
         fun name(): String = name.getRequired("name")
 
         /** The person's address. */
-        @JsonProperty("address") @ExcludeMissing fun _address() = address
+        @JsonProperty("address") @ExcludeMissing fun _address(): JsonField<Address> = address
 
         /** The person's date of birth in YYYY-MM-DD format. */
-        @JsonProperty("date_of_birth") @ExcludeMissing fun _dateOfBirth() = dateOfBirth
+        @JsonProperty("date_of_birth")
+        @ExcludeMissing
+        fun _dateOfBirth(): JsonField<LocalDate> = dateOfBirth
 
         /** A means of verifying the person's identity. */
-        @JsonProperty("identification") @ExcludeMissing fun _identification() = identification
+        @JsonProperty("identification")
+        @ExcludeMissing
+        fun _identification(): JsonField<Identification> = identification
 
         /** The person's legal name. */
-        @JsonProperty("name") @ExcludeMissing fun _name() = name
+        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -3093,10 +3328,10 @@ private constructor(
 
         class Builder {
 
-            private var address: JsonField<Address> = JsonMissing.of()
-            private var dateOfBirth: JsonField<LocalDate> = JsonMissing.of()
-            private var identification: JsonField<Identification> = JsonMissing.of()
-            private var name: JsonField<String> = JsonMissing.of()
+            private var address: JsonField<Address>? = null
+            private var dateOfBirth: JsonField<LocalDate>? = null
+            private var identification: JsonField<Identification>? = null
+            private var name: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -3158,10 +3393,10 @@ private constructor(
 
             fun build(): NaturalPerson =
                 NaturalPerson(
-                    address,
-                    dateOfBirth,
-                    identification,
-                    name,
+                    checkNotNull(address) { "`address` is required but was not set" },
+                    checkNotNull(dateOfBirth) { "`dateOfBirth` is required but was not set" },
+                    checkNotNull(identification) { "`identification` is required but was not set" },
+                    checkNotNull(name) { "`name` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -3209,22 +3444,22 @@ private constructor(
             fun zip(): String = zip.getRequired("zip")
 
             /** The city of the address. */
-            @JsonProperty("city") @ExcludeMissing fun _city() = city
+            @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
 
             /** The first line of the address. */
-            @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
+            @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
             /** The second line of the address. */
-            @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
+            @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
             /**
              * The two-letter United States Postal Service (USPS) abbreviation for the state of the
              * address.
              */
-            @JsonProperty("state") @ExcludeMissing fun _state() = state
+            @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
             /** The ZIP code of the address. */
-            @JsonProperty("zip") @ExcludeMissing fun _zip() = zip
+            @JsonProperty("zip") @ExcludeMissing fun _zip(): JsonField<String> = zip
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -3252,11 +3487,11 @@ private constructor(
 
             class Builder {
 
-                private var city: JsonField<String> = JsonMissing.of()
-                private var line1: JsonField<String> = JsonMissing.of()
-                private var line2: JsonField<String> = JsonMissing.of()
-                private var state: JsonField<String> = JsonMissing.of()
-                private var zip: JsonField<String> = JsonMissing.of()
+                private var city: JsonField<String>? = null
+                private var line1: JsonField<String>? = null
+                private var line2: JsonField<String>? = null
+                private var state: JsonField<String>? = null
+                private var zip: JsonField<String>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -3282,7 +3517,10 @@ private constructor(
                 fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
                 /** The second line of the address. */
-                fun line2(line2: String) = line2(JsonField.of(line2))
+                fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
+
+                /** The second line of the address. */
+                fun line2(line2: Optional<String>) = line2(line2.orElse(null))
 
                 /** The second line of the address. */
                 fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
@@ -3329,11 +3567,11 @@ private constructor(
 
                 fun build(): Address =
                     Address(
-                        city,
-                        line1,
-                        line2,
-                        state,
-                        zip,
+                        checkNotNull(city) { "`city` is required but was not set" },
+                        checkNotNull(line1) { "`line1` is required but was not set" },
+                        checkNotNull(line2) { "`line2` is required but was not set" },
+                        checkNotNull(state) { "`state` is required but was not set" },
+                        checkNotNull(zip) { "`zip` is required but was not set" },
                         additionalProperties.toImmutable(),
                     )
             }
@@ -3381,13 +3619,15 @@ private constructor(
             fun numberLast4(): String = numberLast4.getRequired("number_last4")
 
             /** A method that can be used to verify the individual's identity. */
-            @JsonProperty("method") @ExcludeMissing fun _method() = method
+            @JsonProperty("method") @ExcludeMissing fun _method(): JsonField<Method> = method
 
             /**
              * The last 4 digits of the identification number that can be used to verify the
              * individual's identity.
              */
-            @JsonProperty("number_last4") @ExcludeMissing fun _numberLast4() = numberLast4
+            @JsonProperty("number_last4")
+            @ExcludeMissing
+            fun _numberLast4(): JsonField<String> = numberLast4
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -3412,8 +3652,8 @@ private constructor(
 
             class Builder {
 
-                private var method: JsonField<Method> = JsonMissing.of()
-                private var numberLast4: JsonField<String> = JsonMissing.of()
+                private var method: JsonField<Method>? = null
+                private var numberLast4: JsonField<String>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -3467,8 +3707,8 @@ private constructor(
 
                 fun build(): Identification =
                     Identification(
-                        method,
-                        numberLast4,
+                        checkNotNull(method) { "`method` is required but was not set" },
+                        checkNotNull(numberLast4) { "`numberLast4` is required but was not set" },
                         additionalProperties.toImmutable(),
                     )
             }
@@ -3751,10 +3991,10 @@ private constructor(
         fun vendor(): Vendor = vendor.getRequired("vendor")
 
         /** The reference identifier for the third party verification. */
-        @JsonProperty("reference") @ExcludeMissing fun _reference() = reference
+        @JsonProperty("reference") @ExcludeMissing fun _reference(): JsonField<String> = reference
 
         /** The vendor that was used to perform the verification. */
-        @JsonProperty("vendor") @ExcludeMissing fun _vendor() = vendor
+        @JsonProperty("vendor") @ExcludeMissing fun _vendor(): JsonField<Vendor> = vendor
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -3779,8 +4019,8 @@ private constructor(
 
         class Builder {
 
-            private var reference: JsonField<String> = JsonMissing.of()
-            private var vendor: JsonField<Vendor> = JsonMissing.of()
+            private var reference: JsonField<String>? = null
+            private var vendor: JsonField<Vendor>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -3823,8 +4063,8 @@ private constructor(
 
             fun build(): ThirdPartyVerification =
                 ThirdPartyVerification(
-                    reference,
-                    vendor,
+                    checkNotNull(reference) { "`reference` is required but was not set" },
+                    checkNotNull(vendor) { "`vendor` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -3968,33 +4208,39 @@ private constructor(
         fun trustees(): List<Trustee> = trustees.getRequired("trustees")
 
         /** The trust's address. */
-        @JsonProperty("address") @ExcludeMissing fun _address() = address
+        @JsonProperty("address") @ExcludeMissing fun _address(): JsonField<Address> = address
 
         /** Whether the trust is `revocable` or `irrevocable`. */
-        @JsonProperty("category") @ExcludeMissing fun _category() = category
+        @JsonProperty("category") @ExcludeMissing fun _category(): JsonField<Category> = category
 
         /** The ID for the File containing the formation document of the trust. */
         @JsonProperty("formation_document_file_id")
         @ExcludeMissing
-        fun _formationDocumentFileId() = formationDocumentFileId
+        fun _formationDocumentFileId(): JsonField<String> = formationDocumentFileId
 
         /**
          * The two-letter United States Postal Service (USPS) abbreviation for the state in which
          * the trust was formed.
          */
-        @JsonProperty("formation_state") @ExcludeMissing fun _formationState() = formationState
+        @JsonProperty("formation_state")
+        @ExcludeMissing
+        fun _formationState(): JsonField<String> = formationState
 
         /** The grantor of the trust. Will be present if the `category` is `revocable`. */
-        @JsonProperty("grantor") @ExcludeMissing fun _grantor() = grantor
+        @JsonProperty("grantor") @ExcludeMissing fun _grantor(): JsonField<Grantor> = grantor
 
         /** The trust's name. */
-        @JsonProperty("name") @ExcludeMissing fun _name() = name
+        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
         /** The Employer Identification Number (EIN) of the trust itself. */
-        @JsonProperty("tax_identifier") @ExcludeMissing fun _taxIdentifier() = taxIdentifier
+        @JsonProperty("tax_identifier")
+        @ExcludeMissing
+        fun _taxIdentifier(): JsonField<String> = taxIdentifier
 
         /** The trustees of the trust. */
-        @JsonProperty("trustees") @ExcludeMissing fun _trustees() = trustees
+        @JsonProperty("trustees")
+        @ExcludeMissing
+        fun _trustees(): JsonField<List<Trustee>> = trustees
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -4025,14 +4271,14 @@ private constructor(
 
         class Builder {
 
-            private var address: JsonField<Address> = JsonMissing.of()
-            private var category: JsonField<Category> = JsonMissing.of()
-            private var formationDocumentFileId: JsonField<String> = JsonMissing.of()
-            private var formationState: JsonField<String> = JsonMissing.of()
-            private var grantor: JsonField<Grantor> = JsonMissing.of()
-            private var name: JsonField<String> = JsonMissing.of()
-            private var taxIdentifier: JsonField<String> = JsonMissing.of()
-            private var trustees: JsonField<List<Trustee>> = JsonMissing.of()
+            private var address: JsonField<Address>? = null
+            private var category: JsonField<Category>? = null
+            private var formationDocumentFileId: JsonField<String>? = null
+            private var formationState: JsonField<String>? = null
+            private var grantor: JsonField<Grantor>? = null
+            private var name: JsonField<String>? = null
+            private var taxIdentifier: JsonField<String>? = null
+            private var trustees: JsonField<MutableList<Trustee>>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -4044,7 +4290,7 @@ private constructor(
                 grantor = trust.grantor
                 name = trust.name
                 taxIdentifier = trust.taxIdentifier
-                trustees = trust.trustees
+                trustees = trust.trustees.map { it.toMutableList() }
                 additionalProperties = trust.additionalProperties.toMutableMap()
             }
 
@@ -4061,8 +4307,12 @@ private constructor(
             fun category(category: JsonField<Category>) = apply { this.category = category }
 
             /** The ID for the File containing the formation document of the trust. */
-            fun formationDocumentFileId(formationDocumentFileId: String) =
-                formationDocumentFileId(JsonField.of(formationDocumentFileId))
+            fun formationDocumentFileId(formationDocumentFileId: String?) =
+                formationDocumentFileId(JsonField.ofNullable(formationDocumentFileId))
+
+            /** The ID for the File containing the formation document of the trust. */
+            fun formationDocumentFileId(formationDocumentFileId: Optional<String>) =
+                formationDocumentFileId(formationDocumentFileId.orElse(null))
 
             /** The ID for the File containing the formation document of the trust. */
             fun formationDocumentFileId(formationDocumentFileId: JsonField<String>) = apply {
@@ -4073,8 +4323,15 @@ private constructor(
              * The two-letter United States Postal Service (USPS) abbreviation for the state in
              * which the trust was formed.
              */
-            fun formationState(formationState: String) =
-                formationState(JsonField.of(formationState))
+            fun formationState(formationState: String?) =
+                formationState(JsonField.ofNullable(formationState))
+
+            /**
+             * The two-letter United States Postal Service (USPS) abbreviation for the state in
+             * which the trust was formed.
+             */
+            fun formationState(formationState: Optional<String>) =
+                formationState(formationState.orElse(null))
 
             /**
              * The two-letter United States Postal Service (USPS) abbreviation for the state in
@@ -4085,7 +4342,10 @@ private constructor(
             }
 
             /** The grantor of the trust. Will be present if the `category` is `revocable`. */
-            fun grantor(grantor: Grantor) = grantor(JsonField.of(grantor))
+            fun grantor(grantor: Grantor?) = grantor(JsonField.ofNullable(grantor))
+
+            /** The grantor of the trust. Will be present if the `category` is `revocable`. */
+            fun grantor(grantor: Optional<Grantor>) = grantor(grantor.orElse(null))
 
             /** The grantor of the trust. Will be present if the `category` is `revocable`. */
             fun grantor(grantor: JsonField<Grantor>) = apply { this.grantor = grantor }
@@ -4097,7 +4357,12 @@ private constructor(
             fun name(name: JsonField<String>) = apply { this.name = name }
 
             /** The Employer Identification Number (EIN) of the trust itself. */
-            fun taxIdentifier(taxIdentifier: String) = taxIdentifier(JsonField.of(taxIdentifier))
+            fun taxIdentifier(taxIdentifier: String?) =
+                taxIdentifier(JsonField.ofNullable(taxIdentifier))
+
+            /** The Employer Identification Number (EIN) of the trust itself. */
+            fun taxIdentifier(taxIdentifier: Optional<String>) =
+                taxIdentifier(taxIdentifier.orElse(null))
 
             /** The Employer Identification Number (EIN) of the trust itself. */
             fun taxIdentifier(taxIdentifier: JsonField<String>) = apply {
@@ -4108,7 +4373,23 @@ private constructor(
             fun trustees(trustees: List<Trustee>) = trustees(JsonField.of(trustees))
 
             /** The trustees of the trust. */
-            fun trustees(trustees: JsonField<List<Trustee>>) = apply { this.trustees = trustees }
+            fun trustees(trustees: JsonField<List<Trustee>>) = apply {
+                this.trustees = trustees.map { it.toMutableList() }
+            }
+
+            /** The trustees of the trust. */
+            fun addTrustee(trustee: Trustee) = apply {
+                trustees =
+                    (trustees ?: JsonField.of(mutableListOf())).apply {
+                        asKnown()
+                            .orElseThrow {
+                                IllegalStateException(
+                                    "Field was set to non-list type: ${javaClass.simpleName}"
+                                )
+                            }
+                            .add(trustee)
+                    }
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -4131,14 +4412,17 @@ private constructor(
 
             fun build(): Trust =
                 Trust(
-                    address,
-                    category,
-                    formationDocumentFileId,
-                    formationState,
-                    grantor,
-                    name,
-                    taxIdentifier,
-                    trustees.map { it.toImmutable() },
+                    checkNotNull(address) { "`address` is required but was not set" },
+                    checkNotNull(category) { "`category` is required but was not set" },
+                    checkNotNull(formationDocumentFileId) {
+                        "`formationDocumentFileId` is required but was not set"
+                    },
+                    checkNotNull(formationState) { "`formationState` is required but was not set" },
+                    checkNotNull(grantor) { "`grantor` is required but was not set" },
+                    checkNotNull(name) { "`name` is required but was not set" },
+                    checkNotNull(taxIdentifier) { "`taxIdentifier` is required but was not set" },
+                    checkNotNull(trustees) { "`trustees` is required but was not set" }
+                        .map { it.toImmutable() },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -4186,22 +4470,22 @@ private constructor(
             fun zip(): String = zip.getRequired("zip")
 
             /** The city of the address. */
-            @JsonProperty("city") @ExcludeMissing fun _city() = city
+            @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
 
             /** The first line of the address. */
-            @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
+            @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
             /** The second line of the address. */
-            @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
+            @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
             /**
              * The two-letter United States Postal Service (USPS) abbreviation for the state of the
              * address.
              */
-            @JsonProperty("state") @ExcludeMissing fun _state() = state
+            @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
             /** The ZIP code of the address. */
-            @JsonProperty("zip") @ExcludeMissing fun _zip() = zip
+            @JsonProperty("zip") @ExcludeMissing fun _zip(): JsonField<String> = zip
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -4229,11 +4513,11 @@ private constructor(
 
             class Builder {
 
-                private var city: JsonField<String> = JsonMissing.of()
-                private var line1: JsonField<String> = JsonMissing.of()
-                private var line2: JsonField<String> = JsonMissing.of()
-                private var state: JsonField<String> = JsonMissing.of()
-                private var zip: JsonField<String> = JsonMissing.of()
+                private var city: JsonField<String>? = null
+                private var line1: JsonField<String>? = null
+                private var line2: JsonField<String>? = null
+                private var state: JsonField<String>? = null
+                private var zip: JsonField<String>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -4259,7 +4543,10 @@ private constructor(
                 fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
                 /** The second line of the address. */
-                fun line2(line2: String) = line2(JsonField.of(line2))
+                fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
+
+                /** The second line of the address. */
+                fun line2(line2: Optional<String>) = line2(line2.orElse(null))
 
                 /** The second line of the address. */
                 fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
@@ -4306,11 +4593,11 @@ private constructor(
 
                 fun build(): Address =
                     Address(
-                        city,
-                        line1,
-                        line2,
-                        state,
-                        zip,
+                        checkNotNull(city) { "`city` is required but was not set" },
+                        checkNotNull(line1) { "`line1` is required but was not set" },
+                        checkNotNull(line2) { "`line2` is required but was not set" },
+                        checkNotNull(state) { "`state` is required but was not set" },
+                        checkNotNull(zip) { "`zip` is required but was not set" },
                         additionalProperties.toImmutable(),
                     )
             }
@@ -4424,16 +4711,20 @@ private constructor(
             fun name(): String = name.getRequired("name")
 
             /** The person's address. */
-            @JsonProperty("address") @ExcludeMissing fun _address() = address
+            @JsonProperty("address") @ExcludeMissing fun _address(): JsonField<Address> = address
 
             /** The person's date of birth in YYYY-MM-DD format. */
-            @JsonProperty("date_of_birth") @ExcludeMissing fun _dateOfBirth() = dateOfBirth
+            @JsonProperty("date_of_birth")
+            @ExcludeMissing
+            fun _dateOfBirth(): JsonField<LocalDate> = dateOfBirth
 
             /** A means of verifying the person's identity. */
-            @JsonProperty("identification") @ExcludeMissing fun _identification() = identification
+            @JsonProperty("identification")
+            @ExcludeMissing
+            fun _identification(): JsonField<Identification> = identification
 
             /** The person's legal name. */
-            @JsonProperty("name") @ExcludeMissing fun _name() = name
+            @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -4460,10 +4751,10 @@ private constructor(
 
             class Builder {
 
-                private var address: JsonField<Address> = JsonMissing.of()
-                private var dateOfBirth: JsonField<LocalDate> = JsonMissing.of()
-                private var identification: JsonField<Identification> = JsonMissing.of()
-                private var name: JsonField<String> = JsonMissing.of()
+                private var address: JsonField<Address>? = null
+                private var dateOfBirth: JsonField<LocalDate>? = null
+                private var identification: JsonField<Identification>? = null
+                private var name: JsonField<String>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -4528,10 +4819,12 @@ private constructor(
 
                 fun build(): Grantor =
                     Grantor(
-                        address,
-                        dateOfBirth,
-                        identification,
-                        name,
+                        checkNotNull(address) { "`address` is required but was not set" },
+                        checkNotNull(dateOfBirth) { "`dateOfBirth` is required but was not set" },
+                        checkNotNull(identification) {
+                            "`identification` is required but was not set"
+                        },
+                        checkNotNull(name) { "`name` is required but was not set" },
                         additionalProperties.toImmutable(),
                     )
             }
@@ -4579,22 +4872,22 @@ private constructor(
                 fun zip(): String = zip.getRequired("zip")
 
                 /** The city of the address. */
-                @JsonProperty("city") @ExcludeMissing fun _city() = city
+                @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
 
                 /** The first line of the address. */
-                @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
+                @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
                 /** The second line of the address. */
-                @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
+                @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
                 /**
                  * The two-letter United States Postal Service (USPS) abbreviation for the state of
                  * the address.
                  */
-                @JsonProperty("state") @ExcludeMissing fun _state() = state
+                @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
                 /** The ZIP code of the address. */
-                @JsonProperty("zip") @ExcludeMissing fun _zip() = zip
+                @JsonProperty("zip") @ExcludeMissing fun _zip(): JsonField<String> = zip
 
                 @JsonAnyGetter
                 @ExcludeMissing
@@ -4622,11 +4915,11 @@ private constructor(
 
                 class Builder {
 
-                    private var city: JsonField<String> = JsonMissing.of()
-                    private var line1: JsonField<String> = JsonMissing.of()
-                    private var line2: JsonField<String> = JsonMissing.of()
-                    private var state: JsonField<String> = JsonMissing.of()
-                    private var zip: JsonField<String> = JsonMissing.of()
+                    private var city: JsonField<String>? = null
+                    private var line1: JsonField<String>? = null
+                    private var line2: JsonField<String>? = null
+                    private var state: JsonField<String>? = null
+                    private var zip: JsonField<String>? = null
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
@@ -4652,7 +4945,10 @@ private constructor(
                     fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
                     /** The second line of the address. */
-                    fun line2(line2: String) = line2(JsonField.of(line2))
+                    fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
+
+                    /** The second line of the address. */
+                    fun line2(line2: Optional<String>) = line2(line2.orElse(null))
 
                     /** The second line of the address. */
                     fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
@@ -4699,11 +4995,11 @@ private constructor(
 
                     fun build(): Address =
                         Address(
-                            city,
-                            line1,
-                            line2,
-                            state,
-                            zip,
+                            checkNotNull(city) { "`city` is required but was not set" },
+                            checkNotNull(line1) { "`line1` is required but was not set" },
+                            checkNotNull(line2) { "`line2` is required but was not set" },
+                            checkNotNull(state) { "`state` is required but was not set" },
+                            checkNotNull(zip) { "`zip` is required but was not set" },
                             additionalProperties.toImmutable(),
                         )
                 }
@@ -4751,13 +5047,15 @@ private constructor(
                 fun numberLast4(): String = numberLast4.getRequired("number_last4")
 
                 /** A method that can be used to verify the individual's identity. */
-                @JsonProperty("method") @ExcludeMissing fun _method() = method
+                @JsonProperty("method") @ExcludeMissing fun _method(): JsonField<Method> = method
 
                 /**
                  * The last 4 digits of the identification number that can be used to verify the
                  * individual's identity.
                  */
-                @JsonProperty("number_last4") @ExcludeMissing fun _numberLast4() = numberLast4
+                @JsonProperty("number_last4")
+                @ExcludeMissing
+                fun _numberLast4(): JsonField<String> = numberLast4
 
                 @JsonAnyGetter
                 @ExcludeMissing
@@ -4782,8 +5080,8 @@ private constructor(
 
                 class Builder {
 
-                    private var method: JsonField<Method> = JsonMissing.of()
-                    private var numberLast4: JsonField<String> = JsonMissing.of()
+                    private var method: JsonField<Method>? = null
+                    private var numberLast4: JsonField<String>? = null
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
@@ -4837,8 +5135,10 @@ private constructor(
 
                     fun build(): Identification =
                         Identification(
-                            method,
-                            numberLast4,
+                            checkNotNull(method) { "`method` is required but was not set" },
+                            checkNotNull(numberLast4) {
+                                "`numberLast4` is required but was not set"
+                            },
                             additionalProperties.toImmutable(),
                         )
                 }
@@ -4987,10 +5287,14 @@ private constructor(
              * The individual trustee of the trust. Will be present if the trustee's `structure` is
              * equal to `individual`.
              */
-            @JsonProperty("individual") @ExcludeMissing fun _individual() = individual
+            @JsonProperty("individual")
+            @ExcludeMissing
+            fun _individual(): JsonField<Individual> = individual
 
             /** The structure of the trustee. Will always be equal to `individual`. */
-            @JsonProperty("structure") @ExcludeMissing fun _structure() = structure
+            @JsonProperty("structure")
+            @ExcludeMissing
+            fun _structure(): JsonField<Structure> = structure
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -5015,8 +5319,8 @@ private constructor(
 
             class Builder {
 
-                private var individual: JsonField<Individual> = JsonMissing.of()
-                private var structure: JsonField<Structure> = JsonMissing.of()
+                private var individual: JsonField<Individual>? = null
+                private var structure: JsonField<Structure>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -5030,7 +5334,15 @@ private constructor(
                  * The individual trustee of the trust. Will be present if the trustee's `structure`
                  * is equal to `individual`.
                  */
-                fun individual(individual: Individual) = individual(JsonField.of(individual))
+                fun individual(individual: Individual?) =
+                    individual(JsonField.ofNullable(individual))
+
+                /**
+                 * The individual trustee of the trust. Will be present if the trustee's `structure`
+                 * is equal to `individual`.
+                 */
+                fun individual(individual: Optional<Individual>) =
+                    individual(individual.orElse(null))
 
                 /**
                  * The individual trustee of the trust. Will be present if the trustee's `structure`
@@ -5072,8 +5384,8 @@ private constructor(
 
                 fun build(): Trustee =
                     Trustee(
-                        individual,
-                        structure,
+                        checkNotNull(individual) { "`individual` is required but was not set" },
+                        checkNotNull(structure) { "`structure` is required but was not set" },
                         additionalProperties.toImmutable(),
                     )
             }
@@ -5115,18 +5427,22 @@ private constructor(
                 fun name(): String = name.getRequired("name")
 
                 /** The person's address. */
-                @JsonProperty("address") @ExcludeMissing fun _address() = address
+                @JsonProperty("address")
+                @ExcludeMissing
+                fun _address(): JsonField<Address> = address
 
                 /** The person's date of birth in YYYY-MM-DD format. */
-                @JsonProperty("date_of_birth") @ExcludeMissing fun _dateOfBirth() = dateOfBirth
+                @JsonProperty("date_of_birth")
+                @ExcludeMissing
+                fun _dateOfBirth(): JsonField<LocalDate> = dateOfBirth
 
                 /** A means of verifying the person's identity. */
                 @JsonProperty("identification")
                 @ExcludeMissing
-                fun _identification() = identification
+                fun _identification(): JsonField<Identification> = identification
 
                 /** The person's legal name. */
-                @JsonProperty("name") @ExcludeMissing fun _name() = name
+                @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
                 @JsonAnyGetter
                 @ExcludeMissing
@@ -5153,10 +5469,10 @@ private constructor(
 
                 class Builder {
 
-                    private var address: JsonField<Address> = JsonMissing.of()
-                    private var dateOfBirth: JsonField<LocalDate> = JsonMissing.of()
-                    private var identification: JsonField<Identification> = JsonMissing.of()
-                    private var name: JsonField<String> = JsonMissing.of()
+                    private var address: JsonField<Address>? = null
+                    private var dateOfBirth: JsonField<LocalDate>? = null
+                    private var identification: JsonField<Identification>? = null
+                    private var name: JsonField<String>? = null
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
@@ -5221,10 +5537,14 @@ private constructor(
 
                     fun build(): Individual =
                         Individual(
-                            address,
-                            dateOfBirth,
-                            identification,
-                            name,
+                            checkNotNull(address) { "`address` is required but was not set" },
+                            checkNotNull(dateOfBirth) {
+                                "`dateOfBirth` is required but was not set"
+                            },
+                            checkNotNull(identification) {
+                                "`identification` is required but was not set"
+                            },
+                            checkNotNull(name) { "`name` is required but was not set" },
                             additionalProperties.toImmutable(),
                         )
                 }
@@ -5272,22 +5592,22 @@ private constructor(
                     fun zip(): String = zip.getRequired("zip")
 
                     /** The city of the address. */
-                    @JsonProperty("city") @ExcludeMissing fun _city() = city
+                    @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
 
                     /** The first line of the address. */
-                    @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
+                    @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
                     /** The second line of the address. */
-                    @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
+                    @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
                     /**
                      * The two-letter United States Postal Service (USPS) abbreviation for the state
                      * of the address.
                      */
-                    @JsonProperty("state") @ExcludeMissing fun _state() = state
+                    @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
                     /** The ZIP code of the address. */
-                    @JsonProperty("zip") @ExcludeMissing fun _zip() = zip
+                    @JsonProperty("zip") @ExcludeMissing fun _zip(): JsonField<String> = zip
 
                     @JsonAnyGetter
                     @ExcludeMissing
@@ -5315,11 +5635,11 @@ private constructor(
 
                     class Builder {
 
-                        private var city: JsonField<String> = JsonMissing.of()
-                        private var line1: JsonField<String> = JsonMissing.of()
-                        private var line2: JsonField<String> = JsonMissing.of()
-                        private var state: JsonField<String> = JsonMissing.of()
-                        private var zip: JsonField<String> = JsonMissing.of()
+                        private var city: JsonField<String>? = null
+                        private var line1: JsonField<String>? = null
+                        private var line2: JsonField<String>? = null
+                        private var state: JsonField<String>? = null
+                        private var zip: JsonField<String>? = null
                         private var additionalProperties: MutableMap<String, JsonValue> =
                             mutableMapOf()
 
@@ -5346,7 +5666,10 @@ private constructor(
                         fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
                         /** The second line of the address. */
-                        fun line2(line2: String) = line2(JsonField.of(line2))
+                        fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
+
+                        /** The second line of the address. */
+                        fun line2(line2: Optional<String>) = line2(line2.orElse(null))
 
                         /** The second line of the address. */
                         fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
@@ -5393,11 +5716,11 @@ private constructor(
 
                         fun build(): Address =
                             Address(
-                                city,
-                                line1,
-                                line2,
-                                state,
-                                zip,
+                                checkNotNull(city) { "`city` is required but was not set" },
+                                checkNotNull(line1) { "`line1` is required but was not set" },
+                                checkNotNull(line2) { "`line2` is required but was not set" },
+                                checkNotNull(state) { "`state` is required but was not set" },
+                                checkNotNull(zip) { "`zip` is required but was not set" },
                                 additionalProperties.toImmutable(),
                             )
                     }
@@ -5445,13 +5768,17 @@ private constructor(
                     fun numberLast4(): String = numberLast4.getRequired("number_last4")
 
                     /** A method that can be used to verify the individual's identity. */
-                    @JsonProperty("method") @ExcludeMissing fun _method() = method
+                    @JsonProperty("method")
+                    @ExcludeMissing
+                    fun _method(): JsonField<Method> = method
 
                     /**
                      * The last 4 digits of the identification number that can be used to verify the
                      * individual's identity.
                      */
-                    @JsonProperty("number_last4") @ExcludeMissing fun _numberLast4() = numberLast4
+                    @JsonProperty("number_last4")
+                    @ExcludeMissing
+                    fun _numberLast4(): JsonField<String> = numberLast4
 
                     @JsonAnyGetter
                     @ExcludeMissing
@@ -5476,8 +5803,8 @@ private constructor(
 
                     class Builder {
 
-                        private var method: JsonField<Method> = JsonMissing.of()
-                        private var numberLast4: JsonField<String> = JsonMissing.of()
+                        private var method: JsonField<Method>? = null
+                        private var numberLast4: JsonField<String>? = null
                         private var additionalProperties: MutableMap<String, JsonValue> =
                             mutableMapOf()
 
@@ -5534,8 +5861,10 @@ private constructor(
 
                         fun build(): Identification =
                             Identification(
-                                method,
-                                numberLast4,
+                                checkNotNull(method) { "`method` is required but was not set" },
+                                checkNotNull(numberLast4) {
+                                    "`numberLast4` is required but was not set"
+                                },
                                 additionalProperties.toImmutable(),
                             )
                     }

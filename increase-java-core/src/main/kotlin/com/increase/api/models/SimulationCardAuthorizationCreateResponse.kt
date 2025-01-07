@@ -61,7 +61,7 @@ private constructor(
      */
     @JsonProperty("declined_transaction")
     @ExcludeMissing
-    fun _declinedTransaction() = declinedTransaction
+    fun _declinedTransaction(): JsonField<DeclinedTransaction> = declinedTransaction
 
     /**
      * If the authorization attempt succeeds, this will contain the resulting Pending Transaction
@@ -69,13 +69,13 @@ private constructor(
      */
     @JsonProperty("pending_transaction")
     @ExcludeMissing
-    fun _pendingTransaction() = pendingTransaction
+    fun _pendingTransaction(): JsonField<PendingTransaction> = pendingTransaction
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `inbound_card_authorization_simulation_result`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -101,9 +101,9 @@ private constructor(
 
     class Builder {
 
-        private var declinedTransaction: JsonField<DeclinedTransaction> = JsonMissing.of()
-        private var pendingTransaction: JsonField<PendingTransaction> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
+        private var declinedTransaction: JsonField<DeclinedTransaction>? = null
+        private var pendingTransaction: JsonField<PendingTransaction>? = null
+        private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -122,8 +122,16 @@ private constructor(
          * [Declined Transaction](#declined-transactions) object. The Declined Transaction's
          * `source` will be of `category: card_decline`.
          */
-        fun declinedTransaction(declinedTransaction: DeclinedTransaction) =
-            declinedTransaction(JsonField.of(declinedTransaction))
+        fun declinedTransaction(declinedTransaction: DeclinedTransaction?) =
+            declinedTransaction(JsonField.ofNullable(declinedTransaction))
+
+        /**
+         * If the authorization attempt fails, this will contain the resulting
+         * [Declined Transaction](#declined-transactions) object. The Declined Transaction's
+         * `source` will be of `category: card_decline`.
+         */
+        fun declinedTransaction(declinedTransaction: Optional<DeclinedTransaction>) =
+            declinedTransaction(declinedTransaction.orElse(null))
 
         /**
          * If the authorization attempt fails, this will contain the resulting
@@ -139,8 +147,16 @@ private constructor(
          * Transaction object. The Pending Transaction's `source` will be of `category:
          * card_authorization`.
          */
-        fun pendingTransaction(pendingTransaction: PendingTransaction) =
-            pendingTransaction(JsonField.of(pendingTransaction))
+        fun pendingTransaction(pendingTransaction: PendingTransaction?) =
+            pendingTransaction(JsonField.ofNullable(pendingTransaction))
+
+        /**
+         * If the authorization attempt succeeds, this will contain the resulting Pending
+         * Transaction object. The Pending Transaction's `source` will be of `category:
+         * card_authorization`.
+         */
+        fun pendingTransaction(pendingTransaction: Optional<PendingTransaction>) =
+            pendingTransaction(pendingTransaction.orElse(null))
 
         /**
          * If the authorization attempt succeeds, this will contain the resulting Pending
@@ -184,9 +200,13 @@ private constructor(
 
         fun build(): SimulationCardAuthorizationCreateResponse =
             SimulationCardAuthorizationCreateResponse(
-                declinedTransaction,
-                pendingTransaction,
-                type,
+                checkNotNull(declinedTransaction) {
+                    "`declinedTransaction` is required but was not set"
+                },
+                checkNotNull(pendingTransaction) {
+                    "`pendingTransaction` is required but was not set"
+                },
+                checkNotNull(type) { "`type` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }

@@ -156,66 +156,72 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The account transfer's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** The Account to which the transfer belongs. */
-    @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
+    @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
     /**
      * The transfer amount in the minor unit of the destination account currency. For dollars, for
      * example, this is cents.
      */
-    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+    @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
     /**
      * If your account requires approvals for transfers and the transfer was approved, this will
      * contain details of the approval.
      */
-    @JsonProperty("approval") @ExcludeMissing fun _approval() = approval
+    @JsonProperty("approval") @ExcludeMissing fun _approval(): JsonField<Approval> = approval
 
     /**
      * If your account requires approvals for transfers and the transfer was not approved, this will
      * contain details of the cancellation.
      */
-    @JsonProperty("cancellation") @ExcludeMissing fun _cancellation() = cancellation
+    @JsonProperty("cancellation")
+    @ExcludeMissing
+    fun _cancellation(): JsonField<Cancellation> = cancellation
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the transfer
      * was created.
      */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** What object created the transfer, either via the API or the dashboard. */
-    @JsonProperty("created_by") @ExcludeMissing fun _createdBy() = createdBy
+    @JsonProperty("created_by") @ExcludeMissing fun _createdBy(): JsonField<CreatedBy> = createdBy
 
     /**
      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the destination account
      * currency.
      */
-    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+    @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
 
     /** The description that will show on the transactions. */
-    @JsonProperty("description") @ExcludeMissing fun _description() = description
+    @JsonProperty("description") @ExcludeMissing fun _description(): JsonField<String> = description
 
     /** The destination account's identifier. */
     @JsonProperty("destination_account_id")
     @ExcludeMissing
-    fun _destinationAccountId() = destinationAccountId
+    fun _destinationAccountId(): JsonField<String> = destinationAccountId
 
     /** The ID for the transaction receiving the transfer. */
     @JsonProperty("destination_transaction_id")
     @ExcludeMissing
-    fun _destinationTransactionId() = destinationTransactionId
+    fun _destinationTransactionId(): JsonField<String> = destinationTransactionId
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
      * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
     /** The transfer's network. */
-    @JsonProperty("network") @ExcludeMissing fun _network() = network
+    @JsonProperty("network") @ExcludeMissing fun _network(): JsonField<Network> = network
 
     /**
      * The ID for the pending transaction representing the transfer. A pending transaction is
@@ -225,19 +231,21 @@ private constructor(
      */
     @JsonProperty("pending_transaction_id")
     @ExcludeMissing
-    fun _pendingTransactionId() = pendingTransactionId
+    fun _pendingTransactionId(): JsonField<String> = pendingTransactionId
 
     /** The lifecycle status of the transfer. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /** The ID for the transaction funding the transfer. */
-    @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+    @JsonProperty("transaction_id")
+    @ExcludeMissing
+    fun _transactionId(): JsonField<String> = transactionId
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `account_transfer`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -277,23 +285,23 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var accountId: JsonField<String> = JsonMissing.of()
-        private var amount: JsonField<Long> = JsonMissing.of()
-        private var approval: JsonField<Approval> = JsonMissing.of()
-        private var cancellation: JsonField<Cancellation> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var createdBy: JsonField<CreatedBy> = JsonMissing.of()
-        private var currency: JsonField<Currency> = JsonMissing.of()
-        private var description: JsonField<String> = JsonMissing.of()
-        private var destinationAccountId: JsonField<String> = JsonMissing.of()
-        private var destinationTransactionId: JsonField<String> = JsonMissing.of()
-        private var idempotencyKey: JsonField<String> = JsonMissing.of()
-        private var network: JsonField<Network> = JsonMissing.of()
-        private var pendingTransactionId: JsonField<String> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var transactionId: JsonField<String> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var accountId: JsonField<String>? = null
+        private var amount: JsonField<Long>? = null
+        private var approval: JsonField<Approval>? = null
+        private var cancellation: JsonField<Cancellation>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var createdBy: JsonField<CreatedBy>? = null
+        private var currency: JsonField<Currency>? = null
+        private var description: JsonField<String>? = null
+        private var destinationAccountId: JsonField<String>? = null
+        private var destinationTransactionId: JsonField<String>? = null
+        private var idempotencyKey: JsonField<String>? = null
+        private var network: JsonField<Network>? = null
+        private var pendingTransactionId: JsonField<String>? = null
+        private var status: JsonField<Status>? = null
+        private var transactionId: JsonField<String>? = null
+        private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -346,7 +354,13 @@ private constructor(
          * If your account requires approvals for transfers and the transfer was approved, this will
          * contain details of the approval.
          */
-        fun approval(approval: Approval) = approval(JsonField.of(approval))
+        fun approval(approval: Approval?) = approval(JsonField.ofNullable(approval))
+
+        /**
+         * If your account requires approvals for transfers and the transfer was approved, this will
+         * contain details of the approval.
+         */
+        fun approval(approval: Optional<Approval>) = approval(approval.orElse(null))
 
         /**
          * If your account requires approvals for transfers and the transfer was approved, this will
@@ -358,7 +372,15 @@ private constructor(
          * If your account requires approvals for transfers and the transfer was not approved, this
          * will contain details of the cancellation.
          */
-        fun cancellation(cancellation: Cancellation) = cancellation(JsonField.of(cancellation))
+        fun cancellation(cancellation: Cancellation?) =
+            cancellation(JsonField.ofNullable(cancellation))
+
+        /**
+         * If your account requires approvals for transfers and the transfer was not approved, this
+         * will contain details of the cancellation.
+         */
+        fun cancellation(cancellation: Optional<Cancellation>) =
+            cancellation(cancellation.orElse(null))
 
         /**
          * If your account requires approvals for transfers and the transfer was not approved, this
@@ -381,7 +403,10 @@ private constructor(
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** What object created the transfer, either via the API or the dashboard. */
-        fun createdBy(createdBy: CreatedBy) = createdBy(JsonField.of(createdBy))
+        fun createdBy(createdBy: CreatedBy?) = createdBy(JsonField.ofNullable(createdBy))
+
+        /** What object created the transfer, either via the API or the dashboard. */
+        fun createdBy(createdBy: Optional<CreatedBy>) = createdBy(createdBy.orElse(null))
 
         /** What object created the transfer, either via the API or the dashboard. */
         fun createdBy(createdBy: JsonField<CreatedBy>) = apply { this.createdBy = createdBy }
@@ -414,8 +439,12 @@ private constructor(
         }
 
         /** The ID for the transaction receiving the transfer. */
-        fun destinationTransactionId(destinationTransactionId: String) =
-            destinationTransactionId(JsonField.of(destinationTransactionId))
+        fun destinationTransactionId(destinationTransactionId: String?) =
+            destinationTransactionId(JsonField.ofNullable(destinationTransactionId))
+
+        /** The ID for the transaction receiving the transfer. */
+        fun destinationTransactionId(destinationTransactionId: Optional<String>) =
+            destinationTransactionId(destinationTransactionId.orElse(null))
 
         /** The ID for the transaction receiving the transfer. */
         fun destinationTransactionId(destinationTransactionId: JsonField<String>) = apply {
@@ -427,7 +456,16 @@ private constructor(
          * is used to ensure that a request is only processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+        fun idempotencyKey(idempotencyKey: String?) =
+            idempotencyKey(JsonField.ofNullable(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: Optional<String>) =
+            idempotencyKey(idempotencyKey.orElse(null))
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -450,8 +488,17 @@ private constructor(
          * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
          * by someone else in your organization.
          */
-        fun pendingTransactionId(pendingTransactionId: String) =
-            pendingTransactionId(JsonField.of(pendingTransactionId))
+        fun pendingTransactionId(pendingTransactionId: String?) =
+            pendingTransactionId(JsonField.ofNullable(pendingTransactionId))
+
+        /**
+         * The ID for the pending transaction representing the transfer. A pending transaction is
+         * created when the transfer
+         * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
+         * by someone else in your organization.
+         */
+        fun pendingTransactionId(pendingTransactionId: Optional<String>) =
+            pendingTransactionId(pendingTransactionId.orElse(null))
 
         /**
          * The ID for the pending transaction representing the transfer. A pending transaction is
@@ -470,7 +517,12 @@ private constructor(
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /** The ID for the transaction funding the transfer. */
-        fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
+        fun transactionId(transactionId: String?) =
+            transactionId(JsonField.ofNullable(transactionId))
+
+        /** The ID for the transaction funding the transfer. */
+        fun transactionId(transactionId: Optional<String>) =
+            transactionId(transactionId.orElse(null))
 
         /** The ID for the transaction funding the transfer. */
         fun transactionId(transactionId: JsonField<String>) = apply {
@@ -510,23 +562,29 @@ private constructor(
 
         fun build(): AccountTransfer =
             AccountTransfer(
-                id,
-                accountId,
-                amount,
-                approval,
-                cancellation,
-                createdAt,
-                createdBy,
-                currency,
-                description,
-                destinationAccountId,
-                destinationTransactionId,
-                idempotencyKey,
-                network,
-                pendingTransactionId,
-                status,
-                transactionId,
-                type,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(accountId) { "`accountId` is required but was not set" },
+                checkNotNull(amount) { "`amount` is required but was not set" },
+                checkNotNull(approval) { "`approval` is required but was not set" },
+                checkNotNull(cancellation) { "`cancellation` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(createdBy) { "`createdBy` is required but was not set" },
+                checkNotNull(currency) { "`currency` is required but was not set" },
+                checkNotNull(description) { "`description` is required but was not set" },
+                checkNotNull(destinationAccountId) {
+                    "`destinationAccountId` is required but was not set"
+                },
+                checkNotNull(destinationTransactionId) {
+                    "`destinationTransactionId` is required but was not set"
+                },
+                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
+                checkNotNull(network) { "`network` is required but was not set" },
+                checkNotNull(pendingTransactionId) {
+                    "`pendingTransactionId` is required but was not set"
+                },
+                checkNotNull(status) { "`status` is required but was not set" },
+                checkNotNull(transactionId) { "`transactionId` is required but was not set" },
+                checkNotNull(type) { "`type` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }
@@ -565,12 +623,16 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
          * transfer was approved.
          */
-        @JsonProperty("approved_at") @ExcludeMissing fun _approvedAt() = approvedAt
+        @JsonProperty("approved_at")
+        @ExcludeMissing
+        fun _approvedAt(): JsonField<OffsetDateTime> = approvedAt
 
         /**
          * If the Transfer was approved by a user in the dashboard, the email address of that user.
          */
-        @JsonProperty("approved_by") @ExcludeMissing fun _approvedBy() = approvedBy
+        @JsonProperty("approved_by")
+        @ExcludeMissing
+        fun _approvedBy(): JsonField<String> = approvedBy
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -595,8 +657,8 @@ private constructor(
 
         class Builder {
 
-            private var approvedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var approvedBy: JsonField<String> = JsonMissing.of()
+            private var approvedAt: JsonField<OffsetDateTime>? = null
+            private var approvedBy: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -624,7 +686,13 @@ private constructor(
              * If the Transfer was approved by a user in the dashboard, the email address of that
              * user.
              */
-            fun approvedBy(approvedBy: String) = approvedBy(JsonField.of(approvedBy))
+            fun approvedBy(approvedBy: String?) = approvedBy(JsonField.ofNullable(approvedBy))
+
+            /**
+             * If the Transfer was approved by a user in the dashboard, the email address of that
+             * user.
+             */
+            fun approvedBy(approvedBy: Optional<String>) = approvedBy(approvedBy.orElse(null))
 
             /**
              * If the Transfer was approved by a user in the dashboard, the email address of that
@@ -653,8 +721,8 @@ private constructor(
 
             fun build(): Approval =
                 Approval(
-                    approvedAt,
-                    approvedBy,
+                    checkNotNull(approvedAt) { "`approvedAt` is required but was not set" },
+                    checkNotNull(approvedBy) { "`approvedBy` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -711,12 +779,16 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
          * Transfer was canceled.
          */
-        @JsonProperty("canceled_at") @ExcludeMissing fun _canceledAt() = canceledAt
+        @JsonProperty("canceled_at")
+        @ExcludeMissing
+        fun _canceledAt(): JsonField<OffsetDateTime> = canceledAt
 
         /**
          * If the Transfer was canceled by a user in the dashboard, the email address of that user.
          */
-        @JsonProperty("canceled_by") @ExcludeMissing fun _canceledBy() = canceledBy
+        @JsonProperty("canceled_by")
+        @ExcludeMissing
+        fun _canceledBy(): JsonField<String> = canceledBy
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -741,8 +813,8 @@ private constructor(
 
         class Builder {
 
-            private var canceledAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var canceledBy: JsonField<String> = JsonMissing.of()
+            private var canceledAt: JsonField<OffsetDateTime>? = null
+            private var canceledBy: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -770,7 +842,13 @@ private constructor(
              * If the Transfer was canceled by a user in the dashboard, the email address of that
              * user.
              */
-            fun canceledBy(canceledBy: String) = canceledBy(JsonField.of(canceledBy))
+            fun canceledBy(canceledBy: String?) = canceledBy(JsonField.ofNullable(canceledBy))
+
+            /**
+             * If the Transfer was canceled by a user in the dashboard, the email address of that
+             * user.
+             */
+            fun canceledBy(canceledBy: Optional<String>) = canceledBy(canceledBy.orElse(null))
 
             /**
              * If the Transfer was canceled by a user in the dashboard, the email address of that
@@ -799,8 +877,8 @@ private constructor(
 
             fun build(): Cancellation =
                 Cancellation(
-                    canceledAt,
-                    canceledBy,
+                    checkNotNull(canceledAt) { "`canceledAt` is required but was not set" },
+                    checkNotNull(canceledBy) { "`canceledBy` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -856,18 +934,18 @@ private constructor(
         fun user(): Optional<User> = Optional.ofNullable(user.getNullable("user"))
 
         /** If present, details about the API key that created the transfer. */
-        @JsonProperty("api_key") @ExcludeMissing fun _apiKey() = apiKey
+        @JsonProperty("api_key") @ExcludeMissing fun _apiKey(): JsonField<ApiKey> = apiKey
 
         /** The type of object that created this transfer. */
-        @JsonProperty("category") @ExcludeMissing fun _category() = category
+        @JsonProperty("category") @ExcludeMissing fun _category(): JsonField<Category> = category
 
         /** If present, details about the OAuth Application that created the transfer. */
         @JsonProperty("oauth_application")
         @ExcludeMissing
-        fun _oauthApplication() = oauthApplication
+        fun _oauthApplication(): JsonField<OAuthApplication> = oauthApplication
 
         /** If present, details about the User that created the transfer. */
-        @JsonProperty("user") @ExcludeMissing fun _user() = user
+        @JsonProperty("user") @ExcludeMissing fun _user(): JsonField<User> = user
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -894,10 +972,10 @@ private constructor(
 
         class Builder {
 
-            private var apiKey: JsonField<ApiKey> = JsonMissing.of()
-            private var category: JsonField<Category> = JsonMissing.of()
-            private var oauthApplication: JsonField<OAuthApplication> = JsonMissing.of()
-            private var user: JsonField<User> = JsonMissing.of()
+            private var apiKey: JsonField<ApiKey>? = null
+            private var category: JsonField<Category>? = null
+            private var oauthApplication: JsonField<OAuthApplication>? = null
+            private var user: JsonField<User>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -910,7 +988,10 @@ private constructor(
             }
 
             /** If present, details about the API key that created the transfer. */
-            fun apiKey(apiKey: ApiKey) = apiKey(JsonField.of(apiKey))
+            fun apiKey(apiKey: ApiKey?) = apiKey(JsonField.ofNullable(apiKey))
+
+            /** If present, details about the API key that created the transfer. */
+            fun apiKey(apiKey: Optional<ApiKey>) = apiKey(apiKey.orElse(null))
 
             /** If present, details about the API key that created the transfer. */
             fun apiKey(apiKey: JsonField<ApiKey>) = apply { this.apiKey = apiKey }
@@ -922,8 +1003,12 @@ private constructor(
             fun category(category: JsonField<Category>) = apply { this.category = category }
 
             /** If present, details about the OAuth Application that created the transfer. */
-            fun oauthApplication(oauthApplication: OAuthApplication) =
-                oauthApplication(JsonField.of(oauthApplication))
+            fun oauthApplication(oauthApplication: OAuthApplication?) =
+                oauthApplication(JsonField.ofNullable(oauthApplication))
+
+            /** If present, details about the OAuth Application that created the transfer. */
+            fun oauthApplication(oauthApplication: Optional<OAuthApplication>) =
+                oauthApplication(oauthApplication.orElse(null))
 
             /** If present, details about the OAuth Application that created the transfer. */
             fun oauthApplication(oauthApplication: JsonField<OAuthApplication>) = apply {
@@ -931,7 +1016,10 @@ private constructor(
             }
 
             /** If present, details about the User that created the transfer. */
-            fun user(user: User) = user(JsonField.of(user))
+            fun user(user: User?) = user(JsonField.ofNullable(user))
+
+            /** If present, details about the User that created the transfer. */
+            fun user(user: Optional<User>) = user(user.orElse(null))
 
             /** If present, details about the User that created the transfer. */
             fun user(user: JsonField<User>) = apply { this.user = user }
@@ -957,10 +1045,12 @@ private constructor(
 
             fun build(): CreatedBy =
                 CreatedBy(
-                    apiKey,
-                    category,
-                    oauthApplication,
-                    user,
+                    checkNotNull(apiKey) { "`apiKey` is required but was not set" },
+                    checkNotNull(category) { "`category` is required but was not set" },
+                    checkNotNull(oauthApplication) {
+                        "`oauthApplication` is required but was not set"
+                    },
+                    checkNotNull(user) { "`user` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -982,7 +1072,9 @@ private constructor(
                 Optional.ofNullable(description.getNullable("description"))
 
             /** The description set for the API key when it was created. */
-            @JsonProperty("description") @ExcludeMissing fun _description() = description
+            @JsonProperty("description")
+            @ExcludeMissing
+            fun _description(): JsonField<String> = description
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -1006,7 +1098,7 @@ private constructor(
 
             class Builder {
 
-                private var description: JsonField<String> = JsonMissing.of()
+                private var description: JsonField<String>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -1016,7 +1108,12 @@ private constructor(
                 }
 
                 /** The description set for the API key when it was created. */
-                fun description(description: String) = description(JsonField.of(description))
+                fun description(description: String?) =
+                    description(JsonField.ofNullable(description))
+
+                /** The description set for the API key when it was created. */
+                fun description(description: Optional<String>) =
+                    description(description.orElse(null))
 
                 /** The description set for the API key when it was created. */
                 fun description(description: JsonField<String>) = apply {
@@ -1045,7 +1142,11 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
-                fun build(): ApiKey = ApiKey(description, additionalProperties.toImmutable())
+                fun build(): ApiKey =
+                    ApiKey(
+                        checkNotNull(description) { "`description` is required but was not set" },
+                        additionalProperties.toImmutable()
+                    )
             }
 
             override fun equals(other: Any?): Boolean {
@@ -1145,7 +1246,7 @@ private constructor(
             fun name(): String = name.getRequired("name")
 
             /** The name of the OAuth Application. */
-            @JsonProperty("name") @ExcludeMissing fun _name() = name
+            @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -1169,7 +1270,7 @@ private constructor(
 
             class Builder {
 
-                private var name: JsonField<String> = JsonMissing.of()
+                private var name: JsonField<String>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -1207,7 +1308,10 @@ private constructor(
                 }
 
                 fun build(): OAuthApplication =
-                    OAuthApplication(name, additionalProperties.toImmutable())
+                    OAuthApplication(
+                        checkNotNull(name) { "`name` is required but was not set" },
+                        additionalProperties.toImmutable()
+                    )
             }
 
             override fun equals(other: Any?): Boolean {
@@ -1244,7 +1348,7 @@ private constructor(
             fun email(): String = email.getRequired("email")
 
             /** The email address of the User. */
-            @JsonProperty("email") @ExcludeMissing fun _email() = email
+            @JsonProperty("email") @ExcludeMissing fun _email(): JsonField<String> = email
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -1268,7 +1372,7 @@ private constructor(
 
             class Builder {
 
-                private var email: JsonField<String> = JsonMissing.of()
+                private var email: JsonField<String>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -1305,7 +1409,11 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
-                fun build(): User = User(email, additionalProperties.toImmutable())
+                fun build(): User =
+                    User(
+                        checkNotNull(email) { "`email` is required but was not set" },
+                        additionalProperties.toImmutable()
+                    )
             }
 
             override fun equals(other: Any?): Boolean {

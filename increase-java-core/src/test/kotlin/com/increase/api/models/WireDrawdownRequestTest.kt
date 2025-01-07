@@ -16,10 +16,16 @@ class WireDrawdownRequestTest {
                 .amount(10000L)
                 .currency("USD")
                 .fulfillmentInboundWireTransferId("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
+                .idempotencyKey(null)
                 .messageToRecipient("Invoice 29582")
+                .originatorAddressLine1(null)
+                .originatorAddressLine2(null)
+                .originatorAddressLine3(null)
+                .originatorName(null)
                 .recipientAccountNumber("987654321")
                 .recipientAddressLine1("33 Liberty Street")
                 .recipientAddressLine2("New York, NY, 10045")
+                .recipientAddressLine3(null)
                 .recipientName("Ian Crease")
                 .recipientRoutingNumber("101050001")
                 .status(WireDrawdownRequest.Status.PENDING_SUBMISSION)
@@ -38,10 +44,16 @@ class WireDrawdownRequestTest {
         assertThat(wireDrawdownRequest.currency()).isEqualTo("USD")
         assertThat(wireDrawdownRequest.fulfillmentInboundWireTransferId())
             .contains("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
+        assertThat(wireDrawdownRequest.idempotencyKey()).isEmpty
         assertThat(wireDrawdownRequest.messageToRecipient()).isEqualTo("Invoice 29582")
+        assertThat(wireDrawdownRequest.originatorAddressLine1()).isEmpty
+        assertThat(wireDrawdownRequest.originatorAddressLine2()).isEmpty
+        assertThat(wireDrawdownRequest.originatorAddressLine3()).isEmpty
+        assertThat(wireDrawdownRequest.originatorName()).isEmpty
         assertThat(wireDrawdownRequest.recipientAccountNumber()).isEqualTo("987654321")
         assertThat(wireDrawdownRequest.recipientAddressLine1()).contains("33 Liberty Street")
         assertThat(wireDrawdownRequest.recipientAddressLine2()).contains("New York, NY, 10045")
+        assertThat(wireDrawdownRequest.recipientAddressLine3()).isEmpty
         assertThat(wireDrawdownRequest.recipientName()).contains("Ian Crease")
         assertThat(wireDrawdownRequest.recipientRoutingNumber()).isEqualTo("101050001")
         assertThat(wireDrawdownRequest.status())

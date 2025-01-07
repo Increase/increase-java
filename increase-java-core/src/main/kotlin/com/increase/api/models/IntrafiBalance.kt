@@ -72,31 +72,35 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The identifier of this balance. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /**
      * Each entry represents a balance held at a different bank. IntraFi separates the total balance
      * across many participating banks in the network.
      */
-    @JsonProperty("balances") @ExcludeMissing fun _balances() = balances
+    @JsonProperty("balances") @ExcludeMissing fun _balances(): JsonField<List<Balance>> = balances
 
     /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the account currency. */
-    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+    @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
 
     /** The date this balance reflects. */
-    @JsonProperty("effective_date") @ExcludeMissing fun _effectiveDate() = effectiveDate
+    @JsonProperty("effective_date")
+    @ExcludeMissing
+    fun _effectiveDate(): JsonField<LocalDate> = effectiveDate
 
     /**
      * The total balance, in minor units of `currency`. Increase reports this balance to IntraFi
      * daily.
      */
-    @JsonProperty("total_balance") @ExcludeMissing fun _totalBalance() = totalBalance
+    @JsonProperty("total_balance")
+    @ExcludeMissing
+    fun _totalBalance(): JsonField<Long> = totalBalance
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `intrafi_balance`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -125,18 +129,18 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var balances: JsonField<List<Balance>> = JsonMissing.of()
-        private var currency: JsonField<Currency> = JsonMissing.of()
-        private var effectiveDate: JsonField<LocalDate> = JsonMissing.of()
-        private var totalBalance: JsonField<Long> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var balances: JsonField<MutableList<Balance>>? = null
+        private var currency: JsonField<Currency>? = null
+        private var effectiveDate: JsonField<LocalDate>? = null
+        private var totalBalance: JsonField<Long>? = null
+        private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(intrafiBalance: IntrafiBalance) = apply {
             id = intrafiBalance.id
-            balances = intrafiBalance.balances
+            balances = intrafiBalance.balances.map { it.toMutableList() }
             currency = intrafiBalance.currency
             effectiveDate = intrafiBalance.effectiveDate
             totalBalance = intrafiBalance.totalBalance
@@ -160,7 +164,26 @@ private constructor(
          * Each entry represents a balance held at a different bank. IntraFi separates the total
          * balance across many participating banks in the network.
          */
-        fun balances(balances: JsonField<List<Balance>>) = apply { this.balances = balances }
+        fun balances(balances: JsonField<List<Balance>>) = apply {
+            this.balances = balances.map { it.toMutableList() }
+        }
+
+        /**
+         * Each entry represents a balance held at a different bank. IntraFi separates the total
+         * balance across many participating banks in the network.
+         */
+        fun addBalance(balance: Balance) = apply {
+            balances =
+                (balances ?: JsonField.of(mutableListOf())).apply {
+                    asKnown()
+                        .orElseThrow {
+                            IllegalStateException(
+                                "Field was set to non-list type: ${javaClass.simpleName}"
+                            )
+                        }
+                        .add(balance)
+                }
+        }
 
         /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the account currency. */
         fun currency(currency: Currency) = currency(JsonField.of(currency))
@@ -221,12 +244,13 @@ private constructor(
 
         fun build(): IntrafiBalance =
             IntrafiBalance(
-                id,
-                balances.map { it.toImmutable() },
-                currency,
-                effectiveDate,
-                totalBalance,
-                type,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(balances) { "`balances` is required but was not set" }
+                    .map { it.toImmutable() },
+                checkNotNull(currency) { "`currency` is required but was not set" },
+                checkNotNull(effectiveDate) { "`effectiveDate` is required but was not set" },
+                checkNotNull(totalBalance) { "`totalBalance` is required but was not set" },
+                checkNotNull(type) { "`type` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }
@@ -274,16 +298,18 @@ private constructor(
             fdicCertificateNumber.getRequired("fdic_certificate_number")
 
         /** The identifier of this balance. */
-        @JsonProperty("id") @ExcludeMissing fun _id() = id
+        @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
         /** The balance, in minor units of `currency`, held with this bank. */
-        @JsonProperty("balance") @ExcludeMissing fun _balance() = balance
+        @JsonProperty("balance") @ExcludeMissing fun _balance(): JsonField<Long> = balance
 
         /** The name of the bank holding these funds. */
-        @JsonProperty("bank") @ExcludeMissing fun _bank() = bank
+        @JsonProperty("bank") @ExcludeMissing fun _bank(): JsonField<String> = bank
 
         /** The primary location of the bank. */
-        @JsonProperty("bank_location") @ExcludeMissing fun _bankLocation() = bankLocation
+        @JsonProperty("bank_location")
+        @ExcludeMissing
+        fun _bankLocation(): JsonField<BankLocation> = bankLocation
 
         /**
          * The Federal Deposit Insurance Corporation (FDIC) certificate number of the bank. Because
@@ -292,7 +318,7 @@ private constructor(
          */
         @JsonProperty("fdic_certificate_number")
         @ExcludeMissing
-        fun _fdicCertificateNumber() = fdicCertificateNumber
+        fun _fdicCertificateNumber(): JsonField<String> = fdicCertificateNumber
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -320,11 +346,11 @@ private constructor(
 
         class Builder {
 
-            private var id: JsonField<String> = JsonMissing.of()
-            private var balance: JsonField<Long> = JsonMissing.of()
-            private var bank: JsonField<String> = JsonMissing.of()
-            private var bankLocation: JsonField<BankLocation> = JsonMissing.of()
-            private var fdicCertificateNumber: JsonField<String> = JsonMissing.of()
+            private var id: JsonField<String>? = null
+            private var balance: JsonField<Long>? = null
+            private var bank: JsonField<String>? = null
+            private var bankLocation: JsonField<BankLocation>? = null
+            private var fdicCertificateNumber: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -356,7 +382,12 @@ private constructor(
             fun bank(bank: JsonField<String>) = apply { this.bank = bank }
 
             /** The primary location of the bank. */
-            fun bankLocation(bankLocation: BankLocation) = bankLocation(JsonField.of(bankLocation))
+            fun bankLocation(bankLocation: BankLocation?) =
+                bankLocation(JsonField.ofNullable(bankLocation))
+
+            /** The primary location of the bank. */
+            fun bankLocation(bankLocation: Optional<BankLocation>) =
+                bankLocation(bankLocation.orElse(null))
 
             /** The primary location of the bank. */
             fun bankLocation(bankLocation: JsonField<BankLocation>) = apply {
@@ -401,11 +432,13 @@ private constructor(
 
             fun build(): Balance =
                 Balance(
-                    id,
-                    balance,
-                    bank,
-                    bankLocation,
-                    fdicCertificateNumber,
+                    checkNotNull(id) { "`id` is required but was not set" },
+                    checkNotNull(balance) { "`balance` is required but was not set" },
+                    checkNotNull(bank) { "`bank` is required but was not set" },
+                    checkNotNull(bankLocation) { "`bankLocation` is required but was not set" },
+                    checkNotNull(fdicCertificateNumber) {
+                        "`fdicCertificateNumber` is required but was not set"
+                    },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -432,10 +465,10 @@ private constructor(
             fun state(): String = state.getRequired("state")
 
             /** The bank's city. */
-            @JsonProperty("city") @ExcludeMissing fun _city() = city
+            @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
 
             /** The bank's state. */
-            @JsonProperty("state") @ExcludeMissing fun _state() = state
+            @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -460,8 +493,8 @@ private constructor(
 
             class Builder {
 
-                private var city: JsonField<String> = JsonMissing.of()
-                private var state: JsonField<String> = JsonMissing.of()
+                private var city: JsonField<String>? = null
+                private var state: JsonField<String>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -507,8 +540,8 @@ private constructor(
 
                 fun build(): BankLocation =
                     BankLocation(
-                        city,
-                        state,
+                        checkNotNull(city) { "`city` is required but was not set" },
+                        checkNotNull(state) { "`state` is required but was not set" },
                         additionalProperties.toImmutable(),
                     )
             }

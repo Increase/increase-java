@@ -18,6 +18,7 @@ class FileTest {
                 .direction(File.Direction.TO_INCREASE)
                 .downloadUrl("https://api.increase.com/files/file_makxrc67oh9l6sg7w9yc/download")
                 .filename("statement.pdf")
+                .idempotencyKey(null)
                 .mimeType("application/pdf")
                 .purpose(File.Purpose.CHECK_IMAGE_FRONT)
                 .type(File.Type.FILE)
@@ -30,6 +31,7 @@ class FileTest {
         assertThat(file.downloadUrl())
             .contains("https://api.increase.com/files/file_makxrc67oh9l6sg7w9yc/download")
         assertThat(file.filename()).contains("statement.pdf")
+        assertThat(file.idempotencyKey()).isEmpty
         assertThat(file.mimeType()).isEqualTo("application/pdf")
         assertThat(file.purpose()).isEqualTo(File.Purpose.CHECK_IMAGE_FRONT)
         assertThat(file.type()).isEqualTo(File.Type.FILE)

@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -41,11 +42,17 @@ constructor(
      */
     fun reason(): Optional<Reason> = body.reason()
 
+    /**
+     * The reason why the Federal Reserve or destination bank returned this transfer. Defaults to
+     * `no_account`.
+     */
+    fun _reason(): JsonField<Reason> = body._reason()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     @JvmSynthetic internal fun getBody(): SimulationAchTransferReturnBody = body
 
@@ -64,7 +71,9 @@ constructor(
     class SimulationAchTransferReturnBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("reason") private val reason: Reason?,
+        @JsonProperty("reason")
+        @ExcludeMissing
+        private val reason: JsonField<Reason> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
@@ -73,11 +82,26 @@ constructor(
          * The reason why the Federal Reserve or destination bank returned this transfer. Defaults
          * to `no_account`.
          */
-        @JsonProperty("reason") fun reason(): Optional<Reason> = Optional.ofNullable(reason)
+        fun reason(): Optional<Reason> = Optional.ofNullable(reason.getNullable("reason"))
+
+        /**
+         * The reason why the Federal Reserve or destination bank returned this transfer. Defaults
+         * to `no_account`.
+         */
+        @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<Reason> = reason
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): SimulationAchTransferReturnBody = apply {
+            if (!validated) {
+                reason()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -88,7 +112,7 @@ constructor(
 
         class Builder {
 
-            private var reason: Reason? = null
+            private var reason: JsonField<Reason> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -103,13 +127,13 @@ constructor(
              * The reason why the Federal Reserve or destination bank returned this transfer.
              * Defaults to `no_account`.
              */
-            fun reason(reason: Reason?) = apply { this.reason = reason }
+            fun reason(reason: Reason) = reason(JsonField.of(reason))
 
             /**
              * The reason why the Federal Reserve or destination bank returned this transfer.
              * Defaults to `no_account`.
              */
-            fun reason(reason: Optional<Reason>) = reason(reason.orElse(null))
+            fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -185,13 +209,32 @@ constructor(
          * The reason why the Federal Reserve or destination bank returned this transfer. Defaults
          * to `no_account`.
          */
-        fun reason(reason: Reason?) = apply { body.reason(reason) }
+        fun reason(reason: Reason) = apply { body.reason(reason) }
 
         /**
          * The reason why the Federal Reserve or destination bank returned this transfer. Defaults
          * to `no_account`.
          */
-        fun reason(reason: Optional<Reason>) = reason(reason.orElse(null))
+        fun reason(reason: JsonField<Reason>) = apply { body.reason(reason) }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -289,25 +332,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): SimulationAchTransferReturnParams =

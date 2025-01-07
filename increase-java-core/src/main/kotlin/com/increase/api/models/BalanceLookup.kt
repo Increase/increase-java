@@ -57,25 +57,29 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The identifier for the account for which the balance was queried. */
-    @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
+    @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
     /**
      * The Account's available balance, representing the current balance less any open Pending
      * Transactions on the Account.
      */
-    @JsonProperty("available_balance") @ExcludeMissing fun _availableBalance() = availableBalance
+    @JsonProperty("available_balance")
+    @ExcludeMissing
+    fun _availableBalance(): JsonField<Long> = availableBalance
 
     /**
      * The Account's current balance, representing the sum of all posted Transactions on the
      * Account.
      */
-    @JsonProperty("current_balance") @ExcludeMissing fun _currentBalance() = currentBalance
+    @JsonProperty("current_balance")
+    @ExcludeMissing
+    fun _currentBalance(): JsonField<Long> = currentBalance
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `balance_lookup`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -102,10 +106,10 @@ private constructor(
 
     class Builder {
 
-        private var accountId: JsonField<String> = JsonMissing.of()
-        private var availableBalance: JsonField<Long> = JsonMissing.of()
-        private var currentBalance: JsonField<Long> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
+        private var accountId: JsonField<String>? = null
+        private var availableBalance: JsonField<Long>? = null
+        private var currentBalance: JsonField<Long>? = null
+        private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -185,10 +189,10 @@ private constructor(
 
         fun build(): BalanceLookup =
             BalanceLookup(
-                accountId,
-                availableBalance,
-                currentBalance,
-                type,
+                checkNotNull(accountId) { "`accountId` is required but was not set" },
+                checkNotNull(availableBalance) { "`availableBalance` is required but was not set" },
+                checkNotNull(currentBalance) { "`currentBalance` is required but was not set" },
+                checkNotNull(type) { "`type` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }

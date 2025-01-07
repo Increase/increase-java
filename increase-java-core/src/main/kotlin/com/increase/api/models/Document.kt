@@ -68,27 +68,29 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The Document identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** The type of document. */
-    @JsonProperty("category") @ExcludeMissing fun _category() = category
+    @JsonProperty("category") @ExcludeMissing fun _category(): JsonField<Category> = category
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Document was
      * created.
      */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** The identifier of the Entity the document was generated for. */
-    @JsonProperty("entity_id") @ExcludeMissing fun _entityId() = entityId
+    @JsonProperty("entity_id") @ExcludeMissing fun _entityId(): JsonField<String> = entityId
 
     /** The identifier of the File containing the Document's contents. */
-    @JsonProperty("file_id") @ExcludeMissing fun _fileId() = fileId
+    @JsonProperty("file_id") @ExcludeMissing fun _fileId(): JsonField<String> = fileId
 
     /**
      * A constant representing the object's type. For this resource it will always be `document`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -117,12 +119,12 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var category: JsonField<Category> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var entityId: JsonField<String> = JsonMissing.of()
-        private var fileId: JsonField<String> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var category: JsonField<Category>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var entityId: JsonField<String>? = null
+        private var fileId: JsonField<String>? = null
+        private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -161,7 +163,10 @@ private constructor(
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The identifier of the Entity the document was generated for. */
-        fun entityId(entityId: String) = entityId(JsonField.of(entityId))
+        fun entityId(entityId: String?) = entityId(JsonField.ofNullable(entityId))
+
+        /** The identifier of the Entity the document was generated for. */
+        fun entityId(entityId: Optional<String>) = entityId(entityId.orElse(null))
 
         /** The identifier of the Entity the document was generated for. */
         fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
@@ -205,12 +210,12 @@ private constructor(
 
         fun build(): Document =
             Document(
-                id,
-                category,
-                createdAt,
-                entityId,
-                fileId,
-                type,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(category) { "`category` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(entityId) { "`entityId` is required but was not set" },
+                checkNotNull(fileId) { "`fileId` is required but was not set" },
+                checkNotNull(type) { "`type` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }

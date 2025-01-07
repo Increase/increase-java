@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -29,11 +31,17 @@ constructor(
     /** The identifier of the Entity whose deposits will be excluded. */
     fun entityId(): String = body.entityId()
 
+    /** The name of the financial institution to be excluded. */
+    fun _bankName(): JsonField<String> = body._bankName()
+
+    /** The identifier of the Entity whose deposits will be excluded. */
+    fun _entityId(): JsonField<String> = body._entityId()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     @JvmSynthetic internal fun getBody(): IntrafiExclusionCreateBody = body
 
@@ -45,21 +53,41 @@ constructor(
     class IntrafiExclusionCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("bank_name") private val bankName: String,
-        @JsonProperty("entity_id") private val entityId: String,
+        @JsonProperty("bank_name")
+        @ExcludeMissing
+        private val bankName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("entity_id")
+        @ExcludeMissing
+        private val entityId: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The name of the financial institution to be excluded. */
-        @JsonProperty("bank_name") fun bankName(): String = bankName
+        fun bankName(): String = bankName.getRequired("bank_name")
 
         /** The identifier of the Entity whose deposits will be excluded. */
-        @JsonProperty("entity_id") fun entityId(): String = entityId
+        fun entityId(): String = entityId.getRequired("entity_id")
+
+        /** The name of the financial institution to be excluded. */
+        @JsonProperty("bank_name") @ExcludeMissing fun _bankName(): JsonField<String> = bankName
+
+        /** The identifier of the Entity whose deposits will be excluded. */
+        @JsonProperty("entity_id") @ExcludeMissing fun _entityId(): JsonField<String> = entityId
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): IntrafiExclusionCreateBody = apply {
+            if (!validated) {
+                bankName()
+                entityId()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -70,8 +98,8 @@ constructor(
 
         class Builder {
 
-            private var bankName: String? = null
-            private var entityId: String? = null
+            private var bankName: JsonField<String>? = null
+            private var entityId: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -83,10 +111,16 @@ constructor(
             }
 
             /** The name of the financial institution to be excluded. */
-            fun bankName(bankName: String) = apply { this.bankName = bankName }
+            fun bankName(bankName: String) = bankName(JsonField.of(bankName))
+
+            /** The name of the financial institution to be excluded. */
+            fun bankName(bankName: JsonField<String>) = apply { this.bankName = bankName }
 
             /** The identifier of the Entity whose deposits will be excluded. */
-            fun entityId(entityId: String) = apply { this.entityId = entityId }
+            fun entityId(entityId: String) = entityId(JsonField.of(entityId))
+
+            /** The identifier of the Entity whose deposits will be excluded. */
+            fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -157,8 +191,33 @@ constructor(
         /** The name of the financial institution to be excluded. */
         fun bankName(bankName: String) = apply { body.bankName(bankName) }
 
+        /** The name of the financial institution to be excluded. */
+        fun bankName(bankName: JsonField<String>) = apply { body.bankName(bankName) }
+
         /** The identifier of the Entity whose deposits will be excluded. */
         fun entityId(entityId: String) = apply { body.entityId(entityId) }
+
+        /** The identifier of the Entity whose deposits will be excluded. */
+        fun entityId(entityId: JsonField<String>) = apply { body.entityId(entityId) }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -256,25 +315,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): IntrafiExclusionCreateParams =

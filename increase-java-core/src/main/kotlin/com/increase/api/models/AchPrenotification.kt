@@ -145,52 +145,62 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The ACH Prenotification's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** The destination account number. */
-    @JsonProperty("account_number") @ExcludeMissing fun _accountNumber() = accountNumber
+    @JsonProperty("account_number")
+    @ExcludeMissing
+    fun _accountNumber(): JsonField<String> = accountNumber
 
     /** Additional information for the recipient. */
-    @JsonProperty("addendum") @ExcludeMissing fun _addendum() = addendum
+    @JsonProperty("addendum") @ExcludeMissing fun _addendum(): JsonField<String> = addendum
 
     /** The description of the date of the notification. */
     @JsonProperty("company_descriptive_date")
     @ExcludeMissing
-    fun _companyDescriptiveDate() = companyDescriptiveDate
+    fun _companyDescriptiveDate(): JsonField<String> = companyDescriptiveDate
 
     /** Optional data associated with the notification. */
     @JsonProperty("company_discretionary_data")
     @ExcludeMissing
-    fun _companyDiscretionaryData() = companyDiscretionaryData
+    fun _companyDiscretionaryData(): JsonField<String> = companyDiscretionaryData
 
     /** The description of the notification. */
     @JsonProperty("company_entry_description")
     @ExcludeMissing
-    fun _companyEntryDescription() = companyEntryDescription
+    fun _companyEntryDescription(): JsonField<String> = companyEntryDescription
 
     /** The name by which you know the company. */
-    @JsonProperty("company_name") @ExcludeMissing fun _companyName() = companyName
+    @JsonProperty("company_name")
+    @ExcludeMissing
+    fun _companyName(): JsonField<String> = companyName
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
      * prenotification was created.
      */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** If the notification is for a future credit or debit. */
     @JsonProperty("credit_debit_indicator")
     @ExcludeMissing
-    fun _creditDebitIndicator() = creditDebitIndicator
+    fun _creditDebitIndicator(): JsonField<CreditDebitIndicator> = creditDebitIndicator
 
     /** The effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
-    @JsonProperty("effective_date") @ExcludeMissing fun _effectiveDate() = effectiveDate
+    @JsonProperty("effective_date")
+    @ExcludeMissing
+    fun _effectiveDate(): JsonField<OffsetDateTime> = effectiveDate
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
      * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
     /**
      * If the receiving bank notifies that future transfers should use different details, this will
@@ -198,24 +208,26 @@ private constructor(
      */
     @JsonProperty("notifications_of_change")
     @ExcludeMissing
-    fun _notificationsOfChange() = notificationsOfChange
+    fun _notificationsOfChange(): JsonField<List<NotificationsOfChange>> = notificationsOfChange
 
     /** If your prenotification is returned, this will contain details of the return. */
     @JsonProperty("prenotification_return")
     @ExcludeMissing
-    fun _prenotificationReturn() = prenotificationReturn
+    fun _prenotificationReturn(): JsonField<PrenotificationReturn> = prenotificationReturn
 
     /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
-    @JsonProperty("routing_number") @ExcludeMissing fun _routingNumber() = routingNumber
+    @JsonProperty("routing_number")
+    @ExcludeMissing
+    fun _routingNumber(): JsonField<String> = routingNumber
 
     /** The lifecycle status of the ACH Prenotification. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `ach_prenotification`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -254,22 +266,22 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var accountNumber: JsonField<String> = JsonMissing.of()
-        private var addendum: JsonField<String> = JsonMissing.of()
-        private var companyDescriptiveDate: JsonField<String> = JsonMissing.of()
-        private var companyDiscretionaryData: JsonField<String> = JsonMissing.of()
-        private var companyEntryDescription: JsonField<String> = JsonMissing.of()
-        private var companyName: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var creditDebitIndicator: JsonField<CreditDebitIndicator> = JsonMissing.of()
-        private var effectiveDate: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var idempotencyKey: JsonField<String> = JsonMissing.of()
-        private var notificationsOfChange: JsonField<List<NotificationsOfChange>> = JsonMissing.of()
-        private var prenotificationReturn: JsonField<PrenotificationReturn> = JsonMissing.of()
-        private var routingNumber: JsonField<String> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var accountNumber: JsonField<String>? = null
+        private var addendum: JsonField<String>? = null
+        private var companyDescriptiveDate: JsonField<String>? = null
+        private var companyDiscretionaryData: JsonField<String>? = null
+        private var companyEntryDescription: JsonField<String>? = null
+        private var companyName: JsonField<String>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var creditDebitIndicator: JsonField<CreditDebitIndicator>? = null
+        private var effectiveDate: JsonField<OffsetDateTime>? = null
+        private var idempotencyKey: JsonField<String>? = null
+        private var notificationsOfChange: JsonField<MutableList<NotificationsOfChange>>? = null
+        private var prenotificationReturn: JsonField<PrenotificationReturn>? = null
+        private var routingNumber: JsonField<String>? = null
+        private var status: JsonField<Status>? = null
+        private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -285,7 +297,8 @@ private constructor(
             creditDebitIndicator = achPrenotification.creditDebitIndicator
             effectiveDate = achPrenotification.effectiveDate
             idempotencyKey = achPrenotification.idempotencyKey
-            notificationsOfChange = achPrenotification.notificationsOfChange
+            notificationsOfChange =
+                achPrenotification.notificationsOfChange.map { it.toMutableList() }
             prenotificationReturn = achPrenotification.prenotificationReturn
             routingNumber = achPrenotification.routingNumber
             status = achPrenotification.status
@@ -308,14 +321,21 @@ private constructor(
         }
 
         /** Additional information for the recipient. */
-        fun addendum(addendum: String) = addendum(JsonField.of(addendum))
+        fun addendum(addendum: String?) = addendum(JsonField.ofNullable(addendum))
+
+        /** Additional information for the recipient. */
+        fun addendum(addendum: Optional<String>) = addendum(addendum.orElse(null))
 
         /** Additional information for the recipient. */
         fun addendum(addendum: JsonField<String>) = apply { this.addendum = addendum }
 
         /** The description of the date of the notification. */
-        fun companyDescriptiveDate(companyDescriptiveDate: String) =
-            companyDescriptiveDate(JsonField.of(companyDescriptiveDate))
+        fun companyDescriptiveDate(companyDescriptiveDate: String?) =
+            companyDescriptiveDate(JsonField.ofNullable(companyDescriptiveDate))
+
+        /** The description of the date of the notification. */
+        fun companyDescriptiveDate(companyDescriptiveDate: Optional<String>) =
+            companyDescriptiveDate(companyDescriptiveDate.orElse(null))
 
         /** The description of the date of the notification. */
         fun companyDescriptiveDate(companyDescriptiveDate: JsonField<String>) = apply {
@@ -323,8 +343,12 @@ private constructor(
         }
 
         /** Optional data associated with the notification. */
-        fun companyDiscretionaryData(companyDiscretionaryData: String) =
-            companyDiscretionaryData(JsonField.of(companyDiscretionaryData))
+        fun companyDiscretionaryData(companyDiscretionaryData: String?) =
+            companyDiscretionaryData(JsonField.ofNullable(companyDiscretionaryData))
+
+        /** Optional data associated with the notification. */
+        fun companyDiscretionaryData(companyDiscretionaryData: Optional<String>) =
+            companyDiscretionaryData(companyDiscretionaryData.orElse(null))
 
         /** Optional data associated with the notification. */
         fun companyDiscretionaryData(companyDiscretionaryData: JsonField<String>) = apply {
@@ -332,8 +356,12 @@ private constructor(
         }
 
         /** The description of the notification. */
-        fun companyEntryDescription(companyEntryDescription: String) =
-            companyEntryDescription(JsonField.of(companyEntryDescription))
+        fun companyEntryDescription(companyEntryDescription: String?) =
+            companyEntryDescription(JsonField.ofNullable(companyEntryDescription))
+
+        /** The description of the notification. */
+        fun companyEntryDescription(companyEntryDescription: Optional<String>) =
+            companyEntryDescription(companyEntryDescription.orElse(null))
 
         /** The description of the notification. */
         fun companyEntryDescription(companyEntryDescription: JsonField<String>) = apply {
@@ -341,7 +369,10 @@ private constructor(
         }
 
         /** The name by which you know the company. */
-        fun companyName(companyName: String) = companyName(JsonField.of(companyName))
+        fun companyName(companyName: String?) = companyName(JsonField.ofNullable(companyName))
+
+        /** The name by which you know the company. */
+        fun companyName(companyName: Optional<String>) = companyName(companyName.orElse(null))
 
         /** The name by which you know the company. */
         fun companyName(companyName: JsonField<String>) = apply { this.companyName = companyName }
@@ -359,8 +390,12 @@ private constructor(
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** If the notification is for a future credit or debit. */
-        fun creditDebitIndicator(creditDebitIndicator: CreditDebitIndicator) =
-            creditDebitIndicator(JsonField.of(creditDebitIndicator))
+        fun creditDebitIndicator(creditDebitIndicator: CreditDebitIndicator?) =
+            creditDebitIndicator(JsonField.ofNullable(creditDebitIndicator))
+
+        /** If the notification is for a future credit or debit. */
+        fun creditDebitIndicator(creditDebitIndicator: Optional<CreditDebitIndicator>) =
+            creditDebitIndicator(creditDebitIndicator.orElse(null))
 
         /** If the notification is for a future credit or debit. */
         fun creditDebitIndicator(creditDebitIndicator: JsonField<CreditDebitIndicator>) = apply {
@@ -368,8 +403,12 @@ private constructor(
         }
 
         /** The effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
-        fun effectiveDate(effectiveDate: OffsetDateTime) =
-            effectiveDate(JsonField.of(effectiveDate))
+        fun effectiveDate(effectiveDate: OffsetDateTime?) =
+            effectiveDate(JsonField.ofNullable(effectiveDate))
+
+        /** The effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
+        fun effectiveDate(effectiveDate: Optional<OffsetDateTime>) =
+            effectiveDate(effectiveDate.orElse(null))
 
         /** The effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
         fun effectiveDate(effectiveDate: JsonField<OffsetDateTime>) = apply {
@@ -381,7 +420,16 @@ private constructor(
          * is used to ensure that a request is only processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+        fun idempotencyKey(idempotencyKey: String?) =
+            idempotencyKey(JsonField.ofNullable(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: Optional<String>) =
+            idempotencyKey(idempotencyKey.orElse(null))
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -405,12 +453,33 @@ private constructor(
          */
         fun notificationsOfChange(notificationsOfChange: JsonField<List<NotificationsOfChange>>) =
             apply {
-                this.notificationsOfChange = notificationsOfChange
+                this.notificationsOfChange = notificationsOfChange.map { it.toMutableList() }
             }
 
+        /**
+         * If the receiving bank notifies that future transfers should use different details, this
+         * will contain those details.
+         */
+        fun addNotificationsOfChange(notificationsOfChange: NotificationsOfChange) = apply {
+            this.notificationsOfChange =
+                (this.notificationsOfChange ?: JsonField.of(mutableListOf())).apply {
+                    asKnown()
+                        .orElseThrow {
+                            IllegalStateException(
+                                "Field was set to non-list type: ${javaClass.simpleName}"
+                            )
+                        }
+                        .add(notificationsOfChange)
+                }
+        }
+
         /** If your prenotification is returned, this will contain details of the return. */
-        fun prenotificationReturn(prenotificationReturn: PrenotificationReturn) =
-            prenotificationReturn(JsonField.of(prenotificationReturn))
+        fun prenotificationReturn(prenotificationReturn: PrenotificationReturn?) =
+            prenotificationReturn(JsonField.ofNullable(prenotificationReturn))
+
+        /** If your prenotification is returned, this will contain details of the return. */
+        fun prenotificationReturn(prenotificationReturn: Optional<PrenotificationReturn>) =
+            prenotificationReturn(prenotificationReturn.orElse(null))
 
         /** If your prenotification is returned, this will contain details of the return. */
         fun prenotificationReturn(prenotificationReturn: JsonField<PrenotificationReturn>) = apply {
@@ -464,22 +533,35 @@ private constructor(
 
         fun build(): AchPrenotification =
             AchPrenotification(
-                id,
-                accountNumber,
-                addendum,
-                companyDescriptiveDate,
-                companyDiscretionaryData,
-                companyEntryDescription,
-                companyName,
-                createdAt,
-                creditDebitIndicator,
-                effectiveDate,
-                idempotencyKey,
-                notificationsOfChange.map { it.toImmutable() },
-                prenotificationReturn,
-                routingNumber,
-                status,
-                type,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(accountNumber) { "`accountNumber` is required but was not set" },
+                checkNotNull(addendum) { "`addendum` is required but was not set" },
+                checkNotNull(companyDescriptiveDate) {
+                    "`companyDescriptiveDate` is required but was not set"
+                },
+                checkNotNull(companyDiscretionaryData) {
+                    "`companyDiscretionaryData` is required but was not set"
+                },
+                checkNotNull(companyEntryDescription) {
+                    "`companyEntryDescription` is required but was not set"
+                },
+                checkNotNull(companyName) { "`companyName` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(creditDebitIndicator) {
+                    "`creditDebitIndicator` is required but was not set"
+                },
+                checkNotNull(effectiveDate) { "`effectiveDate` is required but was not set" },
+                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
+                checkNotNull(notificationsOfChange) {
+                        "`notificationsOfChange` is required but was not set"
+                    }
+                    .map { it.toImmutable() },
+                checkNotNull(prenotificationReturn) {
+                    "`prenotificationReturn` is required but was not set"
+                },
+                checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
+                checkNotNull(status) { "`status` is required but was not set" },
+                checkNotNull(type) { "`type` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }
@@ -583,7 +665,9 @@ private constructor(
          * The required type of change that is being signaled by the receiving financial
          * institution.
          */
-        @JsonProperty("change_code") @ExcludeMissing fun _changeCode() = changeCode
+        @JsonProperty("change_code")
+        @ExcludeMissing
+        fun _changeCode(): JsonField<ChangeCode> = changeCode
 
         /**
          * The corrected data that should be used in future ACHs to this account. This may contain
@@ -592,13 +676,17 @@ private constructor(
          * encourage changing the `funding` parameter to checking; numbers starting with a 3
          * encourage changing to savings.
          */
-        @JsonProperty("corrected_data") @ExcludeMissing fun _correctedData() = correctedData
+        @JsonProperty("corrected_data")
+        @ExcludeMissing
+        fun _correctedData(): JsonField<String> = correctedData
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
          * notification occurred.
          */
-        @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -624,9 +712,9 @@ private constructor(
 
         class Builder {
 
-            private var changeCode: JsonField<ChangeCode> = JsonMissing.of()
-            private var correctedData: JsonField<String> = JsonMissing.of()
-            private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var changeCode: JsonField<ChangeCode>? = null
+            private var correctedData: JsonField<String>? = null
+            private var createdAt: JsonField<OffsetDateTime>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -706,9 +794,9 @@ private constructor(
 
             fun build(): NotificationsOfChange =
                 NotificationsOfChange(
-                    changeCode,
-                    correctedData,
-                    createdAt,
+                    checkNotNull(changeCode) { "`changeCode` is required but was not set" },
+                    checkNotNull(correctedData) { "`correctedData` is required but was not set" },
+                    checkNotNull(createdAt) { "`createdAt` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -971,12 +1059,14 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
          * Prenotification was returned.
          */
-        @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
         /** Why the Prenotification was returned. */
         @JsonProperty("return_reason_code")
         @ExcludeMissing
-        fun _returnReasonCode() = returnReasonCode
+        fun _returnReasonCode(): JsonField<ReturnReasonCode> = returnReasonCode
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1001,8 +1091,8 @@ private constructor(
 
         class Builder {
 
-            private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var returnReasonCode: JsonField<ReturnReasonCode> = JsonMissing.of()
+            private var createdAt: JsonField<OffsetDateTime>? = null
+            private var returnReasonCode: JsonField<ReturnReasonCode>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -1056,8 +1146,10 @@ private constructor(
 
             fun build(): PrenotificationReturn =
                 PrenotificationReturn(
-                    createdAt,
-                    returnReasonCode,
+                    checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                    checkNotNull(returnReasonCode) {
+                        "`returnReasonCode` is required but was not set"
+                    },
                     additionalProperties.toImmutable(),
                 )
         }

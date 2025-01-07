@@ -221,7 +221,7 @@ class ExportCreateParamsTest {
                     .programId("program_id")
                     .build()
             )
-        assertThat(body.vendorCsv()).contains(JsonValue.from(mapOf<String, Any>()))
+        assertThat(body._vendorCsv()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
     }
 
     @Test

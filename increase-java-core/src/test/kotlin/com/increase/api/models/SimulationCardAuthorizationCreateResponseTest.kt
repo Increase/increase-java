@@ -32,6 +32,8 @@ class SimulationCardAuthorizationCreateResponseTest {
                                         .inboundAchTransferId(
                                             "inbound_ach_transfer_tdrwqr3fq9gnnq49odev"
                                         )
+                                        .originatorCompanyDescriptiveDate(null)
+                                        .originatorCompanyDiscretionaryData(null)
                                         .originatorCompanyId("0987654321")
                                         .originatorCompanyName("BIG BANK")
                                         .reason(
@@ -60,6 +62,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                         .declinedTransactionId(
                                             "declined_transaction_17jbn0yyhvkt4v4ooym8"
                                         )
+                                        .digitalWalletTokenId(null)
                                         .direction(
                                             DeclinedTransaction.Source.CardDecline.Direction
                                                 .SETTLEMENT
@@ -70,6 +73,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                         .merchantCountry("US")
                                         .merchantDescriptor("AMAZON.COM")
                                         .merchantPostalCode("10045")
+                                        .merchantState(null)
                                         .networkDetails(
                                             DeclinedTransaction.Source.CardDecline.NetworkDetails
                                                 .builder()
@@ -119,6 +123,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                                 .build()
                                         )
                                         .networkRiskScore(10L)
+                                        .physicalCardId(null)
                                         .presentmentAmount(-1000L)
                                         .presentmentCurrency("USD")
                                         .processingCategory(
@@ -126,6 +131,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                                 .ProcessingCategory
                                                 .ACCOUNT_FUNDING
                                         )
+                                        .realTimeDecisionId(null)
                                         .realTimeDecisionReason(
                                             DeclinedTransaction.Source.CardDecline
                                                 .RealTimeDecisionReason
@@ -180,7 +186,9 @@ class SimulationCardAuthorizationCreateResponseTest {
                                     DeclinedTransaction.Source.CheckDecline.builder()
                                         .amount(-1000L)
                                         .auxiliaryOnUs("99999")
+                                        .backImageFileId(null)
                                         .checkTransferId("check_transfer_30b43acfu9vw8fyc4f5")
+                                        .frontImageFileId(null)
                                         .inboundCheckDepositId(
                                             "inbound_check_deposit_zoshvqybq0cjjm31mra"
                                         )
@@ -261,6 +269,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                         .id("pending_transaction_k1sfetcau2qbvjbzgju4")
                         .accountId("account_in71c4amph0vgo2qllky")
                         .amount(100L)
+                        .completedAt(null)
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .currency(PendingTransaction.Currency.CAD)
                         .description("INVOICE 2468")
@@ -297,6 +306,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                         .currency(
                                             PendingTransaction.Source.CardAuthorization.Currency.CAD
                                         )
+                                        .digitalWalletTokenId(null)
                                         .direction(
                                             PendingTransaction.Source.CardAuthorization.Direction
                                                 .SETTLEMENT
@@ -362,6 +372,8 @@ class SimulationCardAuthorizationCreateResponseTest {
                                                 .build()
                                         )
                                         .networkRiskScore(10L)
+                                        .pendingTransactionId(null)
+                                        .physicalCardId(null)
                                         .presentmentAmount(100L)
                                         .presentmentCurrency("USD")
                                         .processingCategory(
@@ -369,6 +381,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                                 .ProcessingCategory
                                                 .ACCOUNT_FUNDING
                                         )
+                                        .realTimeDecisionId(null)
                                         .terminalId("RCN5VNXS")
                                         .type(
                                             PendingTransaction.Source.CardAuthorization.Type
@@ -457,6 +470,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                         .pendingTransactionId(
                                             "pending_transaction_k1sfetcau2qbvjbzgju4"
                                         )
+                                        .releasedAt(null)
                                         .status(
                                             PendingTransaction.Source.InboundFundsHold.Status.HELD
                                         )
@@ -517,6 +531,8 @@ class SimulationCardAuthorizationCreateResponseTest {
                                     .inboundAchTransferId(
                                         "inbound_ach_transfer_tdrwqr3fq9gnnq49odev"
                                     )
+                                    .originatorCompanyDescriptiveDate(null)
+                                    .originatorCompanyDiscretionaryData(null)
                                     .originatorCompanyId("0987654321")
                                     .originatorCompanyName("BIG BANK")
                                     .reason(
@@ -539,6 +555,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                     .declinedTransactionId(
                                         "declined_transaction_17jbn0yyhvkt4v4ooym8"
                                     )
+                                    .digitalWalletTokenId(null)
                                     .direction(
                                         DeclinedTransaction.Source.CardDecline.Direction.SETTLEMENT
                                     )
@@ -548,6 +565,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                     .merchantCountry("US")
                                     .merchantDescriptor("AMAZON.COM")
                                     .merchantPostalCode("10045")
+                                    .merchantState(null)
                                     .networkDetails(
                                         DeclinedTransaction.Source.CardDecline.NetworkDetails
                                             .builder()
@@ -596,12 +614,14 @@ class SimulationCardAuthorizationCreateResponseTest {
                                             .build()
                                     )
                                     .networkRiskScore(10L)
+                                    .physicalCardId(null)
                                     .presentmentAmount(-1000L)
                                     .presentmentCurrency("USD")
                                     .processingCategory(
                                         DeclinedTransaction.Source.CardDecline.ProcessingCategory
                                             .ACCOUNT_FUNDING
                                     )
+                                    .realTimeDecisionId(null)
                                     .realTimeDecisionReason(
                                         DeclinedTransaction.Source.CardDecline
                                             .RealTimeDecisionReason
@@ -654,7 +674,9 @@ class SimulationCardAuthorizationCreateResponseTest {
                                 DeclinedTransaction.Source.CheckDecline.builder()
                                     .amount(-1000L)
                                     .auxiliaryOnUs("99999")
+                                    .backImageFileId(null)
                                     .checkTransferId("check_transfer_30b43acfu9vw8fyc4f5")
+                                    .frontImageFileId(null)
                                     .inboundCheckDepositId(
                                         "inbound_check_deposit_zoshvqybq0cjjm31mra"
                                     )
@@ -734,6 +756,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                     .id("pending_transaction_k1sfetcau2qbvjbzgju4")
                     .accountId("account_in71c4amph0vgo2qllky")
                     .amount(100L)
+                    .completedAt(null)
                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                     .currency(PendingTransaction.Currency.CAD)
                     .description("INVOICE 2468")
@@ -769,6 +792,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                     .currency(
                                         PendingTransaction.Source.CardAuthorization.Currency.CAD
                                     )
+                                    .digitalWalletTokenId(null)
                                     .direction(
                                         PendingTransaction.Source.CardAuthorization.Direction
                                             .SETTLEMENT
@@ -830,6 +854,8 @@ class SimulationCardAuthorizationCreateResponseTest {
                                             .build()
                                     )
                                     .networkRiskScore(10L)
+                                    .pendingTransactionId(null)
+                                    .physicalCardId(null)
                                     .presentmentAmount(100L)
                                     .presentmentCurrency("USD")
                                     .processingCategory(
@@ -837,6 +863,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                             .ProcessingCategory
                                             .ACCOUNT_FUNDING
                                     )
+                                    .realTimeDecisionId(null)
                                     .terminalId("RCN5VNXS")
                                     .type(
                                         PendingTransaction.Source.CardAuthorization.Type
@@ -921,6 +948,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                     .pendingTransactionId(
                                         "pending_transaction_k1sfetcau2qbvjbzgju4"
                                     )
+                                    .releasedAt(null)
                                     .status(PendingTransaction.Source.InboundFundsHold.Status.HELD)
                                     .type(
                                         PendingTransaction.Source.InboundFundsHold.Type

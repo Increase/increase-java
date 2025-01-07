@@ -95,43 +95,49 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The physical card identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** The identifier for the Card this Physical Card represents. */
-    @JsonProperty("card_id") @ExcludeMissing fun _cardId() = cardId
+    @JsonProperty("card_id") @ExcludeMissing fun _cardId(): JsonField<String> = cardId
 
     /** Details about the cardholder, as it appears on the printed card. */
-    @JsonProperty("cardholder") @ExcludeMissing fun _cardholder() = cardholder
+    @JsonProperty("cardholder")
+    @ExcludeMissing
+    fun _cardholder(): JsonField<Cardholder> = cardholder
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Physical
      * Card was created.
      */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
      * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
     /** The Physical Card Profile used for this Physical Card. */
     @JsonProperty("physical_card_profile_id")
     @ExcludeMissing
-    fun _physicalCardProfileId() = physicalCardProfileId
+    fun _physicalCardProfileId(): JsonField<String> = physicalCardProfileId
 
     /** The details used to ship this physical card. */
-    @JsonProperty("shipment") @ExcludeMissing fun _shipment() = shipment
+    @JsonProperty("shipment") @ExcludeMissing fun _shipment(): JsonField<Shipment> = shipment
 
     /** The status of the Physical Card. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `physical_card`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -163,15 +169,15 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var cardId: JsonField<String> = JsonMissing.of()
-        private var cardholder: JsonField<Cardholder> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var idempotencyKey: JsonField<String> = JsonMissing.of()
-        private var physicalCardProfileId: JsonField<String> = JsonMissing.of()
-        private var shipment: JsonField<Shipment> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var cardId: JsonField<String>? = null
+        private var cardholder: JsonField<Cardholder>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var idempotencyKey: JsonField<String>? = null
+        private var physicalCardProfileId: JsonField<String>? = null
+        private var shipment: JsonField<Shipment>? = null
+        private var status: JsonField<Status>? = null
+        private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -223,7 +229,16 @@ private constructor(
          * is used to ensure that a request is only processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+        fun idempotencyKey(idempotencyKey: String?) =
+            idempotencyKey(JsonField.ofNullable(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: Optional<String>) =
+            idempotencyKey(idempotencyKey.orElse(null))
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -235,8 +250,12 @@ private constructor(
         }
 
         /** The Physical Card Profile used for this Physical Card. */
-        fun physicalCardProfileId(physicalCardProfileId: String) =
-            physicalCardProfileId(JsonField.of(physicalCardProfileId))
+        fun physicalCardProfileId(physicalCardProfileId: String?) =
+            physicalCardProfileId(JsonField.ofNullable(physicalCardProfileId))
+
+        /** The Physical Card Profile used for this Physical Card. */
+        fun physicalCardProfileId(physicalCardProfileId: Optional<String>) =
+            physicalCardProfileId(physicalCardProfileId.orElse(null))
 
         /** The Physical Card Profile used for this Physical Card. */
         fun physicalCardProfileId(physicalCardProfileId: JsonField<String>) = apply {
@@ -288,15 +307,17 @@ private constructor(
 
         fun build(): PhysicalCard =
             PhysicalCard(
-                id,
-                cardId,
-                cardholder,
-                createdAt,
-                idempotencyKey,
-                physicalCardProfileId,
-                shipment,
-                status,
-                type,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(cardId) { "`cardId` is required but was not set" },
+                checkNotNull(cardholder) { "`cardholder` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
+                checkNotNull(physicalCardProfileId) {
+                    "`physicalCardProfileId` is required but was not set"
+                },
+                checkNotNull(shipment) { "`shipment` is required but was not set" },
+                checkNotNull(status) { "`status` is required but was not set" },
+                checkNotNull(type) { "`type` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }
@@ -323,10 +344,10 @@ private constructor(
         fun lastName(): String = lastName.getRequired("last_name")
 
         /** The cardholder's first name. */
-        @JsonProperty("first_name") @ExcludeMissing fun _firstName() = firstName
+        @JsonProperty("first_name") @ExcludeMissing fun _firstName(): JsonField<String> = firstName
 
         /** The cardholder's last name. */
-        @JsonProperty("last_name") @ExcludeMissing fun _lastName() = lastName
+        @JsonProperty("last_name") @ExcludeMissing fun _lastName(): JsonField<String> = lastName
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -351,8 +372,8 @@ private constructor(
 
         class Builder {
 
-            private var firstName: JsonField<String> = JsonMissing.of()
-            private var lastName: JsonField<String> = JsonMissing.of()
+            private var firstName: JsonField<String>? = null
+            private var lastName: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -395,8 +416,8 @@ private constructor(
 
             fun build(): Cardholder =
                 Cardholder(
-                    firstName,
-                    lastName,
+                    checkNotNull(firstName) { "`firstName` is required but was not set" },
+                    checkNotNull(lastName) { "`lastName` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -453,16 +474,16 @@ private constructor(
         fun tracking(): Optional<Tracking> = Optional.ofNullable(tracking.getNullable("tracking"))
 
         /** The location to where the card's packing label is addressed. */
-        @JsonProperty("address") @ExcludeMissing fun _address() = address
+        @JsonProperty("address") @ExcludeMissing fun _address(): JsonField<Address> = address
 
         /** The shipping method. */
-        @JsonProperty("method") @ExcludeMissing fun _method() = method
+        @JsonProperty("method") @ExcludeMissing fun _method(): JsonField<Method> = method
 
         /** The status of this shipment. */
-        @JsonProperty("status") @ExcludeMissing fun _status() = status
+        @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
         /** Tracking details for the shipment. */
-        @JsonProperty("tracking") @ExcludeMissing fun _tracking() = tracking
+        @JsonProperty("tracking") @ExcludeMissing fun _tracking(): JsonField<Tracking> = tracking
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -489,10 +510,10 @@ private constructor(
 
         class Builder {
 
-            private var address: JsonField<Address> = JsonMissing.of()
-            private var method: JsonField<Method> = JsonMissing.of()
-            private var status: JsonField<Status> = JsonMissing.of()
-            private var tracking: JsonField<Tracking> = JsonMissing.of()
+            private var address: JsonField<Address>? = null
+            private var method: JsonField<Method>? = null
+            private var status: JsonField<Status>? = null
+            private var tracking: JsonField<Tracking>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -523,7 +544,10 @@ private constructor(
             fun status(status: JsonField<Status>) = apply { this.status = status }
 
             /** Tracking details for the shipment. */
-            fun tracking(tracking: Tracking) = tracking(JsonField.of(tracking))
+            fun tracking(tracking: Tracking?) = tracking(JsonField.ofNullable(tracking))
+
+            /** Tracking details for the shipment. */
+            fun tracking(tracking: Optional<Tracking>) = tracking(tracking.orElse(null))
 
             /** Tracking details for the shipment. */
             fun tracking(tracking: JsonField<Tracking>) = apply { this.tracking = tracking }
@@ -549,10 +573,10 @@ private constructor(
 
             fun build(): Shipment =
                 Shipment(
-                    address,
-                    method,
-                    status,
-                    tracking,
+                    checkNotNull(address) { "`address` is required but was not set" },
+                    checkNotNull(method) { "`method` is required but was not set" },
+                    checkNotNull(status) { "`status` is required but was not set" },
+                    checkNotNull(tracking) { "`tracking` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -609,25 +633,27 @@ private constructor(
             fun state(): String = state.getRequired("state")
 
             /** The city of the shipping address. */
-            @JsonProperty("city") @ExcludeMissing fun _city() = city
+            @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
 
             /** The first line of the shipping address. */
-            @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
+            @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
             /** The second line of the shipping address. */
-            @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
+            @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
             /** The third line of the shipping address. */
-            @JsonProperty("line3") @ExcludeMissing fun _line3() = line3
+            @JsonProperty("line3") @ExcludeMissing fun _line3(): JsonField<String> = line3
 
             /** The name of the recipient. */
-            @JsonProperty("name") @ExcludeMissing fun _name() = name
+            @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
             /** The postal code of the shipping address. */
-            @JsonProperty("postal_code") @ExcludeMissing fun _postalCode() = postalCode
+            @JsonProperty("postal_code")
+            @ExcludeMissing
+            fun _postalCode(): JsonField<String> = postalCode
 
             /** The US state of the shipping address. */
-            @JsonProperty("state") @ExcludeMissing fun _state() = state
+            @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -657,13 +683,13 @@ private constructor(
 
             class Builder {
 
-                private var city: JsonField<String> = JsonMissing.of()
-                private var line1: JsonField<String> = JsonMissing.of()
-                private var line2: JsonField<String> = JsonMissing.of()
-                private var line3: JsonField<String> = JsonMissing.of()
-                private var name: JsonField<String> = JsonMissing.of()
-                private var postalCode: JsonField<String> = JsonMissing.of()
-                private var state: JsonField<String> = JsonMissing.of()
+                private var city: JsonField<String>? = null
+                private var line1: JsonField<String>? = null
+                private var line2: JsonField<String>? = null
+                private var line3: JsonField<String>? = null
+                private var name: JsonField<String>? = null
+                private var postalCode: JsonField<String>? = null
+                private var state: JsonField<String>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -691,13 +717,19 @@ private constructor(
                 fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
                 /** The second line of the shipping address. */
-                fun line2(line2: String) = line2(JsonField.of(line2))
+                fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
+
+                /** The second line of the shipping address. */
+                fun line2(line2: Optional<String>) = line2(line2.orElse(null))
 
                 /** The second line of the shipping address. */
                 fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
                 /** The third line of the shipping address. */
-                fun line3(line3: String) = line3(JsonField.of(line3))
+                fun line3(line3: String?) = line3(JsonField.ofNullable(line3))
+
+                /** The third line of the shipping address. */
+                fun line3(line3: Optional<String>) = line3(line3.orElse(null))
 
                 /** The third line of the shipping address. */
                 fun line3(line3: JsonField<String>) = apply { this.line3 = line3 }
@@ -746,13 +778,13 @@ private constructor(
 
                 fun build(): Address =
                     Address(
-                        city,
-                        line1,
-                        line2,
-                        line3,
-                        name,
-                        postalCode,
-                        state,
+                        checkNotNull(city) { "`city` is required but was not set" },
+                        checkNotNull(line1) { "`line1` is required but was not set" },
+                        checkNotNull(line2) { "`line2` is required but was not set" },
+                        checkNotNull(line3) { "`line3` is required but was not set" },
+                        checkNotNull(name) { "`name` is required but was not set" },
+                        checkNotNull(postalCode) { "`postalCode` is required but was not set" },
+                        checkNotNull(state) { "`state` is required but was not set" },
                         additionalProperties.toImmutable(),
                     )
             }
@@ -964,19 +996,25 @@ private constructor(
             fun shippedAt(): OffsetDateTime = shippedAt.getRequired("shipped_at")
 
             /** The tracking number. */
-            @JsonProperty("number") @ExcludeMissing fun _number() = number
+            @JsonProperty("number") @ExcludeMissing fun _number(): JsonField<String> = number
 
             /** For returned shipments, the tracking number of the return shipment. */
-            @JsonProperty("return_number") @ExcludeMissing fun _returnNumber() = returnNumber
+            @JsonProperty("return_number")
+            @ExcludeMissing
+            fun _returnNumber(): JsonField<String> = returnNumber
 
             /** For returned shipments, this describes why the package was returned. */
-            @JsonProperty("return_reason") @ExcludeMissing fun _returnReason() = returnReason
+            @JsonProperty("return_reason")
+            @ExcludeMissing
+            fun _returnReason(): JsonField<String> = returnReason
 
             /**
              * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
              * fulfillment provider marked the card as ready for pick-up by the shipment carrier.
              */
-            @JsonProperty("shipped_at") @ExcludeMissing fun _shippedAt() = shippedAt
+            @JsonProperty("shipped_at")
+            @ExcludeMissing
+            fun _shippedAt(): JsonField<OffsetDateTime> = shippedAt
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -1003,10 +1041,10 @@ private constructor(
 
             class Builder {
 
-                private var number: JsonField<String> = JsonMissing.of()
-                private var returnNumber: JsonField<String> = JsonMissing.of()
-                private var returnReason: JsonField<String> = JsonMissing.of()
-                private var shippedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+                private var number: JsonField<String>? = null
+                private var returnNumber: JsonField<String>? = null
+                private var returnReason: JsonField<String>? = null
+                private var shippedAt: JsonField<OffsetDateTime>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -1025,7 +1063,12 @@ private constructor(
                 fun number(number: JsonField<String>) = apply { this.number = number }
 
                 /** For returned shipments, the tracking number of the return shipment. */
-                fun returnNumber(returnNumber: String) = returnNumber(JsonField.of(returnNumber))
+                fun returnNumber(returnNumber: String?) =
+                    returnNumber(JsonField.ofNullable(returnNumber))
+
+                /** For returned shipments, the tracking number of the return shipment. */
+                fun returnNumber(returnNumber: Optional<String>) =
+                    returnNumber(returnNumber.orElse(null))
 
                 /** For returned shipments, the tracking number of the return shipment. */
                 fun returnNumber(returnNumber: JsonField<String>) = apply {
@@ -1033,7 +1076,12 @@ private constructor(
                 }
 
                 /** For returned shipments, this describes why the package was returned. */
-                fun returnReason(returnReason: String) = returnReason(JsonField.of(returnReason))
+                fun returnReason(returnReason: String?) =
+                    returnReason(JsonField.ofNullable(returnReason))
+
+                /** For returned shipments, this describes why the package was returned. */
+                fun returnReason(returnReason: Optional<String>) =
+                    returnReason(returnReason.orElse(null))
 
                 /** For returned shipments, this describes why the package was returned. */
                 fun returnReason(returnReason: JsonField<String>) = apply {
@@ -1080,10 +1128,10 @@ private constructor(
 
                 fun build(): Tracking =
                     Tracking(
-                        number,
-                        returnNumber,
-                        returnReason,
-                        shippedAt,
+                        checkNotNull(number) { "`number` is required but was not set" },
+                        checkNotNull(returnNumber) { "`returnNumber` is required but was not set" },
+                        checkNotNull(returnReason) { "`returnReason` is required but was not set" },
+                        checkNotNull(shippedAt) { "`shippedAt` is required but was not set" },
                         additionalProperties.toImmutable(),
                     )
             }

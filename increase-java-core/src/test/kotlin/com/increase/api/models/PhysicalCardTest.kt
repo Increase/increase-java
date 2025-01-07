@@ -18,6 +18,7 @@ class PhysicalCardTest {
                     PhysicalCard.Cardholder.builder().firstName("Ian").lastName("Crease").build()
                 )
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                .idempotencyKey(null)
                 .physicalCardProfileId("physical_card_profile_m534d5rn9qyy9ufqxoec")
                 .shipment(
                     PhysicalCard.Shipment.builder()
@@ -26,6 +27,7 @@ class PhysicalCardTest {
                                 .city("New York")
                                 .line1("33 Liberty Street")
                                 .line2("Unit 2")
+                                .line3(null)
                                 .name("Ian Crease")
                                 .postalCode("10045")
                                 .state("NY")
@@ -54,6 +56,7 @@ class PhysicalCardTest {
                 PhysicalCard.Cardholder.builder().firstName("Ian").lastName("Crease").build()
             )
         assertThat(physicalCard.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+        assertThat(physicalCard.idempotencyKey()).isEmpty
         assertThat(physicalCard.physicalCardProfileId())
             .contains("physical_card_profile_m534d5rn9qyy9ufqxoec")
         assertThat(physicalCard.shipment())
@@ -64,6 +67,7 @@ class PhysicalCardTest {
                             .city("New York")
                             .line1("33 Liberty Street")
                             .line2("Unit 2")
+                            .line3(null)
                             .name("Ian Crease")
                             .postalCode("10045")
                             .state("NY")

@@ -79,32 +79,38 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The entry set identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** When the entry set was created. */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** The timestamp of the entry set. */
-    @JsonProperty("date") @ExcludeMissing fun _date() = date
+    @JsonProperty("date") @ExcludeMissing fun _date(): JsonField<OffsetDateTime> = date
 
     /** The entries. */
-    @JsonProperty("entries") @ExcludeMissing fun _entries() = entries
+    @JsonProperty("entries") @ExcludeMissing fun _entries(): JsonField<List<Entry>> = entries
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
      * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
     /** The transaction identifier, if any. */
-    @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+    @JsonProperty("transaction_id")
+    @ExcludeMissing
+    fun _transactionId(): JsonField<String> = transactionId
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `bookkeeping_entry_set`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -134,13 +140,13 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var date: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var entries: JsonField<List<Entry>> = JsonMissing.of()
-        private var idempotencyKey: JsonField<String> = JsonMissing.of()
-        private var transactionId: JsonField<String> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var date: JsonField<OffsetDateTime>? = null
+        private var entries: JsonField<MutableList<Entry>>? = null
+        private var idempotencyKey: JsonField<String>? = null
+        private var transactionId: JsonField<String>? = null
+        private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -148,7 +154,7 @@ private constructor(
             id = bookkeepingEntrySet.id
             createdAt = bookkeepingEntrySet.createdAt
             date = bookkeepingEntrySet.date
-            entries = bookkeepingEntrySet.entries
+            entries = bookkeepingEntrySet.entries.map { it.toMutableList() }
             idempotencyKey = bookkeepingEntrySet.idempotencyKey
             transactionId = bookkeepingEntrySet.transactionId
             type = bookkeepingEntrySet.type
@@ -177,14 +183,39 @@ private constructor(
         fun entries(entries: List<Entry>) = entries(JsonField.of(entries))
 
         /** The entries. */
-        fun entries(entries: JsonField<List<Entry>>) = apply { this.entries = entries }
+        fun entries(entries: JsonField<List<Entry>>) = apply {
+            this.entries = entries.map { it.toMutableList() }
+        }
+
+        /** The entries. */
+        fun addEntry(entry: Entry) = apply {
+            entries =
+                (entries ?: JsonField.of(mutableListOf())).apply {
+                    asKnown()
+                        .orElseThrow {
+                            IllegalStateException(
+                                "Field was set to non-list type: ${javaClass.simpleName}"
+                            )
+                        }
+                        .add(entry)
+                }
+        }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
          * is used to ensure that a request is only processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+        fun idempotencyKey(idempotencyKey: String?) =
+            idempotencyKey(JsonField.ofNullable(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: Optional<String>) =
+            idempotencyKey(idempotencyKey.orElse(null))
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -196,7 +227,12 @@ private constructor(
         }
 
         /** The transaction identifier, if any. */
-        fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
+        fun transactionId(transactionId: String?) =
+            transactionId(JsonField.ofNullable(transactionId))
+
+        /** The transaction identifier, if any. */
+        fun transactionId(transactionId: Optional<String>) =
+            transactionId(transactionId.orElse(null))
 
         /** The transaction identifier, if any. */
         fun transactionId(transactionId: JsonField<String>) = apply {
@@ -236,13 +272,14 @@ private constructor(
 
         fun build(): BookkeepingEntrySet =
             BookkeepingEntrySet(
-                id,
-                createdAt,
-                date,
-                entries.map { it.toImmutable() },
-                idempotencyKey,
-                transactionId,
-                type,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(date) { "`date` is required but was not set" },
+                checkNotNull(entries) { "`entries` is required but was not set" }
+                    .map { it.toImmutable() },
+                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
+                checkNotNull(transactionId) { "`transactionId` is required but was not set" },
+                checkNotNull(type) { "`type` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }
@@ -272,13 +309,13 @@ private constructor(
         fun amount(): Long = amount.getRequired("amount")
 
         /** The entry identifier. */
-        @JsonProperty("id") @ExcludeMissing fun _id() = id
+        @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
         /** The bookkeeping account impacted by the entry. */
-        @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
+        @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
         /** The amount of the entry in minor units. */
-        @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -304,9 +341,9 @@ private constructor(
 
         class Builder {
 
-            private var id: JsonField<String> = JsonMissing.of()
-            private var accountId: JsonField<String> = JsonMissing.of()
-            private var amount: JsonField<Long> = JsonMissing.of()
+            private var id: JsonField<String>? = null
+            private var accountId: JsonField<String>? = null
+            private var amount: JsonField<Long>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -356,9 +393,9 @@ private constructor(
 
             fun build(): Entry =
                 Entry(
-                    id,
-                    accountId,
-                    amount,
+                    checkNotNull(id) { "`id` is required but was not set" },
+                    checkNotNull(accountId) { "`accountId` is required but was not set" },
+                    checkNotNull(amount) { "`amount` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }

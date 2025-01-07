@@ -100,13 +100,13 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The Inbound Funds Hold identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /**
      * The held amount in the minor unit of the account's currency. For dollars, for example, this
      * is cents.
      */
-    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+    @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
     /**
      * When the hold will be released automatically. Certain conditions may cause it to be released
@@ -114,37 +114,41 @@ private constructor(
      */
     @JsonProperty("automatically_releases_at")
     @ExcludeMissing
-    fun _automaticallyReleasesAt() = automaticallyReleasesAt
+    fun _automaticallyReleasesAt(): JsonField<OffsetDateTime> = automaticallyReleasesAt
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the hold was created.
      */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the hold's currency. */
-    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+    @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
 
     /** The ID of the Transaction for which funds were held. */
     @JsonProperty("held_transaction_id")
     @ExcludeMissing
-    fun _heldTransactionId() = heldTransactionId
+    fun _heldTransactionId(): JsonField<String> = heldTransactionId
 
     /** The ID of the Pending Transaction representing the held funds. */
     @JsonProperty("pending_transaction_id")
     @ExcludeMissing
-    fun _pendingTransactionId() = pendingTransactionId
+    fun _pendingTransactionId(): JsonField<String> = pendingTransactionId
 
     /** When the hold was released (if it has been released). */
-    @JsonProperty("released_at") @ExcludeMissing fun _releasedAt() = releasedAt
+    @JsonProperty("released_at")
+    @ExcludeMissing
+    fun _releasedAt(): JsonField<OffsetDateTime> = releasedAt
 
     /** The status of the hold. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `inbound_funds_hold`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -177,16 +181,16 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var amount: JsonField<Long> = JsonMissing.of()
-        private var automaticallyReleasesAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var currency: JsonField<Currency> = JsonMissing.of()
-        private var heldTransactionId: JsonField<String> = JsonMissing.of()
-        private var pendingTransactionId: JsonField<String> = JsonMissing.of()
-        private var releasedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var amount: JsonField<Long>? = null
+        private var automaticallyReleasesAt: JsonField<OffsetDateTime>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var currency: JsonField<Currency>? = null
+        private var heldTransactionId: JsonField<String>? = null
+        private var pendingTransactionId: JsonField<String>? = null
+        private var releasedAt: JsonField<OffsetDateTime>? = null
+        private var status: JsonField<Status>? = null
+        private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -260,8 +264,12 @@ private constructor(
         fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
         /** The ID of the Transaction for which funds were held. */
-        fun heldTransactionId(heldTransactionId: String) =
-            heldTransactionId(JsonField.of(heldTransactionId))
+        fun heldTransactionId(heldTransactionId: String?) =
+            heldTransactionId(JsonField.ofNullable(heldTransactionId))
+
+        /** The ID of the Transaction for which funds were held. */
+        fun heldTransactionId(heldTransactionId: Optional<String>) =
+            heldTransactionId(heldTransactionId.orElse(null))
 
         /** The ID of the Transaction for which funds were held. */
         fun heldTransactionId(heldTransactionId: JsonField<String>) = apply {
@@ -269,8 +277,12 @@ private constructor(
         }
 
         /** The ID of the Pending Transaction representing the held funds. */
-        fun pendingTransactionId(pendingTransactionId: String) =
-            pendingTransactionId(JsonField.of(pendingTransactionId))
+        fun pendingTransactionId(pendingTransactionId: String?) =
+            pendingTransactionId(JsonField.ofNullable(pendingTransactionId))
+
+        /** The ID of the Pending Transaction representing the held funds. */
+        fun pendingTransactionId(pendingTransactionId: Optional<String>) =
+            pendingTransactionId(pendingTransactionId.orElse(null))
 
         /** The ID of the Pending Transaction representing the held funds. */
         fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {
@@ -278,7 +290,10 @@ private constructor(
         }
 
         /** When the hold was released (if it has been released). */
-        fun releasedAt(releasedAt: OffsetDateTime) = releasedAt(JsonField.of(releasedAt))
+        fun releasedAt(releasedAt: OffsetDateTime?) = releasedAt(JsonField.ofNullable(releasedAt))
+
+        /** When the hold was released (if it has been released). */
+        fun releasedAt(releasedAt: Optional<OffsetDateTime>) = releasedAt(releasedAt.orElse(null))
 
         /** When the hold was released (if it has been released). */
         fun releasedAt(releasedAt: JsonField<OffsetDateTime>) = apply {
@@ -324,16 +339,22 @@ private constructor(
 
         fun build(): SimulationInboundFundsHoldReleaseResponse =
             SimulationInboundFundsHoldReleaseResponse(
-                id,
-                amount,
-                automaticallyReleasesAt,
-                createdAt,
-                currency,
-                heldTransactionId,
-                pendingTransactionId,
-                releasedAt,
-                status,
-                type,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(amount) { "`amount` is required but was not set" },
+                checkNotNull(automaticallyReleasesAt) {
+                    "`automaticallyReleasesAt` is required but was not set"
+                },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(currency) { "`currency` is required but was not set" },
+                checkNotNull(heldTransactionId) {
+                    "`heldTransactionId` is required but was not set"
+                },
+                checkNotNull(pendingTransactionId) {
+                    "`pendingTransactionId` is required but was not set"
+                },
+                checkNotNull(releasedAt) { "`releasedAt` is required but was not set" },
+                checkNotNull(status) { "`status` is required but was not set" },
+                checkNotNull(type) { "`type` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }

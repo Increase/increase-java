@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -40,11 +41,20 @@ constructor(
     /** This indicates if checks can be sent to the Lockbox. */
     fun status(): Optional<Status> = body.status()
 
+    /** The description you choose for the Lockbox. */
+    fun _description(): JsonField<String> = body._description()
+
+    /** The recipient name you choose for the Lockbox. */
+    fun _recipientName(): JsonField<String> = body._recipientName()
+
+    /** This indicates if checks can be sent to the Lockbox. */
+    fun _status(): JsonField<Status> = body._status()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     @JvmSynthetic internal fun getBody(): LockboxUpdateBody = body
 
@@ -63,27 +73,57 @@ constructor(
     class LockboxUpdateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("description") private val description: String?,
-        @JsonProperty("recipient_name") private val recipientName: String?,
-        @JsonProperty("status") private val status: Status?,
+        @JsonProperty("description")
+        @ExcludeMissing
+        private val description: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("recipient_name")
+        @ExcludeMissing
+        private val recipientName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("status")
+        @ExcludeMissing
+        private val status: JsonField<Status> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The description you choose for the Lockbox. */
+        fun description(): Optional<String> =
+            Optional.ofNullable(description.getNullable("description"))
+
+        /** The recipient name you choose for the Lockbox. */
+        fun recipientName(): Optional<String> =
+            Optional.ofNullable(recipientName.getNullable("recipient_name"))
+
+        /** This indicates if checks can be sent to the Lockbox. */
+        fun status(): Optional<Status> = Optional.ofNullable(status.getNullable("status"))
+
+        /** The description you choose for the Lockbox. */
         @JsonProperty("description")
-        fun description(): Optional<String> = Optional.ofNullable(description)
+        @ExcludeMissing
+        fun _description(): JsonField<String> = description
 
         /** The recipient name you choose for the Lockbox. */
         @JsonProperty("recipient_name")
-        fun recipientName(): Optional<String> = Optional.ofNullable(recipientName)
+        @ExcludeMissing
+        fun _recipientName(): JsonField<String> = recipientName
 
         /** This indicates if checks can be sent to the Lockbox. */
-        @JsonProperty("status") fun status(): Optional<Status> = Optional.ofNullable(status)
+        @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): LockboxUpdateBody = apply {
+            if (!validated) {
+                description()
+                recipientName()
+                status()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -94,9 +134,9 @@ constructor(
 
         class Builder {
 
-            private var description: String? = null
-            private var recipientName: String? = null
-            private var status: Status? = null
+            private var description: JsonField<String> = JsonMissing.of()
+            private var recipientName: JsonField<String> = JsonMissing.of()
+            private var status: JsonField<Status> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -108,23 +148,26 @@ constructor(
             }
 
             /** The description you choose for the Lockbox. */
-            fun description(description: String?) = apply { this.description = description }
+            fun description(description: String) = description(JsonField.of(description))
 
             /** The description you choose for the Lockbox. */
-            fun description(description: Optional<String>) = description(description.orElse(null))
+            fun description(description: JsonField<String>) = apply {
+                this.description = description
+            }
 
             /** The recipient name you choose for the Lockbox. */
-            fun recipientName(recipientName: String?) = apply { this.recipientName = recipientName }
+            fun recipientName(recipientName: String) = recipientName(JsonField.of(recipientName))
 
             /** The recipient name you choose for the Lockbox. */
-            fun recipientName(recipientName: Optional<String>) =
-                recipientName(recipientName.orElse(null))
+            fun recipientName(recipientName: JsonField<String>) = apply {
+                this.recipientName = recipientName
+            }
 
             /** This indicates if checks can be sent to the Lockbox. */
-            fun status(status: Status?) = apply { this.status = status }
+            fun status(status: Status) = status(JsonField.of(status))
 
             /** This indicates if checks can be sent to the Lockbox. */
-            fun status(status: Optional<Status>) = status(status.orElse(null))
+            fun status(status: JsonField<Status>) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -199,23 +242,43 @@ constructor(
         fun lockboxId(lockboxId: String) = apply { this.lockboxId = lockboxId }
 
         /** The description you choose for the Lockbox. */
-        fun description(description: String?) = apply { body.description(description) }
+        fun description(description: String) = apply { body.description(description) }
 
         /** The description you choose for the Lockbox. */
-        fun description(description: Optional<String>) = description(description.orElse(null))
+        fun description(description: JsonField<String>) = apply { body.description(description) }
 
         /** The recipient name you choose for the Lockbox. */
-        fun recipientName(recipientName: String?) = apply { body.recipientName(recipientName) }
+        fun recipientName(recipientName: String) = apply { body.recipientName(recipientName) }
 
         /** The recipient name you choose for the Lockbox. */
-        fun recipientName(recipientName: Optional<String>) =
-            recipientName(recipientName.orElse(null))
+        fun recipientName(recipientName: JsonField<String>) = apply {
+            body.recipientName(recipientName)
+        }
 
         /** This indicates if checks can be sent to the Lockbox. */
-        fun status(status: Status?) = apply { body.status(status) }
+        fun status(status: Status) = apply { body.status(status) }
 
         /** This indicates if checks can be sent to the Lockbox. */
-        fun status(status: Optional<Status>) = status(status.orElse(null))
+        fun status(status: JsonField<Status>) = apply { body.status(status) }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -313,25 +376,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): LockboxUpdateParams =

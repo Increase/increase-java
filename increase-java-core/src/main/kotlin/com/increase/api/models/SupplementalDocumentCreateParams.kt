@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -29,11 +31,17 @@ constructor(
     /** The identifier of the File containing the document. */
     fun fileId(): String = body.fileId()
 
+    /** The identifier of the Entity to associate with the supplemental document. */
+    fun _entityId(): JsonField<String> = body._entityId()
+
+    /** The identifier of the File containing the document. */
+    fun _fileId(): JsonField<String> = body._fileId()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     @JvmSynthetic internal fun getBody(): SupplementalDocumentCreateBody = body
 
@@ -45,21 +53,41 @@ constructor(
     class SupplementalDocumentCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("entity_id") private val entityId: String,
-        @JsonProperty("file_id") private val fileId: String,
+        @JsonProperty("entity_id")
+        @ExcludeMissing
+        private val entityId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("file_id")
+        @ExcludeMissing
+        private val fileId: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The identifier of the Entity to associate with the supplemental document. */
-        @JsonProperty("entity_id") fun entityId(): String = entityId
+        fun entityId(): String = entityId.getRequired("entity_id")
 
         /** The identifier of the File containing the document. */
-        @JsonProperty("file_id") fun fileId(): String = fileId
+        fun fileId(): String = fileId.getRequired("file_id")
+
+        /** The identifier of the Entity to associate with the supplemental document. */
+        @JsonProperty("entity_id") @ExcludeMissing fun _entityId(): JsonField<String> = entityId
+
+        /** The identifier of the File containing the document. */
+        @JsonProperty("file_id") @ExcludeMissing fun _fileId(): JsonField<String> = fileId
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): SupplementalDocumentCreateBody = apply {
+            if (!validated) {
+                entityId()
+                fileId()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -70,8 +98,8 @@ constructor(
 
         class Builder {
 
-            private var entityId: String? = null
-            private var fileId: String? = null
+            private var entityId: JsonField<String>? = null
+            private var fileId: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -84,10 +112,16 @@ constructor(
                 }
 
             /** The identifier of the Entity to associate with the supplemental document. */
-            fun entityId(entityId: String) = apply { this.entityId = entityId }
+            fun entityId(entityId: String) = entityId(JsonField.of(entityId))
+
+            /** The identifier of the Entity to associate with the supplemental document. */
+            fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
 
             /** The identifier of the File containing the document. */
-            fun fileId(fileId: String) = apply { this.fileId = fileId }
+            fun fileId(fileId: String) = fileId(JsonField.of(fileId))
+
+            /** The identifier of the File containing the document. */
+            fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -161,8 +195,33 @@ constructor(
         /** The identifier of the Entity to associate with the supplemental document. */
         fun entityId(entityId: String) = apply { body.entityId(entityId) }
 
+        /** The identifier of the Entity to associate with the supplemental document. */
+        fun entityId(entityId: JsonField<String>) = apply { body.entityId(entityId) }
+
         /** The identifier of the File containing the document. */
         fun fileId(fileId: String) = apply { body.fileId(fileId) }
+
+        /** The identifier of the File containing the document. */
+        fun fileId(fileId: JsonField<String>) = apply { body.fileId(fileId) }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -260,25 +319,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): SupplementalDocumentCreateParams =

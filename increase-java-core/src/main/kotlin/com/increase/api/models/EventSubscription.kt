@@ -91,17 +91,21 @@ private constructor(
     fun url(): String = url.getRequired("url")
 
     /** The event subscription identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** The time the event subscription was created. */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
      * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
     /**
      * If specified, this subscription will only receive webhooks for Events associated with this
@@ -109,7 +113,7 @@ private constructor(
      */
     @JsonProperty("oauth_connection_id")
     @ExcludeMissing
-    fun _oauthConnectionId() = oauthConnectionId
+    fun _oauthConnectionId(): JsonField<String> = oauthConnectionId
 
     /**
      * If specified, this subscription will only receive webhooks for Events with the specified
@@ -117,19 +121,19 @@ private constructor(
      */
     @JsonProperty("selected_event_category")
     @ExcludeMissing
-    fun _selectedEventCategory() = selectedEventCategory
+    fun _selectedEventCategory(): JsonField<SelectedEventCategory> = selectedEventCategory
 
     /** This indicates if we'll send notifications to this subscription. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `event_subscription`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     /** The webhook url where we'll send notifications. */
-    @JsonProperty("url") @ExcludeMissing fun _url() = url
+    @JsonProperty("url") @ExcludeMissing fun _url(): JsonField<String> = url
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -160,14 +164,14 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var idempotencyKey: JsonField<String> = JsonMissing.of()
-        private var oauthConnectionId: JsonField<String> = JsonMissing.of()
-        private var selectedEventCategory: JsonField<SelectedEventCategory> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
-        private var url: JsonField<String> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var idempotencyKey: JsonField<String>? = null
+        private var oauthConnectionId: JsonField<String>? = null
+        private var selectedEventCategory: JsonField<SelectedEventCategory>? = null
+        private var status: JsonField<Status>? = null
+        private var type: JsonField<Type>? = null
+        private var url: JsonField<String>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -200,7 +204,16 @@ private constructor(
          * is used to ensure that a request is only processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+        fun idempotencyKey(idempotencyKey: String?) =
+            idempotencyKey(JsonField.ofNullable(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: Optional<String>) =
+            idempotencyKey(idempotencyKey.orElse(null))
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -215,8 +228,15 @@ private constructor(
          * If specified, this subscription will only receive webhooks for Events associated with
          * this OAuth Connection.
          */
-        fun oauthConnectionId(oauthConnectionId: String) =
-            oauthConnectionId(JsonField.of(oauthConnectionId))
+        fun oauthConnectionId(oauthConnectionId: String?) =
+            oauthConnectionId(JsonField.ofNullable(oauthConnectionId))
+
+        /**
+         * If specified, this subscription will only receive webhooks for Events associated with
+         * this OAuth Connection.
+         */
+        fun oauthConnectionId(oauthConnectionId: Optional<String>) =
+            oauthConnectionId(oauthConnectionId.orElse(null))
 
         /**
          * If specified, this subscription will only receive webhooks for Events associated with
@@ -230,8 +250,15 @@ private constructor(
          * If specified, this subscription will only receive webhooks for Events with the specified
          * `category`.
          */
-        fun selectedEventCategory(selectedEventCategory: SelectedEventCategory) =
-            selectedEventCategory(JsonField.of(selectedEventCategory))
+        fun selectedEventCategory(selectedEventCategory: SelectedEventCategory?) =
+            selectedEventCategory(JsonField.ofNullable(selectedEventCategory))
+
+        /**
+         * If specified, this subscription will only receive webhooks for Events with the specified
+         * `category`.
+         */
+        fun selectedEventCategory(selectedEventCategory: Optional<SelectedEventCategory>) =
+            selectedEventCategory(selectedEventCategory.orElse(null))
 
         /**
          * If specified, this subscription will only receive webhooks for Events with the specified
@@ -286,14 +313,18 @@ private constructor(
 
         fun build(): EventSubscription =
             EventSubscription(
-                id,
-                createdAt,
-                idempotencyKey,
-                oauthConnectionId,
-                selectedEventCategory,
-                status,
-                type,
-                url,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
+                checkNotNull(oauthConnectionId) {
+                    "`oauthConnectionId` is required but was not set"
+                },
+                checkNotNull(selectedEventCategory) {
+                    "`selectedEventCategory` is required but was not set"
+                },
+                checkNotNull(status) { "`status` is required but was not set" },
+                checkNotNull(type) { "`type` is required but was not set" },
+                checkNotNull(url) { "`url` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }
