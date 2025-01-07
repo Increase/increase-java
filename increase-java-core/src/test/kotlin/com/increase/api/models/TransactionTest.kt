@@ -83,7 +83,7 @@ class TransactionTest {
                                 .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                 .cashback(
                                     Transaction.Source.CardRefund.Cashback.builder()
-                                        .amount("amount")
+                                        .amount("-16699")
                                         .currency(
                                             Transaction.Source.CardRefund.Cashback.Currency.CAD
                                         )
@@ -323,7 +323,7 @@ class TransactionTest {
                                 .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                 .cashback(
                                     Transaction.Source.CardSettlement.Cashback.builder()
-                                        .amount("amount")
+                                        .amount("-16699")
                                         .currency(
                                             Transaction.Source.CardSettlement.Cashback.Currency.CAD
                                         )
@@ -832,7 +832,7 @@ class TransactionTest {
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                             .cashback(
                                 Transaction.Source.CardRefund.Cashback.builder()
-                                    .amount("amount")
+                                    .amount("-16699")
                                     .currency(Transaction.Source.CardRefund.Cashback.Currency.CAD)
                                     .build()
                             )
@@ -1056,7 +1056,7 @@ class TransactionTest {
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                             .cashback(
                                 Transaction.Source.CardSettlement.Cashback.builder()
-                                    .amount("amount")
+                                    .amount("-16699")
                                     .currency(
                                         Transaction.Source.CardSettlement.Cashback.Currency.CAD
                                     )
