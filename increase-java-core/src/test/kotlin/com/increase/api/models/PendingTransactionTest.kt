@@ -16,6 +16,7 @@ class PendingTransactionTest {
                 .id("pending_transaction_k1sfetcau2qbvjbzgju4")
                 .accountId("account_in71c4amph0vgo2qllky")
                 .amount(100L)
+                .completedAt(null)
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .currency(PendingTransaction.Currency.CAD)
                 .description("INVOICE 2468")
@@ -46,6 +47,7 @@ class PendingTransactionTest {
                                 .amount(100L)
                                 .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                 .currency(PendingTransaction.Source.CardAuthorization.Currency.CAD)
+                                .digitalWalletTokenId(null)
                                 .direction(
                                     PendingTransaction.Source.CardAuthorization.Direction.SETTLEMENT
                                 )
@@ -105,12 +107,15 @@ class PendingTransactionTest {
                                         .build()
                                 )
                                 .networkRiskScore(10L)
+                                .pendingTransactionId(null)
+                                .physicalCardId(null)
                                 .presentmentAmount(100L)
                                 .presentmentCurrency("USD")
                                 .processingCategory(
                                     PendingTransaction.Source.CardAuthorization.ProcessingCategory
                                         .ACCOUNT_FUNDING
                                 )
+                                .realTimeDecisionId(null)
                                 .terminalId("RCN5VNXS")
                                 .type(
                                     PendingTransaction.Source.CardAuthorization.Type
@@ -185,6 +190,7 @@ class PendingTransactionTest {
                                 .currency(PendingTransaction.Source.InboundFundsHold.Currency.CAD)
                                 .heldTransactionId("transaction_uyrp7fld2ium70oa7oi")
                                 .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
+                                .releasedAt(null)
                                 .status(PendingTransaction.Source.InboundFundsHold.Status.HELD)
                                 .type(
                                     PendingTransaction.Source.InboundFundsHold.Type
@@ -217,6 +223,7 @@ class PendingTransactionTest {
         assertThat(pendingTransaction.id()).isEqualTo("pending_transaction_k1sfetcau2qbvjbzgju4")
         assertThat(pendingTransaction.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(pendingTransaction.amount()).isEqualTo(100L)
+        assertThat(pendingTransaction.completedAt()).isEmpty
         assertThat(pendingTransaction.createdAt())
             .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(pendingTransaction.currency()).isEqualTo(PendingTransaction.Currency.CAD)
@@ -249,6 +256,7 @@ class PendingTransactionTest {
                             .amount(100L)
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                             .currency(PendingTransaction.Source.CardAuthorization.Currency.CAD)
+                            .digitalWalletTokenId(null)
                             .direction(
                                 PendingTransaction.Source.CardAuthorization.Direction.SETTLEMENT
                             )
@@ -305,12 +313,15 @@ class PendingTransactionTest {
                                     .build()
                             )
                             .networkRiskScore(10L)
+                            .pendingTransactionId(null)
+                            .physicalCardId(null)
                             .presentmentAmount(100L)
                             .presentmentCurrency("USD")
                             .processingCategory(
                                 PendingTransaction.Source.CardAuthorization.ProcessingCategory
                                     .ACCOUNT_FUNDING
                             )
+                            .realTimeDecisionId(null)
                             .terminalId("RCN5VNXS")
                             .type(
                                 PendingTransaction.Source.CardAuthorization.Type.CARD_AUTHORIZATION
@@ -381,6 +392,7 @@ class PendingTransactionTest {
                             .currency(PendingTransaction.Source.InboundFundsHold.Currency.CAD)
                             .heldTransactionId("transaction_uyrp7fld2ium70oa7oi")
                             .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
+                            .releasedAt(null)
                             .status(PendingTransaction.Source.InboundFundsHold.Status.HELD)
                             .type(
                                 PendingTransaction.Source.InboundFundsHold.Type.INBOUND_FUNDS_HOLD

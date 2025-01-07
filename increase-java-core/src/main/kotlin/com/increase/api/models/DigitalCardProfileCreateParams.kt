@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -51,11 +53,38 @@ constructor(
     /** The Card's text color, specified as an RGB triple. The default is white. */
     fun textColor(): Optional<TextColor> = body.textColor()
 
+    /** The identifier of the File containing the card's icon image. */
+    fun _appIconFileId(): JsonField<String> = body._appIconFileId()
+
+    /** The identifier of the File containing the card's front image. */
+    fun _backgroundImageFileId(): JsonField<String> = body._backgroundImageFileId()
+
+    /** A user-facing description for the card itself. */
+    fun _cardDescription(): JsonField<String> = body._cardDescription()
+
+    /** A description you can use to identify the Card Profile. */
+    fun _description(): JsonField<String> = body._description()
+
+    /** A user-facing description for whoever is issuing the card. */
+    fun _issuerName(): JsonField<String> = body._issuerName()
+
+    /** An email address the user can contact to receive support for their card. */
+    fun _contactEmail(): JsonField<String> = body._contactEmail()
+
+    /** A phone number the user can contact to receive support for their card. */
+    fun _contactPhone(): JsonField<String> = body._contactPhone()
+
+    /** A website the user can visit to view and receive support for their card. */
+    fun _contactWebsite(): JsonField<String> = body._contactWebsite()
+
+    /** The Card's text color, specified as an RGB triple. The default is white. */
+    fun _textColor(): JsonField<TextColor> = body._textColor()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     @JvmSynthetic internal fun getBody(): DigitalCardProfileCreateBody = body
 
@@ -67,54 +96,134 @@ constructor(
     class DigitalCardProfileCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("app_icon_file_id") private val appIconFileId: String,
-        @JsonProperty("background_image_file_id") private val backgroundImageFileId: String,
-        @JsonProperty("card_description") private val cardDescription: String,
-        @JsonProperty("description") private val description: String,
-        @JsonProperty("issuer_name") private val issuerName: String,
-        @JsonProperty("contact_email") private val contactEmail: String?,
-        @JsonProperty("contact_phone") private val contactPhone: String?,
-        @JsonProperty("contact_website") private val contactWebsite: String?,
-        @JsonProperty("text_color") private val textColor: TextColor?,
+        @JsonProperty("app_icon_file_id")
+        @ExcludeMissing
+        private val appIconFileId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("background_image_file_id")
+        @ExcludeMissing
+        private val backgroundImageFileId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("card_description")
+        @ExcludeMissing
+        private val cardDescription: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("description")
+        @ExcludeMissing
+        private val description: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("issuer_name")
+        @ExcludeMissing
+        private val issuerName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("contact_email")
+        @ExcludeMissing
+        private val contactEmail: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("contact_phone")
+        @ExcludeMissing
+        private val contactPhone: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("contact_website")
+        @ExcludeMissing
+        private val contactWebsite: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("text_color")
+        @ExcludeMissing
+        private val textColor: JsonField<TextColor> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The identifier of the File containing the card's icon image. */
-        @JsonProperty("app_icon_file_id") fun appIconFileId(): String = appIconFileId
+        fun appIconFileId(): String = appIconFileId.getRequired("app_icon_file_id")
+
+        /** The identifier of the File containing the card's front image. */
+        fun backgroundImageFileId(): String =
+            backgroundImageFileId.getRequired("background_image_file_id")
+
+        /** A user-facing description for the card itself. */
+        fun cardDescription(): String = cardDescription.getRequired("card_description")
+
+        /** A description you can use to identify the Card Profile. */
+        fun description(): String = description.getRequired("description")
+
+        /** A user-facing description for whoever is issuing the card. */
+        fun issuerName(): String = issuerName.getRequired("issuer_name")
+
+        /** An email address the user can contact to receive support for their card. */
+        fun contactEmail(): Optional<String> =
+            Optional.ofNullable(contactEmail.getNullable("contact_email"))
+
+        /** A phone number the user can contact to receive support for their card. */
+        fun contactPhone(): Optional<String> =
+            Optional.ofNullable(contactPhone.getNullable("contact_phone"))
+
+        /** A website the user can visit to view and receive support for their card. */
+        fun contactWebsite(): Optional<String> =
+            Optional.ofNullable(contactWebsite.getNullable("contact_website"))
+
+        /** The Card's text color, specified as an RGB triple. The default is white. */
+        fun textColor(): Optional<TextColor> =
+            Optional.ofNullable(textColor.getNullable("text_color"))
+
+        /** The identifier of the File containing the card's icon image. */
+        @JsonProperty("app_icon_file_id")
+        @ExcludeMissing
+        fun _appIconFileId(): JsonField<String> = appIconFileId
 
         /** The identifier of the File containing the card's front image. */
         @JsonProperty("background_image_file_id")
-        fun backgroundImageFileId(): String = backgroundImageFileId
+        @ExcludeMissing
+        fun _backgroundImageFileId(): JsonField<String> = backgroundImageFileId
 
         /** A user-facing description for the card itself. */
-        @JsonProperty("card_description") fun cardDescription(): String = cardDescription
+        @JsonProperty("card_description")
+        @ExcludeMissing
+        fun _cardDescription(): JsonField<String> = cardDescription
 
         /** A description you can use to identify the Card Profile. */
-        @JsonProperty("description") fun description(): String = description
+        @JsonProperty("description")
+        @ExcludeMissing
+        fun _description(): JsonField<String> = description
 
         /** A user-facing description for whoever is issuing the card. */
-        @JsonProperty("issuer_name") fun issuerName(): String = issuerName
+        @JsonProperty("issuer_name")
+        @ExcludeMissing
+        fun _issuerName(): JsonField<String> = issuerName
 
         /** An email address the user can contact to receive support for their card. */
         @JsonProperty("contact_email")
-        fun contactEmail(): Optional<String> = Optional.ofNullable(contactEmail)
+        @ExcludeMissing
+        fun _contactEmail(): JsonField<String> = contactEmail
 
         /** A phone number the user can contact to receive support for their card. */
         @JsonProperty("contact_phone")
-        fun contactPhone(): Optional<String> = Optional.ofNullable(contactPhone)
+        @ExcludeMissing
+        fun _contactPhone(): JsonField<String> = contactPhone
 
         /** A website the user can visit to view and receive support for their card. */
         @JsonProperty("contact_website")
-        fun contactWebsite(): Optional<String> = Optional.ofNullable(contactWebsite)
+        @ExcludeMissing
+        fun _contactWebsite(): JsonField<String> = contactWebsite
 
         /** The Card's text color, specified as an RGB triple. The default is white. */
         @JsonProperty("text_color")
-        fun textColor(): Optional<TextColor> = Optional.ofNullable(textColor)
+        @ExcludeMissing
+        fun _textColor(): JsonField<TextColor> = textColor
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): DigitalCardProfileCreateBody = apply {
+            if (!validated) {
+                appIconFileId()
+                backgroundImageFileId()
+                cardDescription()
+                description()
+                issuerName()
+                contactEmail()
+                contactPhone()
+                contactWebsite()
+                textColor().map { it.validate() }
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -125,15 +234,15 @@ constructor(
 
         class Builder {
 
-            private var appIconFileId: String? = null
-            private var backgroundImageFileId: String? = null
-            private var cardDescription: String? = null
-            private var description: String? = null
-            private var issuerName: String? = null
-            private var contactEmail: String? = null
-            private var contactPhone: String? = null
-            private var contactWebsite: String? = null
-            private var textColor: TextColor? = null
+            private var appIconFileId: JsonField<String>? = null
+            private var backgroundImageFileId: JsonField<String>? = null
+            private var cardDescription: JsonField<String>? = null
+            private var description: JsonField<String>? = null
+            private var issuerName: JsonField<String>? = null
+            private var contactEmail: JsonField<String> = JsonMissing.of()
+            private var contactPhone: JsonField<String> = JsonMissing.of()
+            private var contactWebsite: JsonField<String> = JsonMissing.of()
+            private var textColor: JsonField<TextColor> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -152,52 +261,75 @@ constructor(
             }
 
             /** The identifier of the File containing the card's icon image. */
-            fun appIconFileId(appIconFileId: String) = apply { this.appIconFileId = appIconFileId }
+            fun appIconFileId(appIconFileId: String) = appIconFileId(JsonField.of(appIconFileId))
+
+            /** The identifier of the File containing the card's icon image. */
+            fun appIconFileId(appIconFileId: JsonField<String>) = apply {
+                this.appIconFileId = appIconFileId
+            }
 
             /** The identifier of the File containing the card's front image. */
-            fun backgroundImageFileId(backgroundImageFileId: String) = apply {
+            fun backgroundImageFileId(backgroundImageFileId: String) =
+                backgroundImageFileId(JsonField.of(backgroundImageFileId))
+
+            /** The identifier of the File containing the card's front image. */
+            fun backgroundImageFileId(backgroundImageFileId: JsonField<String>) = apply {
                 this.backgroundImageFileId = backgroundImageFileId
             }
 
             /** A user-facing description for the card itself. */
-            fun cardDescription(cardDescription: String) = apply {
+            fun cardDescription(cardDescription: String) =
+                cardDescription(JsonField.of(cardDescription))
+
+            /** A user-facing description for the card itself. */
+            fun cardDescription(cardDescription: JsonField<String>) = apply {
                 this.cardDescription = cardDescription
             }
 
             /** A description you can use to identify the Card Profile. */
-            fun description(description: String) = apply { this.description = description }
+            fun description(description: String) = description(JsonField.of(description))
+
+            /** A description you can use to identify the Card Profile. */
+            fun description(description: JsonField<String>) = apply {
+                this.description = description
+            }
 
             /** A user-facing description for whoever is issuing the card. */
-            fun issuerName(issuerName: String) = apply { this.issuerName = issuerName }
+            fun issuerName(issuerName: String) = issuerName(JsonField.of(issuerName))
+
+            /** A user-facing description for whoever is issuing the card. */
+            fun issuerName(issuerName: JsonField<String>) = apply { this.issuerName = issuerName }
 
             /** An email address the user can contact to receive support for their card. */
-            fun contactEmail(contactEmail: String?) = apply { this.contactEmail = contactEmail }
+            fun contactEmail(contactEmail: String) = contactEmail(JsonField.of(contactEmail))
 
             /** An email address the user can contact to receive support for their card. */
-            fun contactEmail(contactEmail: Optional<String>) =
-                contactEmail(contactEmail.orElse(null))
+            fun contactEmail(contactEmail: JsonField<String>) = apply {
+                this.contactEmail = contactEmail
+            }
 
             /** A phone number the user can contact to receive support for their card. */
-            fun contactPhone(contactPhone: String?) = apply { this.contactPhone = contactPhone }
+            fun contactPhone(contactPhone: String) = contactPhone(JsonField.of(contactPhone))
 
             /** A phone number the user can contact to receive support for their card. */
-            fun contactPhone(contactPhone: Optional<String>) =
-                contactPhone(contactPhone.orElse(null))
-
-            /** A website the user can visit to view and receive support for their card. */
-            fun contactWebsite(contactWebsite: String?) = apply {
-                this.contactWebsite = contactWebsite
+            fun contactPhone(contactPhone: JsonField<String>) = apply {
+                this.contactPhone = contactPhone
             }
 
             /** A website the user can visit to view and receive support for their card. */
-            fun contactWebsite(contactWebsite: Optional<String>) =
-                contactWebsite(contactWebsite.orElse(null))
+            fun contactWebsite(contactWebsite: String) =
+                contactWebsite(JsonField.of(contactWebsite))
+
+            /** A website the user can visit to view and receive support for their card. */
+            fun contactWebsite(contactWebsite: JsonField<String>) = apply {
+                this.contactWebsite = contactWebsite
+            }
 
             /** The Card's text color, specified as an RGB triple. The default is white. */
-            fun textColor(textColor: TextColor?) = apply { this.textColor = textColor }
+            fun textColor(textColor: TextColor) = textColor(JsonField.of(textColor))
 
             /** The Card's text color, specified as an RGB triple. The default is white. */
-            fun textColor(textColor: Optional<TextColor>) = textColor(textColor.orElse(null))
+            fun textColor(textColor: JsonField<TextColor>) = apply { this.textColor = textColor }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -280,8 +412,18 @@ constructor(
         /** The identifier of the File containing the card's icon image. */
         fun appIconFileId(appIconFileId: String) = apply { body.appIconFileId(appIconFileId) }
 
+        /** The identifier of the File containing the card's icon image. */
+        fun appIconFileId(appIconFileId: JsonField<String>) = apply {
+            body.appIconFileId(appIconFileId)
+        }
+
         /** The identifier of the File containing the card's front image. */
         fun backgroundImageFileId(backgroundImageFileId: String) = apply {
+            body.backgroundImageFileId(backgroundImageFileId)
+        }
+
+        /** The identifier of the File containing the card's front image. */
+        fun backgroundImageFileId(backgroundImageFileId: JsonField<String>) = apply {
             body.backgroundImageFileId(backgroundImageFileId)
         }
 
@@ -290,36 +432,71 @@ constructor(
             body.cardDescription(cardDescription)
         }
 
+        /** A user-facing description for the card itself. */
+        fun cardDescription(cardDescription: JsonField<String>) = apply {
+            body.cardDescription(cardDescription)
+        }
+
         /** A description you can use to identify the Card Profile. */
         fun description(description: String) = apply { body.description(description) }
+
+        /** A description you can use to identify the Card Profile. */
+        fun description(description: JsonField<String>) = apply { body.description(description) }
 
         /** A user-facing description for whoever is issuing the card. */
         fun issuerName(issuerName: String) = apply { body.issuerName(issuerName) }
 
-        /** An email address the user can contact to receive support for their card. */
-        fun contactEmail(contactEmail: String?) = apply { body.contactEmail(contactEmail) }
+        /** A user-facing description for whoever is issuing the card. */
+        fun issuerName(issuerName: JsonField<String>) = apply { body.issuerName(issuerName) }
 
         /** An email address the user can contact to receive support for their card. */
-        fun contactEmail(contactEmail: Optional<String>) = contactEmail(contactEmail.orElse(null))
+        fun contactEmail(contactEmail: String) = apply { body.contactEmail(contactEmail) }
+
+        /** An email address the user can contact to receive support for their card. */
+        fun contactEmail(contactEmail: JsonField<String>) = apply {
+            body.contactEmail(contactEmail)
+        }
 
         /** A phone number the user can contact to receive support for their card. */
-        fun contactPhone(contactPhone: String?) = apply { body.contactPhone(contactPhone) }
+        fun contactPhone(contactPhone: String) = apply { body.contactPhone(contactPhone) }
 
         /** A phone number the user can contact to receive support for their card. */
-        fun contactPhone(contactPhone: Optional<String>) = contactPhone(contactPhone.orElse(null))
+        fun contactPhone(contactPhone: JsonField<String>) = apply {
+            body.contactPhone(contactPhone)
+        }
 
         /** A website the user can visit to view and receive support for their card. */
-        fun contactWebsite(contactWebsite: String?) = apply { body.contactWebsite(contactWebsite) }
+        fun contactWebsite(contactWebsite: String) = apply { body.contactWebsite(contactWebsite) }
 
         /** A website the user can visit to view and receive support for their card. */
-        fun contactWebsite(contactWebsite: Optional<String>) =
-            contactWebsite(contactWebsite.orElse(null))
+        fun contactWebsite(contactWebsite: JsonField<String>) = apply {
+            body.contactWebsite(contactWebsite)
+        }
 
         /** The Card's text color, specified as an RGB triple. The default is white. */
-        fun textColor(textColor: TextColor?) = apply { body.textColor(textColor) }
+        fun textColor(textColor: TextColor) = apply { body.textColor(textColor) }
 
         /** The Card's text color, specified as an RGB triple. The default is white. */
-        fun textColor(textColor: Optional<TextColor>) = textColor(textColor.orElse(null))
+        fun textColor(textColor: JsonField<TextColor>) = apply { body.textColor(textColor) }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -419,25 +596,6 @@ constructor(
             additionalQueryParams.removeAll(keys)
         }
 
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
-        }
-
         fun build(): DigitalCardProfileCreateParams =
             DigitalCardProfileCreateParams(
                 body.build(),
@@ -451,25 +609,47 @@ constructor(
     class TextColor
     @JsonCreator
     private constructor(
-        @JsonProperty("blue") private val blue: Long,
-        @JsonProperty("green") private val green: Long,
-        @JsonProperty("red") private val red: Long,
+        @JsonProperty("blue") @ExcludeMissing private val blue: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("green")
+        @ExcludeMissing
+        private val green: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("red") @ExcludeMissing private val red: JsonField<Long> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The value of the blue channel in the RGB color. */
-        @JsonProperty("blue") fun blue(): Long = blue
+        fun blue(): Long = blue.getRequired("blue")
 
         /** The value of the green channel in the RGB color. */
-        @JsonProperty("green") fun green(): Long = green
+        fun green(): Long = green.getRequired("green")
 
         /** The value of the red channel in the RGB color. */
-        @JsonProperty("red") fun red(): Long = red
+        fun red(): Long = red.getRequired("red")
+
+        /** The value of the blue channel in the RGB color. */
+        @JsonProperty("blue") @ExcludeMissing fun _blue(): JsonField<Long> = blue
+
+        /** The value of the green channel in the RGB color. */
+        @JsonProperty("green") @ExcludeMissing fun _green(): JsonField<Long> = green
+
+        /** The value of the red channel in the RGB color. */
+        @JsonProperty("red") @ExcludeMissing fun _red(): JsonField<Long> = red
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): TextColor = apply {
+            if (!validated) {
+                blue()
+                green()
+                red()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -480,9 +660,9 @@ constructor(
 
         class Builder {
 
-            private var blue: Long? = null
-            private var green: Long? = null
-            private var red: Long? = null
+            private var blue: JsonField<Long>? = null
+            private var green: JsonField<Long>? = null
+            private var red: JsonField<Long>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -494,13 +674,22 @@ constructor(
             }
 
             /** The value of the blue channel in the RGB color. */
-            fun blue(blue: Long) = apply { this.blue = blue }
+            fun blue(blue: Long) = blue(JsonField.of(blue))
+
+            /** The value of the blue channel in the RGB color. */
+            fun blue(blue: JsonField<Long>) = apply { this.blue = blue }
 
             /** The value of the green channel in the RGB color. */
-            fun green(green: Long) = apply { this.green = green }
+            fun green(green: Long) = green(JsonField.of(green))
+
+            /** The value of the green channel in the RGB color. */
+            fun green(green: JsonField<Long>) = apply { this.green = green }
 
             /** The value of the red channel in the RGB color. */
-            fun red(red: Long) = apply { this.red = red }
+            fun red(red: Long) = red(JsonField.of(red))
+
+            /** The value of the red channel in the RGB color. */
+            fun red(red: JsonField<Long>) = apply { this.red = red }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()

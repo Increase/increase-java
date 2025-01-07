@@ -157,6 +157,7 @@ class TransactionTest {
                                                 .build()
                                         )
                                         .customerReferenceIdentifier("51201")
+                                        .localTaxAmount(null)
                                         .localTaxCurrency("usd")
                                         .lodging(
                                             Transaction.Source.CardRefund.PurchaseDetails.Lodging
@@ -189,6 +190,7 @@ class TransactionTest {
                                                 .totalTaxCurrency("usd")
                                                 .build()
                                         )
+                                        .nationalTaxAmount(null)
                                         .nationalTaxCurrency("usd")
                                         .purchaseIdentifier("10203")
                                         .purchaseIdentifierFormat(
@@ -320,6 +322,7 @@ class TransactionTest {
                             Transaction.Source.CardSettlement.builder()
                                 .id("card_settlement_khv5kfeu0vndj291omg6")
                                 .amount(100L)
+                                .cardAuthorization(null)
                                 .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                 .cashback(
                                     Transaction.Source.CardSettlement.Cashback.builder()
@@ -354,6 +357,7 @@ class TransactionTest {
                                         .transactionId("627199945183184")
                                         .build()
                                 )
+                                .pendingTransactionId(null)
                                 .presentmentAmount(100L)
                                 .presentmentCurrency("USD")
                                 .purchaseDetails(
@@ -401,6 +405,7 @@ class TransactionTest {
                                                 .build()
                                         )
                                         .customerReferenceIdentifier("51201")
+                                        .localTaxAmount(null)
                                         .localTaxCurrency("usd")
                                         .lodging(
                                             Transaction.Source.CardSettlement.PurchaseDetails
@@ -436,6 +441,7 @@ class TransactionTest {
                                                 .totalTaxCurrency("usd")
                                                 .build()
                                         )
+                                        .nationalTaxAmount(null)
                                         .nationalTaxCurrency("usd")
                                         .purchaseIdentifier("10203")
                                         .purchaseIdentifierFormat(
@@ -576,6 +582,7 @@ class TransactionTest {
                                 .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                                 .currency(Transaction.Source.CheckDepositAcceptance.Currency.CAD)
                                 .routingNumber("101050001")
+                                .serialNumber(null)
                                 .build()
                         )
                         .checkDepositReturn(
@@ -594,6 +601,7 @@ class TransactionTest {
                         .checkTransferDeposit(
                             Transaction.Source.CheckTransferDeposit.builder()
                                 .backImageFileId("file_makxrc67oh9l6sg7w9yc")
+                                .bankOfFirstDepositRoutingNumber(null)
                                 .depositedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                 .frontImageFileId("file_makxrc67oh9l6sg7w9yc")
                                 .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
@@ -642,6 +650,8 @@ class TransactionTest {
                                         .build()
                                 )
                                 .amount(100L)
+                                .originatorCompanyDescriptiveDate(null)
+                                .originatorCompanyDiscretionaryData(null)
                                 .originatorCompanyEntryDescription("RESERVE")
                                 .originatorCompanyId("0987654321")
                                 .originatorCompanyName("BIG BANK")
@@ -698,16 +708,20 @@ class TransactionTest {
                                 .amount(12345L)
                                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                 .description("Inbound wire reversal 2022021100335128")
+                                .financialInstitutionToFinancialInstitutionInformation(null)
                                 .inputCycleDate(LocalDate.parse("2022-02-11"))
                                 .inputMessageAccountabilityData("20220211B6B7HU2R011023")
                                 .inputSequenceNumber("11023")
                                 .inputSource("B6B7HU2R")
+                                .originatorRoutingNumber(null)
                                 .previousMessageInputCycleDate(LocalDate.parse("2022-02-10"))
                                 .previousMessageInputMessageAccountabilityData(
                                     "20220210MMQFMP0P000007"
                                 )
                                 .previousMessageInputSequenceNumber("3")
                                 .previousMessageInputSource("MMQFMP0P")
+                                .receiverFinancialInstitutionInformation(null)
+                                .senderReference(null)
                                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                 .wireTransferId("wire_transfer_5akynk7dqsq25qwk9q2u")
                                 .build()
@@ -715,7 +729,23 @@ class TransactionTest {
                         .inboundWireTransfer(
                             Transaction.Source.InboundWireTransfer.builder()
                                 .amount(100L)
+                                .beneficiaryAddressLine1(null)
+                                .beneficiaryAddressLine2(null)
+                                .beneficiaryAddressLine3(null)
+                                .beneficiaryName(null)
+                                .beneficiaryReference(null)
                                 .description("Inbound wire transfer")
+                                .inputMessageAccountabilityData(null)
+                                .originatorAddressLine1(null)
+                                .originatorAddressLine2(null)
+                                .originatorAddressLine3(null)
+                                .originatorName(null)
+                                .originatorRoutingNumber(null)
+                                .originatorToBeneficiaryInformation(null)
+                                .originatorToBeneficiaryInformationLine1(null)
+                                .originatorToBeneficiaryInformationLine2(null)
+                                .originatorToBeneficiaryInformationLine3(null)
+                                .originatorToBeneficiaryInformationLine4(null)
                                 .transferId("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
                                 .build()
                         )
@@ -898,6 +928,7 @@ class TransactionTest {
                                             .build()
                                     )
                                     .customerReferenceIdentifier("51201")
+                                    .localTaxAmount(null)
                                     .localTaxCurrency("usd")
                                     .lodging(
                                         Transaction.Source.CardRefund.PurchaseDetails.Lodging
@@ -930,6 +961,7 @@ class TransactionTest {
                                             .totalTaxCurrency("usd")
                                             .build()
                                     )
+                                    .nationalTaxAmount(null)
                                     .nationalTaxCurrency("usd")
                                     .purchaseIdentifier("10203")
                                     .purchaseIdentifierFormat(
@@ -1053,6 +1085,7 @@ class TransactionTest {
                         Transaction.Source.CardSettlement.builder()
                             .id("card_settlement_khv5kfeu0vndj291omg6")
                             .amount(100L)
+                            .cardAuthorization(null)
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                             .cashback(
                                 Transaction.Source.CardSettlement.Cashback.builder()
@@ -1086,6 +1119,7 @@ class TransactionTest {
                                     .transactionId("627199945183184")
                                     .build()
                             )
+                            .pendingTransactionId(null)
                             .presentmentAmount(100L)
                             .presentmentCurrency("USD")
                             .purchaseDetails(
@@ -1124,6 +1158,7 @@ class TransactionTest {
                                             .build()
                                     )
                                     .customerReferenceIdentifier("51201")
+                                    .localTaxAmount(null)
                                     .localTaxCurrency("usd")
                                     .lodging(
                                         Transaction.Source.CardSettlement.PurchaseDetails.Lodging
@@ -1156,6 +1191,7 @@ class TransactionTest {
                                             .totalTaxCurrency("usd")
                                             .build()
                                     )
+                                    .nationalTaxAmount(null)
                                     .nationalTaxCurrency("usd")
                                     .purchaseIdentifier("10203")
                                     .purchaseIdentifierFormat(
@@ -1290,6 +1326,7 @@ class TransactionTest {
                             .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                             .currency(Transaction.Source.CheckDepositAcceptance.Currency.CAD)
                             .routingNumber("101050001")
+                            .serialNumber(null)
                             .build()
                     )
                     .checkDepositReturn(
@@ -1308,6 +1345,7 @@ class TransactionTest {
                     .checkTransferDeposit(
                         Transaction.Source.CheckTransferDeposit.builder()
                             .backImageFileId("file_makxrc67oh9l6sg7w9yc")
+                            .bankOfFirstDepositRoutingNumber(null)
                             .depositedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                             .frontImageFileId("file_makxrc67oh9l6sg7w9yc")
                             .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
@@ -1354,6 +1392,8 @@ class TransactionTest {
                                     .build()
                             )
                             .amount(100L)
+                            .originatorCompanyDescriptiveDate(null)
+                            .originatorCompanyDiscretionaryData(null)
                             .originatorCompanyEntryDescription("RESERVE")
                             .originatorCompanyId("0987654321")
                             .originatorCompanyName("BIG BANK")
@@ -1405,14 +1445,18 @@ class TransactionTest {
                             .amount(12345L)
                             .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                             .description("Inbound wire reversal 2022021100335128")
+                            .financialInstitutionToFinancialInstitutionInformation(null)
                             .inputCycleDate(LocalDate.parse("2022-02-11"))
                             .inputMessageAccountabilityData("20220211B6B7HU2R011023")
                             .inputSequenceNumber("11023")
                             .inputSource("B6B7HU2R")
+                            .originatorRoutingNumber(null)
                             .previousMessageInputCycleDate(LocalDate.parse("2022-02-10"))
                             .previousMessageInputMessageAccountabilityData("20220210MMQFMP0P000007")
                             .previousMessageInputSequenceNumber("3")
                             .previousMessageInputSource("MMQFMP0P")
+                            .receiverFinancialInstitutionInformation(null)
+                            .senderReference(null)
                             .transactionId("transaction_uyrp7fld2ium70oa7oi")
                             .wireTransferId("wire_transfer_5akynk7dqsq25qwk9q2u")
                             .build()
@@ -1420,7 +1464,23 @@ class TransactionTest {
                     .inboundWireTransfer(
                         Transaction.Source.InboundWireTransfer.builder()
                             .amount(100L)
+                            .beneficiaryAddressLine1(null)
+                            .beneficiaryAddressLine2(null)
+                            .beneficiaryAddressLine3(null)
+                            .beneficiaryName(null)
+                            .beneficiaryReference(null)
                             .description("Inbound wire transfer")
+                            .inputMessageAccountabilityData(null)
+                            .originatorAddressLine1(null)
+                            .originatorAddressLine2(null)
+                            .originatorAddressLine3(null)
+                            .originatorName(null)
+                            .originatorRoutingNumber(null)
+                            .originatorToBeneficiaryInformation(null)
+                            .originatorToBeneficiaryInformationLine1(null)
+                            .originatorToBeneficiaryInformationLine2(null)
+                            .originatorToBeneficiaryInformationLine3(null)
+                            .originatorToBeneficiaryInformationLine4(null)
                             .transferId("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
                             .build()
                     )

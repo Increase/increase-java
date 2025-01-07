@@ -20,6 +20,8 @@ class RealTimePaymentsRequestForPaymentTest {
                 .debtorName("Ian Crease")
                 .destinationAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                 .expiresAt(LocalDate.parse("2026-12-31"))
+                .fulfillmentTransactionId(null)
+                .idempotencyKey(null)
                 .refusal(
                     RealTimePaymentsRequestForPayment.Refusal.builder()
                         .refusalReasonCode(
@@ -60,6 +62,8 @@ class RealTimePaymentsRequestForPaymentTest {
             .isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
         assertThat(realTimePaymentsRequestForPayment.expiresAt())
             .isEqualTo(LocalDate.parse("2026-12-31"))
+        assertThat(realTimePaymentsRequestForPayment.fulfillmentTransactionId()).isEmpty
+        assertThat(realTimePaymentsRequestForPayment.idempotencyKey()).isEmpty
         assertThat(realTimePaymentsRequestForPayment.refusal())
             .contains(
                 RealTimePaymentsRequestForPayment.Refusal.builder()

@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -38,11 +39,14 @@ constructor(
     /** If set, the simulation will reject the transfer. */
     fun rejection(): Optional<Rejection> = body.rejection()
 
+    /** If set, the simulation will reject the transfer. */
+    fun _rejection(): JsonField<Rejection> = body._rejection()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     @JvmSynthetic internal fun getBody(): SimulationRealTimePaymentsTransferCompleteBody = body
 
@@ -61,18 +65,34 @@ constructor(
     class SimulationRealTimePaymentsTransferCompleteBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("rejection") private val rejection: Rejection?,
+        @JsonProperty("rejection")
+        @ExcludeMissing
+        private val rejection: JsonField<Rejection> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** If set, the simulation will reject the transfer. */
+        fun rejection(): Optional<Rejection> =
+            Optional.ofNullable(rejection.getNullable("rejection"))
+
+        /** If set, the simulation will reject the transfer. */
         @JsonProperty("rejection")
-        fun rejection(): Optional<Rejection> = Optional.ofNullable(rejection)
+        @ExcludeMissing
+        fun _rejection(): JsonField<Rejection> = rejection
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): SimulationRealTimePaymentsTransferCompleteBody = apply {
+            if (!validated) {
+                rejection().map { it.validate() }
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -83,7 +103,7 @@ constructor(
 
         class Builder {
 
-            private var rejection: Rejection? = null
+            private var rejection: JsonField<Rejection> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -98,10 +118,10 @@ constructor(
             }
 
             /** If set, the simulation will reject the transfer. */
-            fun rejection(rejection: Rejection?) = apply { this.rejection = rejection }
+            fun rejection(rejection: Rejection) = rejection(JsonField.of(rejection))
 
             /** If set, the simulation will reject the transfer. */
-            fun rejection(rejection: Optional<Rejection>) = rejection(rejection.orElse(null))
+            fun rejection(rejection: JsonField<Rejection>) = apply { this.rejection = rejection }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -183,10 +203,29 @@ constructor(
         }
 
         /** If set, the simulation will reject the transfer. */
-        fun rejection(rejection: Rejection?) = apply { body.rejection(rejection) }
+        fun rejection(rejection: Rejection) = apply { body.rejection(rejection) }
 
         /** If set, the simulation will reject the transfer. */
-        fun rejection(rejection: Optional<Rejection>) = rejection(rejection.orElse(null))
+        fun rejection(rejection: JsonField<Rejection>) = apply { body.rejection(rejection) }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -286,25 +325,6 @@ constructor(
             additionalQueryParams.removeAll(keys)
         }
 
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
-        }
-
         fun build(): SimulationRealTimePaymentsTransferCompleteParams =
             SimulationRealTimePaymentsTransferCompleteParams(
                 checkNotNull(realTimePaymentsTransferId) {
@@ -321,18 +341,34 @@ constructor(
     class Rejection
     @JsonCreator
     private constructor(
-        @JsonProperty("reject_reason_code") private val rejectReasonCode: RejectReasonCode,
+        @JsonProperty("reject_reason_code")
+        @ExcludeMissing
+        private val rejectReasonCode: JsonField<RejectReasonCode> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The reason code that the simulated rejection will have. */
+        fun rejectReasonCode(): RejectReasonCode =
+            rejectReasonCode.getRequired("reject_reason_code")
+
+        /** The reason code that the simulated rejection will have. */
         @JsonProperty("reject_reason_code")
-        fun rejectReasonCode(): RejectReasonCode = rejectReasonCode
+        @ExcludeMissing
+        fun _rejectReasonCode(): JsonField<RejectReasonCode> = rejectReasonCode
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): Rejection = apply {
+            if (!validated) {
+                rejectReasonCode()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -343,7 +379,7 @@ constructor(
 
         class Builder {
 
-            private var rejectReasonCode: RejectReasonCode? = null
+            private var rejectReasonCode: JsonField<RejectReasonCode>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -353,7 +389,11 @@ constructor(
             }
 
             /** The reason code that the simulated rejection will have. */
-            fun rejectReasonCode(rejectReasonCode: RejectReasonCode) = apply {
+            fun rejectReasonCode(rejectReasonCode: RejectReasonCode) =
+                rejectReasonCode(JsonField.of(rejectReasonCode))
+
+            /** The reason code that the simulated rejection will have. */
+            fun rejectReasonCode(rejectReasonCode: JsonField<RejectReasonCode>) = apply {
                 this.rejectReasonCode = rejectReasonCode
             }
 

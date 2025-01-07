@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -38,11 +40,20 @@ constructor(
     /** The check number on the check to be deposited. */
     fun checkNumber(): String = body.checkNumber()
 
+    /** The identifier of the Account Number the Inbound Check Deposit will be against. */
+    fun _accountNumberId(): JsonField<String> = body._accountNumberId()
+
+    /** The check amount in cents. */
+    fun _amount(): JsonField<Long> = body._amount()
+
+    /** The check number on the check to be deposited. */
+    fun _checkNumber(): JsonField<String> = body._checkNumber()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     @JvmSynthetic internal fun getBody(): SimulationInboundCheckDepositCreateBody = body
 
@@ -54,25 +65,55 @@ constructor(
     class SimulationInboundCheckDepositCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("account_number_id") private val accountNumberId: String,
-        @JsonProperty("amount") private val amount: Long,
-        @JsonProperty("check_number") private val checkNumber: String,
+        @JsonProperty("account_number_id")
+        @ExcludeMissing
+        private val accountNumberId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("amount")
+        @ExcludeMissing
+        private val amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("check_number")
+        @ExcludeMissing
+        private val checkNumber: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The identifier of the Account Number the Inbound Check Deposit will be against. */
-        @JsonProperty("account_number_id") fun accountNumberId(): String = accountNumberId
+        fun accountNumberId(): String = accountNumberId.getRequired("account_number_id")
 
         /** The check amount in cents. */
-        @JsonProperty("amount") fun amount(): Long = amount
+        fun amount(): Long = amount.getRequired("amount")
 
         /** The check number on the check to be deposited. */
-        @JsonProperty("check_number") fun checkNumber(): String = checkNumber
+        fun checkNumber(): String = checkNumber.getRequired("check_number")
+
+        /** The identifier of the Account Number the Inbound Check Deposit will be against. */
+        @JsonProperty("account_number_id")
+        @ExcludeMissing
+        fun _accountNumberId(): JsonField<String> = accountNumberId
+
+        /** The check amount in cents. */
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+        /** The check number on the check to be deposited. */
+        @JsonProperty("check_number")
+        @ExcludeMissing
+        fun _checkNumber(): JsonField<String> = checkNumber
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): SimulationInboundCheckDepositCreateBody = apply {
+            if (!validated) {
+                accountNumberId()
+                amount()
+                checkNumber()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -83,9 +124,9 @@ constructor(
 
         class Builder {
 
-            private var accountNumberId: String? = null
-            private var amount: Long? = null
-            private var checkNumber: String? = null
+            private var accountNumberId: JsonField<String>? = null
+            private var amount: JsonField<Long>? = null
+            private var checkNumber: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -100,15 +141,27 @@ constructor(
             }
 
             /** The identifier of the Account Number the Inbound Check Deposit will be against. */
-            fun accountNumberId(accountNumberId: String) = apply {
+            fun accountNumberId(accountNumberId: String) =
+                accountNumberId(JsonField.of(accountNumberId))
+
+            /** The identifier of the Account Number the Inbound Check Deposit will be against. */
+            fun accountNumberId(accountNumberId: JsonField<String>) = apply {
                 this.accountNumberId = accountNumberId
             }
 
             /** The check amount in cents. */
-            fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long) = amount(JsonField.of(amount))
+
+            /** The check amount in cents. */
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /** The check number on the check to be deposited. */
-            fun checkNumber(checkNumber: String) = apply { this.checkNumber = checkNumber }
+            fun checkNumber(checkNumber: String) = checkNumber(JsonField.of(checkNumber))
+
+            /** The check number on the check to be deposited. */
+            fun checkNumber(checkNumber: JsonField<String>) = apply {
+                this.checkNumber = checkNumber
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -189,11 +242,41 @@ constructor(
             body.accountNumberId(accountNumberId)
         }
 
+        /** The identifier of the Account Number the Inbound Check Deposit will be against. */
+        fun accountNumberId(accountNumberId: JsonField<String>) = apply {
+            body.accountNumberId(accountNumberId)
+        }
+
         /** The check amount in cents. */
         fun amount(amount: Long) = apply { body.amount(amount) }
 
+        /** The check amount in cents. */
+        fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
+
         /** The check number on the check to be deposited. */
         fun checkNumber(checkNumber: String) = apply { body.checkNumber(checkNumber) }
+
+        /** The check number on the check to be deposited. */
+        fun checkNumber(checkNumber: JsonField<String>) = apply { body.checkNumber(checkNumber) }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -291,25 +374,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): SimulationInboundCheckDepositCreateParams =

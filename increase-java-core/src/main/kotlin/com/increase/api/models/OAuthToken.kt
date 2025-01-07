@@ -47,15 +47,17 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** You may use this token in place of an API key to make OAuth requests on a user's behalf. */
-    @JsonProperty("access_token") @ExcludeMissing fun _accessToken() = accessToken
+    @JsonProperty("access_token")
+    @ExcludeMissing
+    fun _accessToken(): JsonField<String> = accessToken
 
     /** The type of OAuth token. */
-    @JsonProperty("token_type") @ExcludeMissing fun _tokenType() = tokenType
+    @JsonProperty("token_type") @ExcludeMissing fun _tokenType(): JsonField<TokenType> = tokenType
 
     /**
      * A constant representing the object's type. For this resource it will always be `oauth_token`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -81,9 +83,9 @@ private constructor(
 
     class Builder {
 
-        private var accessToken: JsonField<String> = JsonMissing.of()
-        private var tokenType: JsonField<TokenType> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
+        private var accessToken: JsonField<String>? = null
+        private var tokenType: JsonField<TokenType>? = null
+        private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -143,9 +145,9 @@ private constructor(
 
         fun build(): OAuthToken =
             OAuthToken(
-                accessToken,
-                tokenType,
-                type,
+                checkNotNull(accessToken) { "`accessToken` is required but was not set" },
+                checkNotNull(tokenType) { "`tokenType` is required but was not set" },
+                checkNotNull(type) { "`type` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }

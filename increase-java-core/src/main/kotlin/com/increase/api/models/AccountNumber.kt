@@ -104,47 +104,59 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The Account Number identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** The identifier for the account this Account Number belongs to. */
-    @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
+    @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
     /** The account number. */
-    @JsonProperty("account_number") @ExcludeMissing fun _accountNumber() = accountNumber
+    @JsonProperty("account_number")
+    @ExcludeMissing
+    fun _accountNumber(): JsonField<String> = accountNumber
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account Number was
      * created.
      */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
      * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
     /** Properties related to how this Account Number handles inbound ACH transfers. */
-    @JsonProperty("inbound_ach") @ExcludeMissing fun _inboundAch() = inboundAch
+    @JsonProperty("inbound_ach")
+    @ExcludeMissing
+    fun _inboundAch(): JsonField<InboundAch> = inboundAch
 
     /** Properties related to how this Account Number should handle inbound check withdrawals. */
-    @JsonProperty("inbound_checks") @ExcludeMissing fun _inboundChecks() = inboundChecks
+    @JsonProperty("inbound_checks")
+    @ExcludeMissing
+    fun _inboundChecks(): JsonField<InboundChecks> = inboundChecks
 
     /** The name you choose for the Account Number. */
-    @JsonProperty("name") @ExcludeMissing fun _name() = name
+    @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
     /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
-    @JsonProperty("routing_number") @ExcludeMissing fun _routingNumber() = routingNumber
+    @JsonProperty("routing_number")
+    @ExcludeMissing
+    fun _routingNumber(): JsonField<String> = routingNumber
 
     /** This indicates if payments can be made to the Account Number. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `account_number`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -178,17 +190,17 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var accountId: JsonField<String> = JsonMissing.of()
-        private var accountNumber: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var idempotencyKey: JsonField<String> = JsonMissing.of()
-        private var inboundAch: JsonField<InboundAch> = JsonMissing.of()
-        private var inboundChecks: JsonField<InboundChecks> = JsonMissing.of()
-        private var name: JsonField<String> = JsonMissing.of()
-        private var routingNumber: JsonField<String> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var accountId: JsonField<String>? = null
+        private var accountNumber: JsonField<String>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var idempotencyKey: JsonField<String>? = null
+        private var inboundAch: JsonField<InboundAch>? = null
+        private var inboundChecks: JsonField<InboundChecks>? = null
+        private var name: JsonField<String>? = null
+        private var routingNumber: JsonField<String>? = null
+        private var status: JsonField<Status>? = null
+        private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -244,7 +256,16 @@ private constructor(
          * is used to ensure that a request is only processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+        fun idempotencyKey(idempotencyKey: String?) =
+            idempotencyKey(JsonField.ofNullable(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: Optional<String>) =
+            idempotencyKey(idempotencyKey.orElse(null))
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -326,17 +347,17 @@ private constructor(
 
         fun build(): AccountNumber =
             AccountNumber(
-                id,
-                accountId,
-                accountNumber,
-                createdAt,
-                idempotencyKey,
-                inboundAch,
-                inboundChecks,
-                name,
-                routingNumber,
-                status,
-                type,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(accountId) { "`accountId` is required but was not set" },
+                checkNotNull(accountNumber) { "`accountNumber` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
+                checkNotNull(inboundAch) { "`inboundAch` is required but was not set" },
+                checkNotNull(inboundChecks) { "`inboundChecks` is required but was not set" },
+                checkNotNull(name) { "`name` is required but was not set" },
+                checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
+                checkNotNull(status) { "`status` is required but was not set" },
+                checkNotNull(type) { "`type` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }
@@ -363,7 +384,9 @@ private constructor(
          * Whether ACH debits are allowed against this Account Number. Note that they will still be
          * declined if this is `allowed` if the Account Number is not active.
          */
-        @JsonProperty("debit_status") @ExcludeMissing fun _debitStatus() = debitStatus
+        @JsonProperty("debit_status")
+        @ExcludeMissing
+        fun _debitStatus(): JsonField<DebitStatus> = debitStatus
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -387,7 +410,7 @@ private constructor(
 
         class Builder {
 
-            private var debitStatus: JsonField<DebitStatus> = JsonMissing.of()
+            private var debitStatus: JsonField<DebitStatus>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -429,7 +452,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): InboundAch = InboundAch(debitStatus, additionalProperties.toImmutable())
+            fun build(): InboundAch =
+                InboundAch(
+                    checkNotNull(debitStatus) { "`debitStatus` is required but was not set" },
+                    additionalProperties.toImmutable()
+                )
         }
 
         class DebitStatus
@@ -523,7 +550,7 @@ private constructor(
         fun status(): Status = status.getRequired("status")
 
         /** How Increase should process checks with this account number printed on them. */
-        @JsonProperty("status") @ExcludeMissing fun _status() = status
+        @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -547,7 +574,7 @@ private constructor(
 
         class Builder {
 
-            private var status: JsonField<Status> = JsonMissing.of()
+            private var status: JsonField<Status>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -581,7 +608,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): InboundChecks = InboundChecks(status, additionalProperties.toImmutable())
+            fun build(): InboundChecks =
+                InboundChecks(
+                    checkNotNull(status) { "`status` is required but was not set" },
+                    additionalProperties.toImmutable()
+                )
         }
 
         class Status

@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -43,11 +44,23 @@ constructor(
     /** This indicates if transfers can be made to the Account Number. */
     fun status(): Optional<Status> = body.status()
 
+    /** Options related to how this Account Number handles inbound ACH transfers. */
+    fun _inboundAch(): JsonField<InboundAch> = body._inboundAch()
+
+    /** Options related to how this Account Number should handle inbound check withdrawals. */
+    fun _inboundChecks(): JsonField<InboundChecks> = body._inboundChecks()
+
+    /** The name you choose for the Account Number. */
+    fun _name(): JsonField<String> = body._name()
+
+    /** This indicates if transfers can be made to the Account Number. */
+    fun _status(): JsonField<Status> = body._status()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     @JvmSynthetic internal fun getBody(): AccountNumberUpdateBody = body
 
@@ -66,31 +79,67 @@ constructor(
     class AccountNumberUpdateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("inbound_ach") private val inboundAch: InboundAch?,
-        @JsonProperty("inbound_checks") private val inboundChecks: InboundChecks?,
-        @JsonProperty("name") private val name: String?,
-        @JsonProperty("status") private val status: Status?,
+        @JsonProperty("inbound_ach")
+        @ExcludeMissing
+        private val inboundAch: JsonField<InboundAch> = JsonMissing.of(),
+        @JsonProperty("inbound_checks")
+        @ExcludeMissing
+        private val inboundChecks: JsonField<InboundChecks> = JsonMissing.of(),
+        @JsonProperty("name")
+        @ExcludeMissing
+        private val name: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("status")
+        @ExcludeMissing
+        private val status: JsonField<Status> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** Options related to how this Account Number handles inbound ACH transfers. */
+        fun inboundAch(): Optional<InboundAch> =
+            Optional.ofNullable(inboundAch.getNullable("inbound_ach"))
+
+        /** Options related to how this Account Number should handle inbound check withdrawals. */
+        fun inboundChecks(): Optional<InboundChecks> =
+            Optional.ofNullable(inboundChecks.getNullable("inbound_checks"))
+
+        /** The name you choose for the Account Number. */
+        fun name(): Optional<String> = Optional.ofNullable(name.getNullable("name"))
+
+        /** This indicates if transfers can be made to the Account Number. */
+        fun status(): Optional<Status> = Optional.ofNullable(status.getNullable("status"))
+
+        /** Options related to how this Account Number handles inbound ACH transfers. */
         @JsonProperty("inbound_ach")
-        fun inboundAch(): Optional<InboundAch> = Optional.ofNullable(inboundAch)
+        @ExcludeMissing
+        fun _inboundAch(): JsonField<InboundAch> = inboundAch
 
         /** Options related to how this Account Number should handle inbound check withdrawals. */
         @JsonProperty("inbound_checks")
-        fun inboundChecks(): Optional<InboundChecks> = Optional.ofNullable(inboundChecks)
+        @ExcludeMissing
+        fun _inboundChecks(): JsonField<InboundChecks> = inboundChecks
 
         /** The name you choose for the Account Number. */
-        @JsonProperty("name") fun name(): Optional<String> = Optional.ofNullable(name)
+        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
         /** This indicates if transfers can be made to the Account Number. */
-        @JsonProperty("status") fun status(): Optional<Status> = Optional.ofNullable(status)
+        @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): AccountNumberUpdateBody = apply {
+            if (!validated) {
+                inboundAch().map { it.validate() }
+                inboundChecks().map { it.validate() }
+                name()
+                status()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -101,10 +150,10 @@ constructor(
 
         class Builder {
 
-            private var inboundAch: InboundAch? = null
-            private var inboundChecks: InboundChecks? = null
-            private var name: String? = null
-            private var status: Status? = null
+            private var inboundAch: JsonField<InboundAch> = JsonMissing.of()
+            private var inboundChecks: JsonField<InboundChecks> = JsonMissing.of()
+            private var name: JsonField<String> = JsonMissing.of()
+            private var status: JsonField<Status> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -117,35 +166,37 @@ constructor(
             }
 
             /** Options related to how this Account Number handles inbound ACH transfers. */
-            fun inboundAch(inboundAch: InboundAch?) = apply { this.inboundAch = inboundAch }
+            fun inboundAch(inboundAch: InboundAch) = inboundAch(JsonField.of(inboundAch))
 
             /** Options related to how this Account Number handles inbound ACH transfers. */
-            fun inboundAch(inboundAch: Optional<InboundAch>) = inboundAch(inboundAch.orElse(null))
-
-            /**
-             * Options related to how this Account Number should handle inbound check withdrawals.
-             */
-            fun inboundChecks(inboundChecks: InboundChecks?) = apply {
-                this.inboundChecks = inboundChecks
+            fun inboundAch(inboundAch: JsonField<InboundAch>) = apply {
+                this.inboundAch = inboundAch
             }
 
             /**
              * Options related to how this Account Number should handle inbound check withdrawals.
              */
-            fun inboundChecks(inboundChecks: Optional<InboundChecks>) =
-                inboundChecks(inboundChecks.orElse(null))
+            fun inboundChecks(inboundChecks: InboundChecks) =
+                inboundChecks(JsonField.of(inboundChecks))
+
+            /**
+             * Options related to how this Account Number should handle inbound check withdrawals.
+             */
+            fun inboundChecks(inboundChecks: JsonField<InboundChecks>) = apply {
+                this.inboundChecks = inboundChecks
+            }
 
             /** The name you choose for the Account Number. */
-            fun name(name: String?) = apply { this.name = name }
+            fun name(name: String) = name(JsonField.of(name))
 
             /** The name you choose for the Account Number. */
-            fun name(name: Optional<String>) = name(name.orElse(null))
+            fun name(name: JsonField<String>) = apply { this.name = name }
 
             /** This indicates if transfers can be made to the Account Number. */
-            fun status(status: Status?) = apply { this.status = status }
+            fun status(status: Status) = status(JsonField.of(status))
 
             /** This indicates if transfers can be made to the Account Number. */
-            fun status(status: Optional<Status>) = status(status.orElse(null))
+            fun status(status: JsonField<Status>) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -223,31 +274,51 @@ constructor(
         }
 
         /** Options related to how this Account Number handles inbound ACH transfers. */
-        fun inboundAch(inboundAch: InboundAch?) = apply { body.inboundAch(inboundAch) }
+        fun inboundAch(inboundAch: InboundAch) = apply { body.inboundAch(inboundAch) }
 
         /** Options related to how this Account Number handles inbound ACH transfers. */
-        fun inboundAch(inboundAch: Optional<InboundAch>) = inboundAch(inboundAch.orElse(null))
+        fun inboundAch(inboundAch: JsonField<InboundAch>) = apply { body.inboundAch(inboundAch) }
 
         /** Options related to how this Account Number should handle inbound check withdrawals. */
-        fun inboundChecks(inboundChecks: InboundChecks?) = apply {
+        fun inboundChecks(inboundChecks: InboundChecks) = apply {
             body.inboundChecks(inboundChecks)
         }
 
         /** Options related to how this Account Number should handle inbound check withdrawals. */
-        fun inboundChecks(inboundChecks: Optional<InboundChecks>) =
-            inboundChecks(inboundChecks.orElse(null))
+        fun inboundChecks(inboundChecks: JsonField<InboundChecks>) = apply {
+            body.inboundChecks(inboundChecks)
+        }
 
         /** The name you choose for the Account Number. */
-        fun name(name: String?) = apply { body.name(name) }
+        fun name(name: String) = apply { body.name(name) }
 
         /** The name you choose for the Account Number. */
-        fun name(name: Optional<String>) = name(name.orElse(null))
+        fun name(name: JsonField<String>) = apply { body.name(name) }
 
         /** This indicates if transfers can be made to the Account Number. */
-        fun status(status: Status?) = apply { body.status(status) }
+        fun status(status: Status) = apply { body.status(status) }
 
         /** This indicates if transfers can be made to the Account Number. */
-        fun status(status: Optional<Status>) = status(status.orElse(null))
+        fun status(status: JsonField<Status>) = apply { body.status(status) }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -347,25 +418,6 @@ constructor(
             additionalQueryParams.removeAll(keys)
         }
 
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
-        }
-
         fun build(): AccountNumberUpdateParams =
             AccountNumberUpdateParams(
                 checkNotNull(accountNumberId) { "`accountNumberId` is required but was not set" },
@@ -380,7 +432,9 @@ constructor(
     class InboundAch
     @JsonCreator
     private constructor(
-        @JsonProperty("debit_status") private val debitStatus: DebitStatus?,
+        @JsonProperty("debit_status")
+        @ExcludeMissing
+        private val debitStatus: JsonField<DebitStatus> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
@@ -389,12 +443,29 @@ constructor(
          * Whether ACH debits are allowed against this Account Number. Note that ACH debits will be
          * declined if this is `allowed` but the Account Number is not active.
          */
+        fun debitStatus(): Optional<DebitStatus> =
+            Optional.ofNullable(debitStatus.getNullable("debit_status"))
+
+        /**
+         * Whether ACH debits are allowed against this Account Number. Note that ACH debits will be
+         * declined if this is `allowed` but the Account Number is not active.
+         */
         @JsonProperty("debit_status")
-        fun debitStatus(): Optional<DebitStatus> = Optional.ofNullable(debitStatus)
+        @ExcludeMissing
+        fun _debitStatus(): JsonField<DebitStatus> = debitStatus
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): InboundAch = apply {
+            if (!validated) {
+                debitStatus()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -405,7 +476,7 @@ constructor(
 
         class Builder {
 
-            private var debitStatus: DebitStatus? = null
+            private var debitStatus: JsonField<DebitStatus> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -418,14 +489,15 @@ constructor(
              * Whether ACH debits are allowed against this Account Number. Note that ACH debits will
              * be declined if this is `allowed` but the Account Number is not active.
              */
-            fun debitStatus(debitStatus: DebitStatus?) = apply { this.debitStatus = debitStatus }
+            fun debitStatus(debitStatus: DebitStatus) = debitStatus(JsonField.of(debitStatus))
 
             /**
              * Whether ACH debits are allowed against this Account Number. Note that ACH debits will
              * be declined if this is `allowed` but the Account Number is not active.
              */
-            fun debitStatus(debitStatus: Optional<DebitStatus>) =
-                debitStatus(debitStatus.orElse(null))
+            fun debitStatus(debitStatus: JsonField<DebitStatus>) = apply {
+                this.debitStatus = debitStatus
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -529,17 +601,31 @@ constructor(
     class InboundChecks
     @JsonCreator
     private constructor(
-        @JsonProperty("status") private val status: Status,
+        @JsonProperty("status")
+        @ExcludeMissing
+        private val status: JsonField<Status> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** How Increase should process checks with this account number printed on them. */
-        @JsonProperty("status") fun status(): Status = status
+        fun status(): Status = status.getRequired("status")
+
+        /** How Increase should process checks with this account number printed on them. */
+        @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): InboundChecks = apply {
+            if (!validated) {
+                status()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -550,7 +636,7 @@ constructor(
 
         class Builder {
 
-            private var status: Status? = null
+            private var status: JsonField<Status>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -560,7 +646,10 @@ constructor(
             }
 
             /** How Increase should process checks with this account number printed on them. */
-            fun status(status: Status) = apply { this.status = status }
+            fun status(status: Status) = status(JsonField.of(status))
+
+            /** How Increase should process checks with this account number printed on them. */
+            fun status(status: JsonField<Status>) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()

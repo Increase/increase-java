@@ -16,6 +16,7 @@ class AccountNumberTest {
                 .accountId("account_in71c4amph0vgo2qllky")
                 .accountNumber("987654321")
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                .idempotencyKey(null)
                 .inboundAch(
                     AccountNumber.InboundAch.builder()
                         .debitStatus(AccountNumber.InboundAch.DebitStatus.ALLOWED)
@@ -37,6 +38,7 @@ class AccountNumberTest {
         assertThat(accountNumber.accountNumber()).isEqualTo("987654321")
         assertThat(accountNumber.createdAt())
             .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+        assertThat(accountNumber.idempotencyKey()).isEmpty
         assertThat(accountNumber.inboundAch())
             .isEqualTo(
                 AccountNumber.InboundAch.builder()

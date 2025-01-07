@@ -117,53 +117,65 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The card identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** The identifier for the account this card belongs to. */
-    @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
+    @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
     /** The Card's billing address. */
-    @JsonProperty("billing_address") @ExcludeMissing fun _billingAddress() = billingAddress
+    @JsonProperty("billing_address")
+    @ExcludeMissing
+    fun _billingAddress(): JsonField<BillingAddress> = billingAddress
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card was
      * created.
      */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** The card's description for display purposes. */
-    @JsonProperty("description") @ExcludeMissing fun _description() = description
+    @JsonProperty("description") @ExcludeMissing fun _description(): JsonField<String> = description
 
     /**
      * The contact information used in the two-factor steps for digital wallet card creation. At
      * least one field must be present to complete the digital wallet steps.
      */
-    @JsonProperty("digital_wallet") @ExcludeMissing fun _digitalWallet() = digitalWallet
+    @JsonProperty("digital_wallet")
+    @ExcludeMissing
+    fun _digitalWallet(): JsonField<DigitalWallet> = digitalWallet
 
     /** The identifier for the entity associated with this card. */
-    @JsonProperty("entity_id") @ExcludeMissing fun _entityId() = entityId
+    @JsonProperty("entity_id") @ExcludeMissing fun _entityId(): JsonField<String> = entityId
 
     /** The month the card expires in M format (e.g., August is 8). */
-    @JsonProperty("expiration_month") @ExcludeMissing fun _expirationMonth() = expirationMonth
+    @JsonProperty("expiration_month")
+    @ExcludeMissing
+    fun _expirationMonth(): JsonField<Long> = expirationMonth
 
     /** The year the card expires in YYYY format (e.g., 2025). */
-    @JsonProperty("expiration_year") @ExcludeMissing fun _expirationYear() = expirationYear
+    @JsonProperty("expiration_year")
+    @ExcludeMissing
+    fun _expirationYear(): JsonField<Long> = expirationYear
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
      * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
     /** The last 4 digits of the Card's Primary Account Number. */
-    @JsonProperty("last4") @ExcludeMissing fun _last4() = last4
+    @JsonProperty("last4") @ExcludeMissing fun _last4(): JsonField<String> = last4
 
     /** This indicates if payments can be made with the card. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /** A constant representing the object's type. For this resource it will always be `card`. */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -199,19 +211,19 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var accountId: JsonField<String> = JsonMissing.of()
-        private var billingAddress: JsonField<BillingAddress> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var description: JsonField<String> = JsonMissing.of()
-        private var digitalWallet: JsonField<DigitalWallet> = JsonMissing.of()
-        private var entityId: JsonField<String> = JsonMissing.of()
-        private var expirationMonth: JsonField<Long> = JsonMissing.of()
-        private var expirationYear: JsonField<Long> = JsonMissing.of()
-        private var idempotencyKey: JsonField<String> = JsonMissing.of()
-        private var last4: JsonField<String> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var accountId: JsonField<String>? = null
+        private var billingAddress: JsonField<BillingAddress>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var description: JsonField<String>? = null
+        private var digitalWallet: JsonField<DigitalWallet>? = null
+        private var entityId: JsonField<String>? = null
+        private var expirationMonth: JsonField<Long>? = null
+        private var expirationYear: JsonField<Long>? = null
+        private var idempotencyKey: JsonField<String>? = null
+        private var last4: JsonField<String>? = null
+        private var status: JsonField<Status>? = null
+        private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -266,7 +278,10 @@ private constructor(
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The card's description for display purposes. */
-        fun description(description: String) = description(JsonField.of(description))
+        fun description(description: String?) = description(JsonField.ofNullable(description))
+
+        /** The card's description for display purposes. */
+        fun description(description: Optional<String>) = description(description.orElse(null))
 
         /** The card's description for display purposes. */
         fun description(description: JsonField<String>) = apply { this.description = description }
@@ -275,7 +290,15 @@ private constructor(
          * The contact information used in the two-factor steps for digital wallet card creation. At
          * least one field must be present to complete the digital wallet steps.
          */
-        fun digitalWallet(digitalWallet: DigitalWallet) = digitalWallet(JsonField.of(digitalWallet))
+        fun digitalWallet(digitalWallet: DigitalWallet?) =
+            digitalWallet(JsonField.ofNullable(digitalWallet))
+
+        /**
+         * The contact information used in the two-factor steps for digital wallet card creation. At
+         * least one field must be present to complete the digital wallet steps.
+         */
+        fun digitalWallet(digitalWallet: Optional<DigitalWallet>) =
+            digitalWallet(digitalWallet.orElse(null))
 
         /**
          * The contact information used in the two-factor steps for digital wallet card creation. At
@@ -286,7 +309,10 @@ private constructor(
         }
 
         /** The identifier for the entity associated with this card. */
-        fun entityId(entityId: String) = entityId(JsonField.of(entityId))
+        fun entityId(entityId: String?) = entityId(JsonField.ofNullable(entityId))
+
+        /** The identifier for the entity associated with this card. */
+        fun entityId(entityId: Optional<String>) = entityId(entityId.orElse(null))
 
         /** The identifier for the entity associated with this card. */
         fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
@@ -312,7 +338,16 @@ private constructor(
          * is used to ensure that a request is only processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+        fun idempotencyKey(idempotencyKey: String?) =
+            idempotencyKey(JsonField.ofNullable(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: Optional<String>) =
+            idempotencyKey(idempotencyKey.orElse(null))
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -366,19 +401,19 @@ private constructor(
 
         fun build(): Card =
             Card(
-                id,
-                accountId,
-                billingAddress,
-                createdAt,
-                description,
-                digitalWallet,
-                entityId,
-                expirationMonth,
-                expirationYear,
-                idempotencyKey,
-                last4,
-                status,
-                type,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(accountId) { "`accountId` is required but was not set" },
+                checkNotNull(billingAddress) { "`billingAddress` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(description) { "`description` is required but was not set" },
+                checkNotNull(digitalWallet) { "`digitalWallet` is required but was not set" },
+                checkNotNull(entityId) { "`entityId` is required but was not set" },
+                checkNotNull(expirationMonth) { "`expirationMonth` is required but was not set" },
+                checkNotNull(expirationYear) { "`expirationYear` is required but was not set" },
+                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
+                checkNotNull(last4) { "`last4` is required but was not set" },
+                checkNotNull(status) { "`status` is required but was not set" },
+                checkNotNull(type) { "`type` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }
@@ -424,19 +459,21 @@ private constructor(
         fun state(): Optional<String> = Optional.ofNullable(state.getNullable("state"))
 
         /** The city of the billing address. */
-        @JsonProperty("city") @ExcludeMissing fun _city() = city
+        @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
 
         /** The first line of the billing address. */
-        @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
+        @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
         /** The second line of the billing address. */
-        @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
+        @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
         /** The postal code of the billing address. */
-        @JsonProperty("postal_code") @ExcludeMissing fun _postalCode() = postalCode
+        @JsonProperty("postal_code")
+        @ExcludeMissing
+        fun _postalCode(): JsonField<String> = postalCode
 
         /** The US state of the billing address. */
-        @JsonProperty("state") @ExcludeMissing fun _state() = state
+        @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -464,11 +501,11 @@ private constructor(
 
         class Builder {
 
-            private var city: JsonField<String> = JsonMissing.of()
-            private var line1: JsonField<String> = JsonMissing.of()
-            private var line2: JsonField<String> = JsonMissing.of()
-            private var postalCode: JsonField<String> = JsonMissing.of()
-            private var state: JsonField<String> = JsonMissing.of()
+            private var city: JsonField<String>? = null
+            private var line1: JsonField<String>? = null
+            private var line2: JsonField<String>? = null
+            private var postalCode: JsonField<String>? = null
+            private var state: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -482,31 +519,46 @@ private constructor(
             }
 
             /** The city of the billing address. */
-            fun city(city: String) = city(JsonField.of(city))
+            fun city(city: String?) = city(JsonField.ofNullable(city))
+
+            /** The city of the billing address. */
+            fun city(city: Optional<String>) = city(city.orElse(null))
 
             /** The city of the billing address. */
             fun city(city: JsonField<String>) = apply { this.city = city }
 
             /** The first line of the billing address. */
-            fun line1(line1: String) = line1(JsonField.of(line1))
+            fun line1(line1: String?) = line1(JsonField.ofNullable(line1))
+
+            /** The first line of the billing address. */
+            fun line1(line1: Optional<String>) = line1(line1.orElse(null))
 
             /** The first line of the billing address. */
             fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
             /** The second line of the billing address. */
-            fun line2(line2: String) = line2(JsonField.of(line2))
+            fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
+
+            /** The second line of the billing address. */
+            fun line2(line2: Optional<String>) = line2(line2.orElse(null))
 
             /** The second line of the billing address. */
             fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
             /** The postal code of the billing address. */
-            fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
+            fun postalCode(postalCode: String?) = postalCode(JsonField.ofNullable(postalCode))
+
+            /** The postal code of the billing address. */
+            fun postalCode(postalCode: Optional<String>) = postalCode(postalCode.orElse(null))
 
             /** The postal code of the billing address. */
             fun postalCode(postalCode: JsonField<String>) = apply { this.postalCode = postalCode }
 
             /** The US state of the billing address. */
-            fun state(state: String) = state(JsonField.of(state))
+            fun state(state: String?) = state(JsonField.ofNullable(state))
+
+            /** The US state of the billing address. */
+            fun state(state: Optional<String>) = state(state.orElse(null))
 
             /** The US state of the billing address. */
             fun state(state: JsonField<String>) = apply { this.state = state }
@@ -532,11 +584,11 @@ private constructor(
 
             fun build(): BillingAddress =
                 BillingAddress(
-                    city,
-                    line1,
-                    line2,
-                    postalCode,
-                    state,
+                    checkNotNull(city) { "`city` is required but was not set" },
+                    checkNotNull(line1) { "`line1` is required but was not set" },
+                    checkNotNull(line2) { "`line2` is required but was not set" },
+                    checkNotNull(postalCode) { "`postalCode` is required but was not set" },
+                    checkNotNull(state) { "`state` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -604,18 +656,18 @@ private constructor(
          */
         @JsonProperty("digital_card_profile_id")
         @ExcludeMissing
-        fun _digitalCardProfileId() = digitalCardProfileId
+        fun _digitalCardProfileId(): JsonField<String> = digitalCardProfileId
 
         /**
          * An email address that can be used to verify the cardholder via one-time passcode over
          * email.
          */
-        @JsonProperty("email") @ExcludeMissing fun _email() = email
+        @JsonProperty("email") @ExcludeMissing fun _email(): JsonField<String> = email
 
         /**
          * A phone number that can be used to verify the cardholder via one-time passcode over SMS.
          */
-        @JsonProperty("phone") @ExcludeMissing fun _phone() = phone
+        @JsonProperty("phone") @ExcludeMissing fun _phone(): JsonField<String> = phone
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -641,9 +693,9 @@ private constructor(
 
         class Builder {
 
-            private var digitalCardProfileId: JsonField<String> = JsonMissing.of()
-            private var email: JsonField<String> = JsonMissing.of()
-            private var phone: JsonField<String> = JsonMissing.of()
+            private var digitalCardProfileId: JsonField<String>? = null
+            private var email: JsonField<String>? = null
+            private var phone: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -658,8 +710,15 @@ private constructor(
              * The digital card profile assigned to this digital card. Card profiles may also be
              * assigned at the program level.
              */
-            fun digitalCardProfileId(digitalCardProfileId: String) =
-                digitalCardProfileId(JsonField.of(digitalCardProfileId))
+            fun digitalCardProfileId(digitalCardProfileId: String?) =
+                digitalCardProfileId(JsonField.ofNullable(digitalCardProfileId))
+
+            /**
+             * The digital card profile assigned to this digital card. Card profiles may also be
+             * assigned at the program level.
+             */
+            fun digitalCardProfileId(digitalCardProfileId: Optional<String>) =
+                digitalCardProfileId(digitalCardProfileId.orElse(null))
 
             /**
              * The digital card profile assigned to this digital card. Card profiles may also be
@@ -673,7 +732,13 @@ private constructor(
              * An email address that can be used to verify the cardholder via one-time passcode over
              * email.
              */
-            fun email(email: String) = email(JsonField.of(email))
+            fun email(email: String?) = email(JsonField.ofNullable(email))
+
+            /**
+             * An email address that can be used to verify the cardholder via one-time passcode over
+             * email.
+             */
+            fun email(email: Optional<String>) = email(email.orElse(null))
 
             /**
              * An email address that can be used to verify the cardholder via one-time passcode over
@@ -685,7 +750,13 @@ private constructor(
              * A phone number that can be used to verify the cardholder via one-time passcode over
              * SMS.
              */
-            fun phone(phone: String) = phone(JsonField.of(phone))
+            fun phone(phone: String?) = phone(JsonField.ofNullable(phone))
+
+            /**
+             * A phone number that can be used to verify the cardholder via one-time passcode over
+             * SMS.
+             */
+            fun phone(phone: Optional<String>) = phone(phone.orElse(null))
 
             /**
              * A phone number that can be used to verify the cardholder via one-time passcode over
@@ -714,9 +785,11 @@ private constructor(
 
             fun build(): DigitalWallet =
                 DigitalWallet(
-                    digitalCardProfileId,
-                    email,
-                    phone,
+                    checkNotNull(digitalCardProfileId) {
+                        "`digitalCardProfileId` is required but was not set"
+                    },
+                    checkNotNull(email) { "`email` is required but was not set" },
+                    checkNotNull(phone) { "`phone` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }

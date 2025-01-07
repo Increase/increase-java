@@ -167,61 +167,79 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The deposit's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** The Account the check was deposited into. */
-    @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
+    @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
     /** The deposited amount in USD cents. */
-    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+    @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
     /** The ID for the File containing the image of the back of the check. */
-    @JsonProperty("back_image_file_id") @ExcludeMissing fun _backImageFileId() = backImageFileId
+    @JsonProperty("back_image_file_id")
+    @ExcludeMissing
+    fun _backImageFileId(): JsonField<String> = backImageFileId
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the transfer
      * was created.
      */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /**
      * If your deposit is successfully parsed and accepted by Increase, this will contain details of
      * the parsed check.
      */
-    @JsonProperty("deposit_acceptance") @ExcludeMissing fun _depositAcceptance() = depositAcceptance
+    @JsonProperty("deposit_acceptance")
+    @ExcludeMissing
+    fun _depositAcceptance(): JsonField<DepositAcceptance> = depositAcceptance
 
     /**
      * If your deposit is rejected by Increase, this will contain details as to why it was rejected.
      */
-    @JsonProperty("deposit_rejection") @ExcludeMissing fun _depositRejection() = depositRejection
+    @JsonProperty("deposit_rejection")
+    @ExcludeMissing
+    fun _depositRejection(): JsonField<DepositRejection> = depositRejection
 
     /** If your deposit is returned, this will contain details as to why it was returned. */
-    @JsonProperty("deposit_return") @ExcludeMissing fun _depositReturn() = depositReturn
+    @JsonProperty("deposit_return")
+    @ExcludeMissing
+    fun _depositReturn(): JsonField<DepositReturn> = depositReturn
 
     /**
      * After the check is parsed, it is submitted to the Check21 network for processing. This will
      * contain details of the submission.
      */
-    @JsonProperty("deposit_submission") @ExcludeMissing fun _depositSubmission() = depositSubmission
+    @JsonProperty("deposit_submission")
+    @ExcludeMissing
+    fun _depositSubmission(): JsonField<DepositSubmission> = depositSubmission
 
     /** The description of the Check Deposit, for display purposes only. */
-    @JsonProperty("description") @ExcludeMissing fun _description() = description
+    @JsonProperty("description") @ExcludeMissing fun _description(): JsonField<String> = description
 
     /** The ID for the File containing the image of the front of the check. */
-    @JsonProperty("front_image_file_id") @ExcludeMissing fun _frontImageFileId() = frontImageFileId
+    @JsonProperty("front_image_file_id")
+    @ExcludeMissing
+    fun _frontImageFileId(): JsonField<String> = frontImageFileId
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
      * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
     /**
      * Increase will sometimes hold the funds for Check Deposits. If funds are held, this sub-object
      * will contain details of the hold.
      */
-    @JsonProperty("inbound_funds_hold") @ExcludeMissing fun _inboundFundsHold() = inboundFundsHold
+    @JsonProperty("inbound_funds_hold")
+    @ExcludeMissing
+    fun _inboundFundsHold(): JsonField<InboundFundsHold> = inboundFundsHold
 
     /**
      * If the Check Deposit was the result of an Inbound Mail Item, this will contain the identifier
@@ -229,25 +247,27 @@ private constructor(
      */
     @JsonProperty("inbound_mail_item_id")
     @ExcludeMissing
-    fun _inboundMailItemId() = inboundMailItemId
+    fun _inboundMailItemId(): JsonField<String> = inboundMailItemId
 
     /**
      * If the Check Deposit was the result of an Inbound Mail Item, this will contain the identifier
      * of the Lockbox that received it.
      */
-    @JsonProperty("lockbox_id") @ExcludeMissing fun _lockboxId() = lockboxId
+    @JsonProperty("lockbox_id") @ExcludeMissing fun _lockboxId(): JsonField<String> = lockboxId
 
     /** The status of the Check Deposit. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /** The ID for the Transaction created by the deposit. */
-    @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+    @JsonProperty("transaction_id")
+    @ExcludeMissing
+    fun _transactionId(): JsonField<String> = transactionId
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `check_deposit`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -288,24 +308,24 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var accountId: JsonField<String> = JsonMissing.of()
-        private var amount: JsonField<Long> = JsonMissing.of()
-        private var backImageFileId: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var depositAcceptance: JsonField<DepositAcceptance> = JsonMissing.of()
-        private var depositRejection: JsonField<DepositRejection> = JsonMissing.of()
-        private var depositReturn: JsonField<DepositReturn> = JsonMissing.of()
-        private var depositSubmission: JsonField<DepositSubmission> = JsonMissing.of()
-        private var description: JsonField<String> = JsonMissing.of()
-        private var frontImageFileId: JsonField<String> = JsonMissing.of()
-        private var idempotencyKey: JsonField<String> = JsonMissing.of()
-        private var inboundFundsHold: JsonField<InboundFundsHold> = JsonMissing.of()
-        private var inboundMailItemId: JsonField<String> = JsonMissing.of()
-        private var lockboxId: JsonField<String> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var transactionId: JsonField<String> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var accountId: JsonField<String>? = null
+        private var amount: JsonField<Long>? = null
+        private var backImageFileId: JsonField<String>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var depositAcceptance: JsonField<DepositAcceptance>? = null
+        private var depositRejection: JsonField<DepositRejection>? = null
+        private var depositReturn: JsonField<DepositReturn>? = null
+        private var depositSubmission: JsonField<DepositSubmission>? = null
+        private var description: JsonField<String>? = null
+        private var frontImageFileId: JsonField<String>? = null
+        private var idempotencyKey: JsonField<String>? = null
+        private var inboundFundsHold: JsonField<InboundFundsHold>? = null
+        private var inboundMailItemId: JsonField<String>? = null
+        private var lockboxId: JsonField<String>? = null
+        private var status: JsonField<Status>? = null
+        private var transactionId: JsonField<String>? = null
+        private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -350,8 +370,12 @@ private constructor(
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
         /** The ID for the File containing the image of the back of the check. */
-        fun backImageFileId(backImageFileId: String) =
-            backImageFileId(JsonField.of(backImageFileId))
+        fun backImageFileId(backImageFileId: String?) =
+            backImageFileId(JsonField.ofNullable(backImageFileId))
+
+        /** The ID for the File containing the image of the back of the check. */
+        fun backImageFileId(backImageFileId: Optional<String>) =
+            backImageFileId(backImageFileId.orElse(null))
 
         /** The ID for the File containing the image of the back of the check. */
         fun backImageFileId(backImageFileId: JsonField<String>) = apply {
@@ -374,8 +398,15 @@ private constructor(
          * If your deposit is successfully parsed and accepted by Increase, this will contain
          * details of the parsed check.
          */
-        fun depositAcceptance(depositAcceptance: DepositAcceptance) =
-            depositAcceptance(JsonField.of(depositAcceptance))
+        fun depositAcceptance(depositAcceptance: DepositAcceptance?) =
+            depositAcceptance(JsonField.ofNullable(depositAcceptance))
+
+        /**
+         * If your deposit is successfully parsed and accepted by Increase, this will contain
+         * details of the parsed check.
+         */
+        fun depositAcceptance(depositAcceptance: Optional<DepositAcceptance>) =
+            depositAcceptance(depositAcceptance.orElse(null))
 
         /**
          * If your deposit is successfully parsed and accepted by Increase, this will contain
@@ -389,8 +420,15 @@ private constructor(
          * If your deposit is rejected by Increase, this will contain details as to why it was
          * rejected.
          */
-        fun depositRejection(depositRejection: DepositRejection) =
-            depositRejection(JsonField.of(depositRejection))
+        fun depositRejection(depositRejection: DepositRejection?) =
+            depositRejection(JsonField.ofNullable(depositRejection))
+
+        /**
+         * If your deposit is rejected by Increase, this will contain details as to why it was
+         * rejected.
+         */
+        fun depositRejection(depositRejection: Optional<DepositRejection>) =
+            depositRejection(depositRejection.orElse(null))
 
         /**
          * If your deposit is rejected by Increase, this will contain details as to why it was
@@ -401,7 +439,12 @@ private constructor(
         }
 
         /** If your deposit is returned, this will contain details as to why it was returned. */
-        fun depositReturn(depositReturn: DepositReturn) = depositReturn(JsonField.of(depositReturn))
+        fun depositReturn(depositReturn: DepositReturn?) =
+            depositReturn(JsonField.ofNullable(depositReturn))
+
+        /** If your deposit is returned, this will contain details as to why it was returned. */
+        fun depositReturn(depositReturn: Optional<DepositReturn>) =
+            depositReturn(depositReturn.orElse(null))
 
         /** If your deposit is returned, this will contain details as to why it was returned. */
         fun depositReturn(depositReturn: JsonField<DepositReturn>) = apply {
@@ -412,8 +455,15 @@ private constructor(
          * After the check is parsed, it is submitted to the Check21 network for processing. This
          * will contain details of the submission.
          */
-        fun depositSubmission(depositSubmission: DepositSubmission) =
-            depositSubmission(JsonField.of(depositSubmission))
+        fun depositSubmission(depositSubmission: DepositSubmission?) =
+            depositSubmission(JsonField.ofNullable(depositSubmission))
+
+        /**
+         * After the check is parsed, it is submitted to the Check21 network for processing. This
+         * will contain details of the submission.
+         */
+        fun depositSubmission(depositSubmission: Optional<DepositSubmission>) =
+            depositSubmission(depositSubmission.orElse(null))
 
         /**
          * After the check is parsed, it is submitted to the Check21 network for processing. This
@@ -424,7 +474,10 @@ private constructor(
         }
 
         /** The description of the Check Deposit, for display purposes only. */
-        fun description(description: String) = description(JsonField.of(description))
+        fun description(description: String?) = description(JsonField.ofNullable(description))
+
+        /** The description of the Check Deposit, for display purposes only. */
+        fun description(description: Optional<String>) = description(description.orElse(null))
 
         /** The description of the Check Deposit, for display purposes only. */
         fun description(description: JsonField<String>) = apply { this.description = description }
@@ -443,7 +496,16 @@ private constructor(
          * is used to ensure that a request is only processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+        fun idempotencyKey(idempotencyKey: String?) =
+            idempotencyKey(JsonField.ofNullable(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: Optional<String>) =
+            idempotencyKey(idempotencyKey.orElse(null))
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -458,8 +520,15 @@ private constructor(
          * Increase will sometimes hold the funds for Check Deposits. If funds are held, this
          * sub-object will contain details of the hold.
          */
-        fun inboundFundsHold(inboundFundsHold: InboundFundsHold) =
-            inboundFundsHold(JsonField.of(inboundFundsHold))
+        fun inboundFundsHold(inboundFundsHold: InboundFundsHold?) =
+            inboundFundsHold(JsonField.ofNullable(inboundFundsHold))
+
+        /**
+         * Increase will sometimes hold the funds for Check Deposits. If funds are held, this
+         * sub-object will contain details of the hold.
+         */
+        fun inboundFundsHold(inboundFundsHold: Optional<InboundFundsHold>) =
+            inboundFundsHold(inboundFundsHold.orElse(null))
 
         /**
          * Increase will sometimes hold the funds for Check Deposits. If funds are held, this
@@ -473,8 +542,15 @@ private constructor(
          * If the Check Deposit was the result of an Inbound Mail Item, this will contain the
          * identifier of the Inbound Mail Item.
          */
-        fun inboundMailItemId(inboundMailItemId: String) =
-            inboundMailItemId(JsonField.of(inboundMailItemId))
+        fun inboundMailItemId(inboundMailItemId: String?) =
+            inboundMailItemId(JsonField.ofNullable(inboundMailItemId))
+
+        /**
+         * If the Check Deposit was the result of an Inbound Mail Item, this will contain the
+         * identifier of the Inbound Mail Item.
+         */
+        fun inboundMailItemId(inboundMailItemId: Optional<String>) =
+            inboundMailItemId(inboundMailItemId.orElse(null))
 
         /**
          * If the Check Deposit was the result of an Inbound Mail Item, this will contain the
@@ -488,7 +564,13 @@ private constructor(
          * If the Check Deposit was the result of an Inbound Mail Item, this will contain the
          * identifier of the Lockbox that received it.
          */
-        fun lockboxId(lockboxId: String) = lockboxId(JsonField.of(lockboxId))
+        fun lockboxId(lockboxId: String?) = lockboxId(JsonField.ofNullable(lockboxId))
+
+        /**
+         * If the Check Deposit was the result of an Inbound Mail Item, this will contain the
+         * identifier of the Lockbox that received it.
+         */
+        fun lockboxId(lockboxId: Optional<String>) = lockboxId(lockboxId.orElse(null))
 
         /**
          * If the Check Deposit was the result of an Inbound Mail Item, this will contain the
@@ -503,7 +585,12 @@ private constructor(
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /** The ID for the Transaction created by the deposit. */
-        fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
+        fun transactionId(transactionId: String?) =
+            transactionId(JsonField.ofNullable(transactionId))
+
+        /** The ID for the Transaction created by the deposit. */
+        fun transactionId(transactionId: Optional<String>) =
+            transactionId(transactionId.orElse(null))
 
         /** The ID for the Transaction created by the deposit. */
         fun transactionId(transactionId: JsonField<String>) = apply {
@@ -543,24 +630,30 @@ private constructor(
 
         fun build(): CheckDeposit =
             CheckDeposit(
-                id,
-                accountId,
-                amount,
-                backImageFileId,
-                createdAt,
-                depositAcceptance,
-                depositRejection,
-                depositReturn,
-                depositSubmission,
-                description,
-                frontImageFileId,
-                idempotencyKey,
-                inboundFundsHold,
-                inboundMailItemId,
-                lockboxId,
-                status,
-                transactionId,
-                type,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(accountId) { "`accountId` is required but was not set" },
+                checkNotNull(amount) { "`amount` is required but was not set" },
+                checkNotNull(backImageFileId) { "`backImageFileId` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(depositAcceptance) {
+                    "`depositAcceptance` is required but was not set"
+                },
+                checkNotNull(depositRejection) { "`depositRejection` is required but was not set" },
+                checkNotNull(depositReturn) { "`depositReturn` is required but was not set" },
+                checkNotNull(depositSubmission) {
+                    "`depositSubmission` is required but was not set"
+                },
+                checkNotNull(description) { "`description` is required but was not set" },
+                checkNotNull(frontImageFileId) { "`frontImageFileId` is required but was not set" },
+                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
+                checkNotNull(inboundFundsHold) { "`inboundFundsHold` is required but was not set" },
+                checkNotNull(inboundMailItemId) {
+                    "`inboundMailItemId` is required but was not set"
+                },
+                checkNotNull(lockboxId) { "`lockboxId` is required but was not set" },
+                checkNotNull(status) { "`status` is required but was not set" },
+                checkNotNull(transactionId) { "`transactionId` is required but was not set" },
+                checkNotNull(type) { "`type` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }
@@ -634,37 +727,47 @@ private constructor(
             Optional.ofNullable(serialNumber.getNullable("serial_number"))
 
         /** The account number printed on the check. */
-        @JsonProperty("account_number") @ExcludeMissing fun _accountNumber() = accountNumber
+        @JsonProperty("account_number")
+        @ExcludeMissing
+        fun _accountNumber(): JsonField<String> = accountNumber
 
         /**
          * The amount to be deposited in the minor unit of the transaction's currency. For dollars,
          * for example, this is cents.
          */
-        @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
         /**
          * An additional line of metadata printed on the check. This typically includes the check
          * number for business checks.
          */
-        @JsonProperty("auxiliary_on_us") @ExcludeMissing fun _auxiliaryOnUs() = auxiliaryOnUs
+        @JsonProperty("auxiliary_on_us")
+        @ExcludeMissing
+        fun _auxiliaryOnUs(): JsonField<String> = auxiliaryOnUs
 
         /** The ID of the Check Deposit that was accepted. */
-        @JsonProperty("check_deposit_id") @ExcludeMissing fun _checkDepositId() = checkDepositId
+        @JsonProperty("check_deposit_id")
+        @ExcludeMissing
+        fun _checkDepositId(): JsonField<String> = checkDepositId
 
         /**
          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
          * currency.
          */
-        @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+        @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
 
         /** The routing number printed on the check. */
-        @JsonProperty("routing_number") @ExcludeMissing fun _routingNumber() = routingNumber
+        @JsonProperty("routing_number")
+        @ExcludeMissing
+        fun _routingNumber(): JsonField<String> = routingNumber
 
         /**
          * The check serial number, if present, for consumer checks. For business checks, the serial
          * number is usually in the `auxiliary_on_us` field.
          */
-        @JsonProperty("serial_number") @ExcludeMissing fun _serialNumber() = serialNumber
+        @JsonProperty("serial_number")
+        @ExcludeMissing
+        fun _serialNumber(): JsonField<String> = serialNumber
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -694,13 +797,13 @@ private constructor(
 
         class Builder {
 
-            private var accountNumber: JsonField<String> = JsonMissing.of()
-            private var amount: JsonField<Long> = JsonMissing.of()
-            private var auxiliaryOnUs: JsonField<String> = JsonMissing.of()
-            private var checkDepositId: JsonField<String> = JsonMissing.of()
-            private var currency: JsonField<Currency> = JsonMissing.of()
-            private var routingNumber: JsonField<String> = JsonMissing.of()
-            private var serialNumber: JsonField<String> = JsonMissing.of()
+            private var accountNumber: JsonField<String>? = null
+            private var amount: JsonField<Long>? = null
+            private var auxiliaryOnUs: JsonField<String>? = null
+            private var checkDepositId: JsonField<String>? = null
+            private var currency: JsonField<Currency>? = null
+            private var routingNumber: JsonField<String>? = null
+            private var serialNumber: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -739,7 +842,15 @@ private constructor(
              * An additional line of metadata printed on the check. This typically includes the
              * check number for business checks.
              */
-            fun auxiliaryOnUs(auxiliaryOnUs: String) = auxiliaryOnUs(JsonField.of(auxiliaryOnUs))
+            fun auxiliaryOnUs(auxiliaryOnUs: String?) =
+                auxiliaryOnUs(JsonField.ofNullable(auxiliaryOnUs))
+
+            /**
+             * An additional line of metadata printed on the check. This typically includes the
+             * check number for business checks.
+             */
+            fun auxiliaryOnUs(auxiliaryOnUs: Optional<String>) =
+                auxiliaryOnUs(auxiliaryOnUs.orElse(null))
 
             /**
              * An additional line of metadata printed on the check. This typically includes the
@@ -782,7 +893,15 @@ private constructor(
              * The check serial number, if present, for consumer checks. For business checks, the
              * serial number is usually in the `auxiliary_on_us` field.
              */
-            fun serialNumber(serialNumber: String) = serialNumber(JsonField.of(serialNumber))
+            fun serialNumber(serialNumber: String?) =
+                serialNumber(JsonField.ofNullable(serialNumber))
+
+            /**
+             * The check serial number, if present, for consumer checks. For business checks, the
+             * serial number is usually in the `auxiliary_on_us` field.
+             */
+            fun serialNumber(serialNumber: Optional<String>) =
+                serialNumber(serialNumber.orElse(null))
 
             /**
              * The check serial number, if present, for consumer checks. For business checks, the
@@ -813,13 +932,13 @@ private constructor(
 
             fun build(): DepositAcceptance =
                 DepositAcceptance(
-                    accountNumber,
-                    amount,
-                    auxiliaryOnUs,
-                    checkDepositId,
-                    currency,
-                    routingNumber,
-                    serialNumber,
+                    checkNotNull(accountNumber) { "`accountNumber` is required but was not set" },
+                    checkNotNull(amount) { "`amount` is required but was not set" },
+                    checkNotNull(auxiliaryOnUs) { "`auxiliaryOnUs` is required but was not set" },
+                    checkNotNull(checkDepositId) { "`checkDepositId` is required but was not set" },
+                    checkNotNull(currency) { "`currency` is required but was not set" },
+                    checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
+                    checkNotNull(serialNumber) { "`serialNumber` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -981,27 +1100,31 @@ private constructor(
          * The rejected amount in the minor unit of check's currency. For dollars, for example, this
          * is cents.
          */
-        @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
         /** The identifier of the Check Deposit that was rejected. */
-        @JsonProperty("check_deposit_id") @ExcludeMissing fun _checkDepositId() = checkDepositId
+        @JsonProperty("check_deposit_id")
+        @ExcludeMissing
+        fun _checkDepositId(): JsonField<String> = checkDepositId
 
         /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's currency. */
-        @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+        @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
 
         /** The identifier of the associated declined transaction. */
         @JsonProperty("declined_transaction_id")
         @ExcludeMissing
-        fun _declinedTransactionId() = declinedTransactionId
+        fun _declinedTransactionId(): JsonField<String> = declinedTransactionId
 
         /** Why the check deposit was rejected. */
-        @JsonProperty("reason") @ExcludeMissing fun _reason() = reason
+        @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<Reason> = reason
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the check
          * deposit was rejected.
          */
-        @JsonProperty("rejected_at") @ExcludeMissing fun _rejectedAt() = rejectedAt
+        @JsonProperty("rejected_at")
+        @ExcludeMissing
+        fun _rejectedAt(): JsonField<OffsetDateTime> = rejectedAt
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1030,12 +1153,12 @@ private constructor(
 
         class Builder {
 
-            private var amount: JsonField<Long> = JsonMissing.of()
-            private var checkDepositId: JsonField<String> = JsonMissing.of()
-            private var currency: JsonField<Currency> = JsonMissing.of()
-            private var declinedTransactionId: JsonField<String> = JsonMissing.of()
-            private var reason: JsonField<Reason> = JsonMissing.of()
-            private var rejectedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var amount: JsonField<Long>? = null
+            private var checkDepositId: JsonField<String>? = null
+            private var currency: JsonField<Currency>? = null
+            private var declinedTransactionId: JsonField<String>? = null
+            private var reason: JsonField<Reason>? = null
+            private var rejectedAt: JsonField<OffsetDateTime>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -1130,12 +1253,14 @@ private constructor(
 
             fun build(): DepositRejection =
                 DepositRejection(
-                    amount,
-                    checkDepositId,
-                    currency,
-                    declinedTransactionId,
-                    reason,
-                    rejectedAt,
+                    checkNotNull(amount) { "`amount` is required but was not set" },
+                    checkNotNull(checkDepositId) { "`checkDepositId` is required but was not set" },
+                    checkNotNull(currency) { "`currency` is required but was not set" },
+                    checkNotNull(declinedTransactionId) {
+                        "`declinedTransactionId` is required but was not set"
+                    },
+                    checkNotNull(reason) { "`reason` is required but was not set" },
+                    checkNotNull(rejectedAt) { "`rejectedAt` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1405,30 +1530,38 @@ private constructor(
         fun transactionId(): String = transactionId.getRequired("transaction_id")
 
         /** The returned amount in USD cents. */
-        @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
         /** The identifier of the Check Deposit that was returned. */
-        @JsonProperty("check_deposit_id") @ExcludeMissing fun _checkDepositId() = checkDepositId
+        @JsonProperty("check_deposit_id")
+        @ExcludeMissing
+        fun _checkDepositId(): JsonField<String> = checkDepositId
 
         /**
          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
          * currency.
          */
-        @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+        @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
 
         /** Why this check was returned by the bank holding the account it was drawn against. */
-        @JsonProperty("return_reason") @ExcludeMissing fun _returnReason() = returnReason
+        @JsonProperty("return_reason")
+        @ExcludeMissing
+        fun _returnReason(): JsonField<ReturnReason> = returnReason
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the check
          * deposit was returned.
          */
-        @JsonProperty("returned_at") @ExcludeMissing fun _returnedAt() = returnedAt
+        @JsonProperty("returned_at")
+        @ExcludeMissing
+        fun _returnedAt(): JsonField<OffsetDateTime> = returnedAt
 
         /**
          * The identifier of the transaction that reversed the original check deposit transaction.
          */
-        @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+        @JsonProperty("transaction_id")
+        @ExcludeMissing
+        fun _transactionId(): JsonField<String> = transactionId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1457,12 +1590,12 @@ private constructor(
 
         class Builder {
 
-            private var amount: JsonField<Long> = JsonMissing.of()
-            private var checkDepositId: JsonField<String> = JsonMissing.of()
-            private var currency: JsonField<Currency> = JsonMissing.of()
-            private var returnReason: JsonField<ReturnReason> = JsonMissing.of()
-            private var returnedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var transactionId: JsonField<String> = JsonMissing.of()
+            private var amount: JsonField<Long>? = null
+            private var checkDepositId: JsonField<String>? = null
+            private var currency: JsonField<Currency>? = null
+            private var returnReason: JsonField<ReturnReason>? = null
+            private var returnedAt: JsonField<OffsetDateTime>? = null
+            private var transactionId: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -1560,12 +1693,12 @@ private constructor(
 
             fun build(): DepositReturn =
                 DepositReturn(
-                    amount,
-                    checkDepositId,
-                    currency,
-                    returnReason,
-                    returnedAt,
-                    transactionId,
+                    checkNotNull(amount) { "`amount` is required but was not set" },
+                    checkNotNull(checkDepositId) { "`checkDepositId` is required but was not set" },
+                    checkNotNull(currency) { "`currency` is required but was not set" },
+                    checkNotNull(returnReason) { "`returnReason` is required but was not set" },
+                    checkNotNull(returnedAt) { "`returnedAt` is required but was not set" },
+                    checkNotNull(transactionId) { "`transactionId` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1913,19 +2046,25 @@ private constructor(
          * The ID for the File containing the check back image that was submitted to the Check21
          * network.
          */
-        @JsonProperty("back_file_id") @ExcludeMissing fun _backFileId() = backFileId
+        @JsonProperty("back_file_id")
+        @ExcludeMissing
+        fun _backFileId(): JsonField<String> = backFileId
 
         /**
          * The ID for the File containing the check front image that was submitted to the Check21
          * network.
          */
-        @JsonProperty("front_file_id") @ExcludeMissing fun _frontFileId() = frontFileId
+        @JsonProperty("front_file_id")
+        @ExcludeMissing
+        fun _frontFileId(): JsonField<String> = frontFileId
 
         /**
          * When the check deposit was submitted to the Check21 network for processing. During
          * business days, this happens within a few hours of the check being accepted by Increase.
          */
-        @JsonProperty("submitted_at") @ExcludeMissing fun _submittedAt() = submittedAt
+        @JsonProperty("submitted_at")
+        @ExcludeMissing
+        fun _submittedAt(): JsonField<OffsetDateTime> = submittedAt
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1951,9 +2090,9 @@ private constructor(
 
         class Builder {
 
-            private var backFileId: JsonField<String> = JsonMissing.of()
-            private var frontFileId: JsonField<String> = JsonMissing.of()
-            private var submittedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var backFileId: JsonField<String>? = null
+            private var frontFileId: JsonField<String>? = null
+            private var submittedAt: JsonField<OffsetDateTime>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -2027,9 +2166,9 @@ private constructor(
 
             fun build(): DepositSubmission =
                 DepositSubmission(
-                    backFileId,
-                    frontFileId,
-                    submittedAt,
+                    checkNotNull(backFileId) { "`backFileId` is required but was not set" },
+                    checkNotNull(frontFileId) { "`frontFileId` is required but was not set" },
+                    checkNotNull(submittedAt) { "`submittedAt` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -2137,13 +2276,13 @@ private constructor(
         fun type(): Type = type.getRequired("type")
 
         /** The Inbound Funds Hold identifier. */
-        @JsonProperty("id") @ExcludeMissing fun _id() = id
+        @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
         /**
          * The held amount in the minor unit of the account's currency. For dollars, for example,
          * this is cents.
          */
-        @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
         /**
          * When the hold will be released automatically. Certain conditions may cause it to be
@@ -2151,38 +2290,42 @@ private constructor(
          */
         @JsonProperty("automatically_releases_at")
         @ExcludeMissing
-        fun _automaticallyReleasesAt() = automaticallyReleasesAt
+        fun _automaticallyReleasesAt(): JsonField<OffsetDateTime> = automaticallyReleasesAt
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the hold was
          * created.
          */
-        @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
         /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the hold's currency. */
-        @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+        @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
 
         /** The ID of the Transaction for which funds were held. */
         @JsonProperty("held_transaction_id")
         @ExcludeMissing
-        fun _heldTransactionId() = heldTransactionId
+        fun _heldTransactionId(): JsonField<String> = heldTransactionId
 
         /** The ID of the Pending Transaction representing the held funds. */
         @JsonProperty("pending_transaction_id")
         @ExcludeMissing
-        fun _pendingTransactionId() = pendingTransactionId
+        fun _pendingTransactionId(): JsonField<String> = pendingTransactionId
 
         /** When the hold was released (if it has been released). */
-        @JsonProperty("released_at") @ExcludeMissing fun _releasedAt() = releasedAt
+        @JsonProperty("released_at")
+        @ExcludeMissing
+        fun _releasedAt(): JsonField<OffsetDateTime> = releasedAt
 
         /** The status of the hold. */
-        @JsonProperty("status") @ExcludeMissing fun _status() = status
+        @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
         /**
          * A constant representing the object's type. For this resource it will always be
          * `inbound_funds_hold`.
          */
-        @JsonProperty("type") @ExcludeMissing fun _type() = type
+        @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -2215,16 +2358,16 @@ private constructor(
 
         class Builder {
 
-            private var id: JsonField<String> = JsonMissing.of()
-            private var amount: JsonField<Long> = JsonMissing.of()
-            private var automaticallyReleasesAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var currency: JsonField<Currency> = JsonMissing.of()
-            private var heldTransactionId: JsonField<String> = JsonMissing.of()
-            private var pendingTransactionId: JsonField<String> = JsonMissing.of()
-            private var releasedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var status: JsonField<Status> = JsonMissing.of()
-            private var type: JsonField<Type> = JsonMissing.of()
+            private var id: JsonField<String>? = null
+            private var amount: JsonField<Long>? = null
+            private var automaticallyReleasesAt: JsonField<OffsetDateTime>? = null
+            private var createdAt: JsonField<OffsetDateTime>? = null
+            private var currency: JsonField<Currency>? = null
+            private var heldTransactionId: JsonField<String>? = null
+            private var pendingTransactionId: JsonField<String>? = null
+            private var releasedAt: JsonField<OffsetDateTime>? = null
+            private var status: JsonField<Status>? = null
+            private var type: JsonField<Type>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -2301,8 +2444,12 @@ private constructor(
             fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
             /** The ID of the Transaction for which funds were held. */
-            fun heldTransactionId(heldTransactionId: String) =
-                heldTransactionId(JsonField.of(heldTransactionId))
+            fun heldTransactionId(heldTransactionId: String?) =
+                heldTransactionId(JsonField.ofNullable(heldTransactionId))
+
+            /** The ID of the Transaction for which funds were held. */
+            fun heldTransactionId(heldTransactionId: Optional<String>) =
+                heldTransactionId(heldTransactionId.orElse(null))
 
             /** The ID of the Transaction for which funds were held. */
             fun heldTransactionId(heldTransactionId: JsonField<String>) = apply {
@@ -2310,8 +2457,12 @@ private constructor(
             }
 
             /** The ID of the Pending Transaction representing the held funds. */
-            fun pendingTransactionId(pendingTransactionId: String) =
-                pendingTransactionId(JsonField.of(pendingTransactionId))
+            fun pendingTransactionId(pendingTransactionId: String?) =
+                pendingTransactionId(JsonField.ofNullable(pendingTransactionId))
+
+            /** The ID of the Pending Transaction representing the held funds. */
+            fun pendingTransactionId(pendingTransactionId: Optional<String>) =
+                pendingTransactionId(pendingTransactionId.orElse(null))
 
             /** The ID of the Pending Transaction representing the held funds. */
             fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {
@@ -2319,7 +2470,12 @@ private constructor(
             }
 
             /** When the hold was released (if it has been released). */
-            fun releasedAt(releasedAt: OffsetDateTime) = releasedAt(JsonField.of(releasedAt))
+            fun releasedAt(releasedAt: OffsetDateTime?) =
+                releasedAt(JsonField.ofNullable(releasedAt))
+
+            /** When the hold was released (if it has been released). */
+            fun releasedAt(releasedAt: Optional<OffsetDateTime>) =
+                releasedAt(releasedAt.orElse(null))
 
             /** When the hold was released (if it has been released). */
             fun releasedAt(releasedAt: JsonField<OffsetDateTime>) = apply {
@@ -2365,16 +2521,22 @@ private constructor(
 
             fun build(): InboundFundsHold =
                 InboundFundsHold(
-                    id,
-                    amount,
-                    automaticallyReleasesAt,
-                    createdAt,
-                    currency,
-                    heldTransactionId,
-                    pendingTransactionId,
-                    releasedAt,
-                    status,
-                    type,
+                    checkNotNull(id) { "`id` is required but was not set" },
+                    checkNotNull(amount) { "`amount` is required but was not set" },
+                    checkNotNull(automaticallyReleasesAt) {
+                        "`automaticallyReleasesAt` is required but was not set"
+                    },
+                    checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                    checkNotNull(currency) { "`currency` is required but was not set" },
+                    checkNotNull(heldTransactionId) {
+                        "`heldTransactionId` is required but was not set"
+                    },
+                    checkNotNull(pendingTransactionId) {
+                        "`pendingTransactionId` is required but was not set"
+                    },
+                    checkNotNull(releasedAt) { "`releasedAt` is required but was not set" },
+                    checkNotNull(status) { "`status` is required but was not set" },
+                    checkNotNull(type) { "`type` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }

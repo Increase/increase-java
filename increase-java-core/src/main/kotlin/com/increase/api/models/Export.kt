@@ -92,41 +92,47 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The Export identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /**
      * The category of the Export. We may add additional possible values for this enum over time;
      * your application should be able to handle that gracefully.
      */
-    @JsonProperty("category") @ExcludeMissing fun _category() = category
+    @JsonProperty("category") @ExcludeMissing fun _category(): JsonField<Category> = category
 
     /** The time the Export was created. */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /**
      * A URL at which the Export's file can be downloaded. This will be present when the Export's
      * status transitions to `complete`.
      */
-    @JsonProperty("file_download_url") @ExcludeMissing fun _fileDownloadUrl() = fileDownloadUrl
+    @JsonProperty("file_download_url")
+    @ExcludeMissing
+    fun _fileDownloadUrl(): JsonField<String> = fileDownloadUrl
 
     /**
      * The File containing the contents of the Export. This will be present when the Export's status
      * transitions to `complete`.
      */
-    @JsonProperty("file_id") @ExcludeMissing fun _fileId() = fileId
+    @JsonProperty("file_id") @ExcludeMissing fun _fileId(): JsonField<String> = fileId
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
      * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
     /** The status of the Export. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /** A constant representing the object's type. For this resource it will always be `export`. */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -157,14 +163,14 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var category: JsonField<Category> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var fileDownloadUrl: JsonField<String> = JsonMissing.of()
-        private var fileId: JsonField<String> = JsonMissing.of()
-        private var idempotencyKey: JsonField<String> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var category: JsonField<Category>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var fileDownloadUrl: JsonField<String>? = null
+        private var fileId: JsonField<String>? = null
+        private var idempotencyKey: JsonField<String>? = null
+        private var status: JsonField<Status>? = null
+        private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -208,8 +214,15 @@ private constructor(
          * A URL at which the Export's file can be downloaded. This will be present when the
          * Export's status transitions to `complete`.
          */
-        fun fileDownloadUrl(fileDownloadUrl: String) =
-            fileDownloadUrl(JsonField.of(fileDownloadUrl))
+        fun fileDownloadUrl(fileDownloadUrl: String?) =
+            fileDownloadUrl(JsonField.ofNullable(fileDownloadUrl))
+
+        /**
+         * A URL at which the Export's file can be downloaded. This will be present when the
+         * Export's status transitions to `complete`.
+         */
+        fun fileDownloadUrl(fileDownloadUrl: Optional<String>) =
+            fileDownloadUrl(fileDownloadUrl.orElse(null))
 
         /**
          * A URL at which the Export's file can be downloaded. This will be present when the
@@ -223,7 +236,13 @@ private constructor(
          * The File containing the contents of the Export. This will be present when the Export's
          * status transitions to `complete`.
          */
-        fun fileId(fileId: String) = fileId(JsonField.of(fileId))
+        fun fileId(fileId: String?) = fileId(JsonField.ofNullable(fileId))
+
+        /**
+         * The File containing the contents of the Export. This will be present when the Export's
+         * status transitions to `complete`.
+         */
+        fun fileId(fileId: Optional<String>) = fileId(fileId.orElse(null))
 
         /**
          * The File containing the contents of the Export. This will be present when the Export's
@@ -236,7 +255,16 @@ private constructor(
          * is used to ensure that a request is only processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+        fun idempotencyKey(idempotencyKey: String?) =
+            idempotencyKey(JsonField.ofNullable(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: Optional<String>) =
+            idempotencyKey(idempotencyKey.orElse(null))
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -284,14 +312,14 @@ private constructor(
 
         fun build(): Export =
             Export(
-                id,
-                category,
-                createdAt,
-                fileDownloadUrl,
-                fileId,
-                idempotencyKey,
-                status,
-                type,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(category) { "`category` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(fileDownloadUrl) { "`fileDownloadUrl` is required but was not set" },
+                checkNotNull(fileId) { "`fileId` is required but was not set" },
+                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
+                checkNotNull(status) { "`status` is required but was not set" },
+                checkNotNull(type) { "`type` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }

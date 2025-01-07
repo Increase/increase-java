@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -48,11 +50,32 @@ constructor(
     /** The identifier of a pending Request for Payment that this transfer will fulfill. */
     fun requestForPaymentId(): Optional<String> = body.requestForPaymentId()
 
+    /** The identifier of the Account Number the inbound Real-Time Payments Transfer is for. */
+    fun _accountNumberId(): JsonField<String> = body._accountNumberId()
+
+    /** The transfer amount in USD cents. Must be positive. */
+    fun _amount(): JsonField<Long> = body._amount()
+
+    /** The account number of the account that sent the transfer. */
+    fun _debtorAccountNumber(): JsonField<String> = body._debtorAccountNumber()
+
+    /** The name provided by the sender of the transfer. */
+    fun _debtorName(): JsonField<String> = body._debtorName()
+
+    /** The routing number of the account that sent the transfer. */
+    fun _debtorRoutingNumber(): JsonField<String> = body._debtorRoutingNumber()
+
+    /** Additional information included with the transfer. */
+    fun _remittanceInformation(): JsonField<String> = body._remittanceInformation()
+
+    /** The identifier of a pending Request for Payment that this transfer will fulfill. */
+    fun _requestForPaymentId(): JsonField<String> = body._requestForPaymentId()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     @JvmSynthetic internal fun getBody(): SimulationInboundRealTimePaymentsTransferCreateBody = body
 
@@ -64,46 +87,108 @@ constructor(
     class SimulationInboundRealTimePaymentsTransferCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("account_number_id") private val accountNumberId: String,
-        @JsonProperty("amount") private val amount: Long,
-        @JsonProperty("debtor_account_number") private val debtorAccountNumber: String?,
-        @JsonProperty("debtor_name") private val debtorName: String?,
-        @JsonProperty("debtor_routing_number") private val debtorRoutingNumber: String?,
-        @JsonProperty("remittance_information") private val remittanceInformation: String?,
-        @JsonProperty("request_for_payment_id") private val requestForPaymentId: String?,
+        @JsonProperty("account_number_id")
+        @ExcludeMissing
+        private val accountNumberId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("amount")
+        @ExcludeMissing
+        private val amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("debtor_account_number")
+        @ExcludeMissing
+        private val debtorAccountNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("debtor_name")
+        @ExcludeMissing
+        private val debtorName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("debtor_routing_number")
+        @ExcludeMissing
+        private val debtorRoutingNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("remittance_information")
+        @ExcludeMissing
+        private val remittanceInformation: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("request_for_payment_id")
+        @ExcludeMissing
+        private val requestForPaymentId: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The identifier of the Account Number the inbound Real-Time Payments Transfer is for. */
-        @JsonProperty("account_number_id") fun accountNumberId(): String = accountNumberId
+        fun accountNumberId(): String = accountNumberId.getRequired("account_number_id")
 
         /** The transfer amount in USD cents. Must be positive. */
-        @JsonProperty("amount") fun amount(): Long = amount
+        fun amount(): Long = amount.getRequired("amount")
+
+        /** The account number of the account that sent the transfer. */
+        fun debtorAccountNumber(): Optional<String> =
+            Optional.ofNullable(debtorAccountNumber.getNullable("debtor_account_number"))
+
+        /** The name provided by the sender of the transfer. */
+        fun debtorName(): Optional<String> =
+            Optional.ofNullable(debtorName.getNullable("debtor_name"))
+
+        /** The routing number of the account that sent the transfer. */
+        fun debtorRoutingNumber(): Optional<String> =
+            Optional.ofNullable(debtorRoutingNumber.getNullable("debtor_routing_number"))
+
+        /** Additional information included with the transfer. */
+        fun remittanceInformation(): Optional<String> =
+            Optional.ofNullable(remittanceInformation.getNullable("remittance_information"))
+
+        /** The identifier of a pending Request for Payment that this transfer will fulfill. */
+        fun requestForPaymentId(): Optional<String> =
+            Optional.ofNullable(requestForPaymentId.getNullable("request_for_payment_id"))
+
+        /** The identifier of the Account Number the inbound Real-Time Payments Transfer is for. */
+        @JsonProperty("account_number_id")
+        @ExcludeMissing
+        fun _accountNumberId(): JsonField<String> = accountNumberId
+
+        /** The transfer amount in USD cents. Must be positive. */
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
         /** The account number of the account that sent the transfer. */
         @JsonProperty("debtor_account_number")
-        fun debtorAccountNumber(): Optional<String> = Optional.ofNullable(debtorAccountNumber)
+        @ExcludeMissing
+        fun _debtorAccountNumber(): JsonField<String> = debtorAccountNumber
 
         /** The name provided by the sender of the transfer. */
         @JsonProperty("debtor_name")
-        fun debtorName(): Optional<String> = Optional.ofNullable(debtorName)
+        @ExcludeMissing
+        fun _debtorName(): JsonField<String> = debtorName
 
         /** The routing number of the account that sent the transfer. */
         @JsonProperty("debtor_routing_number")
-        fun debtorRoutingNumber(): Optional<String> = Optional.ofNullable(debtorRoutingNumber)
+        @ExcludeMissing
+        fun _debtorRoutingNumber(): JsonField<String> = debtorRoutingNumber
 
         /** Additional information included with the transfer. */
         @JsonProperty("remittance_information")
-        fun remittanceInformation(): Optional<String> = Optional.ofNullable(remittanceInformation)
+        @ExcludeMissing
+        fun _remittanceInformation(): JsonField<String> = remittanceInformation
 
         /** The identifier of a pending Request for Payment that this transfer will fulfill. */
         @JsonProperty("request_for_payment_id")
-        fun requestForPaymentId(): Optional<String> = Optional.ofNullable(requestForPaymentId)
+        @ExcludeMissing
+        fun _requestForPaymentId(): JsonField<String> = requestForPaymentId
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): SimulationInboundRealTimePaymentsTransferCreateBody = apply {
+            if (!validated) {
+                accountNumberId()
+                amount()
+                debtorAccountNumber()
+                debtorName()
+                debtorRoutingNumber()
+                remittanceInformation()
+                requestForPaymentId()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -114,13 +199,13 @@ constructor(
 
         class Builder {
 
-            private var accountNumberId: String? = null
-            private var amount: Long? = null
-            private var debtorAccountNumber: String? = null
-            private var debtorName: String? = null
-            private var debtorRoutingNumber: String? = null
-            private var remittanceInformation: String? = null
-            private var requestForPaymentId: String? = null
+            private var accountNumberId: JsonField<String>? = null
+            private var amount: JsonField<Long>? = null
+            private var debtorAccountNumber: JsonField<String> = JsonMissing.of()
+            private var debtorName: JsonField<String> = JsonMissing.of()
+            private var debtorRoutingNumber: JsonField<String> = JsonMissing.of()
+            private var remittanceInformation: JsonField<String> = JsonMissing.of()
+            private var requestForPaymentId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -148,54 +233,63 @@ constructor(
             /**
              * The identifier of the Account Number the inbound Real-Time Payments Transfer is for.
              */
-            fun accountNumberId(accountNumberId: String) = apply {
+            fun accountNumberId(accountNumberId: String) =
+                accountNumberId(JsonField.of(accountNumberId))
+
+            /**
+             * The identifier of the Account Number the inbound Real-Time Payments Transfer is for.
+             */
+            fun accountNumberId(accountNumberId: JsonField<String>) = apply {
                 this.accountNumberId = accountNumberId
             }
 
             /** The transfer amount in USD cents. Must be positive. */
-            fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long) = amount(JsonField.of(amount))
+
+            /** The transfer amount in USD cents. Must be positive. */
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /** The account number of the account that sent the transfer. */
-            fun debtorAccountNumber(debtorAccountNumber: String?) = apply {
+            fun debtorAccountNumber(debtorAccountNumber: String) =
+                debtorAccountNumber(JsonField.of(debtorAccountNumber))
+
+            /** The account number of the account that sent the transfer. */
+            fun debtorAccountNumber(debtorAccountNumber: JsonField<String>) = apply {
                 this.debtorAccountNumber = debtorAccountNumber
             }
 
-            /** The account number of the account that sent the transfer. */
-            fun debtorAccountNumber(debtorAccountNumber: Optional<String>) =
-                debtorAccountNumber(debtorAccountNumber.orElse(null))
+            /** The name provided by the sender of the transfer. */
+            fun debtorName(debtorName: String) = debtorName(JsonField.of(debtorName))
 
             /** The name provided by the sender of the transfer. */
-            fun debtorName(debtorName: String?) = apply { this.debtorName = debtorName }
-
-            /** The name provided by the sender of the transfer. */
-            fun debtorName(debtorName: Optional<String>) = debtorName(debtorName.orElse(null))
+            fun debtorName(debtorName: JsonField<String>) = apply { this.debtorName = debtorName }
 
             /** The routing number of the account that sent the transfer. */
-            fun debtorRoutingNumber(debtorRoutingNumber: String?) = apply {
+            fun debtorRoutingNumber(debtorRoutingNumber: String) =
+                debtorRoutingNumber(JsonField.of(debtorRoutingNumber))
+
+            /** The routing number of the account that sent the transfer. */
+            fun debtorRoutingNumber(debtorRoutingNumber: JsonField<String>) = apply {
                 this.debtorRoutingNumber = debtorRoutingNumber
             }
 
-            /** The routing number of the account that sent the transfer. */
-            fun debtorRoutingNumber(debtorRoutingNumber: Optional<String>) =
-                debtorRoutingNumber(debtorRoutingNumber.orElse(null))
+            /** Additional information included with the transfer. */
+            fun remittanceInformation(remittanceInformation: String) =
+                remittanceInformation(JsonField.of(remittanceInformation))
 
             /** Additional information included with the transfer. */
-            fun remittanceInformation(remittanceInformation: String?) = apply {
+            fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {
                 this.remittanceInformation = remittanceInformation
             }
 
-            /** Additional information included with the transfer. */
-            fun remittanceInformation(remittanceInformation: Optional<String>) =
-                remittanceInformation(remittanceInformation.orElse(null))
+            /** The identifier of a pending Request for Payment that this transfer will fulfill. */
+            fun requestForPaymentId(requestForPaymentId: String) =
+                requestForPaymentId(JsonField.of(requestForPaymentId))
 
             /** The identifier of a pending Request for Payment that this transfer will fulfill. */
-            fun requestForPaymentId(requestForPaymentId: String?) = apply {
+            fun requestForPaymentId(requestForPaymentId: JsonField<String>) = apply {
                 this.requestForPaymentId = requestForPaymentId
             }
-
-            /** The identifier of a pending Request for Payment that this transfer will fulfill. */
-            fun requestForPaymentId(requestForPaymentId: Optional<String>) =
-                requestForPaymentId(requestForPaymentId.orElse(null))
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -282,50 +376,81 @@ constructor(
             body.accountNumberId(accountNumberId)
         }
 
+        /** The identifier of the Account Number the inbound Real-Time Payments Transfer is for. */
+        fun accountNumberId(accountNumberId: JsonField<String>) = apply {
+            body.accountNumberId(accountNumberId)
+        }
+
         /** The transfer amount in USD cents. Must be positive. */
         fun amount(amount: Long) = apply { body.amount(amount) }
 
+        /** The transfer amount in USD cents. Must be positive. */
+        fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
+
         /** The account number of the account that sent the transfer. */
-        fun debtorAccountNumber(debtorAccountNumber: String?) = apply {
+        fun debtorAccountNumber(debtorAccountNumber: String) = apply {
             body.debtorAccountNumber(debtorAccountNumber)
         }
 
         /** The account number of the account that sent the transfer. */
-        fun debtorAccountNumber(debtorAccountNumber: Optional<String>) =
-            debtorAccountNumber(debtorAccountNumber.orElse(null))
+        fun debtorAccountNumber(debtorAccountNumber: JsonField<String>) = apply {
+            body.debtorAccountNumber(debtorAccountNumber)
+        }
 
         /** The name provided by the sender of the transfer. */
-        fun debtorName(debtorName: String?) = apply { body.debtorName(debtorName) }
+        fun debtorName(debtorName: String) = apply { body.debtorName(debtorName) }
 
         /** The name provided by the sender of the transfer. */
-        fun debtorName(debtorName: Optional<String>) = debtorName(debtorName.orElse(null))
+        fun debtorName(debtorName: JsonField<String>) = apply { body.debtorName(debtorName) }
 
         /** The routing number of the account that sent the transfer. */
-        fun debtorRoutingNumber(debtorRoutingNumber: String?) = apply {
+        fun debtorRoutingNumber(debtorRoutingNumber: String) = apply {
             body.debtorRoutingNumber(debtorRoutingNumber)
         }
 
         /** The routing number of the account that sent the transfer. */
-        fun debtorRoutingNumber(debtorRoutingNumber: Optional<String>) =
-            debtorRoutingNumber(debtorRoutingNumber.orElse(null))
+        fun debtorRoutingNumber(debtorRoutingNumber: JsonField<String>) = apply {
+            body.debtorRoutingNumber(debtorRoutingNumber)
+        }
 
         /** Additional information included with the transfer. */
-        fun remittanceInformation(remittanceInformation: String?) = apply {
+        fun remittanceInformation(remittanceInformation: String) = apply {
             body.remittanceInformation(remittanceInformation)
         }
 
         /** Additional information included with the transfer. */
-        fun remittanceInformation(remittanceInformation: Optional<String>) =
-            remittanceInformation(remittanceInformation.orElse(null))
+        fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {
+            body.remittanceInformation(remittanceInformation)
+        }
 
         /** The identifier of a pending Request for Payment that this transfer will fulfill. */
-        fun requestForPaymentId(requestForPaymentId: String?) = apply {
+        fun requestForPaymentId(requestForPaymentId: String) = apply {
             body.requestForPaymentId(requestForPaymentId)
         }
 
         /** The identifier of a pending Request for Payment that this transfer will fulfill. */
-        fun requestForPaymentId(requestForPaymentId: Optional<String>) =
-            requestForPaymentId(requestForPaymentId.orElse(null))
+        fun requestForPaymentId(requestForPaymentId: JsonField<String>) = apply {
+            body.requestForPaymentId(requestForPaymentId)
+        }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -423,25 +548,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): SimulationInboundRealTimePaymentsTransferCreateParams =

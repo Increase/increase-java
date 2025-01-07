@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -35,11 +37,23 @@ constructor(
     /** The identifier of the File containing the physical card's front image. */
     fun frontImageFileId(): String = body.frontImageFileId()
 
+    /** The identifier of the File containing the physical card's carrier image. */
+    fun _carrierImageFileId(): JsonField<String> = body._carrierImageFileId()
+
+    /** A phone number the user can contact to receive support for their card. */
+    fun _contactPhone(): JsonField<String> = body._contactPhone()
+
+    /** A description you can use to identify the Card Profile. */
+    fun _description(): JsonField<String> = body._description()
+
+    /** The identifier of the File containing the physical card's front image. */
+    fun _frontImageFileId(): JsonField<String> = body._frontImageFileId()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     @JvmSynthetic internal fun getBody(): PhysicalCardProfileCreateBody = body
 
@@ -51,29 +65,69 @@ constructor(
     class PhysicalCardProfileCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("carrier_image_file_id") private val carrierImageFileId: String,
-        @JsonProperty("contact_phone") private val contactPhone: String,
-        @JsonProperty("description") private val description: String,
-        @JsonProperty("front_image_file_id") private val frontImageFileId: String,
+        @JsonProperty("carrier_image_file_id")
+        @ExcludeMissing
+        private val carrierImageFileId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("contact_phone")
+        @ExcludeMissing
+        private val contactPhone: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("description")
+        @ExcludeMissing
+        private val description: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("front_image_file_id")
+        @ExcludeMissing
+        private val frontImageFileId: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The identifier of the File containing the physical card's carrier image. */
-        @JsonProperty("carrier_image_file_id") fun carrierImageFileId(): String = carrierImageFileId
+        fun carrierImageFileId(): String = carrierImageFileId.getRequired("carrier_image_file_id")
 
         /** A phone number the user can contact to receive support for their card. */
-        @JsonProperty("contact_phone") fun contactPhone(): String = contactPhone
+        fun contactPhone(): String = contactPhone.getRequired("contact_phone")
 
         /** A description you can use to identify the Card Profile. */
-        @JsonProperty("description") fun description(): String = description
+        fun description(): String = description.getRequired("description")
 
         /** The identifier of the File containing the physical card's front image. */
-        @JsonProperty("front_image_file_id") fun frontImageFileId(): String = frontImageFileId
+        fun frontImageFileId(): String = frontImageFileId.getRequired("front_image_file_id")
+
+        /** The identifier of the File containing the physical card's carrier image. */
+        @JsonProperty("carrier_image_file_id")
+        @ExcludeMissing
+        fun _carrierImageFileId(): JsonField<String> = carrierImageFileId
+
+        /** A phone number the user can contact to receive support for their card. */
+        @JsonProperty("contact_phone")
+        @ExcludeMissing
+        fun _contactPhone(): JsonField<String> = contactPhone
+
+        /** A description you can use to identify the Card Profile. */
+        @JsonProperty("description")
+        @ExcludeMissing
+        fun _description(): JsonField<String> = description
+
+        /** The identifier of the File containing the physical card's front image. */
+        @JsonProperty("front_image_file_id")
+        @ExcludeMissing
+        fun _frontImageFileId(): JsonField<String> = frontImageFileId
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): PhysicalCardProfileCreateBody = apply {
+            if (!validated) {
+                carrierImageFileId()
+                contactPhone()
+                description()
+                frontImageFileId()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -84,10 +138,10 @@ constructor(
 
         class Builder {
 
-            private var carrierImageFileId: String? = null
-            private var contactPhone: String? = null
-            private var description: String? = null
-            private var frontImageFileId: String? = null
+            private var carrierImageFileId: JsonField<String>? = null
+            private var contactPhone: JsonField<String>? = null
+            private var description: JsonField<String>? = null
+            private var frontImageFileId: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -102,18 +156,36 @@ constructor(
                 }
 
             /** The identifier of the File containing the physical card's carrier image. */
-            fun carrierImageFileId(carrierImageFileId: String) = apply {
+            fun carrierImageFileId(carrierImageFileId: String) =
+                carrierImageFileId(JsonField.of(carrierImageFileId))
+
+            /** The identifier of the File containing the physical card's carrier image. */
+            fun carrierImageFileId(carrierImageFileId: JsonField<String>) = apply {
                 this.carrierImageFileId = carrierImageFileId
             }
 
             /** A phone number the user can contact to receive support for their card. */
-            fun contactPhone(contactPhone: String) = apply { this.contactPhone = contactPhone }
+            fun contactPhone(contactPhone: String) = contactPhone(JsonField.of(contactPhone))
+
+            /** A phone number the user can contact to receive support for their card. */
+            fun contactPhone(contactPhone: JsonField<String>) = apply {
+                this.contactPhone = contactPhone
+            }
 
             /** A description you can use to identify the Card Profile. */
-            fun description(description: String) = apply { this.description = description }
+            fun description(description: String) = description(JsonField.of(description))
+
+            /** A description you can use to identify the Card Profile. */
+            fun description(description: JsonField<String>) = apply {
+                this.description = description
+            }
 
             /** The identifier of the File containing the physical card's front image. */
-            fun frontImageFileId(frontImageFileId: String) = apply {
+            fun frontImageFileId(frontImageFileId: String) =
+                frontImageFileId(JsonField.of(frontImageFileId))
+
+            /** The identifier of the File containing the physical card's front image. */
+            fun frontImageFileId(frontImageFileId: JsonField<String>) = apply {
                 this.frontImageFileId = frontImageFileId
             }
 
@@ -197,15 +269,52 @@ constructor(
             body.carrierImageFileId(carrierImageFileId)
         }
 
+        /** The identifier of the File containing the physical card's carrier image. */
+        fun carrierImageFileId(carrierImageFileId: JsonField<String>) = apply {
+            body.carrierImageFileId(carrierImageFileId)
+        }
+
         /** A phone number the user can contact to receive support for their card. */
         fun contactPhone(contactPhone: String) = apply { body.contactPhone(contactPhone) }
+
+        /** A phone number the user can contact to receive support for their card. */
+        fun contactPhone(contactPhone: JsonField<String>) = apply {
+            body.contactPhone(contactPhone)
+        }
 
         /** A description you can use to identify the Card Profile. */
         fun description(description: String) = apply { body.description(description) }
 
+        /** A description you can use to identify the Card Profile. */
+        fun description(description: JsonField<String>) = apply { body.description(description) }
+
         /** The identifier of the File containing the physical card's front image. */
         fun frontImageFileId(frontImageFileId: String) = apply {
             body.frontImageFileId(frontImageFileId)
+        }
+
+        /** The identifier of the File containing the physical card's front image. */
+        fun frontImageFileId(frontImageFileId: JsonField<String>) = apply {
+            body.frontImageFileId(frontImageFileId)
+        }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -304,25 +413,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): PhysicalCardProfileCreateParams =

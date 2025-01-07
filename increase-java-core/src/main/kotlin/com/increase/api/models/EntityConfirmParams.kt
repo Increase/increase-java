@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -39,11 +41,17 @@ constructor(
      */
     fun confirmedAt(): Optional<OffsetDateTime> = body.confirmedAt()
 
+    /**
+     * When your user confirmed the Entity's details. If not provided, the current time will be
+     * used.
+     */
+    fun _confirmedAt(): JsonField<OffsetDateTime> = body._confirmedAt()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     @JvmSynthetic internal fun getBody(): EntityConfirmBody = body
 
@@ -62,7 +70,9 @@ constructor(
     class EntityConfirmBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("confirmed_at") private val confirmedAt: OffsetDateTime?,
+        @JsonProperty("confirmed_at")
+        @ExcludeMissing
+        private val confirmedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
@@ -71,12 +81,29 @@ constructor(
          * When your user confirmed the Entity's details. If not provided, the current time will be
          * used.
          */
+        fun confirmedAt(): Optional<OffsetDateTime> =
+            Optional.ofNullable(confirmedAt.getNullable("confirmed_at"))
+
+        /**
+         * When your user confirmed the Entity's details. If not provided, the current time will be
+         * used.
+         */
         @JsonProperty("confirmed_at")
-        fun confirmedAt(): Optional<OffsetDateTime> = Optional.ofNullable(confirmedAt)
+        @ExcludeMissing
+        fun _confirmedAt(): JsonField<OffsetDateTime> = confirmedAt
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): EntityConfirmBody = apply {
+            if (!validated) {
+                confirmedAt()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -87,7 +114,7 @@ constructor(
 
         class Builder {
 
-            private var confirmedAt: OffsetDateTime? = null
+            private var confirmedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -100,14 +127,15 @@ constructor(
              * When your user confirmed the Entity's details. If not provided, the current time will
              * be used.
              */
-            fun confirmedAt(confirmedAt: OffsetDateTime?) = apply { this.confirmedAt = confirmedAt }
+            fun confirmedAt(confirmedAt: OffsetDateTime) = confirmedAt(JsonField.of(confirmedAt))
 
             /**
              * When your user confirmed the Entity's details. If not provided, the current time will
              * be used.
              */
-            fun confirmedAt(confirmedAt: Optional<OffsetDateTime>) =
-                confirmedAt(confirmedAt.orElse(null))
+            fun confirmedAt(confirmedAt: JsonField<OffsetDateTime>) = apply {
+                this.confirmedAt = confirmedAt
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -180,14 +208,34 @@ constructor(
          * When your user confirmed the Entity's details. If not provided, the current time will be
          * used.
          */
-        fun confirmedAt(confirmedAt: OffsetDateTime?) = apply { body.confirmedAt(confirmedAt) }
+        fun confirmedAt(confirmedAt: OffsetDateTime) = apply { body.confirmedAt(confirmedAt) }
 
         /**
          * When your user confirmed the Entity's details. If not provided, the current time will be
          * used.
          */
-        fun confirmedAt(confirmedAt: Optional<OffsetDateTime>) =
-            confirmedAt(confirmedAt.orElse(null))
+        fun confirmedAt(confirmedAt: JsonField<OffsetDateTime>) = apply {
+            body.confirmedAt(confirmedAt)
+        }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -285,25 +333,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): EntityConfirmParams =

@@ -83,37 +83,43 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The Inbound Mail Item identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Inbound Mail Item
      * was created.
      */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** The identifier for the File containing the scanned contents of the mail item. */
-    @JsonProperty("file_id") @ExcludeMissing fun _fileId() = fileId
+    @JsonProperty("file_id") @ExcludeMissing fun _fileId(): JsonField<String> = fileId
 
     /**
      * The identifier for the Lockbox that received this mail item. For mail items that could not be
      * processed due to an invalid address, this will be null.
      */
-    @JsonProperty("lockbox_id") @ExcludeMissing fun _lockboxId() = lockboxId
+    @JsonProperty("lockbox_id") @ExcludeMissing fun _lockboxId(): JsonField<String> = lockboxId
 
     /** The recipient name as written on the mail item. */
-    @JsonProperty("recipient_name") @ExcludeMissing fun _recipientName() = recipientName
+    @JsonProperty("recipient_name")
+    @ExcludeMissing
+    fun _recipientName(): JsonField<String> = recipientName
 
     /** If the mail item has been rejected, why it was rejected. */
-    @JsonProperty("rejection_reason") @ExcludeMissing fun _rejectionReason() = rejectionReason
+    @JsonProperty("rejection_reason")
+    @ExcludeMissing
+    fun _rejectionReason(): JsonField<RejectionReason> = rejectionReason
 
     /** If the mail item has been processed. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `inbound_mail_item`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -144,14 +150,14 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var fileId: JsonField<String> = JsonMissing.of()
-        private var lockboxId: JsonField<String> = JsonMissing.of()
-        private var recipientName: JsonField<String> = JsonMissing.of()
-        private var rejectionReason: JsonField<RejectionReason> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var fileId: JsonField<String>? = null
+        private var lockboxId: JsonField<String>? = null
+        private var recipientName: JsonField<String>? = null
+        private var rejectionReason: JsonField<RejectionReason>? = null
+        private var status: JsonField<Status>? = null
+        private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -195,7 +201,13 @@ private constructor(
          * The identifier for the Lockbox that received this mail item. For mail items that could
          * not be processed due to an invalid address, this will be null.
          */
-        fun lockboxId(lockboxId: String) = lockboxId(JsonField.of(lockboxId))
+        fun lockboxId(lockboxId: String?) = lockboxId(JsonField.ofNullable(lockboxId))
+
+        /**
+         * The identifier for the Lockbox that received this mail item. For mail items that could
+         * not be processed due to an invalid address, this will be null.
+         */
+        fun lockboxId(lockboxId: Optional<String>) = lockboxId(lockboxId.orElse(null))
 
         /**
          * The identifier for the Lockbox that received this mail item. For mail items that could
@@ -204,7 +216,12 @@ private constructor(
         fun lockboxId(lockboxId: JsonField<String>) = apply { this.lockboxId = lockboxId }
 
         /** The recipient name as written on the mail item. */
-        fun recipientName(recipientName: String) = recipientName(JsonField.of(recipientName))
+        fun recipientName(recipientName: String?) =
+            recipientName(JsonField.ofNullable(recipientName))
+
+        /** The recipient name as written on the mail item. */
+        fun recipientName(recipientName: Optional<String>) =
+            recipientName(recipientName.orElse(null))
 
         /** The recipient name as written on the mail item. */
         fun recipientName(recipientName: JsonField<String>) = apply {
@@ -212,8 +229,12 @@ private constructor(
         }
 
         /** If the mail item has been rejected, why it was rejected. */
-        fun rejectionReason(rejectionReason: RejectionReason) =
-            rejectionReason(JsonField.of(rejectionReason))
+        fun rejectionReason(rejectionReason: RejectionReason?) =
+            rejectionReason(JsonField.ofNullable(rejectionReason))
+
+        /** If the mail item has been rejected, why it was rejected. */
+        fun rejectionReason(rejectionReason: Optional<RejectionReason>) =
+            rejectionReason(rejectionReason.orElse(null))
 
         /** If the mail item has been rejected, why it was rejected. */
         fun rejectionReason(rejectionReason: JsonField<RejectionReason>) = apply {
@@ -259,14 +280,14 @@ private constructor(
 
         fun build(): InboundMailItem =
             InboundMailItem(
-                id,
-                createdAt,
-                fileId,
-                lockboxId,
-                recipientName,
-                rejectionReason,
-                status,
-                type,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(fileId) { "`fileId` is required but was not set" },
+                checkNotNull(lockboxId) { "`lockboxId` is required but was not set" },
+                checkNotNull(recipientName) { "`recipientName` is required but was not set" },
+                checkNotNull(rejectionReason) { "`rejectionReason` is required but was not set" },
+                checkNotNull(status) { "`status` is required but was not set" },
+                checkNotNull(type) { "`type` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }

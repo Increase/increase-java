@@ -15,6 +15,7 @@ class CheckDepositTest {
                 .id("check_deposit_f06n9gpg7sxn8t19lfc1")
                 .accountId("account_in71c4amph0vgo2qllky")
                 .amount(1000L)
+                .backImageFileId(null)
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .depositAcceptance(
                     CheckDeposit.DepositAcceptance.builder()
@@ -56,7 +57,9 @@ class CheckDepositTest {
                         .submittedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
                 )
+                .description(null)
                 .frontImageFileId("file_makxrc67oh9l6sg7w9yc")
+                .idempotencyKey(null)
                 .inboundFundsHold(
                     CheckDeposit.InboundFundsHold.builder()
                         .id("id")
@@ -71,6 +74,8 @@ class CheckDepositTest {
                         .type(CheckDeposit.InboundFundsHold.Type.INBOUND_FUNDS_HOLD)
                         .build()
                 )
+                .inboundMailItemId(null)
+                .lockboxId(null)
                 .status(CheckDeposit.Status.PENDING)
                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
                 .type(CheckDeposit.Type.CHECK_DEPOSIT)
@@ -79,6 +84,7 @@ class CheckDepositTest {
         assertThat(checkDeposit.id()).isEqualTo("check_deposit_f06n9gpg7sxn8t19lfc1")
         assertThat(checkDeposit.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(checkDeposit.amount()).isEqualTo(1000L)
+        assertThat(checkDeposit.backImageFileId()).isEmpty
         assertThat(checkDeposit.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(checkDeposit.depositAcceptance())
             .contains(
@@ -124,7 +130,9 @@ class CheckDepositTest {
                     .submittedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
+        assertThat(checkDeposit.description()).isEmpty
         assertThat(checkDeposit.frontImageFileId()).isEqualTo("file_makxrc67oh9l6sg7w9yc")
+        assertThat(checkDeposit.idempotencyKey()).isEmpty
         assertThat(checkDeposit.inboundFundsHold())
             .contains(
                 CheckDeposit.InboundFundsHold.builder()
@@ -140,6 +148,8 @@ class CheckDepositTest {
                     .type(CheckDeposit.InboundFundsHold.Type.INBOUND_FUNDS_HOLD)
                     .build()
             )
+        assertThat(checkDeposit.inboundMailItemId()).isEmpty
+        assertThat(checkDeposit.lockboxId()).isEmpty
         assertThat(checkDeposit.status()).isEqualTo(CheckDeposit.Status.PENDING)
         assertThat(checkDeposit.transactionId()).contains("transaction_uyrp7fld2ium70oa7oi")
         assertThat(checkDeposit.type()).isEqualTo(CheckDeposit.Type.CHECK_DEPOSIT)

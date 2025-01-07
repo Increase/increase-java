@@ -208,116 +208,126 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The Wire drawdown request identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** The amount being requested in cents. */
-    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+    @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
     /** The drawdown request's beneficiary's account number. */
     @JsonProperty("beneficiary_account_number")
     @ExcludeMissing
-    fun _beneficiaryAccountNumber() = beneficiaryAccountNumber
+    fun _beneficiaryAccountNumber(): JsonField<String> = beneficiaryAccountNumber
 
     /** Line 1 of the drawdown request's beneficiary's address. */
     @JsonProperty("beneficiary_address_line1")
     @ExcludeMissing
-    fun _beneficiaryAddressLine1() = beneficiaryAddressLine1
+    fun _beneficiaryAddressLine1(): JsonField<String> = beneficiaryAddressLine1
 
     /** Line 2 of the drawdown request's beneficiary's address. */
     @JsonProperty("beneficiary_address_line2")
     @ExcludeMissing
-    fun _beneficiaryAddressLine2() = beneficiaryAddressLine2
+    fun _beneficiaryAddressLine2(): JsonField<String> = beneficiaryAddressLine2
 
     /** Line 3 of the drawdown request's beneficiary's address. */
     @JsonProperty("beneficiary_address_line3")
     @ExcludeMissing
-    fun _beneficiaryAddressLine3() = beneficiaryAddressLine3
+    fun _beneficiaryAddressLine3(): JsonField<String> = beneficiaryAddressLine3
 
     /** The drawdown request's beneficiary's name. */
-    @JsonProperty("beneficiary_name") @ExcludeMissing fun _beneficiaryName() = beneficiaryName
+    @JsonProperty("beneficiary_name")
+    @ExcludeMissing
+    fun _beneficiaryName(): JsonField<String> = beneficiaryName
 
     /** The drawdown request's beneficiary's routing number. */
     @JsonProperty("beneficiary_routing_number")
     @ExcludeMissing
-    fun _beneficiaryRoutingNumber() = beneficiaryRoutingNumber
+    fun _beneficiaryRoutingNumber(): JsonField<String> = beneficiaryRoutingNumber
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the inbound
      * wire drawdown requested was created.
      */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /**
      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the amount being requested.
      * Will always be "USD".
      */
-    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+    @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<String> = currency
 
     /** A message from the drawdown request's originator. */
     @JsonProperty("message_to_recipient")
     @ExcludeMissing
-    fun _messageToRecipient() = messageToRecipient
+    fun _messageToRecipient(): JsonField<String> = messageToRecipient
 
     /** The drawdown request's originator's account number. */
     @JsonProperty("originator_account_number")
     @ExcludeMissing
-    fun _originatorAccountNumber() = originatorAccountNumber
+    fun _originatorAccountNumber(): JsonField<String> = originatorAccountNumber
 
     /** Line 1 of the drawdown request's originator's address. */
     @JsonProperty("originator_address_line1")
     @ExcludeMissing
-    fun _originatorAddressLine1() = originatorAddressLine1
+    fun _originatorAddressLine1(): JsonField<String> = originatorAddressLine1
 
     /** Line 2 of the drawdown request's originator's address. */
     @JsonProperty("originator_address_line2")
     @ExcludeMissing
-    fun _originatorAddressLine2() = originatorAddressLine2
+    fun _originatorAddressLine2(): JsonField<String> = originatorAddressLine2
 
     /** Line 3 of the drawdown request's originator's address. */
     @JsonProperty("originator_address_line3")
     @ExcludeMissing
-    fun _originatorAddressLine3() = originatorAddressLine3
+    fun _originatorAddressLine3(): JsonField<String> = originatorAddressLine3
 
     /** The drawdown request's originator's name. */
-    @JsonProperty("originator_name") @ExcludeMissing fun _originatorName() = originatorName
+    @JsonProperty("originator_name")
+    @ExcludeMissing
+    fun _originatorName(): JsonField<String> = originatorName
 
     /** The drawdown request's originator's routing number. */
     @JsonProperty("originator_routing_number")
     @ExcludeMissing
-    fun _originatorRoutingNumber() = originatorRoutingNumber
+    fun _originatorRoutingNumber(): JsonField<String> = originatorRoutingNumber
 
     /** Line 1 of the information conveyed from the originator of the message to the beneficiary. */
     @JsonProperty("originator_to_beneficiary_information_line1")
     @ExcludeMissing
-    fun _originatorToBeneficiaryInformationLine1() = originatorToBeneficiaryInformationLine1
+    fun _originatorToBeneficiaryInformationLine1(): JsonField<String> =
+        originatorToBeneficiaryInformationLine1
 
     /** Line 2 of the information conveyed from the originator of the message to the beneficiary. */
     @JsonProperty("originator_to_beneficiary_information_line2")
     @ExcludeMissing
-    fun _originatorToBeneficiaryInformationLine2() = originatorToBeneficiaryInformationLine2
+    fun _originatorToBeneficiaryInformationLine2(): JsonField<String> =
+        originatorToBeneficiaryInformationLine2
 
     /** Line 3 of the information conveyed from the originator of the message to the beneficiary. */
     @JsonProperty("originator_to_beneficiary_information_line3")
     @ExcludeMissing
-    fun _originatorToBeneficiaryInformationLine3() = originatorToBeneficiaryInformationLine3
+    fun _originatorToBeneficiaryInformationLine3(): JsonField<String> =
+        originatorToBeneficiaryInformationLine3
 
     /** Line 4 of the information conveyed from the originator of the message to the beneficiary. */
     @JsonProperty("originator_to_beneficiary_information_line4")
     @ExcludeMissing
-    fun _originatorToBeneficiaryInformationLine4() = originatorToBeneficiaryInformationLine4
+    fun _originatorToBeneficiaryInformationLine4(): JsonField<String> =
+        originatorToBeneficiaryInformationLine4
 
     /**
      * The Account Number from which the recipient of this request is being requested to send funds.
      */
     @JsonProperty("recipient_account_number_id")
     @ExcludeMissing
-    fun _recipientAccountNumberId() = recipientAccountNumberId
+    fun _recipientAccountNumberId(): JsonField<String> = recipientAccountNumberId
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `inbound_wire_drawdown_request`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -363,29 +373,29 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var amount: JsonField<Long> = JsonMissing.of()
-        private var beneficiaryAccountNumber: JsonField<String> = JsonMissing.of()
-        private var beneficiaryAddressLine1: JsonField<String> = JsonMissing.of()
-        private var beneficiaryAddressLine2: JsonField<String> = JsonMissing.of()
-        private var beneficiaryAddressLine3: JsonField<String> = JsonMissing.of()
-        private var beneficiaryName: JsonField<String> = JsonMissing.of()
-        private var beneficiaryRoutingNumber: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var currency: JsonField<String> = JsonMissing.of()
-        private var messageToRecipient: JsonField<String> = JsonMissing.of()
-        private var originatorAccountNumber: JsonField<String> = JsonMissing.of()
-        private var originatorAddressLine1: JsonField<String> = JsonMissing.of()
-        private var originatorAddressLine2: JsonField<String> = JsonMissing.of()
-        private var originatorAddressLine3: JsonField<String> = JsonMissing.of()
-        private var originatorName: JsonField<String> = JsonMissing.of()
-        private var originatorRoutingNumber: JsonField<String> = JsonMissing.of()
-        private var originatorToBeneficiaryInformationLine1: JsonField<String> = JsonMissing.of()
-        private var originatorToBeneficiaryInformationLine2: JsonField<String> = JsonMissing.of()
-        private var originatorToBeneficiaryInformationLine3: JsonField<String> = JsonMissing.of()
-        private var originatorToBeneficiaryInformationLine4: JsonField<String> = JsonMissing.of()
-        private var recipientAccountNumberId: JsonField<String> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var amount: JsonField<Long>? = null
+        private var beneficiaryAccountNumber: JsonField<String>? = null
+        private var beneficiaryAddressLine1: JsonField<String>? = null
+        private var beneficiaryAddressLine2: JsonField<String>? = null
+        private var beneficiaryAddressLine3: JsonField<String>? = null
+        private var beneficiaryName: JsonField<String>? = null
+        private var beneficiaryRoutingNumber: JsonField<String>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var currency: JsonField<String>? = null
+        private var messageToRecipient: JsonField<String>? = null
+        private var originatorAccountNumber: JsonField<String>? = null
+        private var originatorAddressLine1: JsonField<String>? = null
+        private var originatorAddressLine2: JsonField<String>? = null
+        private var originatorAddressLine3: JsonField<String>? = null
+        private var originatorName: JsonField<String>? = null
+        private var originatorRoutingNumber: JsonField<String>? = null
+        private var originatorToBeneficiaryInformationLine1: JsonField<String>? = null
+        private var originatorToBeneficiaryInformationLine2: JsonField<String>? = null
+        private var originatorToBeneficiaryInformationLine3: JsonField<String>? = null
+        private var originatorToBeneficiaryInformationLine4: JsonField<String>? = null
+        private var recipientAccountNumberId: JsonField<String>? = null
+        private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -442,8 +452,12 @@ private constructor(
         }
 
         /** Line 1 of the drawdown request's beneficiary's address. */
-        fun beneficiaryAddressLine1(beneficiaryAddressLine1: String) =
-            beneficiaryAddressLine1(JsonField.of(beneficiaryAddressLine1))
+        fun beneficiaryAddressLine1(beneficiaryAddressLine1: String?) =
+            beneficiaryAddressLine1(JsonField.ofNullable(beneficiaryAddressLine1))
+
+        /** Line 1 of the drawdown request's beneficiary's address. */
+        fun beneficiaryAddressLine1(beneficiaryAddressLine1: Optional<String>) =
+            beneficiaryAddressLine1(beneficiaryAddressLine1.orElse(null))
 
         /** Line 1 of the drawdown request's beneficiary's address. */
         fun beneficiaryAddressLine1(beneficiaryAddressLine1: JsonField<String>) = apply {
@@ -451,8 +465,12 @@ private constructor(
         }
 
         /** Line 2 of the drawdown request's beneficiary's address. */
-        fun beneficiaryAddressLine2(beneficiaryAddressLine2: String) =
-            beneficiaryAddressLine2(JsonField.of(beneficiaryAddressLine2))
+        fun beneficiaryAddressLine2(beneficiaryAddressLine2: String?) =
+            beneficiaryAddressLine2(JsonField.ofNullable(beneficiaryAddressLine2))
+
+        /** Line 2 of the drawdown request's beneficiary's address. */
+        fun beneficiaryAddressLine2(beneficiaryAddressLine2: Optional<String>) =
+            beneficiaryAddressLine2(beneficiaryAddressLine2.orElse(null))
 
         /** Line 2 of the drawdown request's beneficiary's address. */
         fun beneficiaryAddressLine2(beneficiaryAddressLine2: JsonField<String>) = apply {
@@ -460,8 +478,12 @@ private constructor(
         }
 
         /** Line 3 of the drawdown request's beneficiary's address. */
-        fun beneficiaryAddressLine3(beneficiaryAddressLine3: String) =
-            beneficiaryAddressLine3(JsonField.of(beneficiaryAddressLine3))
+        fun beneficiaryAddressLine3(beneficiaryAddressLine3: String?) =
+            beneficiaryAddressLine3(JsonField.ofNullable(beneficiaryAddressLine3))
+
+        /** Line 3 of the drawdown request's beneficiary's address. */
+        fun beneficiaryAddressLine3(beneficiaryAddressLine3: Optional<String>) =
+            beneficiaryAddressLine3(beneficiaryAddressLine3.orElse(null))
 
         /** Line 3 of the drawdown request's beneficiary's address. */
         fun beneficiaryAddressLine3(beneficiaryAddressLine3: JsonField<String>) = apply {
@@ -469,8 +491,12 @@ private constructor(
         }
 
         /** The drawdown request's beneficiary's name. */
-        fun beneficiaryName(beneficiaryName: String) =
-            beneficiaryName(JsonField.of(beneficiaryName))
+        fun beneficiaryName(beneficiaryName: String?) =
+            beneficiaryName(JsonField.ofNullable(beneficiaryName))
+
+        /** The drawdown request's beneficiary's name. */
+        fun beneficiaryName(beneficiaryName: Optional<String>) =
+            beneficiaryName(beneficiaryName.orElse(null))
 
         /** The drawdown request's beneficiary's name. */
         fun beneficiaryName(beneficiaryName: JsonField<String>) = apply {
@@ -511,8 +537,12 @@ private constructor(
         fun currency(currency: JsonField<String>) = apply { this.currency = currency }
 
         /** A message from the drawdown request's originator. */
-        fun messageToRecipient(messageToRecipient: String) =
-            messageToRecipient(JsonField.of(messageToRecipient))
+        fun messageToRecipient(messageToRecipient: String?) =
+            messageToRecipient(JsonField.ofNullable(messageToRecipient))
+
+        /** A message from the drawdown request's originator. */
+        fun messageToRecipient(messageToRecipient: Optional<String>) =
+            messageToRecipient(messageToRecipient.orElse(null))
 
         /** A message from the drawdown request's originator. */
         fun messageToRecipient(messageToRecipient: JsonField<String>) = apply {
@@ -529,8 +559,12 @@ private constructor(
         }
 
         /** Line 1 of the drawdown request's originator's address. */
-        fun originatorAddressLine1(originatorAddressLine1: String) =
-            originatorAddressLine1(JsonField.of(originatorAddressLine1))
+        fun originatorAddressLine1(originatorAddressLine1: String?) =
+            originatorAddressLine1(JsonField.ofNullable(originatorAddressLine1))
+
+        /** Line 1 of the drawdown request's originator's address. */
+        fun originatorAddressLine1(originatorAddressLine1: Optional<String>) =
+            originatorAddressLine1(originatorAddressLine1.orElse(null))
 
         /** Line 1 of the drawdown request's originator's address. */
         fun originatorAddressLine1(originatorAddressLine1: JsonField<String>) = apply {
@@ -538,8 +572,12 @@ private constructor(
         }
 
         /** Line 2 of the drawdown request's originator's address. */
-        fun originatorAddressLine2(originatorAddressLine2: String) =
-            originatorAddressLine2(JsonField.of(originatorAddressLine2))
+        fun originatorAddressLine2(originatorAddressLine2: String?) =
+            originatorAddressLine2(JsonField.ofNullable(originatorAddressLine2))
+
+        /** Line 2 of the drawdown request's originator's address. */
+        fun originatorAddressLine2(originatorAddressLine2: Optional<String>) =
+            originatorAddressLine2(originatorAddressLine2.orElse(null))
 
         /** Line 2 of the drawdown request's originator's address. */
         fun originatorAddressLine2(originatorAddressLine2: JsonField<String>) = apply {
@@ -547,8 +585,12 @@ private constructor(
         }
 
         /** Line 3 of the drawdown request's originator's address. */
-        fun originatorAddressLine3(originatorAddressLine3: String) =
-            originatorAddressLine3(JsonField.of(originatorAddressLine3))
+        fun originatorAddressLine3(originatorAddressLine3: String?) =
+            originatorAddressLine3(JsonField.ofNullable(originatorAddressLine3))
+
+        /** Line 3 of the drawdown request's originator's address. */
+        fun originatorAddressLine3(originatorAddressLine3: Optional<String>) =
+            originatorAddressLine3(originatorAddressLine3.orElse(null))
 
         /** Line 3 of the drawdown request's originator's address. */
         fun originatorAddressLine3(originatorAddressLine3: JsonField<String>) = apply {
@@ -556,7 +598,12 @@ private constructor(
         }
 
         /** The drawdown request's originator's name. */
-        fun originatorName(originatorName: String) = originatorName(JsonField.of(originatorName))
+        fun originatorName(originatorName: String?) =
+            originatorName(JsonField.ofNullable(originatorName))
+
+        /** The drawdown request's originator's name. */
+        fun originatorName(originatorName: Optional<String>) =
+            originatorName(originatorName.orElse(null))
 
         /** The drawdown request's originator's name. */
         fun originatorName(originatorName: JsonField<String>) = apply {
@@ -576,10 +623,20 @@ private constructor(
          * Line 1 of the information conveyed from the originator of the message to the beneficiary.
          */
         fun originatorToBeneficiaryInformationLine1(
-            originatorToBeneficiaryInformationLine1: String
+            originatorToBeneficiaryInformationLine1: String?
         ) =
             originatorToBeneficiaryInformationLine1(
-                JsonField.of(originatorToBeneficiaryInformationLine1)
+                JsonField.ofNullable(originatorToBeneficiaryInformationLine1)
+            )
+
+        /**
+         * Line 1 of the information conveyed from the originator of the message to the beneficiary.
+         */
+        fun originatorToBeneficiaryInformationLine1(
+            originatorToBeneficiaryInformationLine1: Optional<String>
+        ) =
+            originatorToBeneficiaryInformationLine1(
+                originatorToBeneficiaryInformationLine1.orElse(null)
             )
 
         /**
@@ -595,10 +652,20 @@ private constructor(
          * Line 2 of the information conveyed from the originator of the message to the beneficiary.
          */
         fun originatorToBeneficiaryInformationLine2(
-            originatorToBeneficiaryInformationLine2: String
+            originatorToBeneficiaryInformationLine2: String?
         ) =
             originatorToBeneficiaryInformationLine2(
-                JsonField.of(originatorToBeneficiaryInformationLine2)
+                JsonField.ofNullable(originatorToBeneficiaryInformationLine2)
+            )
+
+        /**
+         * Line 2 of the information conveyed from the originator of the message to the beneficiary.
+         */
+        fun originatorToBeneficiaryInformationLine2(
+            originatorToBeneficiaryInformationLine2: Optional<String>
+        ) =
+            originatorToBeneficiaryInformationLine2(
+                originatorToBeneficiaryInformationLine2.orElse(null)
             )
 
         /**
@@ -614,10 +681,20 @@ private constructor(
          * Line 3 of the information conveyed from the originator of the message to the beneficiary.
          */
         fun originatorToBeneficiaryInformationLine3(
-            originatorToBeneficiaryInformationLine3: String
+            originatorToBeneficiaryInformationLine3: String?
         ) =
             originatorToBeneficiaryInformationLine3(
-                JsonField.of(originatorToBeneficiaryInformationLine3)
+                JsonField.ofNullable(originatorToBeneficiaryInformationLine3)
+            )
+
+        /**
+         * Line 3 of the information conveyed from the originator of the message to the beneficiary.
+         */
+        fun originatorToBeneficiaryInformationLine3(
+            originatorToBeneficiaryInformationLine3: Optional<String>
+        ) =
+            originatorToBeneficiaryInformationLine3(
+                originatorToBeneficiaryInformationLine3.orElse(null)
             )
 
         /**
@@ -633,10 +710,20 @@ private constructor(
          * Line 4 of the information conveyed from the originator of the message to the beneficiary.
          */
         fun originatorToBeneficiaryInformationLine4(
-            originatorToBeneficiaryInformationLine4: String
+            originatorToBeneficiaryInformationLine4: String?
         ) =
             originatorToBeneficiaryInformationLine4(
-                JsonField.of(originatorToBeneficiaryInformationLine4)
+                JsonField.ofNullable(originatorToBeneficiaryInformationLine4)
+            )
+
+        /**
+         * Line 4 of the information conveyed from the originator of the message to the beneficiary.
+         */
+        fun originatorToBeneficiaryInformationLine4(
+            originatorToBeneficiaryInformationLine4: Optional<String>
+        ) =
+            originatorToBeneficiaryInformationLine4(
+                originatorToBeneficiaryInformationLine4.orElse(null)
             )
 
         /**
@@ -696,29 +783,61 @@ private constructor(
 
         fun build(): InboundWireDrawdownRequest =
             InboundWireDrawdownRequest(
-                id,
-                amount,
-                beneficiaryAccountNumber,
-                beneficiaryAddressLine1,
-                beneficiaryAddressLine2,
-                beneficiaryAddressLine3,
-                beneficiaryName,
-                beneficiaryRoutingNumber,
-                createdAt,
-                currency,
-                messageToRecipient,
-                originatorAccountNumber,
-                originatorAddressLine1,
-                originatorAddressLine2,
-                originatorAddressLine3,
-                originatorName,
-                originatorRoutingNumber,
-                originatorToBeneficiaryInformationLine1,
-                originatorToBeneficiaryInformationLine2,
-                originatorToBeneficiaryInformationLine3,
-                originatorToBeneficiaryInformationLine4,
-                recipientAccountNumberId,
-                type,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(amount) { "`amount` is required but was not set" },
+                checkNotNull(beneficiaryAccountNumber) {
+                    "`beneficiaryAccountNumber` is required but was not set"
+                },
+                checkNotNull(beneficiaryAddressLine1) {
+                    "`beneficiaryAddressLine1` is required but was not set"
+                },
+                checkNotNull(beneficiaryAddressLine2) {
+                    "`beneficiaryAddressLine2` is required but was not set"
+                },
+                checkNotNull(beneficiaryAddressLine3) {
+                    "`beneficiaryAddressLine3` is required but was not set"
+                },
+                checkNotNull(beneficiaryName) { "`beneficiaryName` is required but was not set" },
+                checkNotNull(beneficiaryRoutingNumber) {
+                    "`beneficiaryRoutingNumber` is required but was not set"
+                },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(currency) { "`currency` is required but was not set" },
+                checkNotNull(messageToRecipient) {
+                    "`messageToRecipient` is required but was not set"
+                },
+                checkNotNull(originatorAccountNumber) {
+                    "`originatorAccountNumber` is required but was not set"
+                },
+                checkNotNull(originatorAddressLine1) {
+                    "`originatorAddressLine1` is required but was not set"
+                },
+                checkNotNull(originatorAddressLine2) {
+                    "`originatorAddressLine2` is required but was not set"
+                },
+                checkNotNull(originatorAddressLine3) {
+                    "`originatorAddressLine3` is required but was not set"
+                },
+                checkNotNull(originatorName) { "`originatorName` is required but was not set" },
+                checkNotNull(originatorRoutingNumber) {
+                    "`originatorRoutingNumber` is required but was not set"
+                },
+                checkNotNull(originatorToBeneficiaryInformationLine1) {
+                    "`originatorToBeneficiaryInformationLine1` is required but was not set"
+                },
+                checkNotNull(originatorToBeneficiaryInformationLine2) {
+                    "`originatorToBeneficiaryInformationLine2` is required but was not set"
+                },
+                checkNotNull(originatorToBeneficiaryInformationLine3) {
+                    "`originatorToBeneficiaryInformationLine3` is required but was not set"
+                },
+                checkNotNull(originatorToBeneficiaryInformationLine4) {
+                    "`originatorToBeneficiaryInformationLine4` is required but was not set"
+                },
+                checkNotNull(recipientAccountNumberId) {
+                    "`recipientAccountNumberId` is required but was not set"
+                },
+                checkNotNull(type) { "`type` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }

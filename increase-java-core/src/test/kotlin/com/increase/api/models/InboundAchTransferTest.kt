@@ -131,6 +131,7 @@ class InboundAchTransferTest {
                 .originatorCompanyId("0987654321")
                 .originatorCompanyName("PAYROLL COMPANY")
                 .originatorRoutingNumber("101050001")
+                .receiverIdNumber(null)
                 .receiverName("Ian Crease")
                 .standardEntryClassCode(
                     InboundAchTransfer.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT
@@ -270,6 +271,7 @@ class InboundAchTransferTest {
         assertThat(inboundAchTransfer.originatorCompanyId()).isEqualTo("0987654321")
         assertThat(inboundAchTransfer.originatorCompanyName()).isEqualTo("PAYROLL COMPANY")
         assertThat(inboundAchTransfer.originatorRoutingNumber()).isEqualTo("101050001")
+        assertThat(inboundAchTransfer.receiverIdNumber()).isEmpty
         assertThat(inboundAchTransfer.receiverName()).contains("Ian Crease")
         assertThat(inboundAchTransfer.standardEntryClassCode())
             .isEqualTo(InboundAchTransfer.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT)

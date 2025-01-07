@@ -19,6 +19,7 @@ class SimulationInboundFundsHoldReleaseResponseTest {
                 .currency(SimulationInboundFundsHoldReleaseResponse.Currency.CAD)
                 .heldTransactionId("transaction_uyrp7fld2ium70oa7oi")
                 .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
+                .releasedAt(null)
                 .status(SimulationInboundFundsHoldReleaseResponse.Status.HELD)
                 .type(SimulationInboundFundsHoldReleaseResponse.Type.INBOUND_FUNDS_HOLD)
                 .build()
@@ -36,6 +37,7 @@ class SimulationInboundFundsHoldReleaseResponseTest {
             .contains("transaction_uyrp7fld2ium70oa7oi")
         assertThat(simulationInboundFundsHoldReleaseResponse.pendingTransactionId())
             .contains("pending_transaction_k1sfetcau2qbvjbzgju4")
+        assertThat(simulationInboundFundsHoldReleaseResponse.releasedAt()).isEmpty
         assertThat(simulationInboundFundsHoldReleaseResponse.status())
             .isEqualTo(SimulationInboundFundsHoldReleaseResponse.Status.HELD)
         assertThat(simulationInboundFundsHoldReleaseResponse.type())

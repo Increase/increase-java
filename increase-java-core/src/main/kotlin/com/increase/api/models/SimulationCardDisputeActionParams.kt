@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -42,11 +43,17 @@ constructor(
     /** Why the dispute was rejected. Not required for accepting disputes. */
     fun explanation(): Optional<String> = body.explanation()
 
+    /** The status to move the dispute to. */
+    fun _status(): JsonField<Status> = body._status()
+
+    /** Why the dispute was rejected. Not required for accepting disputes. */
+    fun _explanation(): JsonField<String> = body._explanation()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     @JvmSynthetic internal fun getBody(): SimulationCardDisputeActionBody = body
 
@@ -65,22 +72,44 @@ constructor(
     class SimulationCardDisputeActionBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("status") private val status: Status,
-        @JsonProperty("explanation") private val explanation: String?,
+        @JsonProperty("status")
+        @ExcludeMissing
+        private val status: JsonField<Status> = JsonMissing.of(),
+        @JsonProperty("explanation")
+        @ExcludeMissing
+        private val explanation: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The status to move the dispute to. */
-        @JsonProperty("status") fun status(): Status = status
+        fun status(): Status = status.getRequired("status")
+
+        /** Why the dispute was rejected. Not required for accepting disputes. */
+        fun explanation(): Optional<String> =
+            Optional.ofNullable(explanation.getNullable("explanation"))
+
+        /** The status to move the dispute to. */
+        @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
         /** Why the dispute was rejected. Not required for accepting disputes. */
         @JsonProperty("explanation")
-        fun explanation(): Optional<String> = Optional.ofNullable(explanation)
+        @ExcludeMissing
+        fun _explanation(): JsonField<String> = explanation
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): SimulationCardDisputeActionBody = apply {
+            if (!validated) {
+                status()
+                explanation()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -91,8 +120,8 @@ constructor(
 
         class Builder {
 
-            private var status: Status? = null
-            private var explanation: String? = null
+            private var status: JsonField<Status>? = null
+            private var explanation: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -105,13 +134,18 @@ constructor(
                 }
 
             /** The status to move the dispute to. */
-            fun status(status: Status) = apply { this.status = status }
+            fun status(status: Status) = status(JsonField.of(status))
+
+            /** The status to move the dispute to. */
+            fun status(status: JsonField<Status>) = apply { this.status = status }
 
             /** Why the dispute was rejected. Not required for accepting disputes. */
-            fun explanation(explanation: String?) = apply { this.explanation = explanation }
+            fun explanation(explanation: String) = explanation(JsonField.of(explanation))
 
             /** Why the dispute was rejected. Not required for accepting disputes. */
-            fun explanation(explanation: Optional<String>) = explanation(explanation.orElse(null))
+            fun explanation(explanation: JsonField<String>) = apply {
+                this.explanation = explanation
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -190,11 +224,33 @@ constructor(
         /** The status to move the dispute to. */
         fun status(status: Status) = apply { body.status(status) }
 
-        /** Why the dispute was rejected. Not required for accepting disputes. */
-        fun explanation(explanation: String?) = apply { body.explanation(explanation) }
+        /** The status to move the dispute to. */
+        fun status(status: JsonField<Status>) = apply { body.status(status) }
 
         /** Why the dispute was rejected. Not required for accepting disputes. */
-        fun explanation(explanation: Optional<String>) = explanation(explanation.orElse(null))
+        fun explanation(explanation: String) = apply { body.explanation(explanation) }
+
+        /** Why the dispute was rejected. Not required for accepting disputes. */
+        fun explanation(explanation: JsonField<String>) = apply { body.explanation(explanation) }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -292,25 +348,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): SimulationCardDisputeActionParams =
