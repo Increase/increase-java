@@ -42,6 +42,8 @@ class CardPurchaseSupplementTest {
                         CardPurchaseSupplement.LineItem.builder()
                             .id("card_purchase_supplement_invoice_line_item_nf9760lz0apqy5retmqh")
                             .detailIndicator(CardPurchaseSupplement.LineItem.DetailIndicator.NORMAL)
+                            .discountAmount(null)
+                            .discountCurrency(null)
                             .discountTreatmentCode(
                                 CardPurchaseSupplement.LineItem.DiscountTreatmentCode
                                     .NO_LINE_ITEM_LEVEL_DISCOUNT_PROVIDED
@@ -50,6 +52,9 @@ class CardPurchaseSupplementTest {
                             .itemDescriptor("Coffee")
                             .itemQuantity("1.0")
                             .productCode("101")
+                            .salesTaxAmount(null)
+                            .salesTaxCurrency(null)
+                            .salesTaxRate(null)
                             .totalAmount(500L)
                             .totalAmountCurrency("USD")
                             .unitCost("5.0")
@@ -95,6 +100,8 @@ class CardPurchaseSupplementTest {
                 CardPurchaseSupplement.LineItem.builder()
                     .id("card_purchase_supplement_invoice_line_item_nf9760lz0apqy5retmqh")
                     .detailIndicator(CardPurchaseSupplement.LineItem.DetailIndicator.NORMAL)
+                    .discountAmount(null)
+                    .discountCurrency(null)
                     .discountTreatmentCode(
                         CardPurchaseSupplement.LineItem.DiscountTreatmentCode
                             .NO_LINE_ITEM_LEVEL_DISCOUNT_PROVIDED
@@ -103,6 +110,9 @@ class CardPurchaseSupplementTest {
                     .itemDescriptor("Coffee")
                     .itemQuantity("1.0")
                     .productCode("101")
+                    .salesTaxAmount(null)
+                    .salesTaxCurrency(null)
+                    .salesTaxRate(null)
                     .totalAmount(500L)
                     .totalAmountCurrency("USD")
                     .unitCost("5.0")

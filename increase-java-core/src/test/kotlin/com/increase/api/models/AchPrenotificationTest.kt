@@ -14,8 +14,15 @@ class AchPrenotificationTest {
             AchPrenotification.builder()
                 .id("ach_prenotification_ubjf9qqsxl3obbcn1u34")
                 .accountNumber("987654321")
+                .addendum(null)
+                .companyDescriptiveDate(null)
+                .companyDiscretionaryData(null)
+                .companyEntryDescription(null)
+                .companyName(null)
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .creditDebitIndicator(AchPrenotification.CreditDebitIndicator.CREDIT)
+                .effectiveDate(null)
+                .idempotencyKey(null)
                 .notificationsOfChange(
                     listOf(
                         AchPrenotification.NotificationsOfChange.builder()
@@ -44,10 +51,17 @@ class AchPrenotificationTest {
         assertThat(achPrenotification).isNotNull
         assertThat(achPrenotification.id()).isEqualTo("ach_prenotification_ubjf9qqsxl3obbcn1u34")
         assertThat(achPrenotification.accountNumber()).isEqualTo("987654321")
+        assertThat(achPrenotification.addendum()).isEmpty
+        assertThat(achPrenotification.companyDescriptiveDate()).isEmpty
+        assertThat(achPrenotification.companyDiscretionaryData()).isEmpty
+        assertThat(achPrenotification.companyEntryDescription()).isEmpty
+        assertThat(achPrenotification.companyName()).isEmpty
         assertThat(achPrenotification.createdAt())
             .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(achPrenotification.creditDebitIndicator())
             .contains(AchPrenotification.CreditDebitIndicator.CREDIT)
+        assertThat(achPrenotification.effectiveDate()).isEmpty
+        assertThat(achPrenotification.idempotencyKey()).isEmpty
         assertThat(achPrenotification.notificationsOfChange())
             .containsExactly(
                 AchPrenotification.NotificationsOfChange.builder()

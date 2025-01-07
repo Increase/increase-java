@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -90,11 +92,77 @@ constructor(
     /** The ID of an Account Number that will be passed to the wire's recipient */
     fun sourceAccountNumberId(): Optional<String> = body.sourceAccountNumberId()
 
+    /** The identifier for the account that will send the transfer. */
+    fun _accountId(): JsonField<String> = body._accountId()
+
+    /** The transfer amount in USD cents. */
+    fun _amount(): JsonField<Long> = body._amount()
+
+    /** The beneficiary's name. */
+    fun _beneficiaryName(): JsonField<String> = body._beneficiaryName()
+
+    /** The message that will show on the recipient's bank statement. */
+    fun _messageToRecipient(): JsonField<String> = body._messageToRecipient()
+
+    /** The account number for the destination account. */
+    fun _accountNumber(): JsonField<String> = body._accountNumber()
+
+    /** The beneficiary's address line 1. */
+    fun _beneficiaryAddressLine1(): JsonField<String> = body._beneficiaryAddressLine1()
+
+    /** The beneficiary's address line 2. */
+    fun _beneficiaryAddressLine2(): JsonField<String> = body._beneficiaryAddressLine2()
+
+    /** The beneficiary's address line 3. */
+    fun _beneficiaryAddressLine3(): JsonField<String> = body._beneficiaryAddressLine3()
+
+    /**
+     * The ID of an External Account to initiate a transfer to. If this parameter is provided,
+     * `account_number` and `routing_number` must be absent.
+     */
+    fun _externalAccountId(): JsonField<String> = body._externalAccountId()
+
+    /**
+     * The originator's address line 1. This is only necessary if you're transferring from a
+     * commingled account. Otherwise, we'll use the associated entity's details.
+     */
+    fun _originatorAddressLine1(): JsonField<String> = body._originatorAddressLine1()
+
+    /**
+     * The originator's address line 2. This is only necessary if you're transferring from a
+     * commingled account. Otherwise, we'll use the associated entity's details.
+     */
+    fun _originatorAddressLine2(): JsonField<String> = body._originatorAddressLine2()
+
+    /**
+     * The originator's address line 3. This is only necessary if you're transferring from a
+     * commingled account. Otherwise, we'll use the associated entity's details.
+     */
+    fun _originatorAddressLine3(): JsonField<String> = body._originatorAddressLine3()
+
+    /**
+     * The originator's name. This is only necessary if you're transferring from a commingled
+     * account. Otherwise, we'll use the associated entity's details.
+     */
+    fun _originatorName(): JsonField<String> = body._originatorName()
+
+    /** Whether the transfer requires explicit approval via the dashboard or API. */
+    fun _requireApproval(): JsonField<Boolean> = body._requireApproval()
+
+    /**
+     * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
+     * account.
+     */
+    fun _routingNumber(): JsonField<String> = body._routingNumber()
+
+    /** The ID of an Account Number that will be passed to the wire's recipient */
+    fun _sourceAccountNumberId(): JsonField<String> = body._sourceAccountNumberId()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     @JvmSynthetic internal fun getBody(): WireTransferCreateBody = body
 
@@ -106,110 +174,257 @@ constructor(
     class WireTransferCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("account_id") private val accountId: String,
-        @JsonProperty("amount") private val amount: Long,
-        @JsonProperty("beneficiary_name") private val beneficiaryName: String,
-        @JsonProperty("message_to_recipient") private val messageToRecipient: String,
-        @JsonProperty("account_number") private val accountNumber: String?,
-        @JsonProperty("beneficiary_address_line1") private val beneficiaryAddressLine1: String?,
-        @JsonProperty("beneficiary_address_line2") private val beneficiaryAddressLine2: String?,
-        @JsonProperty("beneficiary_address_line3") private val beneficiaryAddressLine3: String?,
-        @JsonProperty("external_account_id") private val externalAccountId: String?,
-        @JsonProperty("originator_address_line1") private val originatorAddressLine1: String?,
-        @JsonProperty("originator_address_line2") private val originatorAddressLine2: String?,
-        @JsonProperty("originator_address_line3") private val originatorAddressLine3: String?,
-        @JsonProperty("originator_name") private val originatorName: String?,
-        @JsonProperty("require_approval") private val requireApproval: Boolean?,
-        @JsonProperty("routing_number") private val routingNumber: String?,
-        @JsonProperty("source_account_number_id") private val sourceAccountNumberId: String?,
+        @JsonProperty("account_id")
+        @ExcludeMissing
+        private val accountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("amount")
+        @ExcludeMissing
+        private val amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("beneficiary_name")
+        @ExcludeMissing
+        private val beneficiaryName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("message_to_recipient")
+        @ExcludeMissing
+        private val messageToRecipient: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("account_number")
+        @ExcludeMissing
+        private val accountNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("beneficiary_address_line1")
+        @ExcludeMissing
+        private val beneficiaryAddressLine1: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("beneficiary_address_line2")
+        @ExcludeMissing
+        private val beneficiaryAddressLine2: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("beneficiary_address_line3")
+        @ExcludeMissing
+        private val beneficiaryAddressLine3: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("external_account_id")
+        @ExcludeMissing
+        private val externalAccountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("originator_address_line1")
+        @ExcludeMissing
+        private val originatorAddressLine1: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("originator_address_line2")
+        @ExcludeMissing
+        private val originatorAddressLine2: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("originator_address_line3")
+        @ExcludeMissing
+        private val originatorAddressLine3: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("originator_name")
+        @ExcludeMissing
+        private val originatorName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("require_approval")
+        @ExcludeMissing
+        private val requireApproval: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("routing_number")
+        @ExcludeMissing
+        private val routingNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("source_account_number_id")
+        @ExcludeMissing
+        private val sourceAccountNumberId: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The identifier for the account that will send the transfer. */
-        @JsonProperty("account_id") fun accountId(): String = accountId
+        fun accountId(): String = accountId.getRequired("account_id")
 
         /** The transfer amount in USD cents. */
-        @JsonProperty("amount") fun amount(): Long = amount
+        fun amount(): Long = amount.getRequired("amount")
 
         /** The beneficiary's name. */
-        @JsonProperty("beneficiary_name") fun beneficiaryName(): String = beneficiaryName
+        fun beneficiaryName(): String = beneficiaryName.getRequired("beneficiary_name")
 
         /** The message that will show on the recipient's bank statement. */
-        @JsonProperty("message_to_recipient") fun messageToRecipient(): String = messageToRecipient
+        fun messageToRecipient(): String = messageToRecipient.getRequired("message_to_recipient")
+
+        /** The account number for the destination account. */
+        fun accountNumber(): Optional<String> =
+            Optional.ofNullable(accountNumber.getNullable("account_number"))
+
+        /** The beneficiary's address line 1. */
+        fun beneficiaryAddressLine1(): Optional<String> =
+            Optional.ofNullable(beneficiaryAddressLine1.getNullable("beneficiary_address_line1"))
+
+        /** The beneficiary's address line 2. */
+        fun beneficiaryAddressLine2(): Optional<String> =
+            Optional.ofNullable(beneficiaryAddressLine2.getNullable("beneficiary_address_line2"))
+
+        /** The beneficiary's address line 3. */
+        fun beneficiaryAddressLine3(): Optional<String> =
+            Optional.ofNullable(beneficiaryAddressLine3.getNullable("beneficiary_address_line3"))
+
+        /**
+         * The ID of an External Account to initiate a transfer to. If this parameter is provided,
+         * `account_number` and `routing_number` must be absent.
+         */
+        fun externalAccountId(): Optional<String> =
+            Optional.ofNullable(externalAccountId.getNullable("external_account_id"))
+
+        /**
+         * The originator's address line 1. This is only necessary if you're transferring from a
+         * commingled account. Otherwise, we'll use the associated entity's details.
+         */
+        fun originatorAddressLine1(): Optional<String> =
+            Optional.ofNullable(originatorAddressLine1.getNullable("originator_address_line1"))
+
+        /**
+         * The originator's address line 2. This is only necessary if you're transferring from a
+         * commingled account. Otherwise, we'll use the associated entity's details.
+         */
+        fun originatorAddressLine2(): Optional<String> =
+            Optional.ofNullable(originatorAddressLine2.getNullable("originator_address_line2"))
+
+        /**
+         * The originator's address line 3. This is only necessary if you're transferring from a
+         * commingled account. Otherwise, we'll use the associated entity's details.
+         */
+        fun originatorAddressLine3(): Optional<String> =
+            Optional.ofNullable(originatorAddressLine3.getNullable("originator_address_line3"))
+
+        /**
+         * The originator's name. This is only necessary if you're transferring from a commingled
+         * account. Otherwise, we'll use the associated entity's details.
+         */
+        fun originatorName(): Optional<String> =
+            Optional.ofNullable(originatorName.getNullable("originator_name"))
+
+        /** Whether the transfer requires explicit approval via the dashboard or API. */
+        fun requireApproval(): Optional<Boolean> =
+            Optional.ofNullable(requireApproval.getNullable("require_approval"))
+
+        /**
+         * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
+         * account.
+         */
+        fun routingNumber(): Optional<String> =
+            Optional.ofNullable(routingNumber.getNullable("routing_number"))
+
+        /** The ID of an Account Number that will be passed to the wire's recipient */
+        fun sourceAccountNumberId(): Optional<String> =
+            Optional.ofNullable(sourceAccountNumberId.getNullable("source_account_number_id"))
+
+        /** The identifier for the account that will send the transfer. */
+        @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
+
+        /** The transfer amount in USD cents. */
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+        /** The beneficiary's name. */
+        @JsonProperty("beneficiary_name")
+        @ExcludeMissing
+        fun _beneficiaryName(): JsonField<String> = beneficiaryName
+
+        /** The message that will show on the recipient's bank statement. */
+        @JsonProperty("message_to_recipient")
+        @ExcludeMissing
+        fun _messageToRecipient(): JsonField<String> = messageToRecipient
 
         /** The account number for the destination account. */
         @JsonProperty("account_number")
-        fun accountNumber(): Optional<String> = Optional.ofNullable(accountNumber)
+        @ExcludeMissing
+        fun _accountNumber(): JsonField<String> = accountNumber
 
         /** The beneficiary's address line 1. */
         @JsonProperty("beneficiary_address_line1")
-        fun beneficiaryAddressLine1(): Optional<String> =
-            Optional.ofNullable(beneficiaryAddressLine1)
+        @ExcludeMissing
+        fun _beneficiaryAddressLine1(): JsonField<String> = beneficiaryAddressLine1
 
         /** The beneficiary's address line 2. */
         @JsonProperty("beneficiary_address_line2")
-        fun beneficiaryAddressLine2(): Optional<String> =
-            Optional.ofNullable(beneficiaryAddressLine2)
+        @ExcludeMissing
+        fun _beneficiaryAddressLine2(): JsonField<String> = beneficiaryAddressLine2
 
         /** The beneficiary's address line 3. */
         @JsonProperty("beneficiary_address_line3")
-        fun beneficiaryAddressLine3(): Optional<String> =
-            Optional.ofNullable(beneficiaryAddressLine3)
+        @ExcludeMissing
+        fun _beneficiaryAddressLine3(): JsonField<String> = beneficiaryAddressLine3
 
         /**
          * The ID of an External Account to initiate a transfer to. If this parameter is provided,
          * `account_number` and `routing_number` must be absent.
          */
         @JsonProperty("external_account_id")
-        fun externalAccountId(): Optional<String> = Optional.ofNullable(externalAccountId)
+        @ExcludeMissing
+        fun _externalAccountId(): JsonField<String> = externalAccountId
 
         /**
          * The originator's address line 1. This is only necessary if you're transferring from a
          * commingled account. Otherwise, we'll use the associated entity's details.
          */
         @JsonProperty("originator_address_line1")
-        fun originatorAddressLine1(): Optional<String> = Optional.ofNullable(originatorAddressLine1)
+        @ExcludeMissing
+        fun _originatorAddressLine1(): JsonField<String> = originatorAddressLine1
 
         /**
          * The originator's address line 2. This is only necessary if you're transferring from a
          * commingled account. Otherwise, we'll use the associated entity's details.
          */
         @JsonProperty("originator_address_line2")
-        fun originatorAddressLine2(): Optional<String> = Optional.ofNullable(originatorAddressLine2)
+        @ExcludeMissing
+        fun _originatorAddressLine2(): JsonField<String> = originatorAddressLine2
 
         /**
          * The originator's address line 3. This is only necessary if you're transferring from a
          * commingled account. Otherwise, we'll use the associated entity's details.
          */
         @JsonProperty("originator_address_line3")
-        fun originatorAddressLine3(): Optional<String> = Optional.ofNullable(originatorAddressLine3)
+        @ExcludeMissing
+        fun _originatorAddressLine3(): JsonField<String> = originatorAddressLine3
 
         /**
          * The originator's name. This is only necessary if you're transferring from a commingled
          * account. Otherwise, we'll use the associated entity's details.
          */
         @JsonProperty("originator_name")
-        fun originatorName(): Optional<String> = Optional.ofNullable(originatorName)
+        @ExcludeMissing
+        fun _originatorName(): JsonField<String> = originatorName
 
         /** Whether the transfer requires explicit approval via the dashboard or API. */
         @JsonProperty("require_approval")
-        fun requireApproval(): Optional<Boolean> = Optional.ofNullable(requireApproval)
+        @ExcludeMissing
+        fun _requireApproval(): JsonField<Boolean> = requireApproval
 
         /**
          * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
          * account.
          */
         @JsonProperty("routing_number")
-        fun routingNumber(): Optional<String> = Optional.ofNullable(routingNumber)
+        @ExcludeMissing
+        fun _routingNumber(): JsonField<String> = routingNumber
 
         /** The ID of an Account Number that will be passed to the wire's recipient */
         @JsonProperty("source_account_number_id")
-        fun sourceAccountNumberId(): Optional<String> = Optional.ofNullable(sourceAccountNumberId)
+        @ExcludeMissing
+        fun _sourceAccountNumberId(): JsonField<String> = sourceAccountNumberId
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): WireTransferCreateBody = apply {
+            if (!validated) {
+                accountId()
+                amount()
+                beneficiaryName()
+                messageToRecipient()
+                accountNumber()
+                beneficiaryAddressLine1()
+                beneficiaryAddressLine2()
+                beneficiaryAddressLine3()
+                externalAccountId()
+                originatorAddressLine1()
+                originatorAddressLine2()
+                originatorAddressLine3()
+                originatorName()
+                requireApproval()
+                routingNumber()
+                sourceAccountNumberId()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -220,22 +435,22 @@ constructor(
 
         class Builder {
 
-            private var accountId: String? = null
-            private var amount: Long? = null
-            private var beneficiaryName: String? = null
-            private var messageToRecipient: String? = null
-            private var accountNumber: String? = null
-            private var beneficiaryAddressLine1: String? = null
-            private var beneficiaryAddressLine2: String? = null
-            private var beneficiaryAddressLine3: String? = null
-            private var externalAccountId: String? = null
-            private var originatorAddressLine1: String? = null
-            private var originatorAddressLine2: String? = null
-            private var originatorAddressLine3: String? = null
-            private var originatorName: String? = null
-            private var requireApproval: Boolean? = null
-            private var routingNumber: String? = null
-            private var sourceAccountNumberId: String? = null
+            private var accountId: JsonField<String>? = null
+            private var amount: JsonField<Long>? = null
+            private var beneficiaryName: JsonField<String>? = null
+            private var messageToRecipient: JsonField<String>? = null
+            private var accountNumber: JsonField<String> = JsonMissing.of()
+            private var beneficiaryAddressLine1: JsonField<String> = JsonMissing.of()
+            private var beneficiaryAddressLine2: JsonField<String> = JsonMissing.of()
+            private var beneficiaryAddressLine3: JsonField<String> = JsonMissing.of()
+            private var externalAccountId: JsonField<String> = JsonMissing.of()
+            private var originatorAddressLine1: JsonField<String> = JsonMissing.of()
+            private var originatorAddressLine2: JsonField<String> = JsonMissing.of()
+            private var originatorAddressLine3: JsonField<String> = JsonMissing.of()
+            private var originatorName: JsonField<String> = JsonMissing.of()
+            private var requireApproval: JsonField<Boolean> = JsonMissing.of()
+            private var routingNumber: JsonField<String> = JsonMissing.of()
+            private var sourceAccountNumberId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -260,165 +475,176 @@ constructor(
             }
 
             /** The identifier for the account that will send the transfer. */
-            fun accountId(accountId: String) = apply { this.accountId = accountId }
+            fun accountId(accountId: String) = accountId(JsonField.of(accountId))
+
+            /** The identifier for the account that will send the transfer. */
+            fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
             /** The transfer amount in USD cents. */
-            fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long) = amount(JsonField.of(amount))
+
+            /** The transfer amount in USD cents. */
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /** The beneficiary's name. */
-            fun beneficiaryName(beneficiaryName: String) = apply {
+            fun beneficiaryName(beneficiaryName: String) =
+                beneficiaryName(JsonField.of(beneficiaryName))
+
+            /** The beneficiary's name. */
+            fun beneficiaryName(beneficiaryName: JsonField<String>) = apply {
                 this.beneficiaryName = beneficiaryName
             }
 
             /** The message that will show on the recipient's bank statement. */
-            fun messageToRecipient(messageToRecipient: String) = apply {
+            fun messageToRecipient(messageToRecipient: String) =
+                messageToRecipient(JsonField.of(messageToRecipient))
+
+            /** The message that will show on the recipient's bank statement. */
+            fun messageToRecipient(messageToRecipient: JsonField<String>) = apply {
                 this.messageToRecipient = messageToRecipient
             }
 
             /** The account number for the destination account. */
-            fun accountNumber(accountNumber: String?) = apply { this.accountNumber = accountNumber }
+            fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
 
             /** The account number for the destination account. */
-            fun accountNumber(accountNumber: Optional<String>) =
-                accountNumber(accountNumber.orElse(null))
+            fun accountNumber(accountNumber: JsonField<String>) = apply {
+                this.accountNumber = accountNumber
+            }
 
             /** The beneficiary's address line 1. */
-            fun beneficiaryAddressLine1(beneficiaryAddressLine1: String?) = apply {
+            fun beneficiaryAddressLine1(beneficiaryAddressLine1: String) =
+                beneficiaryAddressLine1(JsonField.of(beneficiaryAddressLine1))
+
+            /** The beneficiary's address line 1. */
+            fun beneficiaryAddressLine1(beneficiaryAddressLine1: JsonField<String>) = apply {
                 this.beneficiaryAddressLine1 = beneficiaryAddressLine1
             }
 
-            /** The beneficiary's address line 1. */
-            fun beneficiaryAddressLine1(beneficiaryAddressLine1: Optional<String>) =
-                beneficiaryAddressLine1(beneficiaryAddressLine1.orElse(null))
+            /** The beneficiary's address line 2. */
+            fun beneficiaryAddressLine2(beneficiaryAddressLine2: String) =
+                beneficiaryAddressLine2(JsonField.of(beneficiaryAddressLine2))
 
             /** The beneficiary's address line 2. */
-            fun beneficiaryAddressLine2(beneficiaryAddressLine2: String?) = apply {
+            fun beneficiaryAddressLine2(beneficiaryAddressLine2: JsonField<String>) = apply {
                 this.beneficiaryAddressLine2 = beneficiaryAddressLine2
             }
 
-            /** The beneficiary's address line 2. */
-            fun beneficiaryAddressLine2(beneficiaryAddressLine2: Optional<String>) =
-                beneficiaryAddressLine2(beneficiaryAddressLine2.orElse(null))
+            /** The beneficiary's address line 3. */
+            fun beneficiaryAddressLine3(beneficiaryAddressLine3: String) =
+                beneficiaryAddressLine3(JsonField.of(beneficiaryAddressLine3))
 
             /** The beneficiary's address line 3. */
-            fun beneficiaryAddressLine3(beneficiaryAddressLine3: String?) = apply {
+            fun beneficiaryAddressLine3(beneficiaryAddressLine3: JsonField<String>) = apply {
                 this.beneficiaryAddressLine3 = beneficiaryAddressLine3
             }
-
-            /** The beneficiary's address line 3. */
-            fun beneficiaryAddressLine3(beneficiaryAddressLine3: Optional<String>) =
-                beneficiaryAddressLine3(beneficiaryAddressLine3.orElse(null))
 
             /**
              * The ID of an External Account to initiate a transfer to. If this parameter is
              * provided, `account_number` and `routing_number` must be absent.
              */
-            fun externalAccountId(externalAccountId: String?) = apply {
+            fun externalAccountId(externalAccountId: String) =
+                externalAccountId(JsonField.of(externalAccountId))
+
+            /**
+             * The ID of an External Account to initiate a transfer to. If this parameter is
+             * provided, `account_number` and `routing_number` must be absent.
+             */
+            fun externalAccountId(externalAccountId: JsonField<String>) = apply {
                 this.externalAccountId = externalAccountId
             }
 
             /**
-             * The ID of an External Account to initiate a transfer to. If this parameter is
-             * provided, `account_number` and `routing_number` must be absent.
+             * The originator's address line 1. This is only necessary if you're transferring from a
+             * commingled account. Otherwise, we'll use the associated entity's details.
              */
-            fun externalAccountId(externalAccountId: Optional<String>) =
-                externalAccountId(externalAccountId.orElse(null))
+            fun originatorAddressLine1(originatorAddressLine1: String) =
+                originatorAddressLine1(JsonField.of(originatorAddressLine1))
 
             /**
              * The originator's address line 1. This is only necessary if you're transferring from a
              * commingled account. Otherwise, we'll use the associated entity's details.
              */
-            fun originatorAddressLine1(originatorAddressLine1: String?) = apply {
+            fun originatorAddressLine1(originatorAddressLine1: JsonField<String>) = apply {
                 this.originatorAddressLine1 = originatorAddressLine1
             }
 
             /**
-             * The originator's address line 1. This is only necessary if you're transferring from a
+             * The originator's address line 2. This is only necessary if you're transferring from a
              * commingled account. Otherwise, we'll use the associated entity's details.
              */
-            fun originatorAddressLine1(originatorAddressLine1: Optional<String>) =
-                originatorAddressLine1(originatorAddressLine1.orElse(null))
+            fun originatorAddressLine2(originatorAddressLine2: String) =
+                originatorAddressLine2(JsonField.of(originatorAddressLine2))
 
             /**
              * The originator's address line 2. This is only necessary if you're transferring from a
              * commingled account. Otherwise, we'll use the associated entity's details.
              */
-            fun originatorAddressLine2(originatorAddressLine2: String?) = apply {
+            fun originatorAddressLine2(originatorAddressLine2: JsonField<String>) = apply {
                 this.originatorAddressLine2 = originatorAddressLine2
             }
 
             /**
-             * The originator's address line 2. This is only necessary if you're transferring from a
+             * The originator's address line 3. This is only necessary if you're transferring from a
              * commingled account. Otherwise, we'll use the associated entity's details.
              */
-            fun originatorAddressLine2(originatorAddressLine2: Optional<String>) =
-                originatorAddressLine2(originatorAddressLine2.orElse(null))
+            fun originatorAddressLine3(originatorAddressLine3: String) =
+                originatorAddressLine3(JsonField.of(originatorAddressLine3))
 
             /**
              * The originator's address line 3. This is only necessary if you're transferring from a
              * commingled account. Otherwise, we'll use the associated entity's details.
              */
-            fun originatorAddressLine3(originatorAddressLine3: String?) = apply {
+            fun originatorAddressLine3(originatorAddressLine3: JsonField<String>) = apply {
                 this.originatorAddressLine3 = originatorAddressLine3
             }
 
             /**
-             * The originator's address line 3. This is only necessary if you're transferring from a
+             * The originator's name. This is only necessary if you're transferring from a
              * commingled account. Otherwise, we'll use the associated entity's details.
              */
-            fun originatorAddressLine3(originatorAddressLine3: Optional<String>) =
-                originatorAddressLine3(originatorAddressLine3.orElse(null))
+            fun originatorName(originatorName: String) =
+                originatorName(JsonField.of(originatorName))
 
             /**
              * The originator's name. This is only necessary if you're transferring from a
              * commingled account. Otherwise, we'll use the associated entity's details.
              */
-            fun originatorName(originatorName: String?) = apply {
+            fun originatorName(originatorName: JsonField<String>) = apply {
                 this.originatorName = originatorName
-            }
-
-            /**
-             * The originator's name. This is only necessary if you're transferring from a
-             * commingled account. Otherwise, we'll use the associated entity's details.
-             */
-            fun originatorName(originatorName: Optional<String>) =
-                originatorName(originatorName.orElse(null))
-
-            /** Whether the transfer requires explicit approval via the dashboard or API. */
-            fun requireApproval(requireApproval: Boolean?) = apply {
-                this.requireApproval = requireApproval
             }
 
             /** Whether the transfer requires explicit approval via the dashboard or API. */
             fun requireApproval(requireApproval: Boolean) =
-                requireApproval(requireApproval as Boolean?)
+                requireApproval(JsonField.of(requireApproval))
 
             /** Whether the transfer requires explicit approval via the dashboard or API. */
-            @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
-            fun requireApproval(requireApproval: Optional<Boolean>) =
-                requireApproval(requireApproval.orElse(null) as Boolean?)
+            fun requireApproval(requireApproval: JsonField<Boolean>) = apply {
+                this.requireApproval = requireApproval
+            }
 
             /**
              * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the
              * destination account.
              */
-            fun routingNumber(routingNumber: String?) = apply { this.routingNumber = routingNumber }
+            fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
 
             /**
              * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the
              * destination account.
              */
-            fun routingNumber(routingNumber: Optional<String>) =
-                routingNumber(routingNumber.orElse(null))
-
-            /** The ID of an Account Number that will be passed to the wire's recipient */
-            fun sourceAccountNumberId(sourceAccountNumberId: String?) = apply {
-                this.sourceAccountNumberId = sourceAccountNumberId
+            fun routingNumber(routingNumber: JsonField<String>) = apply {
+                this.routingNumber = routingNumber
             }
 
             /** The ID of an Account Number that will be passed to the wire's recipient */
-            fun sourceAccountNumberId(sourceAccountNumberId: Optional<String>) =
-                sourceAccountNumberId(sourceAccountNumberId.orElse(null))
+            fun sourceAccountNumberId(sourceAccountNumberId: String) =
+                sourceAccountNumberId(JsonField.of(sourceAccountNumberId))
+
+            /** The ID of an Account Number that will be passed to the wire's recipient */
+            fun sourceAccountNumberId(sourceAccountNumberId: JsonField<String>) = apply {
+                this.sourceAccountNumberId = sourceAccountNumberId
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -507,11 +733,22 @@ constructor(
         /** The identifier for the account that will send the transfer. */
         fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
+        /** The identifier for the account that will send the transfer. */
+        fun accountId(accountId: JsonField<String>) = apply { body.accountId(accountId) }
+
         /** The transfer amount in USD cents. */
         fun amount(amount: Long) = apply { body.amount(amount) }
 
+        /** The transfer amount in USD cents. */
+        fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
+
         /** The beneficiary's name. */
         fun beneficiaryName(beneficiaryName: String) = apply {
+            body.beneficiaryName(beneficiaryName)
+        }
+
+        /** The beneficiary's name. */
+        fun beneficiaryName(beneficiaryName: JsonField<String>) = apply {
             body.beneficiaryName(beneficiaryName)
         }
 
@@ -520,45 +757,54 @@ constructor(
             body.messageToRecipient(messageToRecipient)
         }
 
-        /** The account number for the destination account. */
-        fun accountNumber(accountNumber: String?) = apply { body.accountNumber(accountNumber) }
+        /** The message that will show on the recipient's bank statement. */
+        fun messageToRecipient(messageToRecipient: JsonField<String>) = apply {
+            body.messageToRecipient(messageToRecipient)
+        }
 
         /** The account number for the destination account. */
-        fun accountNumber(accountNumber: Optional<String>) =
-            accountNumber(accountNumber.orElse(null))
+        fun accountNumber(accountNumber: String) = apply { body.accountNumber(accountNumber) }
+
+        /** The account number for the destination account. */
+        fun accountNumber(accountNumber: JsonField<String>) = apply {
+            body.accountNumber(accountNumber)
+        }
 
         /** The beneficiary's address line 1. */
-        fun beneficiaryAddressLine1(beneficiaryAddressLine1: String?) = apply {
+        fun beneficiaryAddressLine1(beneficiaryAddressLine1: String) = apply {
             body.beneficiaryAddressLine1(beneficiaryAddressLine1)
         }
 
         /** The beneficiary's address line 1. */
-        fun beneficiaryAddressLine1(beneficiaryAddressLine1: Optional<String>) =
-            beneficiaryAddressLine1(beneficiaryAddressLine1.orElse(null))
+        fun beneficiaryAddressLine1(beneficiaryAddressLine1: JsonField<String>) = apply {
+            body.beneficiaryAddressLine1(beneficiaryAddressLine1)
+        }
 
         /** The beneficiary's address line 2. */
-        fun beneficiaryAddressLine2(beneficiaryAddressLine2: String?) = apply {
+        fun beneficiaryAddressLine2(beneficiaryAddressLine2: String) = apply {
             body.beneficiaryAddressLine2(beneficiaryAddressLine2)
         }
 
         /** The beneficiary's address line 2. */
-        fun beneficiaryAddressLine2(beneficiaryAddressLine2: Optional<String>) =
-            beneficiaryAddressLine2(beneficiaryAddressLine2.orElse(null))
+        fun beneficiaryAddressLine2(beneficiaryAddressLine2: JsonField<String>) = apply {
+            body.beneficiaryAddressLine2(beneficiaryAddressLine2)
+        }
 
         /** The beneficiary's address line 3. */
-        fun beneficiaryAddressLine3(beneficiaryAddressLine3: String?) = apply {
+        fun beneficiaryAddressLine3(beneficiaryAddressLine3: String) = apply {
             body.beneficiaryAddressLine3(beneficiaryAddressLine3)
         }
 
         /** The beneficiary's address line 3. */
-        fun beneficiaryAddressLine3(beneficiaryAddressLine3: Optional<String>) =
-            beneficiaryAddressLine3(beneficiaryAddressLine3.orElse(null))
+        fun beneficiaryAddressLine3(beneficiaryAddressLine3: JsonField<String>) = apply {
+            body.beneficiaryAddressLine3(beneficiaryAddressLine3)
+        }
 
         /**
          * The ID of an External Account to initiate a transfer to. If this parameter is provided,
          * `account_number` and `routing_number` must be absent.
          */
-        fun externalAccountId(externalAccountId: String?) = apply {
+        fun externalAccountId(externalAccountId: String) = apply {
             body.externalAccountId(externalAccountId)
         }
 
@@ -566,14 +812,15 @@ constructor(
          * The ID of an External Account to initiate a transfer to. If this parameter is provided,
          * `account_number` and `routing_number` must be absent.
          */
-        fun externalAccountId(externalAccountId: Optional<String>) =
-            externalAccountId(externalAccountId.orElse(null))
+        fun externalAccountId(externalAccountId: JsonField<String>) = apply {
+            body.externalAccountId(externalAccountId)
+        }
 
         /**
          * The originator's address line 1. This is only necessary if you're transferring from a
          * commingled account. Otherwise, we'll use the associated entity's details.
          */
-        fun originatorAddressLine1(originatorAddressLine1: String?) = apply {
+        fun originatorAddressLine1(originatorAddressLine1: String) = apply {
             body.originatorAddressLine1(originatorAddressLine1)
         }
 
@@ -581,14 +828,15 @@ constructor(
          * The originator's address line 1. This is only necessary if you're transferring from a
          * commingled account. Otherwise, we'll use the associated entity's details.
          */
-        fun originatorAddressLine1(originatorAddressLine1: Optional<String>) =
-            originatorAddressLine1(originatorAddressLine1.orElse(null))
+        fun originatorAddressLine1(originatorAddressLine1: JsonField<String>) = apply {
+            body.originatorAddressLine1(originatorAddressLine1)
+        }
 
         /**
          * The originator's address line 2. This is only necessary if you're transferring from a
          * commingled account. Otherwise, we'll use the associated entity's details.
          */
-        fun originatorAddressLine2(originatorAddressLine2: String?) = apply {
+        fun originatorAddressLine2(originatorAddressLine2: String) = apply {
             body.originatorAddressLine2(originatorAddressLine2)
         }
 
@@ -596,14 +844,15 @@ constructor(
          * The originator's address line 2. This is only necessary if you're transferring from a
          * commingled account. Otherwise, we'll use the associated entity's details.
          */
-        fun originatorAddressLine2(originatorAddressLine2: Optional<String>) =
-            originatorAddressLine2(originatorAddressLine2.orElse(null))
+        fun originatorAddressLine2(originatorAddressLine2: JsonField<String>) = apply {
+            body.originatorAddressLine2(originatorAddressLine2)
+        }
 
         /**
          * The originator's address line 3. This is only necessary if you're transferring from a
          * commingled account. Otherwise, we'll use the associated entity's details.
          */
-        fun originatorAddressLine3(originatorAddressLine3: String?) = apply {
+        fun originatorAddressLine3(originatorAddressLine3: String) = apply {
             body.originatorAddressLine3(originatorAddressLine3)
         }
 
@@ -611,56 +860,76 @@ constructor(
          * The originator's address line 3. This is only necessary if you're transferring from a
          * commingled account. Otherwise, we'll use the associated entity's details.
          */
-        fun originatorAddressLine3(originatorAddressLine3: Optional<String>) =
-            originatorAddressLine3(originatorAddressLine3.orElse(null))
+        fun originatorAddressLine3(originatorAddressLine3: JsonField<String>) = apply {
+            body.originatorAddressLine3(originatorAddressLine3)
+        }
 
         /**
          * The originator's name. This is only necessary if you're transferring from a commingled
          * account. Otherwise, we'll use the associated entity's details.
          */
-        fun originatorName(originatorName: String?) = apply { body.originatorName(originatorName) }
+        fun originatorName(originatorName: String) = apply { body.originatorName(originatorName) }
 
         /**
          * The originator's name. This is only necessary if you're transferring from a commingled
          * account. Otherwise, we'll use the associated entity's details.
          */
-        fun originatorName(originatorName: Optional<String>) =
-            originatorName(originatorName.orElse(null))
+        fun originatorName(originatorName: JsonField<String>) = apply {
+            body.originatorName(originatorName)
+        }
 
         /** Whether the transfer requires explicit approval via the dashboard or API. */
-        fun requireApproval(requireApproval: Boolean?) = apply {
+        fun requireApproval(requireApproval: Boolean) = apply {
             body.requireApproval(requireApproval)
         }
 
         /** Whether the transfer requires explicit approval via the dashboard or API. */
-        fun requireApproval(requireApproval: Boolean) = requireApproval(requireApproval as Boolean?)
-
-        /** Whether the transfer requires explicit approval via the dashboard or API. */
-        @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
-        fun requireApproval(requireApproval: Optional<Boolean>) =
-            requireApproval(requireApproval.orElse(null) as Boolean?)
+        fun requireApproval(requireApproval: JsonField<Boolean>) = apply {
+            body.requireApproval(requireApproval)
+        }
 
         /**
          * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
          * account.
          */
-        fun routingNumber(routingNumber: String?) = apply { body.routingNumber(routingNumber) }
+        fun routingNumber(routingNumber: String) = apply { body.routingNumber(routingNumber) }
 
         /**
          * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
          * account.
          */
-        fun routingNumber(routingNumber: Optional<String>) =
-            routingNumber(routingNumber.orElse(null))
+        fun routingNumber(routingNumber: JsonField<String>) = apply {
+            body.routingNumber(routingNumber)
+        }
 
         /** The ID of an Account Number that will be passed to the wire's recipient */
-        fun sourceAccountNumberId(sourceAccountNumberId: String?) = apply {
+        fun sourceAccountNumberId(sourceAccountNumberId: String) = apply {
             body.sourceAccountNumberId(sourceAccountNumberId)
         }
 
         /** The ID of an Account Number that will be passed to the wire's recipient */
-        fun sourceAccountNumberId(sourceAccountNumberId: Optional<String>) =
-            sourceAccountNumberId(sourceAccountNumberId.orElse(null))
+        fun sourceAccountNumberId(sourceAccountNumberId: JsonField<String>) = apply {
+            body.sourceAccountNumberId(sourceAccountNumberId)
+        }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -758,25 +1027,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): WireTransferCreateParams =

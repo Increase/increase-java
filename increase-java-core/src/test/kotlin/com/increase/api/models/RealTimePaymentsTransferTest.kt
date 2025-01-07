@@ -55,8 +55,12 @@ class RealTimePaymentsTransferTest {
                 )
                 .creditorName("Ian Crease")
                 .currency(RealTimePaymentsTransfer.Currency.CAD)
+                .debtorName(null)
                 .destinationAccountNumber("987654321")
                 .destinationRoutingNumber("101050001")
+                .externalAccountId(null)
+                .idempotencyKey(null)
+                .pendingTransactionId(null)
                 .rejection(
                     RealTimePaymentsTransfer.Rejection.builder()
                         .rejectReasonAdditionalInformation("reject_reason_additional_information")
@@ -77,6 +81,8 @@ class RealTimePaymentsTransferTest {
                 )
                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
                 .type(RealTimePaymentsTransfer.Type.REAL_TIME_PAYMENTS_TRANSFER)
+                .ultimateCreditorName(null)
+                .ultimateDebtorName(null)
                 .build()
         assertThat(realTimePaymentsTransfer).isNotNull
         assertThat(realTimePaymentsTransfer.id())
@@ -129,8 +135,12 @@ class RealTimePaymentsTransferTest {
         assertThat(realTimePaymentsTransfer.creditorName()).isEqualTo("Ian Crease")
         assertThat(realTimePaymentsTransfer.currency())
             .isEqualTo(RealTimePaymentsTransfer.Currency.CAD)
+        assertThat(realTimePaymentsTransfer.debtorName()).isEmpty
         assertThat(realTimePaymentsTransfer.destinationAccountNumber()).isEqualTo("987654321")
         assertThat(realTimePaymentsTransfer.destinationRoutingNumber()).isEqualTo("101050001")
+        assertThat(realTimePaymentsTransfer.externalAccountId()).isEmpty
+        assertThat(realTimePaymentsTransfer.idempotencyKey()).isEmpty
+        assertThat(realTimePaymentsTransfer.pendingTransactionId()).isEmpty
         assertThat(realTimePaymentsTransfer.rejection())
             .contains(
                 RealTimePaymentsTransfer.Rejection.builder()
@@ -157,5 +167,7 @@ class RealTimePaymentsTransferTest {
             .contains("transaction_uyrp7fld2ium70oa7oi")
         assertThat(realTimePaymentsTransfer.type())
             .isEqualTo(RealTimePaymentsTransfer.Type.REAL_TIME_PAYMENTS_TRANSFER)
+        assertThat(realTimePaymentsTransfer.ultimateCreditorName()).isEmpty
+        assertThat(realTimePaymentsTransfer.ultimateDebtorName()).isEmpty
     }
 }

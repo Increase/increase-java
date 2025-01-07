@@ -68,28 +68,32 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The Digital Wallet Token identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** The identifier for the Card this Digital Wallet Token belongs to. */
-    @JsonProperty("card_id") @ExcludeMissing fun _cardId() = cardId
+    @JsonProperty("card_id") @ExcludeMissing fun _cardId(): JsonField<String> = cardId
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card was
      * created.
      */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** This indicates if payments can be made with the Digital Wallet Token. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /** The digital wallet app being used. */
-    @JsonProperty("token_requestor") @ExcludeMissing fun _tokenRequestor() = tokenRequestor
+    @JsonProperty("token_requestor")
+    @ExcludeMissing
+    fun _tokenRequestor(): JsonField<TokenRequestor> = tokenRequestor
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `digital_wallet_token`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -118,12 +122,12 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var cardId: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var tokenRequestor: JsonField<TokenRequestor> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var cardId: JsonField<String>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var status: JsonField<Status>? = null
+        private var tokenRequestor: JsonField<TokenRequestor>? = null
+        private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -209,12 +213,12 @@ private constructor(
 
         fun build(): DigitalWalletToken =
             DigitalWalletToken(
-                id,
-                cardId,
-                createdAt,
-                status,
-                tokenRequestor,
-                type,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(cardId) { "`cardId` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(status) { "`status` is required but was not set" },
+                checkNotNull(tokenRequestor) { "`tokenRequestor` is required but was not set" },
+                checkNotNull(type) { "`type` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }

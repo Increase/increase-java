@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -42,11 +44,29 @@ constructor(
     /** Whether the transfer requires explicit approval via the dashboard or API. */
     fun requireApproval(): Optional<Boolean> = body.requireApproval()
 
+    /** The identifier for the account that will send the transfer. */
+    fun _accountId(): JsonField<String> = body._accountId()
+
+    /**
+     * The transfer amount in the minor unit of the account currency. For dollars, for example, this
+     * is cents.
+     */
+    fun _amount(): JsonField<Long> = body._amount()
+
+    /** The description you choose to give the transfer. */
+    fun _description(): JsonField<String> = body._description()
+
+    /** The identifier for the account that will receive the transfer. */
+    fun _destinationAccountId(): JsonField<String> = body._destinationAccountId()
+
+    /** Whether the transfer requires explicit approval via the dashboard or API. */
+    fun _requireApproval(): JsonField<Boolean> = body._requireApproval()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     @JvmSynthetic internal fun getBody(): AccountTransferCreateBody = body
 
@@ -58,38 +78,85 @@ constructor(
     class AccountTransferCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("account_id") private val accountId: String,
-        @JsonProperty("amount") private val amount: Long,
-        @JsonProperty("description") private val description: String,
-        @JsonProperty("destination_account_id") private val destinationAccountId: String,
-        @JsonProperty("require_approval") private val requireApproval: Boolean?,
+        @JsonProperty("account_id")
+        @ExcludeMissing
+        private val accountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("amount")
+        @ExcludeMissing
+        private val amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("description")
+        @ExcludeMissing
+        private val description: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("destination_account_id")
+        @ExcludeMissing
+        private val destinationAccountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("require_approval")
+        @ExcludeMissing
+        private val requireApproval: JsonField<Boolean> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The identifier for the account that will send the transfer. */
-        @JsonProperty("account_id") fun accountId(): String = accountId
+        fun accountId(): String = accountId.getRequired("account_id")
 
         /**
          * The transfer amount in the minor unit of the account currency. For dollars, for example,
          * this is cents.
          */
-        @JsonProperty("amount") fun amount(): Long = amount
+        fun amount(): Long = amount.getRequired("amount")
 
         /** The description you choose to give the transfer. */
-        @JsonProperty("description") fun description(): String = description
+        fun description(): String = description.getRequired("description")
+
+        /** The identifier for the account that will receive the transfer. */
+        fun destinationAccountId(): String =
+            destinationAccountId.getRequired("destination_account_id")
+
+        /** Whether the transfer requires explicit approval via the dashboard or API. */
+        fun requireApproval(): Optional<Boolean> =
+            Optional.ofNullable(requireApproval.getNullable("require_approval"))
+
+        /** The identifier for the account that will send the transfer. */
+        @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
+
+        /**
+         * The transfer amount in the minor unit of the account currency. For dollars, for example,
+         * this is cents.
+         */
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+        /** The description you choose to give the transfer. */
+        @JsonProperty("description")
+        @ExcludeMissing
+        fun _description(): JsonField<String> = description
 
         /** The identifier for the account that will receive the transfer. */
         @JsonProperty("destination_account_id")
-        fun destinationAccountId(): String = destinationAccountId
+        @ExcludeMissing
+        fun _destinationAccountId(): JsonField<String> = destinationAccountId
 
         /** Whether the transfer requires explicit approval via the dashboard or API. */
         @JsonProperty("require_approval")
-        fun requireApproval(): Optional<Boolean> = Optional.ofNullable(requireApproval)
+        @ExcludeMissing
+        fun _requireApproval(): JsonField<Boolean> = requireApproval
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): AccountTransferCreateBody = apply {
+            if (!validated) {
+                accountId()
+                amount()
+                description()
+                destinationAccountId()
+                requireApproval()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -100,11 +167,11 @@ constructor(
 
         class Builder {
 
-            private var accountId: String? = null
-            private var amount: Long? = null
-            private var description: String? = null
-            private var destinationAccountId: String? = null
-            private var requireApproval: Boolean? = null
+            private var accountId: JsonField<String>? = null
+            private var amount: JsonField<Long>? = null
+            private var description: JsonField<String>? = null
+            private var destinationAccountId: JsonField<String>? = null
+            private var requireApproval: JsonField<Boolean> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -118,35 +185,48 @@ constructor(
             }
 
             /** The identifier for the account that will send the transfer. */
-            fun accountId(accountId: String) = apply { this.accountId = accountId }
+            fun accountId(accountId: String) = accountId(JsonField.of(accountId))
+
+            /** The identifier for the account that will send the transfer. */
+            fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
             /**
              * The transfer amount in the minor unit of the account currency. For dollars, for
              * example, this is cents.
              */
-            fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long) = amount(JsonField.of(amount))
+
+            /**
+             * The transfer amount in the minor unit of the account currency. For dollars, for
+             * example, this is cents.
+             */
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /** The description you choose to give the transfer. */
-            fun description(description: String) = apply { this.description = description }
+            fun description(description: String) = description(JsonField.of(description))
+
+            /** The description you choose to give the transfer. */
+            fun description(description: JsonField<String>) = apply {
+                this.description = description
+            }
 
             /** The identifier for the account that will receive the transfer. */
-            fun destinationAccountId(destinationAccountId: String) = apply {
+            fun destinationAccountId(destinationAccountId: String) =
+                destinationAccountId(JsonField.of(destinationAccountId))
+
+            /** The identifier for the account that will receive the transfer. */
+            fun destinationAccountId(destinationAccountId: JsonField<String>) = apply {
                 this.destinationAccountId = destinationAccountId
             }
 
             /** Whether the transfer requires explicit approval via the dashboard or API. */
-            fun requireApproval(requireApproval: Boolean?) = apply {
+            fun requireApproval(requireApproval: Boolean) =
+                requireApproval(JsonField.of(requireApproval))
+
+            /** Whether the transfer requires explicit approval via the dashboard or API. */
+            fun requireApproval(requireApproval: JsonField<Boolean>) = apply {
                 this.requireApproval = requireApproval
             }
-
-            /** Whether the transfer requires explicit approval via the dashboard or API. */
-            fun requireApproval(requireApproval: Boolean) =
-                requireApproval(requireApproval as Boolean?)
-
-            /** Whether the transfer requires explicit approval via the dashboard or API. */
-            @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
-            fun requireApproval(requireApproval: Optional<Boolean>) =
-                requireApproval(requireApproval.orElse(null) as Boolean?)
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -222,32 +302,65 @@ constructor(
         /** The identifier for the account that will send the transfer. */
         fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
+        /** The identifier for the account that will send the transfer. */
+        fun accountId(accountId: JsonField<String>) = apply { body.accountId(accountId) }
+
         /**
          * The transfer amount in the minor unit of the account currency. For dollars, for example,
          * this is cents.
          */
         fun amount(amount: Long) = apply { body.amount(amount) }
 
+        /**
+         * The transfer amount in the minor unit of the account currency. For dollars, for example,
+         * this is cents.
+         */
+        fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
+
         /** The description you choose to give the transfer. */
         fun description(description: String) = apply { body.description(description) }
+
+        /** The description you choose to give the transfer. */
+        fun description(description: JsonField<String>) = apply { body.description(description) }
 
         /** The identifier for the account that will receive the transfer. */
         fun destinationAccountId(destinationAccountId: String) = apply {
             body.destinationAccountId(destinationAccountId)
         }
 
+        /** The identifier for the account that will receive the transfer. */
+        fun destinationAccountId(destinationAccountId: JsonField<String>) = apply {
+            body.destinationAccountId(destinationAccountId)
+        }
+
         /** Whether the transfer requires explicit approval via the dashboard or API. */
-        fun requireApproval(requireApproval: Boolean?) = apply {
+        fun requireApproval(requireApproval: Boolean) = apply {
             body.requireApproval(requireApproval)
         }
 
         /** Whether the transfer requires explicit approval via the dashboard or API. */
-        fun requireApproval(requireApproval: Boolean) = requireApproval(requireApproval as Boolean?)
+        fun requireApproval(requireApproval: JsonField<Boolean>) = apply {
+            body.requireApproval(requireApproval)
+        }
 
-        /** Whether the transfer requires explicit approval via the dashboard or API. */
-        @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
-        fun requireApproval(requireApproval: Optional<Boolean>) =
-            requireApproval(requireApproval.orElse(null) as Boolean?)
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -345,25 +458,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): AccountTransferCreateParams =

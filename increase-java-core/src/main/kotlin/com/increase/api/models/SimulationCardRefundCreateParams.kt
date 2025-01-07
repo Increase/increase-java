@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -32,11 +34,17 @@ constructor(
      */
     fun transactionId(): String = body.transactionId()
 
+    /**
+     * The identifier for the Transaction to refund. The Transaction's source must have a category
+     * of card_settlement.
+     */
+    fun _transactionId(): JsonField<String> = body._transactionId()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     @JvmSynthetic internal fun getBody(): SimulationCardRefundCreateBody = body
 
@@ -48,7 +56,9 @@ constructor(
     class SimulationCardRefundCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("transaction_id") private val transactionId: String,
+        @JsonProperty("transaction_id")
+        @ExcludeMissing
+        private val transactionId: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
@@ -57,11 +67,28 @@ constructor(
          * The identifier for the Transaction to refund. The Transaction's source must have a
          * category of card_settlement.
          */
-        @JsonProperty("transaction_id") fun transactionId(): String = transactionId
+        fun transactionId(): String = transactionId.getRequired("transaction_id")
+
+        /**
+         * The identifier for the Transaction to refund. The Transaction's source must have a
+         * category of card_settlement.
+         */
+        @JsonProperty("transaction_id")
+        @ExcludeMissing
+        fun _transactionId(): JsonField<String> = transactionId
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): SimulationCardRefundCreateBody = apply {
+            if (!validated) {
+                transactionId()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -72,7 +99,7 @@ constructor(
 
         class Builder {
 
-            private var transactionId: String? = null
+            private var transactionId: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -87,7 +114,15 @@ constructor(
              * The identifier for the Transaction to refund. The Transaction's source must have a
              * category of card_settlement.
              */
-            fun transactionId(transactionId: String) = apply { this.transactionId = transactionId }
+            fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
+
+            /**
+             * The identifier for the Transaction to refund. The Transaction's source must have a
+             * category of card_settlement.
+             */
+            fun transactionId(transactionId: JsonField<String>) = apply {
+                this.transactionId = transactionId
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -162,6 +197,33 @@ constructor(
          * category of card_settlement.
          */
         fun transactionId(transactionId: String) = apply { body.transactionId(transactionId) }
+
+        /**
+         * The identifier for the Transaction to refund. The Transaction's source must have a
+         * category of card_settlement.
+         */
+        fun transactionId(transactionId: JsonField<String>) = apply {
+            body.transactionId(transactionId)
+        }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -259,25 +321,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): SimulationCardRefundCreateParams =

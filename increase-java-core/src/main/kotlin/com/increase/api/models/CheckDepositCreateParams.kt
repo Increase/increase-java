@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -39,11 +41,26 @@ constructor(
     /** The description you choose to give the Check Deposit, for display purposes only. */
     fun description(): Optional<String> = body.description()
 
+    /** The identifier for the Account to deposit the check in. */
+    fun _accountId(): JsonField<String> = body._accountId()
+
+    /** The deposit amount in USD cents. */
+    fun _amount(): JsonField<Long> = body._amount()
+
+    /** The File containing the check's back image. */
+    fun _backImageFileId(): JsonField<String> = body._backImageFileId()
+
+    /** The File containing the check's front image. */
+    fun _frontImageFileId(): JsonField<String> = body._frontImageFileId()
+
+    /** The description you choose to give the Check Deposit, for display purposes only. */
+    fun _description(): JsonField<String> = body._description()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     @JvmSynthetic internal fun getBody(): CheckDepositCreateBody = body
 
@@ -55,34 +72,78 @@ constructor(
     class CheckDepositCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("account_id") private val accountId: String,
-        @JsonProperty("amount") private val amount: Long,
-        @JsonProperty("back_image_file_id") private val backImageFileId: String,
-        @JsonProperty("front_image_file_id") private val frontImageFileId: String,
-        @JsonProperty("description") private val description: String?,
+        @JsonProperty("account_id")
+        @ExcludeMissing
+        private val accountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("amount")
+        @ExcludeMissing
+        private val amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("back_image_file_id")
+        @ExcludeMissing
+        private val backImageFileId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("front_image_file_id")
+        @ExcludeMissing
+        private val frontImageFileId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("description")
+        @ExcludeMissing
+        private val description: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The identifier for the Account to deposit the check in. */
-        @JsonProperty("account_id") fun accountId(): String = accountId
+        fun accountId(): String = accountId.getRequired("account_id")
 
         /** The deposit amount in USD cents. */
-        @JsonProperty("amount") fun amount(): Long = amount
+        fun amount(): Long = amount.getRequired("amount")
 
         /** The File containing the check's back image. */
-        @JsonProperty("back_image_file_id") fun backImageFileId(): String = backImageFileId
+        fun backImageFileId(): String = backImageFileId.getRequired("back_image_file_id")
 
         /** The File containing the check's front image. */
-        @JsonProperty("front_image_file_id") fun frontImageFileId(): String = frontImageFileId
+        fun frontImageFileId(): String = frontImageFileId.getRequired("front_image_file_id")
+
+        /** The description you choose to give the Check Deposit, for display purposes only. */
+        fun description(): Optional<String> =
+            Optional.ofNullable(description.getNullable("description"))
+
+        /** The identifier for the Account to deposit the check in. */
+        @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
+
+        /** The deposit amount in USD cents. */
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+        /** The File containing the check's back image. */
+        @JsonProperty("back_image_file_id")
+        @ExcludeMissing
+        fun _backImageFileId(): JsonField<String> = backImageFileId
+
+        /** The File containing the check's front image. */
+        @JsonProperty("front_image_file_id")
+        @ExcludeMissing
+        fun _frontImageFileId(): JsonField<String> = frontImageFileId
 
         /** The description you choose to give the Check Deposit, for display purposes only. */
         @JsonProperty("description")
-        fun description(): Optional<String> = Optional.ofNullable(description)
+        @ExcludeMissing
+        fun _description(): JsonField<String> = description
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): CheckDepositCreateBody = apply {
+            if (!validated) {
+                accountId()
+                amount()
+                backImageFileId()
+                frontImageFileId()
+                description()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -93,11 +154,11 @@ constructor(
 
         class Builder {
 
-            private var accountId: String? = null
-            private var amount: Long? = null
-            private var backImageFileId: String? = null
-            private var frontImageFileId: String? = null
-            private var description: String? = null
+            private var accountId: JsonField<String>? = null
+            private var amount: JsonField<Long>? = null
+            private var backImageFileId: JsonField<String>? = null
+            private var frontImageFileId: JsonField<String>? = null
+            private var description: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -111,26 +172,42 @@ constructor(
             }
 
             /** The identifier for the Account to deposit the check in. */
-            fun accountId(accountId: String) = apply { this.accountId = accountId }
+            fun accountId(accountId: String) = accountId(JsonField.of(accountId))
+
+            /** The identifier for the Account to deposit the check in. */
+            fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
             /** The deposit amount in USD cents. */
-            fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long) = amount(JsonField.of(amount))
+
+            /** The deposit amount in USD cents. */
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /** The File containing the check's back image. */
-            fun backImageFileId(backImageFileId: String) = apply {
+            fun backImageFileId(backImageFileId: String) =
+                backImageFileId(JsonField.of(backImageFileId))
+
+            /** The File containing the check's back image. */
+            fun backImageFileId(backImageFileId: JsonField<String>) = apply {
                 this.backImageFileId = backImageFileId
             }
 
             /** The File containing the check's front image. */
-            fun frontImageFileId(frontImageFileId: String) = apply {
+            fun frontImageFileId(frontImageFileId: String) =
+                frontImageFileId(JsonField.of(frontImageFileId))
+
+            /** The File containing the check's front image. */
+            fun frontImageFileId(frontImageFileId: JsonField<String>) = apply {
                 this.frontImageFileId = frontImageFileId
             }
 
             /** The description you choose to give the Check Deposit, for display purposes only. */
-            fun description(description: String?) = apply { this.description = description }
+            fun description(description: String) = description(JsonField.of(description))
 
             /** The description you choose to give the Check Deposit, for display purposes only. */
-            fun description(description: Optional<String>) = description(description.orElse(null))
+            fun description(description: JsonField<String>) = apply {
+                this.description = description
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -208,11 +285,22 @@ constructor(
         /** The identifier for the Account to deposit the check in. */
         fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
+        /** The identifier for the Account to deposit the check in. */
+        fun accountId(accountId: JsonField<String>) = apply { body.accountId(accountId) }
+
         /** The deposit amount in USD cents. */
         fun amount(amount: Long) = apply { body.amount(amount) }
 
+        /** The deposit amount in USD cents. */
+        fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
+
         /** The File containing the check's back image. */
         fun backImageFileId(backImageFileId: String) = apply {
+            body.backImageFileId(backImageFileId)
+        }
+
+        /** The File containing the check's back image. */
+        fun backImageFileId(backImageFileId: JsonField<String>) = apply {
             body.backImageFileId(backImageFileId)
         }
 
@@ -221,11 +309,35 @@ constructor(
             body.frontImageFileId(frontImageFileId)
         }
 
-        /** The description you choose to give the Check Deposit, for display purposes only. */
-        fun description(description: String?) = apply { body.description(description) }
+        /** The File containing the check's front image. */
+        fun frontImageFileId(frontImageFileId: JsonField<String>) = apply {
+            body.frontImageFileId(frontImageFileId)
+        }
 
         /** The description you choose to give the Check Deposit, for display purposes only. */
-        fun description(description: Optional<String>) = description(description.orElse(null))
+        fun description(description: String) = apply { body.description(description) }
+
+        /** The description you choose to give the Check Deposit, for display purposes only. */
+        fun description(description: JsonField<String>) = apply { body.description(description) }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -323,25 +435,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): CheckDepositCreateParams =

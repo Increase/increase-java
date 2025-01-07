@@ -66,30 +66,36 @@ private constructor(
     fun verificationCode(): String = verificationCode.getRequired("verification_code")
 
     /** The identifier for the Card for which sensitive details have been returned. */
-    @JsonProperty("card_id") @ExcludeMissing fun _cardId() = cardId
+    @JsonProperty("card_id") @ExcludeMissing fun _cardId(): JsonField<String> = cardId
 
     /** The month the card expires in M format (e.g., August is 8). */
-    @JsonProperty("expiration_month") @ExcludeMissing fun _expirationMonth() = expirationMonth
+    @JsonProperty("expiration_month")
+    @ExcludeMissing
+    fun _expirationMonth(): JsonField<Long> = expirationMonth
 
     /** The year the card expires in YYYY format (e.g., 2025). */
-    @JsonProperty("expiration_year") @ExcludeMissing fun _expirationYear() = expirationYear
+    @JsonProperty("expiration_year")
+    @ExcludeMissing
+    fun _expirationYear(): JsonField<Long> = expirationYear
 
     /** The card number. */
     @JsonProperty("primary_account_number")
     @ExcludeMissing
-    fun _primaryAccountNumber() = primaryAccountNumber
+    fun _primaryAccountNumber(): JsonField<String> = primaryAccountNumber
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `card_details`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     /**
      * The three-digit verification code for the card. It's also known as the Card Verification Code
      * (CVC), the Card Verification Value (CVV), or the Card Identification (CID).
      */
-    @JsonProperty("verification_code") @ExcludeMissing fun _verificationCode() = verificationCode
+    @JsonProperty("verification_code")
+    @ExcludeMissing
+    fun _verificationCode(): JsonField<String> = verificationCode
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -118,12 +124,12 @@ private constructor(
 
     class Builder {
 
-        private var cardId: JsonField<String> = JsonMissing.of()
-        private var expirationMonth: JsonField<Long> = JsonMissing.of()
-        private var expirationYear: JsonField<Long> = JsonMissing.of()
-        private var primaryAccountNumber: JsonField<String> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
-        private var verificationCode: JsonField<String> = JsonMissing.of()
+        private var cardId: JsonField<String>? = null
+        private var expirationMonth: JsonField<Long>? = null
+        private var expirationYear: JsonField<Long>? = null
+        private var primaryAccountNumber: JsonField<String>? = null
+        private var type: JsonField<Type>? = null
+        private var verificationCode: JsonField<String>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -216,12 +222,14 @@ private constructor(
 
         fun build(): CardDetails =
             CardDetails(
-                cardId,
-                expirationMonth,
-                expirationYear,
-                primaryAccountNumber,
-                type,
-                verificationCode,
+                checkNotNull(cardId) { "`cardId` is required but was not set" },
+                checkNotNull(expirationMonth) { "`expirationMonth` is required but was not set" },
+                checkNotNull(expirationYear) { "`expirationYear` is required but was not set" },
+                checkNotNull(primaryAccountNumber) {
+                    "`primaryAccountNumber` is required but was not set"
+                },
+                checkNotNull(type) { "`type` is required but was not set" },
+                checkNotNull(verificationCode) { "`verificationCode` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }

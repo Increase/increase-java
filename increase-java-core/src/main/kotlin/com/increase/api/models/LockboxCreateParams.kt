@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -33,11 +35,20 @@ constructor(
     /** The name of the recipient that will receive mail at this location. */
     fun recipientName(): Optional<String> = body.recipientName()
 
+    /** The Account checks sent to this Lockbox should be deposited into. */
+    fun _accountId(): JsonField<String> = body._accountId()
+
+    /** The description you choose for the Lockbox, for display purposes. */
+    fun _description(): JsonField<String> = body._description()
+
+    /** The name of the recipient that will receive mail at this location. */
+    fun _recipientName(): JsonField<String> = body._recipientName()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     @JvmSynthetic internal fun getBody(): LockboxCreateBody = body
 
@@ -49,27 +60,57 @@ constructor(
     class LockboxCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("account_id") private val accountId: String,
-        @JsonProperty("description") private val description: String?,
-        @JsonProperty("recipient_name") private val recipientName: String?,
+        @JsonProperty("account_id")
+        @ExcludeMissing
+        private val accountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("description")
+        @ExcludeMissing
+        private val description: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("recipient_name")
+        @ExcludeMissing
+        private val recipientName: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The Account checks sent to this Lockbox should be deposited into. */
-        @JsonProperty("account_id") fun accountId(): String = accountId
+        fun accountId(): String = accountId.getRequired("account_id")
+
+        /** The description you choose for the Lockbox, for display purposes. */
+        fun description(): Optional<String> =
+            Optional.ofNullable(description.getNullable("description"))
+
+        /** The name of the recipient that will receive mail at this location. */
+        fun recipientName(): Optional<String> =
+            Optional.ofNullable(recipientName.getNullable("recipient_name"))
+
+        /** The Account checks sent to this Lockbox should be deposited into. */
+        @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
         /** The description you choose for the Lockbox, for display purposes. */
         @JsonProperty("description")
-        fun description(): Optional<String> = Optional.ofNullable(description)
+        @ExcludeMissing
+        fun _description(): JsonField<String> = description
 
         /** The name of the recipient that will receive mail at this location. */
         @JsonProperty("recipient_name")
-        fun recipientName(): Optional<String> = Optional.ofNullable(recipientName)
+        @ExcludeMissing
+        fun _recipientName(): JsonField<String> = recipientName
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): LockboxCreateBody = apply {
+            if (!validated) {
+                accountId()
+                description()
+                recipientName()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -80,9 +121,9 @@ constructor(
 
         class Builder {
 
-            private var accountId: String? = null
-            private var description: String? = null
-            private var recipientName: String? = null
+            private var accountId: JsonField<String>? = null
+            private var description: JsonField<String> = JsonMissing.of()
+            private var recipientName: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -94,20 +135,26 @@ constructor(
             }
 
             /** The Account checks sent to this Lockbox should be deposited into. */
-            fun accountId(accountId: String) = apply { this.accountId = accountId }
+            fun accountId(accountId: String) = accountId(JsonField.of(accountId))
+
+            /** The Account checks sent to this Lockbox should be deposited into. */
+            fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
             /** The description you choose for the Lockbox, for display purposes. */
-            fun description(description: String?) = apply { this.description = description }
+            fun description(description: String) = description(JsonField.of(description))
 
             /** The description you choose for the Lockbox, for display purposes. */
-            fun description(description: Optional<String>) = description(description.orElse(null))
+            fun description(description: JsonField<String>) = apply {
+                this.description = description
+            }
 
             /** The name of the recipient that will receive mail at this location. */
-            fun recipientName(recipientName: String?) = apply { this.recipientName = recipientName }
+            fun recipientName(recipientName: String) = recipientName(JsonField.of(recipientName))
 
             /** The name of the recipient that will receive mail at this location. */
-            fun recipientName(recipientName: Optional<String>) =
-                recipientName(recipientName.orElse(null))
+            fun recipientName(recipientName: JsonField<String>) = apply {
+                this.recipientName = recipientName
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -179,18 +226,41 @@ constructor(
         /** The Account checks sent to this Lockbox should be deposited into. */
         fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
-        /** The description you choose for the Lockbox, for display purposes. */
-        fun description(description: String?) = apply { body.description(description) }
+        /** The Account checks sent to this Lockbox should be deposited into. */
+        fun accountId(accountId: JsonField<String>) = apply { body.accountId(accountId) }
 
         /** The description you choose for the Lockbox, for display purposes. */
-        fun description(description: Optional<String>) = description(description.orElse(null))
+        fun description(description: String) = apply { body.description(description) }
+
+        /** The description you choose for the Lockbox, for display purposes. */
+        fun description(description: JsonField<String>) = apply { body.description(description) }
 
         /** The name of the recipient that will receive mail at this location. */
-        fun recipientName(recipientName: String?) = apply { body.recipientName(recipientName) }
+        fun recipientName(recipientName: String) = apply { body.recipientName(recipientName) }
 
         /** The name of the recipient that will receive mail at this location. */
-        fun recipientName(recipientName: Optional<String>) =
-            recipientName(recipientName.orElse(null))
+        fun recipientName(recipientName: JsonField<String>) = apply {
+            body.recipientName(recipientName)
+        }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -288,25 +358,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): LockboxCreateParams =

@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -40,11 +42,20 @@ constructor(
     /** The identifying details of anyone controlling or owning 25% or more of the corporation. */
     fun beneficialOwnerId(): String = body.beneficialOwnerId()
 
+    /**
+     * The individual's physical address. Mail receiving locations like PO Boxes and PMB's are
+     * disallowed.
+     */
+    fun _address(): JsonField<Address> = body._address()
+
+    /** The identifying details of anyone controlling or owning 25% or more of the corporation. */
+    fun _beneficialOwnerId(): JsonField<String> = body._beneficialOwnerId()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     @JvmSynthetic internal fun getBody(): EntityUpdateBeneficialOwnerAddressBody = body
 
@@ -63,8 +74,12 @@ constructor(
     class EntityUpdateBeneficialOwnerAddressBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("address") private val address: Address,
-        @JsonProperty("beneficial_owner_id") private val beneficialOwnerId: String,
+        @JsonProperty("address")
+        @ExcludeMissing
+        private val address: JsonField<Address> = JsonMissing.of(),
+        @JsonProperty("beneficial_owner_id")
+        @ExcludeMissing
+        private val beneficialOwnerId: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
@@ -73,16 +88,39 @@ constructor(
          * The individual's physical address. Mail receiving locations like PO Boxes and PMB's are
          * disallowed.
          */
-        @JsonProperty("address") fun address(): Address = address
+        fun address(): Address = address.getRequired("address")
 
         /**
          * The identifying details of anyone controlling or owning 25% or more of the corporation.
          */
-        @JsonProperty("beneficial_owner_id") fun beneficialOwnerId(): String = beneficialOwnerId
+        fun beneficialOwnerId(): String = beneficialOwnerId.getRequired("beneficial_owner_id")
+
+        /**
+         * The individual's physical address. Mail receiving locations like PO Boxes and PMB's are
+         * disallowed.
+         */
+        @JsonProperty("address") @ExcludeMissing fun _address(): JsonField<Address> = address
+
+        /**
+         * The identifying details of anyone controlling or owning 25% or more of the corporation.
+         */
+        @JsonProperty("beneficial_owner_id")
+        @ExcludeMissing
+        fun _beneficialOwnerId(): JsonField<String> = beneficialOwnerId
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): EntityUpdateBeneficialOwnerAddressBody = apply {
+            if (!validated) {
+                address().validate()
+                beneficialOwnerId()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -93,8 +131,8 @@ constructor(
 
         class Builder {
 
-            private var address: Address? = null
-            private var beneficialOwnerId: String? = null
+            private var address: JsonField<Address>? = null
+            private var beneficialOwnerId: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -111,13 +149,26 @@ constructor(
              * The individual's physical address. Mail receiving locations like PO Boxes and PMB's
              * are disallowed.
              */
-            fun address(address: Address) = apply { this.address = address }
+            fun address(address: Address) = address(JsonField.of(address))
+
+            /**
+             * The individual's physical address. Mail receiving locations like PO Boxes and PMB's
+             * are disallowed.
+             */
+            fun address(address: JsonField<Address>) = apply { this.address = address }
 
             /**
              * The identifying details of anyone controlling or owning 25% or more of the
              * corporation.
              */
-            fun beneficialOwnerId(beneficialOwnerId: String) = apply {
+            fun beneficialOwnerId(beneficialOwnerId: String) =
+                beneficialOwnerId(JsonField.of(beneficialOwnerId))
+
+            /**
+             * The identifying details of anyone controlling or owning 25% or more of the
+             * corporation.
+             */
+            fun beneficialOwnerId(beneficialOwnerId: JsonField<String>) = apply {
                 this.beneficialOwnerId = beneficialOwnerId
             }
 
@@ -209,10 +260,42 @@ constructor(
         fun address(address: Address) = apply { body.address(address) }
 
         /**
+         * The individual's physical address. Mail receiving locations like PO Boxes and PMB's are
+         * disallowed.
+         */
+        fun address(address: JsonField<Address>) = apply { body.address(address) }
+
+        /**
          * The identifying details of anyone controlling or owning 25% or more of the corporation.
          */
         fun beneficialOwnerId(beneficialOwnerId: String) = apply {
             body.beneficialOwnerId(beneficialOwnerId)
+        }
+
+        /**
+         * The identifying details of anyone controlling or owning 25% or more of the corporation.
+         */
+        fun beneficialOwnerId(beneficialOwnerId: JsonField<String>) = apply {
+            body.beneficialOwnerId(beneficialOwnerId)
+        }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -313,25 +396,6 @@ constructor(
             additionalQueryParams.removeAll(keys)
         }
 
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
-        }
-
         fun build(): EntityUpdateBeneficialOwnerAddressParams =
             EntityUpdateBeneficialOwnerAddressParams(
                 checkNotNull(entityId) { "`entityId` is required but was not set" },
@@ -349,36 +413,75 @@ constructor(
     class Address
     @JsonCreator
     private constructor(
-        @JsonProperty("city") private val city: String,
-        @JsonProperty("line1") private val line1: String,
-        @JsonProperty("state") private val state: String,
-        @JsonProperty("zip") private val zip: String,
-        @JsonProperty("line2") private val line2: String?,
+        @JsonProperty("city")
+        @ExcludeMissing
+        private val city: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("line1")
+        @ExcludeMissing
+        private val line1: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("state")
+        @ExcludeMissing
+        private val state: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("zip") @ExcludeMissing private val zip: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("line2")
+        @ExcludeMissing
+        private val line2: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The city of the address. */
-        @JsonProperty("city") fun city(): String = city
+        fun city(): String = city.getRequired("city")
 
         /** The first line of the address. This is usually the street number and street. */
-        @JsonProperty("line1") fun line1(): String = line1
+        fun line1(): String = line1.getRequired("line1")
 
         /**
          * The two-letter United States Postal Service (USPS) abbreviation for the state of the
          * address.
          */
-        @JsonProperty("state") fun state(): String = state
+        fun state(): String = state.getRequired("state")
 
         /** The ZIP code of the address. */
-        @JsonProperty("zip") fun zip(): String = zip
+        fun zip(): String = zip.getRequired("zip")
 
         /** The second line of the address. This might be the floor or room number. */
-        @JsonProperty("line2") fun line2(): Optional<String> = Optional.ofNullable(line2)
+        fun line2(): Optional<String> = Optional.ofNullable(line2.getNullable("line2"))
+
+        /** The city of the address. */
+        @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
+
+        /** The first line of the address. This is usually the street number and street. */
+        @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
+
+        /**
+         * The two-letter United States Postal Service (USPS) abbreviation for the state of the
+         * address.
+         */
+        @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
+
+        /** The ZIP code of the address. */
+        @JsonProperty("zip") @ExcludeMissing fun _zip(): JsonField<String> = zip
+
+        /** The second line of the address. This might be the floor or room number. */
+        @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): Address = apply {
+            if (!validated) {
+                city()
+                line1()
+                state()
+                zip()
+                line2()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -389,11 +492,11 @@ constructor(
 
         class Builder {
 
-            private var city: String? = null
-            private var line1: String? = null
-            private var state: String? = null
-            private var zip: String? = null
-            private var line2: String? = null
+            private var city: JsonField<String>? = null
+            private var line1: JsonField<String>? = null
+            private var state: JsonField<String>? = null
+            private var zip: JsonField<String>? = null
+            private var line2: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -407,25 +510,40 @@ constructor(
             }
 
             /** The city of the address. */
-            fun city(city: String) = apply { this.city = city }
+            fun city(city: String) = city(JsonField.of(city))
+
+            /** The city of the address. */
+            fun city(city: JsonField<String>) = apply { this.city = city }
 
             /** The first line of the address. This is usually the street number and street. */
-            fun line1(line1: String) = apply { this.line1 = line1 }
+            fun line1(line1: String) = line1(JsonField.of(line1))
+
+            /** The first line of the address. This is usually the street number and street. */
+            fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
             /**
              * The two-letter United States Postal Service (USPS) abbreviation for the state of the
              * address.
              */
-            fun state(state: String) = apply { this.state = state }
+            fun state(state: String) = state(JsonField.of(state))
+
+            /**
+             * The two-letter United States Postal Service (USPS) abbreviation for the state of the
+             * address.
+             */
+            fun state(state: JsonField<String>) = apply { this.state = state }
 
             /** The ZIP code of the address. */
-            fun zip(zip: String) = apply { this.zip = zip }
+            fun zip(zip: String) = zip(JsonField.of(zip))
+
+            /** The ZIP code of the address. */
+            fun zip(zip: JsonField<String>) = apply { this.zip = zip }
 
             /** The second line of the address. This might be the floor or room number. */
-            fun line2(line2: String?) = apply { this.line2 = line2 }
+            fun line2(line2: String) = line2(JsonField.of(line2))
 
             /** The second line of the address. This might be the floor or room number. */
-            fun line2(line2: Optional<String>) = line2(line2.orElse(null))
+            fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()

@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -76,11 +77,51 @@ constructor(
     /** The standard entry class code for the transfer. */
     fun standardEntryClassCode(): Optional<StandardEntryClassCode> = body.standardEntryClassCode()
 
+    /** The identifier of the Account Number the inbound ACH Transfer is for. */
+    fun _accountNumberId(): JsonField<String> = body._accountNumberId()
+
+    /**
+     * The transfer amount in cents. A positive amount originates a credit transfer pushing funds to
+     * the receiving account. A negative amount originates a debit transfer pulling funds from the
+     * receiving account.
+     */
+    fun _amount(): JsonField<Long> = body._amount()
+
+    /** The description of the date of the transfer. */
+    fun _companyDescriptiveDate(): JsonField<String> = body._companyDescriptiveDate()
+
+    /** Data associated with the transfer set by the sender. */
+    fun _companyDiscretionaryData(): JsonField<String> = body._companyDiscretionaryData()
+
+    /** The description of the transfer set by the sender. */
+    fun _companyEntryDescription(): JsonField<String> = body._companyEntryDescription()
+
+    /** The sender's company ID. */
+    fun _companyId(): JsonField<String> = body._companyId()
+
+    /** The name of the sender. */
+    fun _companyName(): JsonField<String> = body._companyName()
+
+    /** The ID of the receiver of the transfer. */
+    fun _receiverIdNumber(): JsonField<String> = body._receiverIdNumber()
+
+    /** The name of the receiver of the transfer. */
+    fun _receiverName(): JsonField<String> = body._receiverName()
+
+    /**
+     * The time at which the transfer should be resolved. If not provided will resolve immediately.
+     */
+    fun _resolveAt(): JsonField<OffsetDateTime> = body._resolveAt()
+
+    /** The standard entry class code for the transfer. */
+    fun _standardEntryClassCode(): JsonField<StandardEntryClassCode> =
+        body._standardEntryClassCode()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     @JvmSynthetic internal fun getBody(): SimulationInboundAchTransferCreateBody = body
 
@@ -92,77 +133,171 @@ constructor(
     class SimulationInboundAchTransferCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("account_number_id") private val accountNumberId: String,
-        @JsonProperty("amount") private val amount: Long,
-        @JsonProperty("company_descriptive_date") private val companyDescriptiveDate: String?,
-        @JsonProperty("company_discretionary_data") private val companyDiscretionaryData: String?,
-        @JsonProperty("company_entry_description") private val companyEntryDescription: String?,
-        @JsonProperty("company_id") private val companyId: String?,
-        @JsonProperty("company_name") private val companyName: String?,
-        @JsonProperty("receiver_id_number") private val receiverIdNumber: String?,
-        @JsonProperty("receiver_name") private val receiverName: String?,
-        @JsonProperty("resolve_at") private val resolveAt: OffsetDateTime?,
+        @JsonProperty("account_number_id")
+        @ExcludeMissing
+        private val accountNumberId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("amount")
+        @ExcludeMissing
+        private val amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("company_descriptive_date")
+        @ExcludeMissing
+        private val companyDescriptiveDate: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("company_discretionary_data")
+        @ExcludeMissing
+        private val companyDiscretionaryData: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("company_entry_description")
+        @ExcludeMissing
+        private val companyEntryDescription: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("company_id")
+        @ExcludeMissing
+        private val companyId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("company_name")
+        @ExcludeMissing
+        private val companyName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("receiver_id_number")
+        @ExcludeMissing
+        private val receiverIdNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("receiver_name")
+        @ExcludeMissing
+        private val receiverName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("resolve_at")
+        @ExcludeMissing
+        private val resolveAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("standard_entry_class_code")
-        private val standardEntryClassCode: StandardEntryClassCode?,
+        @ExcludeMissing
+        private val standardEntryClassCode: JsonField<StandardEntryClassCode> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The identifier of the Account Number the inbound ACH Transfer is for. */
-        @JsonProperty("account_number_id") fun accountNumberId(): String = accountNumberId
+        fun accountNumberId(): String = accountNumberId.getRequired("account_number_id")
 
         /**
          * The transfer amount in cents. A positive amount originates a credit transfer pushing
          * funds to the receiving account. A negative amount originates a debit transfer pulling
          * funds from the receiving account.
          */
-        @JsonProperty("amount") fun amount(): Long = amount
+        fun amount(): Long = amount.getRequired("amount")
+
+        /** The description of the date of the transfer. */
+        fun companyDescriptiveDate(): Optional<String> =
+            Optional.ofNullable(companyDescriptiveDate.getNullable("company_descriptive_date"))
+
+        /** Data associated with the transfer set by the sender. */
+        fun companyDiscretionaryData(): Optional<String> =
+            Optional.ofNullable(companyDiscretionaryData.getNullable("company_discretionary_data"))
+
+        /** The description of the transfer set by the sender. */
+        fun companyEntryDescription(): Optional<String> =
+            Optional.ofNullable(companyEntryDescription.getNullable("company_entry_description"))
+
+        /** The sender's company ID. */
+        fun companyId(): Optional<String> = Optional.ofNullable(companyId.getNullable("company_id"))
+
+        /** The name of the sender. */
+        fun companyName(): Optional<String> =
+            Optional.ofNullable(companyName.getNullable("company_name"))
+
+        /** The ID of the receiver of the transfer. */
+        fun receiverIdNumber(): Optional<String> =
+            Optional.ofNullable(receiverIdNumber.getNullable("receiver_id_number"))
+
+        /** The name of the receiver of the transfer. */
+        fun receiverName(): Optional<String> =
+            Optional.ofNullable(receiverName.getNullable("receiver_name"))
+
+        /**
+         * The time at which the transfer should be resolved. If not provided will resolve
+         * immediately.
+         */
+        fun resolveAt(): Optional<OffsetDateTime> =
+            Optional.ofNullable(resolveAt.getNullable("resolve_at"))
+
+        /** The standard entry class code for the transfer. */
+        fun standardEntryClassCode(): Optional<StandardEntryClassCode> =
+            Optional.ofNullable(standardEntryClassCode.getNullable("standard_entry_class_code"))
+
+        /** The identifier of the Account Number the inbound ACH Transfer is for. */
+        @JsonProperty("account_number_id")
+        @ExcludeMissing
+        fun _accountNumberId(): JsonField<String> = accountNumberId
+
+        /**
+         * The transfer amount in cents. A positive amount originates a credit transfer pushing
+         * funds to the receiving account. A negative amount originates a debit transfer pulling
+         * funds from the receiving account.
+         */
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
         /** The description of the date of the transfer. */
         @JsonProperty("company_descriptive_date")
-        fun companyDescriptiveDate(): Optional<String> = Optional.ofNullable(companyDescriptiveDate)
+        @ExcludeMissing
+        fun _companyDescriptiveDate(): JsonField<String> = companyDescriptiveDate
 
         /** Data associated with the transfer set by the sender. */
         @JsonProperty("company_discretionary_data")
-        fun companyDiscretionaryData(): Optional<String> =
-            Optional.ofNullable(companyDiscretionaryData)
+        @ExcludeMissing
+        fun _companyDiscretionaryData(): JsonField<String> = companyDiscretionaryData
 
         /** The description of the transfer set by the sender. */
         @JsonProperty("company_entry_description")
-        fun companyEntryDescription(): Optional<String> =
-            Optional.ofNullable(companyEntryDescription)
+        @ExcludeMissing
+        fun _companyEntryDescription(): JsonField<String> = companyEntryDescription
 
         /** The sender's company ID. */
-        @JsonProperty("company_id")
-        fun companyId(): Optional<String> = Optional.ofNullable(companyId)
+        @JsonProperty("company_id") @ExcludeMissing fun _companyId(): JsonField<String> = companyId
 
         /** The name of the sender. */
         @JsonProperty("company_name")
-        fun companyName(): Optional<String> = Optional.ofNullable(companyName)
+        @ExcludeMissing
+        fun _companyName(): JsonField<String> = companyName
 
         /** The ID of the receiver of the transfer. */
         @JsonProperty("receiver_id_number")
-        fun receiverIdNumber(): Optional<String> = Optional.ofNullable(receiverIdNumber)
+        @ExcludeMissing
+        fun _receiverIdNumber(): JsonField<String> = receiverIdNumber
 
         /** The name of the receiver of the transfer. */
         @JsonProperty("receiver_name")
-        fun receiverName(): Optional<String> = Optional.ofNullable(receiverName)
+        @ExcludeMissing
+        fun _receiverName(): JsonField<String> = receiverName
 
         /**
          * The time at which the transfer should be resolved. If not provided will resolve
          * immediately.
          */
         @JsonProperty("resolve_at")
-        fun resolveAt(): Optional<OffsetDateTime> = Optional.ofNullable(resolveAt)
+        @ExcludeMissing
+        fun _resolveAt(): JsonField<OffsetDateTime> = resolveAt
 
         /** The standard entry class code for the transfer. */
         @JsonProperty("standard_entry_class_code")
-        fun standardEntryClassCode(): Optional<StandardEntryClassCode> =
-            Optional.ofNullable(standardEntryClassCode)
+        @ExcludeMissing
+        fun _standardEntryClassCode(): JsonField<StandardEntryClassCode> = standardEntryClassCode
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): SimulationInboundAchTransferCreateBody = apply {
+            if (!validated) {
+                accountNumberId()
+                amount()
+                companyDescriptiveDate()
+                companyDiscretionaryData()
+                companyEntryDescription()
+                companyId()
+                companyName()
+                receiverIdNumber()
+                receiverName()
+                resolveAt()
+                standardEntryClassCode()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -173,17 +308,17 @@ constructor(
 
         class Builder {
 
-            private var accountNumberId: String? = null
-            private var amount: Long? = null
-            private var companyDescriptiveDate: String? = null
-            private var companyDiscretionaryData: String? = null
-            private var companyEntryDescription: String? = null
-            private var companyId: String? = null
-            private var companyName: String? = null
-            private var receiverIdNumber: String? = null
-            private var receiverName: String? = null
-            private var resolveAt: OffsetDateTime? = null
-            private var standardEntryClassCode: StandardEntryClassCode? = null
+            private var accountNumberId: JsonField<String>? = null
+            private var amount: JsonField<Long>? = null
+            private var companyDescriptiveDate: JsonField<String> = JsonMissing.of()
+            private var companyDiscretionaryData: JsonField<String> = JsonMissing.of()
+            private var companyEntryDescription: JsonField<String> = JsonMissing.of()
+            private var companyId: JsonField<String> = JsonMissing.of()
+            private var companyName: JsonField<String> = JsonMissing.of()
+            private var receiverIdNumber: JsonField<String> = JsonMissing.of()
+            private var receiverName: JsonField<String> = JsonMissing.of()
+            private var resolveAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var standardEntryClassCode: JsonField<StandardEntryClassCode> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -210,7 +345,11 @@ constructor(
             }
 
             /** The identifier of the Account Number the inbound ACH Transfer is for. */
-            fun accountNumberId(accountNumberId: String) = apply {
+            fun accountNumberId(accountNumberId: String) =
+                accountNumberId(JsonField.of(accountNumberId))
+
+            /** The identifier of the Account Number the inbound ACH Transfer is for. */
+            fun accountNumberId(accountNumberId: JsonField<String>) = apply {
                 this.accountNumberId = accountNumberId
             }
 
@@ -219,83 +358,96 @@ constructor(
              * funds to the receiving account. A negative amount originates a debit transfer pulling
              * funds from the receiving account.
              */
-            fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long) = amount(JsonField.of(amount))
+
+            /**
+             * The transfer amount in cents. A positive amount originates a credit transfer pushing
+             * funds to the receiving account. A negative amount originates a debit transfer pulling
+             * funds from the receiving account.
+             */
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /** The description of the date of the transfer. */
-            fun companyDescriptiveDate(companyDescriptiveDate: String?) = apply {
+            fun companyDescriptiveDate(companyDescriptiveDate: String) =
+                companyDescriptiveDate(JsonField.of(companyDescriptiveDate))
+
+            /** The description of the date of the transfer. */
+            fun companyDescriptiveDate(companyDescriptiveDate: JsonField<String>) = apply {
                 this.companyDescriptiveDate = companyDescriptiveDate
             }
 
-            /** The description of the date of the transfer. */
-            fun companyDescriptiveDate(companyDescriptiveDate: Optional<String>) =
-                companyDescriptiveDate(companyDescriptiveDate.orElse(null))
+            /** Data associated with the transfer set by the sender. */
+            fun companyDiscretionaryData(companyDiscretionaryData: String) =
+                companyDiscretionaryData(JsonField.of(companyDiscretionaryData))
 
             /** Data associated with the transfer set by the sender. */
-            fun companyDiscretionaryData(companyDiscretionaryData: String?) = apply {
+            fun companyDiscretionaryData(companyDiscretionaryData: JsonField<String>) = apply {
                 this.companyDiscretionaryData = companyDiscretionaryData
             }
 
-            /** Data associated with the transfer set by the sender. */
-            fun companyDiscretionaryData(companyDiscretionaryData: Optional<String>) =
-                companyDiscretionaryData(companyDiscretionaryData.orElse(null))
+            /** The description of the transfer set by the sender. */
+            fun companyEntryDescription(companyEntryDescription: String) =
+                companyEntryDescription(JsonField.of(companyEntryDescription))
 
             /** The description of the transfer set by the sender. */
-            fun companyEntryDescription(companyEntryDescription: String?) = apply {
+            fun companyEntryDescription(companyEntryDescription: JsonField<String>) = apply {
                 this.companyEntryDescription = companyEntryDescription
             }
 
-            /** The description of the transfer set by the sender. */
-            fun companyEntryDescription(companyEntryDescription: Optional<String>) =
-                companyEntryDescription(companyEntryDescription.orElse(null))
+            /** The sender's company ID. */
+            fun companyId(companyId: String) = companyId(JsonField.of(companyId))
 
             /** The sender's company ID. */
-            fun companyId(companyId: String?) = apply { this.companyId = companyId }
-
-            /** The sender's company ID. */
-            fun companyId(companyId: Optional<String>) = companyId(companyId.orElse(null))
+            fun companyId(companyId: JsonField<String>) = apply { this.companyId = companyId }
 
             /** The name of the sender. */
-            fun companyName(companyName: String?) = apply { this.companyName = companyName }
+            fun companyName(companyName: String) = companyName(JsonField.of(companyName))
 
             /** The name of the sender. */
-            fun companyName(companyName: Optional<String>) = companyName(companyName.orElse(null))
+            fun companyName(companyName: JsonField<String>) = apply {
+                this.companyName = companyName
+            }
 
             /** The ID of the receiver of the transfer. */
-            fun receiverIdNumber(receiverIdNumber: String?) = apply {
+            fun receiverIdNumber(receiverIdNumber: String) =
+                receiverIdNumber(JsonField.of(receiverIdNumber))
+
+            /** The ID of the receiver of the transfer. */
+            fun receiverIdNumber(receiverIdNumber: JsonField<String>) = apply {
                 this.receiverIdNumber = receiverIdNumber
             }
 
-            /** The ID of the receiver of the transfer. */
-            fun receiverIdNumber(receiverIdNumber: Optional<String>) =
-                receiverIdNumber(receiverIdNumber.orElse(null))
+            /** The name of the receiver of the transfer. */
+            fun receiverName(receiverName: String) = receiverName(JsonField.of(receiverName))
 
             /** The name of the receiver of the transfer. */
-            fun receiverName(receiverName: String?) = apply { this.receiverName = receiverName }
-
-            /** The name of the receiver of the transfer. */
-            fun receiverName(receiverName: Optional<String>) =
-                receiverName(receiverName.orElse(null))
+            fun receiverName(receiverName: JsonField<String>) = apply {
+                this.receiverName = receiverName
+            }
 
             /**
              * The time at which the transfer should be resolved. If not provided will resolve
              * immediately.
              */
-            fun resolveAt(resolveAt: OffsetDateTime?) = apply { this.resolveAt = resolveAt }
+            fun resolveAt(resolveAt: OffsetDateTime) = resolveAt(JsonField.of(resolveAt))
 
             /**
              * The time at which the transfer should be resolved. If not provided will resolve
              * immediately.
              */
-            fun resolveAt(resolveAt: Optional<OffsetDateTime>) = resolveAt(resolveAt.orElse(null))
-
-            /** The standard entry class code for the transfer. */
-            fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode?) = apply {
-                this.standardEntryClassCode = standardEntryClassCode
+            fun resolveAt(resolveAt: JsonField<OffsetDateTime>) = apply {
+                this.resolveAt = resolveAt
             }
 
             /** The standard entry class code for the transfer. */
-            fun standardEntryClassCode(standardEntryClassCode: Optional<StandardEntryClassCode>) =
-                standardEntryClassCode(standardEntryClassCode.orElse(null))
+            fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode) =
+                standardEntryClassCode(JsonField.of(standardEntryClassCode))
+
+            /** The standard entry class code for the transfer. */
+            fun standardEntryClassCode(standardEntryClassCode: JsonField<StandardEntryClassCode>) =
+                apply {
+                    this.standardEntryClassCode = standardEntryClassCode
+                }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -384,6 +536,11 @@ constructor(
             body.accountNumberId(accountNumberId)
         }
 
+        /** The identifier of the Account Number the inbound ACH Transfer is for. */
+        fun accountNumberId(accountNumberId: JsonField<String>) = apply {
+            body.accountNumberId(accountNumberId)
+        }
+
         /**
          * The transfer amount in cents. A positive amount originates a credit transfer pushing
          * funds to the receiving account. A negative amount originates a debit transfer pulling
@@ -391,80 +548,114 @@ constructor(
          */
         fun amount(amount: Long) = apply { body.amount(amount) }
 
+        /**
+         * The transfer amount in cents. A positive amount originates a credit transfer pushing
+         * funds to the receiving account. A negative amount originates a debit transfer pulling
+         * funds from the receiving account.
+         */
+        fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
+
         /** The description of the date of the transfer. */
-        fun companyDescriptiveDate(companyDescriptiveDate: String?) = apply {
+        fun companyDescriptiveDate(companyDescriptiveDate: String) = apply {
             body.companyDescriptiveDate(companyDescriptiveDate)
         }
 
         /** The description of the date of the transfer. */
-        fun companyDescriptiveDate(companyDescriptiveDate: Optional<String>) =
-            companyDescriptiveDate(companyDescriptiveDate.orElse(null))
+        fun companyDescriptiveDate(companyDescriptiveDate: JsonField<String>) = apply {
+            body.companyDescriptiveDate(companyDescriptiveDate)
+        }
 
         /** Data associated with the transfer set by the sender. */
-        fun companyDiscretionaryData(companyDiscretionaryData: String?) = apply {
+        fun companyDiscretionaryData(companyDiscretionaryData: String) = apply {
             body.companyDiscretionaryData(companyDiscretionaryData)
         }
 
         /** Data associated with the transfer set by the sender. */
-        fun companyDiscretionaryData(companyDiscretionaryData: Optional<String>) =
-            companyDiscretionaryData(companyDiscretionaryData.orElse(null))
+        fun companyDiscretionaryData(companyDiscretionaryData: JsonField<String>) = apply {
+            body.companyDiscretionaryData(companyDiscretionaryData)
+        }
 
         /** The description of the transfer set by the sender. */
-        fun companyEntryDescription(companyEntryDescription: String?) = apply {
+        fun companyEntryDescription(companyEntryDescription: String) = apply {
             body.companyEntryDescription(companyEntryDescription)
         }
 
         /** The description of the transfer set by the sender. */
-        fun companyEntryDescription(companyEntryDescription: Optional<String>) =
-            companyEntryDescription(companyEntryDescription.orElse(null))
+        fun companyEntryDescription(companyEntryDescription: JsonField<String>) = apply {
+            body.companyEntryDescription(companyEntryDescription)
+        }
 
         /** The sender's company ID. */
-        fun companyId(companyId: String?) = apply { body.companyId(companyId) }
+        fun companyId(companyId: String) = apply { body.companyId(companyId) }
 
         /** The sender's company ID. */
-        fun companyId(companyId: Optional<String>) = companyId(companyId.orElse(null))
+        fun companyId(companyId: JsonField<String>) = apply { body.companyId(companyId) }
 
         /** The name of the sender. */
-        fun companyName(companyName: String?) = apply { body.companyName(companyName) }
+        fun companyName(companyName: String) = apply { body.companyName(companyName) }
 
         /** The name of the sender. */
-        fun companyName(companyName: Optional<String>) = companyName(companyName.orElse(null))
+        fun companyName(companyName: JsonField<String>) = apply { body.companyName(companyName) }
 
         /** The ID of the receiver of the transfer. */
-        fun receiverIdNumber(receiverIdNumber: String?) = apply {
+        fun receiverIdNumber(receiverIdNumber: String) = apply {
             body.receiverIdNumber(receiverIdNumber)
         }
 
         /** The ID of the receiver of the transfer. */
-        fun receiverIdNumber(receiverIdNumber: Optional<String>) =
-            receiverIdNumber(receiverIdNumber.orElse(null))
+        fun receiverIdNumber(receiverIdNumber: JsonField<String>) = apply {
+            body.receiverIdNumber(receiverIdNumber)
+        }
 
         /** The name of the receiver of the transfer. */
-        fun receiverName(receiverName: String?) = apply { body.receiverName(receiverName) }
+        fun receiverName(receiverName: String) = apply { body.receiverName(receiverName) }
 
         /** The name of the receiver of the transfer. */
-        fun receiverName(receiverName: Optional<String>) = receiverName(receiverName.orElse(null))
+        fun receiverName(receiverName: JsonField<String>) = apply {
+            body.receiverName(receiverName)
+        }
 
         /**
          * The time at which the transfer should be resolved. If not provided will resolve
          * immediately.
          */
-        fun resolveAt(resolveAt: OffsetDateTime?) = apply { body.resolveAt(resolveAt) }
+        fun resolveAt(resolveAt: OffsetDateTime) = apply { body.resolveAt(resolveAt) }
 
         /**
          * The time at which the transfer should be resolved. If not provided will resolve
          * immediately.
          */
-        fun resolveAt(resolveAt: Optional<OffsetDateTime>) = resolveAt(resolveAt.orElse(null))
+        fun resolveAt(resolveAt: JsonField<OffsetDateTime>) = apply { body.resolveAt(resolveAt) }
 
         /** The standard entry class code for the transfer. */
-        fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode?) = apply {
+        fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode) = apply {
             body.standardEntryClassCode(standardEntryClassCode)
         }
 
         /** The standard entry class code for the transfer. */
-        fun standardEntryClassCode(standardEntryClassCode: Optional<StandardEntryClassCode>) =
-            standardEntryClassCode(standardEntryClassCode.orElse(null))
+        fun standardEntryClassCode(standardEntryClassCode: JsonField<StandardEntryClassCode>) =
+            apply {
+                body.standardEntryClassCode(standardEntryClassCode)
+            }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -562,25 +753,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): SimulationInboundAchTransferCreateParams =

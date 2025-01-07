@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -45,11 +46,29 @@ constructor(
     /** The type of the destination account. Defaults to `checking`. */
     fun funding(): Optional<Funding> = body.funding()
 
+    /** The account number for the destination account. */
+    fun _accountNumber(): JsonField<String> = body._accountNumber()
+
+    /** The name you choose for the Account. */
+    fun _description(): JsonField<String> = body._description()
+
+    /**
+     * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
+     * account.
+     */
+    fun _routingNumber(): JsonField<String> = body._routingNumber()
+
+    /** The type of entity that owns the External Account. */
+    fun _accountHolder(): JsonField<AccountHolder> = body._accountHolder()
+
+    /** The type of the destination account. Defaults to `checking`. */
+    fun _funding(): JsonField<Funding> = body._funding()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     @JvmSynthetic internal fun getBody(): ExternalAccountCreateBody = body
 
@@ -61,37 +80,86 @@ constructor(
     class ExternalAccountCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("account_number") private val accountNumber: String,
-        @JsonProperty("description") private val description: String,
-        @JsonProperty("routing_number") private val routingNumber: String,
-        @JsonProperty("account_holder") private val accountHolder: AccountHolder?,
-        @JsonProperty("funding") private val funding: Funding?,
+        @JsonProperty("account_number")
+        @ExcludeMissing
+        private val accountNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("description")
+        @ExcludeMissing
+        private val description: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("routing_number")
+        @ExcludeMissing
+        private val routingNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("account_holder")
+        @ExcludeMissing
+        private val accountHolder: JsonField<AccountHolder> = JsonMissing.of(),
+        @JsonProperty("funding")
+        @ExcludeMissing
+        private val funding: JsonField<Funding> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The account number for the destination account. */
-        @JsonProperty("account_number") fun accountNumber(): String = accountNumber
+        fun accountNumber(): String = accountNumber.getRequired("account_number")
 
         /** The name you choose for the Account. */
-        @JsonProperty("description") fun description(): String = description
+        fun description(): String = description.getRequired("description")
 
         /**
          * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
          * account.
          */
-        @JsonProperty("routing_number") fun routingNumber(): String = routingNumber
+        fun routingNumber(): String = routingNumber.getRequired("routing_number")
+
+        /** The type of entity that owns the External Account. */
+        fun accountHolder(): Optional<AccountHolder> =
+            Optional.ofNullable(accountHolder.getNullable("account_holder"))
+
+        /** The type of the destination account. Defaults to `checking`. */
+        fun funding(): Optional<Funding> = Optional.ofNullable(funding.getNullable("funding"))
+
+        /** The account number for the destination account. */
+        @JsonProperty("account_number")
+        @ExcludeMissing
+        fun _accountNumber(): JsonField<String> = accountNumber
+
+        /** The name you choose for the Account. */
+        @JsonProperty("description")
+        @ExcludeMissing
+        fun _description(): JsonField<String> = description
+
+        /**
+         * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
+         * account.
+         */
+        @JsonProperty("routing_number")
+        @ExcludeMissing
+        fun _routingNumber(): JsonField<String> = routingNumber
 
         /** The type of entity that owns the External Account. */
         @JsonProperty("account_holder")
-        fun accountHolder(): Optional<AccountHolder> = Optional.ofNullable(accountHolder)
+        @ExcludeMissing
+        fun _accountHolder(): JsonField<AccountHolder> = accountHolder
 
         /** The type of the destination account. Defaults to `checking`. */
-        @JsonProperty("funding") fun funding(): Optional<Funding> = Optional.ofNullable(funding)
+        @JsonProperty("funding") @ExcludeMissing fun _funding(): JsonField<Funding> = funding
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): ExternalAccountCreateBody = apply {
+            if (!validated) {
+                accountNumber()
+                description()
+                routingNumber()
+                accountHolder()
+                funding()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -102,11 +170,11 @@ constructor(
 
         class Builder {
 
-            private var accountNumber: String? = null
-            private var description: String? = null
-            private var routingNumber: String? = null
-            private var accountHolder: AccountHolder? = null
-            private var funding: Funding? = null
+            private var accountNumber: JsonField<String>? = null
+            private var description: JsonField<String>? = null
+            private var routingNumber: JsonField<String>? = null
+            private var accountHolder: JsonField<AccountHolder> = JsonMissing.of()
+            private var funding: JsonField<Funding> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -120,31 +188,49 @@ constructor(
             }
 
             /** The account number for the destination account. */
-            fun accountNumber(accountNumber: String) = apply { this.accountNumber = accountNumber }
+            fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
+
+            /** The account number for the destination account. */
+            fun accountNumber(accountNumber: JsonField<String>) = apply {
+                this.accountNumber = accountNumber
+            }
 
             /** The name you choose for the Account. */
-            fun description(description: String) = apply { this.description = description }
+            fun description(description: String) = description(JsonField.of(description))
+
+            /** The name you choose for the Account. */
+            fun description(description: JsonField<String>) = apply {
+                this.description = description
+            }
 
             /**
              * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the
              * destination account.
              */
-            fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
+            fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
 
-            /** The type of entity that owns the External Account. */
-            fun accountHolder(accountHolder: AccountHolder?) = apply {
-                this.accountHolder = accountHolder
+            /**
+             * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the
+             * destination account.
+             */
+            fun routingNumber(routingNumber: JsonField<String>) = apply {
+                this.routingNumber = routingNumber
             }
 
             /** The type of entity that owns the External Account. */
-            fun accountHolder(accountHolder: Optional<AccountHolder>) =
-                accountHolder(accountHolder.orElse(null))
+            fun accountHolder(accountHolder: AccountHolder) =
+                accountHolder(JsonField.of(accountHolder))
+
+            /** The type of entity that owns the External Account. */
+            fun accountHolder(accountHolder: JsonField<AccountHolder>) = apply {
+                this.accountHolder = accountHolder
+            }
 
             /** The type of the destination account. Defaults to `checking`. */
-            fun funding(funding: Funding?) = apply { this.funding = funding }
+            fun funding(funding: Funding) = funding(JsonField.of(funding))
 
             /** The type of the destination account. Defaults to `checking`. */
-            fun funding(funding: Optional<Funding>) = funding(funding.orElse(null))
+            fun funding(funding: JsonField<Funding>) = apply { this.funding = funding }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -218,8 +304,16 @@ constructor(
         /** The account number for the destination account. */
         fun accountNumber(accountNumber: String) = apply { body.accountNumber(accountNumber) }
 
+        /** The account number for the destination account. */
+        fun accountNumber(accountNumber: JsonField<String>) = apply {
+            body.accountNumber(accountNumber)
+        }
+
         /** The name you choose for the Account. */
         fun description(description: String) = apply { body.description(description) }
+
+        /** The name you choose for the Account. */
+        fun description(description: JsonField<String>) = apply { body.description(description) }
 
         /**
          * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
@@ -227,20 +321,48 @@ constructor(
          */
         fun routingNumber(routingNumber: String) = apply { body.routingNumber(routingNumber) }
 
+        /**
+         * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
+         * account.
+         */
+        fun routingNumber(routingNumber: JsonField<String>) = apply {
+            body.routingNumber(routingNumber)
+        }
+
         /** The type of entity that owns the External Account. */
-        fun accountHolder(accountHolder: AccountHolder?) = apply {
+        fun accountHolder(accountHolder: AccountHolder) = apply {
             body.accountHolder(accountHolder)
         }
 
         /** The type of entity that owns the External Account. */
-        fun accountHolder(accountHolder: Optional<AccountHolder>) =
-            accountHolder(accountHolder.orElse(null))
+        fun accountHolder(accountHolder: JsonField<AccountHolder>) = apply {
+            body.accountHolder(accountHolder)
+        }
 
         /** The type of the destination account. Defaults to `checking`. */
-        fun funding(funding: Funding?) = apply { body.funding(funding) }
+        fun funding(funding: Funding) = apply { body.funding(funding) }
 
         /** The type of the destination account. Defaults to `checking`. */
-        fun funding(funding: Optional<Funding>) = funding(funding.orElse(null))
+        fun funding(funding: JsonField<Funding>) = apply { body.funding(funding) }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -338,25 +460,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): ExternalAccountCreateParams =

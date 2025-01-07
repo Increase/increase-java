@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -37,11 +39,19 @@ constructor(
      */
     fun industryCode(): String = body.industryCode()
 
+    /**
+     * The North American Industry Classification System (NAICS) code for the corporation's primary
+     * line of business. This is a number, like `5132` for `Software Publishers`. A full list of
+     * classification codes is available
+     * [here](https://increase.com/documentation/data-dictionary#north-american-industry-classification-system-codes).
+     */
+    fun _industryCode(): JsonField<String> = body._industryCode()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     @JvmSynthetic internal fun getBody(): EntityUpdateIndustryCodeBody = body
 
@@ -60,7 +70,9 @@ constructor(
     class EntityUpdateIndustryCodeBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("industry_code") private val industryCode: String,
+        @JsonProperty("industry_code")
+        @ExcludeMissing
+        private val industryCode: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
@@ -71,11 +83,30 @@ constructor(
          * list of classification codes is available
          * [here](https://increase.com/documentation/data-dictionary#north-american-industry-classification-system-codes).
          */
-        @JsonProperty("industry_code") fun industryCode(): String = industryCode
+        fun industryCode(): String = industryCode.getRequired("industry_code")
+
+        /**
+         * The North American Industry Classification System (NAICS) code for the corporation's
+         * primary line of business. This is a number, like `5132` for `Software Publishers`. A full
+         * list of classification codes is available
+         * [here](https://increase.com/documentation/data-dictionary#north-american-industry-classification-system-codes).
+         */
+        @JsonProperty("industry_code")
+        @ExcludeMissing
+        fun _industryCode(): JsonField<String> = industryCode
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): EntityUpdateIndustryCodeBody = apply {
+            if (!validated) {
+                industryCode()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -86,7 +117,7 @@ constructor(
 
         class Builder {
 
-            private var industryCode: String? = null
+            private var industryCode: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -102,7 +133,17 @@ constructor(
              * full list of classification codes is available
              * [here](https://increase.com/documentation/data-dictionary#north-american-industry-classification-system-codes).
              */
-            fun industryCode(industryCode: String) = apply { this.industryCode = industryCode }
+            fun industryCode(industryCode: String) = industryCode(JsonField.of(industryCode))
+
+            /**
+             * The North American Industry Classification System (NAICS) code for the corporation's
+             * primary line of business. This is a number, like `5132` for `Software Publishers`. A
+             * full list of classification codes is available
+             * [here](https://increase.com/documentation/data-dictionary#north-american-industry-classification-system-codes).
+             */
+            fun industryCode(industryCode: JsonField<String>) = apply {
+                this.industryCode = industryCode
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -185,6 +226,35 @@ constructor(
          * [here](https://increase.com/documentation/data-dictionary#north-american-industry-classification-system-codes).
          */
         fun industryCode(industryCode: String) = apply { body.industryCode(industryCode) }
+
+        /**
+         * The North American Industry Classification System (NAICS) code for the corporation's
+         * primary line of business. This is a number, like `5132` for `Software Publishers`. A full
+         * list of classification codes is available
+         * [here](https://increase.com/documentation/data-dictionary#north-american-industry-classification-system-codes).
+         */
+        fun industryCode(industryCode: JsonField<String>) = apply {
+            body.industryCode(industryCode)
+        }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -282,25 +352,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): EntityUpdateIndustryCodeParams =

@@ -127,58 +127,72 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The Card Profile identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** The identifier of the File containing the card's icon image. */
-    @JsonProperty("app_icon_file_id") @ExcludeMissing fun _appIconFileId() = appIconFileId
+    @JsonProperty("app_icon_file_id")
+    @ExcludeMissing
+    fun _appIconFileId(): JsonField<String> = appIconFileId
 
     /** The identifier of the File containing the card's front image. */
     @JsonProperty("background_image_file_id")
     @ExcludeMissing
-    fun _backgroundImageFileId() = backgroundImageFileId
+    fun _backgroundImageFileId(): JsonField<String> = backgroundImageFileId
 
     /** A user-facing description for the card itself. */
-    @JsonProperty("card_description") @ExcludeMissing fun _cardDescription() = cardDescription
+    @JsonProperty("card_description")
+    @ExcludeMissing
+    fun _cardDescription(): JsonField<String> = cardDescription
 
     /** An email address the user can contact to receive support for their card. */
-    @JsonProperty("contact_email") @ExcludeMissing fun _contactEmail() = contactEmail
+    @JsonProperty("contact_email")
+    @ExcludeMissing
+    fun _contactEmail(): JsonField<String> = contactEmail
 
     /** A phone number the user can contact to receive support for their card. */
-    @JsonProperty("contact_phone") @ExcludeMissing fun _contactPhone() = contactPhone
+    @JsonProperty("contact_phone")
+    @ExcludeMissing
+    fun _contactPhone(): JsonField<String> = contactPhone
 
     /** A website the user can visit to view and receive support for their card. */
-    @JsonProperty("contact_website") @ExcludeMissing fun _contactWebsite() = contactWebsite
+    @JsonProperty("contact_website")
+    @ExcludeMissing
+    fun _contactWebsite(): JsonField<String> = contactWebsite
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
      * Dispute was created.
      */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** A description you can use to identify the Card Profile. */
-    @JsonProperty("description") @ExcludeMissing fun _description() = description
+    @JsonProperty("description") @ExcludeMissing fun _description(): JsonField<String> = description
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
      * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
     /** A user-facing description for whoever is issuing the card. */
-    @JsonProperty("issuer_name") @ExcludeMissing fun _issuerName() = issuerName
+    @JsonProperty("issuer_name") @ExcludeMissing fun _issuerName(): JsonField<String> = issuerName
 
     /** The status of the Card Profile. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /** The Card's text color, specified as an RGB triple. */
-    @JsonProperty("text_color") @ExcludeMissing fun _textColor() = textColor
+    @JsonProperty("text_color") @ExcludeMissing fun _textColor(): JsonField<TextColor> = textColor
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `digital_card_profile`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -215,20 +229,20 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var appIconFileId: JsonField<String> = JsonMissing.of()
-        private var backgroundImageFileId: JsonField<String> = JsonMissing.of()
-        private var cardDescription: JsonField<String> = JsonMissing.of()
-        private var contactEmail: JsonField<String> = JsonMissing.of()
-        private var contactPhone: JsonField<String> = JsonMissing.of()
-        private var contactWebsite: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var description: JsonField<String> = JsonMissing.of()
-        private var idempotencyKey: JsonField<String> = JsonMissing.of()
-        private var issuerName: JsonField<String> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var textColor: JsonField<TextColor> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var appIconFileId: JsonField<String>? = null
+        private var backgroundImageFileId: JsonField<String>? = null
+        private var cardDescription: JsonField<String>? = null
+        private var contactEmail: JsonField<String>? = null
+        private var contactPhone: JsonField<String>? = null
+        private var contactWebsite: JsonField<String>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var description: JsonField<String>? = null
+        private var idempotencyKey: JsonField<String>? = null
+        private var issuerName: JsonField<String>? = null
+        private var status: JsonField<Status>? = null
+        private var textColor: JsonField<TextColor>? = null
+        private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -283,7 +297,10 @@ private constructor(
         }
 
         /** An email address the user can contact to receive support for their card. */
-        fun contactEmail(contactEmail: String) = contactEmail(JsonField.of(contactEmail))
+        fun contactEmail(contactEmail: String?) = contactEmail(JsonField.ofNullable(contactEmail))
+
+        /** An email address the user can contact to receive support for their card. */
+        fun contactEmail(contactEmail: Optional<String>) = contactEmail(contactEmail.orElse(null))
 
         /** An email address the user can contact to receive support for their card. */
         fun contactEmail(contactEmail: JsonField<String>) = apply {
@@ -291,7 +308,10 @@ private constructor(
         }
 
         /** A phone number the user can contact to receive support for their card. */
-        fun contactPhone(contactPhone: String) = contactPhone(JsonField.of(contactPhone))
+        fun contactPhone(contactPhone: String?) = contactPhone(JsonField.ofNullable(contactPhone))
+
+        /** A phone number the user can contact to receive support for their card. */
+        fun contactPhone(contactPhone: Optional<String>) = contactPhone(contactPhone.orElse(null))
 
         /** A phone number the user can contact to receive support for their card. */
         fun contactPhone(contactPhone: JsonField<String>) = apply {
@@ -299,7 +319,12 @@ private constructor(
         }
 
         /** A website the user can visit to view and receive support for their card. */
-        fun contactWebsite(contactWebsite: String) = contactWebsite(JsonField.of(contactWebsite))
+        fun contactWebsite(contactWebsite: String?) =
+            contactWebsite(JsonField.ofNullable(contactWebsite))
+
+        /** A website the user can visit to view and receive support for their card. */
+        fun contactWebsite(contactWebsite: Optional<String>) =
+            contactWebsite(contactWebsite.orElse(null))
 
         /** A website the user can visit to view and receive support for their card. */
         fun contactWebsite(contactWebsite: JsonField<String>) = apply {
@@ -329,7 +354,16 @@ private constructor(
          * is used to ensure that a request is only processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+        fun idempotencyKey(idempotencyKey: String?) =
+            idempotencyKey(JsonField.ofNullable(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: Optional<String>) =
+            idempotencyKey(idempotencyKey.orElse(null))
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -391,20 +425,22 @@ private constructor(
 
         fun build(): DigitalCardProfile =
             DigitalCardProfile(
-                id,
-                appIconFileId,
-                backgroundImageFileId,
-                cardDescription,
-                contactEmail,
-                contactPhone,
-                contactWebsite,
-                createdAt,
-                description,
-                idempotencyKey,
-                issuerName,
-                status,
-                textColor,
-                type,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(appIconFileId) { "`appIconFileId` is required but was not set" },
+                checkNotNull(backgroundImageFileId) {
+                    "`backgroundImageFileId` is required but was not set"
+                },
+                checkNotNull(cardDescription) { "`cardDescription` is required but was not set" },
+                checkNotNull(contactEmail) { "`contactEmail` is required but was not set" },
+                checkNotNull(contactPhone) { "`contactPhone` is required but was not set" },
+                checkNotNull(contactWebsite) { "`contactWebsite` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(description) { "`description` is required but was not set" },
+                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
+                checkNotNull(issuerName) { "`issuerName` is required but was not set" },
+                checkNotNull(status) { "`status` is required but was not set" },
+                checkNotNull(textColor) { "`textColor` is required but was not set" },
+                checkNotNull(type) { "`type` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }
@@ -502,13 +538,13 @@ private constructor(
         fun red(): Long = red.getRequired("red")
 
         /** The value of the blue channel in the RGB color. */
-        @JsonProperty("blue") @ExcludeMissing fun _blue() = blue
+        @JsonProperty("blue") @ExcludeMissing fun _blue(): JsonField<Long> = blue
 
         /** The value of the green channel in the RGB color. */
-        @JsonProperty("green") @ExcludeMissing fun _green() = green
+        @JsonProperty("green") @ExcludeMissing fun _green(): JsonField<Long> = green
 
         /** The value of the red channel in the RGB color. */
-        @JsonProperty("red") @ExcludeMissing fun _red() = red
+        @JsonProperty("red") @ExcludeMissing fun _red(): JsonField<Long> = red
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -534,9 +570,9 @@ private constructor(
 
         class Builder {
 
-            private var blue: JsonField<Long> = JsonMissing.of()
-            private var green: JsonField<Long> = JsonMissing.of()
-            private var red: JsonField<Long> = JsonMissing.of()
+            private var blue: JsonField<Long>? = null
+            private var green: JsonField<Long>? = null
+            private var red: JsonField<Long>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -586,9 +622,9 @@ private constructor(
 
             fun build(): TextColor =
                 TextColor(
-                    blue,
-                    green,
-                    red,
+                    checkNotNull(blue) { "`blue` is required but was not set" },
+                    checkNotNull(green) { "`green` is required but was not set" },
+                    checkNotNull(red) { "`red` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }

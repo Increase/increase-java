@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -37,11 +39,20 @@ constructor(
      */
     fun amount(): Optional<Long> = body.amount()
 
+    /** The identifier of the Card Payment to create a reversal on. */
+    fun _cardPaymentId(): JsonField<String> = body._cardPaymentId()
+
+    /**
+     * The amount of the reversal in minor units in the card authorization's currency. This defaults
+     * to the authorization amount.
+     */
+    fun _amount(): JsonField<Long> = body._amount()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     @JvmSynthetic internal fun getBody(): SimulationCardReversalCreateBody = body
 
@@ -53,24 +64,49 @@ constructor(
     class SimulationCardReversalCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("card_payment_id") private val cardPaymentId: String,
-        @JsonProperty("amount") private val amount: Long?,
+        @JsonProperty("card_payment_id")
+        @ExcludeMissing
+        private val cardPaymentId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("amount")
+        @ExcludeMissing
+        private val amount: JsonField<Long> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The identifier of the Card Payment to create a reversal on. */
-        @JsonProperty("card_payment_id") fun cardPaymentId(): String = cardPaymentId
+        fun cardPaymentId(): String = cardPaymentId.getRequired("card_payment_id")
 
         /**
          * The amount of the reversal in minor units in the card authorization's currency. This
          * defaults to the authorization amount.
          */
-        @JsonProperty("amount") fun amount(): Optional<Long> = Optional.ofNullable(amount)
+        fun amount(): Optional<Long> = Optional.ofNullable(amount.getNullable("amount"))
+
+        /** The identifier of the Card Payment to create a reversal on. */
+        @JsonProperty("card_payment_id")
+        @ExcludeMissing
+        fun _cardPaymentId(): JsonField<String> = cardPaymentId
+
+        /**
+         * The amount of the reversal in minor units in the card authorization's currency. This
+         * defaults to the authorization amount.
+         */
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): SimulationCardReversalCreateBody = apply {
+            if (!validated) {
+                cardPaymentId()
+                amount()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -81,8 +117,8 @@ constructor(
 
         class Builder {
 
-            private var cardPaymentId: String? = null
-            private var amount: Long? = null
+            private var cardPaymentId: JsonField<String>? = null
+            private var amount: JsonField<Long> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -95,26 +131,24 @@ constructor(
                 }
 
             /** The identifier of the Card Payment to create a reversal on. */
-            fun cardPaymentId(cardPaymentId: String) = apply { this.cardPaymentId = cardPaymentId }
+            fun cardPaymentId(cardPaymentId: String) = cardPaymentId(JsonField.of(cardPaymentId))
+
+            /** The identifier of the Card Payment to create a reversal on. */
+            fun cardPaymentId(cardPaymentId: JsonField<String>) = apply {
+                this.cardPaymentId = cardPaymentId
+            }
 
             /**
              * The amount of the reversal in minor units in the card authorization's currency. This
              * defaults to the authorization amount.
              */
-            fun amount(amount: Long?) = apply { this.amount = amount }
+            fun amount(amount: Long) = amount(JsonField.of(amount))
 
             /**
              * The amount of the reversal in minor units in the card authorization's currency. This
              * defaults to the authorization amount.
              */
-            fun amount(amount: Long) = amount(amount as Long?)
-
-            /**
-             * The amount of the reversal in minor units in the card authorization's currency. This
-             * defaults to the authorization amount.
-             */
-            @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
-            fun amount(amount: Optional<Long>) = amount(amount.orElse(null) as Long?)
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -188,24 +222,41 @@ constructor(
         /** The identifier of the Card Payment to create a reversal on. */
         fun cardPaymentId(cardPaymentId: String) = apply { body.cardPaymentId(cardPaymentId) }
 
-        /**
-         * The amount of the reversal in minor units in the card authorization's currency. This
-         * defaults to the authorization amount.
-         */
-        fun amount(amount: Long?) = apply { body.amount(amount) }
+        /** The identifier of the Card Payment to create a reversal on. */
+        fun cardPaymentId(cardPaymentId: JsonField<String>) = apply {
+            body.cardPaymentId(cardPaymentId)
+        }
 
         /**
          * The amount of the reversal in minor units in the card authorization's currency. This
          * defaults to the authorization amount.
          */
-        fun amount(amount: Long) = amount(amount as Long?)
+        fun amount(amount: Long) = apply { body.amount(amount) }
 
         /**
          * The amount of the reversal in minor units in the card authorization's currency. This
          * defaults to the authorization amount.
          */
-        @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
-        fun amount(amount: Optional<Long>) = amount(amount.orElse(null) as Long?)
+        fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -303,25 +354,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): SimulationCardReversalCreateParams =

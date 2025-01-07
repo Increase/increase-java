@@ -14,6 +14,8 @@ class EventSubscriptionTest {
             EventSubscription.builder()
                 .id("event_subscription_001dzz0r20rcdxgb013zqb8m04g")
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                .idempotencyKey(null)
+                .oauthConnectionId(null)
                 .selectedEventCategory(EventSubscription.SelectedEventCategory.ACCOUNT_CREATED)
                 .status(EventSubscription.Status.ACTIVE)
                 .type(EventSubscription.Type.EVENT_SUBSCRIPTION)
@@ -24,6 +26,8 @@ class EventSubscriptionTest {
             .isEqualTo("event_subscription_001dzz0r20rcdxgb013zqb8m04g")
         assertThat(eventSubscription.createdAt())
             .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+        assertThat(eventSubscription.idempotencyKey()).isEmpty
+        assertThat(eventSubscription.oauthConnectionId()).isEmpty
         assertThat(eventSubscription.selectedEventCategory())
             .contains(EventSubscription.SelectedEventCategory.ACCOUNT_CREATED)
         assertThat(eventSubscription.status()).isEqualTo(EventSubscription.Status.ACTIVE)

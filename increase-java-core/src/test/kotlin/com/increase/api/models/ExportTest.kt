@@ -17,6 +17,7 @@ class ExportTest {
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .fileDownloadUrl("https://example.com/file")
                 .fileId("file_makxrc67oh9l6sg7w9yc")
+                .idempotencyKey(null)
                 .status(Export.Status.PENDING)
                 .type(Export.Type.EXPORT)
                 .build()
@@ -26,6 +27,7 @@ class ExportTest {
         assertThat(export.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(export.fileDownloadUrl()).contains("https://example.com/file")
         assertThat(export.fileId()).contains("file_makxrc67oh9l6sg7w9yc")
+        assertThat(export.idempotencyKey()).isEmpty
         assertThat(export.status()).isEqualTo(Export.Status.PENDING)
         assertThat(export.type()).isEqualTo(Export.Type.EXPORT)
     }

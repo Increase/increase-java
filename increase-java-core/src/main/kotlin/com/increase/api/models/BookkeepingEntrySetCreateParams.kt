@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -37,11 +39,23 @@ constructor(
     /** The identifier of the Transaction related to this entry set, if any. */
     fun transactionId(): Optional<String> = body.transactionId()
 
+    /** The bookkeeping entries. */
+    fun _entries(): JsonField<List<Entry>> = body._entries()
+
+    /**
+     * The date of the transaction. Optional if `transaction_id` is provided, in which case we use
+     * the `date` of that transaction. Required otherwise.
+     */
+    fun _date(): JsonField<OffsetDateTime> = body._date()
+
+    /** The identifier of the Transaction related to this entry set, if any. */
+    fun _transactionId(): JsonField<String> = body._transactionId()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     @JvmSynthetic internal fun getBody(): BookkeepingEntrySetCreateBody = body
 
@@ -53,29 +67,60 @@ constructor(
     class BookkeepingEntrySetCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("entries") private val entries: List<Entry>,
-        @JsonProperty("date") private val date: OffsetDateTime?,
-        @JsonProperty("transaction_id") private val transactionId: String?,
+        @JsonProperty("entries")
+        @ExcludeMissing
+        private val entries: JsonField<List<Entry>> = JsonMissing.of(),
+        @JsonProperty("date")
+        @ExcludeMissing
+        private val date: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("transaction_id")
+        @ExcludeMissing
+        private val transactionId: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The bookkeeping entries. */
-        @JsonProperty("entries") fun entries(): List<Entry> = entries
+        fun entries(): List<Entry> = entries.getRequired("entries")
 
         /**
          * The date of the transaction. Optional if `transaction_id` is provided, in which case we
          * use the `date` of that transaction. Required otherwise.
          */
-        @JsonProperty("date") fun date(): Optional<OffsetDateTime> = Optional.ofNullable(date)
+        fun date(): Optional<OffsetDateTime> = Optional.ofNullable(date.getNullable("date"))
+
+        /** The identifier of the Transaction related to this entry set, if any. */
+        fun transactionId(): Optional<String> =
+            Optional.ofNullable(transactionId.getNullable("transaction_id"))
+
+        /** The bookkeeping entries. */
+        @JsonProperty("entries") @ExcludeMissing fun _entries(): JsonField<List<Entry>> = entries
+
+        /**
+         * The date of the transaction. Optional if `transaction_id` is provided, in which case we
+         * use the `date` of that transaction. Required otherwise.
+         */
+        @JsonProperty("date") @ExcludeMissing fun _date(): JsonField<OffsetDateTime> = date
 
         /** The identifier of the Transaction related to this entry set, if any. */
         @JsonProperty("transaction_id")
-        fun transactionId(): Optional<String> = Optional.ofNullable(transactionId)
+        @ExcludeMissing
+        fun _transactionId(): JsonField<String> = transactionId
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): BookkeepingEntrySetCreateBody = apply {
+            if (!validated) {
+                entries().forEach { it.validate() }
+                date()
+                transactionId()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -86,15 +131,15 @@ constructor(
 
         class Builder {
 
-            private var entries: MutableList<Entry>? = null
-            private var date: OffsetDateTime? = null
-            private var transactionId: String? = null
+            private var entries: JsonField<MutableList<Entry>>? = null
+            private var date: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var transactionId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(bookkeepingEntrySetCreateBody: BookkeepingEntrySetCreateBody) =
                 apply {
-                    entries = bookkeepingEntrySetCreateBody.entries.toMutableList()
+                    entries = bookkeepingEntrySetCreateBody.entries.map { it.toMutableList() }
                     date = bookkeepingEntrySetCreateBody.date
                     transactionId = bookkeepingEntrySetCreateBody.transactionId
                     additionalProperties =
@@ -102,31 +147,46 @@ constructor(
                 }
 
             /** The bookkeeping entries. */
-            fun entries(entries: List<Entry>) = apply { this.entries = entries.toMutableList() }
+            fun entries(entries: List<Entry>) = entries(JsonField.of(entries))
+
+            /** The bookkeeping entries. */
+            fun entries(entries: JsonField<List<Entry>>) = apply {
+                this.entries = entries.map { it.toMutableList() }
+            }
 
             /** The bookkeeping entries. */
             fun addEntry(entry: Entry) = apply {
-                entries = (entries ?: mutableListOf()).apply { add(entry) }
+                entries =
+                    (entries ?: JsonField.of(mutableListOf())).apply {
+                        asKnown()
+                            .orElseThrow {
+                                IllegalStateException(
+                                    "Field was set to non-list type: ${javaClass.simpleName}"
+                                )
+                            }
+                            .add(entry)
+                    }
             }
 
             /**
              * The date of the transaction. Optional if `transaction_id` is provided, in which case
              * we use the `date` of that transaction. Required otherwise.
              */
-            fun date(date: OffsetDateTime?) = apply { this.date = date }
+            fun date(date: OffsetDateTime) = date(JsonField.of(date))
 
             /**
              * The date of the transaction. Optional if `transaction_id` is provided, in which case
              * we use the `date` of that transaction. Required otherwise.
              */
-            fun date(date: Optional<OffsetDateTime>) = date(date.orElse(null))
+            fun date(date: JsonField<OffsetDateTime>) = apply { this.date = date }
 
             /** The identifier of the Transaction related to this entry set, if any. */
-            fun transactionId(transactionId: String?) = apply { this.transactionId = transactionId }
+            fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
 
             /** The identifier of the Transaction related to this entry set, if any. */
-            fun transactionId(transactionId: Optional<String>) =
-                transactionId(transactionId.orElse(null))
+            fun transactionId(transactionId: JsonField<String>) = apply {
+                this.transactionId = transactionId
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -149,7 +209,8 @@ constructor(
 
             fun build(): BookkeepingEntrySetCreateBody =
                 BookkeepingEntrySetCreateBody(
-                    checkNotNull(entries) { "`entries` is required but was not set" }.toImmutable(),
+                    checkNotNull(entries) { "`entries` is required but was not set" }
+                        .map { it.toImmutable() },
                     date,
                     transactionId,
                     additionalProperties.toImmutable(),
@@ -202,26 +263,49 @@ constructor(
         fun entries(entries: List<Entry>) = apply { body.entries(entries) }
 
         /** The bookkeeping entries. */
+        fun entries(entries: JsonField<List<Entry>>) = apply { body.entries(entries) }
+
+        /** The bookkeeping entries. */
         fun addEntry(entry: Entry) = apply { body.addEntry(entry) }
 
         /**
          * The date of the transaction. Optional if `transaction_id` is provided, in which case we
          * use the `date` of that transaction. Required otherwise.
          */
-        fun date(date: OffsetDateTime?) = apply { body.date(date) }
+        fun date(date: OffsetDateTime) = apply { body.date(date) }
 
         /**
          * The date of the transaction. Optional if `transaction_id` is provided, in which case we
          * use the `date` of that transaction. Required otherwise.
          */
-        fun date(date: Optional<OffsetDateTime>) = date(date.orElse(null))
+        fun date(date: JsonField<OffsetDateTime>) = apply { body.date(date) }
 
         /** The identifier of the Transaction related to this entry set, if any. */
-        fun transactionId(transactionId: String?) = apply { body.transactionId(transactionId) }
+        fun transactionId(transactionId: String) = apply { body.transactionId(transactionId) }
 
         /** The identifier of the Transaction related to this entry set, if any. */
-        fun transactionId(transactionId: Optional<String>) =
-            transactionId(transactionId.orElse(null))
+        fun transactionId(transactionId: JsonField<String>) = apply {
+            body.transactionId(transactionId)
+        }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -321,25 +405,6 @@ constructor(
             additionalQueryParams.removeAll(keys)
         }
 
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
-        }
-
         fun build(): BookkeepingEntrySetCreateParams =
             BookkeepingEntrySetCreateParams(
                 body.build(),
@@ -352,24 +417,47 @@ constructor(
     class Entry
     @JsonCreator
     private constructor(
-        @JsonProperty("account_id") private val accountId: String,
-        @JsonProperty("amount") private val amount: Long,
+        @JsonProperty("account_id")
+        @ExcludeMissing
+        private val accountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("amount")
+        @ExcludeMissing
+        private val amount: JsonField<Long> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The identifier for the Bookkeeping Account impacted by this entry. */
-        @JsonProperty("account_id") fun accountId(): String = accountId
+        fun accountId(): String = accountId.getRequired("account_id")
 
         /**
          * The entry amount in the minor unit of the account currency. For dollars, for example,
          * this is cents. Debit entries have positive amounts; credit entries have negative amounts.
          */
-        @JsonProperty("amount") fun amount(): Long = amount
+        fun amount(): Long = amount.getRequired("amount")
+
+        /** The identifier for the Bookkeeping Account impacted by this entry. */
+        @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
+
+        /**
+         * The entry amount in the minor unit of the account currency. For dollars, for example,
+         * this is cents. Debit entries have positive amounts; credit entries have negative amounts.
+         */
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): Entry = apply {
+            if (!validated) {
+                accountId()
+                amount()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -380,8 +468,8 @@ constructor(
 
         class Builder {
 
-            private var accountId: String? = null
-            private var amount: Long? = null
+            private var accountId: JsonField<String>? = null
+            private var amount: JsonField<Long>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -392,14 +480,24 @@ constructor(
             }
 
             /** The identifier for the Bookkeeping Account impacted by this entry. */
-            fun accountId(accountId: String) = apply { this.accountId = accountId }
+            fun accountId(accountId: String) = accountId(JsonField.of(accountId))
+
+            /** The identifier for the Bookkeeping Account impacted by this entry. */
+            fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
             /**
              * The entry amount in the minor unit of the account currency. For dollars, for example,
              * this is cents. Debit entries have positive amounts; credit entries have negative
              * amounts.
              */
-            fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long) = amount(JsonField.of(amount))
+
+            /**
+             * The entry amount in the minor unit of the account currency. For dollars, for example,
+             * this is cents. Debit entries have positive amounts; credit entries have negative
+             * amounts.
+             */
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()

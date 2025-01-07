@@ -21,6 +21,7 @@ class DigitalCardProfileTest {
                 .contactWebsite("https://example.com")
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .description("Corporate logo Apple Pay Card")
+                .idempotencyKey(null)
                 .issuerName("National Phonograph Company")
                 .status(DigitalCardProfile.Status.PENDING)
                 .textColor(
@@ -40,6 +41,7 @@ class DigitalCardProfileTest {
         assertThat(digitalCardProfile.createdAt())
             .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(digitalCardProfile.description()).isEqualTo("Corporate logo Apple Pay Card")
+        assertThat(digitalCardProfile.idempotencyKey()).isEmpty
         assertThat(digitalCardProfile.issuerName()).isEqualTo("National Phonograph Company")
         assertThat(digitalCardProfile.status()).isEqualTo(DigitalCardProfile.Status.PENDING)
         assertThat(digitalCardProfile.textColor())

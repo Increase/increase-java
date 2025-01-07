@@ -78,34 +78,38 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The OAuth Application's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** The OAuth Application's client_id. Use this to authenticate with the OAuth Application. */
-    @JsonProperty("client_id") @ExcludeMissing fun _clientId() = clientId
+    @JsonProperty("client_id") @ExcludeMissing fun _clientId(): JsonField<String> = clientId
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth Application
      * was created.
      */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth Application
      * was deleted.
      */
-    @JsonProperty("deleted_at") @ExcludeMissing fun _deletedAt() = deletedAt
+    @JsonProperty("deleted_at")
+    @ExcludeMissing
+    fun _deletedAt(): JsonField<OffsetDateTime> = deletedAt
 
     /** The name you chose for this OAuth Application. */
-    @JsonProperty("name") @ExcludeMissing fun _name() = name
+    @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
     /** Whether the application is active. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `oauth_application`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -135,13 +139,13 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var clientId: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var deletedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var name: JsonField<String> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var clientId: JsonField<String>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var deletedAt: JsonField<OffsetDateTime>? = null
+        private var name: JsonField<String>? = null
+        private var status: JsonField<Status>? = null
+        private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -188,7 +192,13 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth
          * Application was deleted.
          */
-        fun deletedAt(deletedAt: OffsetDateTime) = deletedAt(JsonField.of(deletedAt))
+        fun deletedAt(deletedAt: OffsetDateTime?) = deletedAt(JsonField.ofNullable(deletedAt))
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth
+         * Application was deleted.
+         */
+        fun deletedAt(deletedAt: Optional<OffsetDateTime>) = deletedAt(deletedAt.orElse(null))
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth
@@ -197,7 +207,10 @@ private constructor(
         fun deletedAt(deletedAt: JsonField<OffsetDateTime>) = apply { this.deletedAt = deletedAt }
 
         /** The name you chose for this OAuth Application. */
-        fun name(name: String) = name(JsonField.of(name))
+        fun name(name: String?) = name(JsonField.ofNullable(name))
+
+        /** The name you chose for this OAuth Application. */
+        fun name(name: Optional<String>) = name(name.orElse(null))
 
         /** The name you chose for this OAuth Application. */
         fun name(name: JsonField<String>) = apply { this.name = name }
@@ -241,13 +254,13 @@ private constructor(
 
         fun build(): OAuthApplication =
             OAuthApplication(
-                id,
-                clientId,
-                createdAt,
-                deletedAt,
-                name,
-                status,
-                type,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(clientId) { "`clientId` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(deletedAt) { "`deletedAt` is required but was not set" },
+                checkNotNull(name) { "`name` is required but was not set" },
+                checkNotNull(status) { "`status` is required but was not set" },
+                checkNotNull(type) { "`type` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }

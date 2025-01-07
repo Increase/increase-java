@@ -17,6 +17,7 @@ class IntrafiExclusionTest {
                 .entityId("entity_n8y8tnk2p9339ti393yi")
                 .excludedAt(OffsetDateTime.parse("2020-02-01T23:59:59+00:00"))
                 .fdicCertificateNumber("314159")
+                .idempotencyKey(null)
                 .status(IntrafiExclusion.Status.PENDING)
                 .submittedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .type(IntrafiExclusion.Type.INTRAFI_EXCLUSION)
@@ -28,6 +29,7 @@ class IntrafiExclusionTest {
         assertThat(intrafiExclusion.excludedAt())
             .contains(OffsetDateTime.parse("2020-02-01T23:59:59+00:00"))
         assertThat(intrafiExclusion.fdicCertificateNumber()).contains("314159")
+        assertThat(intrafiExclusion.idempotencyKey()).isEmpty
         assertThat(intrafiExclusion.status()).isEqualTo(IntrafiExclusion.Status.PENDING)
         assertThat(intrafiExclusion.submittedAt())
             .contains(OffsetDateTime.parse("2020-01-31T23:59:59Z"))

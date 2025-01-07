@@ -18,6 +18,7 @@ class AccountTransferTest {
                 .approval(
                     AccountTransfer.Approval.builder()
                         .approvedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .approvedBy(null)
                         .build()
                 )
                 .cancellation(
@@ -51,7 +52,9 @@ class AccountTransferTest {
                 .description("Move money into savings")
                 .destinationAccountId("account_uf16sut2ct5bevmq3eh")
                 .destinationTransactionId("transaction_j3itv8dtk5o8pw3p1xj4")
+                .idempotencyKey(null)
                 .network(AccountTransfer.Network.ACCOUNT)
+                .pendingTransactionId(null)
                 .status(AccountTransfer.Status.PENDING_APPROVAL)
                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
                 .type(AccountTransfer.Type.ACCOUNT_TRANSFER)
@@ -64,6 +67,7 @@ class AccountTransferTest {
             .contains(
                 AccountTransfer.Approval.builder()
                     .approvedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                    .approvedBy(null)
                     .build()
             )
         assertThat(accountTransfer.cancellation())
@@ -97,7 +101,9 @@ class AccountTransferTest {
         assertThat(accountTransfer.destinationAccountId()).isEqualTo("account_uf16sut2ct5bevmq3eh")
         assertThat(accountTransfer.destinationTransactionId())
             .contains("transaction_j3itv8dtk5o8pw3p1xj4")
+        assertThat(accountTransfer.idempotencyKey()).isEmpty
         assertThat(accountTransfer.network()).isEqualTo(AccountTransfer.Network.ACCOUNT)
+        assertThat(accountTransfer.pendingTransactionId()).isEmpty
         assertThat(accountTransfer.status()).isEqualTo(AccountTransfer.Status.PENDING_APPROVAL)
         assertThat(accountTransfer.transactionId()).contains("transaction_uyrp7fld2ium70oa7oi")
         assertThat(accountTransfer.type()).isEqualTo(AccountTransfer.Type.ACCOUNT_TRANSFER)

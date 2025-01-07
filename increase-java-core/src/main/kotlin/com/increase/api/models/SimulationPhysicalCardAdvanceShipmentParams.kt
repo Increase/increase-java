@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -36,11 +37,14 @@ constructor(
     /** The shipment status to move the Physical Card to. */
     fun shipmentStatus(): ShipmentStatus = body.shipmentStatus()
 
+    /** The shipment status to move the Physical Card to. */
+    fun _shipmentStatus(): JsonField<ShipmentStatus> = body._shipmentStatus()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     @JvmSynthetic internal fun getBody(): SimulationPhysicalCardAdvanceShipmentBody = body
 
@@ -59,17 +63,33 @@ constructor(
     class SimulationPhysicalCardAdvanceShipmentBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("shipment_status") private val shipmentStatus: ShipmentStatus,
+        @JsonProperty("shipment_status")
+        @ExcludeMissing
+        private val shipmentStatus: JsonField<ShipmentStatus> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The shipment status to move the Physical Card to. */
-        @JsonProperty("shipment_status") fun shipmentStatus(): ShipmentStatus = shipmentStatus
+        fun shipmentStatus(): ShipmentStatus = shipmentStatus.getRequired("shipment_status")
+
+        /** The shipment status to move the Physical Card to. */
+        @JsonProperty("shipment_status")
+        @ExcludeMissing
+        fun _shipmentStatus(): JsonField<ShipmentStatus> = shipmentStatus
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): SimulationPhysicalCardAdvanceShipmentBody = apply {
+            if (!validated) {
+                shipmentStatus()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -80,7 +100,7 @@ constructor(
 
         class Builder {
 
-            private var shipmentStatus: ShipmentStatus? = null
+            private var shipmentStatus: JsonField<ShipmentStatus>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -93,7 +113,11 @@ constructor(
             }
 
             /** The shipment status to move the Physical Card to. */
-            fun shipmentStatus(shipmentStatus: ShipmentStatus) = apply {
+            fun shipmentStatus(shipmentStatus: ShipmentStatus) =
+                shipmentStatus(JsonField.of(shipmentStatus))
+
+            /** The shipment status to move the Physical Card to. */
+            fun shipmentStatus(shipmentStatus: JsonField<ShipmentStatus>) = apply {
                 this.shipmentStatus = shipmentStatus
             }
 
@@ -175,6 +199,30 @@ constructor(
         /** The shipment status to move the Physical Card to. */
         fun shipmentStatus(shipmentStatus: ShipmentStatus) = apply {
             body.shipmentStatus(shipmentStatus)
+        }
+
+        /** The shipment status to move the Physical Card to. */
+        fun shipmentStatus(shipmentStatus: JsonField<ShipmentStatus>) = apply {
+            body.shipmentStatus(shipmentStatus)
+        }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -273,25 +321,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): SimulationPhysicalCardAdvanceShipmentParams =

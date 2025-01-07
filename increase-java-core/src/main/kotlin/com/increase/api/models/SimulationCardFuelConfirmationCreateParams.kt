@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -33,11 +35,17 @@ constructor(
     /** The identifier of the Card Payment to create a fuel_confirmation on. */
     fun cardPaymentId(): String = body.cardPaymentId()
 
+    /** The amount of the fuel_confirmation in minor units in the card authorization's currency. */
+    fun _amount(): JsonField<Long> = body._amount()
+
+    /** The identifier of the Card Payment to create a fuel_confirmation on. */
+    fun _cardPaymentId(): JsonField<String> = body._cardPaymentId()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     @JvmSynthetic internal fun getBody(): SimulationCardFuelConfirmationCreateBody = body
 
@@ -49,8 +57,12 @@ constructor(
     class SimulationCardFuelConfirmationCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("amount") private val amount: Long,
-        @JsonProperty("card_payment_id") private val cardPaymentId: String,
+        @JsonProperty("amount")
+        @ExcludeMissing
+        private val amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("card_payment_id")
+        @ExcludeMissing
+        private val cardPaymentId: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
@@ -58,14 +70,34 @@ constructor(
         /**
          * The amount of the fuel_confirmation in minor units in the card authorization's currency.
          */
-        @JsonProperty("amount") fun amount(): Long = amount
+        fun amount(): Long = amount.getRequired("amount")
 
         /** The identifier of the Card Payment to create a fuel_confirmation on. */
-        @JsonProperty("card_payment_id") fun cardPaymentId(): String = cardPaymentId
+        fun cardPaymentId(): String = cardPaymentId.getRequired("card_payment_id")
+
+        /**
+         * The amount of the fuel_confirmation in minor units in the card authorization's currency.
+         */
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+        /** The identifier of the Card Payment to create a fuel_confirmation on. */
+        @JsonProperty("card_payment_id")
+        @ExcludeMissing
+        fun _cardPaymentId(): JsonField<String> = cardPaymentId
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): SimulationCardFuelConfirmationCreateBody = apply {
+            if (!validated) {
+                amount()
+                cardPaymentId()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -76,8 +108,8 @@ constructor(
 
         class Builder {
 
-            private var amount: Long? = null
-            private var cardPaymentId: String? = null
+            private var amount: JsonField<Long>? = null
+            private var cardPaymentId: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -94,10 +126,21 @@ constructor(
              * The amount of the fuel_confirmation in minor units in the card authorization's
              * currency.
              */
-            fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long) = amount(JsonField.of(amount))
+
+            /**
+             * The amount of the fuel_confirmation in minor units in the card authorization's
+             * currency.
+             */
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /** The identifier of the Card Payment to create a fuel_confirmation on. */
-            fun cardPaymentId(cardPaymentId: String) = apply { this.cardPaymentId = cardPaymentId }
+            fun cardPaymentId(cardPaymentId: String) = cardPaymentId(JsonField.of(cardPaymentId))
+
+            /** The identifier of the Card Payment to create a fuel_confirmation on. */
+            fun cardPaymentId(cardPaymentId: JsonField<String>) = apply {
+                this.cardPaymentId = cardPaymentId
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -175,8 +218,37 @@ constructor(
          */
         fun amount(amount: Long) = apply { body.amount(amount) }
 
+        /**
+         * The amount of the fuel_confirmation in minor units in the card authorization's currency.
+         */
+        fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
+
         /** The identifier of the Card Payment to create a fuel_confirmation on. */
         fun cardPaymentId(cardPaymentId: String) = apply { body.cardPaymentId(cardPaymentId) }
+
+        /** The identifier of the Card Payment to create a fuel_confirmation on. */
+        fun cardPaymentId(cardPaymentId: JsonField<String>) = apply {
+            body.cardPaymentId(cardPaymentId)
+        }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -274,25 +346,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): SimulationCardFuelConfirmationCreateParams =

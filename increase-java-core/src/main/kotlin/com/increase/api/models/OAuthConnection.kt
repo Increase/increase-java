@@ -79,36 +79,40 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The OAuth Connection's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth Connection
      * was created.
      */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth Connection
      * was deleted.
      */
-    @JsonProperty("deleted_at") @ExcludeMissing fun _deletedAt() = deletedAt
+    @JsonProperty("deleted_at")
+    @ExcludeMissing
+    fun _deletedAt(): JsonField<OffsetDateTime> = deletedAt
 
     /** The identifier of the Group that has authorized your OAuth application. */
-    @JsonProperty("group_id") @ExcludeMissing fun _groupId() = groupId
+    @JsonProperty("group_id") @ExcludeMissing fun _groupId(): JsonField<String> = groupId
 
     /** The identifier of the OAuth application this connection is for. */
     @JsonProperty("oauth_application_id")
     @ExcludeMissing
-    fun _oauthApplicationId() = oauthApplicationId
+    fun _oauthApplicationId(): JsonField<String> = oauthApplicationId
 
     /** Whether the connection is active. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `oauth_connection`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -138,13 +142,13 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var deletedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var groupId: JsonField<String> = JsonMissing.of()
-        private var oauthApplicationId: JsonField<String> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var deletedAt: JsonField<OffsetDateTime>? = null
+        private var groupId: JsonField<String>? = null
+        private var oauthApplicationId: JsonField<String>? = null
+        private var status: JsonField<Status>? = null
+        private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -181,7 +185,13 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth
          * Connection was deleted.
          */
-        fun deletedAt(deletedAt: OffsetDateTime) = deletedAt(JsonField.of(deletedAt))
+        fun deletedAt(deletedAt: OffsetDateTime?) = deletedAt(JsonField.ofNullable(deletedAt))
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth
+         * Connection was deleted.
+         */
+        fun deletedAt(deletedAt: Optional<OffsetDateTime>) = deletedAt(deletedAt.orElse(null))
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth
@@ -243,13 +253,15 @@ private constructor(
 
         fun build(): OAuthConnection =
             OAuthConnection(
-                id,
-                createdAt,
-                deletedAt,
-                groupId,
-                oauthApplicationId,
-                status,
-                type,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(deletedAt) { "`deletedAt` is required but was not set" },
+                checkNotNull(groupId) { "`groupId` is required but was not set" },
+                checkNotNull(oauthApplicationId) {
+                    "`oauthApplicationId` is required but was not set"
+                },
+                checkNotNull(status) { "`status` is required but was not set" },
+                checkNotNull(type) { "`type` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }

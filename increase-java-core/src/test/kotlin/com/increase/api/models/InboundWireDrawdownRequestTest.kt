@@ -17,6 +17,7 @@ class InboundWireDrawdownRequestTest {
                 .beneficiaryAccountNumber("987654321")
                 .beneficiaryAddressLine1("33 Liberty Street")
                 .beneficiaryAddressLine2("New York, NY, 10045")
+                .beneficiaryAddressLine3(null)
                 .beneficiaryName("Ian Crease")
                 .beneficiaryRoutingNumber("101050001")
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -25,8 +26,13 @@ class InboundWireDrawdownRequestTest {
                 .originatorAccountNumber("987654321")
                 .originatorAddressLine1("33 Liberty Street")
                 .originatorAddressLine2("New York, NY, 10045")
+                .originatorAddressLine3(null)
                 .originatorName("Ian Crease")
                 .originatorRoutingNumber("101050001")
+                .originatorToBeneficiaryInformationLine1(null)
+                .originatorToBeneficiaryInformationLine2(null)
+                .originatorToBeneficiaryInformationLine3(null)
+                .originatorToBeneficiaryInformationLine4(null)
                 .recipientAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                 .type(InboundWireDrawdownRequest.Type.INBOUND_WIRE_DRAWDOWN_REQUEST)
                 .build()
@@ -39,6 +45,7 @@ class InboundWireDrawdownRequestTest {
             .contains("33 Liberty Street")
         assertThat(inboundWireDrawdownRequest.beneficiaryAddressLine2())
             .contains("New York, NY, 10045")
+        assertThat(inboundWireDrawdownRequest.beneficiaryAddressLine3()).isEmpty
         assertThat(inboundWireDrawdownRequest.beneficiaryName()).contains("Ian Crease")
         assertThat(inboundWireDrawdownRequest.beneficiaryRoutingNumber()).isEqualTo("101050001")
         assertThat(inboundWireDrawdownRequest.createdAt())
@@ -50,8 +57,13 @@ class InboundWireDrawdownRequestTest {
             .contains("33 Liberty Street")
         assertThat(inboundWireDrawdownRequest.originatorAddressLine2())
             .contains("New York, NY, 10045")
+        assertThat(inboundWireDrawdownRequest.originatorAddressLine3()).isEmpty
         assertThat(inboundWireDrawdownRequest.originatorName()).contains("Ian Crease")
         assertThat(inboundWireDrawdownRequest.originatorRoutingNumber()).isEqualTo("101050001")
+        assertThat(inboundWireDrawdownRequest.originatorToBeneficiaryInformationLine1()).isEmpty
+        assertThat(inboundWireDrawdownRequest.originatorToBeneficiaryInformationLine2()).isEmpty
+        assertThat(inboundWireDrawdownRequest.originatorToBeneficiaryInformationLine3()).isEmpty
+        assertThat(inboundWireDrawdownRequest.originatorToBeneficiaryInformationLine4()).isEmpty
         assertThat(inboundWireDrawdownRequest.recipientAccountNumberId())
             .isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
         assertThat(inboundWireDrawdownRequest.type())
