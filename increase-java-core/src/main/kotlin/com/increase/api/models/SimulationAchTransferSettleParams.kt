@@ -10,6 +10,11 @@ import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
 
+/**
+ * Simulates the settlement of an [ACH Transfer](#ach-transfers) by the Federal Reserve. This
+ * transfer must first have a `status` of `submitted`. Without this simulation the transfer will
+ * eventually settle on its own following the same Federal Reserve timeline as in production.
+ */
 class SimulationAchTransferSettleParams
 constructor(
     private val achTransferId: String,

@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
 
+/** Create a Wire Transfer */
 class WireTransferCreateParams
 constructor(
     private val body: WireTransferCreateBody,

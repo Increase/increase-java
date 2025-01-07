@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter
 import java.util.Objects
 import java.util.Optional
 
+/** List Inbound Mail Items */
 class InboundMailItemListParams
 constructor(
     private val createdAt: CreatedAt?,

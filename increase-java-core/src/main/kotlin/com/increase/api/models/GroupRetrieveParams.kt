@@ -7,6 +7,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
 
+/** Returns details for the currently authenticated Group. */
 class GroupRetrieveParams
 constructor(
     private val additionalHeaders: Headers,

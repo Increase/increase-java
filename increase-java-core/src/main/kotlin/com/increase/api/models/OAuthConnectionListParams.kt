@@ -13,6 +13,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 import java.util.Optional
 
+/** List OAuth Connections */
 class OAuthConnectionListParams
 constructor(
     private val cursor: String?,

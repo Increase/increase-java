@@ -7,6 +7,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
 
+/** Retrieve a Lockbox */
 class LockboxRetrieveParams
 constructor(
     private val lockboxId: String,

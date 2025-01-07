@@ -7,6 +7,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
 
+/** Retrieve a Real-Time Payments Request for Payment */
 class RealTimePaymentsRequestForPaymentRetrieveParams
 constructor(
     private val requestForPaymentId: String,

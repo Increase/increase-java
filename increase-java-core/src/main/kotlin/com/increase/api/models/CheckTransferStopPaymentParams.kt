@@ -19,6 +19,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 import java.util.Optional
 
+/** Request a stop payment on a Check Transfer */
 class CheckTransferStopPaymentParams
 constructor(
     private val checkTransferId: String,

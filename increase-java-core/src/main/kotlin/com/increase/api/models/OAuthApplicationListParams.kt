@@ -15,6 +15,7 @@ import java.time.format.DateTimeFormatter
 import java.util.Objects
 import java.util.Optional
 
+/** List OAuth Applications */
 class OAuthApplicationListParams
 constructor(
     private val createdAt: CreatedAt?,

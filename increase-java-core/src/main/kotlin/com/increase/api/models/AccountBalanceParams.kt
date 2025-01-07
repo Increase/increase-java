@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter
 import java.util.Objects
 import java.util.Optional
 
+/** Retrieve an Account Balance */
 class AccountBalanceParams
 constructor(
     private val accountId: String,

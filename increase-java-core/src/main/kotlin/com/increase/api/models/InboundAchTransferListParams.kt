@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter
 import java.util.Objects
 import java.util.Optional
 
+/** List Inbound ACH Transfers */
 class InboundAchTransferListParams
 constructor(
     private val accountId: String?,

@@ -10,6 +10,7 @@ import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
 
+/** Approves an ACH Transfer in a pending_approval state. */
 class AchTransferApproveParams
 constructor(
     private val achTransferId: String,

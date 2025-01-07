@@ -10,6 +10,7 @@ import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
 
+/** Approve a Wire Transfer */
 class WireTransferApproveParams
 constructor(
     private val wireTransferId: String,

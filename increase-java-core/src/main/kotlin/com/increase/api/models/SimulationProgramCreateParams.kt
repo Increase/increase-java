@@ -15,6 +15,11 @@ import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
+/**
+ * Simulates a [Program](#programs) being created in your group. By default, your group has one
+ * program called Commercial Banking. Note that when your group operates more than one program,
+ * `program_id` is a required field when creating accounts.
+ */
 class SimulationProgramCreateParams
 constructor(
     private val body: SimulationProgramCreateBody,

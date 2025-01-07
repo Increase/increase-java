@@ -18,6 +18,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 
+/** Return an Inbound Check Deposit */
 class InboundCheckDepositReturnParams
 constructor(
     private val inboundCheckDepositId: String,

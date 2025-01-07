@@ -15,6 +15,7 @@ import java.time.format.DateTimeFormatter
 import java.util.Objects
 import java.util.Optional
 
+/** List Documents */
 class DocumentListParams
 constructor(
     private val category: Category?,

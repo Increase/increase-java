@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter
 import java.util.Objects
 import java.util.Optional
 
+/** List Real-Time Payments Request for Payments */
 class RealTimePaymentsRequestForPaymentListParams
 constructor(
     private val accountId: String?,

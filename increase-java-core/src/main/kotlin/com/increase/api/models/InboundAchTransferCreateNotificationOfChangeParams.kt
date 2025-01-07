@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
 
+/** Create a notification of change for an Inbound ACH Transfer */
 class InboundAchTransferCreateNotificationOfChangeParams
 constructor(
     private val inboundAchTransferId: String,

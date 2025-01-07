@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter
 import java.util.Objects
 import java.util.Optional
 
+/** List ACH Prenotifications */
 class AchPrenotificationListParams
 constructor(
     private val createdAt: CreatedAt?,

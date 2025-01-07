@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
 
+/** Update the address for a beneficial owner belonging to a corporate Entity */
 class EntityUpdateBeneficialOwnerAddressParams
 constructor(
     private val entityId: String,

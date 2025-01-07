@@ -19,6 +19,11 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 import java.util.Optional
 
+/**
+ * Simulates the return of an [ACH Transfer](#ach-transfers) by the Federal Reserve due to an error
+ * condition. This will also create a Transaction to account for the returned funds. This transfer
+ * must first have a `status` of `submitted`.
+ */
 class SimulationAchTransferReturnParams
 constructor(
     private val achTransferId: String,

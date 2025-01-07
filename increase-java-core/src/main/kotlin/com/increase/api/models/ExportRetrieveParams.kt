@@ -7,6 +7,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
 
+/** Retrieve an Export */
 class ExportRetrieveParams
 constructor(
     private val exportId: String,

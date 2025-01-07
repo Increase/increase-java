@@ -15,6 +15,7 @@ import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
+/** Create a Physical Card Profile */
 class PhysicalCardProfileCreateParams
 constructor(
     private val body: PhysicalCardProfileCreateBody,

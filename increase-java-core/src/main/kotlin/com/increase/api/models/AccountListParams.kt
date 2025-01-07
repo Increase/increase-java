@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter
 import java.util.Objects
 import java.util.Optional
 
+/** List Accounts */
 class AccountListParams
 constructor(
     private val createdAt: CreatedAt?,

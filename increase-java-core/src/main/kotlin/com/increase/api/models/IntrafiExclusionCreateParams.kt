@@ -15,6 +15,7 @@ import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
+/** Create an IntraFi Exclusion */
 class IntrafiExclusionCreateParams
 constructor(
     private val body: IntrafiExclusionCreateBody,

@@ -15,6 +15,10 @@ import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
+/**
+ * Simulates refunding a card transaction. The full value of the original sandbox transaction is
+ * refunded.
+ */
 class SimulationCardRefundCreateParams
 constructor(
     private val body: SimulationCardRefundCreateBody,

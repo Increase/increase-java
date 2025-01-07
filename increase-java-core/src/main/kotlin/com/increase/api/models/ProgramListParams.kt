@@ -8,6 +8,7 @@ import com.increase.api.core.http.QueryParams
 import java.util.Objects
 import java.util.Optional
 
+/** List Programs */
 class ProgramListParams
 constructor(
     private val cursor: String?,

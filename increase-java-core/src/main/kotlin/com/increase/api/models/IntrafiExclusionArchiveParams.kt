@@ -10,6 +10,7 @@ import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
 
+/** Archive an IntraFi Exclusion */
 class IntrafiExclusionArchiveParams
 constructor(
     private val intrafiExclusionId: String,

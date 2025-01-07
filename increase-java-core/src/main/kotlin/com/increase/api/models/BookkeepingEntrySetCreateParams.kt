@@ -17,6 +17,7 @@ import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
 
+/** Create a Bookkeeping Entry Set */
 class BookkeepingEntrySetCreateParams
 constructor(
     private val body: BookkeepingEntrySetCreateBody,

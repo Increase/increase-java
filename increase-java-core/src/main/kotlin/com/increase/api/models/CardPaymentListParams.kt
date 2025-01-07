@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter
 import java.util.Objects
 import java.util.Optional
 
+/** List Card Payments */
 class CardPaymentListParams
 constructor(
     private val accountId: String?,

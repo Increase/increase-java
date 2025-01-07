@@ -10,6 +10,13 @@ import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
 
+/**
+ * Simulates the acknowledgement of an [ACH Transfer](#ach-transfers) by the Federal Reserve. This
+ * transfer must first have a `status` of `submitted` . In production, the Federal Reserve generally
+ * acknowledges submitted ACH files within 30 minutes. Since sandbox ACH Transfers are not submitted
+ * to the Federal Reserve, this endpoint allows you to skip that delay and add the acknowledgment
+ * subresource to the ACH Transfer.
+ */
 class SimulationAchTransferAcknowledgeParams
 constructor(
     private val achTransferId: String,

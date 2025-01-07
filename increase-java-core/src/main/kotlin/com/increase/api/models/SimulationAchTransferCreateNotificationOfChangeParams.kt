@@ -18,6 +18,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 
+/** Simulates receiving a Notification of Change for an [ACH Transfer](#ach-transfers). */
 class SimulationAchTransferCreateNotificationOfChangeParams
 constructor(
     private val achTransferId: String,

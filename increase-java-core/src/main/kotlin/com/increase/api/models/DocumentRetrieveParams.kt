@@ -7,6 +7,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
 
+/** Retrieve a Document */
 class DocumentRetrieveParams
 constructor(
     private val documentId: String,
