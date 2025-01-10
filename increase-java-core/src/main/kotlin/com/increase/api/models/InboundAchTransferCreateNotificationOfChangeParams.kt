@@ -100,11 +100,13 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): InboundAchTransferCreateNotificationOfChangeBody = apply {
-            if (!validated) {
-                updatedAccountNumber()
-                updatedRoutingNumber()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            updatedAccountNumber()
+            updatedRoutingNumber()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

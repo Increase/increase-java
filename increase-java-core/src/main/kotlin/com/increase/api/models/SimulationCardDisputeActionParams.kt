@@ -104,11 +104,13 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): SimulationCardDisputeActionBody = apply {
-            if (!validated) {
-                status()
-                explanation()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            status()
+            explanation()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

@@ -142,17 +142,19 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): EventSubscription = apply {
-        if (!validated) {
-            id()
-            createdAt()
-            idempotencyKey()
-            oauthConnectionId()
-            selectedEventCategory()
-            status()
-            type()
-            url()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        createdAt()
+        idempotencyKey()
+        oauthConnectionId()
+        selectedEventCategory()
+        status()
+        type()
+        url()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)

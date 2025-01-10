@@ -97,15 +97,17 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): BookkeepingEntry = apply {
-        if (!validated) {
-            id()
-            accountId()
-            amount()
-            createdAt()
-            entrySetId()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        accountId()
+        amount()
+        createdAt()
+        entrySetId()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)

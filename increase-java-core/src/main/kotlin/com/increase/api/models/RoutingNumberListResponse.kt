@@ -98,15 +98,17 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): RoutingNumberListResponse = apply {
-        if (!validated) {
-            achTransfers()
-            name()
-            realTimePaymentsTransfers()
-            routingNumber()
-            type()
-            wireTransfers()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        achTransfers()
+        name()
+        realTimePaymentsTransfers()
+        routingNumber()
+        type()
+        wireTransfers()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)

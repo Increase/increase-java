@@ -348,35 +348,37 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): InboundAchTransfer = apply {
-        if (!validated) {
-            id()
-            acceptance().map { it.validate() }
-            accountId()
-            accountNumberId()
-            addenda().map { it.validate() }
-            amount()
-            automaticallyResolvesAt()
-            decline().map { it.validate() }
-            direction()
-            effectiveDate()
-            expectedSettlementSchedule()
-            internationalAddenda().map { it.validate() }
-            notificationOfChange().map { it.validate() }
-            originatorCompanyDescriptiveDate()
-            originatorCompanyDiscretionaryData()
-            originatorCompanyEntryDescription()
-            originatorCompanyId()
-            originatorCompanyName()
-            originatorRoutingNumber()
-            receiverIdNumber()
-            receiverName()
-            standardEntryClassCode()
-            status()
-            traceNumber()
-            transferReturn().map { it.validate() }
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        acceptance().ifPresent { it.validate() }
+        accountId()
+        accountNumberId()
+        addenda().ifPresent { it.validate() }
+        amount()
+        automaticallyResolvesAt()
+        decline().ifPresent { it.validate() }
+        direction()
+        effectiveDate()
+        expectedSettlementSchedule()
+        internationalAddenda().ifPresent { it.validate() }
+        notificationOfChange().ifPresent { it.validate() }
+        originatorCompanyDescriptiveDate()
+        originatorCompanyDiscretionaryData()
+        originatorCompanyEntryDescription()
+        originatorCompanyId()
+        originatorCompanyName()
+        originatorRoutingNumber()
+        receiverIdNumber()
+        receiverName()
+        standardEntryClassCode()
+        status()
+        traceNumber()
+        transferReturn().ifPresent { it.validate() }
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -838,11 +840,13 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Acceptance = apply {
-            if (!validated) {
-                acceptedAt()
-                transactionId()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            acceptedAt()
+            transactionId()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -960,11 +964,13 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Addenda = apply {
-            if (!validated) {
-                category()
-                freeform().map { it.validate() }
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            category()
+            freeform().ifPresent { it.validate() }
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -1107,10 +1113,12 @@ private constructor(
             private var validated: Boolean = false
 
             fun validate(): Freeform = apply {
-                if (!validated) {
-                    entries().forEach { it.validate() }
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                entries().forEach { it.validate() }
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -1210,10 +1218,12 @@ private constructor(
                 private var validated: Boolean = false
 
                 fun validate(): Entry = apply {
-                    if (!validated) {
-                        paymentRelatedInformation()
-                        validated = true
+                    if (validated) {
+                        return@apply
                     }
+
+                    paymentRelatedInformation()
+                    validated = true
                 }
 
                 fun toBuilder() = Builder().from(this)
@@ -1377,12 +1387,14 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Decline = apply {
-            if (!validated) {
-                declinedAt()
-                declinedTransactionId()
-                reason()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            declinedAt()
+            declinedTransactionId()
+            reason()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -2325,42 +2337,44 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): InternationalAddenda = apply {
-            if (!validated) {
-                destinationCountryCode()
-                destinationCurrencyCode()
-                foreignExchangeIndicator()
-                foreignExchangeReference()
-                foreignExchangeReferenceIndicator()
-                foreignPaymentAmount()
-                foreignTraceNumber()
-                internationalTransactionTypeCode()
-                originatingCurrencyCode()
-                originatingDepositoryFinancialInstitutionBranchCountry()
-                originatingDepositoryFinancialInstitutionId()
-                originatingDepositoryFinancialInstitutionIdQualifier()
-                originatingDepositoryFinancialInstitutionName()
-                originatorCity()
-                originatorCountry()
-                originatorIdentification()
-                originatorName()
-                originatorPostalCode()
-                originatorStateOrProvince()
-                originatorStreetAddress()
-                paymentRelatedInformation()
-                paymentRelatedInformation2()
-                receiverCity()
-                receiverCountry()
-                receiverIdentificationNumber()
-                receiverPostalCode()
-                receiverStateOrProvince()
-                receiverStreetAddress()
-                receivingCompanyOrIndividualName()
-                receivingDepositoryFinancialInstitutionCountry()
-                receivingDepositoryFinancialInstitutionId()
-                receivingDepositoryFinancialInstitutionIdQualifier()
-                receivingDepositoryFinancialInstitutionName()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            destinationCountryCode()
+            destinationCurrencyCode()
+            foreignExchangeIndicator()
+            foreignExchangeReference()
+            foreignExchangeReferenceIndicator()
+            foreignPaymentAmount()
+            foreignTraceNumber()
+            internationalTransactionTypeCode()
+            originatingCurrencyCode()
+            originatingDepositoryFinancialInstitutionBranchCountry()
+            originatingDepositoryFinancialInstitutionId()
+            originatingDepositoryFinancialInstitutionIdQualifier()
+            originatingDepositoryFinancialInstitutionName()
+            originatorCity()
+            originatorCountry()
+            originatorIdentification()
+            originatorName()
+            originatorPostalCode()
+            originatorStateOrProvince()
+            originatorStreetAddress()
+            paymentRelatedInformation()
+            paymentRelatedInformation2()
+            receiverCity()
+            receiverCountry()
+            receiverIdentificationNumber()
+            receiverPostalCode()
+            receiverStateOrProvince()
+            receiverStreetAddress()
+            receivingCompanyOrIndividualName()
+            receivingDepositoryFinancialInstitutionCountry()
+            receivingDepositoryFinancialInstitutionId()
+            receivingDepositoryFinancialInstitutionIdQualifier()
+            receivingDepositoryFinancialInstitutionName()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -3587,11 +3601,13 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): NotificationOfChange = apply {
-            if (!validated) {
-                updatedAccountNumber()
-                updatedRoutingNumber()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            updatedAccountNumber()
+            updatedRoutingNumber()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -3946,12 +3962,14 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): TransferReturn = apply {
-            if (!validated) {
-                reason()
-                returnedAt()
-                transactionId()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            reason()
+            returnedAt()
+            transactionId()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

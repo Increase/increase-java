@@ -104,15 +104,17 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): CardDetails = apply {
-        if (!validated) {
-            cardId()
-            expirationMonth()
-            expirationYear()
-            primaryAccountNumber()
-            type()
-            verificationCode()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        cardId()
+        expirationMonth()
+        expirationYear()
+        primaryAccountNumber()
+        type()
+        verificationCode()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)

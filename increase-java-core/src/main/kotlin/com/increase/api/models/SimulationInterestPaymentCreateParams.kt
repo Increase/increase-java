@@ -123,13 +123,15 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): SimulationInterestPaymentCreateBody = apply {
-            if (!validated) {
-                accountId()
-                amount()
-                periodEnd()
-                periodStart()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            accountId()
+            amount()
+            periodEnd()
+            periodStart()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

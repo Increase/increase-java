@@ -174,14 +174,16 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): OAuthTokenCreateBody = apply {
-            if (!validated) {
-                grantType()
-                clientId()
-                clientSecret()
-                code()
-                productionToken()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            grantType()
+            clientId()
+            clientSecret()
+            code()
+            productionToken()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

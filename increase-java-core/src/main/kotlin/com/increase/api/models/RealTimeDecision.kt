@@ -178,20 +178,22 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): RealTimeDecision = apply {
-        if (!validated) {
-            id()
-            cardAuthentication().map { it.validate() }
-            cardAuthenticationChallenge().map { it.validate() }
-            cardAuthorization().map { it.validate() }
-            category()
-            createdAt()
-            digitalWalletAuthentication().map { it.validate() }
-            digitalWalletToken().map { it.validate() }
-            status()
-            timeoutAt()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        cardAuthentication().ifPresent { it.validate() }
+        cardAuthenticationChallenge().ifPresent { it.validate() }
+        cardAuthorization().ifPresent { it.validate() }
+        category()
+        createdAt()
+        digitalWalletAuthentication().ifPresent { it.validate() }
+        digitalWalletToken().ifPresent { it.validate() }
+        status()
+        timeoutAt()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -460,13 +462,15 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): CardAuthentication = apply {
-            if (!validated) {
-                accountId()
-                cardId()
-                decision()
-                upcomingCardPaymentId()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            accountId()
+            cardId()
+            decision()
+            upcomingCardPaymentId()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -706,14 +710,16 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): CardAuthenticationChallenge = apply {
-            if (!validated) {
-                accountId()
-                cardId()
-                cardPaymentId()
-                oneTimeCode()
-                result()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            accountId()
+            cardId()
+            cardPaymentId()
+            oneTimeCode()
+            result()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -1269,34 +1275,36 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): CardAuthorization = apply {
-            if (!validated) {
-                accountId()
-                cardId()
-                decision()
-                digitalWalletTokenId()
-                direction()
-                merchantAcceptorId()
-                merchantCategoryCode()
-                merchantCity()
-                merchantCountry()
-                merchantDescriptor()
-                merchantPostalCode()
-                merchantState()
-                networkDetails().validate()
-                networkIdentifiers().validate()
-                networkRiskScore()
-                physicalCardId()
-                presentmentAmount()
-                presentmentCurrency()
-                processingCategory()
-                requestDetails().validate()
-                settlementAmount()
-                settlementCurrency()
-                terminalId()
-                upcomingCardPaymentId()
-                verification().validate()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            accountId()
+            cardId()
+            decision()
+            digitalWalletTokenId()
+            direction()
+            merchantAcceptorId()
+            merchantCategoryCode()
+            merchantCity()
+            merchantCountry()
+            merchantDescriptor()
+            merchantPostalCode()
+            merchantState()
+            networkDetails().validate()
+            networkIdentifiers().validate()
+            networkRiskScore()
+            physicalCardId()
+            presentmentAmount()
+            presentmentCurrency()
+            processingCategory()
+            requestDetails().validate()
+            settlementAmount()
+            settlementCurrency()
+            terminalId()
+            upcomingCardPaymentId()
+            verification().validate()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -1941,11 +1949,13 @@ private constructor(
             private var validated: Boolean = false
 
             fun validate(): NetworkDetails = apply {
-                if (!validated) {
-                    category()
-                    visa().map { it.validate() }
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                category()
+                visa().ifPresent { it.validate() }
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -2148,12 +2158,14 @@ private constructor(
                 private var validated: Boolean = false
 
                 fun validate(): Visa = apply {
-                    if (!validated) {
-                        electronicCommerceIndicator()
-                        pointOfServiceEntryMode()
-                        standInProcessingReason()
-                        validated = true
+                    if (validated) {
+                        return@apply
                     }
+
+                    electronicCommerceIndicator()
+                    pointOfServiceEntryMode()
+                    standInProcessingReason()
+                    validated = true
                 }
 
                 fun toBuilder() = Builder().from(this)
@@ -2715,12 +2727,14 @@ private constructor(
             private var validated: Boolean = false
 
             fun validate(): NetworkIdentifiers = apply {
-                if (!validated) {
-                    retrievalReferenceNumber()
-                    traceNumber()
-                    transactionId()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                retrievalReferenceNumber()
+                traceNumber()
+                transactionId()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -3005,11 +3019,13 @@ private constructor(
             private var validated: Boolean = false
 
             fun validate(): RequestDetails = apply {
-                if (!validated) {
-                    category()
-                    incrementalAuthorization().map { it.validate() }
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                category()
+                incrementalAuthorization().ifPresent { it.validate() }
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -3200,11 +3216,13 @@ private constructor(
                 private var validated: Boolean = false
 
                 fun validate(): IncrementalAuthorization = apply {
-                    if (!validated) {
-                        cardPaymentId()
-                        originalCardAuthorizationId()
-                        validated = true
+                    if (validated) {
+                        return@apply
                     }
+
+                    cardPaymentId()
+                    originalCardAuthorizationId()
+                    validated = true
                 }
 
                 fun toBuilder() = Builder().from(this)
@@ -3375,11 +3393,13 @@ private constructor(
             private var validated: Boolean = false
 
             fun validate(): Verification = apply {
-                if (!validated) {
-                    cardVerificationCode().validate()
-                    cardholderAddress().validate()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                cardVerificationCode().validate()
+                cardholderAddress().validate()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -3495,10 +3515,12 @@ private constructor(
                 private var validated: Boolean = false
 
                 fun validate(): CardVerificationCode = apply {
-                    if (!validated) {
-                        result()
-                        validated = true
+                    if (validated) {
+                        return@apply
                     }
+
+                    result()
+                    validated = true
                 }
 
                 fun toBuilder() = Builder().from(this)
@@ -3719,14 +3741,16 @@ private constructor(
                 private var validated: Boolean = false
 
                 fun validate(): CardholderAddress = apply {
-                    if (!validated) {
-                        actualLine1()
-                        actualPostalCode()
-                        providedLine1()
-                        providedPostalCode()
-                        result()
-                        validated = true
+                    if (validated) {
+                        return@apply
                     }
+
+                    actualLine1()
+                    actualPostalCode()
+                    providedLine1()
+                    providedPostalCode()
+                    result()
+                    validated = true
                 }
 
                 fun toBuilder() = Builder().from(this)
@@ -4177,16 +4201,18 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): DigitalWalletAuthentication = apply {
-            if (!validated) {
-                cardId()
-                channel()
-                digitalWallet()
-                email()
-                oneTimePasscode()
-                phone()
-                result()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            cardId()
+            channel()
+            digitalWallet()
+            email()
+            oneTimePasscode()
+            phone()
+            result()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -4583,13 +4609,15 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): DigitalWalletToken = apply {
-            if (!validated) {
-                cardId()
-                cardProfileId()
-                decision()
-                digitalWallet()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            cardId()
+            cardProfileId()
+            decision()
+            digitalWallet()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

@@ -158,13 +158,15 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): EventSubscriptionCreateBody = apply {
-            if (!validated) {
-                url()
-                oauthConnectionId()
-                selectedEventCategory()
-                sharedSecret()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            url()
+            oauthConnectionId()
+            selectedEventCategory()
+            sharedSecret()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

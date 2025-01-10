@@ -119,16 +119,18 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): BookkeepingEntrySet = apply {
-        if (!validated) {
-            id()
-            createdAt()
-            date()
-            entries().forEach { it.validate() }
-            idempotencyKey()
-            transactionId()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        createdAt()
+        date()
+        entries().forEach { it.validate() }
+        idempotencyKey()
+        transactionId()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -324,12 +326,14 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Entry = apply {
-            if (!validated) {
-                id()
-                accountId()
-                amount()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            id()
+            accountId()
+            amount()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

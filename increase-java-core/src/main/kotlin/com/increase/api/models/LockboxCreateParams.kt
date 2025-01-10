@@ -104,12 +104,14 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): LockboxCreateBody = apply {
-            if (!validated) {
-                accountId()
-                description()
-                recipientName()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            accountId()
+            description()
+            recipientName()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

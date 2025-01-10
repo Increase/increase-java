@@ -99,11 +99,13 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): SimulationAchTransferCreateNotificationOfChangeBody = apply {
-            if (!validated) {
-                changeCode()
-                correctedData()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            changeCode()
+            correctedData()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

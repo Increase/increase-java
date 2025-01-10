@@ -88,13 +88,15 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): BalanceLookup = apply {
-        if (!validated) {
-            accountId()
-            availableBalance()
-            currentBalance()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        accountId()
+        availableBalance()
+        currentBalance()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)

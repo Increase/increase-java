@@ -551,26 +551,28 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): SimulationInboundWireTransferCreateBody = apply {
-            if (!validated) {
-                accountNumberId()
-                amount()
-                beneficiaryAddressLine1()
-                beneficiaryAddressLine2()
-                beneficiaryAddressLine3()
-                beneficiaryName()
-                beneficiaryReference()
-                originatorAddressLine1()
-                originatorAddressLine2()
-                originatorAddressLine3()
-                originatorName()
-                originatorRoutingNumber()
-                originatorToBeneficiaryInformationLine1()
-                originatorToBeneficiaryInformationLine2()
-                originatorToBeneficiaryInformationLine3()
-                originatorToBeneficiaryInformationLine4()
-                senderReference()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            accountNumberId()
+            amount()
+            beneficiaryAddressLine1()
+            beneficiaryAddressLine2()
+            beneficiaryAddressLine3()
+            beneficiaryName()
+            beneficiaryReference()
+            originatorAddressLine1()
+            originatorAddressLine2()
+            originatorAddressLine3()
+            originatorName()
+            originatorRoutingNumber()
+            originatorToBeneficiaryInformationLine1()
+            originatorToBeneficiaryInformationLine2()
+            originatorToBeneficiaryInformationLine3()
+            originatorToBeneficiaryInformationLine4()
+            senderReference()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

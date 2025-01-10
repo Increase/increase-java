@@ -267,18 +267,20 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): EntityCreateBody = apply {
-            if (!validated) {
-                structure()
-                corporation().map { it.validate() }
-                description()
-                governmentAuthority().map { it.validate() }
-                joint().map { it.validate() }
-                naturalPerson().map { it.validate() }
-                supplementalDocuments().map { it.forEach { it.validate() } }
-                thirdPartyVerification().map { it.validate() }
-                trust().map { it.validate() }
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            structure()
+            corporation().ifPresent { it.validate() }
+            description()
+            governmentAuthority().ifPresent { it.validate() }
+            joint().ifPresent { it.validate() }
+            naturalPerson().ifPresent { it.validate() }
+            supplementalDocuments().ifPresent { it.forEach { it.validate() } }
+            thirdPartyVerification().ifPresent { it.validate() }
+            trust().ifPresent { it.validate() }
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -938,16 +940,18 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): Corporation = apply {
-            if (!validated) {
-                address().validate()
-                beneficialOwners().forEach { it.validate() }
-                name()
-                taxIdentifier()
-                incorporationState()
-                industryCode()
-                website()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            address().validate()
+            beneficialOwners().forEach { it.validate() }
+            name()
+            taxIdentifier()
+            incorporationState()
+            industryCode()
+            website()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -1182,14 +1186,16 @@ constructor(
             private var validated: Boolean = false
 
             fun validate(): Address = apply {
-                if (!validated) {
-                    city()
-                    line1()
-                    state()
-                    zip()
-                    line2()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                city()
+                line1()
+                state()
+                zip()
+                line2()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -1360,12 +1366,14 @@ constructor(
             private var validated: Boolean = false
 
             fun validate(): BeneficialOwner = apply {
-                if (!validated) {
-                    individual().validate()
-                    prongs()
-                    companyTitle()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                individual().validate()
+                prongs()
+                companyTitle()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -1558,14 +1566,16 @@ constructor(
                 private var validated: Boolean = false
 
                 fun validate(): Individual = apply {
-                    if (!validated) {
-                        address().validate()
-                        dateOfBirth()
-                        identification().validate()
-                        name()
-                        confirmedNoUsTaxId()
-                        validated = true
+                    if (validated) {
+                        return@apply
                     }
+
+                    address().validate()
+                    dateOfBirth()
+                    identification().validate()
+                    name()
+                    confirmedNoUsTaxId()
+                    validated = true
                 }
 
                 fun toBuilder() = Builder().from(this)
@@ -1759,14 +1769,16 @@ constructor(
                     private var validated: Boolean = false
 
                     fun validate(): Address = apply {
-                        if (!validated) {
-                            city()
-                            line1()
-                            state()
-                            zip()
-                            line2()
-                            validated = true
+                        if (validated) {
+                            return@apply
                         }
+
+                        city()
+                        line1()
+                        state()
+                        zip()
+                        line2()
+                        validated = true
                     }
 
                     fun toBuilder() = Builder().from(this)
@@ -1988,14 +2000,16 @@ constructor(
                     private var validated: Boolean = false
 
                     fun validate(): Identification = apply {
-                        if (!validated) {
-                            method()
-                            number()
-                            driversLicense().map { it.validate() }
-                            other().map { it.validate() }
-                            passport().map { it.validate() }
-                            validated = true
+                        if (validated) {
+                            return@apply
                         }
+
+                        method()
+                        number()
+                        driversLicense().ifPresent { it.validate() }
+                        other().ifPresent { it.validate() }
+                        passport().ifPresent { it.validate() }
+                        validated = true
                     }
 
                     fun toBuilder() = Builder().from(this)
@@ -2272,13 +2286,15 @@ constructor(
                         private var validated: Boolean = false
 
                         fun validate(): DriversLicense = apply {
-                            if (!validated) {
-                                expirationDate()
-                                fileId()
-                                state()
-                                backFileId()
-                                validated = true
+                            if (validated) {
+                                return@apply
                             }
+
+                            expirationDate()
+                            fileId()
+                            state()
+                            backFileId()
+                            validated = true
                         }
 
                         fun toBuilder() = Builder().from(this)
@@ -2490,14 +2506,16 @@ constructor(
                         private var validated: Boolean = false
 
                         fun validate(): Other = apply {
-                            if (!validated) {
-                                country()
-                                description()
-                                fileId()
-                                backFileId()
-                                expirationDate()
-                                validated = true
+                            if (validated) {
+                                return@apply
                             }
+
+                            country()
+                            description()
+                            fileId()
+                            backFileId()
+                            expirationDate()
+                            validated = true
                         }
 
                         fun toBuilder() = Builder().from(this)
@@ -2689,12 +2707,14 @@ constructor(
                         private var validated: Boolean = false
 
                         fun validate(): Passport = apply {
-                            if (!validated) {
-                                country()
-                                expirationDate()
-                                fileId()
-                                validated = true
+                            if (validated) {
+                                return@apply
                             }
+
+                            country()
+                            expirationDate()
+                            fileId()
+                            validated = true
                         }
 
                         fun toBuilder() = Builder().from(this)
@@ -3009,15 +3029,17 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): GovernmentAuthority = apply {
-            if (!validated) {
-                address().validate()
-                authorizedPersons().forEach { it.validate() }
-                category()
-                name()
-                taxIdentifier()
-                website()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            address().validate()
+            authorizedPersons().forEach { it.validate() }
+            category()
+            name()
+            taxIdentifier()
+            website()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -3213,14 +3235,16 @@ constructor(
             private var validated: Boolean = false
 
             fun validate(): Address = apply {
-                if (!validated) {
-                    city()
-                    line1()
-                    state()
-                    zip()
-                    line2()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                city()
+                line1()
+                state()
+                zip()
+                line2()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -3360,10 +3384,12 @@ constructor(
             private var validated: Boolean = false
 
             fun validate(): AuthorizedPerson = apply {
-                if (!validated) {
-                    name()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                name()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -3542,11 +3568,13 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): Joint = apply {
-            if (!validated) {
-                individuals().forEach { it.validate() }
-                name()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            individuals().forEach { it.validate() }
+            name()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -3706,14 +3734,16 @@ constructor(
             private var validated: Boolean = false
 
             fun validate(): Individual = apply {
-                if (!validated) {
-                    address().validate()
-                    dateOfBirth()
-                    identification().validate()
-                    name()
-                    confirmedNoUsTaxId()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                address().validate()
+                dateOfBirth()
+                identification().validate()
+                name()
+                confirmedNoUsTaxId()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -3901,14 +3931,16 @@ constructor(
                 private var validated: Boolean = false
 
                 fun validate(): Address = apply {
-                    if (!validated) {
-                        city()
-                        line1()
-                        state()
-                        zip()
-                        line2()
-                        validated = true
+                    if (validated) {
+                        return@apply
                     }
+
+                    city()
+                    line1()
+                    state()
+                    zip()
+                    line2()
+                    validated = true
                 }
 
                 fun toBuilder() = Builder().from(this)
@@ -4119,14 +4151,16 @@ constructor(
                 private var validated: Boolean = false
 
                 fun validate(): Identification = apply {
-                    if (!validated) {
-                        method()
-                        number()
-                        driversLicense().map { it.validate() }
-                        other().map { it.validate() }
-                        passport().map { it.validate() }
-                        validated = true
+                    if (validated) {
+                        return@apply
                     }
+
+                    method()
+                    number()
+                    driversLicense().ifPresent { it.validate() }
+                    other().ifPresent { it.validate() }
+                    passport().ifPresent { it.validate() }
+                    validated = true
                 }
 
                 fun toBuilder() = Builder().from(this)
@@ -4387,13 +4421,15 @@ constructor(
                     private var validated: Boolean = false
 
                     fun validate(): DriversLicense = apply {
-                        if (!validated) {
-                            expirationDate()
-                            fileId()
-                            state()
-                            backFileId()
-                            validated = true
+                        if (validated) {
+                            return@apply
                         }
+
+                        expirationDate()
+                        fileId()
+                        state()
+                        backFileId()
+                        validated = true
                     }
 
                     fun toBuilder() = Builder().from(this)
@@ -4599,14 +4635,16 @@ constructor(
                     private var validated: Boolean = false
 
                     fun validate(): Other = apply {
-                        if (!validated) {
-                            country()
-                            description()
-                            fileId()
-                            backFileId()
-                            expirationDate()
-                            validated = true
+                        if (validated) {
+                            return@apply
                         }
+
+                        country()
+                        description()
+                        fileId()
+                        backFileId()
+                        expirationDate()
+                        validated = true
                     }
 
                     fun toBuilder() = Builder().from(this)
@@ -4791,12 +4829,14 @@ constructor(
                     private var validated: Boolean = false
 
                     fun validate(): Passport = apply {
-                        if (!validated) {
-                            country()
-                            expirationDate()
-                            fileId()
-                            validated = true
+                        if (validated) {
+                            return@apply
                         }
+
+                        country()
+                        expirationDate()
+                        fileId()
+                        validated = true
                     }
 
                     fun toBuilder() = Builder().from(this)
@@ -5034,14 +5074,16 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): NaturalPerson = apply {
-            if (!validated) {
-                address().validate()
-                dateOfBirth()
-                identification().validate()
-                name()
-                confirmedNoUsTaxId()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            address().validate()
+            dateOfBirth()
+            identification().validate()
+            name()
+            confirmedNoUsTaxId()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -5222,14 +5264,16 @@ constructor(
             private var validated: Boolean = false
 
             fun validate(): Address = apply {
-                if (!validated) {
-                    city()
-                    line1()
-                    state()
-                    zip()
-                    line2()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                city()
+                line1()
+                state()
+                zip()
+                line2()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -5436,14 +5480,16 @@ constructor(
             private var validated: Boolean = false
 
             fun validate(): Identification = apply {
-                if (!validated) {
-                    method()
-                    number()
-                    driversLicense().map { it.validate() }
-                    other().map { it.validate() }
-                    passport().map { it.validate() }
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                method()
+                number()
+                driversLicense().ifPresent { it.validate() }
+                other().ifPresent { it.validate() }
+                passport().ifPresent { it.validate() }
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -5701,13 +5747,15 @@ constructor(
                 private var validated: Boolean = false
 
                 fun validate(): DriversLicense = apply {
-                    if (!validated) {
-                        expirationDate()
-                        fileId()
-                        state()
-                        backFileId()
-                        validated = true
+                    if (validated) {
+                        return@apply
                     }
+
+                    expirationDate()
+                    fileId()
+                    state()
+                    backFileId()
+                    validated = true
                 }
 
                 fun toBuilder() = Builder().from(this)
@@ -5899,14 +5947,16 @@ constructor(
                 private var validated: Boolean = false
 
                 fun validate(): Other = apply {
-                    if (!validated) {
-                        country()
-                        description()
-                        fileId()
-                        backFileId()
-                        expirationDate()
-                        validated = true
+                    if (validated) {
+                        return@apply
                     }
+
+                    country()
+                    description()
+                    fileId()
+                    backFileId()
+                    expirationDate()
+                    validated = true
                 }
 
                 fun toBuilder() = Builder().from(this)
@@ -6085,12 +6135,14 @@ constructor(
                 private var validated: Boolean = false
 
                 fun validate(): Passport = apply {
-                    if (!validated) {
-                        country()
-                        expirationDate()
-                        fileId()
-                        validated = true
+                    if (validated) {
+                        return@apply
                     }
+
+                    country()
+                    expirationDate()
+                    fileId()
+                    validated = true
                 }
 
                 fun toBuilder() = Builder().from(this)
@@ -6247,10 +6299,12 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): SupplementalDocument = apply {
-            if (!validated) {
-                fileId()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            fileId()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -6358,11 +6412,13 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): ThirdPartyVerification = apply {
-            if (!validated) {
-                reference()
-                vendor()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            reference()
+            vendor()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -6624,17 +6680,19 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): Trust = apply {
-            if (!validated) {
-                address().validate()
-                category()
-                name()
-                trustees().forEach { it.validate() }
-                formationDocumentFileId()
-                formationState()
-                grantor().map { it.validate() }
-                taxIdentifier()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            address().validate()
+            category()
+            name()
+            trustees().forEach { it.validate() }
+            formationDocumentFileId()
+            formationState()
+            grantor().ifPresent { it.validate() }
+            taxIdentifier()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -6871,14 +6929,16 @@ constructor(
             private var validated: Boolean = false
 
             fun validate(): Address = apply {
-                if (!validated) {
-                    city()
-                    line1()
-                    state()
-                    zip()
-                    line2()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                city()
+                line1()
+                state()
+                zip()
+                line2()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -7095,11 +7155,13 @@ constructor(
             private var validated: Boolean = false
 
             fun validate(): Trustee = apply {
-                if (!validated) {
-                    structure()
-                    individual().map { it.validate() }
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                structure()
+                individual().ifPresent { it.validate() }
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -7314,14 +7376,16 @@ constructor(
                 private var validated: Boolean = false
 
                 fun validate(): Individual = apply {
-                    if (!validated) {
-                        address().validate()
-                        dateOfBirth()
-                        identification().validate()
-                        name()
-                        confirmedNoUsTaxId()
-                        validated = true
+                    if (validated) {
+                        return@apply
                     }
+
+                    address().validate()
+                    dateOfBirth()
+                    identification().validate()
+                    name()
+                    confirmedNoUsTaxId()
+                    validated = true
                 }
 
                 fun toBuilder() = Builder().from(this)
@@ -7515,14 +7579,16 @@ constructor(
                     private var validated: Boolean = false
 
                     fun validate(): Address = apply {
-                        if (!validated) {
-                            city()
-                            line1()
-                            state()
-                            zip()
-                            line2()
-                            validated = true
+                        if (validated) {
+                            return@apply
                         }
+
+                        city()
+                        line1()
+                        state()
+                        zip()
+                        line2()
+                        validated = true
                     }
 
                     fun toBuilder() = Builder().from(this)
@@ -7744,14 +7810,16 @@ constructor(
                     private var validated: Boolean = false
 
                     fun validate(): Identification = apply {
-                        if (!validated) {
-                            method()
-                            number()
-                            driversLicense().map { it.validate() }
-                            other().map { it.validate() }
-                            passport().map { it.validate() }
-                            validated = true
+                        if (validated) {
+                            return@apply
                         }
+
+                        method()
+                        number()
+                        driversLicense().ifPresent { it.validate() }
+                        other().ifPresent { it.validate() }
+                        passport().ifPresent { it.validate() }
+                        validated = true
                     }
 
                     fun toBuilder() = Builder().from(this)
@@ -8028,13 +8096,15 @@ constructor(
                         private var validated: Boolean = false
 
                         fun validate(): DriversLicense = apply {
-                            if (!validated) {
-                                expirationDate()
-                                fileId()
-                                state()
-                                backFileId()
-                                validated = true
+                            if (validated) {
+                                return@apply
                             }
+
+                            expirationDate()
+                            fileId()
+                            state()
+                            backFileId()
+                            validated = true
                         }
 
                         fun toBuilder() = Builder().from(this)
@@ -8246,14 +8316,16 @@ constructor(
                         private var validated: Boolean = false
 
                         fun validate(): Other = apply {
-                            if (!validated) {
-                                country()
-                                description()
-                                fileId()
-                                backFileId()
-                                expirationDate()
-                                validated = true
+                            if (validated) {
+                                return@apply
                             }
+
+                            country()
+                            description()
+                            fileId()
+                            backFileId()
+                            expirationDate()
+                            validated = true
                         }
 
                         fun toBuilder() = Builder().from(this)
@@ -8445,12 +8517,14 @@ constructor(
                         private var validated: Boolean = false
 
                         fun validate(): Passport = apply {
-                            if (!validated) {
-                                country()
-                                expirationDate()
-                                fileId()
-                                validated = true
+                            if (validated) {
+                                return@apply
                             }
+
+                            country()
+                            expirationDate()
+                            fileId()
+                            validated = true
                         }
 
                         fun toBuilder() = Builder().from(this)
@@ -8688,14 +8762,16 @@ constructor(
             private var validated: Boolean = false
 
             fun validate(): Grantor = apply {
-                if (!validated) {
-                    address().validate()
-                    dateOfBirth()
-                    identification().validate()
-                    name()
-                    confirmedNoUsTaxId()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                address().validate()
+                dateOfBirth()
+                identification().validate()
+                name()
+                confirmedNoUsTaxId()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -8883,14 +8959,16 @@ constructor(
                 private var validated: Boolean = false
 
                 fun validate(): Address = apply {
-                    if (!validated) {
-                        city()
-                        line1()
-                        state()
-                        zip()
-                        line2()
-                        validated = true
+                    if (validated) {
+                        return@apply
                     }
+
+                    city()
+                    line1()
+                    state()
+                    zip()
+                    line2()
+                    validated = true
                 }
 
                 fun toBuilder() = Builder().from(this)
@@ -9101,14 +9179,16 @@ constructor(
                 private var validated: Boolean = false
 
                 fun validate(): Identification = apply {
-                    if (!validated) {
-                        method()
-                        number()
-                        driversLicense().map { it.validate() }
-                        other().map { it.validate() }
-                        passport().map { it.validate() }
-                        validated = true
+                    if (validated) {
+                        return@apply
                     }
+
+                    method()
+                    number()
+                    driversLicense().ifPresent { it.validate() }
+                    other().ifPresent { it.validate() }
+                    passport().ifPresent { it.validate() }
+                    validated = true
                 }
 
                 fun toBuilder() = Builder().from(this)
@@ -9369,13 +9449,15 @@ constructor(
                     private var validated: Boolean = false
 
                     fun validate(): DriversLicense = apply {
-                        if (!validated) {
-                            expirationDate()
-                            fileId()
-                            state()
-                            backFileId()
-                            validated = true
+                        if (validated) {
+                            return@apply
                         }
+
+                        expirationDate()
+                        fileId()
+                        state()
+                        backFileId()
+                        validated = true
                     }
 
                     fun toBuilder() = Builder().from(this)
@@ -9581,14 +9663,16 @@ constructor(
                     private var validated: Boolean = false
 
                     fun validate(): Other = apply {
-                        if (!validated) {
-                            country()
-                            description()
-                            fileId()
-                            backFileId()
-                            expirationDate()
-                            validated = true
+                        if (validated) {
+                            return@apply
                         }
+
+                        country()
+                        description()
+                        fileId()
+                        backFileId()
+                        expirationDate()
+                        validated = true
                     }
 
                     fun toBuilder() = Builder().from(this)
@@ -9773,12 +9857,14 @@ constructor(
                     private var validated: Boolean = false
 
                     fun validate(): Passport = apply {
-                        if (!validated) {
-                            country()
-                            expirationDate()
-                            fileId()
-                            validated = true
+                        if (validated) {
+                            return@apply
                         }
+
+                        country()
+                        expirationDate()
+                        fileId()
+                        validated = true
                     }
 
                     fun toBuilder() = Builder().from(this)

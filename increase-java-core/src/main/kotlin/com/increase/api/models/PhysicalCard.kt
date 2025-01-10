@@ -146,18 +146,20 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): PhysicalCard = apply {
-        if (!validated) {
-            id()
-            cardId()
-            cardholder().validate()
-            createdAt()
-            idempotencyKey()
-            physicalCardProfileId()
-            shipment().validate()
-            status()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        cardId()
+        cardholder().validate()
+        createdAt()
+        idempotencyKey()
+        physicalCardProfileId()
+        shipment().validate()
+        status()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -356,11 +358,13 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Cardholder = apply {
-            if (!validated) {
-                firstName()
-                lastName()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            firstName()
+            lastName()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -492,13 +496,15 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Shipment = apply {
-            if (!validated) {
-                address().validate()
-                method()
-                status()
-                tracking().map { it.validate() }
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            address().validate()
+            method()
+            status()
+            tracking().ifPresent { it.validate() }
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -662,16 +668,18 @@ private constructor(
             private var validated: Boolean = false
 
             fun validate(): Address = apply {
-                if (!validated) {
-                    city()
-                    line1()
-                    line2()
-                    line3()
-                    name()
-                    postalCode()
-                    state()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                city()
+                line1()
+                line2()
+                line3()
+                name()
+                postalCode()
+                state()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -1023,13 +1031,15 @@ private constructor(
             private var validated: Boolean = false
 
             fun validate(): Tracking = apply {
-                if (!validated) {
-                    number()
-                    returnNumber()
-                    returnReason()
-                    shippedAt()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                number()
+                returnNumber()
+                returnReason()
+                shippedAt()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)

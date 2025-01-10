@@ -311,22 +311,24 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): AchPrenotificationCreateBody = apply {
-            if (!validated) {
-                accountId()
-                accountNumber()
-                routingNumber()
-                addendum()
-                companyDescriptiveDate()
-                companyDiscretionaryData()
-                companyEntryDescription()
-                companyName()
-                creditDebitIndicator()
-                effectiveDate()
-                individualId()
-                individualName()
-                standardEntryClassCode()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            accountId()
+            accountNumber()
+            routingNumber()
+            addendum()
+            companyDescriptiveDate()
+            companyDiscretionaryData()
+            companyEntryDescription()
+            companyName()
+            creditDebitIndicator()
+            effectiveDate()
+            individualId()
+            individualName()
+            standardEntryClassCode()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

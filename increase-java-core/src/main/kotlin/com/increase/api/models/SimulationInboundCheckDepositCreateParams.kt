@@ -107,12 +107,14 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): SimulationInboundCheckDepositCreateBody = apply {
-            if (!validated) {
-                accountNumberId()
-                amount()
-                checkNumber()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            accountNumberId()
+            amount()
+            checkNumber()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

@@ -85,10 +85,12 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): SimulationPhysicalCardAdvanceShipmentBody = apply {
-            if (!validated) {
-                shipmentStatus()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            shipmentStatus()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
