@@ -84,11 +84,13 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): IntrafiAccountEnrollmentCreateBody = apply {
-            if (!validated) {
-                accountId()
-                emailAddress()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            accountId()
+            emailAddress()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

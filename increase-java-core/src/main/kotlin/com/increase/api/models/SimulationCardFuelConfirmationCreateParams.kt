@@ -92,11 +92,13 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): SimulationCardFuelConfirmationCreateBody = apply {
-            if (!validated) {
-                amount()
-                cardPaymentId()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            amount()
+            cardPaymentId()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

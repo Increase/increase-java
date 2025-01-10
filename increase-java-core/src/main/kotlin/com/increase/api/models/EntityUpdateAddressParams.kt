@@ -91,10 +91,12 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): EntityUpdateAddressBody = apply {
-            if (!validated) {
-                address().validate()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            address().validate()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -403,14 +405,16 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): Address = apply {
-            if (!validated) {
-                city()
-                line1()
-                state()
-                zip()
-                line2()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            city()
+            line1()
+            state()
+            zip()
+            line2()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

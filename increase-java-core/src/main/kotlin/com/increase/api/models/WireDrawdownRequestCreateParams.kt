@@ -335,22 +335,24 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): WireDrawdownRequestCreateBody = apply {
-            if (!validated) {
-                accountNumberId()
-                amount()
-                messageToRecipient()
-                recipientAccountNumber()
-                recipientName()
-                recipientRoutingNumber()
-                originatorAddressLine1()
-                originatorAddressLine2()
-                originatorAddressLine3()
-                originatorName()
-                recipientAddressLine1()
-                recipientAddressLine2()
-                recipientAddressLine3()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            accountNumberId()
+            amount()
+            messageToRecipient()
+            recipientAccountNumber()
+            recipientName()
+            recipientRoutingNumber()
+            originatorAddressLine1()
+            originatorAddressLine2()
+            originatorAddressLine3()
+            originatorName()
+            recipientAddressLine1()
+            recipientAddressLine2()
+            recipientAddressLine3()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

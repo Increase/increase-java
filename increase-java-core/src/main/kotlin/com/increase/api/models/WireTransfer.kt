@@ -395,38 +395,40 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): WireTransfer = apply {
-        if (!validated) {
-            id()
-            accountId()
-            accountNumber()
-            amount()
-            approval().map { it.validate() }
-            beneficiaryAddressLine1()
-            beneficiaryAddressLine2()
-            beneficiaryAddressLine3()
-            beneficiaryName()
-            cancellation().map { it.validate() }
-            createdAt()
-            createdBy().map { it.validate() }
-            currency()
-            externalAccountId()
-            idempotencyKey()
-            messageToRecipient()
-            network()
-            originatorAddressLine1()
-            originatorAddressLine2()
-            originatorAddressLine3()
-            originatorName()
-            pendingTransactionId()
-            reversal().map { it.validate() }
-            routingNumber()
-            sourceAccountNumberId()
-            status()
-            submission().map { it.validate() }
-            transactionId()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        accountId()
+        accountNumber()
+        amount()
+        approval().ifPresent { it.validate() }
+        beneficiaryAddressLine1()
+        beneficiaryAddressLine2()
+        beneficiaryAddressLine3()
+        beneficiaryName()
+        cancellation().ifPresent { it.validate() }
+        createdAt()
+        createdBy().ifPresent { it.validate() }
+        currency()
+        externalAccountId()
+        idempotencyKey()
+        messageToRecipient()
+        network()
+        originatorAddressLine1()
+        originatorAddressLine2()
+        originatorAddressLine3()
+        originatorName()
+        pendingTransactionId()
+        reversal().ifPresent { it.validate() }
+        routingNumber()
+        sourceAccountNumberId()
+        status()
+        submission().ifPresent { it.validate() }
+        transactionId()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -987,11 +989,13 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Approval = apply {
-            if (!validated) {
-                approvedAt()
-                approvedBy()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            approvedAt()
+            approvedBy()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -1143,11 +1147,13 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Cancellation = apply {
-            if (!validated) {
-                canceledAt()
-                canceledBy()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            canceledAt()
+            canceledBy()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -1300,13 +1306,15 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): CreatedBy = apply {
-            if (!validated) {
-                apiKey().map { it.validate() }
-                category()
-                oauthApplication().map { it.validate() }
-                user().map { it.validate() }
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            apiKey().ifPresent { it.validate() }
+            category()
+            oauthApplication().ifPresent { it.validate() }
+            user().ifPresent { it.validate() }
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -1429,10 +1437,12 @@ private constructor(
             private var validated: Boolean = false
 
             fun validate(): ApiKey = apply {
-                if (!validated) {
-                    description()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                description()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -1601,10 +1611,12 @@ private constructor(
             private var validated: Boolean = false
 
             fun validate(): OAuthApplication = apply {
-                if (!validated) {
-                    name()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                name()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -1703,10 +1715,12 @@ private constructor(
             private var validated: Boolean = false
 
             fun validate(): User = apply {
-                if (!validated) {
-                    email()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                email()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -2174,26 +2188,28 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Reversal = apply {
-            if (!validated) {
-                amount()
-                createdAt()
-                description()
-                financialInstitutionToFinancialInstitutionInformation()
-                inputCycleDate()
-                inputMessageAccountabilityData()
-                inputSequenceNumber()
-                inputSource()
-                originatorRoutingNumber()
-                previousMessageInputCycleDate()
-                previousMessageInputMessageAccountabilityData()
-                previousMessageInputSequenceNumber()
-                previousMessageInputSource()
-                receiverFinancialInstitutionInformation()
-                senderReference()
-                transactionId()
-                wireTransferId()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            amount()
+            createdAt()
+            description()
+            financialInstitutionToFinancialInstitutionInformation()
+            inputCycleDate()
+            inputMessageAccountabilityData()
+            inputSequenceNumber()
+            inputSource()
+            originatorRoutingNumber()
+            previousMessageInputCycleDate()
+            previousMessageInputMessageAccountabilityData()
+            previousMessageInputSequenceNumber()
+            previousMessageInputSource()
+            receiverFinancialInstitutionInformation()
+            senderReference()
+            transactionId()
+            wireTransferId()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -2694,11 +2710,13 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Submission = apply {
-            if (!validated) {
-                inputMessageAccountabilityData()
-                submittedAt()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            inputMessageAccountabilityData()
+            submittedAt()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

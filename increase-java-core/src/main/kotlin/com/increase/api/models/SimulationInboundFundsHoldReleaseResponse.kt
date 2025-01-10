@@ -157,19 +157,21 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): SimulationInboundFundsHoldReleaseResponse = apply {
-        if (!validated) {
-            id()
-            amount()
-            automaticallyReleasesAt()
-            createdAt()
-            currency()
-            heldTransactionId()
-            pendingTransactionId()
-            releasedAt()
-            status()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        amount()
+        automaticallyReleasesAt()
+        createdAt()
+        currency()
+        heldTransactionId()
+        pendingTransactionId()
+        releasedAt()
+        status()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)

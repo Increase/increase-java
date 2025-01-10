@@ -126,12 +126,14 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): SimulationCardIncrementCreateBody = apply {
-            if (!validated) {
-                amount()
-                cardPaymentId()
-                eventSubscriptionId()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            amount()
+            cardPaymentId()
+            eventSubscriptionId()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

@@ -184,22 +184,24 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): Card = apply {
-        if (!validated) {
-            id()
-            accountId()
-            billingAddress().validate()
-            createdAt()
-            description()
-            digitalWallet().map { it.validate() }
-            entityId()
-            expirationMonth()
-            expirationYear()
-            idempotencyKey()
-            last4()
-            status()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        accountId()
+        billingAddress().validate()
+        createdAt()
+        description()
+        digitalWallet().ifPresent { it.validate() }
+        entityId()
+        expirationMonth()
+        expirationYear()
+        idempotencyKey()
+        last4()
+        status()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -482,14 +484,16 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): BillingAddress = apply {
-            if (!validated) {
-                city()
-                line1()
-                line2()
-                postalCode()
-                state()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            city()
+            line1()
+            line2()
+            postalCode()
+            state()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -676,12 +680,14 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): DigitalWallet = apply {
-            if (!validated) {
-                digitalCardProfileId()
-                email()
-                phone()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            digitalCardProfileId()
+            email()
+            phone()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

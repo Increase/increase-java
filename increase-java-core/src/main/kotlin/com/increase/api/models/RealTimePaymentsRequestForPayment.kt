@@ -260,26 +260,28 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): RealTimePaymentsRequestForPayment = apply {
-        if (!validated) {
-            id()
-            amount()
-            createdAt()
-            currency()
-            debtorName()
-            destinationAccountNumberId()
-            expiresAt()
-            fulfillmentTransactionId()
-            idempotencyKey()
-            refusal().map { it.validate() }
-            rejection().map { it.validate() }
-            remittanceInformation()
-            sourceAccountNumber()
-            sourceRoutingNumber()
-            status()
-            submission().map { it.validate() }
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        amount()
+        createdAt()
+        currency()
+        debtorName()
+        destinationAccountNumberId()
+        expiresAt()
+        fulfillmentTransactionId()
+        idempotencyKey()
+        refusal().ifPresent { it.validate() }
+        rejection().ifPresent { it.validate() }
+        remittanceInformation()
+        sourceAccountNumber()
+        sourceRoutingNumber()
+        status()
+        submission().ifPresent { it.validate() }
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -706,10 +708,12 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Refusal = apply {
-            if (!validated) {
-                refusalReasonCode()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            refusalReasonCode()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -951,10 +955,12 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Rejection = apply {
-            if (!validated) {
-                rejectReasonCode()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            rejectReasonCode()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -1327,10 +1333,12 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Submission = apply {
-            if (!validated) {
-                paymentInformationIdentification()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            paymentInformationIdentification()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

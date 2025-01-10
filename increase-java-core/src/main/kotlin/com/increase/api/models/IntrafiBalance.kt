@@ -109,15 +109,17 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): IntrafiBalance = apply {
-        if (!validated) {
-            id()
-            balances().forEach { it.validate() }
-            currency()
-            effectiveDate()
-            totalBalance()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        balances().forEach { it.validate() }
+        currency()
+        effectiveDate()
+        totalBalance()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -327,14 +329,16 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Balance = apply {
-            if (!validated) {
-                id()
-                balance()
-                bank()
-                bankLocation().map { it.validate() }
-                fdicCertificateNumber()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            id()
+            balance()
+            bank()
+            bankLocation().ifPresent { it.validate() }
+            fdicCertificateNumber()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -477,11 +481,13 @@ private constructor(
             private var validated: Boolean = false
 
             fun validate(): BankLocation = apply {
-                if (!validated) {
-                    city()
-                    state()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                city()
+                state()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)

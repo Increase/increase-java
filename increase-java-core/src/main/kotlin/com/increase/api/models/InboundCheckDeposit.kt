@@ -309,29 +309,31 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): InboundCheckDeposit = apply {
-        if (!validated) {
-            id()
-            acceptedAt()
-            accountId()
-            accountNumberId()
-            adjustments().forEach { it.validate() }
-            amount()
-            backImageFileId()
-            bankOfFirstDepositRoutingNumber()
-            checkNumber()
-            checkTransferId()
-            createdAt()
-            currency()
-            declinedAt()
-            declinedTransactionId()
-            depositReturn().map { it.validate() }
-            frontImageFileId()
-            payeeNameAnalysis()
-            status()
-            transactionId()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        acceptedAt()
+        accountId()
+        accountNumberId()
+        adjustments().forEach { it.validate() }
+        amount()
+        backImageFileId()
+        bankOfFirstDepositRoutingNumber()
+        checkNumber()
+        checkTransferId()
+        createdAt()
+        currency()
+        declinedAt()
+        declinedTransactionId()
+        depositReturn().ifPresent { it.validate() }
+        frontImageFileId()
+        payeeNameAnalysis()
+        status()
+        transactionId()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -793,13 +795,15 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Adjustment = apply {
-            if (!validated) {
-                adjustedAt()
-                amount()
-                reason()
-                transactionId()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            adjustedAt()
+            amount()
+            reason()
+            transactionId()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -1092,12 +1096,14 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): DepositReturn = apply {
-            if (!validated) {
-                reason()
-                returnedAt()
-                transactionId()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            reason()
+            returnedAt()
+            transactionId()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

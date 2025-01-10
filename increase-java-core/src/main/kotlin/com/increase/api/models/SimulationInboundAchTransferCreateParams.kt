@@ -283,20 +283,22 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): SimulationInboundAchTransferCreateBody = apply {
-            if (!validated) {
-                accountNumberId()
-                amount()
-                companyDescriptiveDate()
-                companyDiscretionaryData()
-                companyEntryDescription()
-                companyId()
-                companyName()
-                receiverIdNumber()
-                receiverName()
-                resolveAt()
-                standardEntryClassCode()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            accountNumberId()
+            amount()
+            companyDescriptiveDate()
+            companyDiscretionaryData()
+            companyEntryDescription()
+            companyId()
+            companyName()
+            receiverIdNumber()
+            receiverName()
+            resolveAt()
+            standardEntryClassCode()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

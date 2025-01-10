@@ -166,14 +166,16 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): PhysicalCardProfileCloneBody = apply {
-            if (!validated) {
-                carrierImageFileId()
-                contactPhone()
-                description()
-                frontImageFileId()
-                frontText().map { it.validate() }
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            carrierImageFileId()
+            contactPhone()
+            description()
+            frontImageFileId()
+            frontText().ifPresent { it.validate() }
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -545,11 +547,13 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): FrontText = apply {
-            if (!validated) {
-                line1()
-                line2()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            line1()
+            line2()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

@@ -80,12 +80,14 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): SimulationDigitalWalletTokenRequestCreateResponse = apply {
-        if (!validated) {
-            declineReason()
-            digitalWalletTokenId()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        declineReason()
+        digitalWalletTokenId()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)

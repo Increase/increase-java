@@ -405,25 +405,27 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): WireTransferCreateBody = apply {
-            if (!validated) {
-                accountId()
-                amount()
-                beneficiaryName()
-                messageToRecipient()
-                accountNumber()
-                beneficiaryAddressLine1()
-                beneficiaryAddressLine2()
-                beneficiaryAddressLine3()
-                externalAccountId()
-                originatorAddressLine1()
-                originatorAddressLine2()
-                originatorAddressLine3()
-                originatorName()
-                requireApproval()
-                routingNumber()
-                sourceAccountNumberId()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            accountId()
+            amount()
+            beneficiaryName()
+            messageToRecipient()
+            accountNumber()
+            beneficiaryAddressLine1()
+            beneficiaryAddressLine2()
+            beneficiaryAddressLine3()
+            externalAccountId()
+            originatorAddressLine1()
+            originatorAddressLine2()
+            originatorAddressLine3()
+            originatorName()
+            requireApproval()
+            routingNumber()
+            sourceAccountNumberId()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

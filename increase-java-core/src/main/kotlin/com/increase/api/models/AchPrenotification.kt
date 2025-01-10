@@ -236,25 +236,27 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): AchPrenotification = apply {
-        if (!validated) {
-            id()
-            accountNumber()
-            addendum()
-            companyDescriptiveDate()
-            companyDiscretionaryData()
-            companyEntryDescription()
-            companyName()
-            createdAt()
-            creditDebitIndicator()
-            effectiveDate()
-            idempotencyKey()
-            notificationsOfChange().forEach { it.validate() }
-            prenotificationReturn().map { it.validate() }
-            routingNumber()
-            status()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        accountNumber()
+        addendum()
+        companyDescriptiveDate()
+        companyDiscretionaryData()
+        companyEntryDescription()
+        companyName()
+        createdAt()
+        creditDebitIndicator()
+        effectiveDate()
+        idempotencyKey()
+        notificationsOfChange().forEach { it.validate() }
+        prenotificationReturn().ifPresent { it.validate() }
+        routingNumber()
+        status()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -695,12 +697,14 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): NotificationsOfChange = apply {
-            if (!validated) {
-                changeCode()
-                correctedData()
-                createdAt()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            changeCode()
+            correctedData()
+            createdAt()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -1075,11 +1079,13 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): PrenotificationReturn = apply {
-            if (!validated) {
-                createdAt()
-                returnReasonCode()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            createdAt()
+            returnReasonCode()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

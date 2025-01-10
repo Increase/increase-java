@@ -295,20 +295,22 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): RealTimePaymentsTransferCreateBody = apply {
-            if (!validated) {
-                amount()
-                creditorName()
-                remittanceInformation()
-                sourceAccountNumberId()
-                debtorName()
-                destinationAccountNumber()
-                destinationRoutingNumber()
-                externalAccountId()
-                requireApproval()
-                ultimateCreditorName()
-                ultimateDebtorName()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            amount()
+            creditorName()
+            remittanceInformation()
+            sourceAccountNumberId()
+            debtorName()
+            destinationAccountNumber()
+            destinationRoutingNumber()
+            externalAccountId()
+            requireApproval()
+            ultimateCreditorName()
+            ultimateDebtorName()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

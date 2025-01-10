@@ -141,18 +141,20 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): IntrafiExclusion = apply {
-        if (!validated) {
-            id()
-            bankName()
-            entityId()
-            excludedAt()
-            fdicCertificateNumber()
-            idempotencyKey()
-            status()
-            submittedAt()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        bankName()
+        entityId()
+        excludedAt()
+        fdicCertificateNumber()
+        idempotencyKey()
+        status()
+        submittedAt()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)

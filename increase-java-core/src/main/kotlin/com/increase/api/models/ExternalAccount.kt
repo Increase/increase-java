@@ -166,20 +166,22 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): ExternalAccount = apply {
-        if (!validated) {
-            id()
-            accountHolder()
-            accountNumber()
-            createdAt()
-            description()
-            funding()
-            idempotencyKey()
-            routingNumber()
-            status()
-            type()
-            verificationStatus()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        accountHolder()
+        accountNumber()
+        createdAt()
+        description()
+        funding()
+        idempotencyKey()
+        routingNumber()
+        status()
+        type()
+        verificationStatus()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)

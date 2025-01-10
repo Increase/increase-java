@@ -120,13 +120,15 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): PhysicalCardProfileCreateBody = apply {
-            if (!validated) {
-                carrierImageFileId()
-                contactPhone()
-                description()
-                frontImageFileId()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            carrierImageFileId()
+            contactPhone()
+            description()
+            frontImageFileId()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

@@ -132,13 +132,15 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): ExternalAccountUpdateBody = apply {
-            if (!validated) {
-                accountHolder()
-                description()
-                funding()
-                status()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            accountHolder()
+            description()
+            funding()
+            status()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
