@@ -82,11 +82,13 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): IntrafiExclusionCreateBody = apply {
-            if (!validated) {
-                bankName()
-                entityId()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            bankName()
+            entityId()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

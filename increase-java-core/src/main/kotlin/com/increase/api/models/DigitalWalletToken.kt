@@ -102,15 +102,17 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): DigitalWalletToken = apply {
-        if (!validated) {
-            id()
-            cardId()
-            createdAt()
-            status()
-            tokenRequestor()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        cardId()
+        createdAt()
+        status()
+        tokenRequestor()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)

@@ -116,12 +116,14 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): SimulationInboundMailItemCreateBody = apply {
-            if (!validated) {
-                amount()
-                lockboxId()
-                contentsFileId()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            amount()
+            lockboxId()
+            contentsFileId()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

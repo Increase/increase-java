@@ -227,24 +227,26 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): Account = apply {
-        if (!validated) {
-            id()
-            bank()
-            closedAt()
-            createdAt()
-            currency()
-            entityId()
-            idempotencyKey()
-            informationalEntityId()
-            interestAccrued()
-            interestAccruedAt()
-            interestRate()
-            name()
-            programId()
-            status()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        bank()
+        closedAt()
+        createdAt()
+        currency()
+        entityId()
+        idempotencyKey()
+        informationalEntityId()
+        interestAccrued()
+        interestAccruedAt()
+        interestRate()
+        name()
+        programId()
+        status()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)

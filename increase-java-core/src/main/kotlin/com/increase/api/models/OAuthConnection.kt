@@ -121,16 +121,18 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): OAuthConnection = apply {
-        if (!validated) {
-            id()
-            createdAt()
-            deletedAt()
-            groupId()
-            oauthApplicationId()
-            status()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        createdAt()
+        deletedAt()
+        groupId()
+        oauthApplicationId()
+        status()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)

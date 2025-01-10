@@ -178,21 +178,23 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): CardDispute = apply {
-        if (!validated) {
-            id()
-            acceptance().map { it.validate() }
-            amount()
-            createdAt()
-            disputedTransactionId()
-            explanation()
-            idempotencyKey()
-            loss().map { it.validate() }
-            rejection().map { it.validate() }
-            status()
-            type()
-            win().map { it.validate() }
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        acceptance().ifPresent { it.validate() }
+        amount()
+        createdAt()
+        disputedTransactionId()
+        explanation()
+        idempotencyKey()
+        loss().ifPresent { it.validate() }
+        rejection().ifPresent { it.validate() }
+        status()
+        type()
+        win().ifPresent { it.validate() }
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -487,12 +489,14 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Acceptance = apply {
-            if (!validated) {
-                acceptedAt()
-                cardDisputeId()
-                transactionId()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            acceptedAt()
+            cardDisputeId()
+            transactionId()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -669,13 +673,15 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Loss = apply {
-            if (!validated) {
-                cardDisputeId()
-                explanation()
-                lostAt()
-                transactionId()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            cardDisputeId()
+            explanation()
+            lostAt()
+            transactionId()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -849,12 +855,14 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Rejection = apply {
-            if (!validated) {
-                cardDisputeId()
-                explanation()
-                rejectedAt()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            cardDisputeId()
+            explanation()
+            rejectedAt()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -1129,11 +1137,13 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Win = apply {
-            if (!validated) {
-                cardDisputeId()
-                wonAt()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            cardDisputeId()
+            wonAt()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

@@ -102,10 +102,12 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): EntityUpdateIndustryCodeBody = apply {
-            if (!validated) {
-                industryCode()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            industryCode()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

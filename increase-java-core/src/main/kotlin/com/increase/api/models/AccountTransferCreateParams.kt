@@ -148,14 +148,16 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): AccountTransferCreateBody = apply {
-            if (!validated) {
-                accountId()
-                amount()
-                description()
-                destinationAccountId()
-                requireApproval()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            accountId()
+            amount()
+            description()
+            destinationAccountId()
+            requireApproval()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

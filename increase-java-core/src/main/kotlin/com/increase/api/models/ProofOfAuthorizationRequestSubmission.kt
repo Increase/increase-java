@@ -256,26 +256,28 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): ProofOfAuthorizationRequestSubmission = apply {
-        if (!validated) {
-            id()
-            authorizationTerms()
-            authorizedAt()
-            authorizerCompany()
-            authorizerEmail()
-            authorizerIpAddress()
-            authorizerName()
-            createdAt()
-            customerHasBeenOffboarded()
-            idempotencyKey()
-            proofOfAuthorizationRequestId()
-            status()
-            type()
-            updatedAt()
-            validatedAccountOwnershipViaCredential()
-            validatedAccountOwnershipWithAccountStatement()
-            validatedAccountOwnershipWithMicrodeposit()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        authorizationTerms()
+        authorizedAt()
+        authorizerCompany()
+        authorizerEmail()
+        authorizerIpAddress()
+        authorizerName()
+        createdAt()
+        customerHasBeenOffboarded()
+        idempotencyKey()
+        proofOfAuthorizationRequestId()
+        status()
+        type()
+        updatedAt()
+        validatedAccountOwnershipViaCredential()
+        validatedAccountOwnershipWithAccountStatement()
+        validatedAccountOwnershipWithMicrodeposit()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)

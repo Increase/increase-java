@@ -84,10 +84,12 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): EntityArchiveBeneficialOwnerBody = apply {
-            if (!validated) {
-                beneficialOwnerId()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            beneficialOwnerId()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

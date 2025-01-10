@@ -99,15 +99,17 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): Event = apply {
-        if (!validated) {
-            id()
-            associatedObjectId()
-            associatedObjectType()
-            category()
-            createdAt()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        associatedObjectId()
+        associatedObjectType()
+        category()
+        createdAt()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)

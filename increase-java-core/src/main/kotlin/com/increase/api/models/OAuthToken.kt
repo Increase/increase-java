@@ -66,12 +66,14 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): OAuthToken = apply {
-        if (!validated) {
-            accessToken()
-            tokenType()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        accessToken()
+        tokenType()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)

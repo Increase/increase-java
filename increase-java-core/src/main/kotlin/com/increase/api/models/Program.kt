@@ -142,18 +142,20 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): Program = apply {
-        if (!validated) {
-            id()
-            bank()
-            billingAccountId()
-            createdAt()
-            defaultDigitalCardProfileId()
-            interestRate()
-            name()
-            type()
-            updatedAt()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        bank()
+        billingAccountId()
+        createdAt()
+        defaultDigitalCardProfileId()
+        interestRate()
+        name()
+        type()
+        updatedAt()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)

@@ -101,11 +101,13 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): SimulationCardReversalCreateBody = apply {
-            if (!validated) {
-                cardPaymentId()
-                amount()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            cardPaymentId()
+            amount()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

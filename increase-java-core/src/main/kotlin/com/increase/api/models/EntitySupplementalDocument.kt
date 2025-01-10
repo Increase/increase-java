@@ -102,14 +102,16 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): EntitySupplementalDocument = apply {
-        if (!validated) {
-            createdAt()
-            entityId()
-            fileId()
-            idempotencyKey()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        createdAt()
+        entityId()
+        fileId()
+        idempotencyKey()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)

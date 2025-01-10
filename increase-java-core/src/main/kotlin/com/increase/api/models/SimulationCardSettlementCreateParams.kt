@@ -122,12 +122,14 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): SimulationCardSettlementCreateBody = apply {
-            if (!validated) {
-                cardId()
-                pendingTransactionId()
-                amount()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            cardId()
+            pendingTransactionId()
+            amount()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

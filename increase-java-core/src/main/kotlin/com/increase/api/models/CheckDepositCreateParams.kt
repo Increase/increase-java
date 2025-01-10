@@ -135,14 +135,16 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): CheckDepositCreateBody = apply {
-            if (!validated) {
-                accountId()
-                amount()
-                backImageFileId()
-                frontImageFileId()
-                description()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            accountId()
+            amount()
+            backImageFileId()
+            frontImageFileId()
+            description()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

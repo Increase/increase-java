@@ -128,17 +128,19 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): InboundMailItem = apply {
-        if (!validated) {
-            id()
-            createdAt()
-            fileId()
-            lockboxId()
-            recipientName()
-            rejectionReason()
-            status()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        createdAt()
+        fileId()
+        lockboxId()
+        recipientName()
+        rejectionReason()
+        status()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)

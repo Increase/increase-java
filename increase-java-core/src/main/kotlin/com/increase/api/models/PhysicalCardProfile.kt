@@ -179,21 +179,23 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): PhysicalCardProfile = apply {
-        if (!validated) {
-            id()
-            backImageFileId()
-            carrierImageFileId()
-            contactPhone()
-            createdAt()
-            creator()
-            description()
-            frontImageFileId()
-            idempotencyKey()
-            isDefault()
-            status()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        backImageFileId()
+        carrierImageFileId()
+        contactPhone()
+        createdAt()
+        creator()
+        description()
+        frontImageFileId()
+        idempotencyKey()
+        isDefault()
+        status()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)

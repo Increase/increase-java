@@ -69,10 +69,12 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): SimulationCardAuthorizationExpirationCreateBody = apply {
-            if (!validated) {
-                cardPaymentId()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            cardPaymentId()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

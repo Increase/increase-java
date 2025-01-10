@@ -89,14 +89,16 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): Group = apply {
-        if (!validated) {
-            id()
-            achDebitStatus()
-            activationStatus()
-            createdAt()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        achDebitStatus()
+        activationStatus()
+        createdAt()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)

@@ -336,32 +336,34 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): InboundWireDrawdownRequest = apply {
-        if (!validated) {
-            id()
-            amount()
-            beneficiaryAccountNumber()
-            beneficiaryAddressLine1()
-            beneficiaryAddressLine2()
-            beneficiaryAddressLine3()
-            beneficiaryName()
-            beneficiaryRoutingNumber()
-            createdAt()
-            currency()
-            messageToRecipient()
-            originatorAccountNumber()
-            originatorAddressLine1()
-            originatorAddressLine2()
-            originatorAddressLine3()
-            originatorName()
-            originatorRoutingNumber()
-            originatorToBeneficiaryInformationLine1()
-            originatorToBeneficiaryInformationLine2()
-            originatorToBeneficiaryInformationLine3()
-            originatorToBeneficiaryInformationLine4()
-            recipientAccountNumberId()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        amount()
+        beneficiaryAccountNumber()
+        beneficiaryAddressLine1()
+        beneficiaryAddressLine2()
+        beneficiaryAddressLine3()
+        beneficiaryName()
+        beneficiaryRoutingNumber()
+        createdAt()
+        currency()
+        messageToRecipient()
+        originatorAccountNumber()
+        originatorAddressLine1()
+        originatorAddressLine2()
+        originatorAddressLine3()
+        originatorName()
+        originatorRoutingNumber()
+        originatorToBeneficiaryInformationLine1()
+        originatorToBeneficiaryInformationLine2()
+        originatorToBeneficiaryInformationLine3()
+        originatorToBeneficiaryInformationLine4()
+        recipientAccountNumberId()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
