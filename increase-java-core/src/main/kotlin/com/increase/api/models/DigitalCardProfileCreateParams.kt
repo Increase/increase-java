@@ -211,18 +211,20 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): DigitalCardProfileCreateBody = apply {
-            if (!validated) {
-                appIconFileId()
-                backgroundImageFileId()
-                cardDescription()
-                description()
-                issuerName()
-                contactEmail()
-                contactPhone()
-                contactWebsite()
-                textColor().map { it.validate() }
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            appIconFileId()
+            backgroundImageFileId()
+            cardDescription()
+            description()
+            issuerName()
+            contactEmail()
+            contactPhone()
+            contactWebsite()
+            textColor().ifPresent { it.validate() }
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -643,12 +645,14 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): TextColor = apply {
-            if (!validated) {
-                blue()
-                green()
-                red()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            blue()
+            green()
+            red()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

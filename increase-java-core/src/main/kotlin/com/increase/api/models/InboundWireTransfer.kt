@@ -339,33 +339,35 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): InboundWireTransfer = apply {
-        if (!validated) {
-            id()
-            accountId()
-            accountNumberId()
-            amount()
-            beneficiaryAddressLine1()
-            beneficiaryAddressLine2()
-            beneficiaryAddressLine3()
-            beneficiaryName()
-            beneficiaryReference()
-            description()
-            inputMessageAccountabilityData()
-            originatorAddressLine1()
-            originatorAddressLine2()
-            originatorAddressLine3()
-            originatorName()
-            originatorRoutingNumber()
-            originatorToBeneficiaryInformation()
-            originatorToBeneficiaryInformationLine1()
-            originatorToBeneficiaryInformationLine2()
-            originatorToBeneficiaryInformationLine3()
-            originatorToBeneficiaryInformationLine4()
-            senderReference()
-            status()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        accountId()
+        accountNumberId()
+        amount()
+        beneficiaryAddressLine1()
+        beneficiaryAddressLine2()
+        beneficiaryAddressLine3()
+        beneficiaryName()
+        beneficiaryReference()
+        description()
+        inputMessageAccountabilityData()
+        originatorAddressLine1()
+        originatorAddressLine2()
+        originatorAddressLine3()
+        originatorName()
+        originatorRoutingNumber()
+        originatorToBeneficiaryInformation()
+        originatorToBeneficiaryInformationLine1()
+        originatorToBeneficiaryInformationLine2()
+        originatorToBeneficiaryInformationLine3()
+        originatorToBeneficiaryInformationLine4()
+        senderReference()
+        status()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)

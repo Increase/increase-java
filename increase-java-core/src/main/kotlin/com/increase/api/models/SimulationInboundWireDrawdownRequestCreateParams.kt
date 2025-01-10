@@ -474,29 +474,31 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): SimulationInboundWireDrawdownRequestCreateBody = apply {
-            if (!validated) {
-                amount()
-                beneficiaryAccountNumber()
-                beneficiaryRoutingNumber()
-                currency()
-                messageToRecipient()
-                originatorAccountNumber()
-                originatorRoutingNumber()
-                recipientAccountNumberId()
-                beneficiaryAddressLine1()
-                beneficiaryAddressLine2()
-                beneficiaryAddressLine3()
-                beneficiaryName()
-                originatorAddressLine1()
-                originatorAddressLine2()
-                originatorAddressLine3()
-                originatorName()
-                originatorToBeneficiaryInformationLine1()
-                originatorToBeneficiaryInformationLine2()
-                originatorToBeneficiaryInformationLine3()
-                originatorToBeneficiaryInformationLine4()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            amount()
+            beneficiaryAccountNumber()
+            beneficiaryRoutingNumber()
+            currency()
+            messageToRecipient()
+            originatorAccountNumber()
+            originatorRoutingNumber()
+            recipientAccountNumberId()
+            beneficiaryAddressLine1()
+            beneficiaryAddressLine2()
+            beneficiaryAddressLine3()
+            beneficiaryName()
+            originatorAddressLine1()
+            originatorAddressLine2()
+            originatorAddressLine3()
+            originatorName()
+            originatorToBeneficiaryInformationLine1()
+            originatorToBeneficiaryInformationLine2()
+            originatorToBeneficiaryInformationLine3()
+            originatorToBeneficiaryInformationLine4()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

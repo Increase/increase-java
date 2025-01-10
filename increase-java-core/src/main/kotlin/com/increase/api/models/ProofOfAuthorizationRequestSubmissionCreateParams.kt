@@ -265,20 +265,22 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): ProofOfAuthorizationRequestSubmissionCreateBody = apply {
-            if (!validated) {
-                authorizationTerms()
-                authorizedAt()
-                authorizerEmail()
-                authorizerName()
-                customerHasBeenOffboarded()
-                proofOfAuthorizationRequestId()
-                validatedAccountOwnershipViaCredential()
-                validatedAccountOwnershipWithAccountStatement()
-                validatedAccountOwnershipWithMicrodeposit()
-                authorizerCompany()
-                authorizerIpAddress()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            authorizationTerms()
+            authorizedAt()
+            authorizerEmail()
+            authorizerName()
+            customerHasBeenOffboarded()
+            proofOfAuthorizationRequestId()
+            validatedAccountOwnershipViaCredential()
+            validatedAccountOwnershipWithAccountStatement()
+            validatedAccountOwnershipWithMicrodeposit()
+            authorizerCompany()
+            authorizerIpAddress()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

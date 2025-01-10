@@ -276,27 +276,29 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): CheckDeposit = apply {
-        if (!validated) {
-            id()
-            accountId()
-            amount()
-            backImageFileId()
-            createdAt()
-            depositAcceptance().map { it.validate() }
-            depositRejection().map { it.validate() }
-            depositReturn().map { it.validate() }
-            depositSubmission().map { it.validate() }
-            description()
-            frontImageFileId()
-            idempotencyKey()
-            inboundFundsHold().map { it.validate() }
-            inboundMailItemId()
-            lockboxId()
-            status()
-            transactionId()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        accountId()
+        amount()
+        backImageFileId()
+        createdAt()
+        depositAcceptance().ifPresent { it.validate() }
+        depositRejection().ifPresent { it.validate() }
+        depositReturn().ifPresent { it.validate() }
+        depositSubmission().ifPresent { it.validate() }
+        description()
+        frontImageFileId()
+        idempotencyKey()
+        inboundFundsHold().ifPresent { it.validate() }
+        inboundMailItemId()
+        lockboxId()
+        status()
+        transactionId()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -776,16 +778,18 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): DepositAcceptance = apply {
-            if (!validated) {
-                accountNumber()
-                amount()
-                auxiliaryOnUs()
-                checkDepositId()
-                currency()
-                routingNumber()
-                serialNumber()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            accountNumber()
+            amount()
+            auxiliaryOnUs()
+            checkDepositId()
+            currency()
+            routingNumber()
+            serialNumber()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -1133,15 +1137,17 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): DepositRejection = apply {
-            if (!validated) {
-                amount()
-                checkDepositId()
-                currency()
-                declinedTransactionId()
-                reason()
-                rejectedAt()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            amount()
+            checkDepositId()
+            currency()
+            declinedTransactionId()
+            reason()
+            rejectedAt()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -1570,15 +1576,17 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): DepositReturn = apply {
-            if (!validated) {
-                amount()
-                checkDepositId()
-                currency()
-                returnReason()
-                returnedAt()
-                transactionId()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            amount()
+            checkDepositId()
+            currency()
+            returnReason()
+            returnedAt()
+            transactionId()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -2073,12 +2081,14 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): DepositSubmission = apply {
-            if (!validated) {
-                backFileId()
-                frontFileId()
-                submittedAt()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            backFileId()
+            frontFileId()
+            submittedAt()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -2334,19 +2344,21 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): InboundFundsHold = apply {
-            if (!validated) {
-                id()
-                amount()
-                automaticallyReleasesAt()
-                createdAt()
-                currency()
-                heldTransactionId()
-                pendingTransactionId()
-                releasedAt()
-                status()
-                type()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            id()
+            amount()
+            automaticallyReleasesAt()
+            createdAt()
+            currency()
+            heldTransactionId()
+            pendingTransactionId()
+            releasedAt()
+            status()
+            type()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

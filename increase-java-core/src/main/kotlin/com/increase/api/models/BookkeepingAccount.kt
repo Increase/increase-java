@@ -114,16 +114,18 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): BookkeepingAccount = apply {
-        if (!validated) {
-            id()
-            accountId()
-            complianceCategory()
-            entityId()
-            idempotencyKey()
-            name()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        accountId()
+        complianceCategory()
+        entityId()
+        idempotencyKey()
+        name()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)

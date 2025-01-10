@@ -135,18 +135,20 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): Lockbox = apply {
-        if (!validated) {
-            id()
-            accountId()
-            address().validate()
-            createdAt()
-            description()
-            idempotencyKey()
-            recipientName()
-            status()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        accountId()
+        address().validate()
+        createdAt()
+        description()
+        idempotencyKey()
+        recipientName()
+        status()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -396,15 +398,17 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Address = apply {
-            if (!validated) {
-                city()
-                line1()
-                line2()
-                postalCode()
-                recipient()
-                state()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            city()
+            line1()
+            line2()
+            postalCode()
+            recipient()
+            state()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

@@ -149,18 +149,20 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): AccountStatement = apply {
-        if (!validated) {
-            id()
-            accountId()
-            createdAt()
-            endingBalance()
-            fileId()
-            startingBalance()
-            statementPeriodEnd()
-            statementPeriodStart()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        accountId()
+        createdAt()
+        endingBalance()
+        fileId()
+        startingBalance()
+        statementPeriodEnd()
+        statementPeriodStart()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)

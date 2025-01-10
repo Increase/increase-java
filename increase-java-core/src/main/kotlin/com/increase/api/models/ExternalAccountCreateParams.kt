@@ -151,14 +151,16 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): ExternalAccountCreateBody = apply {
-            if (!validated) {
-                accountNumber()
-                description()
-                routingNumber()
-                accountHolder()
-                funding()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            accountNumber()
+            description()
+            routingNumber()
+            accountHolder()
+            funding()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

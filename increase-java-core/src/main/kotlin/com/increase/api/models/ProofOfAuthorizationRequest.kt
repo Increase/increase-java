@@ -95,15 +95,17 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): ProofOfAuthorizationRequest = apply {
-        if (!validated) {
-            id()
-            achTransfers().forEach { it.validate() }
-            createdAt()
-            dueOn()
-            type()
-            updatedAt()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        achTransfers().forEach { it.validate() }
+        createdAt()
+        dueOn()
+        type()
+        updatedAt()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -246,10 +248,12 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): AchTransfer = apply {
-            if (!validated) {
-                id()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            id()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

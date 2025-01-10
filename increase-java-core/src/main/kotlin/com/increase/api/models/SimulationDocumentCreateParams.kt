@@ -67,10 +67,12 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): SimulationDocumentCreateBody = apply {
-            if (!validated) {
-                accountId()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            accountId()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

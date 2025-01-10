@@ -97,10 +97,12 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): SimulationAchTransferReturnBody = apply {
-            if (!validated) {
-                reason()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            reason()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

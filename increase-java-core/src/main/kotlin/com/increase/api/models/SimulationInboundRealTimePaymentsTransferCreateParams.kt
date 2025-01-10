@@ -178,16 +178,18 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): SimulationInboundRealTimePaymentsTransferCreateBody = apply {
-            if (!validated) {
-                accountNumberId()
-                amount()
-                debtorAccountNumber()
-                debtorName()
-                debtorRoutingNumber()
-                remittanceInformation()
-                requestForPaymentId()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            accountNumberId()
+            amount()
+            debtorAccountNumber()
+            debtorName()
+            debtorRoutingNumber()
+            remittanceInformation()
+            requestForPaymentId()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

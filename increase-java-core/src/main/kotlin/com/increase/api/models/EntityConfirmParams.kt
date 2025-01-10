@@ -99,10 +99,12 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): EntityConfirmBody = apply {
-            if (!validated) {
-                confirmedAt()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            confirmedAt()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

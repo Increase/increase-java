@@ -84,10 +84,12 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): SimulationCardRefundCreateBody = apply {
-            if (!validated) {
-                transactionId()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            transactionId()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

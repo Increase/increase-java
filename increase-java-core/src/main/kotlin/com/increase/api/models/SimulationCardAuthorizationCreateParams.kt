@@ -408,24 +408,26 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): SimulationCardAuthorizationCreateBody = apply {
-            if (!validated) {
-                amount()
-                authenticatedCardPaymentId()
-                cardId()
-                declineReason()
-                digitalWalletTokenId()
-                direction()
-                eventSubscriptionId()
-                merchantAcceptorId()
-                merchantCategoryCode()
-                merchantCity()
-                merchantCountry()
-                merchantDescriptor()
-                merchantState()
-                physicalCardId()
-                terminalId()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            amount()
+            authenticatedCardPaymentId()
+            cardId()
+            declineReason()
+            digitalWalletTokenId()
+            direction()
+            eventSubscriptionId()
+            merchantAcceptorId()
+            merchantCategoryCode()
+            merchantCity()
+            merchantCountry()
+            merchantDescriptor()
+            merchantState()
+            physicalCardId()
+            terminalId()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
