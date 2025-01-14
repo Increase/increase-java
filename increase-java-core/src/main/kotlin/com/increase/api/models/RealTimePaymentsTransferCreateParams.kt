@@ -11,6 +11,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
@@ -499,14 +500,10 @@ constructor(
 
             fun build(): RealTimePaymentsTransferCreateBody =
                 RealTimePaymentsTransferCreateBody(
-                    checkNotNull(amount) { "`amount` is required but was not set" },
-                    checkNotNull(creditorName) { "`creditorName` is required but was not set" },
-                    checkNotNull(remittanceInformation) {
-                        "`remittanceInformation` is required but was not set"
-                    },
-                    checkNotNull(sourceAccountNumberId) {
-                        "`sourceAccountNumberId` is required but was not set"
-                    },
+                    checkRequired("amount", amount),
+                    checkRequired("creditorName", creditorName),
+                    checkRequired("remittanceInformation", remittanceInformation),
+                    checkRequired("sourceAccountNumberId", sourceAccountNumberId),
                     debtorName,
                     destinationAccountNumber,
                     destinationRoutingNumber,

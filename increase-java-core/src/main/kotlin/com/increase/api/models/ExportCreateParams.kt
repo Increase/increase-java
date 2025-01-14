@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
@@ -330,7 +331,7 @@ constructor(
 
             fun build(): ExportCreateBody =
                 ExportCreateBody(
-                    checkNotNull(category) { "`category` is required but was not set" },
+                    checkRequired("category", category),
                     accountStatementOfx,
                     balanceCsv,
                     bookkeepingAccountBalanceCsv,
@@ -750,7 +751,7 @@ constructor(
 
             fun build(): AccountStatementOfx =
                 AccountStatementOfx(
-                    checkNotNull(accountId) { "`accountId` is required but was not set" },
+                    checkRequired("accountId", accountId),
                     createdAt,
                     additionalProperties.toImmutable(),
                 )
@@ -1906,8 +1907,7 @@ constructor(
 
                 fun build(): Status =
                     Status(
-                        checkNotNull(in_) { "`in_` is required but was not set" }
-                            .map { it.toImmutable() },
+                        checkRequired("in_", in_).map { it.toImmutable() },
                         additionalProperties.toImmutable()
                     )
             }

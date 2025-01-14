@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
@@ -210,8 +211,8 @@ constructor(
 
             fun build(): AccountNumberCreateBody =
                 AccountNumberCreateBody(
-                    checkNotNull(accountId) { "`accountId` is required but was not set" },
-                    checkNotNull(name) { "`name` is required but was not set" },
+                    checkRequired("accountId", accountId),
+                    checkRequired("name", name),
                     inboundAch,
                     inboundChecks,
                     additionalProperties.toImmutable(),
@@ -508,7 +509,7 @@ constructor(
 
             fun build(): InboundAch =
                 InboundAch(
-                    checkNotNull(debitStatus) { "`debitStatus` is required but was not set" },
+                    checkRequired("debitStatus", debitStatus),
                     additionalProperties.toImmutable()
                 )
         }
@@ -677,10 +678,7 @@ constructor(
             }
 
             fun build(): InboundChecks =
-                InboundChecks(
-                    checkNotNull(status) { "`status` is required but was not set" },
-                    additionalProperties.toImmutable()
-                )
+                InboundChecks(checkRequired("status", status), additionalProperties.toImmutable())
         }
 
         class Status

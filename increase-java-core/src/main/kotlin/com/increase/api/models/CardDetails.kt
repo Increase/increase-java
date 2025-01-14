@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -224,14 +225,12 @@ private constructor(
 
         fun build(): CardDetails =
             CardDetails(
-                checkNotNull(cardId) { "`cardId` is required but was not set" },
-                checkNotNull(expirationMonth) { "`expirationMonth` is required but was not set" },
-                checkNotNull(expirationYear) { "`expirationYear` is required but was not set" },
-                checkNotNull(primaryAccountNumber) {
-                    "`primaryAccountNumber` is required but was not set"
-                },
-                checkNotNull(type) { "`type` is required but was not set" },
-                checkNotNull(verificationCode) { "`verificationCode` is required but was not set" },
+                checkRequired("cardId", cardId),
+                checkRequired("expirationMonth", expirationMonth),
+                checkRequired("expirationYear", expirationYear),
+                checkRequired("primaryAccountNumber", primaryAccountNumber),
+                checkRequired("type", type),
+                checkRequired("verificationCode", verificationCode),
                 additionalProperties.toImmutable(),
             )
     }

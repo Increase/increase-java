@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -334,16 +335,16 @@ private constructor(
 
         fun build(): File =
             File(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(description) { "`description` is required but was not set" },
-                checkNotNull(direction) { "`direction` is required but was not set" },
-                checkNotNull(downloadUrl) { "`downloadUrl` is required but was not set" },
-                checkNotNull(filename) { "`filename` is required but was not set" },
-                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
-                checkNotNull(mimeType) { "`mimeType` is required but was not set" },
-                checkNotNull(purpose) { "`purpose` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("createdAt", createdAt),
+                checkRequired("description", description),
+                checkRequired("direction", direction),
+                checkRequired("downloadUrl", downloadUrl),
+                checkRequired("filename", filename),
+                checkRequired("idempotencyKey", idempotencyKey),
+                checkRequired("mimeType", mimeType),
+                checkRequired("purpose", purpose),
+                checkRequired("type", type),
                 additionalProperties.toImmutable(),
             )
     }

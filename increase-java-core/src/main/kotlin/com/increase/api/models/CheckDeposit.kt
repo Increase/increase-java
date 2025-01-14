@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -632,30 +633,24 @@ private constructor(
 
         fun build(): CheckDeposit =
             CheckDeposit(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(accountId) { "`accountId` is required but was not set" },
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(backImageFileId) { "`backImageFileId` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(depositAcceptance) {
-                    "`depositAcceptance` is required but was not set"
-                },
-                checkNotNull(depositRejection) { "`depositRejection` is required but was not set" },
-                checkNotNull(depositReturn) { "`depositReturn` is required but was not set" },
-                checkNotNull(depositSubmission) {
-                    "`depositSubmission` is required but was not set"
-                },
-                checkNotNull(description) { "`description` is required but was not set" },
-                checkNotNull(frontImageFileId) { "`frontImageFileId` is required but was not set" },
-                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
-                checkNotNull(inboundFundsHold) { "`inboundFundsHold` is required but was not set" },
-                checkNotNull(inboundMailItemId) {
-                    "`inboundMailItemId` is required but was not set"
-                },
-                checkNotNull(lockboxId) { "`lockboxId` is required but was not set" },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(transactionId) { "`transactionId` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("accountId", accountId),
+                checkRequired("amount", amount),
+                checkRequired("backImageFileId", backImageFileId),
+                checkRequired("createdAt", createdAt),
+                checkRequired("depositAcceptance", depositAcceptance),
+                checkRequired("depositRejection", depositRejection),
+                checkRequired("depositReturn", depositReturn),
+                checkRequired("depositSubmission", depositSubmission),
+                checkRequired("description", description),
+                checkRequired("frontImageFileId", frontImageFileId),
+                checkRequired("idempotencyKey", idempotencyKey),
+                checkRequired("inboundFundsHold", inboundFundsHold),
+                checkRequired("inboundMailItemId", inboundMailItemId),
+                checkRequired("lockboxId", lockboxId),
+                checkRequired("status", status),
+                checkRequired("transactionId", transactionId),
+                checkRequired("type", type),
                 additionalProperties.toImmutable(),
             )
     }
@@ -936,13 +931,13 @@ private constructor(
 
             fun build(): DepositAcceptance =
                 DepositAcceptance(
-                    checkNotNull(accountNumber) { "`accountNumber` is required but was not set" },
-                    checkNotNull(amount) { "`amount` is required but was not set" },
-                    checkNotNull(auxiliaryOnUs) { "`auxiliaryOnUs` is required but was not set" },
-                    checkNotNull(checkDepositId) { "`checkDepositId` is required but was not set" },
-                    checkNotNull(currency) { "`currency` is required but was not set" },
-                    checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
-                    checkNotNull(serialNumber) { "`serialNumber` is required but was not set" },
+                    checkRequired("accountNumber", accountNumber),
+                    checkRequired("amount", amount),
+                    checkRequired("auxiliaryOnUs", auxiliaryOnUs),
+                    checkRequired("checkDepositId", checkDepositId),
+                    checkRequired("currency", currency),
+                    checkRequired("routingNumber", routingNumber),
+                    checkRequired("serialNumber", serialNumber),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1259,14 +1254,12 @@ private constructor(
 
             fun build(): DepositRejection =
                 DepositRejection(
-                    checkNotNull(amount) { "`amount` is required but was not set" },
-                    checkNotNull(checkDepositId) { "`checkDepositId` is required but was not set" },
-                    checkNotNull(currency) { "`currency` is required but was not set" },
-                    checkNotNull(declinedTransactionId) {
-                        "`declinedTransactionId` is required but was not set"
-                    },
-                    checkNotNull(reason) { "`reason` is required but was not set" },
-                    checkNotNull(rejectedAt) { "`rejectedAt` is required but was not set" },
+                    checkRequired("amount", amount),
+                    checkRequired("checkDepositId", checkDepositId),
+                    checkRequired("currency", currency),
+                    checkRequired("declinedTransactionId", declinedTransactionId),
+                    checkRequired("reason", reason),
+                    checkRequired("rejectedAt", rejectedAt),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1701,12 +1694,12 @@ private constructor(
 
             fun build(): DepositReturn =
                 DepositReturn(
-                    checkNotNull(amount) { "`amount` is required but was not set" },
-                    checkNotNull(checkDepositId) { "`checkDepositId` is required but was not set" },
-                    checkNotNull(currency) { "`currency` is required but was not set" },
-                    checkNotNull(returnReason) { "`returnReason` is required but was not set" },
-                    checkNotNull(returnedAt) { "`returnedAt` is required but was not set" },
-                    checkNotNull(transactionId) { "`transactionId` is required but was not set" },
+                    checkRequired("amount", amount),
+                    checkRequired("checkDepositId", checkDepositId),
+                    checkRequired("currency", currency),
+                    checkRequired("returnReason", returnReason),
+                    checkRequired("returnedAt", returnedAt),
+                    checkRequired("transactionId", transactionId),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -2176,9 +2169,9 @@ private constructor(
 
             fun build(): DepositSubmission =
                 DepositSubmission(
-                    checkNotNull(backFileId) { "`backFileId` is required but was not set" },
-                    checkNotNull(frontFileId) { "`frontFileId` is required but was not set" },
-                    checkNotNull(submittedAt) { "`submittedAt` is required but was not set" },
+                    checkRequired("backFileId", backFileId),
+                    checkRequired("frontFileId", frontFileId),
+                    checkRequired("submittedAt", submittedAt),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -2533,22 +2526,16 @@ private constructor(
 
             fun build(): InboundFundsHold =
                 InboundFundsHold(
-                    checkNotNull(id) { "`id` is required but was not set" },
-                    checkNotNull(amount) { "`amount` is required but was not set" },
-                    checkNotNull(automaticallyReleasesAt) {
-                        "`automaticallyReleasesAt` is required but was not set"
-                    },
-                    checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                    checkNotNull(currency) { "`currency` is required but was not set" },
-                    checkNotNull(heldTransactionId) {
-                        "`heldTransactionId` is required but was not set"
-                    },
-                    checkNotNull(pendingTransactionId) {
-                        "`pendingTransactionId` is required but was not set"
-                    },
-                    checkNotNull(releasedAt) { "`releasedAt` is required but was not set" },
-                    checkNotNull(status) { "`status` is required but was not set" },
-                    checkNotNull(type) { "`type` is required but was not set" },
+                    checkRequired("id", id),
+                    checkRequired("amount", amount),
+                    checkRequired("automaticallyReleasesAt", automaticallyReleasesAt),
+                    checkRequired("createdAt", createdAt),
+                    checkRequired("currency", currency),
+                    checkRequired("heldTransactionId", heldTransactionId),
+                    checkRequired("pendingTransactionId", pendingTransactionId),
+                    checkRequired("releasedAt", releasedAt),
+                    checkRequired("status", status),
+                    checkRequired("type", type),
                     additionalProperties.toImmutable(),
                 )
         }

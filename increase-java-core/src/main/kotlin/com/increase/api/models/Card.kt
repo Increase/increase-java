@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -403,19 +404,19 @@ private constructor(
 
         fun build(): Card =
             Card(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(accountId) { "`accountId` is required but was not set" },
-                checkNotNull(billingAddress) { "`billingAddress` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(description) { "`description` is required but was not set" },
-                checkNotNull(digitalWallet) { "`digitalWallet` is required but was not set" },
-                checkNotNull(entityId) { "`entityId` is required but was not set" },
-                checkNotNull(expirationMonth) { "`expirationMonth` is required but was not set" },
-                checkNotNull(expirationYear) { "`expirationYear` is required but was not set" },
-                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
-                checkNotNull(last4) { "`last4` is required but was not set" },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("accountId", accountId),
+                checkRequired("billingAddress", billingAddress),
+                checkRequired("createdAt", createdAt),
+                checkRequired("description", description),
+                checkRequired("digitalWallet", digitalWallet),
+                checkRequired("entityId", entityId),
+                checkRequired("expirationMonth", expirationMonth),
+                checkRequired("expirationYear", expirationYear),
+                checkRequired("idempotencyKey", idempotencyKey),
+                checkRequired("last4", last4),
+                checkRequired("status", status),
+                checkRequired("type", type),
                 additionalProperties.toImmutable(),
             )
     }
@@ -588,11 +589,11 @@ private constructor(
 
             fun build(): BillingAddress =
                 BillingAddress(
-                    checkNotNull(city) { "`city` is required but was not set" },
-                    checkNotNull(line1) { "`line1` is required but was not set" },
-                    checkNotNull(line2) { "`line2` is required but was not set" },
-                    checkNotNull(postalCode) { "`postalCode` is required but was not set" },
-                    checkNotNull(state) { "`state` is required but was not set" },
+                    checkRequired("city", city),
+                    checkRequired("line1", line1),
+                    checkRequired("line2", line2),
+                    checkRequired("postalCode", postalCode),
+                    checkRequired("state", state),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -791,11 +792,9 @@ private constructor(
 
             fun build(): DigitalWallet =
                 DigitalWallet(
-                    checkNotNull(digitalCardProfileId) {
-                        "`digitalCardProfileId` is required but was not set"
-                    },
-                    checkNotNull(email) { "`email` is required but was not set" },
-                    checkNotNull(phone) { "`phone` is required but was not set" },
+                    checkRequired("digitalCardProfileId", digitalCardProfileId),
+                    checkRequired("email", email),
+                    checkRequired("phone", phone),
                     additionalProperties.toImmutable(),
                 )
         }

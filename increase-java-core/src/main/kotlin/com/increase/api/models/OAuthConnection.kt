@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -255,15 +256,13 @@ private constructor(
 
         fun build(): OAuthConnection =
             OAuthConnection(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(deletedAt) { "`deletedAt` is required but was not set" },
-                checkNotNull(groupId) { "`groupId` is required but was not set" },
-                checkNotNull(oauthApplicationId) {
-                    "`oauthApplicationId` is required but was not set"
-                },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("createdAt", createdAt),
+                checkRequired("deletedAt", deletedAt),
+                checkRequired("groupId", groupId),
+                checkRequired("oauthApplicationId", oauthApplicationId),
+                checkRequired("status", status),
+                checkRequired("type", type),
                 additionalProperties.toImmutable(),
             )
     }

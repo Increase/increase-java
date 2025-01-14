@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -315,18 +316,14 @@ private constructor(
 
         fun build(): EventSubscription =
             EventSubscription(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
-                checkNotNull(oauthConnectionId) {
-                    "`oauthConnectionId` is required but was not set"
-                },
-                checkNotNull(selectedEventCategory) {
-                    "`selectedEventCategory` is required but was not set"
-                },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
-                checkNotNull(url) { "`url` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("createdAt", createdAt),
+                checkRequired("idempotencyKey", idempotencyKey),
+                checkRequired("oauthConnectionId", oauthConnectionId),
+                checkRequired("selectedEventCategory", selectedEventCategory),
+                checkRequired("status", status),
+                checkRequired("type", type),
+                checkRequired("url", url),
                 additionalProperties.toImmutable(),
             )
     }

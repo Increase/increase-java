@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -211,14 +212,12 @@ private constructor(
 
         fun build(): RoutingNumberListResponse =
             RoutingNumberListResponse(
-                checkNotNull(achTransfers) { "`achTransfers` is required but was not set" },
-                checkNotNull(name) { "`name` is required but was not set" },
-                checkNotNull(realTimePaymentsTransfers) {
-                    "`realTimePaymentsTransfers` is required but was not set"
-                },
-                checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
-                checkNotNull(wireTransfers) { "`wireTransfers` is required but was not set" },
+                checkRequired("achTransfers", achTransfers),
+                checkRequired("name", name),
+                checkRequired("realTimePaymentsTransfers", realTimePaymentsTransfers),
+                checkRequired("routingNumber", routingNumber),
+                checkRequired("type", type),
+                checkRequired("wireTransfers", wireTransfers),
                 additionalProperties.toImmutable(),
             )
     }

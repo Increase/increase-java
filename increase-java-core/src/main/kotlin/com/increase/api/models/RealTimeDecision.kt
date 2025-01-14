@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -376,27 +377,17 @@ private constructor(
 
         fun build(): RealTimeDecision =
             RealTimeDecision(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(cardAuthentication) {
-                    "`cardAuthentication` is required but was not set"
-                },
-                checkNotNull(cardAuthenticationChallenge) {
-                    "`cardAuthenticationChallenge` is required but was not set"
-                },
-                checkNotNull(cardAuthorization) {
-                    "`cardAuthorization` is required but was not set"
-                },
-                checkNotNull(category) { "`category` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(digitalWalletAuthentication) {
-                    "`digitalWalletAuthentication` is required but was not set"
-                },
-                checkNotNull(digitalWalletToken) {
-                    "`digitalWalletToken` is required but was not set"
-                },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(timeoutAt) { "`timeoutAt` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("cardAuthentication", cardAuthentication),
+                checkRequired("cardAuthenticationChallenge", cardAuthenticationChallenge),
+                checkRequired("cardAuthorization", cardAuthorization),
+                checkRequired("category", category),
+                checkRequired("createdAt", createdAt),
+                checkRequired("digitalWalletAuthentication", digitalWalletAuthentication),
+                checkRequired("digitalWalletToken", digitalWalletToken),
+                checkRequired("status", status),
+                checkRequired("timeoutAt", timeoutAt),
+                checkRequired("type", type),
                 additionalProperties.toImmutable(),
             )
     }
@@ -554,12 +545,10 @@ private constructor(
 
             fun build(): CardAuthentication =
                 CardAuthentication(
-                    checkNotNull(accountId) { "`accountId` is required but was not set" },
-                    checkNotNull(cardId) { "`cardId` is required but was not set" },
-                    checkNotNull(decision) { "`decision` is required but was not set" },
-                    checkNotNull(upcomingCardPaymentId) {
-                        "`upcomingCardPaymentId` is required but was not set"
-                    },
+                    checkRequired("accountId", accountId),
+                    checkRequired("cardId", cardId),
+                    checkRequired("decision", decision),
+                    checkRequired("upcomingCardPaymentId", upcomingCardPaymentId),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -811,11 +800,11 @@ private constructor(
 
             fun build(): CardAuthenticationChallenge =
                 CardAuthenticationChallenge(
-                    checkNotNull(accountId) { "`accountId` is required but was not set" },
-                    checkNotNull(cardId) { "`cardId` is required but was not set" },
-                    checkNotNull(cardPaymentId) { "`cardPaymentId` is required but was not set" },
-                    checkNotNull(oneTimeCode) { "`oneTimeCode` is required but was not set" },
-                    checkNotNull(result) { "`result` is required but was not set" },
+                    checkRequired("accountId", accountId),
+                    checkRequired("cardId", cardId),
+                    checkRequired("cardPaymentId", cardPaymentId),
+                    checkRequired("oneTimeCode", oneTimeCode),
+                    checkRequired("result", result),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1742,59 +1731,31 @@ private constructor(
 
             fun build(): CardAuthorization =
                 CardAuthorization(
-                    checkNotNull(accountId) { "`accountId` is required but was not set" },
-                    checkNotNull(cardId) { "`cardId` is required but was not set" },
-                    checkNotNull(decision) { "`decision` is required but was not set" },
-                    checkNotNull(digitalWalletTokenId) {
-                        "`digitalWalletTokenId` is required but was not set"
-                    },
-                    checkNotNull(direction) { "`direction` is required but was not set" },
-                    checkNotNull(merchantAcceptorId) {
-                        "`merchantAcceptorId` is required but was not set"
-                    },
-                    checkNotNull(merchantCategoryCode) {
-                        "`merchantCategoryCode` is required but was not set"
-                    },
-                    checkNotNull(merchantCity) { "`merchantCity` is required but was not set" },
-                    checkNotNull(merchantCountry) {
-                        "`merchantCountry` is required but was not set"
-                    },
-                    checkNotNull(merchantDescriptor) {
-                        "`merchantDescriptor` is required but was not set"
-                    },
-                    checkNotNull(merchantPostalCode) {
-                        "`merchantPostalCode` is required but was not set"
-                    },
-                    checkNotNull(merchantState) { "`merchantState` is required but was not set" },
-                    checkNotNull(networkDetails) { "`networkDetails` is required but was not set" },
-                    checkNotNull(networkIdentifiers) {
-                        "`networkIdentifiers` is required but was not set"
-                    },
-                    checkNotNull(networkRiskScore) {
-                        "`networkRiskScore` is required but was not set"
-                    },
-                    checkNotNull(physicalCardId) { "`physicalCardId` is required but was not set" },
-                    checkNotNull(presentmentAmount) {
-                        "`presentmentAmount` is required but was not set"
-                    },
-                    checkNotNull(presentmentCurrency) {
-                        "`presentmentCurrency` is required but was not set"
-                    },
-                    checkNotNull(processingCategory) {
-                        "`processingCategory` is required but was not set"
-                    },
-                    checkNotNull(requestDetails) { "`requestDetails` is required but was not set" },
-                    checkNotNull(settlementAmount) {
-                        "`settlementAmount` is required but was not set"
-                    },
-                    checkNotNull(settlementCurrency) {
-                        "`settlementCurrency` is required but was not set"
-                    },
-                    checkNotNull(terminalId) { "`terminalId` is required but was not set" },
-                    checkNotNull(upcomingCardPaymentId) {
-                        "`upcomingCardPaymentId` is required but was not set"
-                    },
-                    checkNotNull(verification) { "`verification` is required but was not set" },
+                    checkRequired("accountId", accountId),
+                    checkRequired("cardId", cardId),
+                    checkRequired("decision", decision),
+                    checkRequired("digitalWalletTokenId", digitalWalletTokenId),
+                    checkRequired("direction", direction),
+                    checkRequired("merchantAcceptorId", merchantAcceptorId),
+                    checkRequired("merchantCategoryCode", merchantCategoryCode),
+                    checkRequired("merchantCity", merchantCity),
+                    checkRequired("merchantCountry", merchantCountry),
+                    checkRequired("merchantDescriptor", merchantDescriptor),
+                    checkRequired("merchantPostalCode", merchantPostalCode),
+                    checkRequired("merchantState", merchantState),
+                    checkRequired("networkDetails", networkDetails),
+                    checkRequired("networkIdentifiers", networkIdentifiers),
+                    checkRequired("networkRiskScore", networkRiskScore),
+                    checkRequired("physicalCardId", physicalCardId),
+                    checkRequired("presentmentAmount", presentmentAmount),
+                    checkRequired("presentmentCurrency", presentmentCurrency),
+                    checkRequired("processingCategory", processingCategory),
+                    checkRequired("requestDetails", requestDetails),
+                    checkRequired("settlementAmount", settlementAmount),
+                    checkRequired("settlementCurrency", settlementCurrency),
+                    checkRequired("terminalId", terminalId),
+                    checkRequired("upcomingCardPaymentId", upcomingCardPaymentId),
+                    checkRequired("verification", verification),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -2017,8 +1978,8 @@ private constructor(
 
                 fun build(): NetworkDetails =
                     NetworkDetails(
-                        checkNotNull(category) { "`category` is required but was not set" },
-                        checkNotNull(visa) { "`visa` is required but was not set" },
+                        checkRequired("category", category),
+                        checkRequired("visa", visa),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -2292,15 +2253,12 @@ private constructor(
 
                     fun build(): Visa =
                         Visa(
-                            checkNotNull(electronicCommerceIndicator) {
-                                "`electronicCommerceIndicator` is required but was not set"
-                            },
-                            checkNotNull(pointOfServiceEntryMode) {
-                                "`pointOfServiceEntryMode` is required but was not set"
-                            },
-                            checkNotNull(standInProcessingReason) {
-                                "`standInProcessingReason` is required but was not set"
-                            },
+                            checkRequired(
+                                "electronicCommerceIndicator",
+                                electronicCommerceIndicator
+                            ),
+                            checkRequired("pointOfServiceEntryMode", pointOfServiceEntryMode),
+                            checkRequired("standInProcessingReason", standInProcessingReason),
                             additionalProperties.toImmutable(),
                         )
                 }
@@ -2852,13 +2810,9 @@ private constructor(
 
                 fun build(): NetworkIdentifiers =
                     NetworkIdentifiers(
-                        checkNotNull(retrievalReferenceNumber) {
-                            "`retrievalReferenceNumber` is required but was not set"
-                        },
-                        checkNotNull(traceNumber) { "`traceNumber` is required but was not set" },
-                        checkNotNull(transactionId) {
-                            "`transactionId` is required but was not set"
-                        },
+                        checkRequired("retrievalReferenceNumber", retrievalReferenceNumber),
+                        checkRequired("traceNumber", traceNumber),
+                        checkRequired("transactionId", transactionId),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -3105,13 +3059,9 @@ private constructor(
 
                 fun build(): RequestDetails =
                     RequestDetails(
-                        checkNotNull(category) { "`category` is required but was not set" },
-                        checkNotNull(incrementalAuthorization) {
-                            "`incrementalAuthorization` is required but was not set"
-                        },
-                        checkNotNull(initialAuthorization) {
-                            "`initialAuthorization` is required but was not set"
-                        },
+                        checkRequired("category", category),
+                        checkRequired("incrementalAuthorization", incrementalAuthorization),
+                        checkRequired("initialAuthorization", initialAuthorization),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -3295,12 +3245,11 @@ private constructor(
 
                     fun build(): IncrementalAuthorization =
                         IncrementalAuthorization(
-                            checkNotNull(cardPaymentId) {
-                                "`cardPaymentId` is required but was not set"
-                            },
-                            checkNotNull(originalCardAuthorizationId) {
-                                "`originalCardAuthorizationId` is required but was not set"
-                            },
+                            checkRequired("cardPaymentId", cardPaymentId),
+                            checkRequired(
+                                "originalCardAuthorizationId",
+                                originalCardAuthorizationId
+                            ),
                             additionalProperties.toImmutable(),
                         )
                 }
@@ -3477,12 +3426,8 @@ private constructor(
 
                 fun build(): Verification =
                     Verification(
-                        checkNotNull(cardVerificationCode) {
-                            "`cardVerificationCode` is required but was not set"
-                        },
-                        checkNotNull(cardholderAddress) {
-                            "`cardholderAddress` is required but was not set"
-                        },
+                        checkRequired("cardVerificationCode", cardVerificationCode),
+                        checkRequired("cardholderAddress", cardholderAddress),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -3572,7 +3517,7 @@ private constructor(
 
                     fun build(): CardVerificationCode =
                         CardVerificationCode(
-                            checkNotNull(result) { "`result` is required but was not set" },
+                            checkRequired("result", result),
                             additionalProperties.toImmutable()
                         )
                 }
@@ -3870,19 +3815,11 @@ private constructor(
 
                     fun build(): CardholderAddress =
                         CardholderAddress(
-                            checkNotNull(actualLine1) {
-                                "`actualLine1` is required but was not set"
-                            },
-                            checkNotNull(actualPostalCode) {
-                                "`actualPostalCode` is required but was not set"
-                            },
-                            checkNotNull(providedLine1) {
-                                "`providedLine1` is required but was not set"
-                            },
-                            checkNotNull(providedPostalCode) {
-                                "`providedPostalCode` is required but was not set"
-                            },
-                            checkNotNull(result) { "`result` is required but was not set" },
+                            checkRequired("actualLine1", actualLine1),
+                            checkRequired("actualPostalCode", actualPostalCode),
+                            checkRequired("providedLine1", providedLine1),
+                            checkRequired("providedPostalCode", providedPostalCode),
+                            checkRequired("result", result),
                             additionalProperties.toImmutable(),
                         )
                 }
@@ -4324,15 +4261,13 @@ private constructor(
 
             fun build(): DigitalWalletAuthentication =
                 DigitalWalletAuthentication(
-                    checkNotNull(cardId) { "`cardId` is required but was not set" },
-                    checkNotNull(channel) { "`channel` is required but was not set" },
-                    checkNotNull(digitalWallet) { "`digitalWallet` is required but was not set" },
-                    checkNotNull(email) { "`email` is required but was not set" },
-                    checkNotNull(oneTimePasscode) {
-                        "`oneTimePasscode` is required but was not set"
-                    },
-                    checkNotNull(phone) { "`phone` is required but was not set" },
-                    checkNotNull(result) { "`result` is required but was not set" },
+                    checkRequired("cardId", cardId),
+                    checkRequired("channel", channel),
+                    checkRequired("digitalWallet", digitalWallet),
+                    checkRequired("email", email),
+                    checkRequired("oneTimePasscode", oneTimePasscode),
+                    checkRequired("phone", phone),
+                    checkRequired("result", result),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -4723,10 +4658,10 @@ private constructor(
 
             fun build(): DigitalWalletToken =
                 DigitalWalletToken(
-                    checkNotNull(cardId) { "`cardId` is required but was not set" },
-                    checkNotNull(cardProfileId) { "`cardProfileId` is required but was not set" },
-                    checkNotNull(decision) { "`decision` is required but was not set" },
-                    checkNotNull(digitalWallet) { "`digitalWallet` is required but was not set" },
+                    checkRequired("cardId", cardId),
+                    checkRequired("cardProfileId", cardProfileId),
+                    checkRequired("decision", decision),
+                    checkRequired("digitalWallet", digitalWallet),
                     additionalProperties.toImmutable(),
                 )
         }

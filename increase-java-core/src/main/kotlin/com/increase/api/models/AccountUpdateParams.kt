@@ -11,6 +11,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
@@ -303,7 +304,7 @@ constructor(
 
         fun build(): AccountUpdateParams =
             AccountUpdateParams(
-                checkNotNull(accountId) { "`accountId` is required but was not set" },
+                checkRequired("accountId", accountId),
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),

@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -785,61 +786,41 @@ private constructor(
 
         fun build(): InboundWireDrawdownRequest =
             InboundWireDrawdownRequest(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(beneficiaryAccountNumber) {
-                    "`beneficiaryAccountNumber` is required but was not set"
-                },
-                checkNotNull(beneficiaryAddressLine1) {
-                    "`beneficiaryAddressLine1` is required but was not set"
-                },
-                checkNotNull(beneficiaryAddressLine2) {
-                    "`beneficiaryAddressLine2` is required but was not set"
-                },
-                checkNotNull(beneficiaryAddressLine3) {
-                    "`beneficiaryAddressLine3` is required but was not set"
-                },
-                checkNotNull(beneficiaryName) { "`beneficiaryName` is required but was not set" },
-                checkNotNull(beneficiaryRoutingNumber) {
-                    "`beneficiaryRoutingNumber` is required but was not set"
-                },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(currency) { "`currency` is required but was not set" },
-                checkNotNull(messageToRecipient) {
-                    "`messageToRecipient` is required but was not set"
-                },
-                checkNotNull(originatorAccountNumber) {
-                    "`originatorAccountNumber` is required but was not set"
-                },
-                checkNotNull(originatorAddressLine1) {
-                    "`originatorAddressLine1` is required but was not set"
-                },
-                checkNotNull(originatorAddressLine2) {
-                    "`originatorAddressLine2` is required but was not set"
-                },
-                checkNotNull(originatorAddressLine3) {
-                    "`originatorAddressLine3` is required but was not set"
-                },
-                checkNotNull(originatorName) { "`originatorName` is required but was not set" },
-                checkNotNull(originatorRoutingNumber) {
-                    "`originatorRoutingNumber` is required but was not set"
-                },
-                checkNotNull(originatorToBeneficiaryInformationLine1) {
-                    "`originatorToBeneficiaryInformationLine1` is required but was not set"
-                },
-                checkNotNull(originatorToBeneficiaryInformationLine2) {
-                    "`originatorToBeneficiaryInformationLine2` is required but was not set"
-                },
-                checkNotNull(originatorToBeneficiaryInformationLine3) {
-                    "`originatorToBeneficiaryInformationLine3` is required but was not set"
-                },
-                checkNotNull(originatorToBeneficiaryInformationLine4) {
-                    "`originatorToBeneficiaryInformationLine4` is required but was not set"
-                },
-                checkNotNull(recipientAccountNumberId) {
-                    "`recipientAccountNumberId` is required but was not set"
-                },
-                checkNotNull(type) { "`type` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("amount", amount),
+                checkRequired("beneficiaryAccountNumber", beneficiaryAccountNumber),
+                checkRequired("beneficiaryAddressLine1", beneficiaryAddressLine1),
+                checkRequired("beneficiaryAddressLine2", beneficiaryAddressLine2),
+                checkRequired("beneficiaryAddressLine3", beneficiaryAddressLine3),
+                checkRequired("beneficiaryName", beneficiaryName),
+                checkRequired("beneficiaryRoutingNumber", beneficiaryRoutingNumber),
+                checkRequired("createdAt", createdAt),
+                checkRequired("currency", currency),
+                checkRequired("messageToRecipient", messageToRecipient),
+                checkRequired("originatorAccountNumber", originatorAccountNumber),
+                checkRequired("originatorAddressLine1", originatorAddressLine1),
+                checkRequired("originatorAddressLine2", originatorAddressLine2),
+                checkRequired("originatorAddressLine3", originatorAddressLine3),
+                checkRequired("originatorName", originatorName),
+                checkRequired("originatorRoutingNumber", originatorRoutingNumber),
+                checkRequired(
+                    "originatorToBeneficiaryInformationLine1",
+                    originatorToBeneficiaryInformationLine1
+                ),
+                checkRequired(
+                    "originatorToBeneficiaryInformationLine2",
+                    originatorToBeneficiaryInformationLine2
+                ),
+                checkRequired(
+                    "originatorToBeneficiaryInformationLine3",
+                    originatorToBeneficiaryInformationLine3
+                ),
+                checkRequired(
+                    "originatorToBeneficiaryInformationLine4",
+                    originatorToBeneficiaryInformationLine4
+                ),
+                checkRequired("recipientAccountNumberId", recipientAccountNumberId),
+                checkRequired("type", type),
                 additionalProperties.toImmutable(),
             )
     }

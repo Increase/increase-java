@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
@@ -623,9 +624,7 @@ constructor(
 
         fun build(): RealTimeDecisionActionParams =
             RealTimeDecisionActionParams(
-                checkNotNull(realTimeDecisionId) {
-                    "`realTimeDecisionId` is required but was not set"
-                },
+                checkRequired("realTimeDecisionId", realTimeDecisionId),
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -713,7 +712,7 @@ constructor(
 
             fun build(): CardAuthentication =
                 CardAuthentication(
-                    checkNotNull(decision) { "`decision` is required but was not set" },
+                    checkRequired("decision", decision),
                     additionalProperties.toImmutable()
                 )
         }
@@ -891,7 +890,7 @@ constructor(
 
             fun build(): CardAuthenticationChallenge =
                 CardAuthenticationChallenge(
-                    checkNotNull(result) { "`result` is required but was not set" },
+                    checkRequired("result", result),
                     additionalProperties.toImmutable()
                 )
         }
@@ -1088,7 +1087,7 @@ constructor(
 
             fun build(): CardAuthorization =
                 CardAuthorization(
-                    checkNotNull(decision) { "`decision` is required but was not set" },
+                    checkRequired("decision", decision),
                     declineReason,
                     additionalProperties.toImmutable(),
                 )
@@ -1346,7 +1345,7 @@ constructor(
 
             fun build(): DigitalWalletAuthentication =
                 DigitalWalletAuthentication(
-                    checkNotNull(result) { "`result` is required but was not set" },
+                    checkRequired("result", result),
                     success,
                     additionalProperties.toImmutable(),
                 )

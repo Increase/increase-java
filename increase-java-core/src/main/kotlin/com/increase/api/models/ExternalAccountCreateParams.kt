@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
@@ -255,9 +256,9 @@ constructor(
 
             fun build(): ExternalAccountCreateBody =
                 ExternalAccountCreateBody(
-                    checkNotNull(accountNumber) { "`accountNumber` is required but was not set" },
-                    checkNotNull(description) { "`description` is required but was not set" },
-                    checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
+                    checkRequired("accountNumber", accountNumber),
+                    checkRequired("description", description),
+                    checkRequired("routingNumber", routingNumber),
                     accountHolder,
                     funding,
                     additionalProperties.toImmutable(),

@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -309,17 +310,15 @@ private constructor(
 
         fun build(): PhysicalCard =
             PhysicalCard(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(cardId) { "`cardId` is required but was not set" },
-                checkNotNull(cardholder) { "`cardholder` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
-                checkNotNull(physicalCardProfileId) {
-                    "`physicalCardProfileId` is required but was not set"
-                },
-                checkNotNull(shipment) { "`shipment` is required but was not set" },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("cardId", cardId),
+                checkRequired("cardholder", cardholder),
+                checkRequired("createdAt", createdAt),
+                checkRequired("idempotencyKey", idempotencyKey),
+                checkRequired("physicalCardProfileId", physicalCardProfileId),
+                checkRequired("shipment", shipment),
+                checkRequired("status", status),
+                checkRequired("type", type),
                 additionalProperties.toImmutable(),
             )
     }
@@ -420,8 +419,8 @@ private constructor(
 
             fun build(): Cardholder =
                 Cardholder(
-                    checkNotNull(firstName) { "`firstName` is required but was not set" },
-                    checkNotNull(lastName) { "`lastName` is required but was not set" },
+                    checkRequired("firstName", firstName),
+                    checkRequired("lastName", lastName),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -579,10 +578,10 @@ private constructor(
 
             fun build(): Shipment =
                 Shipment(
-                    checkNotNull(address) { "`address` is required but was not set" },
-                    checkNotNull(method) { "`method` is required but was not set" },
-                    checkNotNull(status) { "`status` is required but was not set" },
-                    checkNotNull(tracking) { "`tracking` is required but was not set" },
+                    checkRequired("address", address),
+                    checkRequired("method", method),
+                    checkRequired("status", status),
+                    checkRequired("tracking", tracking),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -786,13 +785,13 @@ private constructor(
 
                 fun build(): Address =
                     Address(
-                        checkNotNull(city) { "`city` is required but was not set" },
-                        checkNotNull(line1) { "`line1` is required but was not set" },
-                        checkNotNull(line2) { "`line2` is required but was not set" },
-                        checkNotNull(line3) { "`line3` is required but was not set" },
-                        checkNotNull(name) { "`name` is required but was not set" },
-                        checkNotNull(postalCode) { "`postalCode` is required but was not set" },
-                        checkNotNull(state) { "`state` is required but was not set" },
+                        checkRequired("city", city),
+                        checkRequired("line1", line1),
+                        checkRequired("line2", line2),
+                        checkRequired("line3", line3),
+                        checkRequired("name", name),
+                        checkRequired("postalCode", postalCode),
+                        checkRequired("state", state),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -1138,10 +1137,10 @@ private constructor(
 
                 fun build(): Tracking =
                     Tracking(
-                        checkNotNull(number) { "`number` is required but was not set" },
-                        checkNotNull(returnNumber) { "`returnNumber` is required but was not set" },
-                        checkNotNull(returnReason) { "`returnReason` is required but was not set" },
-                        checkNotNull(shippedAt) { "`shippedAt` is required but was not set" },
+                        checkRequired("number", number),
+                        checkRequired("returnNumber", returnNumber),
+                        checkRequired("returnReason", returnReason),
+                        checkRequired("shippedAt", shippedAt),
                         additionalProperties.toImmutable(),
                     )
             }

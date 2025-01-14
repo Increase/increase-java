@@ -8,6 +8,7 @@ import com.increase.api.core.Enum
 import com.increase.api.core.JsonField
 import com.increase.api.core.MultipartFormValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -223,8 +224,8 @@ constructor(
 
         fun build(): FileCreateParams =
             FileCreateParams(
-                checkNotNull(file) { "`file` is required but was not set" },
-                checkNotNull(purpose) { "`purpose` is required but was not set" },
+                checkRequired("file", file),
+                checkRequired("purpose", purpose),
                 description,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),

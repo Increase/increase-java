@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
@@ -223,9 +224,9 @@ constructor(
 
             fun build(): PhysicalCardCreateBody =
                 PhysicalCardCreateBody(
-                    checkNotNull(cardId) { "`cardId` is required but was not set" },
-                    checkNotNull(cardholder) { "`cardholder` is required but was not set" },
-                    checkNotNull(shipment) { "`shipment` is required but was not set" },
+                    checkRequired("cardId", cardId),
+                    checkRequired("cardholder", cardholder),
+                    checkRequired("shipment", shipment),
                     physicalCardProfileId,
                     additionalProperties.toImmutable(),
                 )
@@ -525,8 +526,8 @@ constructor(
 
             fun build(): Cardholder =
                 Cardholder(
-                    checkNotNull(firstName) { "`firstName` is required but was not set" },
-                    checkNotNull(lastName) { "`lastName` is required but was not set" },
+                    checkRequired("firstName", firstName),
+                    checkRequired("lastName", lastName),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -645,8 +646,8 @@ constructor(
 
             fun build(): Shipment =
                 Shipment(
-                    checkNotNull(address) { "`address` is required but was not set" },
-                    checkNotNull(method) { "`method` is required but was not set" },
+                    checkRequired("address", address),
+                    checkRequired("method", method),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -867,11 +868,11 @@ constructor(
 
                 fun build(): Address =
                     Address(
-                        checkNotNull(city) { "`city` is required but was not set" },
-                        checkNotNull(line1) { "`line1` is required but was not set" },
-                        checkNotNull(name) { "`name` is required but was not set" },
-                        checkNotNull(postalCode) { "`postalCode` is required but was not set" },
-                        checkNotNull(state) { "`state` is required but was not set" },
+                        checkRequired("city", city),
+                        checkRequired("line1", line1),
+                        checkRequired("name", name),
+                        checkRequired("postalCode", postalCode),
+                        checkRequired("state", state),
                         line2,
                         line3,
                         phoneNumber,

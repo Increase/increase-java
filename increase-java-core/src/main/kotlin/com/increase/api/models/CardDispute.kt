@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -407,20 +408,18 @@ private constructor(
 
         fun build(): CardDispute =
             CardDispute(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(acceptance) { "`acceptance` is required but was not set" },
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(disputedTransactionId) {
-                    "`disputedTransactionId` is required but was not set"
-                },
-                checkNotNull(explanation) { "`explanation` is required but was not set" },
-                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
-                checkNotNull(loss) { "`loss` is required but was not set" },
-                checkNotNull(rejection) { "`rejection` is required but was not set" },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
-                checkNotNull(win) { "`win` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("acceptance", acceptance),
+                checkRequired("amount", amount),
+                checkRequired("createdAt", createdAt),
+                checkRequired("disputedTransactionId", disputedTransactionId),
+                checkRequired("explanation", explanation),
+                checkRequired("idempotencyKey", idempotencyKey),
+                checkRequired("loss", loss),
+                checkRequired("rejection", rejection),
+                checkRequired("status", status),
+                checkRequired("type", type),
+                checkRequired("win", win),
                 additionalProperties.toImmutable(),
             )
     }
@@ -578,9 +577,9 @@ private constructor(
 
             fun build(): Acceptance =
                 Acceptance(
-                    checkNotNull(acceptedAt) { "`acceptedAt` is required but was not set" },
-                    checkNotNull(cardDisputeId) { "`cardDisputeId` is required but was not set" },
-                    checkNotNull(transactionId) { "`transactionId` is required but was not set" },
+                    checkRequired("acceptedAt", acceptedAt),
+                    checkRequired("cardDisputeId", cardDisputeId),
+                    checkRequired("transactionId", transactionId),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -771,10 +770,10 @@ private constructor(
 
             fun build(): Loss =
                 Loss(
-                    checkNotNull(cardDisputeId) { "`cardDisputeId` is required but was not set" },
-                    checkNotNull(explanation) { "`explanation` is required but was not set" },
-                    checkNotNull(lostAt) { "`lostAt` is required but was not set" },
-                    checkNotNull(transactionId) { "`transactionId` is required but was not set" },
+                    checkRequired("cardDisputeId", cardDisputeId),
+                    checkRequired("explanation", explanation),
+                    checkRequired("lostAt", lostAt),
+                    checkRequired("transactionId", transactionId),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -938,9 +937,9 @@ private constructor(
 
             fun build(): Rejection =
                 Rejection(
-                    checkNotNull(cardDisputeId) { "`cardDisputeId` is required but was not set" },
-                    checkNotNull(explanation) { "`explanation` is required but was not set" },
-                    checkNotNull(rejectedAt) { "`rejectedAt` is required but was not set" },
+                    checkRequired("cardDisputeId", cardDisputeId),
+                    checkRequired("explanation", explanation),
+                    checkRequired("rejectedAt", rejectedAt),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1207,8 +1206,8 @@ private constructor(
 
             fun build(): Win =
                 Win(
-                    checkNotNull(cardDisputeId) { "`cardDisputeId` is required but was not set" },
-                    checkNotNull(wonAt) { "`wonAt` is required but was not set" },
+                    checkRequired("cardDisputeId", cardDisputeId),
+                    checkRequired("wonAt", wonAt),
                     additionalProperties.toImmutable(),
                 )
         }

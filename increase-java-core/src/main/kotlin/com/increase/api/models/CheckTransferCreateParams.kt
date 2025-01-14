@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
@@ -360,11 +361,9 @@ constructor(
 
             fun build(): CheckTransferCreateBody =
                 CheckTransferCreateBody(
-                    checkNotNull(accountId) { "`accountId` is required but was not set" },
-                    checkNotNull(amount) { "`amount` is required but was not set" },
-                    checkNotNull(sourceAccountNumberId) {
-                        "`sourceAccountNumberId` is required but was not set"
-                    },
+                    checkRequired("accountId", accountId),
+                    checkRequired("amount", amount),
+                    checkRequired("sourceAccountNumberId", sourceAccountNumberId),
                     fulfillmentMethod,
                     physicalCheck,
                     requireApproval,
@@ -890,9 +889,9 @@ constructor(
 
             fun build(): PhysicalCheck =
                 PhysicalCheck(
-                    checkNotNull(mailingAddress) { "`mailingAddress` is required but was not set" },
-                    checkNotNull(memo) { "`memo` is required but was not set" },
-                    checkNotNull(recipientName) { "`recipientName` is required but was not set" },
+                    checkRequired("mailingAddress", mailingAddress),
+                    checkRequired("memo", memo),
+                    checkRequired("recipientName", recipientName),
                     note,
                     returnAddress,
                     signatureText,
@@ -1087,10 +1086,10 @@ constructor(
 
                 fun build(): MailingAddress =
                     MailingAddress(
-                        checkNotNull(city) { "`city` is required but was not set" },
-                        checkNotNull(line1) { "`line1` is required but was not set" },
-                        checkNotNull(postalCode) { "`postalCode` is required but was not set" },
-                        checkNotNull(state) { "`state` is required but was not set" },
+                        checkRequired("city", city),
+                        checkRequired("line1", line1),
+                        checkRequired("postalCode", postalCode),
+                        checkRequired("state", state),
                         line2,
                         name,
                         additionalProperties.toImmutable(),
@@ -1293,11 +1292,11 @@ constructor(
 
                 fun build(): ReturnAddress =
                     ReturnAddress(
-                        checkNotNull(city) { "`city` is required but was not set" },
-                        checkNotNull(line1) { "`line1` is required but was not set" },
-                        checkNotNull(name) { "`name` is required but was not set" },
-                        checkNotNull(postalCode) { "`postalCode` is required but was not set" },
-                        checkNotNull(state) { "`state` is required but was not set" },
+                        checkRequired("city", city),
+                        checkRequired("line1", line1),
+                        checkRequired("name", name),
+                        checkRequired("postalCode", postalCode),
+                        checkRequired("state", state),
                         line2,
                         additionalProperties.toImmutable(),
                     )

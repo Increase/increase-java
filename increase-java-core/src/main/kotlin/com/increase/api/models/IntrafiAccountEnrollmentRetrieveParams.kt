@@ -3,6 +3,7 @@
 package com.increase.api.models
 
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
@@ -163,9 +164,7 @@ constructor(
 
         fun build(): IntrafiAccountEnrollmentRetrieveParams =
             IntrafiAccountEnrollmentRetrieveParams(
-                checkNotNull(intrafiAccountEnrollmentId) {
-                    "`intrafiAccountEnrollmentId` is required but was not set"
-                },
+                checkRequired("intrafiAccountEnrollmentId", intrafiAccountEnrollmentId),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )

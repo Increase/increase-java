@@ -11,6 +11,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
@@ -478,29 +479,24 @@ constructor(
 
             fun build(): ProofOfAuthorizationRequestSubmissionCreateBody =
                 ProofOfAuthorizationRequestSubmissionCreateBody(
-                    checkNotNull(authorizationTerms) {
-                        "`authorizationTerms` is required but was not set"
-                    },
-                    checkNotNull(authorizedAt) { "`authorizedAt` is required but was not set" },
-                    checkNotNull(authorizerEmail) {
-                        "`authorizerEmail` is required but was not set"
-                    },
-                    checkNotNull(authorizerName) { "`authorizerName` is required but was not set" },
-                    checkNotNull(customerHasBeenOffboarded) {
-                        "`customerHasBeenOffboarded` is required but was not set"
-                    },
-                    checkNotNull(proofOfAuthorizationRequestId) {
-                        "`proofOfAuthorizationRequestId` is required but was not set"
-                    },
-                    checkNotNull(validatedAccountOwnershipViaCredential) {
-                        "`validatedAccountOwnershipViaCredential` is required but was not set"
-                    },
-                    checkNotNull(validatedAccountOwnershipWithAccountStatement) {
-                        "`validatedAccountOwnershipWithAccountStatement` is required but was not set"
-                    },
-                    checkNotNull(validatedAccountOwnershipWithMicrodeposit) {
-                        "`validatedAccountOwnershipWithMicrodeposit` is required but was not set"
-                    },
+                    checkRequired("authorizationTerms", authorizationTerms),
+                    checkRequired("authorizedAt", authorizedAt),
+                    checkRequired("authorizerEmail", authorizerEmail),
+                    checkRequired("authorizerName", authorizerName),
+                    checkRequired("customerHasBeenOffboarded", customerHasBeenOffboarded),
+                    checkRequired("proofOfAuthorizationRequestId", proofOfAuthorizationRequestId),
+                    checkRequired(
+                        "validatedAccountOwnershipViaCredential",
+                        validatedAccountOwnershipViaCredential
+                    ),
+                    checkRequired(
+                        "validatedAccountOwnershipWithAccountStatement",
+                        validatedAccountOwnershipWithAccountStatement
+                    ),
+                    checkRequired(
+                        "validatedAccountOwnershipWithMicrodeposit",
+                        validatedAccountOwnershipWithMicrodeposit
+                    ),
                     authorizerCompany,
                     authorizerIpAddress,
                     additionalProperties.toImmutable(),
