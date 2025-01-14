@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.162.0 (2025-01-14)
+
+Full Changelog: [v0.161.0...v0.162.0](https://github.com/Increase/increase-java/compare/v0.161.0...v0.162.0)
+
+### Features
+
+* **api:** api update ([#694](https://github.com/Increase/increase-java/issues/694)) ([a4a521b](https://github.com/Increase/increase-java/commit/a4a521bf4d2937f97472ab6765df88ea8a04a452))
+
+
+### Chores
+
+* **internal:** add and tweak check functions ([#692](https://github.com/Increase/increase-java/issues/692)) ([abbf2d2](https://github.com/Increase/increase-java/commit/abbf2d2cb7f925b2eb15f0f2e6c57f878cf80e00))
+* **internal:** tweak client options nullability handling ([abbf2d2](https://github.com/Increase/increase-java/commit/abbf2d2cb7f925b2eb15f0f2e6c57f878cf80e00))
+
 ## 0.161.0 (2025-01-14)
 
 Full Changelog: [v0.160.0...v0.161.0](https://github.com/Increase/increase-java/compare/v0.160.0...v0.161.0)
