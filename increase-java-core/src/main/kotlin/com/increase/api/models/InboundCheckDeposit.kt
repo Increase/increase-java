@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -709,33 +710,26 @@ private constructor(
 
         fun build(): InboundCheckDeposit =
             InboundCheckDeposit(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(acceptedAt) { "`acceptedAt` is required but was not set" },
-                checkNotNull(accountId) { "`accountId` is required but was not set" },
-                checkNotNull(accountNumberId) { "`accountNumberId` is required but was not set" },
-                checkNotNull(adjustments) { "`adjustments` is required but was not set" }
-                    .map { it.toImmutable() },
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(backImageFileId) { "`backImageFileId` is required but was not set" },
-                checkNotNull(bankOfFirstDepositRoutingNumber) {
-                    "`bankOfFirstDepositRoutingNumber` is required but was not set"
-                },
-                checkNotNull(checkNumber) { "`checkNumber` is required but was not set" },
-                checkNotNull(checkTransferId) { "`checkTransferId` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(currency) { "`currency` is required but was not set" },
-                checkNotNull(declinedAt) { "`declinedAt` is required but was not set" },
-                checkNotNull(declinedTransactionId) {
-                    "`declinedTransactionId` is required but was not set"
-                },
-                checkNotNull(depositReturn) { "`depositReturn` is required but was not set" },
-                checkNotNull(frontImageFileId) { "`frontImageFileId` is required but was not set" },
-                checkNotNull(payeeNameAnalysis) {
-                    "`payeeNameAnalysis` is required but was not set"
-                },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(transactionId) { "`transactionId` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("acceptedAt", acceptedAt),
+                checkRequired("accountId", accountId),
+                checkRequired("accountNumberId", accountNumberId),
+                checkRequired("adjustments", adjustments).map { it.toImmutable() },
+                checkRequired("amount", amount),
+                checkRequired("backImageFileId", backImageFileId),
+                checkRequired("bankOfFirstDepositRoutingNumber", bankOfFirstDepositRoutingNumber),
+                checkRequired("checkNumber", checkNumber),
+                checkRequired("checkTransferId", checkTransferId),
+                checkRequired("createdAt", createdAt),
+                checkRequired("currency", currency),
+                checkRequired("declinedAt", declinedAt),
+                checkRequired("declinedTransactionId", declinedTransactionId),
+                checkRequired("depositReturn", depositReturn),
+                checkRequired("frontImageFileId", frontImageFileId),
+                checkRequired("payeeNameAnalysis", payeeNameAnalysis),
+                checkRequired("status", status),
+                checkRequired("transactionId", transactionId),
+                checkRequired("type", type),
                 additionalProperties.toImmutable(),
             )
     }
@@ -879,10 +873,10 @@ private constructor(
 
             fun build(): Adjustment =
                 Adjustment(
-                    checkNotNull(adjustedAt) { "`adjustedAt` is required but was not set" },
-                    checkNotNull(amount) { "`amount` is required but was not set" },
-                    checkNotNull(reason) { "`reason` is required but was not set" },
-                    checkNotNull(transactionId) { "`transactionId` is required but was not set" },
+                    checkRequired("adjustedAt", adjustedAt),
+                    checkRequired("amount", amount),
+                    checkRequired("reason", reason),
+                    checkRequired("transactionId", transactionId),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1171,9 +1165,9 @@ private constructor(
 
             fun build(): DepositReturn =
                 DepositReturn(
-                    checkNotNull(reason) { "`reason` is required but was not set" },
-                    checkNotNull(returnedAt) { "`returnedAt` is required but was not set" },
-                    checkNotNull(transactionId) { "`transactionId` is required but was not set" },
+                    checkRequired("reason", reason),
+                    checkRequired("returnedAt", returnedAt),
+                    checkRequired("transactionId", transactionId),
                     additionalProperties.toImmutable(),
                 )
         }

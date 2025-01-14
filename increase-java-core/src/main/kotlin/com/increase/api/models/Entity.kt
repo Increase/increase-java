@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -565,30 +566,23 @@ private constructor(
 
         fun build(): Entity =
             Entity(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(corporation) { "`corporation` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(description) { "`description` is required but was not set" },
-                checkNotNull(detailsConfirmedAt) {
-                    "`detailsConfirmedAt` is required but was not set"
+                checkRequired("id", id),
+                checkRequired("corporation", corporation),
+                checkRequired("createdAt", createdAt),
+                checkRequired("description", description),
+                checkRequired("detailsConfirmedAt", detailsConfirmedAt),
+                checkRequired("governmentAuthority", governmentAuthority),
+                checkRequired("idempotencyKey", idempotencyKey),
+                checkRequired("joint", joint),
+                checkRequired("naturalPerson", naturalPerson),
+                checkRequired("status", status),
+                checkRequired("structure", structure),
+                checkRequired("supplementalDocuments", supplementalDocuments).map {
+                    it.toImmutable()
                 },
-                checkNotNull(governmentAuthority) {
-                    "`governmentAuthority` is required but was not set"
-                },
-                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
-                checkNotNull(joint) { "`joint` is required but was not set" },
-                checkNotNull(naturalPerson) { "`naturalPerson` is required but was not set" },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(structure) { "`structure` is required but was not set" },
-                checkNotNull(supplementalDocuments) {
-                        "`supplementalDocuments` is required but was not set"
-                    }
-                    .map { it.toImmutable() },
-                checkNotNull(thirdPartyVerification) {
-                    "`thirdPartyVerification` is required but was not set"
-                },
-                checkNotNull(trust) { "`trust` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
+                checkRequired("thirdPartyVerification", thirdPartyVerification),
+                checkRequired("trust", trust),
+                checkRequired("type", type),
                 additionalProperties.toImmutable(),
             )
     }
@@ -877,18 +871,13 @@ private constructor(
 
             fun build(): Corporation =
                 Corporation(
-                    checkNotNull(address) { "`address` is required but was not set" },
-                    checkNotNull(beneficialOwners) {
-                            "`beneficialOwners` is required but was not set"
-                        }
-                        .map { it.toImmutable() },
-                    checkNotNull(incorporationState) {
-                        "`incorporationState` is required but was not set"
-                    },
-                    checkNotNull(industryCode) { "`industryCode` is required but was not set" },
-                    checkNotNull(name) { "`name` is required but was not set" },
-                    checkNotNull(taxIdentifier) { "`taxIdentifier` is required but was not set" },
-                    checkNotNull(website) { "`website` is required but was not set" },
+                    checkRequired("address", address),
+                    checkRequired("beneficialOwners", beneficialOwners).map { it.toImmutable() },
+                    checkRequired("incorporationState", incorporationState),
+                    checkRequired("industryCode", industryCode),
+                    checkRequired("name", name),
+                    checkRequired("taxIdentifier", taxIdentifier),
+                    checkRequired("website", website),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1061,11 +1050,11 @@ private constructor(
 
                 fun build(): Address =
                     Address(
-                        checkNotNull(city) { "`city` is required but was not set" },
-                        checkNotNull(line1) { "`line1` is required but was not set" },
-                        checkNotNull(line2) { "`line2` is required but was not set" },
-                        checkNotNull(state) { "`state` is required but was not set" },
-                        checkNotNull(zip) { "`zip` is required but was not set" },
+                        checkRequired("city", city),
+                        checkRequired("line1", line1),
+                        checkRequired("line2", line2),
+                        checkRequired("state", state),
+                        checkRequired("zip", zip),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -1241,12 +1230,10 @@ private constructor(
 
                 fun build(): BeneficialOwner =
                     BeneficialOwner(
-                        checkNotNull(beneficialOwnerId) {
-                            "`beneficialOwnerId` is required but was not set"
-                        },
-                        checkNotNull(companyTitle) { "`companyTitle` is required but was not set" },
-                        checkNotNull(individual) { "`individual` is required but was not set" },
-                        checkNotNull(prong) { "`prong` is required but was not set" },
+                        checkRequired("beneficialOwnerId", beneficialOwnerId),
+                        checkRequired("companyTitle", companyTitle),
+                        checkRequired("individual", individual),
+                        checkRequired("prong", prong),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -1397,14 +1384,10 @@ private constructor(
 
                     fun build(): Individual =
                         Individual(
-                            checkNotNull(address) { "`address` is required but was not set" },
-                            checkNotNull(dateOfBirth) {
-                                "`dateOfBirth` is required but was not set"
-                            },
-                            checkNotNull(identification) {
-                                "`identification` is required but was not set"
-                            },
-                            checkNotNull(name) { "`name` is required but was not set" },
+                            checkRequired("address", address),
+                            checkRequired("dateOfBirth", dateOfBirth),
+                            checkRequired("identification", identification),
+                            checkRequired("name", name),
                             additionalProperties.toImmutable(),
                         )
                 }
@@ -1578,11 +1561,11 @@ private constructor(
 
                         fun build(): Address =
                             Address(
-                                checkNotNull(city) { "`city` is required but was not set" },
-                                checkNotNull(line1) { "`line1` is required but was not set" },
-                                checkNotNull(line2) { "`line2` is required but was not set" },
-                                checkNotNull(state) { "`state` is required but was not set" },
-                                checkNotNull(zip) { "`zip` is required but was not set" },
+                                checkRequired("city", city),
+                                checkRequired("line1", line1),
+                                checkRequired("line2", line2),
+                                checkRequired("state", state),
+                                checkRequired("zip", zip),
                                 additionalProperties.toImmutable(),
                             )
                     }
@@ -1725,10 +1708,8 @@ private constructor(
 
                         fun build(): Identification =
                             Identification(
-                                checkNotNull(method) { "`method` is required but was not set" },
-                                checkNotNull(numberLast4) {
-                                    "`numberLast4` is required but was not set"
-                                },
+                                checkRequired("method", method),
+                                checkRequired("numberLast4", numberLast4),
                                 additionalProperties.toImmutable(),
                             )
                     }
@@ -2146,15 +2127,12 @@ private constructor(
 
             fun build(): GovernmentAuthority =
                 GovernmentAuthority(
-                    checkNotNull(address) { "`address` is required but was not set" },
-                    checkNotNull(authorizedPersons) {
-                            "`authorizedPersons` is required but was not set"
-                        }
-                        .map { it.toImmutable() },
-                    checkNotNull(category) { "`category` is required but was not set" },
-                    checkNotNull(name) { "`name` is required but was not set" },
-                    checkNotNull(taxIdentifier) { "`taxIdentifier` is required but was not set" },
-                    checkNotNull(website) { "`website` is required but was not set" },
+                    checkRequired("address", address),
+                    checkRequired("authorizedPersons", authorizedPersons).map { it.toImmutable() },
+                    checkRequired("category", category),
+                    checkRequired("name", name),
+                    checkRequired("taxIdentifier", taxIdentifier),
+                    checkRequired("website", website),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -2327,11 +2305,11 @@ private constructor(
 
                 fun build(): Address =
                     Address(
-                        checkNotNull(city) { "`city` is required but was not set" },
-                        checkNotNull(line1) { "`line1` is required but was not set" },
-                        checkNotNull(line2) { "`line2` is required but was not set" },
-                        checkNotNull(state) { "`state` is required but was not set" },
-                        checkNotNull(zip) { "`zip` is required but was not set" },
+                        checkRequired("city", city),
+                        checkRequired("line1", line1),
+                        checkRequired("line2", line2),
+                        checkRequired("state", state),
+                        checkRequired("zip", zip),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -2458,10 +2436,8 @@ private constructor(
 
                 fun build(): AuthorizedPerson =
                     AuthorizedPerson(
-                        checkNotNull(authorizedPersonId) {
-                            "`authorizedPersonId` is required but was not set"
-                        },
-                        checkNotNull(name) { "`name` is required but was not set" },
+                        checkRequired("authorizedPersonId", authorizedPersonId),
+                        checkRequired("name", name),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -2667,9 +2643,8 @@ private constructor(
 
             fun build(): Joint =
                 Joint(
-                    checkNotNull(individuals) { "`individuals` is required but was not set" }
-                        .map { it.toImmutable() },
-                    checkNotNull(name) { "`name` is required but was not set" },
+                    checkRequired("individuals", individuals).map { it.toImmutable() },
+                    checkRequired("name", name),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -2817,12 +2792,10 @@ private constructor(
 
                 fun build(): Individual =
                     Individual(
-                        checkNotNull(address) { "`address` is required but was not set" },
-                        checkNotNull(dateOfBirth) { "`dateOfBirth` is required but was not set" },
-                        checkNotNull(identification) {
-                            "`identification` is required but was not set"
-                        },
-                        checkNotNull(name) { "`name` is required but was not set" },
+                        checkRequired("address", address),
+                        checkRequired("dateOfBirth", dateOfBirth),
+                        checkRequired("identification", identification),
+                        checkRequired("name", name),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -2995,11 +2968,11 @@ private constructor(
 
                     fun build(): Address =
                         Address(
-                            checkNotNull(city) { "`city` is required but was not set" },
-                            checkNotNull(line1) { "`line1` is required but was not set" },
-                            checkNotNull(line2) { "`line2` is required but was not set" },
-                            checkNotNull(state) { "`state` is required but was not set" },
-                            checkNotNull(zip) { "`zip` is required but was not set" },
+                            checkRequired("city", city),
+                            checkRequired("line1", line1),
+                            checkRequired("line2", line2),
+                            checkRequired("state", state),
+                            checkRequired("zip", zip),
                             additionalProperties.toImmutable(),
                         )
                 }
@@ -3137,10 +3110,8 @@ private constructor(
 
                     fun build(): Identification =
                         Identification(
-                            checkNotNull(method) { "`method` is required but was not set" },
-                            checkNotNull(numberLast4) {
-                                "`numberLast4` is required but was not set"
-                            },
+                            checkRequired("method", method),
+                            checkRequired("numberLast4", numberLast4),
                             additionalProperties.toImmutable(),
                         )
                 }
@@ -3423,10 +3394,10 @@ private constructor(
 
             fun build(): NaturalPerson =
                 NaturalPerson(
-                    checkNotNull(address) { "`address` is required but was not set" },
-                    checkNotNull(dateOfBirth) { "`dateOfBirth` is required but was not set" },
-                    checkNotNull(identification) { "`identification` is required but was not set" },
-                    checkNotNull(name) { "`name` is required but was not set" },
+                    checkRequired("address", address),
+                    checkRequired("dateOfBirth", dateOfBirth),
+                    checkRequired("identification", identification),
+                    checkRequired("name", name),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -3599,11 +3570,11 @@ private constructor(
 
                 fun build(): Address =
                     Address(
-                        checkNotNull(city) { "`city` is required but was not set" },
-                        checkNotNull(line1) { "`line1` is required but was not set" },
-                        checkNotNull(line2) { "`line2` is required but was not set" },
-                        checkNotNull(state) { "`state` is required but was not set" },
-                        checkNotNull(zip) { "`zip` is required but was not set" },
+                        checkRequired("city", city),
+                        checkRequired("line1", line1),
+                        checkRequired("line2", line2),
+                        checkRequired("state", state),
+                        checkRequired("zip", zip),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -3741,8 +3712,8 @@ private constructor(
 
                 fun build(): Identification =
                     Identification(
-                        checkNotNull(method) { "`method` is required but was not set" },
-                        checkNotNull(numberLast4) { "`numberLast4` is required but was not set" },
+                        checkRequired("method", method),
+                        checkRequired("numberLast4", numberLast4),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -4099,8 +4070,8 @@ private constructor(
 
             fun build(): ThirdPartyVerification =
                 ThirdPartyVerification(
-                    checkNotNull(reference) { "`reference` is required but was not set" },
-                    checkNotNull(vendor) { "`vendor` is required but was not set" },
+                    checkRequired("reference", reference),
+                    checkRequired("vendor", vendor),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -4450,17 +4421,14 @@ private constructor(
 
             fun build(): Trust =
                 Trust(
-                    checkNotNull(address) { "`address` is required but was not set" },
-                    checkNotNull(category) { "`category` is required but was not set" },
-                    checkNotNull(formationDocumentFileId) {
-                        "`formationDocumentFileId` is required but was not set"
-                    },
-                    checkNotNull(formationState) { "`formationState` is required but was not set" },
-                    checkNotNull(grantor) { "`grantor` is required but was not set" },
-                    checkNotNull(name) { "`name` is required but was not set" },
-                    checkNotNull(taxIdentifier) { "`taxIdentifier` is required but was not set" },
-                    checkNotNull(trustees) { "`trustees` is required but was not set" }
-                        .map { it.toImmutable() },
+                    checkRequired("address", address),
+                    checkRequired("category", category),
+                    checkRequired("formationDocumentFileId", formationDocumentFileId),
+                    checkRequired("formationState", formationState),
+                    checkRequired("grantor", grantor),
+                    checkRequired("name", name),
+                    checkRequired("taxIdentifier", taxIdentifier),
+                    checkRequired("trustees", trustees).map { it.toImmutable() },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -4633,11 +4601,11 @@ private constructor(
 
                 fun build(): Address =
                     Address(
-                        checkNotNull(city) { "`city` is required but was not set" },
-                        checkNotNull(line1) { "`line1` is required but was not set" },
-                        checkNotNull(line2) { "`line2` is required but was not set" },
-                        checkNotNull(state) { "`state` is required but was not set" },
-                        checkNotNull(zip) { "`zip` is required but was not set" },
+                        checkRequired("city", city),
+                        checkRequired("line1", line1),
+                        checkRequired("line2", line2),
+                        checkRequired("state", state),
+                        checkRequired("zip", zip),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -4861,12 +4829,10 @@ private constructor(
 
                 fun build(): Grantor =
                     Grantor(
-                        checkNotNull(address) { "`address` is required but was not set" },
-                        checkNotNull(dateOfBirth) { "`dateOfBirth` is required but was not set" },
-                        checkNotNull(identification) {
-                            "`identification` is required but was not set"
-                        },
-                        checkNotNull(name) { "`name` is required but was not set" },
+                        checkRequired("address", address),
+                        checkRequired("dateOfBirth", dateOfBirth),
+                        checkRequired("identification", identification),
+                        checkRequired("name", name),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -5039,11 +5005,11 @@ private constructor(
 
                     fun build(): Address =
                         Address(
-                            checkNotNull(city) { "`city` is required but was not set" },
-                            checkNotNull(line1) { "`line1` is required but was not set" },
-                            checkNotNull(line2) { "`line2` is required but was not set" },
-                            checkNotNull(state) { "`state` is required but was not set" },
-                            checkNotNull(zip) { "`zip` is required but was not set" },
+                            checkRequired("city", city),
+                            checkRequired("line1", line1),
+                            checkRequired("line2", line2),
+                            checkRequired("state", state),
+                            checkRequired("zip", zip),
                             additionalProperties.toImmutable(),
                         )
                 }
@@ -5181,10 +5147,8 @@ private constructor(
 
                     fun build(): Identification =
                         Identification(
-                            checkNotNull(method) { "`method` is required but was not set" },
-                            checkNotNull(numberLast4) {
-                                "`numberLast4` is required but was not set"
-                            },
+                            checkRequired("method", method),
+                            checkRequired("numberLast4", numberLast4),
                             additionalProperties.toImmutable(),
                         )
                 }
@@ -5432,8 +5396,8 @@ private constructor(
 
                 fun build(): Trustee =
                     Trustee(
-                        checkNotNull(individual) { "`individual` is required but was not set" },
-                        checkNotNull(structure) { "`structure` is required but was not set" },
+                        checkRequired("individual", individual),
+                        checkRequired("structure", structure),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -5587,14 +5551,10 @@ private constructor(
 
                     fun build(): Individual =
                         Individual(
-                            checkNotNull(address) { "`address` is required but was not set" },
-                            checkNotNull(dateOfBirth) {
-                                "`dateOfBirth` is required but was not set"
-                            },
-                            checkNotNull(identification) {
-                                "`identification` is required but was not set"
-                            },
-                            checkNotNull(name) { "`name` is required but was not set" },
+                            checkRequired("address", address),
+                            checkRequired("dateOfBirth", dateOfBirth),
+                            checkRequired("identification", identification),
+                            checkRequired("name", name),
                             additionalProperties.toImmutable(),
                         )
                 }
@@ -5768,11 +5728,11 @@ private constructor(
 
                         fun build(): Address =
                             Address(
-                                checkNotNull(city) { "`city` is required but was not set" },
-                                checkNotNull(line1) { "`line1` is required but was not set" },
-                                checkNotNull(line2) { "`line2` is required but was not set" },
-                                checkNotNull(state) { "`state` is required but was not set" },
-                                checkNotNull(zip) { "`zip` is required but was not set" },
+                                checkRequired("city", city),
+                                checkRequired("line1", line1),
+                                checkRequired("line2", line2),
+                                checkRequired("state", state),
+                                checkRequired("zip", zip),
                                 additionalProperties.toImmutable(),
                             )
                     }
@@ -5915,10 +5875,8 @@ private constructor(
 
                         fun build(): Identification =
                             Identification(
-                                checkNotNull(method) { "`method` is required but was not set" },
-                                checkNotNull(numberLast4) {
-                                    "`numberLast4` is required but was not set"
-                                },
+                                checkRequired("method", method),
+                                checkRequired("numberLast4", numberLast4),
                                 additionalProperties.toImmutable(),
                             )
                     }

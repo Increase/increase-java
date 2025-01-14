@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -236,13 +237,12 @@ private constructor(
 
         fun build(): CardPurchaseSupplement =
             CardPurchaseSupplement(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(cardPaymentId) { "`cardPaymentId` is required but was not set" },
-                checkNotNull(invoice) { "`invoice` is required but was not set" },
-                checkNotNull(lineItems) { "`lineItems` is required but was not set" }
-                    .map { it.toImmutable() },
-                checkNotNull(transactionId) { "`transactionId` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("cardPaymentId", cardPaymentId),
+                checkRequired("invoice", invoice),
+                checkRequired("lineItems", lineItems).map { it.toImmutable() },
+                checkRequired("transactionId", transactionId),
+                checkRequired("type", type),
                 additionalProperties.toImmutable(),
             )
     }
@@ -794,44 +794,25 @@ private constructor(
 
             fun build(): Invoice =
                 Invoice(
-                    checkNotNull(discountAmount) { "`discountAmount` is required but was not set" },
-                    checkNotNull(discountCurrency) {
-                        "`discountCurrency` is required but was not set"
-                    },
-                    checkNotNull(discountTreatmentCode) {
-                        "`discountTreatmentCode` is required but was not set"
-                    },
-                    checkNotNull(dutyTaxAmount) { "`dutyTaxAmount` is required but was not set" },
-                    checkNotNull(dutyTaxCurrency) {
-                        "`dutyTaxCurrency` is required but was not set"
-                    },
-                    checkNotNull(orderDate) { "`orderDate` is required but was not set" },
-                    checkNotNull(shippingAmount) { "`shippingAmount` is required but was not set" },
-                    checkNotNull(shippingCurrency) {
-                        "`shippingCurrency` is required but was not set"
-                    },
-                    checkNotNull(shippingDestinationCountryCode) {
-                        "`shippingDestinationCountryCode` is required but was not set"
-                    },
-                    checkNotNull(shippingDestinationPostalCode) {
-                        "`shippingDestinationPostalCode` is required but was not set"
-                    },
-                    checkNotNull(shippingSourcePostalCode) {
-                        "`shippingSourcePostalCode` is required but was not set"
-                    },
-                    checkNotNull(shippingTaxAmount) {
-                        "`shippingTaxAmount` is required but was not set"
-                    },
-                    checkNotNull(shippingTaxCurrency) {
-                        "`shippingTaxCurrency` is required but was not set"
-                    },
-                    checkNotNull(shippingTaxRate) {
-                        "`shippingTaxRate` is required but was not set"
-                    },
-                    checkNotNull(taxTreatments) { "`taxTreatments` is required but was not set" },
-                    checkNotNull(uniqueValueAddedTaxInvoiceReference) {
-                        "`uniqueValueAddedTaxInvoiceReference` is required but was not set"
-                    },
+                    checkRequired("discountAmount", discountAmount),
+                    checkRequired("discountCurrency", discountCurrency),
+                    checkRequired("discountTreatmentCode", discountTreatmentCode),
+                    checkRequired("dutyTaxAmount", dutyTaxAmount),
+                    checkRequired("dutyTaxCurrency", dutyTaxCurrency),
+                    checkRequired("orderDate", orderDate),
+                    checkRequired("shippingAmount", shippingAmount),
+                    checkRequired("shippingCurrency", shippingCurrency),
+                    checkRequired("shippingDestinationCountryCode", shippingDestinationCountryCode),
+                    checkRequired("shippingDestinationPostalCode", shippingDestinationPostalCode),
+                    checkRequired("shippingSourcePostalCode", shippingSourcePostalCode),
+                    checkRequired("shippingTaxAmount", shippingTaxAmount),
+                    checkRequired("shippingTaxCurrency", shippingTaxCurrency),
+                    checkRequired("shippingTaxRate", shippingTaxRate),
+                    checkRequired("taxTreatments", taxTreatments),
+                    checkRequired(
+                        "uniqueValueAddedTaxInvoiceReference",
+                        uniqueValueAddedTaxInvoiceReference
+                    ),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1539,39 +1520,23 @@ private constructor(
 
             fun build(): LineItem =
                 LineItem(
-                    checkNotNull(id) { "`id` is required but was not set" },
-                    checkNotNull(detailIndicator) {
-                        "`detailIndicator` is required but was not set"
-                    },
-                    checkNotNull(discountAmount) { "`discountAmount` is required but was not set" },
-                    checkNotNull(discountCurrency) {
-                        "`discountCurrency` is required but was not set"
-                    },
-                    checkNotNull(discountTreatmentCode) {
-                        "`discountTreatmentCode` is required but was not set"
-                    },
-                    checkNotNull(itemCommodityCode) {
-                        "`itemCommodityCode` is required but was not set"
-                    },
-                    checkNotNull(itemDescriptor) { "`itemDescriptor` is required but was not set" },
-                    checkNotNull(itemQuantity) { "`itemQuantity` is required but was not set" },
-                    checkNotNull(productCode) { "`productCode` is required but was not set" },
-                    checkNotNull(salesTaxAmount) { "`salesTaxAmount` is required but was not set" },
-                    checkNotNull(salesTaxCurrency) {
-                        "`salesTaxCurrency` is required but was not set"
-                    },
-                    checkNotNull(salesTaxRate) { "`salesTaxRate` is required but was not set" },
-                    checkNotNull(totalAmount) { "`totalAmount` is required but was not set" },
-                    checkNotNull(totalAmountCurrency) {
-                        "`totalAmountCurrency` is required but was not set"
-                    },
-                    checkNotNull(unitCost) { "`unitCost` is required but was not set" },
-                    checkNotNull(unitCostCurrency) {
-                        "`unitCostCurrency` is required but was not set"
-                    },
-                    checkNotNull(unitOfMeasureCode) {
-                        "`unitOfMeasureCode` is required but was not set"
-                    },
+                    checkRequired("id", id),
+                    checkRequired("detailIndicator", detailIndicator),
+                    checkRequired("discountAmount", discountAmount),
+                    checkRequired("discountCurrency", discountCurrency),
+                    checkRequired("discountTreatmentCode", discountTreatmentCode),
+                    checkRequired("itemCommodityCode", itemCommodityCode),
+                    checkRequired("itemDescriptor", itemDescriptor),
+                    checkRequired("itemQuantity", itemQuantity),
+                    checkRequired("productCode", productCode),
+                    checkRequired("salesTaxAmount", salesTaxAmount),
+                    checkRequired("salesTaxCurrency", salesTaxCurrency),
+                    checkRequired("salesTaxRate", salesTaxRate),
+                    checkRequired("totalAmount", totalAmount),
+                    checkRequired("totalAmountCurrency", totalAmountCurrency),
+                    checkRequired("unitCost", unitCost),
+                    checkRequired("unitCostCurrency", unitCostCurrency),
+                    checkRequired("unitOfMeasureCode", unitOfMeasureCode),
                     additionalProperties.toImmutable(),
                 )
         }

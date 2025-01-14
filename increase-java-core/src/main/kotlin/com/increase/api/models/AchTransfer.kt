@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -1155,62 +1156,43 @@ private constructor(
 
         fun build(): AchTransfer =
             AchTransfer(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(accountId) { "`accountId` is required but was not set" },
-                checkNotNull(accountNumber) { "`accountNumber` is required but was not set" },
-                checkNotNull(acknowledgement) { "`acknowledgement` is required but was not set" },
-                checkNotNull(addenda) { "`addenda` is required but was not set" },
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(approval) { "`approval` is required but was not set" },
-                checkNotNull(cancellation) { "`cancellation` is required but was not set" },
-                checkNotNull(companyDescriptiveDate) {
-                    "`companyDescriptiveDate` is required but was not set"
+                checkRequired("id", id),
+                checkRequired("accountId", accountId),
+                checkRequired("accountNumber", accountNumber),
+                checkRequired("acknowledgement", acknowledgement),
+                checkRequired("addenda", addenda),
+                checkRequired("amount", amount),
+                checkRequired("approval", approval),
+                checkRequired("cancellation", cancellation),
+                checkRequired("companyDescriptiveDate", companyDescriptiveDate),
+                checkRequired("companyDiscretionaryData", companyDiscretionaryData),
+                checkRequired("companyEntryDescription", companyEntryDescription),
+                checkRequired("companyName", companyName),
+                checkRequired("createdAt", createdAt),
+                checkRequired("createdBy", createdBy),
+                checkRequired("currency", currency),
+                checkRequired("destinationAccountHolder", destinationAccountHolder),
+                checkRequired("externalAccountId", externalAccountId),
+                checkRequired("funding", funding),
+                checkRequired("idempotencyKey", idempotencyKey),
+                checkRequired("inboundFundsHold", inboundFundsHold),
+                checkRequired("individualId", individualId),
+                checkRequired("individualName", individualName),
+                checkRequired("network", network),
+                checkRequired("notificationsOfChange", notificationsOfChange).map {
+                    it.toImmutable()
                 },
-                checkNotNull(companyDiscretionaryData) {
-                    "`companyDiscretionaryData` is required but was not set"
-                },
-                checkNotNull(companyEntryDescription) {
-                    "`companyEntryDescription` is required but was not set"
-                },
-                checkNotNull(companyName) { "`companyName` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(createdBy) { "`createdBy` is required but was not set" },
-                checkNotNull(currency) { "`currency` is required but was not set" },
-                checkNotNull(destinationAccountHolder) {
-                    "`destinationAccountHolder` is required but was not set"
-                },
-                checkNotNull(externalAccountId) {
-                    "`externalAccountId` is required but was not set"
-                },
-                checkNotNull(funding) { "`funding` is required but was not set" },
-                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
-                checkNotNull(inboundFundsHold) { "`inboundFundsHold` is required but was not set" },
-                checkNotNull(individualId) { "`individualId` is required but was not set" },
-                checkNotNull(individualName) { "`individualName` is required but was not set" },
-                checkNotNull(network) { "`network` is required but was not set" },
-                checkNotNull(notificationsOfChange) {
-                        "`notificationsOfChange` is required but was not set"
-                    }
-                    .map { it.toImmutable() },
-                checkNotNull(pendingTransactionId) {
-                    "`pendingTransactionId` is required but was not set"
-                },
-                checkNotNull(preferredEffectiveDate) {
-                    "`preferredEffectiveDate` is required but was not set"
-                },
-                checkNotNull(return_) { "`return_` is required but was not set" },
-                checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
-                checkNotNull(settlement) { "`settlement` is required but was not set" },
-                checkNotNull(standardEntryClassCode) {
-                    "`standardEntryClassCode` is required but was not set"
-                },
-                checkNotNull(statementDescriptor) {
-                    "`statementDescriptor` is required but was not set"
-                },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(submission) { "`submission` is required but was not set" },
-                checkNotNull(transactionId) { "`transactionId` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
+                checkRequired("pendingTransactionId", pendingTransactionId),
+                checkRequired("preferredEffectiveDate", preferredEffectiveDate),
+                checkRequired("return_", return_),
+                checkRequired("routingNumber", routingNumber),
+                checkRequired("settlement", settlement),
+                checkRequired("standardEntryClassCode", standardEntryClassCode),
+                checkRequired("statementDescriptor", statementDescriptor),
+                checkRequired("status", status),
+                checkRequired("submission", submission),
+                checkRequired("transactionId", transactionId),
+                checkRequired("type", type),
                 additionalProperties.toImmutable(),
             )
     }
@@ -1305,7 +1287,7 @@ private constructor(
 
             fun build(): Acknowledgement =
                 Acknowledgement(
-                    checkNotNull(acknowledgedAt) { "`acknowledgedAt` is required but was not set" },
+                    checkRequired("acknowledgedAt", acknowledgedAt),
                     additionalProperties.toImmutable()
                 )
         }
@@ -1489,11 +1471,9 @@ private constructor(
 
             fun build(): Addenda =
                 Addenda(
-                    checkNotNull(category) { "`category` is required but was not set" },
-                    checkNotNull(freeform) { "`freeform` is required but was not set" },
-                    checkNotNull(paymentOrderRemittanceAdvice) {
-                        "`paymentOrderRemittanceAdvice` is required but was not set"
-                    },
+                    checkRequired("category", category),
+                    checkRequired("freeform", freeform),
+                    checkRequired("paymentOrderRemittanceAdvice", paymentOrderRemittanceAdvice),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1661,8 +1641,7 @@ private constructor(
 
                 fun build(): Freeform =
                     Freeform(
-                        checkNotNull(entries) { "`entries` is required but was not set" }
-                            .map { it.toImmutable() },
+                        checkRequired("entries", entries).map { it.toImmutable() },
                         additionalProperties.toImmutable()
                     )
             }
@@ -1754,9 +1733,7 @@ private constructor(
 
                     fun build(): Entry =
                         Entry(
-                            checkNotNull(paymentRelatedInformation) {
-                                "`paymentRelatedInformation` is required but was not set"
-                            },
+                            checkRequired("paymentRelatedInformation", paymentRelatedInformation),
                             additionalProperties.toImmutable()
                         )
                 }
@@ -1901,8 +1878,7 @@ private constructor(
 
                 fun build(): PaymentOrderRemittanceAdvice =
                     PaymentOrderRemittanceAdvice(
-                        checkNotNull(invoices) { "`invoices` is required but was not set" }
-                            .map { it.toImmutable() },
+                        checkRequired("invoices", invoices).map { it.toImmutable() },
                         additionalProperties.toImmutable()
                     )
             }
@@ -2036,10 +2012,8 @@ private constructor(
 
                     fun build(): Invoice =
                         Invoice(
-                            checkNotNull(invoiceNumber) {
-                                "`invoiceNumber` is required but was not set"
-                            },
-                            checkNotNull(paidAmount) { "`paidAmount` is required but was not set" },
+                            checkRequired("invoiceNumber", invoiceNumber),
+                            checkRequired("paidAmount", paidAmount),
                             additionalProperties.toImmutable(),
                         )
                 }
@@ -2232,8 +2206,8 @@ private constructor(
 
             fun build(): Approval =
                 Approval(
-                    checkNotNull(approvedAt) { "`approvedAt` is required but was not set" },
-                    checkNotNull(approvedBy) { "`approvedBy` is required but was not set" },
+                    checkRequired("approvedAt", approvedAt),
+                    checkRequired("approvedBy", approvedBy),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -2390,8 +2364,8 @@ private constructor(
 
             fun build(): Cancellation =
                 Cancellation(
-                    checkNotNull(canceledAt) { "`canceledAt` is required but was not set" },
-                    checkNotNull(canceledBy) { "`canceledBy` is required but was not set" },
+                    checkRequired("canceledAt", canceledAt),
+                    checkRequired("canceledBy", canceledBy),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -2560,12 +2534,10 @@ private constructor(
 
             fun build(): CreatedBy =
                 CreatedBy(
-                    checkNotNull(apiKey) { "`apiKey` is required but was not set" },
-                    checkNotNull(category) { "`category` is required but was not set" },
-                    checkNotNull(oauthApplication) {
-                        "`oauthApplication` is required but was not set"
-                    },
-                    checkNotNull(user) { "`user` is required but was not set" },
+                    checkRequired("apiKey", apiKey),
+                    checkRequired("category", category),
+                    checkRequired("oauthApplication", oauthApplication),
+                    checkRequired("user", user),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -2661,7 +2633,7 @@ private constructor(
 
                 fun build(): ApiKey =
                     ApiKey(
-                        checkNotNull(description) { "`description` is required but was not set" },
+                        checkRequired("description", description),
                         additionalProperties.toImmutable()
                     )
             }
@@ -2828,7 +2800,7 @@ private constructor(
 
                 fun build(): OAuthApplication =
                     OAuthApplication(
-                        checkNotNull(name) { "`name` is required but was not set" },
+                        checkRequired("name", name),
                         additionalProperties.toImmutable()
                     )
             }
@@ -2931,10 +2903,7 @@ private constructor(
                 }
 
                 fun build(): User =
-                    User(
-                        checkNotNull(email) { "`email` is required but was not set" },
-                        additionalProperties.toImmutable()
-                    )
+                    User(checkRequired("email", email), additionalProperties.toImmutable())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -3507,22 +3476,16 @@ private constructor(
 
             fun build(): InboundFundsHold =
                 InboundFundsHold(
-                    checkNotNull(id) { "`id` is required but was not set" },
-                    checkNotNull(amount) { "`amount` is required but was not set" },
-                    checkNotNull(automaticallyReleasesAt) {
-                        "`automaticallyReleasesAt` is required but was not set"
-                    },
-                    checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                    checkNotNull(currency) { "`currency` is required but was not set" },
-                    checkNotNull(heldTransactionId) {
-                        "`heldTransactionId` is required but was not set"
-                    },
-                    checkNotNull(pendingTransactionId) {
-                        "`pendingTransactionId` is required but was not set"
-                    },
-                    checkNotNull(releasedAt) { "`releasedAt` is required but was not set" },
-                    checkNotNull(status) { "`status` is required but was not set" },
-                    checkNotNull(type) { "`type` is required but was not set" },
+                    checkRequired("id", id),
+                    checkRequired("amount", amount),
+                    checkRequired("automaticallyReleasesAt", automaticallyReleasesAt),
+                    checkRequired("createdAt", createdAt),
+                    checkRequired("currency", currency),
+                    checkRequired("heldTransactionId", heldTransactionId),
+                    checkRequired("pendingTransactionId", pendingTransactionId),
+                    checkRequired("releasedAt", releasedAt),
+                    checkRequired("status", status),
+                    checkRequired("type", type),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -3958,9 +3921,9 @@ private constructor(
 
             fun build(): NotificationsOfChange =
                 NotificationsOfChange(
-                    checkNotNull(changeCode) { "`changeCode` is required but was not set" },
-                    checkNotNull(correctedData) { "`correctedData` is required but was not set" },
-                    checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                    checkRequired("changeCode", changeCode),
+                    checkRequired("correctedData", correctedData),
+                    checkRequired("createdAt", createdAt),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -4322,10 +4285,8 @@ private constructor(
 
             fun build(): PreferredEffectiveDate =
                 PreferredEffectiveDate(
-                    checkNotNull(date) { "`date` is required but was not set" },
-                    checkNotNull(settlementSchedule) {
-                        "`settlementSchedule` is required but was not set"
-                    },
+                    checkRequired("date", date),
+                    checkRequired("settlementSchedule", settlementSchedule),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -4643,16 +4604,12 @@ private constructor(
 
             fun build(): Return =
                 Return(
-                    checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                    checkNotNull(rawReturnReasonCode) {
-                        "`rawReturnReasonCode` is required but was not set"
-                    },
-                    checkNotNull(returnReasonCode) {
-                        "`returnReasonCode` is required but was not set"
-                    },
-                    checkNotNull(traceNumber) { "`traceNumber` is required but was not set" },
-                    checkNotNull(transactionId) { "`transactionId` is required but was not set" },
-                    checkNotNull(transferId) { "`transferId` is required but was not set" },
+                    checkRequired("createdAt", createdAt),
+                    checkRequired("rawReturnReasonCode", rawReturnReasonCode),
+                    checkRequired("returnReasonCode", returnReasonCode),
+                    checkRequired("traceNumber", traceNumber),
+                    checkRequired("transactionId", transactionId),
+                    checkRequired("transferId", transferId),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -5329,7 +5286,7 @@ private constructor(
 
             fun build(): Settlement =
                 Settlement(
-                    checkNotNull(settledAt) { "`settledAt` is required but was not set" },
+                    checkRequired("settledAt", settledAt),
                     additionalProperties.toImmutable()
                 )
         }
@@ -5773,15 +5730,11 @@ private constructor(
 
             fun build(): Submission =
                 Submission(
-                    checkNotNull(effectiveDate) { "`effectiveDate` is required but was not set" },
-                    checkNotNull(expectedFundsSettlementAt) {
-                        "`expectedFundsSettlementAt` is required but was not set"
-                    },
-                    checkNotNull(expectedSettlementSchedule) {
-                        "`expectedSettlementSchedule` is required but was not set"
-                    },
-                    checkNotNull(submittedAt) { "`submittedAt` is required but was not set" },
-                    checkNotNull(traceNumber) { "`traceNumber` is required but was not set" },
+                    checkRequired("effectiveDate", effectiveDate),
+                    checkRequired("expectedFundsSettlementAt", expectedFundsSettlementAt),
+                    checkRequired("expectedSettlementSchedule", expectedSettlementSchedule),
+                    checkRequired("submittedAt", submittedAt),
+                    checkRequired("traceNumber", traceNumber),
                     additionalProperties.toImmutable(),
                 )
         }

@@ -11,6 +11,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
@@ -354,15 +355,11 @@ constructor(
 
             fun build(): DigitalCardProfileCreateBody =
                 DigitalCardProfileCreateBody(
-                    checkNotNull(appIconFileId) { "`appIconFileId` is required but was not set" },
-                    checkNotNull(backgroundImageFileId) {
-                        "`backgroundImageFileId` is required but was not set"
-                    },
-                    checkNotNull(cardDescription) {
-                        "`cardDescription` is required but was not set"
-                    },
-                    checkNotNull(description) { "`description` is required but was not set" },
-                    checkNotNull(issuerName) { "`issuerName` is required but was not set" },
+                    checkRequired("appIconFileId", appIconFileId),
+                    checkRequired("backgroundImageFileId", backgroundImageFileId),
+                    checkRequired("cardDescription", cardDescription),
+                    checkRequired("description", description),
+                    checkRequired("issuerName", issuerName),
                     contactEmail,
                     contactPhone,
                     contactWebsite,
@@ -716,9 +713,9 @@ constructor(
 
             fun build(): TextColor =
                 TextColor(
-                    checkNotNull(blue) { "`blue` is required but was not set" },
-                    checkNotNull(green) { "`green` is required but was not set" },
-                    checkNotNull(red) { "`red` is required but was not set" },
+                    checkRequired("blue", blue),
+                    checkRequired("green", green),
+                    checkRequired("red", red),
                     additionalProperties.toImmutable(),
                 )
         }

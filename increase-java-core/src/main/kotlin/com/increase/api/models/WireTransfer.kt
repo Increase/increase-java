@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -884,55 +885,35 @@ private constructor(
 
         fun build(): WireTransfer =
             WireTransfer(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(accountId) { "`accountId` is required but was not set" },
-                checkNotNull(accountNumber) { "`accountNumber` is required but was not set" },
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(approval) { "`approval` is required but was not set" },
-                checkNotNull(beneficiaryAddressLine1) {
-                    "`beneficiaryAddressLine1` is required but was not set"
-                },
-                checkNotNull(beneficiaryAddressLine2) {
-                    "`beneficiaryAddressLine2` is required but was not set"
-                },
-                checkNotNull(beneficiaryAddressLine3) {
-                    "`beneficiaryAddressLine3` is required but was not set"
-                },
-                checkNotNull(beneficiaryName) { "`beneficiaryName` is required but was not set" },
-                checkNotNull(cancellation) { "`cancellation` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(createdBy) { "`createdBy` is required but was not set" },
-                checkNotNull(currency) { "`currency` is required but was not set" },
-                checkNotNull(externalAccountId) {
-                    "`externalAccountId` is required but was not set"
-                },
-                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
-                checkNotNull(messageToRecipient) {
-                    "`messageToRecipient` is required but was not set"
-                },
-                checkNotNull(network) { "`network` is required but was not set" },
-                checkNotNull(originatorAddressLine1) {
-                    "`originatorAddressLine1` is required but was not set"
-                },
-                checkNotNull(originatorAddressLine2) {
-                    "`originatorAddressLine2` is required but was not set"
-                },
-                checkNotNull(originatorAddressLine3) {
-                    "`originatorAddressLine3` is required but was not set"
-                },
-                checkNotNull(originatorName) { "`originatorName` is required but was not set" },
-                checkNotNull(pendingTransactionId) {
-                    "`pendingTransactionId` is required but was not set"
-                },
-                checkNotNull(reversal) { "`reversal` is required but was not set" },
-                checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
-                checkNotNull(sourceAccountNumberId) {
-                    "`sourceAccountNumberId` is required but was not set"
-                },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(submission) { "`submission` is required but was not set" },
-                checkNotNull(transactionId) { "`transactionId` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("accountId", accountId),
+                checkRequired("accountNumber", accountNumber),
+                checkRequired("amount", amount),
+                checkRequired("approval", approval),
+                checkRequired("beneficiaryAddressLine1", beneficiaryAddressLine1),
+                checkRequired("beneficiaryAddressLine2", beneficiaryAddressLine2),
+                checkRequired("beneficiaryAddressLine3", beneficiaryAddressLine3),
+                checkRequired("beneficiaryName", beneficiaryName),
+                checkRequired("cancellation", cancellation),
+                checkRequired("createdAt", createdAt),
+                checkRequired("createdBy", createdBy),
+                checkRequired("currency", currency),
+                checkRequired("externalAccountId", externalAccountId),
+                checkRequired("idempotencyKey", idempotencyKey),
+                checkRequired("messageToRecipient", messageToRecipient),
+                checkRequired("network", network),
+                checkRequired("originatorAddressLine1", originatorAddressLine1),
+                checkRequired("originatorAddressLine2", originatorAddressLine2),
+                checkRequired("originatorAddressLine3", originatorAddressLine3),
+                checkRequired("originatorName", originatorName),
+                checkRequired("pendingTransactionId", pendingTransactionId),
+                checkRequired("reversal", reversal),
+                checkRequired("routingNumber", routingNumber),
+                checkRequired("sourceAccountNumberId", sourceAccountNumberId),
+                checkRequired("status", status),
+                checkRequired("submission", submission),
+                checkRequired("transactionId", transactionId),
+                checkRequired("type", type),
                 additionalProperties.toImmutable(),
             )
     }
@@ -1071,8 +1052,8 @@ private constructor(
 
             fun build(): Approval =
                 Approval(
-                    checkNotNull(approvedAt) { "`approvedAt` is required but was not set" },
-                    checkNotNull(approvedBy) { "`approvedBy` is required but was not set" },
+                    checkRequired("approvedAt", approvedAt),
+                    checkRequired("approvedBy", approvedBy),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1229,8 +1210,8 @@ private constructor(
 
             fun build(): Cancellation =
                 Cancellation(
-                    checkNotNull(canceledAt) { "`canceledAt` is required but was not set" },
-                    checkNotNull(canceledBy) { "`canceledBy` is required but was not set" },
+                    checkRequired("canceledAt", canceledAt),
+                    checkRequired("canceledBy", canceledBy),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1399,12 +1380,10 @@ private constructor(
 
             fun build(): CreatedBy =
                 CreatedBy(
-                    checkNotNull(apiKey) { "`apiKey` is required but was not set" },
-                    checkNotNull(category) { "`category` is required but was not set" },
-                    checkNotNull(oauthApplication) {
-                        "`oauthApplication` is required but was not set"
-                    },
-                    checkNotNull(user) { "`user` is required but was not set" },
+                    checkRequired("apiKey", apiKey),
+                    checkRequired("category", category),
+                    checkRequired("oauthApplication", oauthApplication),
+                    checkRequired("user", user),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1500,7 +1479,7 @@ private constructor(
 
                 fun build(): ApiKey =
                     ApiKey(
-                        checkNotNull(description) { "`description` is required but was not set" },
+                        checkRequired("description", description),
                         additionalProperties.toImmutable()
                     )
             }
@@ -1667,7 +1646,7 @@ private constructor(
 
                 fun build(): OAuthApplication =
                     OAuthApplication(
-                        checkNotNull(name) { "`name` is required but was not set" },
+                        checkRequired("name", name),
                         additionalProperties.toImmutable()
                     )
             }
@@ -1770,10 +1749,7 @@ private constructor(
                 }
 
                 fun build(): User =
-                    User(
-                        checkNotNull(email) { "`email` is required but was not set" },
-                        additionalProperties.toImmutable()
-                    )
+                    User(checkRequired("email", email), additionalProperties.toImmutable())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -2513,43 +2489,35 @@ private constructor(
 
             fun build(): Reversal =
                 Reversal(
-                    checkNotNull(amount) { "`amount` is required but was not set" },
-                    checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                    checkNotNull(description) { "`description` is required but was not set" },
-                    checkNotNull(financialInstitutionToFinancialInstitutionInformation) {
-                        "`financialInstitutionToFinancialInstitutionInformation` is required but was not set"
-                    },
-                    checkNotNull(inputCycleDate) { "`inputCycleDate` is required but was not set" },
-                    checkNotNull(inputMessageAccountabilityData) {
-                        "`inputMessageAccountabilityData` is required but was not set"
-                    },
-                    checkNotNull(inputSequenceNumber) {
-                        "`inputSequenceNumber` is required but was not set"
-                    },
-                    checkNotNull(inputSource) { "`inputSource` is required but was not set" },
-                    checkNotNull(originatorRoutingNumber) {
-                        "`originatorRoutingNumber` is required but was not set"
-                    },
-                    checkNotNull(previousMessageInputCycleDate) {
-                        "`previousMessageInputCycleDate` is required but was not set"
-                    },
-                    checkNotNull(previousMessageInputMessageAccountabilityData) {
-                        "`previousMessageInputMessageAccountabilityData` is required but was not set"
-                    },
-                    checkNotNull(previousMessageInputSequenceNumber) {
-                        "`previousMessageInputSequenceNumber` is required but was not set"
-                    },
-                    checkNotNull(previousMessageInputSource) {
-                        "`previousMessageInputSource` is required but was not set"
-                    },
-                    checkNotNull(receiverFinancialInstitutionInformation) {
-                        "`receiverFinancialInstitutionInformation` is required but was not set"
-                    },
-                    checkNotNull(senderReference) {
-                        "`senderReference` is required but was not set"
-                    },
-                    checkNotNull(transactionId) { "`transactionId` is required but was not set" },
-                    checkNotNull(wireTransferId) { "`wireTransferId` is required but was not set" },
+                    checkRequired("amount", amount),
+                    checkRequired("createdAt", createdAt),
+                    checkRequired("description", description),
+                    checkRequired(
+                        "financialInstitutionToFinancialInstitutionInformation",
+                        financialInstitutionToFinancialInstitutionInformation
+                    ),
+                    checkRequired("inputCycleDate", inputCycleDate),
+                    checkRequired("inputMessageAccountabilityData", inputMessageAccountabilityData),
+                    checkRequired("inputSequenceNumber", inputSequenceNumber),
+                    checkRequired("inputSource", inputSource),
+                    checkRequired("originatorRoutingNumber", originatorRoutingNumber),
+                    checkRequired("previousMessageInputCycleDate", previousMessageInputCycleDate),
+                    checkRequired(
+                        "previousMessageInputMessageAccountabilityData",
+                        previousMessageInputMessageAccountabilityData
+                    ),
+                    checkRequired(
+                        "previousMessageInputSequenceNumber",
+                        previousMessageInputSequenceNumber
+                    ),
+                    checkRequired("previousMessageInputSource", previousMessageInputSource),
+                    checkRequired(
+                        "receiverFinancialInstitutionInformation",
+                        receiverFinancialInstitutionInformation
+                    ),
+                    checkRequired("senderReference", senderReference),
+                    checkRequired("transactionId", transactionId),
+                    checkRequired("wireTransferId", wireTransferId),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -2778,10 +2746,8 @@ private constructor(
 
             fun build(): Submission =
                 Submission(
-                    checkNotNull(inputMessageAccountabilityData) {
-                        "`inputMessageAccountabilityData` is required but was not set"
-                    },
-                    checkNotNull(submittedAt) { "`submittedAt` is required but was not set" },
+                    checkRequired("inputMessageAccountabilityData", inputMessageAccountabilityData),
+                    checkRequired("submittedAt", submittedAt),
                     additionalProperties.toImmutable(),
                 )
         }

@@ -11,6 +11,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
@@ -212,14 +213,10 @@ constructor(
 
             fun build(): PhysicalCardProfileCreateBody =
                 PhysicalCardProfileCreateBody(
-                    checkNotNull(carrierImageFileId) {
-                        "`carrierImageFileId` is required but was not set"
-                    },
-                    checkNotNull(contactPhone) { "`contactPhone` is required but was not set" },
-                    checkNotNull(description) { "`description` is required but was not set" },
-                    checkNotNull(frontImageFileId) {
-                        "`frontImageFileId` is required but was not set"
-                    },
+                    checkRequired("carrierImageFileId", carrierImageFileId),
+                    checkRequired("contactPhone", contactPhone),
+                    checkRequired("description", description),
+                    checkRequired("frontImageFileId", frontImageFileId),
                     additionalProperties.toImmutable(),
                 )
         }

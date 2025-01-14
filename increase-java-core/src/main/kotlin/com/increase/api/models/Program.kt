@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -307,17 +308,15 @@ private constructor(
 
         fun build(): Program =
             Program(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(bank) { "`bank` is required but was not set" },
-                checkNotNull(billingAccountId) { "`billingAccountId` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(defaultDigitalCardProfileId) {
-                    "`defaultDigitalCardProfileId` is required but was not set"
-                },
-                checkNotNull(interestRate) { "`interestRate` is required but was not set" },
-                checkNotNull(name) { "`name` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
-                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("bank", bank),
+                checkRequired("billingAccountId", billingAccountId),
+                checkRequired("createdAt", createdAt),
+                checkRequired("defaultDigitalCardProfileId", defaultDigitalCardProfileId),
+                checkRequired("interestRate", interestRate),
+                checkRequired("name", name),
+                checkRequired("type", type),
+                checkRequired("updatedAt", updatedAt),
                 additionalProperties.toImmutable(),
             )
     }

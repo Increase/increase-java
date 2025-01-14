@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -147,9 +148,9 @@ private constructor(
 
         fun build(): OAuthToken =
             OAuthToken(
-                checkNotNull(accessToken) { "`accessToken` is required but was not set" },
-                checkNotNull(tokenType) { "`tokenType` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
+                checkRequired("accessToken", accessToken),
+                checkRequired("tokenType", tokenType),
+                checkRequired("type", type),
                 additionalProperties.toImmutable(),
             )
     }

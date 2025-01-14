@@ -3,6 +3,7 @@
 package com.increase.api.models
 
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
@@ -163,9 +164,7 @@ constructor(
 
         fun build(): RealTimePaymentsTransferRetrieveParams =
             RealTimePaymentsTransferRetrieveParams(
-                checkNotNull(realTimePaymentsTransferId) {
-                    "`realTimePaymentsTransferId` is required but was not set"
-                },
+                checkRequired("realTimePaymentsTransferId", realTimePaymentsTransferId),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )

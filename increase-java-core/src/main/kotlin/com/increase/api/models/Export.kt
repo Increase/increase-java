@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -314,14 +315,14 @@ private constructor(
 
         fun build(): Export =
             Export(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(category) { "`category` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(fileDownloadUrl) { "`fileDownloadUrl` is required but was not set" },
-                checkNotNull(fileId) { "`fileId` is required but was not set" },
-                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("category", category),
+                checkRequired("createdAt", createdAt),
+                checkRequired("fileDownloadUrl", fileDownloadUrl),
+                checkRequired("fileId", fileId),
+                checkRequired("idempotencyKey", idempotencyKey),
+                checkRequired("status", status),
+                checkRequired("type", type),
                 additionalProperties.toImmutable(),
             )
     }

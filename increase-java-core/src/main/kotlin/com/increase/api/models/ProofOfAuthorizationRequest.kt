@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -215,13 +216,12 @@ private constructor(
 
         fun build(): ProofOfAuthorizationRequest =
             ProofOfAuthorizationRequest(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(achTransfers) { "`achTransfers` is required but was not set" }
-                    .map { it.toImmutable() },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(dueOn) { "`dueOn` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
-                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("achTransfers", achTransfers).map { it.toImmutable() },
+                checkRequired("createdAt", createdAt),
+                checkRequired("dueOn", dueOn),
+                checkRequired("type", type),
+                checkRequired("updatedAt", updatedAt),
                 additionalProperties.toImmutable(),
             )
     }
@@ -300,10 +300,7 @@ private constructor(
             }
 
             fun build(): AchTransfer =
-                AchTransfer(
-                    checkNotNull(id) { "`id` is required but was not set" },
-                    additionalProperties.toImmutable()
-                )
+                AchTransfer(checkRequired("id", id), additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {

@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -349,17 +350,17 @@ private constructor(
 
         fun build(): AccountNumber =
             AccountNumber(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(accountId) { "`accountId` is required but was not set" },
-                checkNotNull(accountNumber) { "`accountNumber` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
-                checkNotNull(inboundAch) { "`inboundAch` is required but was not set" },
-                checkNotNull(inboundChecks) { "`inboundChecks` is required but was not set" },
-                checkNotNull(name) { "`name` is required but was not set" },
-                checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("accountId", accountId),
+                checkRequired("accountNumber", accountNumber),
+                checkRequired("createdAt", createdAt),
+                checkRequired("idempotencyKey", idempotencyKey),
+                checkRequired("inboundAch", inboundAch),
+                checkRequired("inboundChecks", inboundChecks),
+                checkRequired("name", name),
+                checkRequired("routingNumber", routingNumber),
+                checkRequired("status", status),
+                checkRequired("type", type),
                 additionalProperties.toImmutable(),
             )
     }
@@ -458,7 +459,7 @@ private constructor(
 
             fun build(): InboundAch =
                 InboundAch(
-                    checkNotNull(debitStatus) { "`debitStatus` is required but was not set" },
+                    checkRequired("debitStatus", debitStatus),
                     additionalProperties.toImmutable()
                 )
         }
@@ -615,10 +616,7 @@ private constructor(
             }
 
             fun build(): InboundChecks =
-                InboundChecks(
-                    checkNotNull(status) { "`status` is required but was not set" },
-                    additionalProperties.toImmutable()
-                )
+                InboundChecks(checkRequired("status", status), additionalProperties.toImmutable())
         }
 
         class Status

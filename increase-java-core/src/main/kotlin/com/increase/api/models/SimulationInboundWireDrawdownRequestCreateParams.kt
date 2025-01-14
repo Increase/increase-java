@@ -11,6 +11,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
@@ -845,26 +846,14 @@ constructor(
 
             fun build(): SimulationInboundWireDrawdownRequestCreateBody =
                 SimulationInboundWireDrawdownRequestCreateBody(
-                    checkNotNull(amount) { "`amount` is required but was not set" },
-                    checkNotNull(beneficiaryAccountNumber) {
-                        "`beneficiaryAccountNumber` is required but was not set"
-                    },
-                    checkNotNull(beneficiaryRoutingNumber) {
-                        "`beneficiaryRoutingNumber` is required but was not set"
-                    },
-                    checkNotNull(currency) { "`currency` is required but was not set" },
-                    checkNotNull(messageToRecipient) {
-                        "`messageToRecipient` is required but was not set"
-                    },
-                    checkNotNull(originatorAccountNumber) {
-                        "`originatorAccountNumber` is required but was not set"
-                    },
-                    checkNotNull(originatorRoutingNumber) {
-                        "`originatorRoutingNumber` is required but was not set"
-                    },
-                    checkNotNull(recipientAccountNumberId) {
-                        "`recipientAccountNumberId` is required but was not set"
-                    },
+                    checkRequired("amount", amount),
+                    checkRequired("beneficiaryAccountNumber", beneficiaryAccountNumber),
+                    checkRequired("beneficiaryRoutingNumber", beneficiaryRoutingNumber),
+                    checkRequired("currency", currency),
+                    checkRequired("messageToRecipient", messageToRecipient),
+                    checkRequired("originatorAccountNumber", originatorAccountNumber),
+                    checkRequired("originatorRoutingNumber", originatorRoutingNumber),
+                    checkRequired("recipientAccountNumberId", recipientAccountNumberId),
                     beneficiaryAddressLine1,
                     beneficiaryAddressLine2,
                     beneficiaryAddressLine3,

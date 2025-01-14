@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -274,14 +275,13 @@ private constructor(
 
         fun build(): BookkeepingEntrySet =
             BookkeepingEntrySet(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(date) { "`date` is required but was not set" },
-                checkNotNull(entries) { "`entries` is required but was not set" }
-                    .map { it.toImmutable() },
-                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
-                checkNotNull(transactionId) { "`transactionId` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("createdAt", createdAt),
+                checkRequired("date", date),
+                checkRequired("entries", entries).map { it.toImmutable() },
+                checkRequired("idempotencyKey", idempotencyKey),
+                checkRequired("transactionId", transactionId),
+                checkRequired("type", type),
                 additionalProperties.toImmutable(),
             )
     }
@@ -397,9 +397,9 @@ private constructor(
 
             fun build(): Entry =
                 Entry(
-                    checkNotNull(id) { "`id` is required but was not set" },
-                    checkNotNull(accountId) { "`accountId` is required but was not set" },
-                    checkNotNull(amount) { "`amount` is required but was not set" },
+                    checkRequired("id", id),
+                    checkRequired("accountId", accountId),
+                    checkRequired("amount", amount),
                     additionalProperties.toImmutable(),
                 )
         }

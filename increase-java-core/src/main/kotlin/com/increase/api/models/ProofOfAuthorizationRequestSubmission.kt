@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -615,39 +616,32 @@ private constructor(
 
         fun build(): ProofOfAuthorizationRequestSubmission =
             ProofOfAuthorizationRequestSubmission(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(authorizationTerms) {
-                    "`authorizationTerms` is required but was not set"
-                },
-                checkNotNull(authorizedAt) { "`authorizedAt` is required but was not set" },
-                checkNotNull(authorizerCompany) {
-                    "`authorizerCompany` is required but was not set"
-                },
-                checkNotNull(authorizerEmail) { "`authorizerEmail` is required but was not set" },
-                checkNotNull(authorizerIpAddress) {
-                    "`authorizerIpAddress` is required but was not set"
-                },
-                checkNotNull(authorizerName) { "`authorizerName` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(customerHasBeenOffboarded) {
-                    "`customerHasBeenOffboarded` is required but was not set"
-                },
-                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
-                checkNotNull(proofOfAuthorizationRequestId) {
-                    "`proofOfAuthorizationRequestId` is required but was not set"
-                },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
-                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
-                checkNotNull(validatedAccountOwnershipViaCredential) {
-                    "`validatedAccountOwnershipViaCredential` is required but was not set"
-                },
-                checkNotNull(validatedAccountOwnershipWithAccountStatement) {
-                    "`validatedAccountOwnershipWithAccountStatement` is required but was not set"
-                },
-                checkNotNull(validatedAccountOwnershipWithMicrodeposit) {
-                    "`validatedAccountOwnershipWithMicrodeposit` is required but was not set"
-                },
+                checkRequired("id", id),
+                checkRequired("authorizationTerms", authorizationTerms),
+                checkRequired("authorizedAt", authorizedAt),
+                checkRequired("authorizerCompany", authorizerCompany),
+                checkRequired("authorizerEmail", authorizerEmail),
+                checkRequired("authorizerIpAddress", authorizerIpAddress),
+                checkRequired("authorizerName", authorizerName),
+                checkRequired("createdAt", createdAt),
+                checkRequired("customerHasBeenOffboarded", customerHasBeenOffboarded),
+                checkRequired("idempotencyKey", idempotencyKey),
+                checkRequired("proofOfAuthorizationRequestId", proofOfAuthorizationRequestId),
+                checkRequired("status", status),
+                checkRequired("type", type),
+                checkRequired("updatedAt", updatedAt),
+                checkRequired(
+                    "validatedAccountOwnershipViaCredential",
+                    validatedAccountOwnershipViaCredential
+                ),
+                checkRequired(
+                    "validatedAccountOwnershipWithAccountStatement",
+                    validatedAccountOwnershipWithAccountStatement
+                ),
+                checkRequired(
+                    "validatedAccountOwnershipWithMicrodeposit",
+                    validatedAccountOwnershipWithMicrodeposit
+                ),
                 additionalProperties.toImmutable(),
             )
     }

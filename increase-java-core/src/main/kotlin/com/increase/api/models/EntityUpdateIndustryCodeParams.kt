@@ -11,6 +11,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
@@ -168,7 +169,7 @@ constructor(
 
             fun build(): EntityUpdateIndustryCodeBody =
                 EntityUpdateIndustryCodeBody(
-                    checkNotNull(industryCode) { "`industryCode` is required but was not set" },
+                    checkRequired("industryCode", industryCode),
                     additionalProperties.toImmutable()
                 )
         }
@@ -358,7 +359,7 @@ constructor(
 
         fun build(): EntityUpdateIndustryCodeParams =
             EntityUpdateIndustryCodeParams(
-                checkNotNull(entityId) { "`entityId` is required but was not set" },
+                checkRequired("entityId", entityId),
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
