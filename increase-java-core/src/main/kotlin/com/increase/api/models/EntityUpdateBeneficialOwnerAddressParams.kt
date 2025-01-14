@@ -11,6 +11,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
@@ -195,10 +196,8 @@ constructor(
 
             fun build(): EntityUpdateBeneficialOwnerAddressBody =
                 EntityUpdateBeneficialOwnerAddressBody(
-                    checkNotNull(address) { "`address` is required but was not set" },
-                    checkNotNull(beneficialOwnerId) {
-                        "`beneficialOwnerId` is required but was not set"
-                    },
+                    checkRequired("address", address),
+                    checkRequired("beneficialOwnerId", beneficialOwnerId),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -400,7 +399,7 @@ constructor(
 
         fun build(): EntityUpdateBeneficialOwnerAddressParams =
             EntityUpdateBeneficialOwnerAddressParams(
-                checkNotNull(entityId) { "`entityId` is required but was not set" },
+                checkRequired("entityId", entityId),
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -570,10 +569,10 @@ constructor(
 
             fun build(): Address =
                 Address(
-                    checkNotNull(city) { "`city` is required but was not set" },
-                    checkNotNull(line1) { "`line1` is required but was not set" },
-                    checkNotNull(state) { "`state` is required but was not set" },
-                    checkNotNull(zip) { "`zip` is required but was not set" },
+                    checkRequired("city", city),
+                    checkRequired("line1", line1),
+                    checkRequired("state", state),
+                    checkRequired("zip", zip),
                     line2,
                     additionalProperties.toImmutable(),
                 )

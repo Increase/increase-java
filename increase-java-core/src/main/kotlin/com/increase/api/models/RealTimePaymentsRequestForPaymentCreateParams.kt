@@ -11,6 +11,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
@@ -316,21 +317,13 @@ constructor(
 
             fun build(): RealTimePaymentsRequestForPaymentCreateBody =
                 RealTimePaymentsRequestForPaymentCreateBody(
-                    checkNotNull(amount) { "`amount` is required but was not set" },
-                    checkNotNull(debtor) { "`debtor` is required but was not set" },
-                    checkNotNull(destinationAccountNumberId) {
-                        "`destinationAccountNumberId` is required but was not set"
-                    },
-                    checkNotNull(expiresAt) { "`expiresAt` is required but was not set" },
-                    checkNotNull(remittanceInformation) {
-                        "`remittanceInformation` is required but was not set"
-                    },
-                    checkNotNull(sourceAccountNumber) {
-                        "`sourceAccountNumber` is required but was not set"
-                    },
-                    checkNotNull(sourceRoutingNumber) {
-                        "`sourceRoutingNumber` is required but was not set"
-                    },
+                    checkRequired("amount", amount),
+                    checkRequired("debtor", debtor),
+                    checkRequired("destinationAccountNumberId", destinationAccountNumberId),
+                    checkRequired("expiresAt", expiresAt),
+                    checkRequired("remittanceInformation", remittanceInformation),
+                    checkRequired("sourceAccountNumber", sourceAccountNumber),
+                    checkRequired("sourceRoutingNumber", sourceRoutingNumber),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -665,8 +658,8 @@ constructor(
 
             fun build(): Debtor =
                 Debtor(
-                    checkNotNull(address) { "`address` is required but was not set" },
-                    checkNotNull(name) { "`name` is required but was not set" },
+                    checkRequired("address", address),
+                    checkRequired("name", name),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -812,7 +805,7 @@ constructor(
 
                 fun build(): Address =
                     Address(
-                        checkNotNull(country) { "`country` is required but was not set" },
+                        checkRequired("country", country),
                         city,
                         postCode,
                         streetName,

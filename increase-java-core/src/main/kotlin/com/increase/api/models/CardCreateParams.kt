@@ -11,6 +11,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
@@ -284,7 +285,7 @@ constructor(
 
             fun build(): CardCreateBody =
                 CardCreateBody(
-                    checkNotNull(accountId) { "`accountId` is required but was not set" },
+                    checkRequired("accountId", accountId),
                     billingAddress,
                     description,
                     digitalWallet,
@@ -663,10 +664,10 @@ constructor(
 
             fun build(): BillingAddress =
                 BillingAddress(
-                    checkNotNull(city) { "`city` is required but was not set" },
-                    checkNotNull(line1) { "`line1` is required but was not set" },
-                    checkNotNull(postalCode) { "`postalCode` is required but was not set" },
-                    checkNotNull(state) { "`state` is required but was not set" },
+                    checkRequired("city", city),
+                    checkRequired("line1", line1),
+                    checkRequired("postalCode", postalCode),
+                    checkRequired("state", state),
                     line2,
                     additionalProperties.toImmutable(),
                 )

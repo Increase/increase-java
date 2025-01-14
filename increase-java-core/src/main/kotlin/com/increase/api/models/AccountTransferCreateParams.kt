@@ -11,6 +11,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
@@ -251,12 +252,10 @@ constructor(
 
             fun build(): AccountTransferCreateBody =
                 AccountTransferCreateBody(
-                    checkNotNull(accountId) { "`accountId` is required but was not set" },
-                    checkNotNull(amount) { "`amount` is required but was not set" },
-                    checkNotNull(description) { "`description` is required but was not set" },
-                    checkNotNull(destinationAccountId) {
-                        "`destinationAccountId` is required but was not set"
-                    },
+                    checkRequired("accountId", accountId),
+                    checkRequired("amount", amount),
+                    checkRequired("description", description),
+                    checkRequired("destinationAccountId", destinationAccountId),
                     requireApproval,
                     additionalProperties.toImmutable(),
                 )

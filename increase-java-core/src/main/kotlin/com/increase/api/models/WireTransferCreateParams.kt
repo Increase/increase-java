@@ -11,6 +11,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
@@ -669,14 +670,10 @@ constructor(
 
             fun build(): WireTransferCreateBody =
                 WireTransferCreateBody(
-                    checkNotNull(accountId) { "`accountId` is required but was not set" },
-                    checkNotNull(amount) { "`amount` is required but was not set" },
-                    checkNotNull(beneficiaryName) {
-                        "`beneficiaryName` is required but was not set"
-                    },
-                    checkNotNull(messageToRecipient) {
-                        "`messageToRecipient` is required but was not set"
-                    },
+                    checkRequired("accountId", accountId),
+                    checkRequired("amount", amount),
+                    checkRequired("beneficiaryName", beneficiaryName),
+                    checkRequired("messageToRecipient", messageToRecipient),
                     accountNumber,
                     beneficiaryAddressLine1,
                     beneficiaryAddressLine2,

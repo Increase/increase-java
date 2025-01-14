@@ -11,6 +11,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
@@ -618,9 +619,7 @@ constructor(
 
         fun build(): DigitalCardProfileCloneParams =
             DigitalCardProfileCloneParams(
-                checkNotNull(digitalCardProfileId) {
-                    "`digitalCardProfileId` is required but was not set"
-                },
+                checkRequired("digitalCardProfileId", digitalCardProfileId),
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -737,9 +736,9 @@ constructor(
 
             fun build(): TextColor =
                 TextColor(
-                    checkNotNull(blue) { "`blue` is required but was not set" },
-                    checkNotNull(green) { "`green` is required but was not set" },
-                    checkNotNull(red) { "`red` is required but was not set" },
+                    checkRequired("blue", blue),
+                    checkRequired("green", green),
+                    checkRequired("red", red),
                     additionalProperties.toImmutable(),
                 )
         }

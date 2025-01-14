@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -215,12 +216,12 @@ private constructor(
 
         fun build(): DigitalWalletToken =
             DigitalWalletToken(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(cardId) { "`cardId` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(tokenRequestor) { "`tokenRequestor` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("cardId", cardId),
+                checkRequired("createdAt", createdAt),
+                checkRequired("status", status),
+                checkRequired("tokenRequestor", tokenRequestor),
+                checkRequired("type", type),
                 additionalProperties.toImmutable(),
             )
     }

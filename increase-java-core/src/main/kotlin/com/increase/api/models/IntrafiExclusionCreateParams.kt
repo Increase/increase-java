@@ -11,6 +11,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
@@ -145,8 +146,8 @@ constructor(
 
             fun build(): IntrafiExclusionCreateBody =
                 IntrafiExclusionCreateBody(
-                    checkNotNull(bankName) { "`bankName` is required but was not set" },
-                    checkNotNull(entityId) { "`entityId` is required but was not set" },
+                    checkRequired("bankName", bankName),
+                    checkRequired("entityId", entityId),
                     additionalProperties.toImmutable(),
                 )
         }

@@ -3,6 +3,7 @@
 package com.increase.api.models
 
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.time.OffsetDateTime
@@ -184,9 +185,7 @@ constructor(
 
         fun build(): BookkeepingAccountBalanceParams =
             BookkeepingAccountBalanceParams(
-                checkNotNull(bookkeepingAccountId) {
-                    "`bookkeepingAccountId` is required but was not set"
-                },
+                checkRequired("bookkeepingAccountId", bookkeepingAccountId),
                 atTime,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),

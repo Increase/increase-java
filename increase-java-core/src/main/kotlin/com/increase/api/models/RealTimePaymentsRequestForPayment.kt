@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -559,33 +560,23 @@ private constructor(
 
         fun build(): RealTimePaymentsRequestForPayment =
             RealTimePaymentsRequestForPayment(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(currency) { "`currency` is required but was not set" },
-                checkNotNull(debtorName) { "`debtorName` is required but was not set" },
-                checkNotNull(destinationAccountNumberId) {
-                    "`destinationAccountNumberId` is required but was not set"
-                },
-                checkNotNull(expiresAt) { "`expiresAt` is required but was not set" },
-                checkNotNull(fulfillmentTransactionId) {
-                    "`fulfillmentTransactionId` is required but was not set"
-                },
-                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
-                checkNotNull(refusal) { "`refusal` is required but was not set" },
-                checkNotNull(rejection) { "`rejection` is required but was not set" },
-                checkNotNull(remittanceInformation) {
-                    "`remittanceInformation` is required but was not set"
-                },
-                checkNotNull(sourceAccountNumber) {
-                    "`sourceAccountNumber` is required but was not set"
-                },
-                checkNotNull(sourceRoutingNumber) {
-                    "`sourceRoutingNumber` is required but was not set"
-                },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(submission) { "`submission` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("amount", amount),
+                checkRequired("createdAt", createdAt),
+                checkRequired("currency", currency),
+                checkRequired("debtorName", debtorName),
+                checkRequired("destinationAccountNumberId", destinationAccountNumberId),
+                checkRequired("expiresAt", expiresAt),
+                checkRequired("fulfillmentTransactionId", fulfillmentTransactionId),
+                checkRequired("idempotencyKey", idempotencyKey),
+                checkRequired("refusal", refusal),
+                checkRequired("rejection", rejection),
+                checkRequired("remittanceInformation", remittanceInformation),
+                checkRequired("sourceAccountNumber", sourceAccountNumber),
+                checkRequired("sourceRoutingNumber", sourceRoutingNumber),
+                checkRequired("status", status),
+                checkRequired("submission", submission),
+                checkRequired("type", type),
                 additionalProperties.toImmutable(),
             )
     }
@@ -770,9 +761,7 @@ private constructor(
 
             fun build(): Refusal =
                 Refusal(
-                    checkNotNull(refusalReasonCode) {
-                        "`refusalReasonCode` is required but was not set"
-                    },
+                    checkRequired("refusalReasonCode", refusalReasonCode),
                     additionalProperties.toImmutable()
                 )
         }
@@ -1017,9 +1006,7 @@ private constructor(
 
             fun build(): Rejection =
                 Rejection(
-                    checkNotNull(rejectReasonCode) {
-                        "`rejectReasonCode` is required but was not set"
-                    },
+                    checkRequired("rejectReasonCode", rejectReasonCode),
                     additionalProperties.toImmutable()
                 )
         }
@@ -1389,9 +1376,10 @@ private constructor(
 
             fun build(): Submission =
                 Submission(
-                    checkNotNull(paymentInformationIdentification) {
-                        "`paymentInformationIdentification` is required but was not set"
-                    },
+                    checkRequired(
+                        "paymentInformationIdentification",
+                        paymentInformationIdentification
+                    ),
                     additionalProperties.toImmutable()
                 )
         }

@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -349,19 +350,17 @@ private constructor(
 
         fun build(): ExternalAccount =
             ExternalAccount(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(accountHolder) { "`accountHolder` is required but was not set" },
-                checkNotNull(accountNumber) { "`accountNumber` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(description) { "`description` is required but was not set" },
-                checkNotNull(funding) { "`funding` is required but was not set" },
-                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
-                checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
-                checkNotNull(verificationStatus) {
-                    "`verificationStatus` is required but was not set"
-                },
+                checkRequired("id", id),
+                checkRequired("accountHolder", accountHolder),
+                checkRequired("accountNumber", accountNumber),
+                checkRequired("createdAt", createdAt),
+                checkRequired("description", description),
+                checkRequired("funding", funding),
+                checkRequired("idempotencyKey", idempotencyKey),
+                checkRequired("routingNumber", routingNumber),
+                checkRequired("status", status),
+                checkRequired("type", type),
+                checkRequired("verificationStatus", verificationStatus),
                 additionalProperties.toImmutable(),
             )
     }

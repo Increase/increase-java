@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
@@ -133,7 +134,7 @@ constructor(
 
             fun build(): PhysicalCardUpdateBody =
                 PhysicalCardUpdateBody(
-                    checkNotNull(status) { "`status` is required but was not set" },
+                    checkRequired("status", status),
                     additionalProperties.toImmutable()
                 )
         }
@@ -307,7 +308,7 @@ constructor(
 
         fun build(): PhysicalCardUpdateParams =
             PhysicalCardUpdateParams(
-                checkNotNull(physicalCardId) { "`physicalCardId` is required but was not set" },
+                checkRequired("physicalCardId", physicalCardId),
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),

@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -310,17 +311,15 @@ private constructor(
 
         fun build(): IntrafiExclusion =
             IntrafiExclusion(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(bankName) { "`bankName` is required but was not set" },
-                checkNotNull(entityId) { "`entityId` is required but was not set" },
-                checkNotNull(excludedAt) { "`excludedAt` is required but was not set" },
-                checkNotNull(fdicCertificateNumber) {
-                    "`fdicCertificateNumber` is required but was not set"
-                },
-                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(submittedAt) { "`submittedAt` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("bankName", bankName),
+                checkRequired("entityId", entityId),
+                checkRequired("excludedAt", excludedAt),
+                checkRequired("fdicCertificateNumber", fdicCertificateNumber),
+                checkRequired("idempotencyKey", idempotencyKey),
+                checkRequired("status", status),
+                checkRequired("submittedAt", submittedAt),
+                checkRequired("type", type),
                 additionalProperties.toImmutable(),
             )
     }

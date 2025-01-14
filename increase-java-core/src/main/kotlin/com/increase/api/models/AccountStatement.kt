@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -308,19 +309,15 @@ private constructor(
 
         fun build(): AccountStatement =
             AccountStatement(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(accountId) { "`accountId` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(endingBalance) { "`endingBalance` is required but was not set" },
-                checkNotNull(fileId) { "`fileId` is required but was not set" },
-                checkNotNull(startingBalance) { "`startingBalance` is required but was not set" },
-                checkNotNull(statementPeriodEnd) {
-                    "`statementPeriodEnd` is required but was not set"
-                },
-                checkNotNull(statementPeriodStart) {
-                    "`statementPeriodStart` is required but was not set"
-                },
-                checkNotNull(type) { "`type` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("accountId", accountId),
+                checkRequired("createdAt", createdAt),
+                checkRequired("endingBalance", endingBalance),
+                checkRequired("fileId", fileId),
+                checkRequired("startingBalance", startingBalance),
+                checkRequired("statementPeriodEnd", statementPeriodEnd),
+                checkRequired("statementPeriodStart", statementPeriodStart),
+                checkRequired("type", type),
                 additionalProperties.toImmutable(),
             )
     }

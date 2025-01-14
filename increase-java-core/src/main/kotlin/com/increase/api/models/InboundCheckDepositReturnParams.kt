@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
@@ -135,7 +136,7 @@ constructor(
 
             fun build(): InboundCheckDepositReturnBody =
                 InboundCheckDepositReturnBody(
-                    checkNotNull(reason) { "`reason` is required but was not set" },
+                    checkRequired("reason", reason),
                     additionalProperties.toImmutable()
                 )
         }
@@ -314,9 +315,7 @@ constructor(
 
         fun build(): InboundCheckDepositReturnParams =
             InboundCheckDepositReturnParams(
-                checkNotNull(inboundCheckDepositId) {
-                    "`inboundCheckDepositId` is required but was not set"
-                },
+                checkRequired("inboundCheckDepositId", inboundCheckDepositId),
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),

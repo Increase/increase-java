@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -452,30 +453,22 @@ private constructor(
 
         fun build(): InboundRealTimePaymentsTransfer =
             InboundRealTimePaymentsTransfer(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(accountId) { "`accountId` is required but was not set" },
-                checkNotNull(accountNumberId) { "`accountNumberId` is required but was not set" },
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(confirmation) { "`confirmation` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(creditorName) { "`creditorName` is required but was not set" },
-                checkNotNull(currency) { "`currency` is required but was not set" },
-                checkNotNull(debtorAccountNumber) {
-                    "`debtorAccountNumber` is required but was not set"
-                },
-                checkNotNull(debtorName) { "`debtorName` is required but was not set" },
-                checkNotNull(debtorRoutingNumber) {
-                    "`debtorRoutingNumber` is required but was not set"
-                },
-                checkNotNull(decline) { "`decline` is required but was not set" },
-                checkNotNull(remittanceInformation) {
-                    "`remittanceInformation` is required but was not set"
-                },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(transactionIdentification) {
-                    "`transactionIdentification` is required but was not set"
-                },
-                checkNotNull(type) { "`type` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("accountId", accountId),
+                checkRequired("accountNumberId", accountNumberId),
+                checkRequired("amount", amount),
+                checkRequired("confirmation", confirmation),
+                checkRequired("createdAt", createdAt),
+                checkRequired("creditorName", creditorName),
+                checkRequired("currency", currency),
+                checkRequired("debtorAccountNumber", debtorAccountNumber),
+                checkRequired("debtorName", debtorName),
+                checkRequired("debtorRoutingNumber", debtorRoutingNumber),
+                checkRequired("decline", decline),
+                checkRequired("remittanceInformation", remittanceInformation),
+                checkRequired("status", status),
+                checkRequired("transactionIdentification", transactionIdentification),
+                checkRequired("type", type),
                 additionalProperties.toImmutable(),
             )
     }
@@ -584,8 +577,8 @@ private constructor(
 
             fun build(): Confirmation =
                 Confirmation(
-                    checkNotNull(confirmedAt) { "`confirmedAt` is required but was not set" },
-                    checkNotNull(transactionId) { "`transactionId` is required but was not set" },
+                    checkRequired("confirmedAt", confirmedAt),
+                    checkRequired("transactionId", transactionId),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -813,11 +806,9 @@ private constructor(
 
             fun build(): Decline =
                 Decline(
-                    checkNotNull(declinedAt) { "`declinedAt` is required but was not set" },
-                    checkNotNull(declinedTransactionId) {
-                        "`declinedTransactionId` is required but was not set"
-                    },
-                    checkNotNull(reason) { "`reason` is required but was not set" },
+                    checkRequired("declinedAt", declinedAt),
+                    checkRequired("declinedTransactionId", declinedTransactionId),
+                    checkRequired("reason", reason),
                     additionalProperties.toImmutable(),
                 )
         }

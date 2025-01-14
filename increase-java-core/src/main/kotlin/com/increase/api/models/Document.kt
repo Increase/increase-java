@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -212,12 +213,12 @@ private constructor(
 
         fun build(): Document =
             Document(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(category) { "`category` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(entityId) { "`entityId` is required but was not set" },
-                checkNotNull(fileId) { "`fileId` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("category", category),
+                checkRequired("createdAt", createdAt),
+                checkRequired("entityId", entityId),
+                checkRequired("fileId", fileId),
+                checkRequired("type", type),
                 additionalProperties.toImmutable(),
             )
     }

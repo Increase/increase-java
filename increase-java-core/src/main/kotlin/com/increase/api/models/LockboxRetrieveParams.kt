@@ -3,6 +3,7 @@
 package com.increase.api.models
 
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
@@ -157,7 +158,7 @@ constructor(
 
         fun build(): LockboxRetrieveParams =
             LockboxRetrieveParams(
-                checkNotNull(lockboxId) { "`lockboxId` is required but was not set" },
+                checkRequired("lockboxId", lockboxId),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )

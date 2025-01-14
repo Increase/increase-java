@@ -11,6 +11,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
@@ -565,20 +566,12 @@ constructor(
 
             fun build(): WireDrawdownRequestCreateBody =
                 WireDrawdownRequestCreateBody(
-                    checkNotNull(accountNumberId) {
-                        "`accountNumberId` is required but was not set"
-                    },
-                    checkNotNull(amount) { "`amount` is required but was not set" },
-                    checkNotNull(messageToRecipient) {
-                        "`messageToRecipient` is required but was not set"
-                    },
-                    checkNotNull(recipientAccountNumber) {
-                        "`recipientAccountNumber` is required but was not set"
-                    },
-                    checkNotNull(recipientName) { "`recipientName` is required but was not set" },
-                    checkNotNull(recipientRoutingNumber) {
-                        "`recipientRoutingNumber` is required but was not set"
-                    },
+                    checkRequired("accountNumberId", accountNumberId),
+                    checkRequired("amount", amount),
+                    checkRequired("messageToRecipient", messageToRecipient),
+                    checkRequired("recipientAccountNumber", recipientAccountNumber),
+                    checkRequired("recipientName", recipientName),
+                    checkRequired("recipientRoutingNumber", recipientRoutingNumber),
                     originatorAddressLine1,
                     originatorAddressLine2,
                     originatorAddressLine3,

@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
@@ -329,9 +330,7 @@ constructor(
 
         fun build(): SimulationRealTimePaymentsTransferCompleteParams =
             SimulationRealTimePaymentsTransferCompleteParams(
-                checkNotNull(realTimePaymentsTransferId) {
-                    "`realTimePaymentsTransferId` is required but was not set"
-                },
+                checkRequired("realTimePaymentsTransferId", realTimePaymentsTransferId),
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -422,9 +421,7 @@ constructor(
 
             fun build(): Rejection =
                 Rejection(
-                    checkNotNull(rejectReasonCode) {
-                        "`rejectReasonCode` is required but was not set"
-                    },
+                    checkRequired("rejectReasonCode", rejectReasonCode),
                     additionalProperties.toImmutable()
                 )
         }
