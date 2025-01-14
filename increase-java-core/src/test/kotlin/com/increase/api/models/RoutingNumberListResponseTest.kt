@@ -12,7 +12,7 @@ class RoutingNumberListResponseTest {
         val routingNumberListResponse =
             RoutingNumberListResponse.builder()
                 .achTransfers(RoutingNumberListResponse.AchTransfers.SUPPORTED)
-                .name("Chase")
+                .name("First Bank of the United States")
                 .realTimePaymentsTransfers(
                     RoutingNumberListResponse.RealTimePaymentsTransfers.SUPPORTED
                 )
@@ -23,7 +23,7 @@ class RoutingNumberListResponseTest {
         assertThat(routingNumberListResponse).isNotNull
         assertThat(routingNumberListResponse.achTransfers())
             .isEqualTo(RoutingNumberListResponse.AchTransfers.SUPPORTED)
-        assertThat(routingNumberListResponse.name()).isEqualTo("Chase")
+        assertThat(routingNumberListResponse.name()).isEqualTo("First Bank of the United States")
         assertThat(routingNumberListResponse.realTimePaymentsTransfers())
             .isEqualTo(RoutingNumberListResponse.RealTimePaymentsTransfers.SUPPORTED)
         assertThat(routingNumberListResponse.routingNumber()).isEqualTo("021000021")
