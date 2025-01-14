@@ -1,5 +1,49 @@
 # Changelog
 
+## 0.161.0 (2025-01-14)
+
+Full Changelog: [v0.160.0...v0.161.0](https://github.com/Increase/increase-java/compare/v0.160.0...v0.161.0)
+
+### Features
+
+* **api:** api update ([#689](https://github.com/Increase/increase-java/issues/689)) ([9c18c02](https://github.com/Increase/increase-java/commit/9c18c02e1f0a86faec2924a09368f40f0ebd205e))
+* **client:** add various convenience setters to models ([#682](https://github.com/Increase/increase-java/issues/682)) ([57324bd](https://github.com/Increase/increase-java/commit/57324bd4fdf994132ce7011a3a17be8b93e9e709))
+* **client:** allow passing null or optional for nullable fields ([#679](https://github.com/Increase/increase-java/issues/679)) ([7e006d5](https://github.com/Increase/increase-java/commit/7e006d5c6e40f33214a218bb828b191291fe132f))
+* **client:** allow setting arbitrary JSON for top-level body params ([57324bd](https://github.com/Increase/increase-java/commit/57324bd4fdf994132ce7011a3a17be8b93e9e709))
+* **client:** expose getters for `JsonField` of body params ([57324bd](https://github.com/Increase/increase-java/commit/57324bd4fdf994132ce7011a3a17be8b93e9e709))
+
+
+### Bug Fixes
+
+* **client:** add some missing `validate()` calls ([#684](https://github.com/Increase/increase-java/issues/684)) ([3695f32](https://github.com/Increase/increase-java/commit/3695f32cd34625432630d9e1710d8b2a00e3056e))
+* **client:** consistently throw on omitting required fields ([57324bd](https://github.com/Increase/increase-java/commit/57324bd4fdf994132ce7011a3a17be8b93e9e709))
+* **client:** convert `JsonField` containing list type to mutable in builder ([57324bd](https://github.com/Increase/increase-java/commit/57324bd4fdf994132ce7011a3a17be8b93e9e709))
+
+
+### Chores
+
+* **internal:** codegen related update ([#683](https://github.com/Increase/increase-java/issues/683)) ([237ecbe](https://github.com/Increase/increase-java/commit/237ecbe32368323fea0a55e8c28fb6dca57b4500))
+* **internal:** extract a `checkRequired` function ([#690](https://github.com/Increase/increase-java/issues/690)) ([deffea6](https://github.com/Increase/increase-java/commit/deffea6eda34cd3d340e5d296bb129051f965a1b))
+* **internal:** fix up root `build.gradle.kts` formatting ([#685](https://github.com/Increase/increase-java/issues/685)) ([2b491a4](https://github.com/Increase/increase-java/commit/2b491a46fbdecc3be4d303102f883e7161246704))
+* **internal:** refactor `validate` methods ([3695f32](https://github.com/Increase/increase-java/commit/3695f32cd34625432630d9e1710d8b2a00e3056e))
+* **internal:** remove unused Gradle imports ([#686](https://github.com/Increase/increase-java/issues/686)) ([f9ab04f](https://github.com/Increase/increase-java/commit/f9ab04ffa0b3f36d62a1233f0e35f5cc63eb82da))
+* **internal:** remove unused or unnecessary Gradle imports ([#687](https://github.com/Increase/increase-java/issues/687)) ([d5bdf23](https://github.com/Increase/increase-java/commit/d5bdf239816098ce93f254ecf55019f43b8a5848))
+* **internal:** update examples ([#680](https://github.com/Increase/increase-java/issues/680)) ([c0b2611](https://github.com/Increase/increase-java/commit/c0b26111b85e9990629dabb4394f9d247bdc5f92))
+* **internal:** update some gradle formatting ([#688](https://github.com/Increase/increase-java/issues/688)) ([7538c22](https://github.com/Increase/increase-java/commit/7538c22efbff557c69eaa8bee4627426a6ce6be0))
+
+
+### Documentation
+
+* add params class javadocs ([#681](https://github.com/Increase/increase-java/issues/681)) ([8afc6b9](https://github.com/Increase/increase-java/commit/8afc6b97936da522428847f45b6c0f74f3bbe0a9))
+
+
+### Styles
+
+* **internal:** explicitly add some method return types ([57324bd](https://github.com/Increase/increase-java/commit/57324bd4fdf994132ce7011a3a17be8b93e9e709))
+* **internal:** move headers and query params setters below others ([57324bd](https://github.com/Increase/increase-java/commit/57324bd4fdf994132ce7011a3a17be8b93e9e709))
+* **internal:** simplify existing convenience setters on params ([57324bd](https://github.com/Increase/increase-java/commit/57324bd4fdf994132ce7011a3a17be8b93e9e709))
+* **internal:** sort fields ([#677](https://github.com/Increase/increase-java/issues/677)) ([258af91](https://github.com/Increase/increase-java/commit/258af913ced4e717f3662bec83e4371a8f1b1137))
+
 ## 0.160.0 (2025-01-03)
 
 Full Changelog: [v0.159.0...v0.160.0](https://github.com/Increase/increase-java/compare/v0.159.0...v0.160.0)
