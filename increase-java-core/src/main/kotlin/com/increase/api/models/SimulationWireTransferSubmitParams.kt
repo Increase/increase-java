@@ -4,6 +4,7 @@ package com.increase.api.models
 
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
@@ -197,7 +198,7 @@ constructor(
 
         fun build(): SimulationWireTransferSubmitParams =
             SimulationWireTransferSubmitParams(
-                checkNotNull(wireTransferId) { "`wireTransferId` is required but was not set" },
+                checkRequired("wireTransferId", wireTransferId),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),

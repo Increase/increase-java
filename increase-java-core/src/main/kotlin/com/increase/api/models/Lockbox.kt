@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -299,15 +300,15 @@ private constructor(
 
         fun build(): Lockbox =
             Lockbox(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(accountId) { "`accountId` is required but was not set" },
-                checkNotNull(address) { "`address` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(description) { "`description` is required but was not set" },
-                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
-                checkNotNull(recipientName) { "`recipientName` is required but was not set" },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("accountId", accountId),
+                checkRequired("address", address),
+                checkRequired("createdAt", createdAt),
+                checkRequired("description", description),
+                checkRequired("idempotencyKey", idempotencyKey),
+                checkRequired("recipientName", recipientName),
+                checkRequired("status", status),
+                checkRequired("type", type),
                 additionalProperties.toImmutable(),
             )
     }
@@ -517,12 +518,12 @@ private constructor(
 
             fun build(): Address =
                 Address(
-                    checkNotNull(city) { "`city` is required but was not set" },
-                    checkNotNull(line1) { "`line1` is required but was not set" },
-                    checkNotNull(line2) { "`line2` is required but was not set" },
-                    checkNotNull(postalCode) { "`postalCode` is required but was not set" },
-                    checkNotNull(recipient) { "`recipient` is required but was not set" },
-                    checkNotNull(state) { "`state` is required but was not set" },
+                    checkRequired("city", city),
+                    checkRequired("line1", line1),
+                    checkRequired("line2", line2),
+                    checkRequired("postalCode", postalCode),
+                    checkRequired("recipient", recipient),
+                    checkRequired("state", state),
                     additionalProperties.toImmutable(),
                 )
         }

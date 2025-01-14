@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -392,20 +393,18 @@ private constructor(
 
         fun build(): PhysicalCardProfile =
             PhysicalCardProfile(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(backImageFileId) { "`backImageFileId` is required but was not set" },
-                checkNotNull(carrierImageFileId) {
-                    "`carrierImageFileId` is required but was not set"
-                },
-                checkNotNull(contactPhone) { "`contactPhone` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(creator) { "`creator` is required but was not set" },
-                checkNotNull(description) { "`description` is required but was not set" },
-                checkNotNull(frontImageFileId) { "`frontImageFileId` is required but was not set" },
-                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
-                checkNotNull(isDefault) { "`isDefault` is required but was not set" },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("backImageFileId", backImageFileId),
+                checkRequired("carrierImageFileId", carrierImageFileId),
+                checkRequired("contactPhone", contactPhone),
+                checkRequired("createdAt", createdAt),
+                checkRequired("creator", creator),
+                checkRequired("description", description),
+                checkRequired("frontImageFileId", frontImageFileId),
+                checkRequired("idempotencyKey", idempotencyKey),
+                checkRequired("isDefault", isDefault),
+                checkRequired("status", status),
+                checkRequired("type", type),
                 additionalProperties.toImmutable(),
             )
     }

@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -427,22 +428,20 @@ private constructor(
 
         fun build(): DigitalCardProfile =
             DigitalCardProfile(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(appIconFileId) { "`appIconFileId` is required but was not set" },
-                checkNotNull(backgroundImageFileId) {
-                    "`backgroundImageFileId` is required but was not set"
-                },
-                checkNotNull(cardDescription) { "`cardDescription` is required but was not set" },
-                checkNotNull(contactEmail) { "`contactEmail` is required but was not set" },
-                checkNotNull(contactPhone) { "`contactPhone` is required but was not set" },
-                checkNotNull(contactWebsite) { "`contactWebsite` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(description) { "`description` is required but was not set" },
-                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
-                checkNotNull(issuerName) { "`issuerName` is required but was not set" },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(textColor) { "`textColor` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("appIconFileId", appIconFileId),
+                checkRequired("backgroundImageFileId", backgroundImageFileId),
+                checkRequired("cardDescription", cardDescription),
+                checkRequired("contactEmail", contactEmail),
+                checkRequired("contactPhone", contactPhone),
+                checkRequired("contactWebsite", contactWebsite),
+                checkRequired("createdAt", createdAt),
+                checkRequired("description", description),
+                checkRequired("idempotencyKey", idempotencyKey),
+                checkRequired("issuerName", issuerName),
+                checkRequired("status", status),
+                checkRequired("textColor", textColor),
+                checkRequired("type", type),
                 additionalProperties.toImmutable(),
             )
     }
@@ -626,9 +625,9 @@ private constructor(
 
             fun build(): TextColor =
                 TextColor(
-                    checkNotNull(blue) { "`blue` is required but was not set" },
-                    checkNotNull(green) { "`green` is required but was not set" },
-                    checkNotNull(red) { "`red` is required but was not set" },
+                    checkRequired("blue", blue),
+                    checkRequired("green", green),
+                    checkRequired("red", red),
                     additionalProperties.toImmutable(),
                 )
         }

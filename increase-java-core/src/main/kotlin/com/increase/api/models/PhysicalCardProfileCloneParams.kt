@@ -11,6 +11,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
@@ -493,9 +494,7 @@ constructor(
 
         fun build(): PhysicalCardProfileCloneParams =
             PhysicalCardProfileCloneParams(
-                checkNotNull(physicalCardProfileId) {
-                    "`physicalCardProfileId` is required but was not set"
-                },
+                checkRequired("physicalCardProfileId", physicalCardProfileId),
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -617,7 +616,7 @@ constructor(
 
             fun build(): FrontText =
                 FrontText(
-                    checkNotNull(line1) { "`line1` is required but was not set" },
+                    checkRequired("line1", line1),
                     line2,
                     additionalProperties.toImmutable(),
                 )

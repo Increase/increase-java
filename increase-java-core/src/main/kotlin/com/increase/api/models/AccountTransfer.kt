@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -564,29 +565,23 @@ private constructor(
 
         fun build(): AccountTransfer =
             AccountTransfer(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(accountId) { "`accountId` is required but was not set" },
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(approval) { "`approval` is required but was not set" },
-                checkNotNull(cancellation) { "`cancellation` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(createdBy) { "`createdBy` is required but was not set" },
-                checkNotNull(currency) { "`currency` is required but was not set" },
-                checkNotNull(description) { "`description` is required but was not set" },
-                checkNotNull(destinationAccountId) {
-                    "`destinationAccountId` is required but was not set"
-                },
-                checkNotNull(destinationTransactionId) {
-                    "`destinationTransactionId` is required but was not set"
-                },
-                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
-                checkNotNull(network) { "`network` is required but was not set" },
-                checkNotNull(pendingTransactionId) {
-                    "`pendingTransactionId` is required but was not set"
-                },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(transactionId) { "`transactionId` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("accountId", accountId),
+                checkRequired("amount", amount),
+                checkRequired("approval", approval),
+                checkRequired("cancellation", cancellation),
+                checkRequired("createdAt", createdAt),
+                checkRequired("createdBy", createdBy),
+                checkRequired("currency", currency),
+                checkRequired("description", description),
+                checkRequired("destinationAccountId", destinationAccountId),
+                checkRequired("destinationTransactionId", destinationTransactionId),
+                checkRequired("idempotencyKey", idempotencyKey),
+                checkRequired("network", network),
+                checkRequired("pendingTransactionId", pendingTransactionId),
+                checkRequired("status", status),
+                checkRequired("transactionId", transactionId),
+                checkRequired("type", type),
                 additionalProperties.toImmutable(),
             )
     }
@@ -725,8 +720,8 @@ private constructor(
 
             fun build(): Approval =
                 Approval(
-                    checkNotNull(approvedAt) { "`approvedAt` is required but was not set" },
-                    checkNotNull(approvedBy) { "`approvedBy` is required but was not set" },
+                    checkRequired("approvedAt", approvedAt),
+                    checkRequired("approvedBy", approvedBy),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -883,8 +878,8 @@ private constructor(
 
             fun build(): Cancellation =
                 Cancellation(
-                    checkNotNull(canceledAt) { "`canceledAt` is required but was not set" },
-                    checkNotNull(canceledBy) { "`canceledBy` is required but was not set" },
+                    checkRequired("canceledAt", canceledAt),
+                    checkRequired("canceledBy", canceledBy),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1053,12 +1048,10 @@ private constructor(
 
             fun build(): CreatedBy =
                 CreatedBy(
-                    checkNotNull(apiKey) { "`apiKey` is required but was not set" },
-                    checkNotNull(category) { "`category` is required but was not set" },
-                    checkNotNull(oauthApplication) {
-                        "`oauthApplication` is required but was not set"
-                    },
-                    checkNotNull(user) { "`user` is required but was not set" },
+                    checkRequired("apiKey", apiKey),
+                    checkRequired("category", category),
+                    checkRequired("oauthApplication", oauthApplication),
+                    checkRequired("user", user),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1154,7 +1147,7 @@ private constructor(
 
                 fun build(): ApiKey =
                     ApiKey(
-                        checkNotNull(description) { "`description` is required but was not set" },
+                        checkRequired("description", description),
                         additionalProperties.toImmutable()
                     )
             }
@@ -1321,7 +1314,7 @@ private constructor(
 
                 fun build(): OAuthApplication =
                     OAuthApplication(
-                        checkNotNull(name) { "`name` is required but was not set" },
+                        checkRequired("name", name),
                         additionalProperties.toImmutable()
                     )
             }
@@ -1424,10 +1417,7 @@ private constructor(
                 }
 
                 fun build(): User =
-                    User(
-                        checkNotNull(email) { "`email` is required but was not set" },
-                        additionalProperties.toImmutable()
-                    )
+                    User(checkRequired("email", email), additionalProperties.toImmutable())
             }
 
             override fun equals(other: Any?): Boolean {

@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -505,25 +506,21 @@ private constructor(
 
         fun build(): Account =
             Account(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(bank) { "`bank` is required but was not set" },
-                checkNotNull(closedAt) { "`closedAt` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(currency) { "`currency` is required but was not set" },
-                checkNotNull(entityId) { "`entityId` is required but was not set" },
-                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
-                checkNotNull(informationalEntityId) {
-                    "`informationalEntityId` is required but was not set"
-                },
-                checkNotNull(interestAccrued) { "`interestAccrued` is required but was not set" },
-                checkNotNull(interestAccruedAt) {
-                    "`interestAccruedAt` is required but was not set"
-                },
-                checkNotNull(interestRate) { "`interestRate` is required but was not set" },
-                checkNotNull(name) { "`name` is required but was not set" },
-                checkNotNull(programId) { "`programId` is required but was not set" },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("bank", bank),
+                checkRequired("closedAt", closedAt),
+                checkRequired("createdAt", createdAt),
+                checkRequired("currency", currency),
+                checkRequired("entityId", entityId),
+                checkRequired("idempotencyKey", idempotencyKey),
+                checkRequired("informationalEntityId", informationalEntityId),
+                checkRequired("interestAccrued", interestAccrued),
+                checkRequired("interestAccruedAt", interestAccruedAt),
+                checkRequired("interestRate", interestRate),
+                checkRequired("name", name),
+                checkRequired("programId", programId),
+                checkRequired("status", status),
+                checkRequired("type", type),
                 additionalProperties.toImmutable(),
             )
     }

@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -341,22 +342,16 @@ private constructor(
 
         fun build(): SimulationInboundFundsHoldReleaseResponse =
             SimulationInboundFundsHoldReleaseResponse(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(automaticallyReleasesAt) {
-                    "`automaticallyReleasesAt` is required but was not set"
-                },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(currency) { "`currency` is required but was not set" },
-                checkNotNull(heldTransactionId) {
-                    "`heldTransactionId` is required but was not set"
-                },
-                checkNotNull(pendingTransactionId) {
-                    "`pendingTransactionId` is required but was not set"
-                },
-                checkNotNull(releasedAt) { "`releasedAt` is required but was not set" },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("amount", amount),
+                checkRequired("automaticallyReleasesAt", automaticallyReleasesAt),
+                checkRequired("createdAt", createdAt),
+                checkRequired("currency", currency),
+                checkRequired("heldTransactionId", heldTransactionId),
+                checkRequired("pendingTransactionId", pendingTransactionId),
+                checkRequired("releasedAt", releasedAt),
+                checkRequired("status", status),
+                checkRequired("type", type),
                 additionalProperties.toImmutable(),
             )
     }

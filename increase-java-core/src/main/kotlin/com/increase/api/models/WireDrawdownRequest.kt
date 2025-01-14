@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -647,46 +648,26 @@ private constructor(
 
         fun build(): WireDrawdownRequest =
             WireDrawdownRequest(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(accountNumberId) { "`accountNumberId` is required but was not set" },
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(currency) { "`currency` is required but was not set" },
-                checkNotNull(fulfillmentInboundWireTransferId) {
-                    "`fulfillmentInboundWireTransferId` is required but was not set"
-                },
-                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
-                checkNotNull(messageToRecipient) {
-                    "`messageToRecipient` is required but was not set"
-                },
-                checkNotNull(originatorAddressLine1) {
-                    "`originatorAddressLine1` is required but was not set"
-                },
-                checkNotNull(originatorAddressLine2) {
-                    "`originatorAddressLine2` is required but was not set"
-                },
-                checkNotNull(originatorAddressLine3) {
-                    "`originatorAddressLine3` is required but was not set"
-                },
-                checkNotNull(originatorName) { "`originatorName` is required but was not set" },
-                checkNotNull(recipientAccountNumber) {
-                    "`recipientAccountNumber` is required but was not set"
-                },
-                checkNotNull(recipientAddressLine1) {
-                    "`recipientAddressLine1` is required but was not set"
-                },
-                checkNotNull(recipientAddressLine2) {
-                    "`recipientAddressLine2` is required but was not set"
-                },
-                checkNotNull(recipientAddressLine3) {
-                    "`recipientAddressLine3` is required but was not set"
-                },
-                checkNotNull(recipientName) { "`recipientName` is required but was not set" },
-                checkNotNull(recipientRoutingNumber) {
-                    "`recipientRoutingNumber` is required but was not set"
-                },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(submission) { "`submission` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("accountNumberId", accountNumberId),
+                checkRequired("amount", amount),
+                checkRequired("currency", currency),
+                checkRequired("fulfillmentInboundWireTransferId", fulfillmentInboundWireTransferId),
+                checkRequired("idempotencyKey", idempotencyKey),
+                checkRequired("messageToRecipient", messageToRecipient),
+                checkRequired("originatorAddressLine1", originatorAddressLine1),
+                checkRequired("originatorAddressLine2", originatorAddressLine2),
+                checkRequired("originatorAddressLine3", originatorAddressLine3),
+                checkRequired("originatorName", originatorName),
+                checkRequired("recipientAccountNumber", recipientAccountNumber),
+                checkRequired("recipientAddressLine1", recipientAddressLine1),
+                checkRequired("recipientAddressLine2", recipientAddressLine2),
+                checkRequired("recipientAddressLine3", recipientAddressLine3),
+                checkRequired("recipientName", recipientName),
+                checkRequired("recipientRoutingNumber", recipientRoutingNumber),
+                checkRequired("status", status),
+                checkRequired("submission", submission),
+                checkRequired("type", type),
                 additionalProperties.toImmutable(),
             )
     }
@@ -859,9 +840,7 @@ private constructor(
 
             fun build(): Submission =
                 Submission(
-                    checkNotNull(inputMessageAccountabilityData) {
-                        "`inputMessageAccountabilityData` is required but was not set"
-                    },
+                    checkRequired("inputMessageAccountabilityData", inputMessageAccountabilityData),
                     additionalProperties.toImmutable()
                 )
         }

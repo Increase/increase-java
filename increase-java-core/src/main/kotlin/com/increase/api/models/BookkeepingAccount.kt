@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -259,15 +260,13 @@ private constructor(
 
         fun build(): BookkeepingAccount =
             BookkeepingAccount(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(accountId) { "`accountId` is required but was not set" },
-                checkNotNull(complianceCategory) {
-                    "`complianceCategory` is required but was not set"
-                },
-                checkNotNull(entityId) { "`entityId` is required but was not set" },
-                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
-                checkNotNull(name) { "`name` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("accountId", accountId),
+                checkRequired("complianceCategory", complianceCategory),
+                checkRequired("entityId", entityId),
+                checkRequired("idempotencyKey", idempotencyKey),
+                checkRequired("name", name),
+                checkRequired("type", type),
                 additionalProperties.toImmutable(),
             )
     }

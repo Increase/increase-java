@@ -3,6 +3,7 @@
 package com.increase.api.models
 
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
@@ -161,9 +162,7 @@ constructor(
 
         fun build(): WireDrawdownRequestRetrieveParams =
             WireDrawdownRequestRetrieveParams(
-                checkNotNull(wireDrawdownRequestId) {
-                    "`wireDrawdownRequestId` is required but was not set"
-                },
+                checkRequired("wireDrawdownRequestId", wireDrawdownRequestId),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )

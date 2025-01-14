@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -760,39 +761,29 @@ private constructor(
 
         fun build(): CheckTransfer =
             CheckTransfer(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(accountId) { "`accountId` is required but was not set" },
-                checkNotNull(accountNumber) { "`accountNumber` is required but was not set" },
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(approval) { "`approval` is required but was not set" },
-                checkNotNull(approvedInboundCheckDepositId) {
-                    "`approvedInboundCheckDepositId` is required but was not set"
-                },
-                checkNotNull(cancellation) { "`cancellation` is required but was not set" },
-                checkNotNull(checkNumber) { "`checkNumber` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(createdBy) { "`createdBy` is required but was not set" },
-                checkNotNull(currency) { "`currency` is required but was not set" },
-                checkNotNull(fulfillmentMethod) {
-                    "`fulfillmentMethod` is required but was not set"
-                },
-                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
-                checkNotNull(mailing) { "`mailing` is required but was not set" },
-                checkNotNull(pendingTransactionId) {
-                    "`pendingTransactionId` is required but was not set"
-                },
-                checkNotNull(physicalCheck) { "`physicalCheck` is required but was not set" },
-                checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
-                checkNotNull(sourceAccountNumberId) {
-                    "`sourceAccountNumberId` is required but was not set"
-                },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(stopPaymentRequest) {
-                    "`stopPaymentRequest` is required but was not set"
-                },
-                checkNotNull(submission) { "`submission` is required but was not set" },
-                checkNotNull(thirdParty) { "`thirdParty` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("accountId", accountId),
+                checkRequired("accountNumber", accountNumber),
+                checkRequired("amount", amount),
+                checkRequired("approval", approval),
+                checkRequired("approvedInboundCheckDepositId", approvedInboundCheckDepositId),
+                checkRequired("cancellation", cancellation),
+                checkRequired("checkNumber", checkNumber),
+                checkRequired("createdAt", createdAt),
+                checkRequired("createdBy", createdBy),
+                checkRequired("currency", currency),
+                checkRequired("fulfillmentMethod", fulfillmentMethod),
+                checkRequired("idempotencyKey", idempotencyKey),
+                checkRequired("mailing", mailing),
+                checkRequired("pendingTransactionId", pendingTransactionId),
+                checkRequired("physicalCheck", physicalCheck),
+                checkRequired("routingNumber", routingNumber),
+                checkRequired("sourceAccountNumberId", sourceAccountNumberId),
+                checkRequired("status", status),
+                checkRequired("stopPaymentRequest", stopPaymentRequest),
+                checkRequired("submission", submission),
+                checkRequired("thirdParty", thirdParty),
+                checkRequired("type", type),
                 additionalProperties.toImmutable(),
             )
     }
@@ -931,8 +922,8 @@ private constructor(
 
             fun build(): Approval =
                 Approval(
-                    checkNotNull(approvedAt) { "`approvedAt` is required but was not set" },
-                    checkNotNull(approvedBy) { "`approvedBy` is required but was not set" },
+                    checkRequired("approvedAt", approvedAt),
+                    checkRequired("approvedBy", approvedBy),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1089,8 +1080,8 @@ private constructor(
 
             fun build(): Cancellation =
                 Cancellation(
-                    checkNotNull(canceledAt) { "`canceledAt` is required but was not set" },
-                    checkNotNull(canceledBy) { "`canceledBy` is required but was not set" },
+                    checkRequired("canceledAt", canceledAt),
+                    checkRequired("canceledBy", canceledBy),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1259,12 +1250,10 @@ private constructor(
 
             fun build(): CreatedBy =
                 CreatedBy(
-                    checkNotNull(apiKey) { "`apiKey` is required but was not set" },
-                    checkNotNull(category) { "`category` is required but was not set" },
-                    checkNotNull(oauthApplication) {
-                        "`oauthApplication` is required but was not set"
-                    },
-                    checkNotNull(user) { "`user` is required but was not set" },
+                    checkRequired("apiKey", apiKey),
+                    checkRequired("category", category),
+                    checkRequired("oauthApplication", oauthApplication),
+                    checkRequired("user", user),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1360,7 +1349,7 @@ private constructor(
 
                 fun build(): ApiKey =
                     ApiKey(
-                        checkNotNull(description) { "`description` is required but was not set" },
+                        checkRequired("description", description),
                         additionalProperties.toImmutable()
                     )
             }
@@ -1527,7 +1516,7 @@ private constructor(
 
                 fun build(): OAuthApplication =
                     OAuthApplication(
-                        checkNotNull(name) { "`name` is required but was not set" },
+                        checkRequired("name", name),
                         additionalProperties.toImmutable()
                     )
             }
@@ -1630,10 +1619,7 @@ private constructor(
                 }
 
                 fun build(): User =
-                    User(
-                        checkNotNull(email) { "`email` is required but was not set" },
-                        additionalProperties.toImmutable()
-                    )
+                    User(checkRequired("email", email), additionalProperties.toImmutable())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -1936,8 +1922,8 @@ private constructor(
 
             fun build(): Mailing =
                 Mailing(
-                    checkNotNull(imageId) { "`imageId` is required but was not set" },
-                    checkNotNull(mailedAt) { "`mailedAt` is required but was not set" },
+                    checkRequired("imageId", imageId),
+                    checkRequired("mailedAt", mailedAt),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -2219,16 +2205,13 @@ private constructor(
 
             fun build(): PhysicalCheck =
                 PhysicalCheck(
-                    checkNotNull(mailingAddress) { "`mailingAddress` is required but was not set" },
-                    checkNotNull(memo) { "`memo` is required but was not set" },
-                    checkNotNull(note) { "`note` is required but was not set" },
-                    checkNotNull(recipientName) { "`recipientName` is required but was not set" },
-                    checkNotNull(returnAddress) { "`returnAddress` is required but was not set" },
-                    checkNotNull(signatureText) { "`signatureText` is required but was not set" },
-                    checkNotNull(trackingUpdates) {
-                            "`trackingUpdates` is required but was not set"
-                        }
-                        .map { it.toImmutable() },
+                    checkRequired("mailingAddress", mailingAddress),
+                    checkRequired("memo", memo),
+                    checkRequired("note", note),
+                    checkRequired("recipientName", recipientName),
+                    checkRequired("returnAddress", returnAddress),
+                    checkRequired("signatureText", signatureText),
+                    checkRequired("trackingUpdates", trackingUpdates).map { it.toImmutable() },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -2427,12 +2410,12 @@ private constructor(
 
                 fun build(): MailingAddress =
                     MailingAddress(
-                        checkNotNull(city) { "`city` is required but was not set" },
-                        checkNotNull(line1) { "`line1` is required but was not set" },
-                        checkNotNull(line2) { "`line2` is required but was not set" },
-                        checkNotNull(name) { "`name` is required but was not set" },
-                        checkNotNull(postalCode) { "`postalCode` is required but was not set" },
-                        checkNotNull(state) { "`state` is required but was not set" },
+                        checkRequired("city", city),
+                        checkRequired("line1", line1),
+                        checkRequired("line2", line2),
+                        checkRequired("name", name),
+                        checkRequired("postalCode", postalCode),
+                        checkRequired("state", state),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -2649,12 +2632,12 @@ private constructor(
 
                 fun build(): ReturnAddress =
                     ReturnAddress(
-                        checkNotNull(city) { "`city` is required but was not set" },
-                        checkNotNull(line1) { "`line1` is required but was not set" },
-                        checkNotNull(line2) { "`line2` is required but was not set" },
-                        checkNotNull(name) { "`name` is required but was not set" },
-                        checkNotNull(postalCode) { "`postalCode` is required but was not set" },
-                        checkNotNull(state) { "`state` is required but was not set" },
+                        checkRequired("city", city),
+                        checkRequired("line1", line1),
+                        checkRequired("line2", line2),
+                        checkRequired("name", name),
+                        checkRequired("postalCode", postalCode),
+                        checkRequired("state", state),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -2815,9 +2798,9 @@ private constructor(
 
                 fun build(): TrackingUpdate =
                     TrackingUpdate(
-                        checkNotNull(category) { "`category` is required but was not set" },
-                        checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                        checkNotNull(postalCode) { "`postalCode` is required but was not set" },
+                        checkRequired("category", category),
+                        checkRequired("createdAt", createdAt),
+                        checkRequired("postalCode", postalCode),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -3180,10 +3163,10 @@ private constructor(
 
             fun build(): StopPaymentRequest =
                 StopPaymentRequest(
-                    checkNotNull(reason) { "`reason` is required but was not set" },
-                    checkNotNull(requestedAt) { "`requestedAt` is required but was not set" },
-                    checkNotNull(transferId) { "`transferId` is required but was not set" },
-                    checkNotNull(type) { "`type` is required but was not set" },
+                    checkRequired("reason", reason),
+                    checkRequired("requestedAt", requestedAt),
+                    checkRequired("transferId", transferId),
+                    checkRequired("type", type),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -3409,7 +3392,7 @@ private constructor(
 
             fun build(): Submission =
                 Submission(
-                    checkNotNull(submittedAt) { "`submittedAt` is required but was not set" },
+                    checkRequired("submittedAt", submittedAt),
                     additionalProperties.toImmutable()
                 )
         }
@@ -3521,7 +3504,7 @@ private constructor(
 
             fun build(): ThirdParty =
                 ThirdParty(
-                    checkNotNull(checkNumber) { "`checkNumber` is required but was not set" },
+                    checkRequired("checkNumber", checkNumber),
                     additionalProperties.toImmutable()
                 )
         }

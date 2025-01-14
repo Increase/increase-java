@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -535,35 +536,24 @@ private constructor(
 
         fun build(): AchPrenotification =
             AchPrenotification(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(accountNumber) { "`accountNumber` is required but was not set" },
-                checkNotNull(addendum) { "`addendum` is required but was not set" },
-                checkNotNull(companyDescriptiveDate) {
-                    "`companyDescriptiveDate` is required but was not set"
+                checkRequired("id", id),
+                checkRequired("accountNumber", accountNumber),
+                checkRequired("addendum", addendum),
+                checkRequired("companyDescriptiveDate", companyDescriptiveDate),
+                checkRequired("companyDiscretionaryData", companyDiscretionaryData),
+                checkRequired("companyEntryDescription", companyEntryDescription),
+                checkRequired("companyName", companyName),
+                checkRequired("createdAt", createdAt),
+                checkRequired("creditDebitIndicator", creditDebitIndicator),
+                checkRequired("effectiveDate", effectiveDate),
+                checkRequired("idempotencyKey", idempotencyKey),
+                checkRequired("notificationsOfChange", notificationsOfChange).map {
+                    it.toImmutable()
                 },
-                checkNotNull(companyDiscretionaryData) {
-                    "`companyDiscretionaryData` is required but was not set"
-                },
-                checkNotNull(companyEntryDescription) {
-                    "`companyEntryDescription` is required but was not set"
-                },
-                checkNotNull(companyName) { "`companyName` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(creditDebitIndicator) {
-                    "`creditDebitIndicator` is required but was not set"
-                },
-                checkNotNull(effectiveDate) { "`effectiveDate` is required but was not set" },
-                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
-                checkNotNull(notificationsOfChange) {
-                        "`notificationsOfChange` is required but was not set"
-                    }
-                    .map { it.toImmutable() },
-                checkNotNull(prenotificationReturn) {
-                    "`prenotificationReturn` is required but was not set"
-                },
-                checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
-                checkNotNull(status) { "`status` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
+                checkRequired("prenotificationReturn", prenotificationReturn),
+                checkRequired("routingNumber", routingNumber),
+                checkRequired("status", status),
+                checkRequired("type", type),
                 additionalProperties.toImmutable(),
             )
     }
@@ -798,9 +788,9 @@ private constructor(
 
             fun build(): NotificationsOfChange =
                 NotificationsOfChange(
-                    checkNotNull(changeCode) { "`changeCode` is required but was not set" },
-                    checkNotNull(correctedData) { "`correctedData` is required but was not set" },
-                    checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                    checkRequired("changeCode", changeCode),
+                    checkRequired("correctedData", correctedData),
+                    checkRequired("createdAt", createdAt),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1152,10 +1142,8 @@ private constructor(
 
             fun build(): PrenotificationReturn =
                 PrenotificationReturn(
-                    checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                    checkNotNull(returnReasonCode) {
-                        "`returnReasonCode` is required but was not set"
-                    },
+                    checkRequired("createdAt", createdAt),
+                    checkRequired("returnReasonCode", returnReasonCode),
                     additionalProperties.toImmutable(),
                 )
         }

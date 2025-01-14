@@ -11,6 +11,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
@@ -211,8 +212,7 @@ constructor(
 
             fun build(): BookkeepingEntrySetCreateBody =
                 BookkeepingEntrySetCreateBody(
-                    checkNotNull(entries) { "`entries` is required but was not set" }
-                        .map { it.toImmutable() },
+                    checkRequired("entries", entries).map { it.toImmutable() },
                     date,
                     transactionId,
                     additionalProperties.toImmutable(),
@@ -524,8 +524,8 @@ constructor(
 
             fun build(): Entry =
                 Entry(
-                    checkNotNull(accountId) { "`accountId` is required but was not set" },
-                    checkNotNull(amount) { "`amount` is required but was not set" },
+                    checkRequired("accountId", accountId),
+                    checkRequired("amount", amount),
                     additionalProperties.toImmutable(),
                 )
         }
