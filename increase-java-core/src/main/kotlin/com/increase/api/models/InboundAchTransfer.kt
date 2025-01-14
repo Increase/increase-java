@@ -199,7 +199,12 @@ private constructor(
     /** The status of the transfer. */
     fun status(): Status = status.getRequired("status")
 
-    /** The trace number of the transfer. */
+    /**
+     * A 15 digit number set by the sending bank and transmitted to the receiving bank. Along with
+     * the amount, date, and originating routing number, this can be used to identify the ACH
+     * transfer. ACH trace numbers are not unique, but are
+     * [used to correlate returns](https://increase.com/documentation/ach-returns#ach-returns).
+     */
     fun traceNumber(): String = traceNumber.getRequired("trace_number")
 
     /** If your transfer is returned, this will contain details of the return. */
@@ -326,7 +331,12 @@ private constructor(
     /** The status of the transfer. */
     @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
-    /** The trace number of the transfer. */
+    /**
+     * A 15 digit number set by the sending bank and transmitted to the receiving bank. Along with
+     * the amount, date, and originating routing number, this can be used to identify the ACH
+     * transfer. ACH trace numbers are not unique, but are
+     * [used to correlate returns](https://increase.com/documentation/ach-returns#ach-returns).
+     */
     @JsonProperty("trace_number")
     @ExcludeMissing
     fun _traceNumber(): JsonField<String> = traceNumber
@@ -699,10 +709,20 @@ private constructor(
         /** The status of the transfer. */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
-        /** The trace number of the transfer. */
+        /**
+         * A 15 digit number set by the sending bank and transmitted to the receiving bank. Along
+         * with the amount, date, and originating routing number, this can be used to identify the
+         * ACH transfer. ACH trace numbers are not unique, but are
+         * [used to correlate returns](https://increase.com/documentation/ach-returns#ach-returns).
+         */
         fun traceNumber(traceNumber: String) = traceNumber(JsonField.of(traceNumber))
 
-        /** The trace number of the transfer. */
+        /**
+         * A 15 digit number set by the sending bank and transmitted to the receiving bank. Along
+         * with the amount, date, and originating routing number, this can be used to identify the
+         * ACH transfer. ACH trace numbers are not unique, but are
+         * [used to correlate returns](https://increase.com/documentation/ach-returns#ach-returns).
+         */
         fun traceNumber(traceNumber: JsonField<String>) = apply { this.traceNumber = traceNumber }
 
         /** If your transfer is returned, this will contain details of the return. */
