@@ -16,15 +16,13 @@ class InboundCheckDepositTest {
                 .acceptedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .accountId("account_in71c4amph0vgo2qllky")
                 .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
-                .adjustments(
-                    listOf(
-                        InboundCheckDeposit.Adjustment.builder()
-                            .adjustedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .amount(0L)
-                            .reason(InboundCheckDeposit.Adjustment.Reason.LATE_RETURN)
-                            .transactionId("transaction_id")
-                            .build()
-                    )
+                .addAdjustment(
+                    InboundCheckDeposit.Adjustment.builder()
+                        .adjustedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .amount(0L)
+                        .reason(InboundCheckDeposit.Adjustment.Reason.LATE_RETURN)
+                        .transactionId("transaction_id")
+                        .build()
                 )
                 .amount(1000L)
                 .backImageFileId("file_makxrc67oh9l6sg7w9yc")

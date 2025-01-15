@@ -15,19 +15,19 @@ class BookkeepingEntrySetTest {
                 .id("bookkeeping_entry_set_n80c6wr2p8gtc6p4ingf")
                 .createdAt(OffsetDateTime.parse("2023-02-11T02:11:59Z"))
                 .date(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                .entries(
-                    listOf(
-                        BookkeepingEntrySet.Entry.builder()
-                            .id("bookkeeping_entry_ctjpajsj3ks2blx10375")
-                            .accountId("bookkeeping_account_e37p1f1iuocw5intf35v")
-                            .amount(1750L)
-                            .build(),
-                        BookkeepingEntrySet.Entry.builder()
-                            .id("bookkeeping_entry_ctjpajsj3ks2blx10375")
-                            .accountId("bookkeeping_account_e37p1f1iuocw5intf35v")
-                            .amount(-1750L)
-                            .build()
-                    )
+                .addEntry(
+                    BookkeepingEntrySet.Entry.builder()
+                        .id("bookkeeping_entry_ctjpajsj3ks2blx10375")
+                        .accountId("bookkeeping_account_e37p1f1iuocw5intf35v")
+                        .amount(1750L)
+                        .build()
+                )
+                .addEntry(
+                    BookkeepingEntrySet.Entry.builder()
+                        .id("bookkeeping_entry_ctjpajsj3ks2blx10375")
+                        .accountId("bookkeeping_account_e37p1f1iuocw5intf35v")
+                        .amount(-1750L)
+                        .build()
                 )
                 .idempotencyKey(null)
                 .transactionId(null)

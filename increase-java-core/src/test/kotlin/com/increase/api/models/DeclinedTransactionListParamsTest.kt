@@ -15,7 +15,7 @@ class DeclinedTransactionListParamsTest {
             .accountId("account_id")
             .category(
                 DeclinedTransactionListParams.Category.builder()
-                    .in_(listOf(DeclinedTransactionListParams.Category.In.ACH_DECLINE))
+                    .addIn(DeclinedTransactionListParams.Category.In.ACH_DECLINE)
                     .build()
             )
             .createdAt(
@@ -39,7 +39,7 @@ class DeclinedTransactionListParamsTest {
                 .accountId("account_id")
                 .category(
                     DeclinedTransactionListParams.Category.builder()
-                        .in_(listOf(DeclinedTransactionListParams.Category.In.ACH_DECLINE))
+                        .addIn(DeclinedTransactionListParams.Category.In.ACH_DECLINE)
                         .build()
                 )
                 .createdAt(
@@ -57,7 +57,7 @@ class DeclinedTransactionListParamsTest {
         val expected = QueryParams.builder()
         expected.put("account_id", "account_id")
         DeclinedTransactionListParams.Category.builder()
-            .in_(listOf(DeclinedTransactionListParams.Category.In.ACH_DECLINE))
+            .addIn(DeclinedTransactionListParams.Category.In.ACH_DECLINE)
             .build()
             .forEachQueryParam { key, values -> expected.put("category.$key", values) }
         DeclinedTransactionListParams.CreatedAt.builder()

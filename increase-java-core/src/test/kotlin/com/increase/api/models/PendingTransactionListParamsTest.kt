@@ -15,11 +15,7 @@ class PendingTransactionListParamsTest {
             .accountId("account_id")
             .category(
                 PendingTransactionListParams.Category.builder()
-                    .in_(
-                        listOf(
-                            PendingTransactionListParams.Category.In.ACCOUNT_TRANSFER_INSTRUCTION
-                        )
-                    )
+                    .addIn(PendingTransactionListParams.Category.In.ACCOUNT_TRANSFER_INSTRUCTION)
                     .build()
             )
             .createdAt(
@@ -35,7 +31,7 @@ class PendingTransactionListParamsTest {
             .routeId("route_id")
             .status(
                 PendingTransactionListParams.Status.builder()
-                    .in_(listOf(PendingTransactionListParams.Status.In.PENDING))
+                    .addIn(PendingTransactionListParams.Status.In.PENDING)
                     .build()
             )
             .build()
@@ -48,11 +44,8 @@ class PendingTransactionListParamsTest {
                 .accountId("account_id")
                 .category(
                     PendingTransactionListParams.Category.builder()
-                        .in_(
-                            listOf(
-                                PendingTransactionListParams.Category.In
-                                    .ACCOUNT_TRANSFER_INSTRUCTION
-                            )
+                        .addIn(
+                            PendingTransactionListParams.Category.In.ACCOUNT_TRANSFER_INSTRUCTION
                         )
                         .build()
                 )
@@ -69,14 +62,14 @@ class PendingTransactionListParamsTest {
                 .routeId("route_id")
                 .status(
                     PendingTransactionListParams.Status.builder()
-                        .in_(listOf(PendingTransactionListParams.Status.In.PENDING))
+                        .addIn(PendingTransactionListParams.Status.In.PENDING)
                         .build()
                 )
                 .build()
         val expected = QueryParams.builder()
         expected.put("account_id", "account_id")
         PendingTransactionListParams.Category.builder()
-            .in_(listOf(PendingTransactionListParams.Category.In.ACCOUNT_TRANSFER_INSTRUCTION))
+            .addIn(PendingTransactionListParams.Category.In.ACCOUNT_TRANSFER_INSTRUCTION)
             .build()
             .forEachQueryParam { key, values -> expected.put("category.$key", values) }
         PendingTransactionListParams.CreatedAt.builder()
@@ -90,7 +83,7 @@ class PendingTransactionListParamsTest {
         expected.put("limit", "1")
         expected.put("route_id", "route_id")
         PendingTransactionListParams.Status.builder()
-            .in_(listOf(PendingTransactionListParams.Status.In.PENDING))
+            .addIn(PendingTransactionListParams.Status.In.PENDING)
             .build()
             .forEachQueryParam { key, values -> expected.put("status.$key", values) }
         assertThat(params.getQueryParams()).isEqualTo(expected.build())

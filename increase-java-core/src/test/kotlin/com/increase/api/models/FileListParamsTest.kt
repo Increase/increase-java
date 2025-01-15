@@ -25,7 +25,7 @@ class FileListParamsTest {
             .limit(1L)
             .purpose(
                 FileListParams.Purpose.builder()
-                    .in_(listOf(FileListParams.Purpose.In.CHECK_IMAGE_FRONT))
+                    .addIn(FileListParams.Purpose.In.CHECK_IMAGE_FRONT)
                     .build()
             )
             .build()
@@ -48,7 +48,7 @@ class FileListParamsTest {
                 .limit(1L)
                 .purpose(
                     FileListParams.Purpose.builder()
-                        .in_(listOf(FileListParams.Purpose.In.CHECK_IMAGE_FRONT))
+                        .addIn(FileListParams.Purpose.In.CHECK_IMAGE_FRONT)
                         .build()
                 )
                 .build()
@@ -64,7 +64,7 @@ class FileListParamsTest {
         expected.put("idempotency_key", "x")
         expected.put("limit", "1")
         FileListParams.Purpose.builder()
-            .in_(listOf(FileListParams.Purpose.In.CHECK_IMAGE_FRONT))
+            .addIn(FileListParams.Purpose.In.CHECK_IMAGE_FRONT)
             .build()
             .forEachQueryParam { key, values -> expected.put("purpose.$key", values) }
         assertThat(params.getQueryParams()).isEqualTo(expected.build())
