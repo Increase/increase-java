@@ -15,7 +15,7 @@ class TransactionListParamsTest {
             .accountId("account_id")
             .category(
                 TransactionListParams.Category.builder()
-                    .in_(listOf(TransactionListParams.Category.In.ACCOUNT_TRANSFER_INTENTION))
+                    .addIn(TransactionListParams.Category.In.ACCOUNT_TRANSFER_INTENTION)
                     .build()
             )
             .createdAt(
@@ -39,7 +39,7 @@ class TransactionListParamsTest {
                 .accountId("account_id")
                 .category(
                     TransactionListParams.Category.builder()
-                        .in_(listOf(TransactionListParams.Category.In.ACCOUNT_TRANSFER_INTENTION))
+                        .addIn(TransactionListParams.Category.In.ACCOUNT_TRANSFER_INTENTION)
                         .build()
                 )
                 .createdAt(
@@ -57,7 +57,7 @@ class TransactionListParamsTest {
         val expected = QueryParams.builder()
         expected.put("account_id", "account_id")
         TransactionListParams.Category.builder()
-            .in_(listOf(TransactionListParams.Category.In.ACCOUNT_TRANSFER_INTENTION))
+            .addIn(TransactionListParams.Category.In.ACCOUNT_TRANSFER_INTENTION)
             .build()
             .forEachQueryParam { key, values -> expected.put("category.$key", values) }
         TransactionListParams.CreatedAt.builder()

@@ -25,7 +25,7 @@ class CardDisputeListParamsTest {
             .limit(1L)
             .status(
                 CardDisputeListParams.Status.builder()
-                    .in_(listOf(CardDisputeListParams.Status.In.PENDING_REVIEWING))
+                    .addIn(CardDisputeListParams.Status.In.PENDING_REVIEWING)
                     .build()
             )
             .build()
@@ -48,7 +48,7 @@ class CardDisputeListParamsTest {
                 .limit(1L)
                 .status(
                     CardDisputeListParams.Status.builder()
-                        .in_(listOf(CardDisputeListParams.Status.In.PENDING_REVIEWING))
+                        .addIn(CardDisputeListParams.Status.In.PENDING_REVIEWING)
                         .build()
                 )
                 .build()
@@ -64,7 +64,7 @@ class CardDisputeListParamsTest {
         expected.put("idempotency_key", "x")
         expected.put("limit", "1")
         CardDisputeListParams.Status.builder()
-            .in_(listOf(CardDisputeListParams.Status.In.PENDING_REVIEWING))
+            .addIn(CardDisputeListParams.Status.In.PENDING_REVIEWING)
             .build()
             .forEachQueryParam { key, values -> expected.put("status.$key", values) }
         assertThat(params.getQueryParams()).isEqualTo(expected.build())

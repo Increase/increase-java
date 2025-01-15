@@ -13,21 +13,19 @@ class IntrafiBalanceTest {
         val intrafiBalance =
             IntrafiBalance.builder()
                 .id("intrafi_balance_8lgtn3pz0ktekaekw29t")
-                .balances(
-                    listOf(
-                        IntrafiBalance.Balance.builder()
-                            .id("intrafi_detailed_balance_qp4v28t1htqu5lsp0rz8")
-                            .balance(1750L)
-                            .bank("Example Bank")
-                            .bankLocation(
-                                IntrafiBalance.Balance.BankLocation.builder()
-                                    .city("New York")
-                                    .state("NY")
-                                    .build()
-                            )
-                            .fdicCertificateNumber("314159")
-                            .build()
-                    )
+                .addBalance(
+                    IntrafiBalance.Balance.builder()
+                        .id("intrafi_detailed_balance_qp4v28t1htqu5lsp0rz8")
+                        .balance(1750L)
+                        .bank("Example Bank")
+                        .bankLocation(
+                            IntrafiBalance.Balance.BankLocation.builder()
+                                .city("New York")
+                                .state("NY")
+                                .build()
+                        )
+                        .fdicCertificateNumber("314159")
+                        .build()
                 )
                 .currency(IntrafiBalance.Currency.CAD)
                 .effectiveDate(LocalDate.parse("2020-01-31"))

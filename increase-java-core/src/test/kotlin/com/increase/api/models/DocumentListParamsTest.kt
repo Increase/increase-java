@@ -14,7 +14,7 @@ class DocumentListParamsTest {
         DocumentListParams.builder()
             .category(
                 DocumentListParams.Category.builder()
-                    .in_(listOf(DocumentListParams.Category.In.FORM_1099_INT))
+                    .addIn(DocumentListParams.Category.In.FORM_1099_INT)
                     .build()
             )
             .createdAt(
@@ -37,7 +37,7 @@ class DocumentListParamsTest {
             DocumentListParams.builder()
                 .category(
                     DocumentListParams.Category.builder()
-                        .in_(listOf(DocumentListParams.Category.In.FORM_1099_INT))
+                        .addIn(DocumentListParams.Category.In.FORM_1099_INT)
                         .build()
                 )
                 .createdAt(
@@ -54,7 +54,7 @@ class DocumentListParamsTest {
                 .build()
         val expected = QueryParams.builder()
         DocumentListParams.Category.builder()
-            .in_(listOf(DocumentListParams.Category.In.FORM_1099_INT))
+            .addIn(DocumentListParams.Category.In.FORM_1099_INT)
             .build()
             .forEachQueryParam { key, values -> expected.put("category.$key", values) }
         DocumentListParams.CreatedAt.builder()

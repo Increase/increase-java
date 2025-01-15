@@ -25,17 +25,17 @@ class BookkeepingEntrySetServiceTest {
         val bookkeepingEntrySet =
             bookkeepingEntrySetService.create(
                 BookkeepingEntrySetCreateParams.builder()
-                    .entries(
-                        listOf(
-                            BookkeepingEntrySetCreateParams.Entry.builder()
-                                .accountId("bookkeeping_account_9husfpw68pzmve9dvvc7")
-                                .amount(100L)
-                                .build(),
-                            BookkeepingEntrySetCreateParams.Entry.builder()
-                                .accountId("bookkeeping_account_t2obldz1rcu15zr54umg")
-                                .amount(-100L)
-                                .build()
-                        )
+                    .addEntry(
+                        BookkeepingEntrySetCreateParams.Entry.builder()
+                            .accountId("bookkeeping_account_9husfpw68pzmve9dvvc7")
+                            .amount(100L)
+                            .build()
+                    )
+                    .addEntry(
+                        BookkeepingEntrySetCreateParams.Entry.builder()
+                            .accountId("bookkeeping_account_t2obldz1rcu15zr54umg")
+                            .amount(-100L)
+                            .build()
                     )
                     .date(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                     .transactionId("transaction_uyrp7fld2ium70oa7oi")

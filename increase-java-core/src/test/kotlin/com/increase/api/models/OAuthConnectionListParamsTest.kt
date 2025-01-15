@@ -16,7 +16,7 @@ class OAuthConnectionListParamsTest {
             .oauthApplicationId("oauth_application_id")
             .status(
                 OAuthConnectionListParams.Status.builder()
-                    .in_(listOf(OAuthConnectionListParams.Status.In.ACTIVE))
+                    .addIn(OAuthConnectionListParams.Status.In.ACTIVE)
                     .build()
             )
             .build()
@@ -31,7 +31,7 @@ class OAuthConnectionListParamsTest {
                 .oauthApplicationId("oauth_application_id")
                 .status(
                     OAuthConnectionListParams.Status.builder()
-                        .in_(listOf(OAuthConnectionListParams.Status.In.ACTIVE))
+                        .addIn(OAuthConnectionListParams.Status.In.ACTIVE)
                         .build()
                 )
                 .build()
@@ -40,7 +40,7 @@ class OAuthConnectionListParamsTest {
         expected.put("limit", "1")
         expected.put("oauth_application_id", "oauth_application_id")
         OAuthConnectionListParams.Status.builder()
-            .in_(listOf(OAuthConnectionListParams.Status.In.ACTIVE))
+            .addIn(OAuthConnectionListParams.Status.In.ACTIVE)
             .build()
             .forEachQueryParam { key, values -> expected.put("status.$key", values) }
         assertThat(params.getQueryParams()).isEqualTo(expected.build())

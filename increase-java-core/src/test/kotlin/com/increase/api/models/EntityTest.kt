@@ -25,47 +25,43 @@ class EntityTest {
                                 .zip("10045")
                                 .build()
                         )
-                        .beneficialOwners(
-                            listOf(
-                                Entity.Corporation.BeneficialOwner.builder()
-                                    .beneficialOwnerId(
-                                        "entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7"
-                                    )
-                                    .companyTitle("CEO")
-                                    .individual(
-                                        Entity.Corporation.BeneficialOwner.Individual.builder()
-                                            .address(
-                                                Entity.Corporation.BeneficialOwner.Individual
-                                                    .Address
-                                                    .builder()
-                                                    .city("New York")
-                                                    .line1("33 Liberty Street")
-                                                    .line2(null)
-                                                    .state("NY")
-                                                    .zip("10045")
-                                                    .build()
-                                            )
-                                            .dateOfBirth(LocalDate.parse("1970-01-31"))
-                                            .identification(
-                                                Entity.Corporation.BeneficialOwner.Individual
-                                                    .Identification
-                                                    .builder()
-                                                    .method(
-                                                        Entity.Corporation.BeneficialOwner
-                                                            .Individual
-                                                            .Identification
-                                                            .Method
-                                                            .SOCIAL_SECURITY_NUMBER
-                                                    )
-                                                    .numberLast4("1120")
-                                                    .build()
-                                            )
-                                            .name("Ian Crease")
-                                            .build()
-                                    )
-                                    .prong(Entity.Corporation.BeneficialOwner.Prong.OWNERSHIP)
-                                    .build()
-                            )
+                        .addBeneficialOwner(
+                            Entity.Corporation.BeneficialOwner.builder()
+                                .beneficialOwnerId(
+                                    "entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7"
+                                )
+                                .companyTitle("CEO")
+                                .individual(
+                                    Entity.Corporation.BeneficialOwner.Individual.builder()
+                                        .address(
+                                            Entity.Corporation.BeneficialOwner.Individual.Address
+                                                .builder()
+                                                .city("New York")
+                                                .line1("33 Liberty Street")
+                                                .line2(null)
+                                                .state("NY")
+                                                .zip("10045")
+                                                .build()
+                                        )
+                                        .dateOfBirth(LocalDate.parse("1970-01-31"))
+                                        .identification(
+                                            Entity.Corporation.BeneficialOwner.Individual
+                                                .Identification
+                                                .builder()
+                                                .method(
+                                                    Entity.Corporation.BeneficialOwner.Individual
+                                                        .Identification
+                                                        .Method
+                                                        .SOCIAL_SECURITY_NUMBER
+                                                )
+                                                .numberLast4("1120")
+                                                .build()
+                                        )
+                                        .name("Ian Crease")
+                                        .build()
+                                )
+                                .prong(Entity.Corporation.BeneficialOwner.Prong.OWNERSHIP)
+                                .build()
                         )
                         .incorporationState("NY")
                         .industryCode(null)
@@ -88,13 +84,11 @@ class EntityTest {
                                 .zip("10045")
                                 .build()
                         )
-                        .authorizedPersons(
-                            listOf(
-                                Entity.GovernmentAuthority.AuthorizedPerson.builder()
-                                    .authorizedPersonId("authorized_person_id")
-                                    .name("name")
-                                    .build()
-                            )
+                        .addAuthorizedPerson(
+                            Entity.GovernmentAuthority.AuthorizedPerson.builder()
+                                .authorizedPersonId("authorized_person_id")
+                                .name("name")
+                                .build()
                         )
                         .category(Entity.GovernmentAuthority.Category.MUNICIPALITY)
                         .name("name")
@@ -105,31 +99,29 @@ class EntityTest {
                 .idempotencyKey(null)
                 .joint(
                     Entity.Joint.builder()
-                        .individuals(
-                            listOf(
-                                Entity.Joint.Individual.builder()
-                                    .address(
-                                        Entity.Joint.Individual.Address.builder()
-                                            .city("New York")
-                                            .line1("33 Liberty Street")
-                                            .line2(null)
-                                            .state("NY")
-                                            .zip("10045")
-                                            .build()
-                                    )
-                                    .dateOfBirth(LocalDate.parse("2019-12-27"))
-                                    .identification(
-                                        Entity.Joint.Individual.Identification.builder()
-                                            .method(
-                                                Entity.Joint.Individual.Identification.Method
-                                                    .SOCIAL_SECURITY_NUMBER
-                                            )
-                                            .numberLast4("number_last4")
-                                            .build()
-                                    )
-                                    .name("name")
-                                    .build()
-                            )
+                        .addIndividual(
+                            Entity.Joint.Individual.builder()
+                                .address(
+                                    Entity.Joint.Individual.Address.builder()
+                                        .city("New York")
+                                        .line1("33 Liberty Street")
+                                        .line2(null)
+                                        .state("NY")
+                                        .zip("10045")
+                                        .build()
+                                )
+                                .dateOfBirth(LocalDate.parse("2019-12-27"))
+                                .identification(
+                                    Entity.Joint.Individual.Identification.builder()
+                                        .method(
+                                            Entity.Joint.Individual.Identification.Method
+                                                .SOCIAL_SECURITY_NUMBER
+                                        )
+                                        .numberLast4("number_last4")
+                                        .build()
+                                )
+                                .name("name")
+                                .build()
                         )
                         .name("name")
                         .build()
@@ -160,16 +152,14 @@ class EntityTest {
                 )
                 .status(Entity.Status.ACTIVE)
                 .structure(Entity.Structure.CORPORATION)
-                .supplementalDocuments(
-                    listOf(
-                        EntitySupplementalDocument.builder()
-                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                            .entityId("entity_n8y8tnk2p9339ti393yi")
-                            .fileId("file_makxrc67oh9l6sg7w9yc")
-                            .idempotencyKey(null)
-                            .type(EntitySupplementalDocument.Type.ENTITY_SUPPLEMENTAL_DOCUMENT)
-                            .build()
-                    )
+                .addSupplementalDocument(
+                    EntitySupplementalDocument.builder()
+                        .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .entityId("entity_n8y8tnk2p9339ti393yi")
+                        .fileId("file_makxrc67oh9l6sg7w9yc")
+                        .idempotencyKey(null)
+                        .type(EntitySupplementalDocument.Type.ENTITY_SUPPLEMENTAL_DOCUMENT)
+                        .build()
                 )
                 .thirdPartyVerification(
                     Entity.ThirdPartyVerification.builder()
@@ -217,39 +207,35 @@ class EntityTest {
                         )
                         .name("name")
                         .taxIdentifier("tax_identifier")
-                        .trustees(
-                            listOf(
-                                Entity.Trust.Trustee.builder()
-                                    .individual(
-                                        Entity.Trust.Trustee.Individual.builder()
-                                            .address(
-                                                Entity.Trust.Trustee.Individual.Address.builder()
-                                                    .city("New York")
-                                                    .line1("33 Liberty Street")
-                                                    .line2(null)
-                                                    .state("NY")
-                                                    .zip("10045")
-                                                    .build()
-                                            )
-                                            .dateOfBirth(LocalDate.parse("2019-12-27"))
-                                            .identification(
-                                                Entity.Trust.Trustee.Individual.Identification
-                                                    .builder()
-                                                    .method(
-                                                        Entity.Trust.Trustee.Individual
-                                                            .Identification
-                                                            .Method
-                                                            .SOCIAL_SECURITY_NUMBER
-                                                    )
-                                                    .numberLast4("number_last4")
-                                                    .build()
-                                            )
-                                            .name("name")
-                                            .build()
-                                    )
-                                    .structure(Entity.Trust.Trustee.Structure.INDIVIDUAL)
-                                    .build()
-                            )
+                        .addTrustee(
+                            Entity.Trust.Trustee.builder()
+                                .individual(
+                                    Entity.Trust.Trustee.Individual.builder()
+                                        .address(
+                                            Entity.Trust.Trustee.Individual.Address.builder()
+                                                .city("New York")
+                                                .line1("33 Liberty Street")
+                                                .line2(null)
+                                                .state("NY")
+                                                .zip("10045")
+                                                .build()
+                                        )
+                                        .dateOfBirth(LocalDate.parse("2019-12-27"))
+                                        .identification(
+                                            Entity.Trust.Trustee.Individual.Identification.builder()
+                                                .method(
+                                                    Entity.Trust.Trustee.Individual.Identification
+                                                        .Method
+                                                        .SOCIAL_SECURITY_NUMBER
+                                                )
+                                                .numberLast4("number_last4")
+                                                .build()
+                                        )
+                                        .name("name")
+                                        .build()
+                                )
+                                .structure(Entity.Trust.Trustee.Structure.INDIVIDUAL)
+                                .build()
                         )
                         .build()
                 )
@@ -269,45 +255,42 @@ class EntityTest {
                             .zip("10045")
                             .build()
                     )
-                    .beneficialOwners(
-                        listOf(
-                            Entity.Corporation.BeneficialOwner.builder()
-                                .beneficialOwnerId(
-                                    "entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7"
-                                )
-                                .companyTitle("CEO")
-                                .individual(
-                                    Entity.Corporation.BeneficialOwner.Individual.builder()
-                                        .address(
-                                            Entity.Corporation.BeneficialOwner.Individual.Address
-                                                .builder()
-                                                .city("New York")
-                                                .line1("33 Liberty Street")
-                                                .line2(null)
-                                                .state("NY")
-                                                .zip("10045")
-                                                .build()
-                                        )
-                                        .dateOfBirth(LocalDate.parse("1970-01-31"))
-                                        .identification(
-                                            Entity.Corporation.BeneficialOwner.Individual
-                                                .Identification
-                                                .builder()
-                                                .method(
-                                                    Entity.Corporation.BeneficialOwner.Individual
-                                                        .Identification
-                                                        .Method
-                                                        .SOCIAL_SECURITY_NUMBER
-                                                )
-                                                .numberLast4("1120")
-                                                .build()
-                                        )
-                                        .name("Ian Crease")
-                                        .build()
-                                )
-                                .prong(Entity.Corporation.BeneficialOwner.Prong.OWNERSHIP)
-                                .build()
-                        )
+                    .addBeneficialOwner(
+                        Entity.Corporation.BeneficialOwner.builder()
+                            .beneficialOwnerId(
+                                "entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7"
+                            )
+                            .companyTitle("CEO")
+                            .individual(
+                                Entity.Corporation.BeneficialOwner.Individual.builder()
+                                    .address(
+                                        Entity.Corporation.BeneficialOwner.Individual.Address
+                                            .builder()
+                                            .city("New York")
+                                            .line1("33 Liberty Street")
+                                            .line2(null)
+                                            .state("NY")
+                                            .zip("10045")
+                                            .build()
+                                    )
+                                    .dateOfBirth(LocalDate.parse("1970-01-31"))
+                                    .identification(
+                                        Entity.Corporation.BeneficialOwner.Individual.Identification
+                                            .builder()
+                                            .method(
+                                                Entity.Corporation.BeneficialOwner.Individual
+                                                    .Identification
+                                                    .Method
+                                                    .SOCIAL_SECURITY_NUMBER
+                                            )
+                                            .numberLast4("1120")
+                                            .build()
+                                    )
+                                    .name("Ian Crease")
+                                    .build()
+                            )
+                            .prong(Entity.Corporation.BeneficialOwner.Prong.OWNERSHIP)
+                            .build()
                     )
                     .incorporationState("NY")
                     .industryCode(null)
@@ -331,13 +314,11 @@ class EntityTest {
                             .zip("10045")
                             .build()
                     )
-                    .authorizedPersons(
-                        listOf(
-                            Entity.GovernmentAuthority.AuthorizedPerson.builder()
-                                .authorizedPersonId("authorized_person_id")
-                                .name("name")
-                                .build()
-                        )
+                    .addAuthorizedPerson(
+                        Entity.GovernmentAuthority.AuthorizedPerson.builder()
+                            .authorizedPersonId("authorized_person_id")
+                            .name("name")
+                            .build()
                     )
                     .category(Entity.GovernmentAuthority.Category.MUNICIPALITY)
                     .name("name")
@@ -349,31 +330,29 @@ class EntityTest {
         assertThat(entity.joint())
             .contains(
                 Entity.Joint.builder()
-                    .individuals(
-                        listOf(
-                            Entity.Joint.Individual.builder()
-                                .address(
-                                    Entity.Joint.Individual.Address.builder()
-                                        .city("New York")
-                                        .line1("33 Liberty Street")
-                                        .line2(null)
-                                        .state("NY")
-                                        .zip("10045")
-                                        .build()
-                                )
-                                .dateOfBirth(LocalDate.parse("2019-12-27"))
-                                .identification(
-                                    Entity.Joint.Individual.Identification.builder()
-                                        .method(
-                                            Entity.Joint.Individual.Identification.Method
-                                                .SOCIAL_SECURITY_NUMBER
-                                        )
-                                        .numberLast4("number_last4")
-                                        .build()
-                                )
-                                .name("name")
-                                .build()
-                        )
+                    .addIndividual(
+                        Entity.Joint.Individual.builder()
+                            .address(
+                                Entity.Joint.Individual.Address.builder()
+                                    .city("New York")
+                                    .line1("33 Liberty Street")
+                                    .line2(null)
+                                    .state("NY")
+                                    .zip("10045")
+                                    .build()
+                            )
+                            .dateOfBirth(LocalDate.parse("2019-12-27"))
+                            .identification(
+                                Entity.Joint.Individual.Identification.builder()
+                                    .method(
+                                        Entity.Joint.Individual.Identification.Method
+                                            .SOCIAL_SECURITY_NUMBER
+                                    )
+                                    .numberLast4("number_last4")
+                                    .build()
+                            )
+                            .name("name")
+                            .build()
                     )
                     .name("name")
                     .build()
@@ -462,37 +441,35 @@ class EntityTest {
                     )
                     .name("name")
                     .taxIdentifier("tax_identifier")
-                    .trustees(
-                        listOf(
-                            Entity.Trust.Trustee.builder()
-                                .individual(
-                                    Entity.Trust.Trustee.Individual.builder()
-                                        .address(
-                                            Entity.Trust.Trustee.Individual.Address.builder()
-                                                .city("New York")
-                                                .line1("33 Liberty Street")
-                                                .line2(null)
-                                                .state("NY")
-                                                .zip("10045")
-                                                .build()
-                                        )
-                                        .dateOfBirth(LocalDate.parse("2019-12-27"))
-                                        .identification(
-                                            Entity.Trust.Trustee.Individual.Identification.builder()
-                                                .method(
-                                                    Entity.Trust.Trustee.Individual.Identification
-                                                        .Method
-                                                        .SOCIAL_SECURITY_NUMBER
-                                                )
-                                                .numberLast4("number_last4")
-                                                .build()
-                                        )
-                                        .name("name")
-                                        .build()
-                                )
-                                .structure(Entity.Trust.Trustee.Structure.INDIVIDUAL)
-                                .build()
-                        )
+                    .addTrustee(
+                        Entity.Trust.Trustee.builder()
+                            .individual(
+                                Entity.Trust.Trustee.Individual.builder()
+                                    .address(
+                                        Entity.Trust.Trustee.Individual.Address.builder()
+                                            .city("New York")
+                                            .line1("33 Liberty Street")
+                                            .line2(null)
+                                            .state("NY")
+                                            .zip("10045")
+                                            .build()
+                                    )
+                                    .dateOfBirth(LocalDate.parse("2019-12-27"))
+                                    .identification(
+                                        Entity.Trust.Trustee.Individual.Identification.builder()
+                                            .method(
+                                                Entity.Trust.Trustee.Individual.Identification
+                                                    .Method
+                                                    .SOCIAL_SECURITY_NUMBER
+                                            )
+                                            .numberLast4("number_last4")
+                                            .build()
+                                    )
+                                    .name("name")
+                                    .build()
+                            )
+                            .structure(Entity.Trust.Trustee.Structure.INDIVIDUAL)
+                            .build()
                     )
                     .build()
             )

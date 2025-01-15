@@ -17,7 +17,7 @@ class ExternalAccountListParamsTest {
             .routingNumber("xxxxxxxxx")
             .status(
                 ExternalAccountListParams.Status.builder()
-                    .in_(listOf(ExternalAccountListParams.Status.In.ACTIVE))
+                    .addIn(ExternalAccountListParams.Status.In.ACTIVE)
                     .build()
             )
             .build()
@@ -33,7 +33,7 @@ class ExternalAccountListParamsTest {
                 .routingNumber("xxxxxxxxx")
                 .status(
                     ExternalAccountListParams.Status.builder()
-                        .in_(listOf(ExternalAccountListParams.Status.In.ACTIVE))
+                        .addIn(ExternalAccountListParams.Status.In.ACTIVE)
                         .build()
                 )
                 .build()
@@ -43,7 +43,7 @@ class ExternalAccountListParamsTest {
         expected.put("limit", "1")
         expected.put("routing_number", "xxxxxxxxx")
         ExternalAccountListParams.Status.builder()
-            .in_(listOf(ExternalAccountListParams.Status.In.ACTIVE))
+            .addIn(ExternalAccountListParams.Status.In.ACTIVE)
             .build()
             .forEachQueryParam { key, values -> expected.put("status.$key", values) }
         assertThat(params.getQueryParams()).isEqualTo(expected.build())
