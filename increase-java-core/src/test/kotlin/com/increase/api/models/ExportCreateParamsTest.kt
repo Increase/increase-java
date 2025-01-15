@@ -57,7 +57,7 @@ class ExportCreateParamsTest {
                 ExportCreateParams.EntityCsv.builder()
                     .status(
                         ExportCreateParams.EntityCsv.Status.builder()
-                            .in_(listOf(ExportCreateParams.EntityCsv.Status.In.ACTIVE))
+                            .addIn(ExportCreateParams.EntityCsv.Status.In.ACTIVE)
                             .build()
                     )
                     .build()
@@ -129,7 +129,7 @@ class ExportCreateParamsTest {
                     ExportCreateParams.EntityCsv.builder()
                         .status(
                             ExportCreateParams.EntityCsv.Status.builder()
-                                .in_(listOf(ExportCreateParams.EntityCsv.Status.In.ACTIVE))
+                                .addIn(ExportCreateParams.EntityCsv.Status.In.ACTIVE)
                                 .build()
                         )
                         .build()
@@ -201,7 +201,7 @@ class ExportCreateParamsTest {
                 ExportCreateParams.EntityCsv.builder()
                     .status(
                         ExportCreateParams.EntityCsv.Status.builder()
-                            .in_(listOf(ExportCreateParams.EntityCsv.Status.In.ACTIVE))
+                            .addIn(ExportCreateParams.EntityCsv.Status.In.ACTIVE)
                             .build()
                     )
                     .build()

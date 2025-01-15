@@ -77,9 +77,7 @@ class EntityCreateBeneficialOwnerParamsTest {
                             .confirmedNoUsTaxId(true)
                             .build()
                     )
-                    .prongs(
-                        listOf(EntityCreateBeneficialOwnerParams.BeneficialOwner.Prong.OWNERSHIP)
-                    )
+                    .addProng(EntityCreateBeneficialOwnerParams.BeneficialOwner.Prong.OWNERSHIP)
                     .companyTitle("CEO")
                     .build()
             )
@@ -161,11 +159,7 @@ class EntityCreateBeneficialOwnerParamsTest {
                                 .confirmedNoUsTaxId(true)
                                 .build()
                         )
-                        .prongs(
-                            listOf(
-                                EntityCreateBeneficialOwnerParams.BeneficialOwner.Prong.OWNERSHIP
-                            )
-                        )
+                        .addProng(EntityCreateBeneficialOwnerParams.BeneficialOwner.Prong.OWNERSHIP)
                         .companyTitle("CEO")
                         .build()
                 )
@@ -238,9 +232,7 @@ class EntityCreateBeneficialOwnerParamsTest {
                             .confirmedNoUsTaxId(true)
                             .build()
                     )
-                    .prongs(
-                        listOf(EntityCreateBeneficialOwnerParams.BeneficialOwner.Prong.OWNERSHIP)
-                    )
+                    .addProng(EntityCreateBeneficialOwnerParams.BeneficialOwner.Prong.OWNERSHIP)
                     .companyTitle("CEO")
                     .build()
             )
@@ -283,11 +275,7 @@ class EntityCreateBeneficialOwnerParamsTest {
                                 .name("Ian Crease")
                                 .build()
                         )
-                        .prongs(
-                            listOf(
-                                EntityCreateBeneficialOwnerParams.BeneficialOwner.Prong.OWNERSHIP
-                            )
-                        )
+                        .addProng(EntityCreateBeneficialOwnerParams.BeneficialOwner.Prong.OWNERSHIP)
                         .build()
                 )
                 .build()
@@ -324,9 +312,7 @@ class EntityCreateBeneficialOwnerParamsTest {
                             .name("Ian Crease")
                             .build()
                     )
-                    .prongs(
-                        listOf(EntityCreateBeneficialOwnerParams.BeneficialOwner.Prong.OWNERSHIP)
-                    )
+                    .addProng(EntityCreateBeneficialOwnerParams.BeneficialOwner.Prong.OWNERSHIP)
                     .build()
             )
     }
@@ -368,11 +354,7 @@ class EntityCreateBeneficialOwnerParamsTest {
                                 .name("Ian Crease")
                                 .build()
                         )
-                        .prongs(
-                            listOf(
-                                EntityCreateBeneficialOwnerParams.BeneficialOwner.Prong.OWNERSHIP
-                            )
-                        )
+                        .addProng(EntityCreateBeneficialOwnerParams.BeneficialOwner.Prong.OWNERSHIP)
                         .build()
                 )
                 .build()

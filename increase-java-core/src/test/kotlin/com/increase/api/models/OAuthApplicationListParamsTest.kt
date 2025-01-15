@@ -24,7 +24,7 @@ class OAuthApplicationListParamsTest {
             .limit(1L)
             .status(
                 OAuthApplicationListParams.Status.builder()
-                    .in_(listOf(OAuthApplicationListParams.Status.In.ACTIVE))
+                    .addIn(OAuthApplicationListParams.Status.In.ACTIVE)
                     .build()
             )
             .build()
@@ -46,7 +46,7 @@ class OAuthApplicationListParamsTest {
                 .limit(1L)
                 .status(
                     OAuthApplicationListParams.Status.builder()
-                        .in_(listOf(OAuthApplicationListParams.Status.In.ACTIVE))
+                        .addIn(OAuthApplicationListParams.Status.In.ACTIVE)
                         .build()
                 )
                 .build()
@@ -61,7 +61,7 @@ class OAuthApplicationListParamsTest {
         expected.put("cursor", "cursor")
         expected.put("limit", "1")
         OAuthApplicationListParams.Status.builder()
-            .in_(listOf(OAuthApplicationListParams.Status.In.ACTIVE))
+            .addIn(OAuthApplicationListParams.Status.In.ACTIVE)
             .build()
             .forEachQueryParam { key, values -> expected.put("status.$key", values) }
         assertThat(params.getQueryParams()).isEqualTo(expected.build())

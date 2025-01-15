@@ -26,27 +26,21 @@ class AchTransferTest {
                         .category(AchTransfer.Addenda.Category.FREEFORM)
                         .freeform(
                             AchTransfer.Addenda.Freeform.builder()
-                                .entries(
-                                    listOf(
-                                        AchTransfer.Addenda.Freeform.Entry.builder()
-                                            .paymentRelatedInformation(
-                                                "payment_related_information"
-                                            )
-                                            .build()
-                                    )
+                                .addEntry(
+                                    AchTransfer.Addenda.Freeform.Entry.builder()
+                                        .paymentRelatedInformation("payment_related_information")
+                                        .build()
                                 )
                                 .build()
                         )
                         .paymentOrderRemittanceAdvice(
                             AchTransfer.Addenda.PaymentOrderRemittanceAdvice.builder()
-                                .invoices(
-                                    listOf(
-                                        AchTransfer.Addenda.PaymentOrderRemittanceAdvice.Invoice
-                                            .builder()
-                                            .invoiceNumber("invoice_number")
-                                            .paidAmount(0L)
-                                            .build()
-                                    )
+                                .addInvoice(
+                                    AchTransfer.Addenda.PaymentOrderRemittanceAdvice.Invoice
+                                        .builder()
+                                        .invoiceNumber("invoice_number")
+                                        .paidAmount(0L)
+                                        .build()
                                 )
                                 .build()
                         )
@@ -108,17 +102,14 @@ class AchTransferTest {
                 .individualId(null)
                 .individualName("Ian Crease")
                 .network(AchTransfer.Network.ACH)
-                .notificationsOfChange(
-                    listOf(
-                        AchTransfer.NotificationsOfChange.builder()
-                            .changeCode(
-                                AchTransfer.NotificationsOfChange.ChangeCode
-                                    .INCORRECT_ACCOUNT_NUMBER
-                            )
-                            .correctedData("32")
-                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                            .build()
-                    )
+                .addNotificationsOfChange(
+                    AchTransfer.NotificationsOfChange.builder()
+                        .changeCode(
+                            AchTransfer.NotificationsOfChange.ChangeCode.INCORRECT_ACCOUNT_NUMBER
+                        )
+                        .correctedData("32")
+                        .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .build()
                 )
                 .pendingTransactionId(null)
                 .preferredEffectiveDate(
@@ -178,25 +169,20 @@ class AchTransferTest {
                     .category(AchTransfer.Addenda.Category.FREEFORM)
                     .freeform(
                         AchTransfer.Addenda.Freeform.builder()
-                            .entries(
-                                listOf(
-                                    AchTransfer.Addenda.Freeform.Entry.builder()
-                                        .paymentRelatedInformation("payment_related_information")
-                                        .build()
-                                )
+                            .addEntry(
+                                AchTransfer.Addenda.Freeform.Entry.builder()
+                                    .paymentRelatedInformation("payment_related_information")
+                                    .build()
                             )
                             .build()
                     )
                     .paymentOrderRemittanceAdvice(
                         AchTransfer.Addenda.PaymentOrderRemittanceAdvice.builder()
-                            .invoices(
-                                listOf(
-                                    AchTransfer.Addenda.PaymentOrderRemittanceAdvice.Invoice
-                                        .builder()
-                                        .invoiceNumber("invoice_number")
-                                        .paidAmount(0L)
-                                        .build()
-                                )
+                            .addInvoice(
+                                AchTransfer.Addenda.PaymentOrderRemittanceAdvice.Invoice.builder()
+                                    .invoiceNumber("invoice_number")
+                                    .paidAmount(0L)
+                                    .build()
                             )
                             .build()
                     )

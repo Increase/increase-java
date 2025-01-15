@@ -36,28 +36,23 @@ class AchTransferServiceTest {
                             .category(AchTransferCreateParams.Addenda.Category.FREEFORM)
                             .freeform(
                                 AchTransferCreateParams.Addenda.Freeform.builder()
-                                    .entries(
-                                        listOf(
-                                            AchTransferCreateParams.Addenda.Freeform.Entry.builder()
-                                                .paymentRelatedInformation("x")
-                                                .build()
-                                        )
+                                    .addEntry(
+                                        AchTransferCreateParams.Addenda.Freeform.Entry.builder()
+                                            .paymentRelatedInformation("x")
+                                            .build()
                                     )
                                     .build()
                             )
                             .paymentOrderRemittanceAdvice(
                                 AchTransferCreateParams.Addenda.PaymentOrderRemittanceAdvice
                                     .builder()
-                                    .invoices(
-                                        listOf(
-                                            AchTransferCreateParams.Addenda
-                                                .PaymentOrderRemittanceAdvice
-                                                .Invoice
-                                                .builder()
-                                                .invoiceNumber("x")
-                                                .paidAmount(0L)
-                                                .build()
-                                        )
+                                    .addInvoice(
+                                        AchTransferCreateParams.Addenda.PaymentOrderRemittanceAdvice
+                                            .Invoice
+                                            .builder()
+                                            .invoiceNumber("x")
+                                            .paidAmount(0L)
+                                            .build()
                                     )
                                     .build()
                             )
