@@ -220,27 +220,24 @@ class TransactionTest {
                                                         .passengerNameOrDescription(
                                                             "passenger_name_or_description"
                                                         )
-                                                        .services(
-                                                            listOf(
-                                                                Transaction.Source.CardRefund
-                                                                    .PurchaseDetails
-                                                                    .Travel
-                                                                    .Ancillary
-                                                                    .Service
-                                                                    .builder()
-                                                                    .category(
-                                                                        Transaction.Source
-                                                                            .CardRefund
-                                                                            .PurchaseDetails
-                                                                            .Travel
-                                                                            .Ancillary
-                                                                            .Service
-                                                                            .Category
-                                                                            .NONE
-                                                                    )
-                                                                    .subCategory("sub_category")
-                                                                    .build()
-                                                            )
+                                                        .addService(
+                                                            Transaction.Source.CardRefund
+                                                                .PurchaseDetails
+                                                                .Travel
+                                                                .Ancillary
+                                                                .Service
+                                                                .builder()
+                                                                .category(
+                                                                    Transaction.Source.CardRefund
+                                                                        .PurchaseDetails
+                                                                        .Travel
+                                                                        .Ancillary
+                                                                        .Service
+                                                                        .Category
+                                                                        .NONE
+                                                                )
+                                                                .subCategory("sub_category")
+                                                                .build()
                                                         )
                                                         .ticketDocumentNumber(
                                                             "ticket_document_number"
@@ -276,30 +273,27 @@ class TransactionTest {
                                                 .ticketNumber("ticket_number")
                                                 .travelAgencyCode("travel_agency_code")
                                                 .travelAgencyName("travel_agency_name")
-                                                .tripLegs(
-                                                    listOf(
-                                                        Transaction.Source.CardRefund
-                                                            .PurchaseDetails
-                                                            .Travel
-                                                            .TripLeg
-                                                            .builder()
-                                                            .carrierCode("carrier_code")
-                                                            .destinationCityAirportCode(
-                                                                "destination_city_airport_code"
-                                                            )
-                                                            .fareBasisCode("fare_basis_code")
-                                                            .flightNumber("flight_number")
-                                                            .serviceClass("service_class")
-                                                            .stopOverCode(
-                                                                Transaction.Source.CardRefund
-                                                                    .PurchaseDetails
-                                                                    .Travel
-                                                                    .TripLeg
-                                                                    .StopOverCode
-                                                                    .NONE
-                                                            )
-                                                            .build()
-                                                    )
+                                                .addTripLeg(
+                                                    Transaction.Source.CardRefund.PurchaseDetails
+                                                        .Travel
+                                                        .TripLeg
+                                                        .builder()
+                                                        .carrierCode("carrier_code")
+                                                        .destinationCityAirportCode(
+                                                            "destination_city_airport_code"
+                                                        )
+                                                        .fareBasisCode("fare_basis_code")
+                                                        .flightNumber("flight_number")
+                                                        .serviceClass("service_class")
+                                                        .stopOverCode(
+                                                            Transaction.Source.CardRefund
+                                                                .PurchaseDetails
+                                                                .Travel
+                                                                .TripLeg
+                                                                .StopOverCode
+                                                                .NONE
+                                                        )
+                                                        .build()
                                                 )
                                                 .build()
                                         )
@@ -472,27 +466,25 @@ class TransactionTest {
                                                         .passengerNameOrDescription(
                                                             "passenger_name_or_description"
                                                         )
-                                                        .services(
-                                                            listOf(
-                                                                Transaction.Source.CardSettlement
-                                                                    .PurchaseDetails
-                                                                    .Travel
-                                                                    .Ancillary
-                                                                    .Service
-                                                                    .builder()
-                                                                    .category(
-                                                                        Transaction.Source
-                                                                            .CardSettlement
-                                                                            .PurchaseDetails
-                                                                            .Travel
-                                                                            .Ancillary
-                                                                            .Service
-                                                                            .Category
-                                                                            .NONE
-                                                                    )
-                                                                    .subCategory("sub_category")
-                                                                    .build()
-                                                            )
+                                                        .addService(
+                                                            Transaction.Source.CardSettlement
+                                                                .PurchaseDetails
+                                                                .Travel
+                                                                .Ancillary
+                                                                .Service
+                                                                .builder()
+                                                                .category(
+                                                                    Transaction.Source
+                                                                        .CardSettlement
+                                                                        .PurchaseDetails
+                                                                        .Travel
+                                                                        .Ancillary
+                                                                        .Service
+                                                                        .Category
+                                                                        .NONE
+                                                                )
+                                                                .subCategory("sub_category")
+                                                                .build()
                                                         )
                                                         .ticketDocumentNumber(
                                                             "ticket_document_number"
@@ -531,30 +523,28 @@ class TransactionTest {
                                                 .ticketNumber("ticket_number")
                                                 .travelAgencyCode("travel_agency_code")
                                                 .travelAgencyName("travel_agency_name")
-                                                .tripLegs(
-                                                    listOf(
-                                                        Transaction.Source.CardSettlement
-                                                            .PurchaseDetails
-                                                            .Travel
-                                                            .TripLeg
-                                                            .builder()
-                                                            .carrierCode("carrier_code")
-                                                            .destinationCityAirportCode(
-                                                                "destination_city_airport_code"
-                                                            )
-                                                            .fareBasisCode("fare_basis_code")
-                                                            .flightNumber("flight_number")
-                                                            .serviceClass("service_class")
-                                                            .stopOverCode(
-                                                                Transaction.Source.CardSettlement
-                                                                    .PurchaseDetails
-                                                                    .Travel
-                                                                    .TripLeg
-                                                                    .StopOverCode
-                                                                    .NONE
-                                                            )
-                                                            .build()
-                                                    )
+                                                .addTripLeg(
+                                                    Transaction.Source.CardSettlement
+                                                        .PurchaseDetails
+                                                        .Travel
+                                                        .TripLeg
+                                                        .builder()
+                                                        .carrierCode("carrier_code")
+                                                        .destinationCityAirportCode(
+                                                            "destination_city_airport_code"
+                                                        )
+                                                        .fareBasisCode("fare_basis_code")
+                                                        .flightNumber("flight_number")
+                                                        .serviceClass("service_class")
+                                                        .stopOverCode(
+                                                            Transaction.Source.CardSettlement
+                                                                .PurchaseDetails
+                                                                .Travel
+                                                                .TripLeg
+                                                                .StopOverCode
+                                                                .NONE
+                                                        )
+                                                        .build()
                                                 )
                                                 .build()
                                         )
@@ -632,18 +622,15 @@ class TransactionTest {
                                         .freeform(
                                             Transaction.Source.InboundAchTransfer.Addenda.Freeform
                                                 .builder()
-                                                .entries(
-                                                    listOf(
-                                                        Transaction.Source.InboundAchTransfer
-                                                            .Addenda
-                                                            .Freeform
-                                                            .Entry
-                                                            .builder()
-                                                            .paymentRelatedInformation(
-                                                                "payment_related_information"
-                                                            )
-                                                            .build()
-                                                    )
+                                                .addEntry(
+                                                    Transaction.Source.InboundAchTransfer.Addenda
+                                                        .Freeform
+                                                        .Entry
+                                                        .builder()
+                                                        .paymentRelatedInformation(
+                                                            "payment_related_information"
+                                                        )
+                                                        .build()
                                                 )
                                                 .build()
                                         )
@@ -990,26 +977,24 @@ class TransactionTest {
                                                     .passengerNameOrDescription(
                                                         "passenger_name_or_description"
                                                     )
-                                                    .services(
-                                                        listOf(
-                                                            Transaction.Source.CardRefund
-                                                                .PurchaseDetails
-                                                                .Travel
-                                                                .Ancillary
-                                                                .Service
-                                                                .builder()
-                                                                .category(
-                                                                    Transaction.Source.CardRefund
-                                                                        .PurchaseDetails
-                                                                        .Travel
-                                                                        .Ancillary
-                                                                        .Service
-                                                                        .Category
-                                                                        .NONE
-                                                                )
-                                                                .subCategory("sub_category")
-                                                                .build()
-                                                        )
+                                                    .addService(
+                                                        Transaction.Source.CardRefund
+                                                            .PurchaseDetails
+                                                            .Travel
+                                                            .Ancillary
+                                                            .Service
+                                                            .builder()
+                                                            .category(
+                                                                Transaction.Source.CardRefund
+                                                                    .PurchaseDetails
+                                                                    .Travel
+                                                                    .Ancillary
+                                                                    .Service
+                                                                    .Category
+                                                                    .NONE
+                                                            )
+                                                            .subCategory("sub_category")
+                                                            .build()
                                                     )
                                                     .ticketDocumentNumber("ticket_document_number")
                                                     .build()
@@ -1040,29 +1025,26 @@ class TransactionTest {
                                             .ticketNumber("ticket_number")
                                             .travelAgencyCode("travel_agency_code")
                                             .travelAgencyName("travel_agency_name")
-                                            .tripLegs(
-                                                listOf(
-                                                    Transaction.Source.CardRefund.PurchaseDetails
-                                                        .Travel
-                                                        .TripLeg
-                                                        .builder()
-                                                        .carrierCode("carrier_code")
-                                                        .destinationCityAirportCode(
-                                                            "destination_city_airport_code"
-                                                        )
-                                                        .fareBasisCode("fare_basis_code")
-                                                        .flightNumber("flight_number")
-                                                        .serviceClass("service_class")
-                                                        .stopOverCode(
-                                                            Transaction.Source.CardRefund
-                                                                .PurchaseDetails
-                                                                .Travel
-                                                                .TripLeg
-                                                                .StopOverCode
-                                                                .NONE
-                                                        )
-                                                        .build()
-                                                )
+                                            .addTripLeg(
+                                                Transaction.Source.CardRefund.PurchaseDetails.Travel
+                                                    .TripLeg
+                                                    .builder()
+                                                    .carrierCode("carrier_code")
+                                                    .destinationCityAirportCode(
+                                                        "destination_city_airport_code"
+                                                    )
+                                                    .fareBasisCode("fare_basis_code")
+                                                    .flightNumber("flight_number")
+                                                    .serviceClass("service_class")
+                                                    .stopOverCode(
+                                                        Transaction.Source.CardRefund
+                                                            .PurchaseDetails
+                                                            .Travel
+                                                            .TripLeg
+                                                            .StopOverCode
+                                                            .NONE
+                                                    )
+                                                    .build()
                                             )
                                             .build()
                                     )
@@ -1221,27 +1203,24 @@ class TransactionTest {
                                                     .passengerNameOrDescription(
                                                         "passenger_name_or_description"
                                                     )
-                                                    .services(
-                                                        listOf(
-                                                            Transaction.Source.CardSettlement
-                                                                .PurchaseDetails
-                                                                .Travel
-                                                                .Ancillary
-                                                                .Service
-                                                                .builder()
-                                                                .category(
-                                                                    Transaction.Source
-                                                                        .CardSettlement
-                                                                        .PurchaseDetails
-                                                                        .Travel
-                                                                        .Ancillary
-                                                                        .Service
-                                                                        .Category
-                                                                        .NONE
-                                                                )
-                                                                .subCategory("sub_category")
-                                                                .build()
-                                                        )
+                                                    .addService(
+                                                        Transaction.Source.CardSettlement
+                                                            .PurchaseDetails
+                                                            .Travel
+                                                            .Ancillary
+                                                            .Service
+                                                            .builder()
+                                                            .category(
+                                                                Transaction.Source.CardSettlement
+                                                                    .PurchaseDetails
+                                                                    .Travel
+                                                                    .Ancillary
+                                                                    .Service
+                                                                    .Category
+                                                                    .NONE
+                                                            )
+                                                            .subCategory("sub_category")
+                                                            .build()
                                                     )
                                                     .ticketDocumentNumber("ticket_document_number")
                                                     .build()
@@ -1275,30 +1254,27 @@ class TransactionTest {
                                             .ticketNumber("ticket_number")
                                             .travelAgencyCode("travel_agency_code")
                                             .travelAgencyName("travel_agency_name")
-                                            .tripLegs(
-                                                listOf(
-                                                    Transaction.Source.CardSettlement
-                                                        .PurchaseDetails
-                                                        .Travel
-                                                        .TripLeg
-                                                        .builder()
-                                                        .carrierCode("carrier_code")
-                                                        .destinationCityAirportCode(
-                                                            "destination_city_airport_code"
-                                                        )
-                                                        .fareBasisCode("fare_basis_code")
-                                                        .flightNumber("flight_number")
-                                                        .serviceClass("service_class")
-                                                        .stopOverCode(
-                                                            Transaction.Source.CardSettlement
-                                                                .PurchaseDetails
-                                                                .Travel
-                                                                .TripLeg
-                                                                .StopOverCode
-                                                                .NONE
-                                                        )
-                                                        .build()
-                                                )
+                                            .addTripLeg(
+                                                Transaction.Source.CardSettlement.PurchaseDetails
+                                                    .Travel
+                                                    .TripLeg
+                                                    .builder()
+                                                    .carrierCode("carrier_code")
+                                                    .destinationCityAirportCode(
+                                                        "destination_city_airport_code"
+                                                    )
+                                                    .fareBasisCode("fare_basis_code")
+                                                    .flightNumber("flight_number")
+                                                    .serviceClass("service_class")
+                                                    .stopOverCode(
+                                                        Transaction.Source.CardSettlement
+                                                            .PurchaseDetails
+                                                            .Travel
+                                                            .TripLeg
+                                                            .StopOverCode
+                                                            .NONE
+                                                    )
+                                                    .build()
                                             )
                                             .build()
                                     )
@@ -1375,17 +1351,15 @@ class TransactionTest {
                                     .freeform(
                                         Transaction.Source.InboundAchTransfer.Addenda.Freeform
                                             .builder()
-                                            .entries(
-                                                listOf(
-                                                    Transaction.Source.InboundAchTransfer.Addenda
-                                                        .Freeform
-                                                        .Entry
-                                                        .builder()
-                                                        .paymentRelatedInformation(
-                                                            "payment_related_information"
-                                                        )
-                                                        .build()
-                                                )
+                                            .addEntry(
+                                                Transaction.Source.InboundAchTransfer.Addenda
+                                                    .Freeform
+                                                    .Entry
+                                                    .builder()
+                                                    .paymentRelatedInformation(
+                                                        "payment_related_information"
+                                                    )
+                                                    .build()
                                             )
                                             .build()
                                     )

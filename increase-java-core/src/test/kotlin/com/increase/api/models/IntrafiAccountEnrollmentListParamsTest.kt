@@ -17,7 +17,7 @@ class IntrafiAccountEnrollmentListParamsTest {
             .limit(1L)
             .status(
                 IntrafiAccountEnrollmentListParams.Status.builder()
-                    .in_(listOf(IntrafiAccountEnrollmentListParams.Status.In.PENDING_ENROLLING))
+                    .addIn(IntrafiAccountEnrollmentListParams.Status.In.PENDING_ENROLLING)
                     .build()
             )
             .build()
@@ -33,7 +33,7 @@ class IntrafiAccountEnrollmentListParamsTest {
                 .limit(1L)
                 .status(
                     IntrafiAccountEnrollmentListParams.Status.builder()
-                        .in_(listOf(IntrafiAccountEnrollmentListParams.Status.In.PENDING_ENROLLING))
+                        .addIn(IntrafiAccountEnrollmentListParams.Status.In.PENDING_ENROLLING)
                         .build()
                 )
                 .build()
@@ -43,7 +43,7 @@ class IntrafiAccountEnrollmentListParamsTest {
         expected.put("idempotency_key", "x")
         expected.put("limit", "1")
         IntrafiAccountEnrollmentListParams.Status.builder()
-            .in_(listOf(IntrafiAccountEnrollmentListParams.Status.In.PENDING_ENROLLING))
+            .addIn(IntrafiAccountEnrollmentListParams.Status.In.PENDING_ENROLLING)
             .build()
             .forEachQueryParam { key, values -> expected.put("status.$key", values) }
         assertThat(params.getQueryParams()).isEqualTo(expected.build())

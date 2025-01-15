@@ -27,14 +27,10 @@ class InboundAchTransferTest {
                         .category(InboundAchTransfer.Addenda.Category.FREEFORM)
                         .freeform(
                             InboundAchTransfer.Addenda.Freeform.builder()
-                                .entries(
-                                    listOf(
-                                        InboundAchTransfer.Addenda.Freeform.Entry.builder()
-                                            .paymentRelatedInformation(
-                                                "payment_related_information"
-                                            )
-                                            .build()
-                                    )
+                                .addEntry(
+                                    InboundAchTransfer.Addenda.Freeform.Entry.builder()
+                                        .paymentRelatedInformation("payment_related_information")
+                                        .build()
                                 )
                                 .build()
                         )
@@ -165,12 +161,10 @@ class InboundAchTransferTest {
                     .category(InboundAchTransfer.Addenda.Category.FREEFORM)
                     .freeform(
                         InboundAchTransfer.Addenda.Freeform.builder()
-                            .entries(
-                                listOf(
-                                    InboundAchTransfer.Addenda.Freeform.Entry.builder()
-                                        .paymentRelatedInformation("payment_related_information")
-                                        .build()
-                                )
+                            .addEntry(
+                                InboundAchTransfer.Addenda.Freeform.Entry.builder()
+                                    .paymentRelatedInformation("payment_related_information")
+                                    .build()
                             )
                             .build()
                     )

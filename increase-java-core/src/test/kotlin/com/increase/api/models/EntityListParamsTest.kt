@@ -24,9 +24,7 @@ class EntityListParamsTest {
             .idempotencyKey("x")
             .limit(1L)
             .status(
-                EntityListParams.Status.builder()
-                    .in_(listOf(EntityListParams.Status.In.ACTIVE))
-                    .build()
+                EntityListParams.Status.builder().addIn(EntityListParams.Status.In.ACTIVE).build()
             )
             .build()
     }
@@ -48,7 +46,7 @@ class EntityListParamsTest {
                 .limit(1L)
                 .status(
                     EntityListParams.Status.builder()
-                        .in_(listOf(EntityListParams.Status.In.ACTIVE))
+                        .addIn(EntityListParams.Status.In.ACTIVE)
                         .build()
                 )
                 .build()
@@ -64,7 +62,7 @@ class EntityListParamsTest {
         expected.put("idempotency_key", "x")
         expected.put("limit", "1")
         EntityListParams.Status.builder()
-            .in_(listOf(EntityListParams.Status.In.ACTIVE))
+            .addIn(EntityListParams.Status.In.ACTIVE)
             .build()
             .forEachQueryParam { key, values -> expected.put("status.$key", values) }
         assertThat(params.getQueryParams()).isEqualTo(expected.build())

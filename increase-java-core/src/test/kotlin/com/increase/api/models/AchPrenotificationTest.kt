@@ -23,17 +23,15 @@ class AchPrenotificationTest {
                 .creditDebitIndicator(AchPrenotification.CreditDebitIndicator.CREDIT)
                 .effectiveDate(null)
                 .idempotencyKey(null)
-                .notificationsOfChange(
-                    listOf(
-                        AchPrenotification.NotificationsOfChange.builder()
-                            .changeCode(
-                                AchPrenotification.NotificationsOfChange.ChangeCode
-                                    .INCORRECT_ACCOUNT_NUMBER
-                            )
-                            .correctedData("32")
-                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                            .build()
-                    )
+                .addNotificationsOfChange(
+                    AchPrenotification.NotificationsOfChange.builder()
+                        .changeCode(
+                            AchPrenotification.NotificationsOfChange.ChangeCode
+                                .INCORRECT_ACCOUNT_NUMBER
+                        )
+                        .correctedData("32")
+                        .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .build()
                 )
                 .prenotificationReturn(
                     AchPrenotification.PrenotificationReturn.builder()

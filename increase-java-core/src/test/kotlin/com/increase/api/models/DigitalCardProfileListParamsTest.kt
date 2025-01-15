@@ -16,7 +16,7 @@ class DigitalCardProfileListParamsTest {
             .limit(1L)
             .status(
                 DigitalCardProfileListParams.Status.builder()
-                    .in_(listOf(DigitalCardProfileListParams.Status.In.PENDING))
+                    .addIn(DigitalCardProfileListParams.Status.In.PENDING)
                     .build()
             )
             .build()
@@ -31,7 +31,7 @@ class DigitalCardProfileListParamsTest {
                 .limit(1L)
                 .status(
                     DigitalCardProfileListParams.Status.builder()
-                        .in_(listOf(DigitalCardProfileListParams.Status.In.PENDING))
+                        .addIn(DigitalCardProfileListParams.Status.In.PENDING)
                         .build()
                 )
                 .build()
@@ -40,7 +40,7 @@ class DigitalCardProfileListParamsTest {
         expected.put("idempotency_key", "x")
         expected.put("limit", "1")
         DigitalCardProfileListParams.Status.builder()
-            .in_(listOf(DigitalCardProfileListParams.Status.In.PENDING))
+            .addIn(DigitalCardProfileListParams.Status.In.PENDING)
             .build()
             .forEachQueryParam { key, values -> expected.put("status.$key", values) }
         assertThat(params.getQueryParams()).isEqualTo(expected.build())

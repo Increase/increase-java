@@ -13,12 +13,10 @@ class ProofOfAuthorizationRequestTest {
         val proofOfAuthorizationRequest =
             ProofOfAuthorizationRequest.builder()
                 .id("proof_of_authorization_request_iwp8no25h3rjvil6ad3b")
-                .achTransfers(
-                    listOf(
-                        ProofOfAuthorizationRequest.AchTransfer.builder()
-                            .id("ach_transfer_uoxatyh3lt5evrsdvo7q")
-                            .build()
-                    )
+                .addAchTransfer(
+                    ProofOfAuthorizationRequest.AchTransfer.builder()
+                        .id("ach_transfer_uoxatyh3lt5evrsdvo7q")
+                        .build()
                 )
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .dueOn(OffsetDateTime.parse("2020-01-31T23:59:59Z"))

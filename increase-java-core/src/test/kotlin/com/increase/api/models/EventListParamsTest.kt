@@ -15,7 +15,7 @@ class EventListParamsTest {
             .associatedObjectId("associated_object_id")
             .category(
                 EventListParams.Category.builder()
-                    .in_(listOf(EventListParams.Category.In.ACCOUNT_CREATED))
+                    .addIn(EventListParams.Category.In.ACCOUNT_CREATED)
                     .build()
             )
             .createdAt(
@@ -38,7 +38,7 @@ class EventListParamsTest {
                 .associatedObjectId("associated_object_id")
                 .category(
                     EventListParams.Category.builder()
-                        .in_(listOf(EventListParams.Category.In.ACCOUNT_CREATED))
+                        .addIn(EventListParams.Category.In.ACCOUNT_CREATED)
                         .build()
                 )
                 .createdAt(
@@ -55,7 +55,7 @@ class EventListParamsTest {
         val expected = QueryParams.builder()
         expected.put("associated_object_id", "associated_object_id")
         EventListParams.Category.builder()
-            .in_(listOf(EventListParams.Category.In.ACCOUNT_CREATED))
+            .addIn(EventListParams.Category.In.ACCOUNT_CREATED)
             .build()
             .forEachQueryParam { key, values -> expected.put("category.$key", values) }
         EventListParams.CreatedAt.builder()

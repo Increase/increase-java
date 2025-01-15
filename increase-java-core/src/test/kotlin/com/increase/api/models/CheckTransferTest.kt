@@ -83,17 +83,14 @@ class CheckTransferTest {
                                 .build()
                         )
                         .signatureText(null)
-                        .trackingUpdates(
-                            listOf(
-                                CheckTransfer.PhysicalCheck.TrackingUpdate.builder()
-                                    .category(
-                                        CheckTransfer.PhysicalCheck.TrackingUpdate.Category
-                                            .IN_TRANSIT
-                                    )
-                                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .postalCode("postal_code")
-                                    .build()
-                            )
+                        .addTrackingUpdate(
+                            CheckTransfer.PhysicalCheck.TrackingUpdate.builder()
+                                .category(
+                                    CheckTransfer.PhysicalCheck.TrackingUpdate.Category.IN_TRANSIT
+                                )
+                                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .postalCode("postal_code")
+                                .build()
                         )
                         .build()
                 )
@@ -196,16 +193,14 @@ class CheckTransferTest {
                             .build()
                     )
                     .signatureText(null)
-                    .trackingUpdates(
-                        listOf(
-                            CheckTransfer.PhysicalCheck.TrackingUpdate.builder()
-                                .category(
-                                    CheckTransfer.PhysicalCheck.TrackingUpdate.Category.IN_TRANSIT
-                                )
-                                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .postalCode("postal_code")
-                                .build()
-                        )
+                    .addTrackingUpdate(
+                        CheckTransfer.PhysicalCheck.TrackingUpdate.builder()
+                            .category(
+                                CheckTransfer.PhysicalCheck.TrackingUpdate.Category.IN_TRANSIT
+                            )
+                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .postalCode("postal_code")
+                            .build()
                     )
                     .build()
             )

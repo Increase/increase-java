@@ -14,7 +14,7 @@ class ExportListParamsTest {
         ExportListParams.builder()
             .category(
                 ExportListParams.Category.builder()
-                    .in_(listOf(ExportListParams.Category.In.ACCOUNT_STATEMENT_OFX))
+                    .addIn(ExportListParams.Category.In.ACCOUNT_STATEMENT_OFX)
                     .build()
             )
             .createdAt(
@@ -29,9 +29,7 @@ class ExportListParamsTest {
             .idempotencyKey("x")
             .limit(1L)
             .status(
-                ExportListParams.Status.builder()
-                    .in_(listOf(ExportListParams.Status.In.PENDING))
-                    .build()
+                ExportListParams.Status.builder().addIn(ExportListParams.Status.In.PENDING).build()
             )
             .build()
     }
@@ -42,7 +40,7 @@ class ExportListParamsTest {
             ExportListParams.builder()
                 .category(
                     ExportListParams.Category.builder()
-                        .in_(listOf(ExportListParams.Category.In.ACCOUNT_STATEMENT_OFX))
+                        .addIn(ExportListParams.Category.In.ACCOUNT_STATEMENT_OFX)
                         .build()
                 )
                 .createdAt(
@@ -58,13 +56,13 @@ class ExportListParamsTest {
                 .limit(1L)
                 .status(
                     ExportListParams.Status.builder()
-                        .in_(listOf(ExportListParams.Status.In.PENDING))
+                        .addIn(ExportListParams.Status.In.PENDING)
                         .build()
                 )
                 .build()
         val expected = QueryParams.builder()
         ExportListParams.Category.builder()
-            .in_(listOf(ExportListParams.Category.In.ACCOUNT_STATEMENT_OFX))
+            .addIn(ExportListParams.Category.In.ACCOUNT_STATEMENT_OFX)
             .build()
             .forEachQueryParam { key, values -> expected.put("category.$key", values) }
         ExportListParams.CreatedAt.builder()
@@ -78,7 +76,7 @@ class ExportListParamsTest {
         expected.put("idempotency_key", "x")
         expected.put("limit", "1")
         ExportListParams.Status.builder()
-            .in_(listOf(ExportListParams.Status.In.PENDING))
+            .addIn(ExportListParams.Status.In.PENDING)
             .build()
             .forEachQueryParam { key, values -> expected.put("status.$key", values) }
         assertThat(params.getQueryParams()).isEqualTo(expected.build())
