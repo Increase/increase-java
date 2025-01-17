@@ -20,6 +20,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import java.util.function.Predicate
 
+/** List Proof of Authorization Requests */
 class ProofOfAuthorizationRequestListPageAsync
 private constructor(
     private val proofOfAuthorizationRequestsService: ProofOfAuthorizationRequestServiceAsync,

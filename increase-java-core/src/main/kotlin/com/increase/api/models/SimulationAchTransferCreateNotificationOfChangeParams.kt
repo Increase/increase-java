@@ -368,6 +368,7 @@ constructor(
             )
     }
 
+    /** The reason for the notification of change. */
     class ChangeCode
     @JsonCreator
     private constructor(
@@ -443,46 +444,106 @@ constructor(
         }
 
         enum class Known {
+            /** The account number was incorrect. */
             INCORRECT_ACCOUNT_NUMBER,
+            /** The routing number was incorrect. */
             INCORRECT_ROUTING_NUMBER,
+            /** Both the routing number and the account number were incorrect. */
             INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER,
+            /**
+             * The transaction code was incorrect. Try changing the `funding` parameter from
+             * checking to savings or vice-versa.
+             */
             INCORRECT_TRANSACTION_CODE,
+            /** The account number and the transaction code were incorrect. */
             INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE,
+            /** The routing number, account number, and transaction code were incorrect. */
             INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE,
+            /** The receiving depository financial institution identification was incorrect. */
             INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION,
+            /** The individual identification number was incorrect. */
             INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER,
+            /** The addenda had an incorrect format. */
             ADDENDA_FORMAT_ERROR,
+            /**
+             * The standard entry class code was incorrect for an outbound international payment.
+             */
             INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT,
+            /** The notification of change was misrouted. */
             MISROUTED_NOTIFICATION_OF_CHANGE,
+            /** The trace number was incorrect. */
             INCORRECT_TRACE_NUMBER,
+            /** The company identification number was incorrect. */
             INCORRECT_COMPANY_IDENTIFICATION_NUMBER,
+            /** The individual identification number or identification number was incorrect. */
             INCORRECT_IDENTIFICATION_NUMBER,
+            /** The corrected data was incorrectly formatted. */
             INCORRECTLY_FORMATTED_CORRECTED_DATA,
+            /** The discretionary data was incorrect. */
             INCORRECT_DISCRETIONARY_DATA,
+            /** The routing number was not from the original entry detail record. */
             ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD,
+            /**
+             * The depository financial institution account number was not from the original entry
+             * detail record.
+             */
             DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD,
+            /**
+             * The transaction code was incorrect, initiated by the originating depository financial
+             * institution.
+             */
             INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION,
         }
 
         enum class Value {
+            /** The account number was incorrect. */
             INCORRECT_ACCOUNT_NUMBER,
+            /** The routing number was incorrect. */
             INCORRECT_ROUTING_NUMBER,
+            /** Both the routing number and the account number were incorrect. */
             INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER,
+            /**
+             * The transaction code was incorrect. Try changing the `funding` parameter from
+             * checking to savings or vice-versa.
+             */
             INCORRECT_TRANSACTION_CODE,
+            /** The account number and the transaction code were incorrect. */
             INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE,
+            /** The routing number, account number, and transaction code were incorrect. */
             INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE,
+            /** The receiving depository financial institution identification was incorrect. */
             INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION,
+            /** The individual identification number was incorrect. */
             INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER,
+            /** The addenda had an incorrect format. */
             ADDENDA_FORMAT_ERROR,
+            /**
+             * The standard entry class code was incorrect for an outbound international payment.
+             */
             INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT,
+            /** The notification of change was misrouted. */
             MISROUTED_NOTIFICATION_OF_CHANGE,
+            /** The trace number was incorrect. */
             INCORRECT_TRACE_NUMBER,
+            /** The company identification number was incorrect. */
             INCORRECT_COMPANY_IDENTIFICATION_NUMBER,
+            /** The individual identification number or identification number was incorrect. */
             INCORRECT_IDENTIFICATION_NUMBER,
+            /** The corrected data was incorrectly formatted. */
             INCORRECTLY_FORMATTED_CORRECTED_DATA,
+            /** The discretionary data was incorrect. */
             INCORRECT_DISCRETIONARY_DATA,
+            /** The routing number was not from the original entry detail record. */
             ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD,
+            /**
+             * The depository financial institution account number was not from the original entry
+             * detail record.
+             */
             DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD,
+            /**
+             * The transaction code was incorrect, initiated by the originating depository financial
+             * institution.
+             */
             INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION,
             _UNKNOWN,
         }

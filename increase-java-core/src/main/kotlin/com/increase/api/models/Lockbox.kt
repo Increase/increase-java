@@ -546,6 +546,7 @@ private constructor(
             "Address{city=$city, line1=$line1, line2=$line2, postalCode=$postalCode, recipient=$recipient, state=$state, additionalProperties=$additionalProperties}"
     }
 
+    /** This indicates if mail can be sent to this address. */
     class Status
     @JsonCreator
     private constructor(
@@ -564,12 +565,16 @@ private constructor(
         }
 
         enum class Known {
+            /** This Lockbox is active. Checks mailed to it will be deposited automatically. */
             ACTIVE,
+            /** This Lockbox is inactive. Checks mailed to it will not be deposited. */
             INACTIVE,
         }
 
         enum class Value {
+            /** This Lockbox is active. Checks mailed to it will be deposited automatically. */
             ACTIVE,
+            /** This Lockbox is inactive. Checks mailed to it will not be deposited. */
             INACTIVE,
             _UNKNOWN,
         }
@@ -603,6 +608,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** A constant representing the object's type. For this resource it will always be `lockbox`. */
     class Type
     @JsonCreator
     private constructor(

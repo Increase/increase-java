@@ -317,6 +317,7 @@ constructor(
             )
     }
 
+    /** The status to update the Event Subscription with. */
     class Status
     @JsonCreator
     private constructor(
@@ -337,14 +338,20 @@ constructor(
         }
 
         enum class Known {
+            /** The subscription is active and Events will be delivered normally. */
             ACTIVE,
+            /** The subscription is temporarily disabled and Events will not be delivered. */
             DISABLED,
+            /** The subscription is permanently disabled and Events will not be delivered. */
             DELETED,
         }
 
         enum class Value {
+            /** The subscription is active and Events will be delivered normally. */
             ACTIVE,
+            /** The subscription is temporarily disabled and Events will not be delivered. */
             DISABLED,
+            /** The subscription is permanently disabled and Events will not be delivered. */
             DELETED,
             _UNKNOWN,
         }

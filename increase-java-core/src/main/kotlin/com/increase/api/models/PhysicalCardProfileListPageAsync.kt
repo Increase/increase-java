@@ -20,6 +20,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import java.util.function.Predicate
 
+/** List Physical Card Profiles */
 class PhysicalCardProfileListPageAsync
 private constructor(
     private val physicalCardProfilesService: PhysicalCardProfileServiceAsync,

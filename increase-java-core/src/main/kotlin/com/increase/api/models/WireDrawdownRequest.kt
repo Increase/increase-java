@@ -672,6 +672,7 @@ private constructor(
             )
     }
 
+    /** The lifecycle status of the drawdown request. */
     class Status
     @JsonCreator
     private constructor(
@@ -694,16 +695,24 @@ private constructor(
         }
 
         enum class Known {
+            /** The drawdown request is queued to be submitted to Fedwire. */
             PENDING_SUBMISSION,
+            /** The drawdown request has been sent and the recipient should respond in some way. */
             PENDING_RESPONSE,
+            /** The drawdown request has been fulfilled by the recipient. */
             FULFILLED,
+            /** The drawdown request has been refused by the recipient. */
             REFUSED,
         }
 
         enum class Value {
+            /** The drawdown request is queued to be submitted to Fedwire. */
             PENDING_SUBMISSION,
+            /** The drawdown request has been sent and the recipient should respond in some way. */
             PENDING_RESPONSE,
+            /** The drawdown request has been fulfilled by the recipient. */
             FULFILLED,
+            /** The drawdown request has been refused by the recipient. */
             REFUSED,
             _UNKNOWN,
         }
@@ -863,6 +872,10 @@ private constructor(
             "Submission{inputMessageAccountabilityData=$inputMessageAccountabilityData, additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `wire_drawdown_request`.
+     */
     class Type
     @JsonCreator
     private constructor(

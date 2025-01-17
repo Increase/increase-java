@@ -514,6 +514,11 @@ constructor(
                 )
         }
 
+        /**
+         * Whether ACH debits are allowed against this Account Number. Note that ACH debits will be
+         * declined if this is `allowed` but the Account Number is not active. If you do not specify
+         * this field, the default is `allowed`.
+         */
         class DebitStatus
         @JsonCreator
         private constructor(
@@ -532,12 +537,16 @@ constructor(
             }
 
             enum class Known {
+                /** ACH Debits are allowed. */
                 ALLOWED,
+                /** ACH Debits are blocked. */
                 BLOCKED,
             }
 
             enum class Value {
+                /** ACH Debits are allowed. */
                 ALLOWED,
+                /** ACH Debits are blocked. */
                 BLOCKED,
                 _UNKNOWN,
             }
@@ -681,6 +690,10 @@ constructor(
                 InboundChecks(checkRequired("status", status), additionalProperties.toImmutable())
         }
 
+        /**
+         * How Increase should process checks with this account number printed on them. If you do
+         * not specify this field, the default is `check_transfers_only`.
+         */
         class Status
         @JsonCreator
         private constructor(
@@ -699,12 +712,28 @@ constructor(
             }
 
             enum class Known {
+                /**
+                 * Checks with this Account Number will be processed even if they are not associated
+                 * with a Check Transfer.
+                 */
                 ALLOWED,
+                /**
+                 * Checks with this Account Number will be processed only if they can be matched to
+                 * an existing Check Transfer.
+                 */
                 CHECK_TRANSFERS_ONLY,
             }
 
             enum class Value {
+                /**
+                 * Checks with this Account Number will be processed even if they are not associated
+                 * with a Check Transfer.
+                 */
                 ALLOWED,
+                /**
+                 * Checks with this Account Number will be processed only if they can be matched to
+                 * an existing Check Transfer.
+                 */
                 CHECK_TRANSFERS_ONLY,
                 _UNKNOWN,
             }

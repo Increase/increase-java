@@ -232,6 +232,7 @@ constructor(
             )
     }
 
+    /** What the File will be used for in Increase's systems. */
     class Purpose
     @JsonCreator
     private constructor(
@@ -277,38 +278,98 @@ constructor(
         }
 
         enum class Known {
+            /** An image of the front of a check, used for check deposits. */
             CHECK_IMAGE_FRONT,
+            /** An image of the back of a check, used for check deposits. */
             CHECK_IMAGE_BACK,
+            /** An image of a check that was mailed to a recipient. */
             MAILED_CHECK_IMAGE,
+            /**
+             * An image to be printed on the bottom or voucher of a check that you've requested
+             * Increase print.
+             */
             CHECK_VOUCHER_IMAGE,
+            /** IRS Form SS-4. */
             FORM_SS_4,
+            /** An image of a government-issued ID. */
             IDENTITY_DOCUMENT,
+            /** A file purpose not covered by any of the other cases. */
             OTHER,
+            /** A legal document forming a trust. */
             TRUST_FORMATION_DOCUMENT,
+            /**
+             * A card image to be rendered inside digital wallet apps. This must be a 1536x969 pixel
+             * PNG.
+             */
             DIGITAL_WALLET_ARTWORK,
+            /**
+             * An icon for you app to be rendered inside digital wallet apps. This must be a 100x100
+             * pixel PNG.
+             */
             DIGITAL_WALLET_APP_ICON,
+            /**
+             * A card image to be printed on the front of a physical card. This must be a 2100x1340
+             * pixel PNG with no other color but black.
+             */
             PHYSICAL_CARD_FRONT,
+            /**
+             * An image representing the entirety of the carrier used for a physical card. This must
+             * be a 2550x3300 pixel PNG with no other color but black.
+             */
             PHYSICAL_CARD_CARRIER,
+            /** A document requested by Increase. */
             DOCUMENT_REQUEST,
+            /** A supplemental document associated an an Entity. */
             ENTITY_SUPPLEMENTAL_DOCUMENT,
+            /** An attachment to an Unusual Activity Report. */
             UNUSUAL_ACTIVITY_REPORT_ATTACHMENT,
         }
 
         enum class Value {
+            /** An image of the front of a check, used for check deposits. */
             CHECK_IMAGE_FRONT,
+            /** An image of the back of a check, used for check deposits. */
             CHECK_IMAGE_BACK,
+            /** An image of a check that was mailed to a recipient. */
             MAILED_CHECK_IMAGE,
+            /**
+             * An image to be printed on the bottom or voucher of a check that you've requested
+             * Increase print.
+             */
             CHECK_VOUCHER_IMAGE,
+            /** IRS Form SS-4. */
             FORM_SS_4,
+            /** An image of a government-issued ID. */
             IDENTITY_DOCUMENT,
+            /** A file purpose not covered by any of the other cases. */
             OTHER,
+            /** A legal document forming a trust. */
             TRUST_FORMATION_DOCUMENT,
+            /**
+             * A card image to be rendered inside digital wallet apps. This must be a 1536x969 pixel
+             * PNG.
+             */
             DIGITAL_WALLET_ARTWORK,
+            /**
+             * An icon for you app to be rendered inside digital wallet apps. This must be a 100x100
+             * pixel PNG.
+             */
             DIGITAL_WALLET_APP_ICON,
+            /**
+             * A card image to be printed on the front of a physical card. This must be a 2100x1340
+             * pixel PNG with no other color but black.
+             */
             PHYSICAL_CARD_FRONT,
+            /**
+             * An image representing the entirety of the carrier used for a physical card. This must
+             * be a 2550x3300 pixel PNG with no other color but black.
+             */
             PHYSICAL_CARD_CARRIER,
+            /** A document requested by Increase. */
             DOCUMENT_REQUEST,
+            /** A supplemental document associated an an Entity. */
             ENTITY_SUPPLEMENTAL_DOCUMENT,
+            /** An attachment to an Unusual Activity Report. */
             UNUSUAL_ACTIVITY_REPORT_ATTACHMENT,
             _UNKNOWN,
         }

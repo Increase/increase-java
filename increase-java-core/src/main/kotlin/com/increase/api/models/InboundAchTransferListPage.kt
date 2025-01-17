@@ -19,6 +19,7 @@ import java.util.Optional
 import java.util.stream.Stream
 import java.util.stream.StreamSupport
 
+/** List Inbound ACH Transfers */
 class InboundAchTransferListPage
 private constructor(
     private val inboundAchTransfersService: InboundAchTransferService,

@@ -19,6 +19,7 @@ import java.util.Optional
 import java.util.stream.Stream
 import java.util.stream.StreamSupport
 
+/** List Wire Drawdown Requests */
 class WireDrawdownRequestListPage
 private constructor(
     private val wireDrawdownRequestsService: WireDrawdownRequestService,

@@ -20,6 +20,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import java.util.function.Predicate
 
+/** List Account Transfers */
 class AccountTransferListPageAsync
 private constructor(
     private val accountTransfersService: AccountTransferServiceAsync,

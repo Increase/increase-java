@@ -322,6 +322,7 @@ constructor(
             )
     }
 
+    /** The reason to return the Inbound Check Deposit. */
     class Reason
     @JsonCreator
     private constructor(
@@ -346,18 +347,28 @@ constructor(
         }
 
         enum class Known {
+            /** The check was altered or fictitious. */
             ALTERED_OR_FICTITIOUS,
+            /** The check was not authorized. */
             NOT_AUTHORIZED,
+            /** The check was a duplicate presentment. */
             DUPLICATE_PRESENTMENT,
+            /** The check was not endorsed. */
             ENDORSEMENT_MISSING,
+            /** The check was not endorsed by the payee. */
             ENDORSEMENT_IRREGULAR,
         }
 
         enum class Value {
+            /** The check was altered or fictitious. */
             ALTERED_OR_FICTITIOUS,
+            /** The check was not authorized. */
             NOT_AUTHORIZED,
+            /** The check was a duplicate presentment. */
             DUPLICATE_PRESENTMENT,
+            /** The check was not endorsed. */
             ENDORSEMENT_MISSING,
+            /** The check was not endorsed by the payee. */
             ENDORSEMENT_IRREGULAR,
             _UNKNOWN,
         }

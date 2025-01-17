@@ -390,6 +390,7 @@ constructor(
             )
     }
 
+    /** This indicates if checks can be sent to the Lockbox. */
     class Status
     @JsonCreator
     private constructor(
@@ -408,12 +409,16 @@ constructor(
         }
 
         enum class Known {
+            /** This Lockbox is active. Checks mailed to it will be deposited automatically. */
             ACTIVE,
+            /** This Lockbox is inactive. Checks mailed to it will not be deposited. */
             INACTIVE,
         }
 
         enum class Value {
+            /** This Lockbox is active. Checks mailed to it will be deposited automatically. */
             ACTIVE,
+            /** This Lockbox is inactive. Checks mailed to it will not be deposited. */
             INACTIVE,
             _UNKNOWN,
         }

@@ -499,6 +499,7 @@ constructor(
             "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
     }
 
+    /** Filter Accounts for those with the specified status. */
     class Status
     @JsonCreator
     private constructor(
@@ -517,12 +518,16 @@ constructor(
         }
 
         enum class Known {
+            /** Closed Accounts on which no new activity can occur. */
             CLOSED,
+            /** Open Accounts that are ready to use. */
             OPEN,
         }
 
         enum class Value {
+            /** Closed Accounts on which no new activity can occur. */
             CLOSED,
+            /** Open Accounts that are ready to use. */
             OPEN,
             _UNKNOWN,
         }

@@ -20,6 +20,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import java.util.function.Predicate
 
+/** List Inbound Real-Time Payments Transfers */
 class InboundRealTimePaymentsTransferListPageAsync
 private constructor(
     private val inboundRealTimePaymentsTransfersService:

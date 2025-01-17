@@ -1466,6 +1466,7 @@ constructor(
                 )
         }
 
+        /** The type of addenda to pass with the transfer. */
         class Category
         @JsonCreator
         private constructor(
@@ -1485,12 +1486,22 @@ constructor(
             }
 
             enum class Known {
+                /** Unstructured `payment_related_information` passed through with the transfer. */
                 FREEFORM,
+                /**
+                 * Structured ASC X12 820 remittance advice records. Please reach out to
+                 * [support@increase.com](mailto:support@increase.com) for more information.
+                 */
                 PAYMENT_ORDER_REMITTANCE_ADVICE,
             }
 
             enum class Value {
+                /** Unstructured `payment_related_information` passed through with the transfer. */
                 FREEFORM,
+                /**
+                 * Structured ASC X12 820 remittance advice records. Please reach out to
+                 * [support@increase.com](mailto:support@increase.com) for more information.
+                 */
                 PAYMENT_ORDER_REMITTANCE_ADVICE,
                 _UNKNOWN,
             }
@@ -2072,6 +2083,7 @@ constructor(
             "Addenda{category=$category, freeform=$freeform, paymentOrderRemittanceAdvice=$paymentOrderRemittanceAdvice, additionalProperties=$additionalProperties}"
     }
 
+    /** The type of entity that owns the account to which the ACH Transfer is being sent. */
     class DestinationAccountHolder
     @JsonCreator
     private constructor(
@@ -2092,14 +2104,20 @@ constructor(
         }
 
         enum class Known {
+            /** The External Account is owned by a business. */
             BUSINESS,
+            /** The External Account is owned by an individual. */
             INDIVIDUAL,
+            /** It's unknown what kind of entity owns the External Account. */
             UNKNOWN,
         }
 
         enum class Value {
+            /** The External Account is owned by a business. */
             BUSINESS,
+            /** The External Account is owned by an individual. */
             INDIVIDUAL,
+            /** It's unknown what kind of entity owns the External Account. */
             UNKNOWN,
             _UNKNOWN,
         }
@@ -2136,6 +2154,7 @@ constructor(
         override fun toString() = value.toString()
     }
 
+    /** The type of the account to which the transfer will be sent. */
     class Funding
     @JsonCreator
     private constructor(
@@ -2154,12 +2173,16 @@ constructor(
         }
 
         enum class Known {
+            /** A checking account. */
             CHECKING,
+            /** A savings account. */
             SAVINGS,
         }
 
         enum class Value {
+            /** A checking account. */
             CHECKING,
+            /** A savings account. */
             SAVINGS,
             _UNKNOWN,
         }
@@ -2317,6 +2340,7 @@ constructor(
                 )
         }
 
+        /** A schedule by which Increase will choose an effective date for the transfer. */
         class SettlementSchedule
         @JsonCreator
         private constructor(
@@ -2335,12 +2359,34 @@ constructor(
             }
 
             enum class Known {
+                /**
+                 * The chosen effective date will be the same as the ACH processing date on which
+                 * the transfer is submitted. This is necessary, but not sufficient for the transfer
+                 * to be settled same-day: it must also be submitted before the last same-day cutoff
+                 * and be less than or equal to $1,000.000.00.
+                 */
                 SAME_DAY,
+                /**
+                 * The chosen effective date will be the business day following the ACH processing
+                 * date on which the transfer is submitted. The transfer will be settled on that
+                 * future day.
+                 */
                 FUTURE_DATED,
             }
 
             enum class Value {
+                /**
+                 * The chosen effective date will be the same as the ACH processing date on which
+                 * the transfer is submitted. This is necessary, but not sufficient for the transfer
+                 * to be settled same-day: it must also be submitted before the last same-day cutoff
+                 * and be less than or equal to $1,000.000.00.
+                 */
                 SAME_DAY,
+                /**
+                 * The chosen effective date will be the business day following the ACH processing
+                 * date on which the transfer is submitted. The transfer will be settled on that
+                 * future day.
+                 */
                 FUTURE_DATED,
                 _UNKNOWN,
             }
@@ -2392,6 +2438,7 @@ constructor(
             "PreferredEffectiveDate{date=$date, settlementSchedule=$settlementSchedule, additionalProperties=$additionalProperties}"
     }
 
+    /** The Standard Entry Class (SEC) code to use for the transfer. */
     class StandardEntryClassCode
     @JsonCreator
     private constructor(
@@ -2414,16 +2461,24 @@ constructor(
         }
 
         enum class Known {
+            /** Corporate Credit and Debit (CCD). */
             CORPORATE_CREDIT_OR_DEBIT,
+            /** Corporate Trade Exchange (CTX). */
             CORPORATE_TRADE_EXCHANGE,
+            /** Prearranged Payments and Deposits (PPD). */
             PREARRANGED_PAYMENTS_AND_DEPOSIT,
+            /** Internet Initiated (WEB). */
             INTERNET_INITIATED,
         }
 
         enum class Value {
+            /** Corporate Credit and Debit (CCD). */
             CORPORATE_CREDIT_OR_DEBIT,
+            /** Corporate Trade Exchange (CTX). */
             CORPORATE_TRADE_EXCHANGE,
+            /** Prearranged Payments and Deposits (PPD). */
             PREARRANGED_PAYMENTS_AND_DEPOSIT,
+            /** Internet Initiated (WEB). */
             INTERNET_INITIATED,
             _UNKNOWN,
         }
@@ -2461,6 +2516,7 @@ constructor(
         override fun toString() = value.toString()
     }
 
+    /** The timing of the transaction. */
     class TransactionTiming
     @JsonCreator
     private constructor(
@@ -2479,12 +2535,16 @@ constructor(
         }
 
         enum class Known {
+            /** A Transaction will be created immediately. */
             SYNCHRONOUS,
+            /** A Transaction will be created when the funds settle at the Federal Reserve. */
             ASYNCHRONOUS,
         }
 
         enum class Value {
+            /** A Transaction will be created immediately. */
             SYNCHRONOUS,
+            /** A Transaction will be created when the funds settle at the Federal Reserve. */
             ASYNCHRONOUS,
             _UNKNOWN,
         }

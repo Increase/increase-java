@@ -20,6 +20,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import java.util.function.Predicate
 
+/** List Entities */
 class EntityListPageAsync
 private constructor(
     private val entitiesService: EntityServiceAsync,

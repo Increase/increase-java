@@ -374,20 +374,38 @@ constructor(
             }
 
             enum class Known {
+                /** The Card Profile has not yet been processed by Increase. */
                 PENDING_CREATING,
+                /** The card profile is awaiting review by Increase. */
                 PENDING_REVIEWING,
+                /** There is an issue with the Physical Card Profile preventing it from use. */
                 REJECTED,
+                /** The card profile is awaiting submission to the fulfillment provider. */
                 PENDING_SUBMITTING,
+                /**
+                 * The Physical Card Profile has been submitted to the fulfillment provider and is
+                 * ready to use.
+                 */
                 ACTIVE,
+                /** The Physical Card Profile has been archived. */
                 ARCHIVED,
             }
 
             enum class Value {
+                /** The Card Profile has not yet been processed by Increase. */
                 PENDING_CREATING,
+                /** The card profile is awaiting review by Increase. */
                 PENDING_REVIEWING,
+                /** There is an issue with the Physical Card Profile preventing it from use. */
                 REJECTED,
+                /** The card profile is awaiting submission to the fulfillment provider. */
                 PENDING_SUBMITTING,
+                /**
+                 * The Physical Card Profile has been submitted to the fulfillment provider and is
+                 * ready to use.
+                 */
                 ACTIVE,
+                /** The Physical Card Profile has been archived. */
                 ARCHIVED,
                 _UNKNOWN,
             }

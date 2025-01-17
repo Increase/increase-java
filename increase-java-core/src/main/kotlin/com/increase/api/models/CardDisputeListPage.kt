@@ -19,6 +19,7 @@ import java.util.Optional
 import java.util.stream.Stream
 import java.util.stream.StreamSupport
 
+/** List Card Disputes */
 class CardDisputeListPage
 private constructor(
     private val cardDisputesService: CardDisputeService,

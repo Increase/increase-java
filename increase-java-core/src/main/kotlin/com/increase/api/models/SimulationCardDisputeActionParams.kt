@@ -362,6 +362,7 @@ constructor(
             )
     }
 
+    /** The status to move the dispute to. */
     class Status
     @JsonCreator
     private constructor(
@@ -386,18 +387,40 @@ constructor(
         }
 
         enum class Known {
+            /** Increase has requested more information related to the Card Dispute from you. */
             PENDING_USER_INFORMATION,
+            /**
+             * The Card Dispute has been accepted and your funds have been returned. The card
+             * dispute will eventually transition into `won` or `lost` depending on the outcome.
+             */
             ACCEPTED,
+            /** The Card Dispute has been rejected. */
             REJECTED,
+            /**
+             * The Card Dispute has been lost and funds previously credited from the acceptance have
+             * been debited.
+             */
             LOST,
+            /** The Card Dispute has been won and no further action can be taken. */
             WON,
         }
 
         enum class Value {
+            /** Increase has requested more information related to the Card Dispute from you. */
             PENDING_USER_INFORMATION,
+            /**
+             * The Card Dispute has been accepted and your funds have been returned. The card
+             * dispute will eventually transition into `won` or `lost` depending on the outcome.
+             */
             ACCEPTED,
+            /** The Card Dispute has been rejected. */
             REJECTED,
+            /**
+             * The Card Dispute has been lost and funds previously credited from the acceptance have
+             * been debited.
+             */
             LOST,
+            /** The Card Dispute has been won and no further action can be taken. */
             WON,
             _UNKNOWN,
         }

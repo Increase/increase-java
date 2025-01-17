@@ -155,6 +155,7 @@ private constructor(
             )
     }
 
+    /** The type of OAuth token. */
     class TokenType
     @JsonCreator
     private constructor(
@@ -206,6 +207,9 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be `oauth_token`.
+     */
     class Type
     @JsonCreator
     private constructor(

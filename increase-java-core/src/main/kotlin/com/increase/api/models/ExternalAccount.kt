@@ -365,6 +365,7 @@ private constructor(
             )
     }
 
+    /** The type of entity that owns the External Account. */
     class AccountHolder
     @JsonCreator
     private constructor(
@@ -385,14 +386,20 @@ private constructor(
         }
 
         enum class Known {
+            /** The External Account is owned by a business. */
             BUSINESS,
+            /** The External Account is owned by an individual. */
             INDIVIDUAL,
+            /** It's unknown what kind of entity owns the External Account. */
             UNKNOWN,
         }
 
         enum class Value {
+            /** The External Account is owned by a business. */
             BUSINESS,
+            /** The External Account is owned by an individual. */
             INDIVIDUAL,
+            /** It's unknown what kind of entity owns the External Account. */
             UNKNOWN,
             _UNKNOWN,
         }
@@ -428,6 +435,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** The type of the account to which the transfer will be sent. */
     class Funding
     @JsonCreator
     private constructor(
@@ -448,14 +456,20 @@ private constructor(
         }
 
         enum class Known {
+            /** A checking account. */
             CHECKING,
+            /** A savings account. */
             SAVINGS,
+            /** A different type of account. */
             OTHER,
         }
 
         enum class Value {
+            /** A checking account. */
             CHECKING,
+            /** A savings account. */
             SAVINGS,
+            /** A different type of account. */
             OTHER,
             _UNKNOWN,
         }
@@ -491,6 +505,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** The External Account's status. */
     class Status
     @JsonCreator
     private constructor(
@@ -509,12 +524,16 @@ private constructor(
         }
 
         enum class Known {
+            /** The External Account is active. */
             ACTIVE,
+            /** The External Account is archived and won't appear in the dashboard. */
             ARCHIVED,
         }
 
         enum class Value {
+            /** The External Account is active. */
             ACTIVE,
+            /** The External Account is archived and won't appear in the dashboard. */
             ARCHIVED,
             _UNKNOWN,
         }
@@ -548,6 +567,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `external_account`.
+     */
     class Type
     @JsonCreator
     private constructor(
@@ -599,6 +622,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** If you have verified ownership of the External Account. */
     class VerificationStatus
     @JsonCreator
     private constructor(
@@ -619,14 +643,20 @@ private constructor(
         }
 
         enum class Known {
+            /** The External Account has not been verified. */
             UNVERIFIED,
+            /** The External Account is in the process of being verified. */
             PENDING,
+            /** The External Account is verified. */
             VERIFIED,
         }
 
         enum class Value {
+            /** The External Account has not been verified. */
             UNVERIFIED,
+            /** The External Account is in the process of being verified. */
             PENDING,
+            /** The External Account is verified. */
             VERIFIED,
             _UNKNOWN,
         }

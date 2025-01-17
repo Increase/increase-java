@@ -450,66 +450,232 @@ constructor(
             }
 
             enum class Known {
+                /**
+                 * Account Transfer Intention: details will be under the
+                 * `account_transfer_intention` object.
+                 */
                 ACCOUNT_TRANSFER_INTENTION,
+                /**
+                 * ACH Transfer Intention: details will be under the `ach_transfer_intention`
+                 * object.
+                 */
                 ACH_TRANSFER_INTENTION,
+                /**
+                 * ACH Transfer Rejection: details will be under the `ach_transfer_rejection`
+                 * object.
+                 */
                 ACH_TRANSFER_REJECTION,
+                /** ACH Transfer Return: details will be under the `ach_transfer_return` object. */
                 ACH_TRANSFER_RETURN,
+                /** Cashback Payment: details will be under the `cashback_payment` object. */
                 CASHBACK_PAYMENT,
+                /**
+                 * Card Dispute Acceptance: details will be under the `card_dispute_acceptance`
+                 * object.
+                 */
                 CARD_DISPUTE_ACCEPTANCE,
+                /** Card Dispute Loss: details will be under the `card_dispute_loss` object. */
                 CARD_DISPUTE_LOSS,
+                /** Card Refund: details will be under the `card_refund` object. */
                 CARD_REFUND,
+                /** Card Settlement: details will be under the `card_settlement` object. */
                 CARD_SETTLEMENT,
+                /**
+                 * Card Revenue Payment: details will be under the `card_revenue_payment` object.
+                 */
                 CARD_REVENUE_PAYMENT,
+                /**
+                 * Check Deposit Acceptance: details will be under the `check_deposit_acceptance`
+                 * object.
+                 */
                 CHECK_DEPOSIT_ACCEPTANCE,
+                /**
+                 * Check Deposit Return: details will be under the `check_deposit_return` object.
+                 */
                 CHECK_DEPOSIT_RETURN,
+                /**
+                 * Check Transfer Deposit: details will be under the `check_transfer_deposit`
+                 * object.
+                 */
                 CHECK_TRANSFER_DEPOSIT,
+                /** Fee Payment: details will be under the `fee_payment` object. */
                 FEE_PAYMENT,
+                /**
+                 * Inbound ACH Transfer Intention: details will be under the `inbound_ach_transfer`
+                 * object.
+                 */
                 INBOUND_ACH_TRANSFER,
+                /**
+                 * Inbound ACH Transfer Return Intention: details will be under the
+                 * `inbound_ach_transfer_return_intention` object.
+                 */
                 INBOUND_ACH_TRANSFER_RETURN_INTENTION,
+                /**
+                 * Inbound Check Deposit Return Intention: details will be under the
+                 * `inbound_check_deposit_return_intention` object.
+                 */
                 INBOUND_CHECK_DEPOSIT_RETURN_INTENTION,
+                /**
+                 * Inbound Check Adjustment: details will be under the `inbound_check_adjustment`
+                 * object.
+                 */
                 INBOUND_CHECK_ADJUSTMENT,
+                /**
+                 * Inbound Real-Time Payments Transfer Confirmation: details will be under the
+                 * `inbound_real_time_payments_transfer_confirmation` object.
+                 */
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
+                /**
+                 * Inbound Real-Time Payments Transfer Decline: details will be under the
+                 * `inbound_real_time_payments_transfer_decline` object.
+                 */
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
+                /**
+                 * Inbound Wire Reversal: details will be under the `inbound_wire_reversal` object.
+                 */
                 INBOUND_WIRE_REVERSAL,
+                /**
+                 * Inbound Wire Transfer Intention: details will be under the
+                 * `inbound_wire_transfer` object.
+                 */
                 INBOUND_WIRE_TRANSFER,
+                /**
+                 * Inbound Wire Transfer Reversal Intention: details will be under the
+                 * `inbound_wire_transfer_reversal` object.
+                 */
                 INBOUND_WIRE_TRANSFER_REVERSAL,
+                /** Interest Payment: details will be under the `interest_payment` object. */
                 INTEREST_PAYMENT,
+                /** Internal Source: details will be under the `internal_source` object. */
                 INTERNAL_SOURCE,
+                /**
+                 * Real-Time Payments Transfer Acknowledgement: details will be under the
+                 * `real_time_payments_transfer_acknowledgement` object.
+                 */
                 REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT,
+                /** Sample Funds: details will be under the `sample_funds` object. */
                 SAMPLE_FUNDS,
+                /**
+                 * Wire Transfer Intention: details will be under the `wire_transfer_intention`
+                 * object.
+                 */
                 WIRE_TRANSFER_INTENTION,
+                /** The Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
             }
 
             enum class Value {
+                /**
+                 * Account Transfer Intention: details will be under the
+                 * `account_transfer_intention` object.
+                 */
                 ACCOUNT_TRANSFER_INTENTION,
+                /**
+                 * ACH Transfer Intention: details will be under the `ach_transfer_intention`
+                 * object.
+                 */
                 ACH_TRANSFER_INTENTION,
+                /**
+                 * ACH Transfer Rejection: details will be under the `ach_transfer_rejection`
+                 * object.
+                 */
                 ACH_TRANSFER_REJECTION,
+                /** ACH Transfer Return: details will be under the `ach_transfer_return` object. */
                 ACH_TRANSFER_RETURN,
+                /** Cashback Payment: details will be under the `cashback_payment` object. */
                 CASHBACK_PAYMENT,
+                /**
+                 * Card Dispute Acceptance: details will be under the `card_dispute_acceptance`
+                 * object.
+                 */
                 CARD_DISPUTE_ACCEPTANCE,
+                /** Card Dispute Loss: details will be under the `card_dispute_loss` object. */
                 CARD_DISPUTE_LOSS,
+                /** Card Refund: details will be under the `card_refund` object. */
                 CARD_REFUND,
+                /** Card Settlement: details will be under the `card_settlement` object. */
                 CARD_SETTLEMENT,
+                /**
+                 * Card Revenue Payment: details will be under the `card_revenue_payment` object.
+                 */
                 CARD_REVENUE_PAYMENT,
+                /**
+                 * Check Deposit Acceptance: details will be under the `check_deposit_acceptance`
+                 * object.
+                 */
                 CHECK_DEPOSIT_ACCEPTANCE,
+                /**
+                 * Check Deposit Return: details will be under the `check_deposit_return` object.
+                 */
                 CHECK_DEPOSIT_RETURN,
+                /**
+                 * Check Transfer Deposit: details will be under the `check_transfer_deposit`
+                 * object.
+                 */
                 CHECK_TRANSFER_DEPOSIT,
+                /** Fee Payment: details will be under the `fee_payment` object. */
                 FEE_PAYMENT,
+                /**
+                 * Inbound ACH Transfer Intention: details will be under the `inbound_ach_transfer`
+                 * object.
+                 */
                 INBOUND_ACH_TRANSFER,
+                /**
+                 * Inbound ACH Transfer Return Intention: details will be under the
+                 * `inbound_ach_transfer_return_intention` object.
+                 */
                 INBOUND_ACH_TRANSFER_RETURN_INTENTION,
+                /**
+                 * Inbound Check Deposit Return Intention: details will be under the
+                 * `inbound_check_deposit_return_intention` object.
+                 */
                 INBOUND_CHECK_DEPOSIT_RETURN_INTENTION,
+                /**
+                 * Inbound Check Adjustment: details will be under the `inbound_check_adjustment`
+                 * object.
+                 */
                 INBOUND_CHECK_ADJUSTMENT,
+                /**
+                 * Inbound Real-Time Payments Transfer Confirmation: details will be under the
+                 * `inbound_real_time_payments_transfer_confirmation` object.
+                 */
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
+                /**
+                 * Inbound Real-Time Payments Transfer Decline: details will be under the
+                 * `inbound_real_time_payments_transfer_decline` object.
+                 */
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
+                /**
+                 * Inbound Wire Reversal: details will be under the `inbound_wire_reversal` object.
+                 */
                 INBOUND_WIRE_REVERSAL,
+                /**
+                 * Inbound Wire Transfer Intention: details will be under the
+                 * `inbound_wire_transfer` object.
+                 */
                 INBOUND_WIRE_TRANSFER,
+                /**
+                 * Inbound Wire Transfer Reversal Intention: details will be under the
+                 * `inbound_wire_transfer_reversal` object.
+                 */
                 INBOUND_WIRE_TRANSFER_REVERSAL,
+                /** Interest Payment: details will be under the `interest_payment` object. */
                 INTEREST_PAYMENT,
+                /** Internal Source: details will be under the `internal_source` object. */
                 INTERNAL_SOURCE,
+                /**
+                 * Real-Time Payments Transfer Acknowledgement: details will be under the
+                 * `real_time_payments_transfer_acknowledgement` object.
+                 */
                 REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT,
+                /** Sample Funds: details will be under the `sample_funds` object. */
                 SAMPLE_FUNDS,
+                /**
+                 * Wire Transfer Intention: details will be under the `wire_transfer_intention`
+                 * object.
+                 */
                 WIRE_TRANSFER_INTENTION,
+                /** The Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
                 _UNKNOWN,
             }

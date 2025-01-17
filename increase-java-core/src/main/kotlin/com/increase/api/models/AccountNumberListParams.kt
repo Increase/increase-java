@@ -283,6 +283,7 @@ constructor(
             )
     }
 
+    /** The ACH Debit status to retrieve Account Numbers for. */
     class AchDebitStatus
     @JsonCreator
     private constructor(
@@ -301,12 +302,16 @@ constructor(
         }
 
         enum class Known {
+            /** ACH Debits are allowed. */
             ALLOWED,
+            /** ACH Debits are blocked. */
             BLOCKED,
         }
 
         enum class Value {
+            /** ACH Debits are allowed. */
             ALLOWED,
+            /** ACH Debits are blocked. */
             BLOCKED,
             _UNKNOWN,
         }
@@ -540,6 +545,7 @@ constructor(
             "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
     }
 
+    /** The status to retrieve Account Numbers for. */
     class Status
     @JsonCreator
     private constructor(
@@ -560,14 +566,20 @@ constructor(
         }
 
         enum class Known {
+            /** The account number is active. */
             ACTIVE,
+            /** The account number is temporarily disabled. */
             DISABLED,
+            /** The account number is permanently disabled. */
             CANCELED,
         }
 
         enum class Value {
+            /** The account number is active. */
             ACTIVE,
+            /** The account number is temporarily disabled. */
             DISABLED,
+            /** The account number is permanently disabled. */
             CANCELED,
             _UNKNOWN,
         }

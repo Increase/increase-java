@@ -1019,6 +1019,7 @@ constructor(
             )
     }
 
+    /** Forces a card decline with a specific reason. No real time decision will be sent. */
     class DeclineReason
     @JsonCreator
     private constructor(
@@ -1063,38 +1064,84 @@ constructor(
         }
 
         enum class Known {
+            /** The Card was not active. */
             CARD_NOT_ACTIVE,
+            /** The Physical Card was not active. */
             PHYSICAL_CARD_NOT_ACTIVE,
+            /** The account's entity was not active. */
             ENTITY_NOT_ACTIVE,
+            /** The account was inactive. */
             GROUP_LOCKED,
+            /** The Card's Account did not have a sufficient available balance. */
             INSUFFICIENT_FUNDS,
+            /** The given CVV2 did not match the card's value. */
             CVV2_MISMATCH,
+            /**
+             * The given expiration date did not match the card's value. Only applies when a CVV2 is
+             * present.
+             */
             CARD_EXPIRATION_MISMATCH,
+            /** The attempted card transaction is not allowed per Increase's terms. */
             TRANSACTION_NOT_ALLOWED,
+            /** The transaction was blocked by a Limit. */
             BREACHES_LIMIT,
+            /** Your application declined the transaction via webhook. */
             WEBHOOK_DECLINED,
+            /** Your application webhook did not respond without the required timeout. */
             WEBHOOK_TIMED_OUT,
+            /** Declined by stand-in processing. */
             DECLINED_BY_STAND_IN_PROCESSING,
+            /** The card read had an invalid CVV, dCVV, or authorization request cryptogram. */
             INVALID_PHYSICAL_CARD,
+            /**
+             * The original card authorization for this incremental authorization does not exist.
+             */
             MISSING_ORIGINAL_AUTHORIZATION,
+            /**
+             * The transaction was suspected to be fraudulent. Please reach out to
+             * support@increase.com for more information.
+             */
             SUSPECTED_FRAUD,
         }
 
         enum class Value {
+            /** The Card was not active. */
             CARD_NOT_ACTIVE,
+            /** The Physical Card was not active. */
             PHYSICAL_CARD_NOT_ACTIVE,
+            /** The account's entity was not active. */
             ENTITY_NOT_ACTIVE,
+            /** The account was inactive. */
             GROUP_LOCKED,
+            /** The Card's Account did not have a sufficient available balance. */
             INSUFFICIENT_FUNDS,
+            /** The given CVV2 did not match the card's value. */
             CVV2_MISMATCH,
+            /**
+             * The given expiration date did not match the card's value. Only applies when a CVV2 is
+             * present.
+             */
             CARD_EXPIRATION_MISMATCH,
+            /** The attempted card transaction is not allowed per Increase's terms. */
             TRANSACTION_NOT_ALLOWED,
+            /** The transaction was blocked by a Limit. */
             BREACHES_LIMIT,
+            /** Your application declined the transaction via webhook. */
             WEBHOOK_DECLINED,
+            /** Your application webhook did not respond without the required timeout. */
             WEBHOOK_TIMED_OUT,
+            /** Declined by stand-in processing. */
             DECLINED_BY_STAND_IN_PROCESSING,
+            /** The card read had an invalid CVV, dCVV, or authorization request cryptogram. */
             INVALID_PHYSICAL_CARD,
+            /**
+             * The original card authorization for this incremental authorization does not exist.
+             */
             MISSING_ORIGINAL_AUTHORIZATION,
+            /**
+             * The transaction was suspected to be fraudulent. Please reach out to
+             * support@increase.com for more information.
+             */
             SUSPECTED_FRAUD,
             _UNKNOWN,
         }
@@ -1154,6 +1201,10 @@ constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * The direction describes the direction the funds will move, either from the cardholder to the
+     * merchant or from the merchant to the cardholder.
+     */
     class Direction
     @JsonCreator
     private constructor(
@@ -1172,12 +1223,22 @@ constructor(
         }
 
         enum class Known {
+            /** A regular card authorization where funds are debited from the cardholder. */
             SETTLEMENT,
+            /**
+             * A refund card authorization, sometimes referred to as a credit voucher authorization,
+             * where funds are credited to the cardholder.
+             */
             REFUND,
         }
 
         enum class Value {
+            /** A regular card authorization where funds are debited from the cardholder. */
             SETTLEMENT,
+            /**
+             * A refund card authorization, sometimes referred to as a credit voucher authorization,
+             * where funds are credited to the cardholder.
+             */
             REFUND,
             _UNKNOWN,
         }
