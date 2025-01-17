@@ -19,6 +19,7 @@ import java.util.Optional
 import java.util.stream.Stream
 import java.util.stream.StreamSupport
 
+/** List Entity Supplemental Document Submissions */
 class SupplementalDocumentListPage
 private constructor(
     private val supplementalDocumentsService: SupplementalDocumentService,

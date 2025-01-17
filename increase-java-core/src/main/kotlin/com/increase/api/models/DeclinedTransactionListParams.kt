@@ -389,22 +389,48 @@ constructor(
             }
 
             enum class Known {
+                /** ACH Decline: details will be under the `ach_decline` object. */
                 ACH_DECLINE,
+                /** Card Decline: details will be under the `card_decline` object. */
                 CARD_DECLINE,
+                /** Check Decline: details will be under the `check_decline` object. */
                 CHECK_DECLINE,
+                /**
+                 * Inbound Real-Time Payments Transfer Decline: details will be under the
+                 * `inbound_real_time_payments_transfer_decline` object.
+                 */
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
+                /** Wire Decline: details will be under the `wire_decline` object. */
                 WIRE_DECLINE,
+                /**
+                 * Check Deposit Rejection: details will be under the `check_deposit_rejection`
+                 * object.
+                 */
                 CHECK_DEPOSIT_REJECTION,
+                /** The Declined Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
             }
 
             enum class Value {
+                /** ACH Decline: details will be under the `ach_decline` object. */
                 ACH_DECLINE,
+                /** Card Decline: details will be under the `card_decline` object. */
                 CARD_DECLINE,
+                /** Check Decline: details will be under the `check_decline` object. */
                 CHECK_DECLINE,
+                /**
+                 * Inbound Real-Time Payments Transfer Decline: details will be under the
+                 * `inbound_real_time_payments_transfer_decline` object.
+                 */
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
+                /** Wire Decline: details will be under the `wire_decline` object. */
                 WIRE_DECLINE,
+                /**
+                 * Check Deposit Rejection: details will be under the `check_deposit_rejection`
+                 * object.
+                 */
                 CHECK_DEPOSIT_REJECTION,
+                /** The Declined Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
                 _UNKNOWN,
             }

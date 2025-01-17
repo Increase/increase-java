@@ -350,6 +350,10 @@ constructor(
             )
     }
 
+    /**
+     * The reason why this transfer will be returned. If this parameter is unset, the return codes
+     * will be `payment_stopped` for debits and `credit_entry_refused_by_receiver` for credits.
+     */
     class Reason
     @JsonCreator
     private constructor(
@@ -393,28 +397,88 @@ constructor(
         }
 
         enum class Known {
+            /**
+             * The customer's account has insufficient funds. This reason is only allowed for
+             * debits. The Nacha return code is R01.
+             */
             INSUFFICIENT_FUNDS,
+            /**
+             * The originating financial institution asked for this transfer to be returned. The
+             * receiving bank is complying with the request. The Nacha return code is R06.
+             */
             RETURNED_PER_ODFI_REQUEST,
+            /** The customer no longer authorizes this transaction. The Nacha return code is R07. */
             AUTHORIZATION_REVOKED_BY_CUSTOMER,
+            /**
+             * The customer asked for the payment to be stopped. This reason is only allowed for
+             * debits. The Nacha return code is R08.
+             */
             PAYMENT_STOPPED,
+            /**
+             * The customer advises that the debit was unauthorized. The Nacha return code is R10.
+             */
             CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE,
+            /** The payee is deceased. The Nacha return code is R14. */
             REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY,
+            /** The account holder is deceased. The Nacha return code is R15. */
             BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED,
+            /**
+             * The customer refused a credit entry. This reason is only allowed for credits. The
+             * Nacha return code is R23.
+             */
             CREDIT_ENTRY_REFUSED_BY_RECEIVER,
+            /**
+             * The account holder identified this transaction as a duplicate. The Nacha return code
+             * is R24.
+             */
             DUPLICATE_ENTRY,
+            /**
+             * The corporate customer no longer authorizes this transaction. The Nacha return code
+             * is R29.
+             */
             CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED,
         }
 
         enum class Value {
+            /**
+             * The customer's account has insufficient funds. This reason is only allowed for
+             * debits. The Nacha return code is R01.
+             */
             INSUFFICIENT_FUNDS,
+            /**
+             * The originating financial institution asked for this transfer to be returned. The
+             * receiving bank is complying with the request. The Nacha return code is R06.
+             */
             RETURNED_PER_ODFI_REQUEST,
+            /** The customer no longer authorizes this transaction. The Nacha return code is R07. */
             AUTHORIZATION_REVOKED_BY_CUSTOMER,
+            /**
+             * The customer asked for the payment to be stopped. This reason is only allowed for
+             * debits. The Nacha return code is R08.
+             */
             PAYMENT_STOPPED,
+            /**
+             * The customer advises that the debit was unauthorized. The Nacha return code is R10.
+             */
             CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE,
+            /** The payee is deceased. The Nacha return code is R14. */
             REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY,
+            /** The account holder is deceased. The Nacha return code is R15. */
             BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED,
+            /**
+             * The customer refused a credit entry. This reason is only allowed for credits. The
+             * Nacha return code is R23.
+             */
             CREDIT_ENTRY_REFUSED_BY_RECEIVER,
+            /**
+             * The account holder identified this transaction as a duplicate. The Nacha return code
+             * is R24.
+             */
             DUPLICATE_ENTRY,
+            /**
+             * The corporate customer no longer authorizes this transaction. The Nacha return code
+             * is R29.
+             */
             CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED,
             _UNKNOWN,
         }

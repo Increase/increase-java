@@ -601,6 +601,10 @@ private constructor(
             "Confirmation{confirmedAt=$confirmedAt, transactionId=$transactionId, additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code of the transfer's currency. This
+     * will always be "USD" for a Real-Time Payments transfer.
+     */
     class Currency
     @JsonCreator
     private constructor(
@@ -627,20 +631,32 @@ private constructor(
         }
 
         enum class Known {
+            /** Canadian Dollar (CAD) */
             CAD,
+            /** Swiss Franc (CHF) */
             CHF,
+            /** Euro (EUR) */
             EUR,
+            /** British Pound (GBP) */
             GBP,
+            /** Japanese Yen (JPY) */
             JPY,
+            /** US Dollar (USD) */
             USD,
         }
 
         enum class Value {
+            /** Canadian Dollar (CAD) */
             CAD,
+            /** Swiss Franc (CHF) */
             CHF,
+            /** Euro (EUR) */
             EUR,
+            /** British Pound (GBP) */
             GBP,
+            /** Japanese Yen (JPY) */
             JPY,
+            /** US Dollar (USD) */
             USD,
             _UNKNOWN,
         }
@@ -813,6 +829,7 @@ private constructor(
                 )
         }
 
+        /** The reason for the transfer decline. */
         class Reason
         @JsonCreator
         private constructor(
@@ -839,20 +856,32 @@ private constructor(
             }
 
             enum class Known {
+                /** The account number is canceled. */
                 ACCOUNT_NUMBER_CANCELED,
+                /** The account number is disabled. */
                 ACCOUNT_NUMBER_DISABLED,
+                /** Your account is restricted. */
                 ACCOUNT_RESTRICTED,
+                /** Your account is inactive. */
                 GROUP_LOCKED,
+                /** The account's entity is not active. */
                 ENTITY_NOT_ACTIVE,
+                /** Your account is not enabled to receive Real-Time Payments transfers. */
                 REAL_TIME_PAYMENTS_NOT_ENABLED,
             }
 
             enum class Value {
+                /** The account number is canceled. */
                 ACCOUNT_NUMBER_CANCELED,
+                /** The account number is disabled. */
                 ACCOUNT_NUMBER_DISABLED,
+                /** Your account is restricted. */
                 ACCOUNT_RESTRICTED,
+                /** Your account is inactive. */
                 GROUP_LOCKED,
+                /** The account's entity is not active. */
                 ENTITY_NOT_ACTIVE,
+                /** Your account is not enabled to receive Real-Time Payments transfers. */
                 REAL_TIME_PAYMENTS_NOT_ENABLED,
                 _UNKNOWN,
             }
@@ -912,6 +941,7 @@ private constructor(
             "Decline{declinedAt=$declinedAt, declinedTransactionId=$declinedTransactionId, reason=$reason, additionalProperties=$additionalProperties}"
     }
 
+    /** The lifecycle status of the transfer. */
     class Status
     @JsonCreator
     private constructor(
@@ -934,16 +964,24 @@ private constructor(
         }
 
         enum class Known {
+            /** The transfer is pending confirmation. */
             PENDING_CONFIRMING,
+            /** The transfer was not responded to in time. */
             TIMED_OUT,
+            /** The transfer has been received successfully and is confirmed. */
             CONFIRMED,
+            /** The transfer has been declined. */
             DECLINED,
         }
 
         enum class Value {
+            /** The transfer is pending confirmation. */
             PENDING_CONFIRMING,
+            /** The transfer was not responded to in time. */
             TIMED_OUT,
+            /** The transfer has been received successfully and is confirmed. */
             CONFIRMED,
+            /** The transfer has been declined. */
             DECLINED,
             _UNKNOWN,
         }
@@ -981,6 +1019,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `inbound_real_time_payments_transfer`.
+     */
     class Type
     @JsonCreator
     private constructor(

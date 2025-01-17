@@ -268,6 +268,7 @@ private constructor(
             )
     }
 
+    /** Whether the application is active. */
     class Status
     @JsonCreator
     private constructor(
@@ -286,12 +287,16 @@ private constructor(
         }
 
         enum class Known {
+            /** The application is active and can be used by your users. */
             ACTIVE,
+            /** The application is deleted. */
             DELETED,
         }
 
         enum class Value {
+            /** The application is active and can be used by your users. */
             ACTIVE,
+            /** The application is deleted. */
             DELETED,
             _UNKNOWN,
         }
@@ -325,6 +330,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `oauth_application`.
+     */
     class Type
     @JsonCreator
     private constructor(

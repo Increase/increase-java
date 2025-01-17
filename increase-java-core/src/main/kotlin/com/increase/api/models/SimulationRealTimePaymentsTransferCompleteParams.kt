@@ -426,6 +426,7 @@ constructor(
                 )
         }
 
+        /** The reason code that the simulated rejection will have. */
         class RejectReasonCode
         @JsonCreator
         private constructor(
@@ -487,50 +488,212 @@ constructor(
             }
 
             enum class Known {
+                /**
+                 * The destination account is closed. Corresponds to the Real-Time Payments reason
+                 * code `AC04`.
+                 */
                 ACCOUNT_CLOSED,
+                /**
+                 * The destination account is currently blocked from receiving transactions.
+                 * Corresponds to the Real-Time Payments reason code `AC06`.
+                 */
                 ACCOUNT_BLOCKED,
+                /**
+                 * The destination account is ineligible to receive Real-Time Payments transfers.
+                 * Corresponds to the Real-Time Payments reason code `AC14`.
+                 */
                 INVALID_CREDITOR_ACCOUNT_TYPE,
+                /**
+                 * The destination account does not exist. Corresponds to the Real-Time Payments
+                 * reason code `AC03`.
+                 */
                 INVALID_CREDITOR_ACCOUNT_NUMBER,
+                /**
+                 * The destination routing number is invalid. Corresponds to the Real-Time Payments
+                 * reason code `RC04`.
+                 */
                 INVALID_CREDITOR_FINANCIAL_INSTITUTION_IDENTIFIER,
+                /**
+                 * The destination account holder is deceased. Corresponds to the Real-Time Payments
+                 * reason code `MD07`.
+                 */
                 END_CUSTOMER_DECEASED,
+                /**
+                 * The reason is provided as narrative information in the additional information
+                 * field.
+                 */
                 NARRATIVE,
+                /**
+                 * Real-Time Payments transfers are not allowed to the destination account.
+                 * Corresponds to the Real-Time Payments reason code `AG01`.
+                 */
                 TRANSACTION_FORBIDDEN,
+                /**
+                 * Real-Time Payments transfers are not enabled for the destination account.
+                 * Corresponds to the Real-Time Payments reason code `AG03`.
+                 */
                 TRANSACTION_TYPE_NOT_SUPPORTED,
+                /**
+                 * The amount of the transfer is different than expected by the recipient.
+                 * Corresponds to the Real-Time Payments reason code `AM09`.
+                 */
                 UNEXPECTED_AMOUNT,
+                /**
+                 * The amount is higher than the recipient is authorized to send or receive.
+                 * Corresponds to the Real-Time Payments reason code `AM14`.
+                 */
                 AMOUNT_EXCEEDS_BANK_LIMITS,
+                /**
+                 * The creditor's address is required, but missing or invalid. Corresponds to the
+                 * Real-Time Payments reason code `BE04`.
+                 */
                 INVALID_CREDITOR_ADDRESS,
+                /**
+                 * The specified creditor is unknown. Corresponds to the Real-Time Payments reason
+                 * code `BE06`.
+                 */
                 UNKNOWN_END_CUSTOMER,
+                /**
+                 * The debtor's address is required, but missing or invalid. Corresponds to the
+                 * Real-Time Payments reason code `BE07`.
+                 */
                 INVALID_DEBTOR_ADDRESS,
+                /**
+                 * There was a timeout processing the transfer. Corresponds to the Real-Time
+                 * Payments reason code `DS24`.
+                 */
                 TIMEOUT,
+                /**
+                 * Real-Time Payments transfers are not enabled for the destination account.
+                 * Corresponds to the Real-Time Payments reason code `NOAT`.
+                 */
                 UNSUPPORTED_MESSAGE_FOR_RECIPIENT,
+                /**
+                 * The destination financial institution is currently not connected to Real-Time
+                 * Payments. Corresponds to the Real-Time Payments reason code `9912`.
+                 */
                 RECIPIENT_CONNECTION_NOT_AVAILABLE,
+                /**
+                 * Real-Time Payments is currently unavailable. Corresponds to the Real-Time
+                 * Payments reason code `9948`.
+                 */
                 REAL_TIME_PAYMENTS_SUSPENDED,
+                /**
+                 * The destination financial institution is currently signed off of Real-Time
+                 * Payments. Corresponds to the Real-Time Payments reason code `9910`.
+                 */
                 INSTRUCTED_AGENT_SIGNED_OFF,
+                /**
+                 * The transfer was rejected due to an internal Increase issue. We have been
+                 * notified.
+                 */
                 PROCESSING_ERROR,
+                /** Some other error or issue has occurred. */
                 OTHER,
             }
 
             enum class Value {
+                /**
+                 * The destination account is closed. Corresponds to the Real-Time Payments reason
+                 * code `AC04`.
+                 */
                 ACCOUNT_CLOSED,
+                /**
+                 * The destination account is currently blocked from receiving transactions.
+                 * Corresponds to the Real-Time Payments reason code `AC06`.
+                 */
                 ACCOUNT_BLOCKED,
+                /**
+                 * The destination account is ineligible to receive Real-Time Payments transfers.
+                 * Corresponds to the Real-Time Payments reason code `AC14`.
+                 */
                 INVALID_CREDITOR_ACCOUNT_TYPE,
+                /**
+                 * The destination account does not exist. Corresponds to the Real-Time Payments
+                 * reason code `AC03`.
+                 */
                 INVALID_CREDITOR_ACCOUNT_NUMBER,
+                /**
+                 * The destination routing number is invalid. Corresponds to the Real-Time Payments
+                 * reason code `RC04`.
+                 */
                 INVALID_CREDITOR_FINANCIAL_INSTITUTION_IDENTIFIER,
+                /**
+                 * The destination account holder is deceased. Corresponds to the Real-Time Payments
+                 * reason code `MD07`.
+                 */
                 END_CUSTOMER_DECEASED,
+                /**
+                 * The reason is provided as narrative information in the additional information
+                 * field.
+                 */
                 NARRATIVE,
+                /**
+                 * Real-Time Payments transfers are not allowed to the destination account.
+                 * Corresponds to the Real-Time Payments reason code `AG01`.
+                 */
                 TRANSACTION_FORBIDDEN,
+                /**
+                 * Real-Time Payments transfers are not enabled for the destination account.
+                 * Corresponds to the Real-Time Payments reason code `AG03`.
+                 */
                 TRANSACTION_TYPE_NOT_SUPPORTED,
+                /**
+                 * The amount of the transfer is different than expected by the recipient.
+                 * Corresponds to the Real-Time Payments reason code `AM09`.
+                 */
                 UNEXPECTED_AMOUNT,
+                /**
+                 * The amount is higher than the recipient is authorized to send or receive.
+                 * Corresponds to the Real-Time Payments reason code `AM14`.
+                 */
                 AMOUNT_EXCEEDS_BANK_LIMITS,
+                /**
+                 * The creditor's address is required, but missing or invalid. Corresponds to the
+                 * Real-Time Payments reason code `BE04`.
+                 */
                 INVALID_CREDITOR_ADDRESS,
+                /**
+                 * The specified creditor is unknown. Corresponds to the Real-Time Payments reason
+                 * code `BE06`.
+                 */
                 UNKNOWN_END_CUSTOMER,
+                /**
+                 * The debtor's address is required, but missing or invalid. Corresponds to the
+                 * Real-Time Payments reason code `BE07`.
+                 */
                 INVALID_DEBTOR_ADDRESS,
+                /**
+                 * There was a timeout processing the transfer. Corresponds to the Real-Time
+                 * Payments reason code `DS24`.
+                 */
                 TIMEOUT,
+                /**
+                 * Real-Time Payments transfers are not enabled for the destination account.
+                 * Corresponds to the Real-Time Payments reason code `NOAT`.
+                 */
                 UNSUPPORTED_MESSAGE_FOR_RECIPIENT,
+                /**
+                 * The destination financial institution is currently not connected to Real-Time
+                 * Payments. Corresponds to the Real-Time Payments reason code `9912`.
+                 */
                 RECIPIENT_CONNECTION_NOT_AVAILABLE,
+                /**
+                 * Real-Time Payments is currently unavailable. Corresponds to the Real-Time
+                 * Payments reason code `9948`.
+                 */
                 REAL_TIME_PAYMENTS_SUSPENDED,
+                /**
+                 * The destination financial institution is currently signed off of Real-Time
+                 * Payments. Corresponds to the Real-Time Payments reason code `9910`.
+                 */
                 INSTRUCTED_AGENT_SIGNED_OFF,
+                /**
+                 * The transfer was rejected due to an internal Increase issue. We have been
+                 * notified.
+                 */
                 PROCESSING_ERROR,
+                /** Some other error or issue has occurred. */
                 OTHER,
                 _UNKNOWN,
             }

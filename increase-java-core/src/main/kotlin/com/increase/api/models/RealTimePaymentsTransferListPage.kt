@@ -19,6 +19,7 @@ import java.util.Optional
 import java.util.stream.Stream
 import java.util.stream.StreamSupport
 
+/** List Real-Time Payments Transfers */
 class RealTimePaymentsTransferListPage
 private constructor(
     private val realTimePaymentsTransfersService: RealTimePaymentsTransferService,

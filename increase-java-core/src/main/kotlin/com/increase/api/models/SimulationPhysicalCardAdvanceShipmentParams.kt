@@ -335,6 +335,7 @@ constructor(
             )
     }
 
+    /** The shipment status to move the Physical Card to. */
     class ShipmentStatus
     @JsonCreator
     private constructor(
@@ -363,22 +364,48 @@ constructor(
         }
 
         enum class Known {
+            /** The physical card has not yet been shipped. */
             PENDING,
+            /** The physical card shipment was canceled prior to submission. */
             CANCELED,
+            /** The physical card shipment has been submitted to the card fulfillment provider. */
             SUBMITTED,
+            /**
+             * The physical card shipment has been acknowledged by the card fulfillment provider and
+             * will be processed in their next batch.
+             */
             ACKNOWLEDGED,
+            /** The physical card shipment was rejected by the card printer due to an error. */
             REJECTED,
+            /** The physical card has been shipped. */
             SHIPPED,
+            /**
+             * The physical card shipment was returned to the sender and destroyed by the production
+             * facility.
+             */
             RETURNED,
         }
 
         enum class Value {
+            /** The physical card has not yet been shipped. */
             PENDING,
+            /** The physical card shipment was canceled prior to submission. */
             CANCELED,
+            /** The physical card shipment has been submitted to the card fulfillment provider. */
             SUBMITTED,
+            /**
+             * The physical card shipment has been acknowledged by the card fulfillment provider and
+             * will be processed in their next batch.
+             */
             ACKNOWLEDGED,
+            /** The physical card shipment was rejected by the card printer due to an error. */
             REJECTED,
+            /** The physical card has been shipped. */
             SHIPPED,
+            /**
+             * The physical card shipment was returned to the sender and destroyed by the production
+             * facility.
+             */
             RETURNED,
             _UNKNOWN,
         }

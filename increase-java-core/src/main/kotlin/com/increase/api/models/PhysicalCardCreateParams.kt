@@ -898,6 +898,7 @@ constructor(
                 "Address{city=$city, line1=$line1, name=$name, postalCode=$postalCode, state=$state, line2=$line2, line3=$line3, phoneNumber=$phoneNumber, additionalProperties=$additionalProperties}"
         }
 
+        /** The shipping method to use. */
         class Method
         @JsonCreator
         private constructor(
@@ -918,14 +919,20 @@ constructor(
             }
 
             enum class Known {
+                /** USPS Post with tracking. */
                 USPS,
+                /** FedEx Priority Overnight, no signature. */
                 FEDEX_PRIORITY_OVERNIGHT,
+                /** FedEx 2-day. */
                 FEDEX_2_DAY,
             }
 
             enum class Value {
+                /** USPS Post with tracking. */
                 USPS,
+                /** FedEx Priority Overnight, no signature. */
                 FEDEX_PRIORITY_OVERNIGHT,
+                /** FedEx 2-day. */
                 FEDEX_2_DAY,
                 _UNKNOWN,
             }

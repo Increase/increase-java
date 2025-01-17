@@ -328,6 +328,10 @@ private constructor(
             )
     }
 
+    /**
+     * If specified, this subscription will only receive webhooks for Events with the specified
+     * `category`.
+     */
     class SelectedEventCategory
     @JsonCreator
     private constructor(
@@ -551,184 +555,392 @@ private constructor(
         }
 
         enum class Known {
+            /** Occurs whenever an Account is created. */
             ACCOUNT_CREATED,
+            /** Occurs whenever an Account is updated. */
             ACCOUNT_UPDATED,
+            /** Occurs whenever an Account Number is created. */
             ACCOUNT_NUMBER_CREATED,
+            /** Occurs whenever an Account Number is updated. */
             ACCOUNT_NUMBER_UPDATED,
+            /** Occurs whenever an Account Statement is created. */
             ACCOUNT_STATEMENT_CREATED,
+            /** Occurs whenever an Account Transfer is created. */
             ACCOUNT_TRANSFER_CREATED,
+            /** Occurs whenever an Account Transfer is updated. */
             ACCOUNT_TRANSFER_UPDATED,
+            /** Occurs whenever an ACH Prenotification is created. */
             ACH_PRENOTIFICATION_CREATED,
+            /** Occurs whenever an ACH Prenotification is updated. */
             ACH_PRENOTIFICATION_UPDATED,
+            /** Occurs whenever an ACH Transfer is created. */
             ACH_TRANSFER_CREATED,
+            /** Occurs whenever an ACH Transfer is updated. */
             ACH_TRANSFER_UPDATED,
+            /** Occurs whenever a Bookkeeping Account is created. */
             BOOKKEEPING_ACCOUNT_CREATED,
+            /** Occurs whenever a Bookkeeping Account is updated. */
             BOOKKEEPING_ACCOUNT_UPDATED,
+            /** Occurs whenever a Bookkeeping Entry Set is created. */
             BOOKKEEPING_ENTRY_SET_UPDATED,
+            /** Occurs whenever a Card is created. */
             CARD_CREATED,
+            /** Occurs whenever a Card is updated. */
             CARD_UPDATED,
+            /** Occurs whenever a Card Payment is created. */
             CARD_PAYMENT_CREATED,
+            /** Occurs whenever a Card Payment is updated. */
             CARD_PAYMENT_UPDATED,
+            /** Occurs whenever a Card Profile is created. */
             CARD_PROFILE_CREATED,
+            /** Occurs whenever a Card Profile is updated. */
             CARD_PROFILE_UPDATED,
+            /** Occurs whenever a Card Dispute is created. */
             CARD_DISPUTE_CREATED,
+            /** Occurs whenever a Card Dispute is updated. */
             CARD_DISPUTE_UPDATED,
+            /** Occurs whenever a Check Deposit is created. */
             CHECK_DEPOSIT_CREATED,
+            /** Occurs whenever a Check Deposit is updated. */
             CHECK_DEPOSIT_UPDATED,
+            /** Occurs whenever a Check Transfer is created. */
             CHECK_TRANSFER_CREATED,
+            /** Occurs whenever a Check Transfer is updated. */
             CHECK_TRANSFER_UPDATED,
+            /** Occurs whenever a Declined Transaction is created. */
             DECLINED_TRANSACTION_CREATED,
+            /** Occurs whenever a Digital Card Profile is created. */
             DIGITAL_CARD_PROFILE_CREATED,
+            /** Occurs whenever a Digital Card Profile is updated. */
             DIGITAL_CARD_PROFILE_UPDATED,
+            /** Occurs whenever a Digital Wallet Token is created. */
             DIGITAL_WALLET_TOKEN_CREATED,
+            /** Occurs whenever a Digital Wallet Token is updated. */
             DIGITAL_WALLET_TOKEN_UPDATED,
+            /** Occurs whenever a Document is created. */
             DOCUMENT_CREATED,
+            /** Occurs whenever an Entity is created. */
             ENTITY_CREATED,
+            /** Occurs whenever an Entity is updated. */
             ENTITY_UPDATED,
+            /** Occurs whenever an Event Subscription is created. */
             EVENT_SUBSCRIPTION_CREATED,
+            /** Occurs whenever an Event Subscription is updated. */
             EVENT_SUBSCRIPTION_UPDATED,
+            /** Occurs whenever an Export is created. */
             EXPORT_CREATED,
+            /** Occurs whenever an Export is updated. */
             EXPORT_UPDATED,
+            /** Occurs whenever an External Account is created. */
             EXTERNAL_ACCOUNT_CREATED,
+            /** Occurs whenever an External Account is updated. */
             EXTERNAL_ACCOUNT_UPDATED,
+            /** Occurs whenever a File is created. */
             FILE_CREATED,
+            /** Occurs whenever a Group is updated. */
             GROUP_UPDATED,
+            /**
+             * Increase may send webhooks with this category to see if a webhook endpoint is working
+             * properly.
+             */
             GROUP_HEARTBEAT,
+            /** Occurs whenever an Inbound ACH Transfer is created. */
             INBOUND_ACH_TRANSFER_CREATED,
+            /** Occurs whenever an Inbound ACH Transfer is updated. */
             INBOUND_ACH_TRANSFER_UPDATED,
+            /** Occurs whenever an Inbound ACH Transfer Return is created. */
             INBOUND_ACH_TRANSFER_RETURN_CREATED,
+            /** Occurs whenever an Inbound ACH Transfer Return is updated. */
             INBOUND_ACH_TRANSFER_RETURN_UPDATED,
+            /** Occurs whenever an Inbound Check Deposit is created. */
             INBOUND_CHECK_DEPOSIT_CREATED,
+            /** Occurs whenever an Inbound Check Deposit is updated. */
             INBOUND_CHECK_DEPOSIT_UPDATED,
+            /** Occurs whenever an Inbound Mail Item is created. */
             INBOUND_MAIL_ITEM_CREATED,
+            /** Occurs whenever an Inbound Mail Item is updated. */
             INBOUND_MAIL_ITEM_UPDATED,
+            /** Occurs whenever an Inbound Real-Time Payments Transfer is created. */
             INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED,
+            /** Occurs whenever an Inbound Real-Time Payments Transfer is updated. */
             INBOUND_REAL_TIME_PAYMENTS_TRANSFER_UPDATED,
+            /** Occurs whenever an Inbound Wire Drawdown Request is created. */
             INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED,
+            /** Occurs whenever an Inbound Wire Transfer is created. */
             INBOUND_WIRE_TRANSFER_CREATED,
+            /** Occurs whenever an Inbound Wire Transfer is updated. */
             INBOUND_WIRE_TRANSFER_UPDATED,
+            /** Occurs whenever an IntraFi Account Enrollment is created. */
             INTRAFI_ACCOUNT_ENROLLMENT_CREATED,
+            /** Occurs whenever an IntraFi Account Enrollment is updated. */
             INTRAFI_ACCOUNT_ENROLLMENT_UPDATED,
+            /** Occurs whenever an IntraFi Exclusion is created. */
             INTRAFI_EXCLUSION_CREATED,
+            /** Occurs whenever an IntraFi Exclusion is updated. */
             INTRAFI_EXCLUSION_UPDATED,
+            /** Occurs whenever a Lockbox is created. */
             LOCKBOX_CREATED,
+            /** Occurs whenever a Lockbox is updated. */
             LOCKBOX_UPDATED,
+            /** Occurs whenever an OAuth Connection is created. */
             OAUTH_CONNECTION_CREATED,
+            /** Occurs whenever an OAuth Connection is deactivated. */
             OAUTH_CONNECTION_DEACTIVATED,
+            /** Occurs whenever a Pending Transaction is created. */
             PENDING_TRANSACTION_CREATED,
+            /** Occurs whenever a Pending Transaction is updated. */
             PENDING_TRANSACTION_UPDATED,
+            /** Occurs whenever a Physical Card is created. */
             PHYSICAL_CARD_CREATED,
+            /** Occurs whenever a Physical Card is updated. */
             PHYSICAL_CARD_UPDATED,
+            /** Occurs whenever a Physical Card Profile is created. */
             PHYSICAL_CARD_PROFILE_CREATED,
+            /** Occurs whenever a Physical Card Profile is updated. */
             PHYSICAL_CARD_PROFILE_UPDATED,
+            /** Occurs whenever a Proof of Authorization Request is created. */
             PROOF_OF_AUTHORIZATION_REQUEST_CREATED,
+            /** Occurs whenever a Proof of Authorization Request is updated. */
             PROOF_OF_AUTHORIZATION_REQUEST_UPDATED,
+            /** Occurs whenever a Proof of Authorization Request Submission is created. */
             PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_CREATED,
+            /** Occurs whenever a Proof of Authorization Request Submission is updated. */
             PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_UPDATED,
+            /**
+             * Occurs whenever a Real-Time Decision is created in response to a card authorization.
+             */
             REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED,
+            /**
+             * Occurs whenever a Real-Time Decision is created in response to a digital wallet
+             * provisioning attempt.
+             */
             REAL_TIME_DECISION_DIGITAL_WALLET_TOKEN_REQUESTED,
+            /**
+             * Occurs whenever a Real-Time Decision is created in response to a digital wallet
+             * requiring two-factor authentication.
+             */
             REAL_TIME_DECISION_DIGITAL_WALLET_AUTHENTICATION_REQUESTED,
+            /**
+             * Occurs whenever a Real-Time Decision is created in response to 3DS authentication.
+             */
             REAL_TIME_DECISION_CARD_AUTHENTICATION_REQUESTED,
+            /**
+             * Occurs whenever a Real-Time Decision is created in response to 3DS authentication
+             * challenges.
+             */
             REAL_TIME_DECISION_CARD_AUTHENTICATION_CHALLENGE_REQUESTED,
+            /** Occurs whenever a Real-Time Payments Transfer is created. */
             REAL_TIME_PAYMENTS_TRANSFER_CREATED,
+            /** Occurs whenever a Real-Time Payments Transfer is updated. */
             REAL_TIME_PAYMENTS_TRANSFER_UPDATED,
+            /** Occurs whenever a Real-Time Payments Request for Payment is created. */
             REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_CREATED,
+            /** Occurs whenever a Real-Time Payments Request for Payment is updated. */
             REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_UPDATED,
+            /** Occurs whenever a Transaction is created. */
             TRANSACTION_CREATED,
+            /** Occurs whenever a Wire Drawdown Request is created. */
             WIRE_DRAWDOWN_REQUEST_CREATED,
+            /** Occurs whenever a Wire Drawdown Request is updated. */
             WIRE_DRAWDOWN_REQUEST_UPDATED,
+            /** Occurs whenever a Wire Transfer is created. */
             WIRE_TRANSFER_CREATED,
+            /** Occurs whenever a Wire Transfer is updated. */
             WIRE_TRANSFER_UPDATED,
         }
 
         enum class Value {
+            /** Occurs whenever an Account is created. */
             ACCOUNT_CREATED,
+            /** Occurs whenever an Account is updated. */
             ACCOUNT_UPDATED,
+            /** Occurs whenever an Account Number is created. */
             ACCOUNT_NUMBER_CREATED,
+            /** Occurs whenever an Account Number is updated. */
             ACCOUNT_NUMBER_UPDATED,
+            /** Occurs whenever an Account Statement is created. */
             ACCOUNT_STATEMENT_CREATED,
+            /** Occurs whenever an Account Transfer is created. */
             ACCOUNT_TRANSFER_CREATED,
+            /** Occurs whenever an Account Transfer is updated. */
             ACCOUNT_TRANSFER_UPDATED,
+            /** Occurs whenever an ACH Prenotification is created. */
             ACH_PRENOTIFICATION_CREATED,
+            /** Occurs whenever an ACH Prenotification is updated. */
             ACH_PRENOTIFICATION_UPDATED,
+            /** Occurs whenever an ACH Transfer is created. */
             ACH_TRANSFER_CREATED,
+            /** Occurs whenever an ACH Transfer is updated. */
             ACH_TRANSFER_UPDATED,
+            /** Occurs whenever a Bookkeeping Account is created. */
             BOOKKEEPING_ACCOUNT_CREATED,
+            /** Occurs whenever a Bookkeeping Account is updated. */
             BOOKKEEPING_ACCOUNT_UPDATED,
+            /** Occurs whenever a Bookkeeping Entry Set is created. */
             BOOKKEEPING_ENTRY_SET_UPDATED,
+            /** Occurs whenever a Card is created. */
             CARD_CREATED,
+            /** Occurs whenever a Card is updated. */
             CARD_UPDATED,
+            /** Occurs whenever a Card Payment is created. */
             CARD_PAYMENT_CREATED,
+            /** Occurs whenever a Card Payment is updated. */
             CARD_PAYMENT_UPDATED,
+            /** Occurs whenever a Card Profile is created. */
             CARD_PROFILE_CREATED,
+            /** Occurs whenever a Card Profile is updated. */
             CARD_PROFILE_UPDATED,
+            /** Occurs whenever a Card Dispute is created. */
             CARD_DISPUTE_CREATED,
+            /** Occurs whenever a Card Dispute is updated. */
             CARD_DISPUTE_UPDATED,
+            /** Occurs whenever a Check Deposit is created. */
             CHECK_DEPOSIT_CREATED,
+            /** Occurs whenever a Check Deposit is updated. */
             CHECK_DEPOSIT_UPDATED,
+            /** Occurs whenever a Check Transfer is created. */
             CHECK_TRANSFER_CREATED,
+            /** Occurs whenever a Check Transfer is updated. */
             CHECK_TRANSFER_UPDATED,
+            /** Occurs whenever a Declined Transaction is created. */
             DECLINED_TRANSACTION_CREATED,
+            /** Occurs whenever a Digital Card Profile is created. */
             DIGITAL_CARD_PROFILE_CREATED,
+            /** Occurs whenever a Digital Card Profile is updated. */
             DIGITAL_CARD_PROFILE_UPDATED,
+            /** Occurs whenever a Digital Wallet Token is created. */
             DIGITAL_WALLET_TOKEN_CREATED,
+            /** Occurs whenever a Digital Wallet Token is updated. */
             DIGITAL_WALLET_TOKEN_UPDATED,
+            /** Occurs whenever a Document is created. */
             DOCUMENT_CREATED,
+            /** Occurs whenever an Entity is created. */
             ENTITY_CREATED,
+            /** Occurs whenever an Entity is updated. */
             ENTITY_UPDATED,
+            /** Occurs whenever an Event Subscription is created. */
             EVENT_SUBSCRIPTION_CREATED,
+            /** Occurs whenever an Event Subscription is updated. */
             EVENT_SUBSCRIPTION_UPDATED,
+            /** Occurs whenever an Export is created. */
             EXPORT_CREATED,
+            /** Occurs whenever an Export is updated. */
             EXPORT_UPDATED,
+            /** Occurs whenever an External Account is created. */
             EXTERNAL_ACCOUNT_CREATED,
+            /** Occurs whenever an External Account is updated. */
             EXTERNAL_ACCOUNT_UPDATED,
+            /** Occurs whenever a File is created. */
             FILE_CREATED,
+            /** Occurs whenever a Group is updated. */
             GROUP_UPDATED,
+            /**
+             * Increase may send webhooks with this category to see if a webhook endpoint is working
+             * properly.
+             */
             GROUP_HEARTBEAT,
+            /** Occurs whenever an Inbound ACH Transfer is created. */
             INBOUND_ACH_TRANSFER_CREATED,
+            /** Occurs whenever an Inbound ACH Transfer is updated. */
             INBOUND_ACH_TRANSFER_UPDATED,
+            /** Occurs whenever an Inbound ACH Transfer Return is created. */
             INBOUND_ACH_TRANSFER_RETURN_CREATED,
+            /** Occurs whenever an Inbound ACH Transfer Return is updated. */
             INBOUND_ACH_TRANSFER_RETURN_UPDATED,
+            /** Occurs whenever an Inbound Check Deposit is created. */
             INBOUND_CHECK_DEPOSIT_CREATED,
+            /** Occurs whenever an Inbound Check Deposit is updated. */
             INBOUND_CHECK_DEPOSIT_UPDATED,
+            /** Occurs whenever an Inbound Mail Item is created. */
             INBOUND_MAIL_ITEM_CREATED,
+            /** Occurs whenever an Inbound Mail Item is updated. */
             INBOUND_MAIL_ITEM_UPDATED,
+            /** Occurs whenever an Inbound Real-Time Payments Transfer is created. */
             INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED,
+            /** Occurs whenever an Inbound Real-Time Payments Transfer is updated. */
             INBOUND_REAL_TIME_PAYMENTS_TRANSFER_UPDATED,
+            /** Occurs whenever an Inbound Wire Drawdown Request is created. */
             INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED,
+            /** Occurs whenever an Inbound Wire Transfer is created. */
             INBOUND_WIRE_TRANSFER_CREATED,
+            /** Occurs whenever an Inbound Wire Transfer is updated. */
             INBOUND_WIRE_TRANSFER_UPDATED,
+            /** Occurs whenever an IntraFi Account Enrollment is created. */
             INTRAFI_ACCOUNT_ENROLLMENT_CREATED,
+            /** Occurs whenever an IntraFi Account Enrollment is updated. */
             INTRAFI_ACCOUNT_ENROLLMENT_UPDATED,
+            /** Occurs whenever an IntraFi Exclusion is created. */
             INTRAFI_EXCLUSION_CREATED,
+            /** Occurs whenever an IntraFi Exclusion is updated. */
             INTRAFI_EXCLUSION_UPDATED,
+            /** Occurs whenever a Lockbox is created. */
             LOCKBOX_CREATED,
+            /** Occurs whenever a Lockbox is updated. */
             LOCKBOX_UPDATED,
+            /** Occurs whenever an OAuth Connection is created. */
             OAUTH_CONNECTION_CREATED,
+            /** Occurs whenever an OAuth Connection is deactivated. */
             OAUTH_CONNECTION_DEACTIVATED,
+            /** Occurs whenever a Pending Transaction is created. */
             PENDING_TRANSACTION_CREATED,
+            /** Occurs whenever a Pending Transaction is updated. */
             PENDING_TRANSACTION_UPDATED,
+            /** Occurs whenever a Physical Card is created. */
             PHYSICAL_CARD_CREATED,
+            /** Occurs whenever a Physical Card is updated. */
             PHYSICAL_CARD_UPDATED,
+            /** Occurs whenever a Physical Card Profile is created. */
             PHYSICAL_CARD_PROFILE_CREATED,
+            /** Occurs whenever a Physical Card Profile is updated. */
             PHYSICAL_CARD_PROFILE_UPDATED,
+            /** Occurs whenever a Proof of Authorization Request is created. */
             PROOF_OF_AUTHORIZATION_REQUEST_CREATED,
+            /** Occurs whenever a Proof of Authorization Request is updated. */
             PROOF_OF_AUTHORIZATION_REQUEST_UPDATED,
+            /** Occurs whenever a Proof of Authorization Request Submission is created. */
             PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_CREATED,
+            /** Occurs whenever a Proof of Authorization Request Submission is updated. */
             PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_UPDATED,
+            /**
+             * Occurs whenever a Real-Time Decision is created in response to a card authorization.
+             */
             REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED,
+            /**
+             * Occurs whenever a Real-Time Decision is created in response to a digital wallet
+             * provisioning attempt.
+             */
             REAL_TIME_DECISION_DIGITAL_WALLET_TOKEN_REQUESTED,
+            /**
+             * Occurs whenever a Real-Time Decision is created in response to a digital wallet
+             * requiring two-factor authentication.
+             */
             REAL_TIME_DECISION_DIGITAL_WALLET_AUTHENTICATION_REQUESTED,
+            /**
+             * Occurs whenever a Real-Time Decision is created in response to 3DS authentication.
+             */
             REAL_TIME_DECISION_CARD_AUTHENTICATION_REQUESTED,
+            /**
+             * Occurs whenever a Real-Time Decision is created in response to 3DS authentication
+             * challenges.
+             */
             REAL_TIME_DECISION_CARD_AUTHENTICATION_CHALLENGE_REQUESTED,
+            /** Occurs whenever a Real-Time Payments Transfer is created. */
             REAL_TIME_PAYMENTS_TRANSFER_CREATED,
+            /** Occurs whenever a Real-Time Payments Transfer is updated. */
             REAL_TIME_PAYMENTS_TRANSFER_UPDATED,
+            /** Occurs whenever a Real-Time Payments Request for Payment is created. */
             REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_CREATED,
+            /** Occurs whenever a Real-Time Payments Request for Payment is updated. */
             REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_UPDATED,
+            /** Occurs whenever a Transaction is created. */
             TRANSACTION_CREATED,
+            /** Occurs whenever a Wire Drawdown Request is created. */
             WIRE_DRAWDOWN_REQUEST_CREATED,
+            /** Occurs whenever a Wire Drawdown Request is updated. */
             WIRE_DRAWDOWN_REQUEST_UPDATED,
+            /** Occurs whenever a Wire Transfer is created. */
             WIRE_TRANSFER_CREATED,
+            /** Occurs whenever a Wire Transfer is updated. */
             WIRE_TRANSFER_UPDATED,
             _UNKNOWN,
         }
@@ -960,6 +1172,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** This indicates if we'll send notifications to this subscription. */
     class Status
     @JsonCreator
     private constructor(
@@ -982,16 +1195,30 @@ private constructor(
         }
 
         enum class Known {
+            /** The subscription is active and Events will be delivered normally. */
             ACTIVE,
+            /** The subscription is temporarily disabled and Events will not be delivered. */
             DISABLED,
+            /** The subscription is permanently disabled and Events will not be delivered. */
             DELETED,
+            /**
+             * The subscription is temporarily disabled due to delivery errors and Events will not
+             * be delivered.
+             */
             REQUIRES_ATTENTION,
         }
 
         enum class Value {
+            /** The subscription is active and Events will be delivered normally. */
             ACTIVE,
+            /** The subscription is temporarily disabled and Events will not be delivered. */
             DISABLED,
+            /** The subscription is permanently disabled and Events will not be delivered. */
             DELETED,
+            /**
+             * The subscription is temporarily disabled due to delivery errors and Events will not
+             * be delivered.
+             */
             REQUIRES_ATTENTION,
             _UNKNOWN,
         }
@@ -1029,6 +1256,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `event_subscription`.
+     */
     class Type
     @JsonCreator
     private constructor(

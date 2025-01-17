@@ -431,6 +431,10 @@ private constructor(
             )
     }
 
+    /**
+     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the Pending Transaction's
+     * currency. This will match the currency on the Pending Transaction's Account.
+     */
     class Currency
     @JsonCreator
     private constructor(
@@ -457,20 +461,32 @@ private constructor(
         }
 
         enum class Known {
+            /** Canadian Dollar (CAD) */
             CAD,
+            /** Swiss Franc (CHF) */
             CHF,
+            /** Euro (EUR) */
             EUR,
+            /** British Pound (GBP) */
             GBP,
+            /** Japanese Yen (JPY) */
             JPY,
+            /** US Dollar (USD) */
             USD,
         }
 
         enum class Value {
+            /** Canadian Dollar (CAD) */
             CAD,
+            /** Swiss Franc (CHF) */
             CHF,
+            /** Euro (EUR) */
             EUR,
+            /** British Pound (GBP) */
             GBP,
+            /** Japanese Yen (JPY) */
             JPY,
+            /** US Dollar (USD) */
             USD,
             _UNKNOWN,
         }
@@ -512,6 +528,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** The type of the route this Pending Transaction came through. */
     class RouteType
     @JsonCreator
     private constructor(
@@ -532,14 +549,20 @@ private constructor(
         }
 
         enum class Known {
+            /** An Account Number. */
             ACCOUNT_NUMBER,
+            /** A Card. */
             CARD,
+            /** A Lockbox. */
             LOCKBOX,
         }
 
         enum class Value {
+            /** An Account Number. */
             ACCOUNT_NUMBER,
+            /** A Card. */
             CARD,
+            /** A Lockbox. */
             LOCKBOX,
             _UNKNOWN,
         }
@@ -1237,6 +1260,10 @@ private constructor(
                     )
             }
 
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the destination
+             * account currency.
+             */
             class Currency
             @JsonCreator
             private constructor(
@@ -1263,20 +1290,32 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                 }
 
                 enum class Value {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                     _UNKNOWN,
                 }
@@ -2430,6 +2469,10 @@ private constructor(
                     )
             }
 
+            /**
+             * Whether this authorization was approved by Increase, the card network through
+             * stand-in processing, or the user through a real-time decision.
+             */
             class Actioner
             @JsonCreator
             private constructor(
@@ -2450,14 +2493,20 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** This object was actioned by the user through a real-time decision. */
                     USER,
+                    /** This object was actioned by Increase without user intervention. */
                     INCREASE,
+                    /** This object was actioned by the network, through stand-in processing. */
                     NETWORK,
                 }
 
                 enum class Value {
+                    /** This object was actioned by the user through a real-time decision. */
                     USER,
+                    /** This object was actioned by Increase without user intervention. */
                     INCREASE,
+                    /** This object was actioned by the network, through stand-in processing. */
                     NETWORK,
                     _UNKNOWN,
                 }
@@ -2493,6 +2542,10 @@ private constructor(
                 override fun toString() = value.toString()
             }
 
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+             * currency.
+             */
             class Currency
             @JsonCreator
             private constructor(
@@ -2519,20 +2572,32 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                 }
 
                 enum class Value {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                     _UNKNOWN,
                 }
@@ -2574,6 +2639,10 @@ private constructor(
                 override fun toString() = value.toString()
             }
 
+            /**
+             * The direction describes the direction the funds will move, either from the cardholder
+             * to the merchant or from the merchant to the cardholder.
+             */
             class Direction
             @JsonCreator
             private constructor(
@@ -2592,12 +2661,22 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** A regular card authorization where funds are debited from the cardholder. */
                     SETTLEMENT,
+                    /**
+                     * A refund card authorization, sometimes referred to as a credit voucher
+                     * authorization, where funds are credited to the cardholder.
+                     */
                     REFUND,
                 }
 
                 enum class Value {
+                    /** A regular card authorization where funds are debited from the cardholder. */
                     SETTLEMENT,
+                    /**
+                     * A refund card authorization, sometimes referred to as a credit voucher
+                     * authorization, where funds are credited to the cardholder.
+                     */
                     REFUND,
                     _UNKNOWN,
                 }
@@ -2741,6 +2820,7 @@ private constructor(
                         )
                 }
 
+                /** The payment network used to process this card authorization. */
                 class Category
                 @JsonCreator
                 private constructor(
@@ -2758,10 +2838,12 @@ private constructor(
                     }
 
                     enum class Known {
+                        /** Visa */
                         VISA,
                     }
 
                     enum class Value {
+                        /** Visa */
                         VISA,
                         _UNKNOWN,
                     }
@@ -3030,6 +3112,11 @@ private constructor(
                             )
                     }
 
+                    /**
+                     * For electronic commerce transactions, this identifies the level of security
+                     * used in obtaining the customer's payment credential. For mail or telephone
+                     * order transactions, identifies the type of mail or telephone order.
+                     */
                     class ElectronicCommerceIndicator
                     @JsonCreator
                     private constructor(
@@ -3067,24 +3154,112 @@ private constructor(
                         }
 
                         enum class Known {
+                            /**
+                             * Single transaction of a mail/phone order: Use to indicate that the
+                             * transaction is a mail/phone order purchase, not a recurring
+                             * transaction or installment payment. For domestic transactions in the
+                             * US region, this value may also indicate one bill payment transaction
+                             * in the card-present or card-absent environments.
+                             */
                             MAIL_PHONE_ORDER,
+                            /**
+                             * Recurring transaction: Payment indicator used to indicate a recurring
+                             * transaction that originates from an acquirer in the US region.
+                             */
                             RECURRING,
+                            /**
+                             * Installment payment: Payment indicator used to indicate one purchase
+                             * of goods or services that is billed to the account in multiple
+                             * charges over a period of time agreed upon by the cardholder and
+                             * merchant from transactions that originate from an acquirer in the US
+                             * region.
+                             */
                             INSTALLMENT,
+                            /**
+                             * Unknown classification: other mail order: Use to indicate that the
+                             * type of mail/telephone order is unknown.
+                             */
                             UNKNOWN_MAIL_PHONE_ORDER,
+                            /**
+                             * Secure electronic commerce transaction: Use to indicate that the
+                             * electronic commerce transaction has been authenticated using e.g.,
+                             * 3-D Secure
+                             */
                             SECURE_ELECTRONIC_COMMERCE,
+                            /**
+                             * Non-authenticated security transaction at a 3-D Secure-capable
+                             * merchant, and merchant attempted to authenticate the cardholder using
+                             * 3-D Secure: Use to identify an electronic commerce transaction where
+                             * the merchant attempted to authenticate the cardholder using 3-D
+                             * Secure, but was unable to complete the authentication because the
+                             * issuer or cardholder does not participate in the 3-D Secure program.
+                             */
                             NON_AUTHENTICATED_SECURITY_TRANSACTION_AT_3DS_CAPABLE_MERCHANT,
+                            /**
+                             * Non-authenticated security transaction: Use to identify an electronic
+                             * commerce transaction that uses data encryption for security however ,
+                             * cardholder authentication is not performed using 3-D Secure.
+                             */
                             NON_AUTHENTICATED_SECURITY_TRANSACTION,
+                            /**
+                             * Non-secure transaction: Use to identify an electronic commerce
+                             * transaction that has no data protection.
+                             */
                             NON_SECURE_TRANSACTION,
                         }
 
                         enum class Value {
+                            /**
+                             * Single transaction of a mail/phone order: Use to indicate that the
+                             * transaction is a mail/phone order purchase, not a recurring
+                             * transaction or installment payment. For domestic transactions in the
+                             * US region, this value may also indicate one bill payment transaction
+                             * in the card-present or card-absent environments.
+                             */
                             MAIL_PHONE_ORDER,
+                            /**
+                             * Recurring transaction: Payment indicator used to indicate a recurring
+                             * transaction that originates from an acquirer in the US region.
+                             */
                             RECURRING,
+                            /**
+                             * Installment payment: Payment indicator used to indicate one purchase
+                             * of goods or services that is billed to the account in multiple
+                             * charges over a period of time agreed upon by the cardholder and
+                             * merchant from transactions that originate from an acquirer in the US
+                             * region.
+                             */
                             INSTALLMENT,
+                            /**
+                             * Unknown classification: other mail order: Use to indicate that the
+                             * type of mail/telephone order is unknown.
+                             */
                             UNKNOWN_MAIL_PHONE_ORDER,
+                            /**
+                             * Secure electronic commerce transaction: Use to indicate that the
+                             * electronic commerce transaction has been authenticated using e.g.,
+                             * 3-D Secure
+                             */
                             SECURE_ELECTRONIC_COMMERCE,
+                            /**
+                             * Non-authenticated security transaction at a 3-D Secure-capable
+                             * merchant, and merchant attempted to authenticate the cardholder using
+                             * 3-D Secure: Use to identify an electronic commerce transaction where
+                             * the merchant attempted to authenticate the cardholder using 3-D
+                             * Secure, but was unable to complete the authentication because the
+                             * issuer or cardholder does not participate in the 3-D Secure program.
+                             */
                             NON_AUTHENTICATED_SECURITY_TRANSACTION_AT_3DS_CAPABLE_MERCHANT,
+                            /**
+                             * Non-authenticated security transaction: Use to identify an electronic
+                             * commerce transaction that uses data encryption for security however ,
+                             * cardholder authentication is not performed using 3-D Secure.
+                             */
                             NON_AUTHENTICATED_SECURITY_TRANSACTION,
+                            /**
+                             * Non-secure transaction: Use to identify an electronic commerce
+                             * transaction that has no data protection.
+                             */
                             NON_SECURE_TRANSACTION,
                             _UNKNOWN,
                         }
@@ -3139,6 +3314,10 @@ private constructor(
                         override fun toString() = value.toString()
                     }
 
+                    /**
+                     * The method used to enter the cardholder's primary account number and card
+                     * expiration date.
+                     */
                     class PointOfServiceEntryMode
                     @JsonCreator
                     private constructor(
@@ -3178,28 +3357,54 @@ private constructor(
                         }
 
                         enum class Known {
+                            /** Unknown */
                             UNKNOWN,
+                            /** Manual key entry */
                             MANUAL,
+                            /** Magnetic stripe read, without card verification value */
                             MAGNETIC_STRIPE_NO_CVV,
+                            /** Optical code */
                             OPTICAL_CODE,
+                            /** Contact chip card */
                             INTEGRATED_CIRCUIT_CARD,
+                            /** Contactless read of chip card */
                             CONTACTLESS,
+                            /**
+                             * Transaction initiated using a credential that has previously been
+                             * stored on file
+                             */
                             CREDENTIAL_ON_FILE,
+                            /** Magnetic stripe read */
                             MAGNETIC_STRIPE,
+                            /** Contactless read of magnetic stripe data */
                             CONTACTLESS_MAGNETIC_STRIPE,
+                            /** Contact chip card, without card verification value */
                             INTEGRATED_CIRCUIT_CARD_NO_CVV,
                         }
 
                         enum class Value {
+                            /** Unknown */
                             UNKNOWN,
+                            /** Manual key entry */
                             MANUAL,
+                            /** Magnetic stripe read, without card verification value */
                             MAGNETIC_STRIPE_NO_CVV,
+                            /** Optical code */
                             OPTICAL_CODE,
+                            /** Contact chip card */
                             INTEGRATED_CIRCUIT_CARD,
+                            /** Contactless read of chip card */
                             CONTACTLESS,
+                            /**
+                             * Transaction initiated using a credential that has previously been
+                             * stored on file
+                             */
                             CREDENTIAL_ON_FILE,
+                            /** Magnetic stripe read */
                             MAGNETIC_STRIPE,
+                            /** Contactless read of magnetic stripe data */
                             CONTACTLESS_MAGNETIC_STRIPE,
+                            /** Contact chip card, without card verification value */
                             INTEGRATED_CIRCUIT_CARD_NO_CVV,
                             _UNKNOWN,
                         }
@@ -3254,6 +3459,10 @@ private constructor(
                         override fun toString() = value.toString()
                     }
 
+                    /**
+                     * Only present when `actioner: network`. Describes why a card authorization was
+                     * approved or declined by Visa through stand-in processing.
+                     */
                     class StandInProcessingReason
                     @JsonCreator
                     private constructor(
@@ -3286,20 +3495,56 @@ private constructor(
                         }
 
                         enum class Known {
+                            /** Increase failed to process the authorization in a timely manner. */
                             ISSUER_ERROR,
+                            /**
+                             * The physical card read had an invalid CVV, dCVV, or authorization
+                             * request cryptogram.
+                             */
                             INVALID_PHYSICAL_CARD,
+                            /** The 3DS cardholder authentication verification value was invalid. */
                             INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE,
+                            /**
+                             * An internal Visa error occurred. Visa uses this reason code for
+                             * certain expected occurrences as well, such as Application Transaction
+                             * Counter (ATC) replays.
+                             */
                             INTERNAL_VISA_ERROR,
+                            /**
+                             * The merchant has enabled Visa's Transaction Advisory Service and
+                             * requires further authentication to perform the transaction. In
+                             * practice this is often utilized at fuel pumps to tell the cardholder
+                             * to see the cashier.
+                             */
                             MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED,
+                            /** An unspecific reason for stand-in processing. */
                             OTHER,
                         }
 
                         enum class Value {
+                            /** Increase failed to process the authorization in a timely manner. */
                             ISSUER_ERROR,
+                            /**
+                             * The physical card read had an invalid CVV, dCVV, or authorization
+                             * request cryptogram.
+                             */
                             INVALID_PHYSICAL_CARD,
+                            /** The 3DS cardholder authentication verification value was invalid. */
                             INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE,
+                            /**
+                             * An internal Visa error occurred. Visa uses this reason code for
+                             * certain expected occurrences as well, such as Application Transaction
+                             * Counter (ATC) replays.
+                             */
                             INTERNAL_VISA_ERROR,
+                            /**
+                             * The merchant has enabled Visa's Transaction Advisory Service and
+                             * requires further authentication to perform the transaction. In
+                             * practice this is often utilized at fuel pumps to tell the cardholder
+                             * to see the cashier.
+                             */
                             MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED,
+                            /** An unspecific reason for stand-in processing. */
                             OTHER,
                             _UNKNOWN,
                         }
@@ -3612,6 +3857,10 @@ private constructor(
                     "NetworkIdentifiers{retrievalReferenceNumber=$retrievalReferenceNumber, traceNumber=$traceNumber, transactionId=$transactionId, additionalProperties=$additionalProperties}"
             }
 
+            /**
+             * The processing category describes the intent behind the authorization, such as
+             * whether it was used for bill payments or an automatic fuel dispenser.
+             */
             class ProcessingCategory
             @JsonCreator
             private constructor(
@@ -3638,20 +3887,58 @@ private constructor(
                 }
 
                 enum class Known {
+                    /**
+                     * Account funding transactions are transactions used to e.g., fund an account
+                     * or transfer funds between accounts.
+                     */
                     ACCOUNT_FUNDING,
+                    /**
+                     * Automatic fuel dispenser authorizations occur when a card is used at a gas
+                     * pump, prior to the actual transaction amount being known. They are followed
+                     * by an advice message that updates the amount of the pending transaction.
+                     */
                     AUTOMATIC_FUEL_DISPENSER,
+                    /** A transaction used to pay a bill. */
                     BILL_PAYMENT,
+                    /** A regular purchase. */
                     PURCHASE,
+                    /**
+                     * Quasi-cash transactions represent purchases of items which may be convertible
+                     * to cash.
+                     */
                     QUASI_CASH,
+                    /**
+                     * A refund card authorization, sometimes referred to as a credit voucher
+                     * authorization, where funds are credited to the cardholder.
+                     */
                     REFUND,
                 }
 
                 enum class Value {
+                    /**
+                     * Account funding transactions are transactions used to e.g., fund an account
+                     * or transfer funds between accounts.
+                     */
                     ACCOUNT_FUNDING,
+                    /**
+                     * Automatic fuel dispenser authorizations occur when a card is used at a gas
+                     * pump, prior to the actual transaction amount being known. They are followed
+                     * by an advice message that updates the amount of the pending transaction.
+                     */
                     AUTOMATIC_FUEL_DISPENSER,
+                    /** A transaction used to pay a bill. */
                     BILL_PAYMENT,
+                    /** A regular purchase. */
                     PURCHASE,
+                    /**
+                     * Quasi-cash transactions represent purchases of items which may be convertible
+                     * to cash.
+                     */
                     QUASI_CASH,
+                    /**
+                     * A refund card authorization, sometimes referred to as a credit voucher
+                     * authorization, where funds are credited to the cardholder.
+                     */
                     REFUND,
                     _UNKNOWN,
                 }
@@ -3694,6 +3981,10 @@ private constructor(
                 override fun toString() = value.toString()
             }
 
+            /**
+             * A constant representing the object's type. For this resource it will always be
+             * `card_authorization`.
+             */
             class Type
             @JsonCreator
             private constructor(
@@ -3980,6 +4271,7 @@ private constructor(
                             )
                     }
 
+                    /** The result of verifying the Card Verification Code. */
                     class Result
                     @JsonCreator
                     private constructor(
@@ -4001,14 +4293,24 @@ private constructor(
                         }
 
                         enum class Known {
+                            /**
+                             * No card verification code was provided in the authorization request.
+                             */
                             NOT_CHECKED,
+                            /** The card verification code matched the one on file. */
                             MATCH,
+                            /** The card verification code did not match the one on file. */
                             NO_MATCH,
                         }
 
                         enum class Value {
+                            /**
+                             * No card verification code was provided in the authorization request.
+                             */
                             NOT_CHECKED,
+                            /** The card verification code matched the one on file. */
                             MATCH,
+                            /** The card verification code did not match the one on file. */
                             NO_MATCH,
                             _UNKNOWN,
                         }
@@ -4292,6 +4594,7 @@ private constructor(
                             )
                     }
 
+                    /** The address verification result returned to the card network. */
                     class Result
                     @JsonCreator
                     private constructor(
@@ -4325,20 +4628,32 @@ private constructor(
                         }
 
                         enum class Known {
+                            /** No adress was provided in the authorization request. */
                             NOT_CHECKED,
+                            /** Postal code matches, but the street address was not verified. */
                             POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED,
+                            /** Postal code matches, but the street address does not match. */
                             POSTAL_CODE_MATCH_ADDRESS_NO_MATCH,
+                            /** Postal code does not match, but the street address matches. */
                             POSTAL_CODE_NO_MATCH_ADDRESS_MATCH,
+                            /** Postal code and street address match. */
                             MATCH,
+                            /** Postal code and street address do not match. */
                             NO_MATCH,
                         }
 
                         enum class Value {
+                            /** No adress was provided in the authorization request. */
                             NOT_CHECKED,
+                            /** Postal code matches, but the street address was not verified. */
                             POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED,
+                            /** Postal code matches, but the street address does not match. */
                             POSTAL_CODE_MATCH_ADDRESS_NO_MATCH,
+                            /** Postal code does not match, but the street address matches. */
                             POSTAL_CODE_NO_MATCH_ADDRESS_MATCH,
+                            /** Postal code and street address match. */
                             MATCH,
+                            /** Postal code and street address do not match. */
                             NO_MATCH,
                             _UNKNOWN,
                         }
@@ -4440,6 +4755,10 @@ private constructor(
                 "CardAuthorization{id=$id, actioner=$actioner, amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, expiresAt=$expiresAt, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, pendingTransactionId=$pendingTransactionId, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, realTimeDecisionId=$realTimeDecisionId, terminalId=$terminalId, type=$type, verification=$verification, additionalProperties=$additionalProperties}"
         }
 
+        /**
+         * The type of the resource. We may add additional possible values for this enum over time;
+         * your application should be able to handle such additions gracefully.
+         */
         class Category
         @JsonCreator
         private constructor(
@@ -4476,28 +4795,90 @@ private constructor(
             }
 
             enum class Known {
+                /**
+                 * Account Transfer Instruction: details will be under the
+                 * `account_transfer_instruction` object.
+                 */
                 ACCOUNT_TRANSFER_INSTRUCTION,
+                /**
+                 * ACH Transfer Instruction: details will be under the `ach_transfer_instruction`
+                 * object.
+                 */
                 ACH_TRANSFER_INSTRUCTION,
+                /** Card Authorization: details will be under the `card_authorization` object. */
                 CARD_AUTHORIZATION,
+                /**
+                 * Check Deposit Instruction: details will be under the `check_deposit_instruction`
+                 * object.
+                 */
                 CHECK_DEPOSIT_INSTRUCTION,
+                /**
+                 * Check Transfer Instruction: details will be under the
+                 * `check_transfer_instruction` object.
+                 */
                 CHECK_TRANSFER_INSTRUCTION,
+                /** Inbound Funds Hold: details will be under the `inbound_funds_hold` object. */
                 INBOUND_FUNDS_HOLD,
+                /**
+                 * Real-Time Payments Transfer Instruction: details will be under the
+                 * `real_time_payments_transfer_instruction` object.
+                 */
                 REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION,
+                /**
+                 * Wire Transfer Instruction: details will be under the `wire_transfer_instruction`
+                 * object.
+                 */
                 WIRE_TRANSFER_INSTRUCTION,
+                /**
+                 * Inbound Wire Transfer Reversal: details will be under the
+                 * `inbound_wire_transfer_reversal` object.
+                 */
                 INBOUND_WIRE_TRANSFER_REVERSAL,
+                /** The Pending Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
             }
 
             enum class Value {
+                /**
+                 * Account Transfer Instruction: details will be under the
+                 * `account_transfer_instruction` object.
+                 */
                 ACCOUNT_TRANSFER_INSTRUCTION,
+                /**
+                 * ACH Transfer Instruction: details will be under the `ach_transfer_instruction`
+                 * object.
+                 */
                 ACH_TRANSFER_INSTRUCTION,
+                /** Card Authorization: details will be under the `card_authorization` object. */
                 CARD_AUTHORIZATION,
+                /**
+                 * Check Deposit Instruction: details will be under the `check_deposit_instruction`
+                 * object.
+                 */
                 CHECK_DEPOSIT_INSTRUCTION,
+                /**
+                 * Check Transfer Instruction: details will be under the
+                 * `check_transfer_instruction` object.
+                 */
                 CHECK_TRANSFER_INSTRUCTION,
+                /** Inbound Funds Hold: details will be under the `inbound_funds_hold` object. */
                 INBOUND_FUNDS_HOLD,
+                /**
+                 * Real-Time Payments Transfer Instruction: details will be under the
+                 * `real_time_payments_transfer_instruction` object.
+                 */
                 REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION,
+                /**
+                 * Wire Transfer Instruction: details will be under the `wire_transfer_instruction`
+                 * object.
+                 */
                 WIRE_TRANSFER_INSTRUCTION,
+                /**
+                 * Inbound Wire Transfer Reversal: details will be under the
+                 * `inbound_wire_transfer_reversal` object.
+                 */
                 INBOUND_WIRE_TRANSFER_REVERSAL,
+                /** The Pending Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
                 _UNKNOWN,
             }
@@ -4781,6 +5162,10 @@ private constructor(
                     )
             }
 
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+             * currency.
+             */
             class Currency
             @JsonCreator
             private constructor(
@@ -4807,20 +5192,32 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                 }
 
                 enum class Value {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                     _UNKNOWN,
                 }
@@ -5024,6 +5421,9 @@ private constructor(
                     )
             }
 
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's currency.
+             */
             class Currency
             @JsonCreator
             private constructor(
@@ -5050,20 +5450,32 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                 }
 
                 enum class Value {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                     _UNKNOWN,
                 }
@@ -5484,6 +5896,9 @@ private constructor(
                     )
             }
 
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the hold's currency.
+             */
             class Currency
             @JsonCreator
             private constructor(
@@ -5510,20 +5925,32 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                 }
 
                 enum class Value {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                     _UNKNOWN,
                 }
@@ -5565,6 +5992,7 @@ private constructor(
                 override fun toString() = value.toString()
             }
 
+            /** The status of the hold. */
             class Status
             @JsonCreator
             private constructor(
@@ -5583,12 +6011,16 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** Funds are still being held. */
                     HELD,
+                    /** Funds have been released. */
                     COMPLETE,
                 }
 
                 enum class Value {
+                    /** Funds are still being held. */
                     HELD,
+                    /** Funds have been released. */
                     COMPLETE,
                     _UNKNOWN,
                 }
@@ -5622,6 +6054,10 @@ private constructor(
                 override fun toString() = value.toString()
             }
 
+            /**
+             * A constant representing the object's type. For this resource it will always be
+             * `inbound_funds_hold`.
+             */
             class Type
             @JsonCreator
             private constructor(
@@ -6070,6 +6506,7 @@ private constructor(
             "Source{accountTransferInstruction=$accountTransferInstruction, achTransferInstruction=$achTransferInstruction, cardAuthorization=$cardAuthorization, category=$category, checkDepositInstruction=$checkDepositInstruction, checkTransferInstruction=$checkTransferInstruction, inboundFundsHold=$inboundFundsHold, other=$other, realTimePaymentsTransferInstruction=$realTimePaymentsTransferInstruction, wireTransferInstruction=$wireTransferInstruction, additionalProperties=$additionalProperties}"
     }
 
+    /** Whether the Pending Transaction has been confirmed and has an associated Transaction. */
     class Status
     @JsonCreator
     private constructor(
@@ -6088,12 +6525,24 @@ private constructor(
         }
 
         enum class Known {
+            /** The Pending Transaction is still awaiting confirmation. */
             PENDING,
+            /**
+             * The Pending Transaction is confirmed. An associated Transaction exists for this
+             * object. The Pending Transaction will no longer count against your balance and can
+             * generally be hidden from UIs, etc.
+             */
             COMPLETE,
         }
 
         enum class Value {
+            /** The Pending Transaction is still awaiting confirmation. */
             PENDING,
+            /**
+             * The Pending Transaction is confirmed. An associated Transaction exists for this
+             * object. The Pending Transaction will no longer count against your balance and can
+             * generally be hidden from UIs, etc.
+             */
             COMPLETE,
             _UNKNOWN,
         }
@@ -6127,6 +6576,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `pending_transaction`.
+     */
     class Type
     @JsonCreator
     private constructor(

@@ -320,6 +320,10 @@ private constructor(
         override fun toString() = "AchTransfer{id=$id, additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `proof_of_authorization_request`.
+     */
     class Type
     @JsonCreator
     private constructor(

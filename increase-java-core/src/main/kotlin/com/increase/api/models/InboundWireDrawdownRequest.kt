@@ -825,6 +825,10 @@ private constructor(
             )
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `inbound_wire_drawdown_request`.
+     */
     class Type
     @JsonCreator
     private constructor(

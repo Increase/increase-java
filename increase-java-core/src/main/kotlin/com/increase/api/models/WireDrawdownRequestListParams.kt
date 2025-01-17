@@ -237,6 +237,7 @@ constructor(
             )
     }
 
+    /** Filter Wire Drawdown Requests for those with the specified status. */
     class Status
     @JsonCreator
     private constructor(
@@ -259,16 +260,24 @@ constructor(
         }
 
         enum class Known {
+            /** The drawdown request is queued to be submitted to Fedwire. */
             PENDING_SUBMISSION,
+            /** The drawdown request has been sent and the recipient should respond in some way. */
             PENDING_RESPONSE,
+            /** The drawdown request has been fulfilled by the recipient. */
             FULFILLED,
+            /** The drawdown request has been refused by the recipient. */
             REFUSED,
         }
 
         enum class Value {
+            /** The drawdown request is queued to be submitted to Fedwire. */
             PENDING_SUBMISSION,
+            /** The drawdown request has been sent and the recipient should respond in some way. */
             PENDING_RESPONSE,
+            /** The drawdown request has been fulfilled by the recipient. */
             FULFILLED,
+            /** The drawdown request has been refused by the recipient. */
             REFUSED,
             _UNKNOWN,
         }

@@ -1372,6 +1372,7 @@ private constructor(
                 "ApiKey{description=$description, additionalProperties=$additionalProperties}"
         }
 
+        /** The type of object that created this transfer. */
         class Category
         @JsonCreator
         private constructor(
@@ -1392,14 +1393,26 @@ private constructor(
             }
 
             enum class Known {
+                /** An API key. Details will be under the `api_key` object. */
                 API_KEY,
+                /**
+                 * An OAuth application you connected to Increase. Details will be under the
+                 * `oauth_application` object.
+                 */
                 OAUTH_APPLICATION,
+                /** A User in the Increase dashboard. Details will be under the `user` object. */
                 USER,
             }
 
             enum class Value {
+                /** An API key. Details will be under the `api_key` object. */
                 API_KEY,
+                /**
+                 * An OAuth application you connected to Increase. Details will be under the
+                 * `oauth_application` object.
+                 */
                 OAUTH_APPLICATION,
+                /** A User in the Increase dashboard. Details will be under the `user` object. */
                 USER,
                 _UNKNOWN,
             }
@@ -1658,6 +1671,7 @@ private constructor(
             "CreatedBy{apiKey=$apiKey, category=$category, oauthApplication=$oauthApplication, user=$user, additionalProperties=$additionalProperties}"
     }
 
+    /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's currency. */
     class Currency
     @JsonCreator
     private constructor(
@@ -1684,20 +1698,32 @@ private constructor(
         }
 
         enum class Known {
+            /** Canadian Dollar (CAD) */
             CAD,
+            /** Swiss Franc (CHF) */
             CHF,
+            /** Euro (EUR) */
             EUR,
+            /** British Pound (GBP) */
             GBP,
+            /** Japanese Yen (JPY) */
             JPY,
+            /** US Dollar (USD) */
             USD,
         }
 
         enum class Value {
+            /** Canadian Dollar (CAD) */
             CAD,
+            /** Swiss Franc (CHF) */
             CHF,
+            /** Euro (EUR) */
             EUR,
+            /** British Pound (GBP) */
             GBP,
+            /** Japanese Yen (JPY) */
             JPY,
+            /** US Dollar (USD) */
             USD,
             _UNKNOWN,
         }
@@ -1739,6 +1765,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** Whether Increase will print and mail the check or if you will do it yourself. */
     class FulfillmentMethod
     @JsonCreator
     private constructor(
@@ -1757,12 +1784,22 @@ private constructor(
         }
 
         enum class Known {
+            /** Increase will print and mail a physical check. */
             PHYSICAL_CHECK,
+            /**
+             * Increase will not print a check; you are responsible for printing and mailing a check
+             * with the provided account number, routing number, check number, and amount.
+             */
             THIRD_PARTY,
         }
 
         enum class Value {
+            /** Increase will print and mail a physical check. */
             PHYSICAL_CHECK,
+            /**
+             * Increase will not print a check; you are responsible for printing and mailing a check
+             * with the provided account number, routing number, check number, and amount.
+             */
             THIRD_PARTY,
             _UNKNOWN,
         }
@@ -2805,6 +2842,7 @@ private constructor(
                     )
             }
 
+            /** The type of tracking event. */
             class Category
             @JsonCreator
             private constructor(
@@ -2827,16 +2865,24 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** The check is in transit. */
                     IN_TRANSIT,
+                    /** The check has been processed for delivery. */
                     PROCESSED_FOR_DELIVERY,
+                    /** The check has been delivered. */
                     DELIVERED,
+                    /** Delivery failed and the check was returned to sender. */
                     RETURNED_TO_SENDER,
                 }
 
                 enum class Value {
+                    /** The check is in transit. */
                     IN_TRANSIT,
+                    /** The check has been processed for delivery. */
                     PROCESSED_FOR_DELIVERY,
+                    /** The check has been delivered. */
                     DELIVERED,
+                    /** Delivery failed and the check was returned to sender. */
                     RETURNED_TO_SENDER,
                     _UNKNOWN,
                 }
@@ -2910,6 +2956,7 @@ private constructor(
             "PhysicalCheck{mailingAddress=$mailingAddress, memo=$memo, note=$note, recipientName=$recipientName, returnAddress=$returnAddress, signatureText=$signatureText, trackingUpdates=$trackingUpdates, additionalProperties=$additionalProperties}"
     }
 
+    /** The lifecycle status of the transfer. */
     class Status
     @JsonCreator
     private constructor(
@@ -2944,28 +2991,48 @@ private constructor(
         }
 
         enum class Known {
+            /** The transfer is awaiting approval. */
             PENDING_APPROVAL,
+            /** The transfer has been canceled. */
             CANCELED,
+            /** The transfer is pending submission. */
             PENDING_SUBMISSION,
+            /** The transfer requires attention from an Increase operator. */
             REQUIRES_ATTENTION,
+            /** The transfer has been rejected. */
             REJECTED,
+            /** The check is queued for mailing. */
             PENDING_MAILING,
+            /** The check has been mailed. */
             MAILED,
+            /** The check has been deposited. */
             DEPOSITED,
+            /** A stop-payment was requested for this check. */
             STOPPED,
+            /** The transfer has been returned. */
             RETURNED,
         }
 
         enum class Value {
+            /** The transfer is awaiting approval. */
             PENDING_APPROVAL,
+            /** The transfer has been canceled. */
             CANCELED,
+            /** The transfer is pending submission. */
             PENDING_SUBMISSION,
+            /** The transfer requires attention from an Increase operator. */
             REQUIRES_ATTENTION,
+            /** The transfer has been rejected. */
             REJECTED,
+            /** The check is queued for mailing. */
             PENDING_MAILING,
+            /** The check has been mailed. */
             MAILED,
+            /** The check has been deposited. */
             DEPOSITED,
+            /** A stop-payment was requested for this check. */
             STOPPED,
+            /** The transfer has been returned. */
             RETURNED,
             _UNKNOWN,
         }
@@ -3171,6 +3238,7 @@ private constructor(
                 )
         }
 
+        /** The reason why this transfer was stopped. */
         class Reason
         @JsonCreator
         private constructor(
@@ -3193,16 +3261,30 @@ private constructor(
             }
 
             enum class Known {
+                /** The check could not be delivered. */
                 MAIL_DELIVERY_FAILED,
+                /**
+                 * The check was canceled by an Increase operator who will provide details
+                 * out-of-band.
+                 */
                 REJECTED_BY_INCREASE,
+                /** The check was not authorized. */
                 NOT_AUTHORIZED,
+                /** The check was stopped for another reason. */
                 UNKNOWN,
             }
 
             enum class Value {
+                /** The check could not be delivered. */
                 MAIL_DELIVERY_FAILED,
+                /**
+                 * The check was canceled by an Increase operator who will provide details
+                 * out-of-band.
+                 */
                 REJECTED_BY_INCREASE,
+                /** The check was not authorized. */
                 NOT_AUTHORIZED,
+                /** The check was stopped for another reason. */
                 UNKNOWN,
                 _UNKNOWN,
             }
@@ -3240,6 +3322,10 @@ private constructor(
             override fun toString() = value.toString()
         }
 
+        /**
+         * A constant representing the object's type. For this resource it will always be
+         * `check_transfer_stop_payment_request`.
+         */
         class Type
         @JsonCreator
         private constructor(
@@ -3527,6 +3613,10 @@ private constructor(
             "ThirdParty{checkNumber=$checkNumber, additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `check_transfer`.
+     */
     class Type
     @JsonCreator
     private constructor(

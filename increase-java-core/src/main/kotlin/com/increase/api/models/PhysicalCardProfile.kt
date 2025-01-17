@@ -409,6 +409,7 @@ private constructor(
             )
     }
 
+    /** The creator of this Physical Card Profile. */
     class Creator
     @JsonCreator
     private constructor(
@@ -427,12 +428,16 @@ private constructor(
         }
 
         enum class Known {
+            /** This Physical Card Profile was created by Increase. */
             INCREASE,
+            /** This Physical Card Profile was created by you. */
             USER,
         }
 
         enum class Value {
+            /** This Physical Card Profile was created by Increase. */
             INCREASE,
+            /** This Physical Card Profile was created by you. */
             USER,
             _UNKNOWN,
         }
@@ -466,6 +471,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** The status of the Physical Card Profile. */
     class Status
     @JsonCreator
     private constructor(
@@ -492,20 +498,38 @@ private constructor(
         }
 
         enum class Known {
+            /** The Card Profile has not yet been processed by Increase. */
             PENDING_CREATING,
+            /** The card profile is awaiting review by Increase. */
             PENDING_REVIEWING,
+            /** There is an issue with the Physical Card Profile preventing it from use. */
             REJECTED,
+            /** The card profile is awaiting submission to the fulfillment provider. */
             PENDING_SUBMITTING,
+            /**
+             * The Physical Card Profile has been submitted to the fulfillment provider and is ready
+             * to use.
+             */
             ACTIVE,
+            /** The Physical Card Profile has been archived. */
             ARCHIVED,
         }
 
         enum class Value {
+            /** The Card Profile has not yet been processed by Increase. */
             PENDING_CREATING,
+            /** The card profile is awaiting review by Increase. */
             PENDING_REVIEWING,
+            /** There is an issue with the Physical Card Profile preventing it from use. */
             REJECTED,
+            /** The card profile is awaiting submission to the fulfillment provider. */
             PENDING_SUBMITTING,
+            /**
+             * The Physical Card Profile has been submitted to the fulfillment provider and is ready
+             * to use.
+             */
             ACTIVE,
+            /** The Physical Card Profile has been archived. */
             ARCHIVED,
             _UNKNOWN,
         }
@@ -547,6 +571,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `physical_card_profile`.
+     */
     class Type
     @JsonCreator
     private constructor(

@@ -580,14 +580,20 @@ constructor(
             }
 
             enum class Known {
+                /** The entity is active. */
                 ACTIVE,
+                /** The entity is archived, and can no longer be used to create accounts. */
                 ARCHIVED,
+                /** The entity is temporarily disabled and cannot be used for financial activity. */
                 DISABLED,
             }
 
             enum class Value {
+                /** The entity is active. */
                 ACTIVE,
+                /** The entity is archived, and can no longer be used to create accounts. */
                 ARCHIVED,
+                /** The entity is temporarily disabled and cannot be used for financial activity. */
                 DISABLED,
                 _UNKNOWN,
             }

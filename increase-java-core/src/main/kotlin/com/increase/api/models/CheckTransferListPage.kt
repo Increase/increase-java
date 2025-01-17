@@ -19,6 +19,7 @@ import java.util.Optional
 import java.util.stream.Stream
 import java.util.stream.StreamSupport
 
+/** List Check Transfers */
 class CheckTransferListPage
 private constructor(
     private val checkTransfersService: CheckTransferService,

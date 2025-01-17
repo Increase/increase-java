@@ -829,6 +829,7 @@ constructor(
             )
     }
 
+    /** Whether the Prenotification is for a future debit or credit. */
     class CreditDebitIndicator
     @JsonCreator
     private constructor(
@@ -847,12 +848,16 @@ constructor(
         }
 
         enum class Known {
+            /** The Prenotification is for an anticipated credit. */
             CREDIT,
+            /** The Prenotification is for an anticipated debit. */
             DEBIT,
         }
 
         enum class Value {
+            /** The Prenotification is for an anticipated credit. */
             CREDIT,
+            /** The Prenotification is for an anticipated debit. */
             DEBIT,
             _UNKNOWN,
         }
@@ -886,6 +891,7 @@ constructor(
         override fun toString() = value.toString()
     }
 
+    /** The Standard Entry Class (SEC) code to use for the ACH Prenotification. */
     class StandardEntryClassCode
     @JsonCreator
     private constructor(
@@ -908,16 +914,24 @@ constructor(
         }
 
         enum class Known {
+            /** Corporate Credit and Debit (CCD). */
             CORPORATE_CREDIT_OR_DEBIT,
+            /** Corporate Trade Exchange (CTX). */
             CORPORATE_TRADE_EXCHANGE,
+            /** Prearranged Payments and Deposits (PPD). */
             PREARRANGED_PAYMENTS_AND_DEPOSIT,
+            /** Internet Initiated (WEB). */
             INTERNET_INITIATED,
         }
 
         enum class Value {
+            /** Corporate Credit and Debit (CCD). */
             CORPORATE_CREDIT_OR_DEBIT,
+            /** Corporate Trade Exchange (CTX). */
             CORPORATE_TRADE_EXCHANGE,
+            /** Prearranged Payments and Deposits (PPD). */
             PREARRANGED_PAYMENTS_AND_DEPOSIT,
+            /** Internet Initiated (WEB). */
             INTERNET_INITIATED,
             _UNKNOWN,
         }

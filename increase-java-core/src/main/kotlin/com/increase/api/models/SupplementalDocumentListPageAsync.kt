@@ -20,6 +20,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import java.util.function.Predicate
 
+/** List Entity Supplemental Document Submissions */
 class SupplementalDocumentListPageAsync
 private constructor(
     private val supplementalDocumentsService: SupplementalDocumentServiceAsync,

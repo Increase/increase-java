@@ -327,6 +327,10 @@ private constructor(
             )
     }
 
+    /**
+     * The category of the Export. We may add additional possible values for this enum over time;
+     * your application should be able to handle that gracefully.
+     */
     class Category
     @JsonCreator
     private constructor(
@@ -355,22 +359,48 @@ private constructor(
         }
 
         enum class Known {
+            /**
+             * Export an Open Financial Exchange (OFX) file of transactions and balances for a given
+             * time range and Account.
+             */
             ACCOUNT_STATEMENT_OFX,
+            /** Export a CSV of all transactions for a given time range. */
             TRANSACTION_CSV,
+            /** Export a CSV of account balances for the dates in a given range. */
             BALANCE_CSV,
+            /** Export a CSV of bookkeeping account balances for the dates in a given range. */
             BOOKKEEPING_ACCOUNT_BALANCE_CSV,
+            /** Export a CSV of entities with a given status. */
             ENTITY_CSV,
+            /** Export a CSV of vendors added to the third-party risk management dashboard. */
             VENDOR_CSV,
+            /**
+             * Certain dashboard tables are available as CSV exports. This export cannot be created
+             * via the API.
+             */
             DASHBOARD_TABLE_CSV,
         }
 
         enum class Value {
+            /**
+             * Export an Open Financial Exchange (OFX) file of transactions and balances for a given
+             * time range and Account.
+             */
             ACCOUNT_STATEMENT_OFX,
+            /** Export a CSV of all transactions for a given time range. */
             TRANSACTION_CSV,
+            /** Export a CSV of account balances for the dates in a given range. */
             BALANCE_CSV,
+            /** Export a CSV of bookkeeping account balances for the dates in a given range. */
             BOOKKEEPING_ACCOUNT_BALANCE_CSV,
+            /** Export a CSV of entities with a given status. */
             ENTITY_CSV,
+            /** Export a CSV of vendors added to the third-party risk management dashboard. */
             VENDOR_CSV,
+            /**
+             * Certain dashboard tables are available as CSV exports. This export cannot be created
+             * via the API.
+             */
             DASHBOARD_TABLE_CSV,
             _UNKNOWN,
         }
@@ -414,6 +444,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** The status of the Export. */
     class Status
     @JsonCreator
     private constructor(
@@ -434,14 +465,24 @@ private constructor(
         }
 
         enum class Known {
+            /** Increase is generating the export. */
             PENDING,
+            /** The export has been successfully generated. */
             COMPLETE,
+            /**
+             * The export failed to generate. Increase will reach out to you to resolve the issue.
+             */
             FAILED,
         }
 
         enum class Value {
+            /** Increase is generating the export. */
             PENDING,
+            /** The export has been successfully generated. */
             COMPLETE,
+            /**
+             * The export failed to generate. Increase will reach out to you to resolve the issue.
+             */
             FAILED,
             _UNKNOWN,
         }
@@ -477,6 +518,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** A constant representing the object's type. For this resource it will always be `export`. */
     class Type
     @JsonCreator
     private constructor(

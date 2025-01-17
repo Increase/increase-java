@@ -315,6 +315,7 @@ constructor(
             )
     }
 
+    /** The status to update the Physical Card to. */
     class Status
     @JsonCreator
     private constructor(
@@ -335,14 +336,20 @@ constructor(
         }
 
         enum class Known {
+            /** The physical card is active. */
             ACTIVE,
+            /** The physical card is temporarily disabled. */
             DISABLED,
+            /** The physical card is permanently canceled. */
             CANCELED,
         }
 
         enum class Value {
+            /** The physical card is active. */
             ACTIVE,
+            /** The physical card is temporarily disabled. */
             DISABLED,
+            /** The physical card is permanently canceled. */
             CANCELED,
             _UNKNOWN,
         }

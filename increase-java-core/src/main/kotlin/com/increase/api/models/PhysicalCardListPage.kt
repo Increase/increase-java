@@ -19,6 +19,7 @@ import java.util.Optional
 import java.util.stream.Stream
 import java.util.stream.StreamSupport
 
+/** List Physical Cards */
 class PhysicalCardListPage
 private constructor(
     private val physicalCardsService: PhysicalCardService,

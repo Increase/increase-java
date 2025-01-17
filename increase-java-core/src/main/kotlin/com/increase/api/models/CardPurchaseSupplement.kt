@@ -817,6 +817,7 @@ private constructor(
                 )
         }
 
+        /** Indicates how the merchant applied the discount. */
         class DiscountTreatmentCode
         @JsonCreator
         private constructor(
@@ -842,14 +843,20 @@ private constructor(
             }
 
             enum class Known {
+                /** No invoice level discount provided */
                 NO_INVOICE_LEVEL_DISCOUNT_PROVIDED,
+                /** Tax calculated on post discount invoice total */
                 TAX_CALCULATED_ON_POST_DISCOUNT_INVOICE_TOTAL,
+                /** Tax calculated on pre discount invoice total */
                 TAX_CALCULATED_ON_PRE_DISCOUNT_INVOICE_TOTAL,
             }
 
             enum class Value {
+                /** No invoice level discount provided */
                 NO_INVOICE_LEVEL_DISCOUNT_PROVIDED,
+                /** Tax calculated on post discount invoice total */
                 TAX_CALCULATED_ON_POST_DISCOUNT_INVOICE_TOTAL,
+                /** Tax calculated on pre discount invoice total */
                 TAX_CALCULATED_ON_PRE_DISCOUNT_INVOICE_TOTAL,
                 _UNKNOWN,
             }
@@ -890,6 +897,7 @@ private constructor(
             override fun toString() = value.toString()
         }
 
+        /** Indicates how the merchant applied taxes. */
         class TaxTreatments
         @JsonCreator
         private constructor(
@@ -914,18 +922,28 @@ private constructor(
             }
 
             enum class Known {
+                /** No tax applies */
                 NO_TAX_APPLIES,
+                /** Net price line item level */
                 NET_PRICE_LINE_ITEM_LEVEL,
+                /** Net price invoice level */
                 NET_PRICE_INVOICE_LEVEL,
+                /** Gross price line item level */
                 GROSS_PRICE_LINE_ITEM_LEVEL,
+                /** Gross price invoice level */
                 GROSS_PRICE_INVOICE_LEVEL,
             }
 
             enum class Value {
+                /** No tax applies */
                 NO_TAX_APPLIES,
+                /** Net price line item level */
                 NET_PRICE_LINE_ITEM_LEVEL,
+                /** Net price invoice level */
                 NET_PRICE_INVOICE_LEVEL,
+                /** Gross price line item level */
                 GROSS_PRICE_LINE_ITEM_LEVEL,
+                /** Gross price invoice level */
                 GROSS_PRICE_INVOICE_LEVEL,
                 _UNKNOWN,
             }
@@ -1541,6 +1559,7 @@ private constructor(
                 )
         }
 
+        /** Indicates the type of line item. */
         class DetailIndicator
         @JsonCreator
         private constructor(
@@ -1561,14 +1580,20 @@ private constructor(
             }
 
             enum class Known {
+                /** Normal */
                 NORMAL,
+                /** Credit */
                 CREDIT,
+                /** Purchase */
                 PAYMENT,
             }
 
             enum class Value {
+                /** Normal */
                 NORMAL,
+                /** Credit */
                 CREDIT,
+                /** Purchase */
                 PAYMENT,
                 _UNKNOWN,
             }
@@ -1604,6 +1629,7 @@ private constructor(
             override fun toString() = value.toString()
         }
 
+        /** Indicates how the merchant applied the discount for this specific line item. */
         class DiscountTreatmentCode
         @JsonCreator
         private constructor(
@@ -1630,14 +1656,20 @@ private constructor(
             }
 
             enum class Known {
+                /** No line item level discount provided */
                 NO_LINE_ITEM_LEVEL_DISCOUNT_PROVIDED,
+                /** Tax calculated on post discount line item total */
                 TAX_CALCULATED_ON_POST_DISCOUNT_LINE_ITEM_TOTAL,
+                /** Tax calculated on pre discount line item total */
                 TAX_CALCULATED_ON_PRE_DISCOUNT_LINE_ITEM_TOTAL,
             }
 
             enum class Value {
+                /** No line item level discount provided */
                 NO_LINE_ITEM_LEVEL_DISCOUNT_PROVIDED,
+                /** Tax calculated on post discount line item total */
                 TAX_CALCULATED_ON_POST_DISCOUNT_LINE_ITEM_TOTAL,
+                /** Tax calculated on pre discount line item total */
                 TAX_CALCULATED_ON_PRE_DISCOUNT_LINE_ITEM_TOTAL,
                 _UNKNOWN,
             }
@@ -1698,6 +1730,10 @@ private constructor(
             "LineItem{id=$id, detailIndicator=$detailIndicator, discountAmount=$discountAmount, discountCurrency=$discountCurrency, discountTreatmentCode=$discountTreatmentCode, itemCommodityCode=$itemCommodityCode, itemDescriptor=$itemDescriptor, itemQuantity=$itemQuantity, productCode=$productCode, salesTaxAmount=$salesTaxAmount, salesTaxCurrency=$salesTaxCurrency, salesTaxRate=$salesTaxRate, totalAmount=$totalAmount, totalAmountCurrency=$totalAmountCurrency, unitCost=$unitCost, unitCostCurrency=$unitCostCurrency, unitOfMeasureCode=$unitOfMeasureCode, additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `card_purchase_supplement`.
+     */
     class Type
     @JsonCreator
     private constructor(

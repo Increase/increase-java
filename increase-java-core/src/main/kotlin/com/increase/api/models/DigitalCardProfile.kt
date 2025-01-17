@@ -446,6 +446,7 @@ private constructor(
             )
     }
 
+    /** The status of the Card Profile. */
     class Status
     @JsonCreator
     private constructor(
@@ -468,16 +469,28 @@ private constructor(
         }
 
         enum class Known {
+            /**
+             * The Card Profile is awaiting review from Increase and/or processing by card networks.
+             */
             PENDING,
+            /** There is an issue with the Card Profile preventing it from use. */
             REJECTED,
+            /** The Card Profile can be assigned to Cards. */
             ACTIVE,
+            /** The Card Profile is no longer in use. */
             ARCHIVED,
         }
 
         enum class Value {
+            /**
+             * The Card Profile is awaiting review from Increase and/or processing by card networks.
+             */
             PENDING,
+            /** There is an issue with the Card Profile preventing it from use. */
             REJECTED,
+            /** The Card Profile can be assigned to Cards. */
             ACTIVE,
+            /** The Card Profile is no longer in use. */
             ARCHIVED,
             _UNKNOWN,
         }
@@ -650,6 +663,10 @@ private constructor(
             "TextColor{blue=$blue, green=$green, red=$red, additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `digital_card_profile`.
+     */
     class Type
     @JsonCreator
     private constructor(

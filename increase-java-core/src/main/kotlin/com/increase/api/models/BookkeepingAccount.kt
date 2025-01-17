@@ -271,6 +271,7 @@ private constructor(
             )
     }
 
+    /** The compliance category of the account. */
     class ComplianceCategory
     @JsonCreator
     private constructor(
@@ -289,12 +290,16 @@ private constructor(
         }
 
         enum class Known {
+            /** A cash in an commingled Increase Account. */
             COMMINGLED_CASH,
+            /** A customer balance. */
             CUSTOMER_BALANCE,
         }
 
         enum class Value {
+            /** A cash in an commingled Increase Account. */
             COMMINGLED_CASH,
+            /** A customer balance. */
             CUSTOMER_BALANCE,
             _UNKNOWN,
         }
@@ -328,6 +333,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `bookkeeping_account`.
+     */
     class Type
     @JsonCreator
     private constructor(

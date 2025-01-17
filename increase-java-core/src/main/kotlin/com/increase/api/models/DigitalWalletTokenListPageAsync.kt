@@ -20,6 +20,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import java.util.function.Predicate
 
+/** List Digital Wallet Tokens */
 class DigitalWalletTokenListPageAsync
 private constructor(
     private val digitalWalletTokensService: DigitalWalletTokenServiceAsync,
