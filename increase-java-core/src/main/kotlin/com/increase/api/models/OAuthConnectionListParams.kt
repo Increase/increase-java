@@ -357,12 +357,16 @@ constructor(
             }
 
             enum class Known {
+                /** The OAuth connection is active. */
                 ACTIVE,
+                /** The OAuth connection is permanently deactivated. */
                 INACTIVE,
             }
 
             enum class Value {
+                /** The OAuth connection is active. */
                 ACTIVE,
+                /** The OAuth connection is permanently deactivated. */
                 INACTIVE,
                 _UNKNOWN,
             }

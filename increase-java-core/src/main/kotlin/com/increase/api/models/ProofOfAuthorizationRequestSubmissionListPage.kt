@@ -19,6 +19,7 @@ import java.util.Optional
 import java.util.stream.Stream
 import java.util.stream.StreamSupport
 
+/** List Proof of Authorization Request Submissions */
 class ProofOfAuthorizationRequestSubmissionListPage
 private constructor(
     private val proofOfAuthorizationRequestSubmissionsService:

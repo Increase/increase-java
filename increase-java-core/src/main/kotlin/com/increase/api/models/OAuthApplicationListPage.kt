@@ -19,6 +19,7 @@ import java.util.Optional
 import java.util.stream.Stream
 import java.util.stream.StreamSupport
 
+/** List OAuth Applications */
 class OAuthApplicationListPage
 private constructor(
     private val oauthApplicationsService: OAuthApplicationService,

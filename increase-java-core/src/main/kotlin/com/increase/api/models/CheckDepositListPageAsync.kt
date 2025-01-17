@@ -20,6 +20,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import java.util.function.Predicate
 
+/** List Check Deposits */
 class CheckDepositListPageAsync
 private constructor(
     private val checkDepositsService: CheckDepositServiceAsync,

@@ -454,6 +454,7 @@ constructor(
             "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
     }
 
+    /** Filter Inbound Wire Transfers to those with the specified status. */
     class Status
     @JsonCreator
     private constructor(
@@ -476,16 +477,30 @@ constructor(
         }
 
         enum class Known {
+            /**
+             * The Inbound Wire Transfer is awaiting action, will transition automatically if no
+             * action is taken.
+             */
             PENDING,
+            /** The Inbound Wire Transfer is accepted. */
             ACCEPTED,
+            /** The Inbound Wire Transfer was declined. */
             DECLINED,
+            /** The Inbound Wire Transfer was reversed. */
             REVERSED,
         }
 
         enum class Value {
+            /**
+             * The Inbound Wire Transfer is awaiting action, will transition automatically if no
+             * action is taken.
+             */
             PENDING,
+            /** The Inbound Wire Transfer is accepted. */
             ACCEPTED,
+            /** The Inbound Wire Transfer was declined. */
             DECLINED,
+            /** The Inbound Wire Transfer was reversed. */
             REVERSED,
             _UNKNOWN,
         }

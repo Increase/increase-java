@@ -218,6 +218,10 @@ private constructor(
             )
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `bookkeeping_entry`.
+     */
     class Type
     @JsonCreator
     private constructor(

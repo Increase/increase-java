@@ -20,6 +20,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import java.util.function.Predicate
 
+/** List Wire Transfers */
 class WireTransferListPageAsync
 private constructor(
     private val wireTransfersService: WireTransferServiceAsync,

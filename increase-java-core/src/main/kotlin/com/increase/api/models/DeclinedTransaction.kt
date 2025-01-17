@@ -368,6 +368,10 @@ private constructor(
             )
     }
 
+    /**
+     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the Declined Transaction's
+     * currency. This will match the currency on the Declined Transaction's Account.
+     */
     class Currency
     @JsonCreator
     private constructor(
@@ -394,20 +398,32 @@ private constructor(
         }
 
         enum class Known {
+            /** Canadian Dollar (CAD) */
             CAD,
+            /** Swiss Franc (CHF) */
             CHF,
+            /** Euro (EUR) */
             EUR,
+            /** British Pound (GBP) */
             GBP,
+            /** Japanese Yen (JPY) */
             JPY,
+            /** US Dollar (USD) */
             USD,
         }
 
         enum class Value {
+            /** Canadian Dollar (CAD) */
             CAD,
+            /** Swiss Franc (CHF) */
             CHF,
+            /** Euro (EUR) */
             EUR,
+            /** British Pound (GBP) */
             GBP,
+            /** Japanese Yen (JPY) */
             JPY,
+            /** US Dollar (USD) */
             USD,
             _UNKNOWN,
         }
@@ -449,6 +465,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** The type of the route this Declined Transaction came through. */
     class RouteType
     @JsonCreator
     private constructor(
@@ -469,14 +486,20 @@ private constructor(
         }
 
         enum class Known {
+            /** An Account Number. */
             ACCOUNT_NUMBER,
+            /** A Card. */
             CARD,
+            /** A Lockbox. */
             LOCKBOX,
         }
 
         enum class Value {
+            /** An Account Number. */
             ACCOUNT_NUMBER,
+            /** A Card. */
             CARD,
+            /** A Lockbox. */
             LOCKBOX,
             _UNKNOWN,
         }
@@ -1332,6 +1355,7 @@ private constructor(
                     )
             }
 
+            /** Why the ACH transfer was declined. */
             class Reason
             @JsonCreator
             private constructor(
@@ -1390,42 +1414,82 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** The account number is canceled. */
                     ACH_ROUTE_CANCELED,
+                    /** The account number is disabled. */
                     ACH_ROUTE_DISABLED,
+                    /** The transaction would cause an Increase limit to be exceeded. */
                     BREACHES_LIMIT,
+                    /** The account's entity is not active. */
                     ENTITY_NOT_ACTIVE,
+                    /** Your account is inactive. */
                     GROUP_LOCKED,
+                    /** The transaction is not allowed per Increase's terms. */
                     TRANSACTION_NOT_ALLOWED,
+                    /** Your integration declined this transfer via the API. */
                     USER_INITIATED,
+                    /** Your account contains insufficient funds. */
                     INSUFFICIENT_FUNDS,
+                    /**
+                     * The originating financial institution asked for this transfer to be returned.
+                     * The receiving bank is complying with the request.
+                     */
                     RETURNED_PER_ODFI_REQUEST,
+                    /** The customer no longer authorizes this transaction. */
                     AUTHORIZATION_REVOKED_BY_CUSTOMER,
+                    /** The customer asked for the payment to be stopped. */
                     PAYMENT_STOPPED,
+                    /** The customer advises that the debit was unauthorized. */
                     CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE,
+                    /** The payee is deceased. */
                     REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY,
+                    /** The account holder is deceased. */
                     BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED,
+                    /** The customer refused a credit entry. */
                     CREDIT_ENTRY_REFUSED_BY_RECEIVER,
+                    /** The account holder identified this transaction as a duplicate. */
                     DUPLICATE_ENTRY,
+                    /** The corporate customer no longer authorizes this transaction. */
                     CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED,
                 }
 
                 enum class Value {
+                    /** The account number is canceled. */
                     ACH_ROUTE_CANCELED,
+                    /** The account number is disabled. */
                     ACH_ROUTE_DISABLED,
+                    /** The transaction would cause an Increase limit to be exceeded. */
                     BREACHES_LIMIT,
+                    /** The account's entity is not active. */
                     ENTITY_NOT_ACTIVE,
+                    /** Your account is inactive. */
                     GROUP_LOCKED,
+                    /** The transaction is not allowed per Increase's terms. */
                     TRANSACTION_NOT_ALLOWED,
+                    /** Your integration declined this transfer via the API. */
                     USER_INITIATED,
+                    /** Your account contains insufficient funds. */
                     INSUFFICIENT_FUNDS,
+                    /**
+                     * The originating financial institution asked for this transfer to be returned.
+                     * The receiving bank is complying with the request.
+                     */
                     RETURNED_PER_ODFI_REQUEST,
+                    /** The customer no longer authorizes this transaction. */
                     AUTHORIZATION_REVOKED_BY_CUSTOMER,
+                    /** The customer asked for the payment to be stopped. */
                     PAYMENT_STOPPED,
+                    /** The customer advises that the debit was unauthorized. */
                     CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE,
+                    /** The payee is deceased. */
                     REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY,
+                    /** The account holder is deceased. */
                     BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED,
+                    /** The customer refused a credit entry. */
                     CREDIT_ENTRY_REFUSED_BY_RECEIVER,
+                    /** The account holder identified this transaction as a duplicate. */
                     DUPLICATE_ENTRY,
+                    /** The corporate customer no longer authorizes this transaction. */
                     CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED,
                     _UNKNOWN,
                 }
@@ -1499,6 +1563,10 @@ private constructor(
                 override fun toString() = value.toString()
             }
 
+            /**
+             * A constant representing the object's type. For this resource it will always be
+             * `ach_decline`.
+             */
             class Type
             @JsonCreator
             private constructor(
@@ -2518,6 +2586,10 @@ private constructor(
                     )
             }
 
+            /**
+             * Whether this authorization was approved by Increase, the card network through
+             * stand-in processing, or the user through a real-time decision.
+             */
             class Actioner
             @JsonCreator
             private constructor(
@@ -2538,14 +2610,20 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** This object was actioned by the user through a real-time decision. */
                     USER,
+                    /** This object was actioned by Increase without user intervention. */
                     INCREASE,
+                    /** This object was actioned by the network, through stand-in processing. */
                     NETWORK,
                 }
 
                 enum class Value {
+                    /** This object was actioned by the user through a real-time decision. */
                     USER,
+                    /** This object was actioned by Increase without user intervention. */
                     INCREASE,
+                    /** This object was actioned by the network, through stand-in processing. */
                     NETWORK,
                     _UNKNOWN,
                 }
@@ -2581,6 +2659,10 @@ private constructor(
                 override fun toString() = value.toString()
             }
 
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the destination
+             * account currency.
+             */
             class Currency
             @JsonCreator
             private constructor(
@@ -2607,20 +2689,32 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                 }
 
                 enum class Value {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                     _UNKNOWN,
                 }
@@ -2662,6 +2756,10 @@ private constructor(
                 override fun toString() = value.toString()
             }
 
+            /**
+             * The direction describes the direction the funds will move, either from the cardholder
+             * to the merchant or from the merchant to the cardholder.
+             */
             class Direction
             @JsonCreator
             private constructor(
@@ -2680,12 +2778,22 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** A regular card authorization where funds are debited from the cardholder. */
                     SETTLEMENT,
+                    /**
+                     * A refund card authorization, sometimes referred to as a credit voucher
+                     * authorization, where funds are credited to the cardholder.
+                     */
                     REFUND,
                 }
 
                 enum class Value {
+                    /** A regular card authorization where funds are debited from the cardholder. */
                     SETTLEMENT,
+                    /**
+                     * A refund card authorization, sometimes referred to as a credit voucher
+                     * authorization, where funds are credited to the cardholder.
+                     */
                     REFUND,
                     _UNKNOWN,
                 }
@@ -2829,6 +2937,7 @@ private constructor(
                         )
                 }
 
+                /** The payment network used to process this card authorization. */
                 class Category
                 @JsonCreator
                 private constructor(
@@ -2846,10 +2955,12 @@ private constructor(
                     }
 
                     enum class Known {
+                        /** Visa */
                         VISA,
                     }
 
                     enum class Value {
+                        /** Visa */
                         VISA,
                         _UNKNOWN,
                     }
@@ -3118,6 +3229,11 @@ private constructor(
                             )
                     }
 
+                    /**
+                     * For electronic commerce transactions, this identifies the level of security
+                     * used in obtaining the customer's payment credential. For mail or telephone
+                     * order transactions, identifies the type of mail or telephone order.
+                     */
                     class ElectronicCommerceIndicator
                     @JsonCreator
                     private constructor(
@@ -3155,24 +3271,112 @@ private constructor(
                         }
 
                         enum class Known {
+                            /**
+                             * Single transaction of a mail/phone order: Use to indicate that the
+                             * transaction is a mail/phone order purchase, not a recurring
+                             * transaction or installment payment. For domestic transactions in the
+                             * US region, this value may also indicate one bill payment transaction
+                             * in the card-present or card-absent environments.
+                             */
                             MAIL_PHONE_ORDER,
+                            /**
+                             * Recurring transaction: Payment indicator used to indicate a recurring
+                             * transaction that originates from an acquirer in the US region.
+                             */
                             RECURRING,
+                            /**
+                             * Installment payment: Payment indicator used to indicate one purchase
+                             * of goods or services that is billed to the account in multiple
+                             * charges over a period of time agreed upon by the cardholder and
+                             * merchant from transactions that originate from an acquirer in the US
+                             * region.
+                             */
                             INSTALLMENT,
+                            /**
+                             * Unknown classification: other mail order: Use to indicate that the
+                             * type of mail/telephone order is unknown.
+                             */
                             UNKNOWN_MAIL_PHONE_ORDER,
+                            /**
+                             * Secure electronic commerce transaction: Use to indicate that the
+                             * electronic commerce transaction has been authenticated using e.g.,
+                             * 3-D Secure
+                             */
                             SECURE_ELECTRONIC_COMMERCE,
+                            /**
+                             * Non-authenticated security transaction at a 3-D Secure-capable
+                             * merchant, and merchant attempted to authenticate the cardholder using
+                             * 3-D Secure: Use to identify an electronic commerce transaction where
+                             * the merchant attempted to authenticate the cardholder using 3-D
+                             * Secure, but was unable to complete the authentication because the
+                             * issuer or cardholder does not participate in the 3-D Secure program.
+                             */
                             NON_AUTHENTICATED_SECURITY_TRANSACTION_AT_3DS_CAPABLE_MERCHANT,
+                            /**
+                             * Non-authenticated security transaction: Use to identify an electronic
+                             * commerce transaction that uses data encryption for security however ,
+                             * cardholder authentication is not performed using 3-D Secure.
+                             */
                             NON_AUTHENTICATED_SECURITY_TRANSACTION,
+                            /**
+                             * Non-secure transaction: Use to identify an electronic commerce
+                             * transaction that has no data protection.
+                             */
                             NON_SECURE_TRANSACTION,
                         }
 
                         enum class Value {
+                            /**
+                             * Single transaction of a mail/phone order: Use to indicate that the
+                             * transaction is a mail/phone order purchase, not a recurring
+                             * transaction or installment payment. For domestic transactions in the
+                             * US region, this value may also indicate one bill payment transaction
+                             * in the card-present or card-absent environments.
+                             */
                             MAIL_PHONE_ORDER,
+                            /**
+                             * Recurring transaction: Payment indicator used to indicate a recurring
+                             * transaction that originates from an acquirer in the US region.
+                             */
                             RECURRING,
+                            /**
+                             * Installment payment: Payment indicator used to indicate one purchase
+                             * of goods or services that is billed to the account in multiple
+                             * charges over a period of time agreed upon by the cardholder and
+                             * merchant from transactions that originate from an acquirer in the US
+                             * region.
+                             */
                             INSTALLMENT,
+                            /**
+                             * Unknown classification: other mail order: Use to indicate that the
+                             * type of mail/telephone order is unknown.
+                             */
                             UNKNOWN_MAIL_PHONE_ORDER,
+                            /**
+                             * Secure electronic commerce transaction: Use to indicate that the
+                             * electronic commerce transaction has been authenticated using e.g.,
+                             * 3-D Secure
+                             */
                             SECURE_ELECTRONIC_COMMERCE,
+                            /**
+                             * Non-authenticated security transaction at a 3-D Secure-capable
+                             * merchant, and merchant attempted to authenticate the cardholder using
+                             * 3-D Secure: Use to identify an electronic commerce transaction where
+                             * the merchant attempted to authenticate the cardholder using 3-D
+                             * Secure, but was unable to complete the authentication because the
+                             * issuer or cardholder does not participate in the 3-D Secure program.
+                             */
                             NON_AUTHENTICATED_SECURITY_TRANSACTION_AT_3DS_CAPABLE_MERCHANT,
+                            /**
+                             * Non-authenticated security transaction: Use to identify an electronic
+                             * commerce transaction that uses data encryption for security however ,
+                             * cardholder authentication is not performed using 3-D Secure.
+                             */
                             NON_AUTHENTICATED_SECURITY_TRANSACTION,
+                            /**
+                             * Non-secure transaction: Use to identify an electronic commerce
+                             * transaction that has no data protection.
+                             */
                             NON_SECURE_TRANSACTION,
                             _UNKNOWN,
                         }
@@ -3227,6 +3431,10 @@ private constructor(
                         override fun toString() = value.toString()
                     }
 
+                    /**
+                     * The method used to enter the cardholder's primary account number and card
+                     * expiration date.
+                     */
                     class PointOfServiceEntryMode
                     @JsonCreator
                     private constructor(
@@ -3266,28 +3474,54 @@ private constructor(
                         }
 
                         enum class Known {
+                            /** Unknown */
                             UNKNOWN,
+                            /** Manual key entry */
                             MANUAL,
+                            /** Magnetic stripe read, without card verification value */
                             MAGNETIC_STRIPE_NO_CVV,
+                            /** Optical code */
                             OPTICAL_CODE,
+                            /** Contact chip card */
                             INTEGRATED_CIRCUIT_CARD,
+                            /** Contactless read of chip card */
                             CONTACTLESS,
+                            /**
+                             * Transaction initiated using a credential that has previously been
+                             * stored on file
+                             */
                             CREDENTIAL_ON_FILE,
+                            /** Magnetic stripe read */
                             MAGNETIC_STRIPE,
+                            /** Contactless read of magnetic stripe data */
                             CONTACTLESS_MAGNETIC_STRIPE,
+                            /** Contact chip card, without card verification value */
                             INTEGRATED_CIRCUIT_CARD_NO_CVV,
                         }
 
                         enum class Value {
+                            /** Unknown */
                             UNKNOWN,
+                            /** Manual key entry */
                             MANUAL,
+                            /** Magnetic stripe read, without card verification value */
                             MAGNETIC_STRIPE_NO_CVV,
+                            /** Optical code */
                             OPTICAL_CODE,
+                            /** Contact chip card */
                             INTEGRATED_CIRCUIT_CARD,
+                            /** Contactless read of chip card */
                             CONTACTLESS,
+                            /**
+                             * Transaction initiated using a credential that has previously been
+                             * stored on file
+                             */
                             CREDENTIAL_ON_FILE,
+                            /** Magnetic stripe read */
                             MAGNETIC_STRIPE,
+                            /** Contactless read of magnetic stripe data */
                             CONTACTLESS_MAGNETIC_STRIPE,
+                            /** Contact chip card, without card verification value */
                             INTEGRATED_CIRCUIT_CARD_NO_CVV,
                             _UNKNOWN,
                         }
@@ -3342,6 +3576,10 @@ private constructor(
                         override fun toString() = value.toString()
                     }
 
+                    /**
+                     * Only present when `actioner: network`. Describes why a card authorization was
+                     * approved or declined by Visa through stand-in processing.
+                     */
                     class StandInProcessingReason
                     @JsonCreator
                     private constructor(
@@ -3374,20 +3612,56 @@ private constructor(
                         }
 
                         enum class Known {
+                            /** Increase failed to process the authorization in a timely manner. */
                             ISSUER_ERROR,
+                            /**
+                             * The physical card read had an invalid CVV, dCVV, or authorization
+                             * request cryptogram.
+                             */
                             INVALID_PHYSICAL_CARD,
+                            /** The 3DS cardholder authentication verification value was invalid. */
                             INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE,
+                            /**
+                             * An internal Visa error occurred. Visa uses this reason code for
+                             * certain expected occurrences as well, such as Application Transaction
+                             * Counter (ATC) replays.
+                             */
                             INTERNAL_VISA_ERROR,
+                            /**
+                             * The merchant has enabled Visa's Transaction Advisory Service and
+                             * requires further authentication to perform the transaction. In
+                             * practice this is often utilized at fuel pumps to tell the cardholder
+                             * to see the cashier.
+                             */
                             MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED,
+                            /** An unspecific reason for stand-in processing. */
                             OTHER,
                         }
 
                         enum class Value {
+                            /** Increase failed to process the authorization in a timely manner. */
                             ISSUER_ERROR,
+                            /**
+                             * The physical card read had an invalid CVV, dCVV, or authorization
+                             * request cryptogram.
+                             */
                             INVALID_PHYSICAL_CARD,
+                            /** The 3DS cardholder authentication verification value was invalid. */
                             INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE,
+                            /**
+                             * An internal Visa error occurred. Visa uses this reason code for
+                             * certain expected occurrences as well, such as Application Transaction
+                             * Counter (ATC) replays.
+                             */
                             INTERNAL_VISA_ERROR,
+                            /**
+                             * The merchant has enabled Visa's Transaction Advisory Service and
+                             * requires further authentication to perform the transaction. In
+                             * practice this is often utilized at fuel pumps to tell the cardholder
+                             * to see the cashier.
+                             */
                             MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED,
+                            /** An unspecific reason for stand-in processing. */
                             OTHER,
                             _UNKNOWN,
                         }
@@ -3700,6 +3974,10 @@ private constructor(
                     "NetworkIdentifiers{retrievalReferenceNumber=$retrievalReferenceNumber, traceNumber=$traceNumber, transactionId=$transactionId, additionalProperties=$additionalProperties}"
             }
 
+            /**
+             * The processing category describes the intent behind the authorization, such as
+             * whether it was used for bill payments or an automatic fuel dispenser.
+             */
             class ProcessingCategory
             @JsonCreator
             private constructor(
@@ -3726,20 +4004,58 @@ private constructor(
                 }
 
                 enum class Known {
+                    /**
+                     * Account funding transactions are transactions used to e.g., fund an account
+                     * or transfer funds between accounts.
+                     */
                     ACCOUNT_FUNDING,
+                    /**
+                     * Automatic fuel dispenser authorizations occur when a card is used at a gas
+                     * pump, prior to the actual transaction amount being known. They are followed
+                     * by an advice message that updates the amount of the pending transaction.
+                     */
                     AUTOMATIC_FUEL_DISPENSER,
+                    /** A transaction used to pay a bill. */
                     BILL_PAYMENT,
+                    /** A regular purchase. */
                     PURCHASE,
+                    /**
+                     * Quasi-cash transactions represent purchases of items which may be convertible
+                     * to cash.
+                     */
                     QUASI_CASH,
+                    /**
+                     * A refund card authorization, sometimes referred to as a credit voucher
+                     * authorization, where funds are credited to the cardholder.
+                     */
                     REFUND,
                 }
 
                 enum class Value {
+                    /**
+                     * Account funding transactions are transactions used to e.g., fund an account
+                     * or transfer funds between accounts.
+                     */
                     ACCOUNT_FUNDING,
+                    /**
+                     * Automatic fuel dispenser authorizations occur when a card is used at a gas
+                     * pump, prior to the actual transaction amount being known. They are followed
+                     * by an advice message that updates the amount of the pending transaction.
+                     */
                     AUTOMATIC_FUEL_DISPENSER,
+                    /** A transaction used to pay a bill. */
                     BILL_PAYMENT,
+                    /** A regular purchase. */
                     PURCHASE,
+                    /**
+                     * Quasi-cash transactions represent purchases of items which may be convertible
+                     * to cash.
+                     */
                     QUASI_CASH,
+                    /**
+                     * A refund card authorization, sometimes referred to as a credit voucher
+                     * authorization, where funds are credited to the cardholder.
+                     */
                     REFUND,
                     _UNKNOWN,
                 }
@@ -3782,6 +4098,7 @@ private constructor(
                 override fun toString() = value.toString()
             }
 
+            /** This is present if a specific decline reason was given in the real-time decision. */
             class RealTimeDecisionReason
             @JsonCreator
             private constructor(
@@ -3808,20 +4125,68 @@ private constructor(
                 }
 
                 enum class Known {
+                    /**
+                     * The cardholder does not have sufficient funds to cover the transaction. The
+                     * merchant may attempt to process the transaction again.
+                     */
                     INSUFFICIENT_FUNDS,
+                    /**
+                     * This type of transaction is not allowed for this card. This transaction
+                     * should not be retried.
+                     */
                     TRANSACTION_NEVER_ALLOWED,
+                    /**
+                     * The transaction amount exceeds the cardholder's approval limit. The merchant
+                     * may attempt to process the transaction again.
+                     */
                     EXCEEDS_APPROVAL_LIMIT,
+                    /**
+                     * The card has been temporarily disabled or not yet activated. The merchant may
+                     * attempt to process the transaction again.
+                     */
                     CARD_TEMPORARILY_DISABLED,
+                    /**
+                     * The transaction is suspected to be fraudulent. The merchant may attempt to
+                     * process the transaction again.
+                     */
                     SUSPECTED_FRAUD,
+                    /**
+                     * The transaction was declined for another reason. The merchant may attempt to
+                     * process the transaction again. This should be used sparingly.
+                     */
                     OTHER,
                 }
 
                 enum class Value {
+                    /**
+                     * The cardholder does not have sufficient funds to cover the transaction. The
+                     * merchant may attempt to process the transaction again.
+                     */
                     INSUFFICIENT_FUNDS,
+                    /**
+                     * This type of transaction is not allowed for this card. This transaction
+                     * should not be retried.
+                     */
                     TRANSACTION_NEVER_ALLOWED,
+                    /**
+                     * The transaction amount exceeds the cardholder's approval limit. The merchant
+                     * may attempt to process the transaction again.
+                     */
                     EXCEEDS_APPROVAL_LIMIT,
+                    /**
+                     * The card has been temporarily disabled or not yet activated. The merchant may
+                     * attempt to process the transaction again.
+                     */
                     CARD_TEMPORARILY_DISABLED,
+                    /**
+                     * The transaction is suspected to be fraudulent. The merchant may attempt to
+                     * process the transaction again.
+                     */
                     SUSPECTED_FRAUD,
+                    /**
+                     * The transaction was declined for another reason. The merchant may attempt to
+                     * process the transaction again. This should be used sparingly.
+                     */
                     OTHER,
                     _UNKNOWN,
                 }
@@ -3866,6 +4231,7 @@ private constructor(
                 override fun toString() = value.toString()
             }
 
+            /** Why the transaction was declined. */
             class Reason
             @JsonCreator
             private constructor(
@@ -3912,38 +4278,90 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** The Card was not active. */
                     CARD_NOT_ACTIVE,
+                    /** The Physical Card was not active. */
                     PHYSICAL_CARD_NOT_ACTIVE,
+                    /** The account's entity was not active. */
                     ENTITY_NOT_ACTIVE,
+                    /** The account was inactive. */
                     GROUP_LOCKED,
+                    /** The Card's Account did not have a sufficient available balance. */
                     INSUFFICIENT_FUNDS,
+                    /** The given CVV2 did not match the card's value. */
                     CVV2_MISMATCH,
+                    /**
+                     * The given expiration date did not match the card's value. Only applies when a
+                     * CVV2 is present.
+                     */
                     CARD_EXPIRATION_MISMATCH,
+                    /** The attempted card transaction is not allowed per Increase's terms. */
                     TRANSACTION_NOT_ALLOWED,
+                    /** The transaction was blocked by a Limit. */
                     BREACHES_LIMIT,
+                    /** Your application declined the transaction via webhook. */
                     WEBHOOK_DECLINED,
+                    /** Your application webhook did not respond without the required timeout. */
                     WEBHOOK_TIMED_OUT,
+                    /** Declined by stand-in processing. */
                     DECLINED_BY_STAND_IN_PROCESSING,
+                    /**
+                     * The card read had an invalid CVV, dCVV, or authorization request cryptogram.
+                     */
                     INVALID_PHYSICAL_CARD,
+                    /**
+                     * The original card authorization for this incremental authorization does not
+                     * exist.
+                     */
                     MISSING_ORIGINAL_AUTHORIZATION,
+                    /**
+                     * The transaction was suspected to be fraudulent. Please reach out to
+                     * support@increase.com for more information.
+                     */
                     SUSPECTED_FRAUD,
                 }
 
                 enum class Value {
+                    /** The Card was not active. */
                     CARD_NOT_ACTIVE,
+                    /** The Physical Card was not active. */
                     PHYSICAL_CARD_NOT_ACTIVE,
+                    /** The account's entity was not active. */
                     ENTITY_NOT_ACTIVE,
+                    /** The account was inactive. */
                     GROUP_LOCKED,
+                    /** The Card's Account did not have a sufficient available balance. */
                     INSUFFICIENT_FUNDS,
+                    /** The given CVV2 did not match the card's value. */
                     CVV2_MISMATCH,
+                    /**
+                     * The given expiration date did not match the card's value. Only applies when a
+                     * CVV2 is present.
+                     */
                     CARD_EXPIRATION_MISMATCH,
+                    /** The attempted card transaction is not allowed per Increase's terms. */
                     TRANSACTION_NOT_ALLOWED,
+                    /** The transaction was blocked by a Limit. */
                     BREACHES_LIMIT,
+                    /** Your application declined the transaction via webhook. */
                     WEBHOOK_DECLINED,
+                    /** Your application webhook did not respond without the required timeout. */
                     WEBHOOK_TIMED_OUT,
+                    /** Declined by stand-in processing. */
                     DECLINED_BY_STAND_IN_PROCESSING,
+                    /**
+                     * The card read had an invalid CVV, dCVV, or authorization request cryptogram.
+                     */
                     INVALID_PHYSICAL_CARD,
+                    /**
+                     * The original card authorization for this incremental authorization does not
+                     * exist.
+                     */
                     MISSING_ORIGINAL_AUTHORIZATION,
+                    /**
+                     * The transaction was suspected to be fraudulent. Please reach out to
+                     * support@increase.com for more information.
+                     */
                     SUSPECTED_FRAUD,
                     _UNKNOWN,
                 }
@@ -4238,6 +4656,7 @@ private constructor(
                             )
                     }
 
+                    /** The result of verifying the Card Verification Code. */
                     class Result
                     @JsonCreator
                     private constructor(
@@ -4259,14 +4678,24 @@ private constructor(
                         }
 
                         enum class Known {
+                            /**
+                             * No card verification code was provided in the authorization request.
+                             */
                             NOT_CHECKED,
+                            /** The card verification code matched the one on file. */
                             MATCH,
+                            /** The card verification code did not match the one on file. */
                             NO_MATCH,
                         }
 
                         enum class Value {
+                            /**
+                             * No card verification code was provided in the authorization request.
+                             */
                             NOT_CHECKED,
+                            /** The card verification code matched the one on file. */
                             MATCH,
+                            /** The card verification code did not match the one on file. */
                             NO_MATCH,
                             _UNKNOWN,
                         }
@@ -4550,6 +4979,7 @@ private constructor(
                             )
                     }
 
+                    /** The address verification result returned to the card network. */
                     class Result
                     @JsonCreator
                     private constructor(
@@ -4583,20 +5013,32 @@ private constructor(
                         }
 
                         enum class Known {
+                            /** No adress was provided in the authorization request. */
                             NOT_CHECKED,
+                            /** Postal code matches, but the street address was not verified. */
                             POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED,
+                            /** Postal code matches, but the street address does not match. */
                             POSTAL_CODE_MATCH_ADDRESS_NO_MATCH,
+                            /** Postal code does not match, but the street address matches. */
                             POSTAL_CODE_NO_MATCH_ADDRESS_MATCH,
+                            /** Postal code and street address match. */
                             MATCH,
+                            /** Postal code and street address do not match. */
                             NO_MATCH,
                         }
 
                         enum class Value {
+                            /** No adress was provided in the authorization request. */
                             NOT_CHECKED,
+                            /** Postal code matches, but the street address was not verified. */
                             POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED,
+                            /** Postal code matches, but the street address does not match. */
                             POSTAL_CODE_MATCH_ADDRESS_NO_MATCH,
+                            /** Postal code does not match, but the street address matches. */
                             POSTAL_CODE_NO_MATCH_ADDRESS_MATCH,
+                            /** Postal code and street address match. */
                             MATCH,
+                            /** Postal code and street address do not match. */
                             NO_MATCH,
                             _UNKNOWN,
                         }
@@ -4698,6 +5140,10 @@ private constructor(
                 "CardDecline{id=$id, actioner=$actioner, amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, declinedTransactionId=$declinedTransactionId, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, realTimeDecisionId=$realTimeDecisionId, realTimeDecisionReason=$realTimeDecisionReason, reason=$reason, terminalId=$terminalId, verification=$verification, additionalProperties=$additionalProperties}"
         }
 
+        /**
+         * The type of the resource. We may add additional possible values for this enum over time;
+         * your application should be able to handle such additions gracefully.
+         */
         class Category
         @JsonCreator
         private constructor(
@@ -4728,22 +5174,48 @@ private constructor(
             }
 
             enum class Known {
+                /** ACH Decline: details will be under the `ach_decline` object. */
                 ACH_DECLINE,
+                /** Card Decline: details will be under the `card_decline` object. */
                 CARD_DECLINE,
+                /** Check Decline: details will be under the `check_decline` object. */
                 CHECK_DECLINE,
+                /**
+                 * Inbound Real-Time Payments Transfer Decline: details will be under the
+                 * `inbound_real_time_payments_transfer_decline` object.
+                 */
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
+                /** Wire Decline: details will be under the `wire_decline` object. */
                 WIRE_DECLINE,
+                /**
+                 * Check Deposit Rejection: details will be under the `check_deposit_rejection`
+                 * object.
+                 */
                 CHECK_DEPOSIT_REJECTION,
+                /** The Declined Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
             }
 
             enum class Value {
+                /** ACH Decline: details will be under the `ach_decline` object. */
                 ACH_DECLINE,
+                /** Card Decline: details will be under the `card_decline` object. */
                 CARD_DECLINE,
+                /** Check Decline: details will be under the `check_decline` object. */
                 CHECK_DECLINE,
+                /**
+                 * Inbound Real-Time Payments Transfer Decline: details will be under the
+                 * `inbound_real_time_payments_transfer_decline` object.
+                 */
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
+                /** Wire Decline: details will be under the `wire_decline` object. */
                 WIRE_DECLINE,
+                /**
+                 * Check Deposit Rejection: details will be under the `check_deposit_rejection`
+                 * object.
+                 */
                 CHECK_DEPOSIT_REJECTION,
+                /** The Declined Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
                 _UNKNOWN,
             }
@@ -5098,6 +5570,7 @@ private constructor(
                     )
             }
 
+            /** Why the check was declined. */
             class Reason
             @JsonCreator
             private constructor(
@@ -5146,42 +5619,82 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** The account number is disabled. */
                     ACH_ROUTE_DISABLED,
+                    /** The account number is canceled. */
                     ACH_ROUTE_CANCELED,
+                    /** The deposited check was altered or fictitious. */
                     ALTERED_OR_FICTITIOUS,
+                    /** The transaction would cause a limit to be exceeded. */
                     BREACHES_LIMIT,
+                    /** The check was not endorsed by the payee. */
                     ENDORSEMENT_IRREGULAR,
+                    /** The account's entity is not active. */
                     ENTITY_NOT_ACTIVE,
+                    /** Your account is inactive. */
                     GROUP_LOCKED,
+                    /** Your account contains insufficient funds. */
                     INSUFFICIENT_FUNDS,
+                    /** Stop payment requested for this check. */
                     STOP_PAYMENT_REQUESTED,
+                    /** The check was a duplicate deposit. */
                     DUPLICATE_PRESENTMENT,
+                    /** The check was not authorized. */
                     NOT_AUTHORIZED,
+                    /**
+                     * The amount the receiving bank is attempting to deposit does not match the
+                     * amount on the check.
+                     */
                     AMOUNT_MISMATCH,
+                    /** The check attempting to be deposited does not belong to Increase. */
                     NOT_OUR_ITEM,
+                    /** The account number on the check does not exist at Increase. */
                     NO_ACCOUNT_NUMBER_FOUND,
+                    /** The check is not readable. Please refer to the image. */
                     REFER_TO_IMAGE,
+                    /** The check cannot be processed. This is rare: please contact support. */
                     UNABLE_TO_PROCESS,
+                    /** Your integration declined this check via the API. */
                     USER_INITIATED,
                 }
 
                 enum class Value {
+                    /** The account number is disabled. */
                     ACH_ROUTE_DISABLED,
+                    /** The account number is canceled. */
                     ACH_ROUTE_CANCELED,
+                    /** The deposited check was altered or fictitious. */
                     ALTERED_OR_FICTITIOUS,
+                    /** The transaction would cause a limit to be exceeded. */
                     BREACHES_LIMIT,
+                    /** The check was not endorsed by the payee. */
                     ENDORSEMENT_IRREGULAR,
+                    /** The account's entity is not active. */
                     ENTITY_NOT_ACTIVE,
+                    /** Your account is inactive. */
                     GROUP_LOCKED,
+                    /** Your account contains insufficient funds. */
                     INSUFFICIENT_FUNDS,
+                    /** Stop payment requested for this check. */
                     STOP_PAYMENT_REQUESTED,
+                    /** The check was a duplicate deposit. */
                     DUPLICATE_PRESENTMENT,
+                    /** The check was not authorized. */
                     NOT_AUTHORIZED,
+                    /**
+                     * The amount the receiving bank is attempting to deposit does not match the
+                     * amount on the check.
+                     */
                     AMOUNT_MISMATCH,
+                    /** The check attempting to be deposited does not belong to Increase. */
                     NOT_OUR_ITEM,
+                    /** The account number on the check does not exist at Increase. */
                     NO_ACCOUNT_NUMBER_FOUND,
+                    /** The check is not readable. Please refer to the image. */
                     REFER_TO_IMAGE,
+                    /** The check cannot be processed. This is rare: please contact support. */
                     UNABLE_TO_PROCESS,
+                    /** Your integration declined this check via the API. */
                     USER_INITIATED,
                     _UNKNOWN,
                 }
@@ -5498,6 +6011,9 @@ private constructor(
                     )
             }
 
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's currency.
+             */
             class Currency
             @JsonCreator
             private constructor(
@@ -5524,20 +6040,32 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                 }
 
                 enum class Value {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                     _UNKNOWN,
                 }
@@ -5579,6 +6107,7 @@ private constructor(
                 override fun toString() = value.toString()
             }
 
+            /** Why the check deposit was rejected. */
             class Reason
             @JsonCreator
             private constructor(
@@ -5617,30 +6146,52 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** The check's image is incomplete. */
                     INCOMPLETE_IMAGE,
+                    /** This is a duplicate check submission. */
                     DUPLICATE,
+                    /** This check has poor image quality. */
                     POOR_IMAGE_QUALITY,
+                    /** The check was deposited with the incorrect amount. */
                     INCORRECT_AMOUNT,
+                    /** The check is made out to someone other than the account holder. */
                     INCORRECT_RECIPIENT,
+                    /** This check was not eligible for mobile deposit. */
                     NOT_ELIGIBLE_FOR_MOBILE_DEPOSIT,
+                    /** This check is missing at least one required field. */
                     MISSING_REQUIRED_DATA_ELEMENTS,
+                    /** This check is suspected to be fraudulent. */
                     SUSPECTED_FRAUD,
+                    /** This check's deposit window has expired. */
                     DEPOSIT_WINDOW_EXPIRED,
+                    /** The check was rejected at the user's request. */
                     REQUESTED_BY_USER,
+                    /** The check was rejected for an unknown reason. */
                     UNKNOWN,
                 }
 
                 enum class Value {
+                    /** The check's image is incomplete. */
                     INCOMPLETE_IMAGE,
+                    /** This is a duplicate check submission. */
                     DUPLICATE,
+                    /** This check has poor image quality. */
                     POOR_IMAGE_QUALITY,
+                    /** The check was deposited with the incorrect amount. */
                     INCORRECT_AMOUNT,
+                    /** The check is made out to someone other than the account holder. */
                     INCORRECT_RECIPIENT,
+                    /** This check was not eligible for mobile deposit. */
                     NOT_ELIGIBLE_FOR_MOBILE_DEPOSIT,
+                    /** This check is missing at least one required field. */
                     MISSING_REQUIRED_DATA_ELEMENTS,
+                    /** This check is suspected to be fraudulent. */
                     SUSPECTED_FRAUD,
+                    /** This check's deposit window has expired. */
                     DEPOSIT_WINDOW_EXPIRED,
+                    /** The check was rejected at the user's request. */
                     REQUESTED_BY_USER,
+                    /** The check was rejected for an unknown reason. */
                     UNKNOWN,
                     _UNKNOWN,
                 }
@@ -6051,6 +6602,10 @@ private constructor(
                     )
             }
 
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code of the declined
+             * transfer's currency. This will always be "USD" for a Real-Time Payments transfer.
+             */
             class Currency
             @JsonCreator
             private constructor(
@@ -6077,20 +6632,32 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                 }
 
                 enum class Value {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                     _UNKNOWN,
                 }
@@ -6132,6 +6699,7 @@ private constructor(
                 override fun toString() = value.toString()
             }
 
+            /** Why the transfer was declined. */
             class Reason
             @JsonCreator
             private constructor(
@@ -6159,20 +6727,32 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** The account number is canceled. */
                     ACCOUNT_NUMBER_CANCELED,
+                    /** The account number is disabled. */
                     ACCOUNT_NUMBER_DISABLED,
+                    /** Your account is restricted. */
                     ACCOUNT_RESTRICTED,
+                    /** Your account is inactive. */
                     GROUP_LOCKED,
+                    /** The account's entity is not active. */
                     ENTITY_NOT_ACTIVE,
+                    /** Your account is not enabled to receive Real-Time Payments transfers. */
                     REAL_TIME_PAYMENTS_NOT_ENABLED,
                 }
 
                 enum class Value {
+                    /** The account number is canceled. */
                     ACCOUNT_NUMBER_CANCELED,
+                    /** The account number is disabled. */
                     ACCOUNT_NUMBER_DISABLED,
+                    /** Your account is restricted. */
                     ACCOUNT_RESTRICTED,
+                    /** Your account is inactive. */
                     GROUP_LOCKED,
+                    /** The account's entity is not active. */
                     ENTITY_NOT_ACTIVE,
+                    /** Your account is not enabled to receive Real-Time Payments transfers. */
                     REAL_TIME_PAYMENTS_NOT_ENABLED,
                     _UNKNOWN,
                 }
@@ -6346,6 +6926,7 @@ private constructor(
                     )
             }
 
+            /** Why the wire transfer was declined. */
             class Reason
             @JsonCreator
             private constructor(
@@ -6372,20 +6953,32 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** The account number is canceled. */
                     ACCOUNT_NUMBER_CANCELED,
+                    /** The account number is disabled. */
                     ACCOUNT_NUMBER_DISABLED,
+                    /** The account's entity is not active. */
                     ENTITY_NOT_ACTIVE,
+                    /** Your account is inactive. */
                     GROUP_LOCKED,
+                    /** The beneficiary account number does not exist. */
                     NO_ACCOUNT_NUMBER,
+                    /** The transaction is not allowed per Increase's terms. */
                     TRANSACTION_NOT_ALLOWED,
                 }
 
                 enum class Value {
+                    /** The account number is canceled. */
                     ACCOUNT_NUMBER_CANCELED,
+                    /** The account number is disabled. */
                     ACCOUNT_NUMBER_DISABLED,
+                    /** The account's entity is not active. */
                     ENTITY_NOT_ACTIVE,
+                    /** Your account is inactive. */
                     GROUP_LOCKED,
+                    /** The beneficiary account number does not exist. */
                     NO_ACCOUNT_NUMBER,
+                    /** The transaction is not allowed per Increase's terms. */
                     TRANSACTION_NOT_ALLOWED,
                     _UNKNOWN,
                 }
@@ -6463,6 +7056,10 @@ private constructor(
             "Source{achDecline=$achDecline, cardDecline=$cardDecline, category=$category, checkDecline=$checkDecline, checkDepositRejection=$checkDepositRejection, inboundRealTimePaymentsTransferDecline=$inboundRealTimePaymentsTransferDecline, other=$other, wireDecline=$wireDecline, additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `declined_transaction`.
+     */
     class Type
     @JsonCreator
     private constructor(

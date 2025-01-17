@@ -264,6 +264,10 @@ private constructor(
             )
     }
 
+    /**
+     * The status of the account in the network. An account takes about one business day to go from
+     * `pending_enrolling` to `enrolled`.
+     */
     class Status
     @JsonCreator
     private constructor(
@@ -288,18 +292,28 @@ private constructor(
         }
 
         enum class Known {
+            /** The account is being added to the IntraFi network. */
             PENDING_ENROLLING,
+            /** The account has been enrolled with IntraFi. */
             ENROLLED,
+            /** The account is being unenrolled from IntraFi's deposit sweep. */
             PENDING_UNENROLLING,
+            /** The account was once enrolled, but is no longer enrolled at IntraFi. */
             UNENROLLED,
+            /** Something unexpected happened with this account. Contact Increase support. */
             REQUIRES_ATTENTION,
         }
 
         enum class Value {
+            /** The account is being added to the IntraFi network. */
             PENDING_ENROLLING,
+            /** The account has been enrolled with IntraFi. */
             ENROLLED,
+            /** The account is being unenrolled from IntraFi's deposit sweep. */
             PENDING_UNENROLLING,
+            /** The account was once enrolled, but is no longer enrolled at IntraFi. */
             UNENROLLED,
+            /** Something unexpected happened with this account. Contact Increase support. */
             REQUIRES_ATTENTION,
             _UNKNOWN,
         }
@@ -339,6 +353,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `intrafi_account_enrollment`.
+     */
     class Type
     @JsonCreator
     private constructor(

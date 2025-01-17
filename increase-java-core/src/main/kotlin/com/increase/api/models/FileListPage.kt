@@ -19,6 +19,7 @@ import java.util.Optional
 import java.util.stream.Stream
 import java.util.stream.StreamSupport
 
+/** List Files */
 class FileListPage
 private constructor(
     private val filesService: FileService,

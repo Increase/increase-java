@@ -1502,6 +1502,7 @@ private constructor(
                 "ApiKey{description=$description, additionalProperties=$additionalProperties}"
         }
 
+        /** The type of object that created this transfer. */
         class Category
         @JsonCreator
         private constructor(
@@ -1522,14 +1523,26 @@ private constructor(
             }
 
             enum class Known {
+                /** An API key. Details will be under the `api_key` object. */
                 API_KEY,
+                /**
+                 * An OAuth application you connected to Increase. Details will be under the
+                 * `oauth_application` object.
+                 */
                 OAUTH_APPLICATION,
+                /** A User in the Increase dashboard. Details will be under the `user` object. */
                 USER,
             }
 
             enum class Value {
+                /** An API key. Details will be under the `api_key` object. */
                 API_KEY,
+                /**
+                 * An OAuth application you connected to Increase. Details will be under the
+                 * `oauth_application` object.
+                 */
                 OAUTH_APPLICATION,
+                /** A User in the Increase dashboard. Details will be under the `user` object. */
                 USER,
                 _UNKNOWN,
             }
@@ -1788,6 +1801,10 @@ private constructor(
             "CreatedBy{apiKey=$apiKey, category=$category, oauthApplication=$oauthApplication, user=$user, additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency. For
+     * wire transfers this is always equal to `usd`.
+     */
     class Currency
     @JsonCreator
     private constructor(
@@ -1814,20 +1831,32 @@ private constructor(
         }
 
         enum class Known {
+            /** Canadian Dollar (CAD) */
             CAD,
+            /** Swiss Franc (CHF) */
             CHF,
+            /** Euro (EUR) */
             EUR,
+            /** British Pound (GBP) */
             GBP,
+            /** Japanese Yen (JPY) */
             JPY,
+            /** US Dollar (USD) */
             USD,
         }
 
         enum class Value {
+            /** Canadian Dollar (CAD) */
             CAD,
+            /** Swiss Franc (CHF) */
             CHF,
+            /** Euro (EUR) */
             EUR,
+            /** British Pound (GBP) */
             GBP,
+            /** Japanese Yen (JPY) */
             JPY,
+            /** US Dollar (USD) */
             USD,
             _UNKNOWN,
         }
@@ -1869,6 +1898,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** The transfer's network. */
     class Network
     @JsonCreator
     private constructor(
@@ -2540,6 +2570,7 @@ private constructor(
             "Reversal{amount=$amount, createdAt=$createdAt, description=$description, financialInstitutionToFinancialInstitutionInformation=$financialInstitutionToFinancialInstitutionInformation, inputCycleDate=$inputCycleDate, inputMessageAccountabilityData=$inputMessageAccountabilityData, inputSequenceNumber=$inputSequenceNumber, inputSource=$inputSource, originatorRoutingNumber=$originatorRoutingNumber, previousMessageInputCycleDate=$previousMessageInputCycleDate, previousMessageInputMessageAccountabilityData=$previousMessageInputMessageAccountabilityData, previousMessageInputSequenceNumber=$previousMessageInputSequenceNumber, previousMessageInputSource=$previousMessageInputSource, receiverFinancialInstitutionInformation=$receiverFinancialInstitutionInformation, senderReference=$senderReference, transactionId=$transactionId, wireTransferId=$wireTransferId, additionalProperties=$additionalProperties}"
     }
 
+    /** The lifecycle status of the transfer. */
     class Status
     @JsonCreator
     private constructor(
@@ -2572,26 +2603,44 @@ private constructor(
         }
 
         enum class Known {
+            /** The transfer is pending approval. */
             PENDING_APPROVAL,
+            /** The transfer has been canceled. */
             CANCELED,
+            /** The transfer is pending review by Increase. */
             PENDING_REVIEWING,
+            /** The transfer has been rejected by Increase. */
             REJECTED,
+            /** The transfer requires attention from an Increase operator. */
             REQUIRES_ATTENTION,
+            /** The transfer is pending creation. */
             PENDING_CREATING,
+            /** The transfer has been reversed. */
             REVERSED,
+            /** The transfer has been submitted to Fedwire. */
             SUBMITTED,
+            /** The transfer has been acknowledged by Fedwire and can be considered complete. */
             COMPLETE,
         }
 
         enum class Value {
+            /** The transfer is pending approval. */
             PENDING_APPROVAL,
+            /** The transfer has been canceled. */
             CANCELED,
+            /** The transfer is pending review by Increase. */
             PENDING_REVIEWING,
+            /** The transfer has been rejected by Increase. */
             REJECTED,
+            /** The transfer requires attention from an Increase operator. */
             REQUIRES_ATTENTION,
+            /** The transfer is pending creation. */
             PENDING_CREATING,
+            /** The transfer has been reversed. */
             REVERSED,
+            /** The transfer has been submitted to Fedwire. */
             SUBMITTED,
+            /** The transfer has been acknowledged by Fedwire and can be considered complete. */
             COMPLETE,
             _UNKNOWN,
         }
@@ -2770,6 +2819,10 @@ private constructor(
             "Submission{inputMessageAccountabilityData=$inputMessageAccountabilityData, submittedAt=$submittedAt, additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `wire_transfer`.
+     */
     class Type
     @JsonCreator
     private constructor(

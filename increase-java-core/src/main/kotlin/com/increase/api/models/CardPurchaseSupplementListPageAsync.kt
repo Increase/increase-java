@@ -20,6 +20,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import java.util.function.Predicate
 
+/** List Card Purchase Supplements */
 class CardPurchaseSupplementListPageAsync
 private constructor(
     private val cardPurchaseSupplementsService: CardPurchaseSupplementServiceAsync,

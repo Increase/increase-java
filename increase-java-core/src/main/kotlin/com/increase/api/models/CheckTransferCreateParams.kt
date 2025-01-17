@@ -616,6 +616,7 @@ constructor(
             )
     }
 
+    /** Whether Increase will print and mail the check or if you will do it yourself. */
     class FulfillmentMethod
     @JsonCreator
     private constructor(
@@ -634,12 +635,22 @@ constructor(
         }
 
         enum class Known {
+            /** Increase will print and mail a physical check. */
             PHYSICAL_CHECK,
+            /**
+             * Increase will not print a check; you are responsible for printing and mailing a check
+             * with the provided account number, routing number, check number, and amount.
+             */
             THIRD_PARTY,
         }
 
         enum class Value {
+            /** Increase will print and mail a physical check. */
             PHYSICAL_CHECK,
+            /**
+             * Increase will not print a check; you are responsible for printing and mailing a check
+             * with the provided account number, routing number, check number, and amount.
+             */
             THIRD_PARTY,
             _UNKNOWN,
         }

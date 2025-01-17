@@ -1478,6 +1478,10 @@ private constructor(
                 )
         }
 
+        /**
+         * The type of the resource. We may add additional possible values for this enum over time;
+         * your application should be able to handle such additions gracefully.
+         */
         class Category
         @JsonCreator
         private constructor(
@@ -1499,14 +1503,26 @@ private constructor(
             }
 
             enum class Known {
+                /** Unstructured `payment_related_information` passed through with the transfer. */
                 FREEFORM,
+                /**
+                 * Structured ASC X12 820 remittance advice records. Please reach out to
+                 * [support@increase.com](mailto:support@increase.com) for more information.
+                 */
                 PAYMENT_ORDER_REMITTANCE_ADVICE,
+                /** Unknown addenda type. */
                 OTHER,
             }
 
             enum class Value {
+                /** Unstructured `payment_related_information` passed through with the transfer. */
                 FREEFORM,
+                /**
+                 * Structured ASC X12 820 remittance advice records. Please reach out to
+                 * [support@increase.com](mailto:support@increase.com) for more information.
+                 */
                 PAYMENT_ORDER_REMITTANCE_ADVICE,
+                /** Unknown addenda type. */
                 OTHER,
                 _UNKNOWN,
             }
@@ -2656,6 +2672,7 @@ private constructor(
                 "ApiKey{description=$description, additionalProperties=$additionalProperties}"
         }
 
+        /** The type of object that created this transfer. */
         class Category
         @JsonCreator
         private constructor(
@@ -2676,14 +2693,26 @@ private constructor(
             }
 
             enum class Known {
+                /** An API key. Details will be under the `api_key` object. */
                 API_KEY,
+                /**
+                 * An OAuth application you connected to Increase. Details will be under the
+                 * `oauth_application` object.
+                 */
                 OAUTH_APPLICATION,
+                /** A User in the Increase dashboard. Details will be under the `user` object. */
                 USER,
             }
 
             enum class Value {
+                /** An API key. Details will be under the `api_key` object. */
                 API_KEY,
+                /**
+                 * An OAuth application you connected to Increase. Details will be under the
+                 * `oauth_application` object.
+                 */
                 OAUTH_APPLICATION,
+                /** A User in the Increase dashboard. Details will be under the `user` object. */
                 USER,
                 _UNKNOWN,
             }
@@ -2942,6 +2971,10 @@ private constructor(
             "CreatedBy{apiKey=$apiKey, category=$category, oauthApplication=$oauthApplication, user=$user, additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency. For
+     * ACH transfers this is always equal to `usd`.
+     */
     class Currency
     @JsonCreator
     private constructor(
@@ -2968,20 +3001,32 @@ private constructor(
         }
 
         enum class Known {
+            /** Canadian Dollar (CAD) */
             CAD,
+            /** Swiss Franc (CHF) */
             CHF,
+            /** Euro (EUR) */
             EUR,
+            /** British Pound (GBP) */
             GBP,
+            /** Japanese Yen (JPY) */
             JPY,
+            /** US Dollar (USD) */
             USD,
         }
 
         enum class Value {
+            /** Canadian Dollar (CAD) */
             CAD,
+            /** Swiss Franc (CHF) */
             CHF,
+            /** Euro (EUR) */
             EUR,
+            /** British Pound (GBP) */
             GBP,
+            /** Japanese Yen (JPY) */
             JPY,
+            /** US Dollar (USD) */
             USD,
             _UNKNOWN,
         }
@@ -3023,6 +3068,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** The type of entity that owns the account to which the ACH Transfer is being sent. */
     class DestinationAccountHolder
     @JsonCreator
     private constructor(
@@ -3043,14 +3089,20 @@ private constructor(
         }
 
         enum class Known {
+            /** The External Account is owned by a business. */
             BUSINESS,
+            /** The External Account is owned by an individual. */
             INDIVIDUAL,
+            /** It's unknown what kind of entity owns the External Account. */
             UNKNOWN,
         }
 
         enum class Value {
+            /** The External Account is owned by a business. */
             BUSINESS,
+            /** The External Account is owned by an individual. */
             INDIVIDUAL,
+            /** It's unknown what kind of entity owns the External Account. */
             UNKNOWN,
             _UNKNOWN,
         }
@@ -3087,6 +3139,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** The type of the account to which the transfer will be sent. */
     class Funding
     @JsonCreator
     private constructor(
@@ -3105,12 +3158,16 @@ private constructor(
         }
 
         enum class Known {
+            /** A checking account. */
             CHECKING,
+            /** A savings account. */
             SAVINGS,
         }
 
         enum class Value {
+            /** A checking account. */
             CHECKING,
+            /** A savings account. */
             SAVINGS,
             _UNKNOWN,
         }
@@ -3490,6 +3547,7 @@ private constructor(
                 )
         }
 
+        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the hold's currency. */
         class Currency
         @JsonCreator
         private constructor(
@@ -3516,20 +3574,32 @@ private constructor(
             }
 
             enum class Known {
+                /** Canadian Dollar (CAD) */
                 CAD,
+                /** Swiss Franc (CHF) */
                 CHF,
+                /** Euro (EUR) */
                 EUR,
+                /** British Pound (GBP) */
                 GBP,
+                /** Japanese Yen (JPY) */
                 JPY,
+                /** US Dollar (USD) */
                 USD,
             }
 
             enum class Value {
+                /** Canadian Dollar (CAD) */
                 CAD,
+                /** Swiss Franc (CHF) */
                 CHF,
+                /** Euro (EUR) */
                 EUR,
+                /** British Pound (GBP) */
                 GBP,
+                /** Japanese Yen (JPY) */
                 JPY,
+                /** US Dollar (USD) */
                 USD,
                 _UNKNOWN,
             }
@@ -3571,6 +3641,7 @@ private constructor(
             override fun toString() = value.toString()
         }
 
+        /** The status of the hold. */
         class Status
         @JsonCreator
         private constructor(
@@ -3589,12 +3660,16 @@ private constructor(
             }
 
             enum class Known {
+                /** Funds are still being held. */
                 HELD,
+                /** Funds have been released. */
                 COMPLETE,
             }
 
             enum class Value {
+                /** Funds are still being held. */
                 HELD,
+                /** Funds have been released. */
                 COMPLETE,
                 _UNKNOWN,
             }
@@ -3628,6 +3703,10 @@ private constructor(
             override fun toString() = value.toString()
         }
 
+        /**
+         * A constant representing the object's type. For this resource it will always be
+         * `inbound_funds_hold`.
+         */
         class Type
         @JsonCreator
         private constructor(
@@ -3697,6 +3776,7 @@ private constructor(
             "InboundFundsHold{id=$id, amount=$amount, automaticallyReleasesAt=$automaticallyReleasesAt, createdAt=$createdAt, currency=$currency, heldTransactionId=$heldTransactionId, pendingTransactionId=$pendingTransactionId, releasedAt=$releasedAt, status=$status, type=$type, additionalProperties=$additionalProperties}"
     }
 
+    /** The transfer's network. */
     class Network
     @JsonCreator
     private constructor(
@@ -3928,6 +4008,10 @@ private constructor(
                 )
         }
 
+        /**
+         * The required type of change that is being signaled by the receiving financial
+         * institution.
+         */
         class ChangeCode
         @JsonCreator
         private constructor(
@@ -4006,46 +4090,108 @@ private constructor(
             }
 
             enum class Known {
+                /** The account number was incorrect. */
                 INCORRECT_ACCOUNT_NUMBER,
+                /** The routing number was incorrect. */
                 INCORRECT_ROUTING_NUMBER,
+                /** Both the routing number and the account number were incorrect. */
                 INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER,
+                /**
+                 * The transaction code was incorrect. Try changing the `funding` parameter from
+                 * checking to savings or vice-versa.
+                 */
                 INCORRECT_TRANSACTION_CODE,
+                /** The account number and the transaction code were incorrect. */
                 INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE,
+                /** The routing number, account number, and transaction code were incorrect. */
                 INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE,
+                /** The receiving depository financial institution identification was incorrect. */
                 INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION,
+                /** The individual identification number was incorrect. */
                 INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER,
+                /** The addenda had an incorrect format. */
                 ADDENDA_FORMAT_ERROR,
+                /**
+                 * The standard entry class code was incorrect for an outbound international
+                 * payment.
+                 */
                 INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT,
+                /** The notification of change was misrouted. */
                 MISROUTED_NOTIFICATION_OF_CHANGE,
+                /** The trace number was incorrect. */
                 INCORRECT_TRACE_NUMBER,
+                /** The company identification number was incorrect. */
                 INCORRECT_COMPANY_IDENTIFICATION_NUMBER,
+                /** The individual identification number or identification number was incorrect. */
                 INCORRECT_IDENTIFICATION_NUMBER,
+                /** The corrected data was incorrectly formatted. */
                 INCORRECTLY_FORMATTED_CORRECTED_DATA,
+                /** The discretionary data was incorrect. */
                 INCORRECT_DISCRETIONARY_DATA,
+                /** The routing number was not from the original entry detail record. */
                 ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD,
+                /**
+                 * The depository financial institution account number was not from the original
+                 * entry detail record.
+                 */
                 DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD,
+                /**
+                 * The transaction code was incorrect, initiated by the originating depository
+                 * financial institution.
+                 */
                 INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION,
             }
 
             enum class Value {
+                /** The account number was incorrect. */
                 INCORRECT_ACCOUNT_NUMBER,
+                /** The routing number was incorrect. */
                 INCORRECT_ROUTING_NUMBER,
+                /** Both the routing number and the account number were incorrect. */
                 INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER,
+                /**
+                 * The transaction code was incorrect. Try changing the `funding` parameter from
+                 * checking to savings or vice-versa.
+                 */
                 INCORRECT_TRANSACTION_CODE,
+                /** The account number and the transaction code were incorrect. */
                 INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE,
+                /** The routing number, account number, and transaction code were incorrect. */
                 INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE,
+                /** The receiving depository financial institution identification was incorrect. */
                 INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION,
+                /** The individual identification number was incorrect. */
                 INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER,
+                /** The addenda had an incorrect format. */
                 ADDENDA_FORMAT_ERROR,
+                /**
+                 * The standard entry class code was incorrect for an outbound international
+                 * payment.
+                 */
                 INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT,
+                /** The notification of change was misrouted. */
                 MISROUTED_NOTIFICATION_OF_CHANGE,
+                /** The trace number was incorrect. */
                 INCORRECT_TRACE_NUMBER,
+                /** The company identification number was incorrect. */
                 INCORRECT_COMPANY_IDENTIFICATION_NUMBER,
+                /** The individual identification number or identification number was incorrect. */
                 INCORRECT_IDENTIFICATION_NUMBER,
+                /** The corrected data was incorrectly formatted. */
                 INCORRECTLY_FORMATTED_CORRECTED_DATA,
+                /** The discretionary data was incorrect. */
                 INCORRECT_DISCRETIONARY_DATA,
+                /** The routing number was not from the original entry detail record. */
                 ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD,
+                /**
+                 * The depository financial institution account number was not from the original
+                 * entry detail record.
+                 */
                 DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD,
+                /**
+                 * The transaction code was incorrect, initiated by the originating depository
+                 * financial institution.
+                 */
                 INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION,
                 _UNKNOWN,
             }
@@ -4291,6 +4437,7 @@ private constructor(
                 )
         }
 
+        /** A schedule by which Increase will choose an effective date for the transfer. */
         class SettlementSchedule
         @JsonCreator
         private constructor(
@@ -4309,12 +4456,34 @@ private constructor(
             }
 
             enum class Known {
+                /**
+                 * The chosen effective date will be the same as the ACH processing date on which
+                 * the transfer is submitted. This is necessary, but not sufficient for the transfer
+                 * to be settled same-day: it must also be submitted before the last same-day cutoff
+                 * and be less than or equal to $1,000.000.00.
+                 */
                 SAME_DAY,
+                /**
+                 * The chosen effective date will be the business day following the ACH processing
+                 * date on which the transfer is submitted. The transfer will be settled on that
+                 * future day.
+                 */
                 FUTURE_DATED,
             }
 
             enum class Value {
+                /**
+                 * The chosen effective date will be the same as the ACH processing date on which
+                 * the transfer is submitted. This is necessary, but not sufficient for the transfer
+                 * to be settled same-day: it must also be submitted before the last same-day cutoff
+                 * and be less than or equal to $1,000.000.00.
+                 */
                 SAME_DAY,
+                /**
+                 * The chosen effective date will be the business day following the ACH processing
+                 * date on which the transfer is submitted. The transfer will be settled on that
+                 * future day.
+                 */
                 FUTURE_DATED,
                 _UNKNOWN,
             }
@@ -4614,6 +4783,10 @@ private constructor(
                 )
         }
 
+        /**
+         * Why the ACH Transfer was returned. This reason code is sent by the receiving bank back to
+         * Increase.
+         */
         class ReturnReasonCode
         @JsonCreator
         private constructor(
@@ -4818,148 +4991,556 @@ private constructor(
             }
 
             enum class Known {
+                /**
+                 * Code R01. Insufficient funds in the receiving account. Sometimes abbreviated to
+                 * NSF.
+                 */
                 INSUFFICIENT_FUND,
+                /**
+                 * Code R03. The account does not exist or the receiving bank was unable to locate
+                 * it.
+                 */
                 NO_ACCOUNT,
+                /** Code R02. The account is closed at the receiving bank. */
                 ACCOUNT_CLOSED,
+                /** Code R04. The account number is invalid at the receiving bank. */
                 INVALID_ACCOUNT_NUMBER_STRUCTURE,
+                /**
+                 * Code R16. The account at the receiving bank was frozen per the Office of Foreign
+                 * Assets Control.
+                 */
                 ACCOUNT_FROZEN_ENTRY_RETURNED_PER_OFAC_INSTRUCTION,
+                /** Code R23. The receiving bank account refused a credit transfer. */
                 CREDIT_ENTRY_REFUSED_BY_RECEIVER,
+                /**
+                 * Code R05. The receiving bank rejected because of an incorrect Standard Entry
+                 * Class code.
+                 */
                 UNAUTHORIZED_DEBIT_TO_CONSUMER_ACCOUNT_USING_CORPORATE_SEC_CODE,
+                /** Code R29. The corporate customer at the receiving bank reversed the transfer. */
                 CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED,
+                /** Code R08. The receiving bank stopped payment on this transfer. */
                 PAYMENT_STOPPED,
+                /** Code R20. The receiving bank account does not perform transfers. */
                 NON_TRANSACTION_ACCOUNT,
+                /**
+                 * Code R09. The receiving bank account does not have enough available balance for
+                 * the transfer.
+                 */
                 UNCOLLECTED_FUNDS,
+                /** Code R28. The routing number is incorrect. */
                 ROUTING_NUMBER_CHECK_DIGIT_ERROR,
+                /** Code R10. The customer at the receiving bank reversed the transfer. */
                 CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE,
+                /** Code R19. The amount field is incorrect or too large. */
                 AMOUNT_FIELD_ERROR,
+                /**
+                 * Code R07. The customer at the receiving institution informed their bank that they
+                 * have revoked authorization for a previously authorized transfer.
+                 */
                 AUTHORIZATION_REVOKED_BY_CUSTOMER,
+                /** Code R13. The routing number is invalid. */
                 INVALID_ACH_ROUTING_NUMBER,
+                /** Code R17. The receiving bank is unable to process a field in the transfer. */
                 FILE_RECORD_EDIT_CRITERIA,
+                /** Code R45. The individual name field was invalid. */
                 ENR_INVALID_INDIVIDUAL_NAME,
+                /**
+                 * Code R06. The originating financial institution asked for this transfer to be
+                 * returned. The receiving bank is complying with the request.
+                 */
                 RETURNED_PER_ODFI_REQUEST,
+                /**
+                 * Code R34. The receiving bank's regulatory supervisor has limited their
+                 * participation in the ACH network.
+                 */
                 LIMITED_PARTICIPATION_DFI,
+                /** Code R85. The outbound international ACH transfer was incorrect. */
                 INCORRECTLY_CODED_OUTBOUND_INTERNATIONAL_PAYMENT,
+                /** Code R12. A rare return reason. The account was sold to another bank. */
                 ACCOUNT_SOLD_TO_ANOTHER_DFI,
+                /** Code R25. The addenda record is incorrect or missing. */
                 ADDENDA_ERROR,
+                /** Code R15. A rare return reason. The account holder is deceased. */
                 BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED,
+                /**
+                 * Code R11. A rare return reason. The customer authorized some payment to the
+                 * sender, but this payment was not in error.
+                 */
                 CUSTOMER_ADVISED_NOT_WITHIN_AUTHORIZATION_TERMS,
+                /**
+                 * Code R74. A rare return reason. Sent in response to a return that was returned
+                 * with code `field_error`. The latest return should include the corrected field(s).
+                 */
                 CORRECTED_RETURN,
+                /**
+                 * Code R24. A rare return reason. The receiving bank received an exact duplicate
+                 * entry with the same trace number and amount.
+                 */
                 DUPLICATE_ENTRY,
+                /**
+                 * Code R67. A rare return reason. The return this message refers to was a
+                 * duplicate.
+                 */
                 DUPLICATE_RETURN,
+                /**
+                 * Code R47. A rare return reason. Only used for US Government agency non-monetary
+                 * automatic enrollment messages.
+                 */
                 ENR_DUPLICATE_ENROLLMENT,
+                /**
+                 * Code R43. A rare return reason. Only used for US Government agency non-monetary
+                 * automatic enrollment messages.
+                 */
                 ENR_INVALID_DFI_ACCOUNT_NUMBER,
+                /**
+                 * Code R44. A rare return reason. Only used for US Government agency non-monetary
+                 * automatic enrollment messages.
+                 */
                 ENR_INVALID_INDIVIDUAL_ID_NUMBER,
+                /**
+                 * Code R46. A rare return reason. Only used for US Government agency non-monetary
+                 * automatic enrollment messages.
+                 */
                 ENR_INVALID_REPRESENTATIVE_PAYEE_INDICATOR,
+                /**
+                 * Code R41. A rare return reason. Only used for US Government agency non-monetary
+                 * automatic enrollment messages.
+                 */
                 ENR_INVALID_TRANSACTION_CODE,
+                /**
+                 * Code R40. A rare return reason. Only used for US Government agency non-monetary
+                 * automatic enrollment messages.
+                 */
                 ENR_RETURN_OF_ENR_ENTRY,
+                /**
+                 * Code R42. A rare return reason. Only used for US Government agency non-monetary
+                 * automatic enrollment messages.
+                 */
                 ENR_ROUTING_NUMBER_CHECK_DIGIT_ERROR,
+                /**
+                 * Code R84. A rare return reason. The International ACH Transfer cannot be
+                 * processed by the gateway.
+                 */
                 ENTRY_NOT_PROCESSED_BY_GATEWAY,
+                /**
+                 * Code R69. A rare return reason. One or more of the fields in the ACH were
+                 * malformed.
+                 */
                 FIELD_ERROR,
+                /**
+                 * Code R83. A rare return reason. The Foreign receiving bank was unable to settle
+                 * this ACH transfer.
+                 */
                 FOREIGN_RECEIVING_DFI_UNABLE_TO_SETTLE,
+                /** Code R80. A rare return reason. The International ACH Transfer is malformed. */
                 IAT_ENTRY_CODING_ERROR,
+                /**
+                 * Code R18. A rare return reason. The ACH has an improper effective entry date
+                 * field.
+                 */
                 IMPROPER_EFFECTIVE_ENTRY_DATE,
+                /**
+                 * Code R39. A rare return reason. The source document related to this ACH, usually
+                 * an ACH check conversion, was presented to the bank.
+                 */
                 IMPROPER_SOURCE_DOCUMENT_SOURCE_DOCUMENT_PRESENTED,
+                /** Code R21. A rare return reason. The Company ID field of the ACH was invalid. */
                 INVALID_COMPANY_ID,
+                /**
+                 * Code R82. A rare return reason. The foreign receiving bank identifier for an
+                 * International ACH Transfer was invalid.
+                 */
                 INVALID_FOREIGN_RECEIVING_DFI_IDENTIFICATION,
+                /**
+                 * Code R22. A rare return reason. The Individual ID number field of the ACH was
+                 * invalid.
+                 */
                 INVALID_INDIVIDUAL_ID_NUMBER,
+                /**
+                 * Code R53. A rare return reason. Both the Represented Check ("RCK") entry and the
+                 * original check were presented to the bank.
+                 */
                 ITEM_AND_RCK_ENTRY_PRESENTED_FOR_PAYMENT,
+                /**
+                 * Code R51. A rare return reason. The Represented Check ("RCK") entry is
+                 * ineligible.
+                 */
                 ITEM_RELATED_TO_RCK_ENTRY_IS_INELIGIBLE,
+                /** Code R26. A rare return reason. The ACH is missing a required field. */
                 MANDATORY_FIELD_ERROR,
+                /**
+                 * Code R71. A rare return reason. The receiving bank does not recognize the routing
+                 * number in a dishonored return entry.
+                 */
                 MISROUTED_DISHONORED_RETURN,
+                /**
+                 * Code R61. A rare return reason. The receiving bank does not recognize the routing
+                 * number in a return entry.
+                 */
                 MISROUTED_RETURN,
+                /**
+                 * Code R76. A rare return reason. Sent in response to a return, the bank does not
+                 * find the errors alleged by the returning bank.
+                 */
                 NO_ERRORS_FOUND,
+                /**
+                 * Code R77. A rare return reason. The receiving bank does not accept the return of
+                 * the erroneous debit. The funds are not available at the receiving bank.
+                 */
                 NON_ACCEPTANCE_OF_R62_DISHONORED_RETURN,
+                /**
+                 * Code R81. A rare return reason. The receiving bank does not accept International
+                 * ACH Transfers.
+                 */
                 NON_PARTICIPANT_IN_IAT_PROGRAM,
+                /**
+                 * Code R31. A rare return reason. A return that has been agreed to be accepted by
+                 * the receiving bank, despite falling outside of the usual return timeframe.
+                 */
                 PERMISSIBLE_RETURN_ENTRY,
+                /**
+                 * Code R70. A rare return reason. The receiving bank had not approved this return.
+                 */
                 PERMISSIBLE_RETURN_ENTRY_NOT_ACCEPTED,
+                /**
+                 * Code R32. A rare return reason. The receiving bank could not settle this
+                 * transaction.
+                 */
                 RDFI_NON_SETTLEMENT,
+                /**
+                 * Code R30. A rare return reason. The receiving bank does not accept Check
+                 * Truncation ACH transfers.
+                 */
                 RDFI_PARTICIPANT_IN_CHECK_TRUNCATION_PROGRAM,
+                /** Code R14. A rare return reason. The payee is deceased. */
                 REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY,
+                /**
+                 * Code R75. A rare return reason. The originating bank disputes that an earlier
+                 * `duplicate_entry` return was actually a duplicate.
+                 */
                 RETURN_NOT_A_DUPLICATE,
+                /**
+                 * Code R62. A rare return reason. The originating financial institution made a
+                 * mistake and this return corrects it.
+                 */
                 RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT,
+                /** Code R36. A rare return reason. Return of a malformed credit entry. */
                 RETURN_OF_IMPROPER_CREDIT_ENTRY,
+                /** Code R35. A rare return reason. Return of a malformed debit entry. */
                 RETURN_OF_IMPROPER_DEBIT_ENTRY,
+                /** Code R33. A rare return reason. Return of a Destroyed Check ("XKC") entry. */
                 RETURN_OF_XCK_ENTRY,
+                /**
+                 * Code R37. A rare return reason. The source document related to this ACH, usually
+                 * an ACH check conversion, was presented to the bank.
+                 */
                 SOURCE_DOCUMENT_PRESENTED_FOR_PAYMENT,
+                /**
+                 * Code R50. A rare return reason. State law prevents the bank from accepting the
+                 * Represented Check ("RCK") entry.
+                 */
                 STATE_LAW_AFFECTING_RCK_ACCEPTANCE,
+                /**
+                 * Code R52. A rare return reason. A stop payment was issued on a Represented Check
+                 * ("RCK") entry.
+                 */
                 STOP_PAYMENT_ON_ITEM_RELATED_TO_RCK_ENTRY,
+                /**
+                 * Code R38. A rare return reason. The source attached to the ACH, usually an ACH
+                 * check conversion, includes a stop payment.
+                 */
                 STOP_PAYMENT_ON_SOURCE_DOCUMENT,
+                /**
+                 * Code R73. A rare return reason. The bank receiving an `untimely_return` believes
+                 * it was on time.
+                 */
                 TIMELY_ORIGINAL_RETURN,
+                /**
+                 * Code R27. A rare return reason. An ACH return's trace number does not match an
+                 * originated ACH.
+                 */
                 TRACE_NUMBER_ERROR,
+                /** Code R72. A rare return reason. The dishonored return was sent too late. */
                 UNTIMELY_DISHONORED_RETURN,
+                /** Code R68. A rare return reason. The return was sent too late. */
                 UNTIMELY_RETURN,
             }
 
             enum class Value {
+                /**
+                 * Code R01. Insufficient funds in the receiving account. Sometimes abbreviated to
+                 * NSF.
+                 */
                 INSUFFICIENT_FUND,
+                /**
+                 * Code R03. The account does not exist or the receiving bank was unable to locate
+                 * it.
+                 */
                 NO_ACCOUNT,
+                /** Code R02. The account is closed at the receiving bank. */
                 ACCOUNT_CLOSED,
+                /** Code R04. The account number is invalid at the receiving bank. */
                 INVALID_ACCOUNT_NUMBER_STRUCTURE,
+                /**
+                 * Code R16. The account at the receiving bank was frozen per the Office of Foreign
+                 * Assets Control.
+                 */
                 ACCOUNT_FROZEN_ENTRY_RETURNED_PER_OFAC_INSTRUCTION,
+                /** Code R23. The receiving bank account refused a credit transfer. */
                 CREDIT_ENTRY_REFUSED_BY_RECEIVER,
+                /**
+                 * Code R05. The receiving bank rejected because of an incorrect Standard Entry
+                 * Class code.
+                 */
                 UNAUTHORIZED_DEBIT_TO_CONSUMER_ACCOUNT_USING_CORPORATE_SEC_CODE,
+                /** Code R29. The corporate customer at the receiving bank reversed the transfer. */
                 CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED,
+                /** Code R08. The receiving bank stopped payment on this transfer. */
                 PAYMENT_STOPPED,
+                /** Code R20. The receiving bank account does not perform transfers. */
                 NON_TRANSACTION_ACCOUNT,
+                /**
+                 * Code R09. The receiving bank account does not have enough available balance for
+                 * the transfer.
+                 */
                 UNCOLLECTED_FUNDS,
+                /** Code R28. The routing number is incorrect. */
                 ROUTING_NUMBER_CHECK_DIGIT_ERROR,
+                /** Code R10. The customer at the receiving bank reversed the transfer. */
                 CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE,
+                /** Code R19. The amount field is incorrect or too large. */
                 AMOUNT_FIELD_ERROR,
+                /**
+                 * Code R07. The customer at the receiving institution informed their bank that they
+                 * have revoked authorization for a previously authorized transfer.
+                 */
                 AUTHORIZATION_REVOKED_BY_CUSTOMER,
+                /** Code R13. The routing number is invalid. */
                 INVALID_ACH_ROUTING_NUMBER,
+                /** Code R17. The receiving bank is unable to process a field in the transfer. */
                 FILE_RECORD_EDIT_CRITERIA,
+                /** Code R45. The individual name field was invalid. */
                 ENR_INVALID_INDIVIDUAL_NAME,
+                /**
+                 * Code R06. The originating financial institution asked for this transfer to be
+                 * returned. The receiving bank is complying with the request.
+                 */
                 RETURNED_PER_ODFI_REQUEST,
+                /**
+                 * Code R34. The receiving bank's regulatory supervisor has limited their
+                 * participation in the ACH network.
+                 */
                 LIMITED_PARTICIPATION_DFI,
+                /** Code R85. The outbound international ACH transfer was incorrect. */
                 INCORRECTLY_CODED_OUTBOUND_INTERNATIONAL_PAYMENT,
+                /** Code R12. A rare return reason. The account was sold to another bank. */
                 ACCOUNT_SOLD_TO_ANOTHER_DFI,
+                /** Code R25. The addenda record is incorrect or missing. */
                 ADDENDA_ERROR,
+                /** Code R15. A rare return reason. The account holder is deceased. */
                 BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED,
+                /**
+                 * Code R11. A rare return reason. The customer authorized some payment to the
+                 * sender, but this payment was not in error.
+                 */
                 CUSTOMER_ADVISED_NOT_WITHIN_AUTHORIZATION_TERMS,
+                /**
+                 * Code R74. A rare return reason. Sent in response to a return that was returned
+                 * with code `field_error`. The latest return should include the corrected field(s).
+                 */
                 CORRECTED_RETURN,
+                /**
+                 * Code R24. A rare return reason. The receiving bank received an exact duplicate
+                 * entry with the same trace number and amount.
+                 */
                 DUPLICATE_ENTRY,
+                /**
+                 * Code R67. A rare return reason. The return this message refers to was a
+                 * duplicate.
+                 */
                 DUPLICATE_RETURN,
+                /**
+                 * Code R47. A rare return reason. Only used for US Government agency non-monetary
+                 * automatic enrollment messages.
+                 */
                 ENR_DUPLICATE_ENROLLMENT,
+                /**
+                 * Code R43. A rare return reason. Only used for US Government agency non-monetary
+                 * automatic enrollment messages.
+                 */
                 ENR_INVALID_DFI_ACCOUNT_NUMBER,
+                /**
+                 * Code R44. A rare return reason. Only used for US Government agency non-monetary
+                 * automatic enrollment messages.
+                 */
                 ENR_INVALID_INDIVIDUAL_ID_NUMBER,
+                /**
+                 * Code R46. A rare return reason. Only used for US Government agency non-monetary
+                 * automatic enrollment messages.
+                 */
                 ENR_INVALID_REPRESENTATIVE_PAYEE_INDICATOR,
+                /**
+                 * Code R41. A rare return reason. Only used for US Government agency non-monetary
+                 * automatic enrollment messages.
+                 */
                 ENR_INVALID_TRANSACTION_CODE,
+                /**
+                 * Code R40. A rare return reason. Only used for US Government agency non-monetary
+                 * automatic enrollment messages.
+                 */
                 ENR_RETURN_OF_ENR_ENTRY,
+                /**
+                 * Code R42. A rare return reason. Only used for US Government agency non-monetary
+                 * automatic enrollment messages.
+                 */
                 ENR_ROUTING_NUMBER_CHECK_DIGIT_ERROR,
+                /**
+                 * Code R84. A rare return reason. The International ACH Transfer cannot be
+                 * processed by the gateway.
+                 */
                 ENTRY_NOT_PROCESSED_BY_GATEWAY,
+                /**
+                 * Code R69. A rare return reason. One or more of the fields in the ACH were
+                 * malformed.
+                 */
                 FIELD_ERROR,
+                /**
+                 * Code R83. A rare return reason. The Foreign receiving bank was unable to settle
+                 * this ACH transfer.
+                 */
                 FOREIGN_RECEIVING_DFI_UNABLE_TO_SETTLE,
+                /** Code R80. A rare return reason. The International ACH Transfer is malformed. */
                 IAT_ENTRY_CODING_ERROR,
+                /**
+                 * Code R18. A rare return reason. The ACH has an improper effective entry date
+                 * field.
+                 */
                 IMPROPER_EFFECTIVE_ENTRY_DATE,
+                /**
+                 * Code R39. A rare return reason. The source document related to this ACH, usually
+                 * an ACH check conversion, was presented to the bank.
+                 */
                 IMPROPER_SOURCE_DOCUMENT_SOURCE_DOCUMENT_PRESENTED,
+                /** Code R21. A rare return reason. The Company ID field of the ACH was invalid. */
                 INVALID_COMPANY_ID,
+                /**
+                 * Code R82. A rare return reason. The foreign receiving bank identifier for an
+                 * International ACH Transfer was invalid.
+                 */
                 INVALID_FOREIGN_RECEIVING_DFI_IDENTIFICATION,
+                /**
+                 * Code R22. A rare return reason. The Individual ID number field of the ACH was
+                 * invalid.
+                 */
                 INVALID_INDIVIDUAL_ID_NUMBER,
+                /**
+                 * Code R53. A rare return reason. Both the Represented Check ("RCK") entry and the
+                 * original check were presented to the bank.
+                 */
                 ITEM_AND_RCK_ENTRY_PRESENTED_FOR_PAYMENT,
+                /**
+                 * Code R51. A rare return reason. The Represented Check ("RCK") entry is
+                 * ineligible.
+                 */
                 ITEM_RELATED_TO_RCK_ENTRY_IS_INELIGIBLE,
+                /** Code R26. A rare return reason. The ACH is missing a required field. */
                 MANDATORY_FIELD_ERROR,
+                /**
+                 * Code R71. A rare return reason. The receiving bank does not recognize the routing
+                 * number in a dishonored return entry.
+                 */
                 MISROUTED_DISHONORED_RETURN,
+                /**
+                 * Code R61. A rare return reason. The receiving bank does not recognize the routing
+                 * number in a return entry.
+                 */
                 MISROUTED_RETURN,
+                /**
+                 * Code R76. A rare return reason. Sent in response to a return, the bank does not
+                 * find the errors alleged by the returning bank.
+                 */
                 NO_ERRORS_FOUND,
+                /**
+                 * Code R77. A rare return reason. The receiving bank does not accept the return of
+                 * the erroneous debit. The funds are not available at the receiving bank.
+                 */
                 NON_ACCEPTANCE_OF_R62_DISHONORED_RETURN,
+                /**
+                 * Code R81. A rare return reason. The receiving bank does not accept International
+                 * ACH Transfers.
+                 */
                 NON_PARTICIPANT_IN_IAT_PROGRAM,
+                /**
+                 * Code R31. A rare return reason. A return that has been agreed to be accepted by
+                 * the receiving bank, despite falling outside of the usual return timeframe.
+                 */
                 PERMISSIBLE_RETURN_ENTRY,
+                /**
+                 * Code R70. A rare return reason. The receiving bank had not approved this return.
+                 */
                 PERMISSIBLE_RETURN_ENTRY_NOT_ACCEPTED,
+                /**
+                 * Code R32. A rare return reason. The receiving bank could not settle this
+                 * transaction.
+                 */
                 RDFI_NON_SETTLEMENT,
+                /**
+                 * Code R30. A rare return reason. The receiving bank does not accept Check
+                 * Truncation ACH transfers.
+                 */
                 RDFI_PARTICIPANT_IN_CHECK_TRUNCATION_PROGRAM,
+                /** Code R14. A rare return reason. The payee is deceased. */
                 REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY,
+                /**
+                 * Code R75. A rare return reason. The originating bank disputes that an earlier
+                 * `duplicate_entry` return was actually a duplicate.
+                 */
                 RETURN_NOT_A_DUPLICATE,
+                /**
+                 * Code R62. A rare return reason. The originating financial institution made a
+                 * mistake and this return corrects it.
+                 */
                 RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT,
+                /** Code R36. A rare return reason. Return of a malformed credit entry. */
                 RETURN_OF_IMPROPER_CREDIT_ENTRY,
+                /** Code R35. A rare return reason. Return of a malformed debit entry. */
                 RETURN_OF_IMPROPER_DEBIT_ENTRY,
+                /** Code R33. A rare return reason. Return of a Destroyed Check ("XKC") entry. */
                 RETURN_OF_XCK_ENTRY,
+                /**
+                 * Code R37. A rare return reason. The source document related to this ACH, usually
+                 * an ACH check conversion, was presented to the bank.
+                 */
                 SOURCE_DOCUMENT_PRESENTED_FOR_PAYMENT,
+                /**
+                 * Code R50. A rare return reason. State law prevents the bank from accepting the
+                 * Represented Check ("RCK") entry.
+                 */
                 STATE_LAW_AFFECTING_RCK_ACCEPTANCE,
+                /**
+                 * Code R52. A rare return reason. A stop payment was issued on a Represented Check
+                 * ("RCK") entry.
+                 */
                 STOP_PAYMENT_ON_ITEM_RELATED_TO_RCK_ENTRY,
+                /**
+                 * Code R38. A rare return reason. The source attached to the ACH, usually an ACH
+                 * check conversion, includes a stop payment.
+                 */
                 STOP_PAYMENT_ON_SOURCE_DOCUMENT,
+                /**
+                 * Code R73. A rare return reason. The bank receiving an `untimely_return` believes
+                 * it was on time.
+                 */
                 TIMELY_ORIGINAL_RETURN,
+                /**
+                 * Code R27. A rare return reason. An ACH return's trace number does not match an
+                 * originated ACH.
+                 */
                 TRACE_NUMBER_ERROR,
+                /** Code R72. A rare return reason. The dishonored return was sent too late. */
                 UNTIMELY_DISHONORED_RETURN,
+                /** Code R68. A rare return reason. The return was sent too late. */
                 UNTIMELY_RETURN,
                 _UNKNOWN,
             }
@@ -5309,6 +5890,7 @@ private constructor(
             "Settlement{settledAt=$settledAt, additionalProperties=$additionalProperties}"
     }
 
+    /** The Standard Entry Class (SEC) code to use for the transfer. */
     class StandardEntryClassCode
     @JsonCreator
     private constructor(
@@ -5331,16 +5913,24 @@ private constructor(
         }
 
         enum class Known {
+            /** Corporate Credit and Debit (CCD). */
             CORPORATE_CREDIT_OR_DEBIT,
+            /** Corporate Trade Exchange (CTX). */
             CORPORATE_TRADE_EXCHANGE,
+            /** Prearranged Payments and Deposits (PPD). */
             PREARRANGED_PAYMENTS_AND_DEPOSIT,
+            /** Internet Initiated (WEB). */
             INTERNET_INITIATED,
         }
 
         enum class Value {
+            /** Corporate Credit and Debit (CCD). */
             CORPORATE_CREDIT_OR_DEBIT,
+            /** Corporate Trade Exchange (CTX). */
             CORPORATE_TRADE_EXCHANGE,
+            /** Prearranged Payments and Deposits (PPD). */
             PREARRANGED_PAYMENTS_AND_DEPOSIT,
+            /** Internet Initiated (WEB). */
             INTERNET_INITIATED,
             _UNKNOWN,
         }
@@ -5378,6 +5968,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** The lifecycle status of the transfer. */
     class Status
     @JsonCreator
     private constructor(
@@ -5411,26 +6002,44 @@ private constructor(
         }
 
         enum class Known {
+            /** The transfer is pending approval. */
             PENDING_APPROVAL,
+            /** The transfer belongs to a Transfer Session that is pending confirmation. */
             PENDING_TRANSFER_SESSION_CONFIRMATION,
+            /** The transfer has been canceled. */
             CANCELED,
+            /** The transfer is pending submission to the Federal Reserve. */
             PENDING_SUBMISSION,
+            /** The transfer is pending review by Increase. */
             PENDING_REVIEWING,
+            /** The transfer requires attention from an Increase operator. */
             REQUIRES_ATTENTION,
+            /** The transfer has been rejected. */
             REJECTED,
+            /** The transfer is complete. */
             SUBMITTED,
+            /** The transfer has been returned. */
             RETURNED,
         }
 
         enum class Value {
+            /** The transfer is pending approval. */
             PENDING_APPROVAL,
+            /** The transfer belongs to a Transfer Session that is pending confirmation. */
             PENDING_TRANSFER_SESSION_CONFIRMATION,
+            /** The transfer has been canceled. */
             CANCELED,
+            /** The transfer is pending submission to the Federal Reserve. */
             PENDING_SUBMISSION,
+            /** The transfer is pending review by Increase. */
             PENDING_REVIEWING,
+            /** The transfer requires attention from an Increase operator. */
             REQUIRES_ATTENTION,
+            /** The transfer has been rejected. */
             REJECTED,
+            /** The transfer is complete. */
             SUBMITTED,
+            /** The transfer has been returned. */
             RETURNED,
             _UNKNOWN,
         }
@@ -5739,6 +6348,10 @@ private constructor(
                 )
         }
 
+        /**
+         * The settlement schedule the transfer is expected to follow. This expectation takes into
+         * account the `effective_date`, `submitted_at`, and the amount of the transfer.
+         */
         class ExpectedSettlementSchedule
         @JsonCreator
         private constructor(
@@ -5757,12 +6370,16 @@ private constructor(
             }
 
             enum class Known {
+                /** The transfer is expected to settle same-day. */
                 SAME_DAY,
+                /** The transfer is expected to settle on a future date. */
                 FUTURE_DATED,
             }
 
             enum class Value {
+                /** The transfer is expected to settle same-day. */
                 SAME_DAY,
+                /** The transfer is expected to settle on a future date. */
                 FUTURE_DATED,
                 _UNKNOWN,
             }
@@ -5817,6 +6434,10 @@ private constructor(
             "Submission{effectiveDate=$effectiveDate, expectedFundsSettlementAt=$expectedFundsSettlementAt, expectedSettlementSchedule=$expectedSettlementSchedule, submittedAt=$submittedAt, traceNumber=$traceNumber, additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `ach_transfer`.
+     */
     class Type
     @JsonCreator
     private constructor(

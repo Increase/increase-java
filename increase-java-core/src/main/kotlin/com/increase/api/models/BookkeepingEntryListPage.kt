@@ -19,6 +19,7 @@ import java.util.Optional
 import java.util.stream.Stream
 import java.util.stream.StreamSupport
 
+/** List Bookkeeping Entries */
 class BookkeepingEntryListPage
 private constructor(
     private val bookkeepingEntriesService: BookkeepingEntryService,

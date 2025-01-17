@@ -406,28 +406,90 @@ constructor(
             }
 
             enum class Known {
+                /**
+                 * Account Transfer Instruction: details will be under the
+                 * `account_transfer_instruction` object.
+                 */
                 ACCOUNT_TRANSFER_INSTRUCTION,
+                /**
+                 * ACH Transfer Instruction: details will be under the `ach_transfer_instruction`
+                 * object.
+                 */
                 ACH_TRANSFER_INSTRUCTION,
+                /** Card Authorization: details will be under the `card_authorization` object. */
                 CARD_AUTHORIZATION,
+                /**
+                 * Check Deposit Instruction: details will be under the `check_deposit_instruction`
+                 * object.
+                 */
                 CHECK_DEPOSIT_INSTRUCTION,
+                /**
+                 * Check Transfer Instruction: details will be under the
+                 * `check_transfer_instruction` object.
+                 */
                 CHECK_TRANSFER_INSTRUCTION,
+                /** Inbound Funds Hold: details will be under the `inbound_funds_hold` object. */
                 INBOUND_FUNDS_HOLD,
+                /**
+                 * Real-Time Payments Transfer Instruction: details will be under the
+                 * `real_time_payments_transfer_instruction` object.
+                 */
                 REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION,
+                /**
+                 * Wire Transfer Instruction: details will be under the `wire_transfer_instruction`
+                 * object.
+                 */
                 WIRE_TRANSFER_INSTRUCTION,
+                /**
+                 * Inbound Wire Transfer Reversal: details will be under the
+                 * `inbound_wire_transfer_reversal` object.
+                 */
                 INBOUND_WIRE_TRANSFER_REVERSAL,
+                /** The Pending Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
             }
 
             enum class Value {
+                /**
+                 * Account Transfer Instruction: details will be under the
+                 * `account_transfer_instruction` object.
+                 */
                 ACCOUNT_TRANSFER_INSTRUCTION,
+                /**
+                 * ACH Transfer Instruction: details will be under the `ach_transfer_instruction`
+                 * object.
+                 */
                 ACH_TRANSFER_INSTRUCTION,
+                /** Card Authorization: details will be under the `card_authorization` object. */
                 CARD_AUTHORIZATION,
+                /**
+                 * Check Deposit Instruction: details will be under the `check_deposit_instruction`
+                 * object.
+                 */
                 CHECK_DEPOSIT_INSTRUCTION,
+                /**
+                 * Check Transfer Instruction: details will be under the
+                 * `check_transfer_instruction` object.
+                 */
                 CHECK_TRANSFER_INSTRUCTION,
+                /** Inbound Funds Hold: details will be under the `inbound_funds_hold` object. */
                 INBOUND_FUNDS_HOLD,
+                /**
+                 * Real-Time Payments Transfer Instruction: details will be under the
+                 * `real_time_payments_transfer_instruction` object.
+                 */
                 REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION,
+                /**
+                 * Wire Transfer Instruction: details will be under the `wire_transfer_instruction`
+                 * object.
+                 */
                 WIRE_TRANSFER_INSTRUCTION,
+                /**
+                 * Inbound Wire Transfer Reversal: details will be under the
+                 * `inbound_wire_transfer_reversal` object.
+                 */
                 INBOUND_WIRE_TRANSFER_REVERSAL,
+                /** The Pending Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
                 _UNKNOWN,
             }
@@ -828,12 +890,24 @@ constructor(
             }
 
             enum class Known {
+                /** The Pending Transaction is still awaiting confirmation. */
                 PENDING,
+                /**
+                 * The Pending Transaction is confirmed. An associated Transaction exists for this
+                 * object. The Pending Transaction will no longer count against your balance and can
+                 * generally be hidden from UIs, etc.
+                 */
                 COMPLETE,
             }
 
             enum class Value {
+                /** The Pending Transaction is still awaiting confirmation. */
                 PENDING,
+                /**
+                 * The Pending Transaction is confirmed. An associated Transaction exists for this
+                 * object. The Pending Transaction will no longer count against your balance and can
+                 * generally be hidden from UIs, etc.
+                 */
                 COMPLETE,
                 _UNKNOWN,
             }

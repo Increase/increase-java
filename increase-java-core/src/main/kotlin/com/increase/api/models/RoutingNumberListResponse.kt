@@ -222,6 +222,7 @@ private constructor(
             )
     }
 
+    /** This routing number's support for ACH Transfers. */
     class AchTransfers
     @JsonCreator
     private constructor(
@@ -240,12 +241,16 @@ private constructor(
         }
 
         enum class Known {
+            /** The routing number can receive this transfer type. */
             SUPPORTED,
+            /** The routing number cannot receive this transfer type. */
             NOT_SUPPORTED,
         }
 
         enum class Value {
+            /** The routing number can receive this transfer type. */
             SUPPORTED,
+            /** The routing number cannot receive this transfer type. */
             NOT_SUPPORTED,
             _UNKNOWN,
         }
@@ -279,6 +284,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** This routing number's support for Real-Time Payments Transfers. */
     class RealTimePaymentsTransfers
     @JsonCreator
     private constructor(
@@ -297,12 +303,16 @@ private constructor(
         }
 
         enum class Known {
+            /** The routing number can receive this transfer type. */
             SUPPORTED,
+            /** The routing number cannot receive this transfer type. */
             NOT_SUPPORTED,
         }
 
         enum class Value {
+            /** The routing number can receive this transfer type. */
             SUPPORTED,
+            /** The routing number cannot receive this transfer type. */
             NOT_SUPPORTED,
             _UNKNOWN,
         }
@@ -337,6 +347,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `routing_number`.
+     */
     class Type
     @JsonCreator
     private constructor(
@@ -388,6 +402,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** This routing number's support for Wire Transfers. */
     class WireTransfers
     @JsonCreator
     private constructor(
@@ -406,12 +421,16 @@ private constructor(
         }
 
         enum class Known {
+            /** The routing number can receive this transfer type. */
             SUPPORTED,
+            /** The routing number cannot receive this transfer type. */
             NOT_SUPPORTED,
         }
 
         enum class Value {
+            /** The routing number can receive this transfer type. */
             SUPPORTED,
+            /** The routing number cannot receive this transfer type. */
             NOT_SUPPORTED,
             _UNKNOWN,
         }

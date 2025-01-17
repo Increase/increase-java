@@ -324,6 +324,7 @@ private constructor(
             )
     }
 
+    /** The status of the exclusion request. */
     class Status
     @JsonCreator
     private constructor(
@@ -344,14 +345,20 @@ private constructor(
         }
 
         enum class Known {
+            /** The exclusion is being added to the IntraFi network. */
             PENDING,
+            /** The exclusion has been added to the IntraFi network. */
             COMPLETED,
+            /** The exclusion has been removed from the IntraFi network. */
             ARCHIVED,
         }
 
         enum class Value {
+            /** The exclusion is being added to the IntraFi network. */
             PENDING,
+            /** The exclusion has been added to the IntraFi network. */
             COMPLETED,
+            /** The exclusion has been removed from the IntraFi network. */
             ARCHIVED,
             _UNKNOWN,
         }
@@ -387,6 +394,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `intrafi_exclusion`.
+     */
     class Type
     @JsonCreator
     private constructor(

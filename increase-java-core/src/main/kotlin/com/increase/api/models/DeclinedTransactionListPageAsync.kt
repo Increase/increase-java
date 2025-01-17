@@ -20,6 +20,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import java.util.function.Predicate
 
+/** List Declined Transactions */
 class DeclinedTransactionListPageAsync
 private constructor(
     private val declinedTransactionsService: DeclinedTransactionServiceAsync,

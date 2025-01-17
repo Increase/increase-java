@@ -422,6 +422,10 @@ private constructor(
             "Entry{id=$id, accountId=$accountId, amount=$amount, additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `bookkeeping_entry_set`.
+     */
     class Type
     @JsonCreator
     private constructor(

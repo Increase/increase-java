@@ -226,6 +226,7 @@ private constructor(
             )
     }
 
+    /** This indicates if payments can be made with the Digital Wallet Token. */
     class Status
     @JsonCreator
     private constructor(
@@ -248,16 +249,30 @@ private constructor(
         }
 
         enum class Known {
+            /** The digital wallet token is active. */
             ACTIVE,
+            /**
+             * The digital wallet token has been created but not successfully activated via
+             * two-factor authentication yet.
+             */
             INACTIVE,
+            /** The digital wallet token has been temporarily paused. */
             SUSPENDED,
+            /** The digital wallet token has been permanently canceled. */
             DEACTIVATED,
         }
 
         enum class Value {
+            /** The digital wallet token is active. */
             ACTIVE,
+            /**
+             * The digital wallet token has been created but not successfully activated via
+             * two-factor authentication yet.
+             */
             INACTIVE,
+            /** The digital wallet token has been temporarily paused. */
             SUSPENDED,
+            /** The digital wallet token has been permanently canceled. */
             DEACTIVATED,
             _UNKNOWN,
         }
@@ -295,6 +310,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** The digital wallet app being used. */
     class TokenRequestor
     @JsonCreator
     private constructor(
@@ -317,16 +333,24 @@ private constructor(
         }
 
         enum class Known {
+            /** Apple Pay */
             APPLE_PAY,
+            /** Google Pay */
             GOOGLE_PAY,
+            /** Samsung Pay */
             SAMSUNG_PAY,
+            /** Unknown */
             UNKNOWN,
         }
 
         enum class Value {
+            /** Apple Pay */
             APPLE_PAY,
+            /** Google Pay */
             GOOGLE_PAY,
+            /** Samsung Pay */
             SAMSUNG_PAY,
+            /** Unknown */
             UNKNOWN,
             _UNKNOWN,
         }
@@ -364,6 +388,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `digital_wallet_token`.
+     */
     class Type
     @JsonCreator
     private constructor(

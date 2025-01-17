@@ -553,6 +553,7 @@ private constructor(
                 )
         }
 
+        /** Whether or not the authentication attempt was approved. */
         class Decision
         @JsonCreator
         private constructor(
@@ -573,14 +574,20 @@ private constructor(
             }
 
             enum class Known {
+                /** Approve the authentication attempt without triggering a challenge. */
                 APPROVE,
+                /** Request further validation before approving the authentication attempt. */
                 CHALLENGE,
+                /** Deny the authentication attempt. */
                 DENY,
             }
 
             enum class Value {
+                /** Approve the authentication attempt without triggering a challenge. */
                 APPROVE,
+                /** Request further validation before approving the authentication attempt. */
                 CHALLENGE,
+                /** Deny the authentication attempt. */
                 DENY,
                 _UNKNOWN,
             }
@@ -809,6 +816,7 @@ private constructor(
                 )
         }
 
+        /** Whether or not the challenge was delivered to the cardholder. */
         class Result
         @JsonCreator
         private constructor(
@@ -827,12 +835,16 @@ private constructor(
             }
 
             enum class Known {
+                /** Your application successfully delivered the one-time code to the cardholder. */
                 SUCCESS,
+                /** Your application was unable to deliver the one-time code to the cardholder. */
                 FAILURE,
             }
 
             enum class Value {
+                /** Your application successfully delivered the one-time code to the cardholder. */
                 SUCCESS,
+                /** Your application was unable to deliver the one-time code to the cardholder. */
                 FAILURE,
                 _UNKNOWN,
             }
@@ -1760,6 +1772,7 @@ private constructor(
                 )
         }
 
+        /** Whether or not the authorization was approved. */
         class Decision
         @JsonCreator
         private constructor(
@@ -1778,12 +1791,16 @@ private constructor(
             }
 
             enum class Known {
+                /** Approve the authorization. */
                 APPROVE,
+                /** Decline the authorization. */
                 DECLINE,
             }
 
             enum class Value {
+                /** Approve the authorization. */
                 APPROVE,
+                /** Decline the authorization. */
                 DECLINE,
                 _UNKNOWN,
             }
@@ -1817,6 +1834,10 @@ private constructor(
             override fun toString() = value.toString()
         }
 
+        /**
+         * The direction describes the direction the funds will move, either from the cardholder to
+         * the merchant or from the merchant to the cardholder.
+         */
         class Direction
         @JsonCreator
         private constructor(
@@ -1835,12 +1856,22 @@ private constructor(
             }
 
             enum class Known {
+                /** A regular card authorization where funds are debited from the cardholder. */
                 SETTLEMENT,
+                /**
+                 * A refund card authorization, sometimes referred to as a credit voucher
+                 * authorization, where funds are credited to the cardholder.
+                 */
                 REFUND,
             }
 
             enum class Value {
+                /** A regular card authorization where funds are debited from the cardholder. */
                 SETTLEMENT,
+                /**
+                 * A refund card authorization, sometimes referred to as a credit voucher
+                 * authorization, where funds are credited to the cardholder.
+                 */
                 REFUND,
                 _UNKNOWN,
             }
@@ -1984,6 +2015,7 @@ private constructor(
                     )
             }
 
+            /** The payment network used to process this card authorization. */
             class Category
             @JsonCreator
             private constructor(
@@ -2000,10 +2032,12 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** Visa */
                     VISA,
                 }
 
                 enum class Value {
+                    /** Visa */
                     VISA,
                     _UNKNOWN,
                 }
@@ -2263,6 +2297,11 @@ private constructor(
                         )
                 }
 
+                /**
+                 * For electronic commerce transactions, this identifies the level of security used
+                 * in obtaining the customer's payment credential. For mail or telephone order
+                 * transactions, identifies the type of mail or telephone order.
+                 */
                 class ElectronicCommerceIndicator
                 @JsonCreator
                 private constructor(
@@ -2299,24 +2338,110 @@ private constructor(
                     }
 
                     enum class Known {
+                        /**
+                         * Single transaction of a mail/phone order: Use to indicate that the
+                         * transaction is a mail/phone order purchase, not a recurring transaction
+                         * or installment payment. For domestic transactions in the US region, this
+                         * value may also indicate one bill payment transaction in the card-present
+                         * or card-absent environments.
+                         */
                         MAIL_PHONE_ORDER,
+                        /**
+                         * Recurring transaction: Payment indicator used to indicate a recurring
+                         * transaction that originates from an acquirer in the US region.
+                         */
                         RECURRING,
+                        /**
+                         * Installment payment: Payment indicator used to indicate one purchase of
+                         * goods or services that is billed to the account in multiple charges over
+                         * a period of time agreed upon by the cardholder and merchant from
+                         * transactions that originate from an acquirer in the US region.
+                         */
                         INSTALLMENT,
+                        /**
+                         * Unknown classification: other mail order: Use to indicate that the type
+                         * of mail/telephone order is unknown.
+                         */
                         UNKNOWN_MAIL_PHONE_ORDER,
+                        /**
+                         * Secure electronic commerce transaction: Use to indicate that the
+                         * electronic commerce transaction has been authenticated using e.g., 3-D
+                         * Secure
+                         */
                         SECURE_ELECTRONIC_COMMERCE,
+                        /**
+                         * Non-authenticated security transaction at a 3-D Secure-capable merchant,
+                         * and merchant attempted to authenticate the cardholder using 3-D Secure:
+                         * Use to identify an electronic commerce transaction where the merchant
+                         * attempted to authenticate the cardholder using 3-D Secure, but was unable
+                         * to complete the authentication because the issuer or cardholder does not
+                         * participate in the 3-D Secure program.
+                         */
                         NON_AUTHENTICATED_SECURITY_TRANSACTION_AT_3DS_CAPABLE_MERCHANT,
+                        /**
+                         * Non-authenticated security transaction: Use to identify an electronic
+                         * commerce transaction that uses data encryption for security however ,
+                         * cardholder authentication is not performed using 3-D Secure.
+                         */
                         NON_AUTHENTICATED_SECURITY_TRANSACTION,
+                        /**
+                         * Non-secure transaction: Use to identify an electronic commerce
+                         * transaction that has no data protection.
+                         */
                         NON_SECURE_TRANSACTION,
                     }
 
                     enum class Value {
+                        /**
+                         * Single transaction of a mail/phone order: Use to indicate that the
+                         * transaction is a mail/phone order purchase, not a recurring transaction
+                         * or installment payment. For domestic transactions in the US region, this
+                         * value may also indicate one bill payment transaction in the card-present
+                         * or card-absent environments.
+                         */
                         MAIL_PHONE_ORDER,
+                        /**
+                         * Recurring transaction: Payment indicator used to indicate a recurring
+                         * transaction that originates from an acquirer in the US region.
+                         */
                         RECURRING,
+                        /**
+                         * Installment payment: Payment indicator used to indicate one purchase of
+                         * goods or services that is billed to the account in multiple charges over
+                         * a period of time agreed upon by the cardholder and merchant from
+                         * transactions that originate from an acquirer in the US region.
+                         */
                         INSTALLMENT,
+                        /**
+                         * Unknown classification: other mail order: Use to indicate that the type
+                         * of mail/telephone order is unknown.
+                         */
                         UNKNOWN_MAIL_PHONE_ORDER,
+                        /**
+                         * Secure electronic commerce transaction: Use to indicate that the
+                         * electronic commerce transaction has been authenticated using e.g., 3-D
+                         * Secure
+                         */
                         SECURE_ELECTRONIC_COMMERCE,
+                        /**
+                         * Non-authenticated security transaction at a 3-D Secure-capable merchant,
+                         * and merchant attempted to authenticate the cardholder using 3-D Secure:
+                         * Use to identify an electronic commerce transaction where the merchant
+                         * attempted to authenticate the cardholder using 3-D Secure, but was unable
+                         * to complete the authentication because the issuer or cardholder does not
+                         * participate in the 3-D Secure program.
+                         */
                         NON_AUTHENTICATED_SECURITY_TRANSACTION_AT_3DS_CAPABLE_MERCHANT,
+                        /**
+                         * Non-authenticated security transaction: Use to identify an electronic
+                         * commerce transaction that uses data encryption for security however ,
+                         * cardholder authentication is not performed using 3-D Secure.
+                         */
                         NON_AUTHENTICATED_SECURITY_TRANSACTION,
+                        /**
+                         * Non-secure transaction: Use to identify an electronic commerce
+                         * transaction that has no data protection.
+                         */
                         NON_SECURE_TRANSACTION,
                         _UNKNOWN,
                     }
@@ -2369,6 +2494,10 @@ private constructor(
                     override fun toString() = value.toString()
                 }
 
+                /**
+                 * The method used to enter the cardholder's primary account number and card
+                 * expiration date.
+                 */
                 class PointOfServiceEntryMode
                 @JsonCreator
                 private constructor(
@@ -2407,28 +2536,54 @@ private constructor(
                     }
 
                     enum class Known {
+                        /** Unknown */
                         UNKNOWN,
+                        /** Manual key entry */
                         MANUAL,
+                        /** Magnetic stripe read, without card verification value */
                         MAGNETIC_STRIPE_NO_CVV,
+                        /** Optical code */
                         OPTICAL_CODE,
+                        /** Contact chip card */
                         INTEGRATED_CIRCUIT_CARD,
+                        /** Contactless read of chip card */
                         CONTACTLESS,
+                        /**
+                         * Transaction initiated using a credential that has previously been stored
+                         * on file
+                         */
                         CREDENTIAL_ON_FILE,
+                        /** Magnetic stripe read */
                         MAGNETIC_STRIPE,
+                        /** Contactless read of magnetic stripe data */
                         CONTACTLESS_MAGNETIC_STRIPE,
+                        /** Contact chip card, without card verification value */
                         INTEGRATED_CIRCUIT_CARD_NO_CVV,
                     }
 
                     enum class Value {
+                        /** Unknown */
                         UNKNOWN,
+                        /** Manual key entry */
                         MANUAL,
+                        /** Magnetic stripe read, without card verification value */
                         MAGNETIC_STRIPE_NO_CVV,
+                        /** Optical code */
                         OPTICAL_CODE,
+                        /** Contact chip card */
                         INTEGRATED_CIRCUIT_CARD,
+                        /** Contactless read of chip card */
                         CONTACTLESS,
+                        /**
+                         * Transaction initiated using a credential that has previously been stored
+                         * on file
+                         */
                         CREDENTIAL_ON_FILE,
+                        /** Magnetic stripe read */
                         MAGNETIC_STRIPE,
+                        /** Contactless read of magnetic stripe data */
                         CONTACTLESS_MAGNETIC_STRIPE,
+                        /** Contact chip card, without card verification value */
                         INTEGRATED_CIRCUIT_CARD_NO_CVV,
                         _UNKNOWN,
                     }
@@ -2481,6 +2636,10 @@ private constructor(
                     override fun toString() = value.toString()
                 }
 
+                /**
+                 * Only present when `actioner: network`. Describes why a card authorization was
+                 * approved or declined by Visa through stand-in processing.
+                 */
                 class StandInProcessingReason
                 @JsonCreator
                 private constructor(
@@ -2513,20 +2672,54 @@ private constructor(
                     }
 
                     enum class Known {
+                        /** Increase failed to process the authorization in a timely manner. */
                         ISSUER_ERROR,
+                        /**
+                         * The physical card read had an invalid CVV, dCVV, or authorization request
+                         * cryptogram.
+                         */
                         INVALID_PHYSICAL_CARD,
+                        /** The 3DS cardholder authentication verification value was invalid. */
                         INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE,
+                        /**
+                         * An internal Visa error occurred. Visa uses this reason code for certain
+                         * expected occurrences as well, such as Application Transaction Counter
+                         * (ATC) replays.
+                         */
                         INTERNAL_VISA_ERROR,
+                        /**
+                         * The merchant has enabled Visa's Transaction Advisory Service and requires
+                         * further authentication to perform the transaction. In practice this is
+                         * often utilized at fuel pumps to tell the cardholder to see the cashier.
+                         */
                         MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED,
+                        /** An unspecific reason for stand-in processing. */
                         OTHER,
                     }
 
                     enum class Value {
+                        /** Increase failed to process the authorization in a timely manner. */
                         ISSUER_ERROR,
+                        /**
+                         * The physical card read had an invalid CVV, dCVV, or authorization request
+                         * cryptogram.
+                         */
                         INVALID_PHYSICAL_CARD,
+                        /** The 3DS cardholder authentication verification value was invalid. */
                         INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE,
+                        /**
+                         * An internal Visa error occurred. Visa uses this reason code for certain
+                         * expected occurrences as well, such as Application Transaction Counter
+                         * (ATC) replays.
+                         */
                         INTERNAL_VISA_ERROR,
+                        /**
+                         * The merchant has enabled Visa's Transaction Advisory Service and requires
+                         * further authentication to perform the transaction. In practice this is
+                         * often utilized at fuel pumps to tell the cardholder to see the cashier.
+                         */
                         MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED,
+                        /** An unspecific reason for stand-in processing. */
                         OTHER,
                         _UNKNOWN,
                     }
@@ -2835,6 +3028,10 @@ private constructor(
                 "NetworkIdentifiers{retrievalReferenceNumber=$retrievalReferenceNumber, traceNumber=$traceNumber, transactionId=$transactionId, additionalProperties=$additionalProperties}"
         }
 
+        /**
+         * The processing category describes the intent behind the authorization, such as whether it
+         * was used for bill payments or an automatic fuel dispenser.
+         */
         class ProcessingCategory
         @JsonCreator
         private constructor(
@@ -2861,20 +3058,58 @@ private constructor(
             }
 
             enum class Known {
+                /**
+                 * Account funding transactions are transactions used to e.g., fund an account or
+                 * transfer funds between accounts.
+                 */
                 ACCOUNT_FUNDING,
+                /**
+                 * Automatic fuel dispenser authorizations occur when a card is used at a gas pump,
+                 * prior to the actual transaction amount being known. They are followed by an
+                 * advice message that updates the amount of the pending transaction.
+                 */
                 AUTOMATIC_FUEL_DISPENSER,
+                /** A transaction used to pay a bill. */
                 BILL_PAYMENT,
+                /** A regular purchase. */
                 PURCHASE,
+                /**
+                 * Quasi-cash transactions represent purchases of items which may be convertible to
+                 * cash.
+                 */
                 QUASI_CASH,
+                /**
+                 * A refund card authorization, sometimes referred to as a credit voucher
+                 * authorization, where funds are credited to the cardholder.
+                 */
                 REFUND,
             }
 
             enum class Value {
+                /**
+                 * Account funding transactions are transactions used to e.g., fund an account or
+                 * transfer funds between accounts.
+                 */
                 ACCOUNT_FUNDING,
+                /**
+                 * Automatic fuel dispenser authorizations occur when a card is used at a gas pump,
+                 * prior to the actual transaction amount being known. They are followed by an
+                 * advice message that updates the amount of the pending transaction.
+                 */
                 AUTOMATIC_FUEL_DISPENSER,
+                /** A transaction used to pay a bill. */
                 BILL_PAYMENT,
+                /** A regular purchase. */
                 PURCHASE,
+                /**
+                 * Quasi-cash transactions represent purchases of items which may be convertible to
+                 * cash.
+                 */
                 QUASI_CASH,
+                /**
+                 * A refund card authorization, sometimes referred to as a credit voucher
+                 * authorization, where funds are credited to the cardholder.
+                 */
                 REFUND,
                 _UNKNOWN,
             }
@@ -3066,6 +3301,10 @@ private constructor(
                     )
             }
 
+            /**
+             * The type of this request (e.g., an initial authorization or an incremental
+             * authorization).
+             */
             class Category
             @JsonCreator
             private constructor(
@@ -3084,12 +3323,20 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** A regular, standalone authorization. */
                     INITIAL_AUTHORIZATION,
+                    /**
+                     * An incremental request to increase the amount of an existing authorization.
+                     */
                     INCREMENTAL_AUTHORIZATION,
                 }
 
                 enum class Value {
+                    /** A regular, standalone authorization. */
                     INITIAL_AUTHORIZATION,
+                    /**
+                     * An incremental request to increase the amount of an existing authorization.
+                     */
                     INCREMENTAL_AUTHORIZATION,
                     _UNKNOWN,
                 }
@@ -3522,6 +3769,7 @@ private constructor(
                         )
                 }
 
+                /** The result of verifying the Card Verification Code. */
                 class Result
                 @JsonCreator
                 private constructor(
@@ -3543,14 +3791,20 @@ private constructor(
                     }
 
                     enum class Known {
+                        /** No card verification code was provided in the authorization request. */
                         NOT_CHECKED,
+                        /** The card verification code matched the one on file. */
                         MATCH,
+                        /** The card verification code did not match the one on file. */
                         NO_MATCH,
                     }
 
                     enum class Value {
+                        /** No card verification code was provided in the authorization request. */
                         NOT_CHECKED,
+                        /** The card verification code matched the one on file. */
                         MATCH,
+                        /** The card verification code did not match the one on file. */
                         NO_MATCH,
                         _UNKNOWN,
                     }
@@ -3824,6 +4078,7 @@ private constructor(
                         )
                 }
 
+                /** The address verification result returned to the card network. */
                 class Result
                 @JsonCreator
                 private constructor(
@@ -3857,20 +4112,32 @@ private constructor(
                     }
 
                     enum class Known {
+                        /** No adress was provided in the authorization request. */
                         NOT_CHECKED,
+                        /** Postal code matches, but the street address was not verified. */
                         POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED,
+                        /** Postal code matches, but the street address does not match. */
                         POSTAL_CODE_MATCH_ADDRESS_NO_MATCH,
+                        /** Postal code does not match, but the street address matches. */
                         POSTAL_CODE_NO_MATCH_ADDRESS_MATCH,
+                        /** Postal code and street address match. */
                         MATCH,
+                        /** Postal code and street address do not match. */
                         NO_MATCH,
                     }
 
                     enum class Value {
+                        /** No adress was provided in the authorization request. */
                         NOT_CHECKED,
+                        /** Postal code matches, but the street address was not verified. */
                         POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED,
+                        /** Postal code matches, but the street address does not match. */
                         POSTAL_CODE_MATCH_ADDRESS_NO_MATCH,
+                        /** Postal code does not match, but the street address matches. */
                         POSTAL_CODE_NO_MATCH_ADDRESS_MATCH,
+                        /** Postal code and street address match. */
                         MATCH,
+                        /** Postal code and street address do not match. */
                         NO_MATCH,
                         _UNKNOWN,
                     }
@@ -3972,6 +4239,7 @@ private constructor(
             "CardAuthorization{accountId=$accountId, cardId=$cardId, decision=$decision, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, requestDetails=$requestDetails, settlementAmount=$settlementAmount, settlementCurrency=$settlementCurrency, terminalId=$terminalId, upcomingCardPaymentId=$upcomingCardPaymentId, verification=$verification, additionalProperties=$additionalProperties}"
     }
 
+    /** The category of the Real-Time Decision. */
     class Category
     @JsonCreator
     private constructor(
@@ -4000,18 +4268,32 @@ private constructor(
         }
 
         enum class Known {
+            /** A card is being authorized. */
             CARD_AUTHORIZATION_REQUESTED,
+            /** 3DS authentication is requested. */
             CARD_AUTHENTICATION_REQUESTED,
+            /** 3DS authentication challenge requires cardholder involvement. */
             CARD_AUTHENTICATION_CHALLENGE_REQUESTED,
+            /** A card is being loaded into a digital wallet. */
             DIGITAL_WALLET_TOKEN_REQUESTED,
+            /**
+             * A card is being loaded into a digital wallet and requires cardholder authentication.
+             */
             DIGITAL_WALLET_AUTHENTICATION_REQUESTED,
         }
 
         enum class Value {
+            /** A card is being authorized. */
             CARD_AUTHORIZATION_REQUESTED,
+            /** 3DS authentication is requested. */
             CARD_AUTHENTICATION_REQUESTED,
+            /** 3DS authentication challenge requires cardholder involvement. */
             CARD_AUTHENTICATION_CHALLENGE_REQUESTED,
+            /** A card is being loaded into a digital wallet. */
             DIGITAL_WALLET_TOKEN_REQUESTED,
+            /**
+             * A card is being loaded into a digital wallet and requires cardholder authentication.
+             */
             DIGITAL_WALLET_AUTHENTICATION_REQUESTED,
             _UNKNOWN,
         }
@@ -4272,6 +4554,7 @@ private constructor(
                 )
         }
 
+        /** The channel to send the card user their one-time passcode. */
         class Channel
         @JsonCreator
         private constructor(
@@ -4290,12 +4573,16 @@ private constructor(
             }
 
             enum class Known {
+                /** Send one-time passcodes over SMS. */
                 SMS,
+                /** Send one-time passcodes over email. */
                 EMAIL,
             }
 
             enum class Value {
+                /** Send one-time passcodes over SMS. */
                 SMS,
+                /** Send one-time passcodes over email. */
                 EMAIL,
                 _UNKNOWN,
             }
@@ -4329,6 +4616,7 @@ private constructor(
             override fun toString() = value.toString()
         }
 
+        /** The digital wallet app being used. */
         class DigitalWallet
         @JsonCreator
         private constructor(
@@ -4351,16 +4639,24 @@ private constructor(
             }
 
             enum class Known {
+                /** Apple Pay */
                 APPLE_PAY,
+                /** Google Pay */
                 GOOGLE_PAY,
+                /** Samsung Pay */
                 SAMSUNG_PAY,
+                /** Unknown */
                 UNKNOWN,
             }
 
             enum class Value {
+                /** Apple Pay */
                 APPLE_PAY,
+                /** Google Pay */
                 GOOGLE_PAY,
+                /** Samsung Pay */
                 SAMSUNG_PAY,
+                /** Unknown */
                 UNKNOWN,
                 _UNKNOWN,
             }
@@ -4398,6 +4694,7 @@ private constructor(
             override fun toString() = value.toString()
         }
 
+        /** Whether your application successfully delivered the one-time passcode. */
         class Result
         @JsonCreator
         private constructor(
@@ -4416,12 +4713,20 @@ private constructor(
             }
 
             enum class Known {
+                /**
+                 * Your application successfully delivered the one-time passcode to the cardholder.
+                 */
                 SUCCESS,
+                /** Your application failed to deliver the one-time passcode to the cardholder. */
                 FAILURE,
             }
 
             enum class Value {
+                /**
+                 * Your application successfully delivered the one-time passcode to the cardholder.
+                 */
                 SUCCESS,
+                /** Your application failed to deliver the one-time passcode to the cardholder. */
                 FAILURE,
                 _UNKNOWN,
             }
@@ -4666,6 +4971,10 @@ private constructor(
                 )
         }
 
+        /**
+         * Whether or not the provisioning request was approved. This will be null until the real
+         * time decision is responded to.
+         */
         class Decision
         @JsonCreator
         private constructor(
@@ -4684,12 +4993,16 @@ private constructor(
             }
 
             enum class Known {
+                /** Approve the provisioning request. */
                 APPROVE,
+                /** Decline the provisioning request. */
                 DECLINE,
             }
 
             enum class Value {
+                /** Approve the provisioning request. */
                 APPROVE,
+                /** Decline the provisioning request. */
                 DECLINE,
                 _UNKNOWN,
             }
@@ -4723,6 +5036,7 @@ private constructor(
             override fun toString() = value.toString()
         }
 
+        /** The digital wallet app being used. */
         class DigitalWallet
         @JsonCreator
         private constructor(
@@ -4745,16 +5059,24 @@ private constructor(
             }
 
             enum class Known {
+                /** Apple Pay */
                 APPLE_PAY,
+                /** Google Pay */
                 GOOGLE_PAY,
+                /** Samsung Pay */
                 SAMSUNG_PAY,
+                /** Unknown */
                 UNKNOWN,
             }
 
             enum class Value {
+                /** Apple Pay */
                 APPLE_PAY,
+                /** Google Pay */
                 GOOGLE_PAY,
+                /** Samsung Pay */
                 SAMSUNG_PAY,
+                /** Unknown */
                 UNKNOWN,
                 _UNKNOWN,
             }
@@ -4810,6 +5132,7 @@ private constructor(
             "DigitalWalletToken{cardId=$cardId, cardProfileId=$cardProfileId, decision=$decision, digitalWallet=$digitalWallet, additionalProperties=$additionalProperties}"
     }
 
+    /** The status of the Real-Time Decision. */
     class Status
     @JsonCreator
     private constructor(
@@ -4830,14 +5153,20 @@ private constructor(
         }
 
         enum class Known {
+            /** The decision is pending action via real-time webhook. */
             PENDING,
+            /** Your webhook actioned the real-time decision. */
             RESPONDED,
+            /** Your webhook failed to respond to the authorization in time. */
             TIMED_OUT,
         }
 
         enum class Value {
+            /** The decision is pending action via real-time webhook. */
             PENDING,
+            /** Your webhook actioned the real-time decision. */
             RESPONDED,
+            /** Your webhook failed to respond to the authorization in time. */
             TIMED_OUT,
             _UNKNOWN,
         }
@@ -4873,6 +5202,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `real_time_decision`.
+     */
     class Type
     @JsonCreator
     private constructor(
