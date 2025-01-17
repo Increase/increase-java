@@ -20,6 +20,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import java.util.function.Predicate
 
+/** List Inbound ACH Transfers */
 class InboundAchTransferListPageAsync
 private constructor(
     private val inboundAchTransfersService: InboundAchTransferServiceAsync,

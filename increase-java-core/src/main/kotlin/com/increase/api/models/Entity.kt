@@ -1714,6 +1714,7 @@ private constructor(
                             )
                     }
 
+                    /** A method that can be used to verify the individual's identity. */
                     class Method
                     @JsonCreator
                     private constructor(
@@ -1741,18 +1742,28 @@ private constructor(
                         }
 
                         enum class Known {
+                            /** A social security number. */
                             SOCIAL_SECURITY_NUMBER,
+                            /** An individual taxpayer identification number (ITIN). */
                             INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
+                            /** A passport number. */
                             PASSPORT,
+                            /** A driver's license number. */
                             DRIVERS_LICENSE,
+                            /** Another identifying document. */
                             OTHER,
                         }
 
                         enum class Value {
+                            /** A social security number. */
                             SOCIAL_SECURITY_NUMBER,
+                            /** An individual taxpayer identification number (ITIN). */
                             INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
+                            /** A passport number. */
                             PASSPORT,
+                            /** A driver's license number. */
                             DRIVERS_LICENSE,
+                            /** Another identifying document. */
                             OTHER,
                             _UNKNOWN,
                         }
@@ -1830,6 +1841,7 @@ private constructor(
                     "Individual{address=$address, dateOfBirth=$dateOfBirth, identification=$identification, name=$name, additionalProperties=$additionalProperties}"
             }
 
+            /** Why this person is considered a beneficial owner of the entity. */
             class Prong
             @JsonCreator
             private constructor(
@@ -1848,12 +1860,16 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** A person with 25% or greater direct or indirect ownership of the entity. */
                     OWNERSHIP,
+                    /** A person who manages, directs, or has significant control of the entity. */
                     CONTROL,
                 }
 
                 enum class Value {
+                    /** A person with 25% or greater direct or indirect ownership of the entity. */
                     OWNERSHIP,
+                    /** A person who manages, directs, or has significant control of the entity. */
                     CONTROL,
                     _UNKNOWN,
                 }
@@ -2460,6 +2476,7 @@ private constructor(
                 "AuthorizedPerson{authorizedPersonId=$authorizedPersonId, name=$name, additionalProperties=$additionalProperties}"
         }
 
+        /** The category of the government authority. */
         class Category
         @JsonCreator
         private constructor(
@@ -2476,10 +2493,12 @@ private constructor(
             }
 
             enum class Known {
+                /** The Public Entity is a Municipality. */
                 MUNICIPALITY,
             }
 
             enum class Value {
+                /** The Public Entity is a Municipality. */
                 MUNICIPALITY,
                 _UNKNOWN,
             }
@@ -3116,6 +3135,7 @@ private constructor(
                         )
                 }
 
+                /** A method that can be used to verify the individual's identity. */
                 class Method
                 @JsonCreator
                 private constructor(
@@ -3143,18 +3163,28 @@ private constructor(
                     }
 
                     enum class Known {
+                        /** A social security number. */
                         SOCIAL_SECURITY_NUMBER,
+                        /** An individual taxpayer identification number (ITIN). */
                         INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
+                        /** A passport number. */
                         PASSPORT,
+                        /** A driver's license number. */
                         DRIVERS_LICENSE,
+                        /** Another identifying document. */
                         OTHER,
                     }
 
                     enum class Value {
+                        /** A social security number. */
                         SOCIAL_SECURITY_NUMBER,
+                        /** An individual taxpayer identification number (ITIN). */
                         INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
+                        /** A passport number. */
                         PASSPORT,
+                        /** A driver's license number. */
                         DRIVERS_LICENSE,
+                        /** Another identifying document. */
                         OTHER,
                         _UNKNOWN,
                     }
@@ -3718,6 +3748,7 @@ private constructor(
                     )
             }
 
+            /** A method that can be used to verify the individual's identity. */
             class Method
             @JsonCreator
             private constructor(
@@ -3744,18 +3775,28 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** A social security number. */
                     SOCIAL_SECURITY_NUMBER,
+                    /** An individual taxpayer identification number (ITIN). */
                     INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
+                    /** A passport number. */
                     PASSPORT,
+                    /** A driver's license number. */
                     DRIVERS_LICENSE,
+                    /** Another identifying document. */
                     OTHER,
                 }
 
                 enum class Value {
+                    /** A social security number. */
                     SOCIAL_SECURITY_NUMBER,
+                    /** An individual taxpayer identification number (ITIN). */
                     INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
+                    /** A passport number. */
                     PASSPORT,
+                    /** A driver's license number. */
                     DRIVERS_LICENSE,
+                    /** Another identifying document. */
                     OTHER,
                     _UNKNOWN,
                 }
@@ -3833,6 +3874,7 @@ private constructor(
             "NaturalPerson{address=$address, dateOfBirth=$dateOfBirth, identification=$identification, name=$name, additionalProperties=$additionalProperties}"
     }
 
+    /** The status of the entity. */
     class Status
     @JsonCreator
     private constructor(
@@ -3853,14 +3895,20 @@ private constructor(
         }
 
         enum class Known {
+            /** The entity is active. */
             ACTIVE,
+            /** The entity is archived, and can no longer be used to create accounts. */
             ARCHIVED,
+            /** The entity is temporarily disabled and cannot be used for financial activity. */
             DISABLED,
         }
 
         enum class Value {
+            /** The entity is active. */
             ACTIVE,
+            /** The entity is archived, and can no longer be used to create accounts. */
             ARCHIVED,
+            /** The entity is temporarily disabled and cannot be used for financial activity. */
             DISABLED,
             _UNKNOWN,
         }
@@ -3896,6 +3944,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** The entity's legal structure. */
     class Structure
     @JsonCreator
     private constructor(
@@ -3920,18 +3969,28 @@ private constructor(
         }
 
         enum class Known {
+            /** A corporation. */
             CORPORATION,
+            /** An individual person. */
             NATURAL_PERSON,
+            /** Multiple individual people. */
             JOINT,
+            /** A trust. */
             TRUST,
+            /** A government authority. */
             GOVERNMENT_AUTHORITY,
         }
 
         enum class Value {
+            /** A corporation. */
             CORPORATION,
+            /** An individual person. */
             NATURAL_PERSON,
+            /** Multiple individual people. */
             JOINT,
+            /** A trust. */
             TRUST,
+            /** A government authority. */
             GOVERNMENT_AUTHORITY,
             _UNKNOWN,
         }
@@ -4076,6 +4135,7 @@ private constructor(
                 )
         }
 
+        /** The vendor that was used to perform the verification. */
         class Vendor
         @JsonCreator
         private constructor(
@@ -4094,12 +4154,16 @@ private constructor(
             }
 
             enum class Known {
+                /** Alloy. See https://alloy.com for more information. */
                 ALLOY,
+                /** Middesk. See https://middesk.com for more information. */
                 MIDDESK,
             }
 
             enum class Value {
+                /** Alloy. See https://alloy.com for more information. */
                 ALLOY,
+                /** Middesk. See https://middesk.com for more information. */
                 MIDDESK,
                 _UNKNOWN,
             }
@@ -4628,6 +4692,7 @@ private constructor(
                 "Address{city=$city, line1=$line1, line2=$line2, state=$state, zip=$zip, additionalProperties=$additionalProperties}"
         }
 
+        /** Whether the trust is `revocable` or `irrevocable`. */
         class Category
         @JsonCreator
         private constructor(
@@ -4646,12 +4711,16 @@ private constructor(
             }
 
             enum class Known {
+                /** The trust is revocable by the grantor. */
                 REVOCABLE,
+                /** The trust cannot be revoked. */
                 IRREVOCABLE,
             }
 
             enum class Value {
+                /** The trust is revocable by the grantor. */
                 REVOCABLE,
+                /** The trust cannot be revoked. */
                 IRREVOCABLE,
                 _UNKNOWN,
             }
@@ -5153,6 +5222,7 @@ private constructor(
                         )
                 }
 
+                /** A method that can be used to verify the individual's identity. */
                 class Method
                 @JsonCreator
                 private constructor(
@@ -5180,18 +5250,28 @@ private constructor(
                     }
 
                     enum class Known {
+                        /** A social security number. */
                         SOCIAL_SECURITY_NUMBER,
+                        /** An individual taxpayer identification number (ITIN). */
                         INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
+                        /** A passport number. */
                         PASSPORT,
+                        /** A driver's license number. */
                         DRIVERS_LICENSE,
+                        /** Another identifying document. */
                         OTHER,
                     }
 
                     enum class Value {
+                        /** A social security number. */
                         SOCIAL_SECURITY_NUMBER,
+                        /** An individual taxpayer identification number (ITIN). */
                         INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
+                        /** A passport number. */
                         PASSPORT,
+                        /** A driver's license number. */
                         DRIVERS_LICENSE,
+                        /** Another identifying document. */
                         OTHER,
                         _UNKNOWN,
                     }
@@ -5881,6 +5961,7 @@ private constructor(
                             )
                     }
 
+                    /** A method that can be used to verify the individual's identity. */
                     class Method
                     @JsonCreator
                     private constructor(
@@ -5908,18 +5989,28 @@ private constructor(
                         }
 
                         enum class Known {
+                            /** A social security number. */
                             SOCIAL_SECURITY_NUMBER,
+                            /** An individual taxpayer identification number (ITIN). */
                             INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
+                            /** A passport number. */
                             PASSPORT,
+                            /** A driver's license number. */
                             DRIVERS_LICENSE,
+                            /** Another identifying document. */
                             OTHER,
                         }
 
                         enum class Value {
+                            /** A social security number. */
                             SOCIAL_SECURITY_NUMBER,
+                            /** An individual taxpayer identification number (ITIN). */
                             INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
+                            /** A passport number. */
                             PASSPORT,
+                            /** A driver's license number. */
                             DRIVERS_LICENSE,
+                            /** Another identifying document. */
                             OTHER,
                             _UNKNOWN,
                         }
@@ -5997,6 +6088,7 @@ private constructor(
                     "Individual{address=$address, dateOfBirth=$dateOfBirth, identification=$identification, name=$name, additionalProperties=$additionalProperties}"
             }
 
+            /** The structure of the trustee. Will always be equal to `individual`. */
             class Structure
             @JsonCreator
             private constructor(
@@ -6013,10 +6105,12 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** The trustee is an individual. */
                     INDIVIDUAL,
                 }
 
                 enum class Value {
+                    /** The trustee is an individual. */
                     INDIVIDUAL,
                     _UNKNOWN,
                 }
@@ -6084,6 +6178,7 @@ private constructor(
             "Trust{address=$address, category=$category, formationDocumentFileId=$formationDocumentFileId, formationState=$formationState, grantor=$grantor, name=$name, taxIdentifier=$taxIdentifier, trustees=$trustees, additionalProperties=$additionalProperties}"
     }
 
+    /** A constant representing the object's type. For this resource it will always be `entity`. */
     class Type
     @JsonCreator
     private constructor(

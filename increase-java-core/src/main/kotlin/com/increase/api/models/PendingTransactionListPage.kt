@@ -19,6 +19,7 @@ import java.util.Optional
 import java.util.stream.Stream
 import java.util.stream.StreamSupport
 
+/** List Pending Transactions */
 class PendingTransactionListPage
 private constructor(
     private val pendingTransactionsService: PendingTransactionService,

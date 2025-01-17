@@ -321,6 +321,7 @@ private constructor(
             )
     }
 
+    /** The Bank the Program is with. */
     class Bank
     @JsonCreator
     private constructor(
@@ -341,14 +342,20 @@ private constructor(
         }
 
         enum class Known {
+            /** Blue Ridge Bank, N.A. */
             BLUE_RIDGE_BANK,
+            /** First Internet Bank of Indiana */
             FIRST_INTERNET_BANK,
+            /** Grasshopper Bank */
             GRASSHOPPER_BANK,
         }
 
         enum class Value {
+            /** Blue Ridge Bank, N.A. */
             BLUE_RIDGE_BANK,
+            /** First Internet Bank of Indiana */
             FIRST_INTERNET_BANK,
+            /** Grasshopper Bank */
             GRASSHOPPER_BANK,
             _UNKNOWN,
         }
@@ -384,6 +391,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** A constant representing the object's type. For this resource it will always be `program`. */
     class Type
     @JsonCreator
     private constructor(

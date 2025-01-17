@@ -20,6 +20,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import java.util.function.Predicate
 
+/** List Bookkeeping Entry Sets */
 class BookkeepingEntrySetListPageAsync
 private constructor(
     private val bookkeepingEntrySetsService: BookkeepingEntrySetServiceAsync,

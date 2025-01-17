@@ -19,6 +19,7 @@ import java.util.Optional
 import java.util.stream.Stream
 import java.util.stream.StreamSupport
 
+/** List Inbound Wire Transfers */
 class InboundWireTransferListPage
 private constructor(
     private val inboundWireTransfersService: InboundWireTransferService,

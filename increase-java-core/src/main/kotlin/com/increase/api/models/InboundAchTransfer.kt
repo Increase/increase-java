@@ -1040,6 +1040,7 @@ private constructor(
                 )
         }
 
+        /** The type of addendum. */
         class Category
         @JsonCreator
         private constructor(
@@ -1056,10 +1057,12 @@ private constructor(
             }
 
             enum class Known {
+                /** Unstructured addendum. */
                 FREEFORM,
             }
 
             enum class Value {
+                /** Unstructured addendum. */
                 FREEFORM,
                 _UNKNOWN,
             }
@@ -1472,6 +1475,7 @@ private constructor(
                 )
         }
 
+        /** The reason for the transfer decline. */
         class Reason
         @JsonCreator
         private constructor(
@@ -1530,42 +1534,82 @@ private constructor(
             }
 
             enum class Known {
+                /** The account number is canceled. */
                 ACH_ROUTE_CANCELED,
+                /** The account number is disabled. */
                 ACH_ROUTE_DISABLED,
+                /** The transaction would cause an Increase limit to be exceeded. */
                 BREACHES_LIMIT,
+                /** The account's entity is not active. */
                 ENTITY_NOT_ACTIVE,
+                /** Your account is inactive. */
                 GROUP_LOCKED,
+                /** The transaction is not allowed per Increase's terms. */
                 TRANSACTION_NOT_ALLOWED,
+                /** Your integration declined this transfer via the API. */
                 USER_INITIATED,
+                /** Your account contains insufficient funds. */
                 INSUFFICIENT_FUNDS,
+                /**
+                 * The originating financial institution asked for this transfer to be returned. The
+                 * receiving bank is complying with the request.
+                 */
                 RETURNED_PER_ODFI_REQUEST,
+                /** The customer no longer authorizes this transaction. */
                 AUTHORIZATION_REVOKED_BY_CUSTOMER,
+                /** The customer asked for the payment to be stopped. */
                 PAYMENT_STOPPED,
+                /** The customer advises that the debit was unauthorized. */
                 CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE,
+                /** The payee is deceased. */
                 REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY,
+                /** The account holder is deceased. */
                 BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED,
+                /** The customer refused a credit entry. */
                 CREDIT_ENTRY_REFUSED_BY_RECEIVER,
+                /** The account holder identified this transaction as a duplicate. */
                 DUPLICATE_ENTRY,
+                /** The corporate customer no longer authorizes this transaction. */
                 CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED,
             }
 
             enum class Value {
+                /** The account number is canceled. */
                 ACH_ROUTE_CANCELED,
+                /** The account number is disabled. */
                 ACH_ROUTE_DISABLED,
+                /** The transaction would cause an Increase limit to be exceeded. */
                 BREACHES_LIMIT,
+                /** The account's entity is not active. */
                 ENTITY_NOT_ACTIVE,
+                /** Your account is inactive. */
                 GROUP_LOCKED,
+                /** The transaction is not allowed per Increase's terms. */
                 TRANSACTION_NOT_ALLOWED,
+                /** Your integration declined this transfer via the API. */
                 USER_INITIATED,
+                /** Your account contains insufficient funds. */
                 INSUFFICIENT_FUNDS,
+                /**
+                 * The originating financial institution asked for this transfer to be returned. The
+                 * receiving bank is complying with the request.
+                 */
                 RETURNED_PER_ODFI_REQUEST,
+                /** The customer no longer authorizes this transaction. */
                 AUTHORIZATION_REVOKED_BY_CUSTOMER,
+                /** The customer asked for the payment to be stopped. */
                 PAYMENT_STOPPED,
+                /** The customer advises that the debit was unauthorized. */
                 CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE,
+                /** The payee is deceased. */
                 REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY,
+                /** The account holder is deceased. */
                 BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED,
+                /** The customer refused a credit entry. */
                 CREDIT_ENTRY_REFUSED_BY_RECEIVER,
+                /** The account holder identified this transaction as a duplicate. */
                 DUPLICATE_ENTRY,
+                /** The corporate customer no longer authorizes this transaction. */
                 CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED,
                 _UNKNOWN,
             }
@@ -1655,6 +1699,7 @@ private constructor(
             "Decline{declinedAt=$declinedAt, declinedTransactionId=$declinedTransactionId, reason=$reason, additionalProperties=$additionalProperties}"
     }
 
+    /** The direction of the transfer. */
     class Direction
     @JsonCreator
     private constructor(
@@ -1673,12 +1718,16 @@ private constructor(
         }
 
         enum class Known {
+            /** Credit */
             CREDIT,
+            /** Debit */
             DEBIT,
         }
 
         enum class Value {
+            /** Credit */
             CREDIT,
+            /** Debit */
             DEBIT,
             _UNKNOWN,
         }
@@ -1712,6 +1761,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** The settlement schedule the transfer is expected to follow. */
     class ExpectedSettlementSchedule
     @JsonCreator
     private constructor(
@@ -1730,12 +1780,16 @@ private constructor(
         }
 
         enum class Known {
+            /** The transfer is expected to settle same-day. */
             SAME_DAY,
+            /** The transfer is expected to settle on a future date. */
             FUTURE_DATED,
         }
 
         enum class Value {
+            /** The transfer is expected to settle same-day. */
             SAME_DAY,
+            /** The transfer is expected to settle on a future date. */
             FUTURE_DATED,
             _UNKNOWN,
         }
@@ -3072,6 +3126,7 @@ private constructor(
                 )
         }
 
+        /** A description of how the foreign exchange rate was calculated. */
         class ForeignExchangeIndicator
         @JsonCreator
         private constructor(
@@ -3092,14 +3147,38 @@ private constructor(
             }
 
             enum class Known {
+                /**
+                 * The originator chose an amount in their own currency. The settled amount in USD
+                 * was converted using the exchange rate.
+                 */
                 FIXED_TO_VARIABLE,
+                /**
+                 * The originator chose an amount to settle in USD. The originator's amount was
+                 * variable; known only after the foreign exchange conversion.
+                 */
                 VARIABLE_TO_FIXED,
+                /**
+                 * The amount was originated and settled as a fixed amount in USD. There is no
+                 * foreign exchange conversion.
+                 */
                 FIXED_TO_FIXED,
             }
 
             enum class Value {
+                /**
+                 * The originator chose an amount in their own currency. The settled amount in USD
+                 * was converted using the exchange rate.
+                 */
                 FIXED_TO_VARIABLE,
+                /**
+                 * The originator chose an amount to settle in USD. The originator's amount was
+                 * variable; known only after the foreign exchange conversion.
+                 */
                 VARIABLE_TO_FIXED,
+                /**
+                 * The amount was originated and settled as a fixed amount in USD. There is no
+                 * foreign exchange conversion.
+                 */
                 FIXED_TO_FIXED,
                 _UNKNOWN,
             }
@@ -3138,6 +3217,10 @@ private constructor(
             override fun toString() = value.toString()
         }
 
+        /**
+         * An instruction of how to interpret the `foreign_exchange_reference` field for this
+         * Transaction.
+         */
         class ForeignExchangeReferenceIndicator
         @JsonCreator
         private constructor(
@@ -3160,14 +3243,26 @@ private constructor(
             }
 
             enum class Known {
+                /** The ACH file contains a foreign exchange rate. */
                 FOREIGN_EXCHANGE_RATE,
+                /** The ACH file contains a reference to a well-known foreign exchange rate. */
                 FOREIGN_EXCHANGE_REFERENCE_NUMBER,
+                /**
+                 * There is no foreign exchange for this transfer, so the
+                 * `foreign_exchange_reference` field is blank.
+                 */
                 BLANK,
             }
 
             enum class Value {
+                /** The ACH file contains a foreign exchange rate. */
                 FOREIGN_EXCHANGE_RATE,
+                /** The ACH file contains a reference to a well-known foreign exchange rate. */
                 FOREIGN_EXCHANGE_REFERENCE_NUMBER,
+                /**
+                 * There is no foreign exchange for this transfer, so the
+                 * `foreign_exchange_reference` field is blank.
+                 */
                 BLANK,
                 _UNKNOWN,
             }
@@ -3206,6 +3301,7 @@ private constructor(
             override fun toString() = value.toString()
         }
 
+        /** The type of transfer. Set by the originator. */
         class InternationalTransactionTypeCode
         @JsonCreator
         private constructor(
@@ -3261,48 +3357,88 @@ private constructor(
             }
 
             enum class Known {
+                /** Sent as `ANN` in the Nacha file. */
                 ANNUITY,
+                /** Sent as `BUS` in the Nacha file. */
                 BUSINESS_OR_COMMERCIAL,
+                /** Sent as `DEP` in the Nacha file. */
                 DEPOSIT,
+                /** Sent as `LOA` in the Nacha file. */
                 LOAN,
+                /** Sent as `MIS` in the Nacha file. */
                 MISCELLANEOUS,
+                /** Sent as `MOR` in the Nacha file. */
                 MORTGAGE,
+                /** Sent as `PEN` in the Nacha file. */
                 PENSION,
+                /** Sent as `REM` in the Nacha file. */
                 REMITTANCE,
+                /** Sent as `RLS` in the Nacha file. */
                 RENT_OR_LEASE,
+                /** Sent as `SAL` in the Nacha file. */
                 SALARY_OR_PAYROLL,
+                /** Sent as `TAX` in the Nacha file. */
                 TAX,
+                /** Sent as `ARC` in the Nacha file. */
                 ACCOUNTS_RECEIVABLE,
+                /** Sent as `BOC` in the Nacha file. */
                 BACK_OFFICE_CONVERSION,
+                /** Sent as `MTE` in the Nacha file. */
                 MACHINE_TRANSFER,
+                /** Sent as `POP` in the Nacha file. */
                 POINT_OF_PURCHASE,
+                /** Sent as `POS` in the Nacha file. */
                 POINT_OF_SALE,
+                /** Sent as `RCK` in the Nacha file. */
                 REPRESENTED_CHECK,
+                /** Sent as `SHR` in the Nacha file. */
                 SHARED_NETWORK_TRANSACTION,
+                /** Sent as `TEL` in the Nacha file. */
                 TELPHONE_INITIATED,
+                /** Sent as `WEB` in the Nacha file. */
                 INTERNET_INITIATED,
             }
 
             enum class Value {
+                /** Sent as `ANN` in the Nacha file. */
                 ANNUITY,
+                /** Sent as `BUS` in the Nacha file. */
                 BUSINESS_OR_COMMERCIAL,
+                /** Sent as `DEP` in the Nacha file. */
                 DEPOSIT,
+                /** Sent as `LOA` in the Nacha file. */
                 LOAN,
+                /** Sent as `MIS` in the Nacha file. */
                 MISCELLANEOUS,
+                /** Sent as `MOR` in the Nacha file. */
                 MORTGAGE,
+                /** Sent as `PEN` in the Nacha file. */
                 PENSION,
+                /** Sent as `REM` in the Nacha file. */
                 REMITTANCE,
+                /** Sent as `RLS` in the Nacha file. */
                 RENT_OR_LEASE,
+                /** Sent as `SAL` in the Nacha file. */
                 SALARY_OR_PAYROLL,
+                /** Sent as `TAX` in the Nacha file. */
                 TAX,
+                /** Sent as `ARC` in the Nacha file. */
                 ACCOUNTS_RECEIVABLE,
+                /** Sent as `BOC` in the Nacha file. */
                 BACK_OFFICE_CONVERSION,
+                /** Sent as `MTE` in the Nacha file. */
                 MACHINE_TRANSFER,
+                /** Sent as `POP` in the Nacha file. */
                 POINT_OF_PURCHASE,
+                /** Sent as `POS` in the Nacha file. */
                 POINT_OF_SALE,
+                /** Sent as `RCK` in the Nacha file. */
                 REPRESENTED_CHECK,
+                /** Sent as `SHR` in the Nacha file. */
                 SHARED_NETWORK_TRANSACTION,
+                /** Sent as `TEL` in the Nacha file. */
                 TELPHONE_INITIATED,
+                /** Sent as `WEB` in the Nacha file. */
                 INTERNET_INITIATED,
                 _UNKNOWN,
             }
@@ -3375,6 +3511,10 @@ private constructor(
             override fun toString() = value.toString()
         }
 
+        /**
+         * An instruction of how to interpret the `originating_depository_financial_institution_id`
+         * field for this Transaction.
+         */
         class OriginatingDepositoryFinancialInstitutionIdQualifier
         @JsonCreator
         private constructor(
@@ -3398,14 +3538,26 @@ private constructor(
             }
 
             enum class Known {
+                /**
+                 * A domestic clearing system number. In the US, for example, this is the American
+                 * Banking Association (ABA) routing number.
+                 */
                 NATIONAL_CLEARING_SYSTEM_NUMBER,
+                /** The SWIFT Bank Identifier Code (BIC) of the bank. */
                 BIC_CODE,
+                /** An International Bank Account Number. */
                 IBAN,
             }
 
             enum class Value {
+                /**
+                 * A domestic clearing system number. In the US, for example, this is the American
+                 * Banking Association (ABA) routing number.
+                 */
                 NATIONAL_CLEARING_SYSTEM_NUMBER,
+                /** The SWIFT Bank Identifier Code (BIC) of the bank. */
                 BIC_CODE,
+                /** An International Bank Account Number. */
                 IBAN,
                 _UNKNOWN,
             }
@@ -3444,6 +3596,10 @@ private constructor(
             override fun toString() = value.toString()
         }
 
+        /**
+         * An instruction of how to interpret the `receiving_depository_financial_institution_id`
+         * field for this Transaction.
+         */
         class ReceivingDepositoryFinancialInstitutionIdQualifier
         @JsonCreator
         private constructor(
@@ -3467,14 +3623,26 @@ private constructor(
             }
 
             enum class Known {
+                /**
+                 * A domestic clearing system number. In the US, for example, this is the American
+                 * Banking Association (ABA) routing number.
+                 */
                 NATIONAL_CLEARING_SYSTEM_NUMBER,
+                /** The SWIFT Bank Identifier Code (BIC) of the bank. */
                 BIC_CODE,
+                /** An International Bank Account Number. */
                 IBAN,
             }
 
             enum class Value {
+                /**
+                 * A domestic clearing system number. In the US, for example, this is the American
+                 * Banking Association (ABA) routing number.
+                 */
                 NATIONAL_CLEARING_SYSTEM_NUMBER,
+                /** The SWIFT Bank Identifier Code (BIC) of the bank. */
                 BIC_CODE,
+                /** An International Bank Account Number. */
                 IBAN,
                 _UNKNOWN,
             }
@@ -3674,6 +3842,7 @@ private constructor(
             "NotificationOfChange{updatedAccountNumber=$updatedAccountNumber, updatedRoutingNumber=$updatedRoutingNumber, additionalProperties=$additionalProperties}"
     }
 
+    /** The Standard Entry Class (SEC) code of the transfer. */
     class StandardEntryClassCode
     @JsonCreator
     private constructor(
@@ -3720,40 +3889,72 @@ private constructor(
         }
 
         enum class Known {
+            /** Corporate Credit and Debit (CCD). */
             CORPORATE_CREDIT_OR_DEBIT,
+            /** Corporate Trade Exchange (CTX). */
             CORPORATE_TRADE_EXCHANGE,
+            /** Prearranged Payments and Deposits (PPD). */
             PREARRANGED_PAYMENTS_AND_DEPOSIT,
+            /** Internet Initiated (WEB). */
             INTERNET_INITIATED,
+            /** Point of Sale (POS). */
             POINT_OF_SALE,
+            /** Telephone Initiated (TEL). */
             TELEPHONE_INITIATED,
+            /** Customer Initiated (CIE). */
             CUSTOMER_INITIATED,
+            /** Accounts Receivable (ARC). */
             ACCOUNTS_RECEIVABLE,
+            /** Machine Transfer (MTE). */
             MACHINE_TRANSFER,
+            /** Shared Network Transaction (SHR). */
             SHARED_NETWORK_TRANSACTION,
+            /** Represented Check (RCK). */
             REPRESENTED_CHECK,
+            /** Back Office Conversion (BOC). */
             BACK_OFFICE_CONVERSION,
+            /** Point of Purchase (POP). */
             POINT_OF_PURCHASE,
+            /** Check Truncation (TRC). */
             CHECK_TRUNCATION,
+            /** Destroyed Check (XCK). */
             DESTROYED_CHECK,
+            /** International ACH Transaction (IAT). */
             INTERNATIONAL_ACH_TRANSACTION,
         }
 
         enum class Value {
+            /** Corporate Credit and Debit (CCD). */
             CORPORATE_CREDIT_OR_DEBIT,
+            /** Corporate Trade Exchange (CTX). */
             CORPORATE_TRADE_EXCHANGE,
+            /** Prearranged Payments and Deposits (PPD). */
             PREARRANGED_PAYMENTS_AND_DEPOSIT,
+            /** Internet Initiated (WEB). */
             INTERNET_INITIATED,
+            /** Point of Sale (POS). */
             POINT_OF_SALE,
+            /** Telephone Initiated (TEL). */
             TELEPHONE_INITIATED,
+            /** Customer Initiated (CIE). */
             CUSTOMER_INITIATED,
+            /** Accounts Receivable (ARC). */
             ACCOUNTS_RECEIVABLE,
+            /** Machine Transfer (MTE). */
             MACHINE_TRANSFER,
+            /** Shared Network Transaction (SHR). */
             SHARED_NETWORK_TRANSACTION,
+            /** Represented Check (RCK). */
             REPRESENTED_CHECK,
+            /** Back Office Conversion (BOC). */
             BACK_OFFICE_CONVERSION,
+            /** Point of Purchase (POP). */
             POINT_OF_PURCHASE,
+            /** Check Truncation (TRC). */
             CHECK_TRUNCATION,
+            /** Destroyed Check (XCK). */
             DESTROYED_CHECK,
+            /** International ACH Transaction (IAT). */
             INTERNATIONAL_ACH_TRANSACTION,
             _UNKNOWN,
         }
@@ -3815,6 +4016,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** The status of the transfer. */
     class Status
     @JsonCreator
     private constructor(
@@ -3837,16 +4039,30 @@ private constructor(
         }
 
         enum class Known {
+            /**
+             * The Inbound ACH Transfer is awaiting action, will transition automatically if no
+             * action is taken.
+             */
             PENDING,
+            /** The Inbound ACH Transfer has been declined. */
             DECLINED,
+            /** The Inbound ACH Transfer is accepted. */
             ACCEPTED,
+            /** The Inbound ACH Transfer has been returned. */
             RETURNED,
         }
 
         enum class Value {
+            /**
+             * The Inbound ACH Transfer is awaiting action, will transition automatically if no
+             * action is taken.
+             */
             PENDING,
+            /** The Inbound ACH Transfer has been declined. */
             DECLINED,
+            /** The Inbound ACH Transfer is accepted. */
             ACCEPTED,
+            /** The Inbound ACH Transfer has been returned. */
             RETURNED,
             _UNKNOWN,
         }
@@ -4013,6 +4229,7 @@ private constructor(
                 )
         }
 
+        /** The reason for the transfer return. */
         class Reason
         @JsonCreator
         private constructor(
@@ -4057,28 +4274,94 @@ private constructor(
             }
 
             enum class Known {
+                /**
+                 * The customer's account has insufficient funds. This reason is only allowed for
+                 * debits. The Nacha return code is R01.
+                 */
                 INSUFFICIENT_FUNDS,
+                /**
+                 * The originating financial institution asked for this transfer to be returned. The
+                 * receiving bank is complying with the request. The Nacha return code is R06.
+                 */
                 RETURNED_PER_ODFI_REQUEST,
+                /**
+                 * The customer no longer authorizes this transaction. The Nacha return code is R07.
+                 */
                 AUTHORIZATION_REVOKED_BY_CUSTOMER,
+                /**
+                 * The customer asked for the payment to be stopped. This reason is only allowed for
+                 * debits. The Nacha return code is R08.
+                 */
                 PAYMENT_STOPPED,
+                /**
+                 * The customer advises that the debit was unauthorized. The Nacha return code is
+                 * R10.
+                 */
                 CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE,
+                /** The payee is deceased. The Nacha return code is R14. */
                 REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY,
+                /** The account holder is deceased. The Nacha return code is R15. */
                 BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED,
+                /**
+                 * The customer refused a credit entry. This reason is only allowed for credits. The
+                 * Nacha return code is R23.
+                 */
                 CREDIT_ENTRY_REFUSED_BY_RECEIVER,
+                /**
+                 * The account holder identified this transaction as a duplicate. The Nacha return
+                 * code is R24.
+                 */
                 DUPLICATE_ENTRY,
+                /**
+                 * The corporate customer no longer authorizes this transaction. The Nacha return
+                 * code is R29.
+                 */
                 CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED,
             }
 
             enum class Value {
+                /**
+                 * The customer's account has insufficient funds. This reason is only allowed for
+                 * debits. The Nacha return code is R01.
+                 */
                 INSUFFICIENT_FUNDS,
+                /**
+                 * The originating financial institution asked for this transfer to be returned. The
+                 * receiving bank is complying with the request. The Nacha return code is R06.
+                 */
                 RETURNED_PER_ODFI_REQUEST,
+                /**
+                 * The customer no longer authorizes this transaction. The Nacha return code is R07.
+                 */
                 AUTHORIZATION_REVOKED_BY_CUSTOMER,
+                /**
+                 * The customer asked for the payment to be stopped. This reason is only allowed for
+                 * debits. The Nacha return code is R08.
+                 */
                 PAYMENT_STOPPED,
+                /**
+                 * The customer advises that the debit was unauthorized. The Nacha return code is
+                 * R10.
+                 */
                 CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE,
+                /** The payee is deceased. The Nacha return code is R14. */
                 REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY,
+                /** The account holder is deceased. The Nacha return code is R15. */
                 BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED,
+                /**
+                 * The customer refused a credit entry. This reason is only allowed for credits. The
+                 * Nacha return code is R23.
+                 */
                 CREDIT_ENTRY_REFUSED_BY_RECEIVER,
+                /**
+                 * The account holder identified this transaction as a duplicate. The Nacha return
+                 * code is R24.
+                 */
                 DUPLICATE_ENTRY,
+                /**
+                 * The corporate customer no longer authorizes this transaction. The Nacha return
+                 * code is R29.
+                 */
                 CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED,
                 _UNKNOWN,
             }
@@ -4154,6 +4437,10 @@ private constructor(
             "TransferReturn{reason=$reason, returnedAt=$returnedAt, transactionId=$transactionId, additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `inbound_ach_transfer`.
+     */
     class Type
     @JsonCreator
     private constructor(

@@ -20,6 +20,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import java.util.function.Predicate
 
+/** List IntraFi Account Enrollments */
 class IntrafiAccountEnrollmentListPageAsync
 private constructor(
     private val intrafiAccountEnrollmentsService: IntrafiAccountEnrollmentServiceAsync,

@@ -569,6 +569,7 @@ constructor(
             )
     }
 
+    /** The type of Export to create. */
     class Category
     @JsonCreator
     private constructor(
@@ -595,20 +596,38 @@ constructor(
         }
 
         enum class Known {
+            /**
+             * Export an Open Financial Exchange (OFX) file of transactions and balances for a given
+             * time range and Account.
+             */
             ACCOUNT_STATEMENT_OFX,
+            /** Export a CSV of all transactions for a given time range. */
             TRANSACTION_CSV,
+            /** Export a CSV of account balances for the dates in a given range. */
             BALANCE_CSV,
+            /** Export a CSV of bookkeeping account balances for the dates in a given range. */
             BOOKKEEPING_ACCOUNT_BALANCE_CSV,
+            /** Export a CSV of entities with a given status. */
             ENTITY_CSV,
+            /** Export a CSV of vendors added to the third-party risk management dashboard. */
             VENDOR_CSV,
         }
 
         enum class Value {
+            /**
+             * Export an Open Financial Exchange (OFX) file of transactions and balances for a given
+             * time range and Account.
+             */
             ACCOUNT_STATEMENT_OFX,
+            /** Export a CSV of all transactions for a given time range. */
             TRANSACTION_CSV,
+            /** Export a CSV of account balances for the dates in a given range. */
             BALANCE_CSV,
+            /** Export a CSV of bookkeeping account balances for the dates in a given range. */
             BOOKKEEPING_ACCOUNT_BALANCE_CSV,
+            /** Export a CSV of entities with a given status. */
             ENTITY_CSV,
+            /** Export a CSV of vendors added to the third-party risk management dashboard. */
             VENDOR_CSV,
             _UNKNOWN,
         }
@@ -1932,14 +1951,24 @@ constructor(
                 }
 
                 enum class Known {
+                    /** The entity is active. */
                     ACTIVE,
+                    /** The entity is archived, and can no longer be used to create accounts. */
                     ARCHIVED,
+                    /**
+                     * The entity is temporarily disabled and cannot be used for financial activity.
+                     */
                     DISABLED,
                 }
 
                 enum class Value {
+                    /** The entity is active. */
                     ACTIVE,
+                    /** The entity is archived, and can no longer be used to create accounts. */
                     ARCHIVED,
+                    /**
+                     * The entity is temporarily disabled and cannot be used for financial activity.
+                     */
                     DISABLED,
                     _UNKNOWN,
                 }

@@ -370,6 +370,10 @@ private constructor(
             )
     }
 
+    /**
+     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the Transaction's currency.
+     * This will match the currency on the Transaction's Account.
+     */
     class Currency
     @JsonCreator
     private constructor(
@@ -396,20 +400,32 @@ private constructor(
         }
 
         enum class Known {
+            /** Canadian Dollar (CAD) */
             CAD,
+            /** Swiss Franc (CHF) */
             CHF,
+            /** Euro (EUR) */
             EUR,
+            /** British Pound (GBP) */
             GBP,
+            /** Japanese Yen (JPY) */
             JPY,
+            /** US Dollar (USD) */
             USD,
         }
 
         enum class Value {
+            /** Canadian Dollar (CAD) */
             CAD,
+            /** Swiss Franc (CHF) */
             CHF,
+            /** Euro (EUR) */
             EUR,
+            /** British Pound (GBP) */
             GBP,
+            /** Japanese Yen (JPY) */
             JPY,
+            /** US Dollar (USD) */
             USD,
             _UNKNOWN,
         }
@@ -451,6 +467,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** The type of the route this Transaction came through. */
     class RouteType
     @JsonCreator
     private constructor(
@@ -471,14 +488,20 @@ private constructor(
         }
 
         enum class Known {
+            /** An Account Number. */
             ACCOUNT_NUMBER,
+            /** A Card. */
             CARD,
+            /** A Lockbox. */
             LOCKBOX,
         }
 
         enum class Value {
+            /** An Account Number. */
             ACCOUNT_NUMBER,
+            /** A Card. */
             CARD,
+            /** A Lockbox. */
             LOCKBOX,
             _UNKNOWN,
         }
@@ -2019,6 +2042,10 @@ private constructor(
                     )
             }
 
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the destination
+             * account currency.
+             */
             class Currency
             @JsonCreator
             private constructor(
@@ -2045,20 +2072,32 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                 }
 
                 enum class Value {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                     _UNKNOWN,
                 }
@@ -2713,6 +2752,10 @@ private constructor(
                     )
             }
 
+            /**
+             * Why the ACH Transfer was returned. This reason code is sent by the receiving bank
+             * back to Increase.
+             */
             class ReturnReasonCode
             @JsonCreator
             private constructor(
@@ -2923,148 +2966,580 @@ private constructor(
                 }
 
                 enum class Known {
+                    /**
+                     * Code R01. Insufficient funds in the receiving account. Sometimes abbreviated
+                     * to NSF.
+                     */
                     INSUFFICIENT_FUND,
+                    /**
+                     * Code R03. The account does not exist or the receiving bank was unable to
+                     * locate it.
+                     */
                     NO_ACCOUNT,
+                    /** Code R02. The account is closed at the receiving bank. */
                     ACCOUNT_CLOSED,
+                    /** Code R04. The account number is invalid at the receiving bank. */
                     INVALID_ACCOUNT_NUMBER_STRUCTURE,
+                    /**
+                     * Code R16. The account at the receiving bank was frozen per the Office of
+                     * Foreign Assets Control.
+                     */
                     ACCOUNT_FROZEN_ENTRY_RETURNED_PER_OFAC_INSTRUCTION,
+                    /** Code R23. The receiving bank account refused a credit transfer. */
                     CREDIT_ENTRY_REFUSED_BY_RECEIVER,
+                    /**
+                     * Code R05. The receiving bank rejected because of an incorrect Standard Entry
+                     * Class code.
+                     */
                     UNAUTHORIZED_DEBIT_TO_CONSUMER_ACCOUNT_USING_CORPORATE_SEC_CODE,
+                    /**
+                     * Code R29. The corporate customer at the receiving bank reversed the transfer.
+                     */
                     CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED,
+                    /** Code R08. The receiving bank stopped payment on this transfer. */
                     PAYMENT_STOPPED,
+                    /** Code R20. The receiving bank account does not perform transfers. */
                     NON_TRANSACTION_ACCOUNT,
+                    /**
+                     * Code R09. The receiving bank account does not have enough available balance
+                     * for the transfer.
+                     */
                     UNCOLLECTED_FUNDS,
+                    /** Code R28. The routing number is incorrect. */
                     ROUTING_NUMBER_CHECK_DIGIT_ERROR,
+                    /** Code R10. The customer at the receiving bank reversed the transfer. */
                     CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE,
+                    /** Code R19. The amount field is incorrect or too large. */
                     AMOUNT_FIELD_ERROR,
+                    /**
+                     * Code R07. The customer at the receiving institution informed their bank that
+                     * they have revoked authorization for a previously authorized transfer.
+                     */
                     AUTHORIZATION_REVOKED_BY_CUSTOMER,
+                    /** Code R13. The routing number is invalid. */
                     INVALID_ACH_ROUTING_NUMBER,
+                    /**
+                     * Code R17. The receiving bank is unable to process a field in the transfer.
+                     */
                     FILE_RECORD_EDIT_CRITERIA,
+                    /** Code R45. The individual name field was invalid. */
                     ENR_INVALID_INDIVIDUAL_NAME,
+                    /**
+                     * Code R06. The originating financial institution asked for this transfer to be
+                     * returned. The receiving bank is complying with the request.
+                     */
                     RETURNED_PER_ODFI_REQUEST,
+                    /**
+                     * Code R34. The receiving bank's regulatory supervisor has limited their
+                     * participation in the ACH network.
+                     */
                     LIMITED_PARTICIPATION_DFI,
+                    /** Code R85. The outbound international ACH transfer was incorrect. */
                     INCORRECTLY_CODED_OUTBOUND_INTERNATIONAL_PAYMENT,
+                    /** Code R12. A rare return reason. The account was sold to another bank. */
                     ACCOUNT_SOLD_TO_ANOTHER_DFI,
+                    /** Code R25. The addenda record is incorrect or missing. */
                     ADDENDA_ERROR,
+                    /** Code R15. A rare return reason. The account holder is deceased. */
                     BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED,
+                    /**
+                     * Code R11. A rare return reason. The customer authorized some payment to the
+                     * sender, but this payment was not in error.
+                     */
                     CUSTOMER_ADVISED_NOT_WITHIN_AUTHORIZATION_TERMS,
+                    /**
+                     * Code R74. A rare return reason. Sent in response to a return that was
+                     * returned with code `field_error`. The latest return should include the
+                     * corrected field(s).
+                     */
                     CORRECTED_RETURN,
+                    /**
+                     * Code R24. A rare return reason. The receiving bank received an exact
+                     * duplicate entry with the same trace number and amount.
+                     */
                     DUPLICATE_ENTRY,
+                    /**
+                     * Code R67. A rare return reason. The return this message refers to was a
+                     * duplicate.
+                     */
                     DUPLICATE_RETURN,
+                    /**
+                     * Code R47. A rare return reason. Only used for US Government agency
+                     * non-monetary automatic enrollment messages.
+                     */
                     ENR_DUPLICATE_ENROLLMENT,
+                    /**
+                     * Code R43. A rare return reason. Only used for US Government agency
+                     * non-monetary automatic enrollment messages.
+                     */
                     ENR_INVALID_DFI_ACCOUNT_NUMBER,
+                    /**
+                     * Code R44. A rare return reason. Only used for US Government agency
+                     * non-monetary automatic enrollment messages.
+                     */
                     ENR_INVALID_INDIVIDUAL_ID_NUMBER,
+                    /**
+                     * Code R46. A rare return reason. Only used for US Government agency
+                     * non-monetary automatic enrollment messages.
+                     */
                     ENR_INVALID_REPRESENTATIVE_PAYEE_INDICATOR,
+                    /**
+                     * Code R41. A rare return reason. Only used for US Government agency
+                     * non-monetary automatic enrollment messages.
+                     */
                     ENR_INVALID_TRANSACTION_CODE,
+                    /**
+                     * Code R40. A rare return reason. Only used for US Government agency
+                     * non-monetary automatic enrollment messages.
+                     */
                     ENR_RETURN_OF_ENR_ENTRY,
+                    /**
+                     * Code R42. A rare return reason. Only used for US Government agency
+                     * non-monetary automatic enrollment messages.
+                     */
                     ENR_ROUTING_NUMBER_CHECK_DIGIT_ERROR,
+                    /**
+                     * Code R84. A rare return reason. The International ACH Transfer cannot be
+                     * processed by the gateway.
+                     */
                     ENTRY_NOT_PROCESSED_BY_GATEWAY,
+                    /**
+                     * Code R69. A rare return reason. One or more of the fields in the ACH were
+                     * malformed.
+                     */
                     FIELD_ERROR,
+                    /**
+                     * Code R83. A rare return reason. The Foreign receiving bank was unable to
+                     * settle this ACH transfer.
+                     */
                     FOREIGN_RECEIVING_DFI_UNABLE_TO_SETTLE,
+                    /**
+                     * Code R80. A rare return reason. The International ACH Transfer is malformed.
+                     */
                     IAT_ENTRY_CODING_ERROR,
+                    /**
+                     * Code R18. A rare return reason. The ACH has an improper effective entry date
+                     * field.
+                     */
                     IMPROPER_EFFECTIVE_ENTRY_DATE,
+                    /**
+                     * Code R39. A rare return reason. The source document related to this ACH,
+                     * usually an ACH check conversion, was presented to the bank.
+                     */
                     IMPROPER_SOURCE_DOCUMENT_SOURCE_DOCUMENT_PRESENTED,
+                    /**
+                     * Code R21. A rare return reason. The Company ID field of the ACH was invalid.
+                     */
                     INVALID_COMPANY_ID,
+                    /**
+                     * Code R82. A rare return reason. The foreign receiving bank identifier for an
+                     * International ACH Transfer was invalid.
+                     */
                     INVALID_FOREIGN_RECEIVING_DFI_IDENTIFICATION,
+                    /**
+                     * Code R22. A rare return reason. The Individual ID number field of the ACH was
+                     * invalid.
+                     */
                     INVALID_INDIVIDUAL_ID_NUMBER,
+                    /**
+                     * Code R53. A rare return reason. Both the Represented Check ("RCK") entry and
+                     * the original check were presented to the bank.
+                     */
                     ITEM_AND_RCK_ENTRY_PRESENTED_FOR_PAYMENT,
+                    /**
+                     * Code R51. A rare return reason. The Represented Check ("RCK") entry is
+                     * ineligible.
+                     */
                     ITEM_RELATED_TO_RCK_ENTRY_IS_INELIGIBLE,
+                    /** Code R26. A rare return reason. The ACH is missing a required field. */
                     MANDATORY_FIELD_ERROR,
+                    /**
+                     * Code R71. A rare return reason. The receiving bank does not recognize the
+                     * routing number in a dishonored return entry.
+                     */
                     MISROUTED_DISHONORED_RETURN,
+                    /**
+                     * Code R61. A rare return reason. The receiving bank does not recognize the
+                     * routing number in a return entry.
+                     */
                     MISROUTED_RETURN,
+                    /**
+                     * Code R76. A rare return reason. Sent in response to a return, the bank does
+                     * not find the errors alleged by the returning bank.
+                     */
                     NO_ERRORS_FOUND,
+                    /**
+                     * Code R77. A rare return reason. The receiving bank does not accept the return
+                     * of the erroneous debit. The funds are not available at the receiving bank.
+                     */
                     NON_ACCEPTANCE_OF_R62_DISHONORED_RETURN,
+                    /**
+                     * Code R81. A rare return reason. The receiving bank does not accept
+                     * International ACH Transfers.
+                     */
                     NON_PARTICIPANT_IN_IAT_PROGRAM,
+                    /**
+                     * Code R31. A rare return reason. A return that has been agreed to be accepted
+                     * by the receiving bank, despite falling outside of the usual return timeframe.
+                     */
                     PERMISSIBLE_RETURN_ENTRY,
+                    /**
+                     * Code R70. A rare return reason. The receiving bank had not approved this
+                     * return.
+                     */
                     PERMISSIBLE_RETURN_ENTRY_NOT_ACCEPTED,
+                    /**
+                     * Code R32. A rare return reason. The receiving bank could not settle this
+                     * transaction.
+                     */
                     RDFI_NON_SETTLEMENT,
+                    /**
+                     * Code R30. A rare return reason. The receiving bank does not accept Check
+                     * Truncation ACH transfers.
+                     */
                     RDFI_PARTICIPANT_IN_CHECK_TRUNCATION_PROGRAM,
+                    /** Code R14. A rare return reason. The payee is deceased. */
                     REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY,
+                    /**
+                     * Code R75. A rare return reason. The originating bank disputes that an earlier
+                     * `duplicate_entry` return was actually a duplicate.
+                     */
                     RETURN_NOT_A_DUPLICATE,
+                    /**
+                     * Code R62. A rare return reason. The originating financial institution made a
+                     * mistake and this return corrects it.
+                     */
                     RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT,
+                    /** Code R36. A rare return reason. Return of a malformed credit entry. */
                     RETURN_OF_IMPROPER_CREDIT_ENTRY,
+                    /** Code R35. A rare return reason. Return of a malformed debit entry. */
                     RETURN_OF_IMPROPER_DEBIT_ENTRY,
+                    /**
+                     * Code R33. A rare return reason. Return of a Destroyed Check ("XKC") entry.
+                     */
                     RETURN_OF_XCK_ENTRY,
+                    /**
+                     * Code R37. A rare return reason. The source document related to this ACH,
+                     * usually an ACH check conversion, was presented to the bank.
+                     */
                     SOURCE_DOCUMENT_PRESENTED_FOR_PAYMENT,
+                    /**
+                     * Code R50. A rare return reason. State law prevents the bank from accepting
+                     * the Represented Check ("RCK") entry.
+                     */
                     STATE_LAW_AFFECTING_RCK_ACCEPTANCE,
+                    /**
+                     * Code R52. A rare return reason. A stop payment was issued on a Represented
+                     * Check ("RCK") entry.
+                     */
                     STOP_PAYMENT_ON_ITEM_RELATED_TO_RCK_ENTRY,
+                    /**
+                     * Code R38. A rare return reason. The source attached to the ACH, usually an
+                     * ACH check conversion, includes a stop payment.
+                     */
                     STOP_PAYMENT_ON_SOURCE_DOCUMENT,
+                    /**
+                     * Code R73. A rare return reason. The bank receiving an `untimely_return`
+                     * believes it was on time.
+                     */
                     TIMELY_ORIGINAL_RETURN,
+                    /**
+                     * Code R27. A rare return reason. An ACH return's trace number does not match
+                     * an originated ACH.
+                     */
                     TRACE_NUMBER_ERROR,
+                    /** Code R72. A rare return reason. The dishonored return was sent too late. */
                     UNTIMELY_DISHONORED_RETURN,
+                    /** Code R68. A rare return reason. The return was sent too late. */
                     UNTIMELY_RETURN,
                 }
 
                 enum class Value {
+                    /**
+                     * Code R01. Insufficient funds in the receiving account. Sometimes abbreviated
+                     * to NSF.
+                     */
                     INSUFFICIENT_FUND,
+                    /**
+                     * Code R03. The account does not exist or the receiving bank was unable to
+                     * locate it.
+                     */
                     NO_ACCOUNT,
+                    /** Code R02. The account is closed at the receiving bank. */
                     ACCOUNT_CLOSED,
+                    /** Code R04. The account number is invalid at the receiving bank. */
                     INVALID_ACCOUNT_NUMBER_STRUCTURE,
+                    /**
+                     * Code R16. The account at the receiving bank was frozen per the Office of
+                     * Foreign Assets Control.
+                     */
                     ACCOUNT_FROZEN_ENTRY_RETURNED_PER_OFAC_INSTRUCTION,
+                    /** Code R23. The receiving bank account refused a credit transfer. */
                     CREDIT_ENTRY_REFUSED_BY_RECEIVER,
+                    /**
+                     * Code R05. The receiving bank rejected because of an incorrect Standard Entry
+                     * Class code.
+                     */
                     UNAUTHORIZED_DEBIT_TO_CONSUMER_ACCOUNT_USING_CORPORATE_SEC_CODE,
+                    /**
+                     * Code R29. The corporate customer at the receiving bank reversed the transfer.
+                     */
                     CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED,
+                    /** Code R08. The receiving bank stopped payment on this transfer. */
                     PAYMENT_STOPPED,
+                    /** Code R20. The receiving bank account does not perform transfers. */
                     NON_TRANSACTION_ACCOUNT,
+                    /**
+                     * Code R09. The receiving bank account does not have enough available balance
+                     * for the transfer.
+                     */
                     UNCOLLECTED_FUNDS,
+                    /** Code R28. The routing number is incorrect. */
                     ROUTING_NUMBER_CHECK_DIGIT_ERROR,
+                    /** Code R10. The customer at the receiving bank reversed the transfer. */
                     CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE,
+                    /** Code R19. The amount field is incorrect or too large. */
                     AMOUNT_FIELD_ERROR,
+                    /**
+                     * Code R07. The customer at the receiving institution informed their bank that
+                     * they have revoked authorization for a previously authorized transfer.
+                     */
                     AUTHORIZATION_REVOKED_BY_CUSTOMER,
+                    /** Code R13. The routing number is invalid. */
                     INVALID_ACH_ROUTING_NUMBER,
+                    /**
+                     * Code R17. The receiving bank is unable to process a field in the transfer.
+                     */
                     FILE_RECORD_EDIT_CRITERIA,
+                    /** Code R45. The individual name field was invalid. */
                     ENR_INVALID_INDIVIDUAL_NAME,
+                    /**
+                     * Code R06. The originating financial institution asked for this transfer to be
+                     * returned. The receiving bank is complying with the request.
+                     */
                     RETURNED_PER_ODFI_REQUEST,
+                    /**
+                     * Code R34. The receiving bank's regulatory supervisor has limited their
+                     * participation in the ACH network.
+                     */
                     LIMITED_PARTICIPATION_DFI,
+                    /** Code R85. The outbound international ACH transfer was incorrect. */
                     INCORRECTLY_CODED_OUTBOUND_INTERNATIONAL_PAYMENT,
+                    /** Code R12. A rare return reason. The account was sold to another bank. */
                     ACCOUNT_SOLD_TO_ANOTHER_DFI,
+                    /** Code R25. The addenda record is incorrect or missing. */
                     ADDENDA_ERROR,
+                    /** Code R15. A rare return reason. The account holder is deceased. */
                     BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED,
+                    /**
+                     * Code R11. A rare return reason. The customer authorized some payment to the
+                     * sender, but this payment was not in error.
+                     */
                     CUSTOMER_ADVISED_NOT_WITHIN_AUTHORIZATION_TERMS,
+                    /**
+                     * Code R74. A rare return reason. Sent in response to a return that was
+                     * returned with code `field_error`. The latest return should include the
+                     * corrected field(s).
+                     */
                     CORRECTED_RETURN,
+                    /**
+                     * Code R24. A rare return reason. The receiving bank received an exact
+                     * duplicate entry with the same trace number and amount.
+                     */
                     DUPLICATE_ENTRY,
+                    /**
+                     * Code R67. A rare return reason. The return this message refers to was a
+                     * duplicate.
+                     */
                     DUPLICATE_RETURN,
+                    /**
+                     * Code R47. A rare return reason. Only used for US Government agency
+                     * non-monetary automatic enrollment messages.
+                     */
                     ENR_DUPLICATE_ENROLLMENT,
+                    /**
+                     * Code R43. A rare return reason. Only used for US Government agency
+                     * non-monetary automatic enrollment messages.
+                     */
                     ENR_INVALID_DFI_ACCOUNT_NUMBER,
+                    /**
+                     * Code R44. A rare return reason. Only used for US Government agency
+                     * non-monetary automatic enrollment messages.
+                     */
                     ENR_INVALID_INDIVIDUAL_ID_NUMBER,
+                    /**
+                     * Code R46. A rare return reason. Only used for US Government agency
+                     * non-monetary automatic enrollment messages.
+                     */
                     ENR_INVALID_REPRESENTATIVE_PAYEE_INDICATOR,
+                    /**
+                     * Code R41. A rare return reason. Only used for US Government agency
+                     * non-monetary automatic enrollment messages.
+                     */
                     ENR_INVALID_TRANSACTION_CODE,
+                    /**
+                     * Code R40. A rare return reason. Only used for US Government agency
+                     * non-monetary automatic enrollment messages.
+                     */
                     ENR_RETURN_OF_ENR_ENTRY,
+                    /**
+                     * Code R42. A rare return reason. Only used for US Government agency
+                     * non-monetary automatic enrollment messages.
+                     */
                     ENR_ROUTING_NUMBER_CHECK_DIGIT_ERROR,
+                    /**
+                     * Code R84. A rare return reason. The International ACH Transfer cannot be
+                     * processed by the gateway.
+                     */
                     ENTRY_NOT_PROCESSED_BY_GATEWAY,
+                    /**
+                     * Code R69. A rare return reason. One or more of the fields in the ACH were
+                     * malformed.
+                     */
                     FIELD_ERROR,
+                    /**
+                     * Code R83. A rare return reason. The Foreign receiving bank was unable to
+                     * settle this ACH transfer.
+                     */
                     FOREIGN_RECEIVING_DFI_UNABLE_TO_SETTLE,
+                    /**
+                     * Code R80. A rare return reason. The International ACH Transfer is malformed.
+                     */
                     IAT_ENTRY_CODING_ERROR,
+                    /**
+                     * Code R18. A rare return reason. The ACH has an improper effective entry date
+                     * field.
+                     */
                     IMPROPER_EFFECTIVE_ENTRY_DATE,
+                    /**
+                     * Code R39. A rare return reason. The source document related to this ACH,
+                     * usually an ACH check conversion, was presented to the bank.
+                     */
                     IMPROPER_SOURCE_DOCUMENT_SOURCE_DOCUMENT_PRESENTED,
+                    /**
+                     * Code R21. A rare return reason. The Company ID field of the ACH was invalid.
+                     */
                     INVALID_COMPANY_ID,
+                    /**
+                     * Code R82. A rare return reason. The foreign receiving bank identifier for an
+                     * International ACH Transfer was invalid.
+                     */
                     INVALID_FOREIGN_RECEIVING_DFI_IDENTIFICATION,
+                    /**
+                     * Code R22. A rare return reason. The Individual ID number field of the ACH was
+                     * invalid.
+                     */
                     INVALID_INDIVIDUAL_ID_NUMBER,
+                    /**
+                     * Code R53. A rare return reason. Both the Represented Check ("RCK") entry and
+                     * the original check were presented to the bank.
+                     */
                     ITEM_AND_RCK_ENTRY_PRESENTED_FOR_PAYMENT,
+                    /**
+                     * Code R51. A rare return reason. The Represented Check ("RCK") entry is
+                     * ineligible.
+                     */
                     ITEM_RELATED_TO_RCK_ENTRY_IS_INELIGIBLE,
+                    /** Code R26. A rare return reason. The ACH is missing a required field. */
                     MANDATORY_FIELD_ERROR,
+                    /**
+                     * Code R71. A rare return reason. The receiving bank does not recognize the
+                     * routing number in a dishonored return entry.
+                     */
                     MISROUTED_DISHONORED_RETURN,
+                    /**
+                     * Code R61. A rare return reason. The receiving bank does not recognize the
+                     * routing number in a return entry.
+                     */
                     MISROUTED_RETURN,
+                    /**
+                     * Code R76. A rare return reason. Sent in response to a return, the bank does
+                     * not find the errors alleged by the returning bank.
+                     */
                     NO_ERRORS_FOUND,
+                    /**
+                     * Code R77. A rare return reason. The receiving bank does not accept the return
+                     * of the erroneous debit. The funds are not available at the receiving bank.
+                     */
                     NON_ACCEPTANCE_OF_R62_DISHONORED_RETURN,
+                    /**
+                     * Code R81. A rare return reason. The receiving bank does not accept
+                     * International ACH Transfers.
+                     */
                     NON_PARTICIPANT_IN_IAT_PROGRAM,
+                    /**
+                     * Code R31. A rare return reason. A return that has been agreed to be accepted
+                     * by the receiving bank, despite falling outside of the usual return timeframe.
+                     */
                     PERMISSIBLE_RETURN_ENTRY,
+                    /**
+                     * Code R70. A rare return reason. The receiving bank had not approved this
+                     * return.
+                     */
                     PERMISSIBLE_RETURN_ENTRY_NOT_ACCEPTED,
+                    /**
+                     * Code R32. A rare return reason. The receiving bank could not settle this
+                     * transaction.
+                     */
                     RDFI_NON_SETTLEMENT,
+                    /**
+                     * Code R30. A rare return reason. The receiving bank does not accept Check
+                     * Truncation ACH transfers.
+                     */
                     RDFI_PARTICIPANT_IN_CHECK_TRUNCATION_PROGRAM,
+                    /** Code R14. A rare return reason. The payee is deceased. */
                     REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY,
+                    /**
+                     * Code R75. A rare return reason. The originating bank disputes that an earlier
+                     * `duplicate_entry` return was actually a duplicate.
+                     */
                     RETURN_NOT_A_DUPLICATE,
+                    /**
+                     * Code R62. A rare return reason. The originating financial institution made a
+                     * mistake and this return corrects it.
+                     */
                     RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT,
+                    /** Code R36. A rare return reason. Return of a malformed credit entry. */
                     RETURN_OF_IMPROPER_CREDIT_ENTRY,
+                    /** Code R35. A rare return reason. Return of a malformed debit entry. */
                     RETURN_OF_IMPROPER_DEBIT_ENTRY,
+                    /**
+                     * Code R33. A rare return reason. Return of a Destroyed Check ("XKC") entry.
+                     */
                     RETURN_OF_XCK_ENTRY,
+                    /**
+                     * Code R37. A rare return reason. The source document related to this ACH,
+                     * usually an ACH check conversion, was presented to the bank.
+                     */
                     SOURCE_DOCUMENT_PRESENTED_FOR_PAYMENT,
+                    /**
+                     * Code R50. A rare return reason. State law prevents the bank from accepting
+                     * the Represented Check ("RCK") entry.
+                     */
                     STATE_LAW_AFFECTING_RCK_ACCEPTANCE,
+                    /**
+                     * Code R52. A rare return reason. A stop payment was issued on a Represented
+                     * Check ("RCK") entry.
+                     */
                     STOP_PAYMENT_ON_ITEM_RELATED_TO_RCK_ENTRY,
+                    /**
+                     * Code R38. A rare return reason. The source attached to the ACH, usually an
+                     * ACH check conversion, includes a stop payment.
+                     */
                     STOP_PAYMENT_ON_SOURCE_DOCUMENT,
+                    /**
+                     * Code R73. A rare return reason. The bank receiving an `untimely_return`
+                     * believes it was on time.
+                     */
                     TIMELY_ORIGINAL_RETURN,
+                    /**
+                     * Code R27. A rare return reason. An ACH return's trace number does not match
+                     * an originated ACH.
+                     */
                     TRACE_NUMBER_ERROR,
+                    /** Code R72. A rare return reason. The dishonored return was sent too late. */
                     UNTIMELY_DISHONORED_RETURN,
+                    /** Code R68. A rare return reason. The return was sent too late. */
                     UNTIMELY_RETURN,
                     _UNKNOWN,
                 }
@@ -4441,6 +4916,7 @@ private constructor(
                         )
                 }
 
+                /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the cashback. */
                 class Currency
                 @JsonCreator
                 private constructor(
@@ -4468,20 +4944,32 @@ private constructor(
                     }
 
                     enum class Known {
+                        /** Canadian Dollar (CAD) */
                         CAD,
+                        /** Swiss Franc (CHF) */
                         CHF,
+                        /** Euro (EUR) */
                         EUR,
+                        /** British Pound (GBP) */
                         GBP,
+                        /** Japanese Yen (JPY) */
                         JPY,
+                        /** US Dollar (USD) */
                         USD,
                     }
 
                     enum class Value {
+                        /** Canadian Dollar (CAD) */
                         CAD,
+                        /** Swiss Franc (CHF) */
                         CHF,
+                        /** Euro (EUR) */
                         EUR,
+                        /** British Pound (GBP) */
                         GBP,
+                        /** Japanese Yen (JPY) */
                         JPY,
+                        /** US Dollar (USD) */
                         USD,
                         _UNKNOWN,
                     }
@@ -4541,6 +5029,10 @@ private constructor(
                     "Cashback{amount=$amount, currency=$currency, additionalProperties=$additionalProperties}"
             }
 
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+             * settlement currency.
+             */
             class Currency
             @JsonCreator
             private constructor(
@@ -4567,20 +5059,32 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                 }
 
                 enum class Value {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                     _UNKNOWN,
                 }
@@ -4779,6 +5283,10 @@ private constructor(
                         )
                 }
 
+                /**
+                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the interchange
+                 * reimbursement.
+                 */
                 class Currency
                 @JsonCreator
                 private constructor(
@@ -4806,20 +5314,32 @@ private constructor(
                     }
 
                     enum class Known {
+                        /** Canadian Dollar (CAD) */
                         CAD,
+                        /** Swiss Franc (CHF) */
                         CHF,
+                        /** Euro (EUR) */
                         EUR,
+                        /** British Pound (GBP) */
                         GBP,
+                        /** Japanese Yen (JPY) */
                         JPY,
+                        /** US Dollar (USD) */
                         USD,
                     }
 
                     enum class Value {
+                        /** Canadian Dollar (CAD) */
                         CAD,
+                        /** Swiss Franc (CHF) */
                         CHF,
+                        /** Euro (EUR) */
                         EUR,
+                        /** British Pound (GBP) */
                         GBP,
+                        /** Japanese Yen (JPY) */
                         JPY,
+                        /** US Dollar (USD) */
                         USD,
                         _UNKNOWN,
                     }
@@ -6226,6 +6746,7 @@ private constructor(
                             )
                     }
 
+                    /** Additional charges (gas, late fee, etc.) being billed. */
                     class ExtraCharges
                     @JsonCreator
                     private constructor(
@@ -6253,20 +6774,32 @@ private constructor(
                         }
 
                         enum class Known {
+                            /** No extra charge */
                             NO_EXTRA_CHARGE,
+                            /** Gas */
                             GAS,
+                            /** Extra mileage */
                             EXTRA_MILEAGE,
+                            /** Late return */
                             LATE_RETURN,
+                            /** One way service fee */
                             ONE_WAY_SERVICE_FEE,
+                            /** Parking violation */
                             PARKING_VIOLATION,
                         }
 
                         enum class Value {
+                            /** No extra charge */
                             NO_EXTRA_CHARGE,
+                            /** Gas */
                             GAS,
+                            /** Extra mileage */
                             EXTRA_MILEAGE,
+                            /** Late return */
                             LATE_RETURN,
+                            /** One way service fee */
                             ONE_WAY_SERVICE_FEE,
+                            /** Parking violation */
                             PARKING_VIOLATION,
                             _UNKNOWN,
                         }
@@ -6311,6 +6844,10 @@ private constructor(
                         override fun toString() = value.toString()
                     }
 
+                    /**
+                     * An indicator that the cardholder is being billed for a reserved vehicle that
+                     * was not actually rented (that is, a "no-show" charge).
+                     */
                     class NoShowIndicator
                     @JsonCreator
                     private constructor(
@@ -6332,12 +6869,16 @@ private constructor(
                         }
 
                         enum class Known {
+                            /** Not applicable */
                             NOT_APPLICABLE,
+                            /** No show for specialized vehicle */
                             NO_SHOW_FOR_SPECIALIZED_VEHICLE,
                         }
 
                         enum class Value {
+                            /** Not applicable */
                             NOT_APPLICABLE,
+                            /** No show for specialized vehicle */
                             NO_SHOW_FOR_SPECIALIZED_VEHICLE,
                             _UNKNOWN,
                         }
@@ -7122,6 +7663,7 @@ private constructor(
                             )
                     }
 
+                    /** Additional charges (phone, late check-out, etc.) being billed. */
                     class ExtraCharges
                     @JsonCreator
                     private constructor(
@@ -7151,22 +7693,36 @@ private constructor(
                         }
 
                         enum class Known {
+                            /** No extra charge */
                             NO_EXTRA_CHARGE,
+                            /** Restaurant */
                             RESTAURANT,
+                            /** Gift shop */
                             GIFT_SHOP,
+                            /** Mini bar */
                             MINI_BAR,
+                            /** Telephone */
                             TELEPHONE,
+                            /** Other */
                             OTHER,
+                            /** Laundry */
                             LAUNDRY,
                         }
 
                         enum class Value {
+                            /** No extra charge */
                             NO_EXTRA_CHARGE,
+                            /** Restaurant */
                             RESTAURANT,
+                            /** Gift shop */
                             GIFT_SHOP,
+                            /** Mini bar */
                             MINI_BAR,
+                            /** Telephone */
                             TELEPHONE,
+                            /** Other */
                             OTHER,
+                            /** Laundry */
                             LAUNDRY,
                             _UNKNOWN,
                         }
@@ -7213,6 +7769,10 @@ private constructor(
                         override fun toString() = value.toString()
                     }
 
+                    /**
+                     * Indicator that the cardholder is being billed for a reserved room that was
+                     * not actually used.
+                     */
                     class NoShowIndicator
                     @JsonCreator
                     private constructor(
@@ -7232,12 +7792,16 @@ private constructor(
                         }
 
                         enum class Known {
+                            /** Not applicable */
                             NOT_APPLICABLE,
+                            /** No show */
                             NO_SHOW,
                         }
 
                         enum class Value {
+                            /** Not applicable */
                             NOT_APPLICABLE,
+                            /** No show */
                             NO_SHOW,
                             _UNKNOWN,
                         }
@@ -7292,6 +7856,7 @@ private constructor(
                         "Lodging{checkInDate=$checkInDate, dailyRoomRateAmount=$dailyRoomRateAmount, dailyRoomRateCurrency=$dailyRoomRateCurrency, extraCharges=$extraCharges, folioCashAdvancesAmount=$folioCashAdvancesAmount, folioCashAdvancesCurrency=$folioCashAdvancesCurrency, foodBeverageChargesAmount=$foodBeverageChargesAmount, foodBeverageChargesCurrency=$foodBeverageChargesCurrency, noShowIndicator=$noShowIndicator, prepaidExpensesAmount=$prepaidExpensesAmount, prepaidExpensesCurrency=$prepaidExpensesCurrency, roomNights=$roomNights, totalRoomTaxAmount=$totalRoomTaxAmount, totalRoomTaxCurrency=$totalRoomTaxCurrency, totalTaxAmount=$totalTaxAmount, totalTaxCurrency=$totalTaxCurrency, additionalProperties=$additionalProperties}"
                 }
 
+                /** The format of the purchase identifier. */
                 class PurchaseIdentifierFormat
                 @JsonCreator
                 private constructor(
@@ -7318,18 +7883,28 @@ private constructor(
                     }
 
                     enum class Known {
+                        /** Free text */
                         FREE_TEXT,
+                        /** Order number */
                         ORDER_NUMBER,
+                        /** Rental agreement number */
                         RENTAL_AGREEMENT_NUMBER,
+                        /** Hotel folio number */
                         HOTEL_FOLIO_NUMBER,
+                        /** Invoice number */
                         INVOICE_NUMBER,
                     }
 
                     enum class Value {
+                        /** Free text */
                         FREE_TEXT,
+                        /** Order number */
                         ORDER_NUMBER,
+                        /** Rental agreement number */
                         RENTAL_AGREEMENT_NUMBER,
+                        /** Hotel folio number */
                         HOTEL_FOLIO_NUMBER,
+                        /** Invoice number */
                         INVOICE_NUMBER,
                         _UNKNOWN,
                     }
@@ -8158,6 +8733,7 @@ private constructor(
                                 )
                         }
 
+                        /** Indicates the reason for a credit to the cardholder. */
                         class CreditReasonIndicator
                         @JsonCreator
                         private constructor(
@@ -8188,16 +8764,30 @@ private constructor(
                             }
 
                             enum class Known {
+                                /** No credit */
                                 NO_CREDIT,
+                                /** Passenger transport ancillary purchase cancellation */
                                 PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                                /**
+                                 * Airline ticket and passenger transport ancillary purchase
+                                 * cancellation
+                                 */
                                 AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                                /** Other */
                                 OTHER,
                             }
 
                             enum class Value {
+                                /** No credit */
                                 NO_CREDIT,
+                                /** Passenger transport ancillary purchase cancellation */
                                 PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                                /**
+                                 * Airline ticket and passenger transport ancillary purchase
+                                 * cancellation
+                                 */
                                 AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                                /** Other */
                                 OTHER,
                                 _UNKNOWN,
                             }
@@ -8373,6 +8963,7 @@ private constructor(
                                     )
                             }
 
+                            /** Category of the ancillary service. */
                             class Category
                             @JsonCreator
                             private constructor(
@@ -8437,56 +9028,104 @@ private constructor(
                                 }
 
                                 enum class Known {
+                                    /** None */
                                     NONE,
+                                    /** Bundled service */
                                     BUNDLED_SERVICE,
+                                    /** Baggage fee */
                                     BAGGAGE_FEE,
+                                    /** Change fee */
                                     CHANGE_FEE,
+                                    /** Cargo */
                                     CARGO,
+                                    /** Carbon offset */
                                     CARBON_OFFSET,
+                                    /** Frequent flyer */
                                     FREQUENT_FLYER,
+                                    /** Gift card */
                                     GIFT_CARD,
+                                    /** Ground transport */
                                     GROUND_TRANSPORT,
+                                    /** In-flight entertainment */
                                     IN_FLIGHT_ENTERTAINMENT,
+                                    /** Lounge */
                                     LOUNGE,
+                                    /** Medical */
                                     MEDICAL,
+                                    /** Meal beverage */
                                     MEAL_BEVERAGE,
+                                    /** Other */
                                     OTHER,
+                                    /** Passenger assist fee */
                                     PASSENGER_ASSIST_FEE,
+                                    /** Pets */
                                     PETS,
+                                    /** Seat fees */
                                     SEAT_FEES,
+                                    /** Standby */
                                     STANDBY,
+                                    /** Service fee */
                                     SERVICE_FEE,
+                                    /** Store */
                                     STORE,
+                                    /** Travel service */
                                     TRAVEL_SERVICE,
+                                    /** Unaccompanied travel */
                                     UNACCOMPANIED_TRAVEL,
+                                    /** Upgrades */
                                     UPGRADES,
+                                    /** Wi-fi */
                                     WIFI,
                                 }
 
                                 enum class Value {
+                                    /** None */
                                     NONE,
+                                    /** Bundled service */
                                     BUNDLED_SERVICE,
+                                    /** Baggage fee */
                                     BAGGAGE_FEE,
+                                    /** Change fee */
                                     CHANGE_FEE,
+                                    /** Cargo */
                                     CARGO,
+                                    /** Carbon offset */
                                     CARBON_OFFSET,
+                                    /** Frequent flyer */
                                     FREQUENT_FLYER,
+                                    /** Gift card */
                                     GIFT_CARD,
+                                    /** Ground transport */
                                     GROUND_TRANSPORT,
+                                    /** In-flight entertainment */
                                     IN_FLIGHT_ENTERTAINMENT,
+                                    /** Lounge */
                                     LOUNGE,
+                                    /** Medical */
                                     MEDICAL,
+                                    /** Meal beverage */
                                     MEAL_BEVERAGE,
+                                    /** Other */
                                     OTHER,
+                                    /** Passenger assist fee */
                                     PASSENGER_ASSIST_FEE,
+                                    /** Pets */
                                     PETS,
+                                    /** Seat fees */
                                     SEAT_FEES,
+                                    /** Standby */
                                     STANDBY,
+                                    /** Service fee */
                                     SERVICE_FEE,
+                                    /** Store */
                                     STORE,
+                                    /** Travel service */
                                     TRAVEL_SERVICE,
+                                    /** Unaccompanied travel */
                                     UNACCOMPANIED_TRAVEL,
+                                    /** Upgrades */
                                     UPGRADES,
+                                    /** Wi-fi */
                                     WIFI,
                                     _UNKNOWN,
                                 }
@@ -8603,6 +9242,7 @@ private constructor(
                             "Ancillary{connectedTicketDocumentNumber=$connectedTicketDocumentNumber, creditReasonIndicator=$creditReasonIndicator, passengerNameOrDescription=$passengerNameOrDescription, services=$services, ticketDocumentNumber=$ticketDocumentNumber, additionalProperties=$additionalProperties}"
                     }
 
+                    /** Indicates the reason for a credit to the cardholder. */
                     class CreditReasonIndicator
                     @JsonCreator
                     private constructor(
@@ -8640,20 +9280,38 @@ private constructor(
                         }
 
                         enum class Known {
+                            /** No credit */
                             NO_CREDIT,
+                            /** Passenger transport ancillary purchase cancellation */
                             PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                            /**
+                             * Airline ticket and passenger transport ancillary purchase
+                             * cancellation
+                             */
                             AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                            /** Airline ticket cancellation */
                             AIRLINE_TICKET_CANCELLATION,
+                            /** Other */
                             OTHER,
+                            /** Partial refund of airline ticket */
                             PARTIAL_REFUND_OF_AIRLINE_TICKET,
                         }
 
                         enum class Value {
+                            /** No credit */
                             NO_CREDIT,
+                            /** Passenger transport ancillary purchase cancellation */
                             PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                            /**
+                             * Airline ticket and passenger transport ancillary purchase
+                             * cancellation
+                             */
                             AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                            /** Airline ticket cancellation */
                             AIRLINE_TICKET_CANCELLATION,
+                            /** Other */
                             OTHER,
+                            /** Partial refund of airline ticket */
                             PARTIAL_REFUND_OF_AIRLINE_TICKET,
                             _UNKNOWN,
                         }
@@ -8706,6 +9364,7 @@ private constructor(
                         override fun toString() = value.toString()
                     }
 
+                    /** Indicates whether this ticket is non-refundable. */
                     class RestrictedTicketIndicator
                     @JsonCreator
                     private constructor(
@@ -8728,12 +9387,16 @@ private constructor(
                         }
 
                         enum class Known {
+                            /** No restrictions */
                             NO_RESTRICTIONS,
+                            /** Restricted non-refundable ticket */
                             RESTRICTED_NON_REFUNDABLE_TICKET,
                         }
 
                         enum class Value {
+                            /** No restrictions */
                             NO_RESTRICTIONS,
+                            /** Restricted non-refundable ticket */
                             RESTRICTED_NON_REFUNDABLE_TICKET,
                             _UNKNOWN,
                         }
@@ -8772,6 +9435,7 @@ private constructor(
                         override fun toString() = value.toString()
                     }
 
+                    /** Indicates why a ticket was changed. */
                     class TicketChangeIndicator
                     @JsonCreator
                     private constructor(
@@ -8795,14 +9459,20 @@ private constructor(
                         }
 
                         enum class Known {
+                            /** None */
                             NONE,
+                            /** Change to existing ticket */
                             CHANGE_TO_EXISTING_TICKET,
+                            /** New ticket */
                             NEW_TICKET,
                         }
 
                         enum class Value {
+                            /** None */
                             NONE,
+                            /** Change to existing ticket */
                             CHANGE_TO_EXISTING_TICKET,
+                            /** New ticket */
                             NEW_TICKET,
                             _UNKNOWN,
                         }
@@ -9097,6 +9767,7 @@ private constructor(
                                 )
                         }
 
+                        /** Indicates whether a stopover is allowed on this ticket. */
                         class StopOverCode
                         @JsonCreator
                         private constructor(
@@ -9118,14 +9789,20 @@ private constructor(
                             }
 
                             enum class Known {
+                                /** None */
                                 NONE,
+                                /** Stop over allowed */
                                 STOP_OVER_ALLOWED,
+                                /** Stop over not allowed */
                                 STOP_OVER_NOT_ALLOWED,
                             }
 
                             enum class Value {
+                                /** None */
                                 NONE,
+                                /** Stop over allowed */
                                 STOP_OVER_ALLOWED,
+                                /** Stop over not allowed */
                                 STOP_OVER_NOT_ALLOWED,
                                 _UNKNOWN,
                             }
@@ -9218,6 +9895,10 @@ private constructor(
                     "PurchaseDetails{carRental=$carRental, customerReferenceIdentifier=$customerReferenceIdentifier, localTaxAmount=$localTaxAmount, localTaxCurrency=$localTaxCurrency, lodging=$lodging, nationalTaxAmount=$nationalTaxAmount, nationalTaxCurrency=$nationalTaxCurrency, purchaseIdentifier=$purchaseIdentifier, purchaseIdentifierFormat=$purchaseIdentifierFormat, travel=$travel, additionalProperties=$additionalProperties}"
             }
 
+            /**
+             * A constant representing the object's type. For this resource it will always be
+             * `card_refund`.
+             */
             class Type
             @JsonCreator
             private constructor(
@@ -9497,6 +10178,10 @@ private constructor(
                     )
             }
 
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction
+             * currency.
+             */
             class Currency
             @JsonCreator
             private constructor(
@@ -9523,20 +10208,32 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                 }
 
                 enum class Value {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                     _UNKNOWN,
                 }
@@ -10422,6 +11119,7 @@ private constructor(
                         )
                 }
 
+                /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the cashback. */
                 class Currency
                 @JsonCreator
                 private constructor(
@@ -10449,20 +11147,32 @@ private constructor(
                     }
 
                     enum class Known {
+                        /** Canadian Dollar (CAD) */
                         CAD,
+                        /** Swiss Franc (CHF) */
                         CHF,
+                        /** Euro (EUR) */
                         EUR,
+                        /** British Pound (GBP) */
                         GBP,
+                        /** Japanese Yen (JPY) */
                         JPY,
+                        /** US Dollar (USD) */
                         USD,
                     }
 
                     enum class Value {
+                        /** Canadian Dollar (CAD) */
                         CAD,
+                        /** Swiss Franc (CHF) */
                         CHF,
+                        /** Euro (EUR) */
                         EUR,
+                        /** British Pound (GBP) */
                         GBP,
+                        /** Japanese Yen (JPY) */
                         JPY,
+                        /** US Dollar (USD) */
                         USD,
                         _UNKNOWN,
                     }
@@ -10522,6 +11232,10 @@ private constructor(
                     "Cashback{amount=$amount, currency=$currency, additionalProperties=$additionalProperties}"
             }
 
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+             * settlement currency.
+             */
             class Currency
             @JsonCreator
             private constructor(
@@ -10548,20 +11262,32 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                 }
 
                 enum class Value {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                     _UNKNOWN,
                 }
@@ -10760,6 +11486,10 @@ private constructor(
                         )
                 }
 
+                /**
+                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the interchange
+                 * reimbursement.
+                 */
                 class Currency
                 @JsonCreator
                 private constructor(
@@ -10787,20 +11517,32 @@ private constructor(
                     }
 
                     enum class Known {
+                        /** Canadian Dollar (CAD) */
                         CAD,
+                        /** Swiss Franc (CHF) */
                         CHF,
+                        /** Euro (EUR) */
                         EUR,
+                        /** British Pound (GBP) */
                         GBP,
+                        /** Japanese Yen (JPY) */
                         JPY,
+                        /** US Dollar (USD) */
                         USD,
                     }
 
                     enum class Value {
+                        /** Canadian Dollar (CAD) */
                         CAD,
+                        /** Swiss Franc (CHF) */
                         CHF,
+                        /** Euro (EUR) */
                         EUR,
+                        /** British Pound (GBP) */
                         GBP,
+                        /** Japanese Yen (JPY) */
                         JPY,
+                        /** US Dollar (USD) */
                         USD,
                         _UNKNOWN,
                     }
@@ -12207,6 +12949,7 @@ private constructor(
                             )
                     }
 
+                    /** Additional charges (gas, late fee, etc.) being billed. */
                     class ExtraCharges
                     @JsonCreator
                     private constructor(
@@ -12234,20 +12977,32 @@ private constructor(
                         }
 
                         enum class Known {
+                            /** No extra charge */
                             NO_EXTRA_CHARGE,
+                            /** Gas */
                             GAS,
+                            /** Extra mileage */
                             EXTRA_MILEAGE,
+                            /** Late return */
                             LATE_RETURN,
+                            /** One way service fee */
                             ONE_WAY_SERVICE_FEE,
+                            /** Parking violation */
                             PARKING_VIOLATION,
                         }
 
                         enum class Value {
+                            /** No extra charge */
                             NO_EXTRA_CHARGE,
+                            /** Gas */
                             GAS,
+                            /** Extra mileage */
                             EXTRA_MILEAGE,
+                            /** Late return */
                             LATE_RETURN,
+                            /** One way service fee */
                             ONE_WAY_SERVICE_FEE,
+                            /** Parking violation */
                             PARKING_VIOLATION,
                             _UNKNOWN,
                         }
@@ -12292,6 +13047,10 @@ private constructor(
                         override fun toString() = value.toString()
                     }
 
+                    /**
+                     * An indicator that the cardholder is being billed for a reserved vehicle that
+                     * was not actually rented (that is, a "no-show" charge).
+                     */
                     class NoShowIndicator
                     @JsonCreator
                     private constructor(
@@ -12313,12 +13072,16 @@ private constructor(
                         }
 
                         enum class Known {
+                            /** Not applicable */
                             NOT_APPLICABLE,
+                            /** No show for specialized vehicle */
                             NO_SHOW_FOR_SPECIALIZED_VEHICLE,
                         }
 
                         enum class Value {
+                            /** Not applicable */
                             NOT_APPLICABLE,
+                            /** No show for specialized vehicle */
                             NO_SHOW_FOR_SPECIALIZED_VEHICLE,
                             _UNKNOWN,
                         }
@@ -13103,6 +13866,7 @@ private constructor(
                             )
                     }
 
+                    /** Additional charges (phone, late check-out, etc.) being billed. */
                     class ExtraCharges
                     @JsonCreator
                     private constructor(
@@ -13132,22 +13896,36 @@ private constructor(
                         }
 
                         enum class Known {
+                            /** No extra charge */
                             NO_EXTRA_CHARGE,
+                            /** Restaurant */
                             RESTAURANT,
+                            /** Gift shop */
                             GIFT_SHOP,
+                            /** Mini bar */
                             MINI_BAR,
+                            /** Telephone */
                             TELEPHONE,
+                            /** Other */
                             OTHER,
+                            /** Laundry */
                             LAUNDRY,
                         }
 
                         enum class Value {
+                            /** No extra charge */
                             NO_EXTRA_CHARGE,
+                            /** Restaurant */
                             RESTAURANT,
+                            /** Gift shop */
                             GIFT_SHOP,
+                            /** Mini bar */
                             MINI_BAR,
+                            /** Telephone */
                             TELEPHONE,
+                            /** Other */
                             OTHER,
+                            /** Laundry */
                             LAUNDRY,
                             _UNKNOWN,
                         }
@@ -13194,6 +13972,10 @@ private constructor(
                         override fun toString() = value.toString()
                     }
 
+                    /**
+                     * Indicator that the cardholder is being billed for a reserved room that was
+                     * not actually used.
+                     */
                     class NoShowIndicator
                     @JsonCreator
                     private constructor(
@@ -13213,12 +13995,16 @@ private constructor(
                         }
 
                         enum class Known {
+                            /** Not applicable */
                             NOT_APPLICABLE,
+                            /** No show */
                             NO_SHOW,
                         }
 
                         enum class Value {
+                            /** Not applicable */
                             NOT_APPLICABLE,
+                            /** No show */
                             NO_SHOW,
                             _UNKNOWN,
                         }
@@ -13273,6 +14059,7 @@ private constructor(
                         "Lodging{checkInDate=$checkInDate, dailyRoomRateAmount=$dailyRoomRateAmount, dailyRoomRateCurrency=$dailyRoomRateCurrency, extraCharges=$extraCharges, folioCashAdvancesAmount=$folioCashAdvancesAmount, folioCashAdvancesCurrency=$folioCashAdvancesCurrency, foodBeverageChargesAmount=$foodBeverageChargesAmount, foodBeverageChargesCurrency=$foodBeverageChargesCurrency, noShowIndicator=$noShowIndicator, prepaidExpensesAmount=$prepaidExpensesAmount, prepaidExpensesCurrency=$prepaidExpensesCurrency, roomNights=$roomNights, totalRoomTaxAmount=$totalRoomTaxAmount, totalRoomTaxCurrency=$totalRoomTaxCurrency, totalTaxAmount=$totalTaxAmount, totalTaxCurrency=$totalTaxCurrency, additionalProperties=$additionalProperties}"
                 }
 
+                /** The format of the purchase identifier. */
                 class PurchaseIdentifierFormat
                 @JsonCreator
                 private constructor(
@@ -13299,18 +14086,28 @@ private constructor(
                     }
 
                     enum class Known {
+                        /** Free text */
                         FREE_TEXT,
+                        /** Order number */
                         ORDER_NUMBER,
+                        /** Rental agreement number */
                         RENTAL_AGREEMENT_NUMBER,
+                        /** Hotel folio number */
                         HOTEL_FOLIO_NUMBER,
+                        /** Invoice number */
                         INVOICE_NUMBER,
                     }
 
                     enum class Value {
+                        /** Free text */
                         FREE_TEXT,
+                        /** Order number */
                         ORDER_NUMBER,
+                        /** Rental agreement number */
                         RENTAL_AGREEMENT_NUMBER,
+                        /** Hotel folio number */
                         HOTEL_FOLIO_NUMBER,
+                        /** Invoice number */
                         INVOICE_NUMBER,
                         _UNKNOWN,
                     }
@@ -14139,6 +14936,7 @@ private constructor(
                                 )
                         }
 
+                        /** Indicates the reason for a credit to the cardholder. */
                         class CreditReasonIndicator
                         @JsonCreator
                         private constructor(
@@ -14169,16 +14967,30 @@ private constructor(
                             }
 
                             enum class Known {
+                                /** No credit */
                                 NO_CREDIT,
+                                /** Passenger transport ancillary purchase cancellation */
                                 PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                                /**
+                                 * Airline ticket and passenger transport ancillary purchase
+                                 * cancellation
+                                 */
                                 AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                                /** Other */
                                 OTHER,
                             }
 
                             enum class Value {
+                                /** No credit */
                                 NO_CREDIT,
+                                /** Passenger transport ancillary purchase cancellation */
                                 PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                                /**
+                                 * Airline ticket and passenger transport ancillary purchase
+                                 * cancellation
+                                 */
                                 AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                                /** Other */
                                 OTHER,
                                 _UNKNOWN,
                             }
@@ -14354,6 +15166,7 @@ private constructor(
                                     )
                             }
 
+                            /** Category of the ancillary service. */
                             class Category
                             @JsonCreator
                             private constructor(
@@ -14418,56 +15231,104 @@ private constructor(
                                 }
 
                                 enum class Known {
+                                    /** None */
                                     NONE,
+                                    /** Bundled service */
                                     BUNDLED_SERVICE,
+                                    /** Baggage fee */
                                     BAGGAGE_FEE,
+                                    /** Change fee */
                                     CHANGE_FEE,
+                                    /** Cargo */
                                     CARGO,
+                                    /** Carbon offset */
                                     CARBON_OFFSET,
+                                    /** Frequent flyer */
                                     FREQUENT_FLYER,
+                                    /** Gift card */
                                     GIFT_CARD,
+                                    /** Ground transport */
                                     GROUND_TRANSPORT,
+                                    /** In-flight entertainment */
                                     IN_FLIGHT_ENTERTAINMENT,
+                                    /** Lounge */
                                     LOUNGE,
+                                    /** Medical */
                                     MEDICAL,
+                                    /** Meal beverage */
                                     MEAL_BEVERAGE,
+                                    /** Other */
                                     OTHER,
+                                    /** Passenger assist fee */
                                     PASSENGER_ASSIST_FEE,
+                                    /** Pets */
                                     PETS,
+                                    /** Seat fees */
                                     SEAT_FEES,
+                                    /** Standby */
                                     STANDBY,
+                                    /** Service fee */
                                     SERVICE_FEE,
+                                    /** Store */
                                     STORE,
+                                    /** Travel service */
                                     TRAVEL_SERVICE,
+                                    /** Unaccompanied travel */
                                     UNACCOMPANIED_TRAVEL,
+                                    /** Upgrades */
                                     UPGRADES,
+                                    /** Wi-fi */
                                     WIFI,
                                 }
 
                                 enum class Value {
+                                    /** None */
                                     NONE,
+                                    /** Bundled service */
                                     BUNDLED_SERVICE,
+                                    /** Baggage fee */
                                     BAGGAGE_FEE,
+                                    /** Change fee */
                                     CHANGE_FEE,
+                                    /** Cargo */
                                     CARGO,
+                                    /** Carbon offset */
                                     CARBON_OFFSET,
+                                    /** Frequent flyer */
                                     FREQUENT_FLYER,
+                                    /** Gift card */
                                     GIFT_CARD,
+                                    /** Ground transport */
                                     GROUND_TRANSPORT,
+                                    /** In-flight entertainment */
                                     IN_FLIGHT_ENTERTAINMENT,
+                                    /** Lounge */
                                     LOUNGE,
+                                    /** Medical */
                                     MEDICAL,
+                                    /** Meal beverage */
                                     MEAL_BEVERAGE,
+                                    /** Other */
                                     OTHER,
+                                    /** Passenger assist fee */
                                     PASSENGER_ASSIST_FEE,
+                                    /** Pets */
                                     PETS,
+                                    /** Seat fees */
                                     SEAT_FEES,
+                                    /** Standby */
                                     STANDBY,
+                                    /** Service fee */
                                     SERVICE_FEE,
+                                    /** Store */
                                     STORE,
+                                    /** Travel service */
                                     TRAVEL_SERVICE,
+                                    /** Unaccompanied travel */
                                     UNACCOMPANIED_TRAVEL,
+                                    /** Upgrades */
                                     UPGRADES,
+                                    /** Wi-fi */
                                     WIFI,
                                     _UNKNOWN,
                                 }
@@ -14584,6 +15445,7 @@ private constructor(
                             "Ancillary{connectedTicketDocumentNumber=$connectedTicketDocumentNumber, creditReasonIndicator=$creditReasonIndicator, passengerNameOrDescription=$passengerNameOrDescription, services=$services, ticketDocumentNumber=$ticketDocumentNumber, additionalProperties=$additionalProperties}"
                     }
 
+                    /** Indicates the reason for a credit to the cardholder. */
                     class CreditReasonIndicator
                     @JsonCreator
                     private constructor(
@@ -14621,20 +15483,38 @@ private constructor(
                         }
 
                         enum class Known {
+                            /** No credit */
                             NO_CREDIT,
+                            /** Passenger transport ancillary purchase cancellation */
                             PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                            /**
+                             * Airline ticket and passenger transport ancillary purchase
+                             * cancellation
+                             */
                             AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                            /** Airline ticket cancellation */
                             AIRLINE_TICKET_CANCELLATION,
+                            /** Other */
                             OTHER,
+                            /** Partial refund of airline ticket */
                             PARTIAL_REFUND_OF_AIRLINE_TICKET,
                         }
 
                         enum class Value {
+                            /** No credit */
                             NO_CREDIT,
+                            /** Passenger transport ancillary purchase cancellation */
                             PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                            /**
+                             * Airline ticket and passenger transport ancillary purchase
+                             * cancellation
+                             */
                             AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION,
+                            /** Airline ticket cancellation */
                             AIRLINE_TICKET_CANCELLATION,
+                            /** Other */
                             OTHER,
+                            /** Partial refund of airline ticket */
                             PARTIAL_REFUND_OF_AIRLINE_TICKET,
                             _UNKNOWN,
                         }
@@ -14687,6 +15567,7 @@ private constructor(
                         override fun toString() = value.toString()
                     }
 
+                    /** Indicates whether this ticket is non-refundable. */
                     class RestrictedTicketIndicator
                     @JsonCreator
                     private constructor(
@@ -14709,12 +15590,16 @@ private constructor(
                         }
 
                         enum class Known {
+                            /** No restrictions */
                             NO_RESTRICTIONS,
+                            /** Restricted non-refundable ticket */
                             RESTRICTED_NON_REFUNDABLE_TICKET,
                         }
 
                         enum class Value {
+                            /** No restrictions */
                             NO_RESTRICTIONS,
+                            /** Restricted non-refundable ticket */
                             RESTRICTED_NON_REFUNDABLE_TICKET,
                             _UNKNOWN,
                         }
@@ -14753,6 +15638,7 @@ private constructor(
                         override fun toString() = value.toString()
                     }
 
+                    /** Indicates why a ticket was changed. */
                     class TicketChangeIndicator
                     @JsonCreator
                     private constructor(
@@ -14776,14 +15662,20 @@ private constructor(
                         }
 
                         enum class Known {
+                            /** None */
                             NONE,
+                            /** Change to existing ticket */
                             CHANGE_TO_EXISTING_TICKET,
+                            /** New ticket */
                             NEW_TICKET,
                         }
 
                         enum class Value {
+                            /** None */
                             NONE,
+                            /** Change to existing ticket */
                             CHANGE_TO_EXISTING_TICKET,
+                            /** New ticket */
                             NEW_TICKET,
                             _UNKNOWN,
                         }
@@ -15078,6 +15970,7 @@ private constructor(
                                 )
                         }
 
+                        /** Indicates whether a stopover is allowed on this ticket. */
                         class StopOverCode
                         @JsonCreator
                         private constructor(
@@ -15099,14 +15992,20 @@ private constructor(
                             }
 
                             enum class Known {
+                                /** None */
                                 NONE,
+                                /** Stop over allowed */
                                 STOP_OVER_ALLOWED,
+                                /** Stop over not allowed */
                                 STOP_OVER_NOT_ALLOWED,
                             }
 
                             enum class Value {
+                                /** None */
                                 NONE,
+                                /** Stop over allowed */
                                 STOP_OVER_ALLOWED,
+                                /** Stop over not allowed */
                                 STOP_OVER_NOT_ALLOWED,
                                 _UNKNOWN,
                             }
@@ -15199,6 +16098,10 @@ private constructor(
                     "PurchaseDetails{carRental=$carRental, customerReferenceIdentifier=$customerReferenceIdentifier, localTaxAmount=$localTaxAmount, localTaxCurrency=$localTaxCurrency, lodging=$lodging, nationalTaxAmount=$nationalTaxAmount, nationalTaxCurrency=$nationalTaxCurrency, purchaseIdentifier=$purchaseIdentifier, purchaseIdentifierFormat=$purchaseIdentifierFormat, travel=$travel, additionalProperties=$additionalProperties}"
             }
 
+            /**
+             * A constant representing the object's type. For this resource it will always be
+             * `card_settlement`.
+             */
             class Type
             @JsonCreator
             private constructor(
@@ -15478,6 +16381,10 @@ private constructor(
                     )
             }
 
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction
+             * currency.
+             */
             class Currency
             @JsonCreator
             private constructor(
@@ -15504,20 +16411,32 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                 }
 
                 enum class Value {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                     _UNKNOWN,
                 }
@@ -15577,6 +16496,10 @@ private constructor(
                 "CashbackPayment{accruedOnCardId=$accruedOnCardId, amount=$amount, currency=$currency, periodEnd=$periodEnd, periodStart=$periodStart, additionalProperties=$additionalProperties}"
         }
 
+        /**
+         * The type of the resource. We may add additional possible values for this enum over time;
+         * your application should be able to handle such additions gracefully.
+         */
         class Category
         @JsonCreator
         private constructor(
@@ -15659,66 +16582,232 @@ private constructor(
             }
 
             enum class Known {
+                /**
+                 * Account Transfer Intention: details will be under the
+                 * `account_transfer_intention` object.
+                 */
                 ACCOUNT_TRANSFER_INTENTION,
+                /**
+                 * ACH Transfer Intention: details will be under the `ach_transfer_intention`
+                 * object.
+                 */
                 ACH_TRANSFER_INTENTION,
+                /**
+                 * ACH Transfer Rejection: details will be under the `ach_transfer_rejection`
+                 * object.
+                 */
                 ACH_TRANSFER_REJECTION,
+                /** ACH Transfer Return: details will be under the `ach_transfer_return` object. */
                 ACH_TRANSFER_RETURN,
+                /** Cashback Payment: details will be under the `cashback_payment` object. */
                 CASHBACK_PAYMENT,
+                /**
+                 * Card Dispute Acceptance: details will be under the `card_dispute_acceptance`
+                 * object.
+                 */
                 CARD_DISPUTE_ACCEPTANCE,
+                /** Card Dispute Loss: details will be under the `card_dispute_loss` object. */
                 CARD_DISPUTE_LOSS,
+                /** Card Refund: details will be under the `card_refund` object. */
                 CARD_REFUND,
+                /** Card Settlement: details will be under the `card_settlement` object. */
                 CARD_SETTLEMENT,
+                /**
+                 * Card Revenue Payment: details will be under the `card_revenue_payment` object.
+                 */
                 CARD_REVENUE_PAYMENT,
+                /**
+                 * Check Deposit Acceptance: details will be under the `check_deposit_acceptance`
+                 * object.
+                 */
                 CHECK_DEPOSIT_ACCEPTANCE,
+                /**
+                 * Check Deposit Return: details will be under the `check_deposit_return` object.
+                 */
                 CHECK_DEPOSIT_RETURN,
+                /**
+                 * Check Transfer Deposit: details will be under the `check_transfer_deposit`
+                 * object.
+                 */
                 CHECK_TRANSFER_DEPOSIT,
+                /** Fee Payment: details will be under the `fee_payment` object. */
                 FEE_PAYMENT,
+                /**
+                 * Inbound ACH Transfer Intention: details will be under the `inbound_ach_transfer`
+                 * object.
+                 */
                 INBOUND_ACH_TRANSFER,
+                /**
+                 * Inbound ACH Transfer Return Intention: details will be under the
+                 * `inbound_ach_transfer_return_intention` object.
+                 */
                 INBOUND_ACH_TRANSFER_RETURN_INTENTION,
+                /**
+                 * Inbound Check Deposit Return Intention: details will be under the
+                 * `inbound_check_deposit_return_intention` object.
+                 */
                 INBOUND_CHECK_DEPOSIT_RETURN_INTENTION,
+                /**
+                 * Inbound Check Adjustment: details will be under the `inbound_check_adjustment`
+                 * object.
+                 */
                 INBOUND_CHECK_ADJUSTMENT,
+                /**
+                 * Inbound Real-Time Payments Transfer Confirmation: details will be under the
+                 * `inbound_real_time_payments_transfer_confirmation` object.
+                 */
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
+                /**
+                 * Inbound Real-Time Payments Transfer Decline: details will be under the
+                 * `inbound_real_time_payments_transfer_decline` object.
+                 */
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
+                /**
+                 * Inbound Wire Reversal: details will be under the `inbound_wire_reversal` object.
+                 */
                 INBOUND_WIRE_REVERSAL,
+                /**
+                 * Inbound Wire Transfer Intention: details will be under the
+                 * `inbound_wire_transfer` object.
+                 */
                 INBOUND_WIRE_TRANSFER,
+                /**
+                 * Inbound Wire Transfer Reversal Intention: details will be under the
+                 * `inbound_wire_transfer_reversal` object.
+                 */
                 INBOUND_WIRE_TRANSFER_REVERSAL,
+                /** Interest Payment: details will be under the `interest_payment` object. */
                 INTEREST_PAYMENT,
+                /** Internal Source: details will be under the `internal_source` object. */
                 INTERNAL_SOURCE,
+                /**
+                 * Real-Time Payments Transfer Acknowledgement: details will be under the
+                 * `real_time_payments_transfer_acknowledgement` object.
+                 */
                 REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT,
+                /** Sample Funds: details will be under the `sample_funds` object. */
                 SAMPLE_FUNDS,
+                /**
+                 * Wire Transfer Intention: details will be under the `wire_transfer_intention`
+                 * object.
+                 */
                 WIRE_TRANSFER_INTENTION,
+                /** The Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
             }
 
             enum class Value {
+                /**
+                 * Account Transfer Intention: details will be under the
+                 * `account_transfer_intention` object.
+                 */
                 ACCOUNT_TRANSFER_INTENTION,
+                /**
+                 * ACH Transfer Intention: details will be under the `ach_transfer_intention`
+                 * object.
+                 */
                 ACH_TRANSFER_INTENTION,
+                /**
+                 * ACH Transfer Rejection: details will be under the `ach_transfer_rejection`
+                 * object.
+                 */
                 ACH_TRANSFER_REJECTION,
+                /** ACH Transfer Return: details will be under the `ach_transfer_return` object. */
                 ACH_TRANSFER_RETURN,
+                /** Cashback Payment: details will be under the `cashback_payment` object. */
                 CASHBACK_PAYMENT,
+                /**
+                 * Card Dispute Acceptance: details will be under the `card_dispute_acceptance`
+                 * object.
+                 */
                 CARD_DISPUTE_ACCEPTANCE,
+                /** Card Dispute Loss: details will be under the `card_dispute_loss` object. */
                 CARD_DISPUTE_LOSS,
+                /** Card Refund: details will be under the `card_refund` object. */
                 CARD_REFUND,
+                /** Card Settlement: details will be under the `card_settlement` object. */
                 CARD_SETTLEMENT,
+                /**
+                 * Card Revenue Payment: details will be under the `card_revenue_payment` object.
+                 */
                 CARD_REVENUE_PAYMENT,
+                /**
+                 * Check Deposit Acceptance: details will be under the `check_deposit_acceptance`
+                 * object.
+                 */
                 CHECK_DEPOSIT_ACCEPTANCE,
+                /**
+                 * Check Deposit Return: details will be under the `check_deposit_return` object.
+                 */
                 CHECK_DEPOSIT_RETURN,
+                /**
+                 * Check Transfer Deposit: details will be under the `check_transfer_deposit`
+                 * object.
+                 */
                 CHECK_TRANSFER_DEPOSIT,
+                /** Fee Payment: details will be under the `fee_payment` object. */
                 FEE_PAYMENT,
+                /**
+                 * Inbound ACH Transfer Intention: details will be under the `inbound_ach_transfer`
+                 * object.
+                 */
                 INBOUND_ACH_TRANSFER,
+                /**
+                 * Inbound ACH Transfer Return Intention: details will be under the
+                 * `inbound_ach_transfer_return_intention` object.
+                 */
                 INBOUND_ACH_TRANSFER_RETURN_INTENTION,
+                /**
+                 * Inbound Check Deposit Return Intention: details will be under the
+                 * `inbound_check_deposit_return_intention` object.
+                 */
                 INBOUND_CHECK_DEPOSIT_RETURN_INTENTION,
+                /**
+                 * Inbound Check Adjustment: details will be under the `inbound_check_adjustment`
+                 * object.
+                 */
                 INBOUND_CHECK_ADJUSTMENT,
+                /**
+                 * Inbound Real-Time Payments Transfer Confirmation: details will be under the
+                 * `inbound_real_time_payments_transfer_confirmation` object.
+                 */
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
+                /**
+                 * Inbound Real-Time Payments Transfer Decline: details will be under the
+                 * `inbound_real_time_payments_transfer_decline` object.
+                 */
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
+                /**
+                 * Inbound Wire Reversal: details will be under the `inbound_wire_reversal` object.
+                 */
                 INBOUND_WIRE_REVERSAL,
+                /**
+                 * Inbound Wire Transfer Intention: details will be under the
+                 * `inbound_wire_transfer` object.
+                 */
                 INBOUND_WIRE_TRANSFER,
+                /**
+                 * Inbound Wire Transfer Reversal Intention: details will be under the
+                 * `inbound_wire_transfer_reversal` object.
+                 */
                 INBOUND_WIRE_TRANSFER_REVERSAL,
+                /** Interest Payment: details will be under the `interest_payment` object. */
                 INTEREST_PAYMENT,
+                /** Internal Source: details will be under the `internal_source` object. */
                 INTERNAL_SOURCE,
+                /**
+                 * Real-Time Payments Transfer Acknowledgement: details will be under the
+                 * `real_time_payments_transfer_acknowledgement` object.
+                 */
                 REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT,
+                /** Sample Funds: details will be under the `sample_funds` object. */
                 SAMPLE_FUNDS,
+                /**
+                 * Wire Transfer Intention: details will be under the `wire_transfer_intention`
+                 * object.
+                 */
                 WIRE_TRANSFER_INTENTION,
+                /** The Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
                 _UNKNOWN,
             }
@@ -16111,6 +17200,10 @@ private constructor(
                     )
             }
 
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+             * currency.
+             */
             class Currency
             @JsonCreator
             private constructor(
@@ -16137,20 +17230,32 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                 }
 
                 enum class Value {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                     _UNKNOWN,
                 }
@@ -16455,6 +17560,10 @@ private constructor(
                     )
             }
 
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+             * currency.
+             */
             class Currency
             @JsonCreator
             private constructor(
@@ -16481,20 +17590,32 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                 }
 
                 enum class Value {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                     _UNKNOWN,
                 }
@@ -16536,6 +17657,7 @@ private constructor(
                 override fun toString() = value.toString()
             }
 
+            /** Why this check was returned by the bank holding the account it was drawn against. */
             class ReturnReason
             @JsonCreator
             private constructor(
@@ -16602,60 +17724,112 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** The check doesn't allow ACH conversion. */
                     ACH_CONVERSION_NOT_SUPPORTED,
+                    /** The account is closed. */
                     CLOSED_ACCOUNT,
+                    /** The check has already been deposited. */
                     DUPLICATE_SUBMISSION,
+                    /** Insufficient funds */
                     INSUFFICIENT_FUNDS,
+                    /** No account was found matching the check details. */
                     NO_ACCOUNT,
+                    /** The check was not authorized. */
                     NOT_AUTHORIZED,
+                    /** The check is too old. */
                     STALE_DATED,
+                    /** The payment has been stopped by the account holder. */
                     STOP_PAYMENT,
+                    /** The reason for the return is unknown. */
                     UNKNOWN_REASON,
+                    /** The image doesn't match the details submitted. */
                     UNMATCHED_DETAILS,
+                    /** The image could not be read. */
                     UNREADABLE_IMAGE,
+                    /** The check endorsement was irregular. */
                     ENDORSEMENT_IRREGULAR,
+                    /** The check present was either altered or fake. */
                     ALTERED_OR_FICTITIOUS_ITEM,
+                    /** The account this check is drawn on is frozen. */
                     FROZEN_OR_BLOCKED_ACCOUNT,
+                    /** The check is post dated. */
                     POST_DATED,
+                    /** The endorsement was missing. */
                     ENDORSEMENT_MISSING,
+                    /** The check signature was missing. */
                     SIGNATURE_MISSING,
+                    /** The bank suspects a stop payment will be placed. */
                     STOP_PAYMENT_SUSPECT,
+                    /** The bank cannot read the image. */
                     UNUSABLE_IMAGE,
+                    /** The check image fails the bank's security check. */
                     IMAGE_FAILS_SECURITY_CHECK,
+                    /** The bank cannot determine the amount. */
                     CANNOT_DETERMINE_AMOUNT,
+                    /** The signature is inconsistent with prior signatures. */
                     SIGNATURE_IRREGULAR,
+                    /** The check is a non-cash item and cannot be drawn against the account. */
                     NON_CASH_ITEM,
+                    /** The bank is unable to process this check. */
                     UNABLE_TO_PROCESS,
+                    /** The check exceeds the bank or customer's limit. */
                     ITEM_EXCEEDS_DOLLAR_LIMIT,
+                    /** The bank sold this account and no longer services this customer. */
                     BRANCH_OR_ACCOUNT_SOLD,
                 }
 
                 enum class Value {
+                    /** The check doesn't allow ACH conversion. */
                     ACH_CONVERSION_NOT_SUPPORTED,
+                    /** The account is closed. */
                     CLOSED_ACCOUNT,
+                    /** The check has already been deposited. */
                     DUPLICATE_SUBMISSION,
+                    /** Insufficient funds */
                     INSUFFICIENT_FUNDS,
+                    /** No account was found matching the check details. */
                     NO_ACCOUNT,
+                    /** The check was not authorized. */
                     NOT_AUTHORIZED,
+                    /** The check is too old. */
                     STALE_DATED,
+                    /** The payment has been stopped by the account holder. */
                     STOP_PAYMENT,
+                    /** The reason for the return is unknown. */
                     UNKNOWN_REASON,
+                    /** The image doesn't match the details submitted. */
                     UNMATCHED_DETAILS,
+                    /** The image could not be read. */
                     UNREADABLE_IMAGE,
+                    /** The check endorsement was irregular. */
                     ENDORSEMENT_IRREGULAR,
+                    /** The check present was either altered or fake. */
                     ALTERED_OR_FICTITIOUS_ITEM,
+                    /** The account this check is drawn on is frozen. */
                     FROZEN_OR_BLOCKED_ACCOUNT,
+                    /** The check is post dated. */
                     POST_DATED,
+                    /** The endorsement was missing. */
                     ENDORSEMENT_MISSING,
+                    /** The check signature was missing. */
                     SIGNATURE_MISSING,
+                    /** The bank suspects a stop payment will be placed. */
                     STOP_PAYMENT_SUSPECT,
+                    /** The bank cannot read the image. */
                     UNUSABLE_IMAGE,
+                    /** The check image fails the bank's security check. */
                     IMAGE_FAILS_SECURITY_CHECK,
+                    /** The bank cannot determine the amount. */
                     CANNOT_DETERMINE_AMOUNT,
+                    /** The signature is inconsistent with prior signatures. */
                     SIGNATURE_IRREGULAR,
+                    /** The check is a non-cash item and cannot be drawn against the account. */
                     NON_CASH_ITEM,
+                    /** The bank is unable to process this check. */
                     UNABLE_TO_PROCESS,
+                    /** The check exceeds the bank or customer's limit. */
                     ITEM_EXCEEDS_DOLLAR_LIMIT,
+                    /** The bank sold this account and no longer services this customer. */
                     BRANCH_OR_ACCOUNT_SOLD,
                     _UNKNOWN,
                 }
@@ -17133,6 +18307,10 @@ private constructor(
                     )
             }
 
+            /**
+             * A constant representing the object's type. For this resource it will always be
+             * `check_transfer_deposit`.
+             */
             class Type
             @JsonCreator
             private constructor(
@@ -17385,6 +18563,10 @@ private constructor(
                     )
             }
 
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction
+             * currency.
+             */
             class Currency
             @JsonCreator
             private constructor(
@@ -17411,20 +18593,32 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                 }
 
                 enum class Value {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                     _UNKNOWN,
                 }
@@ -18046,6 +19240,7 @@ private constructor(
                         )
                 }
 
+                /** The type of addendum. */
                 class Category
                 @JsonCreator
                 private constructor(
@@ -18063,10 +19258,12 @@ private constructor(
                     }
 
                     enum class Known {
+                        /** Unstructured addendum. */
                         FREEFORM,
                     }
 
                     enum class Value {
+                        /** Unstructured addendum. */
                         FREEFORM,
                         _UNKNOWN,
                     }
@@ -18698,6 +19895,10 @@ private constructor(
                     )
             }
 
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code of the transfer's
+             * currency. This will always be "USD" for a Real-Time Payments transfer.
+             */
             class Currency
             @JsonCreator
             private constructor(
@@ -18724,20 +19925,32 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                 }
 
                 enum class Value {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                     _UNKNOWN,
                 }
@@ -19138,6 +20351,10 @@ private constructor(
                     )
             }
 
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code of the declined
+             * transfer's currency. This will always be "USD" for a Real-Time Payments transfer.
+             */
             class Currency
             @JsonCreator
             private constructor(
@@ -19164,20 +20381,32 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                 }
 
                 enum class Value {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                     _UNKNOWN,
                 }
@@ -19219,6 +20448,7 @@ private constructor(
                 override fun toString() = value.toString()
             }
 
+            /** Why the transfer was declined. */
             class Reason
             @JsonCreator
             private constructor(
@@ -19246,20 +20476,32 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** The account number is canceled. */
                     ACCOUNT_NUMBER_CANCELED,
+                    /** The account number is disabled. */
                     ACCOUNT_NUMBER_DISABLED,
+                    /** Your account is restricted. */
                     ACCOUNT_RESTRICTED,
+                    /** Your account is inactive. */
                     GROUP_LOCKED,
+                    /** The account's entity is not active. */
                     ENTITY_NOT_ACTIVE,
+                    /** Your account is not enabled to receive Real-Time Payments transfers. */
                     REAL_TIME_PAYMENTS_NOT_ENABLED,
                 }
 
                 enum class Value {
+                    /** The account number is canceled. */
                     ACCOUNT_NUMBER_CANCELED,
+                    /** The account number is disabled. */
                     ACCOUNT_NUMBER_DISABLED,
+                    /** Your account is restricted. */
                     ACCOUNT_RESTRICTED,
+                    /** Your account is inactive. */
                     GROUP_LOCKED,
+                    /** The account's entity is not active. */
                     ENTITY_NOT_ACTIVE,
+                    /** Your account is not enabled to receive Real-Time Payments transfers. */
                     REAL_TIME_PAYMENTS_NOT_ENABLED,
                     _UNKNOWN,
                 }
@@ -20967,6 +22209,10 @@ private constructor(
                     )
             }
 
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction
+             * currency.
+             */
             class Currency
             @JsonCreator
             private constructor(
@@ -20993,20 +22239,32 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                 }
 
                 enum class Value {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                     _UNKNOWN,
                 }
@@ -21231,6 +22489,10 @@ private constructor(
                     )
             }
 
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction
+             * currency.
+             */
             class Currency
             @JsonCreator
             private constructor(
@@ -21257,20 +22519,32 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                 }
 
                 enum class Value {
+                    /** Canadian Dollar (CAD) */
                     CAD,
+                    /** Swiss Franc (CHF) */
                     CHF,
+                    /** Euro (EUR) */
                     EUR,
+                    /** British Pound (GBP) */
                     GBP,
+                    /** Japanese Yen (JPY) */
                     JPY,
+                    /** US Dollar (USD) */
                     USD,
                     _UNKNOWN,
                 }
@@ -21312,6 +22586,10 @@ private constructor(
                 override fun toString() = value.toString()
             }
 
+            /**
+             * An Internal Source is a transaction between you and Increase. This describes the
+             * reason for the transaction.
+             */
             class Reason
             @JsonCreator
             private constructor(
@@ -21356,38 +22634,68 @@ private constructor(
                 }
 
                 enum class Known {
+                    /** Account closure */
                     ACCOUNT_CLOSURE,
+                    /** Bank-drawn check */
                     BANK_DRAWN_CHECK,
+                    /** Bank-drawn check credit */
                     BANK_DRAWN_CHECK_CREDIT,
+                    /** Bank migration */
                     BANK_MIGRATION,
+                    /** Check adjustment */
                     CHECK_ADJUSTMENT,
+                    /** Collection payment */
                     COLLECTION_PAYMENT,
+                    /** Collection receivable */
                     COLLECTION_RECEIVABLE,
+                    /** Empyreal adjustment */
                     EMPYREAL_ADJUSTMENT,
+                    /** Error */
                     ERROR,
+                    /** Error correction */
                     ERROR_CORRECTION,
+                    /** Fees */
                     FEES,
+                    /** Interest */
                     INTEREST,
+                    /** Negative balance forgiveness */
                     NEGATIVE_BALANCE_FORGIVENESS,
+                    /** Sample funds */
                     SAMPLE_FUNDS,
+                    /** Sample funds return */
                     SAMPLE_FUNDS_RETURN,
                 }
 
                 enum class Value {
+                    /** Account closure */
                     ACCOUNT_CLOSURE,
+                    /** Bank-drawn check */
                     BANK_DRAWN_CHECK,
+                    /** Bank-drawn check credit */
                     BANK_DRAWN_CHECK_CREDIT,
+                    /** Bank migration */
                     BANK_MIGRATION,
+                    /** Check adjustment */
                     CHECK_ADJUSTMENT,
+                    /** Collection payment */
                     COLLECTION_PAYMENT,
+                    /** Collection receivable */
                     COLLECTION_RECEIVABLE,
+                    /** Empyreal adjustment */
                     EMPYREAL_ADJUSTMENT,
+                    /** Error */
                     ERROR,
+                    /** Error correction */
                     ERROR_CORRECTION,
+                    /** Fees */
                     FEES,
+                    /** Interest */
                     INTEREST,
+                    /** Negative balance forgiveness */
                     NEGATIVE_BALANCE_FORGIVENESS,
+                    /** Sample funds */
                     SAMPLE_FUNDS,
+                    /** Sample funds return */
                     SAMPLE_FUNDS_RETURN,
                     _UNKNOWN,
                 }
@@ -22013,6 +23321,9 @@ private constructor(
             "Source{accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardDisputeLoss=$cardDisputeLoss, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, cashbackPayment=$cashbackPayment, category=$category, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundRealTimePaymentsTransferDecline=$inboundRealTimePaymentsTransferDecline, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, interestPayment=$interestPayment, internalSource=$internalSource, other=$other, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, wireTransferIntention=$wireTransferIntention, additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be `transaction`.
+     */
     class Type
     @JsonCreator
     private constructor(

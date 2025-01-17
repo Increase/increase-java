@@ -646,6 +646,7 @@ private constructor(
             )
     }
 
+    /** Status of the proof of authorization request submission. */
     class Status
     @JsonCreator
     private constructor(
@@ -670,18 +671,32 @@ private constructor(
         }
 
         enum class Known {
+            /** The proof of authorization request submission is pending review. */
             PENDING_REVIEW,
+            /** The proof of authorization request submission was rejected. */
             REJECTED,
+            /**
+             * The proof of authorization request submission was canceled and replaced with another.
+             */
             CANCELED,
+            /** The proof of authorization request submission is pending sending. */
             PENDING_SENDING,
+            /** The proof of authorization request submission was sent. */
             SENT,
         }
 
         enum class Value {
+            /** The proof of authorization request submission is pending review. */
             PENDING_REVIEW,
+            /** The proof of authorization request submission was rejected. */
             REJECTED,
+            /**
+             * The proof of authorization request submission was canceled and replaced with another.
+             */
             CANCELED,
+            /** The proof of authorization request submission is pending sending. */
             PENDING_SENDING,
+            /** The proof of authorization request submission was sent. */
             SENT,
             _UNKNOWN,
         }
@@ -721,6 +736,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `proof_of_authorization_request_submission`.
+     */
     class Type
     @JsonCreator
     private constructor(

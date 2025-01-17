@@ -19,6 +19,7 @@ import java.util.Optional
 import java.util.stream.Stream
 import java.util.stream.StreamSupport
 
+/** List Wire Transfers */
 class WireTransferListPage
 private constructor(
     private val wireTransfersService: WireTransferService,

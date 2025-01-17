@@ -464,6 +464,10 @@ private constructor(
                 )
         }
 
+        /**
+         * Whether ACH debits are allowed against this Account Number. Note that they will still be
+         * declined if this is `allowed` if the Account Number is not active.
+         */
         class DebitStatus
         @JsonCreator
         private constructor(
@@ -482,12 +486,16 @@ private constructor(
             }
 
             enum class Known {
+                /** ACH Debits are allowed. */
                 ALLOWED,
+                /** ACH Debits are blocked. */
                 BLOCKED,
             }
 
             enum class Value {
+                /** ACH Debits are allowed. */
                 ALLOWED,
+                /** ACH Debits are blocked. */
                 BLOCKED,
                 _UNKNOWN,
             }
@@ -619,6 +627,7 @@ private constructor(
                 InboundChecks(checkRequired("status", status), additionalProperties.toImmutable())
         }
 
+        /** How Increase should process checks with this account number printed on them. */
         class Status
         @JsonCreator
         private constructor(
@@ -637,12 +646,28 @@ private constructor(
             }
 
             enum class Known {
+                /**
+                 * Checks with this Account Number will be processed even if they are not associated
+                 * with a Check Transfer.
+                 */
                 ALLOWED,
+                /**
+                 * Checks with this Account Number will be processed only if they can be matched to
+                 * an existing Check Transfer.
+                 */
                 CHECK_TRANSFERS_ONLY,
             }
 
             enum class Value {
+                /**
+                 * Checks with this Account Number will be processed even if they are not associated
+                 * with a Check Transfer.
+                 */
                 ALLOWED,
+                /**
+                 * Checks with this Account Number will be processed only if they can be matched to
+                 * an existing Check Transfer.
+                 */
                 CHECK_TRANSFERS_ONLY,
                 _UNKNOWN,
             }
@@ -694,6 +719,7 @@ private constructor(
             "InboundChecks{status=$status, additionalProperties=$additionalProperties}"
     }
 
+    /** This indicates if payments can be made to the Account Number. */
     class Status
     @JsonCreator
     private constructor(
@@ -714,14 +740,20 @@ private constructor(
         }
 
         enum class Known {
+            /** The account number is active. */
             ACTIVE,
+            /** The account number is temporarily disabled. */
             DISABLED,
+            /** The account number is permanently disabled. */
             CANCELED,
         }
 
         enum class Value {
+            /** The account number is active. */
             ACTIVE,
+            /** The account number is temporarily disabled. */
             DISABLED,
+            /** The account number is permanently disabled. */
             CANCELED,
             _UNKNOWN,
         }
@@ -757,6 +789,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `account_number`.
+     */
     class Type
     @JsonCreator
     private constructor(

@@ -764,6 +764,7 @@ constructor(
             )
     }
 
+    /** The standard entry class code for the transfer. */
     class StandardEntryClassCode
     @JsonCreator
     private constructor(
@@ -810,40 +811,72 @@ constructor(
         }
 
         enum class Known {
+            /** Corporate Credit and Debit (CCD). */
             CORPORATE_CREDIT_OR_DEBIT,
+            /** Corporate Trade Exchange (CTX). */
             CORPORATE_TRADE_EXCHANGE,
+            /** Prearranged Payments and Deposits (PPD). */
             PREARRANGED_PAYMENTS_AND_DEPOSIT,
+            /** Internet Initiated (WEB). */
             INTERNET_INITIATED,
+            /** Point of Sale (POS). */
             POINT_OF_SALE,
+            /** Telephone Initiated (TEL). */
             TELEPHONE_INITIATED,
+            /** Customer Initiated (CIE). */
             CUSTOMER_INITIATED,
+            /** Accounts Receivable (ARC). */
             ACCOUNTS_RECEIVABLE,
+            /** Machine Transfer (MTE). */
             MACHINE_TRANSFER,
+            /** Shared Network Transaction (SHR). */
             SHARED_NETWORK_TRANSACTION,
+            /** Represented Check (RCK). */
             REPRESENTED_CHECK,
+            /** Back Office Conversion (BOC). */
             BACK_OFFICE_CONVERSION,
+            /** Point of Purchase (POP). */
             POINT_OF_PURCHASE,
+            /** Check Truncation (TRC). */
             CHECK_TRUNCATION,
+            /** Destroyed Check (XCK). */
             DESTROYED_CHECK,
+            /** International ACH Transaction (IAT). */
             INTERNATIONAL_ACH_TRANSACTION,
         }
 
         enum class Value {
+            /** Corporate Credit and Debit (CCD). */
             CORPORATE_CREDIT_OR_DEBIT,
+            /** Corporate Trade Exchange (CTX). */
             CORPORATE_TRADE_EXCHANGE,
+            /** Prearranged Payments and Deposits (PPD). */
             PREARRANGED_PAYMENTS_AND_DEPOSIT,
+            /** Internet Initiated (WEB). */
             INTERNET_INITIATED,
+            /** Point of Sale (POS). */
             POINT_OF_SALE,
+            /** Telephone Initiated (TEL). */
             TELEPHONE_INITIATED,
+            /** Customer Initiated (CIE). */
             CUSTOMER_INITIATED,
+            /** Accounts Receivable (ARC). */
             ACCOUNTS_RECEIVABLE,
+            /** Machine Transfer (MTE). */
             MACHINE_TRANSFER,
+            /** Shared Network Transaction (SHR). */
             SHARED_NETWORK_TRANSACTION,
+            /** Represented Check (RCK). */
             REPRESENTED_CHECK,
+            /** Back Office Conversion (BOC). */
             BACK_OFFICE_CONVERSION,
+            /** Point of Purchase (POP). */
             POINT_OF_PURCHASE,
+            /** Check Truncation (TRC). */
             CHECK_TRUNCATION,
+            /** Destroyed Check (XCK). */
             DESTROYED_CHECK,
+            /** International ACH Transaction (IAT). */
             INTERNATIONAL_ACH_TRANSACTION,
             _UNKNOWN,
         }

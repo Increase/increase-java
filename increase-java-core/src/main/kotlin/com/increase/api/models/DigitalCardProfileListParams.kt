@@ -371,16 +371,30 @@ constructor(
             }
 
             enum class Known {
+                /**
+                 * The Card Profile is awaiting review from Increase and/or processing by card
+                 * networks.
+                 */
                 PENDING,
+                /** There is an issue with the Card Profile preventing it from use. */
                 REJECTED,
+                /** The Card Profile can be assigned to Cards. */
                 ACTIVE,
+                /** The Card Profile is no longer in use. */
                 ARCHIVED,
             }
 
             enum class Value {
+                /**
+                 * The Card Profile is awaiting review from Increase and/or processing by card
+                 * networks.
+                 */
                 PENDING,
+                /** There is an issue with the Card Profile preventing it from use. */
                 REJECTED,
+                /** The Card Profile can be assigned to Cards. */
                 ACTIVE,
+                /** The Card Profile is no longer in use. */
                 ARCHIVED,
                 _UNKNOWN,
             }

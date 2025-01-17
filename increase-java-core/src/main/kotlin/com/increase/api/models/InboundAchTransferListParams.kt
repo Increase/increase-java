@@ -454,6 +454,7 @@ constructor(
             "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
     }
 
+    /** Filter Inbound ACH Transfers to those with the specified status. */
     class Status
     @JsonCreator
     private constructor(
@@ -476,16 +477,30 @@ constructor(
         }
 
         enum class Known {
+            /**
+             * The Inbound ACH Transfer is awaiting action, will transition automatically if no
+             * action is taken.
+             */
             PENDING,
+            /** The Inbound ACH Transfer has been declined. */
             DECLINED,
+            /** The Inbound ACH Transfer is accepted. */
             ACCEPTED,
+            /** The Inbound ACH Transfer has been returned. */
             RETURNED,
         }
 
         enum class Value {
+            /**
+             * The Inbound ACH Transfer is awaiting action, will transition automatically if no
+             * action is taken.
+             */
             PENDING,
+            /** The Inbound ACH Transfer has been declined. */
             DECLINED,
+            /** The Inbound ACH Transfer is accepted. */
             ACCEPTED,
+            /** The Inbound ACH Transfer has been returned. */
             RETURNED,
             _UNKNOWN,
         }

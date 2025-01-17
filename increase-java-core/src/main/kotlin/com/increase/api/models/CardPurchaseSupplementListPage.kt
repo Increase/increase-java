@@ -19,6 +19,7 @@ import java.util.Optional
 import java.util.stream.Stream
 import java.util.stream.StreamSupport
 
+/** List Card Purchase Supplements */
 class CardPurchaseSupplementListPage
 private constructor(
     private val cardPurchaseSupplementsService: CardPurchaseSupplementService,

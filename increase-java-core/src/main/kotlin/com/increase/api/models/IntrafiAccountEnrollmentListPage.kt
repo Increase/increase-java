@@ -19,6 +19,7 @@ import java.util.Optional
 import java.util.stream.Stream
 import java.util.stream.StreamSupport
 
+/** List IntraFi Account Enrollments */
 class IntrafiAccountEnrollmentListPage
 private constructor(
     private val intrafiAccountEnrollmentsService: IntrafiAccountEnrollmentService,
