@@ -17,7 +17,7 @@ import com.increase.api.models.SimulationDigitalWalletTokenRequestCreateResponse
 import java.util.concurrent.CompletableFuture
 
 class DigitalWalletTokenRequestServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : DigitalWalletTokenRequestServiceAsync {
 

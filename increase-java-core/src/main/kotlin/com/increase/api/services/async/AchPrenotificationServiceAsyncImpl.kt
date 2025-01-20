@@ -20,7 +20,7 @@ import com.increase.api.models.AchPrenotificationRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class AchPrenotificationServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : AchPrenotificationServiceAsync {
 

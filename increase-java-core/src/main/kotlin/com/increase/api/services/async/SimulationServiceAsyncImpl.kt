@@ -59,7 +59,7 @@ import com.increase.api.services.async.simulations.WireTransferServiceAsync
 import com.increase.api.services.async.simulations.WireTransferServiceAsyncImpl
 
 class SimulationServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : SimulationServiceAsync {
 

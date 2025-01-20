@@ -22,7 +22,7 @@ import com.increase.api.models.CardRetrieveParams
 import com.increase.api.models.CardUpdateParams
 
 class CardServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : CardService {
 

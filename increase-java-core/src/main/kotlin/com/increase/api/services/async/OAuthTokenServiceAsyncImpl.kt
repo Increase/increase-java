@@ -17,7 +17,7 @@ import com.increase.api.models.OAuthTokenCreateParams
 import java.util.concurrent.CompletableFuture
 
 class OAuthTokenServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : OAuthTokenServiceAsync {
 

@@ -22,7 +22,7 @@ import com.increase.api.models.WireTransferRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class WireTransferServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : WireTransferServiceAsync {
 

@@ -17,7 +17,7 @@ import com.increase.api.models.AccountStatementListParams
 import com.increase.api.models.AccountStatementRetrieveParams
 
 class AccountStatementServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : AccountStatementService {
 

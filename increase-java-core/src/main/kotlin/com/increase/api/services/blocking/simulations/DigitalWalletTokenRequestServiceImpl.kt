@@ -16,7 +16,7 @@ import com.increase.api.models.SimulationDigitalWalletTokenRequestCreateParams
 import com.increase.api.models.SimulationDigitalWalletTokenRequestCreateResponse
 
 class DigitalWalletTokenRequestServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : DigitalWalletTokenRequestService {
 

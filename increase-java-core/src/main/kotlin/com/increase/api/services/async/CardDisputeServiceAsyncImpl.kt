@@ -20,7 +20,7 @@ import com.increase.api.models.CardDisputeRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class CardDisputeServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : CardDisputeServiceAsync {
 

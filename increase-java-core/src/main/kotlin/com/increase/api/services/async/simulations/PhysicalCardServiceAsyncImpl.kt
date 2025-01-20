@@ -17,7 +17,7 @@ import com.increase.api.models.SimulationPhysicalCardAdvanceShipmentParams
 import java.util.concurrent.CompletableFuture
 
 class PhysicalCardServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : PhysicalCardServiceAsync {
 

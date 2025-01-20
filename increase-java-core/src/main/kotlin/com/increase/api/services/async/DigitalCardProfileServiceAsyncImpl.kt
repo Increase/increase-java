@@ -22,7 +22,7 @@ import com.increase.api.models.DigitalCardProfileRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class DigitalCardProfileServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : DigitalCardProfileServiceAsync {
 

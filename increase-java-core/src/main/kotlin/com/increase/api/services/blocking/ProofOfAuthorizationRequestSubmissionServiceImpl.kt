@@ -19,7 +19,7 @@ import com.increase.api.models.ProofOfAuthorizationRequestSubmissionListParams
 import com.increase.api.models.ProofOfAuthorizationRequestSubmissionRetrieveParams
 
 class ProofOfAuthorizationRequestSubmissionServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : ProofOfAuthorizationRequestSubmissionService {
 

@@ -19,7 +19,7 @@ import com.increase.api.models.BookkeepingEntrySetListParams
 import com.increase.api.models.BookkeepingEntrySetRetrieveParams
 
 class BookkeepingEntrySetServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : BookkeepingEntrySetService {
 

@@ -18,7 +18,7 @@ import com.increase.api.models.PendingTransactionRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class PendingTransactionServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : PendingTransactionServiceAsync {
 

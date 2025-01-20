@@ -20,7 +20,7 @@ import com.increase.api.models.LockboxRetrieveParams
 import com.increase.api.models.LockboxUpdateParams
 
 class LockboxServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : LockboxService {
 

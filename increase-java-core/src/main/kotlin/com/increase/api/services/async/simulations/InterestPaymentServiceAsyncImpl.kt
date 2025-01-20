@@ -17,7 +17,7 @@ import com.increase.api.models.Transaction
 import java.util.concurrent.CompletableFuture
 
 class InterestPaymentServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : InterestPaymentServiceAsync {
 

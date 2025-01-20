@@ -16,7 +16,7 @@ import com.increase.api.models.SimulationCardAuthorizationCreateParams
 import com.increase.api.models.SimulationCardAuthorizationCreateResponse
 
 class CardAuthorizationServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : CardAuthorizationService {
 

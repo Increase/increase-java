@@ -19,7 +19,7 @@ import com.increase.api.models.SupplementalDocumentListParams
 import java.util.concurrent.CompletableFuture
 
 class SupplementalDocumentServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : SupplementalDocumentServiceAsync {
 

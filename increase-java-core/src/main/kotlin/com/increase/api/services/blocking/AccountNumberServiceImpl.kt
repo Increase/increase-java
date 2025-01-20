@@ -20,7 +20,7 @@ import com.increase.api.models.AccountNumberRetrieveParams
 import com.increase.api.models.AccountNumberUpdateParams
 
 class AccountNumberServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : AccountNumberService {
 
