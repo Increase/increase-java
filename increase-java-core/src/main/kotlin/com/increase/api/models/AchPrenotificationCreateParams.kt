@@ -840,8 +840,10 @@ constructor(
 
         companion object {
 
+            /** The Prenotification is for an anticipated credit. */
             @JvmField val CREDIT = of("credit")
 
+            /** The Prenotification is for an anticipated debit. */
             @JvmField val DEBIT = of("debit")
 
             @JvmStatic fun of(value: String) = CreditDebitIndicator(JsonField.of(value))
@@ -902,12 +904,16 @@ constructor(
 
         companion object {
 
+            /** Corporate Credit and Debit (CCD). */
             @JvmField val CORPORATE_CREDIT_OR_DEBIT = of("corporate_credit_or_debit")
 
+            /** Corporate Trade Exchange (CTX). */
             @JvmField val CORPORATE_TRADE_EXCHANGE = of("corporate_trade_exchange")
 
+            /** Prearranged Payments and Deposits (PPD). */
             @JvmField val PREARRANGED_PAYMENTS_AND_DEPOSIT = of("prearranged_payments_and_deposit")
 
+            /** Internet Initiated (WEB). */
             @JvmField val INTERNET_INITIATED = of("internet_initiated")
 
             @JvmStatic fun of(value: String) = StandardEntryClassCode(JsonField.of(value))

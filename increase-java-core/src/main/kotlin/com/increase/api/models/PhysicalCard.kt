@@ -825,10 +825,13 @@ private constructor(
 
             companion object {
 
+                /** USPS Post with tracking. */
                 @JvmField val USPS = of("usps")
 
+                /** FedEx Priority Overnight, no signature. */
                 @JvmField val FEDEX_PRIORITY_OVERNIGHT = of("fedex_priority_overnight")
 
+                /** FedEx 2-day. */
                 @JvmField val FEDEX_2_DAY = of("fedex_2_day")
 
                 @JvmStatic fun of(value: String) = Method(JsonField.of(value))
@@ -895,18 +898,33 @@ private constructor(
 
             companion object {
 
+                /** The physical card has not yet been shipped. */
                 @JvmField val PENDING = of("pending")
 
+                /** The physical card shipment was canceled prior to submission. */
                 @JvmField val CANCELED = of("canceled")
 
+                /**
+                 * The physical card shipment has been submitted to the card fulfillment provider.
+                 */
                 @JvmField val SUBMITTED = of("submitted")
 
+                /**
+                 * The physical card shipment has been acknowledged by the card fulfillment provider
+                 * and will be processed in their next batch.
+                 */
                 @JvmField val ACKNOWLEDGED = of("acknowledged")
 
+                /** The physical card shipment was rejected by the card printer due to an error. */
                 @JvmField val REJECTED = of("rejected")
 
+                /** The physical card has been shipped. */
                 @JvmField val SHIPPED = of("shipped")
 
+                /**
+                 * The physical card shipment was returned to the sender and destroyed by the
+                 * production facility.
+                 */
                 @JvmField val RETURNED = of("returned")
 
                 @JvmStatic fun of(value: String) = Status(JsonField.of(value))
@@ -1230,10 +1248,13 @@ private constructor(
 
         companion object {
 
+            /** The physical card is active. */
             @JvmField val ACTIVE = of("active")
 
+            /** The physical card is temporarily disabled. */
             @JvmField val DISABLED = of("disabled")
 
+            /** The physical card is permanently canceled. */
             @JvmField val CANCELED = of("canceled")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))

@@ -657,14 +657,21 @@ private constructor(
 
         companion object {
 
+            /** The proof of authorization request submission is pending review. */
             @JvmField val PENDING_REVIEW = of("pending_review")
 
+            /** The proof of authorization request submission was rejected. */
             @JvmField val REJECTED = of("rejected")
 
+            /**
+             * The proof of authorization request submission was canceled and replaced with another.
+             */
             @JvmField val CANCELED = of("canceled")
 
+            /** The proof of authorization request submission is pending sending. */
             @JvmField val PENDING_SENDING = of("pending_sending")
 
+            /** The proof of authorization request submission was sent. */
             @JvmField val SENT = of("sent")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))

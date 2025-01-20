@@ -1383,10 +1383,16 @@ private constructor(
 
             companion object {
 
+                /** An API key. Details will be under the `api_key` object. */
                 @JvmField val API_KEY = of("api_key")
 
+                /**
+                 * An OAuth application you connected to Increase. Details will be under the
+                 * `oauth_application` object.
+                 */
                 @JvmField val OAUTH_APPLICATION = of("oauth_application")
 
+                /** A User in the Increase dashboard. Details will be under the `user` object. */
                 @JvmField val USER = of("user")
 
                 @JvmStatic fun of(value: String) = Category(JsonField.of(value))
@@ -1682,16 +1688,22 @@ private constructor(
 
         companion object {
 
+            /** Canadian Dollar (CAD) */
             @JvmField val CAD = of("CAD")
 
+            /** Swiss Franc (CHF) */
             @JvmField val CHF = of("CHF")
 
+            /** Euro (EUR) */
             @JvmField val EUR = of("EUR")
 
+            /** British Pound (GBP) */
             @JvmField val GBP = of("GBP")
 
+            /** Japanese Yen (JPY) */
             @JvmField val JPY = of("JPY")
 
+            /** US Dollar (USD) */
             @JvmField val USD = of("USD")
 
             @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
@@ -1776,8 +1788,13 @@ private constructor(
 
         companion object {
 
+            /** Increase will print and mail a physical check. */
             @JvmField val PHYSICAL_CHECK = of("physical_check")
 
+            /**
+             * Increase will not print a check; you are responsible for printing and mailing a check
+             * with the provided account number, routing number, check number, and amount.
+             */
             @JvmField val THIRD_PARTY = of("third_party")
 
             @JvmStatic fun of(value: String) = FulfillmentMethod(JsonField.of(value))
@@ -2853,12 +2870,16 @@ private constructor(
 
                 companion object {
 
+                    /** The check is in transit. */
                     @JvmField val IN_TRANSIT = of("in_transit")
 
+                    /** The check has been processed for delivery. */
                     @JvmField val PROCESSED_FOR_DELIVERY = of("processed_for_delivery")
 
+                    /** The check has been delivered. */
                     @JvmField val DELIVERED = of("delivered")
 
+                    /** Delivery failed and the check was returned to sender. */
                     @JvmField val RETURNED_TO_SENDER = of("returned_to_sender")
 
                     @JvmStatic fun of(value: String) = Category(JsonField.of(value))
@@ -2967,24 +2988,34 @@ private constructor(
 
         companion object {
 
+            /** The transfer is awaiting approval. */
             @JvmField val PENDING_APPROVAL = of("pending_approval")
 
+            /** The transfer has been canceled. */
             @JvmField val CANCELED = of("canceled")
 
+            /** The transfer is pending submission. */
             @JvmField val PENDING_SUBMISSION = of("pending_submission")
 
+            /** The transfer requires attention from an Increase operator. */
             @JvmField val REQUIRES_ATTENTION = of("requires_attention")
 
+            /** The transfer has been rejected. */
             @JvmField val REJECTED = of("rejected")
 
+            /** The check is queued for mailing. */
             @JvmField val PENDING_MAILING = of("pending_mailing")
 
+            /** The check has been mailed. */
             @JvmField val MAILED = of("mailed")
 
+            /** The check has been deposited. */
             @JvmField val DEPOSITED = of("deposited")
 
+            /** A stop-payment was requested for this check. */
             @JvmField val STOPPED = of("stopped")
 
+            /** The transfer has been returned. */
             @JvmField val RETURNED = of("returned")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
@@ -3249,12 +3280,19 @@ private constructor(
 
             companion object {
 
+                /** The check could not be delivered. */
                 @JvmField val MAIL_DELIVERY_FAILED = of("mail_delivery_failed")
 
+                /**
+                 * The check was canceled by an Increase operator who will provide details
+                 * out-of-band.
+                 */
                 @JvmField val REJECTED_BY_INCREASE = of("rejected_by_increase")
 
+                /** The check was not authorized. */
                 @JvmField val NOT_AUTHORIZED = of("not_authorized")
 
+                /** The check was stopped for another reason. */
                 @JvmField val UNKNOWN = of("unknown")
 
                 @JvmStatic fun of(value: String) = Reason(JsonField.of(value))

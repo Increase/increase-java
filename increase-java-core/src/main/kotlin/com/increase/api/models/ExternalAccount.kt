@@ -376,10 +376,13 @@ private constructor(
 
         companion object {
 
+            /** The External Account is owned by a business. */
             @JvmField val BUSINESS = of("business")
 
+            /** The External Account is owned by an individual. */
             @JvmField val INDIVIDUAL = of("individual")
 
+            /** It's unknown what kind of entity owns the External Account. */
             @JvmField val UNKNOWN = of("unknown")
 
             @JvmStatic fun of(value: String) = AccountHolder(JsonField.of(value))
@@ -446,10 +449,13 @@ private constructor(
 
         companion object {
 
+            /** A checking account. */
             @JvmField val CHECKING = of("checking")
 
+            /** A savings account. */
             @JvmField val SAVINGS = of("savings")
 
+            /** A different type of account. */
             @JvmField val OTHER = of("other")
 
             @JvmStatic fun of(value: String) = Funding(JsonField.of(value))
@@ -516,8 +522,10 @@ private constructor(
 
         companion object {
 
+            /** The External Account is active. */
             @JvmField val ACTIVE = of("active")
 
+            /** The External Account is archived and won't appear in the dashboard. */
             @JvmField val ARCHIVED = of("archived")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
@@ -633,10 +641,13 @@ private constructor(
 
         companion object {
 
+            /** The External Account has not been verified. */
             @JvmField val UNVERIFIED = of("unverified")
 
+            /** The External Account is in the process of being verified. */
             @JvmField val PENDING = of("pending")
 
+            /** The External Account is verified. */
             @JvmField val VERIFIED = of("verified")
 
             @JvmStatic fun of(value: String) = VerificationStatus(JsonField.of(value))

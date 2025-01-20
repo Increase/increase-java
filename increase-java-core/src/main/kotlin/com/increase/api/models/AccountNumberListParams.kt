@@ -294,8 +294,10 @@ constructor(
 
         companion object {
 
+            /** ACH Debits are allowed. */
             @JvmField val ALLOWED = of("allowed")
 
+            /** ACH Debits are blocked. */
             @JvmField val BLOCKED = of("blocked")
 
             @JvmStatic fun of(value: String) = AchDebitStatus(JsonField.of(value))
@@ -556,10 +558,13 @@ constructor(
 
         companion object {
 
+            /** The account number is active. */
             @JvmField val ACTIVE = of("active")
 
+            /** The account number is temporarily disabled. */
             @JvmField val DISABLED = of("disabled")
 
+            /** The account number is permanently disabled. */
             @JvmField val CANCELED = of("canceled")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))

@@ -510,8 +510,10 @@ constructor(
 
         companion object {
 
+            /** Closed Accounts on which no new activity can occur. */
             @JvmField val CLOSED = of("closed")
 
+            /** Open Accounts that are ready to use. */
             @JvmField val OPEN = of("open")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))

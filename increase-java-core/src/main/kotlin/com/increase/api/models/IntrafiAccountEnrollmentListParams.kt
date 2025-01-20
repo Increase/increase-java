@@ -375,14 +375,19 @@ constructor(
 
             companion object {
 
+                /** The account is being added to the IntraFi network. */
                 @JvmField val PENDING_ENROLLING = of("pending_enrolling")
 
+                /** The account has been enrolled with IntraFi. */
                 @JvmField val ENROLLED = of("enrolled")
 
+                /** The account is being unenrolled from IntraFi's deposit sweep. */
                 @JvmField val PENDING_UNENROLLING = of("pending_unenrolling")
 
+                /** The account was once enrolled, but is no longer enrolled at IntraFi. */
                 @JvmField val UNENROLLED = of("unenrolled")
 
+                /** Something unexpected happened with this account. Contact Increase support. */
                 @JvmField val REQUIRES_ATTENTION = of("requires_attention")
 
                 @JvmStatic fun of(value: String) = In(JsonField.of(value))

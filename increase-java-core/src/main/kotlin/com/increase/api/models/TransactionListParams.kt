@@ -378,72 +378,155 @@ constructor(
 
             companion object {
 
+                /**
+                 * Account Transfer Intention: details will be under the
+                 * `account_transfer_intention` object.
+                 */
                 @JvmField val ACCOUNT_TRANSFER_INTENTION = of("account_transfer_intention")
 
+                /**
+                 * ACH Transfer Intention: details will be under the `ach_transfer_intention`
+                 * object.
+                 */
                 @JvmField val ACH_TRANSFER_INTENTION = of("ach_transfer_intention")
 
+                /**
+                 * ACH Transfer Rejection: details will be under the `ach_transfer_rejection`
+                 * object.
+                 */
                 @JvmField val ACH_TRANSFER_REJECTION = of("ach_transfer_rejection")
 
+                /** ACH Transfer Return: details will be under the `ach_transfer_return` object. */
                 @JvmField val ACH_TRANSFER_RETURN = of("ach_transfer_return")
 
+                /** Cashback Payment: details will be under the `cashback_payment` object. */
                 @JvmField val CASHBACK_PAYMENT = of("cashback_payment")
 
+                /**
+                 * Card Dispute Acceptance: details will be under the `card_dispute_acceptance`
+                 * object.
+                 */
                 @JvmField val CARD_DISPUTE_ACCEPTANCE = of("card_dispute_acceptance")
 
+                /** Card Dispute Loss: details will be under the `card_dispute_loss` object. */
                 @JvmField val CARD_DISPUTE_LOSS = of("card_dispute_loss")
 
+                /** Card Refund: details will be under the `card_refund` object. */
                 @JvmField val CARD_REFUND = of("card_refund")
 
+                /** Card Settlement: details will be under the `card_settlement` object. */
                 @JvmField val CARD_SETTLEMENT = of("card_settlement")
 
+                /**
+                 * Card Revenue Payment: details will be under the `card_revenue_payment` object.
+                 */
                 @JvmField val CARD_REVENUE_PAYMENT = of("card_revenue_payment")
 
+                /**
+                 * Check Deposit Acceptance: details will be under the `check_deposit_acceptance`
+                 * object.
+                 */
                 @JvmField val CHECK_DEPOSIT_ACCEPTANCE = of("check_deposit_acceptance")
 
+                /**
+                 * Check Deposit Return: details will be under the `check_deposit_return` object.
+                 */
                 @JvmField val CHECK_DEPOSIT_RETURN = of("check_deposit_return")
 
+                /**
+                 * Check Transfer Deposit: details will be under the `check_transfer_deposit`
+                 * object.
+                 */
                 @JvmField val CHECK_TRANSFER_DEPOSIT = of("check_transfer_deposit")
 
+                /** Fee Payment: details will be under the `fee_payment` object. */
                 @JvmField val FEE_PAYMENT = of("fee_payment")
 
+                /**
+                 * Inbound ACH Transfer Intention: details will be under the `inbound_ach_transfer`
+                 * object.
+                 */
                 @JvmField val INBOUND_ACH_TRANSFER = of("inbound_ach_transfer")
 
+                /**
+                 * Inbound ACH Transfer Return Intention: details will be under the
+                 * `inbound_ach_transfer_return_intention` object.
+                 */
                 @JvmField
                 val INBOUND_ACH_TRANSFER_RETURN_INTENTION =
                     of("inbound_ach_transfer_return_intention")
 
+                /**
+                 * Inbound Check Deposit Return Intention: details will be under the
+                 * `inbound_check_deposit_return_intention` object.
+                 */
                 @JvmField
                 val INBOUND_CHECK_DEPOSIT_RETURN_INTENTION =
                     of("inbound_check_deposit_return_intention")
 
+                /**
+                 * Inbound Check Adjustment: details will be under the `inbound_check_adjustment`
+                 * object.
+                 */
                 @JvmField val INBOUND_CHECK_ADJUSTMENT = of("inbound_check_adjustment")
 
+                /**
+                 * Inbound Real-Time Payments Transfer Confirmation: details will be under the
+                 * `inbound_real_time_payments_transfer_confirmation` object.
+                 */
                 @JvmField
                 val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION =
                     of("inbound_real_time_payments_transfer_confirmation")
 
+                /**
+                 * Inbound Real-Time Payments Transfer Decline: details will be under the
+                 * `inbound_real_time_payments_transfer_decline` object.
+                 */
                 @JvmField
                 val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE =
                     of("inbound_real_time_payments_transfer_decline")
 
+                /**
+                 * Inbound Wire Reversal: details will be under the `inbound_wire_reversal` object.
+                 */
                 @JvmField val INBOUND_WIRE_REVERSAL = of("inbound_wire_reversal")
 
+                /**
+                 * Inbound Wire Transfer Intention: details will be under the
+                 * `inbound_wire_transfer` object.
+                 */
                 @JvmField val INBOUND_WIRE_TRANSFER = of("inbound_wire_transfer")
 
+                /**
+                 * Inbound Wire Transfer Reversal Intention: details will be under the
+                 * `inbound_wire_transfer_reversal` object.
+                 */
                 @JvmField val INBOUND_WIRE_TRANSFER_REVERSAL = of("inbound_wire_transfer_reversal")
 
+                /** Interest Payment: details will be under the `interest_payment` object. */
                 @JvmField val INTEREST_PAYMENT = of("interest_payment")
 
+                /** Internal Source: details will be under the `internal_source` object. */
                 @JvmField val INTERNAL_SOURCE = of("internal_source")
 
+                /**
+                 * Real-Time Payments Transfer Acknowledgement: details will be under the
+                 * `real_time_payments_transfer_acknowledgement` object.
+                 */
                 @JvmField
                 val REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT =
                     of("real_time_payments_transfer_acknowledgement")
 
+                /** Sample Funds: details will be under the `sample_funds` object. */
                 @JvmField val SAMPLE_FUNDS = of("sample_funds")
 
+                /**
+                 * Wire Transfer Intention: details will be under the `wire_transfer_intention`
+                 * object.
+                 */
                 @JvmField val WIRE_TRANSFER_INTENTION = of("wire_transfer_intention")
 
+                /** The Transaction was made for an undocumented or deprecated reason. */
                 @JvmField val OTHER = of("other")
 
                 @JvmStatic fun of(value: String) = In(JsonField.of(value))

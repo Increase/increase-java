@@ -368,31 +368,61 @@ constructor(
 
         companion object {
 
+            /**
+             * The customer's account has insufficient funds. This reason is only allowed for
+             * debits. The Nacha return code is R01.
+             */
             @JvmField val INSUFFICIENT_FUNDS = of("insufficient_funds")
 
+            /**
+             * The originating financial institution asked for this transfer to be returned. The
+             * receiving bank is complying with the request. The Nacha return code is R06.
+             */
             @JvmField val RETURNED_PER_ODFI_REQUEST = of("returned_per_odfi_request")
 
+            /** The customer no longer authorizes this transaction. The Nacha return code is R07. */
             @JvmField
             val AUTHORIZATION_REVOKED_BY_CUSTOMER = of("authorization_revoked_by_customer")
 
+            /**
+             * The customer asked for the payment to be stopped. This reason is only allowed for
+             * debits. The Nacha return code is R08.
+             */
             @JvmField val PAYMENT_STOPPED = of("payment_stopped")
 
+            /**
+             * The customer advises that the debit was unauthorized. The Nacha return code is R10.
+             */
             @JvmField
             val CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE =
                 of("customer_advised_unauthorized_improper_ineligible_or_incomplete")
 
+            /** The payee is deceased. The Nacha return code is R14. */
             @JvmField
             val REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY =
                 of("representative_payee_deceased_or_unable_to_continue_in_that_capacity")
 
+            /** The account holder is deceased. The Nacha return code is R15. */
             @JvmField
             val BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED =
                 of("beneficiary_or_account_holder_deceased")
 
+            /**
+             * The customer refused a credit entry. This reason is only allowed for credits. The
+             * Nacha return code is R23.
+             */
             @JvmField val CREDIT_ENTRY_REFUSED_BY_RECEIVER = of("credit_entry_refused_by_receiver")
 
+            /**
+             * The account holder identified this transaction as a duplicate. The Nacha return code
+             * is R24.
+             */
             @JvmField val DUPLICATE_ENTRY = of("duplicate_entry")
 
+            /**
+             * The corporate customer no longer authorizes this transaction. The Nacha return code
+             * is R29.
+             */
             @JvmField
             val CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED =
                 of("corporate_customer_advised_not_authorized")

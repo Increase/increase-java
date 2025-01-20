@@ -892,10 +892,22 @@ private constructor(
 
             companion object {
 
+                /**
+                 * The return was initiated too late and the receiving institution has responded
+                 * with a Late Return Claim.
+                 */
                 @JvmField val LATE_RETURN = of("late_return")
 
+                /**
+                 * The check was deposited to the wrong payee and the depositing institution has
+                 * reimbursed the funds with a Wrong Payee Credit.
+                 */
                 @JvmField val WRONG_PAYEE_CREDIT = of("wrong_payee_credit")
 
+                /**
+                 * The check was deposited with a different amount than what was written on the
+                 * check.
+                 */
                 @JvmField val ADJUSTED_AMOUNT = of("adjusted_amount")
 
                 @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
@@ -998,16 +1010,22 @@ private constructor(
 
         companion object {
 
+            /** Canadian Dollar (CAD) */
             @JvmField val CAD = of("CAD")
 
+            /** Swiss Franc (CHF) */
             @JvmField val CHF = of("CHF")
 
+            /** Euro (EUR) */
             @JvmField val EUR = of("EUR")
 
+            /** British Pound (GBP) */
             @JvmField val GBP = of("GBP")
 
+            /** Japanese Yen (JPY) */
             @JvmField val JPY = of("JPY")
 
+            /** US Dollar (USD) */
             @JvmField val USD = of("USD")
 
             @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
@@ -1221,14 +1239,19 @@ private constructor(
 
             companion object {
 
+                /** The check was altered or fictitious. */
                 @JvmField val ALTERED_OR_FICTITIOUS = of("altered_or_fictitious")
 
+                /** The check was not authorized. */
                 @JvmField val NOT_AUTHORIZED = of("not_authorized")
 
+                /** The check was a duplicate presentment. */
                 @JvmField val DUPLICATE_PRESENTMENT = of("duplicate_presentment")
 
+                /** The check was not endorsed. */
                 @JvmField val ENDORSEMENT_MISSING = of("endorsement_missing")
 
+                /** The check was not endorsed by the payee. */
                 @JvmField val ENDORSEMENT_IRREGULAR = of("endorsement_irregular")
 
                 @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
@@ -1328,10 +1351,13 @@ private constructor(
 
         companion object {
 
+            /** The details on the check match the recipient name of the check transfer. */
             @JvmField val NAME_MATCHES = of("name_matches")
 
+            /** The details on the check do not match the recipient name of the check transfer. */
             @JvmField val DOES_NOT_MATCH = of("does_not_match")
 
+            /** The payee name analysis was not evaluated. */
             @JvmField val NOT_EVALUATED = of("not_evaluated")
 
             @JvmStatic fun of(value: String) = PayeeNameAnalysis(JsonField.of(value))
@@ -1398,14 +1424,19 @@ private constructor(
 
         companion object {
 
+            /** The Inbound Check Deposit is pending. */
             @JvmField val PENDING = of("pending")
 
+            /** The Inbound Check Deposit was accepted. */
             @JvmField val ACCEPTED = of("accepted")
 
+            /** The Inbound Check Deposit was rejected. */
             @JvmField val DECLINED = of("declined")
 
+            /** The Inbound Check Deposit was returned. */
             @JvmField val RETURNED = of("returned")
 
+            /** The Inbound Check Deposit requires attention from an Increase operator. */
             @JvmField val REQUIRES_ATTENTION = of("requires_attention")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))

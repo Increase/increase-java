@@ -973,16 +973,28 @@ private constructor(
 
         companion object {
 
+            /** The Card Dispute is pending review. */
             @JvmField val PENDING_REVIEWING = of("pending_reviewing")
 
+            /** Increase has requested more information related to the Card Dispute from you. */
             @JvmField val PENDING_USER_INFORMATION = of("pending_user_information")
 
+            /**
+             * The Card Dispute has been accepted and your funds have been returned. The card
+             * dispute will eventually transition into `won` or `lost` depending on the outcome.
+             */
             @JvmField val ACCEPTED = of("accepted")
 
+            /** The Card Dispute has been rejected. */
             @JvmField val REJECTED = of("rejected")
 
+            /**
+             * The Card Dispute has been lost and funds previously credited from the acceptance have
+             * been debited.
+             */
             @JvmField val LOST = of("lost")
 
+            /** The Card Dispute has been won and no further action can be taken. */
             @JvmField val WON = of("won")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))

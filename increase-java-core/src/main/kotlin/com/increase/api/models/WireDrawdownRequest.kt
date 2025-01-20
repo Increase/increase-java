@@ -683,12 +683,16 @@ private constructor(
 
         companion object {
 
+            /** The drawdown request is queued to be submitted to Fedwire. */
             @JvmField val PENDING_SUBMISSION = of("pending_submission")
 
+            /** The drawdown request has been sent and the recipient should respond in some way. */
             @JvmField val PENDING_RESPONSE = of("pending_response")
 
+            /** The drawdown request has been fulfilled by the recipient. */
             @JvmField val FULFILLED = of("fulfilled")
 
+            /** The drawdown request has been refused by the recipient. */
             @JvmField val REFUSED = of("refused")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
