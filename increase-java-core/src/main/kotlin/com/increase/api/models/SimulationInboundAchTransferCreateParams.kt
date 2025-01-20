@@ -775,36 +775,52 @@ constructor(
 
         companion object {
 
+            /** Corporate Credit and Debit (CCD). */
             @JvmField val CORPORATE_CREDIT_OR_DEBIT = of("corporate_credit_or_debit")
 
+            /** Corporate Trade Exchange (CTX). */
             @JvmField val CORPORATE_TRADE_EXCHANGE = of("corporate_trade_exchange")
 
+            /** Prearranged Payments and Deposits (PPD). */
             @JvmField val PREARRANGED_PAYMENTS_AND_DEPOSIT = of("prearranged_payments_and_deposit")
 
+            /** Internet Initiated (WEB). */
             @JvmField val INTERNET_INITIATED = of("internet_initiated")
 
+            /** Point of Sale (POS). */
             @JvmField val POINT_OF_SALE = of("point_of_sale")
 
+            /** Telephone Initiated (TEL). */
             @JvmField val TELEPHONE_INITIATED = of("telephone_initiated")
 
+            /** Customer Initiated (CIE). */
             @JvmField val CUSTOMER_INITIATED = of("customer_initiated")
 
+            /** Accounts Receivable (ARC). */
             @JvmField val ACCOUNTS_RECEIVABLE = of("accounts_receivable")
 
+            /** Machine Transfer (MTE). */
             @JvmField val MACHINE_TRANSFER = of("machine_transfer")
 
+            /** Shared Network Transaction (SHR). */
             @JvmField val SHARED_NETWORK_TRANSACTION = of("shared_network_transaction")
 
+            /** Represented Check (RCK). */
             @JvmField val REPRESENTED_CHECK = of("represented_check")
 
+            /** Back Office Conversion (BOC). */
             @JvmField val BACK_OFFICE_CONVERSION = of("back_office_conversion")
 
+            /** Point of Purchase (POP). */
             @JvmField val POINT_OF_PURCHASE = of("point_of_purchase")
 
+            /** Check Truncation (TRC). */
             @JvmField val CHECK_TRUNCATION = of("check_truncation")
 
+            /** Destroyed Check (XCK). */
             @JvmField val DESTROYED_CHECK = of("destroyed_check")
 
+            /** International ACH Transaction (IAT). */
             @JvmField val INTERNATIONAL_ACH_TRANSACTION = of("international_ach_transaction")
 
             @JvmStatic fun of(value: String) = StandardEntryClassCode(JsonField.of(value))

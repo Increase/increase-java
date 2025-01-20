@@ -1513,10 +1513,16 @@ private constructor(
 
             companion object {
 
+                /** An API key. Details will be under the `api_key` object. */
                 @JvmField val API_KEY = of("api_key")
 
+                /**
+                 * An OAuth application you connected to Increase. Details will be under the
+                 * `oauth_application` object.
+                 */
                 @JvmField val OAUTH_APPLICATION = of("oauth_application")
 
+                /** A User in the Increase dashboard. Details will be under the `user` object. */
                 @JvmField val USER = of("user")
 
                 @JvmStatic fun of(value: String) = Category(JsonField.of(value))
@@ -1815,16 +1821,22 @@ private constructor(
 
         companion object {
 
+            /** Canadian Dollar (CAD) */
             @JvmField val CAD = of("CAD")
 
+            /** Swiss Franc (CHF) */
             @JvmField val CHF = of("CHF")
 
+            /** Euro (EUR) */
             @JvmField val EUR = of("EUR")
 
+            /** British Pound (GBP) */
             @JvmField val GBP = of("GBP")
 
+            /** Japanese Yen (JPY) */
             @JvmField val JPY = of("JPY")
 
+            /** US Dollar (USD) */
             @JvmField val USD = of("USD")
 
             @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
@@ -2581,22 +2593,31 @@ private constructor(
 
         companion object {
 
+            /** The transfer is pending approval. */
             @JvmField val PENDING_APPROVAL = of("pending_approval")
 
+            /** The transfer has been canceled. */
             @JvmField val CANCELED = of("canceled")
 
+            /** The transfer is pending review by Increase. */
             @JvmField val PENDING_REVIEWING = of("pending_reviewing")
 
+            /** The transfer has been rejected by Increase. */
             @JvmField val REJECTED = of("rejected")
 
+            /** The transfer requires attention from an Increase operator. */
             @JvmField val REQUIRES_ATTENTION = of("requires_attention")
 
+            /** The transfer is pending creation. */
             @JvmField val PENDING_CREATING = of("pending_creating")
 
+            /** The transfer has been reversed. */
             @JvmField val REVERSED = of("reversed")
 
+            /** The transfer has been submitted to Fedwire. */
             @JvmField val SUBMITTED = of("submitted")
 
+            /** The transfer has been acknowledged by Fedwire and can be considered complete. */
             @JvmField val COMPLETE = of("complete")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))

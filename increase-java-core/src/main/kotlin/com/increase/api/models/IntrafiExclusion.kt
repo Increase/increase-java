@@ -335,10 +335,13 @@ private constructor(
 
         companion object {
 
+            /** The exclusion is being added to the IntraFi network. */
             @JvmField val PENDING = of("pending")
 
+            /** The exclusion has been added to the IntraFi network. */
             @JvmField val COMPLETED = of("completed")
 
+            /** The exclusion has been removed from the IntraFi network. */
             @JvmField val ARCHIVED = of("archived")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))

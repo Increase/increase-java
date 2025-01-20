@@ -332,10 +332,13 @@ private constructor(
 
         companion object {
 
+            /** Blue Ridge Bank, N.A. */
             @JvmField val BLUE_RIDGE_BANK = of("blue_ridge_bank")
 
+            /** First Internet Bank of Indiana */
             @JvmField val FIRST_INTERNET_BANK = of("first_internet_bank")
 
+            /** Grasshopper Bank */
             @JvmField val GRASSHOPPER_BANK = of("grasshopper_bank")
 
             @JvmStatic fun of(value: String) = Bank(JsonField.of(value))

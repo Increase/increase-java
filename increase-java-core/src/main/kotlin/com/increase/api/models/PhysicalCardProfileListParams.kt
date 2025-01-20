@@ -358,16 +358,25 @@ constructor(
 
             companion object {
 
+                /** The Card Profile has not yet been processed by Increase. */
                 @JvmField val PENDING_CREATING = of("pending_creating")
 
+                /** The card profile is awaiting review by Increase. */
                 @JvmField val PENDING_REVIEWING = of("pending_reviewing")
 
+                /** There is an issue with the Physical Card Profile preventing it from use. */
                 @JvmField val REJECTED = of("rejected")
 
+                /** The card profile is awaiting submission to the fulfillment provider. */
                 @JvmField val PENDING_SUBMITTING = of("pending_submitting")
 
+                /**
+                 * The Physical Card Profile has been submitted to the fulfillment provider and is
+                 * ready to use.
+                 */
                 @JvmField val ACTIVE = of("active")
 
+                /** The Physical Card Profile has been archived. */
                 @JvmField val ARCHIVED = of("archived")
 
                 @JvmStatic fun of(value: String) = In(JsonField.of(value))

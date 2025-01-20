@@ -1051,6 +1051,7 @@ private constructor(
 
             companion object {
 
+                /** Unstructured addendum. */
                 @JvmField val FREEFORM = of("freeform")
 
                 @JvmStatic fun of(value: String) = Category(JsonField.of(value))
@@ -1486,46 +1487,66 @@ private constructor(
 
             companion object {
 
+                /** The account number is canceled. */
                 @JvmField val ACH_ROUTE_CANCELED = of("ach_route_canceled")
 
+                /** The account number is disabled. */
                 @JvmField val ACH_ROUTE_DISABLED = of("ach_route_disabled")
 
+                /** The transaction would cause an Increase limit to be exceeded. */
                 @JvmField val BREACHES_LIMIT = of("breaches_limit")
 
+                /** The account's entity is not active. */
                 @JvmField val ENTITY_NOT_ACTIVE = of("entity_not_active")
 
+                /** Your account is inactive. */
                 @JvmField val GROUP_LOCKED = of("group_locked")
 
+                /** The transaction is not allowed per Increase's terms. */
                 @JvmField val TRANSACTION_NOT_ALLOWED = of("transaction_not_allowed")
 
+                /** Your integration declined this transfer via the API. */
                 @JvmField val USER_INITIATED = of("user_initiated")
 
+                /** Your account contains insufficient funds. */
                 @JvmField val INSUFFICIENT_FUNDS = of("insufficient_funds")
 
+                /**
+                 * The originating financial institution asked for this transfer to be returned. The
+                 * receiving bank is complying with the request.
+                 */
                 @JvmField val RETURNED_PER_ODFI_REQUEST = of("returned_per_odfi_request")
 
+                /** The customer no longer authorizes this transaction. */
                 @JvmField
                 val AUTHORIZATION_REVOKED_BY_CUSTOMER = of("authorization_revoked_by_customer")
 
+                /** The customer asked for the payment to be stopped. */
                 @JvmField val PAYMENT_STOPPED = of("payment_stopped")
 
+                /** The customer advises that the debit was unauthorized. */
                 @JvmField
                 val CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE =
                     of("customer_advised_unauthorized_improper_ineligible_or_incomplete")
 
+                /** The payee is deceased. */
                 @JvmField
                 val REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY =
                     of("representative_payee_deceased_or_unable_to_continue_in_that_capacity")
 
+                /** The account holder is deceased. */
                 @JvmField
                 val BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED =
                     of("beneficiary_or_account_holder_deceased")
 
+                /** The customer refused a credit entry. */
                 @JvmField
                 val CREDIT_ENTRY_REFUSED_BY_RECEIVER = of("credit_entry_refused_by_receiver")
 
+                /** The account holder identified this transaction as a duplicate. */
                 @JvmField val DUPLICATE_ENTRY = of("duplicate_entry")
 
+                /** The corporate customer no longer authorizes this transaction. */
                 @JvmField
                 val CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED =
                     of("corporate_customer_advised_not_authorized")
@@ -1710,8 +1731,10 @@ private constructor(
 
         companion object {
 
+            /** Credit */
             @JvmField val CREDIT = of("credit")
 
+            /** Debit */
             @JvmField val DEBIT = of("debit")
 
             @JvmStatic fun of(value: String) = Direction(JsonField.of(value))
@@ -1772,8 +1795,10 @@ private constructor(
 
         companion object {
 
+            /** The transfer is expected to settle same-day. */
             @JvmField val SAME_DAY = of("same_day")
 
+            /** The transfer is expected to settle on a future date. */
             @JvmField val FUTURE_DATED = of("future_dated")
 
             @JvmStatic fun of(value: String) = ExpectedSettlementSchedule(JsonField.of(value))
@@ -3137,10 +3162,22 @@ private constructor(
 
             companion object {
 
+                /**
+                 * The originator chose an amount in their own currency. The settled amount in USD
+                 * was converted using the exchange rate.
+                 */
                 @JvmField val FIXED_TO_VARIABLE = of("fixed_to_variable")
 
+                /**
+                 * The originator chose an amount to settle in USD. The originator's amount was
+                 * variable; known only after the foreign exchange conversion.
+                 */
                 @JvmField val VARIABLE_TO_FIXED = of("variable_to_fixed")
 
+                /**
+                 * The amount was originated and settled as a fixed amount in USD. There is no
+                 * foreign exchange conversion.
+                 */
                 @JvmField val FIXED_TO_FIXED = of("fixed_to_fixed")
 
                 @JvmStatic fun of(value: String) = ForeignExchangeIndicator(JsonField.of(value))
@@ -3231,11 +3268,17 @@ private constructor(
 
             companion object {
 
+                /** The ACH file contains a foreign exchange rate. */
                 @JvmField val FOREIGN_EXCHANGE_RATE = of("foreign_exchange_rate")
 
+                /** The ACH file contains a reference to a well-known foreign exchange rate. */
                 @JvmField
                 val FOREIGN_EXCHANGE_REFERENCE_NUMBER = of("foreign_exchange_reference_number")
 
+                /**
+                 * There is no foreign exchange for this transfer, so the
+                 * `foreign_exchange_reference` field is blank.
+                 */
                 @JvmField val BLANK = of("blank")
 
                 @JvmStatic
@@ -3312,44 +3355,64 @@ private constructor(
 
             companion object {
 
+                /** Sent as `ANN` in the Nacha file. */
                 @JvmField val ANNUITY = of("annuity")
 
+                /** Sent as `BUS` in the Nacha file. */
                 @JvmField val BUSINESS_OR_COMMERCIAL = of("business_or_commercial")
 
+                /** Sent as `DEP` in the Nacha file. */
                 @JvmField val DEPOSIT = of("deposit")
 
+                /** Sent as `LOA` in the Nacha file. */
                 @JvmField val LOAN = of("loan")
 
+                /** Sent as `MIS` in the Nacha file. */
                 @JvmField val MISCELLANEOUS = of("miscellaneous")
 
+                /** Sent as `MOR` in the Nacha file. */
                 @JvmField val MORTGAGE = of("mortgage")
 
+                /** Sent as `PEN` in the Nacha file. */
                 @JvmField val PENSION = of("pension")
 
+                /** Sent as `REM` in the Nacha file. */
                 @JvmField val REMITTANCE = of("remittance")
 
+                /** Sent as `RLS` in the Nacha file. */
                 @JvmField val RENT_OR_LEASE = of("rent_or_lease")
 
+                /** Sent as `SAL` in the Nacha file. */
                 @JvmField val SALARY_OR_PAYROLL = of("salary_or_payroll")
 
+                /** Sent as `TAX` in the Nacha file. */
                 @JvmField val TAX = of("tax")
 
+                /** Sent as `ARC` in the Nacha file. */
                 @JvmField val ACCOUNTS_RECEIVABLE = of("accounts_receivable")
 
+                /** Sent as `BOC` in the Nacha file. */
                 @JvmField val BACK_OFFICE_CONVERSION = of("back_office_conversion")
 
+                /** Sent as `MTE` in the Nacha file. */
                 @JvmField val MACHINE_TRANSFER = of("machine_transfer")
 
+                /** Sent as `POP` in the Nacha file. */
                 @JvmField val POINT_OF_PURCHASE = of("point_of_purchase")
 
+                /** Sent as `POS` in the Nacha file. */
                 @JvmField val POINT_OF_SALE = of("point_of_sale")
 
+                /** Sent as `RCK` in the Nacha file. */
                 @JvmField val REPRESENTED_CHECK = of("represented_check")
 
+                /** Sent as `SHR` in the Nacha file. */
                 @JvmField val SHARED_NETWORK_TRANSACTION = of("shared_network_transaction")
 
+                /** Sent as `TEL` in the Nacha file. */
                 @JvmField val TELPHONE_INITIATED = of("telphone_initiated")
 
+                /** Sent as `WEB` in the Nacha file. */
                 @JvmField val INTERNET_INITIATED = of("internet_initiated")
 
                 @JvmStatic
@@ -3525,11 +3588,17 @@ private constructor(
 
             companion object {
 
+                /**
+                 * A domestic clearing system number. In the US, for example, this is the American
+                 * Banking Association (ABA) routing number.
+                 */
                 @JvmField
                 val NATIONAL_CLEARING_SYSTEM_NUMBER = of("national_clearing_system_number")
 
+                /** The SWIFT Bank Identifier Code (BIC) of the bank. */
                 @JvmField val BIC_CODE = of("bic_code")
 
+                /** An International Bank Account Number. */
                 @JvmField val IBAN = of("iban")
 
                 @JvmStatic
@@ -3610,11 +3679,17 @@ private constructor(
 
             companion object {
 
+                /**
+                 * A domestic clearing system number. In the US, for example, this is the American
+                 * Banking Association (ABA) routing number.
+                 */
                 @JvmField
                 val NATIONAL_CLEARING_SYSTEM_NUMBER = of("national_clearing_system_number")
 
+                /** The SWIFT Bank Identifier Code (BIC) of the bank. */
                 @JvmField val BIC_CODE = of("bic_code")
 
+                /** An International Bank Account Number. */
                 @JvmField val IBAN = of("iban")
 
                 @JvmStatic
@@ -3853,36 +3928,52 @@ private constructor(
 
         companion object {
 
+            /** Corporate Credit and Debit (CCD). */
             @JvmField val CORPORATE_CREDIT_OR_DEBIT = of("corporate_credit_or_debit")
 
+            /** Corporate Trade Exchange (CTX). */
             @JvmField val CORPORATE_TRADE_EXCHANGE = of("corporate_trade_exchange")
 
+            /** Prearranged Payments and Deposits (PPD). */
             @JvmField val PREARRANGED_PAYMENTS_AND_DEPOSIT = of("prearranged_payments_and_deposit")
 
+            /** Internet Initiated (WEB). */
             @JvmField val INTERNET_INITIATED = of("internet_initiated")
 
+            /** Point of Sale (POS). */
             @JvmField val POINT_OF_SALE = of("point_of_sale")
 
+            /** Telephone Initiated (TEL). */
             @JvmField val TELEPHONE_INITIATED = of("telephone_initiated")
 
+            /** Customer Initiated (CIE). */
             @JvmField val CUSTOMER_INITIATED = of("customer_initiated")
 
+            /** Accounts Receivable (ARC). */
             @JvmField val ACCOUNTS_RECEIVABLE = of("accounts_receivable")
 
+            /** Machine Transfer (MTE). */
             @JvmField val MACHINE_TRANSFER = of("machine_transfer")
 
+            /** Shared Network Transaction (SHR). */
             @JvmField val SHARED_NETWORK_TRANSACTION = of("shared_network_transaction")
 
+            /** Represented Check (RCK). */
             @JvmField val REPRESENTED_CHECK = of("represented_check")
 
+            /** Back Office Conversion (BOC). */
             @JvmField val BACK_OFFICE_CONVERSION = of("back_office_conversion")
 
+            /** Point of Purchase (POP). */
             @JvmField val POINT_OF_PURCHASE = of("point_of_purchase")
 
+            /** Check Truncation (TRC). */
             @JvmField val CHECK_TRUNCATION = of("check_truncation")
 
+            /** Destroyed Check (XCK). */
             @JvmField val DESTROYED_CHECK = of("destroyed_check")
 
+            /** International ACH Transaction (IAT). */
             @JvmField val INTERNATIONAL_ACH_TRANSACTION = of("international_ach_transaction")
 
             @JvmStatic fun of(value: String) = StandardEntryClassCode(JsonField.of(value))
@@ -4027,12 +4118,19 @@ private constructor(
 
         companion object {
 
+            /**
+             * The Inbound ACH Transfer is awaiting action, will transition automatically if no
+             * action is taken.
+             */
             @JvmField val PENDING = of("pending")
 
+            /** The Inbound ACH Transfer has been declined. */
             @JvmField val DECLINED = of("declined")
 
+            /** The Inbound ACH Transfer is accepted. */
             @JvmField val ACCEPTED = of("accepted")
 
+            /** The Inbound ACH Transfer has been returned. */
             @JvmField val RETURNED = of("returned")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
@@ -4240,32 +4338,65 @@ private constructor(
 
             companion object {
 
+                /**
+                 * The customer's account has insufficient funds. This reason is only allowed for
+                 * debits. The Nacha return code is R01.
+                 */
                 @JvmField val INSUFFICIENT_FUNDS = of("insufficient_funds")
 
+                /**
+                 * The originating financial institution asked for this transfer to be returned. The
+                 * receiving bank is complying with the request. The Nacha return code is R06.
+                 */
                 @JvmField val RETURNED_PER_ODFI_REQUEST = of("returned_per_odfi_request")
 
+                /**
+                 * The customer no longer authorizes this transaction. The Nacha return code is R07.
+                 */
                 @JvmField
                 val AUTHORIZATION_REVOKED_BY_CUSTOMER = of("authorization_revoked_by_customer")
 
+                /**
+                 * The customer asked for the payment to be stopped. This reason is only allowed for
+                 * debits. The Nacha return code is R08.
+                 */
                 @JvmField val PAYMENT_STOPPED = of("payment_stopped")
 
+                /**
+                 * The customer advises that the debit was unauthorized. The Nacha return code is
+                 * R10.
+                 */
                 @JvmField
                 val CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE =
                     of("customer_advised_unauthorized_improper_ineligible_or_incomplete")
 
+                /** The payee is deceased. The Nacha return code is R14. */
                 @JvmField
                 val REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY =
                     of("representative_payee_deceased_or_unable_to_continue_in_that_capacity")
 
+                /** The account holder is deceased. The Nacha return code is R15. */
                 @JvmField
                 val BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED =
                     of("beneficiary_or_account_holder_deceased")
 
+                /**
+                 * The customer refused a credit entry. This reason is only allowed for credits. The
+                 * Nacha return code is R23.
+                 */
                 @JvmField
                 val CREDIT_ENTRY_REFUSED_BY_RECEIVER = of("credit_entry_refused_by_receiver")
 
+                /**
+                 * The account holder identified this transaction as a duplicate. The Nacha return
+                 * code is R24.
+                 */
                 @JvmField val DUPLICATE_ENTRY = of("duplicate_entry")
 
+                /**
+                 * The corporate customer no longer authorizes this transaction. The Nacha return
+                 * code is R29.
+                 */
                 @JvmField
                 val CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED =
                     of("corporate_customer_advised_not_authorized")

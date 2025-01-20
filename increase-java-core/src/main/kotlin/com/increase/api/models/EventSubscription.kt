@@ -342,213 +342,317 @@ private constructor(
 
         companion object {
 
+            /** Occurs whenever an Account is created. */
             @JvmField val ACCOUNT_CREATED = of("account.created")
 
+            /** Occurs whenever an Account is updated. */
             @JvmField val ACCOUNT_UPDATED = of("account.updated")
 
+            /** Occurs whenever an Account Number is created. */
             @JvmField val ACCOUNT_NUMBER_CREATED = of("account_number.created")
 
+            /** Occurs whenever an Account Number is updated. */
             @JvmField val ACCOUNT_NUMBER_UPDATED = of("account_number.updated")
 
+            /** Occurs whenever an Account Statement is created. */
             @JvmField val ACCOUNT_STATEMENT_CREATED = of("account_statement.created")
 
+            /** Occurs whenever an Account Transfer is created. */
             @JvmField val ACCOUNT_TRANSFER_CREATED = of("account_transfer.created")
 
+            /** Occurs whenever an Account Transfer is updated. */
             @JvmField val ACCOUNT_TRANSFER_UPDATED = of("account_transfer.updated")
 
+            /** Occurs whenever an ACH Prenotification is created. */
             @JvmField val ACH_PRENOTIFICATION_CREATED = of("ach_prenotification.created")
 
+            /** Occurs whenever an ACH Prenotification is updated. */
             @JvmField val ACH_PRENOTIFICATION_UPDATED = of("ach_prenotification.updated")
 
+            /** Occurs whenever an ACH Transfer is created. */
             @JvmField val ACH_TRANSFER_CREATED = of("ach_transfer.created")
 
+            /** Occurs whenever an ACH Transfer is updated. */
             @JvmField val ACH_TRANSFER_UPDATED = of("ach_transfer.updated")
 
+            /** Occurs whenever a Bookkeeping Account is created. */
             @JvmField val BOOKKEEPING_ACCOUNT_CREATED = of("bookkeeping_account.created")
 
+            /** Occurs whenever a Bookkeeping Account is updated. */
             @JvmField val BOOKKEEPING_ACCOUNT_UPDATED = of("bookkeeping_account.updated")
 
+            /** Occurs whenever a Bookkeeping Entry Set is created. */
             @JvmField val BOOKKEEPING_ENTRY_SET_UPDATED = of("bookkeeping_entry_set.updated")
 
+            /** Occurs whenever a Card is created. */
             @JvmField val CARD_CREATED = of("card.created")
 
+            /** Occurs whenever a Card is updated. */
             @JvmField val CARD_UPDATED = of("card.updated")
 
+            /** Occurs whenever a Card Payment is created. */
             @JvmField val CARD_PAYMENT_CREATED = of("card_payment.created")
 
+            /** Occurs whenever a Card Payment is updated. */
             @JvmField val CARD_PAYMENT_UPDATED = of("card_payment.updated")
 
+            /** Occurs whenever a Card Profile is created. */
             @JvmField val CARD_PROFILE_CREATED = of("card_profile.created")
 
+            /** Occurs whenever a Card Profile is updated. */
             @JvmField val CARD_PROFILE_UPDATED = of("card_profile.updated")
 
+            /** Occurs whenever a Card Dispute is created. */
             @JvmField val CARD_DISPUTE_CREATED = of("card_dispute.created")
 
+            /** Occurs whenever a Card Dispute is updated. */
             @JvmField val CARD_DISPUTE_UPDATED = of("card_dispute.updated")
 
+            /** Occurs whenever a Check Deposit is created. */
             @JvmField val CHECK_DEPOSIT_CREATED = of("check_deposit.created")
 
+            /** Occurs whenever a Check Deposit is updated. */
             @JvmField val CHECK_DEPOSIT_UPDATED = of("check_deposit.updated")
 
+            /** Occurs whenever a Check Transfer is created. */
             @JvmField val CHECK_TRANSFER_CREATED = of("check_transfer.created")
 
+            /** Occurs whenever a Check Transfer is updated. */
             @JvmField val CHECK_TRANSFER_UPDATED = of("check_transfer.updated")
 
+            /** Occurs whenever a Declined Transaction is created. */
             @JvmField val DECLINED_TRANSACTION_CREATED = of("declined_transaction.created")
 
+            /** Occurs whenever a Digital Card Profile is created. */
             @JvmField val DIGITAL_CARD_PROFILE_CREATED = of("digital_card_profile.created")
 
+            /** Occurs whenever a Digital Card Profile is updated. */
             @JvmField val DIGITAL_CARD_PROFILE_UPDATED = of("digital_card_profile.updated")
 
+            /** Occurs whenever a Digital Wallet Token is created. */
             @JvmField val DIGITAL_WALLET_TOKEN_CREATED = of("digital_wallet_token.created")
 
+            /** Occurs whenever a Digital Wallet Token is updated. */
             @JvmField val DIGITAL_WALLET_TOKEN_UPDATED = of("digital_wallet_token.updated")
 
+            /** Occurs whenever a Document is created. */
             @JvmField val DOCUMENT_CREATED = of("document.created")
 
+            /** Occurs whenever an Entity is created. */
             @JvmField val ENTITY_CREATED = of("entity.created")
 
+            /** Occurs whenever an Entity is updated. */
             @JvmField val ENTITY_UPDATED = of("entity.updated")
 
+            /** Occurs whenever an Event Subscription is created. */
             @JvmField val EVENT_SUBSCRIPTION_CREATED = of("event_subscription.created")
 
+            /** Occurs whenever an Event Subscription is updated. */
             @JvmField val EVENT_SUBSCRIPTION_UPDATED = of("event_subscription.updated")
 
+            /** Occurs whenever an Export is created. */
             @JvmField val EXPORT_CREATED = of("export.created")
 
+            /** Occurs whenever an Export is updated. */
             @JvmField val EXPORT_UPDATED = of("export.updated")
 
+            /** Occurs whenever an External Account is created. */
             @JvmField val EXTERNAL_ACCOUNT_CREATED = of("external_account.created")
 
+            /** Occurs whenever an External Account is updated. */
             @JvmField val EXTERNAL_ACCOUNT_UPDATED = of("external_account.updated")
 
+            /** Occurs whenever a File is created. */
             @JvmField val FILE_CREATED = of("file.created")
 
+            /** Occurs whenever a Group is updated. */
             @JvmField val GROUP_UPDATED = of("group.updated")
 
+            /**
+             * Increase may send webhooks with this category to see if a webhook endpoint is working
+             * properly.
+             */
             @JvmField val GROUP_HEARTBEAT = of("group.heartbeat")
 
+            /** Occurs whenever an Inbound ACH Transfer is created. */
             @JvmField val INBOUND_ACH_TRANSFER_CREATED = of("inbound_ach_transfer.created")
 
+            /** Occurs whenever an Inbound ACH Transfer is updated. */
             @JvmField val INBOUND_ACH_TRANSFER_UPDATED = of("inbound_ach_transfer.updated")
 
+            /** Occurs whenever an Inbound ACH Transfer Return is created. */
             @JvmField
             val INBOUND_ACH_TRANSFER_RETURN_CREATED = of("inbound_ach_transfer_return.created")
 
+            /** Occurs whenever an Inbound ACH Transfer Return is updated. */
             @JvmField
             val INBOUND_ACH_TRANSFER_RETURN_UPDATED = of("inbound_ach_transfer_return.updated")
 
+            /** Occurs whenever an Inbound Check Deposit is created. */
             @JvmField val INBOUND_CHECK_DEPOSIT_CREATED = of("inbound_check_deposit.created")
 
+            /** Occurs whenever an Inbound Check Deposit is updated. */
             @JvmField val INBOUND_CHECK_DEPOSIT_UPDATED = of("inbound_check_deposit.updated")
 
+            /** Occurs whenever an Inbound Mail Item is created. */
             @JvmField val INBOUND_MAIL_ITEM_CREATED = of("inbound_mail_item.created")
 
+            /** Occurs whenever an Inbound Mail Item is updated. */
             @JvmField val INBOUND_MAIL_ITEM_UPDATED = of("inbound_mail_item.updated")
 
+            /** Occurs whenever an Inbound Real-Time Payments Transfer is created. */
             @JvmField
             val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED =
                 of("inbound_real_time_payments_transfer.created")
 
+            /** Occurs whenever an Inbound Real-Time Payments Transfer is updated. */
             @JvmField
             val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_UPDATED =
                 of("inbound_real_time_payments_transfer.updated")
 
+            /** Occurs whenever an Inbound Wire Drawdown Request is created. */
             @JvmField
             val INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED = of("inbound_wire_drawdown_request.created")
 
+            /** Occurs whenever an Inbound Wire Transfer is created. */
             @JvmField val INBOUND_WIRE_TRANSFER_CREATED = of("inbound_wire_transfer.created")
 
+            /** Occurs whenever an Inbound Wire Transfer is updated. */
             @JvmField val INBOUND_WIRE_TRANSFER_UPDATED = of("inbound_wire_transfer.updated")
 
+            /** Occurs whenever an IntraFi Account Enrollment is created. */
             @JvmField
             val INTRAFI_ACCOUNT_ENROLLMENT_CREATED = of("intrafi_account_enrollment.created")
 
+            /** Occurs whenever an IntraFi Account Enrollment is updated. */
             @JvmField
             val INTRAFI_ACCOUNT_ENROLLMENT_UPDATED = of("intrafi_account_enrollment.updated")
 
+            /** Occurs whenever an IntraFi Exclusion is created. */
             @JvmField val INTRAFI_EXCLUSION_CREATED = of("intrafi_exclusion.created")
 
+            /** Occurs whenever an IntraFi Exclusion is updated. */
             @JvmField val INTRAFI_EXCLUSION_UPDATED = of("intrafi_exclusion.updated")
 
+            /** Occurs whenever a Lockbox is created. */
             @JvmField val LOCKBOX_CREATED = of("lockbox.created")
 
+            /** Occurs whenever a Lockbox is updated. */
             @JvmField val LOCKBOX_UPDATED = of("lockbox.updated")
 
+            /** Occurs whenever an OAuth Connection is created. */
             @JvmField val OAUTH_CONNECTION_CREATED = of("oauth_connection.created")
 
+            /** Occurs whenever an OAuth Connection is deactivated. */
             @JvmField val OAUTH_CONNECTION_DEACTIVATED = of("oauth_connection.deactivated")
 
+            /** Occurs whenever a Pending Transaction is created. */
             @JvmField val PENDING_TRANSACTION_CREATED = of("pending_transaction.created")
 
+            /** Occurs whenever a Pending Transaction is updated. */
             @JvmField val PENDING_TRANSACTION_UPDATED = of("pending_transaction.updated")
 
+            /** Occurs whenever a Physical Card is created. */
             @JvmField val PHYSICAL_CARD_CREATED = of("physical_card.created")
 
+            /** Occurs whenever a Physical Card is updated. */
             @JvmField val PHYSICAL_CARD_UPDATED = of("physical_card.updated")
 
+            /** Occurs whenever a Physical Card Profile is created. */
             @JvmField val PHYSICAL_CARD_PROFILE_CREATED = of("physical_card_profile.created")
 
+            /** Occurs whenever a Physical Card Profile is updated. */
             @JvmField val PHYSICAL_CARD_PROFILE_UPDATED = of("physical_card_profile.updated")
 
+            /** Occurs whenever a Proof of Authorization Request is created. */
             @JvmField
             val PROOF_OF_AUTHORIZATION_REQUEST_CREATED =
                 of("proof_of_authorization_request.created")
 
+            /** Occurs whenever a Proof of Authorization Request is updated. */
             @JvmField
             val PROOF_OF_AUTHORIZATION_REQUEST_UPDATED =
                 of("proof_of_authorization_request.updated")
 
+            /** Occurs whenever a Proof of Authorization Request Submission is created. */
             @JvmField
             val PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_CREATED =
                 of("proof_of_authorization_request_submission.created")
 
+            /** Occurs whenever a Proof of Authorization Request Submission is updated. */
             @JvmField
             val PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_UPDATED =
                 of("proof_of_authorization_request_submission.updated")
 
+            /**
+             * Occurs whenever a Real-Time Decision is created in response to a card authorization.
+             */
             @JvmField
             val REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED =
                 of("real_time_decision.card_authorization_requested")
 
+            /**
+             * Occurs whenever a Real-Time Decision is created in response to a digital wallet
+             * provisioning attempt.
+             */
             @JvmField
             val REAL_TIME_DECISION_DIGITAL_WALLET_TOKEN_REQUESTED =
                 of("real_time_decision.digital_wallet_token_requested")
 
+            /**
+             * Occurs whenever a Real-Time Decision is created in response to a digital wallet
+             * requiring two-factor authentication.
+             */
             @JvmField
             val REAL_TIME_DECISION_DIGITAL_WALLET_AUTHENTICATION_REQUESTED =
                 of("real_time_decision.digital_wallet_authentication_requested")
 
+            /**
+             * Occurs whenever a Real-Time Decision is created in response to 3DS authentication.
+             */
             @JvmField
             val REAL_TIME_DECISION_CARD_AUTHENTICATION_REQUESTED =
                 of("real_time_decision.card_authentication_requested")
 
+            /**
+             * Occurs whenever a Real-Time Decision is created in response to 3DS authentication
+             * challenges.
+             */
             @JvmField
             val REAL_TIME_DECISION_CARD_AUTHENTICATION_CHALLENGE_REQUESTED =
                 of("real_time_decision.card_authentication_challenge_requested")
 
+            /** Occurs whenever a Real-Time Payments Transfer is created. */
             @JvmField
             val REAL_TIME_PAYMENTS_TRANSFER_CREATED = of("real_time_payments_transfer.created")
 
+            /** Occurs whenever a Real-Time Payments Transfer is updated. */
             @JvmField
             val REAL_TIME_PAYMENTS_TRANSFER_UPDATED = of("real_time_payments_transfer.updated")
 
+            /** Occurs whenever a Real-Time Payments Request for Payment is created. */
             @JvmField
             val REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_CREATED =
                 of("real_time_payments_request_for_payment.created")
 
+            /** Occurs whenever a Real-Time Payments Request for Payment is updated. */
             @JvmField
             val REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_UPDATED =
                 of("real_time_payments_request_for_payment.updated")
 
+            /** Occurs whenever a Transaction is created. */
             @JvmField val TRANSACTION_CREATED = of("transaction.created")
 
+            /** Occurs whenever a Wire Drawdown Request is created. */
             @JvmField val WIRE_DRAWDOWN_REQUEST_CREATED = of("wire_drawdown_request.created")
 
+            /** Occurs whenever a Wire Drawdown Request is updated. */
             @JvmField val WIRE_DRAWDOWN_REQUEST_UPDATED = of("wire_drawdown_request.updated")
 
+            /** Occurs whenever a Wire Transfer is created. */
             @JvmField val WIRE_TRANSFER_CREATED = of("wire_transfer.created")
 
+            /** Occurs whenever a Wire Transfer is updated. */
             @JvmField val WIRE_TRANSFER_UPDATED = of("wire_transfer.updated")
 
             @JvmStatic fun of(value: String) = SelectedEventCategory(JsonField.of(value))
@@ -1183,12 +1287,19 @@ private constructor(
 
         companion object {
 
+            /** The subscription is active and Events will be delivered normally. */
             @JvmField val ACTIVE = of("active")
 
+            /** The subscription is temporarily disabled and Events will not be delivered. */
             @JvmField val DISABLED = of("disabled")
 
+            /** The subscription is permanently disabled and Events will not be delivered. */
             @JvmField val DELETED = of("deleted")
 
+            /**
+             * The subscription is temporarily disabled due to delivery errors and Events will not
+             * be delivered.
+             */
             @JvmField val REQUIRES_ATTENTION = of("requires_attention")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))

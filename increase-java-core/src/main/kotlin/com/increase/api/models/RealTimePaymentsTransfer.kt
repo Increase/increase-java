@@ -1598,10 +1598,16 @@ private constructor(
 
             companion object {
 
+                /** An API key. Details will be under the `api_key` object. */
                 @JvmField val API_KEY = of("api_key")
 
+                /**
+                 * An OAuth application you connected to Increase. Details will be under the
+                 * `oauth_application` object.
+                 */
                 @JvmField val OAUTH_APPLICATION = of("oauth_application")
 
+                /** A User in the Increase dashboard. Details will be under the `user` object. */
                 @JvmField val USER = of("user")
 
                 @JvmStatic fun of(value: String) = Category(JsonField.of(value))
@@ -1900,16 +1906,22 @@ private constructor(
 
         companion object {
 
+            /** Canadian Dollar (CAD) */
             @JvmField val CAD = of("CAD")
 
+            /** Swiss Franc (CHF) */
             @JvmField val CHF = of("CHF")
 
+            /** Euro (EUR) */
             @JvmField val EUR = of("EUR")
 
+            /** British Pound (GBP) */
             @JvmField val GBP = of("GBP")
 
+            /** Japanese Yen (JPY) */
             @JvmField val JPY = of("JPY")
 
+            /** US Dollar (USD) */
             @JvmField val USD = of("USD")
 
             @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
@@ -2200,51 +2212,132 @@ private constructor(
 
             companion object {
 
+                /**
+                 * The destination account is closed. Corresponds to the Real-Time Payments reason
+                 * code `AC04`.
+                 */
                 @JvmField val ACCOUNT_CLOSED = of("account_closed")
 
+                /**
+                 * The destination account is currently blocked from receiving transactions.
+                 * Corresponds to the Real-Time Payments reason code `AC06`.
+                 */
                 @JvmField val ACCOUNT_BLOCKED = of("account_blocked")
 
+                /**
+                 * The destination account is ineligible to receive Real-Time Payments transfers.
+                 * Corresponds to the Real-Time Payments reason code `AC14`.
+                 */
                 @JvmField val INVALID_CREDITOR_ACCOUNT_TYPE = of("invalid_creditor_account_type")
 
+                /**
+                 * The destination account does not exist. Corresponds to the Real-Time Payments
+                 * reason code `AC03`.
+                 */
                 @JvmField
                 val INVALID_CREDITOR_ACCOUNT_NUMBER = of("invalid_creditor_account_number")
 
+                /**
+                 * The destination routing number is invalid. Corresponds to the Real-Time Payments
+                 * reason code `RC04`.
+                 */
                 @JvmField
                 val INVALID_CREDITOR_FINANCIAL_INSTITUTION_IDENTIFIER =
                     of("invalid_creditor_financial_institution_identifier")
 
+                /**
+                 * The destination account holder is deceased. Corresponds to the Real-Time Payments
+                 * reason code `MD07`.
+                 */
                 @JvmField val END_CUSTOMER_DECEASED = of("end_customer_deceased")
 
+                /**
+                 * The reason is provided as narrative information in the additional information
+                 * field.
+                 */
                 @JvmField val NARRATIVE = of("narrative")
 
+                /**
+                 * Real-Time Payments transfers are not allowed to the destination account.
+                 * Corresponds to the Real-Time Payments reason code `AG01`.
+                 */
                 @JvmField val TRANSACTION_FORBIDDEN = of("transaction_forbidden")
 
+                /**
+                 * Real-Time Payments transfers are not enabled for the destination account.
+                 * Corresponds to the Real-Time Payments reason code `AG03`.
+                 */
                 @JvmField val TRANSACTION_TYPE_NOT_SUPPORTED = of("transaction_type_not_supported")
 
+                /**
+                 * The amount of the transfer is different than expected by the recipient.
+                 * Corresponds to the Real-Time Payments reason code `AM09`.
+                 */
                 @JvmField val UNEXPECTED_AMOUNT = of("unexpected_amount")
 
+                /**
+                 * The amount is higher than the recipient is authorized to send or receive.
+                 * Corresponds to the Real-Time Payments reason code `AM14`.
+                 */
                 @JvmField val AMOUNT_EXCEEDS_BANK_LIMITS = of("amount_exceeds_bank_limits")
 
+                /**
+                 * The creditor's address is required, but missing or invalid. Corresponds to the
+                 * Real-Time Payments reason code `BE04`.
+                 */
                 @JvmField val INVALID_CREDITOR_ADDRESS = of("invalid_creditor_address")
 
+                /**
+                 * The specified creditor is unknown. Corresponds to the Real-Time Payments reason
+                 * code `BE06`.
+                 */
                 @JvmField val UNKNOWN_END_CUSTOMER = of("unknown_end_customer")
 
+                /**
+                 * The debtor's address is required, but missing or invalid. Corresponds to the
+                 * Real-Time Payments reason code `BE07`.
+                 */
                 @JvmField val INVALID_DEBTOR_ADDRESS = of("invalid_debtor_address")
 
+                /**
+                 * There was a timeout processing the transfer. Corresponds to the Real-Time
+                 * Payments reason code `DS24`.
+                 */
                 @JvmField val TIMEOUT = of("timeout")
 
+                /**
+                 * Real-Time Payments transfers are not enabled for the destination account.
+                 * Corresponds to the Real-Time Payments reason code `NOAT`.
+                 */
                 @JvmField
                 val UNSUPPORTED_MESSAGE_FOR_RECIPIENT = of("unsupported_message_for_recipient")
 
+                /**
+                 * The destination financial institution is currently not connected to Real-Time
+                 * Payments. Corresponds to the Real-Time Payments reason code `9912`.
+                 */
                 @JvmField
                 val RECIPIENT_CONNECTION_NOT_AVAILABLE = of("recipient_connection_not_available")
 
+                /**
+                 * Real-Time Payments is currently unavailable. Corresponds to the Real-Time
+                 * Payments reason code `9948`.
+                 */
                 @JvmField val REAL_TIME_PAYMENTS_SUSPENDED = of("real_time_payments_suspended")
 
+                /**
+                 * The destination financial institution is currently signed off of Real-Time
+                 * Payments. Corresponds to the Real-Time Payments reason code `9910`.
+                 */
                 @JvmField val INSTRUCTED_AGENT_SIGNED_OFF = of("instructed_agent_signed_off")
 
+                /**
+                 * The transfer was rejected due to an internal Increase issue. We have been
+                 * notified.
+                 */
                 @JvmField val PROCESSING_ERROR = of("processing_error")
 
+                /** Some other error or issue has occurred. */
                 @JvmField val OTHER = of("other")
 
                 @JvmStatic fun of(value: String) = RejectReasonCode(JsonField.of(value))
@@ -2559,20 +2652,30 @@ private constructor(
 
         companion object {
 
+            /** The transfer is pending approval. */
             @JvmField val PENDING_APPROVAL = of("pending_approval")
 
+            /** The transfer has been canceled. */
             @JvmField val CANCELED = of("canceled")
 
+            /** The transfer is pending review by Increase. */
             @JvmField val PENDING_REVIEWING = of("pending_reviewing")
 
+            /** The transfer requires attention from an Increase operator. */
             @JvmField val REQUIRES_ATTENTION = of("requires_attention")
 
+            /** The transfer was rejected by the network or the recipient's bank. */
             @JvmField val REJECTED = of("rejected")
 
+            /** The transfer is queued to be submitted to Real-Time Payments. */
             @JvmField val PENDING_SUBMISSION = of("pending_submission")
 
+            /**
+             * The transfer has been submitted and is pending a response from Real-Time Payments.
+             */
             @JvmField val SUBMITTED = of("submitted")
 
+            /** The transfer has been sent successfully and is complete. */
             @JvmField val COMPLETE = of("complete")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))

@@ -564,10 +564,13 @@ private constructor(
 
             companion object {
 
+                /** Approve the authentication attempt without triggering a challenge. */
                 @JvmField val APPROVE = of("approve")
 
+                /** Request further validation before approving the authentication attempt. */
                 @JvmField val CHALLENGE = of("challenge")
 
+                /** Deny the authentication attempt. */
                 @JvmField val DENY = of("deny")
 
                 @JvmStatic fun of(value: String) = Decision(JsonField.of(value))
@@ -827,8 +830,10 @@ private constructor(
 
             companion object {
 
+                /** Your application successfully delivered the one-time code to the cardholder. */
                 @JvmField val SUCCESS = of("success")
 
+                /** Your application was unable to deliver the one-time code to the cardholder. */
                 @JvmField val FAILURE = of("failure")
 
                 @JvmStatic fun of(value: String) = Result(JsonField.of(value))
@@ -1783,8 +1788,10 @@ private constructor(
 
             companion object {
 
+                /** Approve the authorization. */
                 @JvmField val APPROVE = of("approve")
 
+                /** Decline the authorization. */
                 @JvmField val DECLINE = of("decline")
 
                 @JvmStatic fun of(value: String) = Decision(JsonField.of(value))
@@ -1848,8 +1855,13 @@ private constructor(
 
             companion object {
 
+                /** A regular card authorization where funds are debited from the cardholder. */
                 @JvmField val SETTLEMENT = of("settlement")
 
+                /**
+                 * A refund card authorization, sometimes referred to as a credit voucher
+                 * authorization, where funds are credited to the cardholder.
+                 */
                 @JvmField val REFUND = of("refund")
 
                 @JvmStatic fun of(value: String) = Direction(JsonField.of(value))
@@ -2026,6 +2038,7 @@ private constructor(
 
                 companion object {
 
+                    /** Visa */
                     @JvmField val VISA = of("visa")
 
                     @JvmStatic fun of(value: String) = Category(JsonField.of(value))
@@ -2313,24 +2326,67 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Single transaction of a mail/phone order: Use to indicate that the
+                         * transaction is a mail/phone order purchase, not a recurring transaction
+                         * or installment payment. For domestic transactions in the US region, this
+                         * value may also indicate one bill payment transaction in the card-present
+                         * or card-absent environments.
+                         */
                         @JvmField val MAIL_PHONE_ORDER = of("mail_phone_order")
 
+                        /**
+                         * Recurring transaction: Payment indicator used to indicate a recurring
+                         * transaction that originates from an acquirer in the US region.
+                         */
                         @JvmField val RECURRING = of("recurring")
 
+                        /**
+                         * Installment payment: Payment indicator used to indicate one purchase of
+                         * goods or services that is billed to the account in multiple charges over
+                         * a period of time agreed upon by the cardholder and merchant from
+                         * transactions that originate from an acquirer in the US region.
+                         */
                         @JvmField val INSTALLMENT = of("installment")
 
+                        /**
+                         * Unknown classification: other mail order: Use to indicate that the type
+                         * of mail/telephone order is unknown.
+                         */
                         @JvmField val UNKNOWN_MAIL_PHONE_ORDER = of("unknown_mail_phone_order")
 
+                        /**
+                         * Secure electronic commerce transaction: Use to indicate that the
+                         * electronic commerce transaction has been authenticated using e.g., 3-D
+                         * Secure
+                         */
                         @JvmField val SECURE_ELECTRONIC_COMMERCE = of("secure_electronic_commerce")
 
+                        /**
+                         * Non-authenticated security transaction at a 3-D Secure-capable merchant,
+                         * and merchant attempted to authenticate the cardholder using 3-D Secure:
+                         * Use to identify an electronic commerce transaction where the merchant
+                         * attempted to authenticate the cardholder using 3-D Secure, but was unable
+                         * to complete the authentication because the issuer or cardholder does not
+                         * participate in the 3-D Secure program.
+                         */
                         @JvmField
                         val NON_AUTHENTICATED_SECURITY_TRANSACTION_AT_3DS_CAPABLE_MERCHANT =
                             of("non_authenticated_security_transaction_at_3ds_capable_merchant")
 
+                        /**
+                         * Non-authenticated security transaction: Use to identify an electronic
+                         * commerce transaction that uses data encryption for security however ,
+                         * cardholder authentication is not performed using 3-D Secure.
+                         */
                         @JvmField
                         val NON_AUTHENTICATED_SECURITY_TRANSACTION =
                             of("non_authenticated_security_transaction")
 
+                        /**
+                         * Non-secure transaction: Use to identify an electronic commerce
+                         * transaction that has no data protection.
+                         */
                         @JvmField val NON_SECURE_TRANSACTION = of("non_secure_transaction")
 
                         @JvmStatic
@@ -2509,25 +2565,38 @@ private constructor(
 
                     companion object {
 
+                        /** Unknown */
                         @JvmField val UNKNOWN = of("unknown")
 
+                        /** Manual key entry */
                         @JvmField val MANUAL = of("manual")
 
+                        /** Magnetic stripe read, without card verification value */
                         @JvmField val MAGNETIC_STRIPE_NO_CVV = of("magnetic_stripe_no_cvv")
 
+                        /** Optical code */
                         @JvmField val OPTICAL_CODE = of("optical_code")
 
+                        /** Contact chip card */
                         @JvmField val INTEGRATED_CIRCUIT_CARD = of("integrated_circuit_card")
 
+                        /** Contactless read of chip card */
                         @JvmField val CONTACTLESS = of("contactless")
 
+                        /**
+                         * Transaction initiated using a credential that has previously been stored
+                         * on file
+                         */
                         @JvmField val CREDENTIAL_ON_FILE = of("credential_on_file")
 
+                        /** Magnetic stripe read */
                         @JvmField val MAGNETIC_STRIPE = of("magnetic_stripe")
 
+                        /** Contactless read of magnetic stripe data */
                         @JvmField
                         val CONTACTLESS_MAGNETIC_STRIPE = of("contactless_magnetic_stripe")
 
+                        /** Contact chip card, without card verification value */
                         @JvmField
                         val INTEGRATED_CIRCUIT_CARD_NO_CVV = of("integrated_circuit_card_no_cvv")
 
@@ -2651,20 +2720,37 @@ private constructor(
 
                     companion object {
 
+                        /** Increase failed to process the authorization in a timely manner. */
                         @JvmField val ISSUER_ERROR = of("issuer_error")
 
+                        /**
+                         * The physical card read had an invalid CVV, dCVV, or authorization request
+                         * cryptogram.
+                         */
                         @JvmField val INVALID_PHYSICAL_CARD = of("invalid_physical_card")
 
+                        /** The 3DS cardholder authentication verification value was invalid. */
                         @JvmField
                         val INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE =
                             of("invalid_cardholder_authentication_verification_value")
 
+                        /**
+                         * An internal Visa error occurred. Visa uses this reason code for certain
+                         * expected occurrences as well, such as Application Transaction Counter
+                         * (ATC) replays.
+                         */
                         @JvmField val INTERNAL_VISA_ERROR = of("internal_visa_error")
 
+                        /**
+                         * The merchant has enabled Visa's Transaction Advisory Service and requires
+                         * further authentication to perform the transaction. In practice this is
+                         * often utilized at fuel pumps to tell the cardholder to see the cashier.
+                         */
                         @JvmField
                         val MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED =
                             of("merchant_transaction_advisory_service_authentication_required")
 
+                        /** An unspecific reason for stand-in processing. */
                         @JvmField val OTHER = of("other")
 
                         @JvmStatic
@@ -3042,16 +3128,35 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Account funding transactions are transactions used to e.g., fund an account or
+                 * transfer funds between accounts.
+                 */
                 @JvmField val ACCOUNT_FUNDING = of("account_funding")
 
+                /**
+                 * Automatic fuel dispenser authorizations occur when a card is used at a gas pump,
+                 * prior to the actual transaction amount being known. They are followed by an
+                 * advice message that updates the amount of the pending transaction.
+                 */
                 @JvmField val AUTOMATIC_FUEL_DISPENSER = of("automatic_fuel_dispenser")
 
+                /** A transaction used to pay a bill. */
                 @JvmField val BILL_PAYMENT = of("bill_payment")
 
+                /** A regular purchase. */
                 @JvmField val PURCHASE = of("purchase")
 
+                /**
+                 * Quasi-cash transactions represent purchases of items which may be convertible to
+                 * cash.
+                 */
                 @JvmField val QUASI_CASH = of("quasi_cash")
 
+                /**
+                 * A refund card authorization, sometimes referred to as a credit voucher
+                 * authorization, where funds are credited to the cardholder.
+                 */
                 @JvmField val REFUND = of("refund")
 
                 @JvmStatic fun of(value: String) = ProcessingCategory(JsonField.of(value))
@@ -3315,8 +3420,12 @@ private constructor(
 
                 companion object {
 
+                    /** A regular, standalone authorization. */
                     @JvmField val INITIAL_AUTHORIZATION = of("initial_authorization")
 
+                    /**
+                     * An incremental request to increase the amount of an existing authorization.
+                     */
                     @JvmField val INCREMENTAL_AUTHORIZATION = of("incremental_authorization")
 
                     @JvmStatic fun of(value: String) = Category(JsonField.of(value))
@@ -3781,10 +3890,13 @@ private constructor(
 
                     companion object {
 
+                        /** No card verification code was provided in the authorization request. */
                         @JvmField val NOT_CHECKED = of("not_checked")
 
+                        /** The card verification code matched the one on file. */
                         @JvmField val MATCH = of("match")
 
+                        /** The card verification code did not match the one on file. */
                         @JvmField val NO_MATCH = of("no_match")
 
                         @JvmStatic fun of(value: String) = Result(JsonField.of(value))
@@ -4090,22 +4202,28 @@ private constructor(
 
                     companion object {
 
+                        /** No adress was provided in the authorization request. */
                         @JvmField val NOT_CHECKED = of("not_checked")
 
+                        /** Postal code matches, but the street address was not verified. */
                         @JvmField
                         val POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED =
                             of("postal_code_match_address_not_checked")
 
+                        /** Postal code matches, but the street address does not match. */
                         @JvmField
                         val POSTAL_CODE_MATCH_ADDRESS_NO_MATCH =
                             of("postal_code_match_address_no_match")
 
+                        /** Postal code does not match, but the street address matches. */
                         @JvmField
                         val POSTAL_CODE_NO_MATCH_ADDRESS_MATCH =
                             of("postal_code_no_match_address_match")
 
+                        /** Postal code and street address match. */
                         @JvmField val MATCH = of("match")
 
+                        /** Postal code and street address do not match. */
                         @JvmField val NO_MATCH = of("no_match")
 
                         @JvmStatic fun of(value: String) = Result(JsonField.of(value))
@@ -4250,16 +4368,23 @@ private constructor(
 
         companion object {
 
+            /** A card is being authorized. */
             @JvmField val CARD_AUTHORIZATION_REQUESTED = of("card_authorization_requested")
 
+            /** 3DS authentication is requested. */
             @JvmField val CARD_AUTHENTICATION_REQUESTED = of("card_authentication_requested")
 
+            /** 3DS authentication challenge requires cardholder involvement. */
             @JvmField
             val CARD_AUTHENTICATION_CHALLENGE_REQUESTED =
                 of("card_authentication_challenge_requested")
 
+            /** A card is being loaded into a digital wallet. */
             @JvmField val DIGITAL_WALLET_TOKEN_REQUESTED = of("digital_wallet_token_requested")
 
+            /**
+             * A card is being loaded into a digital wallet and requires cardholder authentication.
+             */
             @JvmField
             val DIGITAL_WALLET_AUTHENTICATION_REQUESTED =
                 of("digital_wallet_authentication_requested")
@@ -4565,8 +4690,10 @@ private constructor(
 
             companion object {
 
+                /** Send one-time passcodes over SMS. */
                 @JvmField val SMS = of("sms")
 
+                /** Send one-time passcodes over email. */
                 @JvmField val EMAIL = of("email")
 
                 @JvmStatic fun of(value: String) = Channel(JsonField.of(value))
@@ -4627,12 +4754,16 @@ private constructor(
 
             companion object {
 
+                /** Apple Pay */
                 @JvmField val APPLE_PAY = of("apple_pay")
 
+                /** Google Pay */
                 @JvmField val GOOGLE_PAY = of("google_pay")
 
+                /** Samsung Pay */
                 @JvmField val SAMSUNG_PAY = of("samsung_pay")
 
+                /** Unknown */
                 @JvmField val UNKNOWN = of("unknown")
 
                 @JvmStatic fun of(value: String) = DigitalWallet(JsonField.of(value))
@@ -4705,8 +4836,12 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Your application successfully delivered the one-time passcode to the cardholder.
+                 */
                 @JvmField val SUCCESS = of("success")
 
+                /** Your application failed to deliver the one-time passcode to the cardholder. */
                 @JvmField val FAILURE = of("failure")
 
                 @JvmStatic fun of(value: String) = Result(JsonField.of(value))
@@ -4985,8 +5120,10 @@ private constructor(
 
             companion object {
 
+                /** Approve the provisioning request. */
                 @JvmField val APPROVE = of("approve")
 
+                /** Decline the provisioning request. */
                 @JvmField val DECLINE = of("decline")
 
                 @JvmStatic fun of(value: String) = Decision(JsonField.of(value))
@@ -5047,12 +5184,16 @@ private constructor(
 
             companion object {
 
+                /** Apple Pay */
                 @JvmField val APPLE_PAY = of("apple_pay")
 
+                /** Google Pay */
                 @JvmField val GOOGLE_PAY = of("google_pay")
 
+                /** Samsung Pay */
                 @JvmField val SAMSUNG_PAY = of("samsung_pay")
 
+                /** Unknown */
                 @JvmField val UNKNOWN = of("unknown")
 
                 @JvmStatic fun of(value: String) = DigitalWallet(JsonField.of(value))
@@ -5143,10 +5284,13 @@ private constructor(
 
         companion object {
 
+            /** The decision is pending action via real-time webhook. */
             @JvmField val PENDING = of("pending")
 
+            /** Your webhook actioned the real-time decision. */
             @JvmField val RESPONDED = of("responded")
 
+            /** Your webhook failed to respond to the authorization in time. */
             @JvmField val TIMED_OUT = of("timed_out")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))

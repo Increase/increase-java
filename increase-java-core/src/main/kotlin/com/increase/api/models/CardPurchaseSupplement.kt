@@ -828,13 +828,16 @@ private constructor(
 
             companion object {
 
+                /** No invoice level discount provided */
                 @JvmField
                 val NO_INVOICE_LEVEL_DISCOUNT_PROVIDED = of("no_invoice_level_discount_provided")
 
+                /** Tax calculated on post discount invoice total */
                 @JvmField
                 val TAX_CALCULATED_ON_POST_DISCOUNT_INVOICE_TOTAL =
                     of("tax_calculated_on_post_discount_invoice_total")
 
+                /** Tax calculated on pre discount invoice total */
                 @JvmField
                 val TAX_CALCULATED_ON_PRE_DISCOUNT_INVOICE_TOTAL =
                     of("tax_calculated_on_pre_discount_invoice_total")
@@ -908,14 +911,19 @@ private constructor(
 
             companion object {
 
+                /** No tax applies */
                 @JvmField val NO_TAX_APPLIES = of("no_tax_applies")
 
+                /** Net price line item level */
                 @JvmField val NET_PRICE_LINE_ITEM_LEVEL = of("net_price_line_item_level")
 
+                /** Net price invoice level */
                 @JvmField val NET_PRICE_INVOICE_LEVEL = of("net_price_invoice_level")
 
+                /** Gross price line item level */
                 @JvmField val GROSS_PRICE_LINE_ITEM_LEVEL = of("gross_price_line_item_level")
 
+                /** Gross price invoice level */
                 @JvmField val GROSS_PRICE_INVOICE_LEVEL = of("gross_price_invoice_level")
 
                 @JvmStatic fun of(value: String) = TaxTreatments(JsonField.of(value))
@@ -1570,10 +1578,13 @@ private constructor(
 
             companion object {
 
+                /** Normal */
                 @JvmField val NORMAL = of("normal")
 
+                /** Credit */
                 @JvmField val CREDIT = of("credit")
 
+                /** Purchase */
                 @JvmField val PAYMENT = of("payment")
 
                 @JvmStatic fun of(value: String) = DetailIndicator(JsonField.of(value))
@@ -1640,14 +1651,17 @@ private constructor(
 
             companion object {
 
+                /** No line item level discount provided */
                 @JvmField
                 val NO_LINE_ITEM_LEVEL_DISCOUNT_PROVIDED =
                     of("no_line_item_level_discount_provided")
 
+                /** Tax calculated on post discount line item total */
                 @JvmField
                 val TAX_CALCULATED_ON_POST_DISCOUNT_LINE_ITEM_TOTAL =
                     of("tax_calculated_on_post_discount_line_item_total")
 
+                /** Tax calculated on pre discount line item total */
                 @JvmField
                 val TAX_CALCULATED_ON_PRE_DISCOUNT_LINE_ITEM_TOTAL =
                     of("tax_calculated_on_pre_discount_line_item_total")

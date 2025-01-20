@@ -1726,16 +1726,21 @@ private constructor(
 
                         companion object {
 
+                            /** A social security number. */
                             @JvmField val SOCIAL_SECURITY_NUMBER = of("social_security_number")
 
+                            /** An individual taxpayer identification number (ITIN). */
                             @JvmField
                             val INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER =
                                 of("individual_taxpayer_identification_number")
 
+                            /** A passport number. */
                             @JvmField val PASSPORT = of("passport")
 
+                            /** A driver's license number. */
                             @JvmField val DRIVERS_LICENSE = of("drivers_license")
 
+                            /** Another identifying document. */
                             @JvmField val OTHER = of("other")
 
                             @JvmStatic fun of(value: String) = Method(JsonField.of(value))
@@ -1852,8 +1857,10 @@ private constructor(
 
                 companion object {
 
+                    /** A person with 25% or greater direct or indirect ownership of the entity. */
                     @JvmField val OWNERSHIP = of("ownership")
 
+                    /** A person who manages, directs, or has significant control of the entity. */
                     @JvmField val CONTROL = of("control")
 
                     @JvmStatic fun of(value: String) = Prong(JsonField.of(value))
@@ -2487,6 +2494,7 @@ private constructor(
 
             companion object {
 
+                /** The Public Entity is a Municipality. */
                 @JvmField val MUNICIPALITY = of("municipality")
 
                 @JvmStatic fun of(value: String) = Category(JsonField.of(value))
@@ -3147,16 +3155,21 @@ private constructor(
 
                     companion object {
 
+                        /** A social security number. */
                         @JvmField val SOCIAL_SECURITY_NUMBER = of("social_security_number")
 
+                        /** An individual taxpayer identification number (ITIN). */
                         @JvmField
                         val INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER =
                             of("individual_taxpayer_identification_number")
 
+                        /** A passport number. */
                         @JvmField val PASSPORT = of("passport")
 
+                        /** A driver's license number. */
                         @JvmField val DRIVERS_LICENSE = of("drivers_license")
 
+                        /** Another identifying document. */
                         @JvmField val OTHER = of("other")
 
                         @JvmStatic fun of(value: String) = Method(JsonField.of(value))
@@ -3759,16 +3772,21 @@ private constructor(
 
                 companion object {
 
+                    /** A social security number. */
                     @JvmField val SOCIAL_SECURITY_NUMBER = of("social_security_number")
 
+                    /** An individual taxpayer identification number (ITIN). */
                     @JvmField
                     val INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER =
                         of("individual_taxpayer_identification_number")
 
+                    /** A passport number. */
                     @JvmField val PASSPORT = of("passport")
 
+                    /** A driver's license number. */
                     @JvmField val DRIVERS_LICENSE = of("drivers_license")
 
+                    /** Another identifying document. */
                     @JvmField val OTHER = of("other")
 
                     @JvmStatic fun of(value: String) = Method(JsonField.of(value))
@@ -3885,10 +3903,13 @@ private constructor(
 
         companion object {
 
+            /** The entity is active. */
             @JvmField val ACTIVE = of("active")
 
+            /** The entity is archived, and can no longer be used to create accounts. */
             @JvmField val ARCHIVED = of("archived")
 
+            /** The entity is temporarily disabled and cannot be used for financial activity. */
             @JvmField val DISABLED = of("disabled")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
@@ -3955,14 +3976,19 @@ private constructor(
 
         companion object {
 
+            /** A corporation. */
             @JvmField val CORPORATION = of("corporation")
 
+            /** An individual person. */
             @JvmField val NATURAL_PERSON = of("natural_person")
 
+            /** Multiple individual people. */
             @JvmField val JOINT = of("joint")
 
+            /** A trust. */
             @JvmField val TRUST = of("trust")
 
+            /** A government authority. */
             @JvmField val GOVERNMENT_AUTHORITY = of("government_authority")
 
             @JvmStatic fun of(value: String) = Structure(JsonField.of(value))
@@ -4146,8 +4172,10 @@ private constructor(
 
             companion object {
 
+                /** Alloy. See https://alloy.com for more information. */
                 @JvmField val ALLOY = of("alloy")
 
+                /** Middesk. See https://middesk.com for more information. */
                 @JvmField val MIDDESK = of("middesk")
 
                 @JvmStatic fun of(value: String) = Vendor(JsonField.of(value))
@@ -4703,8 +4731,10 @@ private constructor(
 
             companion object {
 
+                /** The trust is revocable by the grantor. */
                 @JvmField val REVOCABLE = of("revocable")
 
+                /** The trust cannot be revoked. */
                 @JvmField val IRREVOCABLE = of("irrevocable")
 
                 @JvmStatic fun of(value: String) = Category(JsonField.of(value))
@@ -5234,16 +5264,21 @@ private constructor(
 
                     companion object {
 
+                        /** A social security number. */
                         @JvmField val SOCIAL_SECURITY_NUMBER = of("social_security_number")
 
+                        /** An individual taxpayer identification number (ITIN). */
                         @JvmField
                         val INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER =
                             of("individual_taxpayer_identification_number")
 
+                        /** A passport number. */
                         @JvmField val PASSPORT = of("passport")
 
+                        /** A driver's license number. */
                         @JvmField val DRIVERS_LICENSE = of("drivers_license")
 
+                        /** Another identifying document. */
                         @JvmField val OTHER = of("other")
 
                         @JvmStatic fun of(value: String) = Method(JsonField.of(value))
@@ -5973,16 +6008,21 @@ private constructor(
 
                         companion object {
 
+                            /** A social security number. */
                             @JvmField val SOCIAL_SECURITY_NUMBER = of("social_security_number")
 
+                            /** An individual taxpayer identification number (ITIN). */
                             @JvmField
                             val INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER =
                                 of("individual_taxpayer_identification_number")
 
+                            /** A passport number. */
                             @JvmField val PASSPORT = of("passport")
 
+                            /** A driver's license number. */
                             @JvmField val DRIVERS_LICENSE = of("drivers_license")
 
+                            /** Another identifying document. */
                             @JvmField val OTHER = of("other")
 
                             @JvmStatic fun of(value: String) = Method(JsonField.of(value))
@@ -6099,6 +6139,7 @@ private constructor(
 
                 companion object {
 
+                    /** The trustee is an individual. */
                     @JvmField val INDIVIDUAL = of("individual")
 
                     @JvmStatic fun of(value: String) = Structure(JsonField.of(value))

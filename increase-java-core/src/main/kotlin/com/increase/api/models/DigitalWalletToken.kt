@@ -237,12 +237,19 @@ private constructor(
 
         companion object {
 
+            /** The digital wallet token is active. */
             @JvmField val ACTIVE = of("active")
 
+            /**
+             * The digital wallet token has been created but not successfully activated via
+             * two-factor authentication yet.
+             */
             @JvmField val INACTIVE = of("inactive")
 
+            /** The digital wallet token has been temporarily paused. */
             @JvmField val SUSPENDED = of("suspended")
 
+            /** The digital wallet token has been permanently canceled. */
             @JvmField val DEACTIVATED = of("deactivated")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
@@ -321,12 +328,16 @@ private constructor(
 
         companion object {
 
+            /** Apple Pay */
             @JvmField val APPLE_PAY = of("apple_pay")
 
+            /** Google Pay */
             @JvmField val GOOGLE_PAY = of("google_pay")
 
+            /** Samsung Pay */
             @JvmField val SAMSUNG_PAY = of("samsung_pay")
 
+            /** Unknown */
             @JvmField val UNKNOWN = of("unknown")
 
             @JvmStatic fun of(value: String) = TokenRequestor(JsonField.of(value))

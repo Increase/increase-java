@@ -215,8 +215,10 @@ private constructor(
 
         companion object {
 
+            /** The Group cannot make ACH debits. */
             @JvmField val DISABLED = of("disabled")
 
+            /** The Group can make ACH debits. */
             @JvmField val ENABLED = of("enabled")
 
             @JvmStatic fun of(value: String) = AchDebitStatus(JsonField.of(value))
@@ -277,8 +279,10 @@ private constructor(
 
         companion object {
 
+            /** The Group is not activated. */
             @JvmField val UNACTIVATED = of("unactivated")
 
+            /** The Group is activated. */
             @JvmField val ACTIVATED = of("activated")
 
             @JvmStatic fun of(value: String) = ActivationStatus(JsonField.of(value))

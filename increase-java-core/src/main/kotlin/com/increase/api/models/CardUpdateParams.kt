@@ -873,10 +873,13 @@ constructor(
 
         companion object {
 
+            /** The card is active. */
             @JvmField val ACTIVE = of("active")
 
+            /** The card is temporarily disabled. */
             @JvmField val DISABLED = of("disabled")
 
+            /** The card is permanently canceled. */
             @JvmField val CANCELED = of("canceled")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))

@@ -1492,11 +1492,17 @@ private constructor(
 
             companion object {
 
+                /** Unstructured `payment_related_information` passed through with the transfer. */
                 @JvmField val FREEFORM = of("freeform")
 
+                /**
+                 * Structured ASC X12 820 remittance advice records. Please reach out to
+                 * [support@increase.com](mailto:support@increase.com) for more information.
+                 */
                 @JvmField
                 val PAYMENT_ORDER_REMITTANCE_ADVICE = of("payment_order_remittance_advice")
 
+                /** Unknown addenda type. */
                 @JvmField val OTHER = of("other")
 
                 @JvmStatic fun of(value: String) = Category(JsonField.of(value))
@@ -2683,10 +2689,16 @@ private constructor(
 
             companion object {
 
+                /** An API key. Details will be under the `api_key` object. */
                 @JvmField val API_KEY = of("api_key")
 
+                /**
+                 * An OAuth application you connected to Increase. Details will be under the
+                 * `oauth_application` object.
+                 */
                 @JvmField val OAUTH_APPLICATION = of("oauth_application")
 
+                /** A User in the Increase dashboard. Details will be under the `user` object. */
                 @JvmField val USER = of("user")
 
                 @JvmStatic fun of(value: String) = Category(JsonField.of(value))
@@ -2985,16 +2997,22 @@ private constructor(
 
         companion object {
 
+            /** Canadian Dollar (CAD) */
             @JvmField val CAD = of("CAD")
 
+            /** Swiss Franc (CHF) */
             @JvmField val CHF = of("CHF")
 
+            /** Euro (EUR) */
             @JvmField val EUR = of("EUR")
 
+            /** British Pound (GBP) */
             @JvmField val GBP = of("GBP")
 
+            /** Japanese Yen (JPY) */
             @JvmField val JPY = of("JPY")
 
+            /** US Dollar (USD) */
             @JvmField val USD = of("USD")
 
             @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
@@ -3079,10 +3097,13 @@ private constructor(
 
         companion object {
 
+            /** The External Account is owned by a business. */
             @JvmField val BUSINESS = of("business")
 
+            /** The External Account is owned by an individual. */
             @JvmField val INDIVIDUAL = of("individual")
 
+            /** It's unknown what kind of entity owns the External Account. */
             @JvmField val UNKNOWN = of("unknown")
 
             @JvmStatic fun of(value: String) = DestinationAccountHolder(JsonField.of(value))
@@ -3150,8 +3171,10 @@ private constructor(
 
         companion object {
 
+            /** A checking account. */
             @JvmField val CHECKING = of("checking")
 
+            /** A savings account. */
             @JvmField val SAVINGS = of("savings")
 
             @JvmStatic fun of(value: String) = Funding(JsonField.of(value))
@@ -3558,16 +3581,22 @@ private constructor(
 
             companion object {
 
+                /** Canadian Dollar (CAD) */
                 @JvmField val CAD = of("CAD")
 
+                /** Swiss Franc (CHF) */
                 @JvmField val CHF = of("CHF")
 
+                /** Euro (EUR) */
                 @JvmField val EUR = of("EUR")
 
+                /** British Pound (GBP) */
                 @JvmField val GBP = of("GBP")
 
+                /** Japanese Yen (JPY) */
                 @JvmField val JPY = of("JPY")
 
+                /** US Dollar (USD) */
                 @JvmField val USD = of("USD")
 
                 @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
@@ -3652,8 +3681,10 @@ private constructor(
 
             companion object {
 
+                /** Funds are still being held. */
                 @JvmField val HELD = of("held")
 
+                /** Funds have been released. */
                 @JvmField val COMPLETE = of("complete")
 
                 @JvmStatic fun of(value: String) = Status(JsonField.of(value))
@@ -4022,66 +4053,97 @@ private constructor(
 
             companion object {
 
+                /** The account number was incorrect. */
                 @JvmField val INCORRECT_ACCOUNT_NUMBER = of("incorrect_account_number")
 
+                /** The routing number was incorrect. */
                 @JvmField val INCORRECT_ROUTING_NUMBER = of("incorrect_routing_number")
 
+                /** Both the routing number and the account number were incorrect. */
                 @JvmField
                 val INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER =
                     of("incorrect_routing_number_and_account_number")
 
+                /**
+                 * The transaction code was incorrect. Try changing the `funding` parameter from
+                 * checking to savings or vice-versa.
+                 */
                 @JvmField val INCORRECT_TRANSACTION_CODE = of("incorrect_transaction_code")
 
+                /** The account number and the transaction code were incorrect. */
                 @JvmField
                 val INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE =
                     of("incorrect_account_number_and_transaction_code")
 
+                /** The routing number, account number, and transaction code were incorrect. */
                 @JvmField
                 val INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE =
                     of("incorrect_routing_number_account_number_and_transaction_code")
 
+                /** The receiving depository financial institution identification was incorrect. */
                 @JvmField
                 val INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION =
                     of("incorrect_receiving_depository_financial_institution_identification")
 
+                /** The individual identification number was incorrect. */
                 @JvmField
                 val INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER =
                     of("incorrect_individual_identification_number")
 
+                /** The addenda had an incorrect format. */
                 @JvmField val ADDENDA_FORMAT_ERROR = of("addenda_format_error")
 
+                /**
+                 * The standard entry class code was incorrect for an outbound international
+                 * payment.
+                 */
                 @JvmField
                 val INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT =
                     of("incorrect_standard_entry_class_code_for_outbound_international_payment")
 
+                /** The notification of change was misrouted. */
                 @JvmField
                 val MISROUTED_NOTIFICATION_OF_CHANGE = of("misrouted_notification_of_change")
 
+                /** The trace number was incorrect. */
                 @JvmField val INCORRECT_TRACE_NUMBER = of("incorrect_trace_number")
 
+                /** The company identification number was incorrect. */
                 @JvmField
                 val INCORRECT_COMPANY_IDENTIFICATION_NUMBER =
                     of("incorrect_company_identification_number")
 
+                /** The individual identification number or identification number was incorrect. */
                 @JvmField
                 val INCORRECT_IDENTIFICATION_NUMBER = of("incorrect_identification_number")
 
+                /** The corrected data was incorrectly formatted. */
                 @JvmField
                 val INCORRECTLY_FORMATTED_CORRECTED_DATA =
                     of("incorrectly_formatted_corrected_data")
 
+                /** The discretionary data was incorrect. */
                 @JvmField val INCORRECT_DISCRETIONARY_DATA = of("incorrect_discretionary_data")
 
+                /** The routing number was not from the original entry detail record. */
                 @JvmField
                 val ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD =
                     of("routing_number_not_from_original_entry_detail_record")
 
+                /**
+                 * The depository financial institution account number was not from the original
+                 * entry detail record.
+                 */
                 @JvmField
                 val DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD =
                     of(
                         "depository_financial_institution_account_number_not_from_original_entry_detail_record"
                     )
 
+                /**
+                 * The transaction code was incorrect, initiated by the originating depository
+                 * financial institution.
+                 */
                 @JvmField
                 val INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION =
                     of("incorrect_transaction_code_by_originating_depository_financial_institution")
@@ -4448,8 +4510,19 @@ private constructor(
 
             companion object {
 
+                /**
+                 * The chosen effective date will be the same as the ACH processing date on which
+                 * the transfer is submitted. This is necessary, but not sufficient for the transfer
+                 * to be settled same-day: it must also be submitted before the last same-day cutoff
+                 * and be less than or equal to $1,000.000.00.
+                 */
                 @JvmField val SAME_DAY = of("same_day")
 
+                /**
+                 * The chosen effective date will be the business day following the ACH processing
+                 * date on which the transfer is submitted. The transfer will be settled on that
+                 * future day.
+                 */
                 @JvmField val FUTURE_DATED = of("future_dated")
 
                 @JvmStatic fun of(value: String) = SettlementSchedule(JsonField.of(value))
@@ -4797,194 +4870,398 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Code R01. Insufficient funds in the receiving account. Sometimes abbreviated to
+                 * NSF.
+                 */
                 @JvmField val INSUFFICIENT_FUND = of("insufficient_fund")
 
+                /**
+                 * Code R03. The account does not exist or the receiving bank was unable to locate
+                 * it.
+                 */
                 @JvmField val NO_ACCOUNT = of("no_account")
 
+                /** Code R02. The account is closed at the receiving bank. */
                 @JvmField val ACCOUNT_CLOSED = of("account_closed")
 
+                /** Code R04. The account number is invalid at the receiving bank. */
                 @JvmField
                 val INVALID_ACCOUNT_NUMBER_STRUCTURE = of("invalid_account_number_structure")
 
+                /**
+                 * Code R16. The account at the receiving bank was frozen per the Office of Foreign
+                 * Assets Control.
+                 */
                 @JvmField
                 val ACCOUNT_FROZEN_ENTRY_RETURNED_PER_OFAC_INSTRUCTION =
                     of("account_frozen_entry_returned_per_ofac_instruction")
 
+                /** Code R23. The receiving bank account refused a credit transfer. */
                 @JvmField
                 val CREDIT_ENTRY_REFUSED_BY_RECEIVER = of("credit_entry_refused_by_receiver")
 
+                /**
+                 * Code R05. The receiving bank rejected because of an incorrect Standard Entry
+                 * Class code.
+                 */
                 @JvmField
                 val UNAUTHORIZED_DEBIT_TO_CONSUMER_ACCOUNT_USING_CORPORATE_SEC_CODE =
                     of("unauthorized_debit_to_consumer_account_using_corporate_sec_code")
 
+                /** Code R29. The corporate customer at the receiving bank reversed the transfer. */
                 @JvmField
                 val CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED =
                     of("corporate_customer_advised_not_authorized")
 
+                /** Code R08. The receiving bank stopped payment on this transfer. */
                 @JvmField val PAYMENT_STOPPED = of("payment_stopped")
 
+                /** Code R20. The receiving bank account does not perform transfers. */
                 @JvmField val NON_TRANSACTION_ACCOUNT = of("non_transaction_account")
 
+                /**
+                 * Code R09. The receiving bank account does not have enough available balance for
+                 * the transfer.
+                 */
                 @JvmField val UNCOLLECTED_FUNDS = of("uncollected_funds")
 
+                /** Code R28. The routing number is incorrect. */
                 @JvmField
                 val ROUTING_NUMBER_CHECK_DIGIT_ERROR = of("routing_number_check_digit_error")
 
+                /** Code R10. The customer at the receiving bank reversed the transfer. */
                 @JvmField
                 val CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE =
                     of("customer_advised_unauthorized_improper_ineligible_or_incomplete")
 
+                /** Code R19. The amount field is incorrect or too large. */
                 @JvmField val AMOUNT_FIELD_ERROR = of("amount_field_error")
 
+                /**
+                 * Code R07. The customer at the receiving institution informed their bank that they
+                 * have revoked authorization for a previously authorized transfer.
+                 */
                 @JvmField
                 val AUTHORIZATION_REVOKED_BY_CUSTOMER = of("authorization_revoked_by_customer")
 
+                /** Code R13. The routing number is invalid. */
                 @JvmField val INVALID_ACH_ROUTING_NUMBER = of("invalid_ach_routing_number")
 
+                /** Code R17. The receiving bank is unable to process a field in the transfer. */
                 @JvmField val FILE_RECORD_EDIT_CRITERIA = of("file_record_edit_criteria")
 
+                /** Code R45. The individual name field was invalid. */
                 @JvmField val ENR_INVALID_INDIVIDUAL_NAME = of("enr_invalid_individual_name")
 
+                /**
+                 * Code R06. The originating financial institution asked for this transfer to be
+                 * returned. The receiving bank is complying with the request.
+                 */
                 @JvmField val RETURNED_PER_ODFI_REQUEST = of("returned_per_odfi_request")
 
+                /**
+                 * Code R34. The receiving bank's regulatory supervisor has limited their
+                 * participation in the ACH network.
+                 */
                 @JvmField val LIMITED_PARTICIPATION_DFI = of("limited_participation_dfi")
 
+                /** Code R85. The outbound international ACH transfer was incorrect. */
                 @JvmField
                 val INCORRECTLY_CODED_OUTBOUND_INTERNATIONAL_PAYMENT =
                     of("incorrectly_coded_outbound_international_payment")
 
+                /** Code R12. A rare return reason. The account was sold to another bank. */
                 @JvmField val ACCOUNT_SOLD_TO_ANOTHER_DFI = of("account_sold_to_another_dfi")
 
+                /** Code R25. The addenda record is incorrect or missing. */
                 @JvmField val ADDENDA_ERROR = of("addenda_error")
 
+                /** Code R15. A rare return reason. The account holder is deceased. */
                 @JvmField
                 val BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED =
                     of("beneficiary_or_account_holder_deceased")
 
+                /**
+                 * Code R11. A rare return reason. The customer authorized some payment to the
+                 * sender, but this payment was not in error.
+                 */
                 @JvmField
                 val CUSTOMER_ADVISED_NOT_WITHIN_AUTHORIZATION_TERMS =
                     of("customer_advised_not_within_authorization_terms")
 
+                /**
+                 * Code R74. A rare return reason. Sent in response to a return that was returned
+                 * with code `field_error`. The latest return should include the corrected field(s).
+                 */
                 @JvmField val CORRECTED_RETURN = of("corrected_return")
 
+                /**
+                 * Code R24. A rare return reason. The receiving bank received an exact duplicate
+                 * entry with the same trace number and amount.
+                 */
                 @JvmField val DUPLICATE_ENTRY = of("duplicate_entry")
 
+                /**
+                 * Code R67. A rare return reason. The return this message refers to was a
+                 * duplicate.
+                 */
                 @JvmField val DUPLICATE_RETURN = of("duplicate_return")
 
+                /**
+                 * Code R47. A rare return reason. Only used for US Government agency non-monetary
+                 * automatic enrollment messages.
+                 */
                 @JvmField val ENR_DUPLICATE_ENROLLMENT = of("enr_duplicate_enrollment")
 
+                /**
+                 * Code R43. A rare return reason. Only used for US Government agency non-monetary
+                 * automatic enrollment messages.
+                 */
                 @JvmField val ENR_INVALID_DFI_ACCOUNT_NUMBER = of("enr_invalid_dfi_account_number")
 
+                /**
+                 * Code R44. A rare return reason. Only used for US Government agency non-monetary
+                 * automatic enrollment messages.
+                 */
                 @JvmField
                 val ENR_INVALID_INDIVIDUAL_ID_NUMBER = of("enr_invalid_individual_id_number")
 
+                /**
+                 * Code R46. A rare return reason. Only used for US Government agency non-monetary
+                 * automatic enrollment messages.
+                 */
                 @JvmField
                 val ENR_INVALID_REPRESENTATIVE_PAYEE_INDICATOR =
                     of("enr_invalid_representative_payee_indicator")
 
+                /**
+                 * Code R41. A rare return reason. Only used for US Government agency non-monetary
+                 * automatic enrollment messages.
+                 */
                 @JvmField val ENR_INVALID_TRANSACTION_CODE = of("enr_invalid_transaction_code")
 
+                /**
+                 * Code R40. A rare return reason. Only used for US Government agency non-monetary
+                 * automatic enrollment messages.
+                 */
                 @JvmField val ENR_RETURN_OF_ENR_ENTRY = of("enr_return_of_enr_entry")
 
+                /**
+                 * Code R42. A rare return reason. Only used for US Government agency non-monetary
+                 * automatic enrollment messages.
+                 */
                 @JvmField
                 val ENR_ROUTING_NUMBER_CHECK_DIGIT_ERROR =
                     of("enr_routing_number_check_digit_error")
 
+                /**
+                 * Code R84. A rare return reason. The International ACH Transfer cannot be
+                 * processed by the gateway.
+                 */
                 @JvmField val ENTRY_NOT_PROCESSED_BY_GATEWAY = of("entry_not_processed_by_gateway")
 
+                /**
+                 * Code R69. A rare return reason. One or more of the fields in the ACH were
+                 * malformed.
+                 */
                 @JvmField val FIELD_ERROR = of("field_error")
 
+                /**
+                 * Code R83. A rare return reason. The Foreign receiving bank was unable to settle
+                 * this ACH transfer.
+                 */
                 @JvmField
                 val FOREIGN_RECEIVING_DFI_UNABLE_TO_SETTLE =
                     of("foreign_receiving_dfi_unable_to_settle")
 
+                /** Code R80. A rare return reason. The International ACH Transfer is malformed. */
                 @JvmField val IAT_ENTRY_CODING_ERROR = of("iat_entry_coding_error")
 
+                /**
+                 * Code R18. A rare return reason. The ACH has an improper effective entry date
+                 * field.
+                 */
                 @JvmField val IMPROPER_EFFECTIVE_ENTRY_DATE = of("improper_effective_entry_date")
 
+                /**
+                 * Code R39. A rare return reason. The source document related to this ACH, usually
+                 * an ACH check conversion, was presented to the bank.
+                 */
                 @JvmField
                 val IMPROPER_SOURCE_DOCUMENT_SOURCE_DOCUMENT_PRESENTED =
                     of("improper_source_document_source_document_presented")
 
+                /** Code R21. A rare return reason. The Company ID field of the ACH was invalid. */
                 @JvmField val INVALID_COMPANY_ID = of("invalid_company_id")
 
+                /**
+                 * Code R82. A rare return reason. The foreign receiving bank identifier for an
+                 * International ACH Transfer was invalid.
+                 */
                 @JvmField
                 val INVALID_FOREIGN_RECEIVING_DFI_IDENTIFICATION =
                     of("invalid_foreign_receiving_dfi_identification")
 
+                /**
+                 * Code R22. A rare return reason. The Individual ID number field of the ACH was
+                 * invalid.
+                 */
                 @JvmField val INVALID_INDIVIDUAL_ID_NUMBER = of("invalid_individual_id_number")
 
+                /**
+                 * Code R53. A rare return reason. Both the Represented Check ("RCK") entry and the
+                 * original check were presented to the bank.
+                 */
                 @JvmField
                 val ITEM_AND_RCK_ENTRY_PRESENTED_FOR_PAYMENT =
                     of("item_and_rck_entry_presented_for_payment")
 
+                /**
+                 * Code R51. A rare return reason. The Represented Check ("RCK") entry is
+                 * ineligible.
+                 */
                 @JvmField
                 val ITEM_RELATED_TO_RCK_ENTRY_IS_INELIGIBLE =
                     of("item_related_to_rck_entry_is_ineligible")
 
+                /** Code R26. A rare return reason. The ACH is missing a required field. */
                 @JvmField val MANDATORY_FIELD_ERROR = of("mandatory_field_error")
 
+                /**
+                 * Code R71. A rare return reason. The receiving bank does not recognize the routing
+                 * number in a dishonored return entry.
+                 */
                 @JvmField val MISROUTED_DISHONORED_RETURN = of("misrouted_dishonored_return")
 
+                /**
+                 * Code R61. A rare return reason. The receiving bank does not recognize the routing
+                 * number in a return entry.
+                 */
                 @JvmField val MISROUTED_RETURN = of("misrouted_return")
 
+                /**
+                 * Code R76. A rare return reason. Sent in response to a return, the bank does not
+                 * find the errors alleged by the returning bank.
+                 */
                 @JvmField val NO_ERRORS_FOUND = of("no_errors_found")
 
+                /**
+                 * Code R77. A rare return reason. The receiving bank does not accept the return of
+                 * the erroneous debit. The funds are not available at the receiving bank.
+                 */
                 @JvmField
                 val NON_ACCEPTANCE_OF_R62_DISHONORED_RETURN =
                     of("non_acceptance_of_r62_dishonored_return")
 
+                /**
+                 * Code R81. A rare return reason. The receiving bank does not accept International
+                 * ACH Transfers.
+                 */
                 @JvmField val NON_PARTICIPANT_IN_IAT_PROGRAM = of("non_participant_in_iat_program")
 
+                /**
+                 * Code R31. A rare return reason. A return that has been agreed to be accepted by
+                 * the receiving bank, despite falling outside of the usual return timeframe.
+                 */
                 @JvmField val PERMISSIBLE_RETURN_ENTRY = of("permissible_return_entry")
 
+                /**
+                 * Code R70. A rare return reason. The receiving bank had not approved this return.
+                 */
                 @JvmField
                 val PERMISSIBLE_RETURN_ENTRY_NOT_ACCEPTED =
                     of("permissible_return_entry_not_accepted")
 
+                /**
+                 * Code R32. A rare return reason. The receiving bank could not settle this
+                 * transaction.
+                 */
                 @JvmField val RDFI_NON_SETTLEMENT = of("rdfi_non_settlement")
 
+                /**
+                 * Code R30. A rare return reason. The receiving bank does not accept Check
+                 * Truncation ACH transfers.
+                 */
                 @JvmField
                 val RDFI_PARTICIPANT_IN_CHECK_TRUNCATION_PROGRAM =
                     of("rdfi_participant_in_check_truncation_program")
 
+                /** Code R14. A rare return reason. The payee is deceased. */
                 @JvmField
                 val REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY =
                     of("representative_payee_deceased_or_unable_to_continue_in_that_capacity")
 
+                /**
+                 * Code R75. A rare return reason. The originating bank disputes that an earlier
+                 * `duplicate_entry` return was actually a duplicate.
+                 */
                 @JvmField val RETURN_NOT_A_DUPLICATE = of("return_not_a_duplicate")
 
+                /**
+                 * Code R62. A rare return reason. The originating financial institution made a
+                 * mistake and this return corrects it.
+                 */
                 @JvmField
                 val RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT =
                     of("return_of_erroneous_or_reversing_debit")
 
+                /** Code R36. A rare return reason. Return of a malformed credit entry. */
                 @JvmField
                 val RETURN_OF_IMPROPER_CREDIT_ENTRY = of("return_of_improper_credit_entry")
 
+                /** Code R35. A rare return reason. Return of a malformed debit entry. */
                 @JvmField val RETURN_OF_IMPROPER_DEBIT_ENTRY = of("return_of_improper_debit_entry")
 
+                /** Code R33. A rare return reason. Return of a Destroyed Check ("XKC") entry. */
                 @JvmField val RETURN_OF_XCK_ENTRY = of("return_of_xck_entry")
 
+                /**
+                 * Code R37. A rare return reason. The source document related to this ACH, usually
+                 * an ACH check conversion, was presented to the bank.
+                 */
                 @JvmField
                 val SOURCE_DOCUMENT_PRESENTED_FOR_PAYMENT =
                     of("source_document_presented_for_payment")
 
+                /**
+                 * Code R50. A rare return reason. State law prevents the bank from accepting the
+                 * Represented Check ("RCK") entry.
+                 */
                 @JvmField
                 val STATE_LAW_AFFECTING_RCK_ACCEPTANCE = of("state_law_affecting_rck_acceptance")
 
+                /**
+                 * Code R52. A rare return reason. A stop payment was issued on a Represented Check
+                 * ("RCK") entry.
+                 */
                 @JvmField
                 val STOP_PAYMENT_ON_ITEM_RELATED_TO_RCK_ENTRY =
                     of("stop_payment_on_item_related_to_rck_entry")
 
+                /**
+                 * Code R38. A rare return reason. The source attached to the ACH, usually an ACH
+                 * check conversion, includes a stop payment.
+                 */
                 @JvmField
                 val STOP_PAYMENT_ON_SOURCE_DOCUMENT = of("stop_payment_on_source_document")
 
+                /**
+                 * Code R73. A rare return reason. The bank receiving an `untimely_return` believes
+                 * it was on time.
+                 */
                 @JvmField val TIMELY_ORIGINAL_RETURN = of("timely_original_return")
 
+                /**
+                 * Code R27. A rare return reason. An ACH return's trace number does not match an
+                 * originated ACH.
+                 */
                 @JvmField val TRACE_NUMBER_ERROR = of("trace_number_error")
 
+                /** Code R72. A rare return reason. The dishonored return was sent too late. */
                 @JvmField val UNTIMELY_DISHONORED_RETURN = of("untimely_dishonored_return")
 
+                /** Code R68. A rare return reason. The return was sent too late. */
                 @JvmField val UNTIMELY_RETURN = of("untimely_return")
 
                 @JvmStatic fun of(value: String) = ReturnReasonCode(JsonField.of(value))
@@ -5901,12 +6178,16 @@ private constructor(
 
         companion object {
 
+            /** Corporate Credit and Debit (CCD). */
             @JvmField val CORPORATE_CREDIT_OR_DEBIT = of("corporate_credit_or_debit")
 
+            /** Corporate Trade Exchange (CTX). */
             @JvmField val CORPORATE_TRADE_EXCHANGE = of("corporate_trade_exchange")
 
+            /** Prearranged Payments and Deposits (PPD). */
             @JvmField val PREARRANGED_PAYMENTS_AND_DEPOSIT = of("prearranged_payments_and_deposit")
 
+            /** Internet Initiated (WEB). */
             @JvmField val INTERNET_INITIATED = of("internet_initiated")
 
             @JvmStatic fun of(value: String) = StandardEntryClassCode(JsonField.of(value))
@@ -5979,23 +6260,32 @@ private constructor(
 
         companion object {
 
+            /** The transfer is pending approval. */
             @JvmField val PENDING_APPROVAL = of("pending_approval")
 
+            /** The transfer belongs to a Transfer Session that is pending confirmation. */
             @JvmField
             val PENDING_TRANSFER_SESSION_CONFIRMATION = of("pending_transfer_session_confirmation")
 
+            /** The transfer has been canceled. */
             @JvmField val CANCELED = of("canceled")
 
+            /** The transfer is pending submission to the Federal Reserve. */
             @JvmField val PENDING_SUBMISSION = of("pending_submission")
 
+            /** The transfer is pending review by Increase. */
             @JvmField val PENDING_REVIEWING = of("pending_reviewing")
 
+            /** The transfer requires attention from an Increase operator. */
             @JvmField val REQUIRES_ATTENTION = of("requires_attention")
 
+            /** The transfer has been rejected. */
             @JvmField val REJECTED = of("rejected")
 
+            /** The transfer is complete. */
             @JvmField val SUBMITTED = of("submitted")
 
+            /** The transfer has been returned. */
             @JvmField val RETURNED = of("returned")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
@@ -6362,8 +6652,10 @@ private constructor(
 
             companion object {
 
+                /** The transfer is expected to settle same-day. */
                 @JvmField val SAME_DAY = of("same_day")
 
+                /** The transfer is expected to settle on a future date. */
                 @JvmField val FUTURE_DATED = of("future_dated")
 
                 @JvmStatic fun of(value: String) = ExpectedSettlementSchedule(JsonField.of(value))

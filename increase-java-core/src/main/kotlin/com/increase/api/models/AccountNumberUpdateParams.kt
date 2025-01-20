@@ -540,8 +540,10 @@ constructor(
 
             companion object {
 
+                /** ACH Debits are allowed. */
                 @JvmField val ALLOWED = of("allowed")
 
+                /** ACH Debits are blocked. */
                 @JvmField val BLOCKED = of("blocked")
 
                 @JvmStatic fun of(value: String) = DebitStatus(JsonField.of(value))
@@ -700,8 +702,16 @@ constructor(
 
             companion object {
 
+                /**
+                 * Checks with this Account Number will be processed even if they are not associated
+                 * with a Check Transfer.
+                 */
                 @JvmField val ALLOWED = of("allowed")
 
+                /**
+                 * Checks with this Account Number will be processed only if they can be matched to
+                 * an existing Check Transfer.
+                 */
                 @JvmField val CHECK_TRANSFERS_ONLY = of("check_transfers_only")
 
                 @JvmStatic fun of(value: String) = Status(JsonField.of(value))
@@ -792,10 +802,13 @@ constructor(
 
         companion object {
 
+            /** The account number is active. */
             @JvmField val ACTIVE = of("active")
 
+            /** The account number is temporarily disabled. */
             @JvmField val DISABLED = of("disabled")
 
+            /** The account number is permanently disabled. */
             @JvmField val CANCELED = of("canceled")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
