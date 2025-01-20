@@ -17,7 +17,7 @@ import com.increase.api.models.DeclinedTransactionListParams
 import com.increase.api.models.DeclinedTransactionRetrieveParams
 
 class DeclinedTransactionServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : DeclinedTransactionService {
 

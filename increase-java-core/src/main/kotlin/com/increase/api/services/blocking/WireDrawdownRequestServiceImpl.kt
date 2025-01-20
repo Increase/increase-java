@@ -19,7 +19,7 @@ import com.increase.api.models.WireDrawdownRequestListParams
 import com.increase.api.models.WireDrawdownRequestRetrieveParams
 
 class WireDrawdownRequestServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : WireDrawdownRequestService {
 

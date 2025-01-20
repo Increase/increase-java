@@ -16,7 +16,7 @@ import com.increase.api.models.SimulationInboundFundsHoldReleaseParams
 import com.increase.api.models.SimulationInboundFundsHoldReleaseResponse
 
 class InboundFundsHoldServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : InboundFundsHoldService {
 

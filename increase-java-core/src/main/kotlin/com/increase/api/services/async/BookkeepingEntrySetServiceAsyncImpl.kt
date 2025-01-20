@@ -20,7 +20,7 @@ import com.increase.api.models.BookkeepingEntrySetRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class BookkeepingEntrySetServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : BookkeepingEntrySetServiceAsync {
 

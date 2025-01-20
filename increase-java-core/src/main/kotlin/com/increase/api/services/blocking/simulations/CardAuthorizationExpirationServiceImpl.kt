@@ -16,7 +16,7 @@ import com.increase.api.models.CardPayment
 import com.increase.api.models.SimulationCardAuthorizationExpirationCreateParams
 
 class CardAuthorizationExpirationServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : CardAuthorizationExpirationService {
 

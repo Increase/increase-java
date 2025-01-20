@@ -18,7 +18,7 @@ import com.increase.api.models.WireTransfer
 import java.util.concurrent.CompletableFuture
 
 class WireTransferServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : WireTransferServiceAsync {
 

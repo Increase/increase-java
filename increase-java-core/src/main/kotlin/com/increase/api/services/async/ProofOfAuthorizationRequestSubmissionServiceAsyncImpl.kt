@@ -20,7 +20,7 @@ import com.increase.api.models.ProofOfAuthorizationRequestSubmissionRetrievePara
 import java.util.concurrent.CompletableFuture
 
 class ProofOfAuthorizationRequestSubmissionServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : ProofOfAuthorizationRequestSubmissionServiceAsync {
 

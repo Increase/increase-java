@@ -20,7 +20,7 @@ import com.increase.api.models.WireDrawdownRequestRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class WireDrawdownRequestServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : WireDrawdownRequestServiceAsync {
 

@@ -16,7 +16,7 @@ import com.increase.api.models.Program
 import com.increase.api.models.SimulationProgramCreateParams
 
 class ProgramServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : ProgramService {
 

@@ -16,7 +16,7 @@ import com.increase.api.models.RoutingNumberListParams
 import java.util.concurrent.CompletableFuture
 
 class RoutingNumberServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : RoutingNumberServiceAsync {
 

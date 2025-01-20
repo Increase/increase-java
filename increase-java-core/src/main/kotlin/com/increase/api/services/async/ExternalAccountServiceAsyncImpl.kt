@@ -21,7 +21,7 @@ import com.increase.api.models.ExternalAccountUpdateParams
 import java.util.concurrent.CompletableFuture
 
 class ExternalAccountServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : ExternalAccountServiceAsync {
 

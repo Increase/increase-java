@@ -19,7 +19,7 @@ import com.increase.api.models.RealTimePaymentsTransferListParams
 import com.increase.api.models.RealTimePaymentsTransferRetrieveParams
 
 class RealTimePaymentsTransferServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : RealTimePaymentsTransferService {
 

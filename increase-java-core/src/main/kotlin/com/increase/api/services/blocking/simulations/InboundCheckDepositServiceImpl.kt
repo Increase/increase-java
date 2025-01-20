@@ -16,7 +16,7 @@ import com.increase.api.models.InboundCheckDeposit
 import com.increase.api.models.SimulationInboundCheckDepositCreateParams
 
 class InboundCheckDepositServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : InboundCheckDepositService {
 

@@ -18,7 +18,7 @@ import com.increase.api.models.InboundWireDrawdownRequestRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class InboundWireDrawdownRequestServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : InboundWireDrawdownRequestServiceAsync {
 

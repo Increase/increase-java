@@ -19,7 +19,7 @@ import com.increase.api.models.AchPrenotificationListParams
 import com.increase.api.models.AchPrenotificationRetrieveParams
 
 class AchPrenotificationServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : AchPrenotificationService {
 

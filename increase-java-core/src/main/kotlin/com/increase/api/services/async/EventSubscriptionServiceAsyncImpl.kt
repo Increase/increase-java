@@ -21,7 +21,7 @@ import com.increase.api.models.EventSubscriptionUpdateParams
 import java.util.concurrent.CompletableFuture
 
 class EventSubscriptionServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : EventSubscriptionServiceAsync {
 

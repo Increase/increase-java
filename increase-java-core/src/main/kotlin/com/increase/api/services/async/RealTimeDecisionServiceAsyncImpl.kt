@@ -18,7 +18,7 @@ import com.increase.api.models.RealTimeDecisionRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class RealTimeDecisionServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : RealTimeDecisionServiceAsync {
 

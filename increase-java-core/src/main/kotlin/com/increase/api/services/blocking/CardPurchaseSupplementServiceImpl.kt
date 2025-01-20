@@ -17,7 +17,7 @@ import com.increase.api.models.CardPurchaseSupplementListParams
 import com.increase.api.models.CardPurchaseSupplementRetrieveParams
 
 class CardPurchaseSupplementServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : CardPurchaseSupplementService {
 

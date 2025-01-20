@@ -18,7 +18,7 @@ import com.increase.api.models.InboundMailItemRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class InboundMailItemServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : InboundMailItemServiceAsync {
 

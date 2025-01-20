@@ -17,7 +17,7 @@ import com.increase.api.models.SimulationCardReversalCreateParams
 import java.util.concurrent.CompletableFuture
 
 class CardReversalServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : CardReversalServiceAsync {
 

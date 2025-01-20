@@ -17,7 +17,7 @@ import com.increase.api.models.SimulationAccountTransferCompleteParams
 import java.util.concurrent.CompletableFuture
 
 class AccountTransferServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : AccountTransferServiceAsync {
 

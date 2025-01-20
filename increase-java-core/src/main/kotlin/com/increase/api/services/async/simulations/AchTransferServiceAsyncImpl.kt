@@ -21,7 +21,7 @@ import com.increase.api.models.SimulationAchTransferSubmitParams
 import java.util.concurrent.CompletableFuture
 
 class AchTransferServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : AchTransferServiceAsync {
 

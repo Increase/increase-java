@@ -19,7 +19,7 @@ import com.increase.api.models.CardDisputeListParams
 import com.increase.api.models.CardDisputeRetrieveParams
 
 class CardDisputeServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : CardDisputeService {
 

@@ -16,7 +16,7 @@ import com.increase.api.models.GroupRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class GroupServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : GroupServiceAsync {
 

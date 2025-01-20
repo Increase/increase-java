@@ -16,7 +16,7 @@ import com.increase.api.models.CardPayment
 import com.increase.api.models.SimulationCardIncrementCreateParams
 
 class CardIncrementServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : CardIncrementService {
 

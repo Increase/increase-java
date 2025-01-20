@@ -22,7 +22,7 @@ import com.increase.api.models.CheckTransferRetrieveParams
 import com.increase.api.models.CheckTransferStopPaymentParams
 
 class CheckTransferServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : CheckTransferService {
 

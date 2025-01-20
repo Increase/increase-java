@@ -20,7 +20,7 @@ import com.increase.api.models.InboundCheckDepositRetrieveParams
 import com.increase.api.models.InboundCheckDepositReturnParams
 
 class InboundCheckDepositServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : InboundCheckDepositService {
 

@@ -17,7 +17,7 @@ import com.increase.api.models.SimulationInboundFundsHoldReleaseResponse
 import java.util.concurrent.CompletableFuture
 
 class InboundFundsHoldServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : InboundFundsHoldServiceAsync {
 

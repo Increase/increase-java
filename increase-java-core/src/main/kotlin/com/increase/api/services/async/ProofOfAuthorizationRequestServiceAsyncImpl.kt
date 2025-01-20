@@ -18,7 +18,7 @@ import com.increase.api.models.ProofOfAuthorizationRequestRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class ProofOfAuthorizationRequestServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : ProofOfAuthorizationRequestServiceAsync {
 
