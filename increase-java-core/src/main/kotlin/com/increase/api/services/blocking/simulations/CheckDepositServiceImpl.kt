@@ -18,7 +18,7 @@ import com.increase.api.models.SimulationCheckDepositReturnParams
 import com.increase.api.models.SimulationCheckDepositSubmitParams
 
 class CheckDepositServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : CheckDepositService {
 

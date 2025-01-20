@@ -21,7 +21,7 @@ import com.increase.api.models.LockboxUpdateParams
 import java.util.concurrent.CompletableFuture
 
 class LockboxServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : LockboxServiceAsync {
 

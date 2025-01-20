@@ -17,7 +17,7 @@ import com.increase.api.models.SimulationCardFuelConfirmationCreateParams
 import java.util.concurrent.CompletableFuture
 
 class CardFuelConfirmationServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : CardFuelConfirmationServiceAsync {
 

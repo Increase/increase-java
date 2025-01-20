@@ -22,7 +22,7 @@ import com.increase.api.models.PhysicalCardProfileRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class PhysicalCardProfileServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : PhysicalCardProfileServiceAsync {
 

@@ -15,7 +15,7 @@ import com.increase.api.models.Group
 import com.increase.api.models.GroupRetrieveParams
 
 class GroupServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : GroupService {
 

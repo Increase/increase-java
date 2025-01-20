@@ -15,7 +15,7 @@ import com.increase.api.models.RoutingNumberListPage
 import com.increase.api.models.RoutingNumberListParams
 
 class RoutingNumberServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : RoutingNumberService {
 

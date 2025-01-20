@@ -21,7 +21,7 @@ import com.increase.api.models.BookkeepingAccountUpdateParams
 import com.increase.api.models.BookkeepingBalanceLookup
 
 class BookkeepingAccountServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : BookkeepingAccountService {
 

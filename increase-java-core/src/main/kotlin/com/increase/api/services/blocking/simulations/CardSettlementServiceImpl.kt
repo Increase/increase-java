@@ -16,7 +16,7 @@ import com.increase.api.models.SimulationCardSettlementCreateParams
 import com.increase.api.models.Transaction
 
 class CardSettlementServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : CardSettlementService {
 

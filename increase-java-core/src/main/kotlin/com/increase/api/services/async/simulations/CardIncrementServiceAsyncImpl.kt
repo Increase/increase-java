@@ -17,7 +17,7 @@ import com.increase.api.models.SimulationCardIncrementCreateParams
 import java.util.concurrent.CompletableFuture
 
 class CardIncrementServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : CardIncrementServiceAsync {
 

@@ -20,7 +20,7 @@ import com.increase.api.models.RealTimePaymentsTransferRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class RealTimePaymentsTransferServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : RealTimePaymentsTransferServiceAsync {
 

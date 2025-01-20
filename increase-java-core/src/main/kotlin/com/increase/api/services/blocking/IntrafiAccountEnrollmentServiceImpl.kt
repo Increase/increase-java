@@ -20,7 +20,7 @@ import com.increase.api.models.IntrafiAccountEnrollmentRetrieveParams
 import com.increase.api.models.IntrafiAccountEnrollmentUnenrollParams
 
 class IntrafiAccountEnrollmentServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : IntrafiAccountEnrollmentService {
 

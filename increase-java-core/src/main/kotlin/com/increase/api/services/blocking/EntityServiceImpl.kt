@@ -26,7 +26,7 @@ import com.increase.api.models.EntityUpdateBeneficialOwnerAddressParams
 import com.increase.api.models.EntityUpdateIndustryCodeParams
 
 class EntityServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : EntityService {
 

@@ -59,7 +59,7 @@ import com.increase.api.services.blocking.simulations.WireTransferService
 import com.increase.api.services.blocking.simulations.WireTransferServiceImpl
 
 class SimulationServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : SimulationService {
 

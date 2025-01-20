@@ -16,7 +16,7 @@ import com.increase.api.models.AccountStatement
 import com.increase.api.models.SimulationAccountStatementCreateParams
 
 class AccountStatementServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : AccountStatementService {
 

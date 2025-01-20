@@ -16,7 +16,7 @@ import com.increase.api.models.SimulationInterestPaymentCreateParams
 import com.increase.api.models.Transaction
 
 class InterestPaymentServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : InterestPaymentService {
 

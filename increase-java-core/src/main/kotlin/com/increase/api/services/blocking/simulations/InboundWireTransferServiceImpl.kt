@@ -16,7 +16,7 @@ import com.increase.api.models.InboundWireTransfer
 import com.increase.api.models.SimulationInboundWireTransferCreateParams
 
 class InboundWireTransferServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : InboundWireTransferService {
 

@@ -18,7 +18,7 @@ import com.increase.api.models.TransactionRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class TransactionServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : TransactionServiceAsync {
 

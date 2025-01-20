@@ -17,7 +17,7 @@ import com.increase.api.models.SimulationInboundAchTransferCreateParams
 import java.util.concurrent.CompletableFuture
 
 class InboundAchTransferServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : InboundAchTransferServiceAsync {
 

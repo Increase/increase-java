@@ -17,7 +17,7 @@ import com.increase.api.models.EventListParams
 import com.increase.api.models.EventRetrieveParams
 
 class EventServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : EventService {
 

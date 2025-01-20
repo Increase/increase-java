@@ -17,7 +17,7 @@ import com.increase.api.models.SimulationProgramCreateParams
 import java.util.concurrent.CompletableFuture
 
 class ProgramServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : ProgramServiceAsync {
 

@@ -27,7 +27,7 @@ import com.increase.api.models.EntityUpdateIndustryCodeParams
 import java.util.concurrent.CompletableFuture
 
 class EntityServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : EntityServiceAsync {
 

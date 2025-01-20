@@ -17,7 +17,7 @@ import com.increase.api.models.RealTimeDecisionActionParams
 import com.increase.api.models.RealTimeDecisionRetrieveParams
 
 class RealTimeDecisionServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : RealTimeDecisionService {
 

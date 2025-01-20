@@ -17,7 +17,7 @@ import com.increase.api.models.PendingTransactionListParams
 import com.increase.api.models.PendingTransactionRetrieveParams
 
 class PendingTransactionServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : PendingTransactionService {
 

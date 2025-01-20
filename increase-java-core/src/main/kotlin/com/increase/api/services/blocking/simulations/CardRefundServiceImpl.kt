@@ -16,7 +16,7 @@ import com.increase.api.models.SimulationCardRefundCreateParams
 import com.increase.api.models.Transaction
 
 class CardRefundServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : CardRefundService {
 

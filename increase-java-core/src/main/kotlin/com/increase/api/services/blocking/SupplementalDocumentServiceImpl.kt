@@ -18,7 +18,7 @@ import com.increase.api.models.SupplementalDocumentListPage
 import com.increase.api.models.SupplementalDocumentListParams
 
 class SupplementalDocumentServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : SupplementalDocumentService {
 
