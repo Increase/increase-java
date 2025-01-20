@@ -216,12 +216,16 @@ private constructor(
 
         companion object {
 
+            /** The card is not active. */
             @JvmField val CARD_NOT_ACTIVE = of("card_not_active")
 
+            /** The card does not have a two-factor authentication method. */
             @JvmField val NO_VERIFICATION_METHOD = of("no_verification_method")
 
+            /** Your webhook timed out when evaluating the token provisioning attempt. */
             @JvmField val WEBHOOK_TIMED_OUT = of("webhook_timed_out")
 
+            /** Your webhook declined the token provisioning attempt. */
             @JvmField val WEBHOOK_DECLINED = of("webhook_declined")
 
             @JvmStatic fun of(value: String) = DeclineReason(JsonField.of(value))

@@ -536,10 +536,13 @@ private constructor(
 
         companion object {
 
+            /** Blue Ridge Bank, N.A. */
             @JvmField val BLUE_RIDGE_BANK = of("blue_ridge_bank")
 
+            /** First Internet Bank of Indiana */
             @JvmField val FIRST_INTERNET_BANK = of("first_internet_bank")
 
+            /** Grasshopper Bank */
             @JvmField val GRASSHOPPER_BANK = of("grasshopper_bank")
 
             @JvmStatic fun of(value: String) = Bank(JsonField.of(value))
@@ -606,16 +609,22 @@ private constructor(
 
         companion object {
 
+            /** Canadian Dollar (CAD) */
             @JvmField val CAD = of("CAD")
 
+            /** Swiss Franc (CHF) */
             @JvmField val CHF = of("CHF")
 
+            /** Euro (EUR) */
             @JvmField val EUR = of("EUR")
 
+            /** British Pound (GBP) */
             @JvmField val GBP = of("GBP")
 
+            /** Japanese Yen (JPY) */
             @JvmField val JPY = of("JPY")
 
+            /** US Dollar (USD) */
             @JvmField val USD = of("USD")
 
             @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
@@ -700,8 +709,10 @@ private constructor(
 
         companion object {
 
+            /** Closed Accounts on which no new activity can occur. */
             @JvmField val CLOSED = of("closed")
 
+            /** Open Accounts that are ready to use. */
             @JvmField val OPEN = of("open")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))

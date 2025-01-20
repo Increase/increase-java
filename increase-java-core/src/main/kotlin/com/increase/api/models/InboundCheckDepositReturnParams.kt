@@ -333,14 +333,19 @@ constructor(
 
         companion object {
 
+            /** The check was altered or fictitious. */
             @JvmField val ALTERED_OR_FICTITIOUS = of("altered_or_fictitious")
 
+            /** The check was not authorized. */
             @JvmField val NOT_AUTHORIZED = of("not_authorized")
 
+            /** The check was a duplicate presentment. */
             @JvmField val DUPLICATE_PRESENTMENT = of("duplicate_presentment")
 
+            /** The check was not endorsed. */
             @JvmField val ENDORSEMENT_MISSING = of("endorsement_missing")
 
+            /** The check was not endorsed by the payee. */
             @JvmField val ENDORSEMENT_IRREGULAR = of("endorsement_irregular")
 
             @JvmStatic fun of(value: String) = Reason(JsonField.of(value))

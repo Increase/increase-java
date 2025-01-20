@@ -401,8 +401,10 @@ constructor(
 
         companion object {
 
+            /** This Lockbox is active. Checks mailed to it will be deposited automatically. */
             @JvmField val ACTIVE = of("active")
 
+            /** This Lockbox is inactive. Checks mailed to it will not be deposited. */
             @JvmField val INACTIVE = of("inactive")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))

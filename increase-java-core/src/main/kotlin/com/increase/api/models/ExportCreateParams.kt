@@ -580,16 +580,25 @@ constructor(
 
         companion object {
 
+            /**
+             * Export an Open Financial Exchange (OFX) file of transactions and balances for a given
+             * time range and Account.
+             */
             @JvmField val ACCOUNT_STATEMENT_OFX = of("account_statement_ofx")
 
+            /** Export a CSV of all transactions for a given time range. */
             @JvmField val TRANSACTION_CSV = of("transaction_csv")
 
+            /** Export a CSV of account balances for the dates in a given range. */
             @JvmField val BALANCE_CSV = of("balance_csv")
 
+            /** Export a CSV of bookkeeping account balances for the dates in a given range. */
             @JvmField val BOOKKEEPING_ACCOUNT_BALANCE_CSV = of("bookkeeping_account_balance_csv")
 
+            /** Export a CSV of entities with a given status. */
             @JvmField val ENTITY_CSV = of("entity_csv")
 
+            /** Export a CSV of vendors added to the third-party risk management dashboard. */
             @JvmField val VENDOR_CSV = of("vendor_csv")
 
             @JvmStatic fun of(value: String) = Category(JsonField.of(value))
@@ -1941,10 +1950,15 @@ constructor(
 
                 companion object {
 
+                    /** The entity is active. */
                     @JvmField val ACTIVE = of("active")
 
+                    /** The entity is archived, and can no longer be used to create accounts. */
                     @JvmField val ARCHIVED = of("archived")
 
+                    /**
+                     * The entity is temporarily disabled and cannot be used for financial activity.
+                     */
                     @JvmField val DISABLED = of("disabled")
 
                     @JvmStatic fun of(value: String) = In(JsonField.of(value))

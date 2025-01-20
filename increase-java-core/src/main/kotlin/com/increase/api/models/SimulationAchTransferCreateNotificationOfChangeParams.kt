@@ -379,63 +379,93 @@ constructor(
 
         companion object {
 
+            /** The account number was incorrect. */
             @JvmField val INCORRECT_ACCOUNT_NUMBER = of("incorrect_account_number")
 
+            /** The routing number was incorrect. */
             @JvmField val INCORRECT_ROUTING_NUMBER = of("incorrect_routing_number")
 
+            /** Both the routing number and the account number were incorrect. */
             @JvmField
             val INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER =
                 of("incorrect_routing_number_and_account_number")
 
+            /**
+             * The transaction code was incorrect. Try changing the `funding` parameter from
+             * checking to savings or vice-versa.
+             */
             @JvmField val INCORRECT_TRANSACTION_CODE = of("incorrect_transaction_code")
 
+            /** The account number and the transaction code were incorrect. */
             @JvmField
             val INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE =
                 of("incorrect_account_number_and_transaction_code")
 
+            /** The routing number, account number, and transaction code were incorrect. */
             @JvmField
             val INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE =
                 of("incorrect_routing_number_account_number_and_transaction_code")
 
+            /** The receiving depository financial institution identification was incorrect. */
             @JvmField
             val INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION =
                 of("incorrect_receiving_depository_financial_institution_identification")
 
+            /** The individual identification number was incorrect. */
             @JvmField
             val INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER =
                 of("incorrect_individual_identification_number")
 
+            /** The addenda had an incorrect format. */
             @JvmField val ADDENDA_FORMAT_ERROR = of("addenda_format_error")
 
+            /**
+             * The standard entry class code was incorrect for an outbound international payment.
+             */
             @JvmField
             val INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT =
                 of("incorrect_standard_entry_class_code_for_outbound_international_payment")
 
+            /** The notification of change was misrouted. */
             @JvmField val MISROUTED_NOTIFICATION_OF_CHANGE = of("misrouted_notification_of_change")
 
+            /** The trace number was incorrect. */
             @JvmField val INCORRECT_TRACE_NUMBER = of("incorrect_trace_number")
 
+            /** The company identification number was incorrect. */
             @JvmField
             val INCORRECT_COMPANY_IDENTIFICATION_NUMBER =
                 of("incorrect_company_identification_number")
 
+            /** The individual identification number or identification number was incorrect. */
             @JvmField val INCORRECT_IDENTIFICATION_NUMBER = of("incorrect_identification_number")
 
+            /** The corrected data was incorrectly formatted. */
             @JvmField
             val INCORRECTLY_FORMATTED_CORRECTED_DATA = of("incorrectly_formatted_corrected_data")
 
+            /** The discretionary data was incorrect. */
             @JvmField val INCORRECT_DISCRETIONARY_DATA = of("incorrect_discretionary_data")
 
+            /** The routing number was not from the original entry detail record. */
             @JvmField
             val ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD =
                 of("routing_number_not_from_original_entry_detail_record")
 
+            /**
+             * The depository financial institution account number was not from the original entry
+             * detail record.
+             */
             @JvmField
             val DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD =
                 of(
                     "depository_financial_institution_account_number_not_from_original_entry_detail_record"
                 )
 
+            /**
+             * The transaction code was incorrect, initiated by the originating depository financial
+             * institution.
+             */
             @JvmField
             val INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION =
                 of("incorrect_transaction_code_by_originating_depository_financial_institution")

@@ -465,12 +465,19 @@ constructor(
 
         companion object {
 
+            /**
+             * The Inbound ACH Transfer is awaiting action, will transition automatically if no
+             * action is taken.
+             */
             @JvmField val PENDING = of("pending")
 
+            /** The Inbound ACH Transfer has been declined. */
             @JvmField val DECLINED = of("declined")
 
+            /** The Inbound ACH Transfer is accepted. */
             @JvmField val ACCEPTED = of("accepted")
 
+            /** The Inbound ACH Transfer has been returned. */
             @JvmField val RETURNED = of("returned")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))

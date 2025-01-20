@@ -278,8 +278,10 @@ private constructor(
 
         companion object {
 
+            /** The OAuth connection is active. */
             @JvmField val ACTIVE = of("active")
 
+            /** The OAuth connection is permanently deactivated. */
             @JvmField val INACTIVE = of("inactive")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))

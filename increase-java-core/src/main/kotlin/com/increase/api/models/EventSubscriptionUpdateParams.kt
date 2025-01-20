@@ -328,10 +328,13 @@ constructor(
 
         companion object {
 
+            /** The subscription is active and Events will be delivered normally. */
             @JvmField val ACTIVE = of("active")
 
+            /** The subscription is temporarily disabled and Events will not be delivered. */
             @JvmField val DISABLED = of("disabled")
 
+            /** The subscription is permanently disabled and Events will not be delivered. */
             @JvmField val DELETED = of("deleted")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
