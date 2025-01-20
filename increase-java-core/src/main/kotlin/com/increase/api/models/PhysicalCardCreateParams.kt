@@ -909,10 +909,13 @@ constructor(
 
             companion object {
 
+                /** USPS Post with tracking. */
                 @JvmField val USPS = of("usps")
 
+                /** FedEx Priority Overnight, no signature. */
                 @JvmField val FEDEX_PRIORITY_OVERNIGHT = of("fedex_priority_overnight")
 
+                /** FedEx 2-day. */
                 @JvmField val FEDEX_2_DAY = of("fedex_2_day")
 
                 @JvmStatic fun of(value: String) = Method(JsonField.of(value))

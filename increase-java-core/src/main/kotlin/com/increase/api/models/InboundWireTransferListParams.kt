@@ -465,12 +465,19 @@ constructor(
 
         companion object {
 
+            /**
+             * The Inbound Wire Transfer is awaiting action, will transition automatically if no
+             * action is taken.
+             */
             @JvmField val PENDING = of("pending")
 
+            /** The Inbound Wire Transfer is accepted. */
             @JvmField val ACCEPTED = of("accepted")
 
+            /** The Inbound Wire Transfer was declined. */
             @JvmField val DECLINED = of("declined")
 
+            /** The Inbound Wire Transfer was reversed. */
             @JvmField val REVERSED = of("reversed")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))

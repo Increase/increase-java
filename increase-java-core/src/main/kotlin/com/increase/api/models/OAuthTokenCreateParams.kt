@@ -532,8 +532,10 @@ constructor(
 
         companion object {
 
+            /** An OAuth authorization code. */
             @JvmField val AUTHORIZATION_CODE = of("authorization_code")
 
+            /** An OAuth production token. */
             @JvmField val PRODUCTION_TOKEN = of("production_token")
 
             @JvmStatic fun of(value: String) = GrantType(JsonField.of(value))

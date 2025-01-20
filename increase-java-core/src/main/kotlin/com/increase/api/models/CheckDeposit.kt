@@ -956,16 +956,22 @@ private constructor(
 
             companion object {
 
+                /** Canadian Dollar (CAD) */
                 @JvmField val CAD = of("CAD")
 
+                /** Swiss Franc (CHF) */
                 @JvmField val CHF = of("CHF")
 
+                /** Euro (EUR) */
                 @JvmField val EUR = of("EUR")
 
+                /** British Pound (GBP) */
                 @JvmField val GBP = of("GBP")
 
+                /** Japanese Yen (JPY) */
                 @JvmField val JPY = of("JPY")
 
+                /** US Dollar (USD) */
                 @JvmField val USD = of("USD")
 
                 @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
@@ -1291,16 +1297,22 @@ private constructor(
 
             companion object {
 
+                /** Canadian Dollar (CAD) */
                 @JvmField val CAD = of("CAD")
 
+                /** Swiss Franc (CHF) */
                 @JvmField val CHF = of("CHF")
 
+                /** Euro (EUR) */
                 @JvmField val EUR = of("EUR")
 
+                /** British Pound (GBP) */
                 @JvmField val GBP = of("GBP")
 
+                /** Japanese Yen (JPY) */
                 @JvmField val JPY = of("JPY")
 
+                /** US Dollar (USD) */
                 @JvmField val USD = of("USD")
 
                 @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
@@ -1385,27 +1397,38 @@ private constructor(
 
             companion object {
 
+                /** The check's image is incomplete. */
                 @JvmField val INCOMPLETE_IMAGE = of("incomplete_image")
 
+                /** This is a duplicate check submission. */
                 @JvmField val DUPLICATE = of("duplicate")
 
+                /** This check has poor image quality. */
                 @JvmField val POOR_IMAGE_QUALITY = of("poor_image_quality")
 
+                /** The check was deposited with the incorrect amount. */
                 @JvmField val INCORRECT_AMOUNT = of("incorrect_amount")
 
+                /** The check is made out to someone other than the account holder. */
                 @JvmField val INCORRECT_RECIPIENT = of("incorrect_recipient")
 
+                /** This check was not eligible for mobile deposit. */
                 @JvmField
                 val NOT_ELIGIBLE_FOR_MOBILE_DEPOSIT = of("not_eligible_for_mobile_deposit")
 
+                /** This check is missing at least one required field. */
                 @JvmField val MISSING_REQUIRED_DATA_ELEMENTS = of("missing_required_data_elements")
 
+                /** This check is suspected to be fraudulent. */
                 @JvmField val SUSPECTED_FRAUD = of("suspected_fraud")
 
+                /** This check's deposit window has expired. */
                 @JvmField val DEPOSIT_WINDOW_EXPIRED = of("deposit_window_expired")
 
+                /** The check was rejected at the user's request. */
                 @JvmField val REQUESTED_BY_USER = of("requested_by_user")
 
+                /** The check was rejected for an unknown reason. */
                 @JvmField val UNKNOWN = of("unknown")
 
                 @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
@@ -1770,16 +1793,22 @@ private constructor(
 
             companion object {
 
+                /** Canadian Dollar (CAD) */
                 @JvmField val CAD = of("CAD")
 
+                /** Swiss Franc (CHF) */
                 @JvmField val CHF = of("CHF")
 
+                /** Euro (EUR) */
                 @JvmField val EUR = of("EUR")
 
+                /** British Pound (GBP) */
                 @JvmField val GBP = of("GBP")
 
+                /** Japanese Yen (JPY) */
                 @JvmField val JPY = of("JPY")
 
+                /** US Dollar (USD) */
                 @JvmField val USD = of("USD")
 
                 @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
@@ -1864,56 +1893,82 @@ private constructor(
 
             companion object {
 
+                /** The check doesn't allow ACH conversion. */
                 @JvmField val ACH_CONVERSION_NOT_SUPPORTED = of("ach_conversion_not_supported")
 
+                /** The account is closed. */
                 @JvmField val CLOSED_ACCOUNT = of("closed_account")
 
+                /** The check has already been deposited. */
                 @JvmField val DUPLICATE_SUBMISSION = of("duplicate_submission")
 
+                /** Insufficient funds */
                 @JvmField val INSUFFICIENT_FUNDS = of("insufficient_funds")
 
+                /** No account was found matching the check details. */
                 @JvmField val NO_ACCOUNT = of("no_account")
 
+                /** The check was not authorized. */
                 @JvmField val NOT_AUTHORIZED = of("not_authorized")
 
+                /** The check is too old. */
                 @JvmField val STALE_DATED = of("stale_dated")
 
+                /** The payment has been stopped by the account holder. */
                 @JvmField val STOP_PAYMENT = of("stop_payment")
 
+                /** The reason for the return is unknown. */
                 @JvmField val UNKNOWN_REASON = of("unknown_reason")
 
+                /** The image doesn't match the details submitted. */
                 @JvmField val UNMATCHED_DETAILS = of("unmatched_details")
 
+                /** The image could not be read. */
                 @JvmField val UNREADABLE_IMAGE = of("unreadable_image")
 
+                /** The check endorsement was irregular. */
                 @JvmField val ENDORSEMENT_IRREGULAR = of("endorsement_irregular")
 
+                /** The check present was either altered or fake. */
                 @JvmField val ALTERED_OR_FICTITIOUS_ITEM = of("altered_or_fictitious_item")
 
+                /** The account this check is drawn on is frozen. */
                 @JvmField val FROZEN_OR_BLOCKED_ACCOUNT = of("frozen_or_blocked_account")
 
+                /** The check is post dated. */
                 @JvmField val POST_DATED = of("post_dated")
 
+                /** The endorsement was missing. */
                 @JvmField val ENDORSEMENT_MISSING = of("endorsement_missing")
 
+                /** The check signature was missing. */
                 @JvmField val SIGNATURE_MISSING = of("signature_missing")
 
+                /** The bank suspects a stop payment will be placed. */
                 @JvmField val STOP_PAYMENT_SUSPECT = of("stop_payment_suspect")
 
+                /** The bank cannot read the image. */
                 @JvmField val UNUSABLE_IMAGE = of("unusable_image")
 
+                /** The check image fails the bank's security check. */
                 @JvmField val IMAGE_FAILS_SECURITY_CHECK = of("image_fails_security_check")
 
+                /** The bank cannot determine the amount. */
                 @JvmField val CANNOT_DETERMINE_AMOUNT = of("cannot_determine_amount")
 
+                /** The signature is inconsistent with prior signatures. */
                 @JvmField val SIGNATURE_IRREGULAR = of("signature_irregular")
 
+                /** The check is a non-cash item and cannot be drawn against the account. */
                 @JvmField val NON_CASH_ITEM = of("non_cash_item")
 
+                /** The bank is unable to process this check. */
                 @JvmField val UNABLE_TO_PROCESS = of("unable_to_process")
 
+                /** The check exceeds the bank or customer's limit. */
                 @JvmField val ITEM_EXCEEDS_DOLLAR_LIMIT = of("item_exceeds_dollar_limit")
 
+                /** The bank sold this account and no longer services this customer. */
                 @JvmField val BRANCH_OR_ACCOUNT_SOLD = of("branch_or_account_sold")
 
                 @JvmStatic fun of(value: String) = ReturnReason(JsonField.of(value))
@@ -2672,16 +2727,22 @@ private constructor(
 
             companion object {
 
+                /** Canadian Dollar (CAD) */
                 @JvmField val CAD = of("CAD")
 
+                /** Swiss Franc (CHF) */
                 @JvmField val CHF = of("CHF")
 
+                /** Euro (EUR) */
                 @JvmField val EUR = of("EUR")
 
+                /** British Pound (GBP) */
                 @JvmField val GBP = of("GBP")
 
+                /** Japanese Yen (JPY) */
                 @JvmField val JPY = of("JPY")
 
+                /** US Dollar (USD) */
                 @JvmField val USD = of("USD")
 
                 @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
@@ -2766,8 +2827,10 @@ private constructor(
 
             companion object {
 
+                /** Funds are still being held. */
                 @JvmField val HELD = of("held")
 
+                /** Funds have been released. */
                 @JvmField val COMPLETE = of("complete")
 
                 @JvmStatic fun of(value: String) = Status(JsonField.of(value))
@@ -2901,12 +2964,16 @@ private constructor(
 
         companion object {
 
+            /** The Check Deposit is pending review. */
             @JvmField val PENDING = of("pending")
 
+            /** The Check Deposit has been deposited. */
             @JvmField val SUBMITTED = of("submitted")
 
+            /** The Check Deposit has been rejected. */
             @JvmField val REJECTED = of("rejected")
 
+            /** The Check Deposit has been returned. */
             @JvmField val RETURNED = of("returned")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))

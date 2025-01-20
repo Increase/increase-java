@@ -1030,34 +1030,57 @@ constructor(
 
         companion object {
 
+            /** The Card was not active. */
             @JvmField val CARD_NOT_ACTIVE = of("card_not_active")
 
+            /** The Physical Card was not active. */
             @JvmField val PHYSICAL_CARD_NOT_ACTIVE = of("physical_card_not_active")
 
+            /** The account's entity was not active. */
             @JvmField val ENTITY_NOT_ACTIVE = of("entity_not_active")
 
+            /** The account was inactive. */
             @JvmField val GROUP_LOCKED = of("group_locked")
 
+            /** The Card's Account did not have a sufficient available balance. */
             @JvmField val INSUFFICIENT_FUNDS = of("insufficient_funds")
 
+            /** The given CVV2 did not match the card's value. */
             @JvmField val CVV2_MISMATCH = of("cvv2_mismatch")
 
+            /**
+             * The given expiration date did not match the card's value. Only applies when a CVV2 is
+             * present.
+             */
             @JvmField val CARD_EXPIRATION_MISMATCH = of("card_expiration_mismatch")
 
+            /** The attempted card transaction is not allowed per Increase's terms. */
             @JvmField val TRANSACTION_NOT_ALLOWED = of("transaction_not_allowed")
 
+            /** The transaction was blocked by a Limit. */
             @JvmField val BREACHES_LIMIT = of("breaches_limit")
 
+            /** Your application declined the transaction via webhook. */
             @JvmField val WEBHOOK_DECLINED = of("webhook_declined")
 
+            /** Your application webhook did not respond without the required timeout. */
             @JvmField val WEBHOOK_TIMED_OUT = of("webhook_timed_out")
 
+            /** Declined by stand-in processing. */
             @JvmField val DECLINED_BY_STAND_IN_PROCESSING = of("declined_by_stand_in_processing")
 
+            /** The card read had an invalid CVV, dCVV, or authorization request cryptogram. */
             @JvmField val INVALID_PHYSICAL_CARD = of("invalid_physical_card")
 
+            /**
+             * The original card authorization for this incremental authorization does not exist.
+             */
             @JvmField val MISSING_ORIGINAL_AUTHORIZATION = of("missing_original_authorization")
 
+            /**
+             * The transaction was suspected to be fraudulent. Please reach out to
+             * support@increase.com for more information.
+             */
             @JvmField val SUSPECTED_FRAUD = of("suspected_fraud")
 
             @JvmStatic fun of(value: String) = DeclineReason(JsonField.of(value))
@@ -1215,8 +1238,13 @@ constructor(
 
         companion object {
 
+            /** A regular card authorization where funds are debited from the cardholder. */
             @JvmField val SETTLEMENT = of("settlement")
 
+            /**
+             * A refund card authorization, sometimes referred to as a credit voucher authorization,
+             * where funds are credited to the cardholder.
+             */
             @JvmField val REFUND = of("refund")
 
             @JvmStatic fun of(value: String) = Direction(JsonField.of(value))

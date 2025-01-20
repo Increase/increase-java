@@ -627,8 +627,13 @@ constructor(
 
         companion object {
 
+            /** Increase will print and mail a physical check. */
             @JvmField val PHYSICAL_CHECK = of("physical_check")
 
+            /**
+             * Increase will not print a check; you are responsible for printing and mailing a check
+             * with the provided account number, routing number, check number, and amount.
+             */
             @JvmField val THIRD_PARTY = of("third_party")
 
             @JvmStatic fun of(value: String) = FulfillmentMethod(JsonField.of(value))

@@ -346,18 +346,31 @@ constructor(
 
         companion object {
 
+            /** The physical card has not yet been shipped. */
             @JvmField val PENDING = of("pending")
 
+            /** The physical card shipment was canceled prior to submission. */
             @JvmField val CANCELED = of("canceled")
 
+            /** The physical card shipment has been submitted to the card fulfillment provider. */
             @JvmField val SUBMITTED = of("submitted")
 
+            /**
+             * The physical card shipment has been acknowledged by the card fulfillment provider and
+             * will be processed in their next batch.
+             */
             @JvmField val ACKNOWLEDGED = of("acknowledged")
 
+            /** The physical card shipment was rejected by the card printer due to an error. */
             @JvmField val REJECTED = of("rejected")
 
+            /** The physical card has been shipped. */
             @JvmField val SHIPPED = of("shipped")
 
+            /**
+             * The physical card shipment was returned to the sender and destroyed by the production
+             * facility.
+             */
             @JvmField val RETURNED = of("returned")
 
             @JvmStatic fun of(value: String) = ShipmentStatus(JsonField.of(value))

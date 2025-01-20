@@ -541,8 +541,10 @@ constructor(
 
             companion object {
 
+                /** The application is active and can be used by your users. */
                 @JvmField val ACTIVE = of("active")
 
+                /** The application is deleted. */
                 @JvmField val DELETED = of("deleted")
 
                 @JvmStatic fun of(value: String) = In(JsonField.of(value))
