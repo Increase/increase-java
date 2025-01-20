@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.162.1 (2025-01-20)
+
+Full Changelog: [v0.162.0...v0.162.1](https://github.com/Increase/increase-java/compare/v0.162.0...v0.162.1)
+
+### Bug Fixes
+
+* **client:** make service impl constructors internal ([#700](https://github.com/Increase/increase-java/issues/700)) ([fc31e66](https://github.com/Increase/increase-java/commit/fc31e66b986a649e59f08c66ff0b7933cb52ee33))
+
+
+### Chores
+
+* **internal:** upgrade kotlin compiler and gradle ([#698](https://github.com/Increase/increase-java/issues/698)) ([12b19e8](https://github.com/Increase/increase-java/commit/12b19e8cdfea26d606c242960248824a5dbb4255))
+* simplify examples involving lists ([#696](https://github.com/Increase/increase-java/issues/696)) ([efd6ff0](https://github.com/Increase/increase-java/commit/efd6ff0cd56019b1939caafb390065feb0d8ecd3))
+
+
+### Documentation
+
+* add more documentation ([#699](https://github.com/Increase/increase-java/issues/699)) ([5b09b99](https://github.com/Increase/increase-java/commit/5b09b992cfe86a7ff082d42aa7146d04d99a9824))
+
 ## 0.162.0 (2025-01-14)
 
 Full Changelog: [v0.161.0...v0.162.0](https://github.com/Increase/increase-java/compare/v0.161.0...v0.162.0)
