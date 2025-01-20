@@ -21,7 +21,7 @@ import com.increase.api.models.AchTransferListParams
 import com.increase.api.models.AchTransferRetrieveParams
 
 class AchTransferServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : AchTransferService {
 

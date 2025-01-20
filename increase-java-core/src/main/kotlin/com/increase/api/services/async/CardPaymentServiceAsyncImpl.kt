@@ -18,7 +18,7 @@ import com.increase.api.models.CardPaymentRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class CardPaymentServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : CardPaymentServiceAsync {
 

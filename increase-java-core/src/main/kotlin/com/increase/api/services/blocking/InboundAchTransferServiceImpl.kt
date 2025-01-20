@@ -21,7 +21,7 @@ import com.increase.api.models.InboundAchTransferRetrieveParams
 import com.increase.api.models.InboundAchTransferTransferReturnParams
 
 class InboundAchTransferServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : InboundAchTransferService {
 

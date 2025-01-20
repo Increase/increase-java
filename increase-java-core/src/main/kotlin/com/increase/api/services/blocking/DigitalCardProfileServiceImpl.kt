@@ -21,7 +21,7 @@ import com.increase.api.models.DigitalCardProfileListParams
 import com.increase.api.models.DigitalCardProfileRetrieveParams
 
 class DigitalCardProfileServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : DigitalCardProfileService {
 

@@ -16,7 +16,7 @@ import com.increase.api.models.Document
 import com.increase.api.models.SimulationDocumentCreateParams
 
 class DocumentServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : DocumentService {
 

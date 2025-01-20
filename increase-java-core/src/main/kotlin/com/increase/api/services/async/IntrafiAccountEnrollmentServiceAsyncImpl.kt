@@ -21,7 +21,7 @@ import com.increase.api.models.IntrafiAccountEnrollmentUnenrollParams
 import java.util.concurrent.CompletableFuture
 
 class IntrafiAccountEnrollmentServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : IntrafiAccountEnrollmentServiceAsync {
 

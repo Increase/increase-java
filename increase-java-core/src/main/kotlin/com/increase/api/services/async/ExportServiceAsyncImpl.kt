@@ -20,7 +20,7 @@ import com.increase.api.models.ExportRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class ExportServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : ExportServiceAsync {
 

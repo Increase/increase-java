@@ -21,7 +21,7 @@ import com.increase.api.models.IntrafiExclusionRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class IntrafiExclusionServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : IntrafiExclusionServiceAsync {
 

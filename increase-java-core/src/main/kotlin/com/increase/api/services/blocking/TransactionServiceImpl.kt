@@ -17,7 +17,7 @@ import com.increase.api.models.TransactionListParams
 import com.increase.api.models.TransactionRetrieveParams
 
 class TransactionServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : TransactionService {
 

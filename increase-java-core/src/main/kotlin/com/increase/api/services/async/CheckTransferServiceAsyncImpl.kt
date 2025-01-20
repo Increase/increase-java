@@ -23,7 +23,7 @@ import com.increase.api.models.CheckTransferStopPaymentParams
 import java.util.concurrent.CompletableFuture
 
 class CheckTransferServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : CheckTransferServiceAsync {
 

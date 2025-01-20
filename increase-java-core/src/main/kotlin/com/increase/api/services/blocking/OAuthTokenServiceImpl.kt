@@ -16,7 +16,7 @@ import com.increase.api.models.OAuthToken
 import com.increase.api.models.OAuthTokenCreateParams
 
 class OAuthTokenServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : OAuthTokenService {
 

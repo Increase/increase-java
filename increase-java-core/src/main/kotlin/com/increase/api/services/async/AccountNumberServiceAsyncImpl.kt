@@ -21,7 +21,7 @@ import com.increase.api.models.AccountNumberUpdateParams
 import java.util.concurrent.CompletableFuture
 
 class AccountNumberServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : AccountNumberServiceAsync {
 

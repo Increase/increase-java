@@ -17,7 +17,7 @@ import com.increase.api.models.SimulationCardAuthorizationExpirationCreateParams
 import java.util.concurrent.CompletableFuture
 
 class CardAuthorizationExpirationServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : CardAuthorizationExpirationServiceAsync {
 

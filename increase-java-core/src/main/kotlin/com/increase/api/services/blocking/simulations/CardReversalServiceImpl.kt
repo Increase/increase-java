@@ -16,7 +16,7 @@ import com.increase.api.models.CardPayment
 import com.increase.api.models.SimulationCardReversalCreateParams
 
 class CardReversalServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : CardReversalService {
 

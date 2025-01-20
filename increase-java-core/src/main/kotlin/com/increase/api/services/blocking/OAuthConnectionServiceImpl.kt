@@ -17,7 +17,7 @@ import com.increase.api.models.OAuthConnectionListParams
 import com.increase.api.models.OAuthConnectionRetrieveParams
 
 class OAuthConnectionServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : OAuthConnectionService {
 

@@ -18,7 +18,7 @@ import com.increase.api.models.AccountStatementRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class AccountStatementServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : AccountStatementServiceAsync {
 

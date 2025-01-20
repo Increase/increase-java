@@ -22,7 +22,7 @@ import com.increase.api.models.BookkeepingBalanceLookup
 import java.util.concurrent.CompletableFuture
 
 class BookkeepingAccountServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : BookkeepingAccountServiceAsync {
 

@@ -21,7 +21,7 @@ import com.increase.api.models.InboundCheckDepositReturnParams
 import java.util.concurrent.CompletableFuture
 
 class InboundCheckDepositServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : InboundCheckDepositServiceAsync {
 

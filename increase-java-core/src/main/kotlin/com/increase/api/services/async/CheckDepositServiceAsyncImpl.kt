@@ -20,7 +20,7 @@ import com.increase.api.models.CheckDepositRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class CheckDepositServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : CheckDepositServiceAsync {
 

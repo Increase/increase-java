@@ -17,7 +17,7 @@ import com.increase.api.models.Transaction
 import java.util.concurrent.CompletableFuture
 
 class CardSettlementServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : CardSettlementServiceAsync {
 

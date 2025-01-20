@@ -23,7 +23,7 @@ import com.increase.api.models.AccountUpdateParams
 import com.increase.api.models.BalanceLookup
 
 class AccountServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : AccountService {
 

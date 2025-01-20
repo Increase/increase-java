@@ -16,7 +16,7 @@ import com.increase.api.models.AccountTransfer
 import com.increase.api.models.SimulationAccountTransferCompleteParams
 
 class AccountTransferServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : AccountTransferService {
 

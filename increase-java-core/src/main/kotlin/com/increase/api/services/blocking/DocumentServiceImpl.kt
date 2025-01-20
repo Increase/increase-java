@@ -17,7 +17,7 @@ import com.increase.api.models.DocumentListParams
 import com.increase.api.models.DocumentRetrieveParams
 
 class DocumentServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : DocumentService {
 

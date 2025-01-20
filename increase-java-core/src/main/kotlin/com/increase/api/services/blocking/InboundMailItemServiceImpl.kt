@@ -17,7 +17,7 @@ import com.increase.api.models.InboundMailItemListParams
 import com.increase.api.models.InboundMailItemRetrieveParams
 
 class InboundMailItemServiceImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : InboundMailItemService {
 
