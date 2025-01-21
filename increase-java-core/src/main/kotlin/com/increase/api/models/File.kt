@@ -454,6 +454,12 @@ private constructor(
              */
             @JvmField val CHECK_VOUCHER_IMAGE = of("check_voucher_image")
 
+            /**
+             * An image to be printed on an additional page and mailed with a check that you've
+             * requested Increase print.
+             */
+            @JvmField val CHECK_ATTACHMENT_IMAGE = of("check_attachment_image")
+
             /** A scanned mail item sent to Increase. */
             @JvmField val INBOUND_MAIL_ITEM = of("inbound_mail_item")
 
@@ -544,6 +550,11 @@ private constructor(
              * Increase print.
              */
             CHECK_VOUCHER_IMAGE,
+            /**
+             * An image to be printed on an additional page and mailed with a check that you've
+             * requested Increase print.
+             */
+            CHECK_ATTACHMENT_IMAGE,
             /** A scanned mail item sent to Increase. */
             INBOUND_MAIL_ITEM,
             /** IRS Form 1099-INT. */
@@ -614,6 +625,11 @@ private constructor(
              * Increase print.
              */
             CHECK_VOUCHER_IMAGE,
+            /**
+             * An image to be printed on an additional page and mailed with a check that you've
+             * requested Increase print.
+             */
+            CHECK_ATTACHMENT_IMAGE,
             /** A scanned mail item sent to Increase. */
             INBOUND_MAIL_ITEM,
             /** IRS Form 1099-INT. */
@@ -671,6 +687,7 @@ private constructor(
                 PROCESSED_CHECK_IMAGE_BACK -> Value.PROCESSED_CHECK_IMAGE_BACK
                 MAILED_CHECK_IMAGE -> Value.MAILED_CHECK_IMAGE
                 CHECK_VOUCHER_IMAGE -> Value.CHECK_VOUCHER_IMAGE
+                CHECK_ATTACHMENT_IMAGE -> Value.CHECK_ATTACHMENT_IMAGE
                 INBOUND_MAIL_ITEM -> Value.INBOUND_MAIL_ITEM
                 FORM_1099_INT -> Value.FORM_1099_INT
                 FORM_SS_4 -> Value.FORM_SS_4
@@ -699,6 +716,7 @@ private constructor(
                 PROCESSED_CHECK_IMAGE_BACK -> Known.PROCESSED_CHECK_IMAGE_BACK
                 MAILED_CHECK_IMAGE -> Known.MAILED_CHECK_IMAGE
                 CHECK_VOUCHER_IMAGE -> Known.CHECK_VOUCHER_IMAGE
+                CHECK_ATTACHMENT_IMAGE -> Known.CHECK_ATTACHMENT_IMAGE
                 INBOUND_MAIL_ITEM -> Known.INBOUND_MAIL_ITEM
                 FORM_1099_INT -> Known.FORM_1099_INT
                 FORM_SS_4 -> Known.FORM_SS_4
