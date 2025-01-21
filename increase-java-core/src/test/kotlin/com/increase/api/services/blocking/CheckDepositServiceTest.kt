@@ -46,7 +46,7 @@ class CheckDepositServiceTest {
         val checkDeposit =
             checkDepositService.retrieve(
                 CheckDepositRetrieveParams.builder()
-                    .checkDepositId("check_deposit_instruction_q2shv7x9qhevfm71kor8")
+                    .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                     .build()
             )
         println(checkDeposit)
