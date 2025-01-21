@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.163.0 (2025-01-21)
+
+Full Changelog: [v0.162.1...v0.163.0](https://github.com/Increase/increase-java/compare/v0.162.1...v0.163.0)
+
+### Features
+
+* **api:** api update ([#704](https://github.com/Increase/increase-java/issues/704)) ([3515303](https://github.com/Increase/increase-java/commit/351530386c8f8ddefbb0597912dc93fda3aaa837))
+
+
+### Documentation
+
+* more enum documentation ([#702](https://github.com/Increase/increase-java/issues/702)) ([c286f83](https://github.com/Increase/increase-java/commit/c286f83b7a03c60a0aaf111f97a5ecaf3047e338))
+
 ## 0.162.1 (2025-01-20)
 
 Full Changelog: [v0.162.0...v0.162.1](https://github.com/Increase/increase-java/compare/v0.162.0...v0.162.1)
