@@ -258,6 +258,12 @@ constructor(
              */
             @JvmField val CHECK_VOUCHER_IMAGE = of("check_voucher_image")
 
+            /**
+             * An image to be printed on an additional page and mailed with a check that you've
+             * requested Increase print.
+             */
+            @JvmField val CHECK_ATTACHMENT_IMAGE = of("check_attachment_image")
+
             /** IRS Form SS-4. */
             @JvmField val FORM_SS_4 = of("form_ss_4")
 
@@ -319,6 +325,11 @@ constructor(
              * Increase print.
              */
             CHECK_VOUCHER_IMAGE,
+            /**
+             * An image to be printed on an additional page and mailed with a check that you've
+             * requested Increase print.
+             */
+            CHECK_ATTACHMENT_IMAGE,
             /** IRS Form SS-4. */
             FORM_SS_4,
             /** An image of a government-issued ID. */
@@ -367,6 +378,11 @@ constructor(
              * Increase print.
              */
             CHECK_VOUCHER_IMAGE,
+            /**
+             * An image to be printed on an additional page and mailed with a check that you've
+             * requested Increase print.
+             */
+            CHECK_ATTACHMENT_IMAGE,
             /** IRS Form SS-4. */
             FORM_SS_4,
             /** An image of a government-issued ID. */
@@ -410,6 +426,7 @@ constructor(
                 CHECK_IMAGE_BACK -> Value.CHECK_IMAGE_BACK
                 MAILED_CHECK_IMAGE -> Value.MAILED_CHECK_IMAGE
                 CHECK_VOUCHER_IMAGE -> Value.CHECK_VOUCHER_IMAGE
+                CHECK_ATTACHMENT_IMAGE -> Value.CHECK_ATTACHMENT_IMAGE
                 FORM_SS_4 -> Value.FORM_SS_4
                 IDENTITY_DOCUMENT -> Value.IDENTITY_DOCUMENT
                 OTHER -> Value.OTHER
@@ -430,6 +447,7 @@ constructor(
                 CHECK_IMAGE_BACK -> Known.CHECK_IMAGE_BACK
                 MAILED_CHECK_IMAGE -> Known.MAILED_CHECK_IMAGE
                 CHECK_VOUCHER_IMAGE -> Known.CHECK_VOUCHER_IMAGE
+                CHECK_ATTACHMENT_IMAGE -> Known.CHECK_ATTACHMENT_IMAGE
                 FORM_SS_4 -> Known.FORM_SS_4
                 IDENTITY_DOCUMENT -> Known.IDENTITY_DOCUMENT
                 OTHER -> Known.OTHER
