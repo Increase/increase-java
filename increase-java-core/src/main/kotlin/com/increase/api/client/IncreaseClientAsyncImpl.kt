@@ -467,4 +467,6 @@ constructor(
     override fun webhooks(): WebhookServiceAsync = webhooks
 
     override fun simulations(): SimulationServiceAsync = simulations
+
+    override fun close() = clientOptions.httpClient.close()
 }
