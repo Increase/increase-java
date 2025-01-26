@@ -10,7 +10,7 @@ import java.util.Objects
 
 /** Retrieve a Proof of Authorization Request Submission */
 class ProofOfAuthorizationRequestSubmissionRetrieveParams
-constructor(
+private constructor(
     private val proofOfAuthorizationRequestSubmissionId: String,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -42,7 +42,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var proofOfAuthorizationRequestSubmissionId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()

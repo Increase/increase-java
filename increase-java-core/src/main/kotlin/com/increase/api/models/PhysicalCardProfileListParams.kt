@@ -15,7 +15,7 @@ import java.util.Optional
 
 /** List Physical Card Profiles */
 class PhysicalCardProfileListParams
-constructor(
+private constructor(
     private val cursor: String?,
     private val idempotencyKey: String?,
     private val limit: Long?,
@@ -64,7 +64,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var cursor: String? = null
         private var idempotencyKey: String? = null
@@ -262,7 +262,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var in_: MutableList<In>? = null
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()

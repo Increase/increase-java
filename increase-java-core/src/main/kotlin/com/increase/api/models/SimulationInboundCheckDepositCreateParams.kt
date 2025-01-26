@@ -26,7 +26,7 @@ import java.util.Objects
  * Deposit object to see the result.
  */
 class SimulationInboundCheckDepositCreateParams
-constructor(
+private constructor(
     private val body: SimulationInboundCheckDepositCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -125,7 +125,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var accountNumberId: JsonField<String>? = null
             private var amount: JsonField<Long>? = null
@@ -220,7 +220,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: SimulationInboundCheckDepositCreateBody.Builder =
             SimulationInboundCheckDepositCreateBody.builder()

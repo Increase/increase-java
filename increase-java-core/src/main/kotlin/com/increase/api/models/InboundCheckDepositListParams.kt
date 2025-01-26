@@ -12,7 +12,7 @@ import java.util.Optional
 
 /** List Inbound Check Deposits */
 class InboundCheckDepositListParams
-constructor(
+private constructor(
     private val accountId: String?,
     private val checkTransferId: String?,
     private val createdAt: CreatedAt?,
@@ -64,7 +64,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var accountId: String? = null
         private var checkTransferId: String? = null
@@ -293,7 +293,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var after: OffsetDateTime? = null
             private var before: OffsetDateTime? = null

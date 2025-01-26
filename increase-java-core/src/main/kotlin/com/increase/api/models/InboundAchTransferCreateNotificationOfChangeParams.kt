@@ -21,7 +21,7 @@ import java.util.Optional
 
 /** Create a notification of change for an Inbound ACH Transfer */
 class InboundAchTransferCreateNotificationOfChangeParams
-constructor(
+private constructor(
     private val inboundAchTransferId: String,
     private val body: InboundAchTransferCreateNotificationOfChangeBody,
     private val additionalHeaders: Headers,
@@ -117,7 +117,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var updatedAccountNumber: JsonField<String> = JsonMissing.of()
             private var updatedRoutingNumber: JsonField<String> = JsonMissing.of()
@@ -208,7 +208,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var inboundAchTransferId: String? = null
         private var body: InboundAchTransferCreateNotificationOfChangeBody.Builder =

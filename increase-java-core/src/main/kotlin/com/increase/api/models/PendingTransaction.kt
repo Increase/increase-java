@@ -220,7 +220,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    class Builder {
+    class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
         private var accountId: JsonField<String>? = null
@@ -829,7 +829,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var accountTransferInstruction: JsonField<AccountTransferInstruction>? = null
             private var achTransferInstruction: JsonField<AchTransferInstruction>? = null
@@ -1190,7 +1190,7 @@ private constructor(
                 @JvmStatic fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var amount: JsonField<Long>? = null
                 private var currency: JsonField<Currency>? = null
@@ -1445,7 +1445,7 @@ private constructor(
                 @JvmStatic fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var amount: JsonField<Long>? = null
                 private var transferId: JsonField<String>? = null
@@ -1980,7 +1980,7 @@ private constructor(
                 @JvmStatic fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var id: JsonField<String>? = null
                 private var actioner: JsonField<Actioner>? = null
@@ -2791,7 +2791,7 @@ private constructor(
                     @JvmStatic fun builder() = Builder()
                 }
 
-                class Builder {
+                class Builder internal constructor() {
 
                     private var category: JsonField<Category>? = null
                     private var visa: JsonField<Visa>? = null
@@ -3007,7 +3007,7 @@ private constructor(
                         @JvmStatic fun builder() = Builder()
                     }
 
-                    class Builder {
+                    class Builder internal constructor() {
 
                         private var electronicCommerceIndicator:
                             JsonField<ElectronicCommerceIndicator>? =
@@ -3827,7 +3827,7 @@ private constructor(
                     @JvmStatic fun builder() = Builder()
                 }
 
-                class Builder {
+                class Builder internal constructor() {
 
                     private var retrievalReferenceNumber: JsonField<String>? = null
                     private var traceNumber: JsonField<String>? = null
@@ -4229,7 +4229,7 @@ private constructor(
                     @JvmStatic fun builder() = Builder()
                 }
 
-                class Builder {
+                class Builder internal constructor() {
 
                     private var cardVerificationCode: JsonField<CardVerificationCode>? = null
                     private var cardholderAddress: JsonField<CardholderAddress>? = null
@@ -4347,7 +4347,7 @@ private constructor(
                         @JvmStatic fun builder() = Builder()
                     }
 
-                    class Builder {
+                    class Builder internal constructor() {
 
                         private var result: JsonField<Result>? = null
                         private var additionalProperties: MutableMap<String, JsonValue> =
@@ -4596,7 +4596,7 @@ private constructor(
                         @JvmStatic fun builder() = Builder()
                     }
 
-                    class Builder {
+                    class Builder internal constructor() {
 
                         private var actualLine1: JsonField<String>? = null
                         private var actualPostalCode: JsonField<String>? = null
@@ -5207,7 +5207,7 @@ private constructor(
                 @JvmStatic fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var amount: JsonField<Long>? = null
                 private var backImageFileId: JsonField<String>? = null
@@ -5520,7 +5520,7 @@ private constructor(
                 @JvmStatic fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var amount: JsonField<Long>? = null
                 private var currency: JsonField<Currency>? = null
@@ -5890,7 +5890,7 @@ private constructor(
                 @JvmStatic fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var id: JsonField<String>? = null
                 private var amount: JsonField<Long>? = null
@@ -6374,7 +6374,7 @@ private constructor(
                 @JvmStatic fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var amount: JsonField<Long>? = null
                 private var transferId: JsonField<String>? = null
@@ -6556,7 +6556,7 @@ private constructor(
                 @JvmStatic fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var accountNumber: JsonField<String>? = null
                 private var amount: JsonField<Long>? = null

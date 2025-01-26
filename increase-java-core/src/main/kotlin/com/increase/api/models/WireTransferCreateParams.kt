@@ -21,7 +21,7 @@ import java.util.Optional
 
 /** Create a Wire Transfer */
 class WireTransferCreateParams
-constructor(
+private constructor(
     private val body: WireTransferCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -436,7 +436,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var accountId: JsonField<String>? = null
             private var amount: JsonField<Long>? = null
@@ -716,7 +716,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: WireTransferCreateBody.Builder = WireTransferCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()

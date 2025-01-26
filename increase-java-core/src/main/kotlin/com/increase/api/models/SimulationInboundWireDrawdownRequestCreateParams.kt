@@ -21,7 +21,7 @@ import java.util.Optional
 
 /** Simulates receiving an [Inbound Wire Drawdown Request](#inbound-wire-drawdown-requests). */
 class SimulationInboundWireDrawdownRequestCreateParams
-constructor(
+private constructor(
     private val body: SimulationInboundWireDrawdownRequestCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -509,7 +509,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var amount: JsonField<Long>? = null
             private var beneficiaryAccountNumber: JsonField<String>? = null
@@ -896,7 +896,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: SimulationInboundWireDrawdownRequestCreateBody.Builder =
             SimulationInboundWireDrawdownRequestCreateBody.builder()

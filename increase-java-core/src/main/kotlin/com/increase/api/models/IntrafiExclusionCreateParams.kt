@@ -20,7 +20,7 @@ import java.util.Objects
 
 /** Create an IntraFi Exclusion */
 class IntrafiExclusionCreateParams
-constructor(
+private constructor(
     private val body: IntrafiExclusionCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -99,7 +99,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var bankName: JsonField<String>? = null
             private var entityId: JsonField<String>? = null
@@ -178,7 +178,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: IntrafiExclusionCreateBody.Builder = IntrafiExclusionCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()

@@ -11,7 +11,7 @@ import java.util.Optional
 
 /** List Entity Supplemental Document Submissions */
 class SupplementalDocumentListParams
-constructor(
+private constructor(
     private val entityId: String,
     private val cursor: String?,
     private val idempotencyKey: String?,
@@ -61,7 +61,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var entityId: String? = null
         private var cursor: String? = null

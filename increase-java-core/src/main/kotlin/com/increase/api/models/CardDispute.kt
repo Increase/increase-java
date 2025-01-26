@@ -205,7 +205,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    class Builder {
+    class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
         private var acceptance: JsonField<Acceptance>? = null
@@ -505,7 +505,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var acceptedAt: JsonField<OffsetDateTime>? = null
             private var cardDisputeId: JsonField<String>? = null
@@ -690,7 +690,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var cardDisputeId: JsonField<String>? = null
             private var explanation: JsonField<String>? = null
@@ -871,7 +871,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var cardDisputeId: JsonField<String>? = null
             private var explanation: JsonField<String>? = null
@@ -1193,7 +1193,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var cardDisputeId: JsonField<String>? = null
             private var wonAt: JsonField<OffsetDateTime>? = null

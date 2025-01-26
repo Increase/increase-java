@@ -21,7 +21,7 @@ import java.util.Optional
 
 /** Create a Card */
 class CardCreateParams
-constructor(
+private constructor(
     private val body: CardCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -189,7 +189,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var accountId: JsonField<String>? = null
             private var billingAddress: JsonField<BillingAddress> = JsonMissing.of()
@@ -320,7 +320,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: CardCreateBody.Builder = CardCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
@@ -594,7 +594,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var city: JsonField<String>? = null
             private var line1: JsonField<String>? = null
@@ -771,7 +771,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var digitalCardProfileId: JsonField<String> = JsonMissing.of()
             private var email: JsonField<String> = JsonMissing.of()

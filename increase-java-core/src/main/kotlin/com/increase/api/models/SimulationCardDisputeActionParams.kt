@@ -28,7 +28,7 @@ import java.util.Optional
  * `pending_reviewing`.
  */
 class SimulationCardDisputeActionParams
-constructor(
+private constructor(
     private val cardDisputeId: String,
     private val body: SimulationCardDisputeActionBody,
     private val additionalHeaders: Headers,
@@ -121,7 +121,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var status: JsonField<Status>? = null
             private var explanation: JsonField<String> = JsonMissing.of()
@@ -203,7 +203,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var cardDisputeId: String? = null
         private var body: SimulationCardDisputeActionBody.Builder =

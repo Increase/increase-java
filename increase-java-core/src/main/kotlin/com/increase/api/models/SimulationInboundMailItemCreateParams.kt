@@ -24,7 +24,7 @@ import java.util.Optional
  * of your account's Lockboxes.
  */
 class SimulationInboundMailItemCreateParams
-constructor(
+private constructor(
     private val body: SimulationInboundMailItemCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -134,7 +134,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var amount: JsonField<Long>? = null
             private var lockboxId: JsonField<String>? = null
@@ -233,7 +233,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: SimulationInboundMailItemCreateBody.Builder =
             SimulationInboundMailItemCreateBody.builder()

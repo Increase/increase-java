@@ -16,7 +16,7 @@ import java.util.Optional
  * result of e.g., an ACH debit.
  */
 class SimulationInboundFundsHoldReleaseParams
-constructor(
+private constructor(
     private val inboundFundsHoldId: String,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -55,7 +55,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var inboundFundsHoldId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()

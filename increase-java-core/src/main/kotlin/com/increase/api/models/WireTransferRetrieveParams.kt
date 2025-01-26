@@ -10,7 +10,7 @@ import java.util.Objects
 
 /** Retrieve a Wire Transfer */
 class WireTransferRetrieveParams
-constructor(
+private constructor(
     private val wireTransferId: String,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -42,7 +42,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var wireTransferId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()

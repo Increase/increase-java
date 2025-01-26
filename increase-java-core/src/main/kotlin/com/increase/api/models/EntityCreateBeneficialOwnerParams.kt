@@ -24,7 +24,7 @@ import java.util.Optional
 
 /** Create a beneficial owner for a corporate Entity */
 class EntityCreateBeneficialOwnerParams
-constructor(
+private constructor(
     private val entityId: String,
     private val body: EntityCreateBeneficialOwnerBody,
     private val additionalHeaders: Headers,
@@ -104,7 +104,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var beneficialOwner: JsonField<BeneficialOwner>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -184,7 +184,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var entityId: String? = null
         private var body: EntityCreateBeneficialOwnerBody.Builder =
@@ -418,7 +418,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var individual: JsonField<Individual>? = null
             private var prongs: JsonField<MutableList<Prong>>? = null
@@ -612,7 +612,7 @@ constructor(
                 @JvmStatic fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var address: JsonField<Address>? = null
                 private var dateOfBirth: JsonField<LocalDate>? = null
@@ -807,7 +807,7 @@ constructor(
                     @JvmStatic fun builder() = Builder()
                 }
 
-                class Builder {
+                class Builder internal constructor() {
 
                     private var city: JsonField<String>? = null
                     private var line1: JsonField<String>? = null
@@ -1027,7 +1027,7 @@ constructor(
                     @JvmStatic fun builder() = Builder()
                 }
 
-                class Builder {
+                class Builder internal constructor() {
 
                     private var method: JsonField<Method>? = null
                     private var number: JsonField<String>? = null
@@ -1312,7 +1312,7 @@ constructor(
                         @JvmStatic fun builder() = Builder()
                     }
 
-                    class Builder {
+                    class Builder internal constructor() {
 
                         private var expirationDate: JsonField<LocalDate>? = null
                         private var fileId: JsonField<String>? = null
@@ -1525,7 +1525,7 @@ constructor(
                         @JvmStatic fun builder() = Builder()
                     }
 
-                    class Builder {
+                    class Builder internal constructor() {
 
                         private var country: JsonField<String>? = null
                         private var description: JsonField<String>? = null
@@ -1715,7 +1715,7 @@ constructor(
                         @JvmStatic fun builder() = Builder()
                     }
 
-                    class Builder {
+                    class Builder internal constructor() {
 
                         private var country: JsonField<String>? = null
                         private var expirationDate: JsonField<LocalDate>? = null
