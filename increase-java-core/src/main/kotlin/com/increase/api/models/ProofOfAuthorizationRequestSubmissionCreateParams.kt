@@ -22,7 +22,7 @@ import java.util.Optional
 
 /** Submit Proof of Authorization */
 class ProofOfAuthorizationRequestSubmissionCreateParams
-constructor(
+private constructor(
     private val body: ProofOfAuthorizationRequestSubmissionCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -291,7 +291,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var authorizationTerms: JsonField<String>? = null
             private var authorizedAt: JsonField<OffsetDateTime>? = null
@@ -529,7 +529,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: ProofOfAuthorizationRequestSubmissionCreateBody.Builder =
             ProofOfAuthorizationRequestSubmissionCreateBody.builder()

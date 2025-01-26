@@ -23,7 +23,7 @@ import java.util.Optional
 
 /** Create a Physical Card */
 class PhysicalCardCreateParams
-constructor(
+private constructor(
     private val body: PhysicalCardCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -151,7 +151,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var cardId: JsonField<String>? = null
             private var cardholder: JsonField<Cardholder>? = null
@@ -258,7 +258,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: PhysicalCardCreateBody.Builder = PhysicalCardCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
@@ -480,7 +480,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var firstName: JsonField<String>? = null
             private var lastName: JsonField<String>? = null
@@ -600,7 +600,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var address: JsonField<Address>? = null
             private var method: JsonField<Method>? = null
@@ -767,7 +767,7 @@ constructor(
                 @JvmStatic fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var city: JsonField<String>? = null
                 private var line1: JsonField<String>? = null

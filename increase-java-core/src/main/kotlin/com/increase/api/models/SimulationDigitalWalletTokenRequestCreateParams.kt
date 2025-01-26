@@ -20,7 +20,7 @@ import java.util.Objects
 
 /** Simulates a user attempting add a [Card](#cards) to a digital wallet such as Apple Pay. */
 class SimulationDigitalWalletTokenRequestCreateParams
-constructor(
+private constructor(
     private val body: SimulationDigitalWalletTokenRequestCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -83,7 +83,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var cardId: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -157,7 +157,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: SimulationDigitalWalletTokenRequestCreateBody.Builder =
             SimulationDigitalWalletTokenRequestCreateBody.builder()

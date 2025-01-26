@@ -22,7 +22,7 @@ import java.util.Objects
 
 /** Update a Physical Card */
 class PhysicalCardUpdateParams
-constructor(
+private constructor(
     private val physicalCardId: String,
     private val body: PhysicalCardUpdateBody,
     private val additionalHeaders: Headers,
@@ -96,7 +96,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var status: JsonField<Status>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -165,7 +165,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var physicalCardId: String? = null
         private var body: PhysicalCardUpdateBody.Builder = PhysicalCardUpdateBody.builder()

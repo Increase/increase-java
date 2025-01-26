@@ -30,7 +30,7 @@ import java.util.Optional
  * purchases can be made.
  */
 class SimulationCardAuthorizationCreateParams
-constructor(
+private constructor(
     private val body: SimulationCardAuthorizationCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -438,7 +438,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var amount: JsonField<Long>? = null
             private var authenticatedCardPaymentId: JsonField<String> = JsonMissing.of()
@@ -708,7 +708,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: SimulationCardAuthorizationCreateBody.Builder =
             SimulationCardAuthorizationCreateBody.builder()

@@ -20,7 +20,7 @@ import java.util.Objects
 
 /** Archive a beneficial owner for a corporate Entity */
 class EntityArchiveBeneficialOwnerParams
-constructor(
+private constructor(
     private val entityId: String,
     private val body: EntityArchiveBeneficialOwnerBody,
     private val additionalHeaders: Headers,
@@ -100,7 +100,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var beneficialOwnerId: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -180,7 +180,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var entityId: String? = null
         private var body: EntityArchiveBeneficialOwnerBody.Builder =

@@ -21,7 +21,7 @@ import java.util.Optional
 
 /** Clones a Digital Card Profile */
 class DigitalCardProfileCloneParams
-constructor(
+private constructor(
     private val digitalCardProfileId: String,
     private val body: DigitalCardProfileCloneBody,
     private val additionalHeaders: Headers,
@@ -250,7 +250,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var appIconFileId: JsonField<String> = JsonMissing.of()
             private var backgroundImageFileId: JsonField<String> = JsonMissing.of()
@@ -409,7 +409,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var digitalCardProfileId: String? = null
         private var body: DigitalCardProfileCloneBody.Builder =
@@ -682,7 +682,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var blue: JsonField<Long>? = null
             private var green: JsonField<Long>? = null

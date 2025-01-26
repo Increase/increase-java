@@ -24,7 +24,7 @@ import java.util.Optional
  * incremented multiple times.
  */
 class SimulationCardIncrementCreateParams
-constructor(
+private constructor(
     private val body: SimulationCardIncrementCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -144,7 +144,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var amount: JsonField<Long>? = null
             private var cardPaymentId: JsonField<String>? = null
@@ -249,7 +249,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: SimulationCardIncrementCreateBody.Builder =
             SimulationCardIncrementCreateBody.builder()

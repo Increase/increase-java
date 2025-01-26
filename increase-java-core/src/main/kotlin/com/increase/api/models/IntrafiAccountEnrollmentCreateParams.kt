@@ -20,7 +20,7 @@ import java.util.Objects
 
 /** Enroll an account in the IntraFi deposit sweep network */
 class IntrafiAccountEnrollmentCreateParams
-constructor(
+private constructor(
     private val body: IntrafiAccountEnrollmentCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -101,7 +101,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var accountId: JsonField<String>? = null
             private var emailAddress: JsonField<String>? = null
@@ -184,7 +184,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: IntrafiAccountEnrollmentCreateBody.Builder =
             IntrafiAccountEnrollmentCreateBody.builder()

@@ -212,7 +212,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    class Builder {
+    class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
         private var accountId: JsonField<String>? = null
@@ -504,7 +504,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var city: JsonField<String>? = null
             private var line1: JsonField<String>? = null
@@ -698,7 +698,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var digitalCardProfileId: JsonField<String>? = null
             private var email: JsonField<String>? = null

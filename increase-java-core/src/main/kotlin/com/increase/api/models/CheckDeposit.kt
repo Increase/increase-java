@@ -309,7 +309,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    class Builder {
+    class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
         private var accountId: JsonField<String>? = null
@@ -794,7 +794,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var accountNumber: JsonField<String>? = null
             private var amount: JsonField<Long>? = null
@@ -1174,7 +1174,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var amount: JsonField<Long>? = null
             private var checkDepositId: JsonField<String>? = null
@@ -1664,7 +1664,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var amount: JsonField<Long>? = null
             private var checkDepositId: JsonField<String>? = null
@@ -2267,7 +2267,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var backFileId: JsonField<String>? = null
             private var frontFileId: JsonField<String>? = null
@@ -2537,7 +2537,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var id: JsonField<String>? = null
             private var amount: JsonField<Long>? = null

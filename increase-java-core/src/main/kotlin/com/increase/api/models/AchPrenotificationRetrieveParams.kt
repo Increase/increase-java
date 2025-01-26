@@ -10,7 +10,7 @@ import java.util.Objects
 
 /** Retrieve an ACH Prenotification */
 class AchPrenotificationRetrieveParams
-constructor(
+private constructor(
     private val achPrenotificationId: String,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -42,7 +42,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var achPrenotificationId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()

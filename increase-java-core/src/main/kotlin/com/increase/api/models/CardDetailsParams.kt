@@ -10,7 +10,7 @@ import java.util.Objects
 
 /** Retrieve sensitive details for a Card */
 class CardDetailsParams
-constructor(
+private constructor(
     private val cardId: String,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -42,7 +42,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var cardId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()

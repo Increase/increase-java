@@ -21,7 +21,7 @@ import java.util.Optional
 
 /** Create a Lockbox */
 class LockboxCreateParams
-constructor(
+private constructor(
     private val body: LockboxCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -122,7 +122,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var accountId: JsonField<String>? = null
             private var description: JsonField<String> = JsonMissing.of()
@@ -213,7 +213,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: LockboxCreateBody.Builder = LockboxCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()

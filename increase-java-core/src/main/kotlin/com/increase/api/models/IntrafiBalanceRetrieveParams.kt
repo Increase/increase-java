@@ -10,7 +10,7 @@ import java.util.Objects
 
 /** Get IntraFi balances by bank */
 class IntrafiBalanceRetrieveParams
-constructor(
+private constructor(
     private val accountId: String,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -42,7 +42,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var accountId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
