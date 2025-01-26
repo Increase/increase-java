@@ -10,7 +10,7 @@ import java.util.Objects
 
 /** Retrieve a Card Dispute */
 class CardDisputeRetrieveParams
-constructor(
+private constructor(
     private val cardDisputeId: String,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -42,7 +42,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var cardDisputeId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()

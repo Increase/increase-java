@@ -22,7 +22,7 @@ import java.util.Optional
 
 /** Create a Real-Time Payments Request for Payment */
 class RealTimePaymentsRequestForPaymentCreateParams
-constructor(
+private constructor(
     private val body: RealTimePaymentsRequestForPaymentCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -205,7 +205,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var amount: JsonField<Long>? = null
             private var debtor: JsonField<Debtor>? = null
@@ -354,7 +354,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: RealTimePaymentsRequestForPaymentCreateBody.Builder =
             RealTimePaymentsRequestForPaymentCreateBody.builder()
@@ -612,7 +612,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var address: JsonField<Address>? = null
             private var name: JsonField<String>? = null
@@ -738,7 +738,7 @@ constructor(
                 @JvmStatic fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var country: JsonField<String>? = null
                 private var city: JsonField<String> = JsonMissing.of()

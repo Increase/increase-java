@@ -10,7 +10,7 @@ import java.util.Optional
 
 /** List Bookkeeping Entries */
 class BookkeepingEntryListParams
-constructor(
+private constructor(
     private val accountId: String?,
     private val cursor: String?,
     private val limit: Long?,
@@ -51,7 +51,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var accountId: String? = null
         private var cursor: String? = null

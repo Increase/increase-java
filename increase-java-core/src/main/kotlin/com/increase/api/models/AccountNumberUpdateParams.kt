@@ -23,7 +23,7 @@ import java.util.Optional
 
 /** Update an Account Number */
 class AccountNumberUpdateParams
-constructor(
+private constructor(
     private val accountNumberId: String,
     private val body: AccountNumberUpdateBody,
     private val additionalHeaders: Headers,
@@ -151,7 +151,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var inboundAch: JsonField<InboundAch> = JsonMissing.of()
             private var inboundChecks: JsonField<InboundChecks> = JsonMissing.of()
@@ -256,7 +256,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var accountNumberId: String? = null
         private var body: AccountNumberUpdateBody.Builder = AccountNumberUpdateBody.builder()
@@ -479,7 +479,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var debitStatus: JsonField<DebitStatus> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -651,7 +651,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var status: JsonField<Status>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()

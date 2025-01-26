@@ -113,8 +113,7 @@ import com.increase.api.services.blocking.WireDrawdownRequestServiceImpl
 import com.increase.api.services.blocking.WireTransferService
 import com.increase.api.services.blocking.WireTransferServiceImpl
 
-class IncreaseClientImpl
-constructor(
+class IncreaseClientImpl(
     private val clientOptions: ClientOptions,
 ) : IncreaseClient {
 

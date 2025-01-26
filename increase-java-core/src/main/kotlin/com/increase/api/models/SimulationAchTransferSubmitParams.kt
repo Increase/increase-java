@@ -19,7 +19,7 @@ import java.util.Optional
  * that delay and transition the ACH Transfer to a status of `submitted`.
  */
 class SimulationAchTransferSubmitParams
-constructor(
+private constructor(
     private val achTransferId: String,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -58,7 +58,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var achTransferId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()

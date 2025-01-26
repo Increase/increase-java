@@ -23,7 +23,7 @@ import java.util.Optional
 
 /** Update a Lockbox */
 class LockboxUpdateParams
-constructor(
+private constructor(
     private val lockboxId: String,
     private val body: LockboxUpdateBody,
     private val additionalHeaders: Headers,
@@ -135,7 +135,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var description: JsonField<String> = JsonMissing.of()
             private var recipientName: JsonField<String> = JsonMissing.of()
@@ -226,7 +226,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var lockboxId: String? = null
         private var body: LockboxUpdateBody.Builder = LockboxUpdateBody.builder()

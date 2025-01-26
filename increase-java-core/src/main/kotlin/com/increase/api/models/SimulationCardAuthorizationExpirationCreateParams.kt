@@ -20,7 +20,7 @@ import java.util.Objects
 
 /** Simulates expiring a Card Authorization immediately. */
 class SimulationCardAuthorizationExpirationCreateParams
-constructor(
+private constructor(
     private val body: SimulationCardAuthorizationExpirationCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -85,7 +85,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var cardPaymentId: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -161,7 +161,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: SimulationCardAuthorizationExpirationCreateBody.Builder =
             SimulationCardAuthorizationExpirationCreateBody.builder()

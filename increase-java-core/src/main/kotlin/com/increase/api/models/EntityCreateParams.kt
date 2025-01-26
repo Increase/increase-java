@@ -24,7 +24,7 @@ import java.util.Optional
 
 /** Create an Entity */
 class EntityCreateParams
-constructor(
+private constructor(
     private val body: EntityCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -291,7 +291,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var structure: JsonField<Structure>? = null
             private var corporation: JsonField<Corporation> = JsonMissing.of()
@@ -502,7 +502,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: EntityCreateBody.Builder = EntityCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
@@ -978,7 +978,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var address: JsonField<Address>? = null
             private var beneficialOwners: JsonField<MutableList<BeneficialOwner>>? = null
@@ -1219,7 +1219,7 @@ constructor(
                 @JvmStatic fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var city: JsonField<String>? = null
                 private var line1: JsonField<String>? = null
@@ -1397,7 +1397,7 @@ constructor(
                 @JvmStatic fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var individual: JsonField<Individual>? = null
                 private var prongs: JsonField<MutableList<Prong>>? = null
@@ -1598,7 +1598,7 @@ constructor(
                     @JvmStatic fun builder() = Builder()
                 }
 
-                class Builder {
+                class Builder internal constructor() {
 
                     private var address: JsonField<Address>? = null
                     private var dateOfBirth: JsonField<LocalDate>? = null
@@ -1797,7 +1797,7 @@ constructor(
                         @JvmStatic fun builder() = Builder()
                     }
 
-                    class Builder {
+                    class Builder internal constructor() {
 
                         private var city: JsonField<String>? = null
                         private var line1: JsonField<String>? = null
@@ -2028,7 +2028,7 @@ constructor(
                         @JvmStatic fun builder() = Builder()
                     }
 
-                    class Builder {
+                    class Builder internal constructor() {
 
                         private var method: JsonField<Method>? = null
                         private var number: JsonField<String>? = null
@@ -2329,7 +2329,7 @@ constructor(
                             @JvmStatic fun builder() = Builder()
                         }
 
-                        class Builder {
+                        class Builder internal constructor() {
 
                             private var expirationDate: JsonField<LocalDate>? = null
                             private var fileId: JsonField<String>? = null
@@ -2548,7 +2548,7 @@ constructor(
                             @JvmStatic fun builder() = Builder()
                         }
 
-                        class Builder {
+                        class Builder internal constructor() {
 
                             private var country: JsonField<String>? = null
                             private var description: JsonField<String>? = null
@@ -2743,7 +2743,7 @@ constructor(
                             @JvmStatic fun builder() = Builder()
                         }
 
-                        class Builder {
+                        class Builder internal constructor() {
 
                             private var country: JsonField<String>? = null
                             private var expirationDate: JsonField<LocalDate>? = null
@@ -3070,7 +3070,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var address: JsonField<Address>? = null
             private var authorizedPersons: JsonField<MutableList<AuthorizedPerson>>? = null
@@ -3272,7 +3272,7 @@ constructor(
                 @JvmStatic fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var city: JsonField<String>? = null
                 private var line1: JsonField<String>? = null
@@ -3417,7 +3417,7 @@ constructor(
                 @JvmStatic fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var name: JsonField<String>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -3606,7 +3606,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var individuals: JsonField<MutableList<Individual>>? = null
             private var name: JsonField<String> = JsonMissing.of()
@@ -3774,7 +3774,7 @@ constructor(
                 @JvmStatic fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var address: JsonField<Address>? = null
                 private var dateOfBirth: JsonField<LocalDate>? = null
@@ -3969,7 +3969,7 @@ constructor(
                     @JvmStatic fun builder() = Builder()
                 }
 
-                class Builder {
+                class Builder internal constructor() {
 
                     private var city: JsonField<String>? = null
                     private var line1: JsonField<String>? = null
@@ -4189,7 +4189,7 @@ constructor(
                     @JvmStatic fun builder() = Builder()
                 }
 
-                class Builder {
+                class Builder internal constructor() {
 
                     private var method: JsonField<Method>? = null
                     private var number: JsonField<String>? = null
@@ -4474,7 +4474,7 @@ constructor(
                         @JvmStatic fun builder() = Builder()
                     }
 
-                    class Builder {
+                    class Builder internal constructor() {
 
                         private var expirationDate: JsonField<LocalDate>? = null
                         private var fileId: JsonField<String>? = null
@@ -4687,7 +4687,7 @@ constructor(
                         @JvmStatic fun builder() = Builder()
                     }
 
-                    class Builder {
+                    class Builder internal constructor() {
 
                         private var country: JsonField<String>? = null
                         private var description: JsonField<String>? = null
@@ -4877,7 +4877,7 @@ constructor(
                         @JvmStatic fun builder() = Builder()
                     }
 
-                    class Builder {
+                    class Builder internal constructor() {
 
                         private var country: JsonField<String>? = null
                         private var expirationDate: JsonField<LocalDate>? = null
@@ -5122,7 +5122,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var address: JsonField<Address>? = null
             private var dateOfBirth: JsonField<LocalDate>? = null
@@ -5312,7 +5312,7 @@ constructor(
                 @JvmStatic fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var city: JsonField<String>? = null
                 private var line1: JsonField<String>? = null
@@ -5528,7 +5528,7 @@ constructor(
                 @JvmStatic fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var method: JsonField<Method>? = null
                 private var number: JsonField<String>? = null
@@ -5810,7 +5810,7 @@ constructor(
                     @JvmStatic fun builder() = Builder()
                 }
 
-                class Builder {
+                class Builder internal constructor() {
 
                     private var expirationDate: JsonField<LocalDate>? = null
                     private var fileId: JsonField<String>? = null
@@ -6009,7 +6009,7 @@ constructor(
                     @JvmStatic fun builder() = Builder()
                 }
 
-                class Builder {
+                class Builder internal constructor() {
 
                     private var country: JsonField<String>? = null
                     private var description: JsonField<String>? = null
@@ -6193,7 +6193,7 @@ constructor(
                     @JvmStatic fun builder() = Builder()
                 }
 
-                class Builder {
+                class Builder internal constructor() {
 
                     private var country: JsonField<String>? = null
                     private var expirationDate: JsonField<LocalDate>? = null
@@ -6353,7 +6353,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var fileId: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -6467,7 +6467,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var reference: JsonField<String>? = null
             private var vendor: JsonField<Vendor>? = null
@@ -6748,7 +6748,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var address: JsonField<Address>? = null
             private var category: JsonField<Category>? = null
@@ -6993,7 +6993,7 @@ constructor(
                 @JvmStatic fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var city: JsonField<String>? = null
                 private var line1: JsonField<String>? = null
@@ -7227,7 +7227,7 @@ constructor(
                 @JvmStatic fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var structure: JsonField<Structure>? = null
                 private var individual: JsonField<Individual> = JsonMissing.of()
@@ -7455,7 +7455,7 @@ constructor(
                     @JvmStatic fun builder() = Builder()
                 }
 
-                class Builder {
+                class Builder internal constructor() {
 
                     private var address: JsonField<Address>? = null
                     private var dateOfBirth: JsonField<LocalDate>? = null
@@ -7654,7 +7654,7 @@ constructor(
                         @JvmStatic fun builder() = Builder()
                     }
 
-                    class Builder {
+                    class Builder internal constructor() {
 
                         private var city: JsonField<String>? = null
                         private var line1: JsonField<String>? = null
@@ -7885,7 +7885,7 @@ constructor(
                         @JvmStatic fun builder() = Builder()
                     }
 
-                    class Builder {
+                    class Builder internal constructor() {
 
                         private var method: JsonField<Method>? = null
                         private var number: JsonField<String>? = null
@@ -8186,7 +8186,7 @@ constructor(
                             @JvmStatic fun builder() = Builder()
                         }
 
-                        class Builder {
+                        class Builder internal constructor() {
 
                             private var expirationDate: JsonField<LocalDate>? = null
                             private var fileId: JsonField<String>? = null
@@ -8405,7 +8405,7 @@ constructor(
                             @JvmStatic fun builder() = Builder()
                         }
 
-                        class Builder {
+                        class Builder internal constructor() {
 
                             private var country: JsonField<String>? = null
                             private var description: JsonField<String>? = null
@@ -8600,7 +8600,7 @@ constructor(
                             @JvmStatic fun builder() = Builder()
                         }
 
-                        class Builder {
+                        class Builder internal constructor() {
 
                             private var country: JsonField<String>? = null
                             private var expirationDate: JsonField<LocalDate>? = null
@@ -8843,7 +8843,7 @@ constructor(
                 @JvmStatic fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var address: JsonField<Address>? = null
                 private var dateOfBirth: JsonField<LocalDate>? = null
@@ -9038,7 +9038,7 @@ constructor(
                     @JvmStatic fun builder() = Builder()
                 }
 
-                class Builder {
+                class Builder internal constructor() {
 
                     private var city: JsonField<String>? = null
                     private var line1: JsonField<String>? = null
@@ -9258,7 +9258,7 @@ constructor(
                     @JvmStatic fun builder() = Builder()
                 }
 
-                class Builder {
+                class Builder internal constructor() {
 
                     private var method: JsonField<Method>? = null
                     private var number: JsonField<String>? = null
@@ -9543,7 +9543,7 @@ constructor(
                         @JvmStatic fun builder() = Builder()
                     }
 
-                    class Builder {
+                    class Builder internal constructor() {
 
                         private var expirationDate: JsonField<LocalDate>? = null
                         private var fileId: JsonField<String>? = null
@@ -9756,7 +9756,7 @@ constructor(
                         @JvmStatic fun builder() = Builder()
                     }
 
-                    class Builder {
+                    class Builder internal constructor() {
 
                         private var country: JsonField<String>? = null
                         private var description: JsonField<String>? = null
@@ -9946,7 +9946,7 @@ constructor(
                         @JvmStatic fun builder() = Builder()
                     }
 
-                    class Builder {
+                    class Builder internal constructor() {
 
                         private var country: JsonField<String>? = null
                         private var expirationDate: JsonField<LocalDate>? = null

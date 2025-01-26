@@ -15,7 +15,7 @@ import java.util.Optional
  * return 0 or 1 entry. In Sandbox, the only valid routing number for this method is 110000000.
  */
 class RoutingNumberListParams
-constructor(
+private constructor(
     private val routingNumber: String,
     private val cursor: String?,
     private val limit: Long?,
@@ -56,7 +56,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var routingNumber: String? = null
         private var cursor: String? = null

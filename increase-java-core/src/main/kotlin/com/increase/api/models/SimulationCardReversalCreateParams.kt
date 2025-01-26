@@ -25,7 +25,7 @@ import java.util.Optional
  * complete if the authorization is fully reversed.
  */
 class SimulationCardReversalCreateParams
-constructor(
+private constructor(
     private val body: SimulationCardReversalCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -118,7 +118,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var cardPaymentId: JsonField<String>? = null
             private var amount: JsonField<Long> = JsonMissing.of()
@@ -206,7 +206,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: SimulationCardReversalCreateBody.Builder =
             SimulationCardReversalCreateBody.builder()

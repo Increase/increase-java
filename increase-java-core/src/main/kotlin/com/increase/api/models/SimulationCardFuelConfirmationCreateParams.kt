@@ -24,7 +24,7 @@ import java.util.Objects
  * happen once per authorization.
  */
 class SimulationCardFuelConfirmationCreateParams
-constructor(
+private constructor(
     private val body: SimulationCardFuelConfirmationCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -109,7 +109,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var amount: JsonField<Long>? = null
             private var cardPaymentId: JsonField<String>? = null
@@ -198,7 +198,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: SimulationCardFuelConfirmationCreateBody.Builder =
             SimulationCardFuelConfirmationCreateBody.builder()

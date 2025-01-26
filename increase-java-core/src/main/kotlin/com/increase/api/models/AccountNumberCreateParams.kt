@@ -23,7 +23,7 @@ import java.util.Optional
 
 /** Create an Account Number */
 class AccountNumberCreateParams
-constructor(
+private constructor(
     private val body: AccountNumberCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -140,7 +140,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var accountId: JsonField<String>? = null
             private var name: JsonField<String>? = null
@@ -245,7 +245,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: AccountNumberCreateBody.Builder = AccountNumberCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
@@ -461,7 +461,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var debitStatus: JsonField<DebitStatus>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -646,7 +646,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var status: JsonField<Status>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()

@@ -27,7 +27,7 @@ import java.util.Optional
  * must first have a `status` of `submitted`.
  */
 class SimulationAchTransferReturnParams
-constructor(
+private constructor(
     private val achTransferId: String,
     private val body: SimulationAchTransferReturnBody,
     private val additionalHeaders: Headers,
@@ -113,7 +113,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var reason: JsonField<Reason> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -187,7 +187,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var achTransferId: String? = null
         private var body: SimulationAchTransferReturnBody.Builder =

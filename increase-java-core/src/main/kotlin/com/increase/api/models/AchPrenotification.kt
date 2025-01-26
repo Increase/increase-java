@@ -267,7 +267,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    class Builder {
+    class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
         private var accountNumber: JsonField<String>? = null
@@ -711,7 +711,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var changeCode: JsonField<ChangeCode>? = null
             private var correctedData: JsonField<String>? = null
@@ -1189,7 +1189,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var createdAt: JsonField<OffsetDateTime>? = null
             private var returnReasonCode: JsonField<ReturnReasonCode>? = null

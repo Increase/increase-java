@@ -10,7 +10,7 @@ import java.util.Objects
 
 /** Retrieve an Inbound Real-Time Payments Transfer */
 class InboundRealTimePaymentsTransferRetrieveParams
-constructor(
+private constructor(
     private val inboundRealTimePaymentsTransferId: String,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -42,7 +42,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var inboundRealTimePaymentsTransferId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()

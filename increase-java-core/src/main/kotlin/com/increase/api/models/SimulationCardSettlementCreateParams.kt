@@ -26,7 +26,7 @@ import java.util.Optional
  * amount originally authorized, for example, when adding a tip to a restaurant bill.
  */
 class SimulationCardSettlementCreateParams
-constructor(
+private constructor(
     private val body: SimulationCardSettlementCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -140,7 +140,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var cardId: JsonField<String>? = null
             private var pendingTransactionId: JsonField<String>? = null
@@ -245,7 +245,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: SimulationCardSettlementCreateBody.Builder =
             SimulationCardSettlementCreateBody.builder()

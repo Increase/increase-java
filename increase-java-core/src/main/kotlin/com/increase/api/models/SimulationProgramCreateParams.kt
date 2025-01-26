@@ -24,7 +24,7 @@ import java.util.Objects
  * `program_id` is a required field when creating accounts.
  */
 class SimulationProgramCreateParams
-constructor(
+private constructor(
     private val body: SimulationProgramCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -87,7 +87,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var name: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -157,7 +157,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: SimulationProgramCreateBody.Builder =
             SimulationProgramCreateBody.builder()

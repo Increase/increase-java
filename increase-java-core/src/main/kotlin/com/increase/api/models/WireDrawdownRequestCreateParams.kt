@@ -21,7 +21,7 @@ import java.util.Optional
 
 /** Create a Wire Drawdown Request */
 class WireDrawdownRequestCreateParams
-constructor(
+private constructor(
     private val body: WireDrawdownRequestCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -363,7 +363,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var accountNumberId: JsonField<String>? = null
             private var amount: JsonField<Long>? = null
@@ -609,7 +609,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: WireDrawdownRequestCreateBody.Builder =
             WireDrawdownRequestCreateBody.builder()

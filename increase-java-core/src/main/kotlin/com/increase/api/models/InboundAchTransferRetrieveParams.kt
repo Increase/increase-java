@@ -10,7 +10,7 @@ import java.util.Objects
 
 /** Retrieve an Inbound ACH Transfer */
 class InboundAchTransferRetrieveParams
-constructor(
+private constructor(
     private val inboundAchTransferId: String,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -42,7 +42,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var inboundAchTransferId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()

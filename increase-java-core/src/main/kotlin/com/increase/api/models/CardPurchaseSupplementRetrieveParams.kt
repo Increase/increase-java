@@ -10,7 +10,7 @@ import java.util.Objects
 
 /** Retrieve a Card Purchase Supplement */
 class CardPurchaseSupplementRetrieveParams
-constructor(
+private constructor(
     private val cardPurchaseSupplementId: String,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -42,7 +42,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var cardPurchaseSupplementId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()

@@ -119,7 +119,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    class Builder {
+    class Builder internal constructor() {
 
         private var achTransfers: JsonField<AchTransfers>? = null
         private var name: JsonField<String>? = null

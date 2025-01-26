@@ -10,7 +10,7 @@ import java.util.Objects
 
 /** Retrieve a Wire Drawdown Request */
 class WireDrawdownRequestRetrieveParams
-constructor(
+private constructor(
     private val wireDrawdownRequestId: String,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -42,7 +42,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var wireDrawdownRequestId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()

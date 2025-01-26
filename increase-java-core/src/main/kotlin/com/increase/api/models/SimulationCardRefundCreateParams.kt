@@ -23,7 +23,7 @@ import java.util.Objects
  * refunded.
  */
 class SimulationCardRefundCreateParams
-constructor(
+private constructor(
     private val body: SimulationCardRefundCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -100,7 +100,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var transactionId: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -179,7 +179,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: SimulationCardRefundCreateBody.Builder =
             SimulationCardRefundCreateBody.builder()

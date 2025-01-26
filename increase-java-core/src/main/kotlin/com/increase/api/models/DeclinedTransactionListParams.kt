@@ -17,7 +17,7 @@ import java.util.Optional
 
 /** List Declined Transactions */
 class DeclinedTransactionListParams
-constructor(
+private constructor(
     private val accountId: String?,
     private val category: Category?,
     private val createdAt: CreatedAt?,
@@ -73,7 +73,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var accountId: String? = null
         private var category: Category? = null
@@ -276,7 +276,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var in_: MutableList<In>? = null
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
@@ -563,7 +563,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var after: OffsetDateTime? = null
             private var before: OffsetDateTime? = null
