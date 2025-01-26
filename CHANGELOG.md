@@ -1,5 +1,33 @@
 # Changelog
 
+## 0.165.0 (2025-01-26)
+
+Full Changelog: [v0.164.0...v0.165.0](https://github.com/Increase/increase-java/compare/v0.164.0...v0.165.0)
+
+### Features
+
+* **client:** add `close` method ([#714](https://github.com/Increase/increase-java/issues/714)) ([c12ac3e](https://github.com/Increase/increase-java/commit/c12ac3e374b223c851cd205a84259d287ea1dc18))
+
+
+### Bug Fixes
+
+* **client:** make some classes and constructors non-public ([#717](https://github.com/Increase/increase-java/issues/717)) ([340d96b](https://github.com/Increase/increase-java/commit/340d96bc74666af64d8111b80801f0f48235365f))
+
+
+### Chores
+
+* add max retries to test ([#713](https://github.com/Increase/increase-java/issues/713)) ([520c559](https://github.com/Increase/increase-java/commit/520c559e04a3257b2271d721392388713efeae94))
+* **internal:** remove some unnecessary `constructor` keywords ([340d96b](https://github.com/Increase/increase-java/commit/340d96bc74666af64d8111b80801f0f48235365f))
+* **internal:** swap `checkNotNull` to `checkRequired` ([#712](https://github.com/Increase/increase-java/issues/712)) ([8a70645](https://github.com/Increase/increase-java/commit/8a7064572a31d58c8431340907dfbf7e5f2e7c92))
+
+
+### Documentation
+
+* `async` and `sync` method comments ([#716](https://github.com/Increase/increase-java/issues/716)) ([0a1c399](https://github.com/Increase/increase-java/commit/0a1c3999eccb1c8573f9885fb024ec1da5ecb3e0))
+* add client documentation ([#715](https://github.com/Increase/increase-java/issues/715)) ([0db60c7](https://github.com/Increase/increase-java/commit/0db60c7044b02422800b8275934e830c4c54ae9b))
+* move up requirements section ([#711](https://github.com/Increase/increase-java/issues/711)) ([53325d0](https://github.com/Increase/increase-java/commit/53325d0401e2f2c401c1f3bd3b7d9b9d0ca1cd15))
+* update readme ([#709](https://github.com/Increase/increase-java/issues/709)) ([db446a9](https://github.com/Increase/increase-java/commit/db446a9f73d66cc337e2db22f9c13bc6b3e5edcd))
+
 ## 0.164.0 (2025-01-21)
 
 Full Changelog: [v0.163.0...v0.164.0](https://github.com/Increase/increase-java/compare/v0.163.0...v0.164.0)
