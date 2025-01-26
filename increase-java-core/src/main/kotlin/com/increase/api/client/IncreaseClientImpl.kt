@@ -445,4 +445,6 @@ constructor(
         realTimePaymentsRequestForPayments
 
     override fun simulations(): SimulationService = simulations
+
+    override fun close() = clientOptions.httpClient.close()
 }
