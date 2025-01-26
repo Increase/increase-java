@@ -21,7 +21,7 @@ import java.util.Optional
 
 /** Create a Check Deposit */
 class CheckDepositCreateParams
-constructor(
+private constructor(
     private val body: CheckDepositCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -155,7 +155,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var accountId: JsonField<String>? = null
             private var amount: JsonField<Long>? = null
@@ -268,7 +268,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: CheckDepositCreateBody.Builder = CheckDepositCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()

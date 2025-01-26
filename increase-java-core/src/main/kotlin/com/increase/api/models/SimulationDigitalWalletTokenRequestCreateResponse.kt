@@ -98,7 +98,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    class Builder {
+    class Builder internal constructor() {
 
         private var declineReason: JsonField<DeclineReason>? = null
         private var digitalWalletTokenId: JsonField<String>? = null

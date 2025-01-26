@@ -20,7 +20,7 @@ import java.util.Objects
 
 /** Create a supplemental document for an Entity */
 class SupplementalDocumentCreateParams
-constructor(
+private constructor(
     private val body: SupplementalDocumentCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -99,7 +99,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var entityId: JsonField<String>? = null
             private var fileId: JsonField<String>? = null
@@ -179,7 +179,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: SupplementalDocumentCreateBody.Builder =
             SupplementalDocumentCreateBody.builder()

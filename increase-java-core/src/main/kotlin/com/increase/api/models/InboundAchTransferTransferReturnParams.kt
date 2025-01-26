@@ -22,7 +22,7 @@ import java.util.Objects
 
 /** Return an Inbound ACH Transfer */
 class InboundAchTransferTransferReturnParams
-constructor(
+private constructor(
     private val inboundAchTransferId: String,
     private val body: InboundAchTransferTransferReturnBody,
     private val additionalHeaders: Headers,
@@ -111,7 +111,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var reason: JsonField<Reason>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -189,7 +189,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var inboundAchTransferId: String? = null
         private var body: InboundAchTransferTransferReturnBody.Builder =

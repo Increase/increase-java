@@ -10,7 +10,7 @@ import java.util.Optional
 
 /** List Bookkeeping Entry Sets */
 class BookkeepingEntrySetListParams
-constructor(
+private constructor(
     private val cursor: String?,
     private val idempotencyKey: String?,
     private val limit: Long?,
@@ -60,7 +60,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var cursor: String? = null
         private var idempotencyKey: String? = null

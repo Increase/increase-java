@@ -13,7 +13,7 @@ import java.util.Optional
 
 /** Archive a Physical Card Profile */
 class PhysicalCardProfileArchiveParams
-constructor(
+private constructor(
     private val physicalCardProfileId: String,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -52,7 +52,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var physicalCardProfileId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()

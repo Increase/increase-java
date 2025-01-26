@@ -23,7 +23,7 @@ import java.util.Optional
 
 /** Create an Event Subscription */
 class EventSubscriptionCreateParams
-constructor(
+private constructor(
     private val body: EventSubscriptionCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -177,7 +177,7 @@ constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var url: JsonField<String>? = null
             private var oauthConnectionId: JsonField<String> = JsonMissing.of()
@@ -301,7 +301,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: EventSubscriptionCreateBody.Builder =
             EventSubscriptionCreateBody.builder()

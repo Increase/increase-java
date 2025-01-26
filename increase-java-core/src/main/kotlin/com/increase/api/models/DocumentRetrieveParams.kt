@@ -10,7 +10,7 @@ import java.util.Objects
 
 /** Retrieve a Document */
 class DocumentRetrieveParams
-constructor(
+private constructor(
     private val documentId: String,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -42,7 +42,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var documentId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()

@@ -16,7 +16,7 @@ import java.util.Optional
  * transfer must first have a `status` of `pending_approval` or `pending_creating`.
  */
 class SimulationWireTransferSubmitParams
-constructor(
+private constructor(
     private val wireTransferId: String,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -55,7 +55,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var wireTransferId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()

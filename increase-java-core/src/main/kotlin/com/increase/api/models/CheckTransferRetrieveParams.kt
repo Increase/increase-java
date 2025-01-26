@@ -10,7 +10,7 @@ import java.util.Objects
 
 /** Retrieve a Check Transfer */
 class CheckTransferRetrieveParams
-constructor(
+private constructor(
     private val checkTransferId: String,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -42,7 +42,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var checkTransferId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()

@@ -13,7 +13,7 @@ import java.util.Optional
 
 /** Archive an Entity */
 class EntityArchiveParams
-constructor(
+private constructor(
     private val entityId: String,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -55,7 +55,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var entityId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
