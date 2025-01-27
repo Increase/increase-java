@@ -189,6 +189,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
+        /** A builder for [CardCreateBody]. */
         class Builder internal constructor() {
 
             private var accountId: JsonField<String>? = null
@@ -319,6 +320,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
+    /** A builder for [CardCreateParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 
@@ -594,6 +596,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
+        /** A builder for [BillingAddress]. */
         class Builder internal constructor() {
 
             private var city: JsonField<String>? = null
@@ -771,6 +774,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
+        /** A builder for [DigitalWallet]. */
         class Builder internal constructor() {
 
             private var digitalCardProfileId: JsonField<String> = JsonMissing.of()

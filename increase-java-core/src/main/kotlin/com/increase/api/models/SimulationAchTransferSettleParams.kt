@@ -55,6 +55,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
+    /** A builder for [SimulationAchTransferSettleParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

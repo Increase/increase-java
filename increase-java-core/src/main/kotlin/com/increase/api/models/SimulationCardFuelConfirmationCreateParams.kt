@@ -109,6 +109,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
+        /** A builder for [SimulationCardFuelConfirmationCreateBody]. */
         class Builder internal constructor() {
 
             private var amount: JsonField<Long>? = null
@@ -197,6 +198,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
+    /** A builder for [SimulationCardFuelConfirmationCreateParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

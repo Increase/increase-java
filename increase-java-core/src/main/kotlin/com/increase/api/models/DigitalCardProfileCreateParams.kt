@@ -235,6 +235,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
+        /** A builder for [DigitalCardProfileCreateBody]. */
         class Builder internal constructor() {
 
             private var appIconFileId: JsonField<String>? = null
@@ -393,6 +394,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
+    /** A builder for [DigitalCardProfileCreateParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 
@@ -659,6 +661,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
+        /** A builder for [TextColor]. */
         class Builder internal constructor() {
 
             private var blue: JsonField<Long>? = null

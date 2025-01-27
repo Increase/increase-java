@@ -51,6 +51,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
+    /** A builder for [IntrafiAccountEnrollmentUnenrollParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

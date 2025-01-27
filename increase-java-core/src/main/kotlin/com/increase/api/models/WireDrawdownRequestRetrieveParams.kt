@@ -41,6 +41,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
+    /** A builder for [WireDrawdownRequestRetrieveParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

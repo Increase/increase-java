@@ -100,6 +100,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
+        /** A builder for [SimulationCardRefundCreateBody]. */
         class Builder internal constructor() {
 
             private var transactionId: JsonField<String>? = null
@@ -178,6 +179,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
+    /** A builder for [SimulationCardRefundCreateParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

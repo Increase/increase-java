@@ -59,6 +59,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
+    /** A builder for [BookkeepingEntrySetListParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

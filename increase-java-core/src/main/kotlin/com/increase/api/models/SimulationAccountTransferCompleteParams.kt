@@ -55,6 +55,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
+    /** A builder for [SimulationAccountTransferCompleteParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

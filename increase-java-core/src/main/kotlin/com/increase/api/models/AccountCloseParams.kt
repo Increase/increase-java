@@ -51,6 +51,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
+    /** A builder for [AccountCloseParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

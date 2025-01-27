@@ -53,6 +53,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
+    /** A builder for [ProofOfAuthorizationRequestListParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 
@@ -265,6 +266,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
+        /** A builder for [CreatedAt]. */
         class Builder internal constructor() {
 
             private var after: OffsetDateTime? = null

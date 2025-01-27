@@ -55,6 +55,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
+    /** A builder for [IntrafiExclusionArchiveParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

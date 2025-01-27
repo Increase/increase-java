@@ -118,6 +118,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
+        /** A builder for [SimulationCardReversalCreateBody]. */
         class Builder internal constructor() {
 
             private var cardPaymentId: JsonField<String>? = null
@@ -205,6 +206,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
+    /** A builder for [SimulationCardReversalCreateParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

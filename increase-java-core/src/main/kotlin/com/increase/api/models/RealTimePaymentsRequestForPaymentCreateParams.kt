@@ -205,6 +205,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
+        /** A builder for [RealTimePaymentsRequestForPaymentCreateBody]. */
         class Builder internal constructor() {
 
             private var amount: JsonField<Long>? = null
@@ -353,6 +354,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
+    /** A builder for [RealTimePaymentsRequestForPaymentCreateParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 
@@ -612,6 +614,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
+        /** A builder for [Debtor]. */
         class Builder internal constructor() {
 
             private var address: JsonField<Address>? = null
@@ -738,6 +741,7 @@ private constructor(
                 @JvmStatic fun builder() = Builder()
             }
 
+            /** A builder for [Address]. */
             class Builder internal constructor() {
 
                 private var country: JsonField<String>? = null

@@ -155,6 +155,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
+        /** A builder for [CheckDepositCreateBody]. */
         class Builder internal constructor() {
 
             private var accountId: JsonField<String>? = null
@@ -267,6 +268,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
+    /** A builder for [CheckDepositCreateParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 
