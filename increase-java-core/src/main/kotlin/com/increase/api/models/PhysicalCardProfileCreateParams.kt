@@ -139,6 +139,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
+        /** A builder for [PhysicalCardProfileCreateBody]. */
         class Builder internal constructor() {
 
             private var carrierImageFileId: JsonField<String>? = null
@@ -246,6 +247,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
+    /** A builder for [PhysicalCardProfileCreateParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

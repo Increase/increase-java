@@ -117,6 +117,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
+        /** A builder for [InboundAchTransferCreateNotificationOfChangeBody]. */
         class Builder internal constructor() {
 
             private var updatedAccountNumber: JsonField<String> = JsonMissing.of()
@@ -207,6 +208,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
+    /** A builder for [InboundAchTransferCreateNotificationOfChangeParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

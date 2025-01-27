@@ -41,6 +41,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
+    /** A builder for [LockboxRetrieveParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

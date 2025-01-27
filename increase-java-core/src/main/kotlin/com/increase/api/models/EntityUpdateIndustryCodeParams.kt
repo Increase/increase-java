@@ -118,6 +118,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
+        /** A builder for [EntityUpdateIndustryCodeBody]. */
         class Builder internal constructor() {
 
             private var industryCode: JsonField<String>? = null
@@ -199,6 +200,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
+    /** A builder for [EntityUpdateIndustryCodeParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

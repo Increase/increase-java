@@ -41,6 +41,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
+    /** A builder for [OAuthConnectionRetrieveParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

@@ -132,6 +132,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
+        /** A builder for [BookkeepingEntrySetCreateBody]. */
         class Builder internal constructor() {
 
             private var entries: JsonField<MutableList<Entry>>? = null
@@ -244,6 +245,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
+    /** A builder for [BookkeepingEntrySetCreateParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 
@@ -470,6 +472,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
+        /** A builder for [Entry]. */
         class Builder internal constructor() {
 
             private var accountId: JsonField<String>? = null
