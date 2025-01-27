@@ -94,6 +94,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
+        /** A builder for [BookkeepingAccountUpdateBody]. */
         class Builder internal constructor() {
 
             private var name: JsonField<String>? = null
@@ -163,6 +164,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
+    /** A builder for [BookkeepingAccountUpdateParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

@@ -60,6 +60,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
+    /** A builder for [SupplementalDocumentListParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

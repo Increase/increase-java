@@ -200,6 +200,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
+        /** A builder for [SimulationInboundRealTimePaymentsTransferCreateBody]. */
         class Builder internal constructor() {
 
             private var accountNumberId: JsonField<String>? = null
@@ -351,6 +352,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
+    /** A builder for [SimulationInboundRealTimePaymentsTransferCreateParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

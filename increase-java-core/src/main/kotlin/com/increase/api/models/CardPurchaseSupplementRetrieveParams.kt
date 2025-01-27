@@ -41,6 +41,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
+    /** A builder for [CardPurchaseSupplementRetrieveParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

@@ -132,6 +132,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
+        /** A builder for [EntityUpdateBeneficialOwnerAddressBody]. */
         class Builder internal constructor() {
 
             private var address: JsonField<Address>? = null
@@ -227,6 +228,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
+    /** A builder for [EntityUpdateBeneficialOwnerAddressParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 
@@ -493,6 +495,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
+        /** A builder for [Address]. */
         class Builder internal constructor() {
 
             private var city: JsonField<String>? = null
