@@ -466,6 +466,9 @@ private constructor(
             /** IRS Form 1099-INT. */
             @JvmField val FORM_1099_INT = of("form_1099_int")
 
+            /** IRS Form 1099-MISC. */
+            @JvmField val FORM_1099_MISC = of("form_1099_misc")
+
             /** IRS Form SS-4. */
             @JvmField val FORM_SS_4 = of("form_ss_4")
 
@@ -559,6 +562,8 @@ private constructor(
             INBOUND_MAIL_ITEM,
             /** IRS Form 1099-INT. */
             FORM_1099_INT,
+            /** IRS Form 1099-MISC. */
+            FORM_1099_MISC,
             /** IRS Form SS-4. */
             FORM_SS_4,
             /** An image of a government-issued ID. */
@@ -634,6 +639,8 @@ private constructor(
             INBOUND_MAIL_ITEM,
             /** IRS Form 1099-INT. */
             FORM_1099_INT,
+            /** IRS Form 1099-MISC. */
+            FORM_1099_MISC,
             /** IRS Form SS-4. */
             FORM_SS_4,
             /** An image of a government-issued ID. */
@@ -690,6 +697,7 @@ private constructor(
                 CHECK_ATTACHMENT_IMAGE -> Value.CHECK_ATTACHMENT_IMAGE
                 INBOUND_MAIL_ITEM -> Value.INBOUND_MAIL_ITEM
                 FORM_1099_INT -> Value.FORM_1099_INT
+                FORM_1099_MISC -> Value.FORM_1099_MISC
                 FORM_SS_4 -> Value.FORM_SS_4
                 IDENTITY_DOCUMENT -> Value.IDENTITY_DOCUMENT
                 INCREASE_STATEMENT -> Value.INCREASE_STATEMENT
@@ -719,6 +727,7 @@ private constructor(
                 CHECK_ATTACHMENT_IMAGE -> Known.CHECK_ATTACHMENT_IMAGE
                 INBOUND_MAIL_ITEM -> Known.INBOUND_MAIL_ITEM
                 FORM_1099_INT -> Known.FORM_1099_INT
+                FORM_1099_MISC -> Known.FORM_1099_MISC
                 FORM_SS_4 -> Known.FORM_SS_4
                 IDENTITY_DOCUMENT -> Known.IDENTITY_DOCUMENT
                 INCREASE_STATEMENT -> Known.INCREASE_STATEMENT
