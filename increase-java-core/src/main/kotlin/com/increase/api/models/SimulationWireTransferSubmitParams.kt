@@ -54,6 +54,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
+    /** A builder for [SimulationWireTransferSubmitParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

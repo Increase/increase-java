@@ -41,6 +41,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
+    /** A builder for [AchTransferRetrieveParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

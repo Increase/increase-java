@@ -62,6 +62,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
+    /** A builder for [AchPrenotificationListParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 
@@ -291,6 +292,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
+        /** A builder for [CreatedAt]. */
         class Builder internal constructor() {
 
             private var after: OffsetDateTime? = null

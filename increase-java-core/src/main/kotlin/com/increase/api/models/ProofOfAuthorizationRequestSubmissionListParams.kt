@@ -62,6 +62,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
+    /** A builder for [ProofOfAuthorizationRequestSubmissionListParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

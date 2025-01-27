@@ -125,6 +125,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
+        /** A builder for [SimulationInboundCheckDepositCreateBody]. */
         class Builder internal constructor() {
 
             private var accountNumberId: JsonField<String>? = null
@@ -219,6 +220,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
+    /** A builder for [SimulationInboundCheckDepositCreateParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

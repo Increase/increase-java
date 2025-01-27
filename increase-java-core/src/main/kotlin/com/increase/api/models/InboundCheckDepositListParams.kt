@@ -63,6 +63,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
+    /** A builder for [InboundCheckDepositListParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 
@@ -293,6 +294,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
+        /** A builder for [CreatedAt]. */
         class Builder internal constructor() {
 
             private var after: OffsetDateTime? = null

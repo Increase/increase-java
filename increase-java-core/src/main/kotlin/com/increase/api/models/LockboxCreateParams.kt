@@ -122,6 +122,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
+        /** A builder for [LockboxCreateBody]. */
         class Builder internal constructor() {
 
             private var accountId: JsonField<String>? = null
@@ -212,6 +213,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
+    /** A builder for [LockboxCreateParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

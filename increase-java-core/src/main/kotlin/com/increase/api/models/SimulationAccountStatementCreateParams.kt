@@ -86,6 +86,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
+        /** A builder for [SimulationAccountStatementCreateBody]. */
         class Builder internal constructor() {
 
             private var accountId: JsonField<String>? = null
@@ -157,6 +158,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
+    /** A builder for [SimulationAccountStatementCreateParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

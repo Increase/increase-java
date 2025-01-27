@@ -41,6 +41,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
+    /** A builder for [InboundRealTimePaymentsTransferRetrieveParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 
