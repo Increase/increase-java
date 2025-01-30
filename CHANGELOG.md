@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.169.1 (2025-01-30)
+
+Full Changelog: [v0.169.0...v0.169.1](https://github.com/Increase/increase-java/compare/v0.169.0...v0.169.1)
+
+### Bug Fixes
+
+* **client:** don't leak responses when retrying ([#735](https://github.com/Increase/increase-java/issues/735)) ([ffb6259](https://github.com/Increase/increase-java/commit/ffb6259df249b9e3f02fa2b4647e4fc64b0d25e0))
+
+
+### Documentation
+
+* fix incorrect additional properties info ([#737](https://github.com/Increase/increase-java/issues/737)) ([5eb497a](https://github.com/Increase/increase-java/commit/5eb497a37fa360731e0beeffc05456985bb4b9b6))
+
 ## 0.169.0 (2025-01-30)
 
 Full Changelog: [v0.168.0...v0.169.0](https://github.com/Increase/increase-java/compare/v0.168.0...v0.169.0)
