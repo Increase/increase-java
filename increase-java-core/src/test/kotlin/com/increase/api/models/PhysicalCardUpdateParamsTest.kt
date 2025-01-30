@@ -16,25 +16,25 @@ class PhysicalCardUpdateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             PhysicalCardUpdateParams.builder()
                 .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
                 .status(PhysicalCardUpdateParams.Status.ACTIVE)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.status()).isEqualTo(PhysicalCardUpdateParams.Status.ACTIVE)
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             PhysicalCardUpdateParams.builder()
                 .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
                 .status(PhysicalCardUpdateParams.Status.ACTIVE)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.status()).isEqualTo(PhysicalCardUpdateParams.Status.ACTIVE)
     }

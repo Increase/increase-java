@@ -29,7 +29,7 @@ class InboundWireTransferListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             InboundWireTransferListParams.builder()
                 .accountId("account_id")
@@ -59,13 +59,13 @@ class InboundWireTransferListParamsTest {
         expected.put("cursor", "cursor")
         expected.put("limit", "1")
         expected.put("status", InboundWireTransferListParams.Status.PENDING.toString())
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = InboundWireTransferListParams.builder().build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

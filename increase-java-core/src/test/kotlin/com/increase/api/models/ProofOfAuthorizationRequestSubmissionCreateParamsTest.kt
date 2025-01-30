@@ -26,7 +26,7 @@ class ProofOfAuthorizationRequestSubmissionCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             ProofOfAuthorizationRequestSubmissionCreateParams.builder()
                 .authorizationTerms("I agree to the terms of service.")
@@ -43,7 +43,7 @@ class ProofOfAuthorizationRequestSubmissionCreateParamsTest {
                 .authorizerCompany("National Phonograph Company")
                 .authorizerIpAddress("x")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.authorizationTerms()).isEqualTo("I agree to the terms of service.")
         assertThat(body.authorizedAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -60,7 +60,7 @@ class ProofOfAuthorizationRequestSubmissionCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             ProofOfAuthorizationRequestSubmissionCreateParams.builder()
                 .authorizationTerms("I agree to the terms of service.")
@@ -75,7 +75,7 @@ class ProofOfAuthorizationRequestSubmissionCreateParamsTest {
                 .validatedAccountOwnershipWithAccountStatement(true)
                 .validatedAccountOwnershipWithMicrodeposit(true)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.authorizationTerms()).isEqualTo("I agree to the terms of service.")
         assertThat(body.authorizedAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))

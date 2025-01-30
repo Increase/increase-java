@@ -67,7 +67,7 @@ class AchTransferCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             AchTransferCreateParams.builder()
                 .accountId("account_in71c4amph0vgo2qllky")
@@ -125,7 +125,7 @@ class AchTransferCreateParamsTest {
                 )
                 .transactionTiming(AchTransferCreateParams.TransactionTiming.SYNCHRONOUS)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.amount()).isEqualTo(100L)
@@ -185,14 +185,14 @@ class AchTransferCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             AchTransferCreateParams.builder()
                 .accountId("account_in71c4amph0vgo2qllky")
                 .amount(100L)
                 .statementDescriptor("New ACH transfer")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.amount()).isEqualTo(100L)

@@ -29,7 +29,7 @@ class DigitalCardProfileCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             DigitalCardProfileCreateParams.builder()
                 .appIconFileId("file_8zxqkwlh43wo144u8yec")
@@ -48,7 +48,7 @@ class DigitalCardProfileCreateParamsTest {
                         .build()
                 )
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.appIconFileId()).isEqualTo("file_8zxqkwlh43wo144u8yec")
         assertThat(body.backgroundImageFileId()).isEqualTo("file_1ai913suu1zfn1pdetru")
@@ -69,7 +69,7 @@ class DigitalCardProfileCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             DigitalCardProfileCreateParams.builder()
                 .appIconFileId("file_8zxqkwlh43wo144u8yec")
@@ -78,7 +78,7 @@ class DigitalCardProfileCreateParamsTest {
                 .description("My Card Profile")
                 .issuerName("MyBank")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.appIconFileId()).isEqualTo("file_8zxqkwlh43wo144u8yec")
         assertThat(body.backgroundImageFileId()).isEqualTo("file_1ai913suu1zfn1pdetru")

@@ -16,26 +16,26 @@ class EntityArchiveBeneficialOwnerParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             EntityArchiveBeneficialOwnerParams.builder()
                 .entityId("entity_n8y8tnk2p9339ti393yi")
                 .beneficialOwnerId("entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.beneficialOwnerId())
             .isEqualTo("entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7")
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             EntityArchiveBeneficialOwnerParams.builder()
                 .entityId("entity_n8y8tnk2p9339ti393yi")
                 .beneficialOwnerId("entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.beneficialOwnerId())
             .isEqualTo("entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7")

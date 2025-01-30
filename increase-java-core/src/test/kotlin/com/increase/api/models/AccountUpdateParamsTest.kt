@@ -16,21 +16,21 @@ class AccountUpdateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             AccountUpdateParams.builder()
                 .accountId("account_in71c4amph0vgo2qllky")
                 .name("My renamed account")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.name()).contains("My renamed account")
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params = AccountUpdateParams.builder().accountId("account_in71c4amph0vgo2qllky").build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
     }
 

@@ -19,7 +19,7 @@ class BookkeepingEntrySetListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             BookkeepingEntrySetListParams.builder()
                 .cursor("cursor")
@@ -32,13 +32,13 @@ class BookkeepingEntrySetListParamsTest {
         expected.put("idempotency_key", "x")
         expected.put("limit", "1")
         expected.put("transaction_id", "transaction_id")
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = BookkeepingEntrySetListParams.builder().build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

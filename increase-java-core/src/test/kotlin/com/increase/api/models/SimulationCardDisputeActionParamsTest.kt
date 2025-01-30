@@ -17,14 +17,14 @@ class SimulationCardDisputeActionParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             SimulationCardDisputeActionParams.builder()
                 .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
                 .status(SimulationCardDisputeActionParams.Status.PENDING_USER_INFORMATION)
                 .explanation("This was a valid recurring transaction")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.status())
             .isEqualTo(SimulationCardDisputeActionParams.Status.PENDING_USER_INFORMATION)
@@ -32,13 +32,13 @@ class SimulationCardDisputeActionParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             SimulationCardDisputeActionParams.builder()
                 .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
                 .status(SimulationCardDisputeActionParams.Status.PENDING_USER_INFORMATION)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.status())
             .isEqualTo(SimulationCardDisputeActionParams.Status.PENDING_USER_INFORMATION)

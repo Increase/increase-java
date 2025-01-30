@@ -24,7 +24,7 @@ class EntityUpdateAddressParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             EntityUpdateAddressParams.builder()
                 .entityId("entity_n8y8tnk2p9339ti393yi")
@@ -38,7 +38,7 @@ class EntityUpdateAddressParamsTest {
                         .build()
                 )
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.address())
             .isEqualTo(
@@ -53,7 +53,7 @@ class EntityUpdateAddressParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             EntityUpdateAddressParams.builder()
                 .entityId("entity_n8y8tnk2p9339ti393yi")
@@ -66,7 +66,7 @@ class EntityUpdateAddressParamsTest {
                         .build()
                 )
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.address())
             .isEqualTo(

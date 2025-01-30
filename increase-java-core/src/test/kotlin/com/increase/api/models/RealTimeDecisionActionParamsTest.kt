@@ -60,7 +60,7 @@ class RealTimeDecisionActionParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             RealTimeDecisionActionParams.builder()
                 .realTimeDecisionId("real_time_decision_j76n2e810ezcg3zh5qtn")
@@ -115,7 +115,7 @@ class RealTimeDecisionActionParamsTest {
                         .build()
                 )
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.cardAuthentication())
             .contains(
@@ -170,12 +170,12 @@ class RealTimeDecisionActionParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             RealTimeDecisionActionParams.builder()
                 .realTimeDecisionId("real_time_decision_j76n2e810ezcg3zh5qtn")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
     }
 

@@ -17,26 +17,26 @@ class InboundAchTransferCreateNotificationOfChangeParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             InboundAchTransferCreateNotificationOfChangeParams.builder()
                 .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
                 .updatedAccountNumber("987654321")
                 .updatedRoutingNumber("101050001")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.updatedAccountNumber()).contains("987654321")
         assertThat(body.updatedRoutingNumber()).contains("101050001")
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             InboundAchTransferCreateNotificationOfChangeParams.builder()
                 .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
     }
 

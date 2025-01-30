@@ -39,7 +39,7 @@ class PhysicalCardCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             PhysicalCardCreateParams.builder()
                 .cardId("card_oubs0hwk5rn6knuecxg2")
@@ -68,7 +68,7 @@ class PhysicalCardCreateParamsTest {
                 )
                 .physicalCardProfileId("physical_card_profile_id")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.cardId()).isEqualTo("card_oubs0hwk5rn6knuecxg2")
         assertThat(body.cardholder())
@@ -100,7 +100,7 @@ class PhysicalCardCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             PhysicalCardCreateParams.builder()
                 .cardId("card_oubs0hwk5rn6knuecxg2")
@@ -125,7 +125,7 @@ class PhysicalCardCreateParamsTest {
                         .build()
                 )
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.cardId()).isEqualTo("card_oubs0hwk5rn6knuecxg2")
         assertThat(body.cardholder())

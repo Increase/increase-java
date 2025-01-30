@@ -16,26 +16,26 @@ class SimulationPhysicalCardAdvanceShipmentParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             SimulationPhysicalCardAdvanceShipmentParams.builder()
                 .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
                 .shipmentStatus(SimulationPhysicalCardAdvanceShipmentParams.ShipmentStatus.PENDING)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.shipmentStatus())
             .isEqualTo(SimulationPhysicalCardAdvanceShipmentParams.ShipmentStatus.PENDING)
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             SimulationPhysicalCardAdvanceShipmentParams.builder()
                 .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
                 .shipmentStatus(SimulationPhysicalCardAdvanceShipmentParams.ShipmentStatus.PENDING)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.shipmentStatus())
             .isEqualTo(SimulationPhysicalCardAdvanceShipmentParams.ShipmentStatus.PENDING)

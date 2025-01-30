@@ -18,7 +18,7 @@ class RoutingNumberListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             RoutingNumberListParams.builder()
                 .routingNumber("xxxxxxxxx")
@@ -29,14 +29,14 @@ class RoutingNumberListParamsTest {
         expected.put("routing_number", "xxxxxxxxx")
         expected.put("cursor", "cursor")
         expected.put("limit", "1")
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = RoutingNumberListParams.builder().routingNumber("xxxxxxxxx").build()
         val expected = QueryParams.builder()
         expected.put("routing_number", "xxxxxxxxx")
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

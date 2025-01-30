@@ -23,7 +23,7 @@ class PhysicalCardProfileListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             PhysicalCardProfileListParams.builder()
                 .cursor("cursor")
@@ -43,13 +43,13 @@ class PhysicalCardProfileListParamsTest {
             .addIn(PhysicalCardProfileListParams.Status.In.PENDING_CREATING)
             .build()
             .forEachQueryParam { key, values -> expected.put("status.$key", values) }
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = PhysicalCardProfileListParams.builder().build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

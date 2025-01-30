@@ -29,7 +29,7 @@ class BookkeepingEntrySetCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             BookkeepingEntrySetCreateParams.builder()
                 .addEntry(
@@ -47,7 +47,7 @@ class BookkeepingEntrySetCreateParamsTest {
                 .date(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.entries())
             .isEqualTo(
@@ -67,7 +67,7 @@ class BookkeepingEntrySetCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             BookkeepingEntrySetCreateParams.builder()
                 .addEntry(
@@ -83,7 +83,7 @@ class BookkeepingEntrySetCreateParamsTest {
                         .build()
                 )
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.entries())
             .isEqualTo(
