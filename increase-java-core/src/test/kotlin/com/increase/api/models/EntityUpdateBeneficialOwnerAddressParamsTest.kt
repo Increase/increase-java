@@ -25,7 +25,7 @@ class EntityUpdateBeneficialOwnerAddressParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             EntityUpdateBeneficialOwnerAddressParams.builder()
                 .entityId("entity_n8y8tnk2p9339ti393yi")
@@ -40,7 +40,7 @@ class EntityUpdateBeneficialOwnerAddressParamsTest {
                 )
                 .beneficialOwnerId("entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.address())
             .isEqualTo(
@@ -57,7 +57,7 @@ class EntityUpdateBeneficialOwnerAddressParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             EntityUpdateBeneficialOwnerAddressParams.builder()
                 .entityId("entity_n8y8tnk2p9339ti393yi")
@@ -71,7 +71,7 @@ class EntityUpdateBeneficialOwnerAddressParamsTest {
                 )
                 .beneficialOwnerId("entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.address())
             .isEqualTo(

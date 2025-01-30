@@ -33,7 +33,7 @@ class CardCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             CardCreateParams.builder()
                 .accountId("account_in71c4amph0vgo2qllky")
@@ -56,7 +56,7 @@ class CardCreateParamsTest {
                 )
                 .entityId("entity_id")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.billingAddress())
@@ -82,9 +82,9 @@ class CardCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params = CardCreateParams.builder().accountId("account_in71c4amph0vgo2qllky").build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
     }

@@ -16,24 +16,24 @@ class EventSubscriptionUpdateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             EventSubscriptionUpdateParams.builder()
                 .eventSubscriptionId("event_subscription_001dzz0r20rcdxgb013zqb8m04g")
                 .status(EventSubscriptionUpdateParams.Status.ACTIVE)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.status()).contains(EventSubscriptionUpdateParams.Status.ACTIVE)
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             EventSubscriptionUpdateParams.builder()
                 .eventSubscriptionId("event_subscription_001dzz0r20rcdxgb013zqb8m04g")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
     }
 

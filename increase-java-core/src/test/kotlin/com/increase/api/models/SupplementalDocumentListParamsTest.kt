@@ -19,7 +19,7 @@ class SupplementalDocumentListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             SupplementalDocumentListParams.builder()
                 .entityId("entity_id")
@@ -32,14 +32,14 @@ class SupplementalDocumentListParamsTest {
         expected.put("cursor", "cursor")
         expected.put("idempotency_key", "x")
         expected.put("limit", "1")
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = SupplementalDocumentListParams.builder().entityId("entity_id").build()
         val expected = QueryParams.builder()
         expected.put("entity_id", "entity_id")
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

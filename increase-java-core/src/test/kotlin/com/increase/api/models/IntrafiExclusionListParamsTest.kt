@@ -19,7 +19,7 @@ class IntrafiExclusionListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             IntrafiExclusionListParams.builder()
                 .cursor("cursor")
@@ -32,13 +32,13 @@ class IntrafiExclusionListParamsTest {
         expected.put("entity_id", "entity_id")
         expected.put("idempotency_key", "x")
         expected.put("limit", "1")
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = IntrafiExclusionListParams.builder().build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

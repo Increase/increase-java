@@ -33,7 +33,7 @@ class TransactionListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             TransactionListParams.builder()
                 .accountId("account_id")
@@ -70,13 +70,13 @@ class TransactionListParamsTest {
         expected.put("cursor", "cursor")
         expected.put("limit", "1")
         expected.put("route_id", "route_id")
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = TransactionListParams.builder().build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

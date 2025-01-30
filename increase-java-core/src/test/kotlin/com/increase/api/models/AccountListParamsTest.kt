@@ -31,7 +31,7 @@ class AccountListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             AccountListParams.builder()
                 .createdAt(
@@ -65,13 +65,13 @@ class AccountListParamsTest {
         expected.put("limit", "1")
         expected.put("program_id", "program_id")
         expected.put("status", AccountListParams.Status.CLOSED.toString())
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = AccountListParams.builder().build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

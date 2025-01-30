@@ -27,7 +27,7 @@ class AccountStatementListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             AccountStatementListParams.builder()
                 .accountId("account_id")
@@ -55,13 +55,13 @@ class AccountStatementListParamsTest {
             .forEachQueryParam { key, values ->
                 expected.put("statement_period_start.$key", values)
             }
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = AccountStatementListParams.builder().build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

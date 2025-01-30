@@ -19,7 +19,7 @@ class ProofOfAuthorizationRequestSubmissionListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             ProofOfAuthorizationRequestSubmissionListParams.builder()
                 .cursor("cursor")
@@ -32,13 +32,13 @@ class ProofOfAuthorizationRequestSubmissionListParamsTest {
         expected.put("idempotency_key", "x")
         expected.put("limit", "1")
         expected.put("proof_of_authorization_request_id", "proof_of_authorization_request_id")
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = ProofOfAuthorizationRequestSubmissionListParams.builder().build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

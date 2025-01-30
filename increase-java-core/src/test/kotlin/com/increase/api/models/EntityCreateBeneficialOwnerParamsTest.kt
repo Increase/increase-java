@@ -85,7 +85,7 @@ class EntityCreateBeneficialOwnerParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             EntityCreateBeneficialOwnerParams.builder()
                 .entityId("entity_n8y8tnk2p9339ti393yi")
@@ -164,7 +164,7 @@ class EntityCreateBeneficialOwnerParamsTest {
                         .build()
                 )
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.beneficialOwner())
             .isEqualTo(
@@ -239,7 +239,7 @@ class EntityCreateBeneficialOwnerParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             EntityCreateBeneficialOwnerParams.builder()
                 .entityId("entity_n8y8tnk2p9339ti393yi")
@@ -279,7 +279,7 @@ class EntityCreateBeneficialOwnerParamsTest {
                         .build()
                 )
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.beneficialOwner())
             .isEqualTo(

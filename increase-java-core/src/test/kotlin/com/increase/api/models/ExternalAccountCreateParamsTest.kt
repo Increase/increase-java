@@ -19,7 +19,7 @@ class ExternalAccountCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             ExternalAccountCreateParams.builder()
                 .accountNumber("987654321")
@@ -28,7 +28,7 @@ class ExternalAccountCreateParamsTest {
                 .accountHolder(ExternalAccountCreateParams.AccountHolder.BUSINESS)
                 .funding(ExternalAccountCreateParams.Funding.CHECKING)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.accountNumber()).isEqualTo("987654321")
         assertThat(body.description()).isEqualTo("Landlord")
@@ -39,14 +39,14 @@ class ExternalAccountCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             ExternalAccountCreateParams.builder()
                 .accountNumber("987654321")
                 .description("Landlord")
                 .routingNumber("101050001")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.accountNumber()).isEqualTo("987654321")
         assertThat(body.description()).isEqualTo("Landlord")

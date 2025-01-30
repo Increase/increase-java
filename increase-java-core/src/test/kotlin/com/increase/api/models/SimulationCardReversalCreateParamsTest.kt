@@ -16,25 +16,25 @@ class SimulationCardReversalCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             SimulationCardReversalCreateParams.builder()
                 .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                 .amount(1L)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.cardPaymentId()).isEqualTo("card_payment_nd3k2kacrqjli8482ave")
         assertThat(body.amount()).contains(1L)
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             SimulationCardReversalCreateParams.builder()
                 .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.cardPaymentId()).isEqualTo("card_payment_nd3k2kacrqjli8482ave")
     }

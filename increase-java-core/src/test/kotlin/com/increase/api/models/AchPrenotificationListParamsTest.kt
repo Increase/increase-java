@@ -27,7 +27,7 @@ class AchPrenotificationListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             AchPrenotificationListParams.builder()
                 .createdAt(
@@ -53,13 +53,13 @@ class AchPrenotificationListParamsTest {
         expected.put("cursor", "cursor")
         expected.put("idempotency_key", "x")
         expected.put("limit", "1")
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = AchPrenotificationListParams.builder().build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

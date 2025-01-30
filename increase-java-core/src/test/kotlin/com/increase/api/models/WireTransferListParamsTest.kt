@@ -29,7 +29,7 @@ class WireTransferListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             WireTransferListParams.builder()
                 .accountId("account_id")
@@ -59,13 +59,13 @@ class WireTransferListParamsTest {
         expected.put("external_account_id", "external_account_id")
         expected.put("idempotency_key", "x")
         expected.put("limit", "1")
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = WireTransferListParams.builder().build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

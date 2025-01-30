@@ -34,7 +34,7 @@ class SimulationInboundWireDrawdownRequestCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             SimulationInboundWireDrawdownRequestCreateParams.builder()
                 .amount(10000L)
@@ -58,7 +58,7 @@ class SimulationInboundWireDrawdownRequestCreateParamsTest {
                 .originatorToBeneficiaryInformationLine3("x")
                 .originatorToBeneficiaryInformationLine4("x")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.amount()).isEqualTo(10000L)
         assertThat(body.beneficiaryAccountNumber()).isEqualTo("987654321")
@@ -83,7 +83,7 @@ class SimulationInboundWireDrawdownRequestCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             SimulationInboundWireDrawdownRequestCreateParams.builder()
                 .amount(10000L)
@@ -95,7 +95,7 @@ class SimulationInboundWireDrawdownRequestCreateParamsTest {
                 .originatorRoutingNumber("101050001")
                 .recipientAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.amount()).isEqualTo(10000L)
         assertThat(body.beneficiaryAccountNumber()).isEqualTo("987654321")

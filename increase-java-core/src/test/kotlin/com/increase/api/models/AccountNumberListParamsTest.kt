@@ -30,7 +30,7 @@ class AccountNumberListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             AccountNumberListParams.builder()
                 .accountId("account_id")
@@ -62,13 +62,13 @@ class AccountNumberListParamsTest {
         expected.put("idempotency_key", "x")
         expected.put("limit", "1")
         expected.put("status", AccountNumberListParams.Status.ACTIVE.toString())
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = AccountNumberListParams.builder().build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

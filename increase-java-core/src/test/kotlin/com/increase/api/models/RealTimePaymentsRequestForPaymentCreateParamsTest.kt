@@ -34,7 +34,7 @@ class RealTimePaymentsRequestForPaymentCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             RealTimePaymentsRequestForPaymentCreateParams.builder()
                 .amount(100L)
@@ -57,7 +57,7 @@ class RealTimePaymentsRequestForPaymentCreateParamsTest {
                 .sourceAccountNumber("987654321")
                 .sourceRoutingNumber("101050001")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.amount()).isEqualTo(100L)
         assertThat(body.debtor())
@@ -83,7 +83,7 @@ class RealTimePaymentsRequestForPaymentCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             RealTimePaymentsRequestForPaymentCreateParams.builder()
                 .amount(100L)
@@ -103,7 +103,7 @@ class RealTimePaymentsRequestForPaymentCreateParamsTest {
                 .sourceAccountNumber("987654321")
                 .sourceRoutingNumber("101050001")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.amount()).isEqualTo(100L)
         assertThat(body.debtor())

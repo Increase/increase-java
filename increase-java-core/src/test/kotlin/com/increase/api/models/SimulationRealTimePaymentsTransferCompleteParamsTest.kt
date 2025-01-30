@@ -23,7 +23,7 @@ class SimulationRealTimePaymentsTransferCompleteParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             SimulationRealTimePaymentsTransferCompleteParams.builder()
                 .realTimePaymentsTransferId("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
@@ -37,7 +37,7 @@ class SimulationRealTimePaymentsTransferCompleteParamsTest {
                         .build()
                 )
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.rejection())
             .contains(
@@ -51,12 +51,12 @@ class SimulationRealTimePaymentsTransferCompleteParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             SimulationRealTimePaymentsTransferCompleteParams.builder()
                 .realTimePaymentsTransferId("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
     }
 

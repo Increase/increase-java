@@ -48,7 +48,7 @@ class CheckTransferCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             CheckTransferCreateParams.builder()
                 .accountId("account_in71c4amph0vgo2qllky")
@@ -86,7 +86,7 @@ class CheckTransferCreateParamsTest {
                 .requireApproval(true)
                 .thirdParty(CheckTransferCreateParams.ThirdParty.builder().checkNumber("x").build())
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.amount()).isEqualTo(1000L)
@@ -128,14 +128,14 @@ class CheckTransferCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             CheckTransferCreateParams.builder()
                 .accountId("account_in71c4amph0vgo2qllky")
                 .amount(1000L)
                 .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.amount()).isEqualTo(1000L)

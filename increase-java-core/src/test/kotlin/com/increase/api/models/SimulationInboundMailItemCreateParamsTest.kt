@@ -17,14 +17,14 @@ class SimulationInboundMailItemCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             SimulationInboundMailItemCreateParams.builder()
                 .amount(1000L)
                 .lockboxId("lockbox_3xt21ok13q19advds4t5")
                 .contentsFileId("contents_file_id")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.amount()).isEqualTo(1000L)
         assertThat(body.lockboxId()).isEqualTo("lockbox_3xt21ok13q19advds4t5")
@@ -32,13 +32,13 @@ class SimulationInboundMailItemCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             SimulationInboundMailItemCreateParams.builder()
                 .amount(1000L)
                 .lockboxId("lockbox_3xt21ok13q19advds4t5")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.amount()).isEqualTo(1000L)
         assertThat(body.lockboxId()).isEqualTo("lockbox_3xt21ok13q19advds4t5")
