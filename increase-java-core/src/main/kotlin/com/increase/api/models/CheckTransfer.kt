@@ -1978,6 +1978,9 @@ private constructor(
         @JsonProperty("mailed_at")
         @ExcludeMissing
         private val mailedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("tracking_number")
+        @ExcludeMissing
+        private val trackingNumber: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
@@ -1993,6 +1996,10 @@ private constructor(
          */
         fun mailedAt(): OffsetDateTime = mailedAt.getRequired("mailed_at")
 
+        /** The tracking number of the shipment, if available for the shipping method. */
+        fun trackingNumber(): Optional<String> =
+            Optional.ofNullable(trackingNumber.getNullable("tracking_number"))
+
         /**
          * The ID of the file corresponding to an image of the check that was mailed, if available.
          */
@@ -2005,6 +2012,11 @@ private constructor(
         @JsonProperty("mailed_at")
         @ExcludeMissing
         fun _mailedAt(): JsonField<OffsetDateTime> = mailedAt
+
+        /** The tracking number of the shipment, if available for the shipping method. */
+        @JsonProperty("tracking_number")
+        @ExcludeMissing
+        fun _trackingNumber(): JsonField<String> = trackingNumber
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -2019,6 +2031,7 @@ private constructor(
 
             imageId()
             mailedAt()
+            trackingNumber()
             validated = true
         }
 
@@ -2034,12 +2047,14 @@ private constructor(
 
             private var imageId: JsonField<String>? = null
             private var mailedAt: JsonField<OffsetDateTime>? = null
+            private var trackingNumber: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(mailing: Mailing) = apply {
                 imageId = mailing.imageId
                 mailedAt = mailing.mailedAt
+                trackingNumber = mailing.trackingNumber
                 additionalProperties = mailing.additionalProperties.toMutableMap()
             }
 
@@ -2073,6 +2088,19 @@ private constructor(
              */
             fun mailedAt(mailedAt: JsonField<OffsetDateTime>) = apply { this.mailedAt = mailedAt }
 
+            /** The tracking number of the shipment, if available for the shipping method. */
+            fun trackingNumber(trackingNumber: String?) =
+                trackingNumber(JsonField.ofNullable(trackingNumber))
+
+            /** The tracking number of the shipment, if available for the shipping method. */
+            fun trackingNumber(trackingNumber: Optional<String>) =
+                trackingNumber(trackingNumber.orElse(null))
+
+            /** The tracking number of the shipment, if available for the shipping method. */
+            fun trackingNumber(trackingNumber: JsonField<String>) = apply {
+                this.trackingNumber = trackingNumber
+            }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -2096,6 +2124,7 @@ private constructor(
                 Mailing(
                     checkRequired("imageId", imageId),
                     checkRequired("mailedAt", mailedAt),
+                    checkRequired("trackingNumber", trackingNumber),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -2105,17 +2134,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Mailing && imageId == other.imageId && mailedAt == other.mailedAt && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Mailing && imageId == other.imageId && mailedAt == other.mailedAt && trackingNumber == other.trackingNumber && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(imageId, mailedAt, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(imageId, mailedAt, trackingNumber, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Mailing{imageId=$imageId, mailedAt=$mailedAt, additionalProperties=$additionalProperties}"
+            "Mailing{imageId=$imageId, mailedAt=$mailedAt, trackingNumber=$trackingNumber, additionalProperties=$additionalProperties}"
     }
 
     /**
