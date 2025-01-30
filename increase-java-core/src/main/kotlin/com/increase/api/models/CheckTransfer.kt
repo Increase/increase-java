@@ -2170,6 +2170,9 @@ private constructor(
         @JsonProperty("return_address")
         @ExcludeMissing
         private val returnAddress: JsonField<ReturnAddress> = JsonMissing.of(),
+        @JsonProperty("shipping_method")
+        @ExcludeMissing
+        private val shippingMethod: JsonField<ShippingMethod> = JsonMissing.of(),
         @JsonProperty("signature_text")
         @ExcludeMissing
         private val signatureText: JsonField<String> = JsonMissing.of(),
@@ -2195,6 +2198,10 @@ private constructor(
         /** The return address to be printed on the check. */
         fun returnAddress(): Optional<ReturnAddress> =
             Optional.ofNullable(returnAddress.getNullable("return_address"))
+
+        /** The shipping method for the check. */
+        fun shippingMethod(): Optional<ShippingMethod> =
+            Optional.ofNullable(shippingMethod.getNullable("shipping_method"))
 
         /**
          * The text that will appear as the signature on the check in cursive font. If blank, the
@@ -2228,6 +2235,11 @@ private constructor(
         @ExcludeMissing
         fun _returnAddress(): JsonField<ReturnAddress> = returnAddress
 
+        /** The shipping method for the check. */
+        @JsonProperty("shipping_method")
+        @ExcludeMissing
+        fun _shippingMethod(): JsonField<ShippingMethod> = shippingMethod
+
         /**
          * The text that will appear as the signature on the check in cursive font. If blank, the
          * check will be printed with 'No signature required'.
@@ -2257,6 +2269,7 @@ private constructor(
             note()
             recipientName()
             returnAddress().ifPresent { it.validate() }
+            shippingMethod()
             signatureText()
             trackingUpdates().forEach { it.validate() }
             validated = true
@@ -2277,6 +2290,7 @@ private constructor(
             private var note: JsonField<String>? = null
             private var recipientName: JsonField<String>? = null
             private var returnAddress: JsonField<ReturnAddress>? = null
+            private var shippingMethod: JsonField<ShippingMethod>? = null
             private var signatureText: JsonField<String>? = null
             private var trackingUpdates: JsonField<MutableList<TrackingUpdate>>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -2288,6 +2302,7 @@ private constructor(
                 note = physicalCheck.note
                 recipientName = physicalCheck.recipientName
                 returnAddress = physicalCheck.returnAddress
+                shippingMethod = physicalCheck.shippingMethod
                 signatureText = physicalCheck.signatureText
                 trackingUpdates = physicalCheck.trackingUpdates.map { it.toMutableList() }
                 additionalProperties = physicalCheck.additionalProperties.toMutableMap()
@@ -2339,6 +2354,19 @@ private constructor(
             /** The return address to be printed on the check. */
             fun returnAddress(returnAddress: JsonField<ReturnAddress>) = apply {
                 this.returnAddress = returnAddress
+            }
+
+            /** The shipping method for the check. */
+            fun shippingMethod(shippingMethod: ShippingMethod?) =
+                shippingMethod(JsonField.ofNullable(shippingMethod))
+
+            /** The shipping method for the check. */
+            fun shippingMethod(shippingMethod: Optional<ShippingMethod>) =
+                shippingMethod(shippingMethod.orElse(null))
+
+            /** The shipping method for the check. */
+            fun shippingMethod(shippingMethod: JsonField<ShippingMethod>) = apply {
+                this.shippingMethod = shippingMethod
             }
 
             /**
@@ -2412,6 +2440,7 @@ private constructor(
                     checkRequired("note", note),
                     checkRequired("recipientName", recipientName),
                     checkRequired("returnAddress", returnAddress),
+                    checkRequired("shippingMethod", shippingMethod),
                     checkRequired("signatureText", signatureText),
                     checkRequired("trackingUpdates", trackingUpdates).map { it.toImmutable() },
                     additionalProperties.toImmutable(),
@@ -2864,6 +2893,108 @@ private constructor(
                 "ReturnAddress{city=$city, line1=$line1, line2=$line2, name=$name, postalCode=$postalCode, state=$state, additionalProperties=$additionalProperties}"
         }
 
+        /** The shipping method for the check. */
+        class ShippingMethod
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                /** USPS First Class */
+                @JvmField val USPS_FIRST_CLASS = of("usps_first_class")
+
+                /** FedEx Overnight */
+                @JvmField val FEDEX_OVERNIGHT = of("fedex_overnight")
+
+                @JvmStatic fun of(value: String) = ShippingMethod(JsonField.of(value))
+            }
+
+            /** An enum containing [ShippingMethod]'s known values. */
+            enum class Known {
+                /** USPS First Class */
+                USPS_FIRST_CLASS,
+                /** FedEx Overnight */
+                FEDEX_OVERNIGHT,
+            }
+
+            /**
+             * An enum containing [ShippingMethod]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [ShippingMethod] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                /** USPS First Class */
+                USPS_FIRST_CLASS,
+                /** FedEx Overnight */
+                FEDEX_OVERNIGHT,
+                /**
+                 * An enum member indicating that [ShippingMethod] was instantiated with an unknown
+                 * value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    USPS_FIRST_CLASS -> Value.USPS_FIRST_CLASS
+                    FEDEX_OVERNIGHT -> Value.FEDEX_OVERNIGHT
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    USPS_FIRST_CLASS -> Known.USPS_FIRST_CLASS
+                    FEDEX_OVERNIGHT -> Known.FEDEX_OVERNIGHT
+                    else -> throw IncreaseInvalidDataException("Unknown ShippingMethod: $value")
+                }
+
+            fun asString(): String = _value().asStringOrThrow()
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return /* spotless:off */ other is ShippingMethod && value == other.value /* spotless:on */
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
         @NoAutoDetect
         class TrackingUpdate
         @JsonCreator
@@ -3153,17 +3284,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is PhysicalCheck && mailingAddress == other.mailingAddress && memo == other.memo && note == other.note && recipientName == other.recipientName && returnAddress == other.returnAddress && signatureText == other.signatureText && trackingUpdates == other.trackingUpdates && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is PhysicalCheck && mailingAddress == other.mailingAddress && memo == other.memo && note == other.note && recipientName == other.recipientName && returnAddress == other.returnAddress && shippingMethod == other.shippingMethod && signatureText == other.signatureText && trackingUpdates == other.trackingUpdates && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(mailingAddress, memo, note, recipientName, returnAddress, signatureText, trackingUpdates, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(mailingAddress, memo, note, recipientName, returnAddress, shippingMethod, signatureText, trackingUpdates, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "PhysicalCheck{mailingAddress=$mailingAddress, memo=$memo, note=$note, recipientName=$recipientName, returnAddress=$returnAddress, signatureText=$signatureText, trackingUpdates=$trackingUpdates, additionalProperties=$additionalProperties}"
+            "PhysicalCheck{mailingAddress=$mailingAddress, memo=$memo, note=$note, recipientName=$recipientName, returnAddress=$returnAddress, shippingMethod=$shippingMethod, signatureText=$signatureText, trackingUpdates=$trackingUpdates, additionalProperties=$additionalProperties}"
     }
 
     /** The lifecycle status of the transfer. */

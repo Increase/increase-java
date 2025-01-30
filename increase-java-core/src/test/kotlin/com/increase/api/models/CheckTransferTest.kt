@@ -83,6 +83,7 @@ class CheckTransferTest {
                                 .state("NY")
                                 .build()
                         )
+                        .shippingMethod(CheckTransfer.PhysicalCheck.ShippingMethod.USPS_FIRST_CLASS)
                         .signatureText(null)
                         .addTrackingUpdate(
                             CheckTransfer.PhysicalCheck.TrackingUpdate.builder()
@@ -194,6 +195,7 @@ class CheckTransferTest {
                             .state("NY")
                             .build()
                     )
+                    .shippingMethod(CheckTransfer.PhysicalCheck.ShippingMethod.USPS_FIRST_CLASS)
                     .signatureText(null)
                     .addTrackingUpdate(
                         CheckTransfer.PhysicalCheck.TrackingUpdate.builder()
