@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.169.0 (2025-01-30)
+
+Full Changelog: [v0.168.0...v0.169.0](https://github.com/Increase/increase-java/compare/v0.168.0...v0.169.0)
+
+### Features
+
+* **api:** api update ([#732](https://github.com/Increase/increase-java/issues/732)) ([d9c7602](https://github.com/Increase/increase-java/commit/d9c76020a8a59249207221042fb374c8d4f735b2))
+* **client:** add `_queryParams` and `_headers` methods ([#729](https://github.com/Increase/increase-java/issues/729)) ([c3c0560](https://github.com/Increase/increase-java/commit/c3c0560787d0765fd87e3d3829d9e2082d79a684))
+
+
+### Chores
+
+* **internal:** improve `RetryingHttpClientTest` ([#731](https://github.com/Increase/increase-java/issues/731)) ([fc8dcc1](https://github.com/Increase/increase-java/commit/fc8dcc15257cbe0b945fc69f8ae0a16997bd7edb))
+
+
+### Refactors
+
+* **internal:** extract request preparation logic ([c3c0560](https://github.com/Increase/increase-java/commit/c3c0560787d0765fd87e3d3829d9e2082d79a684))
+
 ## 0.168.0 (2025-01-30)
 
 Full Changelog: [v0.167.0...v0.168.0](https://github.com/Increase/increase-java/compare/v0.167.0...v0.168.0)
