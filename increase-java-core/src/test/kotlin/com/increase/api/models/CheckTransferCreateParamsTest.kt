@@ -12,8 +12,8 @@ class CheckTransferCreateParamsTest {
         CheckTransferCreateParams.builder()
             .accountId("account_in71c4amph0vgo2qllky")
             .amount(1000L)
-            .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
             .fulfillmentMethod(CheckTransferCreateParams.FulfillmentMethod.PHYSICAL_CHECK)
+            .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
             .physicalCheck(
                 CheckTransferCreateParams.PhysicalCheck.builder()
                     .mailingAddress(
@@ -53,8 +53,8 @@ class CheckTransferCreateParamsTest {
             CheckTransferCreateParams.builder()
                 .accountId("account_in71c4amph0vgo2qllky")
                 .amount(1000L)
-                .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                 .fulfillmentMethod(CheckTransferCreateParams.FulfillmentMethod.PHYSICAL_CHECK)
+                .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                 .physicalCheck(
                     CheckTransferCreateParams.PhysicalCheck.builder()
                         .mailingAddress(
@@ -90,9 +90,9 @@ class CheckTransferCreateParamsTest {
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.amount()).isEqualTo(1000L)
-        assertThat(body.sourceAccountNumberId()).isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
         assertThat(body.fulfillmentMethod())
-            .contains(CheckTransferCreateParams.FulfillmentMethod.PHYSICAL_CHECK)
+            .isEqualTo(CheckTransferCreateParams.FulfillmentMethod.PHYSICAL_CHECK)
+        assertThat(body.sourceAccountNumberId()).isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
         assertThat(body.physicalCheck())
             .contains(
                 CheckTransferCreateParams.PhysicalCheck.builder()
@@ -133,12 +133,15 @@ class CheckTransferCreateParamsTest {
             CheckTransferCreateParams.builder()
                 .accountId("account_in71c4amph0vgo2qllky")
                 .amount(1000L)
+                .fulfillmentMethod(CheckTransferCreateParams.FulfillmentMethod.PHYSICAL_CHECK)
                 .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                 .build()
         val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.amount()).isEqualTo(1000L)
+        assertThat(body.fulfillmentMethod())
+            .isEqualTo(CheckTransferCreateParams.FulfillmentMethod.PHYSICAL_CHECK)
         assertThat(body.sourceAccountNumberId()).isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
     }
 }
