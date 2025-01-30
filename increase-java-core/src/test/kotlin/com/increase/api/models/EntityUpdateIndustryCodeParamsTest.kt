@@ -16,25 +16,25 @@ class EntityUpdateIndustryCodeParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             EntityUpdateIndustryCodeParams.builder()
                 .entityId("entity_n8y8tnk2p9339ti393yi")
                 .industryCode("5132")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.industryCode()).isEqualTo("5132")
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             EntityUpdateIndustryCodeParams.builder()
                 .entityId("entity_n8y8tnk2p9339ti393yi")
                 .industryCode("5132")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.industryCode()).isEqualTo("5132")
     }

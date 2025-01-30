@@ -16,25 +16,25 @@ class BookkeepingAccountUpdateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             BookkeepingAccountUpdateParams.builder()
                 .bookkeepingAccountId("bookkeeping_account_e37p1f1iuocw5intf35v")
                 .name("Deprecated Account")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.name()).isEqualTo("Deprecated Account")
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             BookkeepingAccountUpdateParams.builder()
                 .bookkeepingAccountId("bookkeeping_account_e37p1f1iuocw5intf35v")
                 .name("Deprecated Account")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.name()).isEqualTo("Deprecated Account")
     }

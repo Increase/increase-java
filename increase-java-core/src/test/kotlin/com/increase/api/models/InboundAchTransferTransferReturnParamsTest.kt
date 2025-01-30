@@ -16,26 +16,26 @@ class InboundAchTransferTransferReturnParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             InboundAchTransferTransferReturnParams.builder()
                 .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
                 .reason(InboundAchTransferTransferReturnParams.Reason.INSUFFICIENT_FUNDS)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.reason())
             .isEqualTo(InboundAchTransferTransferReturnParams.Reason.INSUFFICIENT_FUNDS)
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             InboundAchTransferTransferReturnParams.builder()
                 .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
                 .reason(InboundAchTransferTransferReturnParams.Reason.INSUFFICIENT_FUNDS)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.reason())
             .isEqualTo(InboundAchTransferTransferReturnParams.Reason.INSUFFICIENT_FUNDS)

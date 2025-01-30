@@ -32,7 +32,7 @@ class CardDisputeListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             CardDisputeListParams.builder()
                 .createdAt(
@@ -67,13 +67,13 @@ class CardDisputeListParamsTest {
             .addIn(CardDisputeListParams.Status.In.PENDING_REVIEWING)
             .build()
             .forEachQueryParam { key, values -> expected.put("status.$key", values) }
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = CardDisputeListParams.builder().build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

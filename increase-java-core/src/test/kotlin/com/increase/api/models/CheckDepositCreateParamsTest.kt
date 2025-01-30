@@ -19,7 +19,7 @@ class CheckDepositCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             CheckDepositCreateParams.builder()
                 .accountId("account_in71c4amph0vgo2qllky")
@@ -28,7 +28,7 @@ class CheckDepositCreateParamsTest {
                 .frontImageFileId("file_hkv175ovmc2tb2v2zbrm")
                 .description("Vendor payment")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.amount()).isEqualTo(1000L)
@@ -38,7 +38,7 @@ class CheckDepositCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             CheckDepositCreateParams.builder()
                 .accountId("account_in71c4amph0vgo2qllky")
@@ -46,7 +46,7 @@ class CheckDepositCreateParamsTest {
                 .backImageFileId("file_26khfk98mzfz90a11oqx")
                 .frontImageFileId("file_hkv175ovmc2tb2v2zbrm")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.amount()).isEqualTo(1000L)

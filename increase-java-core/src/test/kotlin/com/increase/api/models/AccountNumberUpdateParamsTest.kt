@@ -27,7 +27,7 @@ class AccountNumberUpdateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             AccountNumberUpdateParams.builder()
                 .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
@@ -44,7 +44,7 @@ class AccountNumberUpdateParamsTest {
                 .name("x")
                 .status(AccountNumberUpdateParams.Status.ACTIVE)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.inboundAch())
             .contains(
@@ -63,12 +63,12 @@ class AccountNumberUpdateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             AccountNumberUpdateParams.builder()
                 .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
     }
 

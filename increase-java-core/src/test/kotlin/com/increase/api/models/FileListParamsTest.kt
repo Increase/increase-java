@@ -32,7 +32,7 @@ class FileListParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             FileListParams.builder()
                 .createdAt(
@@ -67,13 +67,13 @@ class FileListParamsTest {
             .addIn(FileListParams.Purpose.In.CHECK_IMAGE_FRONT)
             .build()
             .forEachQueryParam { key, values -> expected.put("purpose.$key", values) }
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params = FileListParams.builder().build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

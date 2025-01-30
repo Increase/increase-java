@@ -17,14 +17,14 @@ class SimulationCardSettlementCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             SimulationCardSettlementCreateParams.builder()
                 .cardId("card_oubs0hwk5rn6knuecxg2")
                 .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
                 .amount(1L)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.cardId()).isEqualTo("card_oubs0hwk5rn6knuecxg2")
         assertThat(body.pendingTransactionId())
@@ -33,13 +33,13 @@ class SimulationCardSettlementCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             SimulationCardSettlementCreateParams.builder()
                 .cardId("card_oubs0hwk5rn6knuecxg2")
                 .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.cardId()).isEqualTo("card_oubs0hwk5rn6knuecxg2")
         assertThat(body.pendingTransactionId())

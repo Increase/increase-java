@@ -16,25 +16,25 @@ class CheckTransferStopPaymentParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             CheckTransferStopPaymentParams.builder()
                 .checkTransferId("check_transfer_30b43acfu9vw8fyc4f5")
                 .reason(CheckTransferStopPaymentParams.Reason.MAIL_DELIVERY_FAILED)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.reason())
             .contains(CheckTransferStopPaymentParams.Reason.MAIL_DELIVERY_FAILED)
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             CheckTransferStopPaymentParams.builder()
                 .checkTransferId("check_transfer_30b43acfu9vw8fyc4f5")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
     }
 

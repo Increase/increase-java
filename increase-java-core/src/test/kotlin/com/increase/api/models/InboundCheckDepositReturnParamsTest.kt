@@ -16,26 +16,26 @@ class InboundCheckDepositReturnParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             InboundCheckDepositReturnParams.builder()
                 .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
                 .reason(InboundCheckDepositReturnParams.Reason.ALTERED_OR_FICTITIOUS)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.reason())
             .isEqualTo(InboundCheckDepositReturnParams.Reason.ALTERED_OR_FICTITIOUS)
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             InboundCheckDepositReturnParams.builder()
                 .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
                 .reason(InboundCheckDepositReturnParams.Reason.ALTERED_OR_FICTITIOUS)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.reason())
             .isEqualTo(InboundCheckDepositReturnParams.Reason.ALTERED_OR_FICTITIOUS)

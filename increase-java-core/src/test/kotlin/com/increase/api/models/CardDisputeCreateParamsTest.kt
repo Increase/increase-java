@@ -17,14 +17,14 @@ class CardDisputeCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             CardDisputeCreateParams.builder()
                 .disputedTransactionId("transaction_uyrp7fld2ium70oa7oi")
                 .explanation("Unauthorized recurring transaction.")
                 .amount(1L)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.disputedTransactionId()).isEqualTo("transaction_uyrp7fld2ium70oa7oi")
         assertThat(body.explanation()).isEqualTo("Unauthorized recurring transaction.")
@@ -32,13 +32,13 @@ class CardDisputeCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             CardDisputeCreateParams.builder()
                 .disputedTransactionId("transaction_uyrp7fld2ium70oa7oi")
                 .explanation("Unauthorized recurring transaction.")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.disputedTransactionId()).isEqualTo("transaction_uyrp7fld2ium70oa7oi")
         assertThat(body.explanation()).isEqualTo("Unauthorized recurring transaction.")

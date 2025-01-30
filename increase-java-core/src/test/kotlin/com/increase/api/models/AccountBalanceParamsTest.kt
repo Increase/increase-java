@@ -18,7 +18,7 @@ class AccountBalanceParamsTest {
     }
 
     @Test
-    fun getQueryParams() {
+    fun queryParams() {
         val params =
             AccountBalanceParams.builder()
                 .accountId("account_in71c4amph0vgo2qllky")
@@ -26,15 +26,15 @@ class AccountBalanceParamsTest {
                 .build()
         val expected = QueryParams.builder()
         expected.put("at_time", "2019-12-27T18:11:19.117Z")
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
-    fun getQueryParamsWithoutOptionalFields() {
+    fun queryParamsWithoutOptionalFields() {
         val params =
             AccountBalanceParams.builder().accountId("account_in71c4amph0vgo2qllky").build()
         val expected = QueryParams.builder()
-        assertThat(params.getQueryParams()).isEqualTo(expected.build())
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test

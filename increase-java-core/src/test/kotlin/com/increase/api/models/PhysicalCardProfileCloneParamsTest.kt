@@ -22,7 +22,7 @@ class PhysicalCardProfileCloneParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             PhysicalCardProfileCloneParams.builder()
                 .physicalCardProfileId("physical_card_profile_m534d5rn9qyy9ufqxoec")
@@ -34,7 +34,7 @@ class PhysicalCardProfileCloneParamsTest {
                     PhysicalCardProfileCloneParams.FrontText.builder().line1("x").line2("x").build()
                 )
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.carrierImageFileId()).contains("carrier_image_file_id")
         assertThat(body.contactPhone()).contains("x")
@@ -47,12 +47,12 @@ class PhysicalCardProfileCloneParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             PhysicalCardProfileCloneParams.builder()
                 .physicalCardProfileId("physical_card_profile_m534d5rn9qyy9ufqxoec")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
     }
 

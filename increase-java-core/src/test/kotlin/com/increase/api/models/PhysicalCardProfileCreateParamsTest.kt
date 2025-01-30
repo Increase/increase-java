@@ -18,7 +18,7 @@ class PhysicalCardProfileCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             PhysicalCardProfileCreateParams.builder()
                 .carrierImageFileId("file_h6v7mtipe119os47ehlu")
@@ -26,7 +26,7 @@ class PhysicalCardProfileCreateParamsTest {
                 .description("My Card Profile")
                 .frontImageFileId("file_o6aex13wm1jcc36sgcj1")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.carrierImageFileId()).isEqualTo("file_h6v7mtipe119os47ehlu")
         assertThat(body.contactPhone()).isEqualTo("+16505046304")
@@ -35,7 +35,7 @@ class PhysicalCardProfileCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             PhysicalCardProfileCreateParams.builder()
                 .carrierImageFileId("file_h6v7mtipe119os47ehlu")
@@ -43,7 +43,7 @@ class PhysicalCardProfileCreateParamsTest {
                 .description("My Card Profile")
                 .frontImageFileId("file_o6aex13wm1jcc36sgcj1")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.carrierImageFileId()).isEqualTo("file_h6v7mtipe119os47ehlu")
         assertThat(body.contactPhone()).isEqualTo("+16505046304")

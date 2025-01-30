@@ -30,7 +30,7 @@ class WireTransferCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             WireTransferCreateParams.builder()
                 .accountId("account_in71c4amph0vgo2qllky")
@@ -50,7 +50,7 @@ class WireTransferCreateParamsTest {
                 .routingNumber("101050001")
                 .sourceAccountNumberId("source_account_number_id")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.amount()).isEqualTo(100L)
@@ -71,7 +71,7 @@ class WireTransferCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             WireTransferCreateParams.builder()
                 .accountId("account_in71c4amph0vgo2qllky")
@@ -79,7 +79,7 @@ class WireTransferCreateParamsTest {
                 .beneficiaryName("Ian Crease")
                 .messageToRecipient("New account transfer")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.amount()).isEqualTo(100L)

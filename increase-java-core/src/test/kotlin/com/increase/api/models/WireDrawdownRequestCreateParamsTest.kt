@@ -27,7 +27,7 @@ class WireDrawdownRequestCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             WireDrawdownRequestCreateParams.builder()
                 .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
@@ -44,7 +44,7 @@ class WireDrawdownRequestCreateParamsTest {
                 .recipientAddressLine2("New York, NY, 10045")
                 .recipientAddressLine3("x")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.accountNumberId()).isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
         assertThat(body.amount()).isEqualTo(10000L)
@@ -62,7 +62,7 @@ class WireDrawdownRequestCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             WireDrawdownRequestCreateParams.builder()
                 .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
@@ -72,7 +72,7 @@ class WireDrawdownRequestCreateParamsTest {
                 .recipientName("Ian Crease")
                 .recipientRoutingNumber("101050001")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.accountNumberId()).isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
         assertThat(body.amount()).isEqualTo(10000L)
