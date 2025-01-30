@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import com.increase.api.core.Enum
 import com.increase.api.core.JsonField
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.Params
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -26,7 +27,7 @@ private constructor(
     private val status: Status?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-) {
+) : Params {
 
     /** Filter Account Numbers to those belonging to the specified Account. */
     fun accountId(): Optional<String> = Optional.ofNullable(accountId)
@@ -56,10 +57,9 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun getHeaders(): Headers = additionalHeaders
+    override fun _headers(): Headers = additionalHeaders
 
-    @JvmSynthetic
-    internal fun getQueryParams(): QueryParams {
+    override fun _queryParams(): QueryParams {
         val queryParams = QueryParams.builder()
         this.accountId?.let { queryParams.put("account_id", listOf(it.toString())) }
         this.achDebitStatus?.let { queryParams.put("ach_debit_status", listOf(it.toString())) }

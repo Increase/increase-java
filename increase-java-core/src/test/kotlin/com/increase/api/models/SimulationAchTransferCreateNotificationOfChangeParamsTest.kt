@@ -20,7 +20,7 @@ class SimulationAchTransferCreateNotificationOfChangeParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             SimulationAchTransferCreateNotificationOfChangeParams.builder()
                 .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
@@ -30,7 +30,7 @@ class SimulationAchTransferCreateNotificationOfChangeParamsTest {
                 )
                 .correctedData("123456789")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.changeCode())
             .isEqualTo(
@@ -41,7 +41,7 @@ class SimulationAchTransferCreateNotificationOfChangeParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             SimulationAchTransferCreateNotificationOfChangeParams.builder()
                 .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
@@ -51,7 +51,7 @@ class SimulationAchTransferCreateNotificationOfChangeParamsTest {
                 )
                 .correctedData("123456789")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.changeCode())
             .isEqualTo(

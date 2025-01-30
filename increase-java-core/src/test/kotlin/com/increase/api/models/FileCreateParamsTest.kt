@@ -19,14 +19,14 @@ class FileCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             FileCreateParams.builder()
                 .file("some content".toByteArray())
                 .purpose(FileCreateParams.Purpose.CHECK_IMAGE_FRONT)
                 .description("x")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body)
             .containsExactly(
@@ -45,13 +45,13 @@ class FileCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             FileCreateParams.builder()
                 .file("some content".toByteArray())
                 .purpose(FileCreateParams.Purpose.CHECK_IMAGE_FRONT)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body)
             .containsExactly(

@@ -19,7 +19,7 @@ class OAuthTokenCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             OAuthTokenCreateParams.builder()
                 .grantType(OAuthTokenCreateParams.GrantType.AUTHORIZATION_CODE)
@@ -28,7 +28,7 @@ class OAuthTokenCreateParamsTest {
                 .code("123")
                 .productionToken("x")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.grantType()).isEqualTo(OAuthTokenCreateParams.GrantType.AUTHORIZATION_CODE)
         assertThat(body.clientId()).contains("12345")
@@ -38,12 +38,12 @@ class OAuthTokenCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             OAuthTokenCreateParams.builder()
                 .grantType(OAuthTokenCreateParams.GrantType.AUTHORIZATION_CODE)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.grantType()).isEqualTo(OAuthTokenCreateParams.GrantType.AUTHORIZATION_CODE)
     }

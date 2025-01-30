@@ -16,25 +16,25 @@ class SimulationAchTransferReturnParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             SimulationAchTransferReturnParams.builder()
                 .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
                 .reason(SimulationAchTransferReturnParams.Reason.INSUFFICIENT_FUND)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.reason())
             .contains(SimulationAchTransferReturnParams.Reason.INSUFFICIENT_FUND)
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             SimulationAchTransferReturnParams.builder()
                 .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
     }
 

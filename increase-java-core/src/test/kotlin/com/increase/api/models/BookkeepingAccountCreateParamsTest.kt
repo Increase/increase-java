@@ -18,7 +18,7 @@ class BookkeepingAccountCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             BookkeepingAccountCreateParams.builder()
                 .name("New Account!")
@@ -28,7 +28,7 @@ class BookkeepingAccountCreateParamsTest {
                 )
                 .entityId("entity_id")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.name()).isEqualTo("New Account!")
         assertThat(body.accountId()).contains("account_id")
@@ -38,9 +38,9 @@ class BookkeepingAccountCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params = BookkeepingAccountCreateParams.builder().name("New Account!").build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.name()).isEqualTo("New Account!")
     }

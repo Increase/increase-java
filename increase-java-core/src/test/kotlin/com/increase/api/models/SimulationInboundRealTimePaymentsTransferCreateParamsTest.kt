@@ -21,7 +21,7 @@ class SimulationInboundRealTimePaymentsTransferCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             SimulationInboundRealTimePaymentsTransferCreateParams.builder()
                 .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
@@ -32,7 +32,7 @@ class SimulationInboundRealTimePaymentsTransferCreateParamsTest {
                 .remittanceInformation("x")
                 .requestForPaymentId("real_time_payments_request_for_payment_28kcliz1oevcnqyn9qp7")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.accountNumberId()).isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
         assertThat(body.amount()).isEqualTo(1000L)
@@ -45,13 +45,13 @@ class SimulationInboundRealTimePaymentsTransferCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             SimulationInboundRealTimePaymentsTransferCreateParams.builder()
                 .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                 .amount(1000L)
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.accountNumberId()).isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
         assertThat(body.amount()).isEqualTo(1000L)

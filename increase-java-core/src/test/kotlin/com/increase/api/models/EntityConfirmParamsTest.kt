@@ -17,21 +17,21 @@ class EntityConfirmParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             EntityConfirmParams.builder()
                 .entityId("entity_n8y8tnk2p9339ti393yi")
                 .confirmedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.confirmedAt()).contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params = EntityConfirmParams.builder().entityId("entity_n8y8tnk2p9339ti393yi").build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
     }
 

@@ -20,7 +20,7 @@ class EventSubscriptionCreateParamsTest {
     }
 
     @Test
-    fun getBody() {
+    fun body() {
         val params =
             EventSubscriptionCreateParams.builder()
                 .url("https://website.com/webhooks")
@@ -30,7 +30,7 @@ class EventSubscriptionCreateParamsTest {
                 )
                 .sharedSecret("x")
                 .build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.url()).isEqualTo("https://website.com/webhooks")
         assertThat(body.oauthConnectionId()).contains("oauth_connection_id")
@@ -40,10 +40,10 @@ class EventSubscriptionCreateParamsTest {
     }
 
     @Test
-    fun getBodyWithoutOptionalFields() {
+    fun bodyWithoutOptionalFields() {
         val params =
             EventSubscriptionCreateParams.builder().url("https://website.com/webhooks").build()
-        val body = params.getBody()
+        val body = params._body()
         assertThat(body).isNotNull
         assertThat(body.url()).isEqualTo("https://website.com/webhooks")
     }
