@@ -36,13 +36,13 @@ private constructor(
     /** The transfer amount in USD cents. */
     fun amount(): Long = body.amount()
 
+    /** Whether Increase will print and mail the check or if you will do it yourself. */
+    fun fulfillmentMethod(): FulfillmentMethod = body.fulfillmentMethod()
+
     /**
      * The identifier of the Account Number from which to send the transfer and print on the check.
      */
     fun sourceAccountNumberId(): String = body.sourceAccountNumberId()
-
-    /** Whether Increase will print and mail the check or if you will do it yourself. */
-    fun fulfillmentMethod(): Optional<FulfillmentMethod> = body.fulfillmentMethod()
 
     /**
      * Details relating to the physical check that Increase will print and mail. This is required if
@@ -67,13 +67,13 @@ private constructor(
     /** The transfer amount in USD cents. */
     fun _amount(): JsonField<Long> = body._amount()
 
+    /** Whether Increase will print and mail the check or if you will do it yourself. */
+    fun _fulfillmentMethod(): JsonField<FulfillmentMethod> = body._fulfillmentMethod()
+
     /**
      * The identifier of the Account Number from which to send the transfer and print on the check.
      */
     fun _sourceAccountNumberId(): JsonField<String> = body._sourceAccountNumberId()
-
-    /** Whether Increase will print and mail the check or if you will do it yourself. */
-    fun _fulfillmentMethod(): JsonField<FulfillmentMethod> = body._fulfillmentMethod()
 
     /**
      * Details relating to the physical check that Increase will print and mail. This is required if
@@ -114,12 +114,12 @@ private constructor(
         @JsonProperty("amount")
         @ExcludeMissing
         private val amount: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("source_account_number_id")
-        @ExcludeMissing
-        private val sourceAccountNumberId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("fulfillment_method")
         @ExcludeMissing
         private val fulfillmentMethod: JsonField<FulfillmentMethod> = JsonMissing.of(),
+        @JsonProperty("source_account_number_id")
+        @ExcludeMissing
+        private val sourceAccountNumberId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("physical_check")
         @ExcludeMissing
         private val physicalCheck: JsonField<PhysicalCheck> = JsonMissing.of(),
@@ -139,16 +139,16 @@ private constructor(
         /** The transfer amount in USD cents. */
         fun amount(): Long = amount.getRequired("amount")
 
+        /** Whether Increase will print and mail the check or if you will do it yourself. */
+        fun fulfillmentMethod(): FulfillmentMethod =
+            fulfillmentMethod.getRequired("fulfillment_method")
+
         /**
          * The identifier of the Account Number from which to send the transfer and print on the
          * check.
          */
         fun sourceAccountNumberId(): String =
             sourceAccountNumberId.getRequired("source_account_number_id")
-
-        /** Whether Increase will print and mail the check or if you will do it yourself. */
-        fun fulfillmentMethod(): Optional<FulfillmentMethod> =
-            Optional.ofNullable(fulfillmentMethod.getNullable("fulfillment_method"))
 
         /**
          * Details relating to the physical check that Increase will print and mail. This is
@@ -176,6 +176,11 @@ private constructor(
         /** The transfer amount in USD cents. */
         @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
+        /** Whether Increase will print and mail the check or if you will do it yourself. */
+        @JsonProperty("fulfillment_method")
+        @ExcludeMissing
+        fun _fulfillmentMethod(): JsonField<FulfillmentMethod> = fulfillmentMethod
+
         /**
          * The identifier of the Account Number from which to send the transfer and print on the
          * check.
@@ -183,11 +188,6 @@ private constructor(
         @JsonProperty("source_account_number_id")
         @ExcludeMissing
         fun _sourceAccountNumberId(): JsonField<String> = sourceAccountNumberId
-
-        /** Whether Increase will print and mail the check or if you will do it yourself. */
-        @JsonProperty("fulfillment_method")
-        @ExcludeMissing
-        fun _fulfillmentMethod(): JsonField<FulfillmentMethod> = fulfillmentMethod
 
         /**
          * Details relating to the physical check that Increase will print and mail. This is
@@ -225,8 +225,8 @@ private constructor(
 
             accountId()
             amount()
-            sourceAccountNumberId()
             fulfillmentMethod()
+            sourceAccountNumberId()
             physicalCheck().ifPresent { it.validate() }
             requireApproval()
             thirdParty().ifPresent { it.validate() }
@@ -245,8 +245,8 @@ private constructor(
 
             private var accountId: JsonField<String>? = null
             private var amount: JsonField<Long>? = null
+            private var fulfillmentMethod: JsonField<FulfillmentMethod>? = null
             private var sourceAccountNumberId: JsonField<String>? = null
-            private var fulfillmentMethod: JsonField<FulfillmentMethod> = JsonMissing.of()
             private var physicalCheck: JsonField<PhysicalCheck> = JsonMissing.of()
             private var requireApproval: JsonField<Boolean> = JsonMissing.of()
             private var thirdParty: JsonField<ThirdParty> = JsonMissing.of()
@@ -256,8 +256,8 @@ private constructor(
             internal fun from(checkTransferCreateBody: CheckTransferCreateBody) = apply {
                 accountId = checkTransferCreateBody.accountId
                 amount = checkTransferCreateBody.amount
-                sourceAccountNumberId = checkTransferCreateBody.sourceAccountNumberId
                 fulfillmentMethod = checkTransferCreateBody.fulfillmentMethod
+                sourceAccountNumberId = checkTransferCreateBody.sourceAccountNumberId
                 physicalCheck = checkTransferCreateBody.physicalCheck
                 requireApproval = checkTransferCreateBody.requireApproval
                 thirdParty = checkTransferCreateBody.thirdParty
@@ -276,6 +276,15 @@ private constructor(
             /** The transfer amount in USD cents. */
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
+            /** Whether Increase will print and mail the check or if you will do it yourself. */
+            fun fulfillmentMethod(fulfillmentMethod: FulfillmentMethod) =
+                fulfillmentMethod(JsonField.of(fulfillmentMethod))
+
+            /** Whether Increase will print and mail the check or if you will do it yourself. */
+            fun fulfillmentMethod(fulfillmentMethod: JsonField<FulfillmentMethod>) = apply {
+                this.fulfillmentMethod = fulfillmentMethod
+            }
+
             /**
              * The identifier of the Account Number from which to send the transfer and print on the
              * check.
@@ -289,15 +298,6 @@ private constructor(
              */
             fun sourceAccountNumberId(sourceAccountNumberId: JsonField<String>) = apply {
                 this.sourceAccountNumberId = sourceAccountNumberId
-            }
-
-            /** Whether Increase will print and mail the check or if you will do it yourself. */
-            fun fulfillmentMethod(fulfillmentMethod: FulfillmentMethod) =
-                fulfillmentMethod(JsonField.of(fulfillmentMethod))
-
-            /** Whether Increase will print and mail the check or if you will do it yourself. */
-            fun fulfillmentMethod(fulfillmentMethod: JsonField<FulfillmentMethod>) = apply {
-                this.fulfillmentMethod = fulfillmentMethod
             }
 
             /**
@@ -365,8 +365,8 @@ private constructor(
                 CheckTransferCreateBody(
                     checkRequired("accountId", accountId),
                     checkRequired("amount", amount),
+                    checkRequired("fulfillmentMethod", fulfillmentMethod),
                     checkRequired("sourceAccountNumberId", sourceAccountNumberId),
-                    fulfillmentMethod,
                     physicalCheck,
                     requireApproval,
                     thirdParty,
@@ -379,17 +379,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is CheckTransferCreateBody && accountId == other.accountId && amount == other.amount && sourceAccountNumberId == other.sourceAccountNumberId && fulfillmentMethod == other.fulfillmentMethod && physicalCheck == other.physicalCheck && requireApproval == other.requireApproval && thirdParty == other.thirdParty && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is CheckTransferCreateBody && accountId == other.accountId && amount == other.amount && fulfillmentMethod == other.fulfillmentMethod && sourceAccountNumberId == other.sourceAccountNumberId && physicalCheck == other.physicalCheck && requireApproval == other.requireApproval && thirdParty == other.thirdParty && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(accountId, amount, sourceAccountNumberId, fulfillmentMethod, physicalCheck, requireApproval, thirdParty, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(accountId, amount, fulfillmentMethod, sourceAccountNumberId, physicalCheck, requireApproval, thirdParty, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "CheckTransferCreateBody{accountId=$accountId, amount=$amount, sourceAccountNumberId=$sourceAccountNumberId, fulfillmentMethod=$fulfillmentMethod, physicalCheck=$physicalCheck, requireApproval=$requireApproval, thirdParty=$thirdParty, additionalProperties=$additionalProperties}"
+            "CheckTransferCreateBody{accountId=$accountId, amount=$amount, fulfillmentMethod=$fulfillmentMethod, sourceAccountNumberId=$sourceAccountNumberId, physicalCheck=$physicalCheck, requireApproval=$requireApproval, thirdParty=$thirdParty, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -426,6 +426,16 @@ private constructor(
         /** The transfer amount in USD cents. */
         fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
 
+        /** Whether Increase will print and mail the check or if you will do it yourself. */
+        fun fulfillmentMethod(fulfillmentMethod: FulfillmentMethod) = apply {
+            body.fulfillmentMethod(fulfillmentMethod)
+        }
+
+        /** Whether Increase will print and mail the check or if you will do it yourself. */
+        fun fulfillmentMethod(fulfillmentMethod: JsonField<FulfillmentMethod>) = apply {
+            body.fulfillmentMethod(fulfillmentMethod)
+        }
+
         /**
          * The identifier of the Account Number from which to send the transfer and print on the
          * check.
@@ -440,16 +450,6 @@ private constructor(
          */
         fun sourceAccountNumberId(sourceAccountNumberId: JsonField<String>) = apply {
             body.sourceAccountNumberId(sourceAccountNumberId)
-        }
-
-        /** Whether Increase will print and mail the check or if you will do it yourself. */
-        fun fulfillmentMethod(fulfillmentMethod: FulfillmentMethod) = apply {
-            body.fulfillmentMethod(fulfillmentMethod)
-        }
-
-        /** Whether Increase will print and mail the check or if you will do it yourself. */
-        fun fulfillmentMethod(fulfillmentMethod: JsonField<FulfillmentMethod>) = apply {
-            body.fulfillmentMethod(fulfillmentMethod)
         }
 
         /**
