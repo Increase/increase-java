@@ -319,6 +319,9 @@ private constructor(
     class Element
     @JsonCreator
     private constructor(
+        @JsonProperty("card_authentication")
+        @ExcludeMissing
+        private val cardAuthentication: JsonField<CardAuthentication> = JsonMissing.of(),
         @JsonProperty("card_authorization")
         @ExcludeMissing
         private val cardAuthorization: JsonField<CardAuthorization> = JsonMissing.of(),
@@ -357,6 +360,13 @@ private constructor(
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
+
+        /**
+         * A Card Authentication object. This field will be present in the JSON response if and only
+         * if `category` is equal to `card_authentication`.
+         */
+        fun cardAuthentication(): Optional<CardAuthentication> =
+            Optional.ofNullable(cardAuthentication.getNullable("card_authentication"))
 
         /**
          * A Card Authorization object. This field will be present in the JSON response if and only
@@ -440,6 +450,14 @@ private constructor(
          * an empty object, otherwise it will contain null.
          */
         @JsonProperty("other") @ExcludeMissing fun _other(): JsonValue = other
+
+        /**
+         * A Card Authentication object. This field will be present in the JSON response if and only
+         * if `category` is equal to `card_authentication`.
+         */
+        @JsonProperty("card_authentication")
+        @ExcludeMissing
+        fun _cardAuthentication(): JsonField<CardAuthentication> = cardAuthentication
 
         /**
          * A Card Authorization object. This field will be present in the JSON response if and only
@@ -539,6 +557,7 @@ private constructor(
                 return@apply
             }
 
+            cardAuthentication().ifPresent { it.validate() }
             cardAuthorization().ifPresent { it.validate() }
             cardAuthorizationExpiration().ifPresent { it.validate() }
             cardDecline().ifPresent { it.validate() }
@@ -563,6 +582,7 @@ private constructor(
         /** A builder for [Element]. */
         class Builder internal constructor() {
 
+            private var cardAuthentication: JsonField<CardAuthentication>? = null
             private var cardAuthorization: JsonField<CardAuthorization>? = null
             private var cardAuthorizationExpiration: JsonField<CardAuthorizationExpiration>? = null
             private var cardDecline: JsonField<CardDecline>? = null
@@ -579,6 +599,7 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(element: Element) = apply {
+                cardAuthentication = element.cardAuthentication
                 cardAuthorization = element.cardAuthorization
                 cardAuthorizationExpiration = element.cardAuthorizationExpiration
                 cardDecline = element.cardDecline
@@ -592,6 +613,28 @@ private constructor(
                 createdAt = element.createdAt
                 other = element.other
                 additionalProperties = element.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * A Card Authentication object. This field will be present in the JSON response if and
+             * only if `category` is equal to `card_authentication`.
+             */
+            fun cardAuthentication(cardAuthentication: CardAuthentication?) =
+                cardAuthentication(JsonField.ofNullable(cardAuthentication))
+
+            /**
+             * A Card Authentication object. This field will be present in the JSON response if and
+             * only if `category` is equal to `card_authentication`.
+             */
+            fun cardAuthentication(cardAuthentication: Optional<CardAuthentication>) =
+                cardAuthentication(cardAuthentication.orElse(null))
+
+            /**
+             * A Card Authentication object. This field will be present in the JSON response if and
+             * only if `category` is equal to `card_authentication`.
+             */
+            fun cardAuthentication(cardAuthentication: JsonField<CardAuthentication>) = apply {
+                this.cardAuthentication = cardAuthentication
             }
 
             /**
@@ -846,6 +889,7 @@ private constructor(
 
             fun build(): Element =
                 Element(
+                    checkRequired("cardAuthentication", cardAuthentication),
                     checkRequired("cardAuthorization", cardAuthorization),
                     checkRequired("cardAuthorizationExpiration", cardAuthorizationExpiration),
                     checkRequired("cardDecline", cardDecline),
@@ -860,6 +904,1821 @@ private constructor(
                     checkRequired("other", other),
                     additionalProperties.toImmutable(),
                 )
+        }
+
+        /**
+         * A Card Authentication object. This field will be present in the JSON response if and only
+         * if `category` is equal to `card_authentication`.
+         */
+        @NoAutoDetect
+        class CardAuthentication
+        @JsonCreator
+        private constructor(
+            @JsonProperty("id")
+            @ExcludeMissing
+            private val id: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("card_id")
+            @ExcludeMissing
+            private val cardId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("card_payment_id")
+            @ExcludeMissing
+            private val cardPaymentId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("category")
+            @ExcludeMissing
+            private val category: JsonField<Category> = JsonMissing.of(),
+            @JsonProperty("challenge")
+            @ExcludeMissing
+            private val challenge: JsonField<Challenge> = JsonMissing.of(),
+            @JsonProperty("created_at")
+            @ExcludeMissing
+            private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("deny_reason")
+            @ExcludeMissing
+            private val denyReason: JsonField<DenyReason> = JsonMissing.of(),
+            @JsonProperty("device_channel")
+            @ExcludeMissing
+            private val deviceChannel: JsonField<DeviceChannel> = JsonMissing.of(),
+            @JsonProperty("merchant_acceptor_id")
+            @ExcludeMissing
+            private val merchantAcceptorId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("merchant_category_code")
+            @ExcludeMissing
+            private val merchantCategoryCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("merchant_country")
+            @ExcludeMissing
+            private val merchantCountry: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("merchant_name")
+            @ExcludeMissing
+            private val merchantName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("purchase_amount")
+            @ExcludeMissing
+            private val purchaseAmount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("purchase_currency")
+            @ExcludeMissing
+            private val purchaseCurrency: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("real_time_decision_id")
+            @ExcludeMissing
+            private val realTimeDecisionId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("status")
+            @ExcludeMissing
+            private val status: JsonField<Status> = JsonMissing.of(),
+            @JsonProperty("type")
+            @ExcludeMissing
+            private val type: JsonField<Type> = JsonMissing.of(),
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        ) {
+
+            /** The Card Authentication identifier. */
+            fun id(): String = id.getRequired("id")
+
+            /** The identifier of the Card. */
+            fun cardId(): String = cardId.getRequired("card_id")
+
+            /** The ID of the Card Payment this transaction belongs to. */
+            fun cardPaymentId(): String = cardPaymentId.getRequired("card_payment_id")
+
+            /** The category of the card authentication attempt. */
+            fun category(): Optional<Category> =
+                Optional.ofNullable(category.getNullable("category"))
+
+            /** Details about the challenge, if one was requested. */
+            fun challenge(): Optional<Challenge> =
+                Optional.ofNullable(challenge.getNullable("challenge"))
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Card
+             * Authentication was attempted.
+             */
+            fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+            /** The reason why this authentication attempt was denied, if it was. */
+            fun denyReason(): Optional<DenyReason> =
+                Optional.ofNullable(denyReason.getNullable("deny_reason"))
+
+            /** The device channel of the card authentication attempt. */
+            fun deviceChannel(): Optional<DeviceChannel> =
+                Optional.ofNullable(deviceChannel.getNullable("device_channel"))
+
+            /**
+             * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
+             * transacting with.
+             */
+            fun merchantAcceptorId(): String =
+                merchantAcceptorId.getRequired("merchant_acceptor_id")
+
+            /**
+             * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
+             * transacting with.
+             */
+            fun merchantCategoryCode(): String =
+                merchantCategoryCode.getRequired("merchant_category_code")
+
+            /** The country the merchant resides in. */
+            fun merchantCountry(): String = merchantCountry.getRequired("merchant_country")
+
+            /** The name of the merchant. */
+            fun merchantName(): String = merchantName.getRequired("merchant_name")
+
+            /** The purchase amount in minor units. */
+            fun purchaseAmount(): Optional<Long> =
+                Optional.ofNullable(purchaseAmount.getNullable("purchase_amount"))
+
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the authentication
+             * attempt's purchase currency.
+             */
+            fun purchaseCurrency(): Optional<String> =
+                Optional.ofNullable(purchaseCurrency.getNullable("purchase_currency"))
+
+            /**
+             * The identifier of the Real-Time Decision sent to approve or decline this
+             * authentication attempt.
+             */
+            fun realTimeDecisionId(): Optional<String> =
+                Optional.ofNullable(realTimeDecisionId.getNullable("real_time_decision_id"))
+
+            /** The status of the card authentication. */
+            fun status(): Status = status.getRequired("status")
+
+            /**
+             * A constant representing the object's type. For this resource it will always be
+             * `card_authentication`.
+             */
+            fun type(): Type = type.getRequired("type")
+
+            /** The Card Authentication identifier. */
+            @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+            /** The identifier of the Card. */
+            @JsonProperty("card_id") @ExcludeMissing fun _cardId(): JsonField<String> = cardId
+
+            /** The ID of the Card Payment this transaction belongs to. */
+            @JsonProperty("card_payment_id")
+            @ExcludeMissing
+            fun _cardPaymentId(): JsonField<String> = cardPaymentId
+
+            /** The category of the card authentication attempt. */
+            @JsonProperty("category")
+            @ExcludeMissing
+            fun _category(): JsonField<Category> = category
+
+            /** Details about the challenge, if one was requested. */
+            @JsonProperty("challenge")
+            @ExcludeMissing
+            fun _challenge(): JsonField<Challenge> = challenge
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Card
+             * Authentication was attempted.
+             */
+            @JsonProperty("created_at")
+            @ExcludeMissing
+            fun _createdAt(): JsonField<OffsetDateTime> = createdAt
+
+            /** The reason why this authentication attempt was denied, if it was. */
+            @JsonProperty("deny_reason")
+            @ExcludeMissing
+            fun _denyReason(): JsonField<DenyReason> = denyReason
+
+            /** The device channel of the card authentication attempt. */
+            @JsonProperty("device_channel")
+            @ExcludeMissing
+            fun _deviceChannel(): JsonField<DeviceChannel> = deviceChannel
+
+            /**
+             * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
+             * transacting with.
+             */
+            @JsonProperty("merchant_acceptor_id")
+            @ExcludeMissing
+            fun _merchantAcceptorId(): JsonField<String> = merchantAcceptorId
+
+            /**
+             * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
+             * transacting with.
+             */
+            @JsonProperty("merchant_category_code")
+            @ExcludeMissing
+            fun _merchantCategoryCode(): JsonField<String> = merchantCategoryCode
+
+            /** The country the merchant resides in. */
+            @JsonProperty("merchant_country")
+            @ExcludeMissing
+            fun _merchantCountry(): JsonField<String> = merchantCountry
+
+            /** The name of the merchant. */
+            @JsonProperty("merchant_name")
+            @ExcludeMissing
+            fun _merchantName(): JsonField<String> = merchantName
+
+            /** The purchase amount in minor units. */
+            @JsonProperty("purchase_amount")
+            @ExcludeMissing
+            fun _purchaseAmount(): JsonField<Long> = purchaseAmount
+
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the authentication
+             * attempt's purchase currency.
+             */
+            @JsonProperty("purchase_currency")
+            @ExcludeMissing
+            fun _purchaseCurrency(): JsonField<String> = purchaseCurrency
+
+            /**
+             * The identifier of the Real-Time Decision sent to approve or decline this
+             * authentication attempt.
+             */
+            @JsonProperty("real_time_decision_id")
+            @ExcludeMissing
+            fun _realTimeDecisionId(): JsonField<String> = realTimeDecisionId
+
+            /** The status of the card authentication. */
+            @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
+
+            /**
+             * A constant representing the object's type. For this resource it will always be
+             * `card_authentication`.
+             */
+            @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            private var validated: Boolean = false
+
+            fun validate(): CardAuthentication = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                id()
+                cardId()
+                cardPaymentId()
+                category()
+                challenge().ifPresent { it.validate() }
+                createdAt()
+                denyReason()
+                deviceChannel()
+                merchantAcceptorId()
+                merchantCategoryCode()
+                merchantCountry()
+                merchantName()
+                purchaseAmount()
+                purchaseCurrency()
+                realTimeDecisionId()
+                status()
+                type()
+                validated = true
+            }
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [CardAuthentication]. */
+            class Builder internal constructor() {
+
+                private var id: JsonField<String>? = null
+                private var cardId: JsonField<String>? = null
+                private var cardPaymentId: JsonField<String>? = null
+                private var category: JsonField<Category>? = null
+                private var challenge: JsonField<Challenge>? = null
+                private var createdAt: JsonField<OffsetDateTime>? = null
+                private var denyReason: JsonField<DenyReason>? = null
+                private var deviceChannel: JsonField<DeviceChannel>? = null
+                private var merchantAcceptorId: JsonField<String>? = null
+                private var merchantCategoryCode: JsonField<String>? = null
+                private var merchantCountry: JsonField<String>? = null
+                private var merchantName: JsonField<String>? = null
+                private var purchaseAmount: JsonField<Long>? = null
+                private var purchaseCurrency: JsonField<String>? = null
+                private var realTimeDecisionId: JsonField<String>? = null
+                private var status: JsonField<Status>? = null
+                private var type: JsonField<Type>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(cardAuthentication: CardAuthentication) = apply {
+                    id = cardAuthentication.id
+                    cardId = cardAuthentication.cardId
+                    cardPaymentId = cardAuthentication.cardPaymentId
+                    category = cardAuthentication.category
+                    challenge = cardAuthentication.challenge
+                    createdAt = cardAuthentication.createdAt
+                    denyReason = cardAuthentication.denyReason
+                    deviceChannel = cardAuthentication.deviceChannel
+                    merchantAcceptorId = cardAuthentication.merchantAcceptorId
+                    merchantCategoryCode = cardAuthentication.merchantCategoryCode
+                    merchantCountry = cardAuthentication.merchantCountry
+                    merchantName = cardAuthentication.merchantName
+                    purchaseAmount = cardAuthentication.purchaseAmount
+                    purchaseCurrency = cardAuthentication.purchaseCurrency
+                    realTimeDecisionId = cardAuthentication.realTimeDecisionId
+                    status = cardAuthentication.status
+                    type = cardAuthentication.type
+                    additionalProperties = cardAuthentication.additionalProperties.toMutableMap()
+                }
+
+                /** The Card Authentication identifier. */
+                fun id(id: String) = id(JsonField.of(id))
+
+                /** The Card Authentication identifier. */
+                fun id(id: JsonField<String>) = apply { this.id = id }
+
+                /** The identifier of the Card. */
+                fun cardId(cardId: String) = cardId(JsonField.of(cardId))
+
+                /** The identifier of the Card. */
+                fun cardId(cardId: JsonField<String>) = apply { this.cardId = cardId }
+
+                /** The ID of the Card Payment this transaction belongs to. */
+                fun cardPaymentId(cardPaymentId: String) =
+                    cardPaymentId(JsonField.of(cardPaymentId))
+
+                /** The ID of the Card Payment this transaction belongs to. */
+                fun cardPaymentId(cardPaymentId: JsonField<String>) = apply {
+                    this.cardPaymentId = cardPaymentId
+                }
+
+                /** The category of the card authentication attempt. */
+                fun category(category: Category?) = category(JsonField.ofNullable(category))
+
+                /** The category of the card authentication attempt. */
+                fun category(category: Optional<Category>) = category(category.orElse(null))
+
+                /** The category of the card authentication attempt. */
+                fun category(category: JsonField<Category>) = apply { this.category = category }
+
+                /** Details about the challenge, if one was requested. */
+                fun challenge(challenge: Challenge?) = challenge(JsonField.ofNullable(challenge))
+
+                /** Details about the challenge, if one was requested. */
+                fun challenge(challenge: Optional<Challenge>) = challenge(challenge.orElse(null))
+
+                /** Details about the challenge, if one was requested. */
+                fun challenge(challenge: JsonField<Challenge>) = apply {
+                    this.challenge = challenge
+                }
+
+                /**
+                 * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Card
+                 * Authentication was attempted.
+                 */
+                fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+                /**
+                 * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Card
+                 * Authentication was attempted.
+                 */
+                fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+                    this.createdAt = createdAt
+                }
+
+                /** The reason why this authentication attempt was denied, if it was. */
+                fun denyReason(denyReason: DenyReason?) =
+                    denyReason(JsonField.ofNullable(denyReason))
+
+                /** The reason why this authentication attempt was denied, if it was. */
+                fun denyReason(denyReason: Optional<DenyReason>) =
+                    denyReason(denyReason.orElse(null))
+
+                /** The reason why this authentication attempt was denied, if it was. */
+                fun denyReason(denyReason: JsonField<DenyReason>) = apply {
+                    this.denyReason = denyReason
+                }
+
+                /** The device channel of the card authentication attempt. */
+                fun deviceChannel(deviceChannel: DeviceChannel?) =
+                    deviceChannel(JsonField.ofNullable(deviceChannel))
+
+                /** The device channel of the card authentication attempt. */
+                fun deviceChannel(deviceChannel: Optional<DeviceChannel>) =
+                    deviceChannel(deviceChannel.orElse(null))
+
+                /** The device channel of the card authentication attempt. */
+                fun deviceChannel(deviceChannel: JsonField<DeviceChannel>) = apply {
+                    this.deviceChannel = deviceChannel
+                }
+
+                /**
+                 * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
+                 * transacting with.
+                 */
+                fun merchantAcceptorId(merchantAcceptorId: String) =
+                    merchantAcceptorId(JsonField.of(merchantAcceptorId))
+
+                /**
+                 * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
+                 * transacting with.
+                 */
+                fun merchantAcceptorId(merchantAcceptorId: JsonField<String>) = apply {
+                    this.merchantAcceptorId = merchantAcceptorId
+                }
+
+                /**
+                 * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card
+                 * is transacting with.
+                 */
+                fun merchantCategoryCode(merchantCategoryCode: String) =
+                    merchantCategoryCode(JsonField.of(merchantCategoryCode))
+
+                /**
+                 * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card
+                 * is transacting with.
+                 */
+                fun merchantCategoryCode(merchantCategoryCode: JsonField<String>) = apply {
+                    this.merchantCategoryCode = merchantCategoryCode
+                }
+
+                /** The country the merchant resides in. */
+                fun merchantCountry(merchantCountry: String) =
+                    merchantCountry(JsonField.of(merchantCountry))
+
+                /** The country the merchant resides in. */
+                fun merchantCountry(merchantCountry: JsonField<String>) = apply {
+                    this.merchantCountry = merchantCountry
+                }
+
+                /** The name of the merchant. */
+                fun merchantName(merchantName: String) = merchantName(JsonField.of(merchantName))
+
+                /** The name of the merchant. */
+                fun merchantName(merchantName: JsonField<String>) = apply {
+                    this.merchantName = merchantName
+                }
+
+                /** The purchase amount in minor units. */
+                fun purchaseAmount(purchaseAmount: Long?) =
+                    purchaseAmount(JsonField.ofNullable(purchaseAmount))
+
+                /** The purchase amount in minor units. */
+                fun purchaseAmount(purchaseAmount: Long) = purchaseAmount(purchaseAmount as Long?)
+
+                /** The purchase amount in minor units. */
+                @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
+                fun purchaseAmount(purchaseAmount: Optional<Long>) =
+                    purchaseAmount(purchaseAmount.orElse(null) as Long?)
+
+                /** The purchase amount in minor units. */
+                fun purchaseAmount(purchaseAmount: JsonField<Long>) = apply {
+                    this.purchaseAmount = purchaseAmount
+                }
+
+                /**
+                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                 * authentication attempt's purchase currency.
+                 */
+                fun purchaseCurrency(purchaseCurrency: String?) =
+                    purchaseCurrency(JsonField.ofNullable(purchaseCurrency))
+
+                /**
+                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                 * authentication attempt's purchase currency.
+                 */
+                fun purchaseCurrency(purchaseCurrency: Optional<String>) =
+                    purchaseCurrency(purchaseCurrency.orElse(null))
+
+                /**
+                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                 * authentication attempt's purchase currency.
+                 */
+                fun purchaseCurrency(purchaseCurrency: JsonField<String>) = apply {
+                    this.purchaseCurrency = purchaseCurrency
+                }
+
+                /**
+                 * The identifier of the Real-Time Decision sent to approve or decline this
+                 * authentication attempt.
+                 */
+                fun realTimeDecisionId(realTimeDecisionId: String?) =
+                    realTimeDecisionId(JsonField.ofNullable(realTimeDecisionId))
+
+                /**
+                 * The identifier of the Real-Time Decision sent to approve or decline this
+                 * authentication attempt.
+                 */
+                fun realTimeDecisionId(realTimeDecisionId: Optional<String>) =
+                    realTimeDecisionId(realTimeDecisionId.orElse(null))
+
+                /**
+                 * The identifier of the Real-Time Decision sent to approve or decline this
+                 * authentication attempt.
+                 */
+                fun realTimeDecisionId(realTimeDecisionId: JsonField<String>) = apply {
+                    this.realTimeDecisionId = realTimeDecisionId
+                }
+
+                /** The status of the card authentication. */
+                fun status(status: Status) = status(JsonField.of(status))
+
+                /** The status of the card authentication. */
+                fun status(status: JsonField<Status>) = apply { this.status = status }
+
+                /**
+                 * A constant representing the object's type. For this resource it will always be
+                 * `card_authentication`.
+                 */
+                fun type(type: Type) = type(JsonField.of(type))
+
+                /**
+                 * A constant representing the object's type. For this resource it will always be
+                 * `card_authentication`.
+                 */
+                fun type(type: JsonField<Type>) = apply { this.type = type }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                fun build(): CardAuthentication =
+                    CardAuthentication(
+                        checkRequired("id", id),
+                        checkRequired("cardId", cardId),
+                        checkRequired("cardPaymentId", cardPaymentId),
+                        checkRequired("category", category),
+                        checkRequired("challenge", challenge),
+                        checkRequired("createdAt", createdAt),
+                        checkRequired("denyReason", denyReason),
+                        checkRequired("deviceChannel", deviceChannel),
+                        checkRequired("merchantAcceptorId", merchantAcceptorId),
+                        checkRequired("merchantCategoryCode", merchantCategoryCode),
+                        checkRequired("merchantCountry", merchantCountry),
+                        checkRequired("merchantName", merchantName),
+                        checkRequired("purchaseAmount", purchaseAmount),
+                        checkRequired("purchaseCurrency", purchaseCurrency),
+                        checkRequired("realTimeDecisionId", realTimeDecisionId),
+                        checkRequired("status", status),
+                        checkRequired("type", type),
+                        additionalProperties.toImmutable(),
+                    )
+            }
+
+            /** The category of the card authentication attempt. */
+            class Category
+            @JsonCreator
+            private constructor(
+                private val value: JsonField<String>,
+            ) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    /** The authentication attempt is for a payment. */
+                    @JvmField val PAYMENT_AUTHENTICATION = of("payment_authentication")
+
+                    /** The authentication attempt is not for a payment. */
+                    @JvmField val NON_PAYMENT_AUTHENTICATION = of("non_payment_authentication")
+
+                    @JvmStatic fun of(value: String) = Category(JsonField.of(value))
+                }
+
+                /** An enum containing [Category]'s known values. */
+                enum class Known {
+                    /** The authentication attempt is for a payment. */
+                    PAYMENT_AUTHENTICATION,
+                    /** The authentication attempt is not for a payment. */
+                    NON_PAYMENT_AUTHENTICATION,
+                }
+
+                /**
+                 * An enum containing [Category]'s known values, as well as an [_UNKNOWN] member.
+                 *
+                 * An instance of [Category] can contain an unknown value in a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    /** The authentication attempt is for a payment. */
+                    PAYMENT_AUTHENTICATION,
+                    /** The authentication attempt is not for a payment. */
+                    NON_PAYMENT_AUTHENTICATION,
+                    /**
+                     * An enum member indicating that [Category] was instantiated with an unknown
+                     * value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        PAYMENT_AUTHENTICATION -> Value.PAYMENT_AUTHENTICATION
+                        NON_PAYMENT_AUTHENTICATION -> Value.NON_PAYMENT_AUTHENTICATION
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        PAYMENT_AUTHENTICATION -> Known.PAYMENT_AUTHENTICATION
+                        NON_PAYMENT_AUTHENTICATION -> Known.NON_PAYMENT_AUTHENTICATION
+                        else -> throw IncreaseInvalidDataException("Unknown Category: $value")
+                    }
+
+                fun asString(): String = _value().asStringOrThrow()
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return /* spotless:off */ other is Category && value == other.value /* spotless:on */
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            /** Details about the challenge, if one was requested. */
+            @NoAutoDetect
+            class Challenge
+            @JsonCreator
+            private constructor(
+                @JsonProperty("attempts")
+                @ExcludeMissing
+                private val attempts: JsonField<List<Attempt>> = JsonMissing.of(),
+                @JsonProperty("created_at")
+                @ExcludeMissing
+                private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+                @JsonProperty("one_time_code")
+                @ExcludeMissing
+                private val oneTimeCode: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("verification_method")
+                @ExcludeMissing
+                private val verificationMethod: JsonField<VerificationMethod> = JsonMissing.of(),
+                @JsonProperty("verification_value")
+                @ExcludeMissing
+                private val verificationValue: JsonField<String> = JsonMissing.of(),
+                @JsonAnySetter
+                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+            ) {
+
+                /** Details about the challenge verification attempts, if any happened. */
+                fun attempts(): List<Attempt> = attempts.getRequired("attempts")
+
+                /**
+                 * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Card
+                 * Authentication Challenge was started.
+                 */
+                fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+                /** The one-time code used for the Card Authentication Challenge. */
+                fun oneTimeCode(): String = oneTimeCode.getRequired("one_time_code")
+
+                /** The method used to verify the Card Authentication Challenge. */
+                fun verificationMethod(): VerificationMethod =
+                    verificationMethod.getRequired("verification_method")
+
+                /**
+                 * E.g., the email address or phone number used for the Card Authentication
+                 * Challenge.
+                 */
+                fun verificationValue(): Optional<String> =
+                    Optional.ofNullable(verificationValue.getNullable("verification_value"))
+
+                /** Details about the challenge verification attempts, if any happened. */
+                @JsonProperty("attempts")
+                @ExcludeMissing
+                fun _attempts(): JsonField<List<Attempt>> = attempts
+
+                /**
+                 * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Card
+                 * Authentication Challenge was started.
+                 */
+                @JsonProperty("created_at")
+                @ExcludeMissing
+                fun _createdAt(): JsonField<OffsetDateTime> = createdAt
+
+                /** The one-time code used for the Card Authentication Challenge. */
+                @JsonProperty("one_time_code")
+                @ExcludeMissing
+                fun _oneTimeCode(): JsonField<String> = oneTimeCode
+
+                /** The method used to verify the Card Authentication Challenge. */
+                @JsonProperty("verification_method")
+                @ExcludeMissing
+                fun _verificationMethod(): JsonField<VerificationMethod> = verificationMethod
+
+                /**
+                 * E.g., the email address or phone number used for the Card Authentication
+                 * Challenge.
+                 */
+                @JsonProperty("verification_value")
+                @ExcludeMissing
+                fun _verificationValue(): JsonField<String> = verificationValue
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                private var validated: Boolean = false
+
+                fun validate(): Challenge = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    attempts().forEach { it.validate() }
+                    createdAt()
+                    oneTimeCode()
+                    verificationMethod()
+                    verificationValue()
+                    validated = true
+                }
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [Challenge]. */
+                class Builder internal constructor() {
+
+                    private var attempts: JsonField<MutableList<Attempt>>? = null
+                    private var createdAt: JsonField<OffsetDateTime>? = null
+                    private var oneTimeCode: JsonField<String>? = null
+                    private var verificationMethod: JsonField<VerificationMethod>? = null
+                    private var verificationValue: JsonField<String>? = null
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(challenge: Challenge) = apply {
+                        attempts = challenge.attempts.map { it.toMutableList() }
+                        createdAt = challenge.createdAt
+                        oneTimeCode = challenge.oneTimeCode
+                        verificationMethod = challenge.verificationMethod
+                        verificationValue = challenge.verificationValue
+                        additionalProperties = challenge.additionalProperties.toMutableMap()
+                    }
+
+                    /** Details about the challenge verification attempts, if any happened. */
+                    fun attempts(attempts: List<Attempt>) = attempts(JsonField.of(attempts))
+
+                    /** Details about the challenge verification attempts, if any happened. */
+                    fun attempts(attempts: JsonField<List<Attempt>>) = apply {
+                        this.attempts = attempts.map { it.toMutableList() }
+                    }
+
+                    /** Details about the challenge verification attempts, if any happened. */
+                    fun addAttempt(attempt: Attempt) = apply {
+                        attempts =
+                            (attempts ?: JsonField.of(mutableListOf())).apply {
+                                asKnown()
+                                    .orElseThrow {
+                                        IllegalStateException(
+                                            "Field was set to non-list type: ${javaClass.simpleName}"
+                                        )
+                                    }
+                                    .add(attempt)
+                            }
+                    }
+
+                    /**
+                     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Card
+                     * Authentication Challenge was started.
+                     */
+                    fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+                    /**
+                     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Card
+                     * Authentication Challenge was started.
+                     */
+                    fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+                        this.createdAt = createdAt
+                    }
+
+                    /** The one-time code used for the Card Authentication Challenge. */
+                    fun oneTimeCode(oneTimeCode: String) = oneTimeCode(JsonField.of(oneTimeCode))
+
+                    /** The one-time code used for the Card Authentication Challenge. */
+                    fun oneTimeCode(oneTimeCode: JsonField<String>) = apply {
+                        this.oneTimeCode = oneTimeCode
+                    }
+
+                    /** The method used to verify the Card Authentication Challenge. */
+                    fun verificationMethod(verificationMethod: VerificationMethod) =
+                        verificationMethod(JsonField.of(verificationMethod))
+
+                    /** The method used to verify the Card Authentication Challenge. */
+                    fun verificationMethod(verificationMethod: JsonField<VerificationMethod>) =
+                        apply {
+                            this.verificationMethod = verificationMethod
+                        }
+
+                    /**
+                     * E.g., the email address or phone number used for the Card Authentication
+                     * Challenge.
+                     */
+                    fun verificationValue(verificationValue: String?) =
+                        verificationValue(JsonField.ofNullable(verificationValue))
+
+                    /**
+                     * E.g., the email address or phone number used for the Card Authentication
+                     * Challenge.
+                     */
+                    fun verificationValue(verificationValue: Optional<String>) =
+                        verificationValue(verificationValue.orElse(null))
+
+                    /**
+                     * E.g., the email address or phone number used for the Card Authentication
+                     * Challenge.
+                     */
+                    fun verificationValue(verificationValue: JsonField<String>) = apply {
+                        this.verificationValue = verificationValue
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    fun build(): Challenge =
+                        Challenge(
+                            checkRequired("attempts", attempts).map { it.toImmutable() },
+                            checkRequired("createdAt", createdAt),
+                            checkRequired("oneTimeCode", oneTimeCode),
+                            checkRequired("verificationMethod", verificationMethod),
+                            checkRequired("verificationValue", verificationValue),
+                            additionalProperties.toImmutable(),
+                        )
+                }
+
+                @NoAutoDetect
+                class Attempt
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("created_at")
+                    @ExcludeMissing
+                    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+                    @JsonProperty("outcome")
+                    @ExcludeMissing
+                    private val outcome: JsonField<Outcome> = JsonMissing.of(),
+                    @JsonAnySetter
+                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+                ) {
+
+                    /**
+                     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time of the Card
+                     * Authentication Challenge Attempt.
+                     */
+                    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+                    /** The outcome of the Card Authentication Challenge Attempt. */
+                    fun outcome(): Outcome = outcome.getRequired("outcome")
+
+                    /**
+                     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time of the Card
+                     * Authentication Challenge Attempt.
+                     */
+                    @JsonProperty("created_at")
+                    @ExcludeMissing
+                    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
+
+                    /** The outcome of the Card Authentication Challenge Attempt. */
+                    @JsonProperty("outcome")
+                    @ExcludeMissing
+                    fun _outcome(): JsonField<Outcome> = outcome
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                    private var validated: Boolean = false
+
+                    fun validate(): Attempt = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        createdAt()
+                        outcome()
+                        validated = true
+                    }
+
+                    fun toBuilder() = Builder().from(this)
+
+                    companion object {
+
+                        @JvmStatic fun builder() = Builder()
+                    }
+
+                    /** A builder for [Attempt]. */
+                    class Builder internal constructor() {
+
+                        private var createdAt: JsonField<OffsetDateTime>? = null
+                        private var outcome: JsonField<Outcome>? = null
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        @JvmSynthetic
+                        internal fun from(attempt: Attempt) = apply {
+                            createdAt = attempt.createdAt
+                            outcome = attempt.outcome
+                            additionalProperties = attempt.additionalProperties.toMutableMap()
+                        }
+
+                        /**
+                         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time of the Card
+                         * Authentication Challenge Attempt.
+                         */
+                        fun createdAt(createdAt: OffsetDateTime) =
+                            createdAt(JsonField.of(createdAt))
+
+                        /**
+                         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time of the Card
+                         * Authentication Challenge Attempt.
+                         */
+                        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+                            this.createdAt = createdAt
+                        }
+
+                        /** The outcome of the Card Authentication Challenge Attempt. */
+                        fun outcome(outcome: Outcome) = outcome(JsonField.of(outcome))
+
+                        /** The outcome of the Card Authentication Challenge Attempt. */
+                        fun outcome(outcome: JsonField<Outcome>) = apply { this.outcome = outcome }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                putAllAdditionalProperties(additionalProperties)
+                            }
+
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
+
+                        fun build(): Attempt =
+                            Attempt(
+                                checkRequired("createdAt", createdAt),
+                                checkRequired("outcome", outcome),
+                                additionalProperties.toImmutable(),
+                            )
+                    }
+
+                    /** The outcome of the Card Authentication Challenge Attempt. */
+                    class Outcome
+                    @JsonCreator
+                    private constructor(
+                        private val value: JsonField<String>,
+                    ) : Enum {
+
+                        /**
+                         * Returns this class instance's raw value.
+                         *
+                         * This is usually only useful if this instance was deserialized from data
+                         * that doesn't match any known member, and you want to know that value. For
+                         * example, if the SDK is on an older version than the API, then the API may
+                         * respond with new members that the SDK is unaware of.
+                         */
+                        @com.fasterxml.jackson.annotation.JsonValue
+                        fun _value(): JsonField<String> = value
+
+                        companion object {
+
+                            /** The attempt was successful. */
+                            @JvmField val SUCCESSFUL = of("successful")
+
+                            /** The attempt was unsuccessful. */
+                            @JvmField val FAILED = of("failed")
+
+                            @JvmStatic fun of(value: String) = Outcome(JsonField.of(value))
+                        }
+
+                        /** An enum containing [Outcome]'s known values. */
+                        enum class Known {
+                            /** The attempt was successful. */
+                            SUCCESSFUL,
+                            /** The attempt was unsuccessful. */
+                            FAILED,
+                        }
+
+                        /**
+                         * An enum containing [Outcome]'s known values, as well as an [_UNKNOWN]
+                         * member.
+                         *
+                         * An instance of [Outcome] can contain an unknown value in a couple of
+                         * cases:
+                         * - It was deserialized from data that doesn't match any known member. For
+                         *   example, if the SDK is on an older version than the API, then the API
+                         *   may respond with new members that the SDK is unaware of.
+                         * - It was constructed with an arbitrary value using the [of] method.
+                         */
+                        enum class Value {
+                            /** The attempt was successful. */
+                            SUCCESSFUL,
+                            /** The attempt was unsuccessful. */
+                            FAILED,
+                            /**
+                             * An enum member indicating that [Outcome] was instantiated with an
+                             * unknown value.
+                             */
+                            _UNKNOWN,
+                        }
+
+                        /**
+                         * Returns an enum member corresponding to this class instance's value, or
+                         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                         *
+                         * Use the [known] method instead if you're certain the value is always
+                         * known or if you want to throw for the unknown case.
+                         */
+                        fun value(): Value =
+                            when (this) {
+                                SUCCESSFUL -> Value.SUCCESSFUL
+                                FAILED -> Value.FAILED
+                                else -> Value._UNKNOWN
+                            }
+
+                        /**
+                         * Returns an enum member corresponding to this class instance's value.
+                         *
+                         * Use the [value] method instead if you're uncertain the value is always
+                         * known and don't want to throw for the unknown case.
+                         *
+                         * @throws IncreaseInvalidDataException if this class instance's value is a
+                         *   not a known member.
+                         */
+                        fun known(): Known =
+                            when (this) {
+                                SUCCESSFUL -> Known.SUCCESSFUL
+                                FAILED -> Known.FAILED
+                                else ->
+                                    throw IncreaseInvalidDataException("Unknown Outcome: $value")
+                            }
+
+                        fun asString(): String = _value().asStringOrThrow()
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return /* spotless:off */ other is Outcome && value == other.value /* spotless:on */
+                        }
+
+                        override fun hashCode() = value.hashCode()
+
+                        override fun toString() = value.toString()
+                    }
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return /* spotless:off */ other is Attempt && createdAt == other.createdAt && outcome == other.outcome && additionalProperties == other.additionalProperties /* spotless:on */
+                    }
+
+                    /* spotless:off */
+                    private val hashCode: Int by lazy { Objects.hash(createdAt, outcome, additionalProperties) }
+                    /* spotless:on */
+
+                    override fun hashCode(): Int = hashCode
+
+                    override fun toString() =
+                        "Attempt{createdAt=$createdAt, outcome=$outcome, additionalProperties=$additionalProperties}"
+                }
+
+                /** The method used to verify the Card Authentication Challenge. */
+                class VerificationMethod
+                @JsonCreator
+                private constructor(
+                    private val value: JsonField<String>,
+                ) : Enum {
+
+                    /**
+                     * Returns this class instance's raw value.
+                     *
+                     * This is usually only useful if this instance was deserialized from data that
+                     * doesn't match any known member, and you want to know that value. For example,
+                     * if the SDK is on an older version than the API, then the API may respond with
+                     * new members that the SDK is unaware of.
+                     */
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    companion object {
+
+                        /** The one-time code was sent via text message. */
+                        @JvmField val TEXT_MESSAGE = of("text_message")
+
+                        /** The one-time code was sent via email. */
+                        @JvmField val EMAIL = of("email")
+
+                        /** The one-time code was not successfully delievered. */
+                        @JvmField val NONE_AVAILABLE = of("none_available")
+
+                        @JvmStatic fun of(value: String) = VerificationMethod(JsonField.of(value))
+                    }
+
+                    /** An enum containing [VerificationMethod]'s known values. */
+                    enum class Known {
+                        /** The one-time code was sent via text message. */
+                        TEXT_MESSAGE,
+                        /** The one-time code was sent via email. */
+                        EMAIL,
+                        /** The one-time code was not successfully delievered. */
+                        NONE_AVAILABLE,
+                    }
+
+                    /**
+                     * An enum containing [VerificationMethod]'s known values, as well as an
+                     * [_UNKNOWN] member.
+                     *
+                     * An instance of [VerificationMethod] can contain an unknown value in a couple
+                     * of cases:
+                     * - It was deserialized from data that doesn't match any known member. For
+                     *   example, if the SDK is on an older version than the API, then the API may
+                     *   respond with new members that the SDK is unaware of.
+                     * - It was constructed with an arbitrary value using the [of] method.
+                     */
+                    enum class Value {
+                        /** The one-time code was sent via text message. */
+                        TEXT_MESSAGE,
+                        /** The one-time code was sent via email. */
+                        EMAIL,
+                        /** The one-time code was not successfully delievered. */
+                        NONE_AVAILABLE,
+                        /**
+                         * An enum member indicating that [VerificationMethod] was instantiated with
+                         * an unknown value.
+                         */
+                        _UNKNOWN,
+                    }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value, or
+                     * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                     *
+                     * Use the [known] method instead if you're certain the value is always known or
+                     * if you want to throw for the unknown case.
+                     */
+                    fun value(): Value =
+                        when (this) {
+                            TEXT_MESSAGE -> Value.TEXT_MESSAGE
+                            EMAIL -> Value.EMAIL
+                            NONE_AVAILABLE -> Value.NONE_AVAILABLE
+                            else -> Value._UNKNOWN
+                        }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value.
+                     *
+                     * Use the [value] method instead if you're uncertain the value is always known
+                     * and don't want to throw for the unknown case.
+                     *
+                     * @throws IncreaseInvalidDataException if this class instance's value is a not
+                     *   a known member.
+                     */
+                    fun known(): Known =
+                        when (this) {
+                            TEXT_MESSAGE -> Known.TEXT_MESSAGE
+                            EMAIL -> Known.EMAIL
+                            NONE_AVAILABLE -> Known.NONE_AVAILABLE
+                            else ->
+                                throw IncreaseInvalidDataException(
+                                    "Unknown VerificationMethod: $value"
+                                )
+                        }
+
+                    fun asString(): String = _value().asStringOrThrow()
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return /* spotless:off */ other is VerificationMethod && value == other.value /* spotless:on */
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+                }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return /* spotless:off */ other is Challenge && attempts == other.attempts && createdAt == other.createdAt && oneTimeCode == other.oneTimeCode && verificationMethod == other.verificationMethod && verificationValue == other.verificationValue && additionalProperties == other.additionalProperties /* spotless:on */
+                }
+
+                /* spotless:off */
+                private val hashCode: Int by lazy { Objects.hash(attempts, createdAt, oneTimeCode, verificationMethod, verificationValue, additionalProperties) }
+                /* spotless:on */
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "Challenge{attempts=$attempts, createdAt=$createdAt, oneTimeCode=$oneTimeCode, verificationMethod=$verificationMethod, verificationValue=$verificationValue, additionalProperties=$additionalProperties}"
+            }
+
+            /** The reason why this authentication attempt was denied, if it was. */
+            class DenyReason
+            @JsonCreator
+            private constructor(
+                private val value: JsonField<String>,
+            ) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    /** The group was locked. */
+                    @JvmField val GROUP_LOCKED = of("group_locked")
+
+                    /** The card was not active. */
+                    @JvmField val CARD_NOT_ACTIVE = of("card_not_active")
+
+                    /** The entity was not active. */
+                    @JvmField val ENTITY_NOT_ACTIVE = of("entity_not_active")
+
+                    /** The transaction was not allowed. */
+                    @JvmField val TRANSACTION_NOT_ALLOWED = of("transaction_not_allowed")
+
+                    /** The webhook was denied. */
+                    @JvmField val WEBHOOK_DENIED = of("webhook_denied")
+
+                    /** The webhook timed out. */
+                    @JvmField val WEBHOOK_TIMED_OUT = of("webhook_timed_out")
+
+                    @JvmStatic fun of(value: String) = DenyReason(JsonField.of(value))
+                }
+
+                /** An enum containing [DenyReason]'s known values. */
+                enum class Known {
+                    /** The group was locked. */
+                    GROUP_LOCKED,
+                    /** The card was not active. */
+                    CARD_NOT_ACTIVE,
+                    /** The entity was not active. */
+                    ENTITY_NOT_ACTIVE,
+                    /** The transaction was not allowed. */
+                    TRANSACTION_NOT_ALLOWED,
+                    /** The webhook was denied. */
+                    WEBHOOK_DENIED,
+                    /** The webhook timed out. */
+                    WEBHOOK_TIMED_OUT,
+                }
+
+                /**
+                 * An enum containing [DenyReason]'s known values, as well as an [_UNKNOWN] member.
+                 *
+                 * An instance of [DenyReason] can contain an unknown value in a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    /** The group was locked. */
+                    GROUP_LOCKED,
+                    /** The card was not active. */
+                    CARD_NOT_ACTIVE,
+                    /** The entity was not active. */
+                    ENTITY_NOT_ACTIVE,
+                    /** The transaction was not allowed. */
+                    TRANSACTION_NOT_ALLOWED,
+                    /** The webhook was denied. */
+                    WEBHOOK_DENIED,
+                    /** The webhook timed out. */
+                    WEBHOOK_TIMED_OUT,
+                    /**
+                     * An enum member indicating that [DenyReason] was instantiated with an unknown
+                     * value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        GROUP_LOCKED -> Value.GROUP_LOCKED
+                        CARD_NOT_ACTIVE -> Value.CARD_NOT_ACTIVE
+                        ENTITY_NOT_ACTIVE -> Value.ENTITY_NOT_ACTIVE
+                        TRANSACTION_NOT_ALLOWED -> Value.TRANSACTION_NOT_ALLOWED
+                        WEBHOOK_DENIED -> Value.WEBHOOK_DENIED
+                        WEBHOOK_TIMED_OUT -> Value.WEBHOOK_TIMED_OUT
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        GROUP_LOCKED -> Known.GROUP_LOCKED
+                        CARD_NOT_ACTIVE -> Known.CARD_NOT_ACTIVE
+                        ENTITY_NOT_ACTIVE -> Known.ENTITY_NOT_ACTIVE
+                        TRANSACTION_NOT_ALLOWED -> Known.TRANSACTION_NOT_ALLOWED
+                        WEBHOOK_DENIED -> Known.WEBHOOK_DENIED
+                        WEBHOOK_TIMED_OUT -> Known.WEBHOOK_TIMED_OUT
+                        else -> throw IncreaseInvalidDataException("Unknown DenyReason: $value")
+                    }
+
+                fun asString(): String = _value().asStringOrThrow()
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return /* spotless:off */ other is DenyReason && value == other.value /* spotless:on */
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            /** The device channel of the card authentication attempt. */
+            class DeviceChannel
+            @JsonCreator
+            private constructor(
+                private val value: JsonField<String>,
+            ) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    /** The authentication attempt was made from an app. */
+                    @JvmField val APP = of("app")
+
+                    /** The authentication attempt was made from a browser. */
+                    @JvmField val BROWSER = of("browser")
+
+                    /** The authentication attempt was initiated by the 3DS Requestor. */
+                    @JvmField val THREE_DS_REQUESTOR_INITIATED = of("three_ds_requestor_initiated")
+
+                    @JvmStatic fun of(value: String) = DeviceChannel(JsonField.of(value))
+                }
+
+                /** An enum containing [DeviceChannel]'s known values. */
+                enum class Known {
+                    /** The authentication attempt was made from an app. */
+                    APP,
+                    /** The authentication attempt was made from a browser. */
+                    BROWSER,
+                    /** The authentication attempt was initiated by the 3DS Requestor. */
+                    THREE_DS_REQUESTOR_INITIATED,
+                }
+
+                /**
+                 * An enum containing [DeviceChannel]'s known values, as well as an [_UNKNOWN]
+                 * member.
+                 *
+                 * An instance of [DeviceChannel] can contain an unknown value in a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    /** The authentication attempt was made from an app. */
+                    APP,
+                    /** The authentication attempt was made from a browser. */
+                    BROWSER,
+                    /** The authentication attempt was initiated by the 3DS Requestor. */
+                    THREE_DS_REQUESTOR_INITIATED,
+                    /**
+                     * An enum member indicating that [DeviceChannel] was instantiated with an
+                     * unknown value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        APP -> Value.APP
+                        BROWSER -> Value.BROWSER
+                        THREE_DS_REQUESTOR_INITIATED -> Value.THREE_DS_REQUESTOR_INITIATED
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        APP -> Known.APP
+                        BROWSER -> Known.BROWSER
+                        THREE_DS_REQUESTOR_INITIATED -> Known.THREE_DS_REQUESTOR_INITIATED
+                        else -> throw IncreaseInvalidDataException("Unknown DeviceChannel: $value")
+                    }
+
+                fun asString(): String = _value().asStringOrThrow()
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return /* spotless:off */ other is DeviceChannel && value == other.value /* spotless:on */
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            /** The status of the card authentication. */
+            class Status
+            @JsonCreator
+            private constructor(
+                private val value: JsonField<String>,
+            ) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    /** The authentication attempt was denied. */
+                    @JvmField val DENIED = of("denied")
+
+                    /** The authentication attempt was authenticated with a challenge. */
+                    @JvmField val AUTHENTICATED_WITH_CHALLENGE = of("authenticated_with_challenge")
+
+                    /** The authentication attempt was authenticated without a challenge. */
+                    @JvmField
+                    val AUTHENTICATED_WITHOUT_CHALLENGE = of("authenticated_without_challenge")
+
+                    /** The authentication attempt is awaiting a challenge. */
+                    @JvmField val AWAITING_CHALLENGE = of("awaiting_challenge")
+
+                    /** The authentication attempt is validating a challenge. */
+                    @JvmField val VALIDATING_CHALLENGE = of("validating_challenge")
+
+                    /** The authentication attempt was canceled. */
+                    @JvmField val CANCELED = of("canceled")
+
+                    /** The authentication attempt timed out while awaiting a challenge. */
+                    @JvmField val TIMED_OUT_AWAITING_CHALLENGE = of("timed_out_awaiting_challenge")
+
+                    /** The authentication attempt errored. */
+                    @JvmField val ERRORED = of("errored")
+
+                    /** The authentication attempt exceeded the attempt threshold. */
+                    @JvmField val EXCEEDED_ATTEMPT_THRESHOLD = of("exceeded_attempt_threshold")
+
+                    @JvmStatic fun of(value: String) = Status(JsonField.of(value))
+                }
+
+                /** An enum containing [Status]'s known values. */
+                enum class Known {
+                    /** The authentication attempt was denied. */
+                    DENIED,
+                    /** The authentication attempt was authenticated with a challenge. */
+                    AUTHENTICATED_WITH_CHALLENGE,
+                    /** The authentication attempt was authenticated without a challenge. */
+                    AUTHENTICATED_WITHOUT_CHALLENGE,
+                    /** The authentication attempt is awaiting a challenge. */
+                    AWAITING_CHALLENGE,
+                    /** The authentication attempt is validating a challenge. */
+                    VALIDATING_CHALLENGE,
+                    /** The authentication attempt was canceled. */
+                    CANCELED,
+                    /** The authentication attempt timed out while awaiting a challenge. */
+                    TIMED_OUT_AWAITING_CHALLENGE,
+                    /** The authentication attempt errored. */
+                    ERRORED,
+                    /** The authentication attempt exceeded the attempt threshold. */
+                    EXCEEDED_ATTEMPT_THRESHOLD,
+                }
+
+                /**
+                 * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
+                 *
+                 * An instance of [Status] can contain an unknown value in a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    /** The authentication attempt was denied. */
+                    DENIED,
+                    /** The authentication attempt was authenticated with a challenge. */
+                    AUTHENTICATED_WITH_CHALLENGE,
+                    /** The authentication attempt was authenticated without a challenge. */
+                    AUTHENTICATED_WITHOUT_CHALLENGE,
+                    /** The authentication attempt is awaiting a challenge. */
+                    AWAITING_CHALLENGE,
+                    /** The authentication attempt is validating a challenge. */
+                    VALIDATING_CHALLENGE,
+                    /** The authentication attempt was canceled. */
+                    CANCELED,
+                    /** The authentication attempt timed out while awaiting a challenge. */
+                    TIMED_OUT_AWAITING_CHALLENGE,
+                    /** The authentication attempt errored. */
+                    ERRORED,
+                    /** The authentication attempt exceeded the attempt threshold. */
+                    EXCEEDED_ATTEMPT_THRESHOLD,
+                    /**
+                     * An enum member indicating that [Status] was instantiated with an unknown
+                     * value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        DENIED -> Value.DENIED
+                        AUTHENTICATED_WITH_CHALLENGE -> Value.AUTHENTICATED_WITH_CHALLENGE
+                        AUTHENTICATED_WITHOUT_CHALLENGE -> Value.AUTHENTICATED_WITHOUT_CHALLENGE
+                        AWAITING_CHALLENGE -> Value.AWAITING_CHALLENGE
+                        VALIDATING_CHALLENGE -> Value.VALIDATING_CHALLENGE
+                        CANCELED -> Value.CANCELED
+                        TIMED_OUT_AWAITING_CHALLENGE -> Value.TIMED_OUT_AWAITING_CHALLENGE
+                        ERRORED -> Value.ERRORED
+                        EXCEEDED_ATTEMPT_THRESHOLD -> Value.EXCEEDED_ATTEMPT_THRESHOLD
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        DENIED -> Known.DENIED
+                        AUTHENTICATED_WITH_CHALLENGE -> Known.AUTHENTICATED_WITH_CHALLENGE
+                        AUTHENTICATED_WITHOUT_CHALLENGE -> Known.AUTHENTICATED_WITHOUT_CHALLENGE
+                        AWAITING_CHALLENGE -> Known.AWAITING_CHALLENGE
+                        VALIDATING_CHALLENGE -> Known.VALIDATING_CHALLENGE
+                        CANCELED -> Known.CANCELED
+                        TIMED_OUT_AWAITING_CHALLENGE -> Known.TIMED_OUT_AWAITING_CHALLENGE
+                        ERRORED -> Known.ERRORED
+                        EXCEEDED_ATTEMPT_THRESHOLD -> Known.EXCEEDED_ATTEMPT_THRESHOLD
+                        else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+                    }
+
+                fun asString(): String = _value().asStringOrThrow()
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            /**
+             * A constant representing the object's type. For this resource it will always be
+             * `card_authentication`.
+             */
+            class Type
+            @JsonCreator
+            private constructor(
+                private val value: JsonField<String>,
+            ) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    @JvmField val CARD_AUTHENTICATION = of("card_authentication")
+
+                    @JvmStatic fun of(value: String) = Type(JsonField.of(value))
+                }
+
+                /** An enum containing [Type]'s known values. */
+                enum class Known {
+                    CARD_AUTHENTICATION,
+                }
+
+                /**
+                 * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
+                 *
+                 * An instance of [Type] can contain an unknown value in a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    CARD_AUTHENTICATION,
+                    /**
+                     * An enum member indicating that [Type] was instantiated with an unknown value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        CARD_AUTHENTICATION -> Value.CARD_AUTHENTICATION
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        CARD_AUTHENTICATION -> Known.CARD_AUTHENTICATION
+                        else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+                    }
+
+                fun asString(): String = _value().asStringOrThrow()
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return /* spotless:off */ other is CardAuthentication && id == other.id && cardId == other.cardId && cardPaymentId == other.cardPaymentId && category == other.category && challenge == other.challenge && createdAt == other.createdAt && denyReason == other.denyReason && deviceChannel == other.deviceChannel && merchantAcceptorId == other.merchantAcceptorId && merchantCategoryCode == other.merchantCategoryCode && merchantCountry == other.merchantCountry && merchantName == other.merchantName && purchaseAmount == other.purchaseAmount && purchaseCurrency == other.purchaseCurrency && realTimeDecisionId == other.realTimeDecisionId && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+            }
+
+            /* spotless:off */
+            private val hashCode: Int by lazy { Objects.hash(id, cardId, cardPaymentId, category, challenge, createdAt, denyReason, deviceChannel, merchantAcceptorId, merchantCategoryCode, merchantCountry, merchantName, purchaseAmount, purchaseCurrency, realTimeDecisionId, status, type, additionalProperties) }
+            /* spotless:on */
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "CardAuthentication{id=$id, cardId=$cardId, cardPaymentId=$cardPaymentId, category=$category, challenge=$challenge, createdAt=$createdAt, denyReason=$denyReason, deviceChannel=$deviceChannel, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCountry=$merchantCountry, merchantName=$merchantName, purchaseAmount=$purchaseAmount, purchaseCurrency=$purchaseCurrency, realTimeDecisionId=$realTimeDecisionId, status=$status, type=$type, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -29371,17 +31230,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Element && cardAuthorization == other.cardAuthorization && cardAuthorizationExpiration == other.cardAuthorizationExpiration && cardDecline == other.cardDecline && cardFuelConfirmation == other.cardFuelConfirmation && cardIncrement == other.cardIncrement && cardRefund == other.cardRefund && cardReversal == other.cardReversal && cardSettlement == other.cardSettlement && cardValidation == other.cardValidation && category == other.category && createdAt == other.createdAt && this.other == other.other && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Element && cardAuthentication == other.cardAuthentication && cardAuthorization == other.cardAuthorization && cardAuthorizationExpiration == other.cardAuthorizationExpiration && cardDecline == other.cardDecline && cardFuelConfirmation == other.cardFuelConfirmation && cardIncrement == other.cardIncrement && cardRefund == other.cardRefund && cardReversal == other.cardReversal && cardSettlement == other.cardSettlement && cardValidation == other.cardValidation && category == other.category && createdAt == other.createdAt && this.other == other.other && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(cardAuthorization, cardAuthorizationExpiration, cardDecline, cardFuelConfirmation, cardIncrement, cardRefund, cardReversal, cardSettlement, cardValidation, category, createdAt, other, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(cardAuthentication, cardAuthorization, cardAuthorizationExpiration, cardDecline, cardFuelConfirmation, cardIncrement, cardRefund, cardReversal, cardSettlement, cardValidation, category, createdAt, other, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Element{cardAuthorization=$cardAuthorization, cardAuthorizationExpiration=$cardAuthorizationExpiration, cardDecline=$cardDecline, cardFuelConfirmation=$cardFuelConfirmation, cardIncrement=$cardIncrement, cardRefund=$cardRefund, cardReversal=$cardReversal, cardSettlement=$cardSettlement, cardValidation=$cardValidation, category=$category, createdAt=$createdAt, other=$other, additionalProperties=$additionalProperties}"
+            "Element{cardAuthentication=$cardAuthentication, cardAuthorization=$cardAuthorization, cardAuthorizationExpiration=$cardAuthorizationExpiration, cardDecline=$cardDecline, cardFuelConfirmation=$cardFuelConfirmation, cardIncrement=$cardIncrement, cardRefund=$cardRefund, cardReversal=$cardReversal, cardSettlement=$cardSettlement, cardValidation=$cardValidation, category=$category, createdAt=$createdAt, other=$other, additionalProperties=$additionalProperties}"
     }
 
     /** The summarized state of this card payment. */

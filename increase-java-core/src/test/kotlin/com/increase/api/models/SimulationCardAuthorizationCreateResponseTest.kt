@@ -480,6 +480,13 @@ class SimulationCardAuthorizationCreateResponseTest {
                                         )
                                         .build()
                                 )
+                                .inboundWireTransferReversal(
+                                    PendingTransaction.Source.InboundWireTransferReversal.builder()
+                                        .inboundWireTransferId(
+                                            "inbound_wire_transfer_f228m6bmhtcxjco9pwp0"
+                                        )
+                                        .build()
+                                )
                                 .other(JsonValue.from(mapOf<String, Any>()))
                                 .realTimePaymentsTransferInstruction(
                                     PendingTransaction.Source.RealTimePaymentsTransferInstruction
@@ -953,6 +960,13 @@ class SimulationCardAuthorizationCreateResponseTest {
                                     .type(
                                         PendingTransaction.Source.InboundFundsHold.Type
                                             .INBOUND_FUNDS_HOLD
+                                    )
+                                    .build()
+                            )
+                            .inboundWireTransferReversal(
+                                PendingTransaction.Source.InboundWireTransferReversal.builder()
+                                    .inboundWireTransferId(
+                                        "inbound_wire_transfer_f228m6bmhtcxjco9pwp0"
                                     )
                                     .build()
                             )
