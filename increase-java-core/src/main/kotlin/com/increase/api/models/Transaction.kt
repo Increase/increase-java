@@ -677,6 +677,19 @@ private constructor(
         @JsonProperty("inbound_ach_transfer")
         @ExcludeMissing
         private val inboundAchTransfer: JsonField<InboundAchTransfer> = JsonMissing.of(),
+        @JsonProperty("inbound_ach_transfer_return_intention")
+        @ExcludeMissing
+        private val inboundAchTransferReturnIntention:
+            JsonField<InboundAchTransferReturnIntention> =
+            JsonMissing.of(),
+        @JsonProperty("inbound_check_adjustment")
+        @ExcludeMissing
+        private val inboundCheckAdjustment: JsonField<InboundCheckAdjustment> = JsonMissing.of(),
+        @JsonProperty("inbound_check_deposit_return_intention")
+        @ExcludeMissing
+        private val inboundCheckDepositReturnIntention:
+            JsonField<InboundCheckDepositReturnIntention> =
+            JsonMissing.of(),
         @JsonProperty("inbound_real_time_payments_transfer_confirmation")
         @ExcludeMissing
         private val inboundRealTimePaymentsTransferConfirmation:
@@ -693,6 +706,10 @@ private constructor(
         @JsonProperty("inbound_wire_transfer")
         @ExcludeMissing
         private val inboundWireTransfer: JsonField<InboundWireTransfer> = JsonMissing.of(),
+        @JsonProperty("inbound_wire_transfer_reversal")
+        @ExcludeMissing
+        private val inboundWireTransferReversal: JsonField<InboundWireTransferReversal> =
+            JsonMissing.of(),
         @JsonProperty("interest_payment")
         @ExcludeMissing
         private val interestPayment: JsonField<InterestPayment> = JsonMissing.of(),
@@ -827,6 +844,35 @@ private constructor(
             Optional.ofNullable(inboundAchTransfer.getNullable("inbound_ach_transfer"))
 
         /**
+         * An Inbound ACH Transfer Return Intention object. This field will be present in the JSON
+         * response if and only if `category` is equal to `inbound_ach_transfer_return_intention`.
+         */
+        fun inboundAchTransferReturnIntention(): Optional<InboundAchTransferReturnIntention> =
+            Optional.ofNullable(
+                inboundAchTransferReturnIntention.getNullable(
+                    "inbound_ach_transfer_return_intention"
+                )
+            )
+
+        /**
+         * An Inbound Check Adjustment object. This field will be present in the JSON response if
+         * and only if `category` is equal to `inbound_check_adjustment`.
+         */
+        fun inboundCheckAdjustment(): Optional<InboundCheckAdjustment> =
+            Optional.ofNullable(inboundCheckAdjustment.getNullable("inbound_check_adjustment"))
+
+        /**
+         * An Inbound Check Deposit Return Intention object. This field will be present in the JSON
+         * response if and only if `category` is equal to `inbound_check_deposit_return_intention`.
+         */
+        fun inboundCheckDepositReturnIntention(): Optional<InboundCheckDepositReturnIntention> =
+            Optional.ofNullable(
+                inboundCheckDepositReturnIntention.getNullable(
+                    "inbound_check_deposit_return_intention"
+                )
+            )
+
+        /**
          * An Inbound Real-Time Payments Transfer Confirmation object. This field will be present in
          * the JSON response if and only if `category` is equal to
          * `inbound_real_time_payments_transfer_confirmation`.
@@ -865,6 +911,15 @@ private constructor(
          */
         fun inboundWireTransfer(): Optional<InboundWireTransfer> =
             Optional.ofNullable(inboundWireTransfer.getNullable("inbound_wire_transfer"))
+
+        /**
+         * An Inbound Wire Transfer Reversal Intention object. This field will be present in the
+         * JSON response if and only if `category` is equal to `inbound_wire_transfer_reversal`.
+         */
+        fun inboundWireTransferReversal(): Optional<InboundWireTransferReversal> =
+            Optional.ofNullable(
+                inboundWireTransferReversal.getNullable("inbound_wire_transfer_reversal")
+            )
 
         /**
          * An Interest Payment object. This field will be present in the JSON response if and only
@@ -1041,6 +1096,32 @@ private constructor(
         fun _inboundAchTransfer(): JsonField<InboundAchTransfer> = inboundAchTransfer
 
         /**
+         * An Inbound ACH Transfer Return Intention object. This field will be present in the JSON
+         * response if and only if `category` is equal to `inbound_ach_transfer_return_intention`.
+         */
+        @JsonProperty("inbound_ach_transfer_return_intention")
+        @ExcludeMissing
+        fun _inboundAchTransferReturnIntention(): JsonField<InboundAchTransferReturnIntention> =
+            inboundAchTransferReturnIntention
+
+        /**
+         * An Inbound Check Adjustment object. This field will be present in the JSON response if
+         * and only if `category` is equal to `inbound_check_adjustment`.
+         */
+        @JsonProperty("inbound_check_adjustment")
+        @ExcludeMissing
+        fun _inboundCheckAdjustment(): JsonField<InboundCheckAdjustment> = inboundCheckAdjustment
+
+        /**
+         * An Inbound Check Deposit Return Intention object. This field will be present in the JSON
+         * response if and only if `category` is equal to `inbound_check_deposit_return_intention`.
+         */
+        @JsonProperty("inbound_check_deposit_return_intention")
+        @ExcludeMissing
+        fun _inboundCheckDepositReturnIntention(): JsonField<InboundCheckDepositReturnIntention> =
+            inboundCheckDepositReturnIntention
+
+        /**
          * An Inbound Real-Time Payments Transfer Confirmation object. This field will be present in
          * the JSON response if and only if `category` is equal to
          * `inbound_real_time_payments_transfer_confirmation`.
@@ -1077,6 +1158,15 @@ private constructor(
         @JsonProperty("inbound_wire_transfer")
         @ExcludeMissing
         fun _inboundWireTransfer(): JsonField<InboundWireTransfer> = inboundWireTransfer
+
+        /**
+         * An Inbound Wire Transfer Reversal Intention object. This field will be present in the
+         * JSON response if and only if `category` is equal to `inbound_wire_transfer_reversal`.
+         */
+        @JsonProperty("inbound_wire_transfer_reversal")
+        @ExcludeMissing
+        fun _inboundWireTransferReversal(): JsonField<InboundWireTransferReversal> =
+            inboundWireTransferReversal
 
         /**
          * An Interest Payment object. This field will be present in the JSON response if and only
@@ -1148,10 +1238,14 @@ private constructor(
             checkTransferDeposit().ifPresent { it.validate() }
             feePayment().ifPresent { it.validate() }
             inboundAchTransfer().ifPresent { it.validate() }
+            inboundAchTransferReturnIntention().ifPresent { it.validate() }
+            inboundCheckAdjustment().ifPresent { it.validate() }
+            inboundCheckDepositReturnIntention().ifPresent { it.validate() }
             inboundRealTimePaymentsTransferConfirmation().ifPresent { it.validate() }
             inboundRealTimePaymentsTransferDecline().ifPresent { it.validate() }
             inboundWireReversal().ifPresent { it.validate() }
             inboundWireTransfer().ifPresent { it.validate() }
+            inboundWireTransferReversal().ifPresent { it.validate() }
             interestPayment().ifPresent { it.validate() }
             internalSource().ifPresent { it.validate() }
             realTimePaymentsTransferAcknowledgement().ifPresent { it.validate() }
@@ -1186,6 +1280,13 @@ private constructor(
             private var checkTransferDeposit: JsonField<CheckTransferDeposit>? = null
             private var feePayment: JsonField<FeePayment>? = null
             private var inboundAchTransfer: JsonField<InboundAchTransfer>? = null
+            private var inboundAchTransferReturnIntention:
+                JsonField<InboundAchTransferReturnIntention>? =
+                null
+            private var inboundCheckAdjustment: JsonField<InboundCheckAdjustment>? = null
+            private var inboundCheckDepositReturnIntention:
+                JsonField<InboundCheckDepositReturnIntention>? =
+                null
             private var inboundRealTimePaymentsTransferConfirmation:
                 JsonField<InboundRealTimePaymentsTransferConfirmation>? =
                 null
@@ -1194,6 +1295,7 @@ private constructor(
                 null
             private var inboundWireReversal: JsonField<InboundWireReversal>? = null
             private var inboundWireTransfer: JsonField<InboundWireTransfer>? = null
+            private var inboundWireTransferReversal: JsonField<InboundWireTransferReversal>? = null
             private var interestPayment: JsonField<InterestPayment>? = null
             private var internalSource: JsonField<InternalSource>? = null
             private var other: JsonValue? = null
@@ -1222,12 +1324,16 @@ private constructor(
                 checkTransferDeposit = source.checkTransferDeposit
                 feePayment = source.feePayment
                 inboundAchTransfer = source.inboundAchTransfer
+                inboundAchTransferReturnIntention = source.inboundAchTransferReturnIntention
+                inboundCheckAdjustment = source.inboundCheckAdjustment
+                inboundCheckDepositReturnIntention = source.inboundCheckDepositReturnIntention
                 inboundRealTimePaymentsTransferConfirmation =
                     source.inboundRealTimePaymentsTransferConfirmation
                 inboundRealTimePaymentsTransferDecline =
                     source.inboundRealTimePaymentsTransferDecline
                 inboundWireReversal = source.inboundWireReversal
                 inboundWireTransfer = source.inboundWireTransfer
+                inboundWireTransferReversal = source.inboundWireTransferReversal
                 interestPayment = source.interestPayment
                 internalSource = source.internalSource
                 other = source.other
@@ -1583,6 +1689,91 @@ private constructor(
             }
 
             /**
+             * An Inbound ACH Transfer Return Intention object. This field will be present in the
+             * JSON response if and only if `category` is equal to
+             * `inbound_ach_transfer_return_intention`.
+             */
+            fun inboundAchTransferReturnIntention(
+                inboundAchTransferReturnIntention: InboundAchTransferReturnIntention?
+            ) =
+                inboundAchTransferReturnIntention(
+                    JsonField.ofNullable(inboundAchTransferReturnIntention)
+                )
+
+            /**
+             * An Inbound ACH Transfer Return Intention object. This field will be present in the
+             * JSON response if and only if `category` is equal to
+             * `inbound_ach_transfer_return_intention`.
+             */
+            fun inboundAchTransferReturnIntention(
+                inboundAchTransferReturnIntention: Optional<InboundAchTransferReturnIntention>
+            ) = inboundAchTransferReturnIntention(inboundAchTransferReturnIntention.orElse(null))
+
+            /**
+             * An Inbound ACH Transfer Return Intention object. This field will be present in the
+             * JSON response if and only if `category` is equal to
+             * `inbound_ach_transfer_return_intention`.
+             */
+            fun inboundAchTransferReturnIntention(
+                inboundAchTransferReturnIntention: JsonField<InboundAchTransferReturnIntention>
+            ) = apply { this.inboundAchTransferReturnIntention = inboundAchTransferReturnIntention }
+
+            /**
+             * An Inbound Check Adjustment object. This field will be present in the JSON response
+             * if and only if `category` is equal to `inbound_check_adjustment`.
+             */
+            fun inboundCheckAdjustment(inboundCheckAdjustment: InboundCheckAdjustment?) =
+                inboundCheckAdjustment(JsonField.ofNullable(inboundCheckAdjustment))
+
+            /**
+             * An Inbound Check Adjustment object. This field will be present in the JSON response
+             * if and only if `category` is equal to `inbound_check_adjustment`.
+             */
+            fun inboundCheckAdjustment(inboundCheckAdjustment: Optional<InboundCheckAdjustment>) =
+                inboundCheckAdjustment(inboundCheckAdjustment.orElse(null))
+
+            /**
+             * An Inbound Check Adjustment object. This field will be present in the JSON response
+             * if and only if `category` is equal to `inbound_check_adjustment`.
+             */
+            fun inboundCheckAdjustment(inboundCheckAdjustment: JsonField<InboundCheckAdjustment>) =
+                apply {
+                    this.inboundCheckAdjustment = inboundCheckAdjustment
+                }
+
+            /**
+             * An Inbound Check Deposit Return Intention object. This field will be present in the
+             * JSON response if and only if `category` is equal to
+             * `inbound_check_deposit_return_intention`.
+             */
+            fun inboundCheckDepositReturnIntention(
+                inboundCheckDepositReturnIntention: InboundCheckDepositReturnIntention?
+            ) =
+                inboundCheckDepositReturnIntention(
+                    JsonField.ofNullable(inboundCheckDepositReturnIntention)
+                )
+
+            /**
+             * An Inbound Check Deposit Return Intention object. This field will be present in the
+             * JSON response if and only if `category` is equal to
+             * `inbound_check_deposit_return_intention`.
+             */
+            fun inboundCheckDepositReturnIntention(
+                inboundCheckDepositReturnIntention: Optional<InboundCheckDepositReturnIntention>
+            ) = inboundCheckDepositReturnIntention(inboundCheckDepositReturnIntention.orElse(null))
+
+            /**
+             * An Inbound Check Deposit Return Intention object. This field will be present in the
+             * JSON response if and only if `category` is equal to
+             * `inbound_check_deposit_return_intention`.
+             */
+            fun inboundCheckDepositReturnIntention(
+                inboundCheckDepositReturnIntention: JsonField<InboundCheckDepositReturnIntention>
+            ) = apply {
+                this.inboundCheckDepositReturnIntention = inboundCheckDepositReturnIntention
+            }
+
+            /**
              * An Inbound Real-Time Payments Transfer Confirmation object. This field will be
              * present in the JSON response if and only if `category` is equal to
              * `inbound_real_time_payments_transfer_confirmation`.
@@ -1701,6 +1892,30 @@ private constructor(
             fun inboundWireTransfer(inboundWireTransfer: JsonField<InboundWireTransfer>) = apply {
                 this.inboundWireTransfer = inboundWireTransfer
             }
+
+            /**
+             * An Inbound Wire Transfer Reversal Intention object. This field will be present in the
+             * JSON response if and only if `category` is equal to `inbound_wire_transfer_reversal`.
+             */
+            fun inboundWireTransferReversal(
+                inboundWireTransferReversal: InboundWireTransferReversal?
+            ) = inboundWireTransferReversal(JsonField.ofNullable(inboundWireTransferReversal))
+
+            /**
+             * An Inbound Wire Transfer Reversal Intention object. This field will be present in the
+             * JSON response if and only if `category` is equal to `inbound_wire_transfer_reversal`.
+             */
+            fun inboundWireTransferReversal(
+                inboundWireTransferReversal: Optional<InboundWireTransferReversal>
+            ) = inboundWireTransferReversal(inboundWireTransferReversal.orElse(null))
+
+            /**
+             * An Inbound Wire Transfer Reversal Intention object. This field will be present in the
+             * JSON response if and only if `category` is equal to `inbound_wire_transfer_reversal`.
+             */
+            fun inboundWireTransferReversal(
+                inboundWireTransferReversal: JsonField<InboundWireTransferReversal>
+            ) = apply { this.inboundWireTransferReversal = inboundWireTransferReversal }
 
             /**
              * An Interest Payment object. This field will be present in the JSON response if and
@@ -1873,6 +2088,15 @@ private constructor(
                     checkRequired("feePayment", feePayment),
                     checkRequired("inboundAchTransfer", inboundAchTransfer),
                     checkRequired(
+                        "inboundAchTransferReturnIntention",
+                        inboundAchTransferReturnIntention
+                    ),
+                    checkRequired("inboundCheckAdjustment", inboundCheckAdjustment),
+                    checkRequired(
+                        "inboundCheckDepositReturnIntention",
+                        inboundCheckDepositReturnIntention
+                    ),
+                    checkRequired(
                         "inboundRealTimePaymentsTransferConfirmation",
                         inboundRealTimePaymentsTransferConfirmation
                     ),
@@ -1882,6 +2106,7 @@ private constructor(
                     ),
                     checkRequired("inboundWireReversal", inboundWireReversal),
                     checkRequired("inboundWireTransfer", inboundWireTransfer),
+                    checkRequired("inboundWireTransferReversal", inboundWireTransferReversal),
                     checkRequired("interestPayment", interestPayment),
                     checkRequired("internalSource", internalSource),
                     checkRequired("other", other),
@@ -21849,6 +22074,558 @@ private constructor(
         }
 
         /**
+         * An Inbound ACH Transfer Return Intention object. This field will be present in the JSON
+         * response if and only if `category` is equal to `inbound_ach_transfer_return_intention`.
+         */
+        @NoAutoDetect
+        class InboundAchTransferReturnIntention
+        @JsonCreator
+        private constructor(
+            @JsonProperty("inbound_ach_transfer_id")
+            @ExcludeMissing
+            private val inboundAchTransferId: JsonField<String> = JsonMissing.of(),
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        ) {
+
+            /** The ID of the Inbound ACH Transfer that is being returned. */
+            fun inboundAchTransferId(): String =
+                inboundAchTransferId.getRequired("inbound_ach_transfer_id")
+
+            /** The ID of the Inbound ACH Transfer that is being returned. */
+            @JsonProperty("inbound_ach_transfer_id")
+            @ExcludeMissing
+            fun _inboundAchTransferId(): JsonField<String> = inboundAchTransferId
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            private var validated: Boolean = false
+
+            fun validate(): InboundAchTransferReturnIntention = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                inboundAchTransferId()
+                validated = true
+            }
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [InboundAchTransferReturnIntention]. */
+            class Builder internal constructor() {
+
+                private var inboundAchTransferId: JsonField<String>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(
+                    inboundAchTransferReturnIntention: InboundAchTransferReturnIntention
+                ) = apply {
+                    inboundAchTransferId = inboundAchTransferReturnIntention.inboundAchTransferId
+                    additionalProperties =
+                        inboundAchTransferReturnIntention.additionalProperties.toMutableMap()
+                }
+
+                /** The ID of the Inbound ACH Transfer that is being returned. */
+                fun inboundAchTransferId(inboundAchTransferId: String) =
+                    inboundAchTransferId(JsonField.of(inboundAchTransferId))
+
+                /** The ID of the Inbound ACH Transfer that is being returned. */
+                fun inboundAchTransferId(inboundAchTransferId: JsonField<String>) = apply {
+                    this.inboundAchTransferId = inboundAchTransferId
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                fun build(): InboundAchTransferReturnIntention =
+                    InboundAchTransferReturnIntention(
+                        checkRequired("inboundAchTransferId", inboundAchTransferId),
+                        additionalProperties.toImmutable()
+                    )
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return /* spotless:off */ other is InboundAchTransferReturnIntention && inboundAchTransferId == other.inboundAchTransferId && additionalProperties == other.additionalProperties /* spotless:on */
+            }
+
+            /* spotless:off */
+            private val hashCode: Int by lazy { Objects.hash(inboundAchTransferId, additionalProperties) }
+            /* spotless:on */
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "InboundAchTransferReturnIntention{inboundAchTransferId=$inboundAchTransferId, additionalProperties=$additionalProperties}"
+        }
+
+        /**
+         * An Inbound Check Adjustment object. This field will be present in the JSON response if
+         * and only if `category` is equal to `inbound_check_adjustment`.
+         */
+        @NoAutoDetect
+        class InboundCheckAdjustment
+        @JsonCreator
+        private constructor(
+            @JsonProperty("adjusted_transaction_id")
+            @ExcludeMissing
+            private val adjustedTransactionId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("amount")
+            @ExcludeMissing
+            private val amount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("reason")
+            @ExcludeMissing
+            private val reason: JsonField<Reason> = JsonMissing.of(),
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        ) {
+
+            /** The ID of the transaction that was adjusted. */
+            fun adjustedTransactionId(): String =
+                adjustedTransactionId.getRequired("adjusted_transaction_id")
+
+            /** The amount of the check adjustment. */
+            fun amount(): Long = amount.getRequired("amount")
+
+            /** The reason for the adjustment. */
+            fun reason(): Reason = reason.getRequired("reason")
+
+            /** The ID of the transaction that was adjusted. */
+            @JsonProperty("adjusted_transaction_id")
+            @ExcludeMissing
+            fun _adjustedTransactionId(): JsonField<String> = adjustedTransactionId
+
+            /** The amount of the check adjustment. */
+            @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+            /** The reason for the adjustment. */
+            @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<Reason> = reason
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            private var validated: Boolean = false
+
+            fun validate(): InboundCheckAdjustment = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                adjustedTransactionId()
+                amount()
+                reason()
+                validated = true
+            }
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [InboundCheckAdjustment]. */
+            class Builder internal constructor() {
+
+                private var adjustedTransactionId: JsonField<String>? = null
+                private var amount: JsonField<Long>? = null
+                private var reason: JsonField<Reason>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(inboundCheckAdjustment: InboundCheckAdjustment) = apply {
+                    adjustedTransactionId = inboundCheckAdjustment.adjustedTransactionId
+                    amount = inboundCheckAdjustment.amount
+                    reason = inboundCheckAdjustment.reason
+                    additionalProperties =
+                        inboundCheckAdjustment.additionalProperties.toMutableMap()
+                }
+
+                /** The ID of the transaction that was adjusted. */
+                fun adjustedTransactionId(adjustedTransactionId: String) =
+                    adjustedTransactionId(JsonField.of(adjustedTransactionId))
+
+                /** The ID of the transaction that was adjusted. */
+                fun adjustedTransactionId(adjustedTransactionId: JsonField<String>) = apply {
+                    this.adjustedTransactionId = adjustedTransactionId
+                }
+
+                /** The amount of the check adjustment. */
+                fun amount(amount: Long) = amount(JsonField.of(amount))
+
+                /** The amount of the check adjustment. */
+                fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+                /** The reason for the adjustment. */
+                fun reason(reason: Reason) = reason(JsonField.of(reason))
+
+                /** The reason for the adjustment. */
+                fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                fun build(): InboundCheckAdjustment =
+                    InboundCheckAdjustment(
+                        checkRequired("adjustedTransactionId", adjustedTransactionId),
+                        checkRequired("amount", amount),
+                        checkRequired("reason", reason),
+                        additionalProperties.toImmutable(),
+                    )
+            }
+
+            /** The reason for the adjustment. */
+            class Reason
+            @JsonCreator
+            private constructor(
+                private val value: JsonField<String>,
+            ) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    /**
+                     * The return was initiated too late and the receiving institution has responded
+                     * with a Late Return Claim.
+                     */
+                    @JvmField val LATE_RETURN = of("late_return")
+
+                    /**
+                     * The check was deposited to the wrong payee and the depositing institution has
+                     * reimbursed the funds with a Wrong Payee Credit.
+                     */
+                    @JvmField val WRONG_PAYEE_CREDIT = of("wrong_payee_credit")
+
+                    /**
+                     * The check was deposited with a different amount than what was written on the
+                     * check.
+                     */
+                    @JvmField val ADJUSTED_AMOUNT = of("adjusted_amount")
+
+                    @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
+                }
+
+                /** An enum containing [Reason]'s known values. */
+                enum class Known {
+                    /**
+                     * The return was initiated too late and the receiving institution has responded
+                     * with a Late Return Claim.
+                     */
+                    LATE_RETURN,
+                    /**
+                     * The check was deposited to the wrong payee and the depositing institution has
+                     * reimbursed the funds with a Wrong Payee Credit.
+                     */
+                    WRONG_PAYEE_CREDIT,
+                    /**
+                     * The check was deposited with a different amount than what was written on the
+                     * check.
+                     */
+                    ADJUSTED_AMOUNT,
+                }
+
+                /**
+                 * An enum containing [Reason]'s known values, as well as an [_UNKNOWN] member.
+                 *
+                 * An instance of [Reason] can contain an unknown value in a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    /**
+                     * The return was initiated too late and the receiving institution has responded
+                     * with a Late Return Claim.
+                     */
+                    LATE_RETURN,
+                    /**
+                     * The check was deposited to the wrong payee and the depositing institution has
+                     * reimbursed the funds with a Wrong Payee Credit.
+                     */
+                    WRONG_PAYEE_CREDIT,
+                    /**
+                     * The check was deposited with a different amount than what was written on the
+                     * check.
+                     */
+                    ADJUSTED_AMOUNT,
+                    /**
+                     * An enum member indicating that [Reason] was instantiated with an unknown
+                     * value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        LATE_RETURN -> Value.LATE_RETURN
+                        WRONG_PAYEE_CREDIT -> Value.WRONG_PAYEE_CREDIT
+                        ADJUSTED_AMOUNT -> Value.ADJUSTED_AMOUNT
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        LATE_RETURN -> Known.LATE_RETURN
+                        WRONG_PAYEE_CREDIT -> Known.WRONG_PAYEE_CREDIT
+                        ADJUSTED_AMOUNT -> Known.ADJUSTED_AMOUNT
+                        else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
+                    }
+
+                fun asString(): String = _value().asStringOrThrow()
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return /* spotless:off */ other is Reason && value == other.value /* spotless:on */
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return /* spotless:off */ other is InboundCheckAdjustment && adjustedTransactionId == other.adjustedTransactionId && amount == other.amount && reason == other.reason && additionalProperties == other.additionalProperties /* spotless:on */
+            }
+
+            /* spotless:off */
+            private val hashCode: Int by lazy { Objects.hash(adjustedTransactionId, amount, reason, additionalProperties) }
+            /* spotless:on */
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "InboundCheckAdjustment{adjustedTransactionId=$adjustedTransactionId, amount=$amount, reason=$reason, additionalProperties=$additionalProperties}"
+        }
+
+        /**
+         * An Inbound Check Deposit Return Intention object. This field will be present in the JSON
+         * response if and only if `category` is equal to `inbound_check_deposit_return_intention`.
+         */
+        @NoAutoDetect
+        class InboundCheckDepositReturnIntention
+        @JsonCreator
+        private constructor(
+            @JsonProperty("inbound_check_deposit_id")
+            @ExcludeMissing
+            private val inboundCheckDepositId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("transfer_id")
+            @ExcludeMissing
+            private val transferId: JsonField<String> = JsonMissing.of(),
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        ) {
+
+            /** The ID of the Inbound Check Deposit that is being returned. */
+            fun inboundCheckDepositId(): String =
+                inboundCheckDepositId.getRequired("inbound_check_deposit_id")
+
+            /** The identifier of the Check Transfer object that was deposited. */
+            fun transferId(): Optional<String> =
+                Optional.ofNullable(transferId.getNullable("transfer_id"))
+
+            /** The ID of the Inbound Check Deposit that is being returned. */
+            @JsonProperty("inbound_check_deposit_id")
+            @ExcludeMissing
+            fun _inboundCheckDepositId(): JsonField<String> = inboundCheckDepositId
+
+            /** The identifier of the Check Transfer object that was deposited. */
+            @JsonProperty("transfer_id")
+            @ExcludeMissing
+            fun _transferId(): JsonField<String> = transferId
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            private var validated: Boolean = false
+
+            fun validate(): InboundCheckDepositReturnIntention = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                inboundCheckDepositId()
+                transferId()
+                validated = true
+            }
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [InboundCheckDepositReturnIntention]. */
+            class Builder internal constructor() {
+
+                private var inboundCheckDepositId: JsonField<String>? = null
+                private var transferId: JsonField<String>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(
+                    inboundCheckDepositReturnIntention: InboundCheckDepositReturnIntention
+                ) = apply {
+                    inboundCheckDepositId = inboundCheckDepositReturnIntention.inboundCheckDepositId
+                    transferId = inboundCheckDepositReturnIntention.transferId
+                    additionalProperties =
+                        inboundCheckDepositReturnIntention.additionalProperties.toMutableMap()
+                }
+
+                /** The ID of the Inbound Check Deposit that is being returned. */
+                fun inboundCheckDepositId(inboundCheckDepositId: String) =
+                    inboundCheckDepositId(JsonField.of(inboundCheckDepositId))
+
+                /** The ID of the Inbound Check Deposit that is being returned. */
+                fun inboundCheckDepositId(inboundCheckDepositId: JsonField<String>) = apply {
+                    this.inboundCheckDepositId = inboundCheckDepositId
+                }
+
+                /** The identifier of the Check Transfer object that was deposited. */
+                fun transferId(transferId: String?) = transferId(JsonField.ofNullable(transferId))
+
+                /** The identifier of the Check Transfer object that was deposited. */
+                fun transferId(transferId: Optional<String>) = transferId(transferId.orElse(null))
+
+                /** The identifier of the Check Transfer object that was deposited. */
+                fun transferId(transferId: JsonField<String>) = apply {
+                    this.transferId = transferId
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                fun build(): InboundCheckDepositReturnIntention =
+                    InboundCheckDepositReturnIntention(
+                        checkRequired("inboundCheckDepositId", inboundCheckDepositId),
+                        checkRequired("transferId", transferId),
+                        additionalProperties.toImmutable(),
+                    )
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return /* spotless:off */ other is InboundCheckDepositReturnIntention && inboundCheckDepositId == other.inboundCheckDepositId && transferId == other.transferId && additionalProperties == other.additionalProperties /* spotless:on */
+            }
+
+            /* spotless:off */
+            private val hashCode: Int by lazy { Objects.hash(inboundCheckDepositId, transferId, additionalProperties) }
+            /* spotless:on */
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "InboundCheckDepositReturnIntention{inboundCheckDepositId=$inboundCheckDepositId, transferId=$transferId, additionalProperties=$additionalProperties}"
+        }
+
+        /**
          * An Inbound Real-Time Payments Transfer Confirmation object. This field will be present in
          * the JSON response if and only if `category` is equal to
          * `inbound_real_time_payments_transfer_confirmation`.
@@ -24419,6 +25196,122 @@ private constructor(
         }
 
         /**
+         * An Inbound Wire Transfer Reversal Intention object. This field will be present in the
+         * JSON response if and only if `category` is equal to `inbound_wire_transfer_reversal`.
+         */
+        @NoAutoDetect
+        class InboundWireTransferReversal
+        @JsonCreator
+        private constructor(
+            @JsonProperty("inbound_wire_transfer_id")
+            @ExcludeMissing
+            private val inboundWireTransferId: JsonField<String> = JsonMissing.of(),
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        ) {
+
+            /** The ID of the Inbound Wire Transfer that is being reversed. */
+            fun inboundWireTransferId(): String =
+                inboundWireTransferId.getRequired("inbound_wire_transfer_id")
+
+            /** The ID of the Inbound Wire Transfer that is being reversed. */
+            @JsonProperty("inbound_wire_transfer_id")
+            @ExcludeMissing
+            fun _inboundWireTransferId(): JsonField<String> = inboundWireTransferId
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            private var validated: Boolean = false
+
+            fun validate(): InboundWireTransferReversal = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                inboundWireTransferId()
+                validated = true
+            }
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [InboundWireTransferReversal]. */
+            class Builder internal constructor() {
+
+                private var inboundWireTransferId: JsonField<String>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(inboundWireTransferReversal: InboundWireTransferReversal) =
+                    apply {
+                        inboundWireTransferId = inboundWireTransferReversal.inboundWireTransferId
+                        additionalProperties =
+                            inboundWireTransferReversal.additionalProperties.toMutableMap()
+                    }
+
+                /** The ID of the Inbound Wire Transfer that is being reversed. */
+                fun inboundWireTransferId(inboundWireTransferId: String) =
+                    inboundWireTransferId(JsonField.of(inboundWireTransferId))
+
+                /** The ID of the Inbound Wire Transfer that is being reversed. */
+                fun inboundWireTransferId(inboundWireTransferId: JsonField<String>) = apply {
+                    this.inboundWireTransferId = inboundWireTransferId
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                fun build(): InboundWireTransferReversal =
+                    InboundWireTransferReversal(
+                        checkRequired("inboundWireTransferId", inboundWireTransferId),
+                        additionalProperties.toImmutable()
+                    )
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return /* spotless:off */ other is InboundWireTransferReversal && inboundWireTransferId == other.inboundWireTransferId && additionalProperties == other.additionalProperties /* spotless:on */
+            }
+
+            /* spotless:off */
+            private val hashCode: Int by lazy { Objects.hash(inboundWireTransferId, additionalProperties) }
+            /* spotless:on */
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "InboundWireTransferReversal{inboundWireTransferId=$inboundWireTransferId, additionalProperties=$additionalProperties}"
+        }
+
+        /**
          * An Interest Payment object. This field will be present in the JSON response if and only
          * if `category` is equal to `interest_payment`.
          */
@@ -25869,17 +26762,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Source && accountTransferIntention == other.accountTransferIntention && achTransferIntention == other.achTransferIntention && achTransferRejection == other.achTransferRejection && achTransferReturn == other.achTransferReturn && cardDisputeAcceptance == other.cardDisputeAcceptance && cardDisputeLoss == other.cardDisputeLoss && cardRefund == other.cardRefund && cardRevenuePayment == other.cardRevenuePayment && cardSettlement == other.cardSettlement && cashbackPayment == other.cashbackPayment && category == other.category && checkDepositAcceptance == other.checkDepositAcceptance && checkDepositReturn == other.checkDepositReturn && checkTransferDeposit == other.checkTransferDeposit && feePayment == other.feePayment && inboundAchTransfer == other.inboundAchTransfer && inboundRealTimePaymentsTransferConfirmation == other.inboundRealTimePaymentsTransferConfirmation && inboundRealTimePaymentsTransferDecline == other.inboundRealTimePaymentsTransferDecline && inboundWireReversal == other.inboundWireReversal && inboundWireTransfer == other.inboundWireTransfer && interestPayment == other.interestPayment && internalSource == other.internalSource && this.other == other.other && realTimePaymentsTransferAcknowledgement == other.realTimePaymentsTransferAcknowledgement && sampleFunds == other.sampleFunds && wireTransferIntention == other.wireTransferIntention && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Source && accountTransferIntention == other.accountTransferIntention && achTransferIntention == other.achTransferIntention && achTransferRejection == other.achTransferRejection && achTransferReturn == other.achTransferReturn && cardDisputeAcceptance == other.cardDisputeAcceptance && cardDisputeLoss == other.cardDisputeLoss && cardRefund == other.cardRefund && cardRevenuePayment == other.cardRevenuePayment && cardSettlement == other.cardSettlement && cashbackPayment == other.cashbackPayment && category == other.category && checkDepositAcceptance == other.checkDepositAcceptance && checkDepositReturn == other.checkDepositReturn && checkTransferDeposit == other.checkTransferDeposit && feePayment == other.feePayment && inboundAchTransfer == other.inboundAchTransfer && inboundAchTransferReturnIntention == other.inboundAchTransferReturnIntention && inboundCheckAdjustment == other.inboundCheckAdjustment && inboundCheckDepositReturnIntention == other.inboundCheckDepositReturnIntention && inboundRealTimePaymentsTransferConfirmation == other.inboundRealTimePaymentsTransferConfirmation && inboundRealTimePaymentsTransferDecline == other.inboundRealTimePaymentsTransferDecline && inboundWireReversal == other.inboundWireReversal && inboundWireTransfer == other.inboundWireTransfer && inboundWireTransferReversal == other.inboundWireTransferReversal && interestPayment == other.interestPayment && internalSource == other.internalSource && this.other == other.other && realTimePaymentsTransferAcknowledgement == other.realTimePaymentsTransferAcknowledgement && sampleFunds == other.sampleFunds && wireTransferIntention == other.wireTransferIntention && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(accountTransferIntention, achTransferIntention, achTransferRejection, achTransferReturn, cardDisputeAcceptance, cardDisputeLoss, cardRefund, cardRevenuePayment, cardSettlement, cashbackPayment, category, checkDepositAcceptance, checkDepositReturn, checkTransferDeposit, feePayment, inboundAchTransfer, inboundRealTimePaymentsTransferConfirmation, inboundRealTimePaymentsTransferDecline, inboundWireReversal, inboundWireTransfer, interestPayment, internalSource, other, realTimePaymentsTransferAcknowledgement, sampleFunds, wireTransferIntention, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(accountTransferIntention, achTransferIntention, achTransferRejection, achTransferReturn, cardDisputeAcceptance, cardDisputeLoss, cardRefund, cardRevenuePayment, cardSettlement, cashbackPayment, category, checkDepositAcceptance, checkDepositReturn, checkTransferDeposit, feePayment, inboundAchTransfer, inboundAchTransferReturnIntention, inboundCheckAdjustment, inboundCheckDepositReturnIntention, inboundRealTimePaymentsTransferConfirmation, inboundRealTimePaymentsTransferDecline, inboundWireReversal, inboundWireTransfer, inboundWireTransferReversal, interestPayment, internalSource, other, realTimePaymentsTransferAcknowledgement, sampleFunds, wireTransferIntention, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Source{accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardDisputeLoss=$cardDisputeLoss, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, cashbackPayment=$cashbackPayment, category=$category, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundRealTimePaymentsTransferDecline=$inboundRealTimePaymentsTransferDecline, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, interestPayment=$interestPayment, internalSource=$internalSource, other=$other, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, wireTransferIntention=$wireTransferIntention, additionalProperties=$additionalProperties}"
+            "Source{accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardDisputeLoss=$cardDisputeLoss, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, cashbackPayment=$cashbackPayment, category=$category, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundAchTransferReturnIntention=$inboundAchTransferReturnIntention, inboundCheckAdjustment=$inboundCheckAdjustment, inboundCheckDepositReturnIntention=$inboundCheckDepositReturnIntention, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundRealTimePaymentsTransferDecline=$inboundRealTimePaymentsTransferDecline, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, inboundWireTransferReversal=$inboundWireTransferReversal, interestPayment=$interestPayment, internalSource=$internalSource, other=$other, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, wireTransferIntention=$wireTransferIntention, additionalProperties=$additionalProperties}"
     }
 
     /**

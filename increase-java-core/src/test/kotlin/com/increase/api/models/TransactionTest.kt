@@ -648,6 +648,26 @@ class TransactionTest {
                                 .transferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
                                 .build()
                         )
+                        .inboundAchTransferReturnIntention(
+                            Transaction.Source.InboundAchTransferReturnIntention.builder()
+                                .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
+                                .build()
+                        )
+                        .inboundCheckAdjustment(
+                            Transaction.Source.InboundCheckAdjustment.builder()
+                                .adjustedTransactionId("transaction_uyrp7fld2ium70oa7oi")
+                                .amount(1750L)
+                                .reason(
+                                    Transaction.Source.InboundCheckAdjustment.Reason.LATE_RETURN
+                                )
+                                .build()
+                        )
+                        .inboundCheckDepositReturnIntention(
+                            Transaction.Source.InboundCheckDepositReturnIntention.builder()
+                                .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
+                                .transferId("check_transfer_30b43acfu9vw8fyc4f5")
+                                .build()
+                        )
                         .inboundRealTimePaymentsTransferConfirmation(
                             Transaction.Source.InboundRealTimePaymentsTransferConfirmation.builder()
                                 .amount(100L)
@@ -734,6 +754,11 @@ class TransactionTest {
                                 .originatorToBeneficiaryInformationLine3(null)
                                 .originatorToBeneficiaryInformationLine4(null)
                                 .transferId("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
+                                .build()
+                        )
+                        .inboundWireTransferReversal(
+                            Transaction.Source.InboundWireTransferReversal.builder()
+                                .inboundWireTransferId("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
                                 .build()
                         )
                         .interestPayment(
@@ -1377,6 +1402,24 @@ class TransactionTest {
                             .transferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
                             .build()
                     )
+                    .inboundAchTransferReturnIntention(
+                        Transaction.Source.InboundAchTransferReturnIntention.builder()
+                            .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
+                            .build()
+                    )
+                    .inboundCheckAdjustment(
+                        Transaction.Source.InboundCheckAdjustment.builder()
+                            .adjustedTransactionId("transaction_uyrp7fld2ium70oa7oi")
+                            .amount(1750L)
+                            .reason(Transaction.Source.InboundCheckAdjustment.Reason.LATE_RETURN)
+                            .build()
+                    )
+                    .inboundCheckDepositReturnIntention(
+                        Transaction.Source.InboundCheckDepositReturnIntention.builder()
+                            .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
+                            .transferId("check_transfer_30b43acfu9vw8fyc4f5")
+                            .build()
+                    )
                     .inboundRealTimePaymentsTransferConfirmation(
                         Transaction.Source.InboundRealTimePaymentsTransferConfirmation.builder()
                             .amount(100L)
@@ -1456,6 +1499,11 @@ class TransactionTest {
                             .originatorToBeneficiaryInformationLine3(null)
                             .originatorToBeneficiaryInformationLine4(null)
                             .transferId("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
+                            .build()
+                    )
+                    .inboundWireTransferReversal(
+                        Transaction.Source.InboundWireTransferReversal.builder()
+                            .inboundWireTransferId("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
                             .build()
                     )
                     .interestPayment(
