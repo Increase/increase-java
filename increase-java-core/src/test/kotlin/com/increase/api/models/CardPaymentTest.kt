@@ -22,6 +22,65 @@ class CardPaymentTest {
                 .elements(
                     listOf(
                         CardPayment.Element.builder()
+                            .cardAuthentication(
+                                CardPayment.Element.CardAuthentication.builder()
+                                    .id("card_authentication_xft30xjdubptlgrxboch")
+                                    .cardId("card_oubs0hwk5rn6knuecxg2")
+                                    .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
+                                    .category(
+                                        CardPayment.Element.CardAuthentication.Category
+                                            .PAYMENT_AUTHENTICATION
+                                    )
+                                    .challenge(
+                                        CardPayment.Element.CardAuthentication.Challenge.builder()
+                                            .addAttempt(
+                                                CardPayment.Element.CardAuthentication.Challenge
+                                                    .Attempt
+                                                    .builder()
+                                                    .createdAt(
+                                                        OffsetDateTime.parse("2020-01-31T23:59:59Z")
+                                                    )
+                                                    .outcome(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .Challenge
+                                                            .Attempt
+                                                            .Outcome
+                                                            .SUCCESSFUL
+                                                    )
+                                                    .build()
+                                            )
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .oneTimeCode("123456")
+                                            .verificationMethod(
+                                                CardPayment.Element.CardAuthentication.Challenge
+                                                    .VerificationMethod
+                                                    .TEXT_MESSAGE
+                                            )
+                                            .verificationValue("+16505046304")
+                                            .build()
+                                    )
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .denyReason(
+                                        CardPayment.Element.CardAuthentication.DenyReason
+                                            .GROUP_LOCKED
+                                    )
+                                    .deviceChannel(
+                                        CardPayment.Element.CardAuthentication.DeviceChannel.APP
+                                    )
+                                    .merchantAcceptorId("5665270011000168")
+                                    .merchantCategoryCode("5734")
+                                    .merchantCountry("US")
+                                    .merchantName("AMAZON.COM")
+                                    .purchaseAmount(1000L)
+                                    .purchaseCurrency("USD")
+                                    .realTimeDecisionId(null)
+                                    .status(CardPayment.Element.CardAuthentication.Status.DENIED)
+                                    .type(
+                                        CardPayment.Element.CardAuthentication.Type
+                                            .CARD_AUTHENTICATION
+                                    )
+                                    .build()
+                            )
                             .cardAuthorization(
                                 CardPayment.Element.CardAuthorization.builder()
                                     .id("card_authorization_6iqxap6ivd0fo5eu3i8x")
@@ -938,6 +997,65 @@ class CardPaymentTest {
                             .other(JsonValue.from(mapOf<String, Any>()))
                             .build(),
                         CardPayment.Element.builder()
+                            .cardAuthentication(
+                                CardPayment.Element.CardAuthentication.builder()
+                                    .id("card_authentication_xft30xjdubptlgrxboch")
+                                    .cardId("card_oubs0hwk5rn6knuecxg2")
+                                    .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
+                                    .category(
+                                        CardPayment.Element.CardAuthentication.Category
+                                            .PAYMENT_AUTHENTICATION
+                                    )
+                                    .challenge(
+                                        CardPayment.Element.CardAuthentication.Challenge.builder()
+                                            .addAttempt(
+                                                CardPayment.Element.CardAuthentication.Challenge
+                                                    .Attempt
+                                                    .builder()
+                                                    .createdAt(
+                                                        OffsetDateTime.parse("2020-01-31T23:59:59Z")
+                                                    )
+                                                    .outcome(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .Challenge
+                                                            .Attempt
+                                                            .Outcome
+                                                            .SUCCESSFUL
+                                                    )
+                                                    .build()
+                                            )
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .oneTimeCode("123456")
+                                            .verificationMethod(
+                                                CardPayment.Element.CardAuthentication.Challenge
+                                                    .VerificationMethod
+                                                    .TEXT_MESSAGE
+                                            )
+                                            .verificationValue("+16505046304")
+                                            .build()
+                                    )
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .denyReason(
+                                        CardPayment.Element.CardAuthentication.DenyReason
+                                            .GROUP_LOCKED
+                                    )
+                                    .deviceChannel(
+                                        CardPayment.Element.CardAuthentication.DeviceChannel.APP
+                                    )
+                                    .merchantAcceptorId("5665270011000168")
+                                    .merchantCategoryCode("5734")
+                                    .merchantCountry("US")
+                                    .merchantName("AMAZON.COM")
+                                    .purchaseAmount(1000L)
+                                    .purchaseCurrency("USD")
+                                    .realTimeDecisionId(null)
+                                    .status(CardPayment.Element.CardAuthentication.Status.DENIED)
+                                    .type(
+                                        CardPayment.Element.CardAuthentication.Type
+                                            .CARD_AUTHENTICATION
+                                    )
+                                    .build()
+                            )
                             .cardAuthorization(
                                 CardPayment.Element.CardAuthorization.builder()
                                     .id("card_authorization_6iqxap6ivd0fo5eu3i8x")
@@ -1854,6 +1972,65 @@ class CardPaymentTest {
                             .other(JsonValue.from(mapOf<String, Any>()))
                             .build(),
                         CardPayment.Element.builder()
+                            .cardAuthentication(
+                                CardPayment.Element.CardAuthentication.builder()
+                                    .id("card_authentication_xft30xjdubptlgrxboch")
+                                    .cardId("card_oubs0hwk5rn6knuecxg2")
+                                    .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
+                                    .category(
+                                        CardPayment.Element.CardAuthentication.Category
+                                            .PAYMENT_AUTHENTICATION
+                                    )
+                                    .challenge(
+                                        CardPayment.Element.CardAuthentication.Challenge.builder()
+                                            .addAttempt(
+                                                CardPayment.Element.CardAuthentication.Challenge
+                                                    .Attempt
+                                                    .builder()
+                                                    .createdAt(
+                                                        OffsetDateTime.parse("2020-01-31T23:59:59Z")
+                                                    )
+                                                    .outcome(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .Challenge
+                                                            .Attempt
+                                                            .Outcome
+                                                            .SUCCESSFUL
+                                                    )
+                                                    .build()
+                                            )
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .oneTimeCode("123456")
+                                            .verificationMethod(
+                                                CardPayment.Element.CardAuthentication.Challenge
+                                                    .VerificationMethod
+                                                    .TEXT_MESSAGE
+                                            )
+                                            .verificationValue("+16505046304")
+                                            .build()
+                                    )
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .denyReason(
+                                        CardPayment.Element.CardAuthentication.DenyReason
+                                            .GROUP_LOCKED
+                                    )
+                                    .deviceChannel(
+                                        CardPayment.Element.CardAuthentication.DeviceChannel.APP
+                                    )
+                                    .merchantAcceptorId("5665270011000168")
+                                    .merchantCategoryCode("5734")
+                                    .merchantCountry("US")
+                                    .merchantName("AMAZON.COM")
+                                    .purchaseAmount(1000L)
+                                    .purchaseCurrency("USD")
+                                    .realTimeDecisionId(null)
+                                    .status(CardPayment.Element.CardAuthentication.Status.DENIED)
+                                    .type(
+                                        CardPayment.Element.CardAuthentication.Type
+                                            .CARD_AUTHENTICATION
+                                    )
+                                    .build()
+                            )
                             .cardAuthorization(
                                 CardPayment.Element.CardAuthorization.builder()
                                     .id("card_authorization_6iqxap6ivd0fo5eu3i8x")
@@ -2770,6 +2947,65 @@ class CardPaymentTest {
                             .other(JsonValue.from(mapOf<String, Any>()))
                             .build(),
                         CardPayment.Element.builder()
+                            .cardAuthentication(
+                                CardPayment.Element.CardAuthentication.builder()
+                                    .id("card_authentication_xft30xjdubptlgrxboch")
+                                    .cardId("card_oubs0hwk5rn6knuecxg2")
+                                    .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
+                                    .category(
+                                        CardPayment.Element.CardAuthentication.Category
+                                            .PAYMENT_AUTHENTICATION
+                                    )
+                                    .challenge(
+                                        CardPayment.Element.CardAuthentication.Challenge.builder()
+                                            .addAttempt(
+                                                CardPayment.Element.CardAuthentication.Challenge
+                                                    .Attempt
+                                                    .builder()
+                                                    .createdAt(
+                                                        OffsetDateTime.parse("2020-01-31T23:59:59Z")
+                                                    )
+                                                    .outcome(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .Challenge
+                                                            .Attempt
+                                                            .Outcome
+                                                            .SUCCESSFUL
+                                                    )
+                                                    .build()
+                                            )
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .oneTimeCode("123456")
+                                            .verificationMethod(
+                                                CardPayment.Element.CardAuthentication.Challenge
+                                                    .VerificationMethod
+                                                    .TEXT_MESSAGE
+                                            )
+                                            .verificationValue("+16505046304")
+                                            .build()
+                                    )
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .denyReason(
+                                        CardPayment.Element.CardAuthentication.DenyReason
+                                            .GROUP_LOCKED
+                                    )
+                                    .deviceChannel(
+                                        CardPayment.Element.CardAuthentication.DeviceChannel.APP
+                                    )
+                                    .merchantAcceptorId("5665270011000168")
+                                    .merchantCategoryCode("5734")
+                                    .merchantCountry("US")
+                                    .merchantName("AMAZON.COM")
+                                    .purchaseAmount(1000L)
+                                    .purchaseCurrency("USD")
+                                    .realTimeDecisionId(null)
+                                    .status(CardPayment.Element.CardAuthentication.Status.DENIED)
+                                    .type(
+                                        CardPayment.Element.CardAuthentication.Type
+                                            .CARD_AUTHENTICATION
+                                    )
+                                    .build()
+                            )
                             .cardAuthorization(
                                 CardPayment.Element.CardAuthorization.builder()
                                     .id("card_authorization_6iqxap6ivd0fo5eu3i8x")
@@ -3708,6 +3944,55 @@ class CardPaymentTest {
         assertThat(cardPayment.elements())
             .containsExactly(
                 CardPayment.Element.builder()
+                    .cardAuthentication(
+                        CardPayment.Element.CardAuthentication.builder()
+                            .id("card_authentication_xft30xjdubptlgrxboch")
+                            .cardId("card_oubs0hwk5rn6knuecxg2")
+                            .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
+                            .category(
+                                CardPayment.Element.CardAuthentication.Category
+                                    .PAYMENT_AUTHENTICATION
+                            )
+                            .challenge(
+                                CardPayment.Element.CardAuthentication.Challenge.builder()
+                                    .addAttempt(
+                                        CardPayment.Element.CardAuthentication.Challenge.Attempt
+                                            .builder()
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .outcome(
+                                                CardPayment.Element.CardAuthentication.Challenge
+                                                    .Attempt
+                                                    .Outcome
+                                                    .SUCCESSFUL
+                                            )
+                                            .build()
+                                    )
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .oneTimeCode("123456")
+                                    .verificationMethod(
+                                        CardPayment.Element.CardAuthentication.Challenge
+                                            .VerificationMethod
+                                            .TEXT_MESSAGE
+                                    )
+                                    .verificationValue("+16505046304")
+                                    .build()
+                            )
+                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                            .denyReason(
+                                CardPayment.Element.CardAuthentication.DenyReason.GROUP_LOCKED
+                            )
+                            .deviceChannel(CardPayment.Element.CardAuthentication.DeviceChannel.APP)
+                            .merchantAcceptorId("5665270011000168")
+                            .merchantCategoryCode("5734")
+                            .merchantCountry("US")
+                            .merchantName("AMAZON.COM")
+                            .purchaseAmount(1000L)
+                            .purchaseCurrency("USD")
+                            .realTimeDecisionId(null)
+                            .status(CardPayment.Element.CardAuthentication.Status.DENIED)
+                            .type(CardPayment.Element.CardAuthentication.Type.CARD_AUTHENTICATION)
+                            .build()
+                    )
                     .cardAuthorization(
                         CardPayment.Element.CardAuthorization.builder()
                             .id("card_authorization_6iqxap6ivd0fo5eu3i8x")
@@ -4529,6 +4814,55 @@ class CardPaymentTest {
                     .other(JsonValue.from(mapOf<String, Any>()))
                     .build(),
                 CardPayment.Element.builder()
+                    .cardAuthentication(
+                        CardPayment.Element.CardAuthentication.builder()
+                            .id("card_authentication_xft30xjdubptlgrxboch")
+                            .cardId("card_oubs0hwk5rn6knuecxg2")
+                            .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
+                            .category(
+                                CardPayment.Element.CardAuthentication.Category
+                                    .PAYMENT_AUTHENTICATION
+                            )
+                            .challenge(
+                                CardPayment.Element.CardAuthentication.Challenge.builder()
+                                    .addAttempt(
+                                        CardPayment.Element.CardAuthentication.Challenge.Attempt
+                                            .builder()
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .outcome(
+                                                CardPayment.Element.CardAuthentication.Challenge
+                                                    .Attempt
+                                                    .Outcome
+                                                    .SUCCESSFUL
+                                            )
+                                            .build()
+                                    )
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .oneTimeCode("123456")
+                                    .verificationMethod(
+                                        CardPayment.Element.CardAuthentication.Challenge
+                                            .VerificationMethod
+                                            .TEXT_MESSAGE
+                                    )
+                                    .verificationValue("+16505046304")
+                                    .build()
+                            )
+                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                            .denyReason(
+                                CardPayment.Element.CardAuthentication.DenyReason.GROUP_LOCKED
+                            )
+                            .deviceChannel(CardPayment.Element.CardAuthentication.DeviceChannel.APP)
+                            .merchantAcceptorId("5665270011000168")
+                            .merchantCategoryCode("5734")
+                            .merchantCountry("US")
+                            .merchantName("AMAZON.COM")
+                            .purchaseAmount(1000L)
+                            .purchaseCurrency("USD")
+                            .realTimeDecisionId(null)
+                            .status(CardPayment.Element.CardAuthentication.Status.DENIED)
+                            .type(CardPayment.Element.CardAuthentication.Type.CARD_AUTHENTICATION)
+                            .build()
+                    )
                     .cardAuthorization(
                         CardPayment.Element.CardAuthorization.builder()
                             .id("card_authorization_6iqxap6ivd0fo5eu3i8x")
@@ -5350,6 +5684,55 @@ class CardPaymentTest {
                     .other(JsonValue.from(mapOf<String, Any>()))
                     .build(),
                 CardPayment.Element.builder()
+                    .cardAuthentication(
+                        CardPayment.Element.CardAuthentication.builder()
+                            .id("card_authentication_xft30xjdubptlgrxboch")
+                            .cardId("card_oubs0hwk5rn6knuecxg2")
+                            .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
+                            .category(
+                                CardPayment.Element.CardAuthentication.Category
+                                    .PAYMENT_AUTHENTICATION
+                            )
+                            .challenge(
+                                CardPayment.Element.CardAuthentication.Challenge.builder()
+                                    .addAttempt(
+                                        CardPayment.Element.CardAuthentication.Challenge.Attempt
+                                            .builder()
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .outcome(
+                                                CardPayment.Element.CardAuthentication.Challenge
+                                                    .Attempt
+                                                    .Outcome
+                                                    .SUCCESSFUL
+                                            )
+                                            .build()
+                                    )
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .oneTimeCode("123456")
+                                    .verificationMethod(
+                                        CardPayment.Element.CardAuthentication.Challenge
+                                            .VerificationMethod
+                                            .TEXT_MESSAGE
+                                    )
+                                    .verificationValue("+16505046304")
+                                    .build()
+                            )
+                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                            .denyReason(
+                                CardPayment.Element.CardAuthentication.DenyReason.GROUP_LOCKED
+                            )
+                            .deviceChannel(CardPayment.Element.CardAuthentication.DeviceChannel.APP)
+                            .merchantAcceptorId("5665270011000168")
+                            .merchantCategoryCode("5734")
+                            .merchantCountry("US")
+                            .merchantName("AMAZON.COM")
+                            .purchaseAmount(1000L)
+                            .purchaseCurrency("USD")
+                            .realTimeDecisionId(null)
+                            .status(CardPayment.Element.CardAuthentication.Status.DENIED)
+                            .type(CardPayment.Element.CardAuthentication.Type.CARD_AUTHENTICATION)
+                            .build()
+                    )
                     .cardAuthorization(
                         CardPayment.Element.CardAuthorization.builder()
                             .id("card_authorization_6iqxap6ivd0fo5eu3i8x")
@@ -6171,6 +6554,55 @@ class CardPaymentTest {
                     .other(JsonValue.from(mapOf<String, Any>()))
                     .build(),
                 CardPayment.Element.builder()
+                    .cardAuthentication(
+                        CardPayment.Element.CardAuthentication.builder()
+                            .id("card_authentication_xft30xjdubptlgrxboch")
+                            .cardId("card_oubs0hwk5rn6knuecxg2")
+                            .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
+                            .category(
+                                CardPayment.Element.CardAuthentication.Category
+                                    .PAYMENT_AUTHENTICATION
+                            )
+                            .challenge(
+                                CardPayment.Element.CardAuthentication.Challenge.builder()
+                                    .addAttempt(
+                                        CardPayment.Element.CardAuthentication.Challenge.Attempt
+                                            .builder()
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .outcome(
+                                                CardPayment.Element.CardAuthentication.Challenge
+                                                    .Attempt
+                                                    .Outcome
+                                                    .SUCCESSFUL
+                                            )
+                                            .build()
+                                    )
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .oneTimeCode("123456")
+                                    .verificationMethod(
+                                        CardPayment.Element.CardAuthentication.Challenge
+                                            .VerificationMethod
+                                            .TEXT_MESSAGE
+                                    )
+                                    .verificationValue("+16505046304")
+                                    .build()
+                            )
+                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                            .denyReason(
+                                CardPayment.Element.CardAuthentication.DenyReason.GROUP_LOCKED
+                            )
+                            .deviceChannel(CardPayment.Element.CardAuthentication.DeviceChannel.APP)
+                            .merchantAcceptorId("5665270011000168")
+                            .merchantCategoryCode("5734")
+                            .merchantCountry("US")
+                            .merchantName("AMAZON.COM")
+                            .purchaseAmount(1000L)
+                            .purchaseCurrency("USD")
+                            .realTimeDecisionId(null)
+                            .status(CardPayment.Element.CardAuthentication.Status.DENIED)
+                            .type(CardPayment.Element.CardAuthentication.Type.CARD_AUTHENTICATION)
+                            .build()
+                    )
                     .cardAuthorization(
                         CardPayment.Element.CardAuthorization.builder()
                             .id("card_authorization_6iqxap6ivd0fo5eu3i8x")

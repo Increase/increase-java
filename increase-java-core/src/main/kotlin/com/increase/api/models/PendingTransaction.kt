@@ -712,6 +712,10 @@ private constructor(
         @JsonProperty("inbound_funds_hold")
         @ExcludeMissing
         private val inboundFundsHold: JsonField<InboundFundsHold> = JsonMissing.of(),
+        @JsonProperty("inbound_wire_transfer_reversal")
+        @ExcludeMissing
+        private val inboundWireTransferReversal: JsonField<InboundWireTransferReversal> =
+            JsonMissing.of(),
         @JsonProperty("other") @ExcludeMissing private val other: JsonValue = JsonMissing.of(),
         @JsonProperty("real_time_payments_transfer_instruction")
         @ExcludeMissing
@@ -774,6 +778,15 @@ private constructor(
          */
         fun inboundFundsHold(): Optional<InboundFundsHold> =
             Optional.ofNullable(inboundFundsHold.getNullable("inbound_funds_hold"))
+
+        /**
+         * An Inbound Wire Transfer Reversal object. This field will be present in the JSON response
+         * if and only if `category` is equal to `inbound_wire_transfer_reversal`.
+         */
+        fun inboundWireTransferReversal(): Optional<InboundWireTransferReversal> =
+            Optional.ofNullable(
+                inboundWireTransferReversal.getNullable("inbound_wire_transfer_reversal")
+            )
 
         /**
          * If the category of this Transaction source is equal to `other`, this field will contain
@@ -856,6 +869,15 @@ private constructor(
         fun _inboundFundsHold(): JsonField<InboundFundsHold> = inboundFundsHold
 
         /**
+         * An Inbound Wire Transfer Reversal object. This field will be present in the JSON response
+         * if and only if `category` is equal to `inbound_wire_transfer_reversal`.
+         */
+        @JsonProperty("inbound_wire_transfer_reversal")
+        @ExcludeMissing
+        fun _inboundWireTransferReversal(): JsonField<InboundWireTransferReversal> =
+            inboundWireTransferReversal
+
+        /**
          * A Real-Time Payments Transfer Instruction object. This field will be present in the JSON
          * response if and only if `category` is equal to `real_time_payments_transfer_instruction`.
          */
@@ -890,6 +912,7 @@ private constructor(
             checkDepositInstruction().ifPresent { it.validate() }
             checkTransferInstruction().ifPresent { it.validate() }
             inboundFundsHold().ifPresent { it.validate() }
+            inboundWireTransferReversal().ifPresent { it.validate() }
             realTimePaymentsTransferInstruction().ifPresent { it.validate() }
             wireTransferInstruction().ifPresent { it.validate() }
             validated = true
@@ -912,6 +935,7 @@ private constructor(
             private var checkDepositInstruction: JsonField<CheckDepositInstruction>? = null
             private var checkTransferInstruction: JsonField<CheckTransferInstruction>? = null
             private var inboundFundsHold: JsonField<InboundFundsHold>? = null
+            private var inboundWireTransferReversal: JsonField<InboundWireTransferReversal>? = null
             private var other: JsonValue? = null
             private var realTimePaymentsTransferInstruction:
                 JsonField<RealTimePaymentsTransferInstruction>? =
@@ -928,6 +952,7 @@ private constructor(
                 checkDepositInstruction = source.checkDepositInstruction
                 checkTransferInstruction = source.checkTransferInstruction
                 inboundFundsHold = source.inboundFundsHold
+                inboundWireTransferReversal = source.inboundWireTransferReversal
                 other = source.other
                 realTimePaymentsTransferInstruction = source.realTimePaymentsTransferInstruction
                 wireTransferInstruction = source.wireTransferInstruction
@@ -1084,6 +1109,30 @@ private constructor(
             }
 
             /**
+             * An Inbound Wire Transfer Reversal object. This field will be present in the JSON
+             * response if and only if `category` is equal to `inbound_wire_transfer_reversal`.
+             */
+            fun inboundWireTransferReversal(
+                inboundWireTransferReversal: InboundWireTransferReversal?
+            ) = inboundWireTransferReversal(JsonField.ofNullable(inboundWireTransferReversal))
+
+            /**
+             * An Inbound Wire Transfer Reversal object. This field will be present in the JSON
+             * response if and only if `category` is equal to `inbound_wire_transfer_reversal`.
+             */
+            fun inboundWireTransferReversal(
+                inboundWireTransferReversal: Optional<InboundWireTransferReversal>
+            ) = inboundWireTransferReversal(inboundWireTransferReversal.orElse(null))
+
+            /**
+             * An Inbound Wire Transfer Reversal object. This field will be present in the JSON
+             * response if and only if `category` is equal to `inbound_wire_transfer_reversal`.
+             */
+            fun inboundWireTransferReversal(
+                inboundWireTransferReversal: JsonField<InboundWireTransferReversal>
+            ) = apply { this.inboundWireTransferReversal = inboundWireTransferReversal }
+
+            /**
              * If the category of this Transaction source is equal to `other`, this field will
              * contain an empty object, otherwise it will contain null.
              */
@@ -1175,6 +1224,7 @@ private constructor(
                     checkRequired("checkDepositInstruction", checkDepositInstruction),
                     checkRequired("checkTransferInstruction", checkTransferInstruction),
                     checkRequired("inboundFundsHold", inboundFundsHold),
+                    checkRequired("inboundWireTransferReversal", inboundWireTransferReversal),
                     checkRequired("other", other),
                     checkRequired(
                         "realTimePaymentsTransferInstruction",
@@ -7116,6 +7166,122 @@ private constructor(
         }
 
         /**
+         * An Inbound Wire Transfer Reversal object. This field will be present in the JSON response
+         * if and only if `category` is equal to `inbound_wire_transfer_reversal`.
+         */
+        @NoAutoDetect
+        class InboundWireTransferReversal
+        @JsonCreator
+        private constructor(
+            @JsonProperty("inbound_wire_transfer_id")
+            @ExcludeMissing
+            private val inboundWireTransferId: JsonField<String> = JsonMissing.of(),
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        ) {
+
+            /** The ID of the Inbound Wire Transfer that is being reversed. */
+            fun inboundWireTransferId(): String =
+                inboundWireTransferId.getRequired("inbound_wire_transfer_id")
+
+            /** The ID of the Inbound Wire Transfer that is being reversed. */
+            @JsonProperty("inbound_wire_transfer_id")
+            @ExcludeMissing
+            fun _inboundWireTransferId(): JsonField<String> = inboundWireTransferId
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            private var validated: Boolean = false
+
+            fun validate(): InboundWireTransferReversal = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                inboundWireTransferId()
+                validated = true
+            }
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [InboundWireTransferReversal]. */
+            class Builder internal constructor() {
+
+                private var inboundWireTransferId: JsonField<String>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(inboundWireTransferReversal: InboundWireTransferReversal) =
+                    apply {
+                        inboundWireTransferId = inboundWireTransferReversal.inboundWireTransferId
+                        additionalProperties =
+                            inboundWireTransferReversal.additionalProperties.toMutableMap()
+                    }
+
+                /** The ID of the Inbound Wire Transfer that is being reversed. */
+                fun inboundWireTransferId(inboundWireTransferId: String) =
+                    inboundWireTransferId(JsonField.of(inboundWireTransferId))
+
+                /** The ID of the Inbound Wire Transfer that is being reversed. */
+                fun inboundWireTransferId(inboundWireTransferId: JsonField<String>) = apply {
+                    this.inboundWireTransferId = inboundWireTransferId
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                fun build(): InboundWireTransferReversal =
+                    InboundWireTransferReversal(
+                        checkRequired("inboundWireTransferId", inboundWireTransferId),
+                        additionalProperties.toImmutable()
+                    )
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return /* spotless:off */ other is InboundWireTransferReversal && inboundWireTransferId == other.inboundWireTransferId && additionalProperties == other.additionalProperties /* spotless:on */
+            }
+
+            /* spotless:off */
+            private val hashCode: Int by lazy { Objects.hash(inboundWireTransferId, additionalProperties) }
+            /* spotless:on */
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "InboundWireTransferReversal{inboundWireTransferId=$inboundWireTransferId, additionalProperties=$additionalProperties}"
+        }
+
+        /**
          * A Real-Time Payments Transfer Instruction object. This field will be present in the JSON
          * response if and only if `category` is equal to `real_time_payments_transfer_instruction`.
          */
@@ -7483,17 +7649,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Source && accountTransferInstruction == other.accountTransferInstruction && achTransferInstruction == other.achTransferInstruction && cardAuthorization == other.cardAuthorization && category == other.category && checkDepositInstruction == other.checkDepositInstruction && checkTransferInstruction == other.checkTransferInstruction && inboundFundsHold == other.inboundFundsHold && this.other == other.other && realTimePaymentsTransferInstruction == other.realTimePaymentsTransferInstruction && wireTransferInstruction == other.wireTransferInstruction && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Source && accountTransferInstruction == other.accountTransferInstruction && achTransferInstruction == other.achTransferInstruction && cardAuthorization == other.cardAuthorization && category == other.category && checkDepositInstruction == other.checkDepositInstruction && checkTransferInstruction == other.checkTransferInstruction && inboundFundsHold == other.inboundFundsHold && inboundWireTransferReversal == other.inboundWireTransferReversal && this.other == other.other && realTimePaymentsTransferInstruction == other.realTimePaymentsTransferInstruction && wireTransferInstruction == other.wireTransferInstruction && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(accountTransferInstruction, achTransferInstruction, cardAuthorization, category, checkDepositInstruction, checkTransferInstruction, inboundFundsHold, other, realTimePaymentsTransferInstruction, wireTransferInstruction, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(accountTransferInstruction, achTransferInstruction, cardAuthorization, category, checkDepositInstruction, checkTransferInstruction, inboundFundsHold, inboundWireTransferReversal, other, realTimePaymentsTransferInstruction, wireTransferInstruction, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Source{accountTransferInstruction=$accountTransferInstruction, achTransferInstruction=$achTransferInstruction, cardAuthorization=$cardAuthorization, category=$category, checkDepositInstruction=$checkDepositInstruction, checkTransferInstruction=$checkTransferInstruction, inboundFundsHold=$inboundFundsHold, other=$other, realTimePaymentsTransferInstruction=$realTimePaymentsTransferInstruction, wireTransferInstruction=$wireTransferInstruction, additionalProperties=$additionalProperties}"
+            "Source{accountTransferInstruction=$accountTransferInstruction, achTransferInstruction=$achTransferInstruction, cardAuthorization=$cardAuthorization, category=$category, checkDepositInstruction=$checkDepositInstruction, checkTransferInstruction=$checkTransferInstruction, inboundFundsHold=$inboundFundsHold, inboundWireTransferReversal=$inboundWireTransferReversal, other=$other, realTimePaymentsTransferInstruction=$realTimePaymentsTransferInstruction, wireTransferInstruction=$wireTransferInstruction, additionalProperties=$additionalProperties}"
     }
 
     /** Whether the Pending Transaction has been confirmed and has an associated Transaction. */
