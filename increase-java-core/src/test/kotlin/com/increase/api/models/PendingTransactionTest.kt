@@ -198,6 +198,11 @@ class PendingTransactionTest {
                                 )
                                 .build()
                         )
+                        .inboundWireTransferReversal(
+                            PendingTransaction.Source.InboundWireTransferReversal.builder()
+                                .inboundWireTransferId("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
+                                .build()
+                        )
                         .other(JsonValue.from(mapOf<String, Any>()))
                         .realTimePaymentsTransferInstruction(
                             PendingTransaction.Source.RealTimePaymentsTransferInstruction.builder()
@@ -397,6 +402,11 @@ class PendingTransactionTest {
                             .type(
                                 PendingTransaction.Source.InboundFundsHold.Type.INBOUND_FUNDS_HOLD
                             )
+                            .build()
+                    )
+                    .inboundWireTransferReversal(
+                        PendingTransaction.Source.InboundWireTransferReversal.builder()
+                            .inboundWireTransferId("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
                             .build()
                     )
                     .other(JsonValue.from(mapOf<String, Any>()))
