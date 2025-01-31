@@ -363,21 +363,24 @@ private constructor(
 
         /**
          * A Card Authentication object. This field will be present in the JSON response if and only
-         * if `category` is equal to `card_authentication`.
+         * if `category` is equal to `card_authentication`. Card Authentications are attempts to
+         * authenticate a transaction or a card with 3DS.
          */
         fun cardAuthentication(): Optional<CardAuthentication> =
             Optional.ofNullable(cardAuthentication.getNullable("card_authentication"))
 
         /**
          * A Card Authorization object. This field will be present in the JSON response if and only
-         * if `category` is equal to `card_authorization`.
+         * if `category` is equal to `card_authorization`. Card Authorizations are temporary holds
+         * placed on a customers funds with the intent to later clear a transaction.
          */
         fun cardAuthorization(): Optional<CardAuthorization> =
             Optional.ofNullable(cardAuthorization.getNullable("card_authorization"))
 
         /**
          * A Card Authorization Expiration object. This field will be present in the JSON response
-         * if and only if `category` is equal to `card_authorization_expiration`.
+         * if and only if `category` is equal to `card_authorization_expiration`. Card Authorization
+         * Expirations are cancellations of authorizations that were never settled by the acquirer.
          */
         fun cardAuthorizationExpiration(): Optional<CardAuthorizationExpiration> =
             Optional.ofNullable(
@@ -393,42 +396,51 @@ private constructor(
 
         /**
          * A Card Fuel Confirmation object. This field will be present in the JSON response if and
-         * only if `category` is equal to `card_fuel_confirmation`.
+         * only if `category` is equal to `card_fuel_confirmation`. Card Fuel Confirmations update
+         * the amount of a Card Authorization after a fuel pump transaction is completed.
          */
         fun cardFuelConfirmation(): Optional<CardFuelConfirmation> =
             Optional.ofNullable(cardFuelConfirmation.getNullable("card_fuel_confirmation"))
 
         /**
          * A Card Increment object. This field will be present in the JSON response if and only if
-         * `category` is equal to `card_increment`.
+         * `category` is equal to `card_increment`. Card Increments increase the pending amount of
+         * an authorized transaction.
          */
         fun cardIncrement(): Optional<CardIncrement> =
             Optional.ofNullable(cardIncrement.getNullable("card_increment"))
 
         /**
          * A Card Refund object. This field will be present in the JSON response if and only if
-         * `category` is equal to `card_refund`.
+         * `category` is equal to `card_refund`. Card Refunds move money back to the cardholder.
+         * While they are usually connected to a Card Settlement an acquirer can also refund money
+         * directly to a card without relation to a transaction.
          */
         fun cardRefund(): Optional<CardRefund> =
             Optional.ofNullable(cardRefund.getNullable("card_refund"))
 
         /**
          * A Card Reversal object. This field will be present in the JSON response if and only if
-         * `category` is equal to `card_reversal`.
+         * `category` is equal to `card_reversal`. Card Reversals cancel parts of or the entirety of
+         * an existing Card Authorization.
          */
         fun cardReversal(): Optional<CardReversal> =
             Optional.ofNullable(cardReversal.getNullable("card_reversal"))
 
         /**
          * A Card Settlement object. This field will be present in the JSON response if and only if
-         * `category` is equal to `card_settlement`.
+         * `category` is equal to `card_settlement`. Card Settlements are card transactions that
+         * have cleared and settled. While a settlement is usually preceded by an authorization, an
+         * acquirer can also directly clear a transaction without first authorizing it.
          */
         fun cardSettlement(): Optional<CardSettlement> =
             Optional.ofNullable(cardSettlement.getNullable("card_settlement"))
 
         /**
          * A Card Validation object. This field will be present in the JSON response if and only if
-         * `category` is equal to `card_validation`.
+         * `category` is equal to `card_validation`. Card Validations are requests from a merchant
+         * to verify that a card number and optionally its address and/or Card Verification Value
+         * are valid.
          */
         fun cardValidation(): Optional<CardValidation> =
             Optional.ofNullable(cardValidation.getNullable("card_validation"))
@@ -453,7 +465,8 @@ private constructor(
 
         /**
          * A Card Authentication object. This field will be present in the JSON response if and only
-         * if `category` is equal to `card_authentication`.
+         * if `category` is equal to `card_authentication`. Card Authentications are attempts to
+         * authenticate a transaction or a card with 3DS.
          */
         @JsonProperty("card_authentication")
         @ExcludeMissing
@@ -461,7 +474,8 @@ private constructor(
 
         /**
          * A Card Authorization object. This field will be present in the JSON response if and only
-         * if `category` is equal to `card_authorization`.
+         * if `category` is equal to `card_authorization`. Card Authorizations are temporary holds
+         * placed on a customers funds with the intent to later clear a transaction.
          */
         @JsonProperty("card_authorization")
         @ExcludeMissing
@@ -469,7 +483,8 @@ private constructor(
 
         /**
          * A Card Authorization Expiration object. This field will be present in the JSON response
-         * if and only if `category` is equal to `card_authorization_expiration`.
+         * if and only if `category` is equal to `card_authorization_expiration`. Card Authorization
+         * Expirations are cancellations of authorizations that were never settled by the acquirer.
          */
         @JsonProperty("card_authorization_expiration")
         @ExcludeMissing
@@ -486,7 +501,8 @@ private constructor(
 
         /**
          * A Card Fuel Confirmation object. This field will be present in the JSON response if and
-         * only if `category` is equal to `card_fuel_confirmation`.
+         * only if `category` is equal to `card_fuel_confirmation`. Card Fuel Confirmations update
+         * the amount of a Card Authorization after a fuel pump transaction is completed.
          */
         @JsonProperty("card_fuel_confirmation")
         @ExcludeMissing
@@ -494,7 +510,8 @@ private constructor(
 
         /**
          * A Card Increment object. This field will be present in the JSON response if and only if
-         * `category` is equal to `card_increment`.
+         * `category` is equal to `card_increment`. Card Increments increase the pending amount of
+         * an authorized transaction.
          */
         @JsonProperty("card_increment")
         @ExcludeMissing
@@ -502,7 +519,9 @@ private constructor(
 
         /**
          * A Card Refund object. This field will be present in the JSON response if and only if
-         * `category` is equal to `card_refund`.
+         * `category` is equal to `card_refund`. Card Refunds move money back to the cardholder.
+         * While they are usually connected to a Card Settlement an acquirer can also refund money
+         * directly to a card without relation to a transaction.
          */
         @JsonProperty("card_refund")
         @ExcludeMissing
@@ -510,7 +529,8 @@ private constructor(
 
         /**
          * A Card Reversal object. This field will be present in the JSON response if and only if
-         * `category` is equal to `card_reversal`.
+         * `category` is equal to `card_reversal`. Card Reversals cancel parts of or the entirety of
+         * an existing Card Authorization.
          */
         @JsonProperty("card_reversal")
         @ExcludeMissing
@@ -518,7 +538,9 @@ private constructor(
 
         /**
          * A Card Settlement object. This field will be present in the JSON response if and only if
-         * `category` is equal to `card_settlement`.
+         * `category` is equal to `card_settlement`. Card Settlements are card transactions that
+         * have cleared and settled. While a settlement is usually preceded by an authorization, an
+         * acquirer can also directly clear a transaction without first authorizing it.
          */
         @JsonProperty("card_settlement")
         @ExcludeMissing
@@ -526,7 +548,9 @@ private constructor(
 
         /**
          * A Card Validation object. This field will be present in the JSON response if and only if
-         * `category` is equal to `card_validation`.
+         * `category` is equal to `card_validation`. Card Validations are requests from a merchant
+         * to verify that a card number and optionally its address and/or Card Verification Value
+         * are valid.
          */
         @JsonProperty("card_validation")
         @ExcludeMissing
@@ -617,21 +641,24 @@ private constructor(
 
             /**
              * A Card Authentication object. This field will be present in the JSON response if and
-             * only if `category` is equal to `card_authentication`.
+             * only if `category` is equal to `card_authentication`. Card Authentications are
+             * attempts to authenticate a transaction or a card with 3DS.
              */
             fun cardAuthentication(cardAuthentication: CardAuthentication?) =
                 cardAuthentication(JsonField.ofNullable(cardAuthentication))
 
             /**
              * A Card Authentication object. This field will be present in the JSON response if and
-             * only if `category` is equal to `card_authentication`.
+             * only if `category` is equal to `card_authentication`. Card Authentications are
+             * attempts to authenticate a transaction or a card with 3DS.
              */
             fun cardAuthentication(cardAuthentication: Optional<CardAuthentication>) =
                 cardAuthentication(cardAuthentication.orElse(null))
 
             /**
              * A Card Authentication object. This field will be present in the JSON response if and
-             * only if `category` is equal to `card_authentication`.
+             * only if `category` is equal to `card_authentication`. Card Authentications are
+             * attempts to authenticate a transaction or a card with 3DS.
              */
             fun cardAuthentication(cardAuthentication: JsonField<CardAuthentication>) = apply {
                 this.cardAuthentication = cardAuthentication
@@ -639,21 +666,27 @@ private constructor(
 
             /**
              * A Card Authorization object. This field will be present in the JSON response if and
-             * only if `category` is equal to `card_authorization`.
+             * only if `category` is equal to `card_authorization`. Card Authorizations are
+             * temporary holds placed on a customers funds with the intent to later clear a
+             * transaction.
              */
             fun cardAuthorization(cardAuthorization: CardAuthorization?) =
                 cardAuthorization(JsonField.ofNullable(cardAuthorization))
 
             /**
              * A Card Authorization object. This field will be present in the JSON response if and
-             * only if `category` is equal to `card_authorization`.
+             * only if `category` is equal to `card_authorization`. Card Authorizations are
+             * temporary holds placed on a customers funds with the intent to later clear a
+             * transaction.
              */
             fun cardAuthorization(cardAuthorization: Optional<CardAuthorization>) =
                 cardAuthorization(cardAuthorization.orElse(null))
 
             /**
              * A Card Authorization object. This field will be present in the JSON response if and
-             * only if `category` is equal to `card_authorization`.
+             * only if `category` is equal to `card_authorization`. Card Authorizations are
+             * temporary holds placed on a customers funds with the intent to later clear a
+             * transaction.
              */
             fun cardAuthorization(cardAuthorization: JsonField<CardAuthorization>) = apply {
                 this.cardAuthorization = cardAuthorization
@@ -661,7 +694,9 @@ private constructor(
 
             /**
              * A Card Authorization Expiration object. This field will be present in the JSON
-             * response if and only if `category` is equal to `card_authorization_expiration`.
+             * response if and only if `category` is equal to `card_authorization_expiration`. Card
+             * Authorization Expirations are cancellations of authorizations that were never settled
+             * by the acquirer.
              */
             fun cardAuthorizationExpiration(
                 cardAuthorizationExpiration: CardAuthorizationExpiration?
@@ -669,7 +704,9 @@ private constructor(
 
             /**
              * A Card Authorization Expiration object. This field will be present in the JSON
-             * response if and only if `category` is equal to `card_authorization_expiration`.
+             * response if and only if `category` is equal to `card_authorization_expiration`. Card
+             * Authorization Expirations are cancellations of authorizations that were never settled
+             * by the acquirer.
              */
             fun cardAuthorizationExpiration(
                 cardAuthorizationExpiration: Optional<CardAuthorizationExpiration>
@@ -677,7 +714,9 @@ private constructor(
 
             /**
              * A Card Authorization Expiration object. This field will be present in the JSON
-             * response if and only if `category` is equal to `card_authorization_expiration`.
+             * response if and only if `category` is equal to `card_authorization_expiration`. Card
+             * Authorization Expirations are cancellations of authorizations that were never settled
+             * by the acquirer.
              */
             fun cardAuthorizationExpiration(
                 cardAuthorizationExpiration: JsonField<CardAuthorizationExpiration>
@@ -707,21 +746,24 @@ private constructor(
 
             /**
              * A Card Fuel Confirmation object. This field will be present in the JSON response if
-             * and only if `category` is equal to `card_fuel_confirmation`.
+             * and only if `category` is equal to `card_fuel_confirmation`. Card Fuel Confirmations
+             * update the amount of a Card Authorization after a fuel pump transaction is completed.
              */
             fun cardFuelConfirmation(cardFuelConfirmation: CardFuelConfirmation?) =
                 cardFuelConfirmation(JsonField.ofNullable(cardFuelConfirmation))
 
             /**
              * A Card Fuel Confirmation object. This field will be present in the JSON response if
-             * and only if `category` is equal to `card_fuel_confirmation`.
+             * and only if `category` is equal to `card_fuel_confirmation`. Card Fuel Confirmations
+             * update the amount of a Card Authorization after a fuel pump transaction is completed.
              */
             fun cardFuelConfirmation(cardFuelConfirmation: Optional<CardFuelConfirmation>) =
                 cardFuelConfirmation(cardFuelConfirmation.orElse(null))
 
             /**
              * A Card Fuel Confirmation object. This field will be present in the JSON response if
-             * and only if `category` is equal to `card_fuel_confirmation`.
+             * and only if `category` is equal to `card_fuel_confirmation`. Card Fuel Confirmations
+             * update the amount of a Card Authorization after a fuel pump transaction is completed.
              */
             fun cardFuelConfirmation(cardFuelConfirmation: JsonField<CardFuelConfirmation>) =
                 apply {
@@ -730,21 +772,24 @@ private constructor(
 
             /**
              * A Card Increment object. This field will be present in the JSON response if and only
-             * if `category` is equal to `card_increment`.
+             * if `category` is equal to `card_increment`. Card Increments increase the pending
+             * amount of an authorized transaction.
              */
             fun cardIncrement(cardIncrement: CardIncrement?) =
                 cardIncrement(JsonField.ofNullable(cardIncrement))
 
             /**
              * A Card Increment object. This field will be present in the JSON response if and only
-             * if `category` is equal to `card_increment`.
+             * if `category` is equal to `card_increment`. Card Increments increase the pending
+             * amount of an authorized transaction.
              */
             fun cardIncrement(cardIncrement: Optional<CardIncrement>) =
                 cardIncrement(cardIncrement.orElse(null))
 
             /**
              * A Card Increment object. This field will be present in the JSON response if and only
-             * if `category` is equal to `card_increment`.
+             * if `category` is equal to `card_increment`. Card Increments increase the pending
+             * amount of an authorized transaction.
              */
             fun cardIncrement(cardIncrement: JsonField<CardIncrement>) = apply {
                 this.cardIncrement = cardIncrement
@@ -752,19 +797,25 @@ private constructor(
 
             /**
              * A Card Refund object. This field will be present in the JSON response if and only if
-             * `category` is equal to `card_refund`.
+             * `category` is equal to `card_refund`. Card Refunds move money back to the cardholder.
+             * While they are usually connected to a Card Settlement an acquirer can also refund
+             * money directly to a card without relation to a transaction.
              */
             fun cardRefund(cardRefund: CardRefund?) = cardRefund(JsonField.ofNullable(cardRefund))
 
             /**
              * A Card Refund object. This field will be present in the JSON response if and only if
-             * `category` is equal to `card_refund`.
+             * `category` is equal to `card_refund`. Card Refunds move money back to the cardholder.
+             * While they are usually connected to a Card Settlement an acquirer can also refund
+             * money directly to a card without relation to a transaction.
              */
             fun cardRefund(cardRefund: Optional<CardRefund>) = cardRefund(cardRefund.orElse(null))
 
             /**
              * A Card Refund object. This field will be present in the JSON response if and only if
-             * `category` is equal to `card_refund`.
+             * `category` is equal to `card_refund`. Card Refunds move money back to the cardholder.
+             * While they are usually connected to a Card Settlement an acquirer can also refund
+             * money directly to a card without relation to a transaction.
              */
             fun cardRefund(cardRefund: JsonField<CardRefund>) = apply {
                 this.cardRefund = cardRefund
@@ -772,21 +823,24 @@ private constructor(
 
             /**
              * A Card Reversal object. This field will be present in the JSON response if and only
-             * if `category` is equal to `card_reversal`.
+             * if `category` is equal to `card_reversal`. Card Reversals cancel parts of or the
+             * entirety of an existing Card Authorization.
              */
             fun cardReversal(cardReversal: CardReversal?) =
                 cardReversal(JsonField.ofNullable(cardReversal))
 
             /**
              * A Card Reversal object. This field will be present in the JSON response if and only
-             * if `category` is equal to `card_reversal`.
+             * if `category` is equal to `card_reversal`. Card Reversals cancel parts of or the
+             * entirety of an existing Card Authorization.
              */
             fun cardReversal(cardReversal: Optional<CardReversal>) =
                 cardReversal(cardReversal.orElse(null))
 
             /**
              * A Card Reversal object. This field will be present in the JSON response if and only
-             * if `category` is equal to `card_reversal`.
+             * if `category` is equal to `card_reversal`. Card Reversals cancel parts of or the
+             * entirety of an existing Card Authorization.
              */
             fun cardReversal(cardReversal: JsonField<CardReversal>) = apply {
                 this.cardReversal = cardReversal
@@ -794,21 +848,30 @@ private constructor(
 
             /**
              * A Card Settlement object. This field will be present in the JSON response if and only
-             * if `category` is equal to `card_settlement`.
+             * if `category` is equal to `card_settlement`. Card Settlements are card transactions
+             * that have cleared and settled. While a settlement is usually preceded by an
+             * authorization, an acquirer can also directly clear a transaction without first
+             * authorizing it.
              */
             fun cardSettlement(cardSettlement: CardSettlement?) =
                 cardSettlement(JsonField.ofNullable(cardSettlement))
 
             /**
              * A Card Settlement object. This field will be present in the JSON response if and only
-             * if `category` is equal to `card_settlement`.
+             * if `category` is equal to `card_settlement`. Card Settlements are card transactions
+             * that have cleared and settled. While a settlement is usually preceded by an
+             * authorization, an acquirer can also directly clear a transaction without first
+             * authorizing it.
              */
             fun cardSettlement(cardSettlement: Optional<CardSettlement>) =
                 cardSettlement(cardSettlement.orElse(null))
 
             /**
              * A Card Settlement object. This field will be present in the JSON response if and only
-             * if `category` is equal to `card_settlement`.
+             * if `category` is equal to `card_settlement`. Card Settlements are card transactions
+             * that have cleared and settled. While a settlement is usually preceded by an
+             * authorization, an acquirer can also directly clear a transaction without first
+             * authorizing it.
              */
             fun cardSettlement(cardSettlement: JsonField<CardSettlement>) = apply {
                 this.cardSettlement = cardSettlement
@@ -816,21 +879,27 @@ private constructor(
 
             /**
              * A Card Validation object. This field will be present in the JSON response if and only
-             * if `category` is equal to `card_validation`.
+             * if `category` is equal to `card_validation`. Card Validations are requests from a
+             * merchant to verify that a card number and optionally its address and/or Card
+             * Verification Value are valid.
              */
             fun cardValidation(cardValidation: CardValidation?) =
                 cardValidation(JsonField.ofNullable(cardValidation))
 
             /**
              * A Card Validation object. This field will be present in the JSON response if and only
-             * if `category` is equal to `card_validation`.
+             * if `category` is equal to `card_validation`. Card Validations are requests from a
+             * merchant to verify that a card number and optionally its address and/or Card
+             * Verification Value are valid.
              */
             fun cardValidation(cardValidation: Optional<CardValidation>) =
                 cardValidation(cardValidation.orElse(null))
 
             /**
              * A Card Validation object. This field will be present in the JSON response if and only
-             * if `category` is equal to `card_validation`.
+             * if `category` is equal to `card_validation`. Card Validations are requests from a
+             * merchant to verify that a card number and optionally its address and/or Card
+             * Verification Value are valid.
              */
             fun cardValidation(cardValidation: JsonField<CardValidation>) = apply {
                 this.cardValidation = cardValidation
@@ -908,7 +977,8 @@ private constructor(
 
         /**
          * A Card Authentication object. This field will be present in the JSON response if and only
-         * if `category` is equal to `card_authentication`.
+         * if `category` is equal to `card_authentication`. Card Authentications are attempts to
+         * authenticate a transaction or a card with 3DS.
          */
         @NoAutoDetect
         class CardAuthentication
@@ -2723,7 +2793,8 @@ private constructor(
 
         /**
          * A Card Authorization object. This field will be present in the JSON response if and only
-         * if `category` is equal to `card_authorization`.
+         * if `category` is equal to `card_authorization`. Card Authorizations are temporary holds
+         * placed on a customers funds with the intent to later clear a transaction.
          */
         @NoAutoDetect
         class CardAuthorization
@@ -6551,7 +6622,8 @@ private constructor(
 
         /**
          * A Card Authorization Expiration object. This field will be present in the JSON response
-         * if and only if `category` is equal to `card_authorization_expiration`.
+         * if and only if `category` is equal to `card_authorization_expiration`. Card Authorization
+         * Expirations are cancellations of authorizations that were never settled by the acquirer.
          */
         @NoAutoDetect
         class CardAuthorizationExpiration
@@ -11305,7 +11377,8 @@ private constructor(
 
         /**
          * A Card Fuel Confirmation object. This field will be present in the JSON response if and
-         * only if `category` is equal to `card_fuel_confirmation`.
+         * only if `category` is equal to `card_fuel_confirmation`. Card Fuel Confirmations update
+         * the amount of a Card Authorization after a fuel pump transaction is completed.
          */
         @NoAutoDetect
         class CardFuelConfirmation
@@ -12181,7 +12254,8 @@ private constructor(
 
         /**
          * A Card Increment object. This field will be present in the JSON response if and only if
-         * `category` is equal to `card_increment`.
+         * `category` is equal to `card_increment`. Card Increments increase the pending amount of
+         * an authorized transaction.
          */
         @NoAutoDetect
         class CardIncrement
@@ -13322,7 +13396,9 @@ private constructor(
 
         /**
          * A Card Refund object. This field will be present in the JSON response if and only if
-         * `category` is equal to `card_refund`.
+         * `category` is equal to `card_refund`. Card Refunds move money back to the cardholder.
+         * While they are usually connected to a Card Settlement an acquirer can also refund money
+         * directly to a card without relation to a transaction.
          */
         @NoAutoDetect
         class CardRefund
@@ -19828,7 +19904,8 @@ private constructor(
 
         /**
          * A Card Reversal object. This field will be present in the JSON response if and only if
-         * `category` is equal to `card_reversal`.
+         * `category` is equal to `card_reversal`. Card Reversals cancel parts of or the entirety of
+         * an existing Card Authorization.
          */
         @NoAutoDetect
         class CardReversal
@@ -21148,7 +21225,9 @@ private constructor(
 
         /**
          * A Card Settlement object. This field will be present in the JSON response if and only if
-         * `category` is equal to `card_settlement`.
+         * `category` is equal to `card_settlement`. Card Settlements are card transactions that
+         * have cleared and settled. While a settlement is usually preceded by an authorization, an
+         * acquirer can also directly clear a transaction without first authorizing it.
          */
         @NoAutoDetect
         class CardSettlement
@@ -27725,7 +27804,9 @@ private constructor(
 
         /**
          * A Card Validation object. This field will be present in the JSON response if and only if
-         * `category` is equal to `card_validation`.
+         * `category` is equal to `card_validation`. Card Validations are requests from a merchant
+         * to verify that a card number and optionally its address and/or Card Verification Value
+         * are valid.
          */
         @NoAutoDetect
         class CardValidation
