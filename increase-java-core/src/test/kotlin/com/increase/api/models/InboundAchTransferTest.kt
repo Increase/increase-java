@@ -38,6 +38,7 @@ class InboundAchTransferTest {
                 )
                 .amount(100L)
                 .automaticallyResolvesAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .decline(
                     InboundAchTransfer.Decline.builder()
                         .declinedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -172,6 +173,8 @@ class InboundAchTransferTest {
             )
         assertThat(inboundAchTransfer.amount()).isEqualTo(100L)
         assertThat(inboundAchTransfer.automaticallyResolvesAt())
+            .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+        assertThat(inboundAchTransfer.createdAt())
             .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(inboundAchTransfer.decline())
             .contains(
