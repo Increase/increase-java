@@ -43,6 +43,9 @@ private constructor(
     @JsonProperty("automatically_resolves_at")
     @ExcludeMissing
     private val automaticallyResolvesAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonProperty("decline")
     @ExcludeMissing
     private val decline: JsonField<Decline> = JsonMissing.of(),
@@ -124,6 +127,12 @@ private constructor(
     /** The time at which the transfer will be automatically resolved. */
     fun automaticallyResolvesAt(): OffsetDateTime =
         automaticallyResolvesAt.getRequired("automatically_resolves_at")
+
+    /**
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the inbound ACH
+     * transfer was created.
+     */
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /** If your transfer is declined, this will contain details of the decline. */
     fun decline(): Optional<Decline> = Optional.ofNullable(decline.getNullable("decline"))
@@ -243,6 +252,14 @@ private constructor(
     @JsonProperty("automatically_resolves_at")
     @ExcludeMissing
     fun _automaticallyResolvesAt(): JsonField<OffsetDateTime> = automaticallyResolvesAt
+
+    /**
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the inbound ACH
+     * transfer was created.
+     */
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** If your transfer is declined, this will contain details of the decline. */
     @JsonProperty("decline") @ExcludeMissing fun _decline(): JsonField<Decline> = decline
@@ -370,6 +387,7 @@ private constructor(
         addenda().ifPresent { it.validate() }
         amount()
         automaticallyResolvesAt()
+        createdAt()
         decline().ifPresent { it.validate() }
         direction()
         effectiveDate()
@@ -409,6 +427,7 @@ private constructor(
         private var addenda: JsonField<Addenda>? = null
         private var amount: JsonField<Long>? = null
         private var automaticallyResolvesAt: JsonField<OffsetDateTime>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
         private var decline: JsonField<Decline>? = null
         private var direction: JsonField<Direction>? = null
         private var effectiveDate: JsonField<LocalDate>? = null
@@ -439,6 +458,7 @@ private constructor(
             addenda = inboundAchTransfer.addenda
             amount = inboundAchTransfer.amount
             automaticallyResolvesAt = inboundAchTransfer.automaticallyResolvesAt
+            createdAt = inboundAchTransfer.createdAt
             decline = inboundAchTransfer.decline
             direction = inboundAchTransfer.direction
             effectiveDate = inboundAchTransfer.effectiveDate
@@ -515,6 +535,18 @@ private constructor(
         fun automaticallyResolvesAt(automaticallyResolvesAt: JsonField<OffsetDateTime>) = apply {
             this.automaticallyResolvesAt = automaticallyResolvesAt
         }
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the inbound
+         * ACH transfer was created.
+         */
+        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the inbound
+         * ACH transfer was created.
+         */
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** If your transfer is declined, this will contain details of the decline. */
         fun decline(decline: Decline?) = decline(JsonField.ofNullable(decline))
@@ -779,6 +811,7 @@ private constructor(
                 checkRequired("addenda", addenda),
                 checkRequired("amount", amount),
                 checkRequired("automaticallyResolvesAt", automaticallyResolvesAt),
+                checkRequired("createdAt", createdAt),
                 checkRequired("decline", decline),
                 checkRequired("direction", direction),
                 checkRequired("effectiveDate", effectiveDate),
@@ -5143,15 +5176,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InboundAchTransfer && id == other.id && acceptance == other.acceptance && accountId == other.accountId && accountNumberId == other.accountNumberId && addenda == other.addenda && amount == other.amount && automaticallyResolvesAt == other.automaticallyResolvesAt && decline == other.decline && direction == other.direction && effectiveDate == other.effectiveDate && expectedSettlementSchedule == other.expectedSettlementSchedule && internationalAddenda == other.internationalAddenda && notificationOfChange == other.notificationOfChange && originatorCompanyDescriptiveDate == other.originatorCompanyDescriptiveDate && originatorCompanyDiscretionaryData == other.originatorCompanyDiscretionaryData && originatorCompanyEntryDescription == other.originatorCompanyEntryDescription && originatorCompanyId == other.originatorCompanyId && originatorCompanyName == other.originatorCompanyName && originatorRoutingNumber == other.originatorRoutingNumber && receiverIdNumber == other.receiverIdNumber && receiverName == other.receiverName && standardEntryClassCode == other.standardEntryClassCode && status == other.status && traceNumber == other.traceNumber && transferReturn == other.transferReturn && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is InboundAchTransfer && id == other.id && acceptance == other.acceptance && accountId == other.accountId && accountNumberId == other.accountNumberId && addenda == other.addenda && amount == other.amount && automaticallyResolvesAt == other.automaticallyResolvesAt && createdAt == other.createdAt && decline == other.decline && direction == other.direction && effectiveDate == other.effectiveDate && expectedSettlementSchedule == other.expectedSettlementSchedule && internationalAddenda == other.internationalAddenda && notificationOfChange == other.notificationOfChange && originatorCompanyDescriptiveDate == other.originatorCompanyDescriptiveDate && originatorCompanyDiscretionaryData == other.originatorCompanyDiscretionaryData && originatorCompanyEntryDescription == other.originatorCompanyEntryDescription && originatorCompanyId == other.originatorCompanyId && originatorCompanyName == other.originatorCompanyName && originatorRoutingNumber == other.originatorRoutingNumber && receiverIdNumber == other.receiverIdNumber && receiverName == other.receiverName && standardEntryClassCode == other.standardEntryClassCode && status == other.status && traceNumber == other.traceNumber && transferReturn == other.transferReturn && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, acceptance, accountId, accountNumberId, addenda, amount, automaticallyResolvesAt, decline, direction, effectiveDate, expectedSettlementSchedule, internationalAddenda, notificationOfChange, originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData, originatorCompanyEntryDescription, originatorCompanyId, originatorCompanyName, originatorRoutingNumber, receiverIdNumber, receiverName, standardEntryClassCode, status, traceNumber, transferReturn, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, acceptance, accountId, accountNumberId, addenda, amount, automaticallyResolvesAt, createdAt, decline, direction, effectiveDate, expectedSettlementSchedule, internationalAddenda, notificationOfChange, originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData, originatorCompanyEntryDescription, originatorCompanyId, originatorCompanyName, originatorRoutingNumber, receiverIdNumber, receiverName, standardEntryClassCode, status, traceNumber, transferReturn, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InboundAchTransfer{id=$id, acceptance=$acceptance, accountId=$accountId, accountNumberId=$accountNumberId, addenda=$addenda, amount=$amount, automaticallyResolvesAt=$automaticallyResolvesAt, decline=$decline, direction=$direction, effectiveDate=$effectiveDate, expectedSettlementSchedule=$expectedSettlementSchedule, internationalAddenda=$internationalAddenda, notificationOfChange=$notificationOfChange, originatorCompanyDescriptiveDate=$originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData=$originatorCompanyDiscretionaryData, originatorCompanyEntryDescription=$originatorCompanyEntryDescription, originatorCompanyId=$originatorCompanyId, originatorCompanyName=$originatorCompanyName, originatorRoutingNumber=$originatorRoutingNumber, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, standardEntryClassCode=$standardEntryClassCode, status=$status, traceNumber=$traceNumber, transferReturn=$transferReturn, type=$type, additionalProperties=$additionalProperties}"
+        "InboundAchTransfer{id=$id, acceptance=$acceptance, accountId=$accountId, accountNumberId=$accountNumberId, addenda=$addenda, amount=$amount, automaticallyResolvesAt=$automaticallyResolvesAt, createdAt=$createdAt, decline=$decline, direction=$direction, effectiveDate=$effectiveDate, expectedSettlementSchedule=$expectedSettlementSchedule, internationalAddenda=$internationalAddenda, notificationOfChange=$notificationOfChange, originatorCompanyDescriptiveDate=$originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData=$originatorCompanyDiscretionaryData, originatorCompanyEntryDescription=$originatorCompanyEntryDescription, originatorCompanyId=$originatorCompanyId, originatorCompanyName=$originatorCompanyName, originatorRoutingNumber=$originatorRoutingNumber, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, standardEntryClassCode=$standardEntryClassCode, status=$status, traceNumber=$traceNumber, transferReturn=$transferReturn, type=$type, additionalProperties=$additionalProperties}"
 }
