@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.175.0 (2025-02-04)
+
+Full Changelog: [v0.174.0...v0.175.0](https://github.com/Increase/increase-java/compare/v0.174.0...v0.175.0)
+
+### Features
+
+* **api:** api update ([#756](https://github.com/Increase/increase-java/issues/756)) ([7087292](https://github.com/Increase/increase-java/commit/708729236be5d99454876a7d99a3e161ddb8e358))
+* **client:** send client-side timeout headers ([#754](https://github.com/Increase/increase-java/issues/754)) ([4403efc](https://github.com/Increase/increase-java/commit/4403efc7197c379c1204d3b99c8cd9ea974ef758))
+
 ## 0.174.0 (2025-02-03)
 
 Full Changelog: [v0.173.0...v0.174.0](https://github.com/Increase/increase-java/compare/v0.173.0...v0.174.0)
