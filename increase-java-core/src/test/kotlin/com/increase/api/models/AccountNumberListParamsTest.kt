@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class AccountNumberListParamsTest {
 
     @Test
-    fun createAccountNumberListParams() {
+    fun create() {
         AccountNumberListParams.builder()
             .accountId("account_id")
             .achDebitStatus(AccountNumberListParams.AchDebitStatus.ALLOWED)

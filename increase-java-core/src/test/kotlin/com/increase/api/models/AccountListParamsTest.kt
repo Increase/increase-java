@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class AccountListParamsTest {
 
     @Test
-    fun createAccountListParams() {
+    fun create() {
         AccountListParams.builder()
             .createdAt(
                 AccountListParams.CreatedAt.builder()

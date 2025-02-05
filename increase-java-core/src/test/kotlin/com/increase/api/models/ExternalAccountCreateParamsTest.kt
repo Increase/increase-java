@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class ExternalAccountCreateParamsTest {
 
     @Test
-    fun createExternalAccountCreateParams() {
+    fun create() {
         ExternalAccountCreateParams.builder()
             .accountNumber("987654321")
             .description("Landlord")

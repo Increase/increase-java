@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class EntityArchiveParamsTest {
 
     @Test
-    fun createEntityArchiveParams() {
+    fun create() {
         EntityArchiveParams.builder().entityId("entity_n8y8tnk2p9339ti393yi").build()
     }
 

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class WireTransferCancelParamsTest {
 
     @Test
-    fun createWireTransferCancelParams() {
+    fun create() {
         WireTransferCancelParams.builder()
             .wireTransferId("wire_transfer_5akynk7dqsq25qwk9q2u")
             .build()

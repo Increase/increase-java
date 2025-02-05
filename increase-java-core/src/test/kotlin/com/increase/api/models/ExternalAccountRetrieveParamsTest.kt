@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class ExternalAccountRetrieveParamsTest {
 
     @Test
-    fun createExternalAccountRetrieveParams() {
+    fun create() {
         ExternalAccountRetrieveParams.builder()
             .externalAccountId("external_account_ukk55lr923a3ac0pp7iv")
             .build()

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class WireTransferRetrieveParamsTest {
 
     @Test
-    fun createWireTransferRetrieveParams() {
+    fun create() {
         WireTransferRetrieveParams.builder()
             .wireTransferId("wire_transfer_5akynk7dqsq25qwk9q2u")
             .build()

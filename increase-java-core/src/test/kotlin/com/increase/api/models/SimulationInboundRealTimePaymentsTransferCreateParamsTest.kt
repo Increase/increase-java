@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class SimulationInboundRealTimePaymentsTransferCreateParamsTest {
 
     @Test
-    fun createSimulationInboundRealTimePaymentsTransferCreateParams() {
+    fun create() {
         SimulationInboundRealTimePaymentsTransferCreateParams.builder()
             .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
             .amount(1000L)

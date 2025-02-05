@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class IntrafiBalanceRetrieveParamsTest {
 
     @Test
-    fun createIntrafiBalanceRetrieveParams() {
+    fun create() {
         IntrafiBalanceRetrieveParams.builder().accountId("account_in71c4amph0vgo2qllky").build()
     }
 

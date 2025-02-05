@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class PhysicalCardProfileCloneParamsTest {
 
     @Test
-    fun createPhysicalCardProfileCloneParams() {
+    fun create() {
         PhysicalCardProfileCloneParams.builder()
             .physicalCardProfileId("physical_card_profile_m534d5rn9qyy9ufqxoec")
             .carrierImageFileId("carrier_image_file_id")

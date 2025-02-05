@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class EventRetrieveParamsTest {
 
     @Test
-    fun createEventRetrieveParams() {
+    fun create() {
         EventRetrieveParams.builder().eventId("event_001dzz0r20rzr4zrhrr1364hy80").build()
     }
 

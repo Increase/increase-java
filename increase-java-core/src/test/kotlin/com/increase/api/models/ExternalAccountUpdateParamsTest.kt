@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class ExternalAccountUpdateParamsTest {
 
     @Test
-    fun createExternalAccountUpdateParams() {
+    fun create() {
         ExternalAccountUpdateParams.builder()
             .externalAccountId("external_account_ukk55lr923a3ac0pp7iv")
             .accountHolder(ExternalAccountUpdateParams.AccountHolder.BUSINESS)

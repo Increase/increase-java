@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class AccountStatementRetrieveParamsTest {
 
     @Test
-    fun createAccountStatementRetrieveParams() {
+    fun create() {
         AccountStatementRetrieveParams.builder()
             .accountStatementId("account_statement_lkc03a4skm2k7f38vj15")
             .build()

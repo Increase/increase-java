@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class EntityUpdateAddressParamsTest {
 
     @Test
-    fun createEntityUpdateAddressParams() {
+    fun create() {
         EntityUpdateAddressParams.builder()
             .entityId("entity_n8y8tnk2p9339ti393yi")
             .address(

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class OAuthTokenCreateParamsTest {
 
     @Test
-    fun createOAuthTokenCreateParams() {
+    fun create() {
         OAuthTokenCreateParams.builder()
             .grantType(OAuthTokenCreateParams.GrantType.AUTHORIZATION_CODE)
             .clientId("12345")

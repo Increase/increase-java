@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class RealTimePaymentsRequestForPaymentRetrieveParamsTest {
 
     @Test
-    fun createRealTimePaymentsRequestForPaymentRetrieveParams() {
+    fun create() {
         RealTimePaymentsRequestForPaymentRetrieveParams.builder()
             .requestForPaymentId("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
             .build()

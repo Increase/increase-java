@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class InboundMailItemListParamsTest {
 
     @Test
-    fun createInboundMailItemListParams() {
+    fun create() {
         InboundMailItemListParams.builder()
             .createdAt(
                 InboundMailItemListParams.CreatedAt.builder()

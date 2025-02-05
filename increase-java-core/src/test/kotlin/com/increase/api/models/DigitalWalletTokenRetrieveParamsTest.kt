@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class DigitalWalletTokenRetrieveParamsTest {
 
     @Test
-    fun createDigitalWalletTokenRetrieveParams() {
+    fun create() {
         DigitalWalletTokenRetrieveParams.builder()
             .digitalWalletTokenId("digital_wallet_token_izi62go3h51p369jrie0")
             .build()

@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class DeclinedTransactionListParamsTest {
 
     @Test
-    fun createDeclinedTransactionListParams() {
+    fun create() {
         DeclinedTransactionListParams.builder()
             .accountId("account_id")
             .category(

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class SimulationProgramCreateParamsTest {
 
     @Test
-    fun createSimulationProgramCreateParams() {
+    fun create() {
         SimulationProgramCreateParams.builder().name("For Benefit Of").build()
     }
 

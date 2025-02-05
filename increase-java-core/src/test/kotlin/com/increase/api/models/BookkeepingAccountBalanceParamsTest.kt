@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class BookkeepingAccountBalanceParamsTest {
 
     @Test
-    fun createBookkeepingAccountBalanceParams() {
+    fun create() {
         BookkeepingAccountBalanceParams.builder()
             .bookkeepingAccountId("bookkeeping_account_e37p1f1iuocw5intf35v")
             .atTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

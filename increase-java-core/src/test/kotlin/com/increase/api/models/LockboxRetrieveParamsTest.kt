@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class LockboxRetrieveParamsTest {
 
     @Test
-    fun createLockboxRetrieveParams() {
+    fun create() {
         LockboxRetrieveParams.builder().lockboxId("lockbox_3xt21ok13q19advds4t5").build()
     }
 

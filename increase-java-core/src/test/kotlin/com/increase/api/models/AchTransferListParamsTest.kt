@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class AchTransferListParamsTest {
 
     @Test
-    fun createAchTransferListParams() {
+    fun create() {
         AchTransferListParams.builder()
             .accountId("account_id")
             .createdAt(

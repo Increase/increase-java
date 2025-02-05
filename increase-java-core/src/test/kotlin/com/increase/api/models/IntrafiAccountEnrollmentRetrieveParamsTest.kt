@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class IntrafiAccountEnrollmentRetrieveParamsTest {
 
     @Test
-    fun createIntrafiAccountEnrollmentRetrieveParams() {
+    fun create() {
         IntrafiAccountEnrollmentRetrieveParams.builder()
             .intrafiAccountEnrollmentId("intrafi_account_enrollment_w8l97znzreopkwf2tg75")
             .build()

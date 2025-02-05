@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class AchPrenotificationCreateParamsTest {
 
     @Test
-    fun createAchPrenotificationCreateParams() {
+    fun create() {
         AchPrenotificationCreateParams.builder()
             .accountId("account_in71c4amph0vgo2qllky")
             .accountNumber("987654321")

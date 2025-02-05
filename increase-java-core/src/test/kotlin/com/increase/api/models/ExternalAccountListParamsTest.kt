@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class ExternalAccountListParamsTest {
 
     @Test
-    fun createExternalAccountListParams() {
+    fun create() {
         ExternalAccountListParams.builder()
             .cursor("cursor")
             .idempotencyKey("x")

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class CheckTransferApproveParamsTest {
 
     @Test
-    fun createCheckTransferApproveParams() {
+    fun create() {
         CheckTransferApproveParams.builder()
             .checkTransferId("check_transfer_30b43acfu9vw8fyc4f5")
             .build()

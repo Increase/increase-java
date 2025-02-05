@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class AccountTransferApproveParamsTest {
 
     @Test
-    fun createAccountTransferApproveParams() {
+    fun create() {
         AccountTransferApproveParams.builder()
             .accountTransferId("account_transfer_7k9qe1ysdgqztnt63l7n")
             .build()

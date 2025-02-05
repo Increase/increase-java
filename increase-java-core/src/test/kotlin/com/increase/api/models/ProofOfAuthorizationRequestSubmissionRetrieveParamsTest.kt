@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class ProofOfAuthorizationRequestSubmissionRetrieveParamsTest {
 
     @Test
-    fun createProofOfAuthorizationRequestSubmissionRetrieveParams() {
+    fun create() {
         ProofOfAuthorizationRequestSubmissionRetrieveParams.builder()
             .proofOfAuthorizationRequestSubmissionId(
                 "proof_of_authorization_request_submission_uqhqroiley7n0097vizn"

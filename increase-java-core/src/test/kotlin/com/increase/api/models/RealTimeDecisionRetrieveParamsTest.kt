@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class RealTimeDecisionRetrieveParamsTest {
 
     @Test
-    fun createRealTimeDecisionRetrieveParams() {
+    fun create() {
         RealTimeDecisionRetrieveParams.builder()
             .realTimeDecisionId("real_time_decision_j76n2e810ezcg3zh5qtn")
             .build()

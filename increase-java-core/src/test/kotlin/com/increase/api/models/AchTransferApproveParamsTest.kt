@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class AchTransferApproveParamsTest {
 
     @Test
-    fun createAchTransferApproveParams() {
+    fun create() {
         AchTransferApproveParams.builder()
             .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
             .build()

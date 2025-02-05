@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class EventSubscriptionListParamsTest {
 
     @Test
-    fun createEventSubscriptionListParams() {
+    fun create() {
         EventSubscriptionListParams.builder().cursor("cursor").idempotencyKey("x").limit(1L).build()
     }
 

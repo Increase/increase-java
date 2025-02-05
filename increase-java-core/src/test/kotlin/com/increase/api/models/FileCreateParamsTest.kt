@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class FileCreateParamsTest {
 
     @Test
-    fun createFileCreateParams() {
+    fun create() {
         FileCreateParams.builder()
             .file("some content".toByteArray())
             .purpose(FileCreateParams.Purpose.CHECK_IMAGE_FRONT)

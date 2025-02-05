@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class DigitalCardProfileRetrieveParamsTest {
 
     @Test
-    fun createDigitalCardProfileRetrieveParams() {
+    fun create() {
         DigitalCardProfileRetrieveParams.builder()
             .digitalCardProfileId("digital_card_profile_s3puplu90f04xhcwkiga")
             .build()

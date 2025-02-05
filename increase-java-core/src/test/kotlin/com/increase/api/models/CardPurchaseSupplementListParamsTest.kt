@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class CardPurchaseSupplementListParamsTest {
 
     @Test
-    fun createCardPurchaseSupplementListParams() {
+    fun create() {
         CardPurchaseSupplementListParams.builder()
             .cardPaymentId("card_payment_id")
             .createdAt(

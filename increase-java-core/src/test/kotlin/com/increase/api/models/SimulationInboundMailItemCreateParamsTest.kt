@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class SimulationInboundMailItemCreateParamsTest {
 
     @Test
-    fun createSimulationInboundMailItemCreateParams() {
+    fun create() {
         SimulationInboundMailItemCreateParams.builder()
             .amount(1000L)
             .lockboxId("lockbox_3xt21ok13q19advds4t5")

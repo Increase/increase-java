@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class CheckDepositListParamsTest {
 
     @Test
-    fun createCheckDepositListParams() {
+    fun create() {
         CheckDepositListParams.builder()
             .accountId("account_id")
             .createdAt(

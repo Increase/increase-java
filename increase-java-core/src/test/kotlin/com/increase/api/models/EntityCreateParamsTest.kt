@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class EntityCreateParamsTest {
 
     @Test
-    fun createEntityCreateParams() {
+    fun create() {
         EntityCreateParams.builder()
             .structure(EntityCreateParams.Structure.CORPORATION)
             .corporation(

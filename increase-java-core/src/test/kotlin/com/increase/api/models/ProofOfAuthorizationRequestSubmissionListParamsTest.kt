@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class ProofOfAuthorizationRequestSubmissionListParamsTest {
 
     @Test
-    fun createProofOfAuthorizationRequestSubmissionListParams() {
+    fun create() {
         ProofOfAuthorizationRequestSubmissionListParams.builder()
             .cursor("cursor")
             .idempotencyKey("x")
