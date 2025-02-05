@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.175.1 (2025-02-05)
+
+Full Changelog: [v0.175.0...v0.175.1](https://github.com/Increase/increase-java/compare/v0.175.0...v0.175.1)
+
+### Bug Fixes
+
+* **api:** add missing `@MustBeClosed` annotations ([#758](https://github.com/Increase/increase-java/issues/758)) ([9b4c83b](https://github.com/Increase/increase-java/commit/9b4c83b976853b6d9433a86f1f210d31bb896fdc))
+* **api:** switch `CompletableFuture&lt;Void&gt;` to `CompletableFuture<Void?>` ([9b4c83b](https://github.com/Increase/increase-java/commit/9b4c83b976853b6d9433a86f1f210d31bb896fdc))
+* **client:** add missing validation calls on response ([9b4c83b](https://github.com/Increase/increase-java/commit/9b4c83b976853b6d9433a86f1f210d31bb896fdc))
+* **client:** always provide a body for `PATCH` methods ([9b4c83b](https://github.com/Increase/increase-java/commit/9b4c83b976853b6d9433a86f1f210d31bb896fdc))
+
+
+### Chores
+
+* **internal:** minor formatting/style changes ([9b4c83b](https://github.com/Increase/increase-java/commit/9b4c83b976853b6d9433a86f1f210d31bb896fdc))
+* **internal:** rename some tests ([9b4c83b](https://github.com/Increase/increase-java/commit/9b4c83b976853b6d9433a86f1f210d31bb896fdc))
+
 ## 0.175.0 (2025-02-04)
 
 Full Changelog: [v0.174.0...v0.175.0](https://github.com/Increase/increase-java/compare/v0.174.0...v0.175.0)
