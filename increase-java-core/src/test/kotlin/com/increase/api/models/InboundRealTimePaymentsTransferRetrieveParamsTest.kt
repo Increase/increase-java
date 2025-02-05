@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class InboundRealTimePaymentsTransferRetrieveParamsTest {
 
     @Test
-    fun createInboundRealTimePaymentsTransferRetrieveParams() {
+    fun create() {
         InboundRealTimePaymentsTransferRetrieveParams.builder()
             .inboundRealTimePaymentsTransferId(
                 "inbound_real_time_payments_transfer_63hlz498vcxg644hcrzr"

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class CardUpdateParamsTest {
 
     @Test
-    fun createCardUpdateParams() {
+    fun create() {
         CardUpdateParams.builder()
             .cardId("card_oubs0hwk5rn6knuecxg2")
             .billingAddress(

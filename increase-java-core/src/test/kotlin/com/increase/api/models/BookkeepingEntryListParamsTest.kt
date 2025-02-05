@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class BookkeepingEntryListParamsTest {
 
     @Test
-    fun createBookkeepingEntryListParams() {
+    fun create() {
         BookkeepingEntryListParams.builder()
             .accountId("account_id")
             .cursor("cursor")

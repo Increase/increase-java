@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class SimulationRealTimePaymentsTransferCompleteParamsTest {
 
     @Test
-    fun createSimulationRealTimePaymentsTransferCompleteParams() {
+    fun create() {
         SimulationRealTimePaymentsTransferCompleteParams.builder()
             .realTimePaymentsTransferId("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
             .rejection(

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 class GroupRetrieveParamsTest {
 
     @Test
-    fun createGroupRetrieveParams() {
+    fun create() {
         GroupRetrieveParams.builder().build()
     }
 }

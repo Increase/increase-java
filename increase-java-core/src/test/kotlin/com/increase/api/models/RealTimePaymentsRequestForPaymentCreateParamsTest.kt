@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class RealTimePaymentsRequestForPaymentCreateParamsTest {
 
     @Test
-    fun createRealTimePaymentsRequestForPaymentCreateParams() {
+    fun create() {
         RealTimePaymentsRequestForPaymentCreateParams.builder()
             .amount(100L)
             .debtor(

@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class ExportCreateParamsTest {
 
     @Test
-    fun createExportCreateParams() {
+    fun create() {
         ExportCreateParams.builder()
             .category(ExportCreateParams.Category.ACCOUNT_STATEMENT_OFX)
             .accountStatementOfx(

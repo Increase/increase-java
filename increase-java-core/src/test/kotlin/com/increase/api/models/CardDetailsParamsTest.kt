@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class CardDetailsParamsTest {
 
     @Test
-    fun createCardDetailsParams() {
+    fun create() {
         CardDetailsParams.builder().cardId("card_oubs0hwk5rn6knuecxg2").build()
     }
 

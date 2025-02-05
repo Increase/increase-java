@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class OAuthConnectionRetrieveParamsTest {
 
     @Test
-    fun createOAuthConnectionRetrieveParams() {
+    fun create() {
         OAuthConnectionRetrieveParams.builder()
             .oauthConnectionId("connection_dauknoksyr4wilz4e6my")
             .build()

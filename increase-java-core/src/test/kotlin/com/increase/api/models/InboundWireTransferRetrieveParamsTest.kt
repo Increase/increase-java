@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class InboundWireTransferRetrieveParamsTest {
 
     @Test
-    fun createInboundWireTransferRetrieveParams() {
+    fun create() {
         InboundWireTransferRetrieveParams.builder()
             .inboundWireTransferId("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
             .build()

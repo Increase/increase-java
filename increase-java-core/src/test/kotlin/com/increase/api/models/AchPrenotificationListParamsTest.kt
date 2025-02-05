@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class AchPrenotificationListParamsTest {
 
     @Test
-    fun createAchPrenotificationListParams() {
+    fun create() {
         AchPrenotificationListParams.builder()
             .createdAt(
                 AchPrenotificationListParams.CreatedAt.builder()

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class SimulationAchTransferReturnParamsTest {
 
     @Test
-    fun createSimulationAchTransferReturnParams() {
+    fun create() {
         SimulationAchTransferReturnParams.builder()
             .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
             .reason(SimulationAchTransferReturnParams.Reason.INSUFFICIENT_FUND)

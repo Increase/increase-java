@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class SimulationInterestPaymentCreateParamsTest {
 
     @Test
-    fun createSimulationInterestPaymentCreateParams() {
+    fun create() {
         SimulationInterestPaymentCreateParams.builder()
             .accountId("account_in71c4amph0vgo2qllky")
             .amount(1000L)

@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class CardDisputeListParamsTest {
 
     @Test
-    fun createCardDisputeListParams() {
+    fun create() {
         CardDisputeListParams.builder()
             .createdAt(
                 CardDisputeListParams.CreatedAt.builder()

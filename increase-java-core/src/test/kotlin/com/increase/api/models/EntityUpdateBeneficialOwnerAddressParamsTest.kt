@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class EntityUpdateBeneficialOwnerAddressParamsTest {
 
     @Test
-    fun createEntityUpdateBeneficialOwnerAddressParams() {
+    fun create() {
         EntityUpdateBeneficialOwnerAddressParams.builder()
             .entityId("entity_n8y8tnk2p9339ti393yi")
             .address(

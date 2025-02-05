@@ -48,9 +48,9 @@ internal constructor(
             .thenApply { response ->
                 response
                     .use { retrieveHandler.handle(it) }
-                    .apply {
+                    .also {
                         if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                            validate()
+                            it.validate()
                         }
                     }
             }
@@ -76,9 +76,9 @@ internal constructor(
             .thenApply { response ->
                 response
                     .use { listHandler.handle(it) }
-                    .apply {
+                    .also {
                         if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                            validate()
+                            it.validate()
                         }
                     }
                     .let { InboundAchTransferListPageAsync.of(this, params, it) }
@@ -109,9 +109,9 @@ internal constructor(
             .thenApply { response ->
                 response
                     .use { createNotificationOfChangeHandler.handle(it) }
-                    .apply {
+                    .also {
                         if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                            validate()
+                            it.validate()
                         }
                     }
             }
@@ -137,9 +137,9 @@ internal constructor(
             .thenApply { response ->
                 response
                     .use { declineHandler.handle(it) }
-                    .apply {
+                    .also {
                         if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                            validate()
+                            it.validate()
                         }
                     }
             }
@@ -165,9 +165,9 @@ internal constructor(
             .thenApply { response ->
                 response
                     .use { transferReturnHandler.handle(it) }
-                    .apply {
+                    .also {
                         if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                            validate()
+                            it.validate()
                         }
                     }
             }

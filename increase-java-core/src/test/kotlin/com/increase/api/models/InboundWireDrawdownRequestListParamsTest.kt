@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class InboundWireDrawdownRequestListParamsTest {
 
     @Test
-    fun createInboundWireDrawdownRequestListParams() {
+    fun create() {
         InboundWireDrawdownRequestListParams.builder().cursor("cursor").limit(1L).build()
     }
 

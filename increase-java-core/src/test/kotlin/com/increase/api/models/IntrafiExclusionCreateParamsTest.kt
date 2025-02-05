@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class IntrafiExclusionCreateParamsTest {
 
     @Test
-    fun createIntrafiExclusionCreateParams() {
+    fun create() {
         IntrafiExclusionCreateParams.builder()
             .bankName("Example Bank")
             .entityId("entity_n8y8tnk2p9339ti393yi")

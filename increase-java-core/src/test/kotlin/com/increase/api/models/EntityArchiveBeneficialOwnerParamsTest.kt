@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class EntityArchiveBeneficialOwnerParamsTest {
 
     @Test
-    fun createEntityArchiveBeneficialOwnerParams() {
+    fun create() {
         EntityArchiveBeneficialOwnerParams.builder()
             .entityId("entity_n8y8tnk2p9339ti393yi")
             .beneficialOwnerId("entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7")

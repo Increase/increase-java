@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class PhysicalCardProfileListParamsTest {
 
     @Test
-    fun createPhysicalCardProfileListParams() {
+    fun create() {
         PhysicalCardProfileListParams.builder()
             .cursor("cursor")
             .idempotencyKey("x")

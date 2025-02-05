@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class DigitalCardProfileCloneParamsTest {
 
     @Test
-    fun createDigitalCardProfileCloneParams() {
+    fun create() {
         DigitalCardProfileCloneParams.builder()
             .digitalCardProfileId("digital_card_profile_s3puplu90f04xhcwkiga")
             .appIconFileId("app_icon_file_id")

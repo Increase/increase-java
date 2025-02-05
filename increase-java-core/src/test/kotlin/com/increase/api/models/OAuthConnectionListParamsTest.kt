@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class OAuthConnectionListParamsTest {
 
     @Test
-    fun createOAuthConnectionListParams() {
+    fun create() {
         OAuthConnectionListParams.builder()
             .cursor("cursor")
             .limit(1L)

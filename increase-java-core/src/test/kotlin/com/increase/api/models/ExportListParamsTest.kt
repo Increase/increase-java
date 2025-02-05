@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class ExportListParamsTest {
 
     @Test
-    fun createExportListParams() {
+    fun create() {
         ExportListParams.builder()
             .category(
                 ExportListParams.Category.builder()

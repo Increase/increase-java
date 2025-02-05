@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class AchTransferRetrieveParamsTest {
 
     @Test
-    fun createAchTransferRetrieveParams() {
+    fun create() {
         AchTransferRetrieveParams.builder()
             .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
             .build()

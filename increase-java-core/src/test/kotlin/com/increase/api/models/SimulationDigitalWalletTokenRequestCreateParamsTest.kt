@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class SimulationDigitalWalletTokenRequestCreateParamsTest {
 
     @Test
-    fun createSimulationDigitalWalletTokenRequestCreateParams() {
+    fun create() {
         SimulationDigitalWalletTokenRequestCreateParams.builder()
             .cardId("card_oubs0hwk5rn6knuecxg2")
             .build()

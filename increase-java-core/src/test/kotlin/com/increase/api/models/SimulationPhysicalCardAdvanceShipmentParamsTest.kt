@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class SimulationPhysicalCardAdvanceShipmentParamsTest {
 
     @Test
-    fun createSimulationPhysicalCardAdvanceShipmentParams() {
+    fun create() {
         SimulationPhysicalCardAdvanceShipmentParams.builder()
             .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
             .shipmentStatus(SimulationPhysicalCardAdvanceShipmentParams.ShipmentStatus.PENDING)

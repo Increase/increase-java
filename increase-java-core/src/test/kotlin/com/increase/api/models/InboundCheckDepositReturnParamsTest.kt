@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class InboundCheckDepositReturnParamsTest {
 
     @Test
-    fun createInboundCheckDepositReturnParams() {
+    fun create() {
         InboundCheckDepositReturnParams.builder()
             .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
             .reason(InboundCheckDepositReturnParams.Reason.ALTERED_OR_FICTITIOUS)

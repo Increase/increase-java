@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class BookkeepingAccountListParamsTest {
 
     @Test
-    fun createBookkeepingAccountListParams() {
+    fun create() {
         BookkeepingAccountListParams.builder()
             .cursor("cursor")
             .idempotencyKey("x")

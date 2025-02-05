@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class EventSubscriptionRetrieveParamsTest {
 
     @Test
-    fun createEventSubscriptionRetrieveParams() {
+    fun create() {
         EventSubscriptionRetrieveParams.builder()
             .eventSubscriptionId("event_subscription_001dzz0r20rcdxgb013zqb8m04g")
             .build()

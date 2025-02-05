@@ -49,9 +49,9 @@ internal constructor(
             .thenApply { response ->
                 response
                     .use { actionHandler.handle(it) }
-                    .apply {
+                    .also {
                         if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                            validate()
+                            it.validate()
                         }
                     }
             }

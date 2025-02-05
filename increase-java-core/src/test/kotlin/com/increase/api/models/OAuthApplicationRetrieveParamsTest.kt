@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class OAuthApplicationRetrieveParamsTest {
 
     @Test
-    fun createOAuthApplicationRetrieveParams() {
+    fun create() {
         OAuthApplicationRetrieveParams.builder()
             .oauthApplicationId("application_gj9ufmpgh5i56k4vyriy")
             .build()

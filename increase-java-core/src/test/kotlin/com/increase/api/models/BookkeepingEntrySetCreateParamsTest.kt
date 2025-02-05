@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class BookkeepingEntrySetCreateParamsTest {
 
     @Test
-    fun createBookkeepingEntrySetCreateParams() {
+    fun create() {
         BookkeepingEntrySetCreateParams.builder()
             .addEntry(
                 BookkeepingEntrySetCreateParams.Entry.builder()

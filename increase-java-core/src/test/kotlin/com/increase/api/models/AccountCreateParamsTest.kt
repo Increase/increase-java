@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class AccountCreateParamsTest {
 
     @Test
-    fun createAccountCreateParams() {
+    fun create() {
         AccountCreateParams.builder()
             .name("New Account!")
             .entityId("entity_n8y8tnk2p9339ti393yi")

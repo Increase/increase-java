@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class TransactionListParamsTest {
 
     @Test
-    fun createTransactionListParams() {
+    fun create() {
         TransactionListParams.builder()
             .accountId("account_id")
             .category(

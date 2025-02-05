@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class CheckTransferStopPaymentParamsTest {
 
     @Test
-    fun createCheckTransferStopPaymentParams() {
+    fun create() {
         CheckTransferStopPaymentParams.builder()
             .checkTransferId("check_transfer_30b43acfu9vw8fyc4f5")
             .reason(CheckTransferStopPaymentParams.Reason.MAIL_DELIVERY_FAILED)

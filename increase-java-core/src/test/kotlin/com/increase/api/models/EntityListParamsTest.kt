@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class EntityListParamsTest {
 
     @Test
-    fun createEntityListParams() {
+    fun create() {
         EntityListParams.builder()
             .createdAt(
                 EntityListParams.CreatedAt.builder()
