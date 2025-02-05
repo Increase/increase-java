@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class SimulationCardReversalCreateParamsTest {
 
     @Test
-    fun createSimulationCardReversalCreateParams() {
+    fun create() {
         SimulationCardReversalCreateParams.builder()
             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
             .amount(1L)

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class SimulationCardAuthorizationCreateParamsTest {
 
     @Test
-    fun createSimulationCardAuthorizationCreateParams() {
+    fun create() {
         SimulationCardAuthorizationCreateParams.builder()
             .amount(1000L)
             .authenticatedCardPaymentId("authenticated_card_payment_id")

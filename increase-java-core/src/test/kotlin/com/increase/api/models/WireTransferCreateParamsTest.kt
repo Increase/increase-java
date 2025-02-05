@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class WireTransferCreateParamsTest {
 
     @Test
-    fun createWireTransferCreateParams() {
+    fun create() {
         WireTransferCreateParams.builder()
             .accountId("account_in71c4amph0vgo2qllky")
             .amount(100L)

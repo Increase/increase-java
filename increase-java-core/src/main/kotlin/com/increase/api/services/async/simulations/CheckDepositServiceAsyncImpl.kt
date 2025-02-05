@@ -49,9 +49,9 @@ internal constructor(
             .thenApply { response ->
                 response
                     .use { rejectHandler.handle(it) }
-                    .apply {
+                    .also {
                         if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                            validate()
+                            it.validate()
                         }
                     }
             }
@@ -80,9 +80,9 @@ internal constructor(
             .thenApply { response ->
                 response
                     .use { returnHandler.handle(it) }
-                    .apply {
+                    .also {
                         if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                            validate()
+                            it.validate()
                         }
                     }
             }
@@ -111,9 +111,9 @@ internal constructor(
             .thenApply { response ->
                 response
                     .use { submitHandler.handle(it) }
-                    .apply {
+                    .also {
                         if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                            validate()
+                            it.validate()
                         }
                     }
             }

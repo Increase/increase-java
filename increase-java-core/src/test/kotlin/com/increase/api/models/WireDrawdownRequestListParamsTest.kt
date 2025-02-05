@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class WireDrawdownRequestListParamsTest {
 
     @Test
-    fun createWireDrawdownRequestListParams() {
+    fun create() {
         WireDrawdownRequestListParams.builder()
             .cursor("cursor")
             .idempotencyKey("x")

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class BookkeepingEntrySetRetrieveParamsTest {
 
     @Test
-    fun createBookkeepingEntrySetRetrieveParams() {
+    fun create() {
         BookkeepingEntrySetRetrieveParams.builder()
             .bookkeepingEntrySetId("bookkeeping_entry_set_n80c6wr2p8gtc6p4ingf")
             .build()

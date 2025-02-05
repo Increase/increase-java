@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class InboundAchTransferRetrieveParamsTest {
 
     @Test
-    fun createInboundAchTransferRetrieveParams() {
+    fun create() {
         InboundAchTransferRetrieveParams.builder()
             .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
             .build()

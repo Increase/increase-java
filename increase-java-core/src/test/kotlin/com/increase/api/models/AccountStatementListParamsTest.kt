@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class AccountStatementListParamsTest {
 
     @Test
-    fun createAccountStatementListParams() {
+    fun create() {
         AccountStatementListParams.builder()
             .accountId("account_id")
             .cursor("cursor")

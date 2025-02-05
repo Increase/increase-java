@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class AccountBalanceParamsTest {
 
     @Test
-    fun createAccountBalanceParams() {
+    fun create() {
         AccountBalanceParams.builder()
             .accountId("account_in71c4amph0vgo2qllky")
             .atTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

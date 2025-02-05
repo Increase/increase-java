@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class AccountNumberCreateParamsTest {
 
     @Test
-    fun createAccountNumberCreateParams() {
+    fun create() {
         AccountNumberCreateParams.builder()
             .accountId("account_in71c4amph0vgo2qllky")
             .name("Rent payments")

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class SimulationWireTransferSubmitParamsTest {
 
     @Test
-    fun createSimulationWireTransferSubmitParams() {
+    fun create() {
         SimulationWireTransferSubmitParams.builder()
             .wireTransferId("wire_transfer_5akynk7dqsq25qwk9q2u")
             .build()

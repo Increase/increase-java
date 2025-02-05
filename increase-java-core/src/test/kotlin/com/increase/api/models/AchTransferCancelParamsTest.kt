@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class AchTransferCancelParamsTest {
 
     @Test
-    fun createAchTransferCancelParams() {
+    fun create() {
         AchTransferCancelParams.builder().achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q").build()
     }
 

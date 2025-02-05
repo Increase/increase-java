@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class PhysicalCardProfileCreateParamsTest {
 
     @Test
-    fun createPhysicalCardProfileCreateParams() {
+    fun create() {
         PhysicalCardProfileCreateParams.builder()
             .carrierImageFileId("file_h6v7mtipe119os47ehlu")
             .contactPhone("+16505046304")

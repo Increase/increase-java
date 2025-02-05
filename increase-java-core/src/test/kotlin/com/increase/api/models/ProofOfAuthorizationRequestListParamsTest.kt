@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class ProofOfAuthorizationRequestListParamsTest {
 
     @Test
-    fun createProofOfAuthorizationRequestListParams() {
+    fun create() {
         ProofOfAuthorizationRequestListParams.builder()
             .createdAt(
                 ProofOfAuthorizationRequestListParams.CreatedAt.builder()

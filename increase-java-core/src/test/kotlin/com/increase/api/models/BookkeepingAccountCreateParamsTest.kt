@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class BookkeepingAccountCreateParamsTest {
 
     @Test
-    fun createBookkeepingAccountCreateParams() {
+    fun create() {
         BookkeepingAccountCreateParams.builder()
             .name("New Account!")
             .accountId("account_id")

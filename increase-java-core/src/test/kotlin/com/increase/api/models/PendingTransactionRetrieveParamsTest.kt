@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class PendingTransactionRetrieveParamsTest {
 
     @Test
-    fun createPendingTransactionRetrieveParams() {
+    fun create() {
         PendingTransactionRetrieveParams.builder()
             .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
             .build()

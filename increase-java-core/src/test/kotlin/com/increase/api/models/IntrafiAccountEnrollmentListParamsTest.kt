@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class IntrafiAccountEnrollmentListParamsTest {
 
     @Test
-    fun createIntrafiAccountEnrollmentListParams() {
+    fun create() {
         IntrafiAccountEnrollmentListParams.builder()
             .accountId("account_id")
             .cursor("cursor")

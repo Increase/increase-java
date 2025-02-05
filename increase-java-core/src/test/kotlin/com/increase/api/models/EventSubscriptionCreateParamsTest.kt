@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class EventSubscriptionCreateParamsTest {
 
     @Test
-    fun createEventSubscriptionCreateParams() {
+    fun create() {
         EventSubscriptionCreateParams.builder()
             .url("https://website.com/webhooks")
             .oauthConnectionId("oauth_connection_id")

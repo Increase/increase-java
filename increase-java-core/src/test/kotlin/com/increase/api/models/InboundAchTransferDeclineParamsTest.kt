@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class InboundAchTransferDeclineParamsTest {
 
     @Test
-    fun createInboundAchTransferDeclineParams() {
+    fun create() {
         InboundAchTransferDeclineParams.builder()
             .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
             .reason(InboundAchTransferDeclineParams.Reason.INSUFFICIENT_FUNDS)

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class InboundAchTransferCreateNotificationOfChangeParamsTest {
 
     @Test
-    fun createInboundAchTransferCreateNotificationOfChangeParams() {
+    fun create() {
         InboundAchTransferCreateNotificationOfChangeParams.builder()
             .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
             .updatedAccountNumber("987654321")

@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class AchTransferCreateParamsTest {
 
     @Test
-    fun createAchTransferCreateParams() {
+    fun create() {
         AchTransferCreateParams.builder()
             .accountId("account_in71c4amph0vgo2qllky")
             .amount(100L)

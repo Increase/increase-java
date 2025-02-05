@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class LockboxListParamsTest {
 
     @Test
-    fun createLockboxListParams() {
+    fun create() {
         LockboxListParams.builder()
             .accountId("account_id")
             .createdAt(

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class BookkeepingAccountUpdateParamsTest {
 
     @Test
-    fun createBookkeepingAccountUpdateParams() {
+    fun create() {
         BookkeepingAccountUpdateParams.builder()
             .bookkeepingAccountId("bookkeeping_account_e37p1f1iuocw5intf35v")
             .name("Deprecated Account")

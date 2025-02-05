@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class CheckTransferCreateParamsTest {
 
     @Test
-    fun createCheckTransferCreateParams() {
+    fun create() {
         CheckTransferCreateParams.builder()
             .accountId("account_in71c4amph0vgo2qllky")
             .amount(1000L)

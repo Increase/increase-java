@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class DeclinedTransactionRetrieveParamsTest {
 
     @Test
-    fun createDeclinedTransactionRetrieveParams() {
+    fun create() {
         DeclinedTransactionRetrieveParams.builder()
             .declinedTransactionId("declined_transaction_17jbn0yyhvkt4v4ooym8")
             .build()

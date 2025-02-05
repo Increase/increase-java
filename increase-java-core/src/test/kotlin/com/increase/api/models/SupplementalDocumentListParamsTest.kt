@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class SupplementalDocumentListParamsTest {
 
     @Test
-    fun createSupplementalDocumentListParams() {
+    fun create() {
         SupplementalDocumentListParams.builder()
             .entityId("entity_id")
             .cursor("cursor")

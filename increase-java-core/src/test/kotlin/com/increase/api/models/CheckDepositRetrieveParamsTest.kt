@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class CheckDepositRetrieveParamsTest {
 
     @Test
-    fun createCheckDepositRetrieveParams() {
+    fun create() {
         CheckDepositRetrieveParams.builder()
             .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
             .build()

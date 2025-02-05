@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class SimulationInboundWireDrawdownRequestCreateParamsTest {
 
     @Test
-    fun createSimulationInboundWireDrawdownRequestCreateParams() {
+    fun create() {
         SimulationInboundWireDrawdownRequestCreateParams.builder()
             .amount(10000L)
             .beneficiaryAccountNumber("987654321")

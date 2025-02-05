@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class EntityRetrieveParamsTest {
 
     @Test
-    fun createEntityRetrieveParams() {
+    fun create() {
         EntityRetrieveParams.builder().entityId("entity_n8y8tnk2p9339ti393yi").build()
     }
 

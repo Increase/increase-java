@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class WireTransferListParamsTest {
 
     @Test
-    fun createWireTransferListParams() {
+    fun create() {
         WireTransferListParams.builder()
             .accountId("account_id")
             .createdAt(

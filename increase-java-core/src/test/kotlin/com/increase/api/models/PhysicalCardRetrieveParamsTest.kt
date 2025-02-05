@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class PhysicalCardRetrieveParamsTest {
 
     @Test
-    fun createPhysicalCardRetrieveParams() {
+    fun create() {
         PhysicalCardRetrieveParams.builder()
             .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
             .build()

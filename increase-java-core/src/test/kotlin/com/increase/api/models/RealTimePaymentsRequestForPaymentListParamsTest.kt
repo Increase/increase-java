@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class RealTimePaymentsRequestForPaymentListParamsTest {
 
     @Test
-    fun createRealTimePaymentsRequestForPaymentListParams() {
+    fun create() {
         RealTimePaymentsRequestForPaymentListParams.builder()
             .accountId("account_id")
             .createdAt(

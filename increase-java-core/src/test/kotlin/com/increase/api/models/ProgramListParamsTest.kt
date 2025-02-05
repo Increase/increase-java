@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class ProgramListParamsTest {
 
     @Test
-    fun createProgramListParams() {
+    fun create() {
         ProgramListParams.builder().cursor("cursor").limit(1L).build()
     }
 

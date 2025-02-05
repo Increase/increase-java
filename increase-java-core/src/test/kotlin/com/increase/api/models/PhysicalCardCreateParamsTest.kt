@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class PhysicalCardCreateParamsTest {
 
     @Test
-    fun createPhysicalCardCreateParams() {
+    fun create() {
         PhysicalCardCreateParams.builder()
             .cardId("card_oubs0hwk5rn6knuecxg2")
             .cardholder(

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class PhysicalCardUpdateParamsTest {
 
     @Test
-    fun createPhysicalCardUpdateParams() {
+    fun create() {
         PhysicalCardUpdateParams.builder()
             .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
             .status(PhysicalCardUpdateParams.Status.ACTIVE)

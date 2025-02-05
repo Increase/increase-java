@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class PhysicalCardListParamsTest {
 
     @Test
-    fun createPhysicalCardListParams() {
+    fun create() {
         PhysicalCardListParams.builder()
             .cardId("card_id")
             .createdAt(

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class IntrafiAccountEnrollmentCreateParamsTest {
 
     @Test
-    fun createIntrafiAccountEnrollmentCreateParams() {
+    fun create() {
         IntrafiAccountEnrollmentCreateParams.builder()
             .accountId("account_in71c4amph0vgo2qllky")
             .emailAddress("user@example.com")

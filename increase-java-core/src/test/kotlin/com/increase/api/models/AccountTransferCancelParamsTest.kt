@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class AccountTransferCancelParamsTest {
 
     @Test
-    fun createAccountTransferCancelParams() {
+    fun create() {
         AccountTransferCancelParams.builder()
             .accountTransferId("account_transfer_7k9qe1ysdgqztnt63l7n")
             .build()

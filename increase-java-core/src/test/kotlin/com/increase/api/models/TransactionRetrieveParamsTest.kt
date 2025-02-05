@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class TransactionRetrieveParamsTest {
 
     @Test
-    fun createTransactionRetrieveParams() {
+    fun create() {
         TransactionRetrieveParams.builder().transactionId("transaction_uyrp7fld2ium70oa7oi").build()
     }
 
