@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class AccountCloseParamsTest {
 
     @Test
-    fun createAccountCloseParams() {
+    fun create() {
         AccountCloseParams.builder().accountId("account_in71c4amph0vgo2qllky").build()
     }
 

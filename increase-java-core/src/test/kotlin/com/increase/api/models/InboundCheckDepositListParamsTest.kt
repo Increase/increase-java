@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class InboundCheckDepositListParamsTest {
 
     @Test
-    fun createInboundCheckDepositListParams() {
+    fun create() {
         InboundCheckDepositListParams.builder()
             .accountId("account_id")
             .checkTransferId("check_transfer_id")

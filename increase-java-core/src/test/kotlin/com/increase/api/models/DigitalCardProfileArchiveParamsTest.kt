@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class DigitalCardProfileArchiveParamsTest {
 
     @Test
-    fun createDigitalCardProfileArchiveParams() {
+    fun create() {
         DigitalCardProfileArchiveParams.builder()
             .digitalCardProfileId("digital_card_profile_s3puplu90f04xhcwkiga")
             .build()

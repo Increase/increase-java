@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class CardPaymentRetrieveParamsTest {
 
     @Test
-    fun createCardPaymentRetrieveParams() {
+    fun create() {
         CardPaymentRetrieveParams.builder()
             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
             .build()

@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class RoutingNumberListParamsTest {
 
     @Test
-    fun createRoutingNumberListParams() {
+    fun create() {
         RoutingNumberListParams.builder()
             .routingNumber("xxxxxxxxx")
             .cursor("cursor")

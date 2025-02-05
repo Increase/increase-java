@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class DigitalWalletTokenListParamsTest {
 
     @Test
-    fun createDigitalWalletTokenListParams() {
+    fun create() {
         DigitalWalletTokenListParams.builder()
             .cardId("card_id")
             .createdAt(

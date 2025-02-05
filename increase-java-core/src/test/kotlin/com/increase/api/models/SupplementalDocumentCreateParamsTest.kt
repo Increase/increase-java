@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class SupplementalDocumentCreateParamsTest {
 
     @Test
-    fun createSupplementalDocumentCreateParams() {
+    fun create() {
         SupplementalDocumentCreateParams.builder()
             .entityId("entity_n8y8tnk2p9339ti393yi")
             .fileId("file_makxrc67oh9l6sg7w9yc")

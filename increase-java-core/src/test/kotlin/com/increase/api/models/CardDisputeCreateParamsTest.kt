@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class CardDisputeCreateParamsTest {
 
     @Test
-    fun createCardDisputeCreateParams() {
+    fun create() {
         CardDisputeCreateParams.builder()
             .disputedTransactionId("transaction_uyrp7fld2ium70oa7oi")
             .explanation("Unauthorized recurring transaction.")

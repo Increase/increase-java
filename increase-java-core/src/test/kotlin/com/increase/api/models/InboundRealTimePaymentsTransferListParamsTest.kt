@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class InboundRealTimePaymentsTransferListParamsTest {
 
     @Test
-    fun createInboundRealTimePaymentsTransferListParams() {
+    fun create() {
         InboundRealTimePaymentsTransferListParams.builder()
             .accountId("account_id")
             .accountNumberId("account_number_id")

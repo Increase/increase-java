@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class OAuthApplicationListParamsTest {
 
     @Test
-    fun createOAuthApplicationListParams() {
+    fun create() {
         OAuthApplicationListParams.builder()
             .createdAt(
                 OAuthApplicationListParams.CreatedAt.builder()

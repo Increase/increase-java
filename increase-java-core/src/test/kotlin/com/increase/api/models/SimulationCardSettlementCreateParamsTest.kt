@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class SimulationCardSettlementCreateParamsTest {
 
     @Test
-    fun createSimulationCardSettlementCreateParams() {
+    fun create() {
         SimulationCardSettlementCreateParams.builder()
             .cardId("card_oubs0hwk5rn6knuecxg2")
             .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")

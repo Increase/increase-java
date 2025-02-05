@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class AchPrenotificationRetrieveParamsTest {
 
     @Test
-    fun createAchPrenotificationRetrieveParams() {
+    fun create() {
         AchPrenotificationRetrieveParams.builder()
             .achPrenotificationId("ach_prenotification_ubjf9qqsxl3obbcn1u34")
             .build()

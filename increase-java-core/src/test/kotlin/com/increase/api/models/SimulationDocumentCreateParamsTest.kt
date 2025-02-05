@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class SimulationDocumentCreateParamsTest {
 
     @Test
-    fun createSimulationDocumentCreateParams() {
+    fun create() {
         SimulationDocumentCreateParams.builder().accountId("account_in71c4amph0vgo2qllky").build()
     }
 

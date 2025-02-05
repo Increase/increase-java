@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class PendingTransactionListParamsTest {
 
     @Test
-    fun createPendingTransactionListParams() {
+    fun create() {
         PendingTransactionListParams.builder()
             .accountId("account_id")
             .category(

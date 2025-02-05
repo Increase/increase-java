@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class LockboxUpdateParamsTest {
 
     @Test
-    fun createLockboxUpdateParams() {
+    fun create() {
         LockboxUpdateParams.builder()
             .lockboxId("lockbox_3xt21ok13q19advds4t5")
             .description("x")

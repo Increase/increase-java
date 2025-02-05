@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class SimulationInboundFundsHoldReleaseParamsTest {
 
     @Test
-    fun createSimulationInboundFundsHoldReleaseParams() {
+    fun create() {
         SimulationInboundFundsHoldReleaseParams.builder()
             .inboundFundsHoldId("inbound_funds_hold_9vuasmywdo7xb3zt4071")
             .build()

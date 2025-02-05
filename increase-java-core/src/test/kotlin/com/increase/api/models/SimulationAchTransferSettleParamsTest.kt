@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class SimulationAchTransferSettleParamsTest {
 
     @Test
-    fun createSimulationAchTransferSettleParams() {
+    fun create() {
         SimulationAchTransferSettleParams.builder()
             .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
             .build()

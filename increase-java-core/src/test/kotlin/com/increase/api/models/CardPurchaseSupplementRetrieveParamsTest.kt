@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class CardPurchaseSupplementRetrieveParamsTest {
 
     @Test
-    fun createCardPurchaseSupplementRetrieveParams() {
+    fun create() {
         CardPurchaseSupplementRetrieveParams.builder()
             .cardPurchaseSupplementId("card_purchase_supplement_ijuc45iym4jchnh2sfk3")
             .build()

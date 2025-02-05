@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class EntityCreateBeneficialOwnerParamsTest {
 
     @Test
-    fun createEntityCreateBeneficialOwnerParams() {
+    fun create() {
         EntityCreateBeneficialOwnerParams.builder()
             .entityId("entity_n8y8tnk2p9339ti393yi")
             .beneficialOwner(

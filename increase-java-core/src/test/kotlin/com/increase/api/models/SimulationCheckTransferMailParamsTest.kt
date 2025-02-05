@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class SimulationCheckTransferMailParamsTest {
 
     @Test
-    fun createSimulationCheckTransferMailParams() {
+    fun create() {
         SimulationCheckTransferMailParams.builder()
             .checkTransferId("check_transfer_30b43acfu9vw8fyc4f5")
             .build()

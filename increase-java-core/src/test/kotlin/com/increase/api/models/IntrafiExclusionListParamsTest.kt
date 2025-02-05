@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class IntrafiExclusionListParamsTest {
 
     @Test
-    fun createIntrafiExclusionListParams() {
+    fun create() {
         IntrafiExclusionListParams.builder()
             .cursor("cursor")
             .entityId("entity_id")

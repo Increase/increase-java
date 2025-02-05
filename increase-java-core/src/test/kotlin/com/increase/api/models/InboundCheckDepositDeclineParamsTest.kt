@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class InboundCheckDepositDeclineParamsTest {
 
     @Test
-    fun createInboundCheckDepositDeclineParams() {
+    fun create() {
         InboundCheckDepositDeclineParams.builder()
             .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
             .build()

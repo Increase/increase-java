@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class RealTimePaymentsTransferCreateParamsTest {
 
     @Test
-    fun createRealTimePaymentsTransferCreateParams() {
+    fun create() {
         RealTimePaymentsTransferCreateParams.builder()
             .amount(100L)
             .creditorName("Ian Crease")

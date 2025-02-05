@@ -53,9 +53,9 @@ internal constructor(
             .thenApply { response ->
                 response
                     .use { releaseHandler.handle(it) }
-                    .apply {
+                    .also {
                         if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                            validate()
+                            it.validate()
                         }
                     }
             }

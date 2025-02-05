@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class SimulationAchTransferCreateNotificationOfChangeParamsTest {
 
     @Test
-    fun createSimulationAchTransferCreateNotificationOfChangeParams() {
+    fun create() {
         SimulationAchTransferCreateNotificationOfChangeParams.builder()
             .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
             .changeCode(

@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class ProofOfAuthorizationRequestSubmissionCreateParamsTest {
 
     @Test
-    fun createProofOfAuthorizationRequestSubmissionCreateParams() {
+    fun create() {
         ProofOfAuthorizationRequestSubmissionCreateParams.builder()
             .authorizationTerms("I agree to the terms of service.")
             .authorizedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))

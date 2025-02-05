@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class DigitalCardProfileCreateParamsTest {
 
     @Test
-    fun createDigitalCardProfileCreateParams() {
+    fun create() {
         DigitalCardProfileCreateParams.builder()
             .appIconFileId("file_8zxqkwlh43wo144u8yec")
             .backgroundImageFileId("file_1ai913suu1zfn1pdetru")

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class IntrafiExclusionRetrieveParamsTest {
 
     @Test
-    fun createIntrafiExclusionRetrieveParams() {
+    fun create() {
         IntrafiExclusionRetrieveParams.builder()
             .intrafiExclusionId("account_in71c4amph0vgo2qllky")
             .build()

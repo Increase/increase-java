@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class InboundMailItemRetrieveParamsTest {
 
     @Test
-    fun createInboundMailItemRetrieveParams() {
+    fun create() {
         InboundMailItemRetrieveParams.builder()
             .inboundMailItemId("inbound_mail_item_q6rrg7mmqpplx80zceev")
             .build()

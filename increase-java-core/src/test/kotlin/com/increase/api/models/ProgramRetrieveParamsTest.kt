@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class ProgramRetrieveParamsTest {
 
     @Test
-    fun createProgramRetrieveParams() {
+    fun create() {
         ProgramRetrieveParams.builder().programId("program_i2v2os4mwza1oetokh9i").build()
     }
 

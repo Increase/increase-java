@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class AccountUpdateParamsTest {
 
     @Test
-    fun createAccountUpdateParams() {
+    fun create() {
         AccountUpdateParams.builder()
             .accountId("account_in71c4amph0vgo2qllky")
             .name("My renamed account")

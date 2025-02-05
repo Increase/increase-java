@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class ExportRetrieveParamsTest {
 
     @Test
-    fun createExportRetrieveParams() {
+    fun create() {
         ExportRetrieveParams.builder().exportId("export_8s4m48qz3bclzje0zwh9").build()
     }
 

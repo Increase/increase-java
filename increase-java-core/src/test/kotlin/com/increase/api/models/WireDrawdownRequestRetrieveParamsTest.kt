@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class WireDrawdownRequestRetrieveParamsTest {
 
     @Test
-    fun createWireDrawdownRequestRetrieveParams() {
+    fun create() {
         WireDrawdownRequestRetrieveParams.builder()
             .wireDrawdownRequestId("wire_drawdown_request_q6lmocus3glo0lr2bfv3")
             .build()

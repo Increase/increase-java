@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class DigitalCardProfileListParamsTest {
 
     @Test
-    fun createDigitalCardProfileListParams() {
+    fun create() {
         DigitalCardProfileListParams.builder()
             .cursor("cursor")
             .idempotencyKey("x")

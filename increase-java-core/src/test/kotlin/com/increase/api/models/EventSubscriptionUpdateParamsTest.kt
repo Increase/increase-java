@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class EventSubscriptionUpdateParamsTest {
 
     @Test
-    fun createEventSubscriptionUpdateParams() {
+    fun create() {
         EventSubscriptionUpdateParams.builder()
             .eventSubscriptionId("event_subscription_001dzz0r20rcdxgb013zqb8m04g")
             .status(EventSubscriptionUpdateParams.Status.ACTIVE)

@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class InboundAchTransferListParamsTest {
 
     @Test
-    fun createInboundAchTransferListParams() {
+    fun create() {
         InboundAchTransferListParams.builder()
             .accountId("account_id")
             .accountNumberId("account_number_id")

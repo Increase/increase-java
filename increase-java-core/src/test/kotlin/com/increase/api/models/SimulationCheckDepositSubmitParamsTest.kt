@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class SimulationCheckDepositSubmitParamsTest {
 
     @Test
-    fun createSimulationCheckDepositSubmitParams() {
+    fun create() {
         SimulationCheckDepositSubmitParams.builder()
             .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
             .build()

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class EntityUpdateIndustryCodeParamsTest {
 
     @Test
-    fun createEntityUpdateIndustryCodeParams() {
+    fun create() {
         EntityUpdateIndustryCodeParams.builder()
             .entityId("entity_n8y8tnk2p9339ti393yi")
             .industryCode("5132")

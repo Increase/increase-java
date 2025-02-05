@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 class DocumentListParamsTest {
 
     @Test
-    fun createDocumentListParams() {
+    fun create() {
         DocumentListParams.builder()
             .category(
                 DocumentListParams.Category.builder()

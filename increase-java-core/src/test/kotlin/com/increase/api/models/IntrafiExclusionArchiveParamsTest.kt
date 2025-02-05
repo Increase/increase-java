@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class IntrafiExclusionArchiveParamsTest {
 
     @Test
-    fun createIntrafiExclusionArchiveParams() {
+    fun create() {
         IntrafiExclusionArchiveParams.builder()
             .intrafiExclusionId("intrafi_exclusion_ygfqduuzpau3jqof6jyh")
             .build()
