@@ -22,7 +22,7 @@ configure<MavenPublishBaseExtension> {
 
     pom {
         name.set("Increase API")
-        description.set("An SDK library for increase")
+        description.set("Anything that you can achieve with PDFs, presence, and persistence in a bank\nbranch you can do with our API. We've always wanted a fully programmatic bank so\nwe built one. Our API faithfully exposes the data and capabilities of the\nFederal Reserve, Visa, The Clearing House, depository networks, and accounting\ntools. It's lovingly boring and exceptionally powerful. If you have any\nquestions or want to get started, don't hesitate to ping us at\nsales@increase.com. We can't wait to see what you build!")
         url.set("https://increase.com/documentation")
 
         licenses {
