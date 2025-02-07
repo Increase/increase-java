@@ -2,6 +2,7 @@
 
 package com.increase.api.models
 
+import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -20,6 +21,7 @@ class InboundWireTransferTest {
                 .beneficiaryAddressLine3(null)
                 .beneficiaryName(null)
                 .beneficiaryReference(null)
+                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .description("Inbound wire transfer")
                 .inputMessageAccountabilityData(null)
                 .originatorAddressLine1(null)
@@ -47,6 +49,8 @@ class InboundWireTransferTest {
         assertThat(inboundWireTransfer.beneficiaryAddressLine3()).isEmpty
         assertThat(inboundWireTransfer.beneficiaryName()).isEmpty
         assertThat(inboundWireTransfer.beneficiaryReference()).isEmpty
+        assertThat(inboundWireTransfer.createdAt())
+            .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(inboundWireTransfer.description()).isEqualTo("Inbound wire transfer")
         assertThat(inboundWireTransfer.inputMessageAccountabilityData()).isEmpty
         assertThat(inboundWireTransfer.originatorAddressLine1()).isEmpty

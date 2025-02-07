@@ -2,6 +2,7 @@
 
 package com.increase.api.models
 
+import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -14,6 +15,7 @@ class WireDrawdownRequestTest {
                 .id("wire_drawdown_request_q6lmocus3glo0lr2bfv3")
                 .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                 .amount(10000L)
+                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .currency("USD")
                 .fulfillmentInboundWireTransferId("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
                 .idempotencyKey(null)
@@ -41,6 +43,8 @@ class WireDrawdownRequestTest {
         assertThat(wireDrawdownRequest.accountNumberId())
             .isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
         assertThat(wireDrawdownRequest.amount()).isEqualTo(10000L)
+        assertThat(wireDrawdownRequest.createdAt())
+            .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(wireDrawdownRequest.currency()).isEqualTo("USD")
         assertThat(wireDrawdownRequest.fulfillmentInboundWireTransferId())
             .contains("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")

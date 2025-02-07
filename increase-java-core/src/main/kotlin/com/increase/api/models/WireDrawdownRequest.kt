@@ -16,6 +16,7 @@ import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
 
@@ -32,6 +33,9 @@ private constructor(
     @ExcludeMissing
     private val accountNumberId: JsonField<String> = JsonMissing.of(),
     @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonProperty("currency")
     @ExcludeMissing
     private val currency: JsonField<String> = JsonMissing.of(),
@@ -94,6 +98,12 @@ private constructor(
 
     /** The amount being requested in cents. */
     fun amount(): Long = amount.getRequired("amount")
+
+    /**
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the wire
+     * drawdown request was created.
+     */
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /**
      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the amount being requested.
@@ -188,6 +198,14 @@ private constructor(
 
     /** The amount being requested in cents. */
     @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+    /**
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the wire
+     * drawdown request was created.
+     */
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /**
      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the amount being requested.
@@ -297,6 +315,7 @@ private constructor(
         id()
         accountNumberId()
         amount()
+        createdAt()
         currency()
         fulfillmentInboundWireTransferId()
         idempotencyKey()
@@ -330,6 +349,7 @@ private constructor(
         private var id: JsonField<String>? = null
         private var accountNumberId: JsonField<String>? = null
         private var amount: JsonField<Long>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
         private var currency: JsonField<String>? = null
         private var fulfillmentInboundWireTransferId: JsonField<String>? = null
         private var idempotencyKey: JsonField<String>? = null
@@ -354,6 +374,7 @@ private constructor(
             id = wireDrawdownRequest.id
             accountNumberId = wireDrawdownRequest.accountNumberId
             amount = wireDrawdownRequest.amount
+            createdAt = wireDrawdownRequest.createdAt
             currency = wireDrawdownRequest.currency
             fulfillmentInboundWireTransferId = wireDrawdownRequest.fulfillmentInboundWireTransferId
             idempotencyKey = wireDrawdownRequest.idempotencyKey
@@ -400,6 +421,18 @@ private constructor(
 
         /** The amount being requested in cents. */
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the wire
+         * drawdown request was created.
+         */
+        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the wire
+         * drawdown request was created.
+         */
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /**
          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the amount being
@@ -652,6 +685,7 @@ private constructor(
                 checkRequired("id", id),
                 checkRequired("accountNumberId", accountNumberId),
                 checkRequired("amount", amount),
+                checkRequired("createdAt", createdAt),
                 checkRequired("currency", currency),
                 checkRequired("fulfillmentInboundWireTransferId", fulfillmentInboundWireTransferId),
                 checkRequired("idempotencyKey", idempotencyKey),
@@ -1008,15 +1042,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is WireDrawdownRequest && id == other.id && accountNumberId == other.accountNumberId && amount == other.amount && currency == other.currency && fulfillmentInboundWireTransferId == other.fulfillmentInboundWireTransferId && idempotencyKey == other.idempotencyKey && messageToRecipient == other.messageToRecipient && originatorAddressLine1 == other.originatorAddressLine1 && originatorAddressLine2 == other.originatorAddressLine2 && originatorAddressLine3 == other.originatorAddressLine3 && originatorName == other.originatorName && recipientAccountNumber == other.recipientAccountNumber && recipientAddressLine1 == other.recipientAddressLine1 && recipientAddressLine2 == other.recipientAddressLine2 && recipientAddressLine3 == other.recipientAddressLine3 && recipientName == other.recipientName && recipientRoutingNumber == other.recipientRoutingNumber && status == other.status && submission == other.submission && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is WireDrawdownRequest && id == other.id && accountNumberId == other.accountNumberId && amount == other.amount && createdAt == other.createdAt && currency == other.currency && fulfillmentInboundWireTransferId == other.fulfillmentInboundWireTransferId && idempotencyKey == other.idempotencyKey && messageToRecipient == other.messageToRecipient && originatorAddressLine1 == other.originatorAddressLine1 && originatorAddressLine2 == other.originatorAddressLine2 && originatorAddressLine3 == other.originatorAddressLine3 && originatorName == other.originatorName && recipientAccountNumber == other.recipientAccountNumber && recipientAddressLine1 == other.recipientAddressLine1 && recipientAddressLine2 == other.recipientAddressLine2 && recipientAddressLine3 == other.recipientAddressLine3 && recipientName == other.recipientName && recipientRoutingNumber == other.recipientRoutingNumber && status == other.status && submission == other.submission && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, accountNumberId, amount, currency, fulfillmentInboundWireTransferId, idempotencyKey, messageToRecipient, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, recipientAccountNumber, recipientAddressLine1, recipientAddressLine2, recipientAddressLine3, recipientName, recipientRoutingNumber, status, submission, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, accountNumberId, amount, createdAt, currency, fulfillmentInboundWireTransferId, idempotencyKey, messageToRecipient, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, recipientAccountNumber, recipientAddressLine1, recipientAddressLine2, recipientAddressLine3, recipientName, recipientRoutingNumber, status, submission, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "WireDrawdownRequest{id=$id, accountNumberId=$accountNumberId, amount=$amount, currency=$currency, fulfillmentInboundWireTransferId=$fulfillmentInboundWireTransferId, idempotencyKey=$idempotencyKey, messageToRecipient=$messageToRecipient, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, recipientAccountNumber=$recipientAccountNumber, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, recipientName=$recipientName, recipientRoutingNumber=$recipientRoutingNumber, status=$status, submission=$submission, type=$type, additionalProperties=$additionalProperties}"
+        "WireDrawdownRequest{id=$id, accountNumberId=$accountNumberId, amount=$amount, createdAt=$createdAt, currency=$currency, fulfillmentInboundWireTransferId=$fulfillmentInboundWireTransferId, idempotencyKey=$idempotencyKey, messageToRecipient=$messageToRecipient, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, recipientAccountNumber=$recipientAccountNumber, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, recipientName=$recipientName, recipientRoutingNumber=$recipientRoutingNumber, status=$status, submission=$submission, type=$type, additionalProperties=$additionalProperties}"
 }
