@@ -16,6 +16,7 @@ import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
 
@@ -34,6 +35,9 @@ private constructor(
     @JsonProperty("account_id")
     @ExcludeMissing
     private val accountId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     private val idempotencyKey: JsonField<String> = JsonMissing.of(),
@@ -52,6 +56,12 @@ private constructor(
 
     /** The identifier of the Increase Account being swept into the network. */
     fun accountId(): String = accountId.getRequired("account_id")
+
+    /**
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the enrollment
+     * was created.
+     */
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -84,6 +94,14 @@ private constructor(
 
     /** The identifier of the Increase Account being swept into the network. */
     @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
+
+    /**
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the enrollment
+     * was created.
+     */
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -125,6 +143,7 @@ private constructor(
 
         id()
         accountId()
+        createdAt()
         idempotencyKey()
         intrafiId()
         status()
@@ -144,6 +163,7 @@ private constructor(
 
         private var id: JsonField<String>? = null
         private var accountId: JsonField<String>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
         private var idempotencyKey: JsonField<String>? = null
         private var intrafiId: JsonField<String>? = null
         private var status: JsonField<Status>? = null
@@ -154,6 +174,7 @@ private constructor(
         internal fun from(intrafiAccountEnrollment: IntrafiAccountEnrollment) = apply {
             id = intrafiAccountEnrollment.id
             accountId = intrafiAccountEnrollment.accountId
+            createdAt = intrafiAccountEnrollment.createdAt
             idempotencyKey = intrafiAccountEnrollment.idempotencyKey
             intrafiId = intrafiAccountEnrollment.intrafiId
             status = intrafiAccountEnrollment.status
@@ -172,6 +193,18 @@ private constructor(
 
         /** The identifier of the Increase Account being swept into the network. */
         fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * enrollment was created.
+         */
+        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * enrollment was created.
+         */
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -257,6 +290,7 @@ private constructor(
             IntrafiAccountEnrollment(
                 checkRequired("id", id),
                 checkRequired("accountId", accountId),
+                checkRequired("createdAt", createdAt),
                 checkRequired("idempotencyKey", idempotencyKey),
                 checkRequired("intrafiId", intrafiId),
                 checkRequired("status", status),
@@ -489,15 +523,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is IntrafiAccountEnrollment && id == other.id && accountId == other.accountId && idempotencyKey == other.idempotencyKey && intrafiId == other.intrafiId && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is IntrafiAccountEnrollment && id == other.id && accountId == other.accountId && createdAt == other.createdAt && idempotencyKey == other.idempotencyKey && intrafiId == other.intrafiId && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, accountId, idempotencyKey, intrafiId, status, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, accountId, createdAt, idempotencyKey, intrafiId, status, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "IntrafiAccountEnrollment{id=$id, accountId=$accountId, idempotencyKey=$idempotencyKey, intrafiId=$intrafiId, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "IntrafiAccountEnrollment{id=$id, accountId=$accountId, createdAt=$createdAt, idempotencyKey=$idempotencyKey, intrafiId=$intrafiId, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

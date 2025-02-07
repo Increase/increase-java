@@ -13,7 +13,7 @@ import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
 import com.increase.api.models.IntrafiBalance
-import com.increase.api.models.IntrafiBalanceRetrieveParams
+import com.increase.api.models.IntrafiBalanceIntrafiBalanceParams
 import java.util.concurrent.CompletableFuture
 
 class IntrafiBalanceServiceAsyncImpl
@@ -23,25 +23,25 @@ internal constructor(
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-    private val retrieveHandler: Handler<IntrafiBalance> =
+    private val intrafiBalanceHandler: Handler<IntrafiBalance> =
         jsonHandler<IntrafiBalance>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
     /** Get IntraFi balances by bank */
-    override fun retrieve(
-        params: IntrafiBalanceRetrieveParams,
+    override fun intrafiBalance(
+        params: IntrafiBalanceIntrafiBalanceParams,
         requestOptions: RequestOptions
     ): CompletableFuture<IntrafiBalance> {
         val request =
             HttpRequest.builder()
                 .method(HttpMethod.GET)
-                .addPathSegments("intrafi_balances", params.getPathParam(0))
+                .addPathSegments("accounts", params.getPathParam(0), "intrafi_balance")
                 .build()
                 .prepareAsync(clientOptions, params)
         return request
             .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
             .thenApply { response ->
                 response
-                    .use { retrieveHandler.handle(it) }
+                    .use { intrafiBalanceHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
                             it.validate()
