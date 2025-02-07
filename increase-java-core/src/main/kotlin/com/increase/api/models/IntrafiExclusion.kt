@@ -33,6 +33,9 @@ private constructor(
     @JsonProperty("bank_name")
     @ExcludeMissing
     private val bankName: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonProperty("entity_id")
     @ExcludeMissing
     private val entityId: JsonField<String> = JsonMissing.of(),
@@ -60,6 +63,12 @@ private constructor(
 
     /** The name of the excluded institution. */
     fun bankName(): String = bankName.getRequired("bank_name")
+
+    /**
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the exclusion
+     * was created.
+     */
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /** The entity for which this institution is excluded. */
     fun entityId(): String = entityId.getRequired("entity_id")
@@ -98,6 +107,14 @@ private constructor(
 
     /** The name of the excluded institution. */
     @JsonProperty("bank_name") @ExcludeMissing fun _bankName(): JsonField<String> = bankName
+
+    /**
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the exclusion
+     * was created.
+     */
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** The entity for which this institution is excluded. */
     @JsonProperty("entity_id") @ExcludeMissing fun _entityId(): JsonField<String> = entityId
@@ -148,6 +165,7 @@ private constructor(
 
         id()
         bankName()
+        createdAt()
         entityId()
         excludedAt()
         fdicCertificateNumber()
@@ -170,6 +188,7 @@ private constructor(
 
         private var id: JsonField<String>? = null
         private var bankName: JsonField<String>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
         private var entityId: JsonField<String>? = null
         private var excludedAt: JsonField<OffsetDateTime>? = null
         private var fdicCertificateNumber: JsonField<String>? = null
@@ -183,6 +202,7 @@ private constructor(
         internal fun from(intrafiExclusion: IntrafiExclusion) = apply {
             id = intrafiExclusion.id
             bankName = intrafiExclusion.bankName
+            createdAt = intrafiExclusion.createdAt
             entityId = intrafiExclusion.entityId
             excludedAt = intrafiExclusion.excludedAt
             fdicCertificateNumber = intrafiExclusion.fdicCertificateNumber
@@ -204,6 +224,18 @@ private constructor(
 
         /** The name of the excluded institution. */
         fun bankName(bankName: JsonField<String>) = apply { this.bankName = bankName }
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * exclusion was created.
+         */
+        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * exclusion was created.
+         */
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The entity for which this institution is excluded. */
         fun entityId(entityId: String) = entityId(JsonField.of(entityId))
@@ -314,6 +346,7 @@ private constructor(
             IntrafiExclusion(
                 checkRequired("id", id),
                 checkRequired("bankName", bankName),
+                checkRequired("createdAt", createdAt),
                 checkRequired("entityId", entityId),
                 checkRequired("excludedAt", excludedAt),
                 checkRequired("fdicCertificateNumber", fdicCertificateNumber),
@@ -528,15 +561,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is IntrafiExclusion && id == other.id && bankName == other.bankName && entityId == other.entityId && excludedAt == other.excludedAt && fdicCertificateNumber == other.fdicCertificateNumber && idempotencyKey == other.idempotencyKey && status == other.status && submittedAt == other.submittedAt && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is IntrafiExclusion && id == other.id && bankName == other.bankName && createdAt == other.createdAt && entityId == other.entityId && excludedAt == other.excludedAt && fdicCertificateNumber == other.fdicCertificateNumber && idempotencyKey == other.idempotencyKey && status == other.status && submittedAt == other.submittedAt && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, bankName, entityId, excludedAt, fdicCertificateNumber, idempotencyKey, status, submittedAt, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, bankName, createdAt, entityId, excludedAt, fdicCertificateNumber, idempotencyKey, status, submittedAt, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "IntrafiExclusion{id=$id, bankName=$bankName, entityId=$entityId, excludedAt=$excludedAt, fdicCertificateNumber=$fdicCertificateNumber, idempotencyKey=$idempotencyKey, status=$status, submittedAt=$submittedAt, type=$type, additionalProperties=$additionalProperties}"
+        "IntrafiExclusion{id=$id, bankName=$bankName, createdAt=$createdAt, entityId=$entityId, excludedAt=$excludedAt, fdicCertificateNumber=$fdicCertificateNumber, idempotencyKey=$idempotencyKey, status=$status, submittedAt=$submittedAt, type=$type, additionalProperties=$additionalProperties}"
 }
