@@ -4,7 +4,7 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.IntrafiBalanceRetrieveParams
+import com.increase.api.models.IntrafiBalanceIntrafiBalanceParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -12,7 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class IntrafiBalanceServiceTest {
 
     @Test
-    fun callRetrieve() {
+    fun callIntrafiBalance() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -20,8 +20,8 @@ class IntrafiBalanceServiceTest {
                 .build()
         val intrafiBalanceService = client.intrafiBalances()
         val intrafiBalance =
-            intrafiBalanceService.retrieve(
-                IntrafiBalanceRetrieveParams.builder()
+            intrafiBalanceService.intrafiBalance(
+                IntrafiBalanceIntrafiBalanceParams.builder()
                     .accountId("account_in71c4amph0vgo2qllky")
                     .build()
             )
