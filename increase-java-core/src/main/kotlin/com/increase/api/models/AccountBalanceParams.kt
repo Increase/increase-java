@@ -12,7 +12,10 @@ import java.time.format.DateTimeFormatter
 import java.util.Objects
 import java.util.Optional
 
-/** Retrieve an Account Balance */
+/**
+ * Retrieve the current and available balances for an account in minor units of the account's
+ * currency. Learn more about [account balances](/documentation/balance).
+ */
 class AccountBalanceParams
 private constructor(
     private val accountId: String,
