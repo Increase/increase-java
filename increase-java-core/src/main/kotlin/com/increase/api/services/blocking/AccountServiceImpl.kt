@@ -121,7 +121,10 @@ internal constructor(
     private val balanceHandler: Handler<BalanceLookup> =
         jsonHandler<BalanceLookup>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-    /** Retrieve an Account Balance */
+    /**
+     * Retrieve the current and available balances for an account in minor units of the account's
+     * currency. Learn more about [account balances](/documentation/balance).
+     */
     override fun balance(
         params: AccountBalanceParams,
         requestOptions: RequestOptions
