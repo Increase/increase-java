@@ -13,7 +13,7 @@ class ProgramTest {
         val program =
             Program.builder()
                 .id("program_i2v2os4mwza1oetokh9i")
-                .bank(Program.Bank.BLUE_RIDGE_BANK)
+                .bank(Program.Bank.CORE_BANK)
                 .billingAccountId(null)
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .defaultDigitalCardProfileId(null)
@@ -24,7 +24,7 @@ class ProgramTest {
                 .build()
         assertThat(program).isNotNull
         assertThat(program.id()).isEqualTo("program_i2v2os4mwza1oetokh9i")
-        assertThat(program.bank()).isEqualTo(Program.Bank.BLUE_RIDGE_BANK)
+        assertThat(program.bank()).isEqualTo(Program.Bank.CORE_BANK)
         assertThat(program.billingAccountId()).isEmpty
         assertThat(program.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(program.defaultDigitalCardProfileId()).isEmpty
