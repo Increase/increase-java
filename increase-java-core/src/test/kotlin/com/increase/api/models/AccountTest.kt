@@ -14,7 +14,7 @@ class AccountTest {
         val account =
             Account.builder()
                 .id("account_in71c4amph0vgo2qllky")
-                .bank(Account.Bank.BLUE_RIDGE_BANK)
+                .bank(Account.Bank.CORE_BANK)
                 .closedAt(null)
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .currency(Account.Currency.CAD)
@@ -31,7 +31,7 @@ class AccountTest {
                 .build()
         assertThat(account).isNotNull
         assertThat(account.id()).isEqualTo("account_in71c4amph0vgo2qllky")
-        assertThat(account.bank()).isEqualTo(Account.Bank.BLUE_RIDGE_BANK)
+        assertThat(account.bank()).isEqualTo(Account.Bank.CORE_BANK)
         assertThat(account.closedAt()).isEmpty
         assertThat(account.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(account.currency()).isEqualTo(Account.Currency.CAD)
