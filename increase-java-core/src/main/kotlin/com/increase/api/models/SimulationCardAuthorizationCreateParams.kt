@@ -93,6 +93,9 @@ private constructor(
     /** The state the merchant resides in. */
     fun merchantState(): Optional<String> = body.merchantState()
 
+    /** Fields specific to a given card network. */
+    fun networkDetails(): Optional<NetworkDetails> = body.networkDetails()
+
     /** The identifier of the Physical Card to be authorized. */
     fun physicalCardId(): Optional<String> = body.physicalCardId()
 
@@ -158,6 +161,9 @@ private constructor(
     /** The state the merchant resides in. */
     fun _merchantState(): JsonField<String> = body._merchantState()
 
+    /** Fields specific to a given card network. */
+    fun _networkDetails(): JsonField<NetworkDetails> = body._networkDetails()
+
     /** The identifier of the Physical Card to be authorized. */
     fun _physicalCardId(): JsonField<String> = body._physicalCardId()
 
@@ -222,6 +228,9 @@ private constructor(
         @JsonProperty("merchant_state")
         @ExcludeMissing
         private val merchantState: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("network_details")
+        @ExcludeMissing
+        private val networkDetails: JsonField<NetworkDetails> = JsonMissing.of(),
         @JsonProperty("physical_card_id")
         @ExcludeMissing
         private val physicalCardId: JsonField<String> = JsonMissing.of(),
@@ -300,6 +309,10 @@ private constructor(
         /** The state the merchant resides in. */
         fun merchantState(): Optional<String> =
             Optional.ofNullable(merchantState.getNullable("merchant_state"))
+
+        /** Fields specific to a given card network. */
+        fun networkDetails(): Optional<NetworkDetails> =
+            Optional.ofNullable(networkDetails.getNullable("network_details"))
 
         /** The identifier of the Physical Card to be authorized. */
         fun physicalCardId(): Optional<String> =
@@ -390,6 +403,11 @@ private constructor(
         @ExcludeMissing
         fun _merchantState(): JsonField<String> = merchantState
 
+        /** Fields specific to a given card network. */
+        @JsonProperty("network_details")
+        @ExcludeMissing
+        fun _networkDetails(): JsonField<NetworkDetails> = networkDetails
+
         /** The identifier of the Physical Card to be authorized. */
         @JsonProperty("physical_card_id")
         @ExcludeMissing
@@ -427,6 +445,7 @@ private constructor(
             merchantCountry()
             merchantDescriptor()
             merchantState()
+            networkDetails().ifPresent { it.validate() }
             physicalCardId()
             terminalId()
             validated = true
@@ -455,6 +474,7 @@ private constructor(
             private var merchantCountry: JsonField<String> = JsonMissing.of()
             private var merchantDescriptor: JsonField<String> = JsonMissing.of()
             private var merchantState: JsonField<String> = JsonMissing.of()
+            private var networkDetails: JsonField<NetworkDetails> = JsonMissing.of()
             private var physicalCardId: JsonField<String> = JsonMissing.of()
             private var terminalId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -477,6 +497,7 @@ private constructor(
                 merchantCountry = simulationCardAuthorizationCreateBody.merchantCountry
                 merchantDescriptor = simulationCardAuthorizationCreateBody.merchantDescriptor
                 merchantState = simulationCardAuthorizationCreateBody.merchantState
+                networkDetails = simulationCardAuthorizationCreateBody.networkDetails
                 physicalCardId = simulationCardAuthorizationCreateBody.physicalCardId
                 terminalId = simulationCardAuthorizationCreateBody.terminalId
                 additionalProperties =
@@ -623,6 +644,15 @@ private constructor(
                 this.merchantState = merchantState
             }
 
+            /** Fields specific to a given card network. */
+            fun networkDetails(networkDetails: NetworkDetails) =
+                networkDetails(JsonField.of(networkDetails))
+
+            /** Fields specific to a given card network. */
+            fun networkDetails(networkDetails: JsonField<NetworkDetails>) = apply {
+                this.networkDetails = networkDetails
+            }
+
             /** The identifier of the Physical Card to be authorized. */
             fun physicalCardId(physicalCardId: String) =
                 physicalCardId(JsonField.of(physicalCardId))
@@ -678,6 +708,7 @@ private constructor(
                     merchantCountry,
                     merchantDescriptor,
                     merchantState,
+                    networkDetails,
                     physicalCardId,
                     terminalId,
                     additionalProperties.toImmutable(),
@@ -689,17 +720,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is SimulationCardAuthorizationCreateBody && amount == other.amount && authenticatedCardPaymentId == other.authenticatedCardPaymentId && cardId == other.cardId && declineReason == other.declineReason && digitalWalletTokenId == other.digitalWalletTokenId && direction == other.direction && eventSubscriptionId == other.eventSubscriptionId && merchantAcceptorId == other.merchantAcceptorId && merchantCategoryCode == other.merchantCategoryCode && merchantCity == other.merchantCity && merchantCountry == other.merchantCountry && merchantDescriptor == other.merchantDescriptor && merchantState == other.merchantState && physicalCardId == other.physicalCardId && terminalId == other.terminalId && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is SimulationCardAuthorizationCreateBody && amount == other.amount && authenticatedCardPaymentId == other.authenticatedCardPaymentId && cardId == other.cardId && declineReason == other.declineReason && digitalWalletTokenId == other.digitalWalletTokenId && direction == other.direction && eventSubscriptionId == other.eventSubscriptionId && merchantAcceptorId == other.merchantAcceptorId && merchantCategoryCode == other.merchantCategoryCode && merchantCity == other.merchantCity && merchantCountry == other.merchantCountry && merchantDescriptor == other.merchantDescriptor && merchantState == other.merchantState && networkDetails == other.networkDetails && physicalCardId == other.physicalCardId && terminalId == other.terminalId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(amount, authenticatedCardPaymentId, cardId, declineReason, digitalWalletTokenId, direction, eventSubscriptionId, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantDescriptor, merchantState, physicalCardId, terminalId, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(amount, authenticatedCardPaymentId, cardId, declineReason, digitalWalletTokenId, direction, eventSubscriptionId, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantDescriptor, merchantState, networkDetails, physicalCardId, terminalId, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "SimulationCardAuthorizationCreateBody{amount=$amount, authenticatedCardPaymentId=$authenticatedCardPaymentId, cardId=$cardId, declineReason=$declineReason, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, eventSubscriptionId=$eventSubscriptionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantState=$merchantState, physicalCardId=$physicalCardId, terminalId=$terminalId, additionalProperties=$additionalProperties}"
+            "SimulationCardAuthorizationCreateBody{amount=$amount, authenticatedCardPaymentId=$authenticatedCardPaymentId, cardId=$cardId, declineReason=$declineReason, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, eventSubscriptionId=$eventSubscriptionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantState=$merchantState, networkDetails=$networkDetails, physicalCardId=$physicalCardId, terminalId=$terminalId, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -875,6 +906,16 @@ private constructor(
         /** The state the merchant resides in. */
         fun merchantState(merchantState: JsonField<String>) = apply {
             body.merchantState(merchantState)
+        }
+
+        /** Fields specific to a given card network. */
+        fun networkDetails(networkDetails: NetworkDetails) = apply {
+            body.networkDetails(networkDetails)
+        }
+
+        /** Fields specific to a given card network. */
+        fun networkDetails(networkDetails: JsonField<NetworkDetails>) = apply {
+            body.networkDetails(networkDetails)
         }
 
         /** The identifier of the Physical Card to be authorized. */
@@ -1376,6 +1417,422 @@ private constructor(
         override fun hashCode() = value.hashCode()
 
         override fun toString() = value.toString()
+    }
+
+    /** Fields specific to a given card network. */
+    @NoAutoDetect
+    class NetworkDetails
+    @JsonCreator
+    private constructor(
+        @JsonProperty("visa") @ExcludeMissing private val visa: JsonField<Visa> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    ) {
+
+        /** Fields specific to the Visa network. */
+        fun visa(): Visa = visa.getRequired("visa")
+
+        /** Fields specific to the Visa network. */
+        @JsonProperty("visa") @ExcludeMissing fun _visa(): JsonField<Visa> = visa
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): NetworkDetails = apply {
+            if (validated) {
+                return@apply
+            }
+
+            visa().validate()
+            validated = true
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [NetworkDetails]. */
+        class Builder internal constructor() {
+
+            private var visa: JsonField<Visa>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(networkDetails: NetworkDetails) = apply {
+                visa = networkDetails.visa
+                additionalProperties = networkDetails.additionalProperties.toMutableMap()
+            }
+
+            /** Fields specific to the Visa network. */
+            fun visa(visa: Visa) = visa(JsonField.of(visa))
+
+            /** Fields specific to the Visa network. */
+            fun visa(visa: JsonField<Visa>) = apply { this.visa = visa }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            fun build(): NetworkDetails =
+                NetworkDetails(checkRequired("visa", visa), additionalProperties.toImmutable())
+        }
+
+        /** Fields specific to the Visa network. */
+        @NoAutoDetect
+        class Visa
+        @JsonCreator
+        private constructor(
+            @JsonProperty("stand_in_processing_reason")
+            @ExcludeMissing
+            private val standInProcessingReason: JsonField<StandInProcessingReason> =
+                JsonMissing.of(),
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        ) {
+
+            /** The reason code for the stand-in processing. */
+            fun standInProcessingReason(): Optional<StandInProcessingReason> =
+                Optional.ofNullable(
+                    standInProcessingReason.getNullable("stand_in_processing_reason")
+                )
+
+            /** The reason code for the stand-in processing. */
+            @JsonProperty("stand_in_processing_reason")
+            @ExcludeMissing
+            fun _standInProcessingReason(): JsonField<StandInProcessingReason> =
+                standInProcessingReason
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            private var validated: Boolean = false
+
+            fun validate(): Visa = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                standInProcessingReason()
+                validated = true
+            }
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [Visa]. */
+            class Builder internal constructor() {
+
+                private var standInProcessingReason: JsonField<StandInProcessingReason> =
+                    JsonMissing.of()
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(visa: Visa) = apply {
+                    standInProcessingReason = visa.standInProcessingReason
+                    additionalProperties = visa.additionalProperties.toMutableMap()
+                }
+
+                /** The reason code for the stand-in processing. */
+                fun standInProcessingReason(standInProcessingReason: StandInProcessingReason) =
+                    standInProcessingReason(JsonField.of(standInProcessingReason))
+
+                /** The reason code for the stand-in processing. */
+                fun standInProcessingReason(
+                    standInProcessingReason: JsonField<StandInProcessingReason>
+                ) = apply { this.standInProcessingReason = standInProcessingReason }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                fun build(): Visa =
+                    Visa(standInProcessingReason, additionalProperties.toImmutable())
+            }
+
+            /** The reason code for the stand-in processing. */
+            class StandInProcessingReason
+            @JsonCreator
+            private constructor(
+                private val value: JsonField<String>,
+            ) : Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    /** Increase failed to process the authorization in a timely manner. */
+                    @JvmField val ISSUER_ERROR = of("issuer_error")
+
+                    /**
+                     * The physical card read had an invalid CVV, dCVV, or authorization request
+                     * cryptogram.
+                     */
+                    @JvmField val INVALID_PHYSICAL_CARD = of("invalid_physical_card")
+
+                    /** The 3DS cardholder authentication verification value was invalid. */
+                    @JvmField
+                    val INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE =
+                        of("invalid_cardholder_authentication_verification_value")
+
+                    /**
+                     * An internal Visa error occurred. Visa uses this reason code for certain
+                     * expected occurrences as well, such as Application Transaction Counter (ATC)
+                     * replays.
+                     */
+                    @JvmField val INTERNAL_VISA_ERROR = of("internal_visa_error")
+
+                    /**
+                     * The merchant has enabled Visa's Transaction Advisory Service and requires
+                     * further authentication to perform the transaction. In practice this is often
+                     * utilized at fuel pumps to tell the cardholder to see the cashier.
+                     */
+                    @JvmField
+                    val MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED =
+                        of("merchant_transaction_advisory_service_authentication_required")
+
+                    /**
+                     * The transaction was blocked by Visa's Payment Fraud Disruption service due to
+                     * fraudulent Acquirer behavior, such as card testing.
+                     */
+                    @JvmField
+                    val PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK =
+                        of("payment_fraud_disruption_acquirer_block")
+
+                    /** An unspecific reason for stand-in processing. */
+                    @JvmField val OTHER = of("other")
+
+                    @JvmStatic fun of(value: String) = StandInProcessingReason(JsonField.of(value))
+                }
+
+                /** An enum containing [StandInProcessingReason]'s known values. */
+                enum class Known {
+                    /** Increase failed to process the authorization in a timely manner. */
+                    ISSUER_ERROR,
+                    /**
+                     * The physical card read had an invalid CVV, dCVV, or authorization request
+                     * cryptogram.
+                     */
+                    INVALID_PHYSICAL_CARD,
+                    /** The 3DS cardholder authentication verification value was invalid. */
+                    INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE,
+                    /**
+                     * An internal Visa error occurred. Visa uses this reason code for certain
+                     * expected occurrences as well, such as Application Transaction Counter (ATC)
+                     * replays.
+                     */
+                    INTERNAL_VISA_ERROR,
+                    /**
+                     * The merchant has enabled Visa's Transaction Advisory Service and requires
+                     * further authentication to perform the transaction. In practice this is often
+                     * utilized at fuel pumps to tell the cardholder to see the cashier.
+                     */
+                    MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED,
+                    /**
+                     * The transaction was blocked by Visa's Payment Fraud Disruption service due to
+                     * fraudulent Acquirer behavior, such as card testing.
+                     */
+                    PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK,
+                    /** An unspecific reason for stand-in processing. */
+                    OTHER,
+                }
+
+                /**
+                 * An enum containing [StandInProcessingReason]'s known values, as well as an
+                 * [_UNKNOWN] member.
+                 *
+                 * An instance of [StandInProcessingReason] can contain an unknown value in a couple
+                 * of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    /** Increase failed to process the authorization in a timely manner. */
+                    ISSUER_ERROR,
+                    /**
+                     * The physical card read had an invalid CVV, dCVV, or authorization request
+                     * cryptogram.
+                     */
+                    INVALID_PHYSICAL_CARD,
+                    /** The 3DS cardholder authentication verification value was invalid. */
+                    INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE,
+                    /**
+                     * An internal Visa error occurred. Visa uses this reason code for certain
+                     * expected occurrences as well, such as Application Transaction Counter (ATC)
+                     * replays.
+                     */
+                    INTERNAL_VISA_ERROR,
+                    /**
+                     * The merchant has enabled Visa's Transaction Advisory Service and requires
+                     * further authentication to perform the transaction. In practice this is often
+                     * utilized at fuel pumps to tell the cardholder to see the cashier.
+                     */
+                    MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED,
+                    /**
+                     * The transaction was blocked by Visa's Payment Fraud Disruption service due to
+                     * fraudulent Acquirer behavior, such as card testing.
+                     */
+                    PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK,
+                    /** An unspecific reason for stand-in processing. */
+                    OTHER,
+                    /**
+                     * An enum member indicating that [StandInProcessingReason] was instantiated
+                     * with an unknown value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        ISSUER_ERROR -> Value.ISSUER_ERROR
+                        INVALID_PHYSICAL_CARD -> Value.INVALID_PHYSICAL_CARD
+                        INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE ->
+                            Value.INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE
+                        INTERNAL_VISA_ERROR -> Value.INTERNAL_VISA_ERROR
+                        MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED ->
+                            Value.MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED
+                        PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK ->
+                            Value.PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK
+                        OTHER -> Value.OTHER
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        ISSUER_ERROR -> Known.ISSUER_ERROR
+                        INVALID_PHYSICAL_CARD -> Known.INVALID_PHYSICAL_CARD
+                        INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE ->
+                            Known.INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE
+                        INTERNAL_VISA_ERROR -> Known.INTERNAL_VISA_ERROR
+                        MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED ->
+                            Known.MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED
+                        PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK ->
+                            Known.PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK
+                        OTHER -> Known.OTHER
+                        else ->
+                            throw IncreaseInvalidDataException(
+                                "Unknown StandInProcessingReason: $value"
+                            )
+                    }
+
+                fun asString(): String = _value().asStringOrThrow()
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return /* spotless:off */ other is StandInProcessingReason && value == other.value /* spotless:on */
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return /* spotless:off */ other is Visa && standInProcessingReason == other.standInProcessingReason && additionalProperties == other.additionalProperties /* spotless:on */
+            }
+
+            /* spotless:off */
+            private val hashCode: Int by lazy { Objects.hash(standInProcessingReason, additionalProperties) }
+            /* spotless:on */
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "Visa{standInProcessingReason=$standInProcessingReason, additionalProperties=$additionalProperties}"
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is NetworkDetails && visa == other.visa && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(visa, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "NetworkDetails{visa=$visa, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

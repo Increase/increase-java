@@ -23,6 +23,19 @@ class SimulationCardAuthorizationCreateParamsTest {
             .merchantCountry("US")
             .merchantDescriptor("AMAZON.COM")
             .merchantState("NY")
+            .networkDetails(
+                SimulationCardAuthorizationCreateParams.NetworkDetails.builder()
+                    .visa(
+                        SimulationCardAuthorizationCreateParams.NetworkDetails.Visa.builder()
+                            .standInProcessingReason(
+                                SimulationCardAuthorizationCreateParams.NetworkDetails.Visa
+                                    .StandInProcessingReason
+                                    .ISSUER_ERROR
+                            )
+                            .build()
+                    )
+                    .build()
+            )
             .physicalCardId("physical_card_id")
             .terminalId("x")
             .build()
@@ -47,6 +60,19 @@ class SimulationCardAuthorizationCreateParamsTest {
                 .merchantCountry("US")
                 .merchantDescriptor("AMAZON.COM")
                 .merchantState("NY")
+                .networkDetails(
+                    SimulationCardAuthorizationCreateParams.NetworkDetails.builder()
+                        .visa(
+                            SimulationCardAuthorizationCreateParams.NetworkDetails.Visa.builder()
+                                .standInProcessingReason(
+                                    SimulationCardAuthorizationCreateParams.NetworkDetails.Visa
+                                        .StandInProcessingReason
+                                        .ISSUER_ERROR
+                                )
+                                .build()
+                        )
+                        .build()
+                )
                 .physicalCardId("physical_card_id")
                 .terminalId("x")
                 .build()
@@ -68,6 +94,20 @@ class SimulationCardAuthorizationCreateParamsTest {
         assertThat(body.merchantCountry()).contains("US")
         assertThat(body.merchantDescriptor()).contains("AMAZON.COM")
         assertThat(body.merchantState()).contains("NY")
+        assertThat(body.networkDetails())
+            .contains(
+                SimulationCardAuthorizationCreateParams.NetworkDetails.builder()
+                    .visa(
+                        SimulationCardAuthorizationCreateParams.NetworkDetails.Visa.builder()
+                            .standInProcessingReason(
+                                SimulationCardAuthorizationCreateParams.NetworkDetails.Visa
+                                    .StandInProcessingReason
+                                    .ISSUER_ERROR
+                            )
+                            .build()
+                    )
+                    .build()
+            )
         assertThat(body.physicalCardId()).contains("physical_card_id")
         assertThat(body.terminalId()).contains("x")
     }
