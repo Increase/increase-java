@@ -37,6 +37,20 @@ class CardAuthorizationServiceTest {
                     .merchantCountry("US")
                     .merchantDescriptor("AMAZON.COM")
                     .merchantState("NY")
+                    .networkDetails(
+                        SimulationCardAuthorizationCreateParams.NetworkDetails.builder()
+                            .visa(
+                                SimulationCardAuthorizationCreateParams.NetworkDetails.Visa
+                                    .builder()
+                                    .standInProcessingReason(
+                                        SimulationCardAuthorizationCreateParams.NetworkDetails.Visa
+                                            .StandInProcessingReason
+                                            .ISSUER_ERROR
+                                    )
+                                    .build()
+                            )
+                            .build()
+                    )
                     .physicalCardId("physical_card_id")
                     .terminalId("x")
                     .build()
