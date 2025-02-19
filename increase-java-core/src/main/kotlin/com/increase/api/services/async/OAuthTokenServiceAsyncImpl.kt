@@ -17,10 +17,8 @@ import com.increase.api.models.OAuthToken
 import com.increase.api.models.OAuthTokenCreateParams
 import java.util.concurrent.CompletableFuture
 
-class OAuthTokenServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : OAuthTokenServiceAsync {
+class OAuthTokenServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    OAuthTokenServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -30,7 +28,7 @@ internal constructor(
     /** Create an OAuth Token */
     override fun create(
         params: OAuthTokenCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<OAuthToken> {
         val request =
             HttpRequest.builder()

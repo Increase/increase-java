@@ -113,9 +113,7 @@ import com.increase.api.services.blocking.WireDrawdownRequestServiceImpl
 import com.increase.api.services.blocking.WireTransferService
 import com.increase.api.services.blocking.WireTransferServiceImpl
 
-class IncreaseClientImpl(
-    private val clientOptions: ClientOptions,
-) : IncreaseClient {
+class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseClient {
 
     private val clientOptionsWithUserAgent =
         if (clientOptions.headers.names().contains("User-Agent")) clientOptions

@@ -20,34 +20,34 @@ interface AchTransferServiceAsync {
     @JvmOverloads
     fun create(
         params: AchTransferCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AchTransfer>
 
     /** Retrieve an ACH Transfer */
     @JvmOverloads
     fun retrieve(
         params: AchTransferRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AchTransfer>
 
     /** List ACH Transfers */
     @JvmOverloads
     fun list(
         params: AchTransferListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AchTransferListPageAsync>
 
     /** Approves an ACH Transfer in a pending_approval state. */
     @JvmOverloads
     fun approve(
         params: AchTransferApproveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AchTransfer>
 
     /** Cancels an ACH Transfer in a pending_approval state. */
     @JvmOverloads
     fun cancel(
         params: AchTransferCancelParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AchTransfer>
 }

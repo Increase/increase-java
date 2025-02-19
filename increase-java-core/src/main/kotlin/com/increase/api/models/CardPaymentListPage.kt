@@ -79,13 +79,8 @@ private constructor(
         fun of(
             cardPaymentsService: CardPaymentService,
             params: CardPaymentListParams,
-            response: Response
-        ) =
-            CardPaymentListPage(
-                cardPaymentsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = CardPaymentListPage(cardPaymentsService, params, response)
     }
 
     @NoAutoDetect
@@ -170,18 +165,11 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: CardPaymentListPage,
-    ) : Iterable<CardPayment> {
+    class AutoPager(private val firstPage: CardPaymentListPage) : Iterable<CardPayment> {
 
         override fun iterator(): Iterator<CardPayment> = iterator {
             var page = firstPage

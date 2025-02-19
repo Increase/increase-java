@@ -20,6 +20,6 @@ interface CardDisputeServiceAsync {
     @JvmOverloads
     fun action(
         params: SimulationCardDisputeActionParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CardDispute>
 }

@@ -19,27 +19,27 @@ interface IntrafiExclusionServiceAsync {
     @JvmOverloads
     fun create(
         params: IntrafiExclusionCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<IntrafiExclusion>
 
     /** Get an IntraFi Exclusion */
     @JvmOverloads
     fun retrieve(
         params: IntrafiExclusionRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<IntrafiExclusion>
 
     /** List IntraFi Exclusions */
     @JvmOverloads
     fun list(
         params: IntrafiExclusionListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<IntrafiExclusionListPageAsync>
 
     /** Archive an IntraFi Exclusion */
     @JvmOverloads
     fun archive(
         params: IntrafiExclusionArchiveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<IntrafiExclusion>
 }

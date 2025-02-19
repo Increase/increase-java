@@ -285,11 +285,8 @@ private constructor(
     }
 
     /** The ACH Debit status to retrieve Account Numbers for. */
-    class AchDebitStatus
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class AchDebitStatus @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -560,13 +557,7 @@ private constructor(
             }
 
             fun build(): CreatedAt =
-                CreatedAt(
-                    after,
-                    before,
-                    onOrAfter,
-                    onOrBefore,
-                    additionalProperties.build(),
-                )
+                CreatedAt(after, before, onOrAfter, onOrBefore, additionalProperties.build())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -588,11 +579,7 @@ private constructor(
     }
 
     /** The status to retrieve Account Numbers for. */
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.

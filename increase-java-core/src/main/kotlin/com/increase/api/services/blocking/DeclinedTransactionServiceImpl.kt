@@ -18,9 +18,7 @@ import com.increase.api.models.DeclinedTransactionListParams
 import com.increase.api.models.DeclinedTransactionRetrieveParams
 
 class DeclinedTransactionServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : DeclinedTransactionService {
+internal constructor(private val clientOptions: ClientOptions) : DeclinedTransactionService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -30,7 +28,7 @@ internal constructor(
     /** Retrieve a Declined Transaction */
     override fun retrieve(
         params: DeclinedTransactionRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): DeclinedTransaction {
         val request =
             HttpRequest.builder()
@@ -55,7 +53,7 @@ internal constructor(
     /** List Declined Transactions */
     override fun list(
         params: DeclinedTransactionListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): DeclinedTransactionListPage {
         val request =
             HttpRequest.builder()

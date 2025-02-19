@@ -156,7 +156,7 @@ private constructor(
             fun build(): EntityCreateBeneficialOwnerBody =
                 EntityCreateBeneficialOwnerBody(
                     checkRequired("beneficialOwner", beneficialOwner),
-                    additionalProperties.toImmutable()
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -1146,9 +1146,7 @@ private constructor(
                 /** A method that can be used to verify the individual's identity. */
                 class Method
                 @JsonCreator
-                private constructor(
-                    private val value: JsonField<String>,
-                ) : Enum {
+                private constructor(private val value: JsonField<String>) : Enum {
 
                     /**
                      * Returns this class instance's raw value.
@@ -1885,11 +1883,7 @@ private constructor(
                 "Individual{address=$address, dateOfBirth=$dateOfBirth, identification=$identification, name=$name, confirmedNoUsTaxId=$confirmedNoUsTaxId, additionalProperties=$additionalProperties}"
         }
 
-        class Prong
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Prong @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.

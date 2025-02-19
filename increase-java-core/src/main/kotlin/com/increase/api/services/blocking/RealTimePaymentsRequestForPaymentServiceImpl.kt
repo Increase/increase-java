@@ -20,9 +20,8 @@ import com.increase.api.models.RealTimePaymentsRequestForPaymentListParams
 import com.increase.api.models.RealTimePaymentsRequestForPaymentRetrieveParams
 
 class RealTimePaymentsRequestForPaymentServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : RealTimePaymentsRequestForPaymentService {
+internal constructor(private val clientOptions: ClientOptions) :
+    RealTimePaymentsRequestForPaymentService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -33,7 +32,7 @@ internal constructor(
     /** Create a Real-Time Payments Request for Payment */
     override fun create(
         params: RealTimePaymentsRequestForPaymentCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): RealTimePaymentsRequestForPayment {
         val request =
             HttpRequest.builder()
@@ -59,7 +58,7 @@ internal constructor(
     /** Retrieve a Real-Time Payments Request for Payment */
     override fun retrieve(
         params: RealTimePaymentsRequestForPaymentRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): RealTimePaymentsRequestForPayment {
         val request =
             HttpRequest.builder()
@@ -84,7 +83,7 @@ internal constructor(
     /** List Real-Time Payments Request for Payments */
     override fun list(
         params: RealTimePaymentsRequestForPaymentListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): RealTimePaymentsRequestForPaymentListPage {
         val request =
             HttpRequest.builder()

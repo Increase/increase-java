@@ -19,27 +19,27 @@ interface ExternalAccountServiceAsync {
     @JvmOverloads
     fun create(
         params: ExternalAccountCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ExternalAccount>
 
     /** Retrieve an External Account */
     @JvmOverloads
     fun retrieve(
         params: ExternalAccountRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ExternalAccount>
 
     /** Update an External Account */
     @JvmOverloads
     fun update(
         params: ExternalAccountUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ExternalAccount>
 
     /** List External Accounts */
     @JvmOverloads
     fun list(
         params: ExternalAccountListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ExternalAccountListPageAsync>
 }

@@ -18,9 +18,7 @@ import com.increase.api.models.SimulationAccountTransferCompleteParams
 import java.util.concurrent.CompletableFuture
 
 class AccountTransferServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : AccountTransferServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) : AccountTransferServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -35,7 +33,7 @@ internal constructor(
      */
     override fun complete(
         params: SimulationAccountTransferCompleteParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<AccountTransfer> {
         val request =
             HttpRequest.builder()
@@ -44,7 +42,7 @@ internal constructor(
                     "simulations",
                     "account_transfers",
                     params.getPathParam(0),
-                    "complete"
+                    "complete",
                 )
                 .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                 .build()

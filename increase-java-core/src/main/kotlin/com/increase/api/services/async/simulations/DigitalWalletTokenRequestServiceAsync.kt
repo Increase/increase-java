@@ -15,6 +15,6 @@ interface DigitalWalletTokenRequestServiceAsync {
     @JvmOverloads
     fun create(
         params: SimulationDigitalWalletTokenRequestCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<SimulationDigitalWalletTokenRequestCreateResponse>
 }

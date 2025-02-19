@@ -19,27 +19,27 @@ interface BookkeepingAccountService {
     @JvmOverloads
     fun create(
         params: BookkeepingAccountCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingAccount
 
     /** Update a Bookkeeping Account */
     @JvmOverloads
     fun update(
         params: BookkeepingAccountUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingAccount
 
     /** List Bookkeeping Accounts */
     @JvmOverloads
     fun list(
         params: BookkeepingAccountListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingAccountListPage
 
     /** Retrieve a Bookkeeping Account Balance */
     @JvmOverloads
     fun balance(
         params: BookkeepingAccountBalanceParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingBalanceLookup
 }

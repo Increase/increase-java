@@ -206,11 +206,8 @@ private constructor(
     }
 
     /** If the Group is allowed to create ACH debits. */
-    class AchDebitStatus
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class AchDebitStatus @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -308,11 +305,8 @@ private constructor(
     }
 
     /** If the Group is activated or not. */
-    class ActivationStatus
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class ActivationStatus @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -410,11 +404,7 @@ private constructor(
     }
 
     /** A constant representing the object's type. For this resource it will always be `group`. */
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -435,7 +425,7 @@ private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            GROUP,
+            GROUP
         }
 
         /**

@@ -17,10 +17,8 @@ import com.increase.api.models.DigitalWalletTokenListPage
 import com.increase.api.models.DigitalWalletTokenListParams
 import com.increase.api.models.DigitalWalletTokenRetrieveParams
 
-class DigitalWalletTokenServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : DigitalWalletTokenService {
+class DigitalWalletTokenServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    DigitalWalletTokenService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -30,7 +28,7 @@ internal constructor(
     /** Retrieve a Digital Wallet Token */
     override fun retrieve(
         params: DigitalWalletTokenRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): DigitalWalletToken {
         val request =
             HttpRequest.builder()
@@ -55,7 +53,7 @@ internal constructor(
     /** List Digital Wallet Tokens */
     override fun list(
         params: DigitalWalletTokenListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): DigitalWalletTokenListPage {
         val request =
             HttpRequest.builder()

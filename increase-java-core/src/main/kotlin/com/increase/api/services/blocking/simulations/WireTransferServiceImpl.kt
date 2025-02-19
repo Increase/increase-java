@@ -17,10 +17,8 @@ import com.increase.api.models.SimulationWireTransferReverseParams
 import com.increase.api.models.SimulationWireTransferSubmitParams
 import com.increase.api.models.WireTransfer
 
-class WireTransferServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : WireTransferService {
+class WireTransferServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    WireTransferService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -34,7 +32,7 @@ internal constructor(
      */
     override fun reverse(
         params: SimulationWireTransferReverseParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): WireTransfer {
         val request =
             HttpRequest.builder()
@@ -62,7 +60,7 @@ internal constructor(
      */
     override fun submit(
         params: SimulationWireTransferSubmitParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): WireTransfer {
         val request =
             HttpRequest.builder()

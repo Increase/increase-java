@@ -18,10 +18,8 @@ import com.increase.api.models.ProgramListParams
 import com.increase.api.models.ProgramRetrieveParams
 import java.util.concurrent.CompletableFuture
 
-class ProgramServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : ProgramServiceAsync {
+class ProgramServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    ProgramServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -31,7 +29,7 @@ internal constructor(
     /** Retrieve a Program */
     override fun retrieve(
         params: ProgramRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<Program> {
         val request =
             HttpRequest.builder()
@@ -59,7 +57,7 @@ internal constructor(
     /** List Programs */
     override fun list(
         params: ProgramListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<ProgramListPageAsync> {
         val request =
             HttpRequest.builder()

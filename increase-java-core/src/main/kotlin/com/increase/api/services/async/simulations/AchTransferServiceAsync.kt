@@ -25,14 +25,14 @@ interface AchTransferServiceAsync {
     @JvmOverloads
     fun acknowledge(
         params: SimulationAchTransferAcknowledgeParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AchTransfer>
 
     /** Simulates receiving a Notification of Change for an [ACH Transfer](#ach-transfers). */
     @JvmOverloads
     fun createNotificationOfChange(
         params: SimulationAchTransferCreateNotificationOfChangeParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AchTransfer>
 
     /**
@@ -43,7 +43,7 @@ interface AchTransferServiceAsync {
     @JvmOverloads
     fun return_(
         params: SimulationAchTransferReturnParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AchTransfer>
 
     /**
@@ -54,7 +54,7 @@ interface AchTransferServiceAsync {
     @JvmOverloads
     fun settle(
         params: SimulationAchTransferSettleParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AchTransfer>
 
     /**
@@ -67,6 +67,6 @@ interface AchTransferServiceAsync {
     @JvmOverloads
     fun submit(
         params: SimulationAchTransferSubmitParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AchTransfer>
 }

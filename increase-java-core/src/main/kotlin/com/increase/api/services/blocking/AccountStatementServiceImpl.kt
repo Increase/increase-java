@@ -17,10 +17,8 @@ import com.increase.api.models.AccountStatementListPage
 import com.increase.api.models.AccountStatementListParams
 import com.increase.api.models.AccountStatementRetrieveParams
 
-class AccountStatementServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : AccountStatementService {
+class AccountStatementServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    AccountStatementService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -30,7 +28,7 @@ internal constructor(
     /** Retrieve an Account Statement */
     override fun retrieve(
         params: AccountStatementRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): AccountStatement {
         val request =
             HttpRequest.builder()
@@ -55,7 +53,7 @@ internal constructor(
     /** List Account Statements */
     override fun list(
         params: AccountStatementListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): AccountStatementListPage {
         val request =
             HttpRequest.builder()

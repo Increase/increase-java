@@ -133,7 +133,7 @@ private constructor(
             fun build(): SimulationCardAuthorizationExpirationCreateBody =
                 SimulationCardAuthorizationExpirationCreateBody(
                     checkRequired("cardPaymentId", cardPaymentId),
-                    additionalProperties.toImmutable()
+                    additionalProperties.toImmutable(),
                 )
         }
 

@@ -16,13 +16,13 @@ interface InboundWireDrawdownRequestService {
     @JvmOverloads
     fun retrieve(
         params: InboundWireDrawdownRequestRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundWireDrawdownRequest
 
     /** List Inbound Wire Drawdown Requests */
     @JvmOverloads
     fun list(
         params: InboundWireDrawdownRequestListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundWireDrawdownRequestListPage
 }

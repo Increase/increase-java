@@ -1355,7 +1355,7 @@ private constructor(
                 fun build(): ApiKey =
                     ApiKey(
                         checkRequired("description", description),
-                        additionalProperties.toImmutable()
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -1378,11 +1378,8 @@ private constructor(
         }
 
         /** The type of object that created this transfer. */
-        class Category
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Category @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -1579,7 +1576,7 @@ private constructor(
                 fun build(): OAuthApplication =
                     OAuthApplication(
                         checkRequired("name", name),
-                        additionalProperties.toImmutable()
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -1722,11 +1719,7 @@ private constructor(
     }
 
     /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's currency. */
-    class Currency
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Currency @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -1857,11 +1850,8 @@ private constructor(
     }
 
     /** Whether Increase will print and mail the check or if you will do it yourself. */
-    class FulfillmentMethod
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class FulfillmentMethod @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -2896,9 +2886,7 @@ private constructor(
         /** The shipping method for the check. */
         class ShippingMethod
         @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -3142,11 +3130,8 @@ private constructor(
             }
 
             /** The type of tracking event. */
-            class Category
-            @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) : Enum {
+            class Category @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
 
                 /**
                  * Returns this class instance's raw value.
@@ -3298,11 +3283,7 @@ private constructor(
     }
 
     /** The lifecycle status of the transfer. */
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -3626,11 +3607,7 @@ private constructor(
         }
 
         /** The reason why this transfer was stopped. */
-        class Reason
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Reason @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -3757,11 +3734,7 @@ private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `check_transfer_stop_payment_request`.
          */
-        class Type
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -3783,7 +3756,7 @@ private constructor(
 
             /** An enum containing [Type]'s known values. */
             enum class Known {
-                CHECK_TRANSFER_STOP_PAYMENT_REQUEST,
+                CHECK_TRANSFER_STOP_PAYMENT_REQUEST
             }
 
             /**
@@ -3946,7 +3919,7 @@ private constructor(
             fun build(): Submission =
                 Submission(
                     checkRequired("submittedAt", submittedAt),
-                    additionalProperties.toImmutable()
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -4059,7 +4032,7 @@ private constructor(
             fun build(): ThirdParty =
                 ThirdParty(
                     checkRequired("checkNumber", checkNumber),
-                    additionalProperties.toImmutable()
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -4085,11 +4058,7 @@ private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `check_transfer`.
      */
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -4110,7 +4079,7 @@ private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            CHECK_TRANSFER,
+            CHECK_TRANSFER
         }
 
         /**

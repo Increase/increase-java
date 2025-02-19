@@ -14,6 +14,6 @@ interface DigitalWalletTokenRequestService {
     @JvmOverloads
     fun create(
         params: SimulationDigitalWalletTokenRequestCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): SimulationDigitalWalletTokenRequestCreateResponse
 }

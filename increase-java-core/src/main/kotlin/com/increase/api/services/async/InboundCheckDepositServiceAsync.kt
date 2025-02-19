@@ -19,27 +19,27 @@ interface InboundCheckDepositServiceAsync {
     @JvmOverloads
     fun retrieve(
         params: InboundCheckDepositRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundCheckDeposit>
 
     /** List Inbound Check Deposits */
     @JvmOverloads
     fun list(
         params: InboundCheckDepositListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundCheckDepositListPageAsync>
 
     /** Decline an Inbound Check Deposit */
     @JvmOverloads
     fun decline(
         params: InboundCheckDepositDeclineParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundCheckDeposit>
 
     /** Return an Inbound Check Deposit */
     @JvmOverloads
     fun return_(
         params: InboundCheckDepositReturnParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundCheckDeposit>
 }

@@ -19,9 +19,7 @@ import com.increase.api.models.OAuthConnectionRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class OAuthConnectionServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : OAuthConnectionServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) : OAuthConnectionServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -31,7 +29,7 @@ internal constructor(
     /** Retrieve an OAuth Connection */
     override fun retrieve(
         params: OAuthConnectionRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<OAuthConnection> {
         val request =
             HttpRequest.builder()
@@ -59,7 +57,7 @@ internal constructor(
     /** List OAuth Connections */
     override fun list(
         params: OAuthConnectionListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<OAuthConnectionListPageAsync> {
         val request =
             HttpRequest.builder()

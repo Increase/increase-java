@@ -82,7 +82,7 @@ private constructor(
         fun of(
             intrafiAccountEnrollmentsService: IntrafiAccountEnrollmentServiceAsync,
             params: IntrafiAccountEnrollmentListParams,
-            response: Response
+            response: Response,
         ) =
             IntrafiAccountEnrollmentListPageAsync(
                 intrafiAccountEnrollmentsService,
@@ -174,26 +174,19 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: IntrafiAccountEnrollmentListPageAsync,
-    ) {
+    class AutoPager(private val firstPage: IntrafiAccountEnrollmentListPageAsync) {
 
         fun forEach(
             action: Predicate<IntrafiAccountEnrollment>,
-            executor: Executor
+            executor: Executor,
         ): CompletableFuture<Void> {
             fun CompletableFuture<Optional<IntrafiAccountEnrollmentListPageAsync>>.forEach(
                 action: (IntrafiAccountEnrollment) -> Boolean,
-                executor: Executor
+                executor: Executor,
             ): CompletableFuture<Void> =
                 thenComposeAsync(
                     { page ->
@@ -202,7 +195,7 @@ private constructor(
                             .map { it.getNextPage().forEach(action, executor) }
                             .orElseGet { CompletableFuture.completedFuture(null) }
                     },
-                    executor
+                    executor,
                 )
             return CompletableFuture.completedFuture(Optional.of(firstPage))
                 .forEach(action::test, executor)

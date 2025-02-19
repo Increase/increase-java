@@ -20,9 +20,8 @@ import com.increase.api.models.ProofOfAuthorizationRequestSubmissionListParams
 import com.increase.api.models.ProofOfAuthorizationRequestSubmissionRetrieveParams
 
 class ProofOfAuthorizationRequestSubmissionServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : ProofOfAuthorizationRequestSubmissionService {
+internal constructor(private val clientOptions: ClientOptions) :
+    ProofOfAuthorizationRequestSubmissionService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -33,7 +32,7 @@ internal constructor(
     /** Submit Proof of Authorization */
     override fun create(
         params: ProofOfAuthorizationRequestSubmissionCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): ProofOfAuthorizationRequestSubmission {
         val request =
             HttpRequest.builder()
@@ -59,14 +58,14 @@ internal constructor(
     /** Retrieve a Proof of Authorization Request Submission */
     override fun retrieve(
         params: ProofOfAuthorizationRequestSubmissionRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): ProofOfAuthorizationRequestSubmission {
         val request =
             HttpRequest.builder()
                 .method(HttpMethod.GET)
                 .addPathSegments(
                     "proof_of_authorization_request_submissions",
-                    params.getPathParam(0)
+                    params.getPathParam(0),
                 )
                 .build()
                 .prepare(clientOptions, params)
@@ -89,7 +88,7 @@ internal constructor(
     /** List Proof of Authorization Request Submissions */
     override fun list(
         params: ProofOfAuthorizationRequestSubmissionListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): ProofOfAuthorizationRequestSubmissionListPage {
         val request =
             HttpRequest.builder()

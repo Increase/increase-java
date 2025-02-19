@@ -19,10 +19,8 @@ import com.increase.api.models.CheckDepositListPage
 import com.increase.api.models.CheckDepositListParams
 import com.increase.api.models.CheckDepositRetrieveParams
 
-class CheckDepositServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : CheckDepositService {
+class CheckDepositServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    CheckDepositService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -32,7 +30,7 @@ internal constructor(
     /** Create a Check Deposit */
     override fun create(
         params: CheckDepositCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CheckDeposit {
         val request =
             HttpRequest.builder()
@@ -57,7 +55,7 @@ internal constructor(
     /** Retrieve a Check Deposit */
     override fun retrieve(
         params: CheckDepositRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CheckDeposit {
         val request =
             HttpRequest.builder()
@@ -82,7 +80,7 @@ internal constructor(
     /** List Check Deposits */
     override fun list(
         params: CheckDepositListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CheckDepositListPage {
         val request =
             HttpRequest.builder()

@@ -82,13 +82,8 @@ private constructor(
         fun of(
             oauthConnectionsService: OAuthConnectionServiceAsync,
             params: OAuthConnectionListParams,
-            response: Response
-        ) =
-            OAuthConnectionListPageAsync(
-                oauthConnectionsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = OAuthConnectionListPageAsync(oauthConnectionsService, params, response)
     }
 
     @NoAutoDetect
@@ -173,26 +168,19 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: OAuthConnectionListPageAsync,
-    ) {
+    class AutoPager(private val firstPage: OAuthConnectionListPageAsync) {
 
         fun forEach(
             action: Predicate<OAuthConnection>,
-            executor: Executor
+            executor: Executor,
         ): CompletableFuture<Void> {
             fun CompletableFuture<Optional<OAuthConnectionListPageAsync>>.forEach(
                 action: (OAuthConnection) -> Boolean,
-                executor: Executor
+                executor: Executor,
             ): CompletableFuture<Void> =
                 thenComposeAsync(
                     { page ->
@@ -201,7 +189,7 @@ private constructor(
                             .map { it.getNextPage().forEach(action, executor) }
                             .orElseGet { CompletableFuture.completedFuture(null) }
                     },
-                    executor
+                    executor,
                 )
             return CompletableFuture.completedFuture(Optional.of(firstPage))
                 .forEach(action::test, executor)

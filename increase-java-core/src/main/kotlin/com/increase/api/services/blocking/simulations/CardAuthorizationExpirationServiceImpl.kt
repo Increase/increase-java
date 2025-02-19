@@ -17,9 +17,8 @@ import com.increase.api.models.CardPayment
 import com.increase.api.models.SimulationCardAuthorizationExpirationCreateParams
 
 class CardAuthorizationExpirationServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : CardAuthorizationExpirationService {
+internal constructor(private val clientOptions: ClientOptions) :
+    CardAuthorizationExpirationService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -29,7 +28,7 @@ internal constructor(
     /** Simulates expiring a Card Authorization immediately. */
     override fun create(
         params: SimulationCardAuthorizationExpirationCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CardPayment {
         val request =
             HttpRequest.builder()

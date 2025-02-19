@@ -16,13 +16,13 @@ interface AccountStatementService {
     @JvmOverloads
     fun retrieve(
         params: AccountStatementRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountStatement
 
     /** List Account Statements */
     @JvmOverloads
     fun list(
         params: AccountStatementListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountStatementListPage
 }

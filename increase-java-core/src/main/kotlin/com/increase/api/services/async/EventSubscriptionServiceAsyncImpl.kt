@@ -22,9 +22,7 @@ import com.increase.api.models.EventSubscriptionUpdateParams
 import java.util.concurrent.CompletableFuture
 
 class EventSubscriptionServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : EventSubscriptionServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) : EventSubscriptionServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -34,7 +32,7 @@ internal constructor(
     /** Create an Event Subscription */
     override fun create(
         params: EventSubscriptionCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<EventSubscription> {
         val request =
             HttpRequest.builder()
@@ -62,7 +60,7 @@ internal constructor(
     /** Retrieve an Event Subscription */
     override fun retrieve(
         params: EventSubscriptionRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<EventSubscription> {
         val request =
             HttpRequest.builder()
@@ -89,7 +87,7 @@ internal constructor(
     /** Update an Event Subscription */
     override fun update(
         params: EventSubscriptionUpdateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<EventSubscription> {
         val request =
             HttpRequest.builder()
@@ -118,7 +116,7 @@ internal constructor(
     /** List Event Subscriptions */
     override fun list(
         params: EventSubscriptionListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<EventSubscriptionListPageAsync> {
         val request =
             HttpRequest.builder()

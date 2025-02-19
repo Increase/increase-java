@@ -14,6 +14,6 @@ interface GroupService {
     @JvmOverloads
     fun retrieve(
         params: GroupRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Group
 }

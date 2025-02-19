@@ -20,34 +20,34 @@ interface CardService {
     @JvmOverloads
     fun create(
         params: CardCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Card
 
     /** Retrieve a Card */
     @JvmOverloads
     fun retrieve(
         params: CardRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Card
 
     /** Update a Card */
     @JvmOverloads
     fun update(
         params: CardUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Card
 
     /** List Cards */
     @JvmOverloads
     fun list(
         params: CardListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CardListPage
 
     /** Retrieve sensitive details for a Card */
     @JvmOverloads
     fun details(
         params: CardDetailsParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CardDetails
 }

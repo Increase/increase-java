@@ -87,7 +87,7 @@ private constructor(
             proofOfAuthorizationRequestSubmissionsService:
                 ProofOfAuthorizationRequestSubmissionServiceAsync,
             params: ProofOfAuthorizationRequestSubmissionListParams,
-            response: Response
+            response: Response,
         ) =
             ProofOfAuthorizationRequestSubmissionListPageAsync(
                 proofOfAuthorizationRequestSubmissionsService,
@@ -184,27 +184,20 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: ProofOfAuthorizationRequestSubmissionListPageAsync,
-    ) {
+    class AutoPager(private val firstPage: ProofOfAuthorizationRequestSubmissionListPageAsync) {
 
         fun forEach(
             action: Predicate<ProofOfAuthorizationRequestSubmission>,
-            executor: Executor
+            executor: Executor,
         ): CompletableFuture<Void> {
             fun CompletableFuture<Optional<ProofOfAuthorizationRequestSubmissionListPageAsync>>
                 .forEach(
                 action: (ProofOfAuthorizationRequestSubmission) -> Boolean,
-                executor: Executor
+                executor: Executor,
             ): CompletableFuture<Void> =
                 thenComposeAsync(
                     { page ->
@@ -213,7 +206,7 @@ private constructor(
                             .map { it.getNextPage().forEach(action, executor) }
                             .orElseGet { CompletableFuture.completedFuture(null) }
                     },
-                    executor
+                    executor,
                 )
             return CompletableFuture.completedFuture(Optional.of(firstPage))
                 .forEach(action::test, executor)

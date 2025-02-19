@@ -16,13 +16,13 @@ interface SupplementalDocumentService {
     @JvmOverloads
     fun create(
         params: SupplementalDocumentCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): EntitySupplementalDocument
 
     /** List Entity Supplemental Document Submissions */
     @JvmOverloads
     fun list(
         params: SupplementalDocumentListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): SupplementalDocumentListPage
 }

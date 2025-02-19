@@ -17,13 +17,13 @@ interface InboundMailItemServiceAsync {
     @JvmOverloads
     fun retrieve(
         params: InboundMailItemRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundMailItem>
 
     /** List Inbound Mail Items */
     @JvmOverloads
     fun list(
         params: InboundMailItemListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundMailItemListPageAsync>
 }

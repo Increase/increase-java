@@ -18,9 +18,7 @@ import com.increase.api.models.InboundWireTransferListParams
 import com.increase.api.models.InboundWireTransferRetrieveParams
 
 class InboundWireTransferServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : InboundWireTransferService {
+internal constructor(private val clientOptions: ClientOptions) : InboundWireTransferService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -30,7 +28,7 @@ internal constructor(
     /** Retrieve an Inbound Wire Transfer */
     override fun retrieve(
         params: InboundWireTransferRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): InboundWireTransfer {
         val request =
             HttpRequest.builder()
@@ -55,7 +53,7 @@ internal constructor(
     /** List Inbound Wire Transfers */
     override fun list(
         params: InboundWireTransferListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): InboundWireTransferListPage {
         val request =
             HttpRequest.builder()

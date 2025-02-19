@@ -17,13 +17,13 @@ interface OAuthConnectionServiceAsync {
     @JvmOverloads
     fun retrieve(
         params: OAuthConnectionRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<OAuthConnection>
 
     /** List OAuth Connections */
     @JvmOverloads
     fun list(
         params: OAuthConnectionListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<OAuthConnectionListPageAsync>
 }

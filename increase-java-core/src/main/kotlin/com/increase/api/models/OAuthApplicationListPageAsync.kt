@@ -82,13 +82,8 @@ private constructor(
         fun of(
             oauthApplicationsService: OAuthApplicationServiceAsync,
             params: OAuthApplicationListParams,
-            response: Response
-        ) =
-            OAuthApplicationListPageAsync(
-                oauthApplicationsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = OAuthApplicationListPageAsync(oauthApplicationsService, params, response)
     }
 
     @NoAutoDetect
@@ -174,26 +169,19 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: OAuthApplicationListPageAsync,
-    ) {
+    class AutoPager(private val firstPage: OAuthApplicationListPageAsync) {
 
         fun forEach(
             action: Predicate<OAuthApplication>,
-            executor: Executor
+            executor: Executor,
         ): CompletableFuture<Void> {
             fun CompletableFuture<Optional<OAuthApplicationListPageAsync>>.forEach(
                 action: (OAuthApplication) -> Boolean,
-                executor: Executor
+                executor: Executor,
             ): CompletableFuture<Void> =
                 thenComposeAsync(
                     { page ->
@@ -202,7 +190,7 @@ private constructor(
                             .map { it.getNextPage().forEach(action, executor) }
                             .orElseGet { CompletableFuture.completedFuture(null) }
                     },
-                    executor
+                    executor,
                 )
             return CompletableFuture.completedFuture(Optional.of(firstPage))
                 .forEach(action::test, executor)

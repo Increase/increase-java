@@ -20,10 +20,8 @@ import com.increase.api.models.CheckDepositListParams
 import com.increase.api.models.CheckDepositRetrieveParams
 import java.util.concurrent.CompletableFuture
 
-class CheckDepositServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : CheckDepositServiceAsync {
+class CheckDepositServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    CheckDepositServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -33,7 +31,7 @@ internal constructor(
     /** Create a Check Deposit */
     override fun create(
         params: CheckDepositCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<CheckDeposit> {
         val request =
             HttpRequest.builder()
@@ -61,7 +59,7 @@ internal constructor(
     /** Retrieve a Check Deposit */
     override fun retrieve(
         params: CheckDepositRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<CheckDeposit> {
         val request =
             HttpRequest.builder()
@@ -89,7 +87,7 @@ internal constructor(
     /** List Check Deposits */
     override fun list(
         params: CheckDepositListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<CheckDepositListPageAsync> {
         val request =
             HttpRequest.builder()

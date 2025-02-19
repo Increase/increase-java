@@ -82,13 +82,8 @@ private constructor(
         fun of(
             achPrenotificationsService: AchPrenotificationServiceAsync,
             params: AchPrenotificationListParams,
-            response: Response
-        ) =
-            AchPrenotificationListPageAsync(
-                achPrenotificationsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = AchPrenotificationListPageAsync(achPrenotificationsService, params, response)
     }
 
     @NoAutoDetect
@@ -174,26 +169,19 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: AchPrenotificationListPageAsync,
-    ) {
+    class AutoPager(private val firstPage: AchPrenotificationListPageAsync) {
 
         fun forEach(
             action: Predicate<AchPrenotification>,
-            executor: Executor
+            executor: Executor,
         ): CompletableFuture<Void> {
             fun CompletableFuture<Optional<AchPrenotificationListPageAsync>>.forEach(
                 action: (AchPrenotification) -> Boolean,
-                executor: Executor
+                executor: Executor,
             ): CompletableFuture<Void> =
                 thenComposeAsync(
                     { page ->
@@ -202,7 +190,7 @@ private constructor(
                             .map { it.getNextPage().forEach(action, executor) }
                             .orElseGet { CompletableFuture.completedFuture(null) }
                     },
-                    executor
+                    executor,
                 )
             return CompletableFuture.completedFuture(Optional.of(firstPage))
                 .forEach(action::test, executor)

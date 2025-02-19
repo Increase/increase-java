@@ -79,13 +79,8 @@ private constructor(
         fun of(
             achPrenotificationsService: AchPrenotificationService,
             params: AchPrenotificationListParams,
-            response: Response
-        ) =
-            AchPrenotificationListPage(
-                achPrenotificationsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = AchPrenotificationListPage(achPrenotificationsService, params, response)
     }
 
     @NoAutoDetect
@@ -171,18 +166,12 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: AchPrenotificationListPage,
-    ) : Iterable<AchPrenotification> {
+    class AutoPager(private val firstPage: AchPrenotificationListPage) :
+        Iterable<AchPrenotification> {
 
         override fun iterator(): Iterator<AchPrenotification> = iterator {
             var page = firstPage

@@ -18,20 +18,20 @@ interface WireDrawdownRequestServiceAsync {
     @JvmOverloads
     fun create(
         params: WireDrawdownRequestCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<WireDrawdownRequest>
 
     /** Retrieve a Wire Drawdown Request */
     @JvmOverloads
     fun retrieve(
         params: WireDrawdownRequestRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<WireDrawdownRequest>
 
     /** List Wire Drawdown Requests */
     @JvmOverloads
     fun list(
         params: WireDrawdownRequestListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<WireDrawdownRequestListPageAsync>
 }

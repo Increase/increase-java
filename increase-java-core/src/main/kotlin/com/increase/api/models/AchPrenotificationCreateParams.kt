@@ -835,9 +835,7 @@ private constructor(
     /** Whether the Prenotification is for a future debit or credit. */
     class CreditDebitIndicator
     @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -938,9 +936,7 @@ private constructor(
     /** The Standard Entry Class (SEC) code to use for the ACH Prenotification. */
     class StandardEntryClassCode
     @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.

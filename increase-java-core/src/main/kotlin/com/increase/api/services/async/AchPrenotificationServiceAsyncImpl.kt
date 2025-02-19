@@ -21,9 +21,7 @@ import com.increase.api.models.AchPrenotificationRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class AchPrenotificationServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : AchPrenotificationServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) : AchPrenotificationServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -33,7 +31,7 @@ internal constructor(
     /** Create an ACH Prenotification */
     override fun create(
         params: AchPrenotificationCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<AchPrenotification> {
         val request =
             HttpRequest.builder()
@@ -61,7 +59,7 @@ internal constructor(
     /** Retrieve an ACH Prenotification */
     override fun retrieve(
         params: AchPrenotificationRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<AchPrenotification> {
         val request =
             HttpRequest.builder()
@@ -89,7 +87,7 @@ internal constructor(
     /** List ACH Prenotifications */
     override fun list(
         params: AchPrenotificationListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<AchPrenotificationListPageAsync> {
         val request =
             HttpRequest.builder()

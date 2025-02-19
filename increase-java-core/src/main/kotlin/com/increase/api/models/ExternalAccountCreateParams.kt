@@ -477,11 +477,8 @@ private constructor(
     }
 
     /** The type of entity that owns the External Account. */
-    class AccountHolder
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class AccountHolder @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -588,11 +585,7 @@ private constructor(
     }
 
     /** The type of the destination account. Defaults to `checking`. */
-    class Funding
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Funding @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.

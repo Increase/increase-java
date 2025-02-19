@@ -20,34 +20,34 @@ interface DigitalCardProfileServiceAsync {
     @JvmOverloads
     fun create(
         params: DigitalCardProfileCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<DigitalCardProfile>
 
     /** Retrieve a Digital Card Profile */
     @JvmOverloads
     fun retrieve(
         params: DigitalCardProfileRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<DigitalCardProfile>
 
     /** List Card Profiles */
     @JvmOverloads
     fun list(
         params: DigitalCardProfileListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<DigitalCardProfileListPageAsync>
 
     /** Archive a Digital Card Profile */
     @JvmOverloads
     fun archive(
         params: DigitalCardProfileArchiveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<DigitalCardProfile>
 
     /** Clones a Digital Card Profile */
     @JvmOverloads
     fun clone(
         params: DigitalCardProfileCloneParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<DigitalCardProfile>
 }

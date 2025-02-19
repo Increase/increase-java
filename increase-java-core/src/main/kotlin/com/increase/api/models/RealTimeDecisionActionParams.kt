@@ -717,16 +717,13 @@ private constructor(
             fun build(): CardAuthentication =
                 CardAuthentication(
                     checkRequired("decision", decision),
-                    additionalProperties.toImmutable()
+                    additionalProperties.toImmutable(),
                 )
         }
 
         /** Whether the card authentication attempt should be approved or declined. */
-        class Decision
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Decision @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -943,18 +940,14 @@ private constructor(
             fun build(): CardAuthenticationChallenge =
                 CardAuthenticationChallenge(
                     checkRequired("result", result),
-                    additionalProperties.toImmutable()
+                    additionalProperties.toImmutable(),
                 )
         }
 
         /**
          * Whether the card authentication challenge was successfully delivered to the cardholder.
          */
-        class Result
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Result @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -1193,11 +1186,8 @@ private constructor(
         }
 
         /** Whether the card authorization should be approved or declined. */
-        class Decision
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Decision @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -1297,11 +1287,8 @@ private constructor(
          * The reason the card authorization was declined. This translates to a specific decline
          * code that is sent to the card network.
          */
-        class DeclineReason
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class DeclineReason @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -1610,11 +1597,7 @@ private constructor(
         }
 
         /** Whether your application was able to deliver the one-time passcode. */
-        class Result
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Result @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -1829,12 +1812,7 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
-                fun build(): Success =
-                    Success(
-                        email,
-                        phone,
-                        additionalProperties.toImmutable(),
-                    )
+                fun build(): Success = Success(email, phone, additionalProperties.toImmutable())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -1996,11 +1974,7 @@ private constructor(
             }
 
             fun build(): DigitalWalletToken =
-                DigitalWalletToken(
-                    approval,
-                    decline,
-                    additionalProperties.toImmutable(),
-                )
+                DigitalWalletToken(approval, decline, additionalProperties.toImmutable())
         }
 
         /**
@@ -2120,12 +2094,7 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
-                fun build(): Approval =
-                    Approval(
-                        email,
-                        phone,
-                        additionalProperties.toImmutable(),
-                    )
+                fun build(): Approval = Approval(email, phone, additionalProperties.toImmutable())
             }
 
             override fun equals(other: Any?): Boolean {

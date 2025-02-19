@@ -18,10 +18,8 @@ import com.increase.api.models.DocumentListParams
 import com.increase.api.models.DocumentRetrieveParams
 import java.util.concurrent.CompletableFuture
 
-class DocumentServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : DocumentServiceAsync {
+class DocumentServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    DocumentServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -31,7 +29,7 @@ internal constructor(
     /** Retrieve a Document */
     override fun retrieve(
         params: DocumentRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<Document> {
         val request =
             HttpRequest.builder()
@@ -59,7 +57,7 @@ internal constructor(
     /** List Documents */
     override fun list(
         params: DocumentListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<DocumentListPageAsync> {
         val request =
             HttpRequest.builder()

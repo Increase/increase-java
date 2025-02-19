@@ -15,6 +15,6 @@ interface CardAuthorizationExpirationServiceAsync {
     @JvmOverloads
     fun create(
         params: SimulationCardAuthorizationExpirationCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CardPayment>
 }

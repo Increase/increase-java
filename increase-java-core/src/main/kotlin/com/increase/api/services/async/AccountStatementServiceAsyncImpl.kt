@@ -19,9 +19,7 @@ import com.increase.api.models.AccountStatementRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class AccountStatementServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : AccountStatementServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) : AccountStatementServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -31,7 +29,7 @@ internal constructor(
     /** Retrieve an Account Statement */
     override fun retrieve(
         params: AccountStatementRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<AccountStatement> {
         val request =
             HttpRequest.builder()
@@ -59,7 +57,7 @@ internal constructor(
     /** List Account Statements */
     override fun list(
         params: AccountStatementListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<AccountStatementListPageAsync> {
         val request =
             HttpRequest.builder()

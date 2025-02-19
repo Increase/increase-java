@@ -806,19 +806,19 @@ private constructor(
                 checkRequired("originatorRoutingNumber", originatorRoutingNumber),
                 checkRequired(
                     "originatorToBeneficiaryInformationLine1",
-                    originatorToBeneficiaryInformationLine1
+                    originatorToBeneficiaryInformationLine1,
                 ),
                 checkRequired(
                     "originatorToBeneficiaryInformationLine2",
-                    originatorToBeneficiaryInformationLine2
+                    originatorToBeneficiaryInformationLine2,
                 ),
                 checkRequired(
                     "originatorToBeneficiaryInformationLine3",
-                    originatorToBeneficiaryInformationLine3
+                    originatorToBeneficiaryInformationLine3,
                 ),
                 checkRequired(
                     "originatorToBeneficiaryInformationLine4",
-                    originatorToBeneficiaryInformationLine4
+                    originatorToBeneficiaryInformationLine4,
                 ),
                 checkRequired("recipientAccountNumberId", recipientAccountNumberId),
                 checkRequired("type", type),
@@ -830,11 +830,7 @@ private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `inbound_wire_drawdown_request`.
      */
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -855,7 +851,7 @@ private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            INBOUND_WIRE_DRAWDOWN_REQUEST,
+            INBOUND_WIRE_DRAWDOWN_REQUEST
         }
 
         /**

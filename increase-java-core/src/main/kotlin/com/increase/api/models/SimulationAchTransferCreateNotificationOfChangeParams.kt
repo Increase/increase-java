@@ -372,11 +372,7 @@ private constructor(
     }
 
     /** The reason for the notification of change. */
-    class ChangeCode
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class ChangeCode @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.

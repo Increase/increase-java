@@ -17,13 +17,13 @@ interface PendingTransactionServiceAsync {
     @JvmOverloads
     fun retrieve(
         params: PendingTransactionRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PendingTransaction>
 
     /** List Pending Transactions */
     @JvmOverloads
     fun list(
         params: PendingTransactionListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PendingTransactionListPageAsync>
 }

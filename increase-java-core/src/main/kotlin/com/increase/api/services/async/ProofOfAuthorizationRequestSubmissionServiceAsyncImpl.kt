@@ -21,9 +21,8 @@ import com.increase.api.models.ProofOfAuthorizationRequestSubmissionRetrievePara
 import java.util.concurrent.CompletableFuture
 
 class ProofOfAuthorizationRequestSubmissionServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : ProofOfAuthorizationRequestSubmissionServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) :
+    ProofOfAuthorizationRequestSubmissionServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -34,7 +33,7 @@ internal constructor(
     /** Submit Proof of Authorization */
     override fun create(
         params: ProofOfAuthorizationRequestSubmissionCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<ProofOfAuthorizationRequestSubmission> {
         val request =
             HttpRequest.builder()
@@ -63,14 +62,14 @@ internal constructor(
     /** Retrieve a Proof of Authorization Request Submission */
     override fun retrieve(
         params: ProofOfAuthorizationRequestSubmissionRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<ProofOfAuthorizationRequestSubmission> {
         val request =
             HttpRequest.builder()
                 .method(HttpMethod.GET)
                 .addPathSegments(
                     "proof_of_authorization_request_submissions",
-                    params.getPathParam(0)
+                    params.getPathParam(0),
                 )
                 .build()
                 .prepareAsync(clientOptions, params)
@@ -96,7 +95,7 @@ internal constructor(
     /** List Proof of Authorization Request Submissions */
     override fun list(
         params: ProofOfAuthorizationRequestSubmissionListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<ProofOfAuthorizationRequestSubmissionListPageAsync> {
         val request =
             HttpRequest.builder()

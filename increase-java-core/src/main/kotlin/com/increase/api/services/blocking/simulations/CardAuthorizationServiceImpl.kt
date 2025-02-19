@@ -16,10 +16,8 @@ import com.increase.api.errors.IncreaseError
 import com.increase.api.models.SimulationCardAuthorizationCreateParams
 import com.increase.api.models.SimulationCardAuthorizationCreateResponse
 
-class CardAuthorizationServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : CardAuthorizationService {
+class CardAuthorizationServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    CardAuthorizationService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -37,7 +35,7 @@ internal constructor(
      */
     override fun create(
         params: SimulationCardAuthorizationCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): SimulationCardAuthorizationCreateResponse {
         val request =
             HttpRequest.builder()

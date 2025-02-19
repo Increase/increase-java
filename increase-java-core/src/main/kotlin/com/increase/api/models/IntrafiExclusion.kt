@@ -359,11 +359,7 @@ private constructor(
     }
 
     /** The status of the exclusion request. */
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -470,11 +466,7 @@ private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `intrafi_exclusion`.
      */
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -495,7 +487,7 @@ private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            INTRAFI_EXCLUSION,
+            INTRAFI_EXCLUSION
         }
 
         /**

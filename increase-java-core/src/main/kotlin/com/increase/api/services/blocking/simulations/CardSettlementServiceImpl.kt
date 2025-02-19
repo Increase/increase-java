@@ -16,10 +16,8 @@ import com.increase.api.errors.IncreaseError
 import com.increase.api.models.SimulationCardSettlementCreateParams
 import com.increase.api.models.Transaction
 
-class CardSettlementServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : CardSettlementService {
+class CardSettlementServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    CardSettlementService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -34,7 +32,7 @@ internal constructor(
      */
     override fun create(
         params: SimulationCardSettlementCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Transaction {
         val request =
             HttpRequest.builder()

@@ -129,7 +129,7 @@ private constructor(
             fun build(): SimulationProgramCreateBody =
                 SimulationProgramCreateBody(
                     checkRequired("name", name),
-                    additionalProperties.toImmutable()
+                    additionalProperties.toImmutable(),
                 )
         }
 

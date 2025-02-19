@@ -489,15 +489,15 @@ private constructor(
                     checkRequired("proofOfAuthorizationRequestId", proofOfAuthorizationRequestId),
                     checkRequired(
                         "validatedAccountOwnershipViaCredential",
-                        validatedAccountOwnershipViaCredential
+                        validatedAccountOwnershipViaCredential,
                     ),
                     checkRequired(
                         "validatedAccountOwnershipWithAccountStatement",
-                        validatedAccountOwnershipWithAccountStatement
+                        validatedAccountOwnershipWithAccountStatement,
                     ),
                     checkRequired(
                         "validatedAccountOwnershipWithMicrodeposit",
-                        validatedAccountOwnershipWithMicrodeposit
+                        validatedAccountOwnershipWithMicrodeposit,
                     ),
                     authorizerCompany,
                     authorizerIpAddress,

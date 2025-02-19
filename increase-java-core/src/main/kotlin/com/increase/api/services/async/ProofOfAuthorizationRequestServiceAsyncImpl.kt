@@ -19,9 +19,8 @@ import com.increase.api.models.ProofOfAuthorizationRequestRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class ProofOfAuthorizationRequestServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : ProofOfAuthorizationRequestServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) :
+    ProofOfAuthorizationRequestServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -32,7 +31,7 @@ internal constructor(
     /** Retrieve a Proof of Authorization Request */
     override fun retrieve(
         params: ProofOfAuthorizationRequestRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<ProofOfAuthorizationRequest> {
         val request =
             HttpRequest.builder()
@@ -60,7 +59,7 @@ internal constructor(
     /** List Proof of Authorization Requests */
     override fun list(
         params: ProofOfAuthorizationRequestListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<ProofOfAuthorizationRequestListPageAsync> {
         val request =
             HttpRequest.builder()

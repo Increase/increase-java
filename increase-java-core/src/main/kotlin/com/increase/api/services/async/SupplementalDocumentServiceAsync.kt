@@ -17,13 +17,13 @@ interface SupplementalDocumentServiceAsync {
     @JvmOverloads
     fun create(
         params: SupplementalDocumentCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<EntitySupplementalDocument>
 
     /** List Entity Supplemental Document Submissions */
     @JvmOverloads
     fun list(
         params: SupplementalDocumentListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<SupplementalDocumentListPageAsync>
 }

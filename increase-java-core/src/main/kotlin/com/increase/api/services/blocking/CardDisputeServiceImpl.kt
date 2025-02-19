@@ -19,10 +19,8 @@ import com.increase.api.models.CardDisputeListPage
 import com.increase.api.models.CardDisputeListParams
 import com.increase.api.models.CardDisputeRetrieveParams
 
-class CardDisputeServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : CardDisputeService {
+class CardDisputeServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    CardDisputeService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -32,7 +30,7 @@ internal constructor(
     /** Create a Card Dispute */
     override fun create(
         params: CardDisputeCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CardDispute {
         val request =
             HttpRequest.builder()
@@ -57,7 +55,7 @@ internal constructor(
     /** Retrieve a Card Dispute */
     override fun retrieve(
         params: CardDisputeRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CardDispute {
         val request =
             HttpRequest.builder()
@@ -82,7 +80,7 @@ internal constructor(
     /** List Card Disputes */
     override fun list(
         params: CardDisputeListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CardDisputeListPage {
         val request =
             HttpRequest.builder()

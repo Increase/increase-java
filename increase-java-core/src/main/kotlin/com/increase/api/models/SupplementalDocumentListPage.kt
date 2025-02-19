@@ -79,13 +79,8 @@ private constructor(
         fun of(
             supplementalDocumentsService: SupplementalDocumentService,
             params: SupplementalDocumentListParams,
-            response: Response
-        ) =
-            SupplementalDocumentListPage(
-                supplementalDocumentsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = SupplementalDocumentListPage(supplementalDocumentsService, params, response)
     }
 
     @NoAutoDetect
@@ -172,18 +167,12 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: SupplementalDocumentListPage,
-    ) : Iterable<EntitySupplementalDocument> {
+    class AutoPager(private val firstPage: SupplementalDocumentListPage) :
+        Iterable<EntitySupplementalDocument> {
 
         override fun iterator(): Iterator<EntitySupplementalDocument> = iterator {
             var page = firstPage

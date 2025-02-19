@@ -77,11 +77,7 @@ private constructor(
 
         @JvmStatic
         fun of(eventsService: EventService, params: EventListParams, response: Response) =
-            EventListPage(
-                eventsService,
-                params,
-                response,
-            )
+            EventListPage(eventsService, params, response)
     }
 
     @NoAutoDetect
@@ -166,18 +162,11 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: EventListPage,
-    ) : Iterable<Event> {
+    class AutoPager(private val firstPage: EventListPage) : Iterable<Event> {
 
         override fun iterator(): Iterator<Event> = iterator {
             var page = firstPage
