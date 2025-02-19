@@ -26,7 +26,7 @@ import java.util.Optional
 class EventSubscriptionUpdateParams
 private constructor(
     private val eventSubscriptionId: String,
-    private val body: EventSubscriptionUpdateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -46,7 +46,7 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): EventSubscriptionUpdateBody = body
+    @JvmSynthetic internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -60,9 +60,9 @@ private constructor(
     }
 
     @NoAutoDetect
-    class EventSubscriptionUpdateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("status")
         @ExcludeMissing
         private val status: JsonField<Status> = JsonMissing.of(),
@@ -82,7 +82,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): EventSubscriptionUpdateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -98,17 +98,16 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [EventSubscriptionUpdateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var status: JsonField<Status> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(eventSubscriptionUpdateBody: EventSubscriptionUpdateBody) = apply {
-                status = eventSubscriptionUpdateBody.status
-                additionalProperties =
-                    eventSubscriptionUpdateBody.additionalProperties.toMutableMap()
+            internal fun from(body: Body) = apply {
+                status = body.status
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** The status to update the Event Subscription with. */
@@ -136,8 +135,7 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): EventSubscriptionUpdateBody =
-                EventSubscriptionUpdateBody(status, additionalProperties.toImmutable())
+            fun build(): Body = Body(status, additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -145,7 +143,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is EventSubscriptionUpdateBody && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -154,8 +152,7 @@ private constructor(
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() =
-            "EventSubscriptionUpdateBody{status=$status, additionalProperties=$additionalProperties}"
+        override fun toString() = "Body{status=$status, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -170,8 +167,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var eventSubscriptionId: String? = null
-        private var body: EventSubscriptionUpdateBody.Builder =
-            EventSubscriptionUpdateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

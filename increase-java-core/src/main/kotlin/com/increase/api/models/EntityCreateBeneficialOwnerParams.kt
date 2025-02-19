@@ -27,7 +27,7 @@ import java.util.Optional
 class EntityCreateBeneficialOwnerParams
 private constructor(
     private val entityId: String,
-    private val body: EntityCreateBeneficialOwnerBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -47,7 +47,7 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): EntityCreateBeneficialOwnerBody = body
+    @JvmSynthetic internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -61,9 +61,9 @@ private constructor(
     }
 
     @NoAutoDetect
-    class EntityCreateBeneficialOwnerBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("beneficial_owner")
         @ExcludeMissing
         private val beneficialOwner: JsonField<BeneficialOwner> = JsonMissing.of(),
@@ -89,7 +89,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): EntityCreateBeneficialOwnerBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -105,19 +105,17 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [EntityCreateBeneficialOwnerBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var beneficialOwner: JsonField<BeneficialOwner>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(entityCreateBeneficialOwnerBody: EntityCreateBeneficialOwnerBody) =
-                apply {
-                    beneficialOwner = entityCreateBeneficialOwnerBody.beneficialOwner
-                    additionalProperties =
-                        entityCreateBeneficialOwnerBody.additionalProperties.toMutableMap()
-                }
+            internal fun from(body: Body) = apply {
+                beneficialOwner = body.beneficialOwner
+                additionalProperties = body.additionalProperties.toMutableMap()
+            }
 
             /**
              * The identifying details of anyone controlling or owning 25% or more of the
@@ -153,8 +151,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): EntityCreateBeneficialOwnerBody =
-                EntityCreateBeneficialOwnerBody(
+            fun build(): Body =
+                Body(
                     checkRequired("beneficialOwner", beneficialOwner),
                     additionalProperties.toImmutable(),
                 )
@@ -165,7 +163,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is EntityCreateBeneficialOwnerBody && beneficialOwner == other.beneficialOwner && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && beneficialOwner == other.beneficialOwner && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -175,7 +173,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "EntityCreateBeneficialOwnerBody{beneficialOwner=$beneficialOwner, additionalProperties=$additionalProperties}"
+            "Body{beneficialOwner=$beneficialOwner, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -190,8 +188,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var entityId: String? = null
-        private var body: EntityCreateBeneficialOwnerBody.Builder =
-            EntityCreateBeneficialOwnerBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

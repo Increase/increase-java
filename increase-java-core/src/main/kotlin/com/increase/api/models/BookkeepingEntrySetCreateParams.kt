@@ -24,7 +24,7 @@ import java.util.Optional
 /** Create a Bookkeeping Entry Set */
 class BookkeepingEntrySetCreateParams
 private constructor(
-    private val body: BookkeepingEntrySetCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -59,16 +59,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): BookkeepingEntrySetCreateBody = body
+    @JvmSynthetic internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class BookkeepingEntrySetCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("entries")
         @ExcludeMissing
         private val entries: JsonField<List<Entry>> = JsonMissing.of(),
@@ -115,7 +115,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): BookkeepingEntrySetCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -133,7 +133,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [BookkeepingEntrySetCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var entries: JsonField<MutableList<Entry>>? = null
@@ -142,14 +142,12 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(bookkeepingEntrySetCreateBody: BookkeepingEntrySetCreateBody) =
-                apply {
-                    entries = bookkeepingEntrySetCreateBody.entries.map { it.toMutableList() }
-                    date = bookkeepingEntrySetCreateBody.date
-                    transactionId = bookkeepingEntrySetCreateBody.transactionId
-                    additionalProperties =
-                        bookkeepingEntrySetCreateBody.additionalProperties.toMutableMap()
-                }
+            internal fun from(body: Body) = apply {
+                entries = body.entries.map { it.toMutableList() }
+                date = body.date
+                transactionId = body.transactionId
+                additionalProperties = body.additionalProperties.toMutableMap()
+            }
 
             /** The bookkeeping entries. */
             fun entries(entries: List<Entry>) = entries(JsonField.of(entries))
@@ -212,8 +210,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): BookkeepingEntrySetCreateBody =
-                BookkeepingEntrySetCreateBody(
+            fun build(): Body =
+                Body(
                     checkRequired("entries", entries).map { it.toImmutable() },
                     date,
                     transactionId,
@@ -226,7 +224,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is BookkeepingEntrySetCreateBody && entries == other.entries && date == other.date && transactionId == other.transactionId && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && entries == other.entries && date == other.date && transactionId == other.transactionId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -236,7 +234,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "BookkeepingEntrySetCreateBody{entries=$entries, date=$date, transactionId=$transactionId, additionalProperties=$additionalProperties}"
+            "Body{entries=$entries, date=$date, transactionId=$transactionId, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -250,8 +248,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: BookkeepingEntrySetCreateBody.Builder =
-            BookkeepingEntrySetCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

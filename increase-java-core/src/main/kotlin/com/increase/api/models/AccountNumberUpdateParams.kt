@@ -26,7 +26,7 @@ import java.util.Optional
 class AccountNumberUpdateParams
 private constructor(
     private val accountNumberId: String,
-    private val body: AccountNumberUpdateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -64,7 +64,7 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): AccountNumberUpdateBody = body
+    @JvmSynthetic internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -78,9 +78,9 @@ private constructor(
     }
 
     @NoAutoDetect
-    class AccountNumberUpdateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("inbound_ach")
         @ExcludeMissing
         private val inboundAch: JsonField<InboundAch> = JsonMissing.of(),
@@ -133,7 +133,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): AccountNumberUpdateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -152,7 +152,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [AccountNumberUpdateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var inboundAch: JsonField<InboundAch> = JsonMissing.of()
@@ -162,12 +162,12 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(accountNumberUpdateBody: AccountNumberUpdateBody) = apply {
-                inboundAch = accountNumberUpdateBody.inboundAch
-                inboundChecks = accountNumberUpdateBody.inboundChecks
-                name = accountNumberUpdateBody.name
-                status = accountNumberUpdateBody.status
-                additionalProperties = accountNumberUpdateBody.additionalProperties.toMutableMap()
+            internal fun from(body: Body) = apply {
+                inboundAch = body.inboundAch
+                inboundChecks = body.inboundChecks
+                name = body.name
+                status = body.status
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** Options related to how this Account Number handles inbound ACH transfers. */
@@ -222,14 +222,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): AccountNumberUpdateBody =
-                AccountNumberUpdateBody(
-                    inboundAch,
-                    inboundChecks,
-                    name,
-                    status,
-                    additionalProperties.toImmutable(),
-                )
+            fun build(): Body =
+                Body(inboundAch, inboundChecks, name, status, additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -237,7 +231,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is AccountNumberUpdateBody && inboundAch == other.inboundAch && inboundChecks == other.inboundChecks && name == other.name && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && inboundAch == other.inboundAch && inboundChecks == other.inboundChecks && name == other.name && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -247,7 +241,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "AccountNumberUpdateBody{inboundAch=$inboundAch, inboundChecks=$inboundChecks, name=$name, status=$status, additionalProperties=$additionalProperties}"
+            "Body{inboundAch=$inboundAch, inboundChecks=$inboundChecks, name=$name, status=$status, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -262,7 +256,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var accountNumberId: String? = null
-        private var body: AccountNumberUpdateBody.Builder = AccountNumberUpdateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

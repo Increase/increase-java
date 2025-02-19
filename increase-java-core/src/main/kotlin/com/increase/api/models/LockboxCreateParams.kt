@@ -23,7 +23,7 @@ import java.util.Optional
 /** Create a Lockbox */
 class LockboxCreateParams
 private constructor(
-    private val body: LockboxCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -52,16 +52,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): LockboxCreateBody = body
+    @JvmSynthetic internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class LockboxCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("account_id")
         @ExcludeMissing
         private val accountId: JsonField<String> = JsonMissing.of(),
@@ -105,7 +105,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): LockboxCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -123,7 +123,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [LockboxCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var accountId: JsonField<String>? = null
@@ -132,11 +132,11 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(lockboxCreateBody: LockboxCreateBody) = apply {
-                accountId = lockboxCreateBody.accountId
-                description = lockboxCreateBody.description
-                recipientName = lockboxCreateBody.recipientName
-                additionalProperties = lockboxCreateBody.additionalProperties.toMutableMap()
+            internal fun from(body: Body) = apply {
+                accountId = body.accountId
+                description = body.description
+                recipientName = body.recipientName
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** The Account checks sent to this Lockbox should be deposited into. */
@@ -180,8 +180,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): LockboxCreateBody =
-                LockboxCreateBody(
+            fun build(): Body =
+                Body(
                     checkRequired("accountId", accountId),
                     description,
                     recipientName,
@@ -194,7 +194,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LockboxCreateBody && accountId == other.accountId && description == other.description && recipientName == other.recipientName && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && accountId == other.accountId && description == other.description && recipientName == other.recipientName && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -204,7 +204,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "LockboxCreateBody{accountId=$accountId, description=$description, recipientName=$recipientName, additionalProperties=$additionalProperties}"
+            "Body{accountId=$accountId, description=$description, recipientName=$recipientName, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -218,7 +218,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: LockboxCreateBody.Builder = LockboxCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

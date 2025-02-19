@@ -115,7 +115,9 @@ class RealTimeDecisionActionParamsTest {
                         .build()
                 )
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.cardAuthentication())
             .contains(
@@ -175,7 +177,9 @@ class RealTimeDecisionActionParamsTest {
             RealTimeDecisionActionParams.builder()
                 .realTimeDecisionId("real_time_decision_j76n2e810ezcg3zh5qtn")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
     }
 

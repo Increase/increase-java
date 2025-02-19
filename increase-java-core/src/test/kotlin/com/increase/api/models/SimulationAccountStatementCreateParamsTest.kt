@@ -20,7 +20,9 @@ class SimulationAccountStatementCreateParamsTest {
             SimulationAccountStatementCreateParams.builder()
                 .accountId("account_in71c4amph0vgo2qllky")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
     }
@@ -31,7 +33,9 @@ class SimulationAccountStatementCreateParamsTest {
             SimulationAccountStatementCreateParams.builder()
                 .accountId("account_in71c4amph0vgo2qllky")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
     }

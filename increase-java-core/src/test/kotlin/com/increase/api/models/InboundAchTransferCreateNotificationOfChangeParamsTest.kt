@@ -24,7 +24,9 @@ class InboundAchTransferCreateNotificationOfChangeParamsTest {
                 .updatedAccountNumber("987654321")
                 .updatedRoutingNumber("101050001")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.updatedAccountNumber()).contains("987654321")
         assertThat(body.updatedRoutingNumber()).contains("101050001")
@@ -36,7 +38,9 @@ class InboundAchTransferCreateNotificationOfChangeParamsTest {
             InboundAchTransferCreateNotificationOfChangeParams.builder()
                 .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
     }
 

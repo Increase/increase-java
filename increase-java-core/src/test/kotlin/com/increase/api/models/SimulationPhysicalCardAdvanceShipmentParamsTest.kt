@@ -22,7 +22,9 @@ class SimulationPhysicalCardAdvanceShipmentParamsTest {
                 .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
                 .shipmentStatus(SimulationPhysicalCardAdvanceShipmentParams.ShipmentStatus.PENDING)
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.shipmentStatus())
             .isEqualTo(SimulationPhysicalCardAdvanceShipmentParams.ShipmentStatus.PENDING)
@@ -35,7 +37,9 @@ class SimulationPhysicalCardAdvanceShipmentParamsTest {
                 .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
                 .shipmentStatus(SimulationPhysicalCardAdvanceShipmentParams.ShipmentStatus.PENDING)
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.shipmentStatus())
             .isEqualTo(SimulationPhysicalCardAdvanceShipmentParams.ShipmentStatus.PENDING)

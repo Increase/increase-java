@@ -24,7 +24,9 @@ class CardDisputeCreateParamsTest {
                 .explanation("Unauthorized recurring transaction.")
                 .amount(1L)
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.disputedTransactionId()).isEqualTo("transaction_uyrp7fld2ium70oa7oi")
         assertThat(body.explanation()).isEqualTo("Unauthorized recurring transaction.")
@@ -38,7 +40,9 @@ class CardDisputeCreateParamsTest {
                 .disputedTransactionId("transaction_uyrp7fld2ium70oa7oi")
                 .explanation("Unauthorized recurring transaction.")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.disputedTransactionId()).isEqualTo("transaction_uyrp7fld2ium70oa7oi")
         assertThat(body.explanation()).isEqualTo("Unauthorized recurring transaction.")

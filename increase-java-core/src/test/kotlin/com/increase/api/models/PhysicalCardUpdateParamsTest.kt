@@ -22,7 +22,9 @@ class PhysicalCardUpdateParamsTest {
                 .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
                 .status(PhysicalCardUpdateParams.Status.ACTIVE)
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.status()).isEqualTo(PhysicalCardUpdateParams.Status.ACTIVE)
     }
@@ -34,7 +36,9 @@ class PhysicalCardUpdateParamsTest {
                 .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
                 .status(PhysicalCardUpdateParams.Status.ACTIVE)
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.status()).isEqualTo(PhysicalCardUpdateParams.Status.ACTIVE)
     }

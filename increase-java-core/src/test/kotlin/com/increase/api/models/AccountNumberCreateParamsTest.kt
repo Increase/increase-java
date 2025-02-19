@@ -42,7 +42,9 @@ class AccountNumberCreateParamsTest {
                         .build()
                 )
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.name()).isEqualTo("Rent payments")
@@ -67,7 +69,9 @@ class AccountNumberCreateParamsTest {
                 .accountId("account_in71c4amph0vgo2qllky")
                 .name("Rent payments")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.name()).isEqualTo("Rent payments")

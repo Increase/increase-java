@@ -30,7 +30,9 @@ class SimulationAchTransferCreateNotificationOfChangeParamsTest {
                 )
                 .correctedData("123456789")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.changeCode())
             .isEqualTo(
@@ -51,7 +53,9 @@ class SimulationAchTransferCreateNotificationOfChangeParamsTest {
                 )
                 .correctedData("123456789")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.changeCode())
             .isEqualTo(

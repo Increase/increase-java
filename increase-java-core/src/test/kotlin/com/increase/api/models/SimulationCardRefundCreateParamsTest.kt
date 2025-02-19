@@ -20,7 +20,9 @@ class SimulationCardRefundCreateParamsTest {
             SimulationCardRefundCreateParams.builder()
                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.transactionId()).isEqualTo("transaction_uyrp7fld2ium70oa7oi")
     }
@@ -31,7 +33,9 @@ class SimulationCardRefundCreateParamsTest {
             SimulationCardRefundCreateParams.builder()
                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.transactionId()).isEqualTo("transaction_uyrp7fld2ium70oa7oi")
     }

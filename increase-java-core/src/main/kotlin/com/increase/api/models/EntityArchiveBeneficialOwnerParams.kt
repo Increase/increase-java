@@ -23,7 +23,7 @@ import java.util.Objects
 class EntityArchiveBeneficialOwnerParams
 private constructor(
     private val entityId: String,
-    private val body: EntityArchiveBeneficialOwnerBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -43,7 +43,7 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): EntityArchiveBeneficialOwnerBody = body
+    @JvmSynthetic internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -57,9 +57,9 @@ private constructor(
     }
 
     @NoAutoDetect
-    class EntityArchiveBeneficialOwnerBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("beneficial_owner_id")
         @ExcludeMissing
         private val beneficialOwnerId: JsonField<String> = JsonMissing.of(),
@@ -85,7 +85,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): EntityArchiveBeneficialOwnerBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -101,19 +101,17 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [EntityArchiveBeneficialOwnerBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var beneficialOwnerId: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(entityArchiveBeneficialOwnerBody: EntityArchiveBeneficialOwnerBody) =
-                apply {
-                    beneficialOwnerId = entityArchiveBeneficialOwnerBody.beneficialOwnerId
-                    additionalProperties =
-                        entityArchiveBeneficialOwnerBody.additionalProperties.toMutableMap()
-                }
+            internal fun from(body: Body) = apply {
+                beneficialOwnerId = body.beneficialOwnerId
+                additionalProperties = body.additionalProperties.toMutableMap()
+            }
 
             /**
              * The identifying details of anyone controlling or owning 25% or more of the
@@ -149,8 +147,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): EntityArchiveBeneficialOwnerBody =
-                EntityArchiveBeneficialOwnerBody(
+            fun build(): Body =
+                Body(
                     checkRequired("beneficialOwnerId", beneficialOwnerId),
                     additionalProperties.toImmutable(),
                 )
@@ -161,7 +159,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is EntityArchiveBeneficialOwnerBody && beneficialOwnerId == other.beneficialOwnerId && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && beneficialOwnerId == other.beneficialOwnerId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -171,7 +169,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "EntityArchiveBeneficialOwnerBody{beneficialOwnerId=$beneficialOwnerId, additionalProperties=$additionalProperties}"
+            "Body{beneficialOwnerId=$beneficialOwnerId, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -186,8 +184,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var entityId: String? = null
-        private var body: EntityArchiveBeneficialOwnerBody.Builder =
-            EntityArchiveBeneficialOwnerBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

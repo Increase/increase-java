@@ -25,7 +25,7 @@ import java.util.Optional
 /** Create a Check Transfer */
 class CheckTransferCreateParams
 private constructor(
-    private val body: CheckTransferCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -98,16 +98,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): CheckTransferCreateBody = body
+    @JvmSynthetic internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class CheckTransferCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("account_id")
         @ExcludeMissing
         private val accountId: JsonField<String> = JsonMissing.of(),
@@ -218,7 +218,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): CheckTransferCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -240,7 +240,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [CheckTransferCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var accountId: JsonField<String>? = null
@@ -253,15 +253,15 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(checkTransferCreateBody: CheckTransferCreateBody) = apply {
-                accountId = checkTransferCreateBody.accountId
-                amount = checkTransferCreateBody.amount
-                fulfillmentMethod = checkTransferCreateBody.fulfillmentMethod
-                sourceAccountNumberId = checkTransferCreateBody.sourceAccountNumberId
-                physicalCheck = checkTransferCreateBody.physicalCheck
-                requireApproval = checkTransferCreateBody.requireApproval
-                thirdParty = checkTransferCreateBody.thirdParty
-                additionalProperties = checkTransferCreateBody.additionalProperties.toMutableMap()
+            internal fun from(body: Body) = apply {
+                accountId = body.accountId
+                amount = body.amount
+                fulfillmentMethod = body.fulfillmentMethod
+                sourceAccountNumberId = body.sourceAccountNumberId
+                physicalCheck = body.physicalCheck
+                requireApproval = body.requireApproval
+                thirdParty = body.thirdParty
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** The identifier for the account that will send the transfer. */
@@ -361,8 +361,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): CheckTransferCreateBody =
-                CheckTransferCreateBody(
+            fun build(): Body =
+                Body(
                     checkRequired("accountId", accountId),
                     checkRequired("amount", amount),
                     checkRequired("fulfillmentMethod", fulfillmentMethod),
@@ -379,7 +379,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is CheckTransferCreateBody && accountId == other.accountId && amount == other.amount && fulfillmentMethod == other.fulfillmentMethod && sourceAccountNumberId == other.sourceAccountNumberId && physicalCheck == other.physicalCheck && requireApproval == other.requireApproval && thirdParty == other.thirdParty && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && accountId == other.accountId && amount == other.amount && fulfillmentMethod == other.fulfillmentMethod && sourceAccountNumberId == other.sourceAccountNumberId && physicalCheck == other.physicalCheck && requireApproval == other.requireApproval && thirdParty == other.thirdParty && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -389,7 +389,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "CheckTransferCreateBody{accountId=$accountId, amount=$amount, fulfillmentMethod=$fulfillmentMethod, sourceAccountNumberId=$sourceAccountNumberId, physicalCheck=$physicalCheck, requireApproval=$requireApproval, thirdParty=$thirdParty, additionalProperties=$additionalProperties}"
+            "Body{accountId=$accountId, amount=$amount, fulfillmentMethod=$fulfillmentMethod, sourceAccountNumberId=$sourceAccountNumberId, physicalCheck=$physicalCheck, requireApproval=$requireApproval, thirdParty=$thirdParty, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -403,7 +403,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: CheckTransferCreateBody.Builder = CheckTransferCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

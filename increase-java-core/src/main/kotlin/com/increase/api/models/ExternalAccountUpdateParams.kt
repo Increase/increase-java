@@ -26,7 +26,7 @@ import java.util.Optional
 class ExternalAccountUpdateParams
 private constructor(
     private val externalAccountId: String,
-    private val body: ExternalAccountUpdateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -64,7 +64,7 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): ExternalAccountUpdateBody = body
+    @JvmSynthetic internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -78,9 +78,9 @@ private constructor(
     }
 
     @NoAutoDetect
-    class ExternalAccountUpdateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("account_holder")
         @ExcludeMissing
         private val accountHolder: JsonField<AccountHolder> = JsonMissing.of(),
@@ -133,7 +133,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): ExternalAccountUpdateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -152,7 +152,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [ExternalAccountUpdateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var accountHolder: JsonField<AccountHolder> = JsonMissing.of()
@@ -162,12 +162,12 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(externalAccountUpdateBody: ExternalAccountUpdateBody) = apply {
-                accountHolder = externalAccountUpdateBody.accountHolder
-                description = externalAccountUpdateBody.description
-                funding = externalAccountUpdateBody.funding
-                status = externalAccountUpdateBody.status
-                additionalProperties = externalAccountUpdateBody.additionalProperties.toMutableMap()
+            internal fun from(body: Body) = apply {
+                accountHolder = body.accountHolder
+                description = body.description
+                funding = body.funding
+                status = body.status
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** The type of entity that owns the External Account. */
@@ -218,8 +218,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): ExternalAccountUpdateBody =
-                ExternalAccountUpdateBody(
+            fun build(): Body =
+                Body(
                     accountHolder,
                     description,
                     funding,
@@ -233,7 +233,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ExternalAccountUpdateBody && accountHolder == other.accountHolder && description == other.description && funding == other.funding && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && accountHolder == other.accountHolder && description == other.description && funding == other.funding && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -243,7 +243,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "ExternalAccountUpdateBody{accountHolder=$accountHolder, description=$description, funding=$funding, status=$status, additionalProperties=$additionalProperties}"
+            "Body{accountHolder=$accountHolder, description=$description, funding=$funding, status=$status, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -258,7 +258,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var externalAccountId: String? = null
-        private var body: ExternalAccountUpdateBody.Builder = ExternalAccountUpdateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
