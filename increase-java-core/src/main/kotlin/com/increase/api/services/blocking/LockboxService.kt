@@ -18,27 +18,27 @@ interface LockboxService {
     @JvmOverloads
     fun create(
         params: LockboxCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Lockbox
 
     /** Retrieve a Lockbox */
     @JvmOverloads
     fun retrieve(
         params: LockboxRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Lockbox
 
     /** Update a Lockbox */
     @JvmOverloads
     fun update(
         params: LockboxUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Lockbox
 
     /** List Lockboxes */
     @JvmOverloads
     fun list(
         params: LockboxListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LockboxListPage
 }

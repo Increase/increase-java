@@ -16,10 +16,8 @@ import com.increase.api.errors.IncreaseError
 import com.increase.api.models.InboundAchTransfer
 import com.increase.api.models.SimulationInboundAchTransferCreateParams
 
-class InboundAchTransferServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : InboundAchTransferService {
+class InboundAchTransferServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    InboundAchTransferService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -39,7 +37,7 @@ internal constructor(
      */
     override fun create(
         params: SimulationInboundAchTransferCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): InboundAchTransfer {
         val request =
             HttpRequest.builder()

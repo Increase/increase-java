@@ -20,10 +20,8 @@ import com.increase.api.models.LockboxListParams
 import com.increase.api.models.LockboxRetrieveParams
 import com.increase.api.models.LockboxUpdateParams
 
-class LockboxServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : LockboxService {
+class LockboxServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    LockboxService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 

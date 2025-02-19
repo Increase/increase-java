@@ -205,11 +205,7 @@ private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `balance_lookup`.
      */
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -230,7 +226,7 @@ private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            BALANCE_LOOKUP,
+            BALANCE_LOOKUP
         }
 
         /**

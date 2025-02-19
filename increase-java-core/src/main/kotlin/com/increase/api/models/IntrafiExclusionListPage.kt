@@ -79,13 +79,8 @@ private constructor(
         fun of(
             intrafiExclusionsService: IntrafiExclusionService,
             params: IntrafiExclusionListParams,
-            response: Response
-        ) =
-            IntrafiExclusionListPage(
-                intrafiExclusionsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = IntrafiExclusionListPage(intrafiExclusionsService, params, response)
     }
 
     @NoAutoDetect
@@ -171,18 +166,11 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: IntrafiExclusionListPage,
-    ) : Iterable<IntrafiExclusion> {
+    class AutoPager(private val firstPage: IntrafiExclusionListPage) : Iterable<IntrafiExclusion> {
 
         override fun iterator(): Iterator<IntrafiExclusion> = iterator {
             var page = firstPage

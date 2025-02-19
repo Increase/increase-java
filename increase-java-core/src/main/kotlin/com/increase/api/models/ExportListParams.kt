@@ -263,10 +263,7 @@ private constructor(
     }
 
     class Category
-    private constructor(
-        private val in_: List<In>?,
-        private val additionalProperties: QueryParams,
-    ) {
+    private constructor(private val in_: List<In>?, private val additionalProperties: QueryParams) {
 
         /**
          * Filter Exports for those with the specified category or categories. For GET requests,
@@ -373,11 +370,7 @@ private constructor(
             fun build(): Category = Category(in_?.toImmutable(), additionalProperties.build())
         }
 
-        class In
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class In @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -726,13 +719,7 @@ private constructor(
             }
 
             fun build(): CreatedAt =
-                CreatedAt(
-                    after,
-                    before,
-                    onOrAfter,
-                    onOrBefore,
-                    additionalProperties.build(),
-                )
+                CreatedAt(after, before, onOrAfter, onOrBefore, additionalProperties.build())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -754,10 +741,7 @@ private constructor(
     }
 
     class Status
-    private constructor(
-        private val in_: List<In>?,
-        private val additionalProperties: QueryParams,
-    ) {
+    private constructor(private val in_: List<In>?, private val additionalProperties: QueryParams) {
 
         /**
          * Filter Exports for those with the specified status or statuses. For GET requests, this
@@ -864,11 +848,7 @@ private constructor(
             fun build(): Status = Status(in_?.toImmutable(), additionalProperties.build())
         }
 
-        class In
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class In @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.

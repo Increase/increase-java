@@ -332,11 +332,7 @@ private constructor(
      * The category of the Export. We may add additional possible values for this enum over time;
      * your application should be able to handle that gracefully.
      */
-    class Category
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Category @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -494,11 +490,7 @@ private constructor(
     }
 
     /** The status of the Export. */
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -608,11 +600,7 @@ private constructor(
     }
 
     /** A constant representing the object's type. For this resource it will always be `export`. */
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -633,7 +621,7 @@ private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            EXPORT,
+            EXPORT
         }
 
         /**

@@ -17,20 +17,20 @@ interface CheckDepositService {
     @JvmOverloads
     fun create(
         params: CheckDepositCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDeposit
 
     /** Retrieve a Check Deposit */
     @JvmOverloads
     fun retrieve(
         params: CheckDepositRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDeposit
 
     /** List Check Deposits */
     @JvmOverloads
     fun list(
         params: CheckDepositListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDepositListPage
 }

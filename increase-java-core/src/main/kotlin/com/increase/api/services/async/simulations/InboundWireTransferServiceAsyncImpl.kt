@@ -18,9 +18,7 @@ import com.increase.api.models.SimulationInboundWireTransferCreateParams
 import java.util.concurrent.CompletableFuture
 
 class InboundWireTransferServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : InboundWireTransferServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) : InboundWireTransferServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -30,7 +28,7 @@ internal constructor(
     /** Simulates an [Inbound Wire Transfer](#inbound-wire-transfers) to your account. */
     override fun create(
         params: SimulationInboundWireTransferCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<InboundWireTransfer> {
         val request =
             HttpRequest.builder()

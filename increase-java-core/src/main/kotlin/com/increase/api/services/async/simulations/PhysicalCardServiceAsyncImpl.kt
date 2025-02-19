@@ -17,10 +17,8 @@ import com.increase.api.models.PhysicalCard
 import com.increase.api.models.SimulationPhysicalCardAdvanceShipmentParams
 import java.util.concurrent.CompletableFuture
 
-class PhysicalCardServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : PhysicalCardServiceAsync {
+class PhysicalCardServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    PhysicalCardServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -33,7 +31,7 @@ internal constructor(
      */
     override fun advanceShipment(
         params: SimulationPhysicalCardAdvanceShipmentParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<PhysicalCard> {
         val request =
             HttpRequest.builder()
@@ -42,7 +40,7 @@ internal constructor(
                     "simulations",
                     "physical_cards",
                     params.getPathParam(0),
-                    "advance_shipment"
+                    "advance_shipment",
                 )
                 .body(json(clientOptions.jsonMapper, params._body()))
                 .build()

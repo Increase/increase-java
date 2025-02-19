@@ -19,10 +19,8 @@ import com.increase.api.models.ExportListPage
 import com.increase.api.models.ExportListParams
 import com.increase.api.models.ExportRetrieveParams
 
-class ExportServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : ExportService {
+class ExportServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    ExportService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 

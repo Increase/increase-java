@@ -19,9 +19,7 @@ import com.increase.api.models.DigitalWalletTokenRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class DigitalWalletTokenServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : DigitalWalletTokenServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) : DigitalWalletTokenServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -31,7 +29,7 @@ internal constructor(
     /** Retrieve a Digital Wallet Token */
     override fun retrieve(
         params: DigitalWalletTokenRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<DigitalWalletToken> {
         val request =
             HttpRequest.builder()
@@ -59,7 +57,7 @@ internal constructor(
     /** List Digital Wallet Tokens */
     override fun list(
         params: DigitalWalletTokenListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<DigitalWalletTokenListPageAsync> {
         val request =
             HttpRequest.builder()

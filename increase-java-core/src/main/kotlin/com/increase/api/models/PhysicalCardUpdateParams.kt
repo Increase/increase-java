@@ -137,7 +137,7 @@ private constructor(
             fun build(): PhysicalCardUpdateBody =
                 PhysicalCardUpdateBody(
                     checkRequired("status", status),
-                    additionalProperties.toImmutable()
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -319,11 +319,7 @@ private constructor(
     }
 
     /** The status to update the Physical Card to. */
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.

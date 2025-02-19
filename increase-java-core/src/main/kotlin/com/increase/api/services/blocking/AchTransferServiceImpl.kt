@@ -21,10 +21,8 @@ import com.increase.api.models.AchTransferListPage
 import com.increase.api.models.AchTransferListParams
 import com.increase.api.models.AchTransferRetrieveParams
 
-class AchTransferServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : AchTransferService {
+class AchTransferServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    AchTransferService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -34,7 +32,7 @@ internal constructor(
     /** Create an ACH Transfer */
     override fun create(
         params: AchTransferCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): AchTransfer {
         val request =
             HttpRequest.builder()
@@ -59,7 +57,7 @@ internal constructor(
     /** Retrieve an ACH Transfer */
     override fun retrieve(
         params: AchTransferRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): AchTransfer {
         val request =
             HttpRequest.builder()
@@ -84,7 +82,7 @@ internal constructor(
     /** List ACH Transfers */
     override fun list(
         params: AchTransferListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): AchTransferListPage {
         val request =
             HttpRequest.builder()
@@ -109,7 +107,7 @@ internal constructor(
     /** Approves an ACH Transfer in a pending_approval state. */
     override fun approve(
         params: AchTransferApproveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): AchTransfer {
         val request =
             HttpRequest.builder()
@@ -134,7 +132,7 @@ internal constructor(
     /** Cancels an ACH Transfer in a pending_approval state. */
     override fun cancel(
         params: AchTransferCancelParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): AchTransfer {
         val request =
             HttpRequest.builder()

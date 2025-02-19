@@ -14,6 +14,6 @@ interface InboundWireTransferService {
     @JvmOverloads
     fun create(
         params: SimulationInboundWireTransferCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundWireTransfer
 }

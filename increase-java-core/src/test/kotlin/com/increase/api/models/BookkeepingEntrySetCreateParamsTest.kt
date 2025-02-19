@@ -59,7 +59,7 @@ class BookkeepingEntrySetCreateParamsTest {
                     BookkeepingEntrySetCreateParams.Entry.builder()
                         .accountId("bookkeeping_account_t2obldz1rcu15zr54umg")
                         .amount(-100L)
-                        .build()
+                        .build(),
                 )
             )
         assertThat(body.date()).contains(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -95,7 +95,7 @@ class BookkeepingEntrySetCreateParamsTest {
                     BookkeepingEntrySetCreateParams.Entry.builder()
                         .accountId("bookkeeping_account_t2obldz1rcu15zr54umg")
                         .amount(-100L)
-                        .build()
+                        .build(),
                 )
             )
     }

@@ -17,10 +17,8 @@ import com.increase.api.models.EventListPage
 import com.increase.api.models.EventListParams
 import com.increase.api.models.EventRetrieveParams
 
-class EventServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : EventService {
+class EventServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    EventService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 

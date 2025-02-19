@@ -77,11 +77,7 @@ private constructor(
 
         @JvmStatic
         fun of(entitiesService: EntityService, params: EntityListParams, response: Response) =
-            EntityListPage(
-                entitiesService,
-                params,
-                response,
-            )
+            EntityListPage(entitiesService, params, response)
     }
 
     @NoAutoDetect
@@ -166,18 +162,11 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: EntityListPage,
-    ) : Iterable<Entity> {
+    class AutoPager(private val firstPage: EntityListPage) : Iterable<Entity> {
 
         override fun iterator(): Iterator<Entity> = iterator {
             var page = firstPage

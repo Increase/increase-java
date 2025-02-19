@@ -19,10 +19,7 @@ import com.increase.api.models.FileListPage
 import com.increase.api.models.FileListParams
 import com.increase.api.models.FileRetrieveParams
 
-class FileServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : FileService {
+class FileServiceImpl internal constructor(private val clientOptions: ClientOptions) : FileService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 

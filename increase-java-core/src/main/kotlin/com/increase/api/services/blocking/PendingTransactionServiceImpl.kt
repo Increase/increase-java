@@ -17,10 +17,8 @@ import com.increase.api.models.PendingTransactionListPage
 import com.increase.api.models.PendingTransactionListParams
 import com.increase.api.models.PendingTransactionRetrieveParams
 
-class PendingTransactionServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : PendingTransactionService {
+class PendingTransactionServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    PendingTransactionService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -30,7 +28,7 @@ internal constructor(
     /** Retrieve a Pending Transaction */
     override fun retrieve(
         params: PendingTransactionRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): PendingTransaction {
         val request =
             HttpRequest.builder()
@@ -55,7 +53,7 @@ internal constructor(
     /** List Pending Transactions */
     override fun list(
         params: PendingTransactionListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): PendingTransactionListPage {
         val request =
             HttpRequest.builder()

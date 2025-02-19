@@ -21,10 +21,8 @@ import com.increase.api.models.AccountTransferListPage
 import com.increase.api.models.AccountTransferListParams
 import com.increase.api.models.AccountTransferRetrieveParams
 
-class AccountTransferServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : AccountTransferService {
+class AccountTransferServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    AccountTransferService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -34,7 +32,7 @@ internal constructor(
     /** Create an Account Transfer */
     override fun create(
         params: AccountTransferCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): AccountTransfer {
         val request =
             HttpRequest.builder()
@@ -59,7 +57,7 @@ internal constructor(
     /** Retrieve an Account Transfer */
     override fun retrieve(
         params: AccountTransferRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): AccountTransfer {
         val request =
             HttpRequest.builder()
@@ -84,7 +82,7 @@ internal constructor(
     /** List Account Transfers */
     override fun list(
         params: AccountTransferListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): AccountTransferListPage {
         val request =
             HttpRequest.builder()
@@ -109,7 +107,7 @@ internal constructor(
     /** Approve an Account Transfer */
     override fun approve(
         params: AccountTransferApproveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): AccountTransfer {
         val request =
             HttpRequest.builder()
@@ -134,7 +132,7 @@ internal constructor(
     /** Cancel an Account Transfer */
     override fun cancel(
         params: AccountTransferCancelParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): AccountTransfer {
         val request =
             HttpRequest.builder()

@@ -16,13 +16,13 @@ interface OAuthApplicationService {
     @JvmOverloads
     fun retrieve(
         params: OAuthApplicationRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): OAuthApplication
 
     /** List OAuth Applications */
     @JvmOverloads
     fun list(
         params: OAuthApplicationListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): OAuthApplicationListPage
 }

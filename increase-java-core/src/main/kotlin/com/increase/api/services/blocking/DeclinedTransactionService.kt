@@ -16,13 +16,13 @@ interface DeclinedTransactionService {
     @JvmOverloads
     fun retrieve(
         params: DeclinedTransactionRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): DeclinedTransaction
 
     /** List Declined Transactions */
     @JvmOverloads
     fun list(
         params: DeclinedTransactionListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): DeclinedTransactionListPage
 }

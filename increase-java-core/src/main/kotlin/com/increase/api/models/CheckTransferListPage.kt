@@ -79,13 +79,8 @@ private constructor(
         fun of(
             checkTransfersService: CheckTransferService,
             params: CheckTransferListParams,
-            response: Response
-        ) =
-            CheckTransferListPage(
-                checkTransfersService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = CheckTransferListPage(checkTransfersService, params, response)
     }
 
     @NoAutoDetect
@@ -170,18 +165,11 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: CheckTransferListPage,
-    ) : Iterable<CheckTransfer> {
+    class AutoPager(private val firstPage: CheckTransferListPage) : Iterable<CheckTransfer> {
 
         override fun iterator(): Iterator<CheckTransfer> = iterator {
             var page = firstPage

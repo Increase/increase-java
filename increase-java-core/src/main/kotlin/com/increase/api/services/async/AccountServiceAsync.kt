@@ -22,28 +22,28 @@ interface AccountServiceAsync {
     @JvmOverloads
     fun create(
         params: AccountCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Account>
 
     /** Retrieve an Account */
     @JvmOverloads
     fun retrieve(
         params: AccountRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Account>
 
     /** Update an Account */
     @JvmOverloads
     fun update(
         params: AccountUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Account>
 
     /** List Accounts */
     @JvmOverloads
     fun list(
         params: AccountListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AccountListPageAsync>
 
     /**
@@ -53,13 +53,13 @@ interface AccountServiceAsync {
     @JvmOverloads
     fun balance(
         params: AccountBalanceParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BalanceLookup>
 
     /** Close an Account */
     @JvmOverloads
     fun close(
         params: AccountCloseParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Account>
 }

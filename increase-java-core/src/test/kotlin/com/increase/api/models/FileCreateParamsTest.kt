@@ -33,12 +33,12 @@ class FileCreateParamsTest {
                 MultipartFormValue.fromByteArray(
                     "file",
                     "some content".toByteArray(),
-                    ContentTypes.DefaultBinary
+                    ContentTypes.DefaultBinary,
                 ),
                 MultipartFormValue.fromEnum(
                     "purpose",
                     FileCreateParams.Purpose.CHECK_IMAGE_FRONT,
-                    ContentTypes.DefaultText
+                    ContentTypes.DefaultText,
                 ),
                 MultipartFormValue.fromString("description", "x", ContentTypes.DefaultText),
             )
@@ -58,12 +58,12 @@ class FileCreateParamsTest {
                 MultipartFormValue.fromByteArray(
                     "file",
                     "some content".toByteArray(),
-                    ContentTypes.DefaultBinary
+                    ContentTypes.DefaultBinary,
                 ),
                 MultipartFormValue.fromEnum(
                     "purpose",
                     FileCreateParams.Purpose.CHECK_IMAGE_FRONT,
-                    ContentTypes.DefaultText
+                    ContentTypes.DefaultText,
                 ),
                 null,
             )

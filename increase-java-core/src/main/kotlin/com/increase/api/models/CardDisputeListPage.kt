@@ -79,13 +79,8 @@ private constructor(
         fun of(
             cardDisputesService: CardDisputeService,
             params: CardDisputeListParams,
-            response: Response
-        ) =
-            CardDisputeListPage(
-                cardDisputesService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = CardDisputeListPage(cardDisputesService, params, response)
     }
 
     @NoAutoDetect
@@ -170,18 +165,11 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: CardDisputeListPage,
-    ) : Iterable<CardDispute> {
+    class AutoPager(private val firstPage: CardDisputeListPage) : Iterable<CardDispute> {
 
         override fun iterator(): Iterator<CardDispute> = iterator {
             var page = firstPage

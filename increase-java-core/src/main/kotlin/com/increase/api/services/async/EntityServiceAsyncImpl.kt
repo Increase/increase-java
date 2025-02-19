@@ -27,10 +27,8 @@ import com.increase.api.models.EntityUpdateBeneficialOwnerAddressParams
 import com.increase.api.models.EntityUpdateIndustryCodeParams
 import java.util.concurrent.CompletableFuture
 
-class EntityServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : EntityServiceAsync {
+class EntityServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    EntityServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -40,7 +38,7 @@ internal constructor(
     /** Create an Entity */
     override fun create(
         params: EntityCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<Entity> {
         val request =
             HttpRequest.builder()
@@ -68,7 +66,7 @@ internal constructor(
     /** Retrieve an Entity */
     override fun retrieve(
         params: EntityRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<Entity> {
         val request =
             HttpRequest.builder()
@@ -96,7 +94,7 @@ internal constructor(
     /** List Entities */
     override fun list(
         params: EntityListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<EntityListPageAsync> {
         val request =
             HttpRequest.builder()
@@ -124,7 +122,7 @@ internal constructor(
     /** Archive an Entity */
     override fun archive(
         params: EntityArchiveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<Entity> {
         val request =
             HttpRequest.builder()
@@ -152,7 +150,7 @@ internal constructor(
     /** Archive a beneficial owner for a corporate Entity */
     override fun archiveBeneficialOwner(
         params: EntityArchiveBeneficialOwnerParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<Entity> {
         val request =
             HttpRequest.builder()
@@ -184,7 +182,7 @@ internal constructor(
      */
     override fun confirm(
         params: EntityConfirmParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<Entity> {
         val request =
             HttpRequest.builder()
@@ -212,7 +210,7 @@ internal constructor(
     /** Create a beneficial owner for a corporate Entity */
     override fun createBeneficialOwner(
         params: EntityCreateBeneficialOwnerParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<Entity> {
         val request =
             HttpRequest.builder()
@@ -240,7 +238,7 @@ internal constructor(
     /** Update a Natural Person or Corporation's address */
     override fun updateAddress(
         params: EntityUpdateAddressParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<Entity> {
         val request =
             HttpRequest.builder()
@@ -268,7 +266,7 @@ internal constructor(
     /** Update the address for a beneficial owner belonging to a corporate Entity */
     override fun updateBeneficialOwnerAddress(
         params: EntityUpdateBeneficialOwnerAddressParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<Entity> {
         val request =
             HttpRequest.builder()
@@ -276,7 +274,7 @@ internal constructor(
                 .addPathSegments(
                     "entities",
                     params.getPathParam(0),
-                    "update_beneficial_owner_address"
+                    "update_beneficial_owner_address",
                 )
                 .body(json(clientOptions.jsonMapper, params._body()))
                 .build()
@@ -300,7 +298,7 @@ internal constructor(
     /** Update the industry code for a corporate Entity */
     override fun updateIndustryCode(
         params: EntityUpdateIndustryCodeParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<Entity> {
         val request =
             HttpRequest.builder()

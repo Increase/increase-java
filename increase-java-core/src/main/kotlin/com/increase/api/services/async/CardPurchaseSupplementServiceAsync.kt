@@ -17,13 +17,13 @@ interface CardPurchaseSupplementServiceAsync {
     @JvmOverloads
     fun retrieve(
         params: CardPurchaseSupplementRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CardPurchaseSupplement>
 
     /** List Card Purchase Supplements */
     @JvmOverloads
     fun list(
         params: CardPurchaseSupplementListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CardPurchaseSupplementListPageAsync>
 }

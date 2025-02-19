@@ -17,13 +17,13 @@ interface InboundWireTransferServiceAsync {
     @JvmOverloads
     fun retrieve(
         params: InboundWireTransferRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundWireTransfer>
 
     /** List Inbound Wire Transfers */
     @JvmOverloads
     fun list(
         params: InboundWireTransferListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundWireTransferListPageAsync>
 }

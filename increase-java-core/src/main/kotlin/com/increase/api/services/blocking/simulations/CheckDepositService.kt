@@ -19,7 +19,7 @@ interface CheckDepositService {
     @JvmOverloads
     fun reject(
         params: SimulationCheckDepositRejectParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDeposit
 
     /**
@@ -29,7 +29,7 @@ interface CheckDepositService {
     @JvmOverloads
     fun return_(
         params: SimulationCheckDepositReturnParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDeposit
 
     /**
@@ -39,6 +39,6 @@ interface CheckDepositService {
     @JvmOverloads
     fun submit(
         params: SimulationCheckDepositSubmitParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDeposit
 }

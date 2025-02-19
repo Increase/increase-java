@@ -77,11 +77,7 @@ private constructor(
 
         @JvmStatic
         fun of(cardsService: CardService, params: CardListParams, response: Response) =
-            CardListPage(
-                cardsService,
-                params,
-                response,
-            )
+            CardListPage(cardsService, params, response)
     }
 
     @NoAutoDetect
@@ -166,18 +162,11 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: CardListPage,
-    ) : Iterable<Card> {
+    class AutoPager(private val firstPage: CardListPage) : Iterable<Card> {
 
         override fun iterator(): Iterator<Card> = iterator {
             var page = firstPage

@@ -215,11 +215,7 @@ private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `inbound_card_authorization_simulation_result`.
      */
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -242,7 +238,7 @@ private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            INBOUND_CARD_AUTHORIZATION_SIMULATION_RESULT,
+            INBOUND_CARD_AUTHORIZATION_SIMULATION_RESULT
         }
 
         /**

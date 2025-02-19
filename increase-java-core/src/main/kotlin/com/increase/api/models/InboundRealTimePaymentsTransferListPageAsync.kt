@@ -83,7 +83,7 @@ private constructor(
         fun of(
             inboundRealTimePaymentsTransfersService: InboundRealTimePaymentsTransferServiceAsync,
             params: InboundRealTimePaymentsTransferListParams,
-            response: Response
+            response: Response,
         ) =
             InboundRealTimePaymentsTransferListPageAsync(
                 inboundRealTimePaymentsTransfersService,
@@ -178,26 +178,19 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: InboundRealTimePaymentsTransferListPageAsync,
-    ) {
+    class AutoPager(private val firstPage: InboundRealTimePaymentsTransferListPageAsync) {
 
         fun forEach(
             action: Predicate<InboundRealTimePaymentsTransfer>,
-            executor: Executor
+            executor: Executor,
         ): CompletableFuture<Void> {
             fun CompletableFuture<Optional<InboundRealTimePaymentsTransferListPageAsync>>.forEach(
                 action: (InboundRealTimePaymentsTransfer) -> Boolean,
-                executor: Executor
+                executor: Executor,
             ): CompletableFuture<Void> =
                 thenComposeAsync(
                     { page ->
@@ -206,7 +199,7 @@ private constructor(
                             .map { it.getNextPage().forEach(action, executor) }
                             .orElseGet { CompletableFuture.completedFuture(null) }
                     },
-                    executor
+                    executor,
                 )
             return CompletableFuture.completedFuture(Optional.of(firstPage))
                 .forEach(action::test, executor)

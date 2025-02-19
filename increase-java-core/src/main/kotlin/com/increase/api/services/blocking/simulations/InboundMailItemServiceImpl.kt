@@ -16,10 +16,8 @@ import com.increase.api.errors.IncreaseError
 import com.increase.api.models.InboundMailItem
 import com.increase.api.models.SimulationInboundMailItemCreateParams
 
-class InboundMailItemServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : InboundMailItemService {
+class InboundMailItemServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    InboundMailItemService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -32,7 +30,7 @@ internal constructor(
      */
     override fun create(
         params: SimulationInboundMailItemCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): InboundMailItem {
         val request =
             HttpRequest.builder()

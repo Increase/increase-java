@@ -17,10 +17,8 @@ import com.increase.api.models.Program
 import com.increase.api.models.SimulationProgramCreateParams
 import java.util.concurrent.CompletableFuture
 
-class ProgramServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : ProgramServiceAsync {
+class ProgramServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    ProgramServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -34,7 +32,7 @@ internal constructor(
      */
     override fun create(
         params: SimulationProgramCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<Program> {
         val request =
             HttpRequest.builder()

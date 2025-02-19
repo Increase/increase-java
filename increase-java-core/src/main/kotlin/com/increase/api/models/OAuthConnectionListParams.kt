@@ -227,10 +227,7 @@ private constructor(
     }
 
     class Status
-    private constructor(
-        private val in_: List<In>?,
-        private val additionalProperties: QueryParams,
-    ) {
+    private constructor(private val in_: List<In>?, private val additionalProperties: QueryParams) {
 
         /**
          * Filter to OAuth Connections by their status. By default, return only the `active` ones.
@@ -341,11 +338,7 @@ private constructor(
             fun build(): Status = Status(in_?.toImmutable(), additionalProperties.build())
         }
 
-        class In
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class In @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.

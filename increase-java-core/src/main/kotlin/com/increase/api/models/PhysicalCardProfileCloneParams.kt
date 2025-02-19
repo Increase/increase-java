@@ -619,11 +619,7 @@ private constructor(
             }
 
             fun build(): FrontText =
-                FrontText(
-                    checkRequired("line1", line1),
-                    line2,
-                    additionalProperties.toImmutable(),
-                )
+                FrontText(checkRequired("line1", line1), line2, additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {

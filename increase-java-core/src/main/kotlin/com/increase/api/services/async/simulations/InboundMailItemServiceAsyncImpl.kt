@@ -18,9 +18,7 @@ import com.increase.api.models.SimulationInboundMailItemCreateParams
 import java.util.concurrent.CompletableFuture
 
 class InboundMailItemServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : InboundMailItemServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) : InboundMailItemServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -33,7 +31,7 @@ internal constructor(
      */
     override fun create(
         params: SimulationInboundMailItemCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<InboundMailItem> {
         val request =
             HttpRequest.builder()

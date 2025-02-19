@@ -21,28 +21,28 @@ interface AccountService {
     @JvmOverloads
     fun create(
         params: AccountCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Account
 
     /** Retrieve an Account */
     @JvmOverloads
     fun retrieve(
         params: AccountRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Account
 
     /** Update an Account */
     @JvmOverloads
     fun update(
         params: AccountUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Account
 
     /** List Accounts */
     @JvmOverloads
     fun list(
         params: AccountListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountListPage
 
     /**
@@ -52,13 +52,13 @@ interface AccountService {
     @JvmOverloads
     fun balance(
         params: AccountBalanceParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): BalanceLookup
 
     /** Close an Account */
     @JvmOverloads
     fun close(
         params: AccountCloseParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Account
 }

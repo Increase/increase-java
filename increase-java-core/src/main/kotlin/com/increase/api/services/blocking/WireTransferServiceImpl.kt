@@ -21,10 +21,8 @@ import com.increase.api.models.WireTransferListPage
 import com.increase.api.models.WireTransferListParams
 import com.increase.api.models.WireTransferRetrieveParams
 
-class WireTransferServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : WireTransferService {
+class WireTransferServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    WireTransferService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -34,7 +32,7 @@ internal constructor(
     /** Create a Wire Transfer */
     override fun create(
         params: WireTransferCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): WireTransfer {
         val request =
             HttpRequest.builder()
@@ -59,7 +57,7 @@ internal constructor(
     /** Retrieve a Wire Transfer */
     override fun retrieve(
         params: WireTransferRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): WireTransfer {
         val request =
             HttpRequest.builder()
@@ -84,7 +82,7 @@ internal constructor(
     /** List Wire Transfers */
     override fun list(
         params: WireTransferListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): WireTransferListPage {
         val request =
             HttpRequest.builder()
@@ -109,7 +107,7 @@ internal constructor(
     /** Approve a Wire Transfer */
     override fun approve(
         params: WireTransferApproveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): WireTransfer {
         val request =
             HttpRequest.builder()
@@ -134,7 +132,7 @@ internal constructor(
     /** Cancel a pending Wire Transfer */
     override fun cancel(
         params: WireTransferCancelParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): WireTransfer {
         val request =
             HttpRequest.builder()

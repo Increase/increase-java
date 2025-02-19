@@ -18,6 +18,6 @@ interface RealTimePaymentsTransferService {
     @JvmOverloads
     fun complete(
         params: SimulationRealTimePaymentsTransferCompleteParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): RealTimePaymentsTransfer
 }

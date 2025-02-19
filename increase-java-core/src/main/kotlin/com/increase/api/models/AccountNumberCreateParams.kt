@@ -514,7 +514,7 @@ private constructor(
             fun build(): InboundAch =
                 InboundAch(
                     checkRequired("debitStatus", debitStatus),
-                    additionalProperties.toImmutable()
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -523,11 +523,8 @@ private constructor(
          * declined if this is `allowed` but the Account Number is not active. If you do not specify
          * this field, the default is `allowed`.
          */
-        class DebitStatus
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class DebitStatus @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -739,11 +736,7 @@ private constructor(
          * How Increase should process checks with this account number printed on them. If you do
          * not specify this field, the default is `check_transfers_only`.
          */
-        class Status
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.

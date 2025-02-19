@@ -58,10 +58,8 @@ import com.increase.api.services.async.simulations.RealTimePaymentsTransferServi
 import com.increase.api.services.async.simulations.WireTransferServiceAsync
 import com.increase.api.services.async.simulations.WireTransferServiceAsyncImpl
 
-class SimulationServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : SimulationServiceAsync {
+class SimulationServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    SimulationServiceAsync {
 
     private val interestPayments: InterestPaymentServiceAsync by lazy {
         InterestPaymentServiceAsyncImpl(clientOptions)

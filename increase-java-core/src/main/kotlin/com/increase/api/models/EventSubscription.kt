@@ -335,9 +335,7 @@ private constructor(
      */
     class SelectedEventCategory
     @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -1317,11 +1315,7 @@ private constructor(
     }
 
     /** This indicates if we'll send notifications to this subscription. */
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -1446,11 +1440,7 @@ private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `event_subscription`.
      */
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -1471,7 +1461,7 @@ private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            EVENT_SUBSCRIPTION,
+            EVENT_SUBSCRIPTION
         }
 
         /**

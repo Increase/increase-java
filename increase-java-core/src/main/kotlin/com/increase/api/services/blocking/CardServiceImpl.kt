@@ -22,10 +22,7 @@ import com.increase.api.models.CardListParams
 import com.increase.api.models.CardRetrieveParams
 import com.increase.api.models.CardUpdateParams
 
-class CardServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : CardService {
+class CardServiceImpl internal constructor(private val clientOptions: ClientOptions) : CardService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 

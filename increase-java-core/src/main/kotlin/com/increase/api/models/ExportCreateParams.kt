@@ -573,11 +573,7 @@ private constructor(
     }
 
     /** The type of Export to create. */
-    class Category
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Category @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -1182,12 +1178,7 @@ private constructor(
             }
 
             fun build(): BalanceCsv =
-                BalanceCsv(
-                    accountId,
-                    createdAt,
-                    programId,
-                    additionalProperties.toImmutable(),
-                )
+                BalanceCsv(accountId, createdAt, programId, additionalProperties.toImmutable())
         }
 
         /** Filter results by time range on the `created_at` attribute. */
@@ -1982,15 +1973,11 @@ private constructor(
                 fun build(): Status =
                     Status(
                         checkRequired("in_", in_).map { it.toImmutable() },
-                        additionalProperties.toImmutable()
+                        additionalProperties.toImmutable(),
                     )
             }
 
-            class In
-            @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) : Enum {
+            class In @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
                 /**
                  * Returns this class instance's raw value.
@@ -2253,12 +2240,7 @@ private constructor(
             }
 
             fun build(): TransactionCsv =
-                TransactionCsv(
-                    accountId,
-                    createdAt,
-                    programId,
-                    additionalProperties.toImmutable(),
-                )
+                TransactionCsv(accountId, createdAt, programId, additionalProperties.toImmutable())
         }
 
         /** Filter results by time range on the `created_at` attribute. */

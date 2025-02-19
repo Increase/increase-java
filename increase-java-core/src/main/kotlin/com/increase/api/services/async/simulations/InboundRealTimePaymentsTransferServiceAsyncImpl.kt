@@ -18,9 +18,8 @@ import com.increase.api.models.SimulationInboundRealTimePaymentsTransferCreatePa
 import java.util.concurrent.CompletableFuture
 
 class InboundRealTimePaymentsTransferServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : InboundRealTimePaymentsTransferServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) :
+    InboundRealTimePaymentsTransferServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -34,7 +33,7 @@ internal constructor(
      */
     override fun create(
         params: SimulationInboundRealTimePaymentsTransferCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<InboundRealTimePaymentsTransfer> {
         val request =
             HttpRequest.builder()

@@ -17,9 +17,7 @@ import com.increase.api.models.SimulationDigitalWalletTokenRequestCreateParams
 import com.increase.api.models.SimulationDigitalWalletTokenRequestCreateResponse
 
 class DigitalWalletTokenRequestServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : DigitalWalletTokenRequestService {
+internal constructor(private val clientOptions: ClientOptions) : DigitalWalletTokenRequestService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -30,7 +28,7 @@ internal constructor(
     /** Simulates a user attempting add a [Card](#cards) to a digital wallet such as Apple Pay. */
     override fun create(
         params: SimulationDigitalWalletTokenRequestCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): SimulationDigitalWalletTokenRequestCreateResponse {
         val request =
             HttpRequest.builder()

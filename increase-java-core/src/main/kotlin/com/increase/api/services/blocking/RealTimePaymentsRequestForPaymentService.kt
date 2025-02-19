@@ -17,20 +17,20 @@ interface RealTimePaymentsRequestForPaymentService {
     @JvmOverloads
     fun create(
         params: RealTimePaymentsRequestForPaymentCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): RealTimePaymentsRequestForPayment
 
     /** Retrieve a Real-Time Payments Request for Payment */
     @JvmOverloads
     fun retrieve(
         params: RealTimePaymentsRequestForPaymentRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): RealTimePaymentsRequestForPayment
 
     /** List Real-Time Payments Request for Payments */
     @JvmOverloads
     fun list(
         params: RealTimePaymentsRequestForPaymentListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): RealTimePaymentsRequestForPaymentListPage
 }

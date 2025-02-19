@@ -151,7 +151,7 @@ private constructor(
             fun build(): SimulationCardRefundCreateBody =
                 SimulationCardRefundCreateBody(
                     checkRequired("transactionId", transactionId),
-                    additionalProperties.toImmutable()
+                    additionalProperties.toImmutable(),
                 )
         }
 

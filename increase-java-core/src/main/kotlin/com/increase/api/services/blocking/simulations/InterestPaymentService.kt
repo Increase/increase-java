@@ -17,6 +17,6 @@ interface InterestPaymentService {
     @JvmOverloads
     fun create(
         params: SimulationInterestPaymentCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Transaction
 }

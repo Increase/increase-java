@@ -19,27 +19,27 @@ interface IntrafiAccountEnrollmentServiceAsync {
     @JvmOverloads
     fun create(
         params: IntrafiAccountEnrollmentCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<IntrafiAccountEnrollment>
 
     /** Get an IntraFi Account Enrollment */
     @JvmOverloads
     fun retrieve(
         params: IntrafiAccountEnrollmentRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<IntrafiAccountEnrollment>
 
     /** List IntraFi Account Enrollments */
     @JvmOverloads
     fun list(
         params: IntrafiAccountEnrollmentListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<IntrafiAccountEnrollmentListPageAsync>
 
     /** Unenroll an account from IntraFi */
     @JvmOverloads
     fun unenroll(
         params: IntrafiAccountEnrollmentUnenrollParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<IntrafiAccountEnrollment>
 }

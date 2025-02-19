@@ -16,10 +16,8 @@ import com.increase.api.errors.IncreaseError
 import com.increase.api.models.CheckTransfer
 import com.increase.api.models.SimulationCheckTransferMailParams
 
-class CheckTransferServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : CheckTransferService {
+class CheckTransferServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    CheckTransferService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -33,7 +31,7 @@ internal constructor(
      */
     override fun mail(
         params: SimulationCheckTransferMailParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CheckTransfer {
         val request =
             HttpRequest.builder()
