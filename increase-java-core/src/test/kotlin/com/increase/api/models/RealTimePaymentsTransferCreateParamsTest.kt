@@ -40,7 +40,9 @@ class RealTimePaymentsTransferCreateParamsTest {
                 .ultimateCreditorName("x")
                 .ultimateDebtorName("x")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.amount()).isEqualTo(100L)
         assertThat(body.creditorName()).isEqualTo("Ian Crease")
@@ -64,7 +66,9 @@ class RealTimePaymentsTransferCreateParamsTest {
                 .remittanceInformation("Invoice 29582")
                 .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.amount()).isEqualTo(100L)
         assertThat(body.creditorName()).isEqualTo("Ian Crease")

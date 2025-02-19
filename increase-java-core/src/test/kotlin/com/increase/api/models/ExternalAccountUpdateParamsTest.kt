@@ -28,7 +28,9 @@ class ExternalAccountUpdateParamsTest {
                 .funding(ExternalAccountUpdateParams.Funding.CHECKING)
                 .status(ExternalAccountUpdateParams.Status.ACTIVE)
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.accountHolder())
             .contains(ExternalAccountUpdateParams.AccountHolder.BUSINESS)
@@ -43,7 +45,9 @@ class ExternalAccountUpdateParamsTest {
             ExternalAccountUpdateParams.builder()
                 .externalAccountId("external_account_ukk55lr923a3ac0pp7iv")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
     }
 

@@ -26,7 +26,7 @@ import java.util.Optional
 /** Create an ACH Prenotification */
 class AchPrenotificationCreateParams
 private constructor(
-    private val body: AchPrenotificationCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -128,16 +128,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): AchPrenotificationCreateBody = body
+    @JvmSynthetic internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class AchPrenotificationCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("account_id")
         @ExcludeMissing
         private val accountId: JsonField<String> = JsonMissing.of(),
@@ -312,7 +312,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): AchPrenotificationCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -340,7 +340,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [AchPrenotificationCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var accountId: JsonField<String>? = null
@@ -359,22 +359,21 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(achPrenotificationCreateBody: AchPrenotificationCreateBody) = apply {
-                accountId = achPrenotificationCreateBody.accountId
-                accountNumber = achPrenotificationCreateBody.accountNumber
-                routingNumber = achPrenotificationCreateBody.routingNumber
-                addendum = achPrenotificationCreateBody.addendum
-                companyDescriptiveDate = achPrenotificationCreateBody.companyDescriptiveDate
-                companyDiscretionaryData = achPrenotificationCreateBody.companyDiscretionaryData
-                companyEntryDescription = achPrenotificationCreateBody.companyEntryDescription
-                companyName = achPrenotificationCreateBody.companyName
-                creditDebitIndicator = achPrenotificationCreateBody.creditDebitIndicator
-                effectiveDate = achPrenotificationCreateBody.effectiveDate
-                individualId = achPrenotificationCreateBody.individualId
-                individualName = achPrenotificationCreateBody.individualName
-                standardEntryClassCode = achPrenotificationCreateBody.standardEntryClassCode
-                additionalProperties =
-                    achPrenotificationCreateBody.additionalProperties.toMutableMap()
+            internal fun from(body: Body) = apply {
+                accountId = body.accountId
+                accountNumber = body.accountNumber
+                routingNumber = body.routingNumber
+                addendum = body.addendum
+                companyDescriptiveDate = body.companyDescriptiveDate
+                companyDiscretionaryData = body.companyDiscretionaryData
+                companyEntryDescription = body.companyEntryDescription
+                companyName = body.companyName
+                creditDebitIndicator = body.creditDebitIndicator
+                effectiveDate = body.effectiveDate
+                individualId = body.individualId
+                individualName = body.individualName
+                standardEntryClassCode = body.standardEntryClassCode
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** The Increase identifier for the account that will send the transfer. */
@@ -522,8 +521,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): AchPrenotificationCreateBody =
-                AchPrenotificationCreateBody(
+            fun build(): Body =
+                Body(
                     checkRequired("accountId", accountId),
                     checkRequired("accountNumber", accountNumber),
                     checkRequired("routingNumber", routingNumber),
@@ -546,7 +545,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is AchPrenotificationCreateBody && accountId == other.accountId && accountNumber == other.accountNumber && routingNumber == other.routingNumber && addendum == other.addendum && companyDescriptiveDate == other.companyDescriptiveDate && companyDiscretionaryData == other.companyDiscretionaryData && companyEntryDescription == other.companyEntryDescription && companyName == other.companyName && creditDebitIndicator == other.creditDebitIndicator && effectiveDate == other.effectiveDate && individualId == other.individualId && individualName == other.individualName && standardEntryClassCode == other.standardEntryClassCode && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && accountId == other.accountId && accountNumber == other.accountNumber && routingNumber == other.routingNumber && addendum == other.addendum && companyDescriptiveDate == other.companyDescriptiveDate && companyDiscretionaryData == other.companyDiscretionaryData && companyEntryDescription == other.companyEntryDescription && companyName == other.companyName && creditDebitIndicator == other.creditDebitIndicator && effectiveDate == other.effectiveDate && individualId == other.individualId && individualName == other.individualName && standardEntryClassCode == other.standardEntryClassCode && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -556,7 +555,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "AchPrenotificationCreateBody{accountId=$accountId, accountNumber=$accountNumber, routingNumber=$routingNumber, addendum=$addendum, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, creditDebitIndicator=$creditDebitIndicator, effectiveDate=$effectiveDate, individualId=$individualId, individualName=$individualName, standardEntryClassCode=$standardEntryClassCode, additionalProperties=$additionalProperties}"
+            "Body{accountId=$accountId, accountNumber=$accountNumber, routingNumber=$routingNumber, addendum=$addendum, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, creditDebitIndicator=$creditDebitIndicator, effectiveDate=$effectiveDate, individualId=$individualId, individualName=$individualName, standardEntryClassCode=$standardEntryClassCode, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -570,8 +569,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: AchPrenotificationCreateBody.Builder =
-            AchPrenotificationCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

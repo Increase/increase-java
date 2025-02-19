@@ -28,7 +28,9 @@ class AccountTransferCreateParamsTest {
                 .destinationAccountId("account_uf16sut2ct5bevmq3eh")
                 .requireApproval(true)
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.amount()).isEqualTo(100L)
@@ -46,7 +48,9 @@ class AccountTransferCreateParamsTest {
                 .description("Creating liquidity")
                 .destinationAccountId("account_uf16sut2ct5bevmq3eh")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.amount()).isEqualTo(100L)

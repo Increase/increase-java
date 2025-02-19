@@ -25,7 +25,7 @@ import java.util.Optional
 /** Create an OAuth Token */
 class OAuthTokenCreateParams
 private constructor(
-    private val body: OAuthTokenCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -84,16 +84,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): OAuthTokenCreateBody = body
+    @JvmSynthetic internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class OAuthTokenCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("grant_type")
         @ExcludeMissing
         private val grantType: JsonField<GrantType> = JsonMissing.of(),
@@ -175,7 +175,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): OAuthTokenCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -195,7 +195,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [OAuthTokenCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var grantType: JsonField<GrantType>? = null
@@ -206,13 +206,13 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(oauthTokenCreateBody: OAuthTokenCreateBody) = apply {
-                grantType = oauthTokenCreateBody.grantType
-                clientId = oauthTokenCreateBody.clientId
-                clientSecret = oauthTokenCreateBody.clientSecret
-                code = oauthTokenCreateBody.code
-                productionToken = oauthTokenCreateBody.productionToken
-                additionalProperties = oauthTokenCreateBody.additionalProperties.toMutableMap()
+            internal fun from(body: Body) = apply {
+                grantType = body.grantType
+                clientId = body.clientId
+                clientSecret = body.clientSecret
+                code = body.code
+                productionToken = body.productionToken
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /**
@@ -291,8 +291,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): OAuthTokenCreateBody =
-                OAuthTokenCreateBody(
+            fun build(): Body =
+                Body(
                     checkRequired("grantType", grantType),
                     clientId,
                     clientSecret,
@@ -307,7 +307,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is OAuthTokenCreateBody && grantType == other.grantType && clientId == other.clientId && clientSecret == other.clientSecret && code == other.code && productionToken == other.productionToken && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && grantType == other.grantType && clientId == other.clientId && clientSecret == other.clientSecret && code == other.code && productionToken == other.productionToken && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -317,7 +317,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "OAuthTokenCreateBody{grantType=$grantType, clientId=$clientId, clientSecret=$clientSecret, code=$code, productionToken=$productionToken, additionalProperties=$additionalProperties}"
+            "Body{grantType=$grantType, clientId=$clientId, clientSecret=$clientSecret, code=$code, productionToken=$productionToken, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -331,7 +331,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: OAuthTokenCreateBody.Builder = OAuthTokenCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

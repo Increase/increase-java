@@ -52,7 +52,9 @@ class SimulationInboundWireTransferCreateParamsTest {
                 .originatorToBeneficiaryInformationLine4("x")
                 .senderReference("x")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.accountNumberId()).isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
         assertThat(body.amount()).isEqualTo(1000L)
@@ -80,7 +82,9 @@ class SimulationInboundWireTransferCreateParamsTest {
                 .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                 .amount(1000L)
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.accountNumberId()).isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
         assertThat(body.amount()).isEqualTo(1000L)

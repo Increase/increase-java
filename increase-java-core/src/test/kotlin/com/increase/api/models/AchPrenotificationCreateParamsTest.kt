@@ -49,7 +49,9 @@ class AchPrenotificationCreateParamsTest {
                     AchPrenotificationCreateParams.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT
                 )
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.accountNumber()).isEqualTo("987654321")
@@ -78,7 +80,9 @@ class AchPrenotificationCreateParamsTest {
                 .accountNumber("987654321")
                 .routingNumber("101050001")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.accountNumber()).isEqualTo("987654321")

@@ -35,7 +35,7 @@ import java.util.Optional
  */
 class SimulationInboundAchTransferCreateParams
 private constructor(
-    private val body: SimulationInboundAchTransferCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -125,16 +125,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): SimulationInboundAchTransferCreateBody = body
+    @JvmSynthetic internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class SimulationInboundAchTransferCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("account_number_id")
         @ExcludeMissing
         private val accountNumberId: JsonField<String> = JsonMissing.of(),
@@ -284,7 +284,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): SimulationInboundAchTransferCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -310,7 +310,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [SimulationInboundAchTransferCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var accountNumberId: JsonField<String>? = null
@@ -327,26 +327,19 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(
-                simulationInboundAchTransferCreateBody: SimulationInboundAchTransferCreateBody
-            ) = apply {
-                accountNumberId = simulationInboundAchTransferCreateBody.accountNumberId
-                amount = simulationInboundAchTransferCreateBody.amount
-                companyDescriptiveDate =
-                    simulationInboundAchTransferCreateBody.companyDescriptiveDate
-                companyDiscretionaryData =
-                    simulationInboundAchTransferCreateBody.companyDiscretionaryData
-                companyEntryDescription =
-                    simulationInboundAchTransferCreateBody.companyEntryDescription
-                companyId = simulationInboundAchTransferCreateBody.companyId
-                companyName = simulationInboundAchTransferCreateBody.companyName
-                receiverIdNumber = simulationInboundAchTransferCreateBody.receiverIdNumber
-                receiverName = simulationInboundAchTransferCreateBody.receiverName
-                resolveAt = simulationInboundAchTransferCreateBody.resolveAt
-                standardEntryClassCode =
-                    simulationInboundAchTransferCreateBody.standardEntryClassCode
-                additionalProperties =
-                    simulationInboundAchTransferCreateBody.additionalProperties.toMutableMap()
+            internal fun from(body: Body) = apply {
+                accountNumberId = body.accountNumberId
+                amount = body.amount
+                companyDescriptiveDate = body.companyDescriptiveDate
+                companyDiscretionaryData = body.companyDiscretionaryData
+                companyEntryDescription = body.companyEntryDescription
+                companyId = body.companyId
+                companyName = body.companyName
+                receiverIdNumber = body.receiverIdNumber
+                receiverName = body.receiverName
+                resolveAt = body.resolveAt
+                standardEntryClassCode = body.standardEntryClassCode
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** The identifier of the Account Number the inbound ACH Transfer is for. */
@@ -473,8 +466,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): SimulationInboundAchTransferCreateBody =
-                SimulationInboundAchTransferCreateBody(
+            fun build(): Body =
+                Body(
                     checkRequired("accountNumberId", accountNumberId),
                     checkRequired("amount", amount),
                     companyDescriptiveDate,
@@ -495,7 +488,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is SimulationInboundAchTransferCreateBody && accountNumberId == other.accountNumberId && amount == other.amount && companyDescriptiveDate == other.companyDescriptiveDate && companyDiscretionaryData == other.companyDiscretionaryData && companyEntryDescription == other.companyEntryDescription && companyId == other.companyId && companyName == other.companyName && receiverIdNumber == other.receiverIdNumber && receiverName == other.receiverName && resolveAt == other.resolveAt && standardEntryClassCode == other.standardEntryClassCode && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && accountNumberId == other.accountNumberId && amount == other.amount && companyDescriptiveDate == other.companyDescriptiveDate && companyDiscretionaryData == other.companyDiscretionaryData && companyEntryDescription == other.companyEntryDescription && companyId == other.companyId && companyName == other.companyName && receiverIdNumber == other.receiverIdNumber && receiverName == other.receiverName && resolveAt == other.resolveAt && standardEntryClassCode == other.standardEntryClassCode && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -505,7 +498,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "SimulationInboundAchTransferCreateBody{accountNumberId=$accountNumberId, amount=$amount, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyId=$companyId, companyName=$companyName, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, resolveAt=$resolveAt, standardEntryClassCode=$standardEntryClassCode, additionalProperties=$additionalProperties}"
+            "Body{accountNumberId=$accountNumberId, amount=$amount, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyId=$companyId, companyName=$companyName, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, resolveAt=$resolveAt, standardEntryClassCode=$standardEntryClassCode, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -519,8 +512,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: SimulationInboundAchTransferCreateBody.Builder =
-            SimulationInboundAchTransferCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

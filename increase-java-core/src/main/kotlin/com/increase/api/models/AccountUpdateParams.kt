@@ -24,7 +24,7 @@ import java.util.Optional
 class AccountUpdateParams
 private constructor(
     private val accountId: String,
-    private val body: AccountUpdateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -44,7 +44,7 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): AccountUpdateBody = body
+    @JvmSynthetic internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -58,9 +58,9 @@ private constructor(
     }
 
     @NoAutoDetect
-    class AccountUpdateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("name")
         @ExcludeMissing
         private val name: JsonField<String> = JsonMissing.of(),
@@ -80,7 +80,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): AccountUpdateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -96,16 +96,16 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [AccountUpdateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var name: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(accountUpdateBody: AccountUpdateBody) = apply {
-                name = accountUpdateBody.name
-                additionalProperties = accountUpdateBody.additionalProperties.toMutableMap()
+            internal fun from(body: Body) = apply {
+                name = body.name
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** The new name of the Account. */
@@ -133,8 +133,7 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): AccountUpdateBody =
-                AccountUpdateBody(name, additionalProperties.toImmutable())
+            fun build(): Body = Body(name, additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -142,7 +141,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is AccountUpdateBody && name == other.name && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && name == other.name && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -151,8 +150,7 @@ private constructor(
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() =
-            "AccountUpdateBody{name=$name, additionalProperties=$additionalProperties}"
+        override fun toString() = "Body{name=$name, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -167,7 +165,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var accountId: String? = null
-        private var body: AccountUpdateBody.Builder = AccountUpdateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

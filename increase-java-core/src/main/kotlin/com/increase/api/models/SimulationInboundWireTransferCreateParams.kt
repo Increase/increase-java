@@ -23,7 +23,7 @@ import java.util.Optional
 /** Simulates an [Inbound Wire Transfer](#inbound-wire-transfers) to your account. */
 class SimulationInboundWireTransferCreateParams
 private constructor(
-    private val body: SimulationInboundWireTransferCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -224,16 +224,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): SimulationInboundWireTransferCreateBody = body
+    @JvmSynthetic internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class SimulationInboundWireTransferCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("account_number_id")
         @ExcludeMissing
         private val accountNumberId: JsonField<String> = JsonMissing.of(),
@@ -552,7 +552,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): SimulationInboundWireTransferCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -584,7 +584,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [SimulationInboundWireTransferCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var accountNumberId: JsonField<String>? = null
@@ -611,39 +611,29 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(
-                simulationInboundWireTransferCreateBody: SimulationInboundWireTransferCreateBody
-            ) = apply {
-                accountNumberId = simulationInboundWireTransferCreateBody.accountNumberId
-                amount = simulationInboundWireTransferCreateBody.amount
-                beneficiaryAddressLine1 =
-                    simulationInboundWireTransferCreateBody.beneficiaryAddressLine1
-                beneficiaryAddressLine2 =
-                    simulationInboundWireTransferCreateBody.beneficiaryAddressLine2
-                beneficiaryAddressLine3 =
-                    simulationInboundWireTransferCreateBody.beneficiaryAddressLine3
-                beneficiaryName = simulationInboundWireTransferCreateBody.beneficiaryName
-                beneficiaryReference = simulationInboundWireTransferCreateBody.beneficiaryReference
-                originatorAddressLine1 =
-                    simulationInboundWireTransferCreateBody.originatorAddressLine1
-                originatorAddressLine2 =
-                    simulationInboundWireTransferCreateBody.originatorAddressLine2
-                originatorAddressLine3 =
-                    simulationInboundWireTransferCreateBody.originatorAddressLine3
-                originatorName = simulationInboundWireTransferCreateBody.originatorName
-                originatorRoutingNumber =
-                    simulationInboundWireTransferCreateBody.originatorRoutingNumber
+            internal fun from(body: Body) = apply {
+                accountNumberId = body.accountNumberId
+                amount = body.amount
+                beneficiaryAddressLine1 = body.beneficiaryAddressLine1
+                beneficiaryAddressLine2 = body.beneficiaryAddressLine2
+                beneficiaryAddressLine3 = body.beneficiaryAddressLine3
+                beneficiaryName = body.beneficiaryName
+                beneficiaryReference = body.beneficiaryReference
+                originatorAddressLine1 = body.originatorAddressLine1
+                originatorAddressLine2 = body.originatorAddressLine2
+                originatorAddressLine3 = body.originatorAddressLine3
+                originatorName = body.originatorName
+                originatorRoutingNumber = body.originatorRoutingNumber
                 originatorToBeneficiaryInformationLine1 =
-                    simulationInboundWireTransferCreateBody.originatorToBeneficiaryInformationLine1
+                    body.originatorToBeneficiaryInformationLine1
                 originatorToBeneficiaryInformationLine2 =
-                    simulationInboundWireTransferCreateBody.originatorToBeneficiaryInformationLine2
+                    body.originatorToBeneficiaryInformationLine2
                 originatorToBeneficiaryInformationLine3 =
-                    simulationInboundWireTransferCreateBody.originatorToBeneficiaryInformationLine3
+                    body.originatorToBeneficiaryInformationLine3
                 originatorToBeneficiaryInformationLine4 =
-                    simulationInboundWireTransferCreateBody.originatorToBeneficiaryInformationLine4
-                senderReference = simulationInboundWireTransferCreateBody.senderReference
-                additionalProperties =
-                    simulationInboundWireTransferCreateBody.additionalProperties.toMutableMap()
+                    body.originatorToBeneficiaryInformationLine4
+                senderReference = body.senderReference
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** The identifier of the Account Number the inbound Wire Transfer is for. */
@@ -933,8 +923,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): SimulationInboundWireTransferCreateBody =
-                SimulationInboundWireTransferCreateBody(
+            fun build(): Body =
+                Body(
                     checkRequired("accountNumberId", accountNumberId),
                     checkRequired("amount", amount),
                     beneficiaryAddressLine1,
@@ -961,7 +951,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is SimulationInboundWireTransferCreateBody && accountNumberId == other.accountNumberId && amount == other.amount && beneficiaryAddressLine1 == other.beneficiaryAddressLine1 && beneficiaryAddressLine2 == other.beneficiaryAddressLine2 && beneficiaryAddressLine3 == other.beneficiaryAddressLine3 && beneficiaryName == other.beneficiaryName && beneficiaryReference == other.beneficiaryReference && originatorAddressLine1 == other.originatorAddressLine1 && originatorAddressLine2 == other.originatorAddressLine2 && originatorAddressLine3 == other.originatorAddressLine3 && originatorName == other.originatorName && originatorRoutingNumber == other.originatorRoutingNumber && originatorToBeneficiaryInformationLine1 == other.originatorToBeneficiaryInformationLine1 && originatorToBeneficiaryInformationLine2 == other.originatorToBeneficiaryInformationLine2 && originatorToBeneficiaryInformationLine3 == other.originatorToBeneficiaryInformationLine3 && originatorToBeneficiaryInformationLine4 == other.originatorToBeneficiaryInformationLine4 && senderReference == other.senderReference && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && accountNumberId == other.accountNumberId && amount == other.amount && beneficiaryAddressLine1 == other.beneficiaryAddressLine1 && beneficiaryAddressLine2 == other.beneficiaryAddressLine2 && beneficiaryAddressLine3 == other.beneficiaryAddressLine3 && beneficiaryName == other.beneficiaryName && beneficiaryReference == other.beneficiaryReference && originatorAddressLine1 == other.originatorAddressLine1 && originatorAddressLine2 == other.originatorAddressLine2 && originatorAddressLine3 == other.originatorAddressLine3 && originatorName == other.originatorName && originatorRoutingNumber == other.originatorRoutingNumber && originatorToBeneficiaryInformationLine1 == other.originatorToBeneficiaryInformationLine1 && originatorToBeneficiaryInformationLine2 == other.originatorToBeneficiaryInformationLine2 && originatorToBeneficiaryInformationLine3 == other.originatorToBeneficiaryInformationLine3 && originatorToBeneficiaryInformationLine4 == other.originatorToBeneficiaryInformationLine4 && senderReference == other.senderReference && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -971,7 +961,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "SimulationInboundWireTransferCreateBody{accountNumberId=$accountNumberId, amount=$amount, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, senderReference=$senderReference, additionalProperties=$additionalProperties}"
+            "Body{accountNumberId=$accountNumberId, amount=$amount, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, senderReference=$senderReference, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -985,8 +975,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: SimulationInboundWireTransferCreateBody.Builder =
-            SimulationInboundWireTransferCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

@@ -22,7 +22,7 @@ import java.util.Objects
 /** Simulates an tax document being created for an account. */
 class SimulationDocumentCreateParams
 private constructor(
-    private val body: SimulationDocumentCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -39,16 +39,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): SimulationDocumentCreateBody = body
+    @JvmSynthetic internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class SimulationDocumentCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("account_id")
         @ExcludeMissing
         private val accountId: JsonField<String> = JsonMissing.of(),
@@ -68,7 +68,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): SimulationDocumentCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -84,17 +84,16 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [SimulationDocumentCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var accountId: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(simulationDocumentCreateBody: SimulationDocumentCreateBody) = apply {
-                accountId = simulationDocumentCreateBody.accountId
-                additionalProperties =
-                    simulationDocumentCreateBody.additionalProperties.toMutableMap()
+            internal fun from(body: Body) = apply {
+                accountId = body.accountId
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** The identifier of the Account the tax document is for. */
@@ -122,11 +121,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): SimulationDocumentCreateBody =
-                SimulationDocumentCreateBody(
-                    checkRequired("accountId", accountId),
-                    additionalProperties.toImmutable(),
-                )
+            fun build(): Body =
+                Body(checkRequired("accountId", accountId), additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -134,7 +130,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is SimulationDocumentCreateBody && accountId == other.accountId && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && accountId == other.accountId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -144,7 +140,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "SimulationDocumentCreateBody{accountId=$accountId, additionalProperties=$additionalProperties}"
+            "Body{accountId=$accountId, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -158,8 +154,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: SimulationDocumentCreateBody.Builder =
-            SimulationDocumentCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

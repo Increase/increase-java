@@ -24,7 +24,7 @@ import java.util.Optional
 /** Submit Proof of Authorization */
 class ProofOfAuthorizationRequestSubmissionCreateParams
 private constructor(
-    private val body: ProofOfAuthorizationRequestSubmissionCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -107,16 +107,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): ProofOfAuthorizationRequestSubmissionCreateBody = body
+    @JvmSynthetic internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class ProofOfAuthorizationRequestSubmissionCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("authorization_terms")
         @ExcludeMissing
         private val authorizationTerms: JsonField<String> = JsonMissing.of(),
@@ -266,7 +266,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): ProofOfAuthorizationRequestSubmissionCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -292,7 +292,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [ProofOfAuthorizationRequestSubmissionCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var authorizationTerms: JsonField<String>? = null
@@ -309,35 +309,21 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(
-                proofOfAuthorizationRequestSubmissionCreateBody:
-                    ProofOfAuthorizationRequestSubmissionCreateBody
-            ) = apply {
-                authorizationTerms =
-                    proofOfAuthorizationRequestSubmissionCreateBody.authorizationTerms
-                authorizedAt = proofOfAuthorizationRequestSubmissionCreateBody.authorizedAt
-                authorizerEmail = proofOfAuthorizationRequestSubmissionCreateBody.authorizerEmail
-                authorizerName = proofOfAuthorizationRequestSubmissionCreateBody.authorizerName
-                customerHasBeenOffboarded =
-                    proofOfAuthorizationRequestSubmissionCreateBody.customerHasBeenOffboarded
-                proofOfAuthorizationRequestId =
-                    proofOfAuthorizationRequestSubmissionCreateBody.proofOfAuthorizationRequestId
-                validatedAccountOwnershipViaCredential =
-                    proofOfAuthorizationRequestSubmissionCreateBody
-                        .validatedAccountOwnershipViaCredential
+            internal fun from(body: Body) = apply {
+                authorizationTerms = body.authorizationTerms
+                authorizedAt = body.authorizedAt
+                authorizerEmail = body.authorizerEmail
+                authorizerName = body.authorizerName
+                customerHasBeenOffboarded = body.customerHasBeenOffboarded
+                proofOfAuthorizationRequestId = body.proofOfAuthorizationRequestId
+                validatedAccountOwnershipViaCredential = body.validatedAccountOwnershipViaCredential
                 validatedAccountOwnershipWithAccountStatement =
-                    proofOfAuthorizationRequestSubmissionCreateBody
-                        .validatedAccountOwnershipWithAccountStatement
+                    body.validatedAccountOwnershipWithAccountStatement
                 validatedAccountOwnershipWithMicrodeposit =
-                    proofOfAuthorizationRequestSubmissionCreateBody
-                        .validatedAccountOwnershipWithMicrodeposit
-                authorizerCompany =
-                    proofOfAuthorizationRequestSubmissionCreateBody.authorizerCompany
-                authorizerIpAddress =
-                    proofOfAuthorizationRequestSubmissionCreateBody.authorizerIpAddress
-                additionalProperties =
-                    proofOfAuthorizationRequestSubmissionCreateBody.additionalProperties
-                        .toMutableMap()
+                    body.validatedAccountOwnershipWithMicrodeposit
+                authorizerCompany = body.authorizerCompany
+                authorizerIpAddress = body.authorizerIpAddress
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** Terms of authorization. */
@@ -479,8 +465,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): ProofOfAuthorizationRequestSubmissionCreateBody =
-                ProofOfAuthorizationRequestSubmissionCreateBody(
+            fun build(): Body =
+                Body(
                     checkRequired("authorizationTerms", authorizationTerms),
                     checkRequired("authorizedAt", authorizedAt),
                     checkRequired("authorizerEmail", authorizerEmail),
@@ -510,7 +496,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ProofOfAuthorizationRequestSubmissionCreateBody && authorizationTerms == other.authorizationTerms && authorizedAt == other.authorizedAt && authorizerEmail == other.authorizerEmail && authorizerName == other.authorizerName && customerHasBeenOffboarded == other.customerHasBeenOffboarded && proofOfAuthorizationRequestId == other.proofOfAuthorizationRequestId && validatedAccountOwnershipViaCredential == other.validatedAccountOwnershipViaCredential && validatedAccountOwnershipWithAccountStatement == other.validatedAccountOwnershipWithAccountStatement && validatedAccountOwnershipWithMicrodeposit == other.validatedAccountOwnershipWithMicrodeposit && authorizerCompany == other.authorizerCompany && authorizerIpAddress == other.authorizerIpAddress && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && authorizationTerms == other.authorizationTerms && authorizedAt == other.authorizedAt && authorizerEmail == other.authorizerEmail && authorizerName == other.authorizerName && customerHasBeenOffboarded == other.customerHasBeenOffboarded && proofOfAuthorizationRequestId == other.proofOfAuthorizationRequestId && validatedAccountOwnershipViaCredential == other.validatedAccountOwnershipViaCredential && validatedAccountOwnershipWithAccountStatement == other.validatedAccountOwnershipWithAccountStatement && validatedAccountOwnershipWithMicrodeposit == other.validatedAccountOwnershipWithMicrodeposit && authorizerCompany == other.authorizerCompany && authorizerIpAddress == other.authorizerIpAddress && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -520,7 +506,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "ProofOfAuthorizationRequestSubmissionCreateBody{authorizationTerms=$authorizationTerms, authorizedAt=$authorizedAt, authorizerEmail=$authorizerEmail, authorizerName=$authorizerName, customerHasBeenOffboarded=$customerHasBeenOffboarded, proofOfAuthorizationRequestId=$proofOfAuthorizationRequestId, validatedAccountOwnershipViaCredential=$validatedAccountOwnershipViaCredential, validatedAccountOwnershipWithAccountStatement=$validatedAccountOwnershipWithAccountStatement, validatedAccountOwnershipWithMicrodeposit=$validatedAccountOwnershipWithMicrodeposit, authorizerCompany=$authorizerCompany, authorizerIpAddress=$authorizerIpAddress, additionalProperties=$additionalProperties}"
+            "Body{authorizationTerms=$authorizationTerms, authorizedAt=$authorizedAt, authorizerEmail=$authorizerEmail, authorizerName=$authorizerName, customerHasBeenOffboarded=$customerHasBeenOffboarded, proofOfAuthorizationRequestId=$proofOfAuthorizationRequestId, validatedAccountOwnershipViaCredential=$validatedAccountOwnershipViaCredential, validatedAccountOwnershipWithAccountStatement=$validatedAccountOwnershipWithAccountStatement, validatedAccountOwnershipWithMicrodeposit=$validatedAccountOwnershipWithMicrodeposit, authorizerCompany=$authorizerCompany, authorizerIpAddress=$authorizerIpAddress, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -534,8 +520,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: ProofOfAuthorizationRequestSubmissionCreateBody.Builder =
-            ProofOfAuthorizationRequestSubmissionCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

@@ -23,7 +23,7 @@ import java.util.Objects
 class EntityUpdateIndustryCodeParams
 private constructor(
     private val entityId: String,
-    private val body: EntityUpdateIndustryCodeBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -55,7 +55,7 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): EntityUpdateIndustryCodeBody = body
+    @JvmSynthetic internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -69,9 +69,9 @@ private constructor(
     }
 
     @NoAutoDetect
-    class EntityUpdateIndustryCodeBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("industry_code")
         @ExcludeMissing
         private val industryCode: JsonField<String> = JsonMissing.of(),
@@ -103,7 +103,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): EntityUpdateIndustryCodeBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -119,17 +119,16 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [EntityUpdateIndustryCodeBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var industryCode: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(entityUpdateIndustryCodeBody: EntityUpdateIndustryCodeBody) = apply {
-                industryCode = entityUpdateIndustryCodeBody.industryCode
-                additionalProperties =
-                    entityUpdateIndustryCodeBody.additionalProperties.toMutableMap()
+            internal fun from(body: Body) = apply {
+                industryCode = body.industryCode
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /**
@@ -169,8 +168,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): EntityUpdateIndustryCodeBody =
-                EntityUpdateIndustryCodeBody(
+            fun build(): Body =
+                Body(
                     checkRequired("industryCode", industryCode),
                     additionalProperties.toImmutable(),
                 )
@@ -181,7 +180,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is EntityUpdateIndustryCodeBody && industryCode == other.industryCode && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && industryCode == other.industryCode && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -191,7 +190,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "EntityUpdateIndustryCodeBody{industryCode=$industryCode, additionalProperties=$additionalProperties}"
+            "Body{industryCode=$industryCode, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -206,8 +205,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var entityId: String? = null
-        private var body: EntityUpdateIndustryCodeBody.Builder =
-            EntityUpdateIndustryCodeBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

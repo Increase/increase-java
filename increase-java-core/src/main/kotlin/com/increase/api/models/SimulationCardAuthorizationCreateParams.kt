@@ -32,7 +32,7 @@ import java.util.Optional
  */
 class SimulationCardAuthorizationCreateParams
 private constructor(
-    private val body: SimulationCardAuthorizationCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -179,16 +179,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): SimulationCardAuthorizationCreateBody = body
+    @JvmSynthetic internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class SimulationCardAuthorizationCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("amount")
         @ExcludeMissing
         private val amount: JsonField<Long> = JsonMissing.of(),
@@ -427,7 +427,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): SimulationCardAuthorizationCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -458,7 +458,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [SimulationCardAuthorizationCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var amount: JsonField<Long>? = null
@@ -480,28 +480,24 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(
-                simulationCardAuthorizationCreateBody: SimulationCardAuthorizationCreateBody
-            ) = apply {
-                amount = simulationCardAuthorizationCreateBody.amount
-                authenticatedCardPaymentId =
-                    simulationCardAuthorizationCreateBody.authenticatedCardPaymentId
-                cardId = simulationCardAuthorizationCreateBody.cardId
-                declineReason = simulationCardAuthorizationCreateBody.declineReason
-                digitalWalletTokenId = simulationCardAuthorizationCreateBody.digitalWalletTokenId
-                direction = simulationCardAuthorizationCreateBody.direction
-                eventSubscriptionId = simulationCardAuthorizationCreateBody.eventSubscriptionId
-                merchantAcceptorId = simulationCardAuthorizationCreateBody.merchantAcceptorId
-                merchantCategoryCode = simulationCardAuthorizationCreateBody.merchantCategoryCode
-                merchantCity = simulationCardAuthorizationCreateBody.merchantCity
-                merchantCountry = simulationCardAuthorizationCreateBody.merchantCountry
-                merchantDescriptor = simulationCardAuthorizationCreateBody.merchantDescriptor
-                merchantState = simulationCardAuthorizationCreateBody.merchantState
-                networkDetails = simulationCardAuthorizationCreateBody.networkDetails
-                physicalCardId = simulationCardAuthorizationCreateBody.physicalCardId
-                terminalId = simulationCardAuthorizationCreateBody.terminalId
-                additionalProperties =
-                    simulationCardAuthorizationCreateBody.additionalProperties.toMutableMap()
+            internal fun from(body: Body) = apply {
+                amount = body.amount
+                authenticatedCardPaymentId = body.authenticatedCardPaymentId
+                cardId = body.cardId
+                declineReason = body.declineReason
+                digitalWalletTokenId = body.digitalWalletTokenId
+                direction = body.direction
+                eventSubscriptionId = body.eventSubscriptionId
+                merchantAcceptorId = body.merchantAcceptorId
+                merchantCategoryCode = body.merchantCategoryCode
+                merchantCity = body.merchantCity
+                merchantCountry = body.merchantCountry
+                merchantDescriptor = body.merchantDescriptor
+                merchantState = body.merchantState
+                networkDetails = body.networkDetails
+                physicalCardId = body.physicalCardId
+                terminalId = body.terminalId
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** The authorization amount in cents. */
@@ -693,8 +689,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): SimulationCardAuthorizationCreateBody =
-                SimulationCardAuthorizationCreateBody(
+            fun build(): Body =
+                Body(
                     checkRequired("amount", amount),
                     authenticatedCardPaymentId,
                     cardId,
@@ -720,7 +716,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is SimulationCardAuthorizationCreateBody && amount == other.amount && authenticatedCardPaymentId == other.authenticatedCardPaymentId && cardId == other.cardId && declineReason == other.declineReason && digitalWalletTokenId == other.digitalWalletTokenId && direction == other.direction && eventSubscriptionId == other.eventSubscriptionId && merchantAcceptorId == other.merchantAcceptorId && merchantCategoryCode == other.merchantCategoryCode && merchantCity == other.merchantCity && merchantCountry == other.merchantCountry && merchantDescriptor == other.merchantDescriptor && merchantState == other.merchantState && networkDetails == other.networkDetails && physicalCardId == other.physicalCardId && terminalId == other.terminalId && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && amount == other.amount && authenticatedCardPaymentId == other.authenticatedCardPaymentId && cardId == other.cardId && declineReason == other.declineReason && digitalWalletTokenId == other.digitalWalletTokenId && direction == other.direction && eventSubscriptionId == other.eventSubscriptionId && merchantAcceptorId == other.merchantAcceptorId && merchantCategoryCode == other.merchantCategoryCode && merchantCity == other.merchantCity && merchantCountry == other.merchantCountry && merchantDescriptor == other.merchantDescriptor && merchantState == other.merchantState && networkDetails == other.networkDetails && physicalCardId == other.physicalCardId && terminalId == other.terminalId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -730,7 +726,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "SimulationCardAuthorizationCreateBody{amount=$amount, authenticatedCardPaymentId=$authenticatedCardPaymentId, cardId=$cardId, declineReason=$declineReason, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, eventSubscriptionId=$eventSubscriptionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantState=$merchantState, networkDetails=$networkDetails, physicalCardId=$physicalCardId, terminalId=$terminalId, additionalProperties=$additionalProperties}"
+            "Body{amount=$amount, authenticatedCardPaymentId=$authenticatedCardPaymentId, cardId=$cardId, declineReason=$declineReason, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, eventSubscriptionId=$eventSubscriptionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantState=$merchantState, networkDetails=$networkDetails, physicalCardId=$physicalCardId, terminalId=$terminalId, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -744,8 +740,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: SimulationCardAuthorizationCreateBody.Builder =
-            SimulationCardAuthorizationCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

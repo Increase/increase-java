@@ -28,7 +28,7 @@ import java.util.Optional
  */
 class SimulationCardSettlementCreateParams
 private constructor(
-    private val body: SimulationCardSettlementCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -63,16 +63,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): SimulationCardSettlementCreateBody = body
+    @JvmSynthetic internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class SimulationCardSettlementCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("card_id")
         @ExcludeMissing
         private val cardId: JsonField<String> = JsonMissing.of(),
@@ -123,7 +123,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): SimulationCardSettlementCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -141,7 +141,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [SimulationCardSettlementCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var cardId: JsonField<String>? = null
@@ -150,14 +150,11 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(
-                simulationCardSettlementCreateBody: SimulationCardSettlementCreateBody
-            ) = apply {
-                cardId = simulationCardSettlementCreateBody.cardId
-                pendingTransactionId = simulationCardSettlementCreateBody.pendingTransactionId
-                amount = simulationCardSettlementCreateBody.amount
-                additionalProperties =
-                    simulationCardSettlementCreateBody.additionalProperties.toMutableMap()
+            internal fun from(body: Body) = apply {
+                cardId = body.cardId
+                pendingTransactionId = body.pendingTransactionId
+                amount = body.amount
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** The identifier of the Card to create a settlement on. */
@@ -212,8 +209,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): SimulationCardSettlementCreateBody =
-                SimulationCardSettlementCreateBody(
+            fun build(): Body =
+                Body(
                     checkRequired("cardId", cardId),
                     checkRequired("pendingTransactionId", pendingTransactionId),
                     amount,
@@ -226,7 +223,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is SimulationCardSettlementCreateBody && cardId == other.cardId && pendingTransactionId == other.pendingTransactionId && amount == other.amount && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && cardId == other.cardId && pendingTransactionId == other.pendingTransactionId && amount == other.amount && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -236,7 +233,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "SimulationCardSettlementCreateBody{cardId=$cardId, pendingTransactionId=$pendingTransactionId, amount=$amount, additionalProperties=$additionalProperties}"
+            "Body{cardId=$cardId, pendingTransactionId=$pendingTransactionId, amount=$amount, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -250,8 +247,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: SimulationCardSettlementCreateBody.Builder =
-            SimulationCardSettlementCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

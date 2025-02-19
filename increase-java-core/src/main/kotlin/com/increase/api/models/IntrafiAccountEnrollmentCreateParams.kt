@@ -22,7 +22,7 @@ import java.util.Objects
 /** Enroll an account in the IntraFi deposit sweep network */
 class IntrafiAccountEnrollmentCreateParams
 private constructor(
-    private val body: IntrafiAccountEnrollmentCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -45,16 +45,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): IntrafiAccountEnrollmentCreateBody = body
+    @JvmSynthetic internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class IntrafiAccountEnrollmentCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("account_id")
         @ExcludeMissing
         private val accountId: JsonField<String> = JsonMissing.of(),
@@ -85,7 +85,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): IntrafiAccountEnrollmentCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -102,7 +102,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [IntrafiAccountEnrollmentCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var accountId: JsonField<String>? = null
@@ -110,13 +110,10 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(
-                intrafiAccountEnrollmentCreateBody: IntrafiAccountEnrollmentCreateBody
-            ) = apply {
-                accountId = intrafiAccountEnrollmentCreateBody.accountId
-                emailAddress = intrafiAccountEnrollmentCreateBody.emailAddress
-                additionalProperties =
-                    intrafiAccountEnrollmentCreateBody.additionalProperties.toMutableMap()
+            internal fun from(body: Body) = apply {
+                accountId = body.accountId
+                emailAddress = body.emailAddress
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** The identifier for the account to be added to IntraFi. */
@@ -152,8 +149,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): IntrafiAccountEnrollmentCreateBody =
-                IntrafiAccountEnrollmentCreateBody(
+            fun build(): Body =
+                Body(
                     checkRequired("accountId", accountId),
                     checkRequired("emailAddress", emailAddress),
                     additionalProperties.toImmutable(),
@@ -165,7 +162,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is IntrafiAccountEnrollmentCreateBody && accountId == other.accountId && emailAddress == other.emailAddress && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && accountId == other.accountId && emailAddress == other.emailAddress && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -175,7 +172,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "IntrafiAccountEnrollmentCreateBody{accountId=$accountId, emailAddress=$emailAddress, additionalProperties=$additionalProperties}"
+            "Body{accountId=$accountId, emailAddress=$emailAddress, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -189,8 +186,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: IntrafiAccountEnrollmentCreateBody.Builder =
-            IntrafiAccountEnrollmentCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

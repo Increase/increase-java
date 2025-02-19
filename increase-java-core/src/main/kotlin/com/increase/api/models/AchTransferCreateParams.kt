@@ -26,7 +26,7 @@ import java.util.Optional
 /** Create an ACH Transfer */
 class AchTransferCreateParams
 private constructor(
-    private val body: AchTransferCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -231,16 +231,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): AchTransferCreateBody = body
+    @JvmSynthetic internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class AchTransferCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("account_id")
         @ExcludeMissing
         private val accountId: JsonField<String> = JsonMissing.of(),
@@ -548,7 +548,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): AchTransferCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -582,7 +582,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [AchTransferCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var accountId: JsonField<String>? = null
@@ -608,27 +608,27 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(achTransferCreateBody: AchTransferCreateBody) = apply {
-                accountId = achTransferCreateBody.accountId
-                amount = achTransferCreateBody.amount
-                statementDescriptor = achTransferCreateBody.statementDescriptor
-                accountNumber = achTransferCreateBody.accountNumber
-                addenda = achTransferCreateBody.addenda
-                companyDescriptiveDate = achTransferCreateBody.companyDescriptiveDate
-                companyDiscretionaryData = achTransferCreateBody.companyDiscretionaryData
-                companyEntryDescription = achTransferCreateBody.companyEntryDescription
-                companyName = achTransferCreateBody.companyName
-                destinationAccountHolder = achTransferCreateBody.destinationAccountHolder
-                externalAccountId = achTransferCreateBody.externalAccountId
-                funding = achTransferCreateBody.funding
-                individualId = achTransferCreateBody.individualId
-                individualName = achTransferCreateBody.individualName
-                preferredEffectiveDate = achTransferCreateBody.preferredEffectiveDate
-                requireApproval = achTransferCreateBody.requireApproval
-                routingNumber = achTransferCreateBody.routingNumber
-                standardEntryClassCode = achTransferCreateBody.standardEntryClassCode
-                transactionTiming = achTransferCreateBody.transactionTiming
-                additionalProperties = achTransferCreateBody.additionalProperties.toMutableMap()
+            internal fun from(body: Body) = apply {
+                accountId = body.accountId
+                amount = body.amount
+                statementDescriptor = body.statementDescriptor
+                accountNumber = body.accountNumber
+                addenda = body.addenda
+                companyDescriptiveDate = body.companyDescriptiveDate
+                companyDiscretionaryData = body.companyDiscretionaryData
+                companyEntryDescription = body.companyEntryDescription
+                companyName = body.companyName
+                destinationAccountHolder = body.destinationAccountHolder
+                externalAccountId = body.externalAccountId
+                funding = body.funding
+                individualId = body.individualId
+                individualName = body.individualName
+                preferredEffectiveDate = body.preferredEffectiveDate
+                requireApproval = body.requireApproval
+                routingNumber = body.routingNumber
+                standardEntryClassCode = body.standardEntryClassCode
+                transactionTiming = body.transactionTiming
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** The Increase identifier for the account that will send the transfer. */
@@ -887,8 +887,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): AchTransferCreateBody =
-                AchTransferCreateBody(
+            fun build(): Body =
+                Body(
                     checkRequired("accountId", accountId),
                     checkRequired("amount", amount),
                     checkRequired("statementDescriptor", statementDescriptor),
@@ -917,7 +917,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is AchTransferCreateBody && accountId == other.accountId && amount == other.amount && statementDescriptor == other.statementDescriptor && accountNumber == other.accountNumber && addenda == other.addenda && companyDescriptiveDate == other.companyDescriptiveDate && companyDiscretionaryData == other.companyDiscretionaryData && companyEntryDescription == other.companyEntryDescription && companyName == other.companyName && destinationAccountHolder == other.destinationAccountHolder && externalAccountId == other.externalAccountId && funding == other.funding && individualId == other.individualId && individualName == other.individualName && preferredEffectiveDate == other.preferredEffectiveDate && requireApproval == other.requireApproval && routingNumber == other.routingNumber && standardEntryClassCode == other.standardEntryClassCode && transactionTiming == other.transactionTiming && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && accountId == other.accountId && amount == other.amount && statementDescriptor == other.statementDescriptor && accountNumber == other.accountNumber && addenda == other.addenda && companyDescriptiveDate == other.companyDescriptiveDate && companyDiscretionaryData == other.companyDiscretionaryData && companyEntryDescription == other.companyEntryDescription && companyName == other.companyName && destinationAccountHolder == other.destinationAccountHolder && externalAccountId == other.externalAccountId && funding == other.funding && individualId == other.individualId && individualName == other.individualName && preferredEffectiveDate == other.preferredEffectiveDate && requireApproval == other.requireApproval && routingNumber == other.routingNumber && standardEntryClassCode == other.standardEntryClassCode && transactionTiming == other.transactionTiming && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -927,7 +927,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "AchTransferCreateBody{accountId=$accountId, amount=$amount, statementDescriptor=$statementDescriptor, accountNumber=$accountNumber, addenda=$addenda, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, destinationAccountHolder=$destinationAccountHolder, externalAccountId=$externalAccountId, funding=$funding, individualId=$individualId, individualName=$individualName, preferredEffectiveDate=$preferredEffectiveDate, requireApproval=$requireApproval, routingNumber=$routingNumber, standardEntryClassCode=$standardEntryClassCode, transactionTiming=$transactionTiming, additionalProperties=$additionalProperties}"
+            "Body{accountId=$accountId, amount=$amount, statementDescriptor=$statementDescriptor, accountNumber=$accountNumber, addenda=$addenda, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, destinationAccountHolder=$destinationAccountHolder, externalAccountId=$externalAccountId, funding=$funding, individualId=$individualId, individualName=$individualName, preferredEffectiveDate=$preferredEffectiveDate, requireApproval=$requireApproval, routingNumber=$routingNumber, standardEntryClassCode=$standardEntryClassCode, transactionTiming=$transactionTiming, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -941,7 +941,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: AchTransferCreateBody.Builder = AchTransferCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

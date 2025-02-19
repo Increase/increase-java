@@ -22,7 +22,9 @@ class IntrafiAccountEnrollmentCreateParamsTest {
                 .accountId("account_in71c4amph0vgo2qllky")
                 .emailAddress("user@example.com")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.emailAddress()).isEqualTo("user@example.com")
@@ -35,7 +37,9 @@ class IntrafiAccountEnrollmentCreateParamsTest {
                 .accountId("account_in71c4amph0vgo2qllky")
                 .emailAddress("user@example.com")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.emailAddress()).isEqualTo("user@example.com")

@@ -37,7 +37,9 @@ class SimulationRealTimePaymentsTransferCompleteParamsTest {
                         .build()
                 )
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.rejection())
             .contains(
@@ -56,7 +58,9 @@ class SimulationRealTimePaymentsTransferCompleteParamsTest {
             SimulationRealTimePaymentsTransferCompleteParams.builder()
                 .realTimePaymentsTransferId("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
     }
 

@@ -28,7 +28,9 @@ class ExternalAccountCreateParamsTest {
                 .accountHolder(ExternalAccountCreateParams.AccountHolder.BUSINESS)
                 .funding(ExternalAccountCreateParams.Funding.CHECKING)
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.accountNumber()).isEqualTo("987654321")
         assertThat(body.description()).isEqualTo("Landlord")
@@ -46,7 +48,9 @@ class ExternalAccountCreateParamsTest {
                 .description("Landlord")
                 .routingNumber("101050001")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.accountNumber()).isEqualTo("987654321")
         assertThat(body.description()).isEqualTo("Landlord")

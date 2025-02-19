@@ -40,7 +40,9 @@ class EntityUpdateBeneficialOwnerAddressParamsTest {
                 )
                 .beneficialOwnerId("entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.address())
             .isEqualTo(
@@ -71,7 +73,9 @@ class EntityUpdateBeneficialOwnerAddressParamsTest {
                 )
                 .beneficialOwnerId("entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.address())
             .isEqualTo(

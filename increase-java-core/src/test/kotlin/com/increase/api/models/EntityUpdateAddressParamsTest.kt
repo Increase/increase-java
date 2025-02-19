@@ -38,7 +38,9 @@ class EntityUpdateAddressParamsTest {
                         .build()
                 )
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.address())
             .isEqualTo(
@@ -66,7 +68,9 @@ class EntityUpdateAddressParamsTest {
                         .build()
                 )
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.address())
             .isEqualTo(

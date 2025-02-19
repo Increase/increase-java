@@ -23,7 +23,7 @@ import java.util.Optional
 /** Create a Wire Transfer */
 class WireTransferCreateParams
 private constructor(
-    private val body: WireTransferCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -166,16 +166,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): WireTransferCreateBody = body
+    @JvmSynthetic internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class WireTransferCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("account_id")
         @ExcludeMissing
         private val accountId: JsonField<String> = JsonMissing.of(),
@@ -406,7 +406,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): WireTransferCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -437,7 +437,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [WireTransferCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var accountId: JsonField<String>? = null
@@ -459,24 +459,24 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(wireTransferCreateBody: WireTransferCreateBody) = apply {
-                accountId = wireTransferCreateBody.accountId
-                amount = wireTransferCreateBody.amount
-                beneficiaryName = wireTransferCreateBody.beneficiaryName
-                messageToRecipient = wireTransferCreateBody.messageToRecipient
-                accountNumber = wireTransferCreateBody.accountNumber
-                beneficiaryAddressLine1 = wireTransferCreateBody.beneficiaryAddressLine1
-                beneficiaryAddressLine2 = wireTransferCreateBody.beneficiaryAddressLine2
-                beneficiaryAddressLine3 = wireTransferCreateBody.beneficiaryAddressLine3
-                externalAccountId = wireTransferCreateBody.externalAccountId
-                originatorAddressLine1 = wireTransferCreateBody.originatorAddressLine1
-                originatorAddressLine2 = wireTransferCreateBody.originatorAddressLine2
-                originatorAddressLine3 = wireTransferCreateBody.originatorAddressLine3
-                originatorName = wireTransferCreateBody.originatorName
-                requireApproval = wireTransferCreateBody.requireApproval
-                routingNumber = wireTransferCreateBody.routingNumber
-                sourceAccountNumberId = wireTransferCreateBody.sourceAccountNumberId
-                additionalProperties = wireTransferCreateBody.additionalProperties.toMutableMap()
+            internal fun from(body: Body) = apply {
+                accountId = body.accountId
+                amount = body.amount
+                beneficiaryName = body.beneficiaryName
+                messageToRecipient = body.messageToRecipient
+                accountNumber = body.accountNumber
+                beneficiaryAddressLine1 = body.beneficiaryAddressLine1
+                beneficiaryAddressLine2 = body.beneficiaryAddressLine2
+                beneficiaryAddressLine3 = body.beneficiaryAddressLine3
+                externalAccountId = body.externalAccountId
+                originatorAddressLine1 = body.originatorAddressLine1
+                originatorAddressLine2 = body.originatorAddressLine2
+                originatorAddressLine3 = body.originatorAddressLine3
+                originatorName = body.originatorName
+                requireApproval = body.requireApproval
+                routingNumber = body.routingNumber
+                sourceAccountNumberId = body.sourceAccountNumberId
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** The identifier for the account that will send the transfer. */
@@ -670,8 +670,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): WireTransferCreateBody =
-                WireTransferCreateBody(
+            fun build(): Body =
+                Body(
                     checkRequired("accountId", accountId),
                     checkRequired("amount", amount),
                     checkRequired("beneficiaryName", beneficiaryName),
@@ -697,7 +697,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is WireTransferCreateBody && accountId == other.accountId && amount == other.amount && beneficiaryName == other.beneficiaryName && messageToRecipient == other.messageToRecipient && accountNumber == other.accountNumber && beneficiaryAddressLine1 == other.beneficiaryAddressLine1 && beneficiaryAddressLine2 == other.beneficiaryAddressLine2 && beneficiaryAddressLine3 == other.beneficiaryAddressLine3 && externalAccountId == other.externalAccountId && originatorAddressLine1 == other.originatorAddressLine1 && originatorAddressLine2 == other.originatorAddressLine2 && originatorAddressLine3 == other.originatorAddressLine3 && originatorName == other.originatorName && requireApproval == other.requireApproval && routingNumber == other.routingNumber && sourceAccountNumberId == other.sourceAccountNumberId && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && accountId == other.accountId && amount == other.amount && beneficiaryName == other.beneficiaryName && messageToRecipient == other.messageToRecipient && accountNumber == other.accountNumber && beneficiaryAddressLine1 == other.beneficiaryAddressLine1 && beneficiaryAddressLine2 == other.beneficiaryAddressLine2 && beneficiaryAddressLine3 == other.beneficiaryAddressLine3 && externalAccountId == other.externalAccountId && originatorAddressLine1 == other.originatorAddressLine1 && originatorAddressLine2 == other.originatorAddressLine2 && originatorAddressLine3 == other.originatorAddressLine3 && originatorName == other.originatorName && requireApproval == other.requireApproval && routingNumber == other.routingNumber && sourceAccountNumberId == other.sourceAccountNumberId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -707,7 +707,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "WireTransferCreateBody{accountId=$accountId, amount=$amount, beneficiaryName=$beneficiaryName, messageToRecipient=$messageToRecipient, accountNumber=$accountNumber, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, externalAccountId=$externalAccountId, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, requireApproval=$requireApproval, routingNumber=$routingNumber, sourceAccountNumberId=$sourceAccountNumberId, additionalProperties=$additionalProperties}"
+            "Body{accountId=$accountId, amount=$amount, beneficiaryName=$beneficiaryName, messageToRecipient=$messageToRecipient, accountNumber=$accountNumber, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, externalAccountId=$externalAccountId, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, requireApproval=$requireApproval, routingNumber=$routingNumber, sourceAccountNumberId=$sourceAccountNumberId, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -721,7 +721,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: WireTransferCreateBody.Builder = WireTransferCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
