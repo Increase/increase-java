@@ -26,7 +26,9 @@ class LockboxUpdateParamsTest {
                 .recipientName("x")
                 .status(LockboxUpdateParams.Status.ACTIVE)
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.description()).contains("x")
         assertThat(body.recipientName()).contains("x")
@@ -36,7 +38,9 @@ class LockboxUpdateParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params = LockboxUpdateParams.builder().lockboxId("lockbox_3xt21ok13q19advds4t5").build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
     }
 

@@ -164,7 +164,9 @@ class EntityCreateBeneficialOwnerParamsTest {
                         .build()
                 )
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.beneficialOwner())
             .isEqualTo(
@@ -279,7 +281,9 @@ class EntityCreateBeneficialOwnerParamsTest {
                         .build()
                 )
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.beneficialOwner())
             .isEqualTo(

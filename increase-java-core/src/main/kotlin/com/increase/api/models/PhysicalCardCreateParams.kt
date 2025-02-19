@@ -25,7 +25,7 @@ import java.util.Optional
 /** Create a Physical Card */
 class PhysicalCardCreateParams
 private constructor(
-    private val body: PhysicalCardCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -66,16 +66,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): PhysicalCardCreateBody = body
+    @JvmSynthetic internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class PhysicalCardCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("card_id")
         @ExcludeMissing
         private val cardId: JsonField<String> = JsonMissing.of(),
@@ -133,7 +133,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): PhysicalCardCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -152,7 +152,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [PhysicalCardCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var cardId: JsonField<String>? = null
@@ -162,12 +162,12 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(physicalCardCreateBody: PhysicalCardCreateBody) = apply {
-                cardId = physicalCardCreateBody.cardId
-                cardholder = physicalCardCreateBody.cardholder
-                shipment = physicalCardCreateBody.shipment
-                physicalCardProfileId = physicalCardCreateBody.physicalCardProfileId
-                additionalProperties = physicalCardCreateBody.additionalProperties.toMutableMap()
+            internal fun from(body: Body) = apply {
+                cardId = body.cardId
+                cardholder = body.cardholder
+                shipment = body.shipment
+                physicalCardProfileId = body.physicalCardProfileId
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** The underlying card representing this physical card. */
@@ -224,8 +224,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): PhysicalCardCreateBody =
-                PhysicalCardCreateBody(
+            fun build(): Body =
+                Body(
                     checkRequired("cardId", cardId),
                     checkRequired("cardholder", cardholder),
                     checkRequired("shipment", shipment),
@@ -239,7 +239,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is PhysicalCardCreateBody && cardId == other.cardId && cardholder == other.cardholder && shipment == other.shipment && physicalCardProfileId == other.physicalCardProfileId && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && cardId == other.cardId && cardholder == other.cardholder && shipment == other.shipment && physicalCardProfileId == other.physicalCardProfileId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -249,7 +249,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "PhysicalCardCreateBody{cardId=$cardId, cardholder=$cardholder, shipment=$shipment, physicalCardProfileId=$physicalCardProfileId, additionalProperties=$additionalProperties}"
+            "Body{cardId=$cardId, cardholder=$cardholder, shipment=$shipment, physicalCardProfileId=$physicalCardProfileId, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -263,7 +263,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: PhysicalCardCreateBody.Builder = PhysicalCardCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

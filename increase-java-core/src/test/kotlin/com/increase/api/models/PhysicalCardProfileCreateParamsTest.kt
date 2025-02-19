@@ -26,7 +26,9 @@ class PhysicalCardProfileCreateParamsTest {
                 .description("My Card Profile")
                 .frontImageFileId("file_o6aex13wm1jcc36sgcj1")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.carrierImageFileId()).isEqualTo("file_h6v7mtipe119os47ehlu")
         assertThat(body.contactPhone()).isEqualTo("+16505046304")
@@ -43,7 +45,9 @@ class PhysicalCardProfileCreateParamsTest {
                 .description("My Card Profile")
                 .frontImageFileId("file_o6aex13wm1jcc36sgcj1")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.carrierImageFileId()).isEqualTo("file_h6v7mtipe119os47ehlu")
         assertThat(body.contactPhone()).isEqualTo("+16505046304")

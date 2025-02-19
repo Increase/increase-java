@@ -22,7 +22,9 @@ class EntityArchiveBeneficialOwnerParamsTest {
                 .entityId("entity_n8y8tnk2p9339ti393yi")
                 .beneficialOwnerId("entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.beneficialOwnerId())
             .isEqualTo("entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7")
@@ -35,7 +37,9 @@ class EntityArchiveBeneficialOwnerParamsTest {
                 .entityId("entity_n8y8tnk2p9339ti393yi")
                 .beneficialOwnerId("entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.beneficialOwnerId())
             .isEqualTo("entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7")

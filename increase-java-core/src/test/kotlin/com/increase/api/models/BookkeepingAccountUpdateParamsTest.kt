@@ -22,7 +22,9 @@ class BookkeepingAccountUpdateParamsTest {
                 .bookkeepingAccountId("bookkeeping_account_e37p1f1iuocw5intf35v")
                 .name("Deprecated Account")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.name()).isEqualTo("Deprecated Account")
     }
@@ -34,7 +36,9 @@ class BookkeepingAccountUpdateParamsTest {
                 .bookkeepingAccountId("bookkeeping_account_e37p1f1iuocw5intf35v")
                 .name("Deprecated Account")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.name()).isEqualTo("Deprecated Account")
     }

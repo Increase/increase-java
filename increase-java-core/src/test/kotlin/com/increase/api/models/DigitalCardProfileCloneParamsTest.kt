@@ -46,7 +46,9 @@ class DigitalCardProfileCloneParamsTest {
                         .build()
                 )
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.appIconFileId()).contains("app_icon_file_id")
         assertThat(body.backgroundImageFileId()).contains("file_1ai913suu1zfn1pdetru")
@@ -68,7 +70,9 @@ class DigitalCardProfileCloneParamsTest {
             DigitalCardProfileCloneParams.builder()
                 .digitalCardProfileId("digital_card_profile_s3puplu90f04xhcwkiga")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
     }
 

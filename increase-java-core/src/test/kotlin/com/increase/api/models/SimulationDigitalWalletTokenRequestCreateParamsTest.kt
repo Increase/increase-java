@@ -20,7 +20,9 @@ class SimulationDigitalWalletTokenRequestCreateParamsTest {
             SimulationDigitalWalletTokenRequestCreateParams.builder()
                 .cardId("card_oubs0hwk5rn6knuecxg2")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.cardId()).isEqualTo("card_oubs0hwk5rn6knuecxg2")
     }
@@ -31,7 +33,9 @@ class SimulationDigitalWalletTokenRequestCreateParamsTest {
             SimulationDigitalWalletTokenRequestCreateParams.builder()
                 .cardId("card_oubs0hwk5rn6knuecxg2")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.cardId()).isEqualTo("card_oubs0hwk5rn6knuecxg2")
     }

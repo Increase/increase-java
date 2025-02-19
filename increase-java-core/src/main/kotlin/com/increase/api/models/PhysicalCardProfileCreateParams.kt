@@ -22,7 +22,7 @@ import java.util.Objects
 /** Create a Physical Card Profile */
 class PhysicalCardProfileCreateParams
 private constructor(
-    private val body: PhysicalCardProfileCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -57,16 +57,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): PhysicalCardProfileCreateBody = body
+    @JvmSynthetic internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class PhysicalCardProfileCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("carrier_image_file_id")
         @ExcludeMissing
         private val carrierImageFileId: JsonField<String> = JsonMissing.of(),
@@ -121,7 +121,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): PhysicalCardProfileCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -140,7 +140,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [PhysicalCardProfileCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var carrierImageFileId: JsonField<String>? = null
@@ -150,15 +150,13 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(physicalCardProfileCreateBody: PhysicalCardProfileCreateBody) =
-                apply {
-                    carrierImageFileId = physicalCardProfileCreateBody.carrierImageFileId
-                    contactPhone = physicalCardProfileCreateBody.contactPhone
-                    description = physicalCardProfileCreateBody.description
-                    frontImageFileId = physicalCardProfileCreateBody.frontImageFileId
-                    additionalProperties =
-                        physicalCardProfileCreateBody.additionalProperties.toMutableMap()
-                }
+            internal fun from(body: Body) = apply {
+                carrierImageFileId = body.carrierImageFileId
+                contactPhone = body.contactPhone
+                description = body.description
+                frontImageFileId = body.frontImageFileId
+                additionalProperties = body.additionalProperties.toMutableMap()
+            }
 
             /** The identifier of the File containing the physical card's carrier image. */
             fun carrierImageFileId(carrierImageFileId: String) =
@@ -213,8 +211,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): PhysicalCardProfileCreateBody =
-                PhysicalCardProfileCreateBody(
+            fun build(): Body =
+                Body(
                     checkRequired("carrierImageFileId", carrierImageFileId),
                     checkRequired("contactPhone", contactPhone),
                     checkRequired("description", description),
@@ -228,7 +226,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is PhysicalCardProfileCreateBody && carrierImageFileId == other.carrierImageFileId && contactPhone == other.contactPhone && description == other.description && frontImageFileId == other.frontImageFileId && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && carrierImageFileId == other.carrierImageFileId && contactPhone == other.contactPhone && description == other.description && frontImageFileId == other.frontImageFileId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -238,7 +236,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "PhysicalCardProfileCreateBody{carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, description=$description, frontImageFileId=$frontImageFileId, additionalProperties=$additionalProperties}"
+            "Body{carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, description=$description, frontImageFileId=$frontImageFileId, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -252,8 +250,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: PhysicalCardProfileCreateBody.Builder =
-            PhysicalCardProfileCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

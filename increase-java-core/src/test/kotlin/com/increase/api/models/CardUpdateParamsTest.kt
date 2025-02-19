@@ -58,7 +58,9 @@ class CardUpdateParamsTest {
                 .entityId("entity_id")
                 .status(CardUpdateParams.Status.ACTIVE)
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.billingAddress())
             .contains(
@@ -86,7 +88,9 @@ class CardUpdateParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params = CardUpdateParams.builder().cardId("card_oubs0hwk5rn6knuecxg2").build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
     }
 

@@ -22,7 +22,9 @@ class InboundCheckDepositReturnParamsTest {
                 .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
                 .reason(InboundCheckDepositReturnParams.Reason.ALTERED_OR_FICTITIOUS)
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.reason())
             .isEqualTo(InboundCheckDepositReturnParams.Reason.ALTERED_OR_FICTITIOUS)
@@ -35,7 +37,9 @@ class InboundCheckDepositReturnParamsTest {
                 .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
                 .reason(InboundCheckDepositReturnParams.Reason.ALTERED_OR_FICTITIOUS)
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.reason())
             .isEqualTo(InboundCheckDepositReturnParams.Reason.ALTERED_OR_FICTITIOUS)

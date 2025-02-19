@@ -27,7 +27,7 @@ import java.util.Optional
  */
 class SimulationInterestPaymentCreateParams
 private constructor(
-    private val body: SimulationInterestPaymentCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -62,16 +62,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): SimulationInterestPaymentCreateBody = body
+    @JvmSynthetic internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class SimulationInterestPaymentCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("account_id")
         @ExcludeMissing
         private val accountId: JsonField<String> = JsonMissing.of(),
@@ -124,7 +124,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): SimulationInterestPaymentCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -143,7 +143,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [SimulationInterestPaymentCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var accountId: JsonField<String>? = null
@@ -153,15 +153,12 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(
-                simulationInterestPaymentCreateBody: SimulationInterestPaymentCreateBody
-            ) = apply {
-                accountId = simulationInterestPaymentCreateBody.accountId
-                amount = simulationInterestPaymentCreateBody.amount
-                periodEnd = simulationInterestPaymentCreateBody.periodEnd
-                periodStart = simulationInterestPaymentCreateBody.periodStart
-                additionalProperties =
-                    simulationInterestPaymentCreateBody.additionalProperties.toMutableMap()
+            internal fun from(body: Body) = apply {
+                accountId = body.accountId
+                amount = body.amount
+                periodEnd = body.periodEnd
+                periodStart = body.periodStart
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** The identifier of the Account Number the Interest Payment is for. */
@@ -211,8 +208,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): SimulationInterestPaymentCreateBody =
-                SimulationInterestPaymentCreateBody(
+            fun build(): Body =
+                Body(
                     checkRequired("accountId", accountId),
                     checkRequired("amount", amount),
                     periodEnd,
@@ -226,7 +223,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is SimulationInterestPaymentCreateBody && accountId == other.accountId && amount == other.amount && periodEnd == other.periodEnd && periodStart == other.periodStart && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && accountId == other.accountId && amount == other.amount && periodEnd == other.periodEnd && periodStart == other.periodStart && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -236,7 +233,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "SimulationInterestPaymentCreateBody{accountId=$accountId, amount=$amount, periodEnd=$periodEnd, periodStart=$periodStart, additionalProperties=$additionalProperties}"
+            "Body{accountId=$accountId, amount=$amount, periodEnd=$periodEnd, periodStart=$periodStart, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -250,8 +247,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: SimulationInterestPaymentCreateBody.Builder =
-            SimulationInterestPaymentCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

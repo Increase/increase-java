@@ -125,7 +125,9 @@ class AchTransferCreateParamsTest {
                 )
                 .transactionTiming(AchTransferCreateParams.TransactionTiming.SYNCHRONOUS)
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.amount()).isEqualTo(100L)
@@ -192,7 +194,9 @@ class AchTransferCreateParamsTest {
                 .amount(100L)
                 .statementDescriptor("New ACH transfer")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.amount()).isEqualTo(100L)

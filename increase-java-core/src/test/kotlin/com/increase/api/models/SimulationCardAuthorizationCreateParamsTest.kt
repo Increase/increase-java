@@ -76,7 +76,9 @@ class SimulationCardAuthorizationCreateParamsTest {
                 .physicalCardId("physical_card_id")
                 .terminalId("x")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.amount()).isEqualTo(1000L)
         assertThat(body.authenticatedCardPaymentId()).contains("authenticated_card_payment_id")
@@ -115,7 +117,9 @@ class SimulationCardAuthorizationCreateParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params = SimulationCardAuthorizationCreateParams.builder().amount(1000L).build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.amount()).isEqualTo(1000L)
     }
