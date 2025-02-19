@@ -26,7 +26,7 @@ import java.util.Optional
 /** Create an Export */
 class ExportCreateParams
 private constructor(
-    private val body: ExportCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -88,16 +88,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): ExportCreateBody = body
+    @JvmSynthetic internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class ExportCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("category")
         @ExcludeMissing
         private val category: JsonField<Category> = JsonMissing.of(),
@@ -199,7 +199,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): ExportCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -220,7 +220,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [ExportCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var category: JsonField<Category>? = null
@@ -234,15 +234,15 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(exportCreateBody: ExportCreateBody) = apply {
-                category = exportCreateBody.category
-                accountStatementOfx = exportCreateBody.accountStatementOfx
-                balanceCsv = exportCreateBody.balanceCsv
-                bookkeepingAccountBalanceCsv = exportCreateBody.bookkeepingAccountBalanceCsv
-                entityCsv = exportCreateBody.entityCsv
-                transactionCsv = exportCreateBody.transactionCsv
-                vendorCsv = exportCreateBody.vendorCsv
-                additionalProperties = exportCreateBody.additionalProperties.toMutableMap()
+            internal fun from(body: Body) = apply {
+                category = body.category
+                accountStatementOfx = body.accountStatementOfx
+                balanceCsv = body.balanceCsv
+                bookkeepingAccountBalanceCsv = body.bookkeepingAccountBalanceCsv
+                entityCsv = body.entityCsv
+                transactionCsv = body.transactionCsv
+                vendorCsv = body.vendorCsv
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** The type of Export to create. */
@@ -331,8 +331,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): ExportCreateBody =
-                ExportCreateBody(
+            fun build(): Body =
+                Body(
                     checkRequired("category", category),
                     accountStatementOfx,
                     balanceCsv,
@@ -349,7 +349,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ExportCreateBody && category == other.category && accountStatementOfx == other.accountStatementOfx && balanceCsv == other.balanceCsv && bookkeepingAccountBalanceCsv == other.bookkeepingAccountBalanceCsv && entityCsv == other.entityCsv && transactionCsv == other.transactionCsv && vendorCsv == other.vendorCsv && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && category == other.category && accountStatementOfx == other.accountStatementOfx && balanceCsv == other.balanceCsv && bookkeepingAccountBalanceCsv == other.bookkeepingAccountBalanceCsv && entityCsv == other.entityCsv && transactionCsv == other.transactionCsv && vendorCsv == other.vendorCsv && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -359,7 +359,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "ExportCreateBody{category=$category, accountStatementOfx=$accountStatementOfx, balanceCsv=$balanceCsv, bookkeepingAccountBalanceCsv=$bookkeepingAccountBalanceCsv, entityCsv=$entityCsv, transactionCsv=$transactionCsv, vendorCsv=$vendorCsv, additionalProperties=$additionalProperties}"
+            "Body{category=$category, accountStatementOfx=$accountStatementOfx, balanceCsv=$balanceCsv, bookkeepingAccountBalanceCsv=$bookkeepingAccountBalanceCsv, entityCsv=$entityCsv, transactionCsv=$transactionCsv, vendorCsv=$vendorCsv, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -373,7 +373,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: ExportCreateBody.Builder = ExportCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

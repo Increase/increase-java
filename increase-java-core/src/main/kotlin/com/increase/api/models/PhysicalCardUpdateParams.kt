@@ -25,7 +25,7 @@ import java.util.Objects
 class PhysicalCardUpdateParams
 private constructor(
     private val physicalCardId: String,
-    private val body: PhysicalCardUpdateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -45,7 +45,7 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): PhysicalCardUpdateBody = body
+    @JvmSynthetic internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -59,9 +59,9 @@ private constructor(
     }
 
     @NoAutoDetect
-    class PhysicalCardUpdateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("status")
         @ExcludeMissing
         private val status: JsonField<Status> = JsonMissing.of(),
@@ -81,7 +81,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): PhysicalCardUpdateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -97,16 +97,16 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [PhysicalCardUpdateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var status: JsonField<Status>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(physicalCardUpdateBody: PhysicalCardUpdateBody) = apply {
-                status = physicalCardUpdateBody.status
-                additionalProperties = physicalCardUpdateBody.additionalProperties.toMutableMap()
+            internal fun from(body: Body) = apply {
+                status = body.status
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** The status to update the Physical Card to. */
@@ -134,11 +134,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): PhysicalCardUpdateBody =
-                PhysicalCardUpdateBody(
-                    checkRequired("status", status),
-                    additionalProperties.toImmutable(),
-                )
+            fun build(): Body =
+                Body(checkRequired("status", status), additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -146,7 +143,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is PhysicalCardUpdateBody && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -155,8 +152,7 @@ private constructor(
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() =
-            "PhysicalCardUpdateBody{status=$status, additionalProperties=$additionalProperties}"
+        override fun toString() = "Body{status=$status, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -171,7 +167,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var physicalCardId: String? = null
-        private var body: PhysicalCardUpdateBody.Builder = PhysicalCardUpdateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

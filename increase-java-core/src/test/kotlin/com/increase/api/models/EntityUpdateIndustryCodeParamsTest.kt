@@ -22,7 +22,9 @@ class EntityUpdateIndustryCodeParamsTest {
                 .entityId("entity_n8y8tnk2p9339ti393yi")
                 .industryCode("5132")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.industryCode()).isEqualTo("5132")
     }
@@ -34,7 +36,9 @@ class EntityUpdateIndustryCodeParamsTest {
                 .entityId("entity_n8y8tnk2p9339ti393yi")
                 .industryCode("5132")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.industryCode()).isEqualTo("5132")
     }

@@ -788,7 +788,9 @@ class EntityCreateParamsTest {
                         .build()
                 )
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.structure()).isEqualTo(EntityCreateParams.Structure.CORPORATION)
         assertThat(body.corporation())
@@ -1180,7 +1182,9 @@ class EntityCreateParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             EntityCreateParams.builder().structure(EntityCreateParams.Structure.CORPORATION).build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.structure()).isEqualTo(EntityCreateParams.Structure.CORPORATION)
     }

@@ -28,7 +28,7 @@ import java.util.Objects
  */
 class SimulationInboundCheckDepositCreateParams
 private constructor(
-    private val body: SimulationInboundCheckDepositCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -57,16 +57,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): SimulationInboundCheckDepositCreateBody = body
+    @JvmSynthetic internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class SimulationInboundCheckDepositCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("account_number_id")
         @ExcludeMissing
         private val accountNumberId: JsonField<String> = JsonMissing.of(),
@@ -108,7 +108,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): SimulationInboundCheckDepositCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -126,7 +126,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [SimulationInboundCheckDepositCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var accountNumberId: JsonField<String>? = null
@@ -135,14 +135,11 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(
-                simulationInboundCheckDepositCreateBody: SimulationInboundCheckDepositCreateBody
-            ) = apply {
-                accountNumberId = simulationInboundCheckDepositCreateBody.accountNumberId
-                amount = simulationInboundCheckDepositCreateBody.amount
-                checkNumber = simulationInboundCheckDepositCreateBody.checkNumber
-                additionalProperties =
-                    simulationInboundCheckDepositCreateBody.additionalProperties.toMutableMap()
+            internal fun from(body: Body) = apply {
+                accountNumberId = body.accountNumberId
+                amount = body.amount
+                checkNumber = body.checkNumber
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** The identifier of the Account Number the Inbound Check Deposit will be against. */
@@ -187,8 +184,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): SimulationInboundCheckDepositCreateBody =
-                SimulationInboundCheckDepositCreateBody(
+            fun build(): Body =
+                Body(
                     checkRequired("accountNumberId", accountNumberId),
                     checkRequired("amount", amount),
                     checkRequired("checkNumber", checkNumber),
@@ -201,7 +198,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is SimulationInboundCheckDepositCreateBody && accountNumberId == other.accountNumberId && amount == other.amount && checkNumber == other.checkNumber && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && accountNumberId == other.accountNumberId && amount == other.amount && checkNumber == other.checkNumber && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -211,7 +208,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "SimulationInboundCheckDepositCreateBody{accountNumberId=$accountNumberId, amount=$amount, checkNumber=$checkNumber, additionalProperties=$additionalProperties}"
+            "Body{accountNumberId=$accountNumberId, amount=$amount, checkNumber=$checkNumber, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -225,8 +222,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: SimulationInboundCheckDepositCreateBody.Builder =
-            SimulationInboundCheckDepositCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

@@ -43,7 +43,9 @@ class ProofOfAuthorizationRequestSubmissionCreateParamsTest {
                 .authorizerCompany("National Phonograph Company")
                 .authorizerIpAddress("x")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.authorizationTerms()).isEqualTo("I agree to the terms of service.")
         assertThat(body.authorizedAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -75,7 +77,9 @@ class ProofOfAuthorizationRequestSubmissionCreateParamsTest {
                 .validatedAccountOwnershipWithAccountStatement(true)
                 .validatedAccountOwnershipWithMicrodeposit(true)
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.authorizationTerms()).isEqualTo("I agree to the terms of service.")
         assertThat(body.authorizedAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))

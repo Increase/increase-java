@@ -47,7 +47,9 @@ class BookkeepingEntrySetCreateParamsTest {
                 .date(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.entries())
             .isEqualTo(
@@ -83,7 +85,9 @@ class BookkeepingEntrySetCreateParamsTest {
                         .build()
                 )
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.entries())
             .isEqualTo(

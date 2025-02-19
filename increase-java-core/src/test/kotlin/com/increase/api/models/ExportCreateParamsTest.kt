@@ -150,7 +150,9 @@ class ExportCreateParamsTest {
                 )
                 .vendorCsv(JsonValue.from(mapOf<String, Any>()))
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.category()).isEqualTo(ExportCreateParams.Category.ACCOUNT_STATEMENT_OFX)
         assertThat(body.accountStatementOfx())
@@ -230,7 +232,9 @@ class ExportCreateParamsTest {
             ExportCreateParams.builder()
                 .category(ExportCreateParams.Category.ACCOUNT_STATEMENT_OFX)
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.category()).isEqualTo(ExportCreateParams.Category.ACCOUNT_STATEMENT_OFX)
     }

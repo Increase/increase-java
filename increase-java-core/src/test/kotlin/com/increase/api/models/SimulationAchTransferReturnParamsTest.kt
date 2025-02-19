@@ -22,7 +22,9 @@ class SimulationAchTransferReturnParamsTest {
                 .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
                 .reason(SimulationAchTransferReturnParams.Reason.INSUFFICIENT_FUND)
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.reason())
             .contains(SimulationAchTransferReturnParams.Reason.INSUFFICIENT_FUND)
@@ -34,7 +36,9 @@ class SimulationAchTransferReturnParamsTest {
             SimulationAchTransferReturnParams.builder()
                 .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
     }
 

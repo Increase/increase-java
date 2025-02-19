@@ -15,7 +15,9 @@ class SimulationProgramCreateParamsTest {
     @Test
     fun body() {
         val params = SimulationProgramCreateParams.builder().name("For Benefit Of").build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.name()).isEqualTo("For Benefit Of")
     }
@@ -23,7 +25,9 @@ class SimulationProgramCreateParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params = SimulationProgramCreateParams.builder().name("For Benefit Of").build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.name()).isEqualTo("For Benefit Of")
     }

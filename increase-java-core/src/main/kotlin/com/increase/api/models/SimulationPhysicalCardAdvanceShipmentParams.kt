@@ -28,7 +28,7 @@ import java.util.Objects
 class SimulationPhysicalCardAdvanceShipmentParams
 private constructor(
     private val physicalCardId: String,
-    private val body: SimulationPhysicalCardAdvanceShipmentBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -48,7 +48,7 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): SimulationPhysicalCardAdvanceShipmentBody = body
+    @JvmSynthetic internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -62,9 +62,9 @@ private constructor(
     }
 
     @NoAutoDetect
-    class SimulationPhysicalCardAdvanceShipmentBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("shipment_status")
         @ExcludeMissing
         private val shipmentStatus: JsonField<ShipmentStatus> = JsonMissing.of(),
@@ -86,7 +86,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): SimulationPhysicalCardAdvanceShipmentBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -102,19 +102,16 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [SimulationPhysicalCardAdvanceShipmentBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var shipmentStatus: JsonField<ShipmentStatus>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(
-                simulationPhysicalCardAdvanceShipmentBody: SimulationPhysicalCardAdvanceShipmentBody
-            ) = apply {
-                shipmentStatus = simulationPhysicalCardAdvanceShipmentBody.shipmentStatus
-                additionalProperties =
-                    simulationPhysicalCardAdvanceShipmentBody.additionalProperties.toMutableMap()
+            internal fun from(body: Body) = apply {
+                shipmentStatus = body.shipmentStatus
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** The shipment status to move the Physical Card to. */
@@ -145,8 +142,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): SimulationPhysicalCardAdvanceShipmentBody =
-                SimulationPhysicalCardAdvanceShipmentBody(
+            fun build(): Body =
+                Body(
                     checkRequired("shipmentStatus", shipmentStatus),
                     additionalProperties.toImmutable(),
                 )
@@ -157,7 +154,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is SimulationPhysicalCardAdvanceShipmentBody && shipmentStatus == other.shipmentStatus && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && shipmentStatus == other.shipmentStatus && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -167,7 +164,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "SimulationPhysicalCardAdvanceShipmentBody{shipmentStatus=$shipmentStatus, additionalProperties=$additionalProperties}"
+            "Body{shipmentStatus=$shipmentStatus, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -182,8 +179,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var physicalCardId: String? = null
-        private var body: SimulationPhysicalCardAdvanceShipmentBody.Builder =
-            SimulationPhysicalCardAdvanceShipmentBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

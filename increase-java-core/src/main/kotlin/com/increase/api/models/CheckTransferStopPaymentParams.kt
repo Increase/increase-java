@@ -26,7 +26,7 @@ import java.util.Optional
 class CheckTransferStopPaymentParams
 private constructor(
     private val checkTransferId: String,
-    private val body: CheckTransferStopPaymentBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -46,7 +46,7 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): CheckTransferStopPaymentBody = body
+    @JvmSynthetic internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -60,9 +60,9 @@ private constructor(
     }
 
     @NoAutoDetect
-    class CheckTransferStopPaymentBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("reason")
         @ExcludeMissing
         private val reason: JsonField<Reason> = JsonMissing.of(),
@@ -82,7 +82,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): CheckTransferStopPaymentBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -98,17 +98,16 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [CheckTransferStopPaymentBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var reason: JsonField<Reason> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(checkTransferStopPaymentBody: CheckTransferStopPaymentBody) = apply {
-                reason = checkTransferStopPaymentBody.reason
-                additionalProperties =
-                    checkTransferStopPaymentBody.additionalProperties.toMutableMap()
+            internal fun from(body: Body) = apply {
+                reason = body.reason
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** The reason why this transfer should be stopped. */
@@ -136,8 +135,7 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): CheckTransferStopPaymentBody =
-                CheckTransferStopPaymentBody(reason, additionalProperties.toImmutable())
+            fun build(): Body = Body(reason, additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -145,7 +143,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is CheckTransferStopPaymentBody && reason == other.reason && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && reason == other.reason && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -154,8 +152,7 @@ private constructor(
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() =
-            "CheckTransferStopPaymentBody{reason=$reason, additionalProperties=$additionalProperties}"
+        override fun toString() = "Body{reason=$reason, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -170,8 +167,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var checkTransferId: String? = null
-        private var body: CheckTransferStopPaymentBody.Builder =
-            CheckTransferStopPaymentBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

@@ -24,7 +24,9 @@ class SimulationInboundCheckDepositCreateParamsTest {
                 .amount(1000L)
                 .checkNumber("1234567890")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.accountNumberId()).isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
         assertThat(body.amount()).isEqualTo(1000L)
@@ -39,7 +41,9 @@ class SimulationInboundCheckDepositCreateParamsTest {
                 .amount(1000L)
                 .checkNumber("1234567890")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.accountNumberId()).isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
         assertThat(body.amount()).isEqualTo(1000L)

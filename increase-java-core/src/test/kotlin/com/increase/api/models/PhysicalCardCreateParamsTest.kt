@@ -68,7 +68,9 @@ class PhysicalCardCreateParamsTest {
                 )
                 .physicalCardProfileId("physical_card_profile_id")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.cardId()).isEqualTo("card_oubs0hwk5rn6knuecxg2")
         assertThat(body.cardholder())
@@ -125,7 +127,9 @@ class PhysicalCardCreateParamsTest {
                         .build()
                 )
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.cardId()).isEqualTo("card_oubs0hwk5rn6knuecxg2")
         assertThat(body.cardholder())

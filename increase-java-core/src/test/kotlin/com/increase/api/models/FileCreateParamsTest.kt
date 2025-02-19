@@ -26,10 +26,12 @@ class FileCreateParamsTest {
                 .purpose(FileCreateParams.Purpose.CHECK_IMAGE_FRONT)
                 .description("x")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
-        assertThat(body)
-            .containsExactly(
+        assertThat(body.filterNotNull())
+            .containsExactlyInAnyOrder(
                 MultipartFormValue.fromByteArray(
                     "file",
                     "some content".toByteArray(),
@@ -51,10 +53,12 @@ class FileCreateParamsTest {
                 .file("some content".toByteArray())
                 .purpose(FileCreateParams.Purpose.CHECK_IMAGE_FRONT)
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
-        assertThat(body)
-            .containsExactly(
+        assertThat(body.filterNotNull())
+            .containsExactlyInAnyOrder(
                 MultipartFormValue.fromByteArray(
                     "file",
                     "some content".toByteArray(),
@@ -65,7 +69,6 @@ class FileCreateParamsTest {
                     FileCreateParams.Purpose.CHECK_IMAGE_FRONT,
                     ContentTypes.DefaultText,
                 ),
-                null,
             )
     }
 }

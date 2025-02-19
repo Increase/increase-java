@@ -22,7 +22,9 @@ class InboundAchTransferDeclineParamsTest {
                 .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
                 .reason(InboundAchTransferDeclineParams.Reason.INSUFFICIENT_FUNDS)
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.reason())
             .contains(InboundAchTransferDeclineParams.Reason.INSUFFICIENT_FUNDS)
@@ -34,7 +36,9 @@ class InboundAchTransferDeclineParamsTest {
             InboundAchTransferDeclineParams.builder()
                 .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
     }
 

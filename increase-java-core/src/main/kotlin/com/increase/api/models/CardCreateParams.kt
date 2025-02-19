@@ -23,7 +23,7 @@ import java.util.Optional
 /** Create a Card */
 class CardCreateParams
 private constructor(
-    private val body: CardCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -80,16 +80,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): CardCreateBody = body
+    @JvmSynthetic internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class CardCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("account_id")
         @ExcludeMissing
         private val accountId: JsonField<String> = JsonMissing.of(),
@@ -170,7 +170,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): CardCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -190,7 +190,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [CardCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var accountId: JsonField<String>? = null
@@ -201,13 +201,13 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(cardCreateBody: CardCreateBody) = apply {
-                accountId = cardCreateBody.accountId
-                billingAddress = cardCreateBody.billingAddress
-                description = cardCreateBody.description
-                digitalWallet = cardCreateBody.digitalWallet
-                entityId = cardCreateBody.entityId
-                additionalProperties = cardCreateBody.additionalProperties.toMutableMap()
+            internal fun from(body: Body) = apply {
+                accountId = body.accountId
+                billingAddress = body.billingAddress
+                description = body.description
+                digitalWallet = body.digitalWallet
+                entityId = body.entityId
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** The Account the card should belong to. */
@@ -285,8 +285,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): CardCreateBody =
-                CardCreateBody(
+            fun build(): Body =
+                Body(
                     checkRequired("accountId", accountId),
                     billingAddress,
                     description,
@@ -301,7 +301,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is CardCreateBody && accountId == other.accountId && billingAddress == other.billingAddress && description == other.description && digitalWallet == other.digitalWallet && entityId == other.entityId && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && accountId == other.accountId && billingAddress == other.billingAddress && description == other.description && digitalWallet == other.digitalWallet && entityId == other.entityId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -311,7 +311,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "CardCreateBody{accountId=$accountId, billingAddress=$billingAddress, description=$description, digitalWallet=$digitalWallet, entityId=$entityId, additionalProperties=$additionalProperties}"
+            "Body{accountId=$accountId, billingAddress=$billingAddress, description=$description, digitalWallet=$digitalWallet, entityId=$entityId, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -325,7 +325,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: CardCreateBody.Builder = CardCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

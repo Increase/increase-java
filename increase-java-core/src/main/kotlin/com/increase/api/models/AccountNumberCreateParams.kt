@@ -25,7 +25,7 @@ import java.util.Optional
 /** Create an Account Number */
 class AccountNumberCreateParams
 private constructor(
-    private val body: AccountNumberCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -60,16 +60,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): AccountNumberCreateBody = body
+    @JvmSynthetic internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class AccountNumberCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("account_id")
         @ExcludeMissing
         private val accountId: JsonField<String> = JsonMissing.of(),
@@ -122,7 +122,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): AccountNumberCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -141,7 +141,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [AccountNumberCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var accountId: JsonField<String>? = null
@@ -151,12 +151,12 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(accountNumberCreateBody: AccountNumberCreateBody) = apply {
-                accountId = accountNumberCreateBody.accountId
-                name = accountNumberCreateBody.name
-                inboundAch = accountNumberCreateBody.inboundAch
-                inboundChecks = accountNumberCreateBody.inboundChecks
-                additionalProperties = accountNumberCreateBody.additionalProperties.toMutableMap()
+            internal fun from(body: Body) = apply {
+                accountId = body.accountId
+                name = body.name
+                inboundAch = body.inboundAch
+                inboundChecks = body.inboundChecks
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** The Account the Account Number should belong to. */
@@ -211,8 +211,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): AccountNumberCreateBody =
-                AccountNumberCreateBody(
+            fun build(): Body =
+                Body(
                     checkRequired("accountId", accountId),
                     checkRequired("name", name),
                     inboundAch,
@@ -226,7 +226,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is AccountNumberCreateBody && accountId == other.accountId && name == other.name && inboundAch == other.inboundAch && inboundChecks == other.inboundChecks && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && accountId == other.accountId && name == other.name && inboundAch == other.inboundAch && inboundChecks == other.inboundChecks && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -236,7 +236,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "AccountNumberCreateBody{accountId=$accountId, name=$name, inboundAch=$inboundAch, inboundChecks=$inboundChecks, additionalProperties=$additionalProperties}"
+            "Body{accountId=$accountId, name=$name, inboundAch=$inboundAch, inboundChecks=$inboundChecks, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -250,7 +250,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: AccountNumberCreateBody.Builder = AccountNumberCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

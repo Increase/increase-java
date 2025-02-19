@@ -22,7 +22,9 @@ class IntrafiExclusionCreateParamsTest {
                 .bankName("Example Bank")
                 .entityId("entity_n8y8tnk2p9339ti393yi")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.bankName()).isEqualTo("Example Bank")
         assertThat(body.entityId()).isEqualTo("entity_n8y8tnk2p9339ti393yi")
@@ -35,7 +37,9 @@ class IntrafiExclusionCreateParamsTest {
                 .bankName("Example Bank")
                 .entityId("entity_n8y8tnk2p9339ti393yi")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.bankName()).isEqualTo("Example Bank")
         assertThat(body.entityId()).isEqualTo("entity_n8y8tnk2p9339ti393yi")

@@ -25,7 +25,7 @@ import java.util.Objects
 class InboundCheckDepositReturnParams
 private constructor(
     private val inboundCheckDepositId: String,
-    private val body: InboundCheckDepositReturnBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -45,7 +45,7 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): InboundCheckDepositReturnBody = body
+    @JvmSynthetic internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -59,9 +59,9 @@ private constructor(
     }
 
     @NoAutoDetect
-    class InboundCheckDepositReturnBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("reason")
         @ExcludeMissing
         private val reason: JsonField<Reason> = JsonMissing.of(),
@@ -81,7 +81,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): InboundCheckDepositReturnBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -97,19 +97,17 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [InboundCheckDepositReturnBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var reason: JsonField<Reason>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(inboundCheckDepositReturnBody: InboundCheckDepositReturnBody) =
-                apply {
-                    reason = inboundCheckDepositReturnBody.reason
-                    additionalProperties =
-                        inboundCheckDepositReturnBody.additionalProperties.toMutableMap()
-                }
+            internal fun from(body: Body) = apply {
+                reason = body.reason
+                additionalProperties = body.additionalProperties.toMutableMap()
+            }
 
             /** The reason to return the Inbound Check Deposit. */
             fun reason(reason: Reason) = reason(JsonField.of(reason))
@@ -136,11 +134,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): InboundCheckDepositReturnBody =
-                InboundCheckDepositReturnBody(
-                    checkRequired("reason", reason),
-                    additionalProperties.toImmutable(),
-                )
+            fun build(): Body =
+                Body(checkRequired("reason", reason), additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -148,7 +143,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is InboundCheckDepositReturnBody && reason == other.reason && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && reason == other.reason && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -157,8 +152,7 @@ private constructor(
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() =
-            "InboundCheckDepositReturnBody{reason=$reason, additionalProperties=$additionalProperties}"
+        override fun toString() = "Body{reason=$reason, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -173,8 +167,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var inboundCheckDepositId: String? = null
-        private var body: InboundCheckDepositReturnBody.Builder =
-            InboundCheckDepositReturnBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

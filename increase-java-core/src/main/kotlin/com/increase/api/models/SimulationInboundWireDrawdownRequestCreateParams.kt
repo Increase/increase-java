@@ -23,7 +23,7 @@ import java.util.Optional
 /** Simulates receiving an [Inbound Wire Drawdown Request](#inbound-wire-drawdown-requests). */
 class SimulationInboundWireDrawdownRequestCreateParams
 private constructor(
-    private val body: SimulationInboundWireDrawdownRequestCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -174,16 +174,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): SimulationInboundWireDrawdownRequestCreateBody = body
+    @JvmSynthetic internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class SimulationInboundWireDrawdownRequestCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("amount")
         @ExcludeMissing
         private val amount: JsonField<Long> = JsonMissing.of(),
@@ -475,7 +475,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): SimulationInboundWireDrawdownRequestCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -510,7 +510,7 @@ private constructor(
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [SimulationInboundWireDrawdownRequestCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var amount: JsonField<Long>? = null
@@ -540,53 +540,32 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(
-                simulationInboundWireDrawdownRequestCreateBody:
-                    SimulationInboundWireDrawdownRequestCreateBody
-            ) = apply {
-                amount = simulationInboundWireDrawdownRequestCreateBody.amount
-                beneficiaryAccountNumber =
-                    simulationInboundWireDrawdownRequestCreateBody.beneficiaryAccountNumber
-                beneficiaryRoutingNumber =
-                    simulationInboundWireDrawdownRequestCreateBody.beneficiaryRoutingNumber
-                currency = simulationInboundWireDrawdownRequestCreateBody.currency
-                messageToRecipient =
-                    simulationInboundWireDrawdownRequestCreateBody.messageToRecipient
-                originatorAccountNumber =
-                    simulationInboundWireDrawdownRequestCreateBody.originatorAccountNumber
-                originatorRoutingNumber =
-                    simulationInboundWireDrawdownRequestCreateBody.originatorRoutingNumber
-                recipientAccountNumberId =
-                    simulationInboundWireDrawdownRequestCreateBody.recipientAccountNumberId
-                beneficiaryAddressLine1 =
-                    simulationInboundWireDrawdownRequestCreateBody.beneficiaryAddressLine1
-                beneficiaryAddressLine2 =
-                    simulationInboundWireDrawdownRequestCreateBody.beneficiaryAddressLine2
-                beneficiaryAddressLine3 =
-                    simulationInboundWireDrawdownRequestCreateBody.beneficiaryAddressLine3
-                beneficiaryName = simulationInboundWireDrawdownRequestCreateBody.beneficiaryName
-                originatorAddressLine1 =
-                    simulationInboundWireDrawdownRequestCreateBody.originatorAddressLine1
-                originatorAddressLine2 =
-                    simulationInboundWireDrawdownRequestCreateBody.originatorAddressLine2
-                originatorAddressLine3 =
-                    simulationInboundWireDrawdownRequestCreateBody.originatorAddressLine3
-                originatorName = simulationInboundWireDrawdownRequestCreateBody.originatorName
+            internal fun from(body: Body) = apply {
+                amount = body.amount
+                beneficiaryAccountNumber = body.beneficiaryAccountNumber
+                beneficiaryRoutingNumber = body.beneficiaryRoutingNumber
+                currency = body.currency
+                messageToRecipient = body.messageToRecipient
+                originatorAccountNumber = body.originatorAccountNumber
+                originatorRoutingNumber = body.originatorRoutingNumber
+                recipientAccountNumberId = body.recipientAccountNumberId
+                beneficiaryAddressLine1 = body.beneficiaryAddressLine1
+                beneficiaryAddressLine2 = body.beneficiaryAddressLine2
+                beneficiaryAddressLine3 = body.beneficiaryAddressLine3
+                beneficiaryName = body.beneficiaryName
+                originatorAddressLine1 = body.originatorAddressLine1
+                originatorAddressLine2 = body.originatorAddressLine2
+                originatorAddressLine3 = body.originatorAddressLine3
+                originatorName = body.originatorName
                 originatorToBeneficiaryInformationLine1 =
-                    simulationInboundWireDrawdownRequestCreateBody
-                        .originatorToBeneficiaryInformationLine1
+                    body.originatorToBeneficiaryInformationLine1
                 originatorToBeneficiaryInformationLine2 =
-                    simulationInboundWireDrawdownRequestCreateBody
-                        .originatorToBeneficiaryInformationLine2
+                    body.originatorToBeneficiaryInformationLine2
                 originatorToBeneficiaryInformationLine3 =
-                    simulationInboundWireDrawdownRequestCreateBody
-                        .originatorToBeneficiaryInformationLine3
+                    body.originatorToBeneficiaryInformationLine3
                 originatorToBeneficiaryInformationLine4 =
-                    simulationInboundWireDrawdownRequestCreateBody
-                        .originatorToBeneficiaryInformationLine4
-                additionalProperties =
-                    simulationInboundWireDrawdownRequestCreateBody.additionalProperties
-                        .toMutableMap()
+                    body.originatorToBeneficiaryInformationLine4
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** The amount being requested in cents. */
@@ -846,8 +825,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): SimulationInboundWireDrawdownRequestCreateBody =
-                SimulationInboundWireDrawdownRequestCreateBody(
+            fun build(): Body =
+                Body(
                     checkRequired("amount", amount),
                     checkRequired("beneficiaryAccountNumber", beneficiaryAccountNumber),
                     checkRequired("beneficiaryRoutingNumber", beneficiaryRoutingNumber),
@@ -877,7 +856,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is SimulationInboundWireDrawdownRequestCreateBody && amount == other.amount && beneficiaryAccountNumber == other.beneficiaryAccountNumber && beneficiaryRoutingNumber == other.beneficiaryRoutingNumber && currency == other.currency && messageToRecipient == other.messageToRecipient && originatorAccountNumber == other.originatorAccountNumber && originatorRoutingNumber == other.originatorRoutingNumber && recipientAccountNumberId == other.recipientAccountNumberId && beneficiaryAddressLine1 == other.beneficiaryAddressLine1 && beneficiaryAddressLine2 == other.beneficiaryAddressLine2 && beneficiaryAddressLine3 == other.beneficiaryAddressLine3 && beneficiaryName == other.beneficiaryName && originatorAddressLine1 == other.originatorAddressLine1 && originatorAddressLine2 == other.originatorAddressLine2 && originatorAddressLine3 == other.originatorAddressLine3 && originatorName == other.originatorName && originatorToBeneficiaryInformationLine1 == other.originatorToBeneficiaryInformationLine1 && originatorToBeneficiaryInformationLine2 == other.originatorToBeneficiaryInformationLine2 && originatorToBeneficiaryInformationLine3 == other.originatorToBeneficiaryInformationLine3 && originatorToBeneficiaryInformationLine4 == other.originatorToBeneficiaryInformationLine4 && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && amount == other.amount && beneficiaryAccountNumber == other.beneficiaryAccountNumber && beneficiaryRoutingNumber == other.beneficiaryRoutingNumber && currency == other.currency && messageToRecipient == other.messageToRecipient && originatorAccountNumber == other.originatorAccountNumber && originatorRoutingNumber == other.originatorRoutingNumber && recipientAccountNumberId == other.recipientAccountNumberId && beneficiaryAddressLine1 == other.beneficiaryAddressLine1 && beneficiaryAddressLine2 == other.beneficiaryAddressLine2 && beneficiaryAddressLine3 == other.beneficiaryAddressLine3 && beneficiaryName == other.beneficiaryName && originatorAddressLine1 == other.originatorAddressLine1 && originatorAddressLine2 == other.originatorAddressLine2 && originatorAddressLine3 == other.originatorAddressLine3 && originatorName == other.originatorName && originatorToBeneficiaryInformationLine1 == other.originatorToBeneficiaryInformationLine1 && originatorToBeneficiaryInformationLine2 == other.originatorToBeneficiaryInformationLine2 && originatorToBeneficiaryInformationLine3 == other.originatorToBeneficiaryInformationLine3 && originatorToBeneficiaryInformationLine4 == other.originatorToBeneficiaryInformationLine4 && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -887,7 +866,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "SimulationInboundWireDrawdownRequestCreateBody{amount=$amount, beneficiaryAccountNumber=$beneficiaryAccountNumber, beneficiaryRoutingNumber=$beneficiaryRoutingNumber, currency=$currency, messageToRecipient=$messageToRecipient, originatorAccountNumber=$originatorAccountNumber, originatorRoutingNumber=$originatorRoutingNumber, recipientAccountNumberId=$recipientAccountNumberId, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, additionalProperties=$additionalProperties}"
+            "Body{amount=$amount, beneficiaryAccountNumber=$beneficiaryAccountNumber, beneficiaryRoutingNumber=$beneficiaryRoutingNumber, currency=$currency, messageToRecipient=$messageToRecipient, originatorAccountNumber=$originatorAccountNumber, originatorRoutingNumber=$originatorRoutingNumber, recipientAccountNumberId=$recipientAccountNumberId, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -901,8 +880,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: SimulationInboundWireDrawdownRequestCreateBody.Builder =
-            SimulationInboundWireDrawdownRequestCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

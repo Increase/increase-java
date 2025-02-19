@@ -57,7 +57,9 @@ class RealTimePaymentsRequestForPaymentCreateParamsTest {
                 .sourceAccountNumber("987654321")
                 .sourceRoutingNumber("101050001")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.amount()).isEqualTo(100L)
         assertThat(body.debtor())
@@ -103,7 +105,9 @@ class RealTimePaymentsRequestForPaymentCreateParamsTest {
                 .sourceAccountNumber("987654321")
                 .sourceRoutingNumber("101050001")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.amount()).isEqualTo(100L)
         assertThat(body.debtor())

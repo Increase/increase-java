@@ -24,9 +24,7 @@ import org.apache.hc.core5.http.ContentType
  */
 class FileCreateParams
 private constructor(
-    private val file: MultipartFormValue<ByteArray>,
-    private val purpose: MultipartFormValue<Purpose>,
-    private val description: MultipartFormValue<String>?,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -36,13 +34,13 @@ private constructor(
      * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers for
      * the multipart/form-data protocol.
      */
-    fun file(): MultipartFormValue<ByteArray> = file
+    fun file(): MultipartFormValue<ByteArray> = body.file()
 
     /** What the File will be used for in Increase's systems. */
-    fun purpose(): MultipartFormValue<Purpose> = purpose
+    fun purpose(): MultipartFormValue<Purpose> = body.purpose()
 
     /** The description you choose to give the File. */
-    fun description(): Optional<MultipartFormValue<String>> = Optional.ofNullable(description)
+    fun description(): Optional<MultipartFormValue<String>> = body.description()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -56,6 +54,111 @@ private constructor(
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
+    @NoAutoDetect
+    class Body
+    @JsonCreator
+    private constructor(
+        private val file: MultipartFormValue<ByteArray>,
+        private val purpose: MultipartFormValue<Purpose>,
+        private val description: MultipartFormValue<String>?,
+    ) {
+
+        /**
+         * The file contents. This should follow the specifications of
+         * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers
+         * for the multipart/form-data protocol.
+         */
+        fun file(): MultipartFormValue<ByteArray> = file
+
+        /** What the File will be used for in Increase's systems. */
+        fun purpose(): MultipartFormValue<Purpose> = purpose
+
+        /** The description you choose to give the File. */
+        fun description(): Optional<MultipartFormValue<String>> = Optional.ofNullable(description)
+
+        private var validated: Boolean = false
+
+        fun validate(): Body = apply {
+            if (validated) {
+                return@apply
+            }
+
+            file()
+            purpose()
+            description()
+            validated = true
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Body]. */
+        class Builder internal constructor() {
+
+            private var file: MultipartFormValue<ByteArray>? = null
+            private var purpose: MultipartFormValue<Purpose>? = null
+            private var description: MultipartFormValue<String>? = null
+
+            @JvmSynthetic
+            internal fun from(body: Body) = apply {
+                file = body.file
+                purpose = body.purpose
+                description = body.description
+            }
+
+            /**
+             * The file contents. This should follow the specifications of
+             * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file
+             * transfers for the multipart/form-data protocol.
+             */
+            fun file(
+                content: ByteArray,
+                filename: String? = null,
+                contentType: ContentType = ContentTypes.DefaultBinary,
+            ) = apply {
+                this.file = MultipartFormValue.fromByteArray("file", content, contentType, filename)
+            }
+
+            /** What the File will be used for in Increase's systems. */
+            fun purpose(purpose: Purpose, contentType: ContentType = ContentTypes.DefaultText) =
+                apply {
+                    this.purpose = MultipartFormValue.fromEnum("purpose", purpose, contentType)
+                }
+
+            /** The description you choose to give the File. */
+            fun description(
+                description: String,
+                contentType: ContentType = ContentTypes.DefaultText,
+            ) = apply {
+                this.description =
+                    MultipartFormValue.fromString("description", description, contentType)
+            }
+
+            fun build(): Body =
+                Body(checkRequired("file", file), checkRequired("purpose", purpose), description)
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Body && file == other.file && purpose == other.purpose && description == other.description /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(file, purpose, description) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "Body{file=$file, purpose=$purpose, description=$description}"
+    }
+
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -67,17 +170,13 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var file: MultipartFormValue<ByteArray>? = null
-        private var purpose: MultipartFormValue<Purpose>? = null
-        private var description: MultipartFormValue<String>? = null
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(fileCreateParams: FileCreateParams) = apply {
-            file = fileCreateParams.file
-            purpose = fileCreateParams.purpose
-            description = fileCreateParams.description
+            body = fileCreateParams.body.toBuilder()
             additionalHeaders = fileCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = fileCreateParams.additionalQueryParams.toBuilder()
         }
@@ -91,20 +190,17 @@ private constructor(
             content: ByteArray,
             filename: String? = null,
             contentType: ContentType = ContentTypes.DefaultBinary,
-        ) = apply {
-            this.file = MultipartFormValue.fromByteArray("file", content, contentType, filename)
-        }
+        ) = apply { body.file(content, filename, contentType) }
 
         /** What the File will be used for in Increase's systems. */
         fun purpose(purpose: Purpose, contentType: ContentType = ContentTypes.DefaultText) = apply {
-            this.purpose = MultipartFormValue.fromEnum("purpose", purpose, contentType)
+            body.purpose(purpose, contentType)
         }
 
         /** The description you choose to give the File. */
         fun description(description: String, contentType: ContentType = ContentTypes.DefaultText) =
             apply {
-                this.description =
-                    MultipartFormValue.fromString("description", description, contentType)
+                body.description(description, contentType)
             }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -206,13 +302,7 @@ private constructor(
         }
 
         fun build(): FileCreateParams =
-            FileCreateParams(
-                checkRequired("file", file),
-                checkRequired("purpose", purpose),
-                description,
-                additionalHeaders.build(),
-                additionalQueryParams.build(),
-            )
+            FileCreateParams(body.build(), additionalHeaders.build(), additionalQueryParams.build())
     }
 
     /** What the File will be used for in Increase's systems. */
@@ -496,11 +586,11 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is FileCreateParams && file == other.file && purpose == other.purpose && description == other.description && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is FileCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(file, purpose, description, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "FileCreateParams{file=$file, purpose=$purpose, description=$description, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "FileCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -20,7 +20,9 @@ class SimulationCardAuthorizationExpirationCreateParamsTest {
             SimulationCardAuthorizationExpirationCreateParams.builder()
                 .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.cardPaymentId()).isEqualTo("card_payment_nd3k2kacrqjli8482ave")
     }
@@ -31,7 +33,9 @@ class SimulationCardAuthorizationExpirationCreateParamsTest {
             SimulationCardAuthorizationExpirationCreateParams.builder()
                 .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                 .build()
+
         val body = params._body()
+
         assertThat(body).isNotNull
         assertThat(body.cardPaymentId()).isEqualTo("card_payment_nd3k2kacrqjli8482ave")
     }
