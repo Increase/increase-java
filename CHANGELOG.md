@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.181.0 (2025-02-19)
+
+Full Changelog: [v0.180.0...v0.181.0](https://github.com/Increase/increase-java/compare/v0.180.0...v0.181.0)
+
+### Features
+
+* **api:** api update ([#778](https://github.com/Increase/increase-java/issues/778)) ([c78334f](https://github.com/Increase/increase-java/commit/c78334f21591e3d1f81c0dbcdcc9b4e7f1087198))
+
+
+### Chores
+
+* **internal:** refactor `PhantomReachableClosingAsyncStreamResponse` impl ([#776](https://github.com/Increase/increase-java/issues/776)) ([46ebe45](https://github.com/Increase/increase-java/commit/46ebe451635928d603f575de21d768f0e1e70017))
+
+
+### Documentation
+
+* add more phantom reachability docs ([46ebe45](https://github.com/Increase/increase-java/commit/46ebe451635928d603f575de21d768f0e1e70017))
+
 ## 0.180.0 (2025-02-12)
 
 Full Changelog: [v0.179.0...v0.180.0](https://github.com/Increase/increase-java/compare/v0.179.0...v0.180.0)
