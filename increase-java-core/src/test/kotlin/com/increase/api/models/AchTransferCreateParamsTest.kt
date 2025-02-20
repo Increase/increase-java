@@ -3,6 +3,7 @@
 package com.increase.api.models
 
 import java.time.LocalDate
+import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -128,7 +129,7 @@ class AchTransferCreateParamsTest {
 
         val body = params._body()
 
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.amount()).isEqualTo(100L)
         assertThat(body.statementDescriptor()).isEqualTo("New ACH transfer")
@@ -197,7 +198,7 @@ class AchTransferCreateParamsTest {
 
         val body = params._body()
 
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.amount()).isEqualTo(100L)
         assertThat(body.statementDescriptor()).isEqualTo("New ACH transfer")

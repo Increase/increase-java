@@ -3,6 +3,7 @@
 package com.increase.api.models
 
 import java.time.OffsetDateTime
+import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -50,7 +51,7 @@ class BookkeepingEntrySetCreateParamsTest {
 
         val body = params._body()
 
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.entries())
             .isEqualTo(
                 listOf(
@@ -88,7 +89,7 @@ class BookkeepingEntrySetCreateParamsTest {
 
         val body = params._body()
 
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.entries())
             .isEqualTo(
                 listOf(

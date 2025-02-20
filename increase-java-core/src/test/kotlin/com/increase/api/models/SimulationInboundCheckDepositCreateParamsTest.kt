@@ -2,6 +2,7 @@
 
 package com.increase.api.models
 
+import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -27,7 +28,7 @@ class SimulationInboundCheckDepositCreateParamsTest {
 
         val body = params._body()
 
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.accountNumberId()).isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
         assertThat(body.amount()).isEqualTo(1000L)
         assertThat(body.checkNumber()).isEqualTo("1234567890")
@@ -44,7 +45,7 @@ class SimulationInboundCheckDepositCreateParamsTest {
 
         val body = params._body()
 
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.accountNumberId()).isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
         assertThat(body.amount()).isEqualTo(1000L)
         assertThat(body.checkNumber()).isEqualTo("1234567890")

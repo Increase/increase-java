@@ -2,6 +2,7 @@
 
 package com.increase.api.models
 
+import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -41,7 +42,7 @@ class EntityUpdateAddressParamsTest {
 
         val body = params._body()
 
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.address())
             .isEqualTo(
                 EntityUpdateAddressParams.Address.builder()
@@ -71,7 +72,7 @@ class EntityUpdateAddressParamsTest {
 
         val body = params._body()
 
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.address())
             .isEqualTo(
                 EntityUpdateAddressParams.Address.builder()
