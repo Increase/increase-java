@@ -17,13 +17,13 @@ interface DocumentServiceAsync {
     @JvmOverloads
     fun retrieve(
         params: DocumentRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Document>
 
     /** List Documents */
     @JvmOverloads
     fun list(
         params: DocumentListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<DocumentListPageAsync>
 }

@@ -21,9 +21,7 @@ import com.increase.api.models.IntrafiAccountEnrollmentRetrieveParams
 import com.increase.api.models.IntrafiAccountEnrollmentUnenrollParams
 
 class IntrafiAccountEnrollmentServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : IntrafiAccountEnrollmentService {
+internal constructor(private val clientOptions: ClientOptions) : IntrafiAccountEnrollmentService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -34,7 +32,7 @@ internal constructor(
     /** Enroll an account in the IntraFi deposit sweep network */
     override fun create(
         params: IntrafiAccountEnrollmentCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): IntrafiAccountEnrollment {
         val request =
             HttpRequest.builder()
@@ -60,7 +58,7 @@ internal constructor(
     /** Get an IntraFi Account Enrollment */
     override fun retrieve(
         params: IntrafiAccountEnrollmentRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): IntrafiAccountEnrollment {
         val request =
             HttpRequest.builder()
@@ -85,7 +83,7 @@ internal constructor(
     /** List IntraFi Account Enrollments */
     override fun list(
         params: IntrafiAccountEnrollmentListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): IntrafiAccountEnrollmentListPage {
         val request =
             HttpRequest.builder()
@@ -111,7 +109,7 @@ internal constructor(
     /** Unenroll an account from IntraFi */
     override fun unenroll(
         params: IntrafiAccountEnrollmentUnenrollParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): IntrafiAccountEnrollment {
         val request =
             HttpRequest.builder()

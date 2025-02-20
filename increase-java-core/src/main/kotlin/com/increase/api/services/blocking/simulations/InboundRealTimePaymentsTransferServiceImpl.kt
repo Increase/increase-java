@@ -17,9 +17,8 @@ import com.increase.api.models.InboundRealTimePaymentsTransfer
 import com.increase.api.models.SimulationInboundRealTimePaymentsTransferCreateParams
 
 class InboundRealTimePaymentsTransferServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : InboundRealTimePaymentsTransferService {
+internal constructor(private val clientOptions: ClientOptions) :
+    InboundRealTimePaymentsTransferService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -33,7 +32,7 @@ internal constructor(
      */
     override fun create(
         params: SimulationInboundRealTimePaymentsTransferCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): InboundRealTimePaymentsTransfer {
         val request =
             HttpRequest.builder()

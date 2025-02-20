@@ -22,9 +22,7 @@ import com.increase.api.models.PhysicalCardProfileListParams
 import com.increase.api.models.PhysicalCardProfileRetrieveParams
 
 class PhysicalCardProfileServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : PhysicalCardProfileService {
+internal constructor(private val clientOptions: ClientOptions) : PhysicalCardProfileService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -34,7 +32,7 @@ internal constructor(
     /** Create a Physical Card Profile */
     override fun create(
         params: PhysicalCardProfileCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): PhysicalCardProfile {
         val request =
             HttpRequest.builder()
@@ -59,7 +57,7 @@ internal constructor(
     /** Retrieve a Card Profile */
     override fun retrieve(
         params: PhysicalCardProfileRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): PhysicalCardProfile {
         val request =
             HttpRequest.builder()
@@ -84,7 +82,7 @@ internal constructor(
     /** List Physical Card Profiles */
     override fun list(
         params: PhysicalCardProfileListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): PhysicalCardProfileListPage {
         val request =
             HttpRequest.builder()
@@ -109,7 +107,7 @@ internal constructor(
     /** Archive a Physical Card Profile */
     override fun archive(
         params: PhysicalCardProfileArchiveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): PhysicalCardProfile {
         val request =
             HttpRequest.builder()
@@ -134,7 +132,7 @@ internal constructor(
     /** Clone a Physical Card Profile */
     override fun clone(
         params: PhysicalCardProfileCloneParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): PhysicalCardProfile {
         val request =
             HttpRequest.builder()

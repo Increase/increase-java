@@ -983,7 +983,7 @@ private constructor(
             fun build(): Acknowledgement =
                 Acknowledgement(
                     checkRequired("acknowledgedAt", acknowledgedAt),
-                    additionalProperties.toImmutable()
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -1571,7 +1571,7 @@ private constructor(
                 fun build(): ApiKey =
                     ApiKey(
                         checkRequired("description", description),
-                        additionalProperties.toImmutable()
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -1594,11 +1594,8 @@ private constructor(
         }
 
         /** The type of object that created this transfer. */
-        class Category
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Category @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -1795,7 +1792,7 @@ private constructor(
                 fun build(): OAuthApplication =
                     OAuthApplication(
                         checkRequired("name", name),
-                        additionalProperties.toImmutable()
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -1941,11 +1938,7 @@ private constructor(
      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency. For
      * real-time payments transfers this is always equal to `USD`.
      */
-    class Currency
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Currency @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -2271,7 +2264,7 @@ private constructor(
                 Rejection(
                     checkRequired(
                         "rejectReasonAdditionalInformation",
-                        rejectReasonAdditionalInformation
+                        rejectReasonAdditionalInformation,
                     ),
                     checkRequired("rejectReasonCode", rejectReasonCode),
                     checkRequired("rejectedAt", rejectedAt),
@@ -2285,9 +2278,7 @@ private constructor(
          */
         class RejectReasonCode
         @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -2762,11 +2753,7 @@ private constructor(
     }
 
     /** The lifecycle status of the transfer. */
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -3079,11 +3066,7 @@ private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `real_time_payments_transfer`.
      */
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -3104,7 +3087,7 @@ private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            REAL_TIME_PAYMENTS_TRANSFER,
+            REAL_TIME_PAYMENTS_TRANSFER
         }
 
         /**

@@ -20,10 +20,8 @@ import com.increase.api.models.AccountNumberListParams
 import com.increase.api.models.AccountNumberRetrieveParams
 import com.increase.api.models.AccountNumberUpdateParams
 
-class AccountNumberServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : AccountNumberService {
+class AccountNumberServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    AccountNumberService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -33,7 +31,7 @@ internal constructor(
     /** Create an Account Number */
     override fun create(
         params: AccountNumberCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): AccountNumber {
         val request =
             HttpRequest.builder()
@@ -58,7 +56,7 @@ internal constructor(
     /** Retrieve an Account Number */
     override fun retrieve(
         params: AccountNumberRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): AccountNumber {
         val request =
             HttpRequest.builder()
@@ -82,7 +80,7 @@ internal constructor(
     /** Update an Account Number */
     override fun update(
         params: AccountNumberUpdateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): AccountNumber {
         val request =
             HttpRequest.builder()
@@ -108,7 +106,7 @@ internal constructor(
     /** List Account Numbers */
     override fun list(
         params: AccountNumberListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): AccountNumberListPage {
         val request =
             HttpRequest.builder()

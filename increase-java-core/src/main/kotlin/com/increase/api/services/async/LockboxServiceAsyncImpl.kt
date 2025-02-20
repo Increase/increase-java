@@ -21,10 +21,8 @@ import com.increase.api.models.LockboxRetrieveParams
 import com.increase.api.models.LockboxUpdateParams
 import java.util.concurrent.CompletableFuture
 
-class LockboxServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : LockboxServiceAsync {
+class LockboxServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    LockboxServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -34,7 +32,7 @@ internal constructor(
     /** Create a Lockbox */
     override fun create(
         params: LockboxCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<Lockbox> {
         val request =
             HttpRequest.builder()
@@ -62,7 +60,7 @@ internal constructor(
     /** Retrieve a Lockbox */
     override fun retrieve(
         params: LockboxRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<Lockbox> {
         val request =
             HttpRequest.builder()
@@ -89,7 +87,7 @@ internal constructor(
     /** Update a Lockbox */
     override fun update(
         params: LockboxUpdateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<Lockbox> {
         val request =
             HttpRequest.builder()
@@ -118,7 +116,7 @@ internal constructor(
     /** List Lockboxes */
     override fun list(
         params: LockboxListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<LockboxListPageAsync> {
         val request =
             HttpRequest.builder()

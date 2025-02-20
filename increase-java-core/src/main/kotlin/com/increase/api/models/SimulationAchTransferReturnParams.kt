@@ -353,11 +353,7 @@ private constructor(
      * The reason why the Federal Reserve or destination bank returned this transfer. Defaults to
      * `no_account`.
      */
-    class Reason
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Reason @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.

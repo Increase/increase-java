@@ -16,13 +16,13 @@ interface OAuthConnectionService {
     @JvmOverloads
     fun retrieve(
         params: OAuthConnectionRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): OAuthConnection
 
     /** List OAuth Connections */
     @JvmOverloads
     fun list(
         params: OAuthConnectionListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): OAuthConnectionListPage
 }

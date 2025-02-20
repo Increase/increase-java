@@ -18,9 +18,7 @@ import com.increase.api.models.Transaction
 import java.util.concurrent.CompletableFuture
 
 class InterestPaymentServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : InterestPaymentServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) : InterestPaymentServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -33,7 +31,7 @@ internal constructor(
      */
     override fun create(
         params: SimulationInterestPaymentCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<Transaction> {
         val request =
             HttpRequest.builder()

@@ -17,10 +17,8 @@ import com.increase.api.models.DocumentListPage
 import com.increase.api.models.DocumentListParams
 import com.increase.api.models.DocumentRetrieveParams
 
-class DocumentServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : DocumentService {
+class DocumentServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    DocumentService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -30,7 +28,7 @@ internal constructor(
     /** Retrieve a Document */
     override fun retrieve(
         params: DocumentRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Document {
         val request =
             HttpRequest.builder()
@@ -55,7 +53,7 @@ internal constructor(
     /** List Documents */
     override fun list(
         params: DocumentListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): DocumentListPage {
         val request =
             HttpRequest.builder()

@@ -905,11 +905,7 @@ private constructor(
         }
 
         /** The shipping method to use. */
-        class Method
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Method @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.

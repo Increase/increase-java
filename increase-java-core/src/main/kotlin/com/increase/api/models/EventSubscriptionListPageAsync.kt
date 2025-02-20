@@ -82,13 +82,8 @@ private constructor(
         fun of(
             eventSubscriptionsService: EventSubscriptionServiceAsync,
             params: EventSubscriptionListParams,
-            response: Response
-        ) =
-            EventSubscriptionListPageAsync(
-                eventSubscriptionsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = EventSubscriptionListPageAsync(eventSubscriptionsService, params, response)
     }
 
     @NoAutoDetect
@@ -174,26 +169,19 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: EventSubscriptionListPageAsync,
-    ) {
+    class AutoPager(private val firstPage: EventSubscriptionListPageAsync) {
 
         fun forEach(
             action: Predicate<EventSubscription>,
-            executor: Executor
+            executor: Executor,
         ): CompletableFuture<Void> {
             fun CompletableFuture<Optional<EventSubscriptionListPageAsync>>.forEach(
                 action: (EventSubscription) -> Boolean,
-                executor: Executor
+                executor: Executor,
             ): CompletableFuture<Void> =
                 thenComposeAsync(
                     { page ->
@@ -202,7 +190,7 @@ private constructor(
                             .map { it.getNextPage().forEach(action, executor) }
                             .orElseGet { CompletableFuture.completedFuture(null) }
                     },
-                    executor
+                    executor,
                 )
             return CompletableFuture.completedFuture(Optional.of(firstPage))
                 .forEach(action::test, executor)

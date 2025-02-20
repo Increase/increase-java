@@ -20,34 +20,34 @@ interface InboundAchTransferServiceAsync {
     @JvmOverloads
     fun retrieve(
         params: InboundAchTransferRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundAchTransfer>
 
     /** List Inbound ACH Transfers */
     @JvmOverloads
     fun list(
         params: InboundAchTransferListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundAchTransferListPageAsync>
 
     /** Create a notification of change for an Inbound ACH Transfer */
     @JvmOverloads
     fun createNotificationOfChange(
         params: InboundAchTransferCreateNotificationOfChangeParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundAchTransfer>
 
     /** Decline an Inbound ACH Transfer */
     @JvmOverloads
     fun decline(
         params: InboundAchTransferDeclineParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundAchTransfer>
 
     /** Return an Inbound ACH Transfer */
     @JvmOverloads
     fun transferReturn(
         params: InboundAchTransferTransferReturnParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundAchTransfer>
 }

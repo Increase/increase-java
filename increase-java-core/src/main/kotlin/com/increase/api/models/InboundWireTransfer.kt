@@ -851,23 +851,23 @@ private constructor(
                 checkRequired("originatorRoutingNumber", originatorRoutingNumber),
                 checkRequired(
                     "originatorToBeneficiaryInformation",
-                    originatorToBeneficiaryInformation
+                    originatorToBeneficiaryInformation,
                 ),
                 checkRequired(
                     "originatorToBeneficiaryInformationLine1",
-                    originatorToBeneficiaryInformationLine1
+                    originatorToBeneficiaryInformationLine1,
                 ),
                 checkRequired(
                     "originatorToBeneficiaryInformationLine2",
-                    originatorToBeneficiaryInformationLine2
+                    originatorToBeneficiaryInformationLine2,
                 ),
                 checkRequired(
                     "originatorToBeneficiaryInformationLine3",
-                    originatorToBeneficiaryInformationLine3
+                    originatorToBeneficiaryInformationLine3,
                 ),
                 checkRequired(
                     "originatorToBeneficiaryInformationLine4",
-                    originatorToBeneficiaryInformationLine4
+                    originatorToBeneficiaryInformationLine4,
                 ),
                 checkRequired("senderReference", senderReference),
                 checkRequired("status", status),
@@ -877,11 +877,7 @@ private constructor(
     }
 
     /** The status of the transfer. */
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -1006,11 +1002,7 @@ private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `inbound_wire_transfer`.
      */
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -1031,7 +1023,7 @@ private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            INBOUND_WIRE_TRANSFER,
+            INBOUND_WIRE_TRANSFER
         }
 
         /**

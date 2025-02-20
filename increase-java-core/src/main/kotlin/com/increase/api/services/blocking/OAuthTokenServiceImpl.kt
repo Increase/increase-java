@@ -16,10 +16,8 @@ import com.increase.api.errors.IncreaseError
 import com.increase.api.models.OAuthToken
 import com.increase.api.models.OAuthTokenCreateParams
 
-class OAuthTokenServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : OAuthTokenService {
+class OAuthTokenServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    OAuthTokenService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -29,7 +27,7 @@ internal constructor(
     /** Create an OAuth Token */
     override fun create(
         params: OAuthTokenCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): OAuthToken {
         val request =
             HttpRequest.builder()

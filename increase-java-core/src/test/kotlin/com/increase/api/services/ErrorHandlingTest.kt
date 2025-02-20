@@ -151,7 +151,7 @@ class ErrorHandlingTest {
                 assertPermissionDenied(
                     e,
                     Headers.builder().put("Foo", "Bar").build(),
-                    INCREASE_ERROR
+                    INCREASE_ERROR,
                 )
             })
     }
@@ -197,7 +197,7 @@ class ErrorHandlingTest {
                 assertUnprocessableEntity(
                     e,
                     Headers.builder().put("Foo", "Bar").build(),
-                    INCREASE_ERROR
+                    INCREASE_ERROR,
                 )
             })
     }
@@ -265,7 +265,7 @@ class ErrorHandlingTest {
                     e,
                     999,
                     Headers.builder().put("Foo", "Bar").build(),
-                    toJson(INCREASE_ERROR)
+                    toJson(INCREASE_ERROR),
                 )
             })
     }
@@ -316,7 +316,7 @@ class ErrorHandlingTest {
         throwable: Throwable,
         statusCode: Int,
         headers: Headers,
-        responseBody: ByteArray
+        responseBody: ByteArray,
     ) {
         assertThat(throwable)
             .asInstanceOf(
@@ -352,7 +352,7 @@ class ErrorHandlingTest {
     private fun assertPermissionDenied(
         throwable: Throwable,
         headers: Headers,
-        error: IncreaseError
+        error: IncreaseError,
     ) {
         assertThat(throwable)
             .asInstanceOf(
@@ -378,7 +378,7 @@ class ErrorHandlingTest {
     private fun assertUnprocessableEntity(
         throwable: Throwable,
         headers: Headers,
-        error: IncreaseError
+        error: IncreaseError,
     ) {
         assertThat(throwable)
             .asInstanceOf(

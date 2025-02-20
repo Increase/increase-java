@@ -16,10 +16,8 @@ import com.increase.api.errors.IncreaseError
 import com.increase.api.models.Program
 import com.increase.api.models.SimulationProgramCreateParams
 
-class ProgramServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : ProgramService {
+class ProgramServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    ProgramService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -33,7 +31,7 @@ internal constructor(
      */
     override fun create(
         params: SimulationProgramCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Program {
         val request =
             HttpRequest.builder()

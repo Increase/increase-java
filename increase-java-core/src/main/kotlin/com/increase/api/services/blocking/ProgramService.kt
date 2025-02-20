@@ -16,13 +16,13 @@ interface ProgramService {
     @JvmOverloads
     fun retrieve(
         params: ProgramRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Program
 
     /** List Programs */
     @JvmOverloads
     fun list(
         params: ProgramListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): ProgramListPage
 }

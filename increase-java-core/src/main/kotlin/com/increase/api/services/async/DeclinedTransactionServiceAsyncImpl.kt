@@ -19,9 +19,7 @@ import com.increase.api.models.DeclinedTransactionRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class DeclinedTransactionServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : DeclinedTransactionServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) : DeclinedTransactionServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -31,7 +29,7 @@ internal constructor(
     /** Retrieve a Declined Transaction */
     override fun retrieve(
         params: DeclinedTransactionRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<DeclinedTransaction> {
         val request =
             HttpRequest.builder()
@@ -59,7 +57,7 @@ internal constructor(
     /** List Declined Transactions */
     override fun list(
         params: DeclinedTransactionListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<DeclinedTransactionListPageAsync> {
         val request =
             HttpRequest.builder()

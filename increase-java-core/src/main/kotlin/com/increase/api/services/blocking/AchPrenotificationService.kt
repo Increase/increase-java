@@ -17,20 +17,20 @@ interface AchPrenotificationService {
     @JvmOverloads
     fun create(
         params: AchPrenotificationCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AchPrenotification
 
     /** Retrieve an ACH Prenotification */
     @JvmOverloads
     fun retrieve(
         params: AchPrenotificationRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AchPrenotification
 
     /** List ACH Prenotifications */
     @JvmOverloads
     fun list(
         params: AchPrenotificationListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AchPrenotificationListPage
 }

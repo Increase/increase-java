@@ -24,14 +24,14 @@ interface AchTransferService {
     @JvmOverloads
     fun acknowledge(
         params: SimulationAchTransferAcknowledgeParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 
     /** Simulates receiving a Notification of Change for an [ACH Transfer](#ach-transfers). */
     @JvmOverloads
     fun createNotificationOfChange(
         params: SimulationAchTransferCreateNotificationOfChangeParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 
     /**
@@ -42,7 +42,7 @@ interface AchTransferService {
     @JvmOverloads
     fun return_(
         params: SimulationAchTransferReturnParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 
     /**
@@ -53,7 +53,7 @@ interface AchTransferService {
     @JvmOverloads
     fun settle(
         params: SimulationAchTransferSettleParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 
     /**
@@ -66,6 +66,6 @@ interface AchTransferService {
     @JvmOverloads
     fun submit(
         params: SimulationAchTransferSubmitParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 }

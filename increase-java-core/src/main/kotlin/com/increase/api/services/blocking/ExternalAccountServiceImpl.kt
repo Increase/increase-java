@@ -20,10 +20,8 @@ import com.increase.api.models.ExternalAccountListParams
 import com.increase.api.models.ExternalAccountRetrieveParams
 import com.increase.api.models.ExternalAccountUpdateParams
 
-class ExternalAccountServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : ExternalAccountService {
+class ExternalAccountServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    ExternalAccountService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -33,7 +31,7 @@ internal constructor(
     /** Create an External Account */
     override fun create(
         params: ExternalAccountCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): ExternalAccount {
         val request =
             HttpRequest.builder()
@@ -58,7 +56,7 @@ internal constructor(
     /** Retrieve an External Account */
     override fun retrieve(
         params: ExternalAccountRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): ExternalAccount {
         val request =
             HttpRequest.builder()
@@ -82,7 +80,7 @@ internal constructor(
     /** Update an External Account */
     override fun update(
         params: ExternalAccountUpdateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): ExternalAccount {
         val request =
             HttpRequest.builder()
@@ -108,7 +106,7 @@ internal constructor(
     /** List External Accounts */
     override fun list(
         params: ExternalAccountListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): ExternalAccountListPage {
         val request =
             HttpRequest.builder()

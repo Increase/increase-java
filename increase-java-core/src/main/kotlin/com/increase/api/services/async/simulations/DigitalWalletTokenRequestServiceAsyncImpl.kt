@@ -18,9 +18,8 @@ import com.increase.api.models.SimulationDigitalWalletTokenRequestCreateResponse
 import java.util.concurrent.CompletableFuture
 
 class DigitalWalletTokenRequestServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : DigitalWalletTokenRequestServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) :
+    DigitalWalletTokenRequestServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -31,7 +30,7 @@ internal constructor(
     /** Simulates a user attempting add a [Card](#cards) to a digital wallet such as Apple Pay. */
     override fun create(
         params: SimulationDigitalWalletTokenRequestCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<SimulationDigitalWalletTokenRequestCreateResponse> {
         val request =
             HttpRequest.builder()

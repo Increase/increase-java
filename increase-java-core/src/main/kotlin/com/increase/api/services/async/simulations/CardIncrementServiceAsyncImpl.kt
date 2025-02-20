@@ -17,10 +17,8 @@ import com.increase.api.models.CardPayment
 import com.increase.api.models.SimulationCardIncrementCreateParams
 import java.util.concurrent.CompletableFuture
 
-class CardIncrementServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : CardIncrementServiceAsync {
+class CardIncrementServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    CardIncrementServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -33,7 +31,7 @@ internal constructor(
      */
     override fun create(
         params: SimulationCardIncrementCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<CardPayment> {
         val request =
             HttpRequest.builder()

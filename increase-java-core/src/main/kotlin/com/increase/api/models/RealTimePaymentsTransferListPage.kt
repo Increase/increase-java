@@ -79,13 +79,8 @@ private constructor(
         fun of(
             realTimePaymentsTransfersService: RealTimePaymentsTransferService,
             params: RealTimePaymentsTransferListParams,
-            response: Response
-        ) =
-            RealTimePaymentsTransferListPage(
-                realTimePaymentsTransfersService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = RealTimePaymentsTransferListPage(realTimePaymentsTransfersService, params, response)
     }
 
     @NoAutoDetect
@@ -171,18 +166,12 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: RealTimePaymentsTransferListPage,
-    ) : Iterable<RealTimePaymentsTransfer> {
+    class AutoPager(private val firstPage: RealTimePaymentsTransferListPage) :
+        Iterable<RealTimePaymentsTransfer> {
 
         override fun iterator(): Iterator<RealTimePaymentsTransfer> = iterator {
             var page = firstPage

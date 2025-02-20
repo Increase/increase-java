@@ -20,27 +20,27 @@ interface BookkeepingAccountServiceAsync {
     @JvmOverloads
     fun create(
         params: BookkeepingAccountCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BookkeepingAccount>
 
     /** Update a Bookkeeping Account */
     @JvmOverloads
     fun update(
         params: BookkeepingAccountUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BookkeepingAccount>
 
     /** List Bookkeeping Accounts */
     @JvmOverloads
     fun list(
         params: BookkeepingAccountListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BookkeepingAccountListPageAsync>
 
     /** Retrieve a Bookkeeping Account Balance */
     @JvmOverloads
     fun balance(
         params: BookkeepingAccountBalanceParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BookkeepingBalanceLookup>
 }

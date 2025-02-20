@@ -17,10 +17,8 @@ import com.increase.api.models.ProgramListPage
 import com.increase.api.models.ProgramListParams
 import com.increase.api.models.ProgramRetrieveParams
 
-class ProgramServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : ProgramService {
+class ProgramServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    ProgramService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 

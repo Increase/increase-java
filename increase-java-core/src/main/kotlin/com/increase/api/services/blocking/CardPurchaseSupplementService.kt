@@ -16,13 +16,13 @@ interface CardPurchaseSupplementService {
     @JvmOverloads
     fun retrieve(
         params: CardPurchaseSupplementRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPurchaseSupplement
 
     /** List Card Purchase Supplements */
     @JvmOverloads
     fun list(
         params: CardPurchaseSupplementListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPurchaseSupplementListPage
 }

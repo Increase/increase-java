@@ -19,6 +19,6 @@ interface CardSettlementService {
     @JvmOverloads
     fun create(
         params: SimulationCardSettlementCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Transaction
 }

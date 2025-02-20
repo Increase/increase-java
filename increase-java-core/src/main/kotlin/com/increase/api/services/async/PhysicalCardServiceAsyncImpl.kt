@@ -21,10 +21,8 @@ import com.increase.api.models.PhysicalCardRetrieveParams
 import com.increase.api.models.PhysicalCardUpdateParams
 import java.util.concurrent.CompletableFuture
 
-class PhysicalCardServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : PhysicalCardServiceAsync {
+class PhysicalCardServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    PhysicalCardServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -34,7 +32,7 @@ internal constructor(
     /** Create a Physical Card */
     override fun create(
         params: PhysicalCardCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<PhysicalCard> {
         val request =
             HttpRequest.builder()
@@ -62,7 +60,7 @@ internal constructor(
     /** Retrieve a Physical Card */
     override fun retrieve(
         params: PhysicalCardRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<PhysicalCard> {
         val request =
             HttpRequest.builder()
@@ -89,7 +87,7 @@ internal constructor(
     /** Update a Physical Card */
     override fun update(
         params: PhysicalCardUpdateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<PhysicalCard> {
         val request =
             HttpRequest.builder()
@@ -118,7 +116,7 @@ internal constructor(
     /** List Physical Cards */
     override fun list(
         params: PhysicalCardListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<PhysicalCardListPageAsync> {
         val request =
             HttpRequest.builder()

@@ -429,13 +429,7 @@ private constructor(
             }
 
             fun build(): CreatedAt =
-                CreatedAt(
-                    after,
-                    before,
-                    onOrAfter,
-                    onOrBefore,
-                    additionalProperties.build(),
-                )
+                CreatedAt(after, before, onOrAfter, onOrBefore, additionalProperties.build())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -457,11 +451,7 @@ private constructor(
     }
 
     /** Filter Inbound Wire Transfers to those with the specified status. */
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.

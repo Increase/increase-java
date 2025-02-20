@@ -20,10 +20,8 @@ import com.increase.api.models.ExportListParams
 import com.increase.api.models.ExportRetrieveParams
 import java.util.concurrent.CompletableFuture
 
-class ExportServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : ExportServiceAsync {
+class ExportServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    ExportServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -33,7 +31,7 @@ internal constructor(
     /** Create an Export */
     override fun create(
         params: ExportCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<Export> {
         val request =
             HttpRequest.builder()
@@ -61,7 +59,7 @@ internal constructor(
     /** Retrieve an Export */
     override fun retrieve(
         params: ExportRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<Export> {
         val request =
             HttpRequest.builder()
@@ -89,7 +87,7 @@ internal constructor(
     /** List Exports */
     override fun list(
         params: ExportListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<ExportListPageAsync> {
         val request =
             HttpRequest.builder()

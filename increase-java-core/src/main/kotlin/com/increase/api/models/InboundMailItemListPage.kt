@@ -79,13 +79,8 @@ private constructor(
         fun of(
             inboundMailItemsService: InboundMailItemService,
             params: InboundMailItemListParams,
-            response: Response
-        ) =
-            InboundMailItemListPage(
-                inboundMailItemsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = InboundMailItemListPage(inboundMailItemsService, params, response)
     }
 
     @NoAutoDetect
@@ -170,18 +165,11 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: InboundMailItemListPage,
-    ) : Iterable<InboundMailItem> {
+    class AutoPager(private val firstPage: InboundMailItemListPage) : Iterable<InboundMailItem> {
 
         override fun iterator(): Iterator<InboundMailItem> = iterator {
             var page = firstPage

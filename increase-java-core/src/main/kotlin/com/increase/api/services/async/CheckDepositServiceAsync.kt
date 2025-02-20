@@ -18,20 +18,20 @@ interface CheckDepositServiceAsync {
     @JvmOverloads
     fun create(
         params: CheckDepositCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CheckDeposit>
 
     /** Retrieve a Check Deposit */
     @JvmOverloads
     fun retrieve(
         params: CheckDepositRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CheckDeposit>
 
     /** List Check Deposits */
     @JvmOverloads
     fun list(
         params: CheckDepositListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CheckDepositListPageAsync>
 }

@@ -16,13 +16,13 @@ interface PendingTransactionService {
     @JvmOverloads
     fun retrieve(
         params: PendingTransactionRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): PendingTransaction
 
     /** List Pending Transactions */
     @JvmOverloads
     fun list(
         params: PendingTransactionListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): PendingTransactionListPage
 }

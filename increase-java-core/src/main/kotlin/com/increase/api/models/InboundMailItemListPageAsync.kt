@@ -82,13 +82,8 @@ private constructor(
         fun of(
             inboundMailItemsService: InboundMailItemServiceAsync,
             params: InboundMailItemListParams,
-            response: Response
-        ) =
-            InboundMailItemListPageAsync(
-                inboundMailItemsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = InboundMailItemListPageAsync(inboundMailItemsService, params, response)
     }
 
     @NoAutoDetect
@@ -173,26 +168,19 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: InboundMailItemListPageAsync,
-    ) {
+    class AutoPager(private val firstPage: InboundMailItemListPageAsync) {
 
         fun forEach(
             action: Predicate<InboundMailItem>,
-            executor: Executor
+            executor: Executor,
         ): CompletableFuture<Void> {
             fun CompletableFuture<Optional<InboundMailItemListPageAsync>>.forEach(
                 action: (InboundMailItem) -> Boolean,
-                executor: Executor
+                executor: Executor,
             ): CompletableFuture<Void> =
                 thenComposeAsync(
                     { page ->
@@ -201,7 +189,7 @@ private constructor(
                             .map { it.getNextPage().forEach(action, executor) }
                             .orElseGet { CompletableFuture.completedFuture(null) }
                     },
-                    executor
+                    executor,
                 )
             return CompletableFuture.completedFuture(Optional.of(firstPage))
                 .forEach(action::test, executor)

@@ -819,11 +819,7 @@ private constructor(
         }
 
         /** The shipping method. */
-        class Method
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Method @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -929,11 +925,7 @@ private constructor(
         }
 
         /** The status of this shipment. */
-        class Status
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -1317,11 +1309,7 @@ private constructor(
     }
 
     /** The status of the Physical Card. */
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -1428,11 +1416,7 @@ private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `physical_card`.
      */
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -1453,7 +1437,7 @@ private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            PHYSICAL_CARD,
+            PHYSICAL_CARD
         }
 
         /**

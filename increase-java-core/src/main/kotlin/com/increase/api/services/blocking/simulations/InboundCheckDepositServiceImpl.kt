@@ -17,9 +17,7 @@ import com.increase.api.models.InboundCheckDeposit
 import com.increase.api.models.SimulationInboundCheckDepositCreateParams
 
 class InboundCheckDepositServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : InboundCheckDepositService {
+internal constructor(private val clientOptions: ClientOptions) : InboundCheckDepositService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -35,7 +33,7 @@ internal constructor(
      */
     override fun create(
         params: SimulationInboundCheckDepositCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): InboundCheckDeposit {
         val request =
             HttpRequest.builder()

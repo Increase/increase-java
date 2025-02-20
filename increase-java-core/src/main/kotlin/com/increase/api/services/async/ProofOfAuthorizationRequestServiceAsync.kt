@@ -17,13 +17,13 @@ interface ProofOfAuthorizationRequestServiceAsync {
     @JvmOverloads
     fun retrieve(
         params: ProofOfAuthorizationRequestRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ProofOfAuthorizationRequest>
 
     /** List Proof of Authorization Requests */
     @JvmOverloads
     fun list(
         params: ProofOfAuthorizationRequestListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ProofOfAuthorizationRequestListPageAsync>
 }

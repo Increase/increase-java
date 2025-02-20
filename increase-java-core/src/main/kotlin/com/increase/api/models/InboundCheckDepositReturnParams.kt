@@ -139,7 +139,7 @@ private constructor(
             fun build(): InboundCheckDepositReturnBody =
                 InboundCheckDepositReturnBody(
                     checkRequired("reason", reason),
-                    additionalProperties.toImmutable()
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -326,11 +326,7 @@ private constructor(
     }
 
     /** The reason to return the Inbound Check Deposit. */
-    class Reason
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Reason @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.

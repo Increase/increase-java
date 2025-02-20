@@ -20,6 +20,6 @@ interface AccountTransferServiceAsync {
     @JvmOverloads
     fun complete(
         params: SimulationAccountTransferCompleteParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AccountTransfer>
 }

@@ -18,9 +18,7 @@ import com.increase.api.models.CardPurchaseSupplementListParams
 import com.increase.api.models.CardPurchaseSupplementRetrieveParams
 
 class CardPurchaseSupplementServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : CardPurchaseSupplementService {
+internal constructor(private val clientOptions: ClientOptions) : CardPurchaseSupplementService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -30,7 +28,7 @@ internal constructor(
     /** Retrieve a Card Purchase Supplement */
     override fun retrieve(
         params: CardPurchaseSupplementRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CardPurchaseSupplement {
         val request =
             HttpRequest.builder()
@@ -55,7 +53,7 @@ internal constructor(
     /** List Card Purchase Supplements */
     override fun list(
         params: CardPurchaseSupplementListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CardPurchaseSupplementListPage {
         val request =
             HttpRequest.builder()

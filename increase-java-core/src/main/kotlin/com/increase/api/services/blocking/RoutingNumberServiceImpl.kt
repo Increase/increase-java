@@ -15,10 +15,8 @@ import com.increase.api.errors.IncreaseError
 import com.increase.api.models.RoutingNumberListPage
 import com.increase.api.models.RoutingNumberListParams
 
-class RoutingNumberServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : RoutingNumberService {
+class RoutingNumberServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    RoutingNumberService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -34,7 +32,7 @@ internal constructor(
      */
     override fun list(
         params: RoutingNumberListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): RoutingNumberListPage {
         val request =
             HttpRequest.builder()

@@ -19,9 +19,8 @@ import com.increase.api.models.CardPurchaseSupplementRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class CardPurchaseSupplementServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : CardPurchaseSupplementServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) :
+    CardPurchaseSupplementServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -31,7 +30,7 @@ internal constructor(
     /** Retrieve a Card Purchase Supplement */
     override fun retrieve(
         params: CardPurchaseSupplementRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<CardPurchaseSupplement> {
         val request =
             HttpRequest.builder()
@@ -59,7 +58,7 @@ internal constructor(
     /** List Card Purchase Supplements */
     override fun list(
         params: CardPurchaseSupplementListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<CardPurchaseSupplementListPageAsync> {
         val request =
             HttpRequest.builder()

@@ -23,10 +23,8 @@ import com.increase.api.models.CardRetrieveParams
 import com.increase.api.models.CardUpdateParams
 import java.util.concurrent.CompletableFuture
 
-class CardServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : CardServiceAsync {
+class CardServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    CardServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -36,7 +34,7 @@ internal constructor(
     /** Create a Card */
     override fun create(
         params: CardCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<Card> {
         val request =
             HttpRequest.builder()
@@ -64,7 +62,7 @@ internal constructor(
     /** Retrieve a Card */
     override fun retrieve(
         params: CardRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<Card> {
         val request =
             HttpRequest.builder()
@@ -91,7 +89,7 @@ internal constructor(
     /** Update a Card */
     override fun update(
         params: CardUpdateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<Card> {
         val request =
             HttpRequest.builder()
@@ -120,7 +118,7 @@ internal constructor(
     /** List Cards */
     override fun list(
         params: CardListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<CardListPageAsync> {
         val request =
             HttpRequest.builder()
@@ -148,7 +146,7 @@ internal constructor(
     /** Retrieve sensitive details for a Card */
     override fun details(
         params: CardDetailsParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<CardDetails> {
         val request =
             HttpRequest.builder()

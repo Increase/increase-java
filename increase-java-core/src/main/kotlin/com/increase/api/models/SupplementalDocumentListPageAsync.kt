@@ -82,13 +82,8 @@ private constructor(
         fun of(
             supplementalDocumentsService: SupplementalDocumentServiceAsync,
             params: SupplementalDocumentListParams,
-            response: Response
-        ) =
-            SupplementalDocumentListPageAsync(
-                supplementalDocumentsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = SupplementalDocumentListPageAsync(supplementalDocumentsService, params, response)
     }
 
     @NoAutoDetect
@@ -175,26 +170,19 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: SupplementalDocumentListPageAsync,
-    ) {
+    class AutoPager(private val firstPage: SupplementalDocumentListPageAsync) {
 
         fun forEach(
             action: Predicate<EntitySupplementalDocument>,
-            executor: Executor
+            executor: Executor,
         ): CompletableFuture<Void> {
             fun CompletableFuture<Optional<SupplementalDocumentListPageAsync>>.forEach(
                 action: (EntitySupplementalDocument) -> Boolean,
-                executor: Executor
+                executor: Executor,
             ): CompletableFuture<Void> =
                 thenComposeAsync(
                     { page ->
@@ -203,7 +191,7 @@ private constructor(
                             .map { it.getNextPage().forEach(action, executor) }
                             .orElseGet { CompletableFuture.completedFuture(null) }
                     },
-                    executor
+                    executor,
                 )
             return CompletableFuture.completedFuture(Optional.of(firstPage))
                 .forEach(action::test, executor)

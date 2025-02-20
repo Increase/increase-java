@@ -229,11 +229,7 @@ private constructor(
      * The category of the Event. We may add additional possible values for this enum over time;
      * your application should be able to handle such additions gracefully.
      */
-    class Category
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Category @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -1209,11 +1205,7 @@ private constructor(
     }
 
     /** A constant representing the object's type. For this resource it will always be `event`. */
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -1234,7 +1226,7 @@ private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            EVENT,
+            EVENT
         }
 
         /**

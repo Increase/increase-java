@@ -21,9 +21,7 @@ import com.increase.api.models.BookkeepingEntrySetRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class BookkeepingEntrySetServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : BookkeepingEntrySetServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) : BookkeepingEntrySetServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -33,7 +31,7 @@ internal constructor(
     /** Create a Bookkeeping Entry Set */
     override fun create(
         params: BookkeepingEntrySetCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<BookkeepingEntrySet> {
         val request =
             HttpRequest.builder()
@@ -61,7 +59,7 @@ internal constructor(
     /** Retrieve a Bookkeeping Entry Set */
     override fun retrieve(
         params: BookkeepingEntrySetRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<BookkeepingEntrySet> {
         val request =
             HttpRequest.builder()
@@ -89,7 +87,7 @@ internal constructor(
     /** List Bookkeeping Entry Sets */
     override fun list(
         params: BookkeepingEntrySetListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<BookkeepingEntrySetListPageAsync> {
         val request =
             HttpRequest.builder()

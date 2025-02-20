@@ -24,10 +24,8 @@ import com.increase.api.models.AccountUpdateParams
 import com.increase.api.models.BalanceLookup
 import java.util.concurrent.CompletableFuture
 
-class AccountServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : AccountServiceAsync {
+class AccountServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    AccountServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -37,7 +35,7 @@ internal constructor(
     /** Create an Account */
     override fun create(
         params: AccountCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<Account> {
         val request =
             HttpRequest.builder()
@@ -65,7 +63,7 @@ internal constructor(
     /** Retrieve an Account */
     override fun retrieve(
         params: AccountRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<Account> {
         val request =
             HttpRequest.builder()
@@ -92,7 +90,7 @@ internal constructor(
     /** Update an Account */
     override fun update(
         params: AccountUpdateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<Account> {
         val request =
             HttpRequest.builder()
@@ -121,7 +119,7 @@ internal constructor(
     /** List Accounts */
     override fun list(
         params: AccountListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<AccountListPageAsync> {
         val request =
             HttpRequest.builder()
@@ -152,7 +150,7 @@ internal constructor(
      */
     override fun balance(
         params: AccountBalanceParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<BalanceLookup> {
         val request =
             HttpRequest.builder()
@@ -179,7 +177,7 @@ internal constructor(
     /** Close an Account */
     override fun close(
         params: AccountCloseParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<Account> {
         val request =
             HttpRequest.builder()

@@ -17,13 +17,13 @@ interface InboundRealTimePaymentsTransferServiceAsync {
     @JvmOverloads
     fun retrieve(
         params: InboundRealTimePaymentsTransferRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundRealTimePaymentsTransfer>
 
     /** List Inbound Real-Time Payments Transfers */
     @JvmOverloads
     fun list(
         params: InboundRealTimePaymentsTransferListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundRealTimePaymentsTransferListPageAsync>
 }

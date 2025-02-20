@@ -115,9 +115,7 @@ import com.increase.api.services.async.WireDrawdownRequestServiceAsyncImpl
 import com.increase.api.services.async.WireTransferServiceAsync
 import com.increase.api.services.async.WireTransferServiceAsyncImpl
 
-class IncreaseClientAsyncImpl(
-    private val clientOptions: ClientOptions,
-) : IncreaseClientAsync {
+class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : IncreaseClientAsync {
 
     private val clientOptionsWithUserAgent =
         if (clientOptions.headers.names().contains("User-Agent")) clientOptions

@@ -770,9 +770,7 @@ private constructor(
     /** The standard entry class code for the transfer. */
     class StandardEntryClassCode
     @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.

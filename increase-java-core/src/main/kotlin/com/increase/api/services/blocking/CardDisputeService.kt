@@ -17,20 +17,20 @@ interface CardDisputeService {
     @JvmOverloads
     fun create(
         params: CardDisputeCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CardDispute
 
     /** Retrieve a Card Dispute */
     @JvmOverloads
     fun retrieve(
         params: CardDisputeRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CardDispute
 
     /** List Card Disputes */
     @JvmOverloads
     fun list(
         params: CardDisputeListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CardDisputeListPage
 }

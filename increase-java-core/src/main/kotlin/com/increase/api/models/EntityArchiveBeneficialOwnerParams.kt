@@ -152,7 +152,7 @@ private constructor(
             fun build(): EntityArchiveBeneficialOwnerBody =
                 EntityArchiveBeneficialOwnerBody(
                     checkRequired("beneficialOwnerId", beneficialOwnerId),
-                    additionalProperties.toImmutable()
+                    additionalProperties.toImmutable(),
                 )
         }
 

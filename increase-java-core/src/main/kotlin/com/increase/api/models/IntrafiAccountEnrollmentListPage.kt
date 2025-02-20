@@ -79,13 +79,8 @@ private constructor(
         fun of(
             intrafiAccountEnrollmentsService: IntrafiAccountEnrollmentService,
             params: IntrafiAccountEnrollmentListParams,
-            response: Response
-        ) =
-            IntrafiAccountEnrollmentListPage(
-                intrafiAccountEnrollmentsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = IntrafiAccountEnrollmentListPage(intrafiAccountEnrollmentsService, params, response)
     }
 
     @NoAutoDetect
@@ -171,18 +166,12 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: IntrafiAccountEnrollmentListPage,
-    ) : Iterable<IntrafiAccountEnrollment> {
+    class AutoPager(private val firstPage: IntrafiAccountEnrollmentListPage) :
+        Iterable<IntrafiAccountEnrollment> {
 
         override fun iterator(): Iterator<IntrafiAccountEnrollment> = iterator {
             var page = firstPage

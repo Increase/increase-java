@@ -20,7 +20,7 @@ interface CheckDepositServiceAsync {
     @JvmOverloads
     fun reject(
         params: SimulationCheckDepositRejectParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CheckDeposit>
 
     /**
@@ -30,7 +30,7 @@ interface CheckDepositServiceAsync {
     @JvmOverloads
     fun return_(
         params: SimulationCheckDepositReturnParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CheckDeposit>
 
     /**
@@ -40,6 +40,6 @@ interface CheckDepositServiceAsync {
     @JvmOverloads
     fun submit(
         params: SimulationCheckDepositSubmitParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CheckDeposit>
 }

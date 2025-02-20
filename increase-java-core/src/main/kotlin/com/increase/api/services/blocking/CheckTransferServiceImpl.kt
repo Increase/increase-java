@@ -22,10 +22,8 @@ import com.increase.api.models.CheckTransferListParams
 import com.increase.api.models.CheckTransferRetrieveParams
 import com.increase.api.models.CheckTransferStopPaymentParams
 
-class CheckTransferServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : CheckTransferService {
+class CheckTransferServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    CheckTransferService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -35,7 +33,7 @@ internal constructor(
     /** Create a Check Transfer */
     override fun create(
         params: CheckTransferCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CheckTransfer {
         val request =
             HttpRequest.builder()
@@ -60,7 +58,7 @@ internal constructor(
     /** Retrieve a Check Transfer */
     override fun retrieve(
         params: CheckTransferRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CheckTransfer {
         val request =
             HttpRequest.builder()
@@ -85,7 +83,7 @@ internal constructor(
     /** List Check Transfers */
     override fun list(
         params: CheckTransferListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CheckTransferListPage {
         val request =
             HttpRequest.builder()
@@ -110,7 +108,7 @@ internal constructor(
     /** Approve a Check Transfer */
     override fun approve(
         params: CheckTransferApproveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CheckTransfer {
         val request =
             HttpRequest.builder()
@@ -135,7 +133,7 @@ internal constructor(
     /** Cancel a pending Check Transfer */
     override fun cancel(
         params: CheckTransferCancelParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CheckTransfer {
         val request =
             HttpRequest.builder()
@@ -160,7 +158,7 @@ internal constructor(
     /** Request a stop payment on a Check Transfer */
     override fun stopPayment(
         params: CheckTransferStopPaymentParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CheckTransfer {
         val request =
             HttpRequest.builder()

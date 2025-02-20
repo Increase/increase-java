@@ -23,9 +23,7 @@ import com.increase.api.models.AccountTransferRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class AccountTransferServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : AccountTransferServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) : AccountTransferServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -35,7 +33,7 @@ internal constructor(
     /** Create an Account Transfer */
     override fun create(
         params: AccountTransferCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<AccountTransfer> {
         val request =
             HttpRequest.builder()
@@ -63,7 +61,7 @@ internal constructor(
     /** Retrieve an Account Transfer */
     override fun retrieve(
         params: AccountTransferRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<AccountTransfer> {
         val request =
             HttpRequest.builder()
@@ -91,7 +89,7 @@ internal constructor(
     /** List Account Transfers */
     override fun list(
         params: AccountTransferListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<AccountTransferListPageAsync> {
         val request =
             HttpRequest.builder()
@@ -119,7 +117,7 @@ internal constructor(
     /** Approve an Account Transfer */
     override fun approve(
         params: AccountTransferApproveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<AccountTransfer> {
         val request =
             HttpRequest.builder()
@@ -147,7 +145,7 @@ internal constructor(
     /** Cancel an Account Transfer */
     override fun cancel(
         params: AccountTransferCancelParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<AccountTransfer> {
         val request =
             HttpRequest.builder()

@@ -23,9 +23,7 @@ import com.increase.api.models.PhysicalCardProfileRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class PhysicalCardProfileServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : PhysicalCardProfileServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) : PhysicalCardProfileServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -35,7 +33,7 @@ internal constructor(
     /** Create a Physical Card Profile */
     override fun create(
         params: PhysicalCardProfileCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<PhysicalCardProfile> {
         val request =
             HttpRequest.builder()
@@ -63,7 +61,7 @@ internal constructor(
     /** Retrieve a Card Profile */
     override fun retrieve(
         params: PhysicalCardProfileRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<PhysicalCardProfile> {
         val request =
             HttpRequest.builder()
@@ -91,7 +89,7 @@ internal constructor(
     /** List Physical Card Profiles */
     override fun list(
         params: PhysicalCardProfileListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<PhysicalCardProfileListPageAsync> {
         val request =
             HttpRequest.builder()
@@ -119,7 +117,7 @@ internal constructor(
     /** Archive a Physical Card Profile */
     override fun archive(
         params: PhysicalCardProfileArchiveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<PhysicalCardProfile> {
         val request =
             HttpRequest.builder()
@@ -147,7 +145,7 @@ internal constructor(
     /** Clone a Physical Card Profile */
     override fun clone(
         params: PhysicalCardProfileCloneParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<PhysicalCardProfile> {
         val request =
             HttpRequest.builder()

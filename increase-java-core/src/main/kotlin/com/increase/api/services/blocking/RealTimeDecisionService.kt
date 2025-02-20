@@ -15,13 +15,13 @@ interface RealTimeDecisionService {
     @JvmOverloads
     fun retrieve(
         params: RealTimeDecisionRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): RealTimeDecision
 
     /** Action a Real-Time Decision */
     @JvmOverloads
     fun action(
         params: RealTimeDecisionActionParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): RealTimeDecision
 }

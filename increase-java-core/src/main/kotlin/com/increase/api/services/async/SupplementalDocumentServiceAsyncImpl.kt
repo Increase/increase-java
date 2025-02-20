@@ -20,9 +20,7 @@ import com.increase.api.models.SupplementalDocumentListParams
 import java.util.concurrent.CompletableFuture
 
 class SupplementalDocumentServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : SupplementalDocumentServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) : SupplementalDocumentServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -33,7 +31,7 @@ internal constructor(
     /** Create a supplemental document for an Entity */
     override fun create(
         params: SupplementalDocumentCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<EntitySupplementalDocument> {
         val request =
             HttpRequest.builder()
@@ -62,7 +60,7 @@ internal constructor(
     /** List Entity Supplemental Document Submissions */
     override fun list(
         params: SupplementalDocumentListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<SupplementalDocumentListPageAsync> {
         val request =
             HttpRequest.builder()
