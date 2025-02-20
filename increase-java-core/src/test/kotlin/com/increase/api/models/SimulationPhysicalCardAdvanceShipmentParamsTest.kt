@@ -2,6 +2,7 @@
 
 package com.increase.api.models
 
+import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -25,7 +26,7 @@ class SimulationPhysicalCardAdvanceShipmentParamsTest {
 
         val body = params._body()
 
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.shipmentStatus())
             .isEqualTo(SimulationPhysicalCardAdvanceShipmentParams.ShipmentStatus.PENDING)
     }
@@ -40,7 +41,7 @@ class SimulationPhysicalCardAdvanceShipmentParamsTest {
 
         val body = params._body()
 
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.shipmentStatus())
             .isEqualTo(SimulationPhysicalCardAdvanceShipmentParams.ShipmentStatus.PENDING)
     }

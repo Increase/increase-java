@@ -2,6 +2,7 @@
 
 package com.increase.api.models
 
+import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -29,7 +30,7 @@ class AccountCreateParamsTest {
 
         val body = params._body()
 
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.name()).isEqualTo("New Account!")
         assertThat(body.entityId()).contains("entity_n8y8tnk2p9339ti393yi")
         assertThat(body.informationalEntityId()).contains("informational_entity_id")
@@ -42,7 +43,7 @@ class AccountCreateParamsTest {
 
         val body = params._body()
 
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.name()).isEqualTo("New Account!")
     }
 }

@@ -2,6 +2,7 @@
 
 package com.increase.api.models
 
+import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -29,7 +30,7 @@ class PhysicalCardProfileCreateParamsTest {
 
         val body = params._body()
 
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.carrierImageFileId()).isEqualTo("file_h6v7mtipe119os47ehlu")
         assertThat(body.contactPhone()).isEqualTo("+16505046304")
         assertThat(body.description()).isEqualTo("My Card Profile")
@@ -48,7 +49,7 @@ class PhysicalCardProfileCreateParamsTest {
 
         val body = params._body()
 
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.carrierImageFileId()).isEqualTo("file_h6v7mtipe119os47ehlu")
         assertThat(body.contactPhone()).isEqualTo("+16505046304")
         assertThat(body.description()).isEqualTo("My Card Profile")
