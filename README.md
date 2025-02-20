@@ -40,9 +40,36 @@ This library requires Java 8 or later.
 
 ## Usage
 
-### Configure the client
+```java
+import com.increase.api.client.IncreaseClient;
+import com.increase.api.client.okhttp.IncreaseOkHttpClient;
+import com.increase.api.models.Account;
+import com.increase.api.models.AccountCreateParams;
 
-Use `IncreaseOkHttpClient.builder()` to configure the client. At a minimum you need to set `.apiKey()`:
+// Configures using the `INCREASE_API_KEY` and `INCREASE_WEBHOOK_SECRET` environment variables
+IncreaseClient client = IncreaseOkHttpClient.fromEnv();
+
+AccountCreateParams params = AccountCreateParams.builder()
+    .name("New Account!")
+    .entityId("entity_n8y8tnk2p9339ti393yi")
+    .programId("program_i2v2os4mwza1oetokh9i")
+    .build();
+Account account = client.accounts().create(params);
+```
+
+## Client configuration
+
+Configure the client using environment variables:
+
+```java
+import com.increase.api.client.IncreaseClient;
+import com.increase.api.client.okhttp.IncreaseOkHttpClient;
+
+// Configures using the `INCREASE_API_KEY` and `INCREASE_WEBHOOK_SECRET` environment variables
+IncreaseClient client = IncreaseOkHttpClient.fromEnv();
+```
+
+Or manually:
 
 ```java
 import com.increase.api.client.IncreaseClient;
@@ -53,153 +80,102 @@ IncreaseClient client = IncreaseOkHttpClient.builder()
     .build();
 ```
 
-Alternately, set the environment with `INCREASE_API_KEY` or `INCREASE_WEBHOOK_SECRET`, and use `IncreaseOkHttpClient.fromEnv()` to read from the environment.
+Or using a combination of the two approaches:
 
 ```java
 import com.increase.api.client.IncreaseClient;
 import com.increase.api.client.okhttp.IncreaseOkHttpClient;
 
-IncreaseClient client = IncreaseOkHttpClient.fromEnv();
-
-// Note: you can also call fromEnv() from the client builder, for example if you need to set additional properties
 IncreaseClient client = IncreaseOkHttpClient.builder()
+    // Configures using the `INCREASE_API_KEY` and `INCREASE_WEBHOOK_SECRET` environment variables
     .fromEnv()
-    // ... set properties on the builder
+    .apiKey("My API Key")
     .build();
 ```
 
-| Property      | Environment variable      | Required | Default value |
-| ------------- | ------------------------- | -------- | ------------- |
-| apiKey        | `INCREASE_API_KEY`        | true     | —             |
-| webhookSecret | `INCREASE_WEBHOOK_SECRET` | false    | —             |
+See this table for the available options:
 
-Read the documentation for more configuration options.
+| Setter          | Environment variable      | Required | Default value |
+| --------------- | ------------------------- | -------- | ------------- |
+| `apiKey`        | `INCREASE_API_KEY`        | true     | -             |
+| `webhookSecret` | `INCREASE_WEBHOOK_SECRET` | false    | -             |
 
----
+> [!TIP]
+> Don't create more than one client in the same application. Each client has a connection pool and
+> thread pools, which are more efficient to share between requests.
 
-### Example: creating a resource
+## Requests and responses
 
-To create a new account, first use the `AccountCreateParams` builder to specify attributes, then pass that to the `create` method of the `accounts` service.
+To send a request to the Increase API, build an instance of some `Params` class and pass it to the corresponding client method. When the response is received, it will be deserialized into an instance of a Java class.
+
+For example, `client.accounts().create(...)` should be called with an instance of `AccountCreateParams`, and it will return an instance of `Account`.
+
+## Asynchronous execution
+
+The default client is synchronous. To switch to asynchronous execution, call the `async()` method:
 
 ```java
+import com.increase.api.client.IncreaseClient;
+import com.increase.api.client.okhttp.IncreaseOkHttpClient;
 import com.increase.api.models.Account;
 import com.increase.api.models.AccountCreateParams;
+import java.util.concurrent.CompletableFuture;
+
+// Configures using the `INCREASE_API_KEY` and `INCREASE_WEBHOOK_SECRET` environment variables
+IncreaseClient client = IncreaseOkHttpClient.fromEnv();
 
 AccountCreateParams params = AccountCreateParams.builder()
     .name("New Account!")
     .entityId("entity_n8y8tnk2p9339ti393yi")
     .programId("program_i2v2os4mwza1oetokh9i")
     .build();
-Account account = client.accounts().create(params);
+CompletableFuture<Account> account = client.async().accounts().create(params);
 ```
 
-### Example: listing resources
-
-The Increase API provides a `list` method to get a paginated list of accounts. You can retrieve the first page by:
+Or create an asynchronous client from the beginning:
 
 ```java
+import com.increase.api.client.IncreaseClientAsync;
+import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync;
 import com.increase.api.models.Account;
-import com.increase.api.models.AccountListPage;
+import com.increase.api.models.AccountCreateParams;
+import java.util.concurrent.CompletableFuture;
 
-AccountListPage page = client.accounts().list();
-for (Account account : page.data()) {
-    System.out.println(account);
-}
-```
+// Configures using the `INCREASE_API_KEY` and `INCREASE_WEBHOOK_SECRET` environment variables
+IncreaseClientAsync client = IncreaseOkHttpClientAsync.fromEnv();
 
-Use the `AccountListParams` builder to set parameters:
-
-```java
-import com.increase.api.models.AccountListPage;
-import com.increase.api.models.AccountListParams;
-import java.time.OffsetDateTime;
-
-AccountListParams params = AccountListParams.builder()
-    .createdAt(AccountListParams.CreatedAt.builder()
-        .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        .build())
-    .cursor("cursor")
-    .entityId("entity_id")
-    .idempotencyKey("x")
-    .informationalEntityId("informational_entity_id")
-    .limit(1L)
-    .programId("program_id")
-    .status(AccountListParams.Status.CLOSED)
+AccountCreateParams params = AccountCreateParams.builder()
+    .name("New Account!")
+    .entityId("entity_n8y8tnk2p9339ti393yi")
+    .programId("program_i2v2os4mwza1oetokh9i")
     .build();
-AccountListPage page1 = client.accounts().list(params);
-
-// Using the `from` method of the builder you can reuse previous params values:
-AccountListPage page2 = client.accounts().list(AccountListParams.builder()
-    .from(params)
-    .nextCursor("abc123...")
-    .build());
-
-// Or easily get params for the next page by using the helper `getNextPageParams`:
-AccountListPage page3 = client.accounts().list(params.getNextPageParams(page2));
+CompletableFuture<Account> account = client.accounts().create(params);
 ```
 
-See [Pagination](#pagination) below for more information on transparently working with lists of objects without worrying about fetching each page.
+The asynchronous client supports the same options as the synchronous one, except most methods return `CompletableFuture`s.
 
----
+## Error handling
 
-## Requests
+The SDK throws custom unchecked exception types:
 
-### Parameters and bodies
+- `IncreaseServiceException`: Base class for HTTP errors. See this table for which exception subclass is thrown for each HTTP status code:
 
-To make a request to the Increase API, you generally build an instance of the appropriate `Params` class.
+  | Status | Exception                       |
+  | ------ | ------------------------------- |
+  | 400    | `BadRequestException`           |
+  | 401    | `AuthenticationException`       |
+  | 403    | `PermissionDeniedException`     |
+  | 404    | `NotFoundException`             |
+  | 422    | `UnprocessableEntityException`  |
+  | 429    | `RateLimitException`            |
+  | 5xx    | `InternalServerException`       |
+  | others | `UnexpectedStatusCodeException` |
 
-See [Undocumented request params](#undocumented-request-params) for how to send arbitrary parameters.
+- `IncreaseIoException`: I/O networking errors.
 
-## Responses
+- `IncreaseInvalidDataException`: Failure to interpret successfully parsed data. For example, when accessing a property that's supposed to be required, but the API unexpectedly omitted it from the response.
 
-### Response validation
-
-When receiving a response, the Increase Java SDK will deserialize it into instances of the typed model classes. In rare cases, the API may return a response property that doesn't match the expected Java type. If you directly access the mistaken property, the SDK will throw an unchecked `IncreaseInvalidDataException` at runtime. If you would prefer to check in advance that that response is completely well-typed, call `.validate()` on the returned model.
-
-```java
-import com.increase.api.models.Account;
-
-Account account = client.accounts().create().validate();
-```
-
-### Response properties as JSON
-
-In rare cases, you may want to access the underlying JSON value for a response property rather than using the typed version provided by this SDK. Each model property has a corresponding JSON version, with an underscore before the method name, which returns a `JsonField` value.
-
-```java
-import com.increase.api.core.JsonField;
-import java.util.Optional;
-
-JsonField field = responseObj._field();
-
-if (field.isMissing()) {
-  // Value was not specified in the JSON response
-} else if (field.isNull()) {
-  // Value was provided as a literal null
-} else {
-  // See if value was provided as a string
-  Optional<String> jsonString = field.asString();
-
-  // If the value given by the API did not match the shape that the SDK expects
-  // you can deserialise into a custom type
-  MyClass myObj = responseObj._field().asUnknown().orElseThrow().convert(MyClass.class);
-}
-```
-
-### Additional model properties
-
-Sometimes, the server response may include additional properties that are not yet available in this library's types. You can access them using the model's `_additionalProperties` method:
-
-```java
-import com.increase.api.core.JsonValue;
-
-JsonValue secret = account._additionalProperties().get("secret_field");
-```
-
----
+- `IncreaseException`: Base class for all exceptions. Most errors will result in one of the previously mentioned ones, but completely generic errors may be thrown using the base class.
 
 ## Pagination
 
@@ -253,9 +229,21 @@ while (page != null) {
 }
 ```
 
----
+## Logging
 
----
+The SDK uses the standard [OkHttp logging interceptor](https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor).
+
+Enable logging by setting the `INCREASE_LOG` environment variable to `info`:
+
+```sh
+$ export INCREASE_LOG=info
+```
+
+Or to `debug` for more verbose logging:
+
+```sh
+$ export INCREASE_LOG=debug
+```
 
 ## Webhook Verification
 
@@ -267,36 +255,23 @@ both of which will raise an error if the signature is invalid. If secret is omit
 Note that the "body" parameter must be the raw JSON string sent from the server (do not parse it first).
 The `.unwrap()` method can parse this JSON for you.
 
----
-
-## Error handling
-
-This library throws exceptions in a single hierarchy for easy handling:
-
-- **`IncreaseException`** - Base exception for all exceptions
-
-- **`IncreaseServiceException`** - HTTP errors with a well-formed response body we were able to parse. The exception message and the `.debuggingRequestId()` will be set by the server.
-
-  | 400    | BadRequestException           |
-  | ------ | ----------------------------- |
-  | 401    | AuthenticationException       |
-  | 403    | PermissionDeniedException     |
-  | 404    | NotFoundException             |
-  | 422    | UnprocessableEntityException  |
-  | 429    | RateLimitException            |
-  | 5xx    | InternalServerException       |
-  | others | UnexpectedStatusCodeException |
-
-- **`IncreaseIoException`** - I/O networking errors
-- **`IncreaseInvalidDataException`** - any other exceptions on the client side, e.g.:
-  - We failed to serialize the request body
-  - We failed to parse the response body (has access to response code and body)
-
 ## Network options
 
 ### Retries
 
-Requests that experience certain errors are automatically retried 2 times by default, with a short exponential backoff. Connection errors (for example, due to a network connectivity problem), 408 Request Timeout, 409 Conflict, 429 Rate Limit, and >=500 Internal errors will all be retried by default. You can provide a `maxRetries` on the client builder to configure this:
+The SDK automatically retries 2 times by default, with a short exponential backoff.
+
+Only the following error types are retried:
+
+- Connection errors (for example, due to a network connectivity problem)
+- 408 Request Timeout
+- 409 Conflict
+- 429 Rate Limit
+- 5xx Internal
+
+The API may also explicitly instruct the SDK to retry or not retry a response.
+
+To set a custom number of retries, configure the client using the `maxRetries` method:
 
 ```java
 import com.increase.api.client.IncreaseClient;
@@ -310,7 +285,20 @@ IncreaseClient client = IncreaseOkHttpClient.builder()
 
 ### Timeouts
 
-Requests time out after 1 minute by default. You can configure this on the client builder:
+Requests time out after 1 minute by default.
+
+To set a custom timeout, configure the method call using the `timeout` method:
+
+```java
+import com.increase.api.models.Account;
+import com.increase.api.models.AccountCreateParams;
+
+Account account = client.accounts().create(
+  params, RequestOptions.builder().timeout(Duration.ofSeconds(30)).build()
+);
+```
+
+Or configure the default for all method calls at the client level:
 
 ```java
 import com.increase.api.client.IncreaseClient;
@@ -325,7 +313,7 @@ IncreaseClient client = IncreaseOkHttpClient.builder()
 
 ### Proxies
 
-Requests can be routed through a proxy. You can configure this on the client builder:
+To route requests through a proxy, configure the client using the `proxy` method:
 
 ```java
 import com.increase.api.client.IncreaseClient;
@@ -335,13 +323,17 @@ import java.net.Proxy;
 
 IncreaseClient client = IncreaseOkHttpClient.builder()
     .fromEnv()
-    .proxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress("example.com", 8080)))
+    .proxy(new Proxy(
+      Proxy.Type.HTTP, new InetSocketAddress(
+        "https://example.com", 8080
+      )
+    ))
     .build();
 ```
 
 ### Environments
 
-Requests are made to the production environment by default. You can connect to other environments, like `sandbox`, via the client builder:
+The SDK sends requests to the production by default. To send requests to a different environment, configure the client like so:
 
 ```java
 import com.increase.api.client.IncreaseClient;
@@ -353,15 +345,13 @@ IncreaseClient client = IncreaseOkHttpClient.builder()
     .build();
 ```
 
-## Making custom/undocumented requests
+## Undocumented API functionality
 
-This library is typed for convenient access to the documented API. If you need to access undocumented params or response properties, the library can still be used.
+The SDK is typed for convenient usage of the documented API. However, it also supports working with undocumented or not yet supported parts of the API.
 
-### Undocumented request params
+### Parameters
 
-In [Example: creating a resource](#example-creating-a-resource) above, we used the `AccountCreateParams.builder()` to pass to the `create` method of the `accounts` service.
-
-Sometimes, the API may support other properties that are not yet supported in the Java SDK types. In that case, you can attach them using raw setters:
+To set undocumented parameters, call the `putAdditionalHeader`, `putAdditionalQueryParam`, or `putAdditionalBodyProperty` methods on any `Params` class:
 
 ```java
 import com.increase.api.core.JsonValue;
@@ -374,26 +364,110 @@ AccountCreateParams params = AccountCreateParams.builder()
     .build();
 ```
 
-You can also use the `putAdditionalProperty` method on nested headers, query params, or body objects.
+These can be accessed on the built object later using the `_additionalHeaders()`, `_additionalQueryParams()`, and `_additionalBodyProperties()` methods. You can also set undocumented parameters on nested headers, query params, or body classes using the `putAdditionalProperty` method. These properties can be accessed on the built object later using the `_additionalProperties()` method.
 
-### Undocumented response properties
+To set a documented parameter or property to an undocumented or not yet supported _value_, pass a `JsonValue` object to its setter:
 
-To access undocumented response properties, you can use `res._additionalProperties()` on a response object to get a map of untyped fields of type `Map<String, JsonValue>`. You can then access fields like `res._additionalProperties().get("secret_prop").asString()` or use other helpers defined on the `JsonValue` class to extract it to a desired type.
+```java
+import com.increase.api.core.JsonValue;
+import com.increase.api.models.AccountCreateParams;
 
-## Logging
-
-We use the standard [OkHttp logging interceptor](https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor).
-
-You can enable logging by setting the environment variable `INCREASE_LOG` to `info`.
-
-```sh
-$ export INCREASE_LOG=info
+AccountCreateParams params = AccountCreateParams.builder()
+    .name(JsonValue.from(42))
+    .entityId("entity_n8y8tnk2p9339ti393yi")
+    .programId("program_i2v2os4mwza1oetokh9i")
+    .build();
 ```
 
-Or to `debug` for more verbose logging.
+### Response properties
 
-```sh
-$ export INCREASE_LOG=debug
+To access undocumented response properties, call the `_additionalProperties()` method:
+
+```java
+import com.increase.api.core.JsonValue;
+import java.util.Map;
+
+Map<String, JsonValue> additionalProperties = client.accounts().create(params)._additionalProperties();
+JsonValue secretPropertyValue = additionalProperties.get("secretProperty");
+
+String result = secretPropertyValue.accept(new JsonValue.Visitor<>() {
+    @Override
+    public String visitNull() {
+        return "It's null!";
+    }
+
+    @Override
+    public String visitBoolean(boolean value) {
+        return "It's a boolean!";
+    }
+
+    @Override
+    public String visitNumber(Number value) {
+        return "It's a number!";
+    }
+
+    // Other methods include `visitMissing`, `visitString`, `visitArray`, and `visitObject`
+    // The default implementation of each unimplemented method delegates to `visitDefault`, which throws by default, but can also be overridden
+});
+```
+
+To access a property's raw JSON value, which may be undocumented, call its `_` prefixed method:
+
+```java
+import com.increase.api.core.JsonField;
+import java.util.Optional;
+
+JsonField<String> name = client.accounts().create(params)._name();
+
+if (name.isMissing()) {
+  // The property is absent from the JSON response
+} else if (name.isNull()) {
+  // The property was set to literal null
+} else {
+  // Check if value was provided as a string
+  // Other methods include `asNumber()`, `asBoolean()`, etc.
+  Optional<String> jsonString = name.asString();
+
+  // Try to deserialize into a custom type
+  MyClass myObject = name.asUnknown().orElseThrow().convert(MyClass.class);
+}
+```
+
+### Response validation
+
+In rare cases, the API may return a response that doesn't match the expected type. For example, the SDK may expect a property to contain a `String`, but the API could return something else.
+
+By default, the SDK will not throw an exception in this case. It will throw `IncreaseInvalidDataException` only if you directly access the property.
+
+If you would prefer to check that the response is completely well-typed upfront, then either call `validate()`:
+
+```java
+import com.increase.api.models.Account;
+
+Account account = client.accounts().create(params).validate();
+```
+
+Or configure the method call to validate the response using the `responseValidation` method:
+
+```java
+import com.increase.api.models.Account;
+import com.increase.api.models.AccountCreateParams;
+
+Account account = client.accounts().create(
+  params, RequestOptions.builder().responseValidation(true).build()
+);
+```
+
+Or configure the default for all method calls at the client level:
+
+```java
+import com.increase.api.client.IncreaseClient;
+import com.increase.api.client.okhttp.IncreaseOkHttpClient;
+
+IncreaseClient client = IncreaseOkHttpClient.builder()
+    .fromEnv()
+    .responseValidation(true)
+    .build();
 ```
 
 ## Semantic versioning
