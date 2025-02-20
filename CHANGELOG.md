@@ -1,5 +1,38 @@
 # Changelog
 
+## 0.182.0 (2025-02-20)
+
+Full Changelog: [v0.181.0...v0.182.0](https://github.com/Increase/increase-java/compare/v0.181.0...v0.182.0)
+
+### Features
+
+* **client:** get rid of annoying checked exceptions ([#790](https://github.com/Increase/increase-java/issues/790)) ([6b370b5](https://github.com/Increase/increase-java/commit/6b370b567becd9edbea337bee86f0b10ab7ea0ca))
+* **client:** support `JsonField#asX()` for known values ([#784](https://github.com/Increase/increase-java/issues/784)) ([cb4cc91](https://github.com/Increase/increase-java/commit/cb4cc9194d8a564872dae6834e22b182c78bd52a))
+* **client:** update enum `asX` methods ([#783](https://github.com/Increase/increase-java/issues/783)) ([7816b1a](https://github.com/Increase/increase-java/commit/7816b1ac5f779888a1e94a602f84645ee8f58b9d))
+
+
+### Bug Fixes
+
+* **client:** mark some request bodies as optional ([#792](https://github.com/Increase/increase-java/issues/792)) ([7e64575](https://github.com/Increase/increase-java/commit/7e645756cca9839e826971363963294dd85bee3c))
+
+
+### Chores
+
+* **ci:** update gradle actions to v4 ([#789](https://github.com/Increase/increase-java/issues/789)) ([a26984e](https://github.com/Increase/increase-java/commit/a26984ee1b1f776780998e3c0b109b2383899898))
+* **docs:** add faq to readme ([#791](https://github.com/Increase/increase-java/issues/791)) ([cfe2afc](https://github.com/Increase/increase-java/commit/cfe2afc8e3309a3dba346e002659f2e576addce4))
+* **docs:** reorganize readme ([#785](https://github.com/Increase/increase-java/issues/785)) ([367a3df](https://github.com/Increase/increase-java/commit/367a3dfbf3a822695cc8e1cee6aa9bfd0e8def4d))
+* **internal:** get rid of configuration cache ([#788](https://github.com/Increase/increase-java/issues/788)) ([43dae34](https://github.com/Increase/increase-java/commit/43dae3447f7b4416d2e53fd2dcf27296e8b19143))
+* **internal:** make body class constructors private ([620882f](https://github.com/Increase/increase-java/commit/620882f220578e011bd38a4e180317d19328e75f))
+* **internal:** make body classes for multipart requests ([620882f](https://github.com/Increase/increase-java/commit/620882f220578e011bd38a4e180317d19328e75f))
+* **internal:** misc formatting changes ([620882f](https://github.com/Increase/increase-java/commit/620882f220578e011bd38a4e180317d19328e75f))
+* **internal:** optimize build and test perf ([2da6705](https://github.com/Increase/increase-java/commit/2da670503c0b19dab0efeaa942d0f9addd0565d4))
+* **internal:** remove unnecessary non-null asserts in tests ([7e64575](https://github.com/Increase/increase-java/commit/7e645756cca9839e826971363963294dd85bee3c))
+* **internal:** rename internal body classes ([620882f](https://github.com/Increase/increase-java/commit/620882f220578e011bd38a4e180317d19328e75f))
+* **internal:** update formatter ([#780](https://github.com/Increase/increase-java/issues/780)) ([2da6705](https://github.com/Increase/increase-java/commit/2da670503c0b19dab0efeaa942d0f9addd0565d4))
+* **internal:** update some formatting in `Values.kt` ([cb4cc91](https://github.com/Increase/increase-java/commit/cb4cc9194d8a564872dae6834e22b182c78bd52a))
+* **internal:** use `assertNotNull` in tests for type narrowing ([7e64575](https://github.com/Increase/increase-java/commit/7e645756cca9839e826971363963294dd85bee3c))
+* **internal:** use better test example values ([#782](https://github.com/Increase/increase-java/issues/782)) ([620882f](https://github.com/Increase/increase-java/commit/620882f220578e011bd38a4e180317d19328e75f))
+
 ## 0.181.0 (2025-02-19)
 
 Full Changelog: [v0.180.0...v0.181.0](https://github.com/Increase/increase-java/compare/v0.180.0...v0.181.0)
