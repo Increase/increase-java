@@ -228,11 +228,7 @@ private constructor(
     }
 
     /** This indicates if payments can be made with the Digital Wallet Token. */
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -354,11 +350,8 @@ private constructor(
     }
 
     /** The digital wallet app being used. */
-    class TokenRequestor
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class TokenRequestor @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -477,11 +470,7 @@ private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `digital_wallet_token`.
      */
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -502,7 +491,7 @@ private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            DIGITAL_WALLET_TOKEN,
+            DIGITAL_WALLET_TOKEN
         }
 
         /**

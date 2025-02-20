@@ -82,13 +82,8 @@ private constructor(
         fun of(
             accountStatementsService: AccountStatementServiceAsync,
             params: AccountStatementListParams,
-            response: Response
-        ) =
-            AccountStatementListPageAsync(
-                accountStatementsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = AccountStatementListPageAsync(accountStatementsService, params, response)
     }
 
     @NoAutoDetect
@@ -174,26 +169,19 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: AccountStatementListPageAsync,
-    ) {
+    class AutoPager(private val firstPage: AccountStatementListPageAsync) {
 
         fun forEach(
             action: Predicate<AccountStatement>,
-            executor: Executor
+            executor: Executor,
         ): CompletableFuture<Void> {
             fun CompletableFuture<Optional<AccountStatementListPageAsync>>.forEach(
                 action: (AccountStatement) -> Boolean,
-                executor: Executor
+                executor: Executor,
             ): CompletableFuture<Void> =
                 thenComposeAsync(
                     { page ->
@@ -202,7 +190,7 @@ private constructor(
                             .map { it.getNextPage().forEach(action, executor) }
                             .orElseGet { CompletableFuture.completedFuture(null) }
                     },
-                    executor
+                    executor,
                 )
             return CompletableFuture.completedFuture(Optional.of(firstPage))
                 .forEach(action::test, executor)

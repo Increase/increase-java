@@ -7422,7 +7422,7 @@ class CardPaymentTest {
                     .category(CardPayment.Element.Category.CARD_AUTHORIZATION)
                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                     .other(JsonValue.from(mapOf<String, Any>()))
-                    .build()
+                    .build(),
             )
         assertThat(cardPayment.physicalCardId()).isEmpty
         assertThat(cardPayment.state())

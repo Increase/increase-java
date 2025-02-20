@@ -21,10 +21,8 @@ import com.increase.api.models.AccountNumberRetrieveParams
 import com.increase.api.models.AccountNumberUpdateParams
 import java.util.concurrent.CompletableFuture
 
-class AccountNumberServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : AccountNumberServiceAsync {
+class AccountNumberServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    AccountNumberServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -34,7 +32,7 @@ internal constructor(
     /** Create an Account Number */
     override fun create(
         params: AccountNumberCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<AccountNumber> {
         val request =
             HttpRequest.builder()
@@ -62,7 +60,7 @@ internal constructor(
     /** Retrieve an Account Number */
     override fun retrieve(
         params: AccountNumberRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<AccountNumber> {
         val request =
             HttpRequest.builder()
@@ -89,7 +87,7 @@ internal constructor(
     /** Update an Account Number */
     override fun update(
         params: AccountNumberUpdateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<AccountNumber> {
         val request =
             HttpRequest.builder()
@@ -118,7 +116,7 @@ internal constructor(
     /** List Account Numbers */
     override fun list(
         params: AccountNumberListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<AccountNumberListPageAsync> {
         val request =
             HttpRequest.builder()

@@ -17,10 +17,8 @@ import com.increase.api.models.TransactionListPage
 import com.increase.api.models.TransactionListParams
 import com.increase.api.models.TransactionRetrieveParams
 
-class TransactionServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : TransactionService {
+class TransactionServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    TransactionService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -30,7 +28,7 @@ internal constructor(
     /** Retrieve a Transaction */
     override fun retrieve(
         params: TransactionRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Transaction {
         val request =
             HttpRequest.builder()
@@ -55,7 +53,7 @@ internal constructor(
     /** List Transactions */
     override fun list(
         params: TransactionListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): TransactionListPage {
         val request =
             HttpRequest.builder()

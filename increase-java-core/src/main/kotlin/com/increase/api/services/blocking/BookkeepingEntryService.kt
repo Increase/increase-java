@@ -16,13 +16,13 @@ interface BookkeepingEntryService {
     @JvmOverloads
     fun retrieve(
         params: BookkeepingEntryRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingEntry
 
     /** List Bookkeeping Entries */
     @JvmOverloads
     fun list(
         params: BookkeepingEntryListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingEntryListPage
 }

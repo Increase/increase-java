@@ -20,10 +20,8 @@ import com.increase.api.models.FileListParams
 import com.increase.api.models.FileRetrieveParams
 import java.util.concurrent.CompletableFuture
 
-class FileServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : FileServiceAsync {
+class FileServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    FileServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -37,7 +35,7 @@ internal constructor(
      */
     override fun create(
         params: FileCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<File> {
         val request =
             HttpRequest.builder()
@@ -65,7 +63,7 @@ internal constructor(
     /** Retrieve a File */
     override fun retrieve(
         params: FileRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<File> {
         val request =
             HttpRequest.builder()
@@ -93,7 +91,7 @@ internal constructor(
     /** List Files */
     override fun list(
         params: FileListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<FileListPageAsync> {
         val request =
             HttpRequest.builder()

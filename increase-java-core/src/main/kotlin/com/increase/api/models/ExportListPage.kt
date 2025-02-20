@@ -77,11 +77,7 @@ private constructor(
 
         @JvmStatic
         fun of(exportsService: ExportService, params: ExportListParams, response: Response) =
-            ExportListPage(
-                exportsService,
-                params,
-                response,
-            )
+            ExportListPage(exportsService, params, response)
     }
 
     @NoAutoDetect
@@ -166,18 +162,11 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: ExportListPage,
-    ) : Iterable<Export> {
+    class AutoPager(private val firstPage: ExportListPage) : Iterable<Export> {
 
         override fun iterator(): Iterator<Export> = iterator {
             var page = firstPage

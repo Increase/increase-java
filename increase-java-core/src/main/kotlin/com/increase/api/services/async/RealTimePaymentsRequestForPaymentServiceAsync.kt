@@ -18,20 +18,20 @@ interface RealTimePaymentsRequestForPaymentServiceAsync {
     @JvmOverloads
     fun create(
         params: RealTimePaymentsRequestForPaymentCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<RealTimePaymentsRequestForPayment>
 
     /** Retrieve a Real-Time Payments Request for Payment */
     @JvmOverloads
     fun retrieve(
         params: RealTimePaymentsRequestForPaymentRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<RealTimePaymentsRequestForPayment>
 
     /** List Real-Time Payments Request for Payments */
     @JvmOverloads
     fun list(
         params: RealTimePaymentsRequestForPaymentListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<RealTimePaymentsRequestForPaymentListPageAsync>
 }

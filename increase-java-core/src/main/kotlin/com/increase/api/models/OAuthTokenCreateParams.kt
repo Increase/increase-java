@@ -525,11 +525,7 @@ private constructor(
      * The credential you request in exchange for the code. In Production, this is always
      * `authorization_code`. In Sandbox, you can pass either enum value.
      */
-    class GrantType
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class GrantType @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.

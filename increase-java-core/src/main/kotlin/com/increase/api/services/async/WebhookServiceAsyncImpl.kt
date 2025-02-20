@@ -16,10 +16,8 @@ import java.time.Instant
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
 
-class WebhookServiceAsyncImpl
-constructor(
-    private val clientOptions: ClientOptions,
-) : WebhookServiceAsync {
+class WebhookServiceAsyncImpl constructor(private val clientOptions: ClientOptions) :
+    WebhookServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 

@@ -50,7 +50,7 @@ class BookkeepingEntrySetTest {
                     .id("bookkeeping_entry_ctjpajsj3ks2blx10375")
                     .accountId("bookkeeping_account_e37p1f1iuocw5intf35v")
                     .amount(-1750L)
-                    .build()
+                    .build(),
             )
         assertThat(bookkeepingEntrySet.idempotencyKey()).isEmpty
         assertThat(bookkeepingEntrySet.transactionId()).isEmpty

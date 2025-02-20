@@ -17,10 +17,8 @@ import com.increase.api.models.Document
 import com.increase.api.models.SimulationDocumentCreateParams
 import java.util.concurrent.CompletableFuture
 
-class DocumentServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : DocumentServiceAsync {
+class DocumentServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    DocumentServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -30,7 +28,7 @@ internal constructor(
     /** Simulates an tax document being created for an account. */
     override fun create(
         params: SimulationDocumentCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<Document> {
         val request =
             HttpRequest.builder()

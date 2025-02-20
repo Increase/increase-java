@@ -17,13 +17,13 @@ interface DeclinedTransactionServiceAsync {
     @JvmOverloads
     fun retrieve(
         params: DeclinedTransactionRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<DeclinedTransaction>
 
     /** List Declined Transactions */
     @JvmOverloads
     fun list(
         params: DeclinedTransactionListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<DeclinedTransactionListPageAsync>
 }

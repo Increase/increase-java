@@ -82,7 +82,7 @@ private constructor(
         fun of(
             proofOfAuthorizationRequestsService: ProofOfAuthorizationRequestServiceAsync,
             params: ProofOfAuthorizationRequestListParams,
-            response: Response
+            response: Response,
         ) =
             ProofOfAuthorizationRequestListPageAsync(
                 proofOfAuthorizationRequestsService,
@@ -177,26 +177,19 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: ProofOfAuthorizationRequestListPageAsync,
-    ) {
+    class AutoPager(private val firstPage: ProofOfAuthorizationRequestListPageAsync) {
 
         fun forEach(
             action: Predicate<ProofOfAuthorizationRequest>,
-            executor: Executor
+            executor: Executor,
         ): CompletableFuture<Void> {
             fun CompletableFuture<Optional<ProofOfAuthorizationRequestListPageAsync>>.forEach(
                 action: (ProofOfAuthorizationRequest) -> Boolean,
-                executor: Executor
+                executor: Executor,
             ): CompletableFuture<Void> =
                 thenComposeAsync(
                     { page ->
@@ -205,7 +198,7 @@ private constructor(
                             .map { it.getNextPage().forEach(action, executor) }
                             .orElseGet { CompletableFuture.completedFuture(null) }
                     },
-                    executor
+                    executor,
                 )
             return CompletableFuture.completedFuture(Optional.of(firstPage))
                 .forEach(action::test, executor)

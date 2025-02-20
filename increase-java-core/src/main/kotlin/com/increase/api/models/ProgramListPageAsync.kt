@@ -82,13 +82,8 @@ private constructor(
         fun of(
             programsService: ProgramServiceAsync,
             params: ProgramListParams,
-            response: Response
-        ) =
-            ProgramListPageAsync(
-                programsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = ProgramListPageAsync(programsService, params, response)
     }
 
     @NoAutoDetect
@@ -173,23 +168,16 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: ProgramListPageAsync,
-    ) {
+    class AutoPager(private val firstPage: ProgramListPageAsync) {
 
         fun forEach(action: Predicate<Program>, executor: Executor): CompletableFuture<Void> {
             fun CompletableFuture<Optional<ProgramListPageAsync>>.forEach(
                 action: (Program) -> Boolean,
-                executor: Executor
+                executor: Executor,
             ): CompletableFuture<Void> =
                 thenComposeAsync(
                     { page ->
@@ -198,7 +186,7 @@ private constructor(
                             .map { it.getNextPage().forEach(action, executor) }
                             .orElseGet { CompletableFuture.completedFuture(null) }
                     },
-                    executor
+                    executor,
                 )
             return CompletableFuture.completedFuture(Optional.of(firstPage))
                 .forEach(action::test, executor)

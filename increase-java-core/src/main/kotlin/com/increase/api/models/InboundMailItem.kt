@@ -297,11 +297,8 @@ private constructor(
     }
 
     /** If the mail item has been rejected, why it was rejected. */
-    class RejectionReason
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class RejectionReason @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -408,11 +405,7 @@ private constructor(
     }
 
     /** If the mail item has been processed. */
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -519,11 +512,7 @@ private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `inbound_mail_item`.
      */
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -544,7 +533,7 @@ private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            INBOUND_MAIL_ITEM,
+            INBOUND_MAIL_ITEM
         }
 
         /**

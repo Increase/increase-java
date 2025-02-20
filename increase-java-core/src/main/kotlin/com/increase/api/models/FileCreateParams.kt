@@ -50,11 +50,7 @@ private constructor(
 
     @JvmSynthetic
     internal fun _body(): Array<MultipartFormValue<*>?> =
-        arrayOf(
-            file(),
-            purpose(),
-            description().orElse(null),
-        )
+        arrayOf(file(), purpose(), description().orElse(null))
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -94,36 +90,21 @@ private constructor(
         fun file(
             content: ByteArray,
             filename: String? = null,
-            contentType: ContentType = ContentTypes.DefaultBinary
+            contentType: ContentType = ContentTypes.DefaultBinary,
         ) = apply {
-            this.file =
-                MultipartFormValue.fromByteArray(
-                    "file",
-                    content,
-                    contentType,
-                    filename,
-                )
+            this.file = MultipartFormValue.fromByteArray("file", content, contentType, filename)
         }
 
         /** What the File will be used for in Increase's systems. */
         fun purpose(purpose: Purpose, contentType: ContentType = ContentTypes.DefaultText) = apply {
-            this.purpose =
-                MultipartFormValue.fromEnum(
-                    "purpose",
-                    purpose,
-                    contentType,
-                )
+            this.purpose = MultipartFormValue.fromEnum("purpose", purpose, contentType)
         }
 
         /** The description you choose to give the File. */
         fun description(description: String, contentType: ContentType = ContentTypes.DefaultText) =
             apply {
                 this.description =
-                    MultipartFormValue.fromString(
-                        "description",
-                        description,
-                        contentType,
-                    )
+                    MultipartFormValue.fromString("description", description, contentType)
             }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -235,11 +216,7 @@ private constructor(
     }
 
     /** What the File will be used for in Increase's systems. */
-    class Purpose
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Purpose @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.

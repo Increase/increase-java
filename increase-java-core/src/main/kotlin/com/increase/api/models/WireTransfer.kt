@@ -1485,7 +1485,7 @@ private constructor(
                 fun build(): ApiKey =
                     ApiKey(
                         checkRequired("description", description),
-                        additionalProperties.toImmutable()
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -1508,11 +1508,8 @@ private constructor(
         }
 
         /** The type of object that created this transfer. */
-        class Category
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Category @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -1709,7 +1706,7 @@ private constructor(
                 fun build(): OAuthApplication =
                     OAuthApplication(
                         checkRequired("name", name),
-                        additionalProperties.toImmutable()
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -1855,11 +1852,7 @@ private constructor(
      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency. For
      * wire transfers this is always equal to `usd`.
      */
-    class Currency
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Currency @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -1990,11 +1983,7 @@ private constructor(
     }
 
     /** The transfer's network. */
-    class Network
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Network @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -2015,7 +2004,7 @@ private constructor(
 
         /** An enum containing [Network]'s known values. */
         enum class Known {
-            WIRE,
+            WIRE
         }
 
         /**
@@ -2651,7 +2640,7 @@ private constructor(
                     checkRequired("description", description),
                     checkRequired(
                         "financialInstitutionToFinancialInstitutionInformation",
-                        financialInstitutionToFinancialInstitutionInformation
+                        financialInstitutionToFinancialInstitutionInformation,
                     ),
                     checkRequired("inputCycleDate", inputCycleDate),
                     checkRequired("inputMessageAccountabilityData", inputMessageAccountabilityData),
@@ -2661,16 +2650,16 @@ private constructor(
                     checkRequired("previousMessageInputCycleDate", previousMessageInputCycleDate),
                     checkRequired(
                         "previousMessageInputMessageAccountabilityData",
-                        previousMessageInputMessageAccountabilityData
+                        previousMessageInputMessageAccountabilityData,
                     ),
                     checkRequired(
                         "previousMessageInputSequenceNumber",
-                        previousMessageInputSequenceNumber
+                        previousMessageInputSequenceNumber,
                     ),
                     checkRequired("previousMessageInputSource", previousMessageInputSource),
                     checkRequired(
                         "receiverFinancialInstitutionInformation",
-                        receiverFinancialInstitutionInformation
+                        receiverFinancialInstitutionInformation,
                     ),
                     checkRequired("senderReference", senderReference),
                     checkRequired("transactionId", transactionId),
@@ -2698,11 +2687,7 @@ private constructor(
     }
 
     /** The lifecycle status of the transfer. */
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -2995,11 +2980,7 @@ private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `wire_transfer`.
      */
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -3020,7 +3001,7 @@ private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            WIRE_TRANSFER,
+            WIRE_TRANSFER
         }
 
         /**

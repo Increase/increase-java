@@ -411,13 +411,7 @@ private constructor(
             }
 
             fun build(): CreatedAt =
-                CreatedAt(
-                    after,
-                    before,
-                    onOrAfter,
-                    onOrBefore,
-                    additionalProperties.build(),
-                )
+                CreatedAt(after, before, onOrAfter, onOrBefore, additionalProperties.build())
         }
 
         override fun equals(other: Any?): Boolean {

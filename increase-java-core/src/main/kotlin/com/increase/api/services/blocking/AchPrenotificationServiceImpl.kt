@@ -19,10 +19,8 @@ import com.increase.api.models.AchPrenotificationListPage
 import com.increase.api.models.AchPrenotificationListParams
 import com.increase.api.models.AchPrenotificationRetrieveParams
 
-class AchPrenotificationServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : AchPrenotificationService {
+class AchPrenotificationServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    AchPrenotificationService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -32,7 +30,7 @@ internal constructor(
     /** Create an ACH Prenotification */
     override fun create(
         params: AchPrenotificationCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): AchPrenotification {
         val request =
             HttpRequest.builder()
@@ -57,7 +55,7 @@ internal constructor(
     /** Retrieve an ACH Prenotification */
     override fun retrieve(
         params: AchPrenotificationRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): AchPrenotification {
         val request =
             HttpRequest.builder()
@@ -82,7 +80,7 @@ internal constructor(
     /** List ACH Prenotifications */
     override fun list(
         params: AchPrenotificationListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): AchPrenotificationListPage {
         val request =
             HttpRequest.builder()

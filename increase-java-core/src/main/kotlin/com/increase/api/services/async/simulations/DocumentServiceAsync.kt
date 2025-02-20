@@ -15,6 +15,6 @@ interface DocumentServiceAsync {
     @JvmOverloads
     fun create(
         params: SimulationDocumentCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Document>
 }

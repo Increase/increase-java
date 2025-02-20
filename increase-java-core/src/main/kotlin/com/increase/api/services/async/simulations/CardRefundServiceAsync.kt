@@ -18,6 +18,6 @@ interface CardRefundServiceAsync {
     @JvmOverloads
     fun create(
         params: SimulationCardRefundCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Transaction>
 }

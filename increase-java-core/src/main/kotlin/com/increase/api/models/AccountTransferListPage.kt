@@ -79,13 +79,8 @@ private constructor(
         fun of(
             accountTransfersService: AccountTransferService,
             params: AccountTransferListParams,
-            response: Response
-        ) =
-            AccountTransferListPage(
-                accountTransfersService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = AccountTransferListPage(accountTransfersService, params, response)
     }
 
     @NoAutoDetect
@@ -170,18 +165,11 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: AccountTransferListPage,
-    ) : Iterable<AccountTransfer> {
+    class AutoPager(private val firstPage: AccountTransferListPage) : Iterable<AccountTransfer> {
 
         override fun iterator(): Iterator<AccountTransfer> = iterator {
             var page = firstPage

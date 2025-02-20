@@ -16,10 +16,8 @@ import com.increase.api.errors.IncreaseError
 import com.increase.api.models.Document
 import com.increase.api.models.SimulationDocumentCreateParams
 
-class DocumentServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : DocumentService {
+class DocumentServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    DocumentService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -29,7 +27,7 @@ internal constructor(
     /** Simulates an tax document being created for an account. */
     override fun create(
         params: SimulationDocumentCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Document {
         val request =
             HttpRequest.builder()

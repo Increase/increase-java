@@ -22,9 +22,7 @@ import com.increase.api.models.InboundCheckDepositReturnParams
 import java.util.concurrent.CompletableFuture
 
 class InboundCheckDepositServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : InboundCheckDepositServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) : InboundCheckDepositServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -34,7 +32,7 @@ internal constructor(
     /** Retrieve an Inbound Check Deposit */
     override fun retrieve(
         params: InboundCheckDepositRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<InboundCheckDeposit> {
         val request =
             HttpRequest.builder()
@@ -62,7 +60,7 @@ internal constructor(
     /** List Inbound Check Deposits */
     override fun list(
         params: InboundCheckDepositListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<InboundCheckDepositListPageAsync> {
         val request =
             HttpRequest.builder()
@@ -90,7 +88,7 @@ internal constructor(
     /** Decline an Inbound Check Deposit */
     override fun decline(
         params: InboundCheckDepositDeclineParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<InboundCheckDeposit> {
         val request =
             HttpRequest.builder()
@@ -118,7 +116,7 @@ internal constructor(
     /** Return an Inbound Check Deposit */
     override fun return_(
         params: InboundCheckDepositReturnParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<InboundCheckDeposit> {
         val request =
             HttpRequest.builder()

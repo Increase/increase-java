@@ -18,9 +18,7 @@ import com.increase.api.models.SimulationInboundCheckDepositCreateParams
 import java.util.concurrent.CompletableFuture
 
 class InboundCheckDepositServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : InboundCheckDepositServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) : InboundCheckDepositServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -36,7 +34,7 @@ internal constructor(
      */
     override fun create(
         params: SimulationInboundCheckDepositCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<InboundCheckDeposit> {
         val request =
             HttpRequest.builder()

@@ -19,9 +19,8 @@ import com.increase.api.models.InboundRealTimePaymentsTransferRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class InboundRealTimePaymentsTransferServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : InboundRealTimePaymentsTransferServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) :
+    InboundRealTimePaymentsTransferServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -32,7 +31,7 @@ internal constructor(
     /** Retrieve an Inbound Real-Time Payments Transfer */
     override fun retrieve(
         params: InboundRealTimePaymentsTransferRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<InboundRealTimePaymentsTransfer> {
         val request =
             HttpRequest.builder()
@@ -60,7 +59,7 @@ internal constructor(
     /** List Inbound Real-Time Payments Transfers */
     override fun list(
         params: InboundRealTimePaymentsTransferListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<InboundRealTimePaymentsTransferListPageAsync> {
         val request =
             HttpRequest.builder()

@@ -17,10 +17,8 @@ import com.increase.api.models.CardDispute
 import com.increase.api.models.SimulationCardDisputeActionParams
 import java.util.concurrent.CompletableFuture
 
-class CardDisputeServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : CardDisputeServiceAsync {
+class CardDisputeServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    CardDisputeServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -35,7 +33,7 @@ internal constructor(
      */
     override fun action(
         params: SimulationCardDisputeActionParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<CardDispute> {
         val request =
             HttpRequest.builder()

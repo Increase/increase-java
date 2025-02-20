@@ -20,6 +20,6 @@ interface InboundCheckDepositService {
     @JvmOverloads
     fun create(
         params: SimulationInboundCheckDepositCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundCheckDeposit
 }

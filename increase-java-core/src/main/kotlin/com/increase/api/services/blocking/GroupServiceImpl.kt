@@ -15,10 +15,8 @@ import com.increase.api.errors.IncreaseError
 import com.increase.api.models.Group
 import com.increase.api.models.GroupRetrieveParams
 
-class GroupServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : GroupService {
+class GroupServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    GroupService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 

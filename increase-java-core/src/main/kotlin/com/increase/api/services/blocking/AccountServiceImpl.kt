@@ -23,10 +23,8 @@ import com.increase.api.models.AccountRetrieveParams
 import com.increase.api.models.AccountUpdateParams
 import com.increase.api.models.BalanceLookup
 
-class AccountServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : AccountService {
+class AccountServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    AccountService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -127,7 +125,7 @@ internal constructor(
      */
     override fun balance(
         params: AccountBalanceParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): BalanceLookup {
         val request =
             HttpRequest.builder()

@@ -17,10 +17,8 @@ import com.increase.api.models.CheckTransfer
 import com.increase.api.models.SimulationCheckTransferMailParams
 import java.util.concurrent.CompletableFuture
 
-class CheckTransferServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : CheckTransferServiceAsync {
+class CheckTransferServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    CheckTransferServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -34,7 +32,7 @@ internal constructor(
      */
     override fun mail(
         params: SimulationCheckTransferMailParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<CheckTransfer> {
         val request =
             HttpRequest.builder()

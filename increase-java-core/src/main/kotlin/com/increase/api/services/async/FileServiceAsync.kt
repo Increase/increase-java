@@ -22,20 +22,20 @@ interface FileServiceAsync {
     @JvmOverloads
     fun create(
         params: FileCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<File>
 
     /** Retrieve a File */
     @JvmOverloads
     fun retrieve(
         params: FileRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<File>
 
     /** List Files */
     @JvmOverloads
     fun list(
         params: FileListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<FileListPageAsync>
 }

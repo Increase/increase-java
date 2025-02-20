@@ -18,6 +18,6 @@ interface CardFuelConfirmationService {
     @JvmOverloads
     fun create(
         params: SimulationCardFuelConfirmationCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPayment
 }

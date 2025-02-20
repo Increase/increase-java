@@ -16,10 +16,8 @@ import com.increase.api.errors.IncreaseError
 import com.increase.api.models.AccountTransfer
 import com.increase.api.models.SimulationAccountTransferCompleteParams
 
-class AccountTransferServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : AccountTransferService {
+class AccountTransferServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    AccountTransferService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -34,7 +32,7 @@ internal constructor(
      */
     override fun complete(
         params: SimulationAccountTransferCompleteParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): AccountTransfer {
         val request =
             HttpRequest.builder()
@@ -43,7 +41,7 @@ internal constructor(
                     "simulations",
                     "account_transfers",
                     params.getPathParam(0),
-                    "complete"
+                    "complete",
                 )
                 .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                 .build()

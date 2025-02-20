@@ -17,6 +17,6 @@ interface PhysicalCardService {
     @JvmOverloads
     fun advanceShipment(
         params: SimulationPhysicalCardAdvanceShipmentParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): PhysicalCard
 }

@@ -18,27 +18,27 @@ interface EventSubscriptionService {
     @JvmOverloads
     fun create(
         params: EventSubscriptionCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): EventSubscription
 
     /** Retrieve an Event Subscription */
     @JvmOverloads
     fun retrieve(
         params: EventSubscriptionRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): EventSubscription
 
     /** Update an Event Subscription */
     @JvmOverloads
     fun update(
         params: EventSubscriptionUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): EventSubscription
 
     /** List Event Subscriptions */
     @JvmOverloads
     fun list(
         params: EventSubscriptionListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): EventSubscriptionListPage
 }

@@ -708,11 +708,7 @@ private constructor(
     }
 
     /** The lifecycle status of the drawdown request. */
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -925,7 +921,7 @@ private constructor(
             fun build(): Submission =
                 Submission(
                     checkRequired("inputMessageAccountabilityData", inputMessageAccountabilityData),
-                    additionalProperties.toImmutable()
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -951,11 +947,7 @@ private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `wire_drawdown_request`.
      */
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -976,7 +968,7 @@ private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            WIRE_DRAWDOWN_REQUEST,
+            WIRE_DRAWDOWN_REQUEST
         }
 
         /**

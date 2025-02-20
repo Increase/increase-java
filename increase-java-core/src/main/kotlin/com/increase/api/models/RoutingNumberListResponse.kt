@@ -224,11 +224,8 @@ private constructor(
     }
 
     /** This routing number's support for ACH Transfers. */
-    class AchTransfers
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class AchTransfers @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -327,9 +324,7 @@ private constructor(
     /** This routing number's support for Real-Time Payments Transfers. */
     class RealTimePaymentsTransfers
     @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -433,11 +428,7 @@ private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `routing_number`.
      */
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -458,7 +449,7 @@ private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            ROUTING_NUMBER,
+            ROUTING_NUMBER
         }
 
         /**
@@ -520,11 +511,8 @@ private constructor(
     }
 
     /** This routing number's support for Wire Transfers. */
-    class WireTransfers
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class WireTransfers @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.

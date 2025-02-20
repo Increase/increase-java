@@ -154,7 +154,7 @@ private constructor(
             fun build(): EntityUpdateAddressBody =
                 EntityUpdateAddressBody(
                     checkRequired("address", address),
-                    additionalProperties.toImmutable()
+                    additionalProperties.toImmutable(),
                 )
         }
 

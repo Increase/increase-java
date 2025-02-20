@@ -16,13 +16,13 @@ interface DocumentService {
     @JvmOverloads
     fun retrieve(
         params: DocumentRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Document
 
     /** List Documents */
     @JvmOverloads
     fun list(
         params: DocumentListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): DocumentListPage
 }

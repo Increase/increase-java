@@ -396,13 +396,7 @@ private constructor(
             }
 
             fun build(): CreatedAt =
-                CreatedAt(
-                    after,
-                    before,
-                    onOrAfter,
-                    onOrBefore,
-                    additionalProperties.build(),
-                )
+                CreatedAt(after, before, onOrAfter, onOrBefore, additionalProperties.build())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -424,10 +418,7 @@ private constructor(
     }
 
     class Status
-    private constructor(
-        private val in_: List<In>?,
-        private val additionalProperties: QueryParams,
-    ) {
+    private constructor(private val in_: List<In>?, private val additionalProperties: QueryParams) {
 
         /**
          * Return results whose value is in the provided list. For GET requests, this should be
@@ -534,11 +525,7 @@ private constructor(
             fun build(): Status = Status(in_?.toImmutable(), additionalProperties.build())
         }
 
-        class In
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class In @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.

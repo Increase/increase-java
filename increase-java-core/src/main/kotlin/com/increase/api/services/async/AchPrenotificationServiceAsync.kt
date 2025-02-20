@@ -18,20 +18,20 @@ interface AchPrenotificationServiceAsync {
     @JvmOverloads
     fun create(
         params: AchPrenotificationCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AchPrenotification>
 
     /** Retrieve an ACH Prenotification */
     @JvmOverloads
     fun retrieve(
         params: AchPrenotificationRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AchPrenotification>
 
     /** List ACH Prenotifications */
     @JvmOverloads
     fun list(
         params: AchPrenotificationListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AchPrenotificationListPageAsync>
 }

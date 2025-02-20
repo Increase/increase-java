@@ -19,34 +19,34 @@ interface AchTransferService {
     @JvmOverloads
     fun create(
         params: AchTransferCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 
     /** Retrieve an ACH Transfer */
     @JvmOverloads
     fun retrieve(
         params: AchTransferRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 
     /** List ACH Transfers */
     @JvmOverloads
     fun list(
         params: AchTransferListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransferListPage
 
     /** Approves an ACH Transfer in a pending_approval state. */
     @JvmOverloads
     fun approve(
         params: AchTransferApproveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 
     /** Cancels an ACH Transfer in a pending_approval state. */
     @JvmOverloads
     fun cancel(
         params: AchTransferCancelParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 }

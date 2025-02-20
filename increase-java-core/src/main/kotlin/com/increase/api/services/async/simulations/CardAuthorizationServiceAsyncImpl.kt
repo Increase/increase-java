@@ -18,9 +18,7 @@ import com.increase.api.models.SimulationCardAuthorizationCreateResponse
 import java.util.concurrent.CompletableFuture
 
 class CardAuthorizationServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : CardAuthorizationServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) : CardAuthorizationServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -38,7 +36,7 @@ internal constructor(
      */
     override fun create(
         params: SimulationCardAuthorizationCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<SimulationCardAuthorizationCreateResponse> {
         val request =
             HttpRequest.builder()

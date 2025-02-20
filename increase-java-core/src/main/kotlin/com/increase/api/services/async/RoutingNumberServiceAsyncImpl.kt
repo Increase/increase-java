@@ -16,10 +16,8 @@ import com.increase.api.models.RoutingNumberListPageAsync
 import com.increase.api.models.RoutingNumberListParams
 import java.util.concurrent.CompletableFuture
 
-class RoutingNumberServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : RoutingNumberServiceAsync {
+class RoutingNumberServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    RoutingNumberServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -35,7 +33,7 @@ internal constructor(
      */
     override fun list(
         params: RoutingNumberListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<RoutingNumberListPageAsync> {
         val request =
             HttpRequest.builder()

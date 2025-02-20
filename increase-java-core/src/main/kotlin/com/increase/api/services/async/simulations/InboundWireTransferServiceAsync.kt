@@ -15,6 +15,6 @@ interface InboundWireTransferServiceAsync {
     @JvmOverloads
     fun create(
         params: SimulationInboundWireTransferCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundWireTransfer>
 }

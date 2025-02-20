@@ -20,34 +20,34 @@ interface WireTransferServiceAsync {
     @JvmOverloads
     fun create(
         params: WireTransferCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<WireTransfer>
 
     /** Retrieve a Wire Transfer */
     @JvmOverloads
     fun retrieve(
         params: WireTransferRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<WireTransfer>
 
     /** List Wire Transfers */
     @JvmOverloads
     fun list(
         params: WireTransferListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<WireTransferListPageAsync>
 
     /** Approve a Wire Transfer */
     @JvmOverloads
     fun approve(
         params: WireTransferApproveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<WireTransfer>
 
     /** Cancel a pending Wire Transfer */
     @JvmOverloads
     fun cancel(
         params: WireTransferCancelParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<WireTransfer>
 }

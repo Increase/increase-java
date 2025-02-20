@@ -18,10 +18,8 @@ import com.increase.api.models.SimulationWireTransferSubmitParams
 import com.increase.api.models.WireTransfer
 import java.util.concurrent.CompletableFuture
 
-class WireTransferServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : WireTransferServiceAsync {
+class WireTransferServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    WireTransferServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -35,7 +33,7 @@ internal constructor(
      */
     override fun reverse(
         params: SimulationWireTransferReverseParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<WireTransfer> {
         val request =
             HttpRequest.builder()
@@ -66,7 +64,7 @@ internal constructor(
      */
     override fun submit(
         params: SimulationWireTransferSubmitParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<WireTransfer> {
         val request =
             HttpRequest.builder()

@@ -21,10 +21,8 @@ import com.increase.api.models.SimulationAchTransferSettleParams
 import com.increase.api.models.SimulationAchTransferSubmitParams
 import java.util.concurrent.CompletableFuture
 
-class AchTransferServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : AchTransferServiceAsync {
+class AchTransferServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    AchTransferServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -40,7 +38,7 @@ internal constructor(
      */
     override fun acknowledge(
         params: SimulationAchTransferAcknowledgeParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<AchTransfer> {
         val request =
             HttpRequest.builder()
@@ -49,7 +47,7 @@ internal constructor(
                     "simulations",
                     "ach_transfers",
                     params.getPathParam(0),
-                    "acknowledge"
+                    "acknowledge",
                 )
                 .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                 .build()
@@ -73,7 +71,7 @@ internal constructor(
     /** Simulates receiving a Notification of Change for an [ACH Transfer](#ach-transfers). */
     override fun createNotificationOfChange(
         params: SimulationAchTransferCreateNotificationOfChangeParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<AchTransfer> {
         val request =
             HttpRequest.builder()
@@ -82,7 +80,7 @@ internal constructor(
                     "simulations",
                     "ach_transfers",
                     params.getPathParam(0),
-                    "create_notification_of_change"
+                    "create_notification_of_change",
                 )
                 .body(json(clientOptions.jsonMapper, params._body()))
                 .build()
@@ -110,7 +108,7 @@ internal constructor(
      */
     override fun return_(
         params: SimulationAchTransferReturnParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<AchTransfer> {
         val request =
             HttpRequest.builder()
@@ -142,7 +140,7 @@ internal constructor(
      */
     override fun settle(
         params: SimulationAchTransferSettleParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<AchTransfer> {
         val request =
             HttpRequest.builder()
@@ -176,7 +174,7 @@ internal constructor(
      */
     override fun submit(
         params: SimulationAchTransferSubmitParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<AchTransfer> {
         val request =
             HttpRequest.builder()

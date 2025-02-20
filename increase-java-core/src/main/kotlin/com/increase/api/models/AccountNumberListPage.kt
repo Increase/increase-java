@@ -79,13 +79,8 @@ private constructor(
         fun of(
             accountNumbersService: AccountNumberService,
             params: AccountNumberListParams,
-            response: Response
-        ) =
-            AccountNumberListPage(
-                accountNumbersService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = AccountNumberListPage(accountNumbersService, params, response)
     }
 
     @NoAutoDetect
@@ -170,18 +165,11 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: AccountNumberListPage,
-    ) : Iterable<AccountNumber> {
+    class AutoPager(private val firstPage: AccountNumberListPage) : Iterable<AccountNumber> {
 
         override fun iterator(): Iterator<AccountNumber> = iterator {
             var page = firstPage

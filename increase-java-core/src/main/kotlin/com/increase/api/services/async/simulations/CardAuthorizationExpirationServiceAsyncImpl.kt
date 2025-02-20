@@ -18,9 +18,8 @@ import com.increase.api.models.SimulationCardAuthorizationExpirationCreateParams
 import java.util.concurrent.CompletableFuture
 
 class CardAuthorizationExpirationServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : CardAuthorizationExpirationServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) :
+    CardAuthorizationExpirationServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -30,7 +29,7 @@ internal constructor(
     /** Simulates expiring a Card Authorization immediately. */
     override fun create(
         params: SimulationCardAuthorizationExpirationCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<CardPayment> {
         val request =
             HttpRequest.builder()

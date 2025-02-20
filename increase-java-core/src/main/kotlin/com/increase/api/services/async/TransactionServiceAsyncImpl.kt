@@ -18,10 +18,8 @@ import com.increase.api.models.TransactionListParams
 import com.increase.api.models.TransactionRetrieveParams
 import java.util.concurrent.CompletableFuture
 
-class TransactionServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : TransactionServiceAsync {
+class TransactionServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    TransactionServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -31,7 +29,7 @@ internal constructor(
     /** Retrieve a Transaction */
     override fun retrieve(
         params: TransactionRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<Transaction> {
         val request =
             HttpRequest.builder()
@@ -59,7 +57,7 @@ internal constructor(
     /** List Transactions */
     override fun list(
         params: TransactionListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<TransactionListPageAsync> {
         val request =
             HttpRequest.builder()

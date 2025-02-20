@@ -24,35 +24,35 @@ interface EntityService {
     @JvmOverloads
     fun create(
         params: EntityCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
     /** Retrieve an Entity */
     @JvmOverloads
     fun retrieve(
         params: EntityRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
     /** List Entities */
     @JvmOverloads
     fun list(
         params: EntityListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): EntityListPage
 
     /** Archive an Entity */
     @JvmOverloads
     fun archive(
         params: EntityArchiveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
     /** Archive a beneficial owner for a corporate Entity */
     @JvmOverloads
     fun archiveBeneficialOwner(
         params: EntityArchiveBeneficialOwnerParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
     /**
@@ -63,34 +63,34 @@ interface EntityService {
     @JvmOverloads
     fun confirm(
         params: EntityConfirmParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
     /** Create a beneficial owner for a corporate Entity */
     @JvmOverloads
     fun createBeneficialOwner(
         params: EntityCreateBeneficialOwnerParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
     /** Update a Natural Person or Corporation's address */
     @JvmOverloads
     fun updateAddress(
         params: EntityUpdateAddressParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
     /** Update the address for a beneficial owner belonging to a corporate Entity */
     @JvmOverloads
     fun updateBeneficialOwnerAddress(
         params: EntityUpdateBeneficialOwnerAddressParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
     /** Update the industry code for a corporate Entity */
     @JvmOverloads
     fun updateIndustryCode(
         params: EntityUpdateIndustryCodeParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 }

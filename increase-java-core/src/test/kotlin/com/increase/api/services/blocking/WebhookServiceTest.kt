@@ -32,7 +32,7 @@ class WebhookServiceTest {
             Headers.builder()
                 .put(
                     "Increase-Webhook-Signature",
-                    "t=2022-01-31T23:59:59Z,v1=3f9c3dcc820ca3adfae8e196d05b09dfef63b91db5ce5ac1407090f2aa424a6f"
+                    "t=2022-01-31T23:59:59Z,v1=3f9c3dcc820ca3adfae8e196d05b09dfef63b91db5ce5ac1407090f2aa424a6f",
                 )
                 .build()
 
@@ -54,7 +54,7 @@ class WebhookServiceTest {
             Headers.builder()
                 .put(
                     "Increase-Webhook-Signature",
-                    "t=2022-01-31T23:59:59Z,v1=3f9c3dcc820ca3adfae8e196d05b09dfef63b91db5ce5ac1407090f2aa424a6f"
+                    "t=2022-01-31T23:59:59Z,v1=3f9c3dcc820ca3adfae8e196d05b09dfef63b91db5ce5ac1407090f2aa424a6f",
                 )
                 .build()
 
@@ -77,7 +77,7 @@ class WebhookServiceTest {
             Headers.builder()
                 .put(
                     "Increase-Webhook-Signature",
-                    "t=2022-01-31T23:59:59Z,v1=3f9c3dcc820ca3adfae8e196d05b09dfef63b91db5ce5ac1407090f2aa424a6f"
+                    "t=2022-01-31T23:59:59Z,v1=3f9c3dcc820ca3adfae8e196d05b09dfef63b91db5ce5ac1407090f2aa424a6f",
                 )
                 .build()
 

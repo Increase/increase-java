@@ -21,9 +21,7 @@ import com.increase.api.models.WireDrawdownRequestRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class WireDrawdownRequestServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : WireDrawdownRequestServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) : WireDrawdownRequestServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -33,7 +31,7 @@ internal constructor(
     /** Create a Wire Drawdown Request */
     override fun create(
         params: WireDrawdownRequestCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<WireDrawdownRequest> {
         val request =
             HttpRequest.builder()
@@ -61,7 +59,7 @@ internal constructor(
     /** Retrieve a Wire Drawdown Request */
     override fun retrieve(
         params: WireDrawdownRequestRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<WireDrawdownRequest> {
         val request =
             HttpRequest.builder()
@@ -89,7 +87,7 @@ internal constructor(
     /** List Wire Drawdown Requests */
     override fun list(
         params: WireDrawdownRequestListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<WireDrawdownRequestListPageAsync> {
         val request =
             HttpRequest.builder()

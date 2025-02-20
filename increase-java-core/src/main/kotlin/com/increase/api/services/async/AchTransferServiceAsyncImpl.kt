@@ -22,10 +22,8 @@ import com.increase.api.models.AchTransferListParams
 import com.increase.api.models.AchTransferRetrieveParams
 import java.util.concurrent.CompletableFuture
 
-class AchTransferServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : AchTransferServiceAsync {
+class AchTransferServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    AchTransferServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -35,7 +33,7 @@ internal constructor(
     /** Create an ACH Transfer */
     override fun create(
         params: AchTransferCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<AchTransfer> {
         val request =
             HttpRequest.builder()
@@ -63,7 +61,7 @@ internal constructor(
     /** Retrieve an ACH Transfer */
     override fun retrieve(
         params: AchTransferRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<AchTransfer> {
         val request =
             HttpRequest.builder()
@@ -91,7 +89,7 @@ internal constructor(
     /** List ACH Transfers */
     override fun list(
         params: AchTransferListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<AchTransferListPageAsync> {
         val request =
             HttpRequest.builder()
@@ -119,7 +117,7 @@ internal constructor(
     /** Approves an ACH Transfer in a pending_approval state. */
     override fun approve(
         params: AchTransferApproveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<AchTransfer> {
         val request =
             HttpRequest.builder()
@@ -147,7 +145,7 @@ internal constructor(
     /** Cancels an ACH Transfer in a pending_approval state. */
     override fun cancel(
         params: AchTransferCancelParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CompletableFuture<AchTransfer> {
         val request =
             HttpRequest.builder()

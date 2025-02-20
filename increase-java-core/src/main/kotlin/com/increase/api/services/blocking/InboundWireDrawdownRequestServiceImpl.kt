@@ -18,9 +18,7 @@ import com.increase.api.models.InboundWireDrawdownRequestListParams
 import com.increase.api.models.InboundWireDrawdownRequestRetrieveParams
 
 class InboundWireDrawdownRequestServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : InboundWireDrawdownRequestService {
+internal constructor(private val clientOptions: ClientOptions) : InboundWireDrawdownRequestService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -31,7 +29,7 @@ internal constructor(
     /** Retrieve an Inbound Wire Drawdown Request */
     override fun retrieve(
         params: InboundWireDrawdownRequestRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): InboundWireDrawdownRequest {
         val request =
             HttpRequest.builder()
@@ -56,7 +54,7 @@ internal constructor(
     /** List Inbound Wire Drawdown Requests */
     override fun list(
         params: InboundWireDrawdownRequestListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): InboundWireDrawdownRequestListPage {
         val request =
             HttpRequest.builder()

@@ -14,6 +14,6 @@ interface IntrafiBalanceService {
     @JvmOverloads
     fun intrafiBalance(
         params: IntrafiBalanceIntrafiBalanceParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiBalance
 }

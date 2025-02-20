@@ -16,10 +16,8 @@ import com.increase.api.errors.IncreaseError
 import com.increase.api.models.AccountStatement
 import com.increase.api.models.SimulationAccountStatementCreateParams
 
-class AccountStatementServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : AccountStatementService {
+class AccountStatementServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    AccountStatementService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -32,7 +30,7 @@ internal constructor(
      */
     override fun create(
         params: SimulationAccountStatementCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): AccountStatement {
         val request =
             HttpRequest.builder()

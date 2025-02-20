@@ -18,6 +18,6 @@ interface InterestPaymentServiceAsync {
     @JvmOverloads
     fun create(
         params: SimulationInterestPaymentCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Transaction>
 }

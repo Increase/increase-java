@@ -16,10 +16,8 @@ import com.increase.api.errors.IncreaseError
 import com.increase.api.models.SimulationCardRefundCreateParams
 import com.increase.api.models.Transaction
 
-class CardRefundServiceImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : CardRefundService {
+class CardRefundServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    CardRefundService {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -32,7 +30,7 @@ internal constructor(
      */
     override fun create(
         params: SimulationCardRefundCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Transaction {
         val request =
             HttpRequest.builder()

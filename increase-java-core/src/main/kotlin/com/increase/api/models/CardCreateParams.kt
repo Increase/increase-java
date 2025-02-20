@@ -508,11 +508,7 @@ private constructor(
         }
 
         fun build(): CardCreateParams =
-            CardCreateParams(
-                body.build(),
-                additionalHeaders.build(),
-                additionalQueryParams.build(),
-            )
+            CardCreateParams(body.build(), additionalHeaders.build(), additionalQueryParams.build())
     }
 
     /** The card's billing address. */

@@ -20,7 +20,7 @@ interface WireTransferServiceAsync {
     @JvmOverloads
     fun reverse(
         params: SimulationWireTransferReverseParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<WireTransfer>
 
     /**
@@ -30,6 +30,6 @@ interface WireTransferServiceAsync {
     @JvmOverloads
     fun submit(
         params: SimulationWireTransferSubmitParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<WireTransfer>
 }
