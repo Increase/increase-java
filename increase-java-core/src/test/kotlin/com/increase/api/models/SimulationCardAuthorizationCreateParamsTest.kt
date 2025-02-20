@@ -2,6 +2,7 @@
 
 package com.increase.api.models
 
+import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -79,7 +80,7 @@ class SimulationCardAuthorizationCreateParamsTest {
 
         val body = params._body()
 
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.amount()).isEqualTo(1000L)
         assertThat(body.authenticatedCardPaymentId()).contains("authenticated_card_payment_id")
         assertThat(body.cardId()).contains("card_oubs0hwk5rn6knuecxg2")
@@ -120,7 +121,7 @@ class SimulationCardAuthorizationCreateParamsTest {
 
         val body = params._body()
 
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.amount()).isEqualTo(1000L)
     }
 }

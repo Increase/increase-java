@@ -2,6 +2,7 @@
 
 package com.increase.api.models
 
+import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -25,7 +26,7 @@ class IntrafiExclusionCreateParamsTest {
 
         val body = params._body()
 
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.bankName()).isEqualTo("Example Bank")
         assertThat(body.entityId()).isEqualTo("entity_n8y8tnk2p9339ti393yi")
     }
@@ -40,7 +41,7 @@ class IntrafiExclusionCreateParamsTest {
 
         val body = params._body()
 
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.bankName()).isEqualTo("Example Bank")
         assertThat(body.entityId()).isEqualTo("entity_n8y8tnk2p9339ti393yi")
     }
