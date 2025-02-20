@@ -2,6 +2,7 @@
 
 package com.increase.api.models
 
+import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -61,7 +62,7 @@ class SimulationInboundWireDrawdownRequestCreateParamsTest {
 
         val body = params._body()
 
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.amount()).isEqualTo(10000L)
         assertThat(body.beneficiaryAccountNumber()).isEqualTo("987654321")
         assertThat(body.beneficiaryRoutingNumber()).isEqualTo("101050001")
@@ -100,7 +101,7 @@ class SimulationInboundWireDrawdownRequestCreateParamsTest {
 
         val body = params._body()
 
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.amount()).isEqualTo(10000L)
         assertThat(body.beneficiaryAccountNumber()).isEqualTo("987654321")
         assertThat(body.beneficiaryRoutingNumber()).isEqualTo("101050001")

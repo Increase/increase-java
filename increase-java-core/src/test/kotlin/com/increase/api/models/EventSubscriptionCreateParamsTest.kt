@@ -2,6 +2,7 @@
 
 package com.increase.api.models
 
+import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -33,7 +34,7 @@ class EventSubscriptionCreateParamsTest {
 
         val body = params._body()
 
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.url()).isEqualTo("https://website.com/webhooks")
         assertThat(body.oauthConnectionId()).contains("oauth_connection_id")
         assertThat(body.selectedEventCategory())
@@ -48,7 +49,7 @@ class EventSubscriptionCreateParamsTest {
 
         val body = params._body()
 
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.url()).isEqualTo("https://website.com/webhooks")
     }
 }

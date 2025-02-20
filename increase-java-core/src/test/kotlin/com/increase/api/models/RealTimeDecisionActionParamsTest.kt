@@ -2,6 +2,7 @@
 
 package com.increase.api.models
 
+import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -118,7 +119,7 @@ class RealTimeDecisionActionParamsTest {
 
         val body = params._body()
 
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.cardAuthentication())
             .contains(
                 RealTimeDecisionActionParams.CardAuthentication.builder()
@@ -180,7 +181,7 @@ class RealTimeDecisionActionParamsTest {
 
         val body = params._body()
 
-        assertThat(body).isNotNull
+        assertNotNull(body)
     }
 
     @Test

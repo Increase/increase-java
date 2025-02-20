@@ -4,6 +4,7 @@ package com.increase.api.models
 
 import com.increase.api.core.ContentTypes
 import com.increase.api.core.MultipartFormValue
+import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -29,7 +30,7 @@ class FileCreateParamsTest {
 
         val body = params._body()
 
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.filterNotNull())
             .containsExactlyInAnyOrder(
                 MultipartFormValue.fromByteArray(
@@ -56,7 +57,7 @@ class FileCreateParamsTest {
 
         val body = params._body()
 
-        assertThat(body).isNotNull
+        assertNotNull(body)
         assertThat(body.filterNotNull())
             .containsExactlyInAnyOrder(
                 MultipartFormValue.fromByteArray(
