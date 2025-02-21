@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.182.1 (2025-02-21)
+
+Full Changelog: [v0.182.0...v0.182.1](https://github.com/Increase/increase-java/compare/v0.182.0...v0.182.1)
+
+### Documentation
+
+* add immutability explanation to readme ([#794](https://github.com/Increase/increase-java/issues/794)) ([19587b1](https://github.com/Increase/increase-java/commit/19587b1dcab521ce8870d553590656e6f2eab180))
+
 ## 0.182.0 (2025-02-20)
 
 Full Changelog: [v0.181.0...v0.182.0](https://github.com/Increase/increase-java/compare/v0.181.0...v0.182.0)

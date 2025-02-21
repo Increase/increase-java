@@ -2,7 +2,7 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.increase.api/increase-java)](https://central.sonatype.com/artifact/com.increase.api/increase-java/0.182.0)
+[![Maven Central](https://img.shields.io/maven-central/v/com.increase.api/increase-java)](https://central.sonatype.com/artifact/com.increase.api/increase-java/0.182.1)
 
 <!-- x-release-please-end -->
 
@@ -19,7 +19,7 @@ The REST API documentation can be found on [increase.com](https://increase.com/d
 ### Gradle
 
 ```kotlin
-implementation("com.increase.api:increase-java:0.182.0")
+implementation("com.increase.api:increase-java:0.182.1")
 ```
 
 ### Maven
@@ -28,7 +28,7 @@ implementation("com.increase.api:increase-java:0.182.0")
 <dependency>
     <groupId>com.increase.api</groupId>
     <artifactId>increase-java</artifactId>
-    <version>0.182.0</version>
+    <version>0.182.1</version>
 </dependency>
 ```
 
@@ -109,6 +109,14 @@ See this table for the available options:
 To send a request to the Increase API, build an instance of some `Params` class and pass it to the corresponding client method. When the response is received, it will be deserialized into an instance of a Java class.
 
 For example, `client.accounts().create(...)` should be called with an instance of `AccountCreateParams`, and it will return an instance of `Account`.
+
+## Immutability
+
+Each class in the SDK has an associated [builder](https://blogs.oracle.com/javamagazine/post/exploring-joshua-blochs-builder-design-pattern-in-java) or factory method for constructing it.
+
+Each class is [immutable](https://docs.oracle.com/javase/tutorial/essential/concurrency/immutable.html) once constructed. If the class has an associated builder, then it has a `toBuilder()` method, which can be used to convert it back to a builder for making a modified copy.
+
+Because each class is immutable, builder modification will _never_ affect already built class instances.
 
 ## Asynchronous execution
 
