@@ -18,6 +18,12 @@ class DigitalWalletTokenTest {
                 .status(DigitalWalletToken.Status.ACTIVE)
                 .tokenRequestor(DigitalWalletToken.TokenRequestor.APPLE_PAY)
                 .type(DigitalWalletToken.Type.DIGITAL_WALLET_TOKEN)
+                .addUpdate(
+                    DigitalWalletToken.Update.builder()
+                        .status(DigitalWalletToken.Update.Status.ACTIVE)
+                        .timestamp(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .build()
+                )
                 .build()
         assertThat(digitalWalletToken).isNotNull
         assertThat(digitalWalletToken.id()).isEqualTo("digital_wallet_token_izi62go3h51p369jrie0")
@@ -29,5 +35,12 @@ class DigitalWalletTokenTest {
             .isEqualTo(DigitalWalletToken.TokenRequestor.APPLE_PAY)
         assertThat(digitalWalletToken.type())
             .isEqualTo(DigitalWalletToken.Type.DIGITAL_WALLET_TOKEN)
+        assertThat(digitalWalletToken.updates())
+            .containsExactly(
+                DigitalWalletToken.Update.builder()
+                    .status(DigitalWalletToken.Update.Status.ACTIVE)
+                    .timestamp(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                    .build()
+            )
     }
 }
