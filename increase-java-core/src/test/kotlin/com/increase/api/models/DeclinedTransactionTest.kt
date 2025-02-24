@@ -118,7 +118,7 @@ class DeclinedTransactionTest {
                                         .INSUFFICIENT_FUNDS
                                 )
                                 .reason(
-                                    DeclinedTransaction.Source.CardDecline.Reason.CARD_NOT_ACTIVE
+                                    DeclinedTransaction.Source.CardDecline.Reason.ACCOUNT_CLOSED
                                 )
                                 .terminalId("RCN5VNXS")
                                 .verification(
@@ -330,7 +330,7 @@ class DeclinedTransactionTest {
                                 DeclinedTransaction.Source.CardDecline.RealTimeDecisionReason
                                     .INSUFFICIENT_FUNDS
                             )
-                            .reason(DeclinedTransaction.Source.CardDecline.Reason.CARD_NOT_ACTIVE)
+                            .reason(DeclinedTransaction.Source.CardDecline.Reason.ACCOUNT_CLOSED)
                             .terminalId("RCN5VNXS")
                             .verification(
                                 DeclinedTransaction.Source.CardDecline.Verification.builder()
