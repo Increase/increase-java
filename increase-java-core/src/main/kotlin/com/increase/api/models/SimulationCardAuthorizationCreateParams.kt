@@ -1074,6 +1074,9 @@ private constructor(
 
         companion object {
 
+            /** The account has been closed. */
+            @JvmField val ACCOUNT_CLOSED = of("account_closed")
+
             /** The Card was not active. */
             @JvmField val CARD_NOT_ACTIVE = of("card_not_active")
 
@@ -1132,6 +1135,8 @@ private constructor(
 
         /** An enum containing [DeclineReason]'s known values. */
         enum class Known {
+            /** The account has been closed. */
+            ACCOUNT_CLOSED,
             /** The Card was not active. */
             CARD_NOT_ACTIVE,
             /** The Physical Card was not active. */
@@ -1182,6 +1187,8 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
+            /** The account has been closed. */
+            ACCOUNT_CLOSED,
             /** The Card was not active. */
             CARD_NOT_ACTIVE,
             /** The Physical Card was not active. */
@@ -1236,6 +1243,7 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
+                ACCOUNT_CLOSED -> Value.ACCOUNT_CLOSED
                 CARD_NOT_ACTIVE -> Value.CARD_NOT_ACTIVE
                 PHYSICAL_CARD_NOT_ACTIVE -> Value.PHYSICAL_CARD_NOT_ACTIVE
                 ENTITY_NOT_ACTIVE -> Value.ENTITY_NOT_ACTIVE
@@ -1265,6 +1273,7 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
+                ACCOUNT_CLOSED -> Known.ACCOUNT_CLOSED
                 CARD_NOT_ACTIVE -> Known.CARD_NOT_ACTIVE
                 PHYSICAL_CARD_NOT_ACTIVE -> Known.PHYSICAL_CARD_NOT_ACTIVE
                 ENTITY_NOT_ACTIVE -> Known.ENTITY_NOT_ACTIVE

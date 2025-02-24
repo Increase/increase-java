@@ -26,7 +26,7 @@ class CardAuthorizationServiceTest {
                     .authenticatedCardPaymentId("authenticated_card_payment_id")
                     .cardId("card_oubs0hwk5rn6knuecxg2")
                     .declineReason(
-                        SimulationCardAuthorizationCreateParams.DeclineReason.CARD_NOT_ACTIVE
+                        SimulationCardAuthorizationCreateParams.DeclineReason.ACCOUNT_CLOSED
                     )
                     .digitalWalletTokenId("digital_wallet_token_id")
                     .direction(SimulationCardAuthorizationCreateParams.Direction.SETTLEMENT)

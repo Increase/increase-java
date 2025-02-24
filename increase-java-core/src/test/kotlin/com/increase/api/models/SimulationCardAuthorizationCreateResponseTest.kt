@@ -139,7 +139,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                         )
                                         .reason(
                                             DeclinedTransaction.Source.CardDecline.Reason
-                                                .CARD_NOT_ACTIVE
+                                                .ACCOUNT_CLOSED
                                         )
                                         .terminalId("RCN5VNXS")
                                         .verification(
@@ -635,8 +635,7 @@ class SimulationCardAuthorizationCreateResponseTest {
                                             .INSUFFICIENT_FUNDS
                                     )
                                     .reason(
-                                        DeclinedTransaction.Source.CardDecline.Reason
-                                            .CARD_NOT_ACTIVE
+                                        DeclinedTransaction.Source.CardDecline.Reason.ACCOUNT_CLOSED
                                     )
                                     .terminalId("RCN5VNXS")
                                     .verification(
