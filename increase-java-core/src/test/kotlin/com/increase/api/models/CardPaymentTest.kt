@@ -287,7 +287,7 @@ class CardPaymentTest {
                                         CardPayment.Element.CardDecline.RealTimeDecisionReason
                                             .INSUFFICIENT_FUNDS
                                     )
-                                    .reason(CardPayment.Element.CardDecline.Reason.CARD_NOT_ACTIVE)
+                                    .reason(CardPayment.Element.CardDecline.Reason.ACCOUNT_CLOSED)
                                     .terminalId("RCN5VNXS")
                                     .verification(
                                         CardPayment.Element.CardDecline.Verification.builder()
@@ -1262,7 +1262,7 @@ class CardPaymentTest {
                                         CardPayment.Element.CardDecline.RealTimeDecisionReason
                                             .INSUFFICIENT_FUNDS
                                     )
-                                    .reason(CardPayment.Element.CardDecline.Reason.CARD_NOT_ACTIVE)
+                                    .reason(CardPayment.Element.CardDecline.Reason.ACCOUNT_CLOSED)
                                     .terminalId("RCN5VNXS")
                                     .verification(
                                         CardPayment.Element.CardDecline.Verification.builder()
@@ -2237,7 +2237,7 @@ class CardPaymentTest {
                                         CardPayment.Element.CardDecline.RealTimeDecisionReason
                                             .INSUFFICIENT_FUNDS
                                     )
-                                    .reason(CardPayment.Element.CardDecline.Reason.CARD_NOT_ACTIVE)
+                                    .reason(CardPayment.Element.CardDecline.Reason.ACCOUNT_CLOSED)
                                     .terminalId("RCN5VNXS")
                                     .verification(
                                         CardPayment.Element.CardDecline.Verification.builder()
@@ -3212,7 +3212,7 @@ class CardPaymentTest {
                                         CardPayment.Element.CardDecline.RealTimeDecisionReason
                                             .INSUFFICIENT_FUNDS
                                     )
-                                    .reason(CardPayment.Element.CardDecline.Reason.CARD_NOT_ACTIVE)
+                                    .reason(CardPayment.Element.CardDecline.Reason.ACCOUNT_CLOSED)
                                     .terminalId("RCN5VNXS")
                                     .verification(
                                         CardPayment.Element.CardDecline.Verification.builder()
@@ -4171,7 +4171,7 @@ class CardPaymentTest {
                                 CardPayment.Element.CardDecline.RealTimeDecisionReason
                                     .INSUFFICIENT_FUNDS
                             )
-                            .reason(CardPayment.Element.CardDecline.Reason.CARD_NOT_ACTIVE)
+                            .reason(CardPayment.Element.CardDecline.Reason.ACCOUNT_CLOSED)
                             .terminalId("RCN5VNXS")
                             .verification(
                                 CardPayment.Element.CardDecline.Verification.builder()
@@ -5041,7 +5041,7 @@ class CardPaymentTest {
                                 CardPayment.Element.CardDecline.RealTimeDecisionReason
                                     .INSUFFICIENT_FUNDS
                             )
-                            .reason(CardPayment.Element.CardDecline.Reason.CARD_NOT_ACTIVE)
+                            .reason(CardPayment.Element.CardDecline.Reason.ACCOUNT_CLOSED)
                             .terminalId("RCN5VNXS")
                             .verification(
                                 CardPayment.Element.CardDecline.Verification.builder()
@@ -5911,7 +5911,7 @@ class CardPaymentTest {
                                 CardPayment.Element.CardDecline.RealTimeDecisionReason
                                     .INSUFFICIENT_FUNDS
                             )
-                            .reason(CardPayment.Element.CardDecline.Reason.CARD_NOT_ACTIVE)
+                            .reason(CardPayment.Element.CardDecline.Reason.ACCOUNT_CLOSED)
                             .terminalId("RCN5VNXS")
                             .verification(
                                 CardPayment.Element.CardDecline.Verification.builder()
@@ -6781,7 +6781,7 @@ class CardPaymentTest {
                                 CardPayment.Element.CardDecline.RealTimeDecisionReason
                                     .INSUFFICIENT_FUNDS
                             )
-                            .reason(CardPayment.Element.CardDecline.Reason.CARD_NOT_ACTIVE)
+                            .reason(CardPayment.Element.CardDecline.Reason.ACCOUNT_CLOSED)
                             .terminalId("RCN5VNXS")
                             .verification(
                                 CardPayment.Element.CardDecline.Verification.builder()
