@@ -166,7 +166,7 @@ The asynchronous client supports the same options as the synchronous one, except
 
 The SDK throws custom unchecked exception types:
 
-- `IncreaseServiceException`: Base class for HTTP errors. See this table for which exception subclass is thrown for each HTTP status code:
+- [`IncreaseServiceException`](increase-java-core/src/main/kotlin/com/increase/api/errors/IncreaseServiceException.kt): Base class for HTTP errors. See this table for which exception subclass is thrown for each HTTP status code:
 
   | Status | Exception                       |
   | ------ | ------------------------------- |
@@ -179,11 +179,11 @@ The SDK throws custom unchecked exception types:
   | 5xx    | `InternalServerException`       |
   | others | `UnexpectedStatusCodeException` |
 
-- `IncreaseIoException`: I/O networking errors.
+- [`IncreaseIoException`](increase-java-core/src/main/kotlin/com/increase/api/errors/IncreaseIoException.kt): I/O networking errors.
 
-- `IncreaseInvalidDataException`: Failure to interpret successfully parsed data. For example, when accessing a property that's supposed to be required, but the API unexpectedly omitted it from the response.
+- [`IncreaseInvalidDataException`](increase-java-core/src/main/kotlin/com/increase/api/errors/IncreaseInvalidDataException.kt): Failure to interpret successfully parsed data. For example, when accessing a property that's supposed to be required, but the API unexpectedly omitted it from the response.
 
-- `IncreaseException`: Base class for all exceptions. Most errors will result in one of the previously mentioned ones, but completely generic errors may be thrown using the base class.
+- [`IncreaseException`](increase-java-core/src/main/kotlin/com/increase/api/errors/IncreaseException.kt): Base class for all exceptions. Most errors will result in one of the previously mentioned ones, but completely generic errors may be thrown using the base class.
 
 ## Pagination
 
@@ -364,7 +364,7 @@ AccountCreateParams params = AccountCreateParams.builder()
 
 These can be accessed on the built object later using the `_additionalHeaders()`, `_additionalQueryParams()`, and `_additionalBodyProperties()` methods. You can also set undocumented parameters on nested headers, query params, or body classes using the `putAdditionalProperty` method. These properties can be accessed on the built object later using the `_additionalProperties()` method.
 
-To set a documented parameter or property to an undocumented or not yet supported _value_, pass a `JsonValue` object to its setter:
+To set a documented parameter or property to an undocumented or not yet supported _value_, pass a [`JsonValue`](increase-java-core/src/main/kotlin/com/increase/api/core/JsonValue.kt) object to its setter:
 
 ```java
 import com.increase.api.core.JsonValue;
@@ -435,7 +435,7 @@ if (name.isMissing()) {
 
 In rare cases, the API may return a response that doesn't match the expected type. For example, the SDK may expect a property to contain a `String`, but the API could return something else.
 
-By default, the SDK will not throw an exception in this case. It will throw `IncreaseInvalidDataException` only if you directly access the property.
+By default, the SDK will not throw an exception in this case. It will throw [`IncreaseInvalidDataException`](increase-java-core/src/main/kotlin/com/increase/api/errors/IncreaseInvalidDataException.kt) only if you directly access the property.
 
 If you would prefer to check that the response is completely well-typed upfront, then either call `validate()`:
 
