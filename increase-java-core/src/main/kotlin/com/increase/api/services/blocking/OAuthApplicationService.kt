@@ -22,7 +22,11 @@ interface OAuthApplicationService {
     /** List OAuth Applications */
     @JvmOverloads
     fun list(
-        params: OAuthApplicationListParams,
+        params: OAuthApplicationListParams = OAuthApplicationListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): OAuthApplicationListPage
+
+    /** List OAuth Applications */
+    fun list(requestOptions: RequestOptions): OAuthApplicationListPage =
+        list(OAuthApplicationListParams.none(), requestOptions)
 }

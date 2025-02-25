@@ -23,7 +23,11 @@ interface PendingTransactionServiceAsync {
     /** List Pending Transactions */
     @JvmOverloads
     fun list(
-        params: PendingTransactionListParams,
+        params: PendingTransactionListParams = PendingTransactionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PendingTransactionListPageAsync>
+
+    /** List Pending Transactions */
+    fun list(requestOptions: RequestOptions): CompletableFuture<PendingTransactionListPageAsync> =
+        list(PendingTransactionListParams.none(), requestOptions)
 }

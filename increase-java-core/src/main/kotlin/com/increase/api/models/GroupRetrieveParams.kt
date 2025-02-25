@@ -27,6 +27,8 @@ private constructor(
 
     companion object {
 
+        fun none(): GroupRetrieveParams = builder().build()
+
         @JvmStatic fun builder() = Builder()
     }
 

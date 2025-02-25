@@ -23,7 +23,11 @@ interface AccountStatementServiceAsync {
     /** List Account Statements */
     @JvmOverloads
     fun list(
-        params: AccountStatementListParams,
+        params: AccountStatementListParams = AccountStatementListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AccountStatementListPageAsync>
+
+    /** List Account Statements */
+    fun list(requestOptions: RequestOptions): CompletableFuture<AccountStatementListPageAsync> =
+        list(AccountStatementListParams.none(), requestOptions)
 }

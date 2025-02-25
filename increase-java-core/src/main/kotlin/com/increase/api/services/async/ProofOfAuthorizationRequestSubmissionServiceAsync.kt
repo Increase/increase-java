@@ -31,7 +31,14 @@ interface ProofOfAuthorizationRequestSubmissionServiceAsync {
     /** List Proof of Authorization Request Submissions */
     @JvmOverloads
     fun list(
-        params: ProofOfAuthorizationRequestSubmissionListParams,
+        params: ProofOfAuthorizationRequestSubmissionListParams =
+            ProofOfAuthorizationRequestSubmissionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ProofOfAuthorizationRequestSubmissionListPageAsync>
+
+    /** List Proof of Authorization Request Submissions */
+    fun list(
+        requestOptions: RequestOptions
+    ): CompletableFuture<ProofOfAuthorizationRequestSubmissionListPageAsync> =
+        list(ProofOfAuthorizationRequestSubmissionListParams.none(), requestOptions)
 }

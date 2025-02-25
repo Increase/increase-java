@@ -5,7 +5,6 @@ package com.increase.api.services.blocking
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.PhysicalCardCreateParams
-import com.increase.api.models.PhysicalCardListParams
 import com.increase.api.models.PhysicalCardRetrieveParams
 import com.increase.api.models.PhysicalCardUpdateParams
 import org.junit.jupiter.api.Test
@@ -101,7 +100,7 @@ class PhysicalCardServiceTest {
                 .apiKey("My API Key")
                 .build()
         val physicalCardService = client.physicalCards()
-        val physicalCardList = physicalCardService.list(PhysicalCardListParams.builder().build())
+        val physicalCardList = physicalCardService.list()
         println(physicalCardList)
         physicalCardList.data().forEach { it.validate() }
     }

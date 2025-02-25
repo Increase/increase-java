@@ -68,6 +68,8 @@ private constructor(
 
     companion object {
 
+        fun none(): EntityListParams = builder().build()
+
         @JvmStatic fun builder() = Builder()
     }
 

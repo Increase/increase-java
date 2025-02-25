@@ -66,6 +66,8 @@ private constructor(
 
     companion object {
 
+        fun none(): RealTimePaymentsRequestForPaymentListParams = builder().build()
+
         @JvmStatic fun builder() = Builder()
     }
 

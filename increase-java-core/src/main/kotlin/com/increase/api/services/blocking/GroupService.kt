@@ -13,7 +13,11 @@ interface GroupService {
     /** Returns details for the currently authenticated Group. */
     @JvmOverloads
     fun retrieve(
-        params: GroupRetrieveParams,
+        params: GroupRetrieveParams = GroupRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Group
+
+    /** Returns details for the currently authenticated Group. */
+    fun retrieve(requestOptions: RequestOptions): Group =
+        retrieve(GroupRetrieveParams.none(), requestOptions)
 }

@@ -7,7 +7,6 @@ import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.CheckTransferApproveParams
 import com.increase.api.models.CheckTransferCancelParams
 import com.increase.api.models.CheckTransferCreateParams
-import com.increase.api.models.CheckTransferListParams
 import com.increase.api.models.CheckTransferRetrieveParams
 import com.increase.api.models.CheckTransferStopPaymentParams
 import org.junit.jupiter.api.Test
@@ -95,7 +94,7 @@ class CheckTransferServiceTest {
                 .apiKey("My API Key")
                 .build()
         val checkTransferService = client.checkTransfers()
-        val checkTransferList = checkTransferService.list(CheckTransferListParams.builder().build())
+        val checkTransferList = checkTransferService.list()
         println(checkTransferList)
         checkTransferList.data().forEach { it.validate() }
     }

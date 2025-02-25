@@ -32,9 +32,13 @@ interface AchTransferService {
     /** List ACH Transfers */
     @JvmOverloads
     fun list(
-        params: AchTransferListParams,
+        params: AchTransferListParams = AchTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransferListPage
+
+    /** List ACH Transfers */
+    fun list(requestOptions: RequestOptions): AchTransferListPage =
+        list(AchTransferListParams.none(), requestOptions)
 
     /** Approves an ACH Transfer in a pending_approval state. */
     @JvmOverloads

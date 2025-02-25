@@ -23,7 +23,11 @@ interface TransactionServiceAsync {
     /** List Transactions */
     @JvmOverloads
     fun list(
-        params: TransactionListParams,
+        params: TransactionListParams = TransactionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<TransactionListPageAsync>
+
+    /** List Transactions */
+    fun list(requestOptions: RequestOptions): CompletableFuture<TransactionListPageAsync> =
+        list(TransactionListParams.none(), requestOptions)
 }

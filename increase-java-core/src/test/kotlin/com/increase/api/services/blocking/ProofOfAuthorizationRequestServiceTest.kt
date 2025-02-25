@@ -4,7 +4,6 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.ProofOfAuthorizationRequestListParams
 import com.increase.api.models.ProofOfAuthorizationRequestRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -40,10 +39,7 @@ class ProofOfAuthorizationRequestServiceTest {
                 .apiKey("My API Key")
                 .build()
         val proofOfAuthorizationRequestService = client.proofOfAuthorizationRequests()
-        val proofOfAuthorizationRequestList =
-            proofOfAuthorizationRequestService.list(
-                ProofOfAuthorizationRequestListParams.builder().build()
-            )
+        val proofOfAuthorizationRequestList = proofOfAuthorizationRequestService.list()
         println(proofOfAuthorizationRequestList)
         proofOfAuthorizationRequestList.data().forEach { it.validate() }
     }

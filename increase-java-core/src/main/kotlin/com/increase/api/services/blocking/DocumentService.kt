@@ -22,7 +22,11 @@ interface DocumentService {
     /** List Documents */
     @JvmOverloads
     fun list(
-        params: DocumentListParams,
+        params: DocumentListParams = DocumentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DocumentListPage
+
+    /** List Documents */
+    fun list(requestOptions: RequestOptions): DocumentListPage =
+        list(DocumentListParams.none(), requestOptions)
 }

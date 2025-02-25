@@ -33,9 +33,13 @@ interface WireTransferServiceAsync {
     /** List Wire Transfers */
     @JvmOverloads
     fun list(
-        params: WireTransferListParams,
+        params: WireTransferListParams = WireTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<WireTransferListPageAsync>
+
+    /** List Wire Transfers */
+    fun list(requestOptions: RequestOptions): CompletableFuture<WireTransferListPageAsync> =
+        list(WireTransferListParams.none(), requestOptions)
 
     /** Approve a Wire Transfer */
     @JvmOverloads

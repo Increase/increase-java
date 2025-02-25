@@ -6,7 +6,6 @@ import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.InboundAchTransferCreateNotificationOfChangeParams
 import com.increase.api.models.InboundAchTransferDeclineParams
-import com.increase.api.models.InboundAchTransferListParams
 import com.increase.api.models.InboundAchTransferRetrieveParams
 import com.increase.api.models.InboundAchTransferTransferReturnParams
 import org.junit.jupiter.api.Test
@@ -41,8 +40,7 @@ class InboundAchTransferServiceTest {
                 .apiKey("My API Key")
                 .build()
         val inboundAchTransferService = client.inboundAchTransfers()
-        val inboundAchTransferList =
-            inboundAchTransferService.list(InboundAchTransferListParams.builder().build())
+        val inboundAchTransferList = inboundAchTransferService.list()
         println(inboundAchTransferList)
         inboundAchTransferList.data().forEach { it.validate() }
     }

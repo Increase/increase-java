@@ -4,7 +4,6 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.EventListParams
 import com.increase.api.models.EventRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -36,7 +35,7 @@ class EventServiceTest {
                 .apiKey("My API Key")
                 .build()
         val eventService = client.events()
-        val eventList = eventService.list(EventListParams.builder().build())
+        val eventList = eventService.list()
         println(eventList)
         eventList.data().forEach { it.validate() }
     }

@@ -23,7 +23,13 @@ interface InboundWireDrawdownRequestServiceAsync {
     /** List Inbound Wire Drawdown Requests */
     @JvmOverloads
     fun list(
-        params: InboundWireDrawdownRequestListParams,
+        params: InboundWireDrawdownRequestListParams = InboundWireDrawdownRequestListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundWireDrawdownRequestListPageAsync>
+
+    /** List Inbound Wire Drawdown Requests */
+    fun list(
+        requestOptions: RequestOptions
+    ): CompletableFuture<InboundWireDrawdownRequestListPageAsync> =
+        list(InboundWireDrawdownRequestListParams.none(), requestOptions)
 }

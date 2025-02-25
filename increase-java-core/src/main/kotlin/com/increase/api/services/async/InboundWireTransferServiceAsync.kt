@@ -23,7 +23,11 @@ interface InboundWireTransferServiceAsync {
     /** List Inbound Wire Transfers */
     @JvmOverloads
     fun list(
-        params: InboundWireTransferListParams,
+        params: InboundWireTransferListParams = InboundWireTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundWireTransferListPageAsync>
+
+    /** List Inbound Wire Transfers */
+    fun list(requestOptions: RequestOptions): CompletableFuture<InboundWireTransferListPageAsync> =
+        list(InboundWireTransferListParams.none(), requestOptions)
 }

@@ -35,7 +35,11 @@ interface FileServiceAsync {
     /** List Files */
     @JvmOverloads
     fun list(
-        params: FileListParams,
+        params: FileListParams = FileListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<FileListPageAsync>
+
+    /** List Files */
+    fun list(requestOptions: RequestOptions): CompletableFuture<FileListPageAsync> =
+        list(FileListParams.none(), requestOptions)
 }

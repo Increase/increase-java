@@ -38,9 +38,13 @@ interface EntityServiceAsync {
     /** List Entities */
     @JvmOverloads
     fun list(
-        params: EntityListParams,
+        params: EntityListParams = EntityListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<EntityListPageAsync>
+
+    /** List Entities */
+    fun list(requestOptions: RequestOptions): CompletableFuture<EntityListPageAsync> =
+        list(EntityListParams.none(), requestOptions)
 
     /** Archive an Entity */
     @JvmOverloads

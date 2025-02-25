@@ -31,7 +31,11 @@ interface AchPrenotificationServiceAsync {
     /** List ACH Prenotifications */
     @JvmOverloads
     fun list(
-        params: AchPrenotificationListParams,
+        params: AchPrenotificationListParams = AchPrenotificationListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AchPrenotificationListPageAsync>
+
+    /** List ACH Prenotifications */
+    fun list(requestOptions: RequestOptions): CompletableFuture<AchPrenotificationListPageAsync> =
+        list(AchPrenotificationListParams.none(), requestOptions)
 }

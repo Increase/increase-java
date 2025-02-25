@@ -25,9 +25,13 @@ interface InboundAchTransferService {
     /** List Inbound ACH Transfers */
     @JvmOverloads
     fun list(
-        params: InboundAchTransferListParams,
+        params: InboundAchTransferListParams = InboundAchTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundAchTransferListPage
+
+    /** List Inbound ACH Transfers */
+    fun list(requestOptions: RequestOptions): InboundAchTransferListPage =
+        list(InboundAchTransferListParams.none(), requestOptions)
 
     /** Create a notification of change for an Inbound ACH Transfer */
     @JvmOverloads

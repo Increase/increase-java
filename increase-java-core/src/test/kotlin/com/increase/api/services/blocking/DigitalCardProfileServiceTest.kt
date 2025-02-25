@@ -7,7 +7,6 @@ import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.DigitalCardProfileArchiveParams
 import com.increase.api.models.DigitalCardProfileCloneParams
 import com.increase.api.models.DigitalCardProfileCreateParams
-import com.increase.api.models.DigitalCardProfileListParams
 import com.increase.api.models.DigitalCardProfileRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -73,8 +72,7 @@ class DigitalCardProfileServiceTest {
                 .apiKey("My API Key")
                 .build()
         val digitalCardProfileService = client.digitalCardProfiles()
-        val digitalCardProfileList =
-            digitalCardProfileService.list(DigitalCardProfileListParams.builder().build())
+        val digitalCardProfileList = digitalCardProfileService.list()
         println(digitalCardProfileList)
         digitalCardProfileList.data().forEach { it.validate() }
     }

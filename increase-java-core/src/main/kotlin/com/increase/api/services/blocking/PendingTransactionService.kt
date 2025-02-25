@@ -22,7 +22,11 @@ interface PendingTransactionService {
     /** List Pending Transactions */
     @JvmOverloads
     fun list(
-        params: PendingTransactionListParams,
+        params: PendingTransactionListParams = PendingTransactionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PendingTransactionListPage
+
+    /** List Pending Transactions */
+    fun list(requestOptions: RequestOptions): PendingTransactionListPage =
+        list(PendingTransactionListParams.none(), requestOptions)
 }

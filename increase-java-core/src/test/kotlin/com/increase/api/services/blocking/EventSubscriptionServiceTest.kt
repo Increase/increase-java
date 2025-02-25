@@ -5,7 +5,6 @@ package com.increase.api.services.blocking
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.EventSubscriptionCreateParams
-import com.increase.api.models.EventSubscriptionListParams
 import com.increase.api.models.EventSubscriptionRetrieveParams
 import com.increase.api.models.EventSubscriptionUpdateParams
 import org.junit.jupiter.api.Test
@@ -82,8 +81,7 @@ class EventSubscriptionServiceTest {
                 .apiKey("My API Key")
                 .build()
         val eventSubscriptionService = client.eventSubscriptions()
-        val eventSubscriptionList =
-            eventSubscriptionService.list(EventSubscriptionListParams.builder().build())
+        val eventSubscriptionList = eventSubscriptionService.list()
         println(eventSubscriptionList)
         eventSubscriptionList.data().forEach { it.validate() }
     }

@@ -34,9 +34,13 @@ interface CheckTransferServiceAsync {
     /** List Check Transfers */
     @JvmOverloads
     fun list(
-        params: CheckTransferListParams,
+        params: CheckTransferListParams = CheckTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CheckTransferListPageAsync>
+
+    /** List Check Transfers */
+    fun list(requestOptions: RequestOptions): CompletableFuture<CheckTransferListPageAsync> =
+        list(CheckTransferListParams.none(), requestOptions)
 
     /** Approve a Check Transfer */
     @JvmOverloads

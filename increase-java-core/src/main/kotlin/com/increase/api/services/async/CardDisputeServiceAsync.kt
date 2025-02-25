@@ -31,7 +31,11 @@ interface CardDisputeServiceAsync {
     /** List Card Disputes */
     @JvmOverloads
     fun list(
-        params: CardDisputeListParams,
+        params: CardDisputeListParams = CardDisputeListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CardDisputeListPageAsync>
+
+    /** List Card Disputes */
+    fun list(requestOptions: RequestOptions): CompletableFuture<CardDisputeListPageAsync> =
+        list(CardDisputeListParams.none(), requestOptions)
 }

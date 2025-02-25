@@ -23,7 +23,11 @@ interface InboundMailItemServiceAsync {
     /** List Inbound Mail Items */
     @JvmOverloads
     fun list(
-        params: InboundMailItemListParams,
+        params: InboundMailItemListParams = InboundMailItemListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundMailItemListPageAsync>
+
+    /** List Inbound Mail Items */
+    fun list(requestOptions: RequestOptions): CompletableFuture<InboundMailItemListPageAsync> =
+        list(InboundMailItemListParams.none(), requestOptions)
 }

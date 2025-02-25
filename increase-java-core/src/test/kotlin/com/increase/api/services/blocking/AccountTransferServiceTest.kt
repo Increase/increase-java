@@ -7,7 +7,6 @@ import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.AccountTransferApproveParams
 import com.increase.api.models.AccountTransferCancelParams
 import com.increase.api.models.AccountTransferCreateParams
-import com.increase.api.models.AccountTransferListParams
 import com.increase.api.models.AccountTransferRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -63,8 +62,7 @@ class AccountTransferServiceTest {
                 .apiKey("My API Key")
                 .build()
         val accountTransferService = client.accountTransfers()
-        val accountTransferList =
-            accountTransferService.list(AccountTransferListParams.builder().build())
+        val accountTransferList = accountTransferService.list()
         println(accountTransferList)
         accountTransferList.data().forEach { it.validate() }
     }
