@@ -22,7 +22,11 @@ interface InboundWireDrawdownRequestService {
     /** List Inbound Wire Drawdown Requests */
     @JvmOverloads
     fun list(
-        params: InboundWireDrawdownRequestListParams,
+        params: InboundWireDrawdownRequestListParams = InboundWireDrawdownRequestListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundWireDrawdownRequestListPage
+
+    /** List Inbound Wire Drawdown Requests */
+    fun list(requestOptions: RequestOptions): InboundWireDrawdownRequestListPage =
+        list(InboundWireDrawdownRequestListParams.none(), requestOptions)
 }

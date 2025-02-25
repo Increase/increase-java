@@ -55,6 +55,8 @@ private constructor(
 
     companion object {
 
+        fun none(): InboundMailItemListParams = builder().build()
+
         @JvmStatic fun builder() = Builder()
     }
 

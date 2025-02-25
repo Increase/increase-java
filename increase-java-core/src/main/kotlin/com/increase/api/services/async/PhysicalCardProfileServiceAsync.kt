@@ -33,9 +33,13 @@ interface PhysicalCardProfileServiceAsync {
     /** List Physical Card Profiles */
     @JvmOverloads
     fun list(
-        params: PhysicalCardProfileListParams,
+        params: PhysicalCardProfileListParams = PhysicalCardProfileListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PhysicalCardProfileListPageAsync>
+
+    /** List Physical Card Profiles */
+    fun list(requestOptions: RequestOptions): CompletableFuture<PhysicalCardProfileListPageAsync> =
+        list(PhysicalCardProfileListParams.none(), requestOptions)
 
     /** Archive a Physical Card Profile */
     @JvmOverloads

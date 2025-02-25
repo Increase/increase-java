@@ -4,7 +4,6 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.ProgramListParams
 import com.increase.api.models.ProgramRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -36,7 +35,7 @@ class ProgramServiceTest {
                 .apiKey("My API Key")
                 .build()
         val programService = client.programs()
-        val programList = programService.list(ProgramListParams.builder().build())
+        val programList = programService.list()
         println(programList)
         programList.data().forEach { it.validate() }
     }

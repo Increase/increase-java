@@ -5,7 +5,6 @@ package com.increase.api.services.blocking
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.InboundCheckDepositDeclineParams
-import com.increase.api.models.InboundCheckDepositListParams
 import com.increase.api.models.InboundCheckDepositRetrieveParams
 import com.increase.api.models.InboundCheckDepositReturnParams
 import org.junit.jupiter.api.Test
@@ -40,8 +39,7 @@ class InboundCheckDepositServiceTest {
                 .apiKey("My API Key")
                 .build()
         val inboundCheckDepositService = client.inboundCheckDeposits()
-        val inboundCheckDepositList =
-            inboundCheckDepositService.list(InboundCheckDepositListParams.builder().build())
+        val inboundCheckDepositList = inboundCheckDepositService.list()
         println(inboundCheckDepositList)
         inboundCheckDepositList.data().forEach { it.validate() }
     }

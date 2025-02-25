@@ -5,7 +5,6 @@ package com.increase.api.services.blocking
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.RealTimePaymentsRequestForPaymentCreateParams
-import com.increase.api.models.RealTimePaymentsRequestForPaymentListParams
 import com.increase.api.models.RealTimePaymentsRequestForPaymentRetrieveParams
 import java.time.LocalDate
 import org.junit.jupiter.api.Test
@@ -77,10 +76,7 @@ class RealTimePaymentsRequestForPaymentServiceTest {
                 .apiKey("My API Key")
                 .build()
         val realTimePaymentsRequestForPaymentService = client.realTimePaymentsRequestForPayments()
-        val realTimePaymentsRequestForPaymentList =
-            realTimePaymentsRequestForPaymentService.list(
-                RealTimePaymentsRequestForPaymentListParams.builder().build()
-            )
+        val realTimePaymentsRequestForPaymentList = realTimePaymentsRequestForPaymentService.list()
         println(realTimePaymentsRequestForPaymentList)
         realTimePaymentsRequestForPaymentList.data().forEach { it.validate() }
     }

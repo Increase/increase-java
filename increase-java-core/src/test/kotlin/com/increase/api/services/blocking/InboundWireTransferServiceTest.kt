@@ -4,7 +4,6 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.InboundWireTransferListParams
 import com.increase.api.models.InboundWireTransferRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -38,8 +37,7 @@ class InboundWireTransferServiceTest {
                 .apiKey("My API Key")
                 .build()
         val inboundWireTransferService = client.inboundWireTransfers()
-        val inboundWireTransferList =
-            inboundWireTransferService.list(InboundWireTransferListParams.builder().build())
+        val inboundWireTransferList = inboundWireTransferService.list()
         println(inboundWireTransferList)
         inboundWireTransferList.data().forEach { it.validate() }
     }

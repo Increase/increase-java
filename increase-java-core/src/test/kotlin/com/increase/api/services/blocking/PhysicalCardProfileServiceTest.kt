@@ -7,7 +7,6 @@ import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.PhysicalCardProfileArchiveParams
 import com.increase.api.models.PhysicalCardProfileCloneParams
 import com.increase.api.models.PhysicalCardProfileCreateParams
-import com.increase.api.models.PhysicalCardProfileListParams
 import com.increase.api.models.PhysicalCardProfileRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -62,8 +61,7 @@ class PhysicalCardProfileServiceTest {
                 .apiKey("My API Key")
                 .build()
         val physicalCardProfileService = client.physicalCardProfiles()
-        val physicalCardProfileList =
-            physicalCardProfileService.list(PhysicalCardProfileListParams.builder().build())
+        val physicalCardProfileList = physicalCardProfileService.list()
         println(physicalCardProfileList)
         physicalCardProfileList.data().forEach { it.validate() }
     }

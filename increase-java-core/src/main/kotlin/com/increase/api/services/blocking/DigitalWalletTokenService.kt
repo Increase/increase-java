@@ -22,7 +22,11 @@ interface DigitalWalletTokenService {
     /** List Digital Wallet Tokens */
     @JvmOverloads
     fun list(
-        params: DigitalWalletTokenListParams,
+        params: DigitalWalletTokenListParams = DigitalWalletTokenListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalWalletTokenListPage
+
+    /** List Digital Wallet Tokens */
+    fun list(requestOptions: RequestOptions): DigitalWalletTokenListPage =
+        list(DigitalWalletTokenListParams.none(), requestOptions)
 }

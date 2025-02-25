@@ -31,7 +31,11 @@ interface CheckDepositServiceAsync {
     /** List Check Deposits */
     @JvmOverloads
     fun list(
-        params: CheckDepositListParams,
+        params: CheckDepositListParams = CheckDepositListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CheckDepositListPageAsync>
+
+    /** List Check Deposits */
+    fun list(requestOptions: RequestOptions): CompletableFuture<CheckDepositListPageAsync> =
+        list(CheckDepositListParams.none(), requestOptions)
 }

@@ -4,7 +4,6 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.BookkeepingEntryListParams
 import com.increase.api.models.BookkeepingEntryRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -38,8 +37,7 @@ class BookkeepingEntryServiceTest {
                 .apiKey("My API Key")
                 .build()
         val bookkeepingEntryService = client.bookkeepingEntries()
-        val bookkeepingEntryList =
-            bookkeepingEntryService.list(BookkeepingEntryListParams.builder().build())
+        val bookkeepingEntryList = bookkeepingEntryService.list()
         println(bookkeepingEntryList)
         bookkeepingEntryList.data().forEach { it.validate() }
     }

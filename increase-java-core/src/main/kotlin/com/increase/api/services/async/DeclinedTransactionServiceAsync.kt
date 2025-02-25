@@ -23,7 +23,11 @@ interface DeclinedTransactionServiceAsync {
     /** List Declined Transactions */
     @JvmOverloads
     fun list(
-        params: DeclinedTransactionListParams,
+        params: DeclinedTransactionListParams = DeclinedTransactionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<DeclinedTransactionListPageAsync>
+
+    /** List Declined Transactions */
+    fun list(requestOptions: RequestOptions): CompletableFuture<DeclinedTransactionListPageAsync> =
+        list(DeclinedTransactionListParams.none(), requestOptions)
 }

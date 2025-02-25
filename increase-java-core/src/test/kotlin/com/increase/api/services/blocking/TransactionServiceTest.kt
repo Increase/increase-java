@@ -4,7 +4,6 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.TransactionListParams
 import com.increase.api.models.TransactionRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -38,7 +37,7 @@ class TransactionServiceTest {
                 .apiKey("My API Key")
                 .build()
         val transactionService = client.transactions()
-        val transactionList = transactionService.list(TransactionListParams.builder().build())
+        val transactionList = transactionService.list()
         println(transactionList)
         transactionList.data().forEach { it.validate() }
     }

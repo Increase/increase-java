@@ -5,7 +5,6 @@ package com.increase.api.services.blocking
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.IntrafiAccountEnrollmentCreateParams
-import com.increase.api.models.IntrafiAccountEnrollmentListParams
 import com.increase.api.models.IntrafiAccountEnrollmentRetrieveParams
 import com.increase.api.models.IntrafiAccountEnrollmentUnenrollParams
 import org.junit.jupiter.api.Test
@@ -59,10 +58,7 @@ class IntrafiAccountEnrollmentServiceTest {
                 .apiKey("My API Key")
                 .build()
         val intrafiAccountEnrollmentService = client.intrafiAccountEnrollments()
-        val intrafiAccountEnrollmentList =
-            intrafiAccountEnrollmentService.list(
-                IntrafiAccountEnrollmentListParams.builder().build()
-            )
+        val intrafiAccountEnrollmentList = intrafiAccountEnrollmentService.list()
         println(intrafiAccountEnrollmentList)
         intrafiAccountEnrollmentList.data().forEach { it.validate() }
     }

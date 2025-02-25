@@ -32,9 +32,13 @@ interface AccountTransferService {
     /** List Account Transfers */
     @JvmOverloads
     fun list(
-        params: AccountTransferListParams,
+        params: AccountTransferListParams = AccountTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountTransferListPage
+
+    /** List Account Transfers */
+    fun list(requestOptions: RequestOptions): AccountTransferListPage =
+        list(AccountTransferListParams.none(), requestOptions)
 
     /** Approve an Account Transfer */
     @JvmOverloads

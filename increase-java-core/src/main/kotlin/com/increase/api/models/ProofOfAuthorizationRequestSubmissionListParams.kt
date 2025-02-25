@@ -59,6 +59,8 @@ private constructor(
 
     companion object {
 
+        fun none(): ProofOfAuthorizationRequestSubmissionListParams = builder().build()
+
         @JvmStatic fun builder() = Builder()
     }
 

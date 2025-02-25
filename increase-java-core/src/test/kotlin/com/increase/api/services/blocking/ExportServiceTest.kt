@@ -6,7 +6,6 @@ import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.core.JsonValue
 import com.increase.api.models.ExportCreateParams
-import com.increase.api.models.ExportListParams
 import com.increase.api.models.ExportRetrieveParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
@@ -121,7 +120,7 @@ class ExportServiceTest {
                 .apiKey("My API Key")
                 .build()
         val exportService = client.exports()
-        val exportList = exportService.list(ExportListParams.builder().build())
+        val exportList = exportService.list()
         println(exportList)
         exportList.data().forEach { it.validate() }
     }

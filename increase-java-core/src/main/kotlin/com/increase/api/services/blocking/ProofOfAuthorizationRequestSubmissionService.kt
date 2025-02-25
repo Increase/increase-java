@@ -30,7 +30,12 @@ interface ProofOfAuthorizationRequestSubmissionService {
     /** List Proof of Authorization Request Submissions */
     @JvmOverloads
     fun list(
-        params: ProofOfAuthorizationRequestSubmissionListParams,
+        params: ProofOfAuthorizationRequestSubmissionListParams =
+            ProofOfAuthorizationRequestSubmissionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ProofOfAuthorizationRequestSubmissionListPage
+
+    /** List Proof of Authorization Request Submissions */
+    fun list(requestOptions: RequestOptions): ProofOfAuthorizationRequestSubmissionListPage =
+        list(ProofOfAuthorizationRequestSubmissionListParams.none(), requestOptions)
 }

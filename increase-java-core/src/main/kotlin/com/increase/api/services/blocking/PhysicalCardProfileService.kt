@@ -32,9 +32,13 @@ interface PhysicalCardProfileService {
     /** List Physical Card Profiles */
     @JvmOverloads
     fun list(
-        params: PhysicalCardProfileListParams,
+        params: PhysicalCardProfileListParams = PhysicalCardProfileListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PhysicalCardProfileListPage
+
+    /** List Physical Card Profiles */
+    fun list(requestOptions: RequestOptions): PhysicalCardProfileListPage =
+        list(PhysicalCardProfileListParams.none(), requestOptions)
 
     /** Archive a Physical Card Profile */
     @JvmOverloads

@@ -31,9 +31,13 @@ interface IntrafiExclusionService {
     /** List IntraFi Exclusions */
     @JvmOverloads
     fun list(
-        params: IntrafiExclusionListParams,
+        params: IntrafiExclusionListParams = IntrafiExclusionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiExclusionListPage
+
+    /** List IntraFi Exclusions */
+    fun list(requestOptions: RequestOptions): IntrafiExclusionListPage =
+        list(IntrafiExclusionListParams.none(), requestOptions)
 
     /** Archive an IntraFi Exclusion */
     @JvmOverloads

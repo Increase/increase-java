@@ -30,7 +30,11 @@ interface BookkeepingEntrySetService {
     /** List Bookkeeping Entry Sets */
     @JvmOverloads
     fun list(
-        params: BookkeepingEntrySetListParams,
+        params: BookkeepingEntrySetListParams = BookkeepingEntrySetListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingEntrySetListPage
+
+    /** List Bookkeeping Entry Sets */
+    fun list(requestOptions: RequestOptions): BookkeepingEntrySetListPage =
+        list(BookkeepingEntrySetListParams.none(), requestOptions)
 }

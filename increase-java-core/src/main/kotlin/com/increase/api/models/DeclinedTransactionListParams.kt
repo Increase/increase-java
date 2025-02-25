@@ -69,6 +69,8 @@ private constructor(
 
     companion object {
 
+        fun none(): DeclinedTransactionListParams = builder().build()
+
         @JvmStatic fun builder() = Builder()
     }
 

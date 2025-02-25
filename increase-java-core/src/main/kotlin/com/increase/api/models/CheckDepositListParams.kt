@@ -64,6 +64,8 @@ private constructor(
 
     companion object {
 
+        fun none(): CheckDepositListParams = builder().build()
+
         @JvmStatic fun builder() = Builder()
     }
 

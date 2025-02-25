@@ -23,7 +23,11 @@ interface OAuthConnectionServiceAsync {
     /** List OAuth Connections */
     @JvmOverloads
     fun list(
-        params: OAuthConnectionListParams,
+        params: OAuthConnectionListParams = OAuthConnectionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<OAuthConnectionListPageAsync>
+
+    /** List OAuth Connections */
+    fun list(requestOptions: RequestOptions): CompletableFuture<OAuthConnectionListPageAsync> =
+        list(OAuthConnectionListParams.none(), requestOptions)
 }

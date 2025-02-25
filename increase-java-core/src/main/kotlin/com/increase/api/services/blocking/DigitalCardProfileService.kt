@@ -32,9 +32,13 @@ interface DigitalCardProfileService {
     /** List Card Profiles */
     @JvmOverloads
     fun list(
-        params: DigitalCardProfileListParams,
+        params: DigitalCardProfileListParams = DigitalCardProfileListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalCardProfileListPage
+
+    /** List Card Profiles */
+    fun list(requestOptions: RequestOptions): DigitalCardProfileListPage =
+        list(DigitalCardProfileListParams.none(), requestOptions)
 
     /** Archive a Digital Card Profile */
     @JvmOverloads
