@@ -5,7 +5,6 @@ package com.increase.api.services.blocking
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.AchPrenotificationCreateParams
-import com.increase.api.models.AchPrenotificationListParams
 import com.increase.api.models.AchPrenotificationRetrieveParams
 import java.time.LocalDate
 import org.junit.jupiter.api.Test
@@ -75,8 +74,7 @@ class AchPrenotificationServiceTest {
                 .apiKey("My API Key")
                 .build()
         val achPrenotificationService = client.achPrenotifications()
-        val achPrenotificationList =
-            achPrenotificationService.list(AchPrenotificationListParams.builder().build())
+        val achPrenotificationList = achPrenotificationService.list()
         println(achPrenotificationList)
         achPrenotificationList.data().forEach { it.validate() }
     }

@@ -9,7 +9,6 @@ import com.increase.api.models.EntityArchiveParams
 import com.increase.api.models.EntityConfirmParams
 import com.increase.api.models.EntityCreateBeneficialOwnerParams
 import com.increase.api.models.EntityCreateParams
-import com.increase.api.models.EntityListParams
 import com.increase.api.models.EntityRetrieveParams
 import com.increase.api.models.EntityUpdateAddressParams
 import com.increase.api.models.EntityUpdateBeneficialOwnerAddressParams
@@ -470,7 +469,7 @@ class EntityServiceTest {
                 .apiKey("My API Key")
                 .build()
         val entityService = client.entities()
-        val entityList = entityService.list(EntityListParams.builder().build())
+        val entityList = entityService.list()
         println(entityList)
         entityList.data().forEach { it.validate() }
     }

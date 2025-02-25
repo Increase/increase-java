@@ -32,9 +32,15 @@ interface IntrafiAccountEnrollmentServiceAsync {
     /** List IntraFi Account Enrollments */
     @JvmOverloads
     fun list(
-        params: IntrafiAccountEnrollmentListParams,
+        params: IntrafiAccountEnrollmentListParams = IntrafiAccountEnrollmentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<IntrafiAccountEnrollmentListPageAsync>
+
+    /** List IntraFi Account Enrollments */
+    fun list(
+        requestOptions: RequestOptions
+    ): CompletableFuture<IntrafiAccountEnrollmentListPageAsync> =
+        list(IntrafiAccountEnrollmentListParams.none(), requestOptions)
 
     /** Unenroll an account from IntraFi */
     @JvmOverloads

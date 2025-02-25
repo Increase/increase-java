@@ -69,6 +69,8 @@ private constructor(
 
     companion object {
 
+        fun none(): InboundAchTransferListParams = builder().build()
+
         @JvmStatic fun builder() = Builder()
     }
 

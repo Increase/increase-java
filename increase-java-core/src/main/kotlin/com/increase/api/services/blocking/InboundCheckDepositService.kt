@@ -24,9 +24,13 @@ interface InboundCheckDepositService {
     /** List Inbound Check Deposits */
     @JvmOverloads
     fun list(
-        params: InboundCheckDepositListParams,
+        params: InboundCheckDepositListParams = InboundCheckDepositListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundCheckDepositListPage
+
+    /** List Inbound Check Deposits */
+    fun list(requestOptions: RequestOptions): InboundCheckDepositListPage =
+        list(InboundCheckDepositListParams.none(), requestOptions)
 
     /** Decline an Inbound Check Deposit */
     @JvmOverloads

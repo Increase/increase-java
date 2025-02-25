@@ -6,7 +6,6 @@ import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.CardCreateParams
 import com.increase.api.models.CardDetailsParams
-import com.increase.api.models.CardListParams
 import com.increase.api.models.CardRetrieveParams
 import com.increase.api.models.CardUpdateParams
 import org.junit.jupiter.api.Test
@@ -112,7 +111,7 @@ class CardServiceTest {
                 .apiKey("My API Key")
                 .build()
         val cardService = client.cards()
-        val cardList = cardService.list(CardListParams.builder().build())
+        val cardList = cardService.list()
         println(cardList)
         cardList.data().forEach { it.validate() }
     }

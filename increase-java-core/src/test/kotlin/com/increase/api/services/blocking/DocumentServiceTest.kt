@@ -4,7 +4,6 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.DocumentListParams
 import com.increase.api.models.DocumentRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -36,7 +35,7 @@ class DocumentServiceTest {
                 .apiKey("My API Key")
                 .build()
         val documentService = client.documents()
-        val documentList = documentService.list(DocumentListParams.builder().build())
+        val documentList = documentService.list()
         println(documentList)
         documentList.data().forEach { it.validate() }
     }

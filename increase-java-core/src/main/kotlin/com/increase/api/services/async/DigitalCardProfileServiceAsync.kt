@@ -33,9 +33,13 @@ interface DigitalCardProfileServiceAsync {
     /** List Card Profiles */
     @JvmOverloads
     fun list(
-        params: DigitalCardProfileListParams,
+        params: DigitalCardProfileListParams = DigitalCardProfileListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<DigitalCardProfileListPageAsync>
+
+    /** List Card Profiles */
+    fun list(requestOptions: RequestOptions): CompletableFuture<DigitalCardProfileListPageAsync> =
+        list(DigitalCardProfileListParams.none(), requestOptions)
 
     /** Archive a Digital Card Profile */
     @JvmOverloads

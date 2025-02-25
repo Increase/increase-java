@@ -22,7 +22,12 @@ interface InboundRealTimePaymentsTransferService {
     /** List Inbound Real-Time Payments Transfers */
     @JvmOverloads
     fun list(
-        params: InboundRealTimePaymentsTransferListParams,
+        params: InboundRealTimePaymentsTransferListParams =
+            InboundRealTimePaymentsTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundRealTimePaymentsTransferListPage
+
+    /** List Inbound Real-Time Payments Transfers */
+    fun list(requestOptions: RequestOptions): InboundRealTimePaymentsTransferListPage =
+        list(InboundRealTimePaymentsTransferListParams.none(), requestOptions)
 }

@@ -23,7 +23,13 @@ interface CardPurchaseSupplementServiceAsync {
     /** List Card Purchase Supplements */
     @JvmOverloads
     fun list(
-        params: CardPurchaseSupplementListParams,
+        params: CardPurchaseSupplementListParams = CardPurchaseSupplementListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CardPurchaseSupplementListPageAsync>
+
+    /** List Card Purchase Supplements */
+    fun list(
+        requestOptions: RequestOptions
+    ): CompletableFuture<CardPurchaseSupplementListPageAsync> =
+        list(CardPurchaseSupplementListParams.none(), requestOptions)
 }

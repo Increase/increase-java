@@ -31,7 +31,11 @@ interface WireDrawdownRequestServiceAsync {
     /** List Wire Drawdown Requests */
     @JvmOverloads
     fun list(
-        params: WireDrawdownRequestListParams,
+        params: WireDrawdownRequestListParams = WireDrawdownRequestListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<WireDrawdownRequestListPageAsync>
+
+    /** List Wire Drawdown Requests */
+    fun list(requestOptions: RequestOptions): CompletableFuture<WireDrawdownRequestListPageAsync> =
+        list(WireDrawdownRequestListParams.none(), requestOptions)
 }

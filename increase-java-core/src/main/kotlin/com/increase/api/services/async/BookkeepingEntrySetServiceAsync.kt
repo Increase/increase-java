@@ -31,7 +31,11 @@ interface BookkeepingEntrySetServiceAsync {
     /** List Bookkeeping Entry Sets */
     @JvmOverloads
     fun list(
-        params: BookkeepingEntrySetListParams,
+        params: BookkeepingEntrySetListParams = BookkeepingEntrySetListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BookkeepingEntrySetListPageAsync>
+
+    /** List Bookkeeping Entry Sets */
+    fun list(requestOptions: RequestOptions): CompletableFuture<BookkeepingEntrySetListPageAsync> =
+        list(BookkeepingEntrySetListParams.none(), requestOptions)
 }

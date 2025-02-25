@@ -5,7 +5,6 @@ package com.increase.api.services.blocking
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.LockboxCreateParams
-import com.increase.api.models.LockboxListParams
 import com.increase.api.models.LockboxRetrieveParams
 import com.increase.api.models.LockboxUpdateParams
 import org.junit.jupiter.api.Test
@@ -79,7 +78,7 @@ class LockboxServiceTest {
                 .apiKey("My API Key")
                 .build()
         val lockboxService = client.lockboxes()
-        val lockboxList = lockboxService.list(LockboxListParams.builder().build())
+        val lockboxList = lockboxService.list()
         println(lockboxList)
         lockboxList.data().forEach { it.validate() }
     }

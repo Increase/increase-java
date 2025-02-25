@@ -4,7 +4,6 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.AccountStatementListParams
 import com.increase.api.models.AccountStatementRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -38,8 +37,7 @@ class AccountStatementServiceTest {
                 .apiKey("My API Key")
                 .build()
         val accountStatementService = client.accountStatements()
-        val accountStatementList =
-            accountStatementService.list(AccountStatementListParams.builder().build())
+        val accountStatementList = accountStatementService.list()
         println(accountStatementList)
         accountStatementList.data().forEach { it.validate() }
     }

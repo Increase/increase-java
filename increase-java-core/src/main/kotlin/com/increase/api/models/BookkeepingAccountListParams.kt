@@ -51,6 +51,8 @@ private constructor(
 
     companion object {
 
+        fun none(): BookkeepingAccountListParams = builder().build()
+
         @JvmStatic fun builder() = Builder()
     }
 

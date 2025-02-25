@@ -4,7 +4,6 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.GroupRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -19,7 +18,7 @@ class GroupServiceTest {
                 .apiKey("My API Key")
                 .build()
         val groupService = client.groups()
-        val group = groupService.retrieve(GroupRetrieveParams.builder().build())
+        val group = groupService.retrieve()
         println(group)
         group.validate()
     }

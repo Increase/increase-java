@@ -7,7 +7,6 @@ import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.WireTransferApproveParams
 import com.increase.api.models.WireTransferCancelParams
 import com.increase.api.models.WireTransferCreateParams
-import com.increase.api.models.WireTransferListParams
 import com.increase.api.models.WireTransferRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -74,7 +73,7 @@ class WireTransferServiceTest {
                 .apiKey("My API Key")
                 .build()
         val wireTransferService = client.wireTransfers()
-        val wireTransferList = wireTransferService.list(WireTransferListParams.builder().build())
+        val wireTransferList = wireTransferService.list()
         println(wireTransferList)
         wireTransferList.data().forEach { it.validate() }
     }

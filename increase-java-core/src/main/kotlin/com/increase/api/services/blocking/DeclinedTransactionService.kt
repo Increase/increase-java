@@ -22,7 +22,11 @@ interface DeclinedTransactionService {
     /** List Declined Transactions */
     @JvmOverloads
     fun list(
-        params: DeclinedTransactionListParams,
+        params: DeclinedTransactionListParams = DeclinedTransactionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DeclinedTransactionListPage
+
+    /** List Declined Transactions */
+    fun list(requestOptions: RequestOptions): DeclinedTransactionListPage =
+        list(DeclinedTransactionListParams.none(), requestOptions)
 }

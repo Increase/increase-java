@@ -42,6 +42,8 @@ private constructor(
 
     companion object {
 
+        fun none(): ProgramListParams = builder().build()
+
         @JvmStatic fun builder() = Builder()
     }
 

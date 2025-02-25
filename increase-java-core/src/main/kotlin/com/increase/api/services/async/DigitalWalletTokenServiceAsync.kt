@@ -23,7 +23,11 @@ interface DigitalWalletTokenServiceAsync {
     /** List Digital Wallet Tokens */
     @JvmOverloads
     fun list(
-        params: DigitalWalletTokenListParams,
+        params: DigitalWalletTokenListParams = DigitalWalletTokenListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<DigitalWalletTokenListPageAsync>
+
+    /** List Digital Wallet Tokens */
+    fun list(requestOptions: RequestOptions): CompletableFuture<DigitalWalletTokenListPageAsync> =
+        list(DigitalWalletTokenListParams.none(), requestOptions)
 }

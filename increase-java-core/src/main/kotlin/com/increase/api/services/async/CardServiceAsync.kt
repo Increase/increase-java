@@ -41,9 +41,13 @@ interface CardServiceAsync {
     /** List Cards */
     @JvmOverloads
     fun list(
-        params: CardListParams,
+        params: CardListParams = CardListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CardListPageAsync>
+
+    /** List Cards */
+    fun list(requestOptions: RequestOptions): CompletableFuture<CardListPageAsync> =
+        list(CardListParams.none(), requestOptions)
 
     /** Retrieve sensitive details for a Card */
     @JvmOverloads

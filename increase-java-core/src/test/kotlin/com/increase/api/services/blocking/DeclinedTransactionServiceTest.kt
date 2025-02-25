@@ -4,7 +4,6 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.DeclinedTransactionListParams
 import com.increase.api.models.DeclinedTransactionRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -38,8 +37,7 @@ class DeclinedTransactionServiceTest {
                 .apiKey("My API Key")
                 .build()
         val declinedTransactionService = client.declinedTransactions()
-        val declinedTransactionList =
-            declinedTransactionService.list(DeclinedTransactionListParams.builder().build())
+        val declinedTransactionList = declinedTransactionService.list()
         println(declinedTransactionList)
         declinedTransactionList.data().forEach { it.validate() }
     }

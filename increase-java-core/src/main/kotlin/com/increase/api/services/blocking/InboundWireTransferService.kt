@@ -22,7 +22,11 @@ interface InboundWireTransferService {
     /** List Inbound Wire Transfers */
     @JvmOverloads
     fun list(
-        params: InboundWireTransferListParams,
+        params: InboundWireTransferListParams = InboundWireTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundWireTransferListPage
+
+    /** List Inbound Wire Transfers */
+    fun list(requestOptions: RequestOptions): InboundWireTransferListPage =
+        list(InboundWireTransferListParams.none(), requestOptions)
 }

@@ -30,7 +30,11 @@ interface CheckDepositService {
     /** List Check Deposits */
     @JvmOverloads
     fun list(
-        params: CheckDepositListParams,
+        params: CheckDepositListParams = CheckDepositListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDepositListPage
+
+    /** List Check Deposits */
+    fun list(requestOptions: RequestOptions): CheckDepositListPage =
+        list(CheckDepositListParams.none(), requestOptions)
 }

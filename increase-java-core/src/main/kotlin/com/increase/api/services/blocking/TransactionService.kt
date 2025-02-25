@@ -22,7 +22,11 @@ interface TransactionService {
     /** List Transactions */
     @JvmOverloads
     fun list(
-        params: TransactionListParams,
+        params: TransactionListParams = TransactionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): TransactionListPage
+
+    /** List Transactions */
+    fun list(requestOptions: RequestOptions): TransactionListPage =
+        list(TransactionListParams.none(), requestOptions)
 }

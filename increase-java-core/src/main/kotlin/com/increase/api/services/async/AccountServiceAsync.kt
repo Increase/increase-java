@@ -42,9 +42,13 @@ interface AccountServiceAsync {
     /** List Accounts */
     @JvmOverloads
     fun list(
-        params: AccountListParams,
+        params: AccountListParams = AccountListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AccountListPageAsync>
+
+    /** List Accounts */
+    fun list(requestOptions: RequestOptions): CompletableFuture<AccountListPageAsync> =
+        list(AccountListParams.none(), requestOptions)
 
     /**
      * Retrieve the current and available balances for an account in minor units of the account's

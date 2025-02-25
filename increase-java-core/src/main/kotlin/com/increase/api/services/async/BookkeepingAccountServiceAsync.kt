@@ -33,9 +33,13 @@ interface BookkeepingAccountServiceAsync {
     /** List Bookkeeping Accounts */
     @JvmOverloads
     fun list(
-        params: BookkeepingAccountListParams,
+        params: BookkeepingAccountListParams = BookkeepingAccountListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BookkeepingAccountListPageAsync>
+
+    /** List Bookkeeping Accounts */
+    fun list(requestOptions: RequestOptions): CompletableFuture<BookkeepingAccountListPageAsync> =
+        list(BookkeepingAccountListParams.none(), requestOptions)
 
     /** Retrieve a Bookkeeping Account Balance */
     @JvmOverloads
