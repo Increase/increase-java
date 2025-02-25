@@ -26,9 +26,13 @@ interface InboundAchTransferServiceAsync {
     /** List Inbound ACH Transfers */
     @JvmOverloads
     fun list(
-        params: InboundAchTransferListParams,
+        params: InboundAchTransferListParams = InboundAchTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundAchTransferListPageAsync>
+
+    /** List Inbound ACH Transfers */
+    fun list(requestOptions: RequestOptions): CompletableFuture<InboundAchTransferListPageAsync> =
+        list(InboundAchTransferListParams.none(), requestOptions)
 
     /** Create a notification of change for an Inbound ACH Transfer */
     @JvmOverloads

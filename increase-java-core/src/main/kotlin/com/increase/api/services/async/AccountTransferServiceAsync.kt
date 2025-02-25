@@ -33,9 +33,13 @@ interface AccountTransferServiceAsync {
     /** List Account Transfers */
     @JvmOverloads
     fun list(
-        params: AccountTransferListParams,
+        params: AccountTransferListParams = AccountTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AccountTransferListPageAsync>
+
+    /** List Account Transfers */
+    fun list(requestOptions: RequestOptions): CompletableFuture<AccountTransferListPageAsync> =
+        list(AccountTransferListParams.none(), requestOptions)
 
     /** Approve an Account Transfer */
     @JvmOverloads

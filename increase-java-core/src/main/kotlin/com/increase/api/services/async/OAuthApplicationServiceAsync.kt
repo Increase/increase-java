@@ -23,7 +23,11 @@ interface OAuthApplicationServiceAsync {
     /** List OAuth Applications */
     @JvmOverloads
     fun list(
-        params: OAuthApplicationListParams,
+        params: OAuthApplicationListParams = OAuthApplicationListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<OAuthApplicationListPageAsync>
+
+    /** List OAuth Applications */
+    fun list(requestOptions: RequestOptions): CompletableFuture<OAuthApplicationListPageAsync> =
+        list(OAuthApplicationListParams.none(), requestOptions)
 }

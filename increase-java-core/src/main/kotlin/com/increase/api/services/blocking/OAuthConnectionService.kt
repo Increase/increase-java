@@ -22,7 +22,11 @@ interface OAuthConnectionService {
     /** List OAuth Connections */
     @JvmOverloads
     fun list(
-        params: OAuthConnectionListParams,
+        params: OAuthConnectionListParams = OAuthConnectionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): OAuthConnectionListPage
+
+    /** List OAuth Connections */
+    fun list(requestOptions: RequestOptions): OAuthConnectionListPage =
+        list(OAuthConnectionListParams.none(), requestOptions)
 }

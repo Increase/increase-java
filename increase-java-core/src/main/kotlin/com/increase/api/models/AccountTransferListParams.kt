@@ -64,6 +64,8 @@ private constructor(
 
     companion object {
 
+        fun none(): AccountTransferListParams = builder().build()
+
         @JvmStatic fun builder() = Builder()
     }
 

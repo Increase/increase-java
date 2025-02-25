@@ -25,9 +25,13 @@ interface InboundCheckDepositServiceAsync {
     /** List Inbound Check Deposits */
     @JvmOverloads
     fun list(
-        params: InboundCheckDepositListParams,
+        params: InboundCheckDepositListParams = InboundCheckDepositListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundCheckDepositListPageAsync>
+
+    /** List Inbound Check Deposits */
+    fun list(requestOptions: RequestOptions): CompletableFuture<InboundCheckDepositListPageAsync> =
+        list(InboundCheckDepositListParams.none(), requestOptions)
 
     /** Decline an Inbound Check Deposit */
     @JvmOverloads

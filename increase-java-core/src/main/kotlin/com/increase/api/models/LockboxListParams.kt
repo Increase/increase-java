@@ -64,6 +64,8 @@ private constructor(
 
     companion object {
 
+        fun none(): LockboxListParams = builder().build()
+
         @JvmStatic fun builder() = Builder()
     }
 

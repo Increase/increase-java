@@ -30,7 +30,11 @@ interface CardDisputeService {
     /** List Card Disputes */
     @JvmOverloads
     fun list(
-        params: CardDisputeListParams,
+        params: CardDisputeListParams = CardDisputeListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardDisputeListPage
+
+    /** List Card Disputes */
+    fun list(requestOptions: RequestOptions): CardDisputeListPage =
+        list(CardDisputeListParams.none(), requestOptions)
 }

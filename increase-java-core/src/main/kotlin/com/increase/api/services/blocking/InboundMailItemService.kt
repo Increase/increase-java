@@ -22,7 +22,11 @@ interface InboundMailItemService {
     /** List Inbound Mail Items */
     @JvmOverloads
     fun list(
-        params: InboundMailItemListParams,
+        params: InboundMailItemListParams = InboundMailItemListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundMailItemListPage
+
+    /** List Inbound Mail Items */
+    fun list(requestOptions: RequestOptions): InboundMailItemListPage =
+        list(InboundMailItemListParams.none(), requestOptions)
 }

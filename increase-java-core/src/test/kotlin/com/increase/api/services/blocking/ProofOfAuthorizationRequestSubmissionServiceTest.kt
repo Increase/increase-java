@@ -5,7 +5,6 @@ package com.increase.api.services.blocking
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.ProofOfAuthorizationRequestSubmissionCreateParams
-import com.increase.api.models.ProofOfAuthorizationRequestSubmissionListParams
 import com.increase.api.models.ProofOfAuthorizationRequestSubmissionRetrieveParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
@@ -76,9 +75,7 @@ class ProofOfAuthorizationRequestSubmissionServiceTest {
         val proofOfAuthorizationRequestSubmissionService =
             client.proofOfAuthorizationRequestSubmissions()
         val proofOfAuthorizationRequestSubmissionList =
-            proofOfAuthorizationRequestSubmissionService.list(
-                ProofOfAuthorizationRequestSubmissionListParams.builder().build()
-            )
+            proofOfAuthorizationRequestSubmissionService.list()
         println(proofOfAuthorizationRequestSubmissionList)
         proofOfAuthorizationRequestSubmissionList.data().forEach { it.validate() }
     }

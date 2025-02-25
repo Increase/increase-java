@@ -22,7 +22,11 @@ interface ProgramService {
     /** List Programs */
     @JvmOverloads
     fun list(
-        params: ProgramListParams,
+        params: ProgramListParams = ProgramListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ProgramListPage
+
+    /** List Programs */
+    fun list(requestOptions: RequestOptions): ProgramListPage =
+        list(ProgramListParams.none(), requestOptions)
 }

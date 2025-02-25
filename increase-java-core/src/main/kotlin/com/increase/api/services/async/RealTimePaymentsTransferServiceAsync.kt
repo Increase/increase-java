@@ -31,7 +31,13 @@ interface RealTimePaymentsTransferServiceAsync {
     /** List Real-Time Payments Transfers */
     @JvmOverloads
     fun list(
-        params: RealTimePaymentsTransferListParams,
+        params: RealTimePaymentsTransferListParams = RealTimePaymentsTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<RealTimePaymentsTransferListPageAsync>
+
+    /** List Real-Time Payments Transfers */
+    fun list(
+        requestOptions: RequestOptions
+    ): CompletableFuture<RealTimePaymentsTransferListPageAsync> =
+        list(RealTimePaymentsTransferListParams.none(), requestOptions)
 }

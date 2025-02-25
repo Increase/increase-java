@@ -22,7 +22,11 @@ interface AccountStatementService {
     /** List Account Statements */
     @JvmOverloads
     fun list(
-        params: AccountStatementListParams,
+        params: AccountStatementListParams = AccountStatementListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountStatementListPage
+
+    /** List Account Statements */
+    fun list(requestOptions: RequestOptions): AccountStatementListPage =
+        list(AccountStatementListParams.none(), requestOptions)
 }

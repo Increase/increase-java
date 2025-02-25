@@ -23,7 +23,11 @@ interface ProgramServiceAsync {
     /** List Programs */
     @JvmOverloads
     fun list(
-        params: ProgramListParams,
+        params: ProgramListParams = ProgramListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ProgramListPageAsync>
+
+    /** List Programs */
+    fun list(requestOptions: RequestOptions): CompletableFuture<ProgramListPageAsync> =
+        list(ProgramListParams.none(), requestOptions)
 }

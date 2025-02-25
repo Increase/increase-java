@@ -39,7 +39,11 @@ interface LockboxServiceAsync {
     /** List Lockboxes */
     @JvmOverloads
     fun list(
-        params: LockboxListParams,
+        params: LockboxListParams = LockboxListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<LockboxListPageAsync>
+
+    /** List Lockboxes */
+    fun list(requestOptions: RequestOptions): CompletableFuture<LockboxListPageAsync> =
+        list(LockboxListParams.none(), requestOptions)
 }

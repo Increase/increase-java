@@ -6,7 +6,6 @@ import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.BookkeepingAccountBalanceParams
 import com.increase.api.models.BookkeepingAccountCreateParams
-import com.increase.api.models.BookkeepingAccountListParams
 import com.increase.api.models.BookkeepingAccountUpdateParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
@@ -65,8 +64,7 @@ class BookkeepingAccountServiceTest {
                 .apiKey("My API Key")
                 .build()
         val bookkeepingAccountService = client.bookkeepingAccounts()
-        val bookkeepingAccountList =
-            bookkeepingAccountService.list(BookkeepingAccountListParams.builder().build())
+        val bookkeepingAccountList = bookkeepingAccountService.list()
         println(bookkeepingAccountList)
         bookkeepingAccountList.data().forEach { it.validate() }
     }

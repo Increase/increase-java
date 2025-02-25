@@ -30,7 +30,11 @@ interface ExportService {
     /** List Exports */
     @JvmOverloads
     fun list(
-        params: ExportListParams,
+        params: ExportListParams = ExportListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExportListPage
+
+    /** List Exports */
+    fun list(requestOptions: RequestOptions): ExportListPage =
+        list(ExportListParams.none(), requestOptions)
 }

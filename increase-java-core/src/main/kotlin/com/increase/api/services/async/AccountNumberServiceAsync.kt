@@ -39,7 +39,11 @@ interface AccountNumberServiceAsync {
     /** List Account Numbers */
     @JvmOverloads
     fun list(
-        params: AccountNumberListParams,
+        params: AccountNumberListParams = AccountNumberListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AccountNumberListPageAsync>
+
+    /** List Account Numbers */
+    fun list(requestOptions: RequestOptions): CompletableFuture<AccountNumberListPageAsync> =
+        list(AccountNumberListParams.none(), requestOptions)
 }

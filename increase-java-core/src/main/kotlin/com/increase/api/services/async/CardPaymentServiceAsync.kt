@@ -23,7 +23,11 @@ interface CardPaymentServiceAsync {
     /** List Card Payments */
     @JvmOverloads
     fun list(
-        params: CardPaymentListParams,
+        params: CardPaymentListParams = CardPaymentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CardPaymentListPageAsync>
+
+    /** List Card Payments */
+    fun list(requestOptions: RequestOptions): CompletableFuture<CardPaymentListPageAsync> =
+        list(CardPaymentListParams.none(), requestOptions)
 }

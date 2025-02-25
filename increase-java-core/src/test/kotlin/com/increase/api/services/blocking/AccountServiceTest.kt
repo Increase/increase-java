@@ -7,7 +7,6 @@ import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.AccountBalanceParams
 import com.increase.api.models.AccountCloseParams
 import com.increase.api.models.AccountCreateParams
-import com.increase.api.models.AccountListParams
 import com.increase.api.models.AccountRetrieveParams
 import com.increase.api.models.AccountUpdateParams
 import java.time.OffsetDateTime
@@ -81,7 +80,7 @@ class AccountServiceTest {
                 .apiKey("My API Key")
                 .build()
         val accountService = client.accounts()
-        val accountList = accountService.list(AccountListParams.builder().build())
+        val accountList = accountService.list()
         println(accountList)
         accountList.data().forEach { it.validate() }
     }

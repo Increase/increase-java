@@ -14,7 +14,11 @@ interface GroupServiceAsync {
     /** Returns details for the currently authenticated Group. */
     @JvmOverloads
     fun retrieve(
-        params: GroupRetrieveParams,
+        params: GroupRetrieveParams = GroupRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Group>
+
+    /** Returns details for the currently authenticated Group. */
+    fun retrieve(requestOptions: RequestOptions): CompletableFuture<Group> =
+        retrieve(GroupRetrieveParams.none(), requestOptions)
 }

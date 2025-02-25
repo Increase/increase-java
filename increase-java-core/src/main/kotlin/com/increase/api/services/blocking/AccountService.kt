@@ -41,9 +41,13 @@ interface AccountService {
     /** List Accounts */
     @JvmOverloads
     fun list(
-        params: AccountListParams,
+        params: AccountListParams = AccountListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountListPage
+
+    /** List Accounts */
+    fun list(requestOptions: RequestOptions): AccountListPage =
+        list(AccountListParams.none(), requestOptions)
 
     /**
      * Retrieve the current and available balances for an account in minor units of the account's

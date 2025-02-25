@@ -31,7 +31,11 @@ interface ExportServiceAsync {
     /** List Exports */
     @JvmOverloads
     fun list(
-        params: ExportListParams,
+        params: ExportListParams = ExportListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ExportListPageAsync>
+
+    /** List Exports */
+    fun list(requestOptions: RequestOptions): CompletableFuture<ExportListPageAsync> =
+        list(ExportListParams.none(), requestOptions)
 }

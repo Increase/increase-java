@@ -32,9 +32,13 @@ interface IntrafiExclusionServiceAsync {
     /** List IntraFi Exclusions */
     @JvmOverloads
     fun list(
-        params: IntrafiExclusionListParams,
+        params: IntrafiExclusionListParams = IntrafiExclusionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<IntrafiExclusionListPageAsync>
+
+    /** List IntraFi Exclusions */
+    fun list(requestOptions: RequestOptions): CompletableFuture<IntrafiExclusionListPageAsync> =
+        list(IntrafiExclusionListParams.none(), requestOptions)
 
     /** Archive an IntraFi Exclusion */
     @JvmOverloads
