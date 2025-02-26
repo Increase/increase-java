@@ -12,13 +12,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class CardDisputeServiceTest {
 
     @Test
-    fun callAction() {
+    fun action() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val cardDisputeService = client.simulations().cardDisputes()
+
         val cardDispute =
             cardDisputeService.action(
                 SimulationCardDisputeActionParams.builder()
@@ -27,7 +28,7 @@ class CardDisputeServiceTest {
                     .explanation("This was a valid recurring transaction")
                     .build()
             )
-        println(cardDispute)
+
         cardDispute.validate()
     }
 }

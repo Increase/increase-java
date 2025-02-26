@@ -15,13 +15,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class CardServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val cardService = client.cards()
+
         val card =
             cardService.create(
                 CardCreateParams.builder()
@@ -46,34 +47,36 @@ class CardServiceTest {
                     .entityId("entity_id")
                     .build()
             )
-        println(card)
+
         card.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val cardService = client.cards()
+
         val card =
             cardService.retrieve(
                 CardRetrieveParams.builder().cardId("card_oubs0hwk5rn6knuecxg2").build()
             )
-        println(card)
+
         card.validate()
     }
 
     @Test
-    fun callUpdate() {
+    fun update() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val cardService = client.cards()
+
         val card =
             cardService.update(
                 CardUpdateParams.builder()
@@ -99,36 +102,38 @@ class CardServiceTest {
                     .status(CardUpdateParams.Status.ACTIVE)
                     .build()
             )
-        println(card)
+
         card.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val cardService = client.cards()
-        val cardList = cardService.list()
-        println(cardList)
-        cardList.data().forEach { it.validate() }
+
+        val page = cardService.list()
+
+        page.response().validate()
     }
 
     @Test
-    fun callDetails() {
+    fun details() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val cardService = client.cards()
+
         val cardDetails =
             cardService.details(
                 CardDetailsParams.builder().cardId("card_oubs0hwk5rn6knuecxg2").build()
             )
-        println(cardDetails)
+
         cardDetails.validate()
     }
 }

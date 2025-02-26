@@ -12,33 +12,35 @@ import org.junit.jupiter.api.extension.ExtendWith
 class OAuthConnectionServiceTest {
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val oauthConnectionService = client.oauthConnections()
+
         val oauthConnection =
             oauthConnectionService.retrieve(
                 OAuthConnectionRetrieveParams.builder()
                     .oauthConnectionId("connection_dauknoksyr4wilz4e6my")
                     .build()
             )
-        println(oauthConnection)
+
         oauthConnection.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val oauthConnectionService = client.oauthConnections()
-        val oauthConnectionList = oauthConnectionService.list()
-        println(oauthConnectionList)
-        oauthConnectionList.data().forEach { it.validate() }
+
+        val page = oauthConnectionService.list()
+
+        page.response().validate()
     }
 }

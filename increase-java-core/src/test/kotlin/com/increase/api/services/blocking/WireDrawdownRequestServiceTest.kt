@@ -13,13 +13,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class WireDrawdownRequestServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val wireDrawdownRequestService = client.wireDrawdownRequests()
+
         val wireDrawdownRequest =
             wireDrawdownRequestService.create(
                 WireDrawdownRequestCreateParams.builder()
@@ -38,38 +39,40 @@ class WireDrawdownRequestServiceTest {
                     .recipientAddressLine3("x")
                     .build()
             )
-        println(wireDrawdownRequest)
+
         wireDrawdownRequest.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val wireDrawdownRequestService = client.wireDrawdownRequests()
+
         val wireDrawdownRequest =
             wireDrawdownRequestService.retrieve(
                 WireDrawdownRequestRetrieveParams.builder()
                     .wireDrawdownRequestId("wire_drawdown_request_q6lmocus3glo0lr2bfv3")
                     .build()
             )
-        println(wireDrawdownRequest)
+
         wireDrawdownRequest.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val wireDrawdownRequestService = client.wireDrawdownRequests()
-        val wireDrawdownRequestList = wireDrawdownRequestService.list()
-        println(wireDrawdownRequestList)
-        wireDrawdownRequestList.data().forEach { it.validate() }
+
+        val page = wireDrawdownRequestService.list()
+
+        page.response().validate()
     }
 }

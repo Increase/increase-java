@@ -12,31 +12,33 @@ import org.junit.jupiter.api.extension.ExtendWith
 class ProgramServiceTest {
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val programService = client.programs()
+
         val program =
             programService.retrieve(
                 ProgramRetrieveParams.builder().programId("program_i2v2os4mwza1oetokh9i").build()
             )
-        println(program)
+
         program.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val programService = client.programs()
-        val programList = programService.list()
-        println(programList)
-        programList.data().forEach { it.validate() }
+
+        val page = programService.list()
+
+        page.response().validate()
     }
 }

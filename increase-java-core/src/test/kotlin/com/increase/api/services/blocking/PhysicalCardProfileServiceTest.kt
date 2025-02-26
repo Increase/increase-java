@@ -15,13 +15,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class PhysicalCardProfileServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val physicalCardProfileService = client.physicalCardProfiles()
+
         val physicalCardProfile =
             physicalCardProfileService.create(
                 PhysicalCardProfileCreateParams.builder()
@@ -31,67 +32,71 @@ class PhysicalCardProfileServiceTest {
                     .frontImageFileId("file_o6aex13wm1jcc36sgcj1")
                     .build()
             )
-        println(physicalCardProfile)
+
         physicalCardProfile.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val physicalCardProfileService = client.physicalCardProfiles()
+
         val physicalCardProfile =
             physicalCardProfileService.retrieve(
                 PhysicalCardProfileRetrieveParams.builder()
                     .physicalCardProfileId("physical_card_profile_m534d5rn9qyy9ufqxoec")
                     .build()
             )
-        println(physicalCardProfile)
+
         physicalCardProfile.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val physicalCardProfileService = client.physicalCardProfiles()
-        val physicalCardProfileList = physicalCardProfileService.list()
-        println(physicalCardProfileList)
-        physicalCardProfileList.data().forEach { it.validate() }
+
+        val page = physicalCardProfileService.list()
+
+        page.response().validate()
     }
 
     @Test
-    fun callArchive() {
+    fun archive() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val physicalCardProfileService = client.physicalCardProfiles()
+
         val physicalCardProfile =
             physicalCardProfileService.archive(
                 PhysicalCardProfileArchiveParams.builder()
                     .physicalCardProfileId("physical_card_profile_m534d5rn9qyy9ufqxoec")
                     .build()
             )
-        println(physicalCardProfile)
+
         physicalCardProfile.validate()
     }
 
     @Test
-    fun callClone() {
+    fun clone() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val physicalCardProfileService = client.physicalCardProfiles()
+
         val physicalCardProfile =
             physicalCardProfileService.clone(
                 PhysicalCardProfileCloneParams.builder()
@@ -108,7 +113,7 @@ class PhysicalCardProfileServiceTest {
                     )
                     .build()
             )
-        println(physicalCardProfile)
+
         physicalCardProfile.validate()
     }
 }

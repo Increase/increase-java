@@ -13,13 +13,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class CardDisputeServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val cardDisputeService = client.cardDisputes()
+
         val cardDispute =
             cardDisputeService.create(
                 CardDisputeCreateParams.builder()
@@ -28,38 +29,40 @@ class CardDisputeServiceTest {
                     .amount(1L)
                     .build()
             )
-        println(cardDispute)
+
         cardDispute.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val cardDisputeService = client.cardDisputes()
+
         val cardDispute =
             cardDisputeService.retrieve(
                 CardDisputeRetrieveParams.builder()
                     .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
                     .build()
             )
-        println(cardDispute)
+
         cardDispute.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val cardDisputeService = client.cardDisputes()
-        val cardDisputeList = cardDisputeService.list()
-        println(cardDisputeList)
-        cardDisputeList.data().forEach { it.validate() }
+
+        val page = cardDisputeService.list()
+
+        page.response().validate()
     }
 }

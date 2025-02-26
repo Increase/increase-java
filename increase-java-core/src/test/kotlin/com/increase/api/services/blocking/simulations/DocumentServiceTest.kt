@@ -12,20 +12,21 @@ import org.junit.jupiter.api.extension.ExtendWith
 class DocumentServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val documentService = client.simulations().documents()
+
         val document =
             documentService.create(
                 SimulationDocumentCreateParams.builder()
                     .accountId("account_in71c4amph0vgo2qllky")
                     .build()
             )
-        println(document)
+
         document.validate()
     }
 }

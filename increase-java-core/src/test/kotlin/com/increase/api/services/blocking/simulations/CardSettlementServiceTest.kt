@@ -12,13 +12,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class CardSettlementServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val cardSettlementService = client.simulations().cardSettlements()
+
         val transaction =
             cardSettlementService.create(
                 SimulationCardSettlementCreateParams.builder()
@@ -27,7 +28,7 @@ class CardSettlementServiceTest {
                     .amount(1L)
                     .build()
             )
-        println(transaction)
+
         transaction.validate()
     }
 }

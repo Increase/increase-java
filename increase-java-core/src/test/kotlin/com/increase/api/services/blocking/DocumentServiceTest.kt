@@ -12,31 +12,33 @@ import org.junit.jupiter.api.extension.ExtendWith
 class DocumentServiceTest {
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val documentService = client.documents()
+
         val document =
             documentService.retrieve(
                 DocumentRetrieveParams.builder().documentId("document_qjtqc6s4c14ve2q89izm").build()
             )
-        println(document)
+
         document.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val documentService = client.documents()
-        val documentList = documentService.list()
-        println(documentList)
-        documentList.data().forEach { it.validate() }
+
+        val page = documentService.list()
+
+        page.response().validate()
     }
 }

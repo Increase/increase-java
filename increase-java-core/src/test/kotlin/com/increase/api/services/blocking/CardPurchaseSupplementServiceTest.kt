@@ -12,33 +12,35 @@ import org.junit.jupiter.api.extension.ExtendWith
 class CardPurchaseSupplementServiceTest {
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val cardPurchaseSupplementService = client.cardPurchaseSupplements()
+
         val cardPurchaseSupplement =
             cardPurchaseSupplementService.retrieve(
                 CardPurchaseSupplementRetrieveParams.builder()
                     .cardPurchaseSupplementId("card_purchase_supplement_ijuc45iym4jchnh2sfk3")
                     .build()
             )
-        println(cardPurchaseSupplement)
+
         cardPurchaseSupplement.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val cardPurchaseSupplementService = client.cardPurchaseSupplements()
-        val cardPurchaseSupplementList = cardPurchaseSupplementService.list()
-        println(cardPurchaseSupplementList)
-        cardPurchaseSupplementList.data().forEach { it.validate() }
+
+        val page = cardPurchaseSupplementService.list()
+
+        page.response().validate()
     }
 }

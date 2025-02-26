@@ -12,13 +12,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class InboundRealTimePaymentsTransferServiceTest {
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val inboundRealTimePaymentsTransferService = client.inboundRealTimePaymentsTransfers()
+
         val inboundRealTimePaymentsTransfer =
             inboundRealTimePaymentsTransferService.retrieve(
                 InboundRealTimePaymentsTransferRetrieveParams.builder()
@@ -27,20 +28,21 @@ class InboundRealTimePaymentsTransferServiceTest {
                     )
                     .build()
             )
-        println(inboundRealTimePaymentsTransfer)
+
         inboundRealTimePaymentsTransfer.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val inboundRealTimePaymentsTransferService = client.inboundRealTimePaymentsTransfers()
-        val inboundRealTimePaymentsTransferList = inboundRealTimePaymentsTransferService.list()
-        println(inboundRealTimePaymentsTransferList)
-        inboundRealTimePaymentsTransferList.data().forEach { it.validate() }
+
+        val page = inboundRealTimePaymentsTransferService.list()
+
+        page.response().validate()
     }
 }

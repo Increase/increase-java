@@ -12,33 +12,35 @@ import org.junit.jupiter.api.extension.ExtendWith
 class InboundWireTransferServiceTest {
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val inboundWireTransferService = client.inboundWireTransfers()
+
         val inboundWireTransfer =
             inboundWireTransferService.retrieve(
                 InboundWireTransferRetrieveParams.builder()
                     .inboundWireTransferId("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
                     .build()
             )
-        println(inboundWireTransfer)
+
         inboundWireTransfer.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val inboundWireTransferService = client.inboundWireTransfers()
-        val inboundWireTransferList = inboundWireTransferService.list()
-        println(inboundWireTransferList)
-        inboundWireTransferList.data().forEach { it.validate() }
+
+        val page = inboundWireTransferService.list()
+
+        page.response().validate()
     }
 }

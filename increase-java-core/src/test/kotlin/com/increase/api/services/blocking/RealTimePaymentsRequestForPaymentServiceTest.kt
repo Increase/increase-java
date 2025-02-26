@@ -14,13 +14,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class RealTimePaymentsRequestForPaymentServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val realTimePaymentsRequestForPaymentService = client.realTimePaymentsRequestForPayments()
+
         val realTimePaymentsRequestForPayment =
             realTimePaymentsRequestForPaymentService.create(
                 RealTimePaymentsRequestForPaymentCreateParams.builder()
@@ -46,38 +47,40 @@ class RealTimePaymentsRequestForPaymentServiceTest {
                     .sourceRoutingNumber("101050001")
                     .build()
             )
-        println(realTimePaymentsRequestForPayment)
+
         realTimePaymentsRequestForPayment.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val realTimePaymentsRequestForPaymentService = client.realTimePaymentsRequestForPayments()
+
         val realTimePaymentsRequestForPayment =
             realTimePaymentsRequestForPaymentService.retrieve(
                 RealTimePaymentsRequestForPaymentRetrieveParams.builder()
                     .requestForPaymentId("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
                     .build()
             )
-        println(realTimePaymentsRequestForPayment)
+
         realTimePaymentsRequestForPayment.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val realTimePaymentsRequestForPaymentService = client.realTimePaymentsRequestForPayments()
-        val realTimePaymentsRequestForPaymentList = realTimePaymentsRequestForPaymentService.list()
-        println(realTimePaymentsRequestForPaymentList)
-        realTimePaymentsRequestForPaymentList.data().forEach { it.validate() }
+
+        val page = realTimePaymentsRequestForPaymentService.list()
+
+        page.response().validate()
     }
 }

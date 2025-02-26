@@ -12,20 +12,21 @@ import org.junit.jupiter.api.extension.ExtendWith
 class AccountTransferServiceTest {
 
     @Test
-    fun callComplete() {
+    fun complete() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val accountTransferService = client.simulations().accountTransfers()
+
         val accountTransfer =
             accountTransferService.complete(
                 SimulationAccountTransferCompleteParams.builder()
                     .accountTransferId("account_transfer_7k9qe1ysdgqztnt63l7n")
                     .build()
             )
-        println(accountTransfer)
+
         accountTransfer.validate()
     }
 }

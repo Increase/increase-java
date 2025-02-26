@@ -14,13 +14,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class IntrafiAccountEnrollmentServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val intrafiAccountEnrollmentService = client.intrafiAccountEnrollments()
+
         val intrafiAccountEnrollment =
             intrafiAccountEnrollmentService.create(
                 IntrafiAccountEnrollmentCreateParams.builder()
@@ -28,56 +29,59 @@ class IntrafiAccountEnrollmentServiceTest {
                     .emailAddress("user@example.com")
                     .build()
             )
-        println(intrafiAccountEnrollment)
+
         intrafiAccountEnrollment.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val intrafiAccountEnrollmentService = client.intrafiAccountEnrollments()
+
         val intrafiAccountEnrollment =
             intrafiAccountEnrollmentService.retrieve(
                 IntrafiAccountEnrollmentRetrieveParams.builder()
                     .intrafiAccountEnrollmentId("intrafi_account_enrollment_w8l97znzreopkwf2tg75")
                     .build()
             )
-        println(intrafiAccountEnrollment)
+
         intrafiAccountEnrollment.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val intrafiAccountEnrollmentService = client.intrafiAccountEnrollments()
-        val intrafiAccountEnrollmentList = intrafiAccountEnrollmentService.list()
-        println(intrafiAccountEnrollmentList)
-        intrafiAccountEnrollmentList.data().forEach { it.validate() }
+
+        val page = intrafiAccountEnrollmentService.list()
+
+        page.response().validate()
     }
 
     @Test
-    fun callUnenroll() {
+    fun unenroll() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val intrafiAccountEnrollmentService = client.intrafiAccountEnrollments()
+
         val intrafiAccountEnrollment =
             intrafiAccountEnrollmentService.unenroll(
                 IntrafiAccountEnrollmentUnenrollParams.builder()
                     .intrafiAccountEnrollmentId("intrafi_account_enrollment_w8l97znzreopkwf2tg75")
                     .build()
             )
-        println(intrafiAccountEnrollment)
+
         intrafiAccountEnrollment.validate()
     }
 }

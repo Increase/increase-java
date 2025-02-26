@@ -12,33 +12,35 @@ import org.junit.jupiter.api.extension.ExtendWith
 class TransactionServiceTest {
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val transactionService = client.transactions()
+
         val transaction =
             transactionService.retrieve(
                 TransactionRetrieveParams.builder()
                     .transactionId("transaction_uyrp7fld2ium70oa7oi")
                     .build()
             )
-        println(transaction)
+
         transaction.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val transactionService = client.transactions()
-        val transactionList = transactionService.list()
-        println(transactionList)
-        transactionList.data().forEach { it.validate() }
+
+        val page = transactionService.list()
+
+        page.response().validate()
     }
 }
