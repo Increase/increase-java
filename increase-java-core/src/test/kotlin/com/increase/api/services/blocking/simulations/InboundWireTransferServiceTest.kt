@@ -12,13 +12,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class InboundWireTransferServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val inboundWireTransferService = client.simulations().inboundWireTransfers()
+
         val inboundWireTransfer =
             inboundWireTransferService.create(
                 SimulationInboundWireTransferCreateParams.builder()
@@ -41,7 +42,7 @@ class InboundWireTransferServiceTest {
                     .senderReference("x")
                     .build()
             )
-        println(inboundWireTransfer)
+
         inboundWireTransfer.validate()
     }
 }

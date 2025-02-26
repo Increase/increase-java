@@ -12,20 +12,21 @@ import org.junit.jupiter.api.extension.ExtendWith
 class InboundFundsHoldServiceTest {
 
     @Test
-    fun callRelease() {
+    fun release() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val inboundFundsHoldService = client.simulations().inboundFundsHolds()
-        val simulationInboundFundsHoldReleaseResponse =
+
+        val response =
             inboundFundsHoldService.release(
                 SimulationInboundFundsHoldReleaseParams.builder()
                     .inboundFundsHoldId("inbound_funds_hold_9vuasmywdo7xb3zt4071")
                     .build()
             )
-        println(simulationInboundFundsHoldReleaseResponse)
-        simulationInboundFundsHoldReleaseResponse.validate()
+
+        response.validate()
     }
 }

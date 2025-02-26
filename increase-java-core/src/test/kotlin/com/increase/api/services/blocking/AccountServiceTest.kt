@@ -17,13 +17,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class AccountServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val accountService = client.accounts()
+
         val account =
             accountService.create(
                 AccountCreateParams.builder()
@@ -33,34 +34,36 @@ class AccountServiceTest {
                     .programId("program_i2v2os4mwza1oetokh9i")
                     .build()
             )
-        println(account)
+
         account.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val accountService = client.accounts()
+
         val account =
             accountService.retrieve(
                 AccountRetrieveParams.builder().accountId("account_in71c4amph0vgo2qllky").build()
             )
-        println(account)
+
         account.validate()
     }
 
     @Test
-    fun callUpdate() {
+    fun update() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val accountService = client.accounts()
+
         val account =
             accountService.update(
                 AccountUpdateParams.builder()
@@ -68,31 +71,33 @@ class AccountServiceTest {
                     .name("My renamed account")
                     .build()
             )
-        println(account)
+
         account.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val accountService = client.accounts()
-        val accountList = accountService.list()
-        println(accountList)
-        accountList.data().forEach { it.validate() }
+
+        val page = accountService.list()
+
+        page.response().validate()
     }
 
     @Test
-    fun callBalance() {
+    fun balance() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val accountService = client.accounts()
+
         val balanceLookup =
             accountService.balance(
                 AccountBalanceParams.builder()
@@ -100,23 +105,24 @@ class AccountServiceTest {
                     .atTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
-        println(balanceLookup)
+
         balanceLookup.validate()
     }
 
     @Test
-    fun callClose() {
+    fun close() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val accountService = client.accounts()
+
         val account =
             accountService.close(
                 AccountCloseParams.builder().accountId("account_in71c4amph0vgo2qllky").build()
             )
-        println(account)
+
         account.validate()
     }
 }

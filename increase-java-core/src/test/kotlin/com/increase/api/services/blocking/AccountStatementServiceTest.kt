@@ -12,33 +12,35 @@ import org.junit.jupiter.api.extension.ExtendWith
 class AccountStatementServiceTest {
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val accountStatementService = client.accountStatements()
+
         val accountStatement =
             accountStatementService.retrieve(
                 AccountStatementRetrieveParams.builder()
                     .accountStatementId("account_statement_lkc03a4skm2k7f38vj15")
                     .build()
             )
-        println(accountStatement)
+
         accountStatement.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val accountStatementService = client.accountStatements()
-        val accountStatementList = accountStatementService.list()
-        println(accountStatementList)
-        accountStatementList.data().forEach { it.validate() }
+
+        val page = accountStatementService.list()
+
+        page.response().validate()
     }
 }

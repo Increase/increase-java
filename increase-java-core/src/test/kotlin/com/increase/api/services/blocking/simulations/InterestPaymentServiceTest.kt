@@ -13,13 +13,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class InterestPaymentServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val interestPaymentService = client.simulations().interestPayments()
+
         val transaction =
             interestPaymentService.create(
                 SimulationInterestPaymentCreateParams.builder()
@@ -29,7 +30,7 @@ class InterestPaymentServiceTest {
                     .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
-        println(transaction)
+
         transaction.validate()
     }
 }

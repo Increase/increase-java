@@ -14,13 +14,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class BookkeepingEntrySetServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val bookkeepingEntrySetService = client.bookkeepingEntrySets()
+
         val bookkeepingEntrySet =
             bookkeepingEntrySetService.create(
                 BookkeepingEntrySetCreateParams.builder()
@@ -40,38 +41,40 @@ class BookkeepingEntrySetServiceTest {
                     .transactionId("transaction_uyrp7fld2ium70oa7oi")
                     .build()
             )
-        println(bookkeepingEntrySet)
+
         bookkeepingEntrySet.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val bookkeepingEntrySetService = client.bookkeepingEntrySets()
+
         val bookkeepingEntrySet =
             bookkeepingEntrySetService.retrieve(
                 BookkeepingEntrySetRetrieveParams.builder()
                     .bookkeepingEntrySetId("bookkeeping_entry_set_n80c6wr2p8gtc6p4ingf")
                     .build()
             )
-        println(bookkeepingEntrySet)
+
         bookkeepingEntrySet.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val bookkeepingEntrySetService = client.bookkeepingEntrySets()
-        val bookkeepingEntrySetList = bookkeepingEntrySetService.list()
-        println(bookkeepingEntrySetList)
-        bookkeepingEntrySetList.data().forEach { it.validate() }
+
+        val page = bookkeepingEntrySetService.list()
+
+        page.response().validate()
     }
 }

@@ -14,13 +14,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class AccountNumberServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val accountNumberService = client.accountNumbers()
+
         val accountNumber =
             accountNumberService.create(
                 AccountNumberCreateParams.builder()
@@ -38,36 +39,38 @@ class AccountNumberServiceTest {
                     )
                     .build()
             )
-        println(accountNumber)
+
         accountNumber.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val accountNumberService = client.accountNumbers()
+
         val accountNumber =
             accountNumberService.retrieve(
                 AccountNumberRetrieveParams.builder()
                     .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                     .build()
             )
-        println(accountNumber)
+
         accountNumber.validate()
     }
 
     @Test
-    fun callUpdate() {
+    fun update() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val accountNumberService = client.accountNumbers()
+
         val accountNumber =
             accountNumberService.update(
                 AccountNumberUpdateParams.builder()
@@ -86,20 +89,21 @@ class AccountNumberServiceTest {
                     .status(AccountNumberUpdateParams.Status.ACTIVE)
                     .build()
             )
-        println(accountNumber)
+
         accountNumber.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val accountNumberService = client.accountNumbers()
-        val accountNumberList = accountNumberService.list()
-        println(accountNumberList)
-        accountNumberList.data().forEach { it.validate() }
+
+        val page = accountNumberService.list()
+
+        page.response().validate()
     }
 }

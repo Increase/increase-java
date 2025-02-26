@@ -16,13 +16,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class AchTransferServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val achTransferService = client.achTransfers()
+
         val achTransfer =
             achTransferService.create(
                 AchTransferCreateParams.builder()
@@ -85,74 +86,78 @@ class AchTransferServiceTest {
                     .transactionTiming(AchTransferCreateParams.TransactionTiming.SYNCHRONOUS)
                     .build()
             )
-        println(achTransfer)
+
         achTransfer.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val achTransferService = client.achTransfers()
+
         val achTransfer =
             achTransferService.retrieve(
                 AchTransferRetrieveParams.builder()
                     .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
                     .build()
             )
-        println(achTransfer)
+
         achTransfer.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val achTransferService = client.achTransfers()
-        val achTransferList = achTransferService.list()
-        println(achTransferList)
-        achTransferList.data().forEach { it.validate() }
+
+        val page = achTransferService.list()
+
+        page.response().validate()
     }
 
     @Test
-    fun callApprove() {
+    fun approve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val achTransferService = client.achTransfers()
+
         val achTransfer =
             achTransferService.approve(
                 AchTransferApproveParams.builder()
                     .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
                     .build()
             )
-        println(achTransfer)
+
         achTransfer.validate()
     }
 
     @Test
-    fun callCancel() {
+    fun cancel() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val achTransferService = client.achTransfers()
+
         val achTransfer =
             achTransferService.cancel(
                 AchTransferCancelParams.builder()
                     .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
                     .build()
             )
-        println(achTransfer)
+
         achTransfer.validate()
     }
 }

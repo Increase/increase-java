@@ -14,13 +14,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class AchPrenotificationServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val achPrenotificationService = client.achPrenotifications()
+
         val achPrenotification =
             achPrenotificationService.create(
                 AchPrenotificationCreateParams.builder()
@@ -44,38 +45,40 @@ class AchPrenotificationServiceTest {
                     )
                     .build()
             )
-        println(achPrenotification)
+
         achPrenotification.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val achPrenotificationService = client.achPrenotifications()
+
         val achPrenotification =
             achPrenotificationService.retrieve(
                 AchPrenotificationRetrieveParams.builder()
                     .achPrenotificationId("ach_prenotification_ubjf9qqsxl3obbcn1u34")
                     .build()
             )
-        println(achPrenotification)
+
         achPrenotification.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val achPrenotificationService = client.achPrenotifications()
-        val achPrenotificationList = achPrenotificationService.list()
-        println(achPrenotificationList)
-        achPrenotificationList.data().forEach { it.validate() }
+
+        val page = achPrenotificationService.list()
+
+        page.response().validate()
     }
 }

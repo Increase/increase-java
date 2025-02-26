@@ -14,13 +14,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class ExternalAccountServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val externalAccountService = client.externalAccounts()
+
         val externalAccount =
             externalAccountService.create(
                 ExternalAccountCreateParams.builder()
@@ -31,36 +32,38 @@ class ExternalAccountServiceTest {
                     .funding(ExternalAccountCreateParams.Funding.CHECKING)
                     .build()
             )
-        println(externalAccount)
+
         externalAccount.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val externalAccountService = client.externalAccounts()
+
         val externalAccount =
             externalAccountService.retrieve(
                 ExternalAccountRetrieveParams.builder()
                     .externalAccountId("external_account_ukk55lr923a3ac0pp7iv")
                     .build()
             )
-        println(externalAccount)
+
         externalAccount.validate()
     }
 
     @Test
-    fun callUpdate() {
+    fun update() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val externalAccountService = client.externalAccounts()
+
         val externalAccount =
             externalAccountService.update(
                 ExternalAccountUpdateParams.builder()
@@ -71,20 +74,21 @@ class ExternalAccountServiceTest {
                     .status(ExternalAccountUpdateParams.Status.ACTIVE)
                     .build()
             )
-        println(externalAccount)
+
         externalAccount.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val externalAccountService = client.externalAccounts()
-        val externalAccountList = externalAccountService.list()
-        println(externalAccountList)
-        externalAccountList.data().forEach { it.validate() }
+
+        val page = externalAccountService.list()
+
+        page.response().validate()
     }
 }

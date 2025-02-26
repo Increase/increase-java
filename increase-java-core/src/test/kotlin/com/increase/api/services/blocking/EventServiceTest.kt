@@ -12,31 +12,33 @@ import org.junit.jupiter.api.extension.ExtendWith
 class EventServiceTest {
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val eventService = client.events()
+
         val event =
             eventService.retrieve(
                 EventRetrieveParams.builder().eventId("event_001dzz0r20rzr4zrhrr1364hy80").build()
             )
-        println(event)
+
         event.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val eventService = client.events()
-        val eventList = eventService.list()
-        println(eventList)
-        eventList.data().forEach { it.validate() }
+
+        val page = eventService.list()
+
+        page.response().validate()
     }
 }

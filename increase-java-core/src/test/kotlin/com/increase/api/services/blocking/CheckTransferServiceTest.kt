@@ -16,13 +16,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class CheckTransferServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val checkTransferService = client.checkTransfers()
+
         val checkTransfer =
             checkTransferService.create(
                 CheckTransferCreateParams.builder()
@@ -64,85 +65,90 @@ class CheckTransferServiceTest {
                     )
                     .build()
             )
-        println(checkTransfer)
+
         checkTransfer.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val checkTransferService = client.checkTransfers()
+
         val checkTransfer =
             checkTransferService.retrieve(
                 CheckTransferRetrieveParams.builder()
                     .checkTransferId("check_transfer_30b43acfu9vw8fyc4f5")
                     .build()
             )
-        println(checkTransfer)
+
         checkTransfer.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val checkTransferService = client.checkTransfers()
-        val checkTransferList = checkTransferService.list()
-        println(checkTransferList)
-        checkTransferList.data().forEach { it.validate() }
+
+        val page = checkTransferService.list()
+
+        page.response().validate()
     }
 
     @Test
-    fun callApprove() {
+    fun approve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val checkTransferService = client.checkTransfers()
+
         val checkTransfer =
             checkTransferService.approve(
                 CheckTransferApproveParams.builder()
                     .checkTransferId("check_transfer_30b43acfu9vw8fyc4f5")
                     .build()
             )
-        println(checkTransfer)
+
         checkTransfer.validate()
     }
 
     @Test
-    fun callCancel() {
+    fun cancel() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val checkTransferService = client.checkTransfers()
+
         val checkTransfer =
             checkTransferService.cancel(
                 CheckTransferCancelParams.builder()
                     .checkTransferId("check_transfer_30b43acfu9vw8fyc4f5")
                     .build()
             )
-        println(checkTransfer)
+
         checkTransfer.validate()
     }
 
     @Test
-    fun callStopPayment() {
+    fun stopPayment() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val checkTransferService = client.checkTransfers()
+
         val checkTransfer =
             checkTransferService.stopPayment(
                 CheckTransferStopPaymentParams.builder()
@@ -150,7 +156,7 @@ class CheckTransferServiceTest {
                     .reason(CheckTransferStopPaymentParams.Reason.MAIL_DELIVERY_FAILED)
                     .build()
             )
-        println(checkTransfer)
+
         checkTransfer.validate()
     }
 }

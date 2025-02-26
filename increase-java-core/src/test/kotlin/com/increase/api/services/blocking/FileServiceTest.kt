@@ -13,13 +13,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class FileServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val fileService = client.files()
+
         val file =
             fileService.create(
                 FileCreateParams.builder()
@@ -28,36 +29,38 @@ class FileServiceTest {
                     .description("x")
                     .build()
             )
-        println(file)
+
         file.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val fileService = client.files()
+
         val file =
             fileService.retrieve(
                 FileRetrieveParams.builder().fileId("file_makxrc67oh9l6sg7w9yc").build()
             )
-        println(file)
+
         file.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val fileService = client.files()
-        val fileList = fileService.list()
-        println(fileList)
-        fileList.data().forEach { it.validate() }
+
+        val page = fileService.list()
+
+        page.response().validate()
     }
 }

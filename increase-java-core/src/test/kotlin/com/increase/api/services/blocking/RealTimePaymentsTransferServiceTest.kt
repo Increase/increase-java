@@ -13,13 +13,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class RealTimePaymentsTransferServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val realTimePaymentsTransferService = client.realTimePaymentsTransfers()
+
         val realTimePaymentsTransfer =
             realTimePaymentsTransferService.create(
                 RealTimePaymentsTransferCreateParams.builder()
@@ -36,38 +37,40 @@ class RealTimePaymentsTransferServiceTest {
                     .ultimateDebtorName("x")
                     .build()
             )
-        println(realTimePaymentsTransfer)
+
         realTimePaymentsTransfer.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val realTimePaymentsTransferService = client.realTimePaymentsTransfers()
+
         val realTimePaymentsTransfer =
             realTimePaymentsTransferService.retrieve(
                 RealTimePaymentsTransferRetrieveParams.builder()
                     .realTimePaymentsTransferId("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
                     .build()
             )
-        println(realTimePaymentsTransfer)
+
         realTimePaymentsTransfer.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val realTimePaymentsTransferService = client.realTimePaymentsTransfers()
-        val realTimePaymentsTransferList = realTimePaymentsTransferService.list()
-        println(realTimePaymentsTransferList)
-        realTimePaymentsTransferList.data().forEach { it.validate() }
+
+        val page = realTimePaymentsTransferService.list()
+
+        page.response().validate()
     }
 }

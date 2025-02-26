@@ -15,13 +15,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class BookkeepingAccountServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val bookkeepingAccountService = client.bookkeepingAccounts()
+
         val bookkeepingAccount =
             bookkeepingAccountService.create(
                 BookkeepingAccountCreateParams.builder()
@@ -33,18 +34,19 @@ class BookkeepingAccountServiceTest {
                     .entityId("entity_id")
                     .build()
             )
-        println(bookkeepingAccount)
+
         bookkeepingAccount.validate()
     }
 
     @Test
-    fun callUpdate() {
+    fun update() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val bookkeepingAccountService = client.bookkeepingAccounts()
+
         val bookkeepingAccount =
             bookkeepingAccountService.update(
                 BookkeepingAccountUpdateParams.builder()
@@ -52,31 +54,33 @@ class BookkeepingAccountServiceTest {
                     .name("Deprecated Account")
                     .build()
             )
-        println(bookkeepingAccount)
+
         bookkeepingAccount.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val bookkeepingAccountService = client.bookkeepingAccounts()
-        val bookkeepingAccountList = bookkeepingAccountService.list()
-        println(bookkeepingAccountList)
-        bookkeepingAccountList.data().forEach { it.validate() }
+
+        val page = bookkeepingAccountService.list()
+
+        page.response().validate()
     }
 
     @Test
-    fun callBalance() {
+    fun balance() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val bookkeepingAccountService = client.bookkeepingAccounts()
+
         val bookkeepingBalanceLookup =
             bookkeepingAccountService.balance(
                 BookkeepingAccountBalanceParams.builder()
@@ -84,7 +88,7 @@ class BookkeepingAccountServiceTest {
                     .atTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
-        println(bookkeepingBalanceLookup)
+
         bookkeepingBalanceLookup.validate()
     }
 }

@@ -14,13 +14,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class EventSubscriptionServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val eventSubscriptionService = client.eventSubscriptions()
+
         val eventSubscription =
             eventSubscriptionService.create(
                 EventSubscriptionCreateParams.builder()
@@ -32,36 +33,38 @@ class EventSubscriptionServiceTest {
                     .sharedSecret("x")
                     .build()
             )
-        println(eventSubscription)
+
         eventSubscription.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val eventSubscriptionService = client.eventSubscriptions()
+
         val eventSubscription =
             eventSubscriptionService.retrieve(
                 EventSubscriptionRetrieveParams.builder()
                     .eventSubscriptionId("event_subscription_001dzz0r20rcdxgb013zqb8m04g")
                     .build()
             )
-        println(eventSubscription)
+
         eventSubscription.validate()
     }
 
     @Test
-    fun callUpdate() {
+    fun update() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val eventSubscriptionService = client.eventSubscriptions()
+
         val eventSubscription =
             eventSubscriptionService.update(
                 EventSubscriptionUpdateParams.builder()
@@ -69,20 +72,21 @@ class EventSubscriptionServiceTest {
                     .status(EventSubscriptionUpdateParams.Status.ACTIVE)
                     .build()
             )
-        println(eventSubscription)
+
         eventSubscription.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val eventSubscriptionService = client.eventSubscriptions()
-        val eventSubscriptionList = eventSubscriptionService.list()
-        println(eventSubscriptionList)
-        eventSubscriptionList.data().forEach { it.validate() }
+
+        val page = eventSubscriptionService.list()
+
+        page.response().validate()
     }
 }

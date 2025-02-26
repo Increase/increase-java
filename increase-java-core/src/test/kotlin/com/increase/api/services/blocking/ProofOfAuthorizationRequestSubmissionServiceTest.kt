@@ -14,7 +14,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class ProofOfAuthorizationRequestSubmissionServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -22,6 +22,7 @@ class ProofOfAuthorizationRequestSubmissionServiceTest {
                 .build()
         val proofOfAuthorizationRequestSubmissionService =
             client.proofOfAuthorizationRequestSubmissions()
+
         val proofOfAuthorizationRequestSubmission =
             proofOfAuthorizationRequestSubmissionService.create(
                 ProofOfAuthorizationRequestSubmissionCreateParams.builder()
@@ -40,12 +41,12 @@ class ProofOfAuthorizationRequestSubmissionServiceTest {
                     .authorizerIpAddress("x")
                     .build()
             )
-        println(proofOfAuthorizationRequestSubmission)
+
         proofOfAuthorizationRequestSubmission.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -53,6 +54,7 @@ class ProofOfAuthorizationRequestSubmissionServiceTest {
                 .build()
         val proofOfAuthorizationRequestSubmissionService =
             client.proofOfAuthorizationRequestSubmissions()
+
         val proofOfAuthorizationRequestSubmission =
             proofOfAuthorizationRequestSubmissionService.retrieve(
                 ProofOfAuthorizationRequestSubmissionRetrieveParams.builder()
@@ -61,12 +63,12 @@ class ProofOfAuthorizationRequestSubmissionServiceTest {
                     )
                     .build()
             )
-        println(proofOfAuthorizationRequestSubmission)
+
         proofOfAuthorizationRequestSubmission.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -74,9 +76,9 @@ class ProofOfAuthorizationRequestSubmissionServiceTest {
                 .build()
         val proofOfAuthorizationRequestSubmissionService =
             client.proofOfAuthorizationRequestSubmissions()
-        val proofOfAuthorizationRequestSubmissionList =
-            proofOfAuthorizationRequestSubmissionService.list()
-        println(proofOfAuthorizationRequestSubmissionList)
-        proofOfAuthorizationRequestSubmissionList.data().forEach { it.validate() }
+
+        val page = proofOfAuthorizationRequestSubmissionService.list()
+
+        page.response().validate()
     }
 }

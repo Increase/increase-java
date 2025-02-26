@@ -12,13 +12,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class PhysicalCardServiceTest {
 
     @Test
-    fun callAdvanceShipment() {
+    fun advanceShipment() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val physicalCardService = client.simulations().physicalCards()
+
         val physicalCard =
             physicalCardService.advanceShipment(
                 SimulationPhysicalCardAdvanceShipmentParams.builder()
@@ -28,7 +29,7 @@ class PhysicalCardServiceTest {
                     )
                     .build()
             )
-        println(physicalCard)
+
         physicalCard.validate()
     }
 }
