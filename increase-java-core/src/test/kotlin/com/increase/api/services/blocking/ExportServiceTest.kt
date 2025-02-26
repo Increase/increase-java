@@ -15,13 +15,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class ExportServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val exportService = client.exports()
+
         val export =
             exportService.create(
                 ExportCreateParams.builder()
@@ -92,36 +93,38 @@ class ExportServiceTest {
                     .vendorCsv(JsonValue.from(mapOf<String, Any>()))
                     .build()
             )
-        println(export)
+
         export.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val exportService = client.exports()
+
         val export =
             exportService.retrieve(
                 ExportRetrieveParams.builder().exportId("export_8s4m48qz3bclzje0zwh9").build()
             )
-        println(export)
+
         export.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val exportService = client.exports()
-        val exportList = exportService.list()
-        println(exportList)
-        exportList.data().forEach { it.validate() }
+
+        val page = exportService.list()
+
+        page.response().validate()
     }
 }

@@ -13,13 +13,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class SupplementalDocumentServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val supplementalDocumentService = client.supplementalDocuments()
+
         val entitySupplementalDocument =
             supplementalDocumentService.create(
                 SupplementalDocumentCreateParams.builder()
@@ -27,23 +28,24 @@ class SupplementalDocumentServiceTest {
                     .fileId("file_makxrc67oh9l6sg7w9yc")
                     .build()
             )
-        println(entitySupplementalDocument)
+
         entitySupplementalDocument.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val supplementalDocumentService = client.supplementalDocuments()
-        val entitySupplementalDocumentList =
+
+        val page =
             supplementalDocumentService.list(
                 SupplementalDocumentListParams.builder().entityId("entity_id").build()
             )
-        println(entitySupplementalDocumentList)
-        entitySupplementalDocumentList.data().forEach { it.validate() }
+
+        page.response().validate()
     }
 }

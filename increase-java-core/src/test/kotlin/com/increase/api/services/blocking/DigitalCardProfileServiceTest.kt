@@ -15,13 +15,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class DigitalCardProfileServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val digitalCardProfileService = client.digitalCardProfiles()
+
         val digitalCardProfile =
             digitalCardProfileService.create(
                 DigitalCardProfileCreateParams.builder()
@@ -42,67 +43,71 @@ class DigitalCardProfileServiceTest {
                     )
                     .build()
             )
-        println(digitalCardProfile)
+
         digitalCardProfile.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val digitalCardProfileService = client.digitalCardProfiles()
+
         val digitalCardProfile =
             digitalCardProfileService.retrieve(
                 DigitalCardProfileRetrieveParams.builder()
                     .digitalCardProfileId("digital_card_profile_s3puplu90f04xhcwkiga")
                     .build()
             )
-        println(digitalCardProfile)
+
         digitalCardProfile.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val digitalCardProfileService = client.digitalCardProfiles()
-        val digitalCardProfileList = digitalCardProfileService.list()
-        println(digitalCardProfileList)
-        digitalCardProfileList.data().forEach { it.validate() }
+
+        val page = digitalCardProfileService.list()
+
+        page.response().validate()
     }
 
     @Test
-    fun callArchive() {
+    fun archive() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val digitalCardProfileService = client.digitalCardProfiles()
+
         val digitalCardProfile =
             digitalCardProfileService.archive(
                 DigitalCardProfileArchiveParams.builder()
                     .digitalCardProfileId("digital_card_profile_s3puplu90f04xhcwkiga")
                     .build()
             )
-        println(digitalCardProfile)
+
         digitalCardProfile.validate()
     }
 
     @Test
-    fun callClone() {
+    fun clone() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val digitalCardProfileService = client.digitalCardProfiles()
+
         val digitalCardProfile =
             digitalCardProfileService.clone(
                 DigitalCardProfileCloneParams.builder()
@@ -124,7 +129,7 @@ class DigitalCardProfileServiceTest {
                     )
                     .build()
             )
-        println(digitalCardProfile)
+
         digitalCardProfile.validate()
     }
 }

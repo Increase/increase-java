@@ -16,31 +16,33 @@ import org.junit.jupiter.api.extension.ExtendWith
 class AchTransferServiceTest {
 
     @Test
-    fun callAcknowledge() {
+    fun acknowledge() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val achTransferService = client.simulations().achTransfers()
+
         val achTransfer =
             achTransferService.acknowledge(
                 SimulationAchTransferAcknowledgeParams.builder()
                     .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
                     .build()
             )
-        println(achTransfer)
+
         achTransfer.validate()
     }
 
     @Test
-    fun callCreateNotificationOfChange() {
+    fun createNotificationOfChange() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val achTransferService = client.simulations().achTransfers()
+
         val achTransfer =
             achTransferService.createNotificationOfChange(
                 SimulationAchTransferCreateNotificationOfChangeParams.builder()
@@ -52,18 +54,19 @@ class AchTransferServiceTest {
                     .correctedData("123456789")
                     .build()
             )
-        println(achTransfer)
+
         achTransfer.validate()
     }
 
     @Test
-    fun callReturn() {
+    fun return_() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val achTransferService = client.simulations().achTransfers()
+
         val achTransfer =
             achTransferService.return_(
                 SimulationAchTransferReturnParams.builder()
@@ -71,43 +74,45 @@ class AchTransferServiceTest {
                     .reason(SimulationAchTransferReturnParams.Reason.INSUFFICIENT_FUND)
                     .build()
             )
-        println(achTransfer)
+
         achTransfer.validate()
     }
 
     @Test
-    fun callSettle() {
+    fun settle() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val achTransferService = client.simulations().achTransfers()
+
         val achTransfer =
             achTransferService.settle(
                 SimulationAchTransferSettleParams.builder()
                     .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
                     .build()
             )
-        println(achTransfer)
+
         achTransfer.validate()
     }
 
     @Test
-    fun callSubmit() {
+    fun submit() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val achTransferService = client.simulations().achTransfers()
+
         val achTransfer =
             achTransferService.submit(
                 SimulationAchTransferSubmitParams.builder()
                     .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
                     .build()
             )
-        println(achTransfer)
+
         achTransfer.validate()
     }
 }

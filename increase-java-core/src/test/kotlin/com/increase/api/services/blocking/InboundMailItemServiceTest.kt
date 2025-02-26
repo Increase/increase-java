@@ -12,33 +12,35 @@ import org.junit.jupiter.api.extension.ExtendWith
 class InboundMailItemServiceTest {
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val inboundMailItemService = client.inboundMailItems()
+
         val inboundMailItem =
             inboundMailItemService.retrieve(
                 InboundMailItemRetrieveParams.builder()
                     .inboundMailItemId("inbound_mail_item_q6rrg7mmqpplx80zceev")
                     .build()
             )
-        println(inboundMailItem)
+
         inboundMailItem.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val inboundMailItemService = client.inboundMailItems()
-        val inboundMailItemList = inboundMailItemService.list()
-        println(inboundMailItemList)
-        inboundMailItemList.data().forEach { it.validate() }
+
+        val page = inboundMailItemService.list()
+
+        page.response().validate()
     }
 }

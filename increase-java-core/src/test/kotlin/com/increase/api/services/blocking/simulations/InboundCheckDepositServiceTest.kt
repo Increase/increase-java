@@ -12,13 +12,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class InboundCheckDepositServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val inboundCheckDepositService = client.simulations().inboundCheckDeposits()
+
         val inboundCheckDeposit =
             inboundCheckDepositService.create(
                 SimulationInboundCheckDepositCreateParams.builder()
@@ -27,7 +28,7 @@ class InboundCheckDepositServiceTest {
                     .checkNumber("1234567890")
                     .build()
             )
-        println(inboundCheckDeposit)
+
         inboundCheckDeposit.validate()
     }
 }

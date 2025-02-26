@@ -15,44 +15,47 @@ import org.junit.jupiter.api.extension.ExtendWith
 class InboundAchTransferServiceTest {
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val inboundAchTransferService = client.inboundAchTransfers()
+
         val inboundAchTransfer =
             inboundAchTransferService.retrieve(
                 InboundAchTransferRetrieveParams.builder()
                     .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
                     .build()
             )
-        println(inboundAchTransfer)
+
         inboundAchTransfer.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val inboundAchTransferService = client.inboundAchTransfers()
-        val inboundAchTransferList = inboundAchTransferService.list()
-        println(inboundAchTransferList)
-        inboundAchTransferList.data().forEach { it.validate() }
+
+        val page = inboundAchTransferService.list()
+
+        page.response().validate()
     }
 
     @Test
-    fun callCreateNotificationOfChange() {
+    fun createNotificationOfChange() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val inboundAchTransferService = client.inboundAchTransfers()
+
         val inboundAchTransfer =
             inboundAchTransferService.createNotificationOfChange(
                 InboundAchTransferCreateNotificationOfChangeParams.builder()
@@ -61,18 +64,19 @@ class InboundAchTransferServiceTest {
                     .updatedRoutingNumber("101050001")
                     .build()
             )
-        println(inboundAchTransfer)
+
         inboundAchTransfer.validate()
     }
 
     @Test
-    fun callDecline() {
+    fun decline() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val inboundAchTransferService = client.inboundAchTransfers()
+
         val inboundAchTransfer =
             inboundAchTransferService.decline(
                 InboundAchTransferDeclineParams.builder()
@@ -80,18 +84,19 @@ class InboundAchTransferServiceTest {
                     .reason(InboundAchTransferDeclineParams.Reason.INSUFFICIENT_FUNDS)
                     .build()
             )
-        println(inboundAchTransfer)
+
         inboundAchTransfer.validate()
     }
 
     @Test
-    fun callTransferReturn() {
+    fun transferReturn() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val inboundAchTransferService = client.inboundAchTransfers()
+
         val inboundAchTransfer =
             inboundAchTransferService.transferReturn(
                 InboundAchTransferTransferReturnParams.builder()
@@ -99,7 +104,7 @@ class InboundAchTransferServiceTest {
                     .reason(InboundAchTransferTransferReturnParams.Reason.INSUFFICIENT_FUNDS)
                     .build()
             )
-        println(inboundAchTransfer)
+
         inboundAchTransfer.validate()
     }
 }

@@ -13,31 +13,33 @@ import org.junit.jupiter.api.extension.ExtendWith
 class RealTimeDecisionServiceTest {
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val realTimeDecisionService = client.realTimeDecisions()
+
         val realTimeDecision =
             realTimeDecisionService.retrieve(
                 RealTimeDecisionRetrieveParams.builder()
                     .realTimeDecisionId("real_time_decision_j76n2e810ezcg3zh5qtn")
                     .build()
             )
-        println(realTimeDecision)
+
         realTimeDecision.validate()
     }
 
     @Test
-    fun callAction() {
+    fun action() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val realTimeDecisionService = client.realTimeDecisions()
+
         val realTimeDecision =
             realTimeDecisionService.action(
                 RealTimeDecisionActionParams.builder()
@@ -100,7 +102,7 @@ class RealTimeDecisionServiceTest {
                     )
                     .build()
             )
-        println(realTimeDecision)
+
         realTimeDecision.validate()
     }
 }

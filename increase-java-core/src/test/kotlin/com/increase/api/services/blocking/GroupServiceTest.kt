@@ -11,15 +11,16 @@ import org.junit.jupiter.api.extension.ExtendWith
 class GroupServiceTest {
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val groupService = client.groups()
+
         val group = groupService.retrieve()
-        println(group)
+
         group.validate()
     }
 }

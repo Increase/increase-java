@@ -12,7 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class InboundRealTimePaymentsTransferServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -20,6 +20,7 @@ class InboundRealTimePaymentsTransferServiceTest {
                 .build()
         val inboundRealTimePaymentsTransferService =
             client.simulations().inboundRealTimePaymentsTransfers()
+
         val inboundRealTimePaymentsTransfer =
             inboundRealTimePaymentsTransferService.create(
                 SimulationInboundRealTimePaymentsTransferCreateParams.builder()
@@ -34,7 +35,7 @@ class InboundRealTimePaymentsTransferServiceTest {
                     )
                     .build()
             )
-        println(inboundRealTimePaymentsTransfer)
+
         inboundRealTimePaymentsTransfer.validate()
     }
 }

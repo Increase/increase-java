@@ -14,13 +14,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class IntrafiExclusionServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val intrafiExclusionService = client.intrafiExclusions()
+
         val intrafiExclusion =
             intrafiExclusionService.create(
                 IntrafiExclusionCreateParams.builder()
@@ -28,56 +29,59 @@ class IntrafiExclusionServiceTest {
                     .entityId("entity_n8y8tnk2p9339ti393yi")
                     .build()
             )
-        println(intrafiExclusion)
+
         intrafiExclusion.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val intrafiExclusionService = client.intrafiExclusions()
+
         val intrafiExclusion =
             intrafiExclusionService.retrieve(
                 IntrafiExclusionRetrieveParams.builder()
                     .intrafiExclusionId("account_in71c4amph0vgo2qllky")
                     .build()
             )
-        println(intrafiExclusion)
+
         intrafiExclusion.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val intrafiExclusionService = client.intrafiExclusions()
-        val intrafiExclusionList = intrafiExclusionService.list()
-        println(intrafiExclusionList)
-        intrafiExclusionList.data().forEach { it.validate() }
+
+        val page = intrafiExclusionService.list()
+
+        page.response().validate()
     }
 
     @Test
-    fun callArchive() {
+    fun archive() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val intrafiExclusionService = client.intrafiExclusions()
+
         val intrafiExclusion =
             intrafiExclusionService.archive(
                 IntrafiExclusionArchiveParams.builder()
                     .intrafiExclusionId("intrafi_exclusion_ygfqduuzpau3jqof6jyh")
                     .build()
             )
-        println(intrafiExclusion)
+
         intrafiExclusion.validate()
     }
 }

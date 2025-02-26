@@ -15,13 +15,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class WireTransferServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val wireTransferService = client.wireTransfers()
+
         val wireTransfer =
             wireTransferService.create(
                 WireTransferCreateParams.builder()
@@ -43,74 +44,78 @@ class WireTransferServiceTest {
                     .sourceAccountNumberId("source_account_number_id")
                     .build()
             )
-        println(wireTransfer)
+
         wireTransfer.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val wireTransferService = client.wireTransfers()
+
         val wireTransfer =
             wireTransferService.retrieve(
                 WireTransferRetrieveParams.builder()
                     .wireTransferId("wire_transfer_5akynk7dqsq25qwk9q2u")
                     .build()
             )
-        println(wireTransfer)
+
         wireTransfer.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val wireTransferService = client.wireTransfers()
-        val wireTransferList = wireTransferService.list()
-        println(wireTransferList)
-        wireTransferList.data().forEach { it.validate() }
+
+        val page = wireTransferService.list()
+
+        page.response().validate()
     }
 
     @Test
-    fun callApprove() {
+    fun approve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val wireTransferService = client.wireTransfers()
+
         val wireTransfer =
             wireTransferService.approve(
                 WireTransferApproveParams.builder()
                     .wireTransferId("wire_transfer_5akynk7dqsq25qwk9q2u")
                     .build()
             )
-        println(wireTransfer)
+
         wireTransfer.validate()
     }
 
     @Test
-    fun callCancel() {
+    fun cancel() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val wireTransferService = client.wireTransfers()
+
         val wireTransfer =
             wireTransferService.cancel(
                 WireTransferCancelParams.builder()
                     .wireTransferId("wire_transfer_5akynk7dqsq25qwk9q2u")
                     .build()
             )
-        println(wireTransfer)
+
         wireTransfer.validate()
     }
 }

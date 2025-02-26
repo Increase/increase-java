@@ -12,33 +12,35 @@ import org.junit.jupiter.api.extension.ExtendWith
 class PendingTransactionServiceTest {
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val pendingTransactionService = client.pendingTransactions()
+
         val pendingTransaction =
             pendingTransactionService.retrieve(
                 PendingTransactionRetrieveParams.builder()
                     .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
                     .build()
             )
-        println(pendingTransaction)
+
         pendingTransaction.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val pendingTransactionService = client.pendingTransactions()
-        val pendingTransactionList = pendingTransactionService.list()
-        println(pendingTransactionList)
-        pendingTransactionList.data().forEach { it.validate() }
+
+        val page = pendingTransactionService.list()
+
+        page.response().validate()
     }
 }

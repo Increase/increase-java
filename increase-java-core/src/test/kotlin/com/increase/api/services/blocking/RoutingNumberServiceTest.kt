@@ -12,18 +12,19 @@ import org.junit.jupiter.api.extension.ExtendWith
 class RoutingNumberServiceTest {
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val routingNumberService = client.routingNumbers()
-        val routingNumberList =
+
+        val page =
             routingNumberService.list(
                 RoutingNumberListParams.builder().routingNumber("xxxxxxxxx").build()
             )
-        println(routingNumberList)
-        routingNumberList.data().forEach { it.validate() }
+
+        page.response().validate()
     }
 }

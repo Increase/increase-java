@@ -12,33 +12,35 @@ import org.junit.jupiter.api.extension.ExtendWith
 class DeclinedTransactionServiceTest {
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val declinedTransactionService = client.declinedTransactions()
+
         val declinedTransaction =
             declinedTransactionService.retrieve(
                 DeclinedTransactionRetrieveParams.builder()
                     .declinedTransactionId("declined_transaction_17jbn0yyhvkt4v4ooym8")
                     .build()
             )
-        println(declinedTransaction)
+
         declinedTransaction.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val declinedTransactionService = client.declinedTransactions()
-        val declinedTransactionList = declinedTransactionService.list()
-        println(declinedTransactionList)
-        declinedTransactionList.data().forEach { it.validate() }
+
+        val page = declinedTransactionService.list()
+
+        page.response().validate()
     }
 }
