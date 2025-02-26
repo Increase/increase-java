@@ -26,7 +26,7 @@ class EventSubscriptionServiceAsyncTest {
             eventSubscriptionServiceAsync.create(
                 EventSubscriptionCreateParams.builder()
                     .url("https://website.com/webhooks")
-                    .oauthConnectionId("oauth_connection_id")
+                    .oauthConnectionId("x")
                     .selectedEventCategory(
                         EventSubscriptionCreateParams.SelectedEventCategory.ACCOUNT_CREATED
                     )
