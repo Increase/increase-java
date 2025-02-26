@@ -14,62 +14,66 @@ import org.junit.jupiter.api.extension.ExtendWith
 class InboundCheckDepositServiceTest {
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val inboundCheckDepositService = client.inboundCheckDeposits()
+
         val inboundCheckDeposit =
             inboundCheckDepositService.retrieve(
                 InboundCheckDepositRetrieveParams.builder()
                     .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
                     .build()
             )
-        println(inboundCheckDeposit)
+
         inboundCheckDeposit.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val inboundCheckDepositService = client.inboundCheckDeposits()
-        val inboundCheckDepositList = inboundCheckDepositService.list()
-        println(inboundCheckDepositList)
-        inboundCheckDepositList.data().forEach { it.validate() }
+
+        val page = inboundCheckDepositService.list()
+
+        page.response().validate()
     }
 
     @Test
-    fun callDecline() {
+    fun decline() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val inboundCheckDepositService = client.inboundCheckDeposits()
+
         val inboundCheckDeposit =
             inboundCheckDepositService.decline(
                 InboundCheckDepositDeclineParams.builder()
                     .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
                     .build()
             )
-        println(inboundCheckDeposit)
+
         inboundCheckDeposit.validate()
     }
 
     @Test
-    fun callReturn() {
+    fun return_() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val inboundCheckDepositService = client.inboundCheckDeposits()
+
         val inboundCheckDeposit =
             inboundCheckDepositService.return_(
                 InboundCheckDepositReturnParams.builder()
@@ -77,7 +81,7 @@ class InboundCheckDepositServiceTest {
                     .reason(InboundCheckDepositReturnParams.Reason.ALTERED_OR_FICTITIOUS)
                     .build()
             )
-        println(inboundCheckDeposit)
+
         inboundCheckDeposit.validate()
     }
 }

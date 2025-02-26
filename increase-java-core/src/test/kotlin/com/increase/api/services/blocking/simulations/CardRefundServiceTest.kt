@@ -12,20 +12,21 @@ import org.junit.jupiter.api.extension.ExtendWith
 class CardRefundServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val cardRefundService = client.simulations().cardRefunds()
+
         val transaction =
             cardRefundService.create(
                 SimulationCardRefundCreateParams.builder()
                     .transactionId("transaction_uyrp7fld2ium70oa7oi")
                     .build()
             )
-        println(transaction)
+
         transaction.validate()
     }
 }

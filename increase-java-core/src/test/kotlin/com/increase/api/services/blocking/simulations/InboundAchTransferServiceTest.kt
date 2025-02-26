@@ -13,13 +13,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class InboundAchTransferServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val inboundAchTransferService = client.simulations().inboundAchTransfers()
+
         val inboundAchTransfer =
             inboundAchTransferService.create(
                 SimulationInboundAchTransferCreateParams.builder()
@@ -39,7 +40,7 @@ class InboundAchTransferServiceTest {
                     )
                     .build()
             )
-        println(inboundAchTransfer)
+
         inboundAchTransfer.validate()
     }
 }

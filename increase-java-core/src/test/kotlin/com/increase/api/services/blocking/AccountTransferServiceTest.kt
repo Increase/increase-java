@@ -15,13 +15,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class AccountTransferServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val accountTransferService = client.accountTransfers()
+
         val accountTransfer =
             accountTransferService.create(
                 AccountTransferCreateParams.builder()
@@ -32,74 +33,78 @@ class AccountTransferServiceTest {
                     .requireApproval(true)
                     .build()
             )
-        println(accountTransfer)
+
         accountTransfer.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val accountTransferService = client.accountTransfers()
+
         val accountTransfer =
             accountTransferService.retrieve(
                 AccountTransferRetrieveParams.builder()
                     .accountTransferId("account_transfer_7k9qe1ysdgqztnt63l7n")
                     .build()
             )
-        println(accountTransfer)
+
         accountTransfer.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val accountTransferService = client.accountTransfers()
-        val accountTransferList = accountTransferService.list()
-        println(accountTransferList)
-        accountTransferList.data().forEach { it.validate() }
+
+        val page = accountTransferService.list()
+
+        page.response().validate()
     }
 
     @Test
-    fun callApprove() {
+    fun approve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val accountTransferService = client.accountTransfers()
+
         val accountTransfer =
             accountTransferService.approve(
                 AccountTransferApproveParams.builder()
                     .accountTransferId("account_transfer_7k9qe1ysdgqztnt63l7n")
                     .build()
             )
-        println(accountTransfer)
+
         accountTransfer.validate()
     }
 
     @Test
-    fun callCancel() {
+    fun cancel() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val accountTransferService = client.accountTransfers()
+
         val accountTransfer =
             accountTransferService.cancel(
                 AccountTransferCancelParams.builder()
                     .accountTransferId("account_transfer_7k9qe1ysdgqztnt63l7n")
                     .build()
             )
-        println(accountTransfer)
+
         accountTransfer.validate()
     }
 }

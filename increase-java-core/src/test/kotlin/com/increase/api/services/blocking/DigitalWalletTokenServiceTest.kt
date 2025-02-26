@@ -12,33 +12,35 @@ import org.junit.jupiter.api.extension.ExtendWith
 class DigitalWalletTokenServiceTest {
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val digitalWalletTokenService = client.digitalWalletTokens()
+
         val digitalWalletToken =
             digitalWalletTokenService.retrieve(
                 DigitalWalletTokenRetrieveParams.builder()
                     .digitalWalletTokenId("digital_wallet_token_izi62go3h51p369jrie0")
                     .build()
             )
-        println(digitalWalletToken)
+
         digitalWalletToken.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val digitalWalletTokenService = client.digitalWalletTokens()
-        val digitalWalletTokenList = digitalWalletTokenService.list()
-        println(digitalWalletTokenList)
-        digitalWalletTokenList.data().forEach { it.validate() }
+
+        val page = digitalWalletTokenService.list()
+
+        page.response().validate()
     }
 }

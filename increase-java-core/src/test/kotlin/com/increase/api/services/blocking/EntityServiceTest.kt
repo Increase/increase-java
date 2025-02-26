@@ -22,13 +22,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class EntityServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val entityService = client.entities()
+
         val entity =
             entityService.create(
                 EntityCreateParams.builder()
@@ -441,63 +442,67 @@ class EntityServiceTest {
                     )
                     .build()
             )
-        println(entity)
+
         entity.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val entityService = client.entities()
+
         val entity =
             entityService.retrieve(
                 EntityRetrieveParams.builder().entityId("entity_n8y8tnk2p9339ti393yi").build()
             )
-        println(entity)
+
         entity.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val entityService = client.entities()
-        val entityList = entityService.list()
-        println(entityList)
-        entityList.data().forEach { it.validate() }
+
+        val page = entityService.list()
+
+        page.response().validate()
     }
 
     @Test
-    fun callArchive() {
+    fun archive() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val entityService = client.entities()
+
         val entity =
             entityService.archive(
                 EntityArchiveParams.builder().entityId("entity_n8y8tnk2p9339ti393yi").build()
             )
-        println(entity)
+
         entity.validate()
     }
 
     @Test
-    fun callArchiveBeneficialOwner() {
+    fun archiveBeneficialOwner() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val entityService = client.entities()
+
         val entity =
             entityService.archiveBeneficialOwner(
                 EntityArchiveBeneficialOwnerParams.builder()
@@ -507,18 +512,19 @@ class EntityServiceTest {
                     )
                     .build()
             )
-        println(entity)
+
         entity.validate()
     }
 
     @Test
-    fun callConfirm() {
+    fun confirm() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val entityService = client.entities()
+
         val entity =
             entityService.confirm(
                 EntityConfirmParams.builder()
@@ -526,18 +532,19 @@ class EntityServiceTest {
                     .confirmedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
-        println(entity)
+
         entity.validate()
     }
 
     @Test
-    fun callCreateBeneficialOwner() {
+    fun createBeneficialOwner() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val entityService = client.entities()
+
         val entity =
             entityService.createBeneficialOwner(
                 EntityCreateBeneficialOwnerParams.builder()
@@ -621,18 +628,19 @@ class EntityServiceTest {
                     )
                     .build()
             )
-        println(entity)
+
         entity.validate()
     }
 
     @Test
-    fun callUpdateAddress() {
+    fun updateAddress() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val entityService = client.entities()
+
         val entity =
             entityService.updateAddress(
                 EntityUpdateAddressParams.builder()
@@ -648,18 +656,19 @@ class EntityServiceTest {
                     )
                     .build()
             )
-        println(entity)
+
         entity.validate()
     }
 
     @Test
-    fun callUpdateBeneficialOwnerAddress() {
+    fun updateBeneficialOwnerAddress() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val entityService = client.entities()
+
         val entity =
             entityService.updateBeneficialOwnerAddress(
                 EntityUpdateBeneficialOwnerAddressParams.builder()
@@ -678,18 +687,19 @@ class EntityServiceTest {
                     )
                     .build()
             )
-        println(entity)
+
         entity.validate()
     }
 
     @Test
-    fun callUpdateIndustryCode() {
+    fun updateIndustryCode() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val entityService = client.entities()
+
         val entity =
             entityService.updateIndustryCode(
                 EntityUpdateIndustryCodeParams.builder()
@@ -697,7 +707,7 @@ class EntityServiceTest {
                     .industryCode("5132")
                     .build()
             )
-        println(entity)
+
         entity.validate()
     }
 }

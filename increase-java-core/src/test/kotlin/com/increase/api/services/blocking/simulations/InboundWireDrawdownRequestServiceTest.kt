@@ -12,13 +12,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class InboundWireDrawdownRequestServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val inboundWireDrawdownRequestService = client.simulations().inboundWireDrawdownRequests()
+
         val inboundWireDrawdownRequest =
             inboundWireDrawdownRequestService.create(
                 SimulationInboundWireDrawdownRequestCreateParams.builder()
@@ -44,7 +45,7 @@ class InboundWireDrawdownRequestServiceTest {
                     .originatorToBeneficiaryInformationLine4("x")
                     .build()
             )
-        println(inboundWireDrawdownRequest)
+
         inboundWireDrawdownRequest.validate()
     }
 }

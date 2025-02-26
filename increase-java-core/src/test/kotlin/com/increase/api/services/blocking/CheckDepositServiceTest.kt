@@ -13,13 +13,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class CheckDepositServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val checkDepositService = client.checkDeposits()
+
         val checkDeposit =
             checkDepositService.create(
                 CheckDepositCreateParams.builder()
@@ -30,38 +31,40 @@ class CheckDepositServiceTest {
                     .description("Vendor payment")
                     .build()
             )
-        println(checkDeposit)
+
         checkDeposit.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val checkDepositService = client.checkDeposits()
+
         val checkDeposit =
             checkDepositService.retrieve(
                 CheckDepositRetrieveParams.builder()
                     .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                     .build()
             )
-        println(checkDeposit)
+
         checkDeposit.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val checkDepositService = client.checkDeposits()
-        val checkDepositList = checkDepositService.list()
-        println(checkDepositList)
-        checkDepositList.data().forEach { it.validate() }
+
+        val page = checkDepositService.list()
+
+        page.response().validate()
     }
 }

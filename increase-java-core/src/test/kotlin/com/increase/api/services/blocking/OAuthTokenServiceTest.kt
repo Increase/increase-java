@@ -12,13 +12,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class OAuthTokenServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val oauthTokenService = client.oauthTokens()
+
         val oauthToken =
             oauthTokenService.create(
                 OAuthTokenCreateParams.builder()
@@ -29,7 +30,7 @@ class OAuthTokenServiceTest {
                     .productionToken("x")
                     .build()
             )
-        println(oauthToken)
+
         oauthToken.validate()
     }
 }

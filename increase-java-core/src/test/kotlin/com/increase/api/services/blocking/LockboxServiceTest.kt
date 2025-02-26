@@ -14,13 +14,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class LockboxServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val lockboxService = client.lockboxes()
+
         val lockbox =
             lockboxService.create(
                 LockboxCreateParams.builder()
@@ -29,34 +30,36 @@ class LockboxServiceTest {
                     .recipientName("x")
                     .build()
             )
-        println(lockbox)
+
         lockbox.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val lockboxService = client.lockboxes()
+
         val lockbox =
             lockboxService.retrieve(
                 LockboxRetrieveParams.builder().lockboxId("lockbox_3xt21ok13q19advds4t5").build()
             )
-        println(lockbox)
+
         lockbox.validate()
     }
 
     @Test
-    fun callUpdate() {
+    fun update() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val lockboxService = client.lockboxes()
+
         val lockbox =
             lockboxService.update(
                 LockboxUpdateParams.builder()
@@ -66,20 +69,21 @@ class LockboxServiceTest {
                     .status(LockboxUpdateParams.Status.ACTIVE)
                     .build()
             )
-        println(lockbox)
+
         lockbox.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val lockboxService = client.lockboxes()
-        val lockboxList = lockboxService.list()
-        println(lockboxList)
-        lockboxList.data().forEach { it.validate() }
+
+        val page = lockboxService.list()
+
+        page.response().validate()
     }
 }

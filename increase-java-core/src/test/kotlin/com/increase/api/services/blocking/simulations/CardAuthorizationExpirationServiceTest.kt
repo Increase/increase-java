@@ -12,20 +12,21 @@ import org.junit.jupiter.api.extension.ExtendWith
 class CardAuthorizationExpirationServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val cardAuthorizationExpirationService = client.simulations().cardAuthorizationExpirations()
+
         val cardPayment =
             cardAuthorizationExpirationService.create(
                 SimulationCardAuthorizationExpirationCreateParams.builder()
                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                     .build()
             )
-        println(cardPayment)
+
         cardPayment.validate()
     }
 }

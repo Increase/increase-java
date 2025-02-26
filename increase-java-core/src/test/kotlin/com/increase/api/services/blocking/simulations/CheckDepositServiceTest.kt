@@ -14,56 +14,59 @@ import org.junit.jupiter.api.extension.ExtendWith
 class CheckDepositServiceTest {
 
     @Test
-    fun callReject() {
+    fun reject() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val checkDepositService = client.simulations().checkDeposits()
+
         val checkDeposit =
             checkDepositService.reject(
                 SimulationCheckDepositRejectParams.builder()
                     .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                     .build()
             )
-        println(checkDeposit)
+
         checkDeposit.validate()
     }
 
     @Test
-    fun callReturn() {
+    fun return_() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val checkDepositService = client.simulations().checkDeposits()
+
         val checkDeposit =
             checkDepositService.return_(
                 SimulationCheckDepositReturnParams.builder()
                     .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                     .build()
             )
-        println(checkDeposit)
+
         checkDeposit.validate()
     }
 
     @Test
-    fun callSubmit() {
+    fun submit() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val checkDepositService = client.simulations().checkDeposits()
+
         val checkDeposit =
             checkDepositService.submit(
                 SimulationCheckDepositSubmitParams.builder()
                     .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                     .build()
             )
-        println(checkDeposit)
+
         checkDeposit.validate()
     }
 }

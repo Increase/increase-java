@@ -13,38 +13,40 @@ import org.junit.jupiter.api.extension.ExtendWith
 class WireTransferServiceTest {
 
     @Test
-    fun callReverse() {
+    fun reverse() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val wireTransferService = client.simulations().wireTransfers()
+
         val wireTransfer =
             wireTransferService.reverse(
                 SimulationWireTransferReverseParams.builder()
                     .wireTransferId("wire_transfer_5akynk7dqsq25qwk9q2u")
                     .build()
             )
-        println(wireTransfer)
+
         wireTransfer.validate()
     }
 
     @Test
-    fun callSubmit() {
+    fun submit() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val wireTransferService = client.simulations().wireTransfers()
+
         val wireTransfer =
             wireTransferService.submit(
                 SimulationWireTransferSubmitParams.builder()
                     .wireTransferId("wire_transfer_5akynk7dqsq25qwk9q2u")
                     .build()
             )
-        println(wireTransfer)
+
         wireTransfer.validate()
     }
 }

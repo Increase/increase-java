@@ -14,13 +14,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class PhysicalCardServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val physicalCardService = client.physicalCards()
+
         val physicalCard =
             physicalCardService.create(
                 PhysicalCardCreateParams.builder()
@@ -51,36 +52,38 @@ class PhysicalCardServiceTest {
                     .physicalCardProfileId("physical_card_profile_id")
                     .build()
             )
-        println(physicalCard)
+
         physicalCard.validate()
     }
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val physicalCardService = client.physicalCards()
+
         val physicalCard =
             physicalCardService.retrieve(
                 PhysicalCardRetrieveParams.builder()
                     .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
                     .build()
             )
-        println(physicalCard)
+
         physicalCard.validate()
     }
 
     @Test
-    fun callUpdate() {
+    fun update() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val physicalCardService = client.physicalCards()
+
         val physicalCard =
             physicalCardService.update(
                 PhysicalCardUpdateParams.builder()
@@ -88,20 +91,21 @@ class PhysicalCardServiceTest {
                     .status(PhysicalCardUpdateParams.Status.ACTIVE)
                     .build()
             )
-        println(physicalCard)
+
         physicalCard.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val physicalCardService = client.physicalCards()
-        val physicalCardList = physicalCardService.list()
-        println(physicalCardList)
-        physicalCardList.data().forEach { it.validate() }
+
+        val page = physicalCardService.list()
+
+        page.response().validate()
     }
 }

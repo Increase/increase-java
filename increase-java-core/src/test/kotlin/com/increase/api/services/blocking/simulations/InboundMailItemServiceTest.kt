@@ -12,13 +12,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class InboundMailItemServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val inboundMailItemService = client.simulations().inboundMailItems()
+
         val inboundMailItem =
             inboundMailItemService.create(
                 SimulationInboundMailItemCreateParams.builder()
@@ -27,7 +28,7 @@ class InboundMailItemServiceTest {
                     .contentsFileId("contents_file_id")
                     .build()
             )
-        println(inboundMailItem)
+
         inboundMailItem.validate()
     }
 }

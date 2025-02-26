@@ -12,13 +12,14 @@ import org.junit.jupiter.api.extension.ExtendWith
 class ProofOfAuthorizationRequestServiceTest {
 
     @Test
-    fun callRetrieve() {
+    fun retrieve() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val proofOfAuthorizationRequestService = client.proofOfAuthorizationRequests()
+
         val proofOfAuthorizationRequest =
             proofOfAuthorizationRequestService.retrieve(
                 ProofOfAuthorizationRequestRetrieveParams.builder()
@@ -27,20 +28,21 @@ class ProofOfAuthorizationRequestServiceTest {
                     )
                     .build()
             )
-        println(proofOfAuthorizationRequest)
+
         proofOfAuthorizationRequest.validate()
     }
 
     @Test
-    fun callList() {
+    fun list() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val proofOfAuthorizationRequestService = client.proofOfAuthorizationRequests()
-        val proofOfAuthorizationRequestList = proofOfAuthorizationRequestService.list()
-        println(proofOfAuthorizationRequestList)
-        proofOfAuthorizationRequestList.data().forEach { it.validate() }
+
+        val page = proofOfAuthorizationRequestService.list()
+
+        page.response().validate()
     }
 }

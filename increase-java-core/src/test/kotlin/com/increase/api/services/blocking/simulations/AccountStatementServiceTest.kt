@@ -12,20 +12,21 @@ import org.junit.jupiter.api.extension.ExtendWith
 class AccountStatementServiceTest {
 
     @Test
-    fun callCreate() {
+    fun create() {
         val client =
             IncreaseOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
         val accountStatementService = client.simulations().accountStatements()
+
         val accountStatement =
             accountStatementService.create(
                 SimulationAccountStatementCreateParams.builder()
                     .accountId("account_in71c4amph0vgo2qllky")
                     .build()
             )
-        println(accountStatement)
+
         accountStatement.validate()
     }
 }
