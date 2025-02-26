@@ -71,7 +71,7 @@ private constructor(
 
     companion object {
 
-        fun none(): RealTimePaymentsTransferListParams = builder().build()
+        @JvmStatic fun none(): RealTimePaymentsTransferListParams = builder().build()
 
         @JvmStatic fun builder() = Builder()
     }

@@ -59,7 +59,7 @@ private constructor(
 
     companion object {
 
-        fun none(): OAuthApplicationListParams = builder().build()
+        @JvmStatic fun none(): OAuthApplicationListParams = builder().build()
 
         @JvmStatic fun builder() = Builder()
     }

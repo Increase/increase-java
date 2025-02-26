@@ -55,7 +55,7 @@ private constructor(
 
     companion object {
 
-        fun none(): DigitalWalletTokenListParams = builder().build()
+        @JvmStatic fun none(): DigitalWalletTokenListParams = builder().build()
 
         @JvmStatic fun builder() = Builder()
     }

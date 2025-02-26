@@ -60,7 +60,7 @@ private constructor(
 
     companion object {
 
-        fun none(): PhysicalCardProfileListParams = builder().build()
+        @JvmStatic fun none(): PhysicalCardProfileListParams = builder().build()
 
         @JvmStatic fun builder() = Builder()
     }
