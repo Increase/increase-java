@@ -71,7 +71,7 @@ private constructor(
 
     companion object {
 
-        fun none(): WireTransferListParams = builder().build()
+        @JvmStatic fun none(): WireTransferListParams = builder().build()
 
         @JvmStatic fun builder() = Builder()
     }

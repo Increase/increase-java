@@ -63,7 +63,7 @@ private constructor(
 
     companion object {
 
-        fun none(): InboundRealTimePaymentsTransferListParams = builder().build()
+        @JvmStatic fun none(): InboundRealTimePaymentsTransferListParams = builder().build()
 
         @JvmStatic fun builder() = Builder()
     }

@@ -59,7 +59,7 @@ private constructor(
 
     companion object {
 
-        fun none(): AchPrenotificationListParams = builder().build()
+        @JvmStatic fun none(): AchPrenotificationListParams = builder().build()
 
         @JvmStatic fun builder() = Builder()
     }
