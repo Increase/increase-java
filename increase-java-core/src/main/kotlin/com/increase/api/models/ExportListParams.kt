@@ -72,7 +72,7 @@ private constructor(
 
     companion object {
 
-        fun none(): ExportListParams = builder().build()
+        @JvmStatic fun none(): ExportListParams = builder().build()
 
         @JvmStatic fun builder() = Builder()
     }

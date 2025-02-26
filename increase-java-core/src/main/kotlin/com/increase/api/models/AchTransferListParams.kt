@@ -71,7 +71,7 @@ private constructor(
 
     companion object {
 
-        fun none(): AchTransferListParams = builder().build()
+        @JvmStatic fun none(): AchTransferListParams = builder().build()
 
         @JvmStatic fun builder() = Builder()
     }
