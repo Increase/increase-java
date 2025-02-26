@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.186.0 (2025-02-26)
+
+Full Changelog: [v0.185.0...v0.186.0](https://github.com/Increase/increase-java/compare/v0.185.0...v0.186.0)
+
+### Features
+
+* **api:** api update ([#808](https://github.com/Increase/increase-java/issues/808)) ([aab201e](https://github.com/Increase/increase-java/commit/aab201e923b42313d97076c0eab0f3b192e2b25f))
+
+
+### Chores
+
+* **internal:** add async service tests ([#806](https://github.com/Increase/increase-java/issues/806)) ([a8e54c9](https://github.com/Increase/increase-java/commit/a8e54c9a1997cb6a9191eb5b0f2caec0223d6fd5))
+* **internal:** improve sync service tests ([a8e54c9](https://github.com/Increase/increase-java/commit/a8e54c9a1997cb6a9191eb5b0f2caec0223d6fd5))
+
+
+### Documentation
+
+* readme parameter tweaks ([a8e54c9](https://github.com/Increase/increase-java/commit/a8e54c9a1997cb6a9191eb5b0f2caec0223d6fd5))
+
 ## 0.185.0 (2025-02-26)
 
 Full Changelog: [v0.184.0...v0.185.0](https://github.com/Increase/increase-java/compare/v0.184.0...v0.185.0)
