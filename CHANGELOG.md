@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.185.0 (2025-02-26)
+
+Full Changelog: [v0.184.0...v0.185.0](https://github.com/Increase/increase-java/compare/v0.184.0...v0.185.0)
+
+### Features
+
+* **client:** allow omitting params object when none required ([#803](https://github.com/Increase/increase-java/issues/803)) ([f2f57cf](https://github.com/Increase/increase-java/commit/f2f57cf28c958449ec945c130f9eca88f8fc6d1f))
+
+
+### Bug Fixes
+
+* **client:** add missing `@JvmStatic` ([#804](https://github.com/Increase/increase-java/issues/804)) ([85d5a99](https://github.com/Increase/increase-java/commit/85d5a997de384ba02049dcc4ee53d6c5b05a8a7d))
+
+
+### Documentation
+
+* add source file links to readme ([#801](https://github.com/Increase/increase-java/issues/801)) ([0e12cc3](https://github.com/Increase/increase-java/commit/0e12cc3299b4b839346142269f5c05ef8b3df775))
+
 ## 0.184.0 (2025-02-24)
 
 Full Changelog: [v0.183.0...v0.184.0](https://github.com/Increase/increase-java/compare/v0.183.0...v0.184.0)
