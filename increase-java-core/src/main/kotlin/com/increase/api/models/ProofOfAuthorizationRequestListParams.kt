@@ -50,7 +50,7 @@ private constructor(
 
     companion object {
 
-        fun none(): ProofOfAuthorizationRequestListParams = builder().build()
+        @JvmStatic fun none(): ProofOfAuthorizationRequestListParams = builder().build()
 
         @JvmStatic fun builder() = Builder()
     }

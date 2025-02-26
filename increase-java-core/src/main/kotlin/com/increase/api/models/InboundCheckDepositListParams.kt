@@ -60,7 +60,7 @@ private constructor(
 
     companion object {
 
-        fun none(): InboundCheckDepositListParams = builder().build()
+        @JvmStatic fun none(): InboundCheckDepositListParams = builder().build()
 
         @JvmStatic fun builder() = Builder()
     }

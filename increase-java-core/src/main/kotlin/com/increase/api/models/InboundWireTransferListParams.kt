@@ -69,7 +69,7 @@ private constructor(
 
     companion object {
 
-        fun none(): InboundWireTransferListParams = builder().build()
+        @JvmStatic fun none(): InboundWireTransferListParams = builder().build()
 
         @JvmStatic fun builder() = Builder()
     }
