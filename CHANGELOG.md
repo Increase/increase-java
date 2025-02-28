@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.187.0 (2025-02-28)
+
+Full Changelog: [v0.186.0...v0.187.0](https://github.com/Increase/increase-java/compare/v0.186.0...v0.187.0)
+
+### Features
+
+* **api:** api update ([#815](https://github.com/Increase/increase-java/issues/815)) ([376bfe7](https://github.com/Increase/increase-java/commit/376bfe7b7bdfeccff08741d74d123cf9d79a957e))
+
+
+### Chores
+
+* **client:** use deep identity methods for primitive array types ([#810](https://github.com/Increase/increase-java/issues/810)) ([26e0e96](https://github.com/Increase/increase-java/commit/26e0e963fd9d25aa7a97a48b99fdc5124eca73c8))
+* **internal:** refactor `ServiceParamsTest` ([#812](https://github.com/Increase/increase-java/issues/812)) ([6ce3c82](https://github.com/Increase/increase-java/commit/6ce3c8203ea0255e86c310461986045e53fe89d6))
+
+
+### Documentation
+
+* update URLs from stainlessapi.com to stainless.com ([#814](https://github.com/Increase/increase-java/issues/814)) ([af07cb5](https://github.com/Increase/increase-java/commit/af07cb516a7dcd1e56c0ad4560f843eb75c42bca))
+
 ## 0.186.0 (2025-02-26)
 
 Full Changelog: [v0.185.0...v0.186.0](https://github.com/Increase/increase-java/compare/v0.185.0...v0.186.0)
