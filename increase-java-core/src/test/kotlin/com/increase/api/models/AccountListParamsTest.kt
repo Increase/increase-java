@@ -26,7 +26,9 @@ class AccountListParamsTest {
             .informationalEntityId("informational_entity_id")
             .limit(1L)
             .programId("program_id")
-            .status(AccountListParams.Status.CLOSED)
+            .status(
+                AccountListParams.Status.builder().addIn(AccountListParams.Status.In.CLOSED).build()
+            )
             .build()
     }
 
@@ -48,7 +50,11 @@ class AccountListParamsTest {
                 .informationalEntityId("informational_entity_id")
                 .limit(1L)
                 .programId("program_id")
-                .status(AccountListParams.Status.CLOSED)
+                .status(
+                    AccountListParams.Status.builder()
+                        .addIn(AccountListParams.Status.In.CLOSED)
+                        .build()
+                )
                 .build()
         val expected = QueryParams.builder()
         AccountListParams.CreatedAt.builder()
@@ -64,7 +70,10 @@ class AccountListParamsTest {
         expected.put("informational_entity_id", "informational_entity_id")
         expected.put("limit", "1")
         expected.put("program_id", "program_id")
-        expected.put("status", AccountListParams.Status.CLOSED.toString())
+        AccountListParams.Status.builder()
+            .addIn(AccountListParams.Status.In.CLOSED)
+            .build()
+            .forEachQueryParam { key, values -> expected.put("status.$key", values) }
         assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
