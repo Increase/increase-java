@@ -9,6 +9,7 @@ import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.Params
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
@@ -28,10 +29,10 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** Filter Inbound ACH Tranfers to ones belonging to the specified Account. */
+    /** Filter Inbound ACH Transfers to ones belonging to the specified Account. */
     fun accountId(): Optional<String> = Optional.ofNullable(accountId)
 
-    /** Filter Inbound ACH Tranfers to ones belonging to the specified Account Number. */
+    /** Filter Inbound ACH Transfers to ones belonging to the specified Account Number. */
     fun accountNumberId(): Optional<String> = Optional.ofNullable(accountNumberId)
 
     fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
@@ -42,7 +43,6 @@ private constructor(
     /** Limit the size of the list that is returned. The default (and maximum) is 100 objects. */
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
-    /** Filter Inbound ACH Transfers to those with the specified status. */
     fun status(): Optional<Status> = Optional.ofNullable(status)
 
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -60,7 +60,7 @@ private constructor(
         }
         this.cursor?.let { queryParams.put("cursor", listOf(it.toString())) }
         this.limit?.let { queryParams.put("limit", listOf(it.toString())) }
-        this.status?.let { queryParams.put("status", listOf(it.toString())) }
+        this.status?.forEachQueryParam { key, values -> queryParams.put("status.$key", values) }
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
@@ -99,18 +99,18 @@ private constructor(
             additionalQueryParams = inboundAchTransferListParams.additionalQueryParams.toBuilder()
         }
 
-        /** Filter Inbound ACH Tranfers to ones belonging to the specified Account. */
+        /** Filter Inbound ACH Transfers to ones belonging to the specified Account. */
         fun accountId(accountId: String?) = apply { this.accountId = accountId }
 
-        /** Filter Inbound ACH Tranfers to ones belonging to the specified Account. */
+        /** Filter Inbound ACH Transfers to ones belonging to the specified Account. */
         fun accountId(accountId: Optional<String>) = accountId(accountId.orElse(null))
 
-        /** Filter Inbound ACH Tranfers to ones belonging to the specified Account Number. */
+        /** Filter Inbound ACH Transfers to ones belonging to the specified Account Number. */
         fun accountNumberId(accountNumberId: String?) = apply {
             this.accountNumberId = accountNumberId
         }
 
-        /** Filter Inbound ACH Tranfers to ones belonging to the specified Account Number. */
+        /** Filter Inbound ACH Transfers to ones belonging to the specified Account Number. */
         fun accountNumberId(accountNumberId: Optional<String>) =
             accountNumberId(accountNumberId.orElse(null))
 
@@ -140,10 +140,8 @@ private constructor(
         @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
         fun limit(limit: Optional<Long>) = limit(limit.orElse(null) as Long?)
 
-        /** Filter Inbound ACH Transfers to those with the specified status. */
         fun status(status: Status?) = apply { this.status = status }
 
-        /** Filter Inbound ACH Transfers to those with the specified status. */
         fun status(status: Optional<Status>) = status(status.orElse(null))
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -452,138 +450,262 @@ private constructor(
             "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
     }
 
-    /** Filter Inbound ACH Transfers to those with the specified status. */
-    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+    class Status
+    private constructor(private val in_: List<In>?, private val additionalProperties: QueryParams) {
 
         /**
-         * Returns this class instance's raw value.
-         *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * Filter Inbound ACH Transfers to those with the specified status. For GET requests, this
+         * should be encoded as a comma-delimited string, such as `?in=one,two,three`.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        fun in_(): Optional<List<In>> = Optional.ofNullable(in_)
+
+        fun _additionalProperties(): QueryParams = additionalProperties
+
+        @JvmSynthetic
+        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
+            this.in_?.let { putParam("in", listOf(it.joinToString(separator = ","))) }
+            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
+        }
+
+        fun toBuilder() = Builder().from(this)
 
         companion object {
 
-            /**
-             * The Inbound ACH Transfer is awaiting action, will transition automatically if no
-             * action is taken.
-             */
-            @JvmField val PENDING = of("pending")
-
-            /** The Inbound ACH Transfer has been declined. */
-            @JvmField val DECLINED = of("declined")
-
-            /** The Inbound ACH Transfer is accepted. */
-            @JvmField val ACCEPTED = of("accepted")
-
-            /** The Inbound ACH Transfer has been returned. */
-            @JvmField val RETURNED = of("returned")
-
-            @JvmStatic fun of(value: String) = Status(JsonField.of(value))
+            @JvmStatic fun builder() = Builder()
         }
 
-        /** An enum containing [Status]'s known values. */
-        enum class Known {
+        /** A builder for [Status]. */
+        class Builder internal constructor() {
+
+            private var in_: MutableList<In>? = null
+            private var additionalProperties: QueryParams.Builder = QueryParams.builder()
+
+            @JvmSynthetic
+            internal fun from(status: Status) = apply {
+                in_ = status.in_?.toMutableList()
+                additionalProperties = status.additionalProperties.toBuilder()
+            }
+
             /**
-             * The Inbound ACH Transfer is awaiting action, will transition automatically if no
-             * action is taken.
+             * Filter Inbound ACH Transfers to those with the specified status. For GET requests,
+             * this should be encoded as a comma-delimited string, such as `?in=one,two,three`.
              */
-            PENDING,
-            /** The Inbound ACH Transfer has been declined. */
-            DECLINED,
-            /** The Inbound ACH Transfer is accepted. */
-            ACCEPTED,
-            /** The Inbound ACH Transfer has been returned. */
-            RETURNED,
+            fun in_(in_: List<In>?) = apply { this.in_ = in_?.toMutableList() }
+
+            /**
+             * Filter Inbound ACH Transfers to those with the specified status. For GET requests,
+             * this should be encoded as a comma-delimited string, such as `?in=one,two,three`.
+             */
+            fun in_(in_: Optional<List<In>>) = in_(in_.orElse(null))
+
+            /**
+             * Filter Inbound ACH Transfers to those with the specified status. For GET requests,
+             * this should be encoded as a comma-delimited string, such as `?in=one,two,three`.
+             */
+            fun addIn(in_: In) = apply {
+                this.in_ = (this.in_ ?: mutableListOf()).apply { add(in_) }
+            }
+
+            fun additionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: String) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                additionalProperties.put(key, values)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+            fun replaceAdditionalProperties(key: String, value: String) = apply {
+                additionalProperties.replace(key, value)
+            }
+
+            fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                additionalProperties.replace(key, values)
+            }
+
+            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.replaceAll(additionalProperties)
+            }
+
+            fun replaceAllAdditionalProperties(
+                additionalProperties: Map<String, Iterable<String>>
+            ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+            fun removeAdditionalProperties(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                additionalProperties.removeAll(keys)
+            }
+
+            fun build(): Status = Status(in_?.toImmutable(), additionalProperties.build())
         }
 
-        /**
-         * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
-         *
-         * An instance of [Status] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
-         * - It was constructed with an arbitrary value using the [of] method.
-         */
-        enum class Value {
+        class In @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
             /**
-             * The Inbound ACH Transfer is awaiting action, will transition automatically if no
-             * action is taken.
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
              */
-            PENDING,
-            /** The Inbound ACH Transfer has been declined. */
-            DECLINED,
-            /** The Inbound ACH Transfer is accepted. */
-            ACCEPTED,
-            /** The Inbound ACH Transfer has been returned. */
-            RETURNED,
-            /** An enum member indicating that [Status] was instantiated with an unknown value. */
-            _UNKNOWN,
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                /**
+                 * The Inbound ACH Transfer is awaiting action, will transition automatically if no
+                 * action is taken.
+                 */
+                @JvmField val PENDING = of("pending")
+
+                /** The Inbound ACH Transfer has been declined. */
+                @JvmField val DECLINED = of("declined")
+
+                /** The Inbound ACH Transfer is accepted. */
+                @JvmField val ACCEPTED = of("accepted")
+
+                /** The Inbound ACH Transfer has been returned. */
+                @JvmField val RETURNED = of("returned")
+
+                @JvmStatic fun of(value: String) = In(JsonField.of(value))
+            }
+
+            /** An enum containing [In]'s known values. */
+            enum class Known {
+                /**
+                 * The Inbound ACH Transfer is awaiting action, will transition automatically if no
+                 * action is taken.
+                 */
+                PENDING,
+                /** The Inbound ACH Transfer has been declined. */
+                DECLINED,
+                /** The Inbound ACH Transfer is accepted. */
+                ACCEPTED,
+                /** The Inbound ACH Transfer has been returned. */
+                RETURNED,
+            }
+
+            /**
+             * An enum containing [In]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [In] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                /**
+                 * The Inbound ACH Transfer is awaiting action, will transition automatically if no
+                 * action is taken.
+                 */
+                PENDING,
+                /** The Inbound ACH Transfer has been declined. */
+                DECLINED,
+                /** The Inbound ACH Transfer is accepted. */
+                ACCEPTED,
+                /** The Inbound ACH Transfer has been returned. */
+                RETURNED,
+                /** An enum member indicating that [In] was instantiated with an unknown value. */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    PENDING -> Value.PENDING
+                    DECLINED -> Value.DECLINED
+                    ACCEPTED -> Value.ACCEPTED
+                    RETURNED -> Value.RETURNED
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    PENDING -> Known.PENDING
+                    DECLINED -> Known.DECLINED
+                    ACCEPTED -> Known.ACCEPTED
+                    RETURNED -> Known.RETURNED
+                    else -> throw IncreaseInvalidDataException("Unknown In: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    IncreaseInvalidDataException("Value is not a String")
+                }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return /* spotless:off */ other is In && value == other.value /* spotless:on */
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
         }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
-         *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
-         */
-        fun value(): Value =
-            when (this) {
-                PENDING -> Value.PENDING
-                DECLINED -> Value.DECLINED
-                ACCEPTED -> Value.ACCEPTED
-                RETURNED -> Value.RETURNED
-                else -> Value._UNKNOWN
-            }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value.
-         *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
-         *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
-         *   member.
-         */
-        fun known(): Known =
-            when (this) {
-                PENDING -> Known.PENDING
-                DECLINED -> Known.DECLINED
-                ACCEPTED -> Known.ACCEPTED
-                RETURNED -> Known.RETURNED
-                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
-            }
-
-        /**
-         * Returns this class instance's primitive wire representation.
-         *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
-         *
-         * @throws IncreaseInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
-         */
-        fun asString(): String =
-            _value().asString().orElseThrow {
-                IncreaseInvalidDataException("Value is not a String")
-            }
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
             }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return /* spotless:off */ other is Status && in_ == other.in_ && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        override fun hashCode() = value.hashCode()
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(in_, additionalProperties) }
+        /* spotless:on */
 
-        override fun toString() = value.toString()
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "Status{in_=$in_, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
