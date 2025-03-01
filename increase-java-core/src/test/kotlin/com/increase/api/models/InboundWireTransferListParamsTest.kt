@@ -24,11 +24,7 @@ class InboundWireTransferListParamsTest {
             )
             .cursor("cursor")
             .limit(1L)
-            .status(
-                InboundWireTransferListParams.Status.builder()
-                    .addIn(InboundWireTransferListParams.Status.In.PENDING)
-                    .build()
-            )
+            .status(InboundWireTransferListParams.Status.PENDING)
             .build()
     }
 
@@ -48,11 +44,7 @@ class InboundWireTransferListParamsTest {
                 )
                 .cursor("cursor")
                 .limit(1L)
-                .status(
-                    InboundWireTransferListParams.Status.builder()
-                        .addIn(InboundWireTransferListParams.Status.In.PENDING)
-                        .build()
-                )
+                .status(InboundWireTransferListParams.Status.PENDING)
                 .build()
         val expected = QueryParams.builder()
         expected.put("account_id", "account_id")
@@ -66,10 +58,7 @@ class InboundWireTransferListParamsTest {
             .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
         expected.put("cursor", "cursor")
         expected.put("limit", "1")
-        InboundWireTransferListParams.Status.builder()
-            .addIn(InboundWireTransferListParams.Status.In.PENDING)
-            .build()
-            .forEachQueryParam { key, values -> expected.put("status.$key", values) }
+        expected.put("status", InboundWireTransferListParams.Status.PENDING.toString())
         assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
