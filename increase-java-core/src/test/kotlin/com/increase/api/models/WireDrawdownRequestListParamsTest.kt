@@ -14,11 +14,7 @@ class WireDrawdownRequestListParamsTest {
             .cursor("cursor")
             .idempotencyKey("x")
             .limit(1L)
-            .status(
-                WireDrawdownRequestListParams.Status.builder()
-                    .addIn(WireDrawdownRequestListParams.Status.In.PENDING_SUBMISSION)
-                    .build()
-            )
+            .status(WireDrawdownRequestListParams.Status.PENDING_SUBMISSION)
             .build()
     }
 
@@ -29,20 +25,13 @@ class WireDrawdownRequestListParamsTest {
                 .cursor("cursor")
                 .idempotencyKey("x")
                 .limit(1L)
-                .status(
-                    WireDrawdownRequestListParams.Status.builder()
-                        .addIn(WireDrawdownRequestListParams.Status.In.PENDING_SUBMISSION)
-                        .build()
-                )
+                .status(WireDrawdownRequestListParams.Status.PENDING_SUBMISSION)
                 .build()
         val expected = QueryParams.builder()
         expected.put("cursor", "cursor")
         expected.put("idempotency_key", "x")
         expected.put("limit", "1")
-        WireDrawdownRequestListParams.Status.builder()
-            .addIn(WireDrawdownRequestListParams.Status.In.PENDING_SUBMISSION)
-            .build()
-            .forEachQueryParam { key, values -> expected.put("status.$key", values) }
+        expected.put("status", WireDrawdownRequestListParams.Status.PENDING_SUBMISSION.toString())
         assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
