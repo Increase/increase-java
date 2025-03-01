@@ -13,7 +13,11 @@ class AccountNumberListParamsTest {
     fun create() {
         AccountNumberListParams.builder()
             .accountId("account_id")
-            .achDebitStatus(AccountNumberListParams.AchDebitStatus.ALLOWED)
+            .achDebitStatus(
+                AccountNumberListParams.AchDebitStatus.builder()
+                    .addIn(AccountNumberListParams.AchDebitStatus.In.ALLOWED)
+                    .build()
+            )
             .createdAt(
                 AccountNumberListParams.CreatedAt.builder()
                     .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -25,7 +29,11 @@ class AccountNumberListParamsTest {
             .cursor("cursor")
             .idempotencyKey("x")
             .limit(1L)
-            .status(AccountNumberListParams.Status.ACTIVE)
+            .status(
+                AccountNumberListParams.Status.builder()
+                    .addIn(AccountNumberListParams.Status.In.ACTIVE)
+                    .build()
+            )
             .build()
     }
 
@@ -34,7 +42,11 @@ class AccountNumberListParamsTest {
         val params =
             AccountNumberListParams.builder()
                 .accountId("account_id")
-                .achDebitStatus(AccountNumberListParams.AchDebitStatus.ALLOWED)
+                .achDebitStatus(
+                    AccountNumberListParams.AchDebitStatus.builder()
+                        .addIn(AccountNumberListParams.AchDebitStatus.In.ALLOWED)
+                        .build()
+                )
                 .createdAt(
                     AccountNumberListParams.CreatedAt.builder()
                         .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -46,11 +58,18 @@ class AccountNumberListParamsTest {
                 .cursor("cursor")
                 .idempotencyKey("x")
                 .limit(1L)
-                .status(AccountNumberListParams.Status.ACTIVE)
+                .status(
+                    AccountNumberListParams.Status.builder()
+                        .addIn(AccountNumberListParams.Status.In.ACTIVE)
+                        .build()
+                )
                 .build()
         val expected = QueryParams.builder()
         expected.put("account_id", "account_id")
-        expected.put("ach_debit_status", AccountNumberListParams.AchDebitStatus.ALLOWED.toString())
+        AccountNumberListParams.AchDebitStatus.builder()
+            .addIn(AccountNumberListParams.AchDebitStatus.In.ALLOWED)
+            .build()
+            .forEachQueryParam { key, values -> expected.put("ach_debit_status.$key", values) }
         AccountNumberListParams.CreatedAt.builder()
             .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -61,7 +80,10 @@ class AccountNumberListParamsTest {
         expected.put("cursor", "cursor")
         expected.put("idempotency_key", "x")
         expected.put("limit", "1")
-        expected.put("status", AccountNumberListParams.Status.ACTIVE.toString())
+        AccountNumberListParams.Status.builder()
+            .addIn(AccountNumberListParams.Status.In.ACTIVE)
+            .build()
+            .forEachQueryParam { key, values -> expected.put("status.$key", values) }
         assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
