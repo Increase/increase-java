@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.192.0 (2025-03-03)
+
+Full Changelog: [v0.191.0...v0.192.0](https://github.com/Increase/increase-java/compare/v0.191.0...v0.192.0)
+
+### Features
+
+* **api:** api update ([#831](https://github.com/Increase/increase-java/issues/831)) ([e489738](https://github.com/Increase/increase-java/commit/e489738aa69f584c0a395e76ad0d41fea4f5e7f3))
+
+
+### Chores
+
+* **internal:** refactor `ErrorHandlingTest` ([#829](https://github.com/Increase/increase-java/issues/829)) ([b9900f2](https://github.com/Increase/increase-java/commit/b9900f2652afb5aa1e8a3c7ffb47b017a81dfb9b))
+
 ## 0.191.0 (2025-03-01)
 
 Full Changelog: [v0.190.0...v0.191.0](https://github.com/Increase/increase-java/compare/v0.190.0...v0.191.0)
