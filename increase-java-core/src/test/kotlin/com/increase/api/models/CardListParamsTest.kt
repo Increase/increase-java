@@ -24,6 +24,7 @@ class CardListParamsTest {
             .cursor("cursor")
             .idempotencyKey("x")
             .limit(1L)
+            .status(CardListParams.Status.builder().addIn(CardListParams.Status.In.ACTIVE).build())
             .build()
     }
 
@@ -43,6 +44,9 @@ class CardListParamsTest {
                 .cursor("cursor")
                 .idempotencyKey("x")
                 .limit(1L)
+                .status(
+                    CardListParams.Status.builder().addIn(CardListParams.Status.In.ACTIVE).build()
+                )
                 .build()
         val expected = QueryParams.builder()
         expected.put("account_id", "account_id")
@@ -56,6 +60,10 @@ class CardListParamsTest {
         expected.put("cursor", "cursor")
         expected.put("idempotency_key", "x")
         expected.put("limit", "1")
+        CardListParams.Status.builder()
+            .addIn(CardListParams.Status.In.ACTIVE)
+            .build()
+            .forEachQueryParam { key, values -> expected.put("status.$key", values) }
         assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
