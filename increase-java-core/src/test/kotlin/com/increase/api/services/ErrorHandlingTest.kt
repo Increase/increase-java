@@ -2,9 +2,7 @@
 
 package com.increase.api.services
 
-import com.fasterxml.jackson.databind.json.JsonMapper
 import com.github.tomakehurst.wiremock.client.WireMock.anyUrl
-import com.github.tomakehurst.wiremock.client.WireMock.ok
 import com.github.tomakehurst.wiremock.client.WireMock.post
 import com.github.tomakehurst.wiremock.client.WireMock.status
 import com.github.tomakehurst.wiremock.client.WireMock.stubFor
@@ -25,23 +23,31 @@ import com.increase.api.errors.RateLimitException
 import com.increase.api.errors.UnauthorizedException
 import com.increase.api.errors.UnexpectedStatusCodeException
 import com.increase.api.errors.UnprocessableEntityException
-import com.increase.api.models.Account
 import com.increase.api.models.AccountCreateParams
-import java.time.LocalDate
-import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.api.Assertions.assertThatThrownBy
-import org.assertj.core.api.InstanceOfAssertFactories
+import org.assertj.core.api.Assertions.entry
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
 @WireMockTest
 class ErrorHandlingTest {
 
-    private val JSON_MAPPER: JsonMapper = jsonMapper()
+    companion object {
 
-    private val INCREASE_ERROR: IncreaseError =
-        IncreaseError.builder().putAdditionalProperty("key", JsonValue.from("value")).build()
+        private val ERROR: IncreaseError =
+            IncreaseError.builder()
+                .putAdditionalProperty("errorProperty", JsonValue.from("42"))
+                .build()
+
+        private val ERROR_JSON: ByteArray = jsonMapper().writeValueAsBytes(ERROR)
+
+        private const val HEADER_NAME: String = "Error-Header"
+
+        private const val HEADER_VALUE: String = "42"
+
+        private const val NOT_JSON: String = "Not JSON"
+    }
 
     private lateinit var client: IncreaseClient
 
@@ -49,366 +55,232 @@ class ErrorHandlingTest {
     fun beforeEach(wmRuntimeInfo: WireMockRuntimeInfo) {
         client =
             IncreaseOkHttpClient.builder()
-                .baseUrl(wmRuntimeInfo.getHttpBaseUrl())
+                .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .apiKey("My API Key")
-                .webhookSecret("My Webhook Secret")
                 .build()
-    }
-
-    @Test
-    fun accountsCreate200() {
-        val params =
-            AccountCreateParams.builder()
-                .name("New Account!")
-                .entityId("entity_n8y8tnk2p9339ti393yi")
-                .informationalEntityId("informational_entity_id")
-                .programId("program_i2v2os4mwza1oetokh9i")
-                .build()
-
-        val expected =
-            Account.builder()
-                .id("account_in71c4amph0vgo2qllky")
-                .bank(Account.Bank.CORE_BANK)
-                .closedAt(null)
-                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                .currency(Account.Currency.CAD)
-                .entityId("entity_n8y8tnk2p9339ti393yi")
-                .idempotencyKey(null)
-                .informationalEntityId(null)
-                .interestAccrued("0.01")
-                .interestAccruedAt(LocalDate.parse("2020-01-31"))
-                .interestRate("0.055")
-                .name("My first account!")
-                .programId("program_i2v2os4mwza1oetokh9i")
-                .status(Account.Status.CLOSED)
-                .type(Account.Type.ACCOUNT)
-                .build()
-
-        stubFor(post(anyUrl()).willReturn(ok().withBody(toJson(expected))))
-
-        assertThat(client.accounts().create(params)).isEqualTo(expected)
     }
 
     @Test
     fun accountsCreate400() {
-        val params =
-            AccountCreateParams.builder()
-                .name("New Account!")
-                .entityId("entity_n8y8tnk2p9339ti393yi")
-                .informationalEntityId("informational_entity_id")
-                .programId("program_i2v2os4mwza1oetokh9i")
-                .build()
-
+        val accountService = client.accounts()
         stubFor(
             post(anyUrl())
-                .willReturn(status(400).withHeader("Foo", "Bar").withBody(toJson(INCREASE_ERROR)))
+                .willReturn(status(400).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON))
         )
 
-        assertThatThrownBy({ client.accounts().create(params) })
-            .satisfies({ e ->
-                assertBadRequest(e, Headers.builder().put("Foo", "Bar").build(), INCREASE_ERROR)
-            })
+        val e =
+            assertThrows<BadRequestException> {
+                accountService.create(
+                    AccountCreateParams.builder()
+                        .name("New Account!")
+                        .entityId("entity_n8y8tnk2p9339ti393yi")
+                        .informationalEntityId("informational_entity_id")
+                        .programId("program_i2v2os4mwza1oetokh9i")
+                        .build()
+                )
+            }
+
+        assertThat(e.statusCode()).isEqualTo(400)
+        assertThat(e.error()).isEqualTo(ERROR)
+        assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
     }
 
     @Test
     fun accountsCreate401() {
-        val params =
-            AccountCreateParams.builder()
-                .name("New Account!")
-                .entityId("entity_n8y8tnk2p9339ti393yi")
-                .informationalEntityId("informational_entity_id")
-                .programId("program_i2v2os4mwza1oetokh9i")
-                .build()
-
+        val accountService = client.accounts()
         stubFor(
             post(anyUrl())
-                .willReturn(status(401).withHeader("Foo", "Bar").withBody(toJson(INCREASE_ERROR)))
+                .willReturn(status(401).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON))
         )
 
-        assertThatThrownBy({ client.accounts().create(params) })
-            .satisfies({ e ->
-                assertUnauthorized(e, Headers.builder().put("Foo", "Bar").build(), INCREASE_ERROR)
-            })
+        val e =
+            assertThrows<UnauthorizedException> {
+                accountService.create(
+                    AccountCreateParams.builder()
+                        .name("New Account!")
+                        .entityId("entity_n8y8tnk2p9339ti393yi")
+                        .informationalEntityId("informational_entity_id")
+                        .programId("program_i2v2os4mwza1oetokh9i")
+                        .build()
+                )
+            }
+
+        assertThat(e.statusCode()).isEqualTo(401)
+        assertThat(e.error()).isEqualTo(ERROR)
+        assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
     }
 
     @Test
     fun accountsCreate403() {
-        val params =
-            AccountCreateParams.builder()
-                .name("New Account!")
-                .entityId("entity_n8y8tnk2p9339ti393yi")
-                .informationalEntityId("informational_entity_id")
-                .programId("program_i2v2os4mwza1oetokh9i")
-                .build()
-
+        val accountService = client.accounts()
         stubFor(
             post(anyUrl())
-                .willReturn(status(403).withHeader("Foo", "Bar").withBody(toJson(INCREASE_ERROR)))
+                .willReturn(status(403).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON))
         )
 
-        assertThatThrownBy({ client.accounts().create(params) })
-            .satisfies({ e ->
-                assertPermissionDenied(
-                    e,
-                    Headers.builder().put("Foo", "Bar").build(),
-                    INCREASE_ERROR,
+        val e =
+            assertThrows<PermissionDeniedException> {
+                accountService.create(
+                    AccountCreateParams.builder()
+                        .name("New Account!")
+                        .entityId("entity_n8y8tnk2p9339ti393yi")
+                        .informationalEntityId("informational_entity_id")
+                        .programId("program_i2v2os4mwza1oetokh9i")
+                        .build()
                 )
-            })
+            }
+
+        assertThat(e.statusCode()).isEqualTo(403)
+        assertThat(e.error()).isEqualTo(ERROR)
+        assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
     }
 
     @Test
     fun accountsCreate404() {
-        val params =
-            AccountCreateParams.builder()
-                .name("New Account!")
-                .entityId("entity_n8y8tnk2p9339ti393yi")
-                .informationalEntityId("informational_entity_id")
-                .programId("program_i2v2os4mwza1oetokh9i")
-                .build()
-
+        val accountService = client.accounts()
         stubFor(
             post(anyUrl())
-                .willReturn(status(404).withHeader("Foo", "Bar").withBody(toJson(INCREASE_ERROR)))
+                .willReturn(status(404).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON))
         )
 
-        assertThatThrownBy({ client.accounts().create(params) })
-            .satisfies({ e ->
-                assertNotFound(e, Headers.builder().put("Foo", "Bar").build(), INCREASE_ERROR)
-            })
+        val e =
+            assertThrows<NotFoundException> {
+                accountService.create(
+                    AccountCreateParams.builder()
+                        .name("New Account!")
+                        .entityId("entity_n8y8tnk2p9339ti393yi")
+                        .informationalEntityId("informational_entity_id")
+                        .programId("program_i2v2os4mwza1oetokh9i")
+                        .build()
+                )
+            }
+
+        assertThat(e.statusCode()).isEqualTo(404)
+        assertThat(e.error()).isEqualTo(ERROR)
+        assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
     }
 
     @Test
     fun accountsCreate422() {
-        val params =
-            AccountCreateParams.builder()
-                .name("New Account!")
-                .entityId("entity_n8y8tnk2p9339ti393yi")
-                .informationalEntityId("informational_entity_id")
-                .programId("program_i2v2os4mwza1oetokh9i")
-                .build()
-
+        val accountService = client.accounts()
         stubFor(
             post(anyUrl())
-                .willReturn(status(422).withHeader("Foo", "Bar").withBody(toJson(INCREASE_ERROR)))
+                .willReturn(status(422).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON))
         )
 
-        assertThatThrownBy({ client.accounts().create(params) })
-            .satisfies({ e ->
-                assertUnprocessableEntity(
-                    e,
-                    Headers.builder().put("Foo", "Bar").build(),
-                    INCREASE_ERROR,
+        val e =
+            assertThrows<UnprocessableEntityException> {
+                accountService.create(
+                    AccountCreateParams.builder()
+                        .name("New Account!")
+                        .entityId("entity_n8y8tnk2p9339ti393yi")
+                        .informationalEntityId("informational_entity_id")
+                        .programId("program_i2v2os4mwza1oetokh9i")
+                        .build()
                 )
-            })
+            }
+
+        assertThat(e.statusCode()).isEqualTo(422)
+        assertThat(e.error()).isEqualTo(ERROR)
+        assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
     }
 
     @Test
     fun accountsCreate429() {
-        val params =
-            AccountCreateParams.builder()
-                .name("New Account!")
-                .entityId("entity_n8y8tnk2p9339ti393yi")
-                .informationalEntityId("informational_entity_id")
-                .programId("program_i2v2os4mwza1oetokh9i")
-                .build()
-
+        val accountService = client.accounts()
         stubFor(
             post(anyUrl())
-                .willReturn(status(429).withHeader("Foo", "Bar").withBody(toJson(INCREASE_ERROR)))
+                .willReturn(status(429).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON))
         )
 
-        assertThatThrownBy({ client.accounts().create(params) })
-            .satisfies({ e ->
-                assertRateLimit(e, Headers.builder().put("Foo", "Bar").build(), INCREASE_ERROR)
-            })
+        val e =
+            assertThrows<RateLimitException> {
+                accountService.create(
+                    AccountCreateParams.builder()
+                        .name("New Account!")
+                        .entityId("entity_n8y8tnk2p9339ti393yi")
+                        .informationalEntityId("informational_entity_id")
+                        .programId("program_i2v2os4mwza1oetokh9i")
+                        .build()
+                )
+            }
+
+        assertThat(e.statusCode()).isEqualTo(429)
+        assertThat(e.error()).isEqualTo(ERROR)
+        assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
     }
 
     @Test
     fun accountsCreate500() {
-        val params =
-            AccountCreateParams.builder()
-                .name("New Account!")
-                .entityId("entity_n8y8tnk2p9339ti393yi")
-                .informationalEntityId("informational_entity_id")
-                .programId("program_i2v2os4mwza1oetokh9i")
-                .build()
-
+        val accountService = client.accounts()
         stubFor(
             post(anyUrl())
-                .willReturn(status(500).withHeader("Foo", "Bar").withBody(toJson(INCREASE_ERROR)))
+                .willReturn(status(500).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON))
         )
 
-        assertThatThrownBy({ client.accounts().create(params) })
-            .satisfies({ e ->
-                assertInternalServer(e, Headers.builder().put("Foo", "Bar").build(), INCREASE_ERROR)
-            })
-    }
-
-    @Test
-    fun unexpectedStatusCode() {
-        val params =
-            AccountCreateParams.builder()
-                .name("New Account!")
-                .entityId("entity_n8y8tnk2p9339ti393yi")
-                .informationalEntityId("informational_entity_id")
-                .programId("program_i2v2os4mwza1oetokh9i")
-                .build()
-
-        stubFor(
-            post(anyUrl())
-                .willReturn(status(999).withHeader("Foo", "Bar").withBody(toJson(INCREASE_ERROR)))
-        )
-
-        assertThatThrownBy({ client.accounts().create(params) })
-            .satisfies({ e ->
-                assertUnexpectedStatusCodeException(
-                    e,
-                    999,
-                    Headers.builder().put("Foo", "Bar").build(),
-                    toJson(INCREASE_ERROR),
+        val e =
+            assertThrows<InternalServerException> {
+                accountService.create(
+                    AccountCreateParams.builder()
+                        .name("New Account!")
+                        .entityId("entity_n8y8tnk2p9339ti393yi")
+                        .informationalEntityId("informational_entity_id")
+                        .programId("program_i2v2os4mwza1oetokh9i")
+                        .build()
                 )
-            })
+            }
+
+        assertThat(e.statusCode()).isEqualTo(500)
+        assertThat(e.error()).isEqualTo(ERROR)
+        assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
     }
 
     @Test
-    fun invalidBody() {
-        val params =
-            AccountCreateParams.builder()
-                .name("New Account!")
-                .entityId("entity_n8y8tnk2p9339ti393yi")
-                .informationalEntityId("informational_entity_id")
-                .programId("program_i2v2os4mwza1oetokh9i")
-                .build()
+    fun accountsCreate999() {
+        val accountService = client.accounts()
+        stubFor(
+            post(anyUrl())
+                .willReturn(status(999).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON))
+        )
 
-        stubFor(post(anyUrl()).willReturn(status(200).withBody("Not JSON")))
+        val e =
+            assertThrows<UnexpectedStatusCodeException> {
+                accountService.create(
+                    AccountCreateParams.builder()
+                        .name("New Account!")
+                        .entityId("entity_n8y8tnk2p9339ti393yi")
+                        .informationalEntityId("informational_entity_id")
+                        .programId("program_i2v2os4mwza1oetokh9i")
+                        .build()
+                )
+            }
 
-        assertThatThrownBy({ client.accounts().create(params) })
-            .satisfies({ e ->
-                assertThat(e)
-                    .isInstanceOf(IncreaseException::class.java)
-                    .hasMessage("Error reading response")
-            })
+        assertThat(e.statusCode()).isEqualTo(999)
+        assertThat(e.error()).isEqualTo(ERROR)
+        assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
     }
 
     @Test
-    fun invalidErrorBody() {
-        val params =
-            AccountCreateParams.builder()
-                .name("New Account!")
-                .entityId("entity_n8y8tnk2p9339ti393yi")
-                .informationalEntityId("informational_entity_id")
-                .programId("program_i2v2os4mwza1oetokh9i")
-                .build()
+    fun accountsCreateInvalidJsonBody() {
+        val accountService = client.accounts()
+        stubFor(
+            post(anyUrl())
+                .willReturn(status(200).withHeader(HEADER_NAME, HEADER_VALUE).withBody(NOT_JSON))
+        )
 
-        stubFor(post(anyUrl()).willReturn(status(400).withBody("Not JSON")))
+        val e =
+            assertThrows<IncreaseException> {
+                accountService.create(
+                    AccountCreateParams.builder()
+                        .name("New Account!")
+                        .entityId("entity_n8y8tnk2p9339ti393yi")
+                        .informationalEntityId("informational_entity_id")
+                        .programId("program_i2v2os4mwza1oetokh9i")
+                        .build()
+                )
+            }
 
-        assertThatThrownBy({ client.accounts().create(params) })
-            .satisfies({ e ->
-                assertBadRequest(e, Headers.builder().build(), IncreaseError.builder().build())
-            })
-    }
-
-    private fun <T> toJson(body: T): ByteArray {
-        return JSON_MAPPER.writeValueAsBytes(body)
-    }
-
-    private fun assertUnexpectedStatusCodeException(
-        throwable: Throwable,
-        statusCode: Int,
-        headers: Headers,
-        responseBody: ByteArray,
-    ) {
-        assertThat(throwable)
-            .asInstanceOf(
-                InstanceOfAssertFactories.throwable(UnexpectedStatusCodeException::class.java)
-            )
-            .satisfies({ e ->
-                assertThat(e.statusCode()).isEqualTo(statusCode)
-                assertThat(e.body()).isEqualTo(String(responseBody))
-                assertThat(e.headers().toMap()).containsAllEntriesOf(headers.toMap())
-            })
-    }
-
-    private fun assertBadRequest(throwable: Throwable, headers: Headers, error: IncreaseError) {
-        assertThat(throwable)
-            .asInstanceOf(InstanceOfAssertFactories.throwable(BadRequestException::class.java))
-            .satisfies({ e ->
-                assertThat(e.statusCode()).isEqualTo(400)
-                assertThat(e.error()).isEqualTo(error)
-                assertThat(e.headers().toMap()).containsAllEntriesOf(headers.toMap())
-            })
-    }
-
-    private fun assertUnauthorized(throwable: Throwable, headers: Headers, error: IncreaseError) {
-        assertThat(throwable)
-            .asInstanceOf(InstanceOfAssertFactories.throwable(UnauthorizedException::class.java))
-            .satisfies({ e ->
-                assertThat(e.statusCode()).isEqualTo(401)
-                assertThat(e.error()).isEqualTo(error)
-                assertThat(e.headers().toMap()).containsAllEntriesOf(headers.toMap())
-            })
-    }
-
-    private fun assertPermissionDenied(
-        throwable: Throwable,
-        headers: Headers,
-        error: IncreaseError,
-    ) {
-        assertThat(throwable)
-            .asInstanceOf(
-                InstanceOfAssertFactories.throwable(PermissionDeniedException::class.java)
-            )
-            .satisfies({ e ->
-                assertThat(e.statusCode()).isEqualTo(403)
-                assertThat(e.error()).isEqualTo(error)
-                assertThat(e.headers().toMap()).containsAllEntriesOf(headers.toMap())
-            })
-    }
-
-    private fun assertNotFound(throwable: Throwable, headers: Headers, error: IncreaseError) {
-        assertThat(throwable)
-            .asInstanceOf(InstanceOfAssertFactories.throwable(NotFoundException::class.java))
-            .satisfies({ e ->
-                assertThat(e.statusCode()).isEqualTo(404)
-                assertThat(e.error()).isEqualTo(error)
-                assertThat(e.headers().toMap()).containsAllEntriesOf(headers.toMap())
-            })
-    }
-
-    private fun assertUnprocessableEntity(
-        throwable: Throwable,
-        headers: Headers,
-        error: IncreaseError,
-    ) {
-        assertThat(throwable)
-            .asInstanceOf(
-                InstanceOfAssertFactories.throwable(UnprocessableEntityException::class.java)
-            )
-            .satisfies({ e ->
-                assertThat(e.statusCode()).isEqualTo(422)
-                assertThat(e.error()).isEqualTo(error)
-                assertThat(e.headers().toMap()).containsAllEntriesOf(headers.toMap())
-            })
-    }
-
-    private fun assertRateLimit(throwable: Throwable, headers: Headers, error: IncreaseError) {
-        assertThat(throwable)
-            .asInstanceOf(InstanceOfAssertFactories.throwable(RateLimitException::class.java))
-            .satisfies({ e ->
-                assertThat(e.statusCode()).isEqualTo(429)
-                assertThat(e.error()).isEqualTo(error)
-                assertThat(e.headers().toMap()).containsAllEntriesOf(headers.toMap())
-            })
-    }
-
-    private fun assertInternalServer(throwable: Throwable, headers: Headers, error: IncreaseError) {
-        assertThat(throwable)
-            .asInstanceOf(InstanceOfAssertFactories.throwable(InternalServerException::class.java))
-            .satisfies({ e ->
-                assertThat(e.statusCode()).isEqualTo(500)
-                assertThat(e.error()).isEqualTo(error)
-                assertThat(e.headers().toMap()).containsAllEntriesOf(headers.toMap())
-            })
+        assertThat(e).hasMessage("Error reading response")
     }
 
     private fun Headers.toMap(): Map<String, List<String>> =
