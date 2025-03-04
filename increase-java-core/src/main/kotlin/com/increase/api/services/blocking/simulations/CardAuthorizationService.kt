@@ -4,11 +4,18 @@
 
 package com.increase.api.services.blocking.simulations
 
+import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.SimulationCardAuthorizationCreateParams
 import com.increase.api.models.SimulationCardAuthorizationCreateResponse
 
 interface CardAuthorizationService {
+
+    /**
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     */
+    fun withRawResponse(): WithRawResponse
 
     /**
      * Simulates a purchase authorization on a [Card](#cards). Depending on the balance available to
@@ -23,4 +30,22 @@ interface CardAuthorizationService {
         params: SimulationCardAuthorizationCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): SimulationCardAuthorizationCreateResponse
+
+    /**
+     * A view of [CardAuthorizationService] that provides access to raw HTTP responses for each
+     * method.
+     */
+    interface WithRawResponse {
+
+        /**
+         * Returns a raw HTTP response for `post /simulations/card_authorizations`, but is otherwise
+         * the same as [CardAuthorizationService.create].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: SimulationCardAuthorizationCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SimulationCardAuthorizationCreateResponse>
+    }
 }

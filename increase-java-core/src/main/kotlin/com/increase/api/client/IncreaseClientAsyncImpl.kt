@@ -126,6 +126,10 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
     // Pass the original clientOptions so that this client sets its own User-Agent.
     private val sync: IncreaseClient by lazy { IncreaseClientImpl(clientOptions) }
 
+    private val withRawResponse: IncreaseClientAsync.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
+
     private val accounts: AccountServiceAsync by lazy {
         AccountServiceAsyncImpl(clientOptionsWithUserAgent)
     }
@@ -343,6 +347,8 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
 
     override fun sync(): IncreaseClient = sync
 
+    override fun withRawResponse(): IncreaseClientAsync.WithRawResponse = withRawResponse
+
     override fun accounts(): AccountServiceAsync = accounts
 
     override fun accountNumbers(): AccountNumberServiceAsync = accountNumbers
@@ -460,4 +466,375 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
     override fun simulations(): SimulationServiceAsync = simulations
 
     override fun close() = clientOptions.httpClient.close()
+
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        IncreaseClientAsync.WithRawResponse {
+
+        private val accounts: AccountServiceAsync.WithRawResponse by lazy {
+            AccountServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val accountNumbers: AccountNumberServiceAsync.WithRawResponse by lazy {
+            AccountNumberServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val cards: CardServiceAsync.WithRawResponse by lazy {
+            CardServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val cardPayments: CardPaymentServiceAsync.WithRawResponse by lazy {
+            CardPaymentServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val cardPurchaseSupplements:
+            CardPurchaseSupplementServiceAsync.WithRawResponse by lazy {
+            CardPurchaseSupplementServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val cardDisputes: CardDisputeServiceAsync.WithRawResponse by lazy {
+            CardDisputeServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val physicalCards: PhysicalCardServiceAsync.WithRawResponse by lazy {
+            PhysicalCardServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val digitalCardProfiles: DigitalCardProfileServiceAsync.WithRawResponse by lazy {
+            DigitalCardProfileServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val physicalCardProfiles: PhysicalCardProfileServiceAsync.WithRawResponse by lazy {
+            PhysicalCardProfileServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val digitalWalletTokens: DigitalWalletTokenServiceAsync.WithRawResponse by lazy {
+            DigitalWalletTokenServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val transactions: TransactionServiceAsync.WithRawResponse by lazy {
+            TransactionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val pendingTransactions: PendingTransactionServiceAsync.WithRawResponse by lazy {
+            PendingTransactionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val declinedTransactions: DeclinedTransactionServiceAsync.WithRawResponse by lazy {
+            DeclinedTransactionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val accountTransfers: AccountTransferServiceAsync.WithRawResponse by lazy {
+            AccountTransferServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val achTransfers: AchTransferServiceAsync.WithRawResponse by lazy {
+            AchTransferServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val achPrenotifications: AchPrenotificationServiceAsync.WithRawResponse by lazy {
+            AchPrenotificationServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val inboundAchTransfers: InboundAchTransferServiceAsync.WithRawResponse by lazy {
+            InboundAchTransferServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val wireTransfers: WireTransferServiceAsync.WithRawResponse by lazy {
+            WireTransferServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val inboundWireTransfers: InboundWireTransferServiceAsync.WithRawResponse by lazy {
+            InboundWireTransferServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val wireDrawdownRequests: WireDrawdownRequestServiceAsync.WithRawResponse by lazy {
+            WireDrawdownRequestServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val inboundWireDrawdownRequests:
+            InboundWireDrawdownRequestServiceAsync.WithRawResponse by lazy {
+            InboundWireDrawdownRequestServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val checkTransfers: CheckTransferServiceAsync.WithRawResponse by lazy {
+            CheckTransferServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val inboundCheckDeposits: InboundCheckDepositServiceAsync.WithRawResponse by lazy {
+            InboundCheckDepositServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val realTimePaymentsTransfers:
+            RealTimePaymentsTransferServiceAsync.WithRawResponse by lazy {
+            RealTimePaymentsTransferServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val inboundRealTimePaymentsTransfers:
+            InboundRealTimePaymentsTransferServiceAsync.WithRawResponse by lazy {
+            InboundRealTimePaymentsTransferServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val checkDeposits: CheckDepositServiceAsync.WithRawResponse by lazy {
+            CheckDepositServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val lockboxes: LockboxServiceAsync.WithRawResponse by lazy {
+            LockboxServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val inboundMailItems: InboundMailItemServiceAsync.WithRawResponse by lazy {
+            InboundMailItemServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val routingNumbers: RoutingNumberServiceAsync.WithRawResponse by lazy {
+            RoutingNumberServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val externalAccounts: ExternalAccountServiceAsync.WithRawResponse by lazy {
+            ExternalAccountServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val entities: EntityServiceAsync.WithRawResponse by lazy {
+            EntityServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val supplementalDocuments:
+            SupplementalDocumentServiceAsync.WithRawResponse by lazy {
+            SupplementalDocumentServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val programs: ProgramServiceAsync.WithRawResponse by lazy {
+            ProgramServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val proofOfAuthorizationRequests:
+            ProofOfAuthorizationRequestServiceAsync.WithRawResponse by lazy {
+            ProofOfAuthorizationRequestServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val proofOfAuthorizationRequestSubmissions:
+            ProofOfAuthorizationRequestSubmissionServiceAsync.WithRawResponse by lazy {
+            ProofOfAuthorizationRequestSubmissionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val accountStatements: AccountStatementServiceAsync.WithRawResponse by lazy {
+            AccountStatementServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val files: FileServiceAsync.WithRawResponse by lazy {
+            FileServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val documents: DocumentServiceAsync.WithRawResponse by lazy {
+            DocumentServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val exports: ExportServiceAsync.WithRawResponse by lazy {
+            ExportServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val events: EventServiceAsync.WithRawResponse by lazy {
+            EventServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val eventSubscriptions: EventSubscriptionServiceAsync.WithRawResponse by lazy {
+            EventSubscriptionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val realTimeDecisions: RealTimeDecisionServiceAsync.WithRawResponse by lazy {
+            RealTimeDecisionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val bookkeepingAccounts: BookkeepingAccountServiceAsync.WithRawResponse by lazy {
+            BookkeepingAccountServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val bookkeepingEntrySets: BookkeepingEntrySetServiceAsync.WithRawResponse by lazy {
+            BookkeepingEntrySetServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val bookkeepingEntries: BookkeepingEntryServiceAsync.WithRawResponse by lazy {
+            BookkeepingEntryServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val groups: GroupServiceAsync.WithRawResponse by lazy {
+            GroupServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val oauthApplications: OAuthApplicationServiceAsync.WithRawResponse by lazy {
+            OAuthApplicationServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val oauthConnections: OAuthConnectionServiceAsync.WithRawResponse by lazy {
+            OAuthConnectionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val oauthTokens: OAuthTokenServiceAsync.WithRawResponse by lazy {
+            OAuthTokenServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val intrafiAccountEnrollments:
+            IntrafiAccountEnrollmentServiceAsync.WithRawResponse by lazy {
+            IntrafiAccountEnrollmentServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val intrafiBalances: IntrafiBalanceServiceAsync.WithRawResponse by lazy {
+            IntrafiBalanceServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val intrafiExclusions: IntrafiExclusionServiceAsync.WithRawResponse by lazy {
+            IntrafiExclusionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val realTimePaymentsRequestForPayments:
+            RealTimePaymentsRequestForPaymentServiceAsync.WithRawResponse by lazy {
+            RealTimePaymentsRequestForPaymentServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val simulations: SimulationServiceAsync.WithRawResponse by lazy {
+            SimulationServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        override fun accounts(): AccountServiceAsync.WithRawResponse = accounts
+
+        override fun accountNumbers(): AccountNumberServiceAsync.WithRawResponse = accountNumbers
+
+        override fun cards(): CardServiceAsync.WithRawResponse = cards
+
+        override fun cardPayments(): CardPaymentServiceAsync.WithRawResponse = cardPayments
+
+        override fun cardPurchaseSupplements(): CardPurchaseSupplementServiceAsync.WithRawResponse =
+            cardPurchaseSupplements
+
+        override fun cardDisputes(): CardDisputeServiceAsync.WithRawResponse = cardDisputes
+
+        override fun physicalCards(): PhysicalCardServiceAsync.WithRawResponse = physicalCards
+
+        override fun digitalCardProfiles(): DigitalCardProfileServiceAsync.WithRawResponse =
+            digitalCardProfiles
+
+        override fun physicalCardProfiles(): PhysicalCardProfileServiceAsync.WithRawResponse =
+            physicalCardProfiles
+
+        override fun digitalWalletTokens(): DigitalWalletTokenServiceAsync.WithRawResponse =
+            digitalWalletTokens
+
+        override fun transactions(): TransactionServiceAsync.WithRawResponse = transactions
+
+        override fun pendingTransactions(): PendingTransactionServiceAsync.WithRawResponse =
+            pendingTransactions
+
+        override fun declinedTransactions(): DeclinedTransactionServiceAsync.WithRawResponse =
+            declinedTransactions
+
+        override fun accountTransfers(): AccountTransferServiceAsync.WithRawResponse =
+            accountTransfers
+
+        override fun achTransfers(): AchTransferServiceAsync.WithRawResponse = achTransfers
+
+        override fun achPrenotifications(): AchPrenotificationServiceAsync.WithRawResponse =
+            achPrenotifications
+
+        override fun inboundAchTransfers(): InboundAchTransferServiceAsync.WithRawResponse =
+            inboundAchTransfers
+
+        override fun wireTransfers(): WireTransferServiceAsync.WithRawResponse = wireTransfers
+
+        override fun inboundWireTransfers(): InboundWireTransferServiceAsync.WithRawResponse =
+            inboundWireTransfers
+
+        override fun wireDrawdownRequests(): WireDrawdownRequestServiceAsync.WithRawResponse =
+            wireDrawdownRequests
+
+        override fun inboundWireDrawdownRequests():
+            InboundWireDrawdownRequestServiceAsync.WithRawResponse = inboundWireDrawdownRequests
+
+        override fun checkTransfers(): CheckTransferServiceAsync.WithRawResponse = checkTransfers
+
+        override fun inboundCheckDeposits(): InboundCheckDepositServiceAsync.WithRawResponse =
+            inboundCheckDeposits
+
+        override fun realTimePaymentsTransfers():
+            RealTimePaymentsTransferServiceAsync.WithRawResponse = realTimePaymentsTransfers
+
+        override fun inboundRealTimePaymentsTransfers():
+            InboundRealTimePaymentsTransferServiceAsync.WithRawResponse =
+            inboundRealTimePaymentsTransfers
+
+        override fun checkDeposits(): CheckDepositServiceAsync.WithRawResponse = checkDeposits
+
+        override fun lockboxes(): LockboxServiceAsync.WithRawResponse = lockboxes
+
+        override fun inboundMailItems(): InboundMailItemServiceAsync.WithRawResponse =
+            inboundMailItems
+
+        override fun routingNumbers(): RoutingNumberServiceAsync.WithRawResponse = routingNumbers
+
+        override fun externalAccounts(): ExternalAccountServiceAsync.WithRawResponse =
+            externalAccounts
+
+        override fun entities(): EntityServiceAsync.WithRawResponse = entities
+
+        override fun supplementalDocuments(): SupplementalDocumentServiceAsync.WithRawResponse =
+            supplementalDocuments
+
+        override fun programs(): ProgramServiceAsync.WithRawResponse = programs
+
+        override fun proofOfAuthorizationRequests():
+            ProofOfAuthorizationRequestServiceAsync.WithRawResponse = proofOfAuthorizationRequests
+
+        override fun proofOfAuthorizationRequestSubmissions():
+            ProofOfAuthorizationRequestSubmissionServiceAsync.WithRawResponse =
+            proofOfAuthorizationRequestSubmissions
+
+        override fun accountStatements(): AccountStatementServiceAsync.WithRawResponse =
+            accountStatements
+
+        override fun files(): FileServiceAsync.WithRawResponse = files
+
+        override fun documents(): DocumentServiceAsync.WithRawResponse = documents
+
+        override fun exports(): ExportServiceAsync.WithRawResponse = exports
+
+        override fun events(): EventServiceAsync.WithRawResponse = events
+
+        override fun eventSubscriptions(): EventSubscriptionServiceAsync.WithRawResponse =
+            eventSubscriptions
+
+        override fun realTimeDecisions(): RealTimeDecisionServiceAsync.WithRawResponse =
+            realTimeDecisions
+
+        override fun bookkeepingAccounts(): BookkeepingAccountServiceAsync.WithRawResponse =
+            bookkeepingAccounts
+
+        override fun bookkeepingEntrySets(): BookkeepingEntrySetServiceAsync.WithRawResponse =
+            bookkeepingEntrySets
+
+        override fun bookkeepingEntries(): BookkeepingEntryServiceAsync.WithRawResponse =
+            bookkeepingEntries
+
+        override fun groups(): GroupServiceAsync.WithRawResponse = groups
+
+        override fun oauthApplications(): OAuthApplicationServiceAsync.WithRawResponse =
+            oauthApplications
+
+        override fun oauthConnections(): OAuthConnectionServiceAsync.WithRawResponse =
+            oauthConnections
+
+        override fun oauthTokens(): OAuthTokenServiceAsync.WithRawResponse = oauthTokens
+
+        override fun intrafiAccountEnrollments():
+            IntrafiAccountEnrollmentServiceAsync.WithRawResponse = intrafiAccountEnrollments
+
+        override fun intrafiBalances(): IntrafiBalanceServiceAsync.WithRawResponse = intrafiBalances
+
+        override fun intrafiExclusions(): IntrafiExclusionServiceAsync.WithRawResponse =
+            intrafiExclusions
+
+        override fun realTimePaymentsRequestForPayments():
+            RealTimePaymentsRequestForPaymentServiceAsync.WithRawResponse =
+            realTimePaymentsRequestForPayments
+
+        override fun simulations(): SimulationServiceAsync.WithRawResponse = simulations
+    }
 }

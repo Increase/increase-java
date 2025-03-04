@@ -10,6 +10,8 @@ import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
+import com.increase.api.core.http.HttpResponseFor
+import com.increase.api.core.http.parseable
 import com.increase.api.core.json
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
@@ -20,39 +22,52 @@ import java.util.concurrent.CompletableFuture
 class CardSettlementServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : CardSettlementServiceAsync {
 
-    private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+    private val withRawResponse: CardSettlementServiceAsync.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
 
-    private val createHandler: Handler<Transaction> =
-        jsonHandler<Transaction>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+    override fun withRawResponse(): CardSettlementServiceAsync.WithRawResponse = withRawResponse
 
-    /**
-     * Simulates the settlement of an authorization by a card acquirer. After a card authorization
-     * is created, the merchant will eventually send a settlement. This simulates that event, which
-     * may occur many days after the purchase in production. The amount settled can be different
-     * from the amount originally authorized, for example, when adding a tip to a restaurant bill.
-     */
     override fun create(
         params: SimulationCardSettlementCreateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<Transaction> {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.POST)
-                .addPathSegments("simulations", "card_settlements")
-                .body(json(clientOptions.jsonMapper, params._body()))
-                .build()
-                .prepareAsync(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        return request
-            .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-            .thenApply { response ->
-                response
-                    .use { createHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
+    ): CompletableFuture<Transaction> =
+        // post /simulations/card_settlements
+        withRawResponse().create(params, requestOptions).thenApply { it.parse() }
+
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        CardSettlementServiceAsync.WithRawResponse {
+
+        private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+
+        private val createHandler: Handler<Transaction> =
+            jsonHandler<Transaction>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+        override fun create(
+            params: SimulationCardSettlementCreateParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<Transaction>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments("simulations", "card_settlements")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    response.parseable {
+                        response
+                            .use { createHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
                     }
-            }
+                }
+        }
     }
 }
