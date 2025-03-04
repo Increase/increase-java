@@ -162,6 +162,37 @@ CompletableFuture<Account> account = client.accounts().create(params);
 
 The asynchronous client supports the same options as the synchronous one, except most methods return `CompletableFuture`s.
 
+## Raw responses
+
+The SDK defines methods that deserialize responses into instances of Java classes. However, these methods don't provide access to the response headers, status code, or the raw response body.
+
+To access this data, prefix any HTTP method call on a client or service with `withRawResponse()`:
+
+```java
+import com.increase.api.core.http.Headers;
+import com.increase.api.core.http.HttpResponseFor;
+import com.increase.api.models.Account;
+import com.increase.api.models.AccountCreateParams;
+
+AccountCreateParams params = AccountCreateParams.builder()
+    .name("New Account!")
+    .entityId("entity_n8y8tnk2p9339ti393yi")
+    .programId("program_i2v2os4mwza1oetokh9i")
+    .build();
+HttpResponseFor<Account> account = client.accounts().withRawResponse().create(params);
+
+int statusCode = account.statusCode();
+Headers headers = account.headers();
+```
+
+You can still deserialize the response into an instance of a Java class if needed:
+
+```java
+import com.increase.api.models.Account;
+
+Account parsedAccount = account.parse();
+```
+
 ## Error handling
 
 The SDK throws custom unchecked exception types:
