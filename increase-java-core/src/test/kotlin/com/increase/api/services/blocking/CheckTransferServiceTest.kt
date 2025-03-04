@@ -40,7 +40,6 @@ class CheckTransferServiceTest {
                                     .postalCode("10045")
                                     .state("NY")
                                     .line2("x")
-                                    .name("Ian Crease")
                                     .build()
                             )
                             .memo("Check payment")
