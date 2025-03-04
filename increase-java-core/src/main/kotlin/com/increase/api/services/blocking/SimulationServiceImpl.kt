@@ -61,6 +61,10 @@ import com.increase.api.services.blocking.simulations.WireTransferServiceImpl
 class SimulationServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     SimulationService {
 
+    private val withRawResponse: SimulationService.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
+
     private val interestPayments: InterestPaymentService by lazy {
         InterestPaymentServiceImpl(clientOptions)
     }
@@ -159,6 +163,8 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
 
     private val documents: DocumentService by lazy { DocumentServiceImpl(clientOptions) }
 
+    override fun withRawResponse(): SimulationService.WithRawResponse = withRawResponse
+
     override fun interestPayments(): InterestPaymentService = interestPayments
 
     override fun cardAuthorizations(): CardAuthorizationService = cardAuthorizations
@@ -217,4 +223,188 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
     override fun accountStatements(): AccountStatementService = accountStatements
 
     override fun documents(): DocumentService = documents
+
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        SimulationService.WithRawResponse {
+
+        private val interestPayments: InterestPaymentService.WithRawResponse by lazy {
+            InterestPaymentServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val cardAuthorizations: CardAuthorizationService.WithRawResponse by lazy {
+            CardAuthorizationServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val cardAuthorizationExpirations:
+            CardAuthorizationExpirationService.WithRawResponse by lazy {
+            CardAuthorizationExpirationServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val cardSettlements: CardSettlementService.WithRawResponse by lazy {
+            CardSettlementServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val cardReversals: CardReversalService.WithRawResponse by lazy {
+            CardReversalServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val cardIncrements: CardIncrementService.WithRawResponse by lazy {
+            CardIncrementServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val cardFuelConfirmations: CardFuelConfirmationService.WithRawResponse by lazy {
+            CardFuelConfirmationServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val cardRefunds: CardRefundService.WithRawResponse by lazy {
+            CardRefundServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val cardDisputes: CardDisputeService.WithRawResponse by lazy {
+            CardDisputeServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val physicalCards: PhysicalCardService.WithRawResponse by lazy {
+            PhysicalCardServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val digitalWalletTokenRequests:
+            DigitalWalletTokenRequestService.WithRawResponse by lazy {
+            DigitalWalletTokenRequestServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val inboundFundsHolds: InboundFundsHoldService.WithRawResponse by lazy {
+            InboundFundsHoldServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val accountTransfers: AccountTransferService.WithRawResponse by lazy {
+            AccountTransferServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val achTransfers: AchTransferService.WithRawResponse by lazy {
+            AchTransferServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val inboundAchTransfers: InboundAchTransferService.WithRawResponse by lazy {
+            InboundAchTransferServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val wireTransfers: WireTransferService.WithRawResponse by lazy {
+            WireTransferServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val inboundWireTransfers: InboundWireTransferService.WithRawResponse by lazy {
+            InboundWireTransferServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val inboundWireDrawdownRequests:
+            InboundWireDrawdownRequestService.WithRawResponse by lazy {
+            InboundWireDrawdownRequestServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val checkTransfers: CheckTransferService.WithRawResponse by lazy {
+            CheckTransferServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val inboundCheckDeposits: InboundCheckDepositService.WithRawResponse by lazy {
+            InboundCheckDepositServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val realTimePaymentsTransfers:
+            RealTimePaymentsTransferService.WithRawResponse by lazy {
+            RealTimePaymentsTransferServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val inboundRealTimePaymentsTransfers:
+            InboundRealTimePaymentsTransferService.WithRawResponse by lazy {
+            InboundRealTimePaymentsTransferServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val checkDeposits: CheckDepositService.WithRawResponse by lazy {
+            CheckDepositServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val inboundMailItems: InboundMailItemService.WithRawResponse by lazy {
+            InboundMailItemServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val programs: ProgramService.WithRawResponse by lazy {
+            ProgramServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val accountStatements: AccountStatementService.WithRawResponse by lazy {
+            AccountStatementServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val documents: DocumentService.WithRawResponse by lazy {
+            DocumentServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        override fun interestPayments(): InterestPaymentService.WithRawResponse = interestPayments
+
+        override fun cardAuthorizations(): CardAuthorizationService.WithRawResponse =
+            cardAuthorizations
+
+        override fun cardAuthorizationExpirations():
+            CardAuthorizationExpirationService.WithRawResponse = cardAuthorizationExpirations
+
+        override fun cardSettlements(): CardSettlementService.WithRawResponse = cardSettlements
+
+        override fun cardReversals(): CardReversalService.WithRawResponse = cardReversals
+
+        override fun cardIncrements(): CardIncrementService.WithRawResponse = cardIncrements
+
+        override fun cardFuelConfirmations(): CardFuelConfirmationService.WithRawResponse =
+            cardFuelConfirmations
+
+        override fun cardRefunds(): CardRefundService.WithRawResponse = cardRefunds
+
+        override fun cardDisputes(): CardDisputeService.WithRawResponse = cardDisputes
+
+        override fun physicalCards(): PhysicalCardService.WithRawResponse = physicalCards
+
+        override fun digitalWalletTokenRequests():
+            DigitalWalletTokenRequestService.WithRawResponse = digitalWalletTokenRequests
+
+        override fun inboundFundsHolds(): InboundFundsHoldService.WithRawResponse =
+            inboundFundsHolds
+
+        override fun accountTransfers(): AccountTransferService.WithRawResponse = accountTransfers
+
+        override fun achTransfers(): AchTransferService.WithRawResponse = achTransfers
+
+        override fun inboundAchTransfers(): InboundAchTransferService.WithRawResponse =
+            inboundAchTransfers
+
+        override fun wireTransfers(): WireTransferService.WithRawResponse = wireTransfers
+
+        override fun inboundWireTransfers(): InboundWireTransferService.WithRawResponse =
+            inboundWireTransfers
+
+        override fun inboundWireDrawdownRequests():
+            InboundWireDrawdownRequestService.WithRawResponse = inboundWireDrawdownRequests
+
+        override fun checkTransfers(): CheckTransferService.WithRawResponse = checkTransfers
+
+        override fun inboundCheckDeposits(): InboundCheckDepositService.WithRawResponse =
+            inboundCheckDeposits
+
+        override fun realTimePaymentsTransfers(): RealTimePaymentsTransferService.WithRawResponse =
+            realTimePaymentsTransfers
+
+        override fun inboundRealTimePaymentsTransfers():
+            InboundRealTimePaymentsTransferService.WithRawResponse =
+            inboundRealTimePaymentsTransfers
+
+        override fun checkDeposits(): CheckDepositService.WithRawResponse = checkDeposits
+
+        override fun inboundMailItems(): InboundMailItemService.WithRawResponse = inboundMailItems
+
+        override fun programs(): ProgramService.WithRawResponse = programs
+
+        override fun accountStatements(): AccountStatementService.WithRawResponse =
+            accountStatements
+
+        override fun documents(): DocumentService.WithRawResponse = documents
+    }
 }

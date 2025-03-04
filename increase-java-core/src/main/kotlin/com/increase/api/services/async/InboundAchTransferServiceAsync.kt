@@ -4,7 +4,9 @@
 
 package com.increase.api.services.async
 
+import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.InboundAchTransfer
 import com.increase.api.models.InboundAchTransferCreateNotificationOfChangeParams
 import com.increase.api.models.InboundAchTransferDeclineParams
@@ -15,6 +17,11 @@ import com.increase.api.models.InboundAchTransferTransferReturnParams
 import java.util.concurrent.CompletableFuture
 
 interface InboundAchTransferServiceAsync {
+
+    /**
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     */
+    fun withRawResponse(): WithRawResponse
 
     /** Retrieve an Inbound ACH Transfer */
     @JvmOverloads
@@ -54,4 +61,79 @@ interface InboundAchTransferServiceAsync {
         params: InboundAchTransferTransferReturnParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundAchTransfer>
+
+    /**
+     * A view of [InboundAchTransferServiceAsync] that provides access to raw HTTP responses for
+     * each method.
+     */
+    interface WithRawResponse {
+
+        /**
+         * Returns a raw HTTP response for `get /inbound_ach_transfers/{inbound_ach_transfer_id}`,
+         * but is otherwise the same as [InboundAchTransferServiceAsync.retrieve].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: InboundAchTransferRetrieveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<InboundAchTransfer>>
+
+        /**
+         * Returns a raw HTTP response for `get /inbound_ach_transfers`, but is otherwise the same
+         * as [InboundAchTransferServiceAsync.list].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun list(
+            params: InboundAchTransferListParams = InboundAchTransferListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<InboundAchTransferListPageAsync>>
+
+        /**
+         * Returns a raw HTTP response for `get /inbound_ach_transfers`, but is otherwise the same
+         * as [InboundAchTransferServiceAsync.list].
+         */
+        @MustBeClosed
+        fun list(
+            requestOptions: RequestOptions
+        ): CompletableFuture<HttpResponseFor<InboundAchTransferListPageAsync>> =
+            list(InboundAchTransferListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /inbound_ach_transfers/{inbound_ach_transfer_id}/create_notification_of_change`, but is
+         * otherwise the same as [InboundAchTransferServiceAsync.createNotificationOfChange].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun createNotificationOfChange(
+            params: InboundAchTransferCreateNotificationOfChangeParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<InboundAchTransfer>>
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /inbound_ach_transfers/{inbound_ach_transfer_id}/decline`, but is otherwise the same as
+         * [InboundAchTransferServiceAsync.decline].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun decline(
+            params: InboundAchTransferDeclineParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<InboundAchTransfer>>
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /inbound_ach_transfers/{inbound_ach_transfer_id}/transfer_return`, but is otherwise the
+         * same as [InboundAchTransferServiceAsync.transferReturn].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun transferReturn(
+            params: InboundAchTransferTransferReturnParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<InboundAchTransfer>>
+    }
 }
