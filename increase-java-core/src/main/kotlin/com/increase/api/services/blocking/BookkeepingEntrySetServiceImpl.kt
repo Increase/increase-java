@@ -10,6 +10,8 @@ import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
+import com.increase.api.core.http.HttpResponseFor
+import com.increase.api.core.http.parseable
 import com.increase.api.core.json
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
@@ -22,83 +24,125 @@ import com.increase.api.models.BookkeepingEntrySetRetrieveParams
 class BookkeepingEntrySetServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : BookkeepingEntrySetService {
 
-    private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+    private val withRawResponse: BookkeepingEntrySetService.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
 
-    private val createHandler: Handler<BookkeepingEntrySet> =
-        jsonHandler<BookkeepingEntrySet>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+    override fun withRawResponse(): BookkeepingEntrySetService.WithRawResponse = withRawResponse
 
-    /** Create a Bookkeeping Entry Set */
     override fun create(
         params: BookkeepingEntrySetCreateParams,
         requestOptions: RequestOptions,
-    ): BookkeepingEntrySet {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.POST)
-                .addPathSegments("bookkeeping_entry_sets")
-                .body(json(clientOptions.jsonMapper, params._body()))
-                .build()
-                .prepare(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        val response = clientOptions.httpClient.execute(request, requestOptions)
-        return response
-            .use { createHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation!!) {
-                    it.validate()
-                }
-            }
-    }
+    ): BookkeepingEntrySet =
+        // post /bookkeeping_entry_sets
+        withRawResponse().create(params, requestOptions).parse()
 
-    private val retrieveHandler: Handler<BookkeepingEntrySet> =
-        jsonHandler<BookkeepingEntrySet>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
-
-    /** Retrieve a Bookkeeping Entry Set */
     override fun retrieve(
         params: BookkeepingEntrySetRetrieveParams,
         requestOptions: RequestOptions,
-    ): BookkeepingEntrySet {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.GET)
-                .addPathSegments("bookkeeping_entry_sets", params.getPathParam(0))
-                .build()
-                .prepare(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        val response = clientOptions.httpClient.execute(request, requestOptions)
-        return response
-            .use { retrieveHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation!!) {
-                    it.validate()
-                }
-            }
-    }
+    ): BookkeepingEntrySet =
+        // get /bookkeeping_entry_sets/{bookkeeping_entry_set_id}
+        withRawResponse().retrieve(params, requestOptions).parse()
 
-    private val listHandler: Handler<BookkeepingEntrySetListPage.Response> =
-        jsonHandler<BookkeepingEntrySetListPage.Response>(clientOptions.jsonMapper)
-            .withErrorHandler(errorHandler)
-
-    /** List Bookkeeping Entry Sets */
     override fun list(
         params: BookkeepingEntrySetListParams,
         requestOptions: RequestOptions,
-    ): BookkeepingEntrySetListPage {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.GET)
-                .addPathSegments("bookkeeping_entry_sets")
-                .build()
-                .prepare(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        val response = clientOptions.httpClient.execute(request, requestOptions)
-        return response
-            .use { listHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation!!) {
-                    it.validate()
-                }
+    ): BookkeepingEntrySetListPage =
+        // get /bookkeeping_entry_sets
+        withRawResponse().list(params, requestOptions).parse()
+
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        BookkeepingEntrySetService.WithRawResponse {
+
+        private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+
+        private val createHandler: Handler<BookkeepingEntrySet> =
+            jsonHandler<BookkeepingEntrySet>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
+
+        override fun create(
+            params: BookkeepingEntrySetCreateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<BookkeepingEntrySet> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments("bookkeeping_entry_sets")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { createHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
             }
-            .let { BookkeepingEntrySetListPage.of(this, params, it) }
+        }
+
+        private val retrieveHandler: Handler<BookkeepingEntrySet> =
+            jsonHandler<BookkeepingEntrySet>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
+
+        override fun retrieve(
+            params: BookkeepingEntrySetRetrieveParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<BookkeepingEntrySet> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("bookkeeping_entry_sets", params.getPathParam(0))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { retrieveHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val listHandler: Handler<BookkeepingEntrySetListPage.Response> =
+            jsonHandler<BookkeepingEntrySetListPage.Response>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
+
+        override fun list(
+            params: BookkeepingEntrySetListParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<BookkeepingEntrySetListPage> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("bookkeeping_entry_sets")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { listHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+                    .let {
+                        BookkeepingEntrySetListPage.of(
+                            BookkeepingEntrySetServiceImpl(clientOptions),
+                            params,
+                            it,
+                        )
+                    }
+            }
+        }
     }
 }

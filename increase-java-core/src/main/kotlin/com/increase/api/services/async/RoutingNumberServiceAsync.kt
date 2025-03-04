@@ -4,12 +4,19 @@
 
 package com.increase.api.services.async
 
+import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.RoutingNumberListPageAsync
 import com.increase.api.models.RoutingNumberListParams
 import java.util.concurrent.CompletableFuture
 
 interface RoutingNumberServiceAsync {
+
+    /**
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     */
+    fun withRawResponse(): WithRawResponse
 
     /**
      * You can use this API to confirm if a routing number is valid, such as when a user is
@@ -22,4 +29,22 @@ interface RoutingNumberServiceAsync {
         params: RoutingNumberListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<RoutingNumberListPageAsync>
+
+    /**
+     * A view of [RoutingNumberServiceAsync] that provides access to raw HTTP responses for each
+     * method.
+     */
+    interface WithRawResponse {
+
+        /**
+         * Returns a raw HTTP response for `get /routing_numbers`, but is otherwise the same as
+         * [RoutingNumberServiceAsync.list].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun list(
+            params: RoutingNumberListParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<RoutingNumberListPageAsync>>
+    }
 }

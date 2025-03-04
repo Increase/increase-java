@@ -4,12 +4,19 @@
 
 package com.increase.api.services.async.simulations
 
+import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.SimulationCardAuthorizationCreateParams
 import com.increase.api.models.SimulationCardAuthorizationCreateResponse
 import java.util.concurrent.CompletableFuture
 
 interface CardAuthorizationServiceAsync {
+
+    /**
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     */
+    fun withRawResponse(): WithRawResponse
 
     /**
      * Simulates a purchase authorization on a [Card](#cards). Depending on the balance available to
@@ -24,4 +31,22 @@ interface CardAuthorizationServiceAsync {
         params: SimulationCardAuthorizationCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<SimulationCardAuthorizationCreateResponse>
+
+    /**
+     * A view of [CardAuthorizationServiceAsync] that provides access to raw HTTP responses for each
+     * method.
+     */
+    interface WithRawResponse {
+
+        /**
+         * Returns a raw HTTP response for `post /simulations/card_authorizations`, but is otherwise
+         * the same as [CardAuthorizationServiceAsync.create].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: SimulationCardAuthorizationCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<SimulationCardAuthorizationCreateResponse>>
+    }
 }

@@ -32,6 +32,11 @@ import com.increase.api.services.blocking.simulations.WireTransferService
 
 interface SimulationService {
 
+    /**
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     */
+    fun withRawResponse(): WithRawResponse
+
     fun interestPayments(): InterestPaymentService
 
     fun cardAuthorizations(): CardAuthorizationService
@@ -85,4 +90,63 @@ interface SimulationService {
     fun accountStatements(): AccountStatementService
 
     fun documents(): DocumentService
+
+    /** A view of [SimulationService] that provides access to raw HTTP responses for each method. */
+    interface WithRawResponse {
+
+        fun interestPayments(): InterestPaymentService.WithRawResponse
+
+        fun cardAuthorizations(): CardAuthorizationService.WithRawResponse
+
+        fun cardAuthorizationExpirations(): CardAuthorizationExpirationService.WithRawResponse
+
+        fun cardSettlements(): CardSettlementService.WithRawResponse
+
+        fun cardReversals(): CardReversalService.WithRawResponse
+
+        fun cardIncrements(): CardIncrementService.WithRawResponse
+
+        fun cardFuelConfirmations(): CardFuelConfirmationService.WithRawResponse
+
+        fun cardRefunds(): CardRefundService.WithRawResponse
+
+        fun cardDisputes(): CardDisputeService.WithRawResponse
+
+        fun physicalCards(): PhysicalCardService.WithRawResponse
+
+        fun digitalWalletTokenRequests(): DigitalWalletTokenRequestService.WithRawResponse
+
+        fun inboundFundsHolds(): InboundFundsHoldService.WithRawResponse
+
+        fun accountTransfers(): AccountTransferService.WithRawResponse
+
+        fun achTransfers(): AchTransferService.WithRawResponse
+
+        fun inboundAchTransfers(): InboundAchTransferService.WithRawResponse
+
+        fun wireTransfers(): WireTransferService.WithRawResponse
+
+        fun inboundWireTransfers(): InboundWireTransferService.WithRawResponse
+
+        fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestService.WithRawResponse
+
+        fun checkTransfers(): CheckTransferService.WithRawResponse
+
+        fun inboundCheckDeposits(): InboundCheckDepositService.WithRawResponse
+
+        fun realTimePaymentsTransfers(): RealTimePaymentsTransferService.WithRawResponse
+
+        fun inboundRealTimePaymentsTransfers():
+            InboundRealTimePaymentsTransferService.WithRawResponse
+
+        fun checkDeposits(): CheckDepositService.WithRawResponse
+
+        fun inboundMailItems(): InboundMailItemService.WithRawResponse
+
+        fun programs(): ProgramService.WithRawResponse
+
+        fun accountStatements(): AccountStatementService.WithRawResponse
+
+        fun documents(): DocumentService.WithRawResponse
+    }
 }

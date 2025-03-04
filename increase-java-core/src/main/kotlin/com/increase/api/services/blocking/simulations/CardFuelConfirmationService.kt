@@ -4,11 +4,18 @@
 
 package com.increase.api.services.blocking.simulations
 
+import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.CardPayment
 import com.increase.api.models.SimulationCardFuelConfirmationCreateParams
 
 interface CardFuelConfirmationService {
+
+    /**
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     */
+    fun withRawResponse(): WithRawResponse
 
     /**
      * Simulates the fuel confirmation of an authorization by a card acquirer. This happens
@@ -20,4 +27,22 @@ interface CardFuelConfirmationService {
         params: SimulationCardFuelConfirmationCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPayment
+
+    /**
+     * A view of [CardFuelConfirmationService] that provides access to raw HTTP responses for each
+     * method.
+     */
+    interface WithRawResponse {
+
+        /**
+         * Returns a raw HTTP response for `post /simulations/card_fuel_confirmations`, but is
+         * otherwise the same as [CardFuelConfirmationService.create].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: SimulationCardFuelConfirmationCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CardPayment>
+    }
 }

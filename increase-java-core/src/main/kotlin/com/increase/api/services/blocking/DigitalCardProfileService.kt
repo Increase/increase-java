@@ -4,7 +4,9 @@
 
 package com.increase.api.services.blocking
 
+import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.DigitalCardProfile
 import com.increase.api.models.DigitalCardProfileArchiveParams
 import com.increase.api.models.DigitalCardProfileCloneParams
@@ -14,6 +16,11 @@ import com.increase.api.models.DigitalCardProfileListParams
 import com.increase.api.models.DigitalCardProfileRetrieveParams
 
 interface DigitalCardProfileService {
+
+    /**
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     */
+    fun withRawResponse(): WithRawResponse
 
     /** Create a Digital Card Profile */
     @JvmOverloads
@@ -53,4 +60,76 @@ interface DigitalCardProfileService {
         params: DigitalCardProfileCloneParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalCardProfile
+
+    /**
+     * A view of [DigitalCardProfileService] that provides access to raw HTTP responses for each
+     * method.
+     */
+    interface WithRawResponse {
+
+        /**
+         * Returns a raw HTTP response for `post /digital_card_profiles`, but is otherwise the same
+         * as [DigitalCardProfileService.create].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: DigitalCardProfileCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<DigitalCardProfile>
+
+        /**
+         * Returns a raw HTTP response for `get /digital_card_profiles/{digital_card_profile_id}`,
+         * but is otherwise the same as [DigitalCardProfileService.retrieve].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: DigitalCardProfileRetrieveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<DigitalCardProfile>
+
+        /**
+         * Returns a raw HTTP response for `get /digital_card_profiles`, but is otherwise the same
+         * as [DigitalCardProfileService.list].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun list(
+            params: DigitalCardProfileListParams = DigitalCardProfileListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<DigitalCardProfileListPage>
+
+        /**
+         * Returns a raw HTTP response for `get /digital_card_profiles`, but is otherwise the same
+         * as [DigitalCardProfileService.list].
+         */
+        @MustBeClosed
+        fun list(requestOptions: RequestOptions): HttpResponseFor<DigitalCardProfileListPage> =
+            list(DigitalCardProfileListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /digital_card_profiles/{digital_card_profile_id}/archive`, but is otherwise the same as
+         * [DigitalCardProfileService.archive].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun archive(
+            params: DigitalCardProfileArchiveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<DigitalCardProfile>
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /digital_card_profiles/{digital_card_profile_id}/clone`, but is otherwise the same as
+         * [DigitalCardProfileService.clone].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun clone(
+            params: DigitalCardProfileCloneParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<DigitalCardProfile>
+    }
 }

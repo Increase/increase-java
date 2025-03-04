@@ -10,6 +10,8 @@ import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
+import com.increase.api.core.http.HttpResponseFor
+import com.increase.api.core.http.parseable
 import com.increase.api.core.json
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
@@ -20,40 +22,54 @@ import java.util.concurrent.CompletableFuture
 class InboundCheckDepositServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : InboundCheckDepositServiceAsync {
 
-    private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+    private val withRawResponse: InboundCheckDepositServiceAsync.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
 
-    private val createHandler: Handler<InboundCheckDeposit> =
-        jsonHandler<InboundCheckDeposit>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+    override fun withRawResponse(): InboundCheckDepositServiceAsync.WithRawResponse =
+        withRawResponse
 
-    /**
-     * Simulates an Inbound Check Deposit against your account. This imitates someone depositing a
-     * check at their bank that was issued from your account. It may or may not be associated with a
-     * Check Transfer. Increase will evaluate the Check Deposit as we would in production and either
-     * create a Transaction or a Declined Transaction as a result. You can inspect the resulting
-     * Inbound Check Deposit object to see the result.
-     */
     override fun create(
         params: SimulationInboundCheckDepositCreateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<InboundCheckDeposit> {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.POST)
-                .addPathSegments("simulations", "inbound_check_deposits")
-                .body(json(clientOptions.jsonMapper, params._body()))
-                .build()
-                .prepareAsync(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        return request
-            .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-            .thenApply { response ->
-                response
-                    .use { createHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
+    ): CompletableFuture<InboundCheckDeposit> =
+        // post /simulations/inbound_check_deposits
+        withRawResponse().create(params, requestOptions).thenApply { it.parse() }
+
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        InboundCheckDepositServiceAsync.WithRawResponse {
+
+        private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+
+        private val createHandler: Handler<InboundCheckDeposit> =
+            jsonHandler<InboundCheckDeposit>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
+
+        override fun create(
+            params: SimulationInboundCheckDepositCreateParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<InboundCheckDeposit>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments("simulations", "inbound_check_deposits")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    response.parseable {
+                        response
+                            .use { createHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
                     }
-            }
+                }
+        }
     }
 }

@@ -10,6 +10,8 @@ import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
+import com.increase.api.core.http.HttpResponseFor
+import com.increase.api.core.http.parseable
 import com.increase.api.core.json
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
@@ -19,36 +21,54 @@ import com.increase.api.models.SimulationCardDisputeActionParams
 class CardDisputeServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     CardDisputeService {
 
-    private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+    private val withRawResponse: CardDisputeService.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
 
-    private val actionHandler: Handler<CardDispute> =
-        jsonHandler<CardDispute>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+    override fun withRawResponse(): CardDisputeService.WithRawResponse = withRawResponse
 
-    /**
-     * After a [Card Dispute](#card-disputes) is created in production, the dispute will be
-     * reviewed. Since no review happens in sandbox, this endpoint simulates moving a Card Dispute
-     * into a rejected or accepted state. A Card Dispute can only be actioned one time and must have
-     * a status of `pending_reviewing`.
-     */
     override fun action(
         params: SimulationCardDisputeActionParams,
         requestOptions: RequestOptions,
-    ): CardDispute {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.POST)
-                .addPathSegments("simulations", "card_disputes", params.getPathParam(0), "action")
-                .body(json(clientOptions.jsonMapper, params._body()))
-                .build()
-                .prepare(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        val response = clientOptions.httpClient.execute(request, requestOptions)
-        return response
-            .use { actionHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation!!) {
-                    it.validate()
-                }
+    ): CardDispute =
+        // post /simulations/card_disputes/{card_dispute_id}/action
+        withRawResponse().action(params, requestOptions).parse()
+
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        CardDisputeService.WithRawResponse {
+
+        private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+
+        private val actionHandler: Handler<CardDispute> =
+            jsonHandler<CardDispute>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+        override fun action(
+            params: SimulationCardDisputeActionParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<CardDispute> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments(
+                        "simulations",
+                        "card_disputes",
+                        params.getPathParam(0),
+                        "action",
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { actionHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
             }
+        }
     }
 }

@@ -4,7 +4,9 @@
 
 package com.increase.api.services.async
 
+import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.AchTransfer
 import com.increase.api.models.AchTransferApproveParams
 import com.increase.api.models.AchTransferCancelParams
@@ -15,6 +17,11 @@ import com.increase.api.models.AchTransferRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 interface AchTransferServiceAsync {
+
+    /**
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     */
+    fun withRawResponse(): WithRawResponse
 
     /** Create an ACH Transfer */
     @JvmOverloads
@@ -54,4 +61,76 @@ interface AchTransferServiceAsync {
         params: AchTransferCancelParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AchTransfer>
+
+    /**
+     * A view of [AchTransferServiceAsync] that provides access to raw HTTP responses for each
+     * method.
+     */
+    interface WithRawResponse {
+
+        /**
+         * Returns a raw HTTP response for `post /ach_transfers`, but is otherwise the same as
+         * [AchTransferServiceAsync.create].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: AchTransferCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<AchTransfer>>
+
+        /**
+         * Returns a raw HTTP response for `get /ach_transfers/{ach_transfer_id}`, but is otherwise
+         * the same as [AchTransferServiceAsync.retrieve].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: AchTransferRetrieveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<AchTransfer>>
+
+        /**
+         * Returns a raw HTTP response for `get /ach_transfers`, but is otherwise the same as
+         * [AchTransferServiceAsync.list].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun list(
+            params: AchTransferListParams = AchTransferListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<AchTransferListPageAsync>>
+
+        /**
+         * Returns a raw HTTP response for `get /ach_transfers`, but is otherwise the same as
+         * [AchTransferServiceAsync.list].
+         */
+        @MustBeClosed
+        fun list(
+            requestOptions: RequestOptions
+        ): CompletableFuture<HttpResponseFor<AchTransferListPageAsync>> =
+            list(AchTransferListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /ach_transfers/{ach_transfer_id}/approve`, but is
+         * otherwise the same as [AchTransferServiceAsync.approve].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun approve(
+            params: AchTransferApproveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<AchTransfer>>
+
+        /**
+         * Returns a raw HTTP response for `post /ach_transfers/{ach_transfer_id}/cancel`, but is
+         * otherwise the same as [AchTransferServiceAsync.cancel].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun cancel(
+            params: AchTransferCancelParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<AchTransfer>>
+    }
 }

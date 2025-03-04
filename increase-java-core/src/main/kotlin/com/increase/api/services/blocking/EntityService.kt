@@ -4,7 +4,9 @@
 
 package com.increase.api.services.blocking
 
+import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.Entity
 import com.increase.api.models.EntityArchiveBeneficialOwnerParams
 import com.increase.api.models.EntityArchiveParams
@@ -19,6 +21,11 @@ import com.increase.api.models.EntityUpdateBeneficialOwnerAddressParams
 import com.increase.api.models.EntityUpdateIndustryCodeParams
 
 interface EntityService {
+
+    /**
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     */
+    fun withRawResponse(): WithRawResponse
 
     /** Create an Entity */
     @JvmOverloads
@@ -97,4 +104,127 @@ interface EntityService {
         params: EntityUpdateIndustryCodeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
+
+    /** A view of [EntityService] that provides access to raw HTTP responses for each method. */
+    interface WithRawResponse {
+
+        /**
+         * Returns a raw HTTP response for `post /entities`, but is otherwise the same as
+         * [EntityService.create].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: EntityCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Entity>
+
+        /**
+         * Returns a raw HTTP response for `get /entities/{entity_id}`, but is otherwise the same as
+         * [EntityService.retrieve].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: EntityRetrieveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Entity>
+
+        /**
+         * Returns a raw HTTP response for `get /entities`, but is otherwise the same as
+         * [EntityService.list].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun list(
+            params: EntityListParams = EntityListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<EntityListPage>
+
+        /**
+         * Returns a raw HTTP response for `get /entities`, but is otherwise the same as
+         * [EntityService.list].
+         */
+        @MustBeClosed
+        fun list(requestOptions: RequestOptions): HttpResponseFor<EntityListPage> =
+            list(EntityListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /entities/{entity_id}/archive`, but is otherwise
+         * the same as [EntityService.archive].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun archive(
+            params: EntityArchiveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Entity>
+
+        /**
+         * Returns a raw HTTP response for `post /entities/{entity_id}/archive_beneficial_owner`,
+         * but is otherwise the same as [EntityService.archiveBeneficialOwner].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun archiveBeneficialOwner(
+            params: EntityArchiveBeneficialOwnerParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Entity>
+
+        /**
+         * Returns a raw HTTP response for `post /entities/{entity_id}/confirm`, but is otherwise
+         * the same as [EntityService.confirm].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun confirm(
+            params: EntityConfirmParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Entity>
+
+        /**
+         * Returns a raw HTTP response for `post /entities/{entity_id}/create_beneficial_owner`, but
+         * is otherwise the same as [EntityService.createBeneficialOwner].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun createBeneficialOwner(
+            params: EntityCreateBeneficialOwnerParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Entity>
+
+        /**
+         * Returns a raw HTTP response for `post /entities/{entity_id}/update_address`, but is
+         * otherwise the same as [EntityService.updateAddress].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun updateAddress(
+            params: EntityUpdateAddressParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Entity>
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /entities/{entity_id}/update_beneficial_owner_address`, but is otherwise the same as
+         * [EntityService.updateBeneficialOwnerAddress].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun updateBeneficialOwnerAddress(
+            params: EntityUpdateBeneficialOwnerAddressParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Entity>
+
+        /**
+         * Returns a raw HTTP response for `post /entities/{entity_id}/update_industry_code`, but is
+         * otherwise the same as [EntityService.updateIndustryCode].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun updateIndustryCode(
+            params: EntityUpdateIndustryCodeParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Entity>
+    }
 }

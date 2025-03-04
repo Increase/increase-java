@@ -10,6 +10,8 @@ import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
+import com.increase.api.core.http.HttpResponseFor
+import com.increase.api.core.http.parseable
 import com.increase.api.core.json
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
@@ -20,35 +22,51 @@ class InboundRealTimePaymentsTransferServiceImpl
 internal constructor(private val clientOptions: ClientOptions) :
     InboundRealTimePaymentsTransferService {
 
-    private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+    private val withRawResponse: InboundRealTimePaymentsTransferService.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
 
-    private val createHandler: Handler<InboundRealTimePaymentsTransfer> =
-        jsonHandler<InboundRealTimePaymentsTransfer>(clientOptions.jsonMapper)
-            .withErrorHandler(errorHandler)
+    override fun withRawResponse(): InboundRealTimePaymentsTransferService.WithRawResponse =
+        withRawResponse
 
-    /**
-     * Simulates an [Inbound Real-Time Payments Transfer](#inbound-real-time-payments-transfers) to
-     * your account. Real-Time Payments are a beta feature.
-     */
     override fun create(
         params: SimulationInboundRealTimePaymentsTransferCreateParams,
         requestOptions: RequestOptions,
-    ): InboundRealTimePaymentsTransfer {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.POST)
-                .addPathSegments("simulations", "inbound_real_time_payments_transfers")
-                .body(json(clientOptions.jsonMapper, params._body()))
-                .build()
-                .prepare(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        val response = clientOptions.httpClient.execute(request, requestOptions)
-        return response
-            .use { createHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation!!) {
-                    it.validate()
-                }
+    ): InboundRealTimePaymentsTransfer =
+        // post /simulations/inbound_real_time_payments_transfers
+        withRawResponse().create(params, requestOptions).parse()
+
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        InboundRealTimePaymentsTransferService.WithRawResponse {
+
+        private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+
+        private val createHandler: Handler<InboundRealTimePaymentsTransfer> =
+            jsonHandler<InboundRealTimePaymentsTransfer>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
+
+        override fun create(
+            params: SimulationInboundRealTimePaymentsTransferCreateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<InboundRealTimePaymentsTransfer> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments("simulations", "inbound_real_time_payments_transfers")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { createHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
             }
+        }
     }
 }

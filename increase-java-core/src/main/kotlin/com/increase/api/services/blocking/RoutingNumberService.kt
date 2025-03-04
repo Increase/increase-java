@@ -4,11 +4,18 @@
 
 package com.increase.api.services.blocking
 
+import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.RoutingNumberListPage
 import com.increase.api.models.RoutingNumberListParams
 
 interface RoutingNumberService {
+
+    /**
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     */
+    fun withRawResponse(): WithRawResponse
 
     /**
      * You can use this API to confirm if a routing number is valid, such as when a user is
@@ -21,4 +28,21 @@ interface RoutingNumberService {
         params: RoutingNumberListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RoutingNumberListPage
+
+    /**
+     * A view of [RoutingNumberService] that provides access to raw HTTP responses for each method.
+     */
+    interface WithRawResponse {
+
+        /**
+         * Returns a raw HTTP response for `get /routing_numbers`, but is otherwise the same as
+         * [RoutingNumberService.list].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun list(
+            params: RoutingNumberListParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<RoutingNumberListPage>
+    }
 }

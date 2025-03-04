@@ -10,6 +10,8 @@ import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
+import com.increase.api.core.http.HttpResponseFor
+import com.increase.api.core.http.parseable
 import com.increase.api.core.json
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
@@ -24,110 +26,158 @@ import com.increase.api.models.BookkeepingBalanceLookup
 class BookkeepingAccountServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     BookkeepingAccountService {
 
-    private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+    private val withRawResponse: BookkeepingAccountService.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
 
-    private val createHandler: Handler<BookkeepingAccount> =
-        jsonHandler<BookkeepingAccount>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+    override fun withRawResponse(): BookkeepingAccountService.WithRawResponse = withRawResponse
 
-    /** Create a Bookkeeping Account */
     override fun create(
         params: BookkeepingAccountCreateParams,
         requestOptions: RequestOptions,
-    ): BookkeepingAccount {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.POST)
-                .addPathSegments("bookkeeping_accounts")
-                .body(json(clientOptions.jsonMapper, params._body()))
-                .build()
-                .prepare(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        val response = clientOptions.httpClient.execute(request, requestOptions)
-        return response
-            .use { createHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation!!) {
-                    it.validate()
-                }
-            }
-    }
+    ): BookkeepingAccount =
+        // post /bookkeeping_accounts
+        withRawResponse().create(params, requestOptions).parse()
 
-    private val updateHandler: Handler<BookkeepingAccount> =
-        jsonHandler<BookkeepingAccount>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
-
-    /** Update a Bookkeeping Account */
     override fun update(
         params: BookkeepingAccountUpdateParams,
         requestOptions: RequestOptions,
-    ): BookkeepingAccount {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.PATCH)
-                .addPathSegments("bookkeeping_accounts", params.getPathParam(0))
-                .body(json(clientOptions.jsonMapper, params._body()))
-                .build()
-                .prepare(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        val response = clientOptions.httpClient.execute(request, requestOptions)
-        return response
-            .use { updateHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation!!) {
-                    it.validate()
-                }
-            }
-    }
+    ): BookkeepingAccount =
+        // patch /bookkeeping_accounts/{bookkeeping_account_id}
+        withRawResponse().update(params, requestOptions).parse()
 
-    private val listHandler: Handler<BookkeepingAccountListPage.Response> =
-        jsonHandler<BookkeepingAccountListPage.Response>(clientOptions.jsonMapper)
-            .withErrorHandler(errorHandler)
-
-    /** List Bookkeeping Accounts */
     override fun list(
         params: BookkeepingAccountListParams,
         requestOptions: RequestOptions,
-    ): BookkeepingAccountListPage {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.GET)
-                .addPathSegments("bookkeeping_accounts")
-                .build()
-                .prepare(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        val response = clientOptions.httpClient.execute(request, requestOptions)
-        return response
-            .use { listHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation!!) {
-                    it.validate()
-                }
-            }
-            .let { BookkeepingAccountListPage.of(this, params, it) }
-    }
+    ): BookkeepingAccountListPage =
+        // get /bookkeeping_accounts
+        withRawResponse().list(params, requestOptions).parse()
 
-    private val balanceHandler: Handler<BookkeepingBalanceLookup> =
-        jsonHandler<BookkeepingBalanceLookup>(clientOptions.jsonMapper)
-            .withErrorHandler(errorHandler)
-
-    /** Retrieve a Bookkeeping Account Balance */
     override fun balance(
         params: BookkeepingAccountBalanceParams,
         requestOptions: RequestOptions,
-    ): BookkeepingBalanceLookup {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.GET)
-                .addPathSegments("bookkeeping_accounts", params.getPathParam(0), "balance")
-                .build()
-                .prepare(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        val response = clientOptions.httpClient.execute(request, requestOptions)
-        return response
-            .use { balanceHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation!!) {
-                    it.validate()
-                }
+    ): BookkeepingBalanceLookup =
+        // get /bookkeeping_accounts/{bookkeeping_account_id}/balance
+        withRawResponse().balance(params, requestOptions).parse()
+
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        BookkeepingAccountService.WithRawResponse {
+
+        private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+
+        private val createHandler: Handler<BookkeepingAccount> =
+            jsonHandler<BookkeepingAccount>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+        override fun create(
+            params: BookkeepingAccountCreateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<BookkeepingAccount> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments("bookkeeping_accounts")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { createHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
             }
+        }
+
+        private val updateHandler: Handler<BookkeepingAccount> =
+            jsonHandler<BookkeepingAccount>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+        override fun update(
+            params: BookkeepingAccountUpdateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<BookkeepingAccount> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PATCH)
+                    .addPathSegments("bookkeeping_accounts", params.getPathParam(0))
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { updateHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val listHandler: Handler<BookkeepingAccountListPage.Response> =
+            jsonHandler<BookkeepingAccountListPage.Response>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
+
+        override fun list(
+            params: BookkeepingAccountListParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<BookkeepingAccountListPage> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("bookkeeping_accounts")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { listHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+                    .let {
+                        BookkeepingAccountListPage.of(
+                            BookkeepingAccountServiceImpl(clientOptions),
+                            params,
+                            it,
+                        )
+                    }
+            }
+        }
+
+        private val balanceHandler: Handler<BookkeepingBalanceLookup> =
+            jsonHandler<BookkeepingBalanceLookup>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
+
+        override fun balance(
+            params: BookkeepingAccountBalanceParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<BookkeepingBalanceLookup> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("bookkeeping_accounts", params.getPathParam(0), "balance")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { balanceHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
     }
 }

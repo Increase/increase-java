@@ -10,6 +10,8 @@ import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
+import com.increase.api.core.http.HttpResponseFor
+import com.increase.api.core.http.parseable
 import com.increase.api.core.json
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
@@ -20,64 +22,93 @@ import com.increase.api.models.WireTransfer
 class WireTransferServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     WireTransferService {
 
-    private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+    private val withRawResponse: WireTransferService.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
 
-    private val reverseHandler: Handler<WireTransfer> =
-        jsonHandler<WireTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+    override fun withRawResponse(): WireTransferService.WithRawResponse = withRawResponse
 
-    /**
-     * Simulates the reversal of a [Wire Transfer](#wire-transfers) by the Federal Reserve due to
-     * error conditions. This will also create a [Transaction](#transaction) to account for the
-     * returned funds. This Wire Transfer must first have a `status` of `complete`.
-     */
     override fun reverse(
         params: SimulationWireTransferReverseParams,
         requestOptions: RequestOptions,
-    ): WireTransfer {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.POST)
-                .addPathSegments("simulations", "wire_transfers", params.getPathParam(0), "reverse")
-                .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
-                .build()
-                .prepare(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        val response = clientOptions.httpClient.execute(request, requestOptions)
-        return response
-            .use { reverseHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation!!) {
-                    it.validate()
-                }
-            }
-    }
+    ): WireTransfer =
+        // post /simulations/wire_transfers/{wire_transfer_id}/reverse
+        withRawResponse().reverse(params, requestOptions).parse()
 
-    private val submitHandler: Handler<WireTransfer> =
-        jsonHandler<WireTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
-
-    /**
-     * Simulates the submission of a [Wire Transfer](#wire-transfers) to the Federal Reserve. This
-     * transfer must first have a `status` of `pending_approval` or `pending_creating`.
-     */
     override fun submit(
         params: SimulationWireTransferSubmitParams,
         requestOptions: RequestOptions,
-    ): WireTransfer {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.POST)
-                .addPathSegments("simulations", "wire_transfers", params.getPathParam(0), "submit")
-                .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
-                .build()
-                .prepare(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        val response = clientOptions.httpClient.execute(request, requestOptions)
-        return response
-            .use { submitHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation!!) {
-                    it.validate()
-                }
+    ): WireTransfer =
+        // post /simulations/wire_transfers/{wire_transfer_id}/submit
+        withRawResponse().submit(params, requestOptions).parse()
+
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        WireTransferService.WithRawResponse {
+
+        private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+
+        private val reverseHandler: Handler<WireTransfer> =
+            jsonHandler<WireTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+        override fun reverse(
+            params: SimulationWireTransferReverseParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<WireTransfer> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments(
+                        "simulations",
+                        "wire_transfers",
+                        params.getPathParam(0),
+                        "reverse",
+                    )
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { reverseHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
             }
+        }
+
+        private val submitHandler: Handler<WireTransfer> =
+            jsonHandler<WireTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+        override fun submit(
+            params: SimulationWireTransferSubmitParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<WireTransfer> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments(
+                        "simulations",
+                        "wire_transfers",
+                        params.getPathParam(0),
+                        "submit",
+                    )
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { submitHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
     }
 }
