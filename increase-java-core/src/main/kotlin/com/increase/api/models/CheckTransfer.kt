@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkKnown
 import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
@@ -2429,14 +2430,8 @@ private constructor(
             /** Tracking updates relating to the physical check's delivery. */
             fun addTrackingUpdate(trackingUpdate: TrackingUpdate) = apply {
                 trackingUpdates =
-                    (trackingUpdates ?: JsonField.of(mutableListOf())).apply {
-                        asKnown()
-                            .orElseThrow {
-                                IllegalStateException(
-                                    "Field was set to non-list type: ${javaClass.simpleName}"
-                                )
-                            }
-                            .add(trackingUpdate)
+                    (trackingUpdates ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("trackingUpdates", it).add(trackingUpdate)
                     }
             }
 

@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkKnown
 import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
@@ -9737,14 +9738,8 @@ private constructor(
                         /** Fields specific to each leg of the journey. */
                         fun addTripLeg(tripLeg: TripLeg) = apply {
                             tripLegs =
-                                (tripLegs ?: JsonField.of(mutableListOf())).apply {
-                                    asKnown()
-                                        .orElseThrow {
-                                            IllegalStateException(
-                                                "Field was set to non-list type: ${javaClass.simpleName}"
-                                            )
-                                        }
-                                        .add(tripLeg)
+                                (tripLegs ?: JsonField.of(mutableListOf())).also {
+                                    checkKnown("tripLegs", it).add(tripLeg)
                                 }
                         }
 
@@ -10023,14 +10018,8 @@ private constructor(
                             /** Additional travel charges, such as baggage fees. */
                             fun addService(service: Service) = apply {
                                 services =
-                                    (services ?: JsonField.of(mutableListOf())).apply {
-                                        asKnown()
-                                            .orElseThrow {
-                                                IllegalStateException(
-                                                    "Field was set to non-list type: ${javaClass.simpleName}"
-                                                )
-                                            }
-                                            .add(service)
+                                    (services ?: JsonField.of(mutableListOf())).also {
+                                        checkKnown("services", it).add(service)
                                     }
                             }
 
@@ -16844,14 +16833,8 @@ private constructor(
                         /** Fields specific to each leg of the journey. */
                         fun addTripLeg(tripLeg: TripLeg) = apply {
                             tripLegs =
-                                (tripLegs ?: JsonField.of(mutableListOf())).apply {
-                                    asKnown()
-                                        .orElseThrow {
-                                            IllegalStateException(
-                                                "Field was set to non-list type: ${javaClass.simpleName}"
-                                            )
-                                        }
-                                        .add(tripLeg)
+                                (tripLegs ?: JsonField.of(mutableListOf())).also {
+                                    checkKnown("tripLegs", it).add(tripLeg)
                                 }
                         }
 
@@ -17130,14 +17113,8 @@ private constructor(
                             /** Additional travel charges, such as baggage fees. */
                             fun addService(service: Service) = apply {
                                 services =
-                                    (services ?: JsonField.of(mutableListOf())).apply {
-                                        asKnown()
-                                            .orElseThrow {
-                                                IllegalStateException(
-                                                    "Field was set to non-list type: ${javaClass.simpleName}"
-                                                )
-                                            }
-                                            .add(service)
+                                    (services ?: JsonField.of(mutableListOf())).also {
+                                        checkKnown("services", it).add(service)
                                     }
                             }
 
@@ -22554,14 +22531,8 @@ private constructor(
                         /** Each entry represents an addendum received from the originator. */
                         fun addEntry(entry: Entry) = apply {
                             entries =
-                                (entries ?: JsonField.of(mutableListOf())).apply {
-                                    asKnown()
-                                        .orElseThrow {
-                                            IllegalStateException(
-                                                "Field was set to non-list type: ${javaClass.simpleName}"
-                                            )
-                                        }
-                                        .add(entry)
+                                (entries ?: JsonField.of(mutableListOf())).also {
+                                    checkKnown("entries", it).add(entry)
                                 }
                         }
 

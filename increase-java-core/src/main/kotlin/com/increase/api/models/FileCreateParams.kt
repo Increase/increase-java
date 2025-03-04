@@ -3,19 +3,18 @@
 package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.increase.api.core.ContentTypes
 import com.increase.api.core.Enum
 import com.increase.api.core.JsonField
-import com.increase.api.core.MultipartFormValue
+import com.increase.api.core.MultipartField
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.Params
 import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 import java.util.Optional
-import org.apache.hc.core5.http.ContentType
 
 /**
  * To upload a file to Increase, you'll need to send a request of Content-Type
@@ -34,21 +33,35 @@ private constructor(
      * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers for
      * the multipart/form-data protocol.
      */
-    fun file(): MultipartFormValue<ByteArray> = body.file()
+    fun file(): ByteArray = body.file()
 
     /** What the File will be used for in Increase's systems. */
-    fun purpose(): MultipartFormValue<Purpose> = body.purpose()
+    fun purpose(): Purpose = body.purpose()
 
     /** The description you choose to give the File. */
-    fun description(): Optional<MultipartFormValue<String>> = body.description()
+    fun description(): Optional<String> = body.description()
+
+    /**
+     * The file contents. This should follow the specifications of
+     * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers for
+     * the multipart/form-data protocol.
+     */
+    fun _file(): MultipartField<ByteArray> = body._file()
+
+    /** What the File will be used for in Increase's systems. */
+    fun _purpose(): MultipartField<Purpose> = body._purpose()
+
+    /** The description you choose to give the File. */
+    fun _description(): MultipartField<String> = body._description()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
     @JvmSynthetic
-    internal fun _body(): Array<MultipartFormValue<*>?> =
-        arrayOf(file(), purpose(), description().orElse(null))
+    internal fun _body(): Map<String, MultipartField<*>> =
+        mapOf("file" to _file(), "purpose" to _purpose(), "description" to _description())
+            .toImmutable()
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -58,9 +71,9 @@ private constructor(
     class Body
     @JsonCreator
     private constructor(
-        private val file: MultipartFormValue<ByteArray>,
-        private val purpose: MultipartFormValue<Purpose>,
-        private val description: MultipartFormValue<String>?,
+        private val file: MultipartField<ByteArray>,
+        private val purpose: MultipartField<Purpose>,
+        private val description: MultipartField<String>,
     ) {
 
         /**
@@ -68,13 +81,27 @@ private constructor(
          * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers
          * for the multipart/form-data protocol.
          */
-        fun file(): MultipartFormValue<ByteArray> = file
+        fun file(): ByteArray = file.value.getRequired("file")
 
         /** What the File will be used for in Increase's systems. */
-        fun purpose(): MultipartFormValue<Purpose> = purpose
+        fun purpose(): Purpose = purpose.value.getRequired("purpose")
 
         /** The description you choose to give the File. */
-        fun description(): Optional<MultipartFormValue<String>> = Optional.ofNullable(description)
+        fun description(): Optional<String> =
+            Optional.ofNullable(description.value.getNullable("description"))
+
+        /**
+         * The file contents. This should follow the specifications of
+         * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers
+         * for the multipart/form-data protocol.
+         */
+        fun _file(): MultipartField<ByteArray> = file
+
+        /** What the File will be used for in Increase's systems. */
+        fun _purpose(): MultipartField<Purpose> = purpose
+
+        /** The description you choose to give the File. */
+        fun _description(): MultipartField<String> = description
 
         private var validated: Boolean = false
 
@@ -99,9 +126,9 @@ private constructor(
         /** A builder for [Body]. */
         class Builder internal constructor() {
 
-            private var file: MultipartFormValue<ByteArray>? = null
-            private var purpose: MultipartFormValue<Purpose>? = null
-            private var description: MultipartFormValue<String>? = null
+            private var file: MultipartField<ByteArray>? = null
+            private var purpose: MultipartField<Purpose>? = null
+            private var description: MultipartField<String> = MultipartField.of(null)
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
@@ -115,27 +142,27 @@ private constructor(
              * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file
              * transfers for the multipart/form-data protocol.
              */
-            fun file(
-                content: ByteArray,
-                filename: String? = null,
-                contentType: ContentType = ContentTypes.DefaultBinary,
-            ) = apply {
-                this.file = MultipartFormValue.fromByteArray("file", content, contentType, filename)
-            }
+            fun file(file: ByteArray) = file(MultipartField.of(file))
+
+            /**
+             * The file contents. This should follow the specifications of
+             * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file
+             * transfers for the multipart/form-data protocol.
+             */
+            fun file(file: MultipartField<ByteArray>) = apply { this.file = file }
 
             /** What the File will be used for in Increase's systems. */
-            fun purpose(purpose: Purpose, contentType: ContentType = ContentTypes.DefaultText) =
-                apply {
-                    this.purpose = MultipartFormValue.fromEnum("purpose", purpose, contentType)
-                }
+            fun purpose(purpose: Purpose) = purpose(MultipartField.of(purpose))
+
+            /** What the File will be used for in Increase's systems. */
+            fun purpose(purpose: MultipartField<Purpose>) = apply { this.purpose = purpose }
 
             /** The description you choose to give the File. */
-            fun description(
-                description: String,
-                contentType: ContentType = ContentTypes.DefaultText,
-            ) = apply {
-                this.description =
-                    MultipartFormValue.fromString("description", description, contentType)
+            fun description(description: String) = description(MultipartField.of(description))
+
+            /** The description you choose to give the File. */
+            fun description(description: MultipartField<String>) = apply {
+                this.description = description
             }
 
             fun build(): Body =
@@ -186,22 +213,28 @@ private constructor(
          * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers
          * for the multipart/form-data protocol.
          */
-        fun file(
-            content: ByteArray,
-            filename: String? = null,
-            contentType: ContentType = ContentTypes.DefaultBinary,
-        ) = apply { body.file(content, filename, contentType) }
+        fun file(file: ByteArray) = apply { body.file(file) }
+
+        /**
+         * The file contents. This should follow the specifications of
+         * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers
+         * for the multipart/form-data protocol.
+         */
+        fun file(file: MultipartField<ByteArray>) = apply { body.file(file) }
 
         /** What the File will be used for in Increase's systems. */
-        fun purpose(purpose: Purpose, contentType: ContentType = ContentTypes.DefaultText) = apply {
-            body.purpose(purpose, contentType)
-        }
+        fun purpose(purpose: Purpose) = apply { body.purpose(purpose) }
+
+        /** What the File will be used for in Increase's systems. */
+        fun purpose(purpose: MultipartField<Purpose>) = apply { body.purpose(purpose) }
 
         /** The description you choose to give the File. */
-        fun description(description: String, contentType: ContentType = ContentTypes.DefaultText) =
-            apply {
-                body.description(description, contentType)
-            }
+        fun description(description: String) = apply { body.description(description) }
+
+        /** The description you choose to give the File. */
+        fun description(description: MultipartField<String>) = apply {
+            body.description(description)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

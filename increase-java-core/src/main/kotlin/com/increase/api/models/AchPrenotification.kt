@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkKnown
 import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
@@ -466,14 +467,8 @@ private constructor(
          */
         fun addNotificationsOfChange(notificationsOfChange: NotificationsOfChange) = apply {
             this.notificationsOfChange =
-                (this.notificationsOfChange ?: JsonField.of(mutableListOf())).apply {
-                    asKnown()
-                        .orElseThrow {
-                            IllegalStateException(
-                                "Field was set to non-list type: ${javaClass.simpleName}"
-                            )
-                        }
-                        .add(notificationsOfChange)
+                (this.notificationsOfChange ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("notificationsOfChange", it).add(notificationsOfChange)
                 }
         }
 

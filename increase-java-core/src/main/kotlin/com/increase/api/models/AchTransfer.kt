@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkKnown
 import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
@@ -968,14 +969,8 @@ private constructor(
          */
         fun addNotificationsOfChange(notificationsOfChange: NotificationsOfChange) = apply {
             this.notificationsOfChange =
-                (this.notificationsOfChange ?: JsonField.of(mutableListOf())).apply {
-                    asKnown()
-                        .orElseThrow {
-                            IllegalStateException(
-                                "Field was set to non-list type: ${javaClass.simpleName}"
-                            )
-                        }
-                        .add(notificationsOfChange)
+                (this.notificationsOfChange ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("notificationsOfChange", it).add(notificationsOfChange)
                 }
         }
 
@@ -1678,14 +1673,8 @@ private constructor(
                 /** Each entry represents an addendum sent with the transfer. */
                 fun addEntry(entry: Entry) = apply {
                     entries =
-                        (entries ?: JsonField.of(mutableListOf())).apply {
-                            asKnown()
-                                .orElseThrow {
-                                    IllegalStateException(
-                                        "Field was set to non-list type: ${javaClass.simpleName}"
-                                    )
-                                }
-                                .add(entry)
+                        (entries ?: JsonField.of(mutableListOf())).also {
+                            checkKnown("entries", it).add(entry)
                         }
                 }
 
@@ -1917,14 +1906,8 @@ private constructor(
                 /** ASC X12 RMR records for this specific transfer. */
                 fun addInvoice(invoice: Invoice) = apply {
                     invoices =
-                        (invoices ?: JsonField.of(mutableListOf())).apply {
-                            asKnown()
-                                .orElseThrow {
-                                    IllegalStateException(
-                                        "Field was set to non-list type: ${javaClass.simpleName}"
-                                    )
-                                }
-                                .add(invoice)
+                        (invoices ?: JsonField.of(mutableListOf())).also {
+                            checkKnown("invoices", it).add(invoice)
                         }
                 }
 

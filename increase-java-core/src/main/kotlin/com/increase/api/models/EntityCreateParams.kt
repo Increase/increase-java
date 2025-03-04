@@ -13,6 +13,7 @@ import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.Params
+import com.increase.api.core.checkKnown
 import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
@@ -406,14 +407,8 @@ private constructor(
             /** Additional documentation associated with the entity. */
             fun addSupplementalDocument(supplementalDocument: SupplementalDocument) = apply {
                 supplementalDocuments =
-                    (supplementalDocuments ?: JsonField.of(mutableListOf())).apply {
-                        asKnown()
-                            .orElseThrow {
-                                IllegalStateException(
-                                    "Field was set to non-list type: ${javaClass.simpleName}"
-                                )
-                            }
-                            .add(supplementalDocument)
+                    (supplementalDocuments ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("supplementalDocuments", it).add(supplementalDocument)
                     }
             }
 
@@ -1082,14 +1077,8 @@ private constructor(
              */
             fun addBeneficialOwner(beneficialOwner: BeneficialOwner) = apply {
                 beneficialOwners =
-                    (beneficialOwners ?: JsonField.of(mutableListOf())).apply {
-                        asKnown()
-                            .orElseThrow {
-                                IllegalStateException(
-                                    "Field was set to non-list type: ${javaClass.simpleName}"
-                                )
-                            }
-                            .add(beneficialOwner)
+                    (beneficialOwners ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("beneficialOwners", it).add(beneficialOwner)
                     }
             }
 
@@ -1493,14 +1482,8 @@ private constructor(
                  */
                 fun addProng(prong: Prong) = apply {
                     prongs =
-                        (prongs ?: JsonField.of(mutableListOf())).apply {
-                            asKnown()
-                                .orElseThrow {
-                                    IllegalStateException(
-                                        "Field was set to non-list type: ${javaClass.simpleName}"
-                                    )
-                                }
-                                .add(prong)
+                        (prongs ?: JsonField.of(mutableListOf())).also {
+                            checkKnown("prongs", it).add(prong)
                         }
                 }
 
@@ -3269,14 +3252,8 @@ private constructor(
             /** The identifying details of authorized officials acting on the entity's behalf. */
             fun addAuthorizedPerson(authorizedPerson: AuthorizedPerson) = apply {
                 authorizedPersons =
-                    (authorizedPersons ?: JsonField.of(mutableListOf())).apply {
-                        asKnown()
-                            .orElseThrow {
-                                IllegalStateException(
-                                    "Field was set to non-list type: ${javaClass.simpleName}"
-                                )
-                            }
-                            .add(authorizedPerson)
+                    (authorizedPersons ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("authorizedPersons", it).add(authorizedPerson)
                     }
             }
 
@@ -3833,14 +3810,8 @@ private constructor(
             /** The two individuals that share control of the entity. */
             fun addIndividual(individual: Individual) = apply {
                 individuals =
-                    (individuals ?: JsonField.of(mutableListOf())).apply {
-                        asKnown()
-                            .orElseThrow {
-                                IllegalStateException(
-                                    "Field was set to non-list type: ${javaClass.simpleName}"
-                                )
-                            }
-                            .add(individual)
+                    (individuals ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("individuals", it).add(individual)
                     }
             }
 
@@ -7174,14 +7145,8 @@ private constructor(
             /** The trustees of the trust. */
             fun addTrustee(trustee: Trustee) = apply {
                 trustees =
-                    (trustees ?: JsonField.of(mutableListOf())).apply {
-                        asKnown()
-                            .orElseThrow {
-                                IllegalStateException(
-                                    "Field was set to non-list type: ${javaClass.simpleName}"
-                                )
-                            }
-                            .add(trustee)
+                    (trustees ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("trustees", it).add(trustee)
                     }
             }
 
