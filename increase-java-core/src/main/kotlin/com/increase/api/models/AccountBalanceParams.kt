@@ -56,6 +56,14 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [AccountBalanceParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .accountId()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

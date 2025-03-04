@@ -57,6 +57,9 @@ private constructor(
 
         @JvmStatic fun none(): DigitalWalletTokenListParams = builder().build()
 
+        /**
+         * Returns a mutable builder for constructing an instance of [DigitalWalletTokenListParams].
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -276,6 +279,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [CreatedAt]. */
             @JvmStatic fun builder() = Builder()
         }
 

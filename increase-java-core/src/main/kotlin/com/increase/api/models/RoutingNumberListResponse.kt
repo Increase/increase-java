@@ -116,6 +116,19 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [RoutingNumberListResponse].
+         *
+         * The following fields are required:
+         * ```java
+         * .achTransfers()
+         * .name()
+         * .realTimePaymentsTransfers()
+         * .routingNumber()
+         * .type()
+         * .wireTransfers()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

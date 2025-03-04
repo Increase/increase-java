@@ -62,6 +62,9 @@ private constructor(
 
         @JvmStatic fun none(): DigitalCardProfileListParams = builder().build()
 
+        /**
+         * Returns a mutable builder for constructing an instance of [DigitalCardProfileListParams].
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -260,6 +263,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Status]. */
             @JvmStatic fun builder() = Builder()
         }
 

@@ -137,6 +137,17 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```java
+             * .carrierImageFileId()
+             * .contactPhone()
+             * .description()
+             * .frontImageFileId()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -243,6 +254,18 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [PhysicalCardProfileCreateParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .carrierImageFileId()
+         * .contactPhone()
+         * .description()
+         * .frontImageFileId()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

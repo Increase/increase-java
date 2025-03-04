@@ -202,6 +202,25 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [CardDispute].
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .acceptance()
+         * .amount()
+         * .createdAt()
+         * .disputedTransactionId()
+         * .explanation()
+         * .idempotencyKey()
+         * .loss()
+         * .rejection()
+         * .status()
+         * .type()
+         * .win()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -503,6 +522,16 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Acceptance].
+             *
+             * The following fields are required:
+             * ```java
+             * .acceptedAt()
+             * .cardDisputeId()
+             * .transactionId()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -689,6 +718,17 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Loss].
+             *
+             * The following fields are required:
+             * ```java
+             * .cardDisputeId()
+             * .explanation()
+             * .lostAt()
+             * .transactionId()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -871,6 +911,16 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Rejection].
+             *
+             * The following fields are required:
+             * ```java
+             * .cardDisputeId()
+             * .explanation()
+             * .rejectedAt()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -1280,6 +1330,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Win].
+             *
+             * The following fields are required:
+             * ```java
+             * .cardDisputeId()
+             * .wonAt()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 

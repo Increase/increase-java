@@ -137,6 +137,9 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [AccountNumberListPage].
+             */
             @JvmStatic fun builder() = Builder()
         }
 

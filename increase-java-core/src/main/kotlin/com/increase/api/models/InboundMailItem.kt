@@ -148,6 +148,21 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [InboundMailItem].
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .createdAt()
+         * .fileId()
+         * .lockboxId()
+         * .recipientName()
+         * .rejectionReason()
+         * .status()
+         * .type()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

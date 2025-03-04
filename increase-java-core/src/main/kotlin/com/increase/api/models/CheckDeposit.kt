@@ -306,6 +306,31 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [CheckDeposit].
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .accountId()
+         * .amount()
+         * .backImageFileId()
+         * .createdAt()
+         * .depositAcceptance()
+         * .depositRejection()
+         * .depositReturn()
+         * .depositSubmission()
+         * .description()
+         * .frontImageFileId()
+         * .idempotencyKey()
+         * .inboundFundsHold()
+         * .inboundMailItemId()
+         * .lockboxId()
+         * .status()
+         * .transactionId()
+         * .type()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -792,6 +817,20 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [DepositAcceptance].
+             *
+             * The following fields are required:
+             * ```java
+             * .accountNumber()
+             * .amount()
+             * .auxiliaryOnUs()
+             * .checkDepositId()
+             * .currency()
+             * .routingNumber()
+             * .serialNumber()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -1219,6 +1258,19 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [DepositRejection].
+             *
+             * The following fields are required:
+             * ```java
+             * .amount()
+             * .checkDepositId()
+             * .currency()
+             * .declinedTransactionId()
+             * .reason()
+             * .rejectedAt()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -1801,6 +1853,19 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [DepositReturn].
+             *
+             * The following fields are required:
+             * ```java
+             * .amount()
+             * .checkDepositId()
+             * .currency()
+             * .returnReason()
+             * .returnedAt()
+             * .transactionId()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -2498,6 +2563,16 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [DepositSubmission].
+             *
+             * The following fields are required:
+             * ```java
+             * .backFileId()
+             * .frontFileId()
+             * .submittedAt()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -2769,6 +2844,23 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [InboundFundsHold].
+             *
+             * The following fields are required:
+             * ```java
+             * .id()
+             * .amount()
+             * .automaticallyReleasesAt()
+             * .createdAt()
+             * .currency()
+             * .heldTransactionId()
+             * .pendingTransactionId()
+             * .releasedAt()
+             * .status()
+             * .type()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 

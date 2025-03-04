@@ -189,6 +189,24 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [ExternalAccount].
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .accountHolder()
+         * .accountNumber()
+         * .createdAt()
+         * .description()
+         * .funding()
+         * .idempotencyKey()
+         * .routingNumber()
+         * .status()
+         * .type()
+         * .verificationStatus()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

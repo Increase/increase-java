@@ -203,6 +203,20 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```java
+             * .amount()
+             * .debtor()
+             * .destinationAccountNumberId()
+             * .expiresAt()
+             * .remittanceInformation()
+             * .sourceAccountNumber()
+             * .sourceRoutingNumber()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -344,6 +358,21 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [RealTimePaymentsRequestForPaymentCreateParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .amount()
+         * .debtor()
+         * .destinationAccountNumberId()
+         * .expiresAt()
+         * .remittanceInformation()
+         * .sourceAccountNumber()
+         * .sourceRoutingNumber()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -603,6 +632,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Debtor].
+             *
+             * The following fields are required:
+             * ```java
+             * .address()
+             * .name()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -730,6 +768,14 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [Address].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .country()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
