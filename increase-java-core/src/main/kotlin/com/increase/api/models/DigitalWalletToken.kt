@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkKnown
 import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
@@ -219,14 +220,8 @@ private constructor(
         /** Updates to the Digital Wallet Token. */
         fun addUpdate(update: Update) = apply {
             updates =
-                (updates ?: JsonField.of(mutableListOf())).apply {
-                    asKnown()
-                        .orElseThrow {
-                            IllegalStateException(
-                                "Field was set to non-list type: ${javaClass.simpleName}"
-                            )
-                        }
-                        .add(update)
+                (updates ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("updates", it).add(update)
                 }
         }
 

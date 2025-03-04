@@ -13,6 +13,7 @@ import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.Params
+import com.increase.api.core.checkKnown
 import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
@@ -1673,14 +1674,8 @@ private constructor(
                  */
                 fun addEntry(entry: Entry) = apply {
                     entries =
-                        (entries ?: JsonField.of(mutableListOf())).apply {
-                            asKnown()
-                                .orElseThrow {
-                                    IllegalStateException(
-                                        "Field was set to non-list type: ${javaClass.simpleName}"
-                                    )
-                                }
-                                .add(entry)
+                        (entries ?: JsonField.of(mutableListOf())).also {
+                            checkKnown("entries", it).add(entry)
                         }
                 }
 
@@ -1912,14 +1907,8 @@ private constructor(
                 /** ASC X12 RMR records for this specific transfer. */
                 fun addInvoice(invoice: Invoice) = apply {
                     invoices =
-                        (invoices ?: JsonField.of(mutableListOf())).apply {
-                            asKnown()
-                                .orElseThrow {
-                                    IllegalStateException(
-                                        "Field was set to non-list type: ${javaClass.simpleName}"
-                                    )
-                                }
-                                .add(invoice)
+                        (invoices ?: JsonField.of(mutableListOf())).also {
+                            checkKnown("invoices", it).add(invoice)
                         }
                 }
 
