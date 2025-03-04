@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkKnown
 import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
@@ -186,14 +187,8 @@ private constructor(
         /** Line item information, such as individual products purchased. */
         fun addLineItem(lineItem: LineItem) = apply {
             lineItems =
-                (lineItems ?: JsonField.of(mutableListOf())).apply {
-                    asKnown()
-                        .orElseThrow {
-                            IllegalStateException(
-                                "Field was set to non-list type: ${javaClass.simpleName}"
-                            )
-                        }
-                        .add(lineItem)
+                (lineItems ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("lineItems", it).add(lineItem)
                 }
         }
 

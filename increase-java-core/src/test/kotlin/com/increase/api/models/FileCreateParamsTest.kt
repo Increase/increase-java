@@ -2,8 +2,7 @@
 
 package com.increase.api.models
 
-import com.increase.api.core.ContentTypes
-import com.increase.api.core.MultipartFormValue
+import com.increase.api.core.MultipartField
 import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -31,19 +30,13 @@ class FileCreateParamsTest {
         val body = params._body()
 
         assertNotNull(body)
-        assertThat(body.filterNotNull())
-            .containsExactlyInAnyOrder(
-                MultipartFormValue.fromByteArray(
-                    "file",
-                    "some content".toByteArray(),
-                    ContentTypes.DefaultBinary,
-                ),
-                MultipartFormValue.fromEnum(
-                    "purpose",
-                    FileCreateParams.Purpose.CHECK_IMAGE_FRONT,
-                    ContentTypes.DefaultText,
-                ),
-                MultipartFormValue.fromString("description", "x", ContentTypes.DefaultText),
+        assertThat(body.filterValues { !it.value.isNull() })
+            .isEqualTo(
+                mapOf(
+                    "file" to MultipartField.of("some content".toByteArray()),
+                    "purpose" to MultipartField.of(FileCreateParams.Purpose.CHECK_IMAGE_FRONT),
+                    "description" to MultipartField.of("x"),
+                )
             )
     }
 
@@ -58,18 +51,12 @@ class FileCreateParamsTest {
         val body = params._body()
 
         assertNotNull(body)
-        assertThat(body.filterNotNull())
-            .containsExactlyInAnyOrder(
-                MultipartFormValue.fromByteArray(
-                    "file",
-                    "some content".toByteArray(),
-                    ContentTypes.DefaultBinary,
-                ),
-                MultipartFormValue.fromEnum(
-                    "purpose",
-                    FileCreateParams.Purpose.CHECK_IMAGE_FRONT,
-                    ContentTypes.DefaultText,
-                ),
+        assertThat(body.filterValues { !it.value.isNull() })
+            .isEqualTo(
+                mapOf(
+                    "file" to MultipartField.of("some content".toByteArray()),
+                    "purpose" to MultipartField.of(FileCreateParams.Purpose.CHECK_IMAGE_FRONT),
+                )
             )
     }
 }

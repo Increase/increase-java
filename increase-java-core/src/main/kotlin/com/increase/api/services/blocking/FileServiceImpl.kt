@@ -11,8 +11,8 @@ import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.http.HttpResponseFor
+import com.increase.api.core.http.multipartFormData
 import com.increase.api.core.http.parseable
-import com.increase.api.core.multipartFormData
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
 import com.increase.api.models.File
