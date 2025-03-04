@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.194.0 (2025-03-04)
+
+Full Changelog: [v0.193.0...v0.194.0](https://github.com/Increase/increase-java/compare/v0.193.0...v0.194.0)
+
+### Features
+
+* **api:** api update ([#839](https://github.com/Increase/increase-java/issues/839)) ([bd9f9bf](https://github.com/Increase/increase-java/commit/bd9f9bfcfbd5a1ab3eb0960b05c77dddc0a4d229))
+* **client:** allow configuring timeouts granularly ([#836](https://github.com/Increase/increase-java/issues/836)) ([7a68be6](https://github.com/Increase/increase-java/commit/7a68be663b502ec6bc698863509ff207a64c5b75))
+* **client:** support raw response access ([#838](https://github.com/Increase/increase-java/issues/838)) ([75dd0db](https://github.com/Increase/increase-java/commit/75dd0dbc97003cb7ceae424749ecf978517fda4c))
+
 ## 0.193.0 (2025-03-04)
 
 Full Changelog: [v0.192.0...v0.193.0](https://github.com/Increase/increase-java/compare/v0.192.0...v0.193.0)
