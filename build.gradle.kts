@@ -1,4 +1,4 @@
 allprojects {
     group = "com.increase.api"
-    version = "0.193.0" // x-release-please-version
+    version = "0.194.0" // x-release-please-version
 }
