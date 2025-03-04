@@ -283,6 +283,30 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [AccountTransfer].
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .accountId()
+         * .amount()
+         * .approval()
+         * .cancellation()
+         * .createdAt()
+         * .createdBy()
+         * .currency()
+         * .description()
+         * .destinationAccountId()
+         * .destinationTransactionId()
+         * .idempotencyKey()
+         * .network()
+         * .pendingTransactionId()
+         * .status()
+         * .transactionId()
+         * .type()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -652,6 +676,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Approval].
+             *
+             * The following fields are required:
+             * ```java
+             * .approvedAt()
+             * .approvedBy()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -811,6 +844,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Cancellation].
+             *
+             * The following fields are required:
+             * ```java
+             * .canceledAt()
+             * .canceledBy()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -973,6 +1015,17 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [CreatedBy].
+             *
+             * The following fields are required:
+             * ```java
+             * .apiKey()
+             * .category()
+             * .oauthApplication()
+             * .user()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -1100,6 +1153,14 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [ApiKey].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .description()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -1340,6 +1401,14 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [OAuthApplication].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .name()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -1445,6 +1514,14 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [User].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .email()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 

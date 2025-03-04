@@ -66,6 +66,7 @@ private constructor(
 
         @JvmStatic fun none(): DocumentListParams = builder().build()
 
+        /** Returns a mutable builder for constructing an instance of [DocumentListParams]. */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -259,6 +260,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Category]. */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -562,6 +564,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [CreatedAt]. */
             @JvmStatic fun builder() = Builder()
         }
 

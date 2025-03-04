@@ -155,6 +155,22 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [CardPayment].
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .accountId()
+         * .cardId()
+         * .createdAt()
+         * .digitalWalletTokenId()
+         * .elements()
+         * .physicalCardId()
+         * .state()
+         * .type()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -595,6 +611,26 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Element].
+             *
+             * The following fields are required:
+             * ```java
+             * .cardAuthentication()
+             * .cardAuthorization()
+             * .cardAuthorizationExpiration()
+             * .cardDecline()
+             * .cardFuelConfirmation()
+             * .cardIncrement()
+             * .cardRefund()
+             * .cardReversal()
+             * .cardSettlement()
+             * .cardValidation()
+             * .category()
+             * .createdAt()
+             * .other()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -1242,6 +1278,30 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [CardAuthentication].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .id()
+                 * .cardId()
+                 * .cardPaymentId()
+                 * .category()
+                 * .challenge()
+                 * .createdAt()
+                 * .denyReason()
+                 * .deviceChannel()
+                 * .merchantAcceptorId()
+                 * .merchantCategoryCode()
+                 * .merchantCountry()
+                 * .merchantName()
+                 * .purchaseAmount()
+                 * .purchaseCurrency()
+                 * .realTimeDecisionId()
+                 * .status()
+                 * .type()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -1753,6 +1813,18 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Challenge].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .attempts()
+                     * .createdAt()
+                     * .oneTimeCode()
+                     * .verificationMethod()
+                     * .verificationValue()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -1935,6 +2007,15 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Attempt].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .createdAt()
+                         * .outcome()
+                         * ```
+                         */
                         @JvmStatic fun builder() = Builder()
                     }
 
@@ -3304,6 +3385,40 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [CardAuthorization].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .id()
+                 * .actioner()
+                 * .amount()
+                 * .cardPaymentId()
+                 * .currency()
+                 * .digitalWalletTokenId()
+                 * .direction()
+                 * .expiresAt()
+                 * .merchantAcceptorId()
+                 * .merchantCategoryCode()
+                 * .merchantCity()
+                 * .merchantCountry()
+                 * .merchantDescriptor()
+                 * .merchantPostalCode()
+                 * .merchantState()
+                 * .networkDetails()
+                 * .networkIdentifiers()
+                 * .networkRiskScore()
+                 * .pendingTransactionId()
+                 * .physicalCardId()
+                 * .presentmentAmount()
+                 * .presentmentCurrency()
+                 * .processingCategory()
+                 * .realTimeDecisionId()
+                 * .terminalId()
+                 * .type()
+                 * .verification()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -4257,6 +4372,15 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [NetworkDetails].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .category()
+                     * .visa()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -4523,6 +4647,16 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Visa].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .electronicCommerceIndicator()
+                         * .pointOfServiceEntryMode()
+                         * .standInProcessingReason()
+                         * ```
+                         */
                         @JvmStatic fun builder() = Builder()
                     }
 
@@ -5516,6 +5650,17 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [NetworkIdentifiers].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .retrievalReferenceNumber()
+                     * .traceNumber()
+                     * .transactionId()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -6015,6 +6160,15 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Verification].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .cardVerificationCode()
+                     * .cardholderAddress()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -6134,6 +6288,15 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of
+                         * [CardVerificationCode].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .result()
+                         * ```
+                         */
                         @JvmStatic fun builder() = Builder()
                     }
 
@@ -6434,6 +6597,19 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of
+                         * [CardholderAddress].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .actualLine1()
+                         * .actualPostalCode()
+                         * .providedLine1()
+                         * .providedPostalCode()
+                         * .result()
+                         * ```
+                         */
                         @JvmStatic fun builder() = Builder()
                     }
 
@@ -6898,6 +7074,20 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [CardAuthorizationExpiration].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .id()
+                 * .cardAuthorizationId()
+                 * .currency()
+                 * .expiredAmount()
+                 * .network()
+                 * .type()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -7837,6 +8027,40 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [CardDecline].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .id()
+                 * .actioner()
+                 * .amount()
+                 * .cardPaymentId()
+                 * .currency()
+                 * .declinedTransactionId()
+                 * .digitalWalletTokenId()
+                 * .direction()
+                 * .merchantAcceptorId()
+                 * .merchantCategoryCode()
+                 * .merchantCity()
+                 * .merchantCountry()
+                 * .merchantDescriptor()
+                 * .merchantPostalCode()
+                 * .merchantState()
+                 * .networkDetails()
+                 * .networkIdentifiers()
+                 * .networkRiskScore()
+                 * .physicalCardId()
+                 * .presentmentAmount()
+                 * .presentmentCurrency()
+                 * .processingCategory()
+                 * .realTimeDecisionId()
+                 * .realTimeDecisionReason()
+                 * .reason()
+                 * .terminalId()
+                 * .verification()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -8786,6 +9010,15 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [NetworkDetails].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .category()
+                     * .visa()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -9052,6 +9285,16 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Visa].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .electronicCommerceIndicator()
+                         * .pointOfServiceEntryMode()
+                         * .standInProcessingReason()
+                         * ```
+                         */
                         @JvmStatic fun builder() = Builder()
                     }
 
@@ -10045,6 +10288,17 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [NetworkIdentifiers].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .retrievalReferenceNumber()
+                     * .traceNumber()
+                     * .transactionId()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -10931,6 +11185,15 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Verification].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .cardVerificationCode()
+                     * .cardholderAddress()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -11050,6 +11313,15 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of
+                         * [CardVerificationCode].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .result()
+                         * ```
+                         */
                         @JvmStatic fun builder() = Builder()
                     }
 
@@ -11350,6 +11622,19 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of
+                         * [CardholderAddress].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .actualLine1()
+                         * .actualPostalCode()
+                         * .providedLine1()
+                         * .providedPostalCode()
+                         * .result()
+                         * ```
+                         */
                         @JvmStatic fun builder() = Builder()
                     }
 
@@ -11847,6 +12132,21 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [CardFuelConfirmation].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .id()
+                 * .cardAuthorizationId()
+                 * .currency()
+                 * .network()
+                 * .networkIdentifiers()
+                 * .pendingTransactionId()
+                 * .type()
+                 * .updatedAuthorizationAmount()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -12344,6 +12644,17 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [NetworkIdentifiers].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .retrievalReferenceNumber()
+                     * .traceNumber()
+                     * .transactionId()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -12817,6 +13128,25 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [CardIncrement].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .id()
+                 * .actioner()
+                 * .amount()
+                 * .cardAuthorizationId()
+                 * .currency()
+                 * .network()
+                 * .networkIdentifiers()
+                 * .networkRiskScore()
+                 * .pendingTransactionId()
+                 * .realTimeDecisionId()
+                 * .type()
+                 * .updatedAuthorizationAmount()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -13522,6 +13852,17 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [NetworkIdentifiers].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .retrievalReferenceNumber()
+                     * .traceNumber()
+                     * .transactionId()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -14083,6 +14424,32 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [CardRefund].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .id()
+                 * .amount()
+                 * .cardPaymentId()
+                 * .cashback()
+                 * .currency()
+                 * .interchange()
+                 * .merchantAcceptorId()
+                 * .merchantCategoryCode()
+                 * .merchantCity()
+                 * .merchantCountry()
+                 * .merchantName()
+                 * .merchantPostalCode()
+                 * .merchantState()
+                 * .networkIdentifiers()
+                 * .presentmentAmount()
+                 * .presentmentCurrency()
+                 * .purchaseDetails()
+                 * .transactionId()
+                 * .type()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -14468,6 +14835,15 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Cashback].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .amount()
+                     * .currency()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -14930,6 +15306,16 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Interchange].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .amount()
+                     * .code()
+                     * .currency()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -15264,6 +15650,17 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [NetworkIdentifiers].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .acquirerBusinessId()
+                     * .acquirerReferenceNumber()
+                     * .transactionId()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -15558,6 +15955,23 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [PurchaseDetails].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .carRental()
+                     * .customerReferenceIdentifier()
+                     * .localTaxAmount()
+                     * .localTaxCurrency()
+                     * .lodging()
+                     * .nationalTaxAmount()
+                     * .nationalTaxCurrency()
+                     * .purchaseIdentifier()
+                     * .purchaseIdentifierFormat()
+                     * .travel()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -16102,6 +16516,29 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [CarRental].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .carClassCode()
+                         * .checkoutDate()
+                         * .dailyRentalRateAmount()
+                         * .dailyRentalRateCurrency()
+                         * .daysRented()
+                         * .extraCharges()
+                         * .fuelChargesAmount()
+                         * .fuelChargesCurrency()
+                         * .insuranceChargesAmount()
+                         * .insuranceChargesCurrency()
+                         * .noShowIndicator()
+                         * .oneWayDropOffChargesAmount()
+                         * .oneWayDropOffChargesCurrency()
+                         * .renterName()
+                         * .weeklyRentalRateAmount()
+                         * .weeklyRentalRateCurrency()
+                         * ```
+                         */
                         @JvmStatic fun builder() = Builder()
                     }
 
@@ -17131,6 +17568,29 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Lodging].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .checkInDate()
+                         * .dailyRoomRateAmount()
+                         * .dailyRoomRateCurrency()
+                         * .extraCharges()
+                         * .folioCashAdvancesAmount()
+                         * .folioCashAdvancesCurrency()
+                         * .foodBeverageChargesAmount()
+                         * .foodBeverageChargesCurrency()
+                         * .noShowIndicator()
+                         * .prepaidExpensesAmount()
+                         * .prepaidExpensesCurrency()
+                         * .roomNights()
+                         * .totalRoomTaxAmount()
+                         * .totalRoomTaxCurrency()
+                         * .totalTaxAmount()
+                         * .totalTaxCurrency()
+                         * ```
+                         */
                         @JvmStatic fun builder() = Builder()
                     }
 
@@ -18213,6 +18673,25 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Travel].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .ancillary()
+                         * .computerizedReservationSystem()
+                         * .creditReasonIndicator()
+                         * .departureDate()
+                         * .originationCityAirportCode()
+                         * .passengerName()
+                         * .restrictedTicketIndicator()
+                         * .ticketChangeIndicator()
+                         * .ticketNumber()
+                         * .travelAgencyCode()
+                         * .travelAgencyName()
+                         * .tripLegs()
+                         * ```
+                         */
                         @JvmStatic fun builder() = Builder()
                     }
 
@@ -18620,6 +19099,19 @@ private constructor(
 
                         companion object {
 
+                            /**
+                             * Returns a mutable builder for constructing an instance of
+                             * [Ancillary].
+                             *
+                             * The following fields are required:
+                             * ```java
+                             * .connectedTicketDocumentNumber()
+                             * .creditReasonIndicator()
+                             * .passengerNameOrDescription()
+                             * .services()
+                             * .ticketDocumentNumber()
+                             * ```
+                             */
                             @JvmStatic fun builder() = Builder()
                         }
 
@@ -18999,6 +19491,16 @@ private constructor(
 
                             companion object {
 
+                                /**
+                                 * Returns a mutable builder for constructing an instance of
+                                 * [Service].
+                                 *
+                                 * The following fields are required:
+                                 * ```java
+                                 * .category()
+                                 * .subCategory()
+                                 * ```
+                                 */
                                 @JvmStatic fun builder() = Builder()
                             }
 
@@ -19977,6 +20479,19 @@ private constructor(
 
                         companion object {
 
+                            /**
+                             * Returns a mutable builder for constructing an instance of [TripLeg].
+                             *
+                             * The following fields are required:
+                             * ```java
+                             * .carrierCode()
+                             * .destinationCityAirportCode()
+                             * .fareBasisCode()
+                             * .flightNumber()
+                             * .serviceClass()
+                             * .stopOverCode()
+                             * ```
+                             */
                             @JvmStatic fun builder() = Builder()
                         }
 
@@ -20725,6 +21240,31 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [CardReversal].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .id()
+                 * .cardAuthorizationId()
+                 * .currency()
+                 * .merchantAcceptorId()
+                 * .merchantCategoryCode()
+                 * .merchantCity()
+                 * .merchantCountry()
+                 * .merchantDescriptor()
+                 * .merchantPostalCode()
+                 * .merchantState()
+                 * .network()
+                 * .networkIdentifiers()
+                 * .pendingTransactionId()
+                 * .reversalAmount()
+                 * .reversalReason()
+                 * .terminalId()
+                 * .type()
+                 * .updatedAuthorizationAmount()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -21391,6 +21931,17 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [NetworkIdentifiers].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .retrievalReferenceNumber()
+                     * .traceNumber()
+                     * .transactionId()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -22115,6 +22666,34 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [CardSettlement].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .id()
+                 * .amount()
+                 * .cardAuthorization()
+                 * .cardPaymentId()
+                 * .cashback()
+                 * .currency()
+                 * .interchange()
+                 * .merchantAcceptorId()
+                 * .merchantCategoryCode()
+                 * .merchantCity()
+                 * .merchantCountry()
+                 * .merchantName()
+                 * .merchantPostalCode()
+                 * .merchantState()
+                 * .networkIdentifiers()
+                 * .pendingTransactionId()
+                 * .presentmentAmount()
+                 * .presentmentCurrency()
+                 * .purchaseDetails()
+                 * .transactionId()
+                 * .type()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -22541,6 +23120,15 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Cashback].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .amount()
+                     * .currency()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -23003,6 +23591,16 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Interchange].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .amount()
+                     * .code()
+                     * .currency()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -23337,6 +23935,17 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [NetworkIdentifiers].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .acquirerBusinessId()
+                     * .acquirerReferenceNumber()
+                     * .transactionId()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -23631,6 +24240,23 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [PurchaseDetails].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .carRental()
+                     * .customerReferenceIdentifier()
+                     * .localTaxAmount()
+                     * .localTaxCurrency()
+                     * .lodging()
+                     * .nationalTaxAmount()
+                     * .nationalTaxCurrency()
+                     * .purchaseIdentifier()
+                     * .purchaseIdentifierFormat()
+                     * .travel()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -24175,6 +24801,29 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [CarRental].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .carClassCode()
+                         * .checkoutDate()
+                         * .dailyRentalRateAmount()
+                         * .dailyRentalRateCurrency()
+                         * .daysRented()
+                         * .extraCharges()
+                         * .fuelChargesAmount()
+                         * .fuelChargesCurrency()
+                         * .insuranceChargesAmount()
+                         * .insuranceChargesCurrency()
+                         * .noShowIndicator()
+                         * .oneWayDropOffChargesAmount()
+                         * .oneWayDropOffChargesCurrency()
+                         * .renterName()
+                         * .weeklyRentalRateAmount()
+                         * .weeklyRentalRateCurrency()
+                         * ```
+                         */
                         @JvmStatic fun builder() = Builder()
                     }
 
@@ -25204,6 +25853,29 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Lodging].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .checkInDate()
+                         * .dailyRoomRateAmount()
+                         * .dailyRoomRateCurrency()
+                         * .extraCharges()
+                         * .folioCashAdvancesAmount()
+                         * .folioCashAdvancesCurrency()
+                         * .foodBeverageChargesAmount()
+                         * .foodBeverageChargesCurrency()
+                         * .noShowIndicator()
+                         * .prepaidExpensesAmount()
+                         * .prepaidExpensesCurrency()
+                         * .roomNights()
+                         * .totalRoomTaxAmount()
+                         * .totalRoomTaxCurrency()
+                         * .totalTaxAmount()
+                         * .totalTaxCurrency()
+                         * ```
+                         */
                         @JvmStatic fun builder() = Builder()
                     }
 
@@ -26286,6 +26958,25 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Travel].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .ancillary()
+                         * .computerizedReservationSystem()
+                         * .creditReasonIndicator()
+                         * .departureDate()
+                         * .originationCityAirportCode()
+                         * .passengerName()
+                         * .restrictedTicketIndicator()
+                         * .ticketChangeIndicator()
+                         * .ticketNumber()
+                         * .travelAgencyCode()
+                         * .travelAgencyName()
+                         * .tripLegs()
+                         * ```
+                         */
                         @JvmStatic fun builder() = Builder()
                     }
 
@@ -26693,6 +27384,19 @@ private constructor(
 
                         companion object {
 
+                            /**
+                             * Returns a mutable builder for constructing an instance of
+                             * [Ancillary].
+                             *
+                             * The following fields are required:
+                             * ```java
+                             * .connectedTicketDocumentNumber()
+                             * .creditReasonIndicator()
+                             * .passengerNameOrDescription()
+                             * .services()
+                             * .ticketDocumentNumber()
+                             * ```
+                             */
                             @JvmStatic fun builder() = Builder()
                         }
 
@@ -27072,6 +27776,16 @@ private constructor(
 
                             companion object {
 
+                                /**
+                                 * Returns a mutable builder for constructing an instance of
+                                 * [Service].
+                                 *
+                                 * The following fields are required:
+                                 * ```java
+                                 * .category()
+                                 * .subCategory()
+                                 * ```
+                                 */
                                 @JvmStatic fun builder() = Builder()
                             }
 
@@ -28050,6 +28764,19 @@ private constructor(
 
                         companion object {
 
+                            /**
+                             * Returns a mutable builder for constructing an instance of [TripLeg].
+                             *
+                             * The following fields are required:
+                             * ```java
+                             * .carrierCode()
+                             * .destinationCityAirportCode()
+                             * .fareBasisCode()
+                             * .flightNumber()
+                             * .serviceClass()
+                             * .stopOverCode()
+                             * ```
+                             */
                             @JvmStatic fun builder() = Builder()
                         }
 
@@ -28840,6 +29567,33 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [CardValidation].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .id()
+                 * .actioner()
+                 * .cardPaymentId()
+                 * .currency()
+                 * .digitalWalletTokenId()
+                 * .merchantAcceptorId()
+                 * .merchantCategoryCode()
+                 * .merchantCity()
+                 * .merchantCountry()
+                 * .merchantDescriptor()
+                 * .merchantPostalCode()
+                 * .merchantState()
+                 * .networkDetails()
+                 * .networkIdentifiers()
+                 * .networkRiskScore()
+                 * .physicalCardId()
+                 * .realTimeDecisionId()
+                 * .terminalId()
+                 * .type()
+                 * .verification()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -29553,6 +30307,15 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [NetworkDetails].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .category()
+                     * .visa()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -29819,6 +30582,16 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Visa].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .electronicCommerceIndicator()
+                         * .pointOfServiceEntryMode()
+                         * .standInProcessingReason()
+                         * ```
+                         */
                         @JvmStatic fun builder() = Builder()
                     }
 
@@ -30812,6 +31585,17 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [NetworkIdentifiers].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .retrievalReferenceNumber()
+                     * .traceNumber()
+                     * .transactionId()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -31118,6 +31902,15 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Verification].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .cardVerificationCode()
+                     * .cardholderAddress()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -31237,6 +32030,15 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of
+                         * [CardVerificationCode].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .result()
+                         * ```
+                         */
                         @JvmStatic fun builder() = Builder()
                     }
 
@@ -31537,6 +32339,19 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of
+                         * [CardholderAddress].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .actualLine1()
+                         * .actualPostalCode()
+                         * .providedLine1()
+                         * .providedPostalCode()
+                         * .result()
+                         * ```
+                         */
                         @JvmStatic fun builder() = Builder()
                     }
 
@@ -32232,6 +33047,18 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [State].
+             *
+             * The following fields are required:
+             * ```java
+             * .authorizedAmount()
+             * .fuelConfirmedAmount()
+             * .incrementedAmount()
+             * .reversedAmount()
+             * .settledAmount()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 

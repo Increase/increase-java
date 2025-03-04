@@ -580,6 +580,16 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```java
+             * .accountId()
+             * .amount()
+             * .statementDescriptor()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -935,6 +945,16 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [AchTransferCreateParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .accountId()
+         * .amount()
+         * .statementDescriptor()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -1395,6 +1415,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Addenda].
+             *
+             * The following fields are required:
+             * ```java
+             * .category()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -1636,6 +1664,14 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [Freeform].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .entries()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -1747,6 +1783,14 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Entry].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .paymentRelatedInformation()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -1879,6 +1923,15 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [PaymentOrderRemittanceAdvice].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .invoices()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -2001,6 +2054,15 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Invoice].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .invoiceNumber()
+                     * .paidAmount()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -2422,6 +2484,9 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [PreferredEffectiveDate].
+             */
             @JvmStatic fun builder() = Builder()
         }
 

@@ -57,6 +57,10 @@ private constructor(
 
         @JvmStatic fun none(): CardPurchaseSupplementListParams = builder().build()
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [CardPurchaseSupplementListParams].
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -279,6 +283,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [CreatedAt]. */
             @JvmStatic fun builder() = Builder()
         }
 

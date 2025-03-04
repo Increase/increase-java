@@ -128,6 +128,19 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [IntrafiBalance].
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .balances()
+         * .currency()
+         * .effectiveDate()
+         * .totalBalance()
+         * .type()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -341,6 +354,18 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Balance].
+             *
+             * The following fields are required:
+             * ```java
+             * .id()
+             * .balance()
+             * .bank()
+             * .bankLocation()
+             * .fdicCertificateNumber()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -489,6 +514,15 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [BankLocation].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .city()
+                 * .state()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 

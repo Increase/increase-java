@@ -140,6 +140,20 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [OAuthConnection].
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .createdAt()
+         * .deletedAt()
+         * .groupId()
+         * .oauthApplicationId()
+         * .status()
+         * .type()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

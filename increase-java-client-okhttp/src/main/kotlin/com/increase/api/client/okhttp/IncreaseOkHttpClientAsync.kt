@@ -18,6 +18,9 @@ class IncreaseOkHttpClientAsync private constructor() {
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [IncreaseOkHttpClientAsync].
+         */
         @JvmStatic fun builder() = Builder()
 
         @JvmStatic fun fromEnv(): IncreaseClientAsync = builder().fromEnv().build()

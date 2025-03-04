@@ -138,6 +138,10 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [DeclinedTransactionListPage].
+             */
             @JvmStatic fun builder() = Builder()
         }
 

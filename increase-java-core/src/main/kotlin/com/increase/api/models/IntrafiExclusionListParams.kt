@@ -58,6 +58,9 @@ private constructor(
 
         @JvmStatic fun none(): IntrafiExclusionListParams = builder().build()
 
+        /**
+         * Returns a mutable builder for constructing an instance of [IntrafiExclusionListParams].
+         */
         @JvmStatic fun builder() = Builder()
     }
 

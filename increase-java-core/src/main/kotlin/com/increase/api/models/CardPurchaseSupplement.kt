@@ -120,6 +120,19 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [CardPurchaseSupplement].
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .cardPaymentId()
+         * .invoice()
+         * .lineItems()
+         * .transactionId()
+         * .type()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -487,6 +500,29 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Invoice].
+             *
+             * The following fields are required:
+             * ```java
+             * .discountAmount()
+             * .discountCurrency()
+             * .discountTreatmentCode()
+             * .dutyTaxAmount()
+             * .dutyTaxCurrency()
+             * .orderDate()
+             * .shippingAmount()
+             * .shippingCurrency()
+             * .shippingDestinationCountryCode()
+             * .shippingDestinationPostalCode()
+             * .shippingSourcePostalCode()
+             * .shippingTaxAmount()
+             * .shippingTaxCurrency()
+             * .shippingTaxRate()
+             * .taxTreatments()
+             * .uniqueValueAddedTaxInvoiceReference()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -1346,6 +1382,30 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [LineItem].
+             *
+             * The following fields are required:
+             * ```java
+             * .id()
+             * .detailIndicator()
+             * .discountAmount()
+             * .discountCurrency()
+             * .discountTreatmentCode()
+             * .itemCommodityCode()
+             * .itemDescriptor()
+             * .itemQuantity()
+             * .productCode()
+             * .salesTaxAmount()
+             * .salesTaxCurrency()
+             * .salesTaxRate()
+             * .totalAmount()
+             * .totalAmountCurrency()
+             * .unitCost()
+             * .unitCostCurrency()
+             * .unitOfMeasureCode()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 

@@ -62,6 +62,10 @@ private constructor(
 
         @JvmStatic fun none(): WireDrawdownRequestListParams = builder().build()
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [WireDrawdownRequestListParams].
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -259,6 +263,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Status]. */
             @JvmStatic fun builder() = Builder()
         }
 

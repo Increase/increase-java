@@ -49,6 +49,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [IntrafiAccountEnrollmentUnenrollParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .intrafiAccountEnrollmentId()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

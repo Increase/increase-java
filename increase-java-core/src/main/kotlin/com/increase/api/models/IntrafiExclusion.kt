@@ -180,6 +180,23 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [IntrafiExclusion].
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .bankName()
+         * .createdAt()
+         * .entityId()
+         * .excludedAt()
+         * .fdicCertificateNumber()
+         * .idempotencyKey()
+         * .status()
+         * .submittedAt()
+         * .type()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

@@ -70,6 +70,7 @@ private constructor(
 
         @JvmStatic fun none(): EntityListParams = builder().build()
 
+        /** Returns a mutable builder for constructing an instance of [EntityListParams]. */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -307,6 +308,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [CreatedAt]. */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -469,6 +471,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Status]. */
             @JvmStatic fun builder() = Builder()
         }
 

@@ -74,6 +74,7 @@ private constructor(
 
         @JvmStatic fun none(): ExportListParams = builder().build()
 
+        /** Returns a mutable builder for constructing an instance of [ExportListParams]. */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -285,6 +286,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Category]. */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -613,6 +615,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [CreatedAt]. */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -775,6 +778,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Status]. */
             @JvmStatic fun builder() = Builder()
         }
 
