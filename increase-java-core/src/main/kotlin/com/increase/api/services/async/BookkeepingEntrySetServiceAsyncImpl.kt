@@ -10,6 +10,8 @@ import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
+import com.increase.api.core.http.HttpResponseFor
+import com.increase.api.core.http.parseable
 import com.increase.api.core.json
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
@@ -23,92 +25,135 @@ import java.util.concurrent.CompletableFuture
 class BookkeepingEntrySetServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : BookkeepingEntrySetServiceAsync {
 
-    private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+    private val withRawResponse: BookkeepingEntrySetServiceAsync.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
 
-    private val createHandler: Handler<BookkeepingEntrySet> =
-        jsonHandler<BookkeepingEntrySet>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+    override fun withRawResponse(): BookkeepingEntrySetServiceAsync.WithRawResponse =
+        withRawResponse
 
-    /** Create a Bookkeeping Entry Set */
     override fun create(
         params: BookkeepingEntrySetCreateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<BookkeepingEntrySet> {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.POST)
-                .addPathSegments("bookkeeping_entry_sets")
-                .body(json(clientOptions.jsonMapper, params._body()))
-                .build()
-                .prepareAsync(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        return request
-            .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-            .thenApply { response ->
-                response
-                    .use { createHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-    }
+    ): CompletableFuture<BookkeepingEntrySet> =
+        // post /bookkeeping_entry_sets
+        withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
-    private val retrieveHandler: Handler<BookkeepingEntrySet> =
-        jsonHandler<BookkeepingEntrySet>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
-
-    /** Retrieve a Bookkeeping Entry Set */
     override fun retrieve(
         params: BookkeepingEntrySetRetrieveParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<BookkeepingEntrySet> {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.GET)
-                .addPathSegments("bookkeeping_entry_sets", params.getPathParam(0))
-                .build()
-                .prepareAsync(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        return request
-            .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-            .thenApply { response ->
-                response
-                    .use { retrieveHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-    }
+    ): CompletableFuture<BookkeepingEntrySet> =
+        // get /bookkeeping_entry_sets/{bookkeeping_entry_set_id}
+        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
 
-    private val listHandler: Handler<BookkeepingEntrySetListPageAsync.Response> =
-        jsonHandler<BookkeepingEntrySetListPageAsync.Response>(clientOptions.jsonMapper)
-            .withErrorHandler(errorHandler)
-
-    /** List Bookkeeping Entry Sets */
     override fun list(
         params: BookkeepingEntrySetListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<BookkeepingEntrySetListPageAsync> {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.GET)
-                .addPathSegments("bookkeeping_entry_sets")
-                .build()
-                .prepareAsync(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        return request
-            .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-            .thenApply { response ->
-                response
-                    .use { listHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
+    ): CompletableFuture<BookkeepingEntrySetListPageAsync> =
+        // get /bookkeeping_entry_sets
+        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        BookkeepingEntrySetServiceAsync.WithRawResponse {
+
+        private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+
+        private val createHandler: Handler<BookkeepingEntrySet> =
+            jsonHandler<BookkeepingEntrySet>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
+
+        override fun create(
+            params: BookkeepingEntrySetCreateParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<BookkeepingEntrySet>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments("bookkeeping_entry_sets")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    response.parseable {
+                        response
+                            .use { createHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
                     }
-                    .let { BookkeepingEntrySetListPageAsync.of(this, params, it) }
-            }
+                }
+        }
+
+        private val retrieveHandler: Handler<BookkeepingEntrySet> =
+            jsonHandler<BookkeepingEntrySet>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
+
+        override fun retrieve(
+            params: BookkeepingEntrySetRetrieveParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<BookkeepingEntrySet>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("bookkeeping_entry_sets", params.getPathParam(0))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    response.parseable {
+                        response
+                            .use { retrieveHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val listHandler: Handler<BookkeepingEntrySetListPageAsync.Response> =
+            jsonHandler<BookkeepingEntrySetListPageAsync.Response>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
+
+        override fun list(
+            params: BookkeepingEntrySetListParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<BookkeepingEntrySetListPageAsync>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("bookkeeping_entry_sets")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    response.parseable {
+                        response
+                            .use { listHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                            .let {
+                                BookkeepingEntrySetListPageAsync.of(
+                                    BookkeepingEntrySetServiceAsyncImpl(clientOptions),
+                                    params,
+                                    it,
+                                )
+                            }
+                    }
+                }
+        }
     }
 }

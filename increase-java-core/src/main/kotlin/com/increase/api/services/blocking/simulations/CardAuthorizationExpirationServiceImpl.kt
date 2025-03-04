@@ -10,6 +10,8 @@ import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
+import com.increase.api.core.http.HttpResponseFor
+import com.increase.api.core.http.parseable
 import com.increase.api.core.json
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
@@ -20,31 +22,50 @@ class CardAuthorizationExpirationServiceImpl
 internal constructor(private val clientOptions: ClientOptions) :
     CardAuthorizationExpirationService {
 
-    private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+    private val withRawResponse: CardAuthorizationExpirationService.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
 
-    private val createHandler: Handler<CardPayment> =
-        jsonHandler<CardPayment>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+    override fun withRawResponse(): CardAuthorizationExpirationService.WithRawResponse =
+        withRawResponse
 
-    /** Simulates expiring a Card Authorization immediately. */
     override fun create(
         params: SimulationCardAuthorizationExpirationCreateParams,
         requestOptions: RequestOptions,
-    ): CardPayment {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.POST)
-                .addPathSegments("simulations", "card_authorization_expirations")
-                .body(json(clientOptions.jsonMapper, params._body()))
-                .build()
-                .prepare(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        val response = clientOptions.httpClient.execute(request, requestOptions)
-        return response
-            .use { createHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation!!) {
-                    it.validate()
-                }
+    ): CardPayment =
+        // post /simulations/card_authorization_expirations
+        withRawResponse().create(params, requestOptions).parse()
+
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        CardAuthorizationExpirationService.WithRawResponse {
+
+        private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+
+        private val createHandler: Handler<CardPayment> =
+            jsonHandler<CardPayment>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+        override fun create(
+            params: SimulationCardAuthorizationExpirationCreateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<CardPayment> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments("simulations", "card_authorization_expirations")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { createHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
             }
+        }
     }
 }

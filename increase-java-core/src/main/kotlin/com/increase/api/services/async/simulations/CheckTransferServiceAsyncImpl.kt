@@ -10,6 +10,8 @@ import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
+import com.increase.api.core.http.HttpResponseFor
+import com.increase.api.core.http.parseable
 import com.increase.api.core.json
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
@@ -20,38 +22,57 @@ import java.util.concurrent.CompletableFuture
 class CheckTransferServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     CheckTransferServiceAsync {
 
-    private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+    private val withRawResponse: CheckTransferServiceAsync.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
 
-    private val mailHandler: Handler<CheckTransfer> =
-        jsonHandler<CheckTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+    override fun withRawResponse(): CheckTransferServiceAsync.WithRawResponse = withRawResponse
 
-    /**
-     * Simulates the mailing of a [Check Transfer](#check-transfers), which happens periodically
-     * throughout the day in production but can be sped up in sandbox. This transfer must first have
-     * a `status` of `pending_approval` or `pending_submission`.
-     */
     override fun mail(
         params: SimulationCheckTransferMailParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CheckTransfer> {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.POST)
-                .addPathSegments("simulations", "check_transfers", params.getPathParam(0), "mail")
-                .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
-                .build()
-                .prepareAsync(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        return request
-            .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-            .thenApply { response ->
-                response
-                    .use { mailHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
+    ): CompletableFuture<CheckTransfer> =
+        // post /simulations/check_transfers/{check_transfer_id}/mail
+        withRawResponse().mail(params, requestOptions).thenApply { it.parse() }
+
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        CheckTransferServiceAsync.WithRawResponse {
+
+        private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+
+        private val mailHandler: Handler<CheckTransfer> =
+            jsonHandler<CheckTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+        override fun mail(
+            params: SimulationCheckTransferMailParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<CheckTransfer>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments(
+                        "simulations",
+                        "check_transfers",
+                        params.getPathParam(0),
+                        "mail",
+                    )
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    response.parseable {
+                        response
+                            .use { mailHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
                     }
-            }
+                }
+        }
     }
 }

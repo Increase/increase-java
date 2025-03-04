@@ -4,7 +4,9 @@
 
 package com.increase.api.services.blocking
 
+import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.CheckTransfer
 import com.increase.api.models.CheckTransferApproveParams
 import com.increase.api.models.CheckTransferCancelParams
@@ -15,6 +17,11 @@ import com.increase.api.models.CheckTransferRetrieveParams
 import com.increase.api.models.CheckTransferStopPaymentParams
 
 interface CheckTransferService {
+
+    /**
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     */
+    fun withRawResponse(): WithRawResponse
 
     /** Create a Check Transfer */
     @JvmOverloads
@@ -61,4 +68,84 @@ interface CheckTransferService {
         params: CheckTransferStopPaymentParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckTransfer
+
+    /**
+     * A view of [CheckTransferService] that provides access to raw HTTP responses for each method.
+     */
+    interface WithRawResponse {
+
+        /**
+         * Returns a raw HTTP response for `post /check_transfers`, but is otherwise the same as
+         * [CheckTransferService.create].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: CheckTransferCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CheckTransfer>
+
+        /**
+         * Returns a raw HTTP response for `get /check_transfers/{check_transfer_id}`, but is
+         * otherwise the same as [CheckTransferService.retrieve].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: CheckTransferRetrieveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CheckTransfer>
+
+        /**
+         * Returns a raw HTTP response for `get /check_transfers`, but is otherwise the same as
+         * [CheckTransferService.list].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun list(
+            params: CheckTransferListParams = CheckTransferListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CheckTransferListPage>
+
+        /**
+         * Returns a raw HTTP response for `get /check_transfers`, but is otherwise the same as
+         * [CheckTransferService.list].
+         */
+        @MustBeClosed
+        fun list(requestOptions: RequestOptions): HttpResponseFor<CheckTransferListPage> =
+            list(CheckTransferListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /check_transfers/{check_transfer_id}/approve`, but
+         * is otherwise the same as [CheckTransferService.approve].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun approve(
+            params: CheckTransferApproveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CheckTransfer>
+
+        /**
+         * Returns a raw HTTP response for `post /check_transfers/{check_transfer_id}/cancel`, but
+         * is otherwise the same as [CheckTransferService.cancel].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun cancel(
+            params: CheckTransferCancelParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CheckTransfer>
+
+        /**
+         * Returns a raw HTTP response for `post /check_transfers/{check_transfer_id}/stop_payment`,
+         * but is otherwise the same as [CheckTransferService.stopPayment].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun stopPayment(
+            params: CheckTransferStopPaymentParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CheckTransfer>
+    }
 }

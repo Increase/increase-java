@@ -82,6 +82,11 @@ interface IncreaseClientAsync {
      */
     fun sync(): IncreaseClient
 
+    /**
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     */
+    fun withRawResponse(): WithRawResponse
+
     fun accounts(): AccountServiceAsync
 
     fun accountNumbers(): AccountNumberServiceAsync
@@ -204,4 +209,121 @@ interface IncreaseClientAsync {
      * method.
      */
     fun close()
+
+    /**
+     * A view of [IncreaseClientAsync] that provides access to raw HTTP responses for each method.
+     */
+    interface WithRawResponse {
+
+        fun accounts(): AccountServiceAsync.WithRawResponse
+
+        fun accountNumbers(): AccountNumberServiceAsync.WithRawResponse
+
+        fun cards(): CardServiceAsync.WithRawResponse
+
+        fun cardPayments(): CardPaymentServiceAsync.WithRawResponse
+
+        fun cardPurchaseSupplements(): CardPurchaseSupplementServiceAsync.WithRawResponse
+
+        fun cardDisputes(): CardDisputeServiceAsync.WithRawResponse
+
+        fun physicalCards(): PhysicalCardServiceAsync.WithRawResponse
+
+        fun digitalCardProfiles(): DigitalCardProfileServiceAsync.WithRawResponse
+
+        fun physicalCardProfiles(): PhysicalCardProfileServiceAsync.WithRawResponse
+
+        fun digitalWalletTokens(): DigitalWalletTokenServiceAsync.WithRawResponse
+
+        fun transactions(): TransactionServiceAsync.WithRawResponse
+
+        fun pendingTransactions(): PendingTransactionServiceAsync.WithRawResponse
+
+        fun declinedTransactions(): DeclinedTransactionServiceAsync.WithRawResponse
+
+        fun accountTransfers(): AccountTransferServiceAsync.WithRawResponse
+
+        fun achTransfers(): AchTransferServiceAsync.WithRawResponse
+
+        fun achPrenotifications(): AchPrenotificationServiceAsync.WithRawResponse
+
+        fun inboundAchTransfers(): InboundAchTransferServiceAsync.WithRawResponse
+
+        fun wireTransfers(): WireTransferServiceAsync.WithRawResponse
+
+        fun inboundWireTransfers(): InboundWireTransferServiceAsync.WithRawResponse
+
+        fun wireDrawdownRequests(): WireDrawdownRequestServiceAsync.WithRawResponse
+
+        fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestServiceAsync.WithRawResponse
+
+        fun checkTransfers(): CheckTransferServiceAsync.WithRawResponse
+
+        fun inboundCheckDeposits(): InboundCheckDepositServiceAsync.WithRawResponse
+
+        fun realTimePaymentsTransfers(): RealTimePaymentsTransferServiceAsync.WithRawResponse
+
+        fun inboundRealTimePaymentsTransfers():
+            InboundRealTimePaymentsTransferServiceAsync.WithRawResponse
+
+        fun checkDeposits(): CheckDepositServiceAsync.WithRawResponse
+
+        fun lockboxes(): LockboxServiceAsync.WithRawResponse
+
+        fun inboundMailItems(): InboundMailItemServiceAsync.WithRawResponse
+
+        fun routingNumbers(): RoutingNumberServiceAsync.WithRawResponse
+
+        fun externalAccounts(): ExternalAccountServiceAsync.WithRawResponse
+
+        fun entities(): EntityServiceAsync.WithRawResponse
+
+        fun supplementalDocuments(): SupplementalDocumentServiceAsync.WithRawResponse
+
+        fun programs(): ProgramServiceAsync.WithRawResponse
+
+        fun proofOfAuthorizationRequests(): ProofOfAuthorizationRequestServiceAsync.WithRawResponse
+
+        fun proofOfAuthorizationRequestSubmissions():
+            ProofOfAuthorizationRequestSubmissionServiceAsync.WithRawResponse
+
+        fun accountStatements(): AccountStatementServiceAsync.WithRawResponse
+
+        fun files(): FileServiceAsync.WithRawResponse
+
+        fun documents(): DocumentServiceAsync.WithRawResponse
+
+        fun exports(): ExportServiceAsync.WithRawResponse
+
+        fun events(): EventServiceAsync.WithRawResponse
+
+        fun eventSubscriptions(): EventSubscriptionServiceAsync.WithRawResponse
+
+        fun realTimeDecisions(): RealTimeDecisionServiceAsync.WithRawResponse
+
+        fun bookkeepingAccounts(): BookkeepingAccountServiceAsync.WithRawResponse
+
+        fun bookkeepingEntrySets(): BookkeepingEntrySetServiceAsync.WithRawResponse
+
+        fun bookkeepingEntries(): BookkeepingEntryServiceAsync.WithRawResponse
+
+        fun groups(): GroupServiceAsync.WithRawResponse
+
+        fun oauthApplications(): OAuthApplicationServiceAsync.WithRawResponse
+
+        fun oauthConnections(): OAuthConnectionServiceAsync.WithRawResponse
+
+        fun oauthTokens(): OAuthTokenServiceAsync.WithRawResponse
+
+        fun intrafiAccountEnrollments(): IntrafiAccountEnrollmentServiceAsync.WithRawResponse
+
+        fun intrafiBalances(): IntrafiBalanceServiceAsync.WithRawResponse
+
+        fun intrafiExclusions(): IntrafiExclusionServiceAsync.WithRawResponse
+
+        fun realTimePaymentsRequestForPayments():
+            RealTimePaymentsRequestForPaymentServiceAsync.WithRawResponse
+
+        fun simulations(): SimulationServiceAsync.WithRawResponse
+    }
 }

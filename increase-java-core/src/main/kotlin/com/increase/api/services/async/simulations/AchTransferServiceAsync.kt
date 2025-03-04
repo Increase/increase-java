@@ -4,7 +4,9 @@
 
 package com.increase.api.services.async.simulations
 
+import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.AchTransfer
 import com.increase.api.models.SimulationAchTransferAcknowledgeParams
 import com.increase.api.models.SimulationAchTransferCreateNotificationOfChangeParams
@@ -14,6 +16,11 @@ import com.increase.api.models.SimulationAchTransferSubmitParams
 import java.util.concurrent.CompletableFuture
 
 interface AchTransferServiceAsync {
+
+    /**
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     */
+    fun withRawResponse(): WithRawResponse
 
     /**
      * Simulates the acknowledgement of an [ACH Transfer](#ach-transfers) by the Federal Reserve.
@@ -69,4 +76,71 @@ interface AchTransferServiceAsync {
         params: SimulationAchTransferSubmitParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AchTransfer>
+
+    /**
+     * A view of [AchTransferServiceAsync] that provides access to raw HTTP responses for each
+     * method.
+     */
+    interface WithRawResponse {
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /simulations/ach_transfers/{ach_transfer_id}/acknowledge`, but is otherwise the same as
+         * [AchTransferServiceAsync.acknowledge].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun acknowledge(
+            params: SimulationAchTransferAcknowledgeParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<AchTransfer>>
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /simulations/ach_transfers/{ach_transfer_id}/create_notification_of_change`, but is
+         * otherwise the same as [AchTransferServiceAsync.createNotificationOfChange].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun createNotificationOfChange(
+            params: SimulationAchTransferCreateNotificationOfChangeParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<AchTransfer>>
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /simulations/ach_transfers/{ach_transfer_id}/return`, but is otherwise the same as
+         * [AchTransferServiceAsync.return_].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun return_(
+            params: SimulationAchTransferReturnParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<AchTransfer>>
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /simulations/ach_transfers/{ach_transfer_id}/settle`, but is otherwise the same as
+         * [AchTransferServiceAsync.settle].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun settle(
+            params: SimulationAchTransferSettleParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<AchTransfer>>
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /simulations/ach_transfers/{ach_transfer_id}/submit`, but is otherwise the same as
+         * [AchTransferServiceAsync.submit].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun submit(
+            params: SimulationAchTransferSubmitParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<AchTransfer>>
+    }
 }

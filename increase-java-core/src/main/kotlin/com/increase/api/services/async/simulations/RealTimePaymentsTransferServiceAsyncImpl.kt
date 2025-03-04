@@ -10,6 +10,8 @@ import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
+import com.increase.api.core.http.HttpResponseFor
+import com.increase.api.core.http.parseable
 import com.increase.api.core.json
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
@@ -21,44 +23,59 @@ class RealTimePaymentsTransferServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) :
     RealTimePaymentsTransferServiceAsync {
 
-    private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+    private val withRawResponse: RealTimePaymentsTransferServiceAsync.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
 
-    private val completeHandler: Handler<RealTimePaymentsTransfer> =
-        jsonHandler<RealTimePaymentsTransfer>(clientOptions.jsonMapper)
-            .withErrorHandler(errorHandler)
+    override fun withRawResponse(): RealTimePaymentsTransferServiceAsync.WithRawResponse =
+        withRawResponse
 
-    /**
-     * Simulates submission of a [Real-Time Payments Transfer](#real-time-payments-transfers) and
-     * handling the response from the destination financial institution. This transfer must first
-     * have a `status` of `pending_submission`.
-     */
     override fun complete(
         params: SimulationRealTimePaymentsTransferCompleteParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<RealTimePaymentsTransfer> {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.POST)
-                .addPathSegments(
-                    "simulations",
-                    "real_time_payments_transfers",
-                    params.getPathParam(0),
-                    "complete",
-                )
-                .body(json(clientOptions.jsonMapper, params._body()))
-                .build()
-                .prepareAsync(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        return request
-            .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-            .thenApply { response ->
-                response
-                    .use { completeHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
+    ): CompletableFuture<RealTimePaymentsTransfer> =
+        // post /simulations/real_time_payments_transfers/{real_time_payments_transfer_id}/complete
+        withRawResponse().complete(params, requestOptions).thenApply { it.parse() }
+
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        RealTimePaymentsTransferServiceAsync.WithRawResponse {
+
+        private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+
+        private val completeHandler: Handler<RealTimePaymentsTransfer> =
+            jsonHandler<RealTimePaymentsTransfer>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
+
+        override fun complete(
+            params: SimulationRealTimePaymentsTransferCompleteParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments(
+                        "simulations",
+                        "real_time_payments_transfers",
+                        params.getPathParam(0),
+                        "complete",
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    response.parseable {
+                        response
+                            .use { completeHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
                     }
-            }
+                }
+        }
     }
 }

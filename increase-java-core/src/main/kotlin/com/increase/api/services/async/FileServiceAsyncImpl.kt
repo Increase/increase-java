@@ -10,6 +10,8 @@ import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
+import com.increase.api.core.http.HttpResponseFor
+import com.increase.api.core.http.parseable
 import com.increase.api.core.multipartFormData
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
@@ -23,96 +25,132 @@ import java.util.concurrent.CompletableFuture
 class FileServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     FileServiceAsync {
 
-    private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+    private val withRawResponse: FileServiceAsync.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
 
-    private val createHandler: Handler<File> =
-        jsonHandler<File>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+    override fun withRawResponse(): FileServiceAsync.WithRawResponse = withRawResponse
 
-    /**
-     * To upload a file to Increase, you'll need to send a request of Content-Type
-     * `multipart/form-data`. The request should contain the file you would like to upload, as well
-     * as the parameters for creating a file.
-     */
     override fun create(
         params: FileCreateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<File> {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.POST)
-                .addPathSegments("files")
-                .body(multipartFormData(clientOptions.jsonMapper, params._body()))
-                .build()
-                .prepareAsync(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        return request
-            .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-            .thenApply { response ->
-                response
-                    .use { createHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-    }
+    ): CompletableFuture<File> =
+        // post /files
+        withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
-    private val retrieveHandler: Handler<File> =
-        jsonHandler<File>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
-
-    /** Retrieve a File */
     override fun retrieve(
         params: FileRetrieveParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<File> {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.GET)
-                .addPathSegments("files", params.getPathParam(0))
-                .build()
-                .prepareAsync(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        return request
-            .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-            .thenApply { response ->
-                response
-                    .use { retrieveHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-    }
+    ): CompletableFuture<File> =
+        // get /files/{file_id}
+        withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
 
-    private val listHandler: Handler<FileListPageAsync.Response> =
-        jsonHandler<FileListPageAsync.Response>(clientOptions.jsonMapper)
-            .withErrorHandler(errorHandler)
-
-    /** List Files */
     override fun list(
         params: FileListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<FileListPageAsync> {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.GET)
-                .addPathSegments("files")
-                .build()
-                .prepareAsync(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        return request
-            .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-            .thenApply { response ->
-                response
-                    .use { listHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
+    ): CompletableFuture<FileListPageAsync> =
+        // get /files
+        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        FileServiceAsync.WithRawResponse {
+
+        private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+
+        private val createHandler: Handler<File> =
+            jsonHandler<File>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+        override fun create(
+            params: FileCreateParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<File>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments("files")
+                    .body(multipartFormData(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    response.parseable {
+                        response
+                            .use { createHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
                     }
-                    .let { FileListPageAsync.of(this, params, it) }
-            }
+                }
+        }
+
+        private val retrieveHandler: Handler<File> =
+            jsonHandler<File>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+        override fun retrieve(
+            params: FileRetrieveParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<File>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("files", params.getPathParam(0))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    response.parseable {
+                        response
+                            .use { retrieveHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val listHandler: Handler<FileListPageAsync.Response> =
+            jsonHandler<FileListPageAsync.Response>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
+
+        override fun list(
+            params: FileListParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<FileListPageAsync>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("files")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    response.parseable {
+                        response
+                            .use { listHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                            .let {
+                                FileListPageAsync.of(
+                                    FileServiceAsyncImpl(clientOptions),
+                                    params,
+                                    it,
+                                )
+                            }
+                    }
+                }
+        }
     }
 }

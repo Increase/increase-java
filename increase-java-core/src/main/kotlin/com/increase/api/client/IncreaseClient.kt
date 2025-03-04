@@ -82,6 +82,11 @@ interface IncreaseClient {
      */
     fun async(): IncreaseClientAsync
 
+    /**
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     */
+    fun withRawResponse(): WithRawResponse
+
     fun accounts(): AccountService
 
     fun accountNumbers(): AccountNumberService
@@ -204,4 +209,119 @@ interface IncreaseClient {
      * method.
      */
     fun close()
+
+    /** A view of [IncreaseClient] that provides access to raw HTTP responses for each method. */
+    interface WithRawResponse {
+
+        fun accounts(): AccountService.WithRawResponse
+
+        fun accountNumbers(): AccountNumberService.WithRawResponse
+
+        fun cards(): CardService.WithRawResponse
+
+        fun cardPayments(): CardPaymentService.WithRawResponse
+
+        fun cardPurchaseSupplements(): CardPurchaseSupplementService.WithRawResponse
+
+        fun cardDisputes(): CardDisputeService.WithRawResponse
+
+        fun physicalCards(): PhysicalCardService.WithRawResponse
+
+        fun digitalCardProfiles(): DigitalCardProfileService.WithRawResponse
+
+        fun physicalCardProfiles(): PhysicalCardProfileService.WithRawResponse
+
+        fun digitalWalletTokens(): DigitalWalletTokenService.WithRawResponse
+
+        fun transactions(): TransactionService.WithRawResponse
+
+        fun pendingTransactions(): PendingTransactionService.WithRawResponse
+
+        fun declinedTransactions(): DeclinedTransactionService.WithRawResponse
+
+        fun accountTransfers(): AccountTransferService.WithRawResponse
+
+        fun achTransfers(): AchTransferService.WithRawResponse
+
+        fun achPrenotifications(): AchPrenotificationService.WithRawResponse
+
+        fun inboundAchTransfers(): InboundAchTransferService.WithRawResponse
+
+        fun wireTransfers(): WireTransferService.WithRawResponse
+
+        fun inboundWireTransfers(): InboundWireTransferService.WithRawResponse
+
+        fun wireDrawdownRequests(): WireDrawdownRequestService.WithRawResponse
+
+        fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestService.WithRawResponse
+
+        fun checkTransfers(): CheckTransferService.WithRawResponse
+
+        fun inboundCheckDeposits(): InboundCheckDepositService.WithRawResponse
+
+        fun realTimePaymentsTransfers(): RealTimePaymentsTransferService.WithRawResponse
+
+        fun inboundRealTimePaymentsTransfers():
+            InboundRealTimePaymentsTransferService.WithRawResponse
+
+        fun checkDeposits(): CheckDepositService.WithRawResponse
+
+        fun lockboxes(): LockboxService.WithRawResponse
+
+        fun inboundMailItems(): InboundMailItemService.WithRawResponse
+
+        fun routingNumbers(): RoutingNumberService.WithRawResponse
+
+        fun externalAccounts(): ExternalAccountService.WithRawResponse
+
+        fun entities(): EntityService.WithRawResponse
+
+        fun supplementalDocuments(): SupplementalDocumentService.WithRawResponse
+
+        fun programs(): ProgramService.WithRawResponse
+
+        fun proofOfAuthorizationRequests(): ProofOfAuthorizationRequestService.WithRawResponse
+
+        fun proofOfAuthorizationRequestSubmissions():
+            ProofOfAuthorizationRequestSubmissionService.WithRawResponse
+
+        fun accountStatements(): AccountStatementService.WithRawResponse
+
+        fun files(): FileService.WithRawResponse
+
+        fun documents(): DocumentService.WithRawResponse
+
+        fun exports(): ExportService.WithRawResponse
+
+        fun events(): EventService.WithRawResponse
+
+        fun eventSubscriptions(): EventSubscriptionService.WithRawResponse
+
+        fun realTimeDecisions(): RealTimeDecisionService.WithRawResponse
+
+        fun bookkeepingAccounts(): BookkeepingAccountService.WithRawResponse
+
+        fun bookkeepingEntrySets(): BookkeepingEntrySetService.WithRawResponse
+
+        fun bookkeepingEntries(): BookkeepingEntryService.WithRawResponse
+
+        fun groups(): GroupService.WithRawResponse
+
+        fun oauthApplications(): OAuthApplicationService.WithRawResponse
+
+        fun oauthConnections(): OAuthConnectionService.WithRawResponse
+
+        fun oauthTokens(): OAuthTokenService.WithRawResponse
+
+        fun intrafiAccountEnrollments(): IntrafiAccountEnrollmentService.WithRawResponse
+
+        fun intrafiBalances(): IntrafiBalanceService.WithRawResponse
+
+        fun intrafiExclusions(): IntrafiExclusionService.WithRawResponse
+
+        fun realTimePaymentsRequestForPayments():
+            RealTimePaymentsRequestForPaymentService.WithRawResponse
+
+        fun simulations(): SimulationService.WithRawResponse
+    }
 }

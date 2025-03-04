@@ -4,12 +4,19 @@
 
 package com.increase.api.services.async.simulations
 
+import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.Program
 import com.increase.api.models.SimulationProgramCreateParams
 import java.util.concurrent.CompletableFuture
 
 interface ProgramServiceAsync {
+
+    /**
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     */
+    fun withRawResponse(): WithRawResponse
 
     /**
      * Simulates a [Program](#programs) being created in your group. By default, your group has one
@@ -21,4 +28,21 @@ interface ProgramServiceAsync {
         params: SimulationProgramCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Program>
+
+    /**
+     * A view of [ProgramServiceAsync] that provides access to raw HTTP responses for each method.
+     */
+    interface WithRawResponse {
+
+        /**
+         * Returns a raw HTTP response for `post /simulations/programs`, but is otherwise the same
+         * as [ProgramServiceAsync.create].
+         */
+        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: SimulationProgramCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<Program>>
+    }
 }
