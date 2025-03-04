@@ -34,11 +34,12 @@ class IntrafiBalanceServiceImpl internal constructor(private val clientOptions: 
                 .addPathSegments("accounts", params.getPathParam(0), "intrafi_balance")
                 .build()
                 .prepare(clientOptions, params)
+        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
         val response = clientOptions.httpClient.execute(request, requestOptions)
         return response
             .use { intrafiBalanceHandler.handle(it) }
             .also {
-                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                if (requestOptions.responseValidation!!) {
                     it.validate()
                 }
             }
