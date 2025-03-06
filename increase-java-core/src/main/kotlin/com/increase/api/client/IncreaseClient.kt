@@ -48,7 +48,6 @@ import com.increase.api.services.blocking.ProgramService
 import com.increase.api.services.blocking.ProofOfAuthorizationRequestService
 import com.increase.api.services.blocking.ProofOfAuthorizationRequestSubmissionService
 import com.increase.api.services.blocking.RealTimeDecisionService
-import com.increase.api.services.blocking.RealTimePaymentsRequestForPaymentService
 import com.increase.api.services.blocking.RealTimePaymentsTransferService
 import com.increase.api.services.blocking.RoutingNumberService
 import com.increase.api.services.blocking.SimulationService
@@ -190,8 +189,6 @@ interface IncreaseClient {
 
     fun intrafiExclusions(): IntrafiExclusionService
 
-    fun realTimePaymentsRequestForPayments(): RealTimePaymentsRequestForPaymentService
-
     fun simulations(): SimulationService
 
     /**
@@ -315,9 +312,6 @@ interface IncreaseClient {
         fun intrafiBalances(): IntrafiBalanceService.WithRawResponse
 
         fun intrafiExclusions(): IntrafiExclusionService.WithRawResponse
-
-        fun realTimePaymentsRequestForPayments():
-            RealTimePaymentsRequestForPaymentService.WithRawResponse
 
         fun simulations(): SimulationService.WithRawResponse
     }

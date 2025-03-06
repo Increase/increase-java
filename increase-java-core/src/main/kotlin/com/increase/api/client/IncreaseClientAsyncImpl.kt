@@ -96,8 +96,6 @@ import com.increase.api.services.async.ProofOfAuthorizationRequestSubmissionServ
 import com.increase.api.services.async.ProofOfAuthorizationRequestSubmissionServiceAsyncImpl
 import com.increase.api.services.async.RealTimeDecisionServiceAsync
 import com.increase.api.services.async.RealTimeDecisionServiceAsyncImpl
-import com.increase.api.services.async.RealTimePaymentsRequestForPaymentServiceAsync
-import com.increase.api.services.async.RealTimePaymentsRequestForPaymentServiceAsyncImpl
 import com.increase.api.services.async.RealTimePaymentsTransferServiceAsync
 import com.increase.api.services.async.RealTimePaymentsTransferServiceAsyncImpl
 import com.increase.api.services.async.RoutingNumberServiceAsync
@@ -336,11 +334,6 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
         IntrafiExclusionServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
-    private val realTimePaymentsRequestForPayments:
-        RealTimePaymentsRequestForPaymentServiceAsync by lazy {
-        RealTimePaymentsRequestForPaymentServiceAsyncImpl(clientOptionsWithUserAgent)
-    }
-
     private val simulations: SimulationServiceAsync by lazy {
         SimulationServiceAsyncImpl(clientOptionsWithUserAgent)
     }
@@ -459,9 +452,6 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
     override fun intrafiBalances(): IntrafiBalanceServiceAsync = intrafiBalances
 
     override fun intrafiExclusions(): IntrafiExclusionServiceAsync = intrafiExclusions
-
-    override fun realTimePaymentsRequestForPayments():
-        RealTimePaymentsRequestForPaymentServiceAsync = realTimePaymentsRequestForPayments
 
     override fun simulations(): SimulationServiceAsync = simulations
 
@@ -686,11 +676,6 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
             IntrafiExclusionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val realTimePaymentsRequestForPayments:
-            RealTimePaymentsRequestForPaymentServiceAsync.WithRawResponse by lazy {
-            RealTimePaymentsRequestForPaymentServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
         private val simulations: SimulationServiceAsync.WithRawResponse by lazy {
             SimulationServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
@@ -830,10 +815,6 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
 
         override fun intrafiExclusions(): IntrafiExclusionServiceAsync.WithRawResponse =
             intrafiExclusions
-
-        override fun realTimePaymentsRequestForPayments():
-            RealTimePaymentsRequestForPaymentServiceAsync.WithRawResponse =
-            realTimePaymentsRequestForPayments
 
         override fun simulations(): SimulationServiceAsync.WithRawResponse = simulations
     }
