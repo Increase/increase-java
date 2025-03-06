@@ -13,8 +13,13 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.io.ByteArrayInputStream
+import java.io.InputStream
+import java.nio.file.Path
 import java.util.Objects
 import java.util.Optional
+import kotlin.io.path.inputStream
+import kotlin.io.path.name
 
 /**
  * To upload a file to Increase, you'll need to send a request of Content-Type
@@ -33,7 +38,7 @@ private constructor(
      * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers for
      * the multipart/form-data protocol.
      */
-    fun file(): ByteArray = body.file()
+    fun file(): InputStream = body.file()
 
     /** What the File will be used for in Increase's systems. */
     fun purpose(): Purpose = body.purpose()
@@ -46,7 +51,7 @@ private constructor(
      * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers for
      * the multipart/form-data protocol.
      */
-    fun _file(): MultipartField<ByteArray> = body._file()
+    fun _file(): MultipartField<InputStream> = body._file()
 
     /** What the File will be used for in Increase's systems. */
     fun _purpose(): MultipartField<Purpose> = body._purpose()
@@ -71,7 +76,7 @@ private constructor(
     class Body
     @JsonCreator
     private constructor(
-        private val file: MultipartField<ByteArray>,
+        private val file: MultipartField<InputStream>,
         private val purpose: MultipartField<Purpose>,
         private val description: MultipartField<String>,
     ) {
@@ -81,7 +86,7 @@ private constructor(
          * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers
          * for the multipart/form-data protocol.
          */
-        fun file(): ByteArray = file.value.getRequired("file")
+        fun file(): InputStream = file.value.getRequired("file")
 
         /** What the File will be used for in Increase's systems. */
         fun purpose(): Purpose = purpose.value.getRequired("purpose")
@@ -95,7 +100,7 @@ private constructor(
          * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers
          * for the multipart/form-data protocol.
          */
-        fun _file(): MultipartField<ByteArray> = file
+        fun _file(): MultipartField<InputStream> = file
 
         /** What the File will be used for in Increase's systems. */
         fun _purpose(): MultipartField<Purpose> = purpose
@@ -126,7 +131,7 @@ private constructor(
         /** A builder for [Body]. */
         class Builder internal constructor() {
 
-            private var file: MultipartField<ByteArray>? = null
+            private var file: MultipartField<InputStream>? = null
             private var purpose: MultipartField<Purpose>? = null
             private var description: MultipartField<String> = MultipartField.of(null)
 
@@ -142,14 +147,34 @@ private constructor(
              * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file
              * transfers for the multipart/form-data protocol.
              */
-            fun file(file: ByteArray) = file(MultipartField.of(file))
+            fun file(file: InputStream) = file(MultipartField.of(file))
 
             /**
              * The file contents. This should follow the specifications of
              * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file
              * transfers for the multipart/form-data protocol.
              */
-            fun file(file: MultipartField<ByteArray>) = apply { this.file = file }
+            fun file(file: MultipartField<InputStream>) = apply { this.file = file }
+
+            /**
+             * The file contents. This should follow the specifications of
+             * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file
+             * transfers for the multipart/form-data protocol.
+             */
+            fun file(file: ByteArray) = file(ByteArrayInputStream(file))
+
+            /**
+             * The file contents. This should follow the specifications of
+             * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file
+             * transfers for the multipart/form-data protocol.
+             */
+            fun file(file: Path) =
+                file(
+                    MultipartField.builder<InputStream>()
+                        .value(file.inputStream())
+                        .filename(file.name)
+                        .build()
+                )
 
             /** What the File will be used for in Increase's systems. */
             fun purpose(purpose: Purpose) = purpose(MultipartField.of(purpose))
@@ -213,6 +238,20 @@ private constructor(
          * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers
          * for the multipart/form-data protocol.
          */
+        fun file(file: InputStream) = apply { body.file(file) }
+
+        /**
+         * The file contents. This should follow the specifications of
+         * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers
+         * for the multipart/form-data protocol.
+         */
+        fun file(file: MultipartField<InputStream>) = apply { body.file(file) }
+
+        /**
+         * The file contents. This should follow the specifications of
+         * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers
+         * for the multipart/form-data protocol.
+         */
         fun file(file: ByteArray) = apply { body.file(file) }
 
         /**
@@ -220,7 +259,7 @@ private constructor(
          * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers
          * for the multipart/form-data protocol.
          */
-        fun file(file: MultipartField<ByteArray>) = apply { body.file(file) }
+        fun file(file: Path) = apply { body.file(file) }
 
         /** What the File will be used for in Increase's systems. */
         fun purpose(purpose: Purpose) = apply { body.purpose(purpose) }
