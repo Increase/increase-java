@@ -20,6 +20,7 @@ import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * Wire transfers move funds between your Increase account and any other account accessible by
@@ -543,7 +544,7 @@ private constructor(
          * If your account requires approvals for transfers and the transfer was approved, this will
          * contain details of the approval.
          */
-        fun approval(approval: Optional<Approval>) = approval(approval.orElse(null))
+        fun approval(approval: Optional<Approval>) = approval(approval.getOrNull())
 
         /**
          * If your account requires approvals for transfers and the transfer was approved, this will
@@ -557,7 +558,7 @@ private constructor(
 
         /** The beneficiary's address line 1. */
         fun beneficiaryAddressLine1(beneficiaryAddressLine1: Optional<String>) =
-            beneficiaryAddressLine1(beneficiaryAddressLine1.orElse(null))
+            beneficiaryAddressLine1(beneficiaryAddressLine1.getOrNull())
 
         /** The beneficiary's address line 1. */
         fun beneficiaryAddressLine1(beneficiaryAddressLine1: JsonField<String>) = apply {
@@ -570,7 +571,7 @@ private constructor(
 
         /** The beneficiary's address line 2. */
         fun beneficiaryAddressLine2(beneficiaryAddressLine2: Optional<String>) =
-            beneficiaryAddressLine2(beneficiaryAddressLine2.orElse(null))
+            beneficiaryAddressLine2(beneficiaryAddressLine2.getOrNull())
 
         /** The beneficiary's address line 2. */
         fun beneficiaryAddressLine2(beneficiaryAddressLine2: JsonField<String>) = apply {
@@ -583,7 +584,7 @@ private constructor(
 
         /** The beneficiary's address line 3. */
         fun beneficiaryAddressLine3(beneficiaryAddressLine3: Optional<String>) =
-            beneficiaryAddressLine3(beneficiaryAddressLine3.orElse(null))
+            beneficiaryAddressLine3(beneficiaryAddressLine3.getOrNull())
 
         /** The beneficiary's address line 3. */
         fun beneficiaryAddressLine3(beneficiaryAddressLine3: JsonField<String>) = apply {
@@ -596,7 +597,7 @@ private constructor(
 
         /** The beneficiary's name. */
         fun beneficiaryName(beneficiaryName: Optional<String>) =
-            beneficiaryName(beneficiaryName.orElse(null))
+            beneficiaryName(beneficiaryName.getOrNull())
 
         /** The beneficiary's name. */
         fun beneficiaryName(beneficiaryName: JsonField<String>) = apply {
@@ -615,7 +616,7 @@ private constructor(
          * will contain details of the cancellation.
          */
         fun cancellation(cancellation: Optional<Cancellation>) =
-            cancellation(cancellation.orElse(null))
+            cancellation(cancellation.getOrNull())
 
         /**
          * If your account requires approvals for transfers and the transfer was not approved, this
@@ -641,7 +642,7 @@ private constructor(
         fun createdBy(createdBy: CreatedBy?) = createdBy(JsonField.ofNullable(createdBy))
 
         /** What object created the transfer, either via the API or the dashboard. */
-        fun createdBy(createdBy: Optional<CreatedBy>) = createdBy(createdBy.orElse(null))
+        fun createdBy(createdBy: Optional<CreatedBy>) = createdBy(createdBy.getOrNull())
 
         /** What object created the transfer, either via the API or the dashboard. */
         fun createdBy(createdBy: JsonField<CreatedBy>) = apply { this.createdBy = createdBy }
@@ -664,7 +665,7 @@ private constructor(
 
         /** The identifier of the External Account the transfer was made to, if any. */
         fun externalAccountId(externalAccountId: Optional<String>) =
-            externalAccountId(externalAccountId.orElse(null))
+            externalAccountId(externalAccountId.getOrNull())
 
         /** The identifier of the External Account the transfer was made to, if any. */
         fun externalAccountId(externalAccountId: JsonField<String>) = apply {
@@ -685,7 +686,7 @@ private constructor(
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         fun idempotencyKey(idempotencyKey: Optional<String>) =
-            idempotencyKey(idempotencyKey.orElse(null))
+            idempotencyKey(idempotencyKey.getOrNull())
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -702,7 +703,7 @@ private constructor(
 
         /** The message that will show on the recipient's bank statement. */
         fun messageToRecipient(messageToRecipient: Optional<String>) =
-            messageToRecipient(messageToRecipient.orElse(null))
+            messageToRecipient(messageToRecipient.getOrNull())
 
         /** The message that will show on the recipient's bank statement. */
         fun messageToRecipient(messageToRecipient: JsonField<String>) = apply {
@@ -721,7 +722,7 @@ private constructor(
 
         /** The originator's address line 1. */
         fun originatorAddressLine1(originatorAddressLine1: Optional<String>) =
-            originatorAddressLine1(originatorAddressLine1.orElse(null))
+            originatorAddressLine1(originatorAddressLine1.getOrNull())
 
         /** The originator's address line 1. */
         fun originatorAddressLine1(originatorAddressLine1: JsonField<String>) = apply {
@@ -734,7 +735,7 @@ private constructor(
 
         /** The originator's address line 2. */
         fun originatorAddressLine2(originatorAddressLine2: Optional<String>) =
-            originatorAddressLine2(originatorAddressLine2.orElse(null))
+            originatorAddressLine2(originatorAddressLine2.getOrNull())
 
         /** The originator's address line 2. */
         fun originatorAddressLine2(originatorAddressLine2: JsonField<String>) = apply {
@@ -747,7 +748,7 @@ private constructor(
 
         /** The originator's address line 3. */
         fun originatorAddressLine3(originatorAddressLine3: Optional<String>) =
-            originatorAddressLine3(originatorAddressLine3.orElse(null))
+            originatorAddressLine3(originatorAddressLine3.getOrNull())
 
         /** The originator's address line 3. */
         fun originatorAddressLine3(originatorAddressLine3: JsonField<String>) = apply {
@@ -760,7 +761,7 @@ private constructor(
 
         /** The originator's name. */
         fun originatorName(originatorName: Optional<String>) =
-            originatorName(originatorName.orElse(null))
+            originatorName(originatorName.getOrNull())
 
         /** The originator's name. */
         fun originatorName(originatorName: JsonField<String>) = apply {
@@ -783,7 +784,7 @@ private constructor(
          * by someone else in your organization.
          */
         fun pendingTransactionId(pendingTransactionId: Optional<String>) =
-            pendingTransactionId(pendingTransactionId.orElse(null))
+            pendingTransactionId(pendingTransactionId.getOrNull())
 
         /**
          * The ID for the pending transaction representing the transfer. A pending transaction is
@@ -799,7 +800,7 @@ private constructor(
         fun reversal(reversal: Reversal?) = reversal(JsonField.ofNullable(reversal))
 
         /** If your transfer is reversed, this will contain details of the reversal. */
-        fun reversal(reversal: Optional<Reversal>) = reversal(reversal.orElse(null))
+        fun reversal(reversal: Optional<Reversal>) = reversal(reversal.getOrNull())
 
         /** If your transfer is reversed, this will contain details of the reversal. */
         fun reversal(reversal: JsonField<Reversal>) = apply { this.reversal = reversal }
@@ -818,7 +819,7 @@ private constructor(
 
         /** The Account Number that was passed to the wire's recipient. */
         fun sourceAccountNumberId(sourceAccountNumberId: Optional<String>) =
-            sourceAccountNumberId(sourceAccountNumberId.orElse(null))
+            sourceAccountNumberId(sourceAccountNumberId.getOrNull())
 
         /** The Account Number that was passed to the wire's recipient. */
         fun sourceAccountNumberId(sourceAccountNumberId: JsonField<String>) = apply {
@@ -835,7 +836,7 @@ private constructor(
         fun submission(submission: Submission?) = submission(JsonField.ofNullable(submission))
 
         /** After the transfer is submitted to Fedwire, this will contain supplemental details. */
-        fun submission(submission: Optional<Submission>) = submission(submission.orElse(null))
+        fun submission(submission: Optional<Submission>) = submission(submission.getOrNull())
 
         /** After the transfer is submitted to Fedwire, this will contain supplemental details. */
         fun submission(submission: JsonField<Submission>) = apply { this.submission = submission }
@@ -846,7 +847,7 @@ private constructor(
 
         /** The ID for the transaction funding the transfer. */
         fun transactionId(transactionId: Optional<String>) =
-            transactionId(transactionId.orElse(null))
+            transactionId(transactionId.getOrNull())
 
         /** The ID for the transaction funding the transfer. */
         fun transactionId(transactionId: JsonField<String>) = apply {
@@ -1025,7 +1026,7 @@ private constructor(
              * If the Transfer was approved by a user in the dashboard, the email address of that
              * user.
              */
-            fun approvedBy(approvedBy: Optional<String>) = approvedBy(approvedBy.orElse(null))
+            fun approvedBy(approvedBy: Optional<String>) = approvedBy(approvedBy.getOrNull())
 
             /**
              * If the Transfer was approved by a user in the dashboard, the email address of that
@@ -1184,7 +1185,7 @@ private constructor(
              * If the Transfer was canceled by a user in the dashboard, the email address of that
              * user.
              */
-            fun canceledBy(canceledBy: Optional<String>) = canceledBy(canceledBy.orElse(null))
+            fun canceledBy(canceledBy: Optional<String>) = canceledBy(canceledBy.getOrNull())
 
             /**
              * If the Transfer was canceled by a user in the dashboard, the email address of that
@@ -1330,7 +1331,7 @@ private constructor(
             fun apiKey(apiKey: ApiKey?) = apiKey(JsonField.ofNullable(apiKey))
 
             /** If present, details about the API key that created the transfer. */
-            fun apiKey(apiKey: Optional<ApiKey>) = apiKey(apiKey.orElse(null))
+            fun apiKey(apiKey: Optional<ApiKey>) = apiKey(apiKey.getOrNull())
 
             /** If present, details about the API key that created the transfer. */
             fun apiKey(apiKey: JsonField<ApiKey>) = apply { this.apiKey = apiKey }
@@ -1347,7 +1348,7 @@ private constructor(
 
             /** If present, details about the OAuth Application that created the transfer. */
             fun oauthApplication(oauthApplication: Optional<OAuthApplication>) =
-                oauthApplication(oauthApplication.orElse(null))
+                oauthApplication(oauthApplication.getOrNull())
 
             /** If present, details about the OAuth Application that created the transfer. */
             fun oauthApplication(oauthApplication: JsonField<OAuthApplication>) = apply {
@@ -1358,7 +1359,7 @@ private constructor(
             fun user(user: User?) = user(JsonField.ofNullable(user))
 
             /** If present, details about the User that created the transfer. */
-            fun user(user: Optional<User>) = user(user.orElse(null))
+            fun user(user: Optional<User>) = user(user.getOrNull())
 
             /** If present, details about the User that created the transfer. */
             fun user(user: JsonField<User>) = apply { this.user = user }
@@ -1453,7 +1454,7 @@ private constructor(
 
                 /** The description set for the API key when it was created. */
                 fun description(description: Optional<String>) =
-                    description(description.orElse(null))
+                    description(description.getOrNull())
 
                 /** The description set for the API key when it was created. */
                 fun description(description: JsonField<String>) = apply {
@@ -2465,7 +2466,7 @@ private constructor(
                 financialInstitutionToFinancialInstitutionInformation: Optional<String>
             ) =
                 financialInstitutionToFinancialInstitutionInformation(
-                    financialInstitutionToFinancialInstitutionInformation.orElse(null)
+                    financialInstitutionToFinancialInstitutionInformation.getOrNull()
                 )
 
             /** Additional financial institution information included in the wire reversal. */
@@ -2530,7 +2531,7 @@ private constructor(
              * transfer.
              */
             fun originatorRoutingNumber(originatorRoutingNumber: Optional<String>) =
-                originatorRoutingNumber(originatorRoutingNumber.orElse(null))
+                originatorRoutingNumber(originatorRoutingNumber.getOrNull())
 
             /**
              * The American Banking Association (ABA) routing number of the bank originating the
@@ -2607,7 +2608,7 @@ private constructor(
                 receiverFinancialInstitutionInformation: Optional<String>
             ) =
                 receiverFinancialInstitutionInformation(
-                    receiverFinancialInstitutionInformation.orElse(null)
+                    receiverFinancialInstitutionInformation.getOrNull()
                 )
 
             /**
@@ -2626,7 +2627,7 @@ private constructor(
 
             /** The sending bank's reference number for the wire reversal. */
             fun senderReference(senderReference: Optional<String>) =
-                senderReference(senderReference.orElse(null))
+                senderReference(senderReference.getOrNull())
 
             /** The sending bank's reference number for the wire reversal. */
             fun senderReference(senderReference: JsonField<String>) = apply {

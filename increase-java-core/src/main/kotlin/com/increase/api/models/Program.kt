@@ -19,6 +19,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * Programs determine the compliance and commercial terms of Accounts. By default, you have a
@@ -212,7 +213,7 @@ private constructor(
 
         /** The Program billing account. */
         fun billingAccountId(billingAccountId: Optional<String>) =
-            billingAccountId(billingAccountId.orElse(null))
+            billingAccountId(billingAccountId.getOrNull())
 
         /** The Program billing account. */
         fun billingAccountId(billingAccountId: JsonField<String>) = apply {
@@ -237,7 +238,7 @@ private constructor(
 
         /** The default configuration for digital cards attached to this Program. */
         fun defaultDigitalCardProfileId(defaultDigitalCardProfileId: Optional<String>) =
-            defaultDigitalCardProfileId(defaultDigitalCardProfileId.orElse(null))
+            defaultDigitalCardProfileId(defaultDigitalCardProfileId.getOrNull())
 
         /** The default configuration for digital cards attached to this Program. */
         fun defaultDigitalCardProfileId(defaultDigitalCardProfileId: JsonField<String>) = apply {

@@ -10,6 +10,7 @@ import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** List Lockboxes */
 class LockboxListParams
@@ -96,17 +97,17 @@ private constructor(
         fun accountId(accountId: String?) = apply { this.accountId = accountId }
 
         /** Filter Lockboxes to those associated with the provided Account. */
-        fun accountId(accountId: Optional<String>) = accountId(accountId.orElse(null))
+        fun accountId(accountId: Optional<String>) = accountId(accountId.getOrNull())
 
         fun createdAt(createdAt: CreatedAt?) = apply { this.createdAt = createdAt }
 
-        fun createdAt(createdAt: Optional<CreatedAt>) = createdAt(createdAt.orElse(null))
+        fun createdAt(createdAt: Optional<CreatedAt>) = createdAt(createdAt.getOrNull())
 
         /** Return the page of entries after this one. */
         fun cursor(cursor: String?) = apply { this.cursor = cursor }
 
         /** Return the page of entries after this one. */
-        fun cursor(cursor: Optional<String>) = cursor(cursor.orElse(null))
+        fun cursor(cursor: Optional<String>) = cursor(cursor.getOrNull())
 
         /**
          * Filter records to the one with the specified `idempotency_key` you chose for that object.
@@ -123,7 +124,7 @@ private constructor(
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         fun idempotencyKey(idempotencyKey: Optional<String>) =
-            idempotencyKey(idempotencyKey.orElse(null))
+            idempotencyKey(idempotencyKey.getOrNull())
 
         /**
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
@@ -138,8 +139,7 @@ private constructor(
         /**
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
          */
-        @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
-        fun limit(limit: Optional<Long>) = limit(limit.orElse(null) as Long?)
+        fun limit(limit: Optional<Long>) = limit(limit.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -336,7 +336,7 @@ private constructor(
              * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun after(after: Optional<OffsetDateTime>) = after(after.orElse(null))
+            fun after(after: Optional<OffsetDateTime>) = after(after.getOrNull())
 
             /**
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
@@ -348,7 +348,7 @@ private constructor(
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun before(before: Optional<OffsetDateTime>) = before(before.orElse(null))
+            fun before(before: Optional<OffsetDateTime>) = before(before.getOrNull())
 
             /**
              * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
@@ -360,7 +360,7 @@ private constructor(
              * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun onOrAfter(onOrAfter: Optional<OffsetDateTime>) = onOrAfter(onOrAfter.orElse(null))
+            fun onOrAfter(onOrAfter: Optional<OffsetDateTime>) = onOrAfter(onOrAfter.getOrNull())
 
             /**
              * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
@@ -373,7 +373,7 @@ private constructor(
              * timestamp.
              */
             fun onOrBefore(onOrBefore: Optional<OffsetDateTime>) =
-                onOrBefore(onOrBefore.orElse(null))
+                onOrBefore(onOrBefore.getOrNull())
 
             fun additionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.clear()

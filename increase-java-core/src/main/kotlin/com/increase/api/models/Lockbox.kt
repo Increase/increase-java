@@ -19,6 +19,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * Lockboxes are physical locations that can receive mail containing paper checks. Increase will
@@ -221,7 +222,7 @@ private constructor(
         fun description(description: String?) = description(JsonField.ofNullable(description))
 
         /** The description you choose for the Lockbox. */
-        fun description(description: Optional<String>) = description(description.orElse(null))
+        fun description(description: Optional<String>) = description(description.getOrNull())
 
         /** The description you choose for the Lockbox. */
         fun description(description: JsonField<String>) = apply { this.description = description }
@@ -240,7 +241,7 @@ private constructor(
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         fun idempotencyKey(idempotencyKey: Optional<String>) =
-            idempotencyKey(idempotencyKey.orElse(null))
+            idempotencyKey(idempotencyKey.getOrNull())
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -257,7 +258,7 @@ private constructor(
 
         /** The recipient name you choose for the Lockbox. */
         fun recipientName(recipientName: Optional<String>) =
-            recipientName(recipientName.orElse(null))
+            recipientName(recipientName.getOrNull())
 
         /** The recipient name you choose for the Lockbox. */
         fun recipientName(recipientName: JsonField<String>) = apply {
@@ -478,7 +479,7 @@ private constructor(
              * when creating the address, as well as an ATTN suffix to help route the mail to your
              * lockbox. Mail senders must include this ATTN line to receive mail at this Lockbox.
              */
-            fun recipient(recipient: Optional<String>) = recipient(recipient.orElse(null))
+            fun recipient(recipient: Optional<String>) = recipient(recipient.getOrNull())
 
             /**
              * The recipient line of the address. This will include the recipient name you provide

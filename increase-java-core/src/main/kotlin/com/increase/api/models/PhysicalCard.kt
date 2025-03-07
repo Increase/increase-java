@@ -19,6 +19,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * Custom physical Visa cards that are shipped to your customers. The artwork is configurable by a
@@ -242,7 +243,7 @@ private constructor(
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         fun idempotencyKey(idempotencyKey: Optional<String>) =
-            idempotencyKey(idempotencyKey.orElse(null))
+            idempotencyKey(idempotencyKey.getOrNull())
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -259,7 +260,7 @@ private constructor(
 
         /** The Physical Card Profile used for this Physical Card. */
         fun physicalCardProfileId(physicalCardProfileId: Optional<String>) =
-            physicalCardProfileId(physicalCardProfileId.orElse(null))
+            physicalCardProfileId(physicalCardProfileId.getOrNull())
 
         /** The Physical Card Profile used for this Physical Card. */
         fun physicalCardProfileId(physicalCardProfileId: JsonField<String>) = apply {
@@ -555,7 +556,7 @@ private constructor(
             fun tracking(tracking: Tracking?) = tracking(JsonField.ofNullable(tracking))
 
             /** Tracking details for the shipment. */
-            fun tracking(tracking: Optional<Tracking>) = tracking(tracking.orElse(null))
+            fun tracking(tracking: Optional<Tracking>) = tracking(tracking.getOrNull())
 
             /** Tracking details for the shipment. */
             fun tracking(tracking: JsonField<Tracking>) = apply { this.tracking = tracking }
@@ -731,7 +732,7 @@ private constructor(
                 fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
 
                 /** The second line of the shipping address. */
-                fun line2(line2: Optional<String>) = line2(line2.orElse(null))
+                fun line2(line2: Optional<String>) = line2(line2.getOrNull())
 
                 /** The second line of the shipping address. */
                 fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
@@ -740,7 +741,7 @@ private constructor(
                 fun line3(line3: String?) = line3(JsonField.ofNullable(line3))
 
                 /** The third line of the shipping address. */
-                fun line3(line3: Optional<String>) = line3(line3.orElse(null))
+                fun line3(line3: Optional<String>) = line3(line3.getOrNull())
 
                 /** The third line of the shipping address. */
                 fun line3(line3: JsonField<String>) = apply { this.line3 = line3 }
@@ -1228,7 +1229,7 @@ private constructor(
 
                 /** For returned shipments, the tracking number of the return shipment. */
                 fun returnNumber(returnNumber: Optional<String>) =
-                    returnNumber(returnNumber.orElse(null))
+                    returnNumber(returnNumber.getOrNull())
 
                 /** For returned shipments, the tracking number of the return shipment. */
                 fun returnNumber(returnNumber: JsonField<String>) = apply {
@@ -1241,7 +1242,7 @@ private constructor(
 
                 /** For returned shipments, this describes why the package was returned. */
                 fun returnReason(returnReason: Optional<String>) =
-                    returnReason(returnReason.orElse(null))
+                    returnReason(returnReason.getOrNull())
 
                 /** For returned shipments, this describes why the package was returned. */
                 fun returnReason(returnReason: JsonField<String>) = apply {

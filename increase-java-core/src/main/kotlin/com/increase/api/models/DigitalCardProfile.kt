@@ -19,6 +19,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * This contains artwork and metadata relating to a Card's appearance in digital wallet apps like
@@ -304,7 +305,7 @@ private constructor(
         fun contactEmail(contactEmail: String?) = contactEmail(JsonField.ofNullable(contactEmail))
 
         /** An email address the user can contact to receive support for their card. */
-        fun contactEmail(contactEmail: Optional<String>) = contactEmail(contactEmail.orElse(null))
+        fun contactEmail(contactEmail: Optional<String>) = contactEmail(contactEmail.getOrNull())
 
         /** An email address the user can contact to receive support for their card. */
         fun contactEmail(contactEmail: JsonField<String>) = apply {
@@ -315,7 +316,7 @@ private constructor(
         fun contactPhone(contactPhone: String?) = contactPhone(JsonField.ofNullable(contactPhone))
 
         /** A phone number the user can contact to receive support for their card. */
-        fun contactPhone(contactPhone: Optional<String>) = contactPhone(contactPhone.orElse(null))
+        fun contactPhone(contactPhone: Optional<String>) = contactPhone(contactPhone.getOrNull())
 
         /** A phone number the user can contact to receive support for their card. */
         fun contactPhone(contactPhone: JsonField<String>) = apply {
@@ -328,7 +329,7 @@ private constructor(
 
         /** A website the user can visit to view and receive support for their card. */
         fun contactWebsite(contactWebsite: Optional<String>) =
-            contactWebsite(contactWebsite.orElse(null))
+            contactWebsite(contactWebsite.getOrNull())
 
         /** A website the user can visit to view and receive support for their card. */
         fun contactWebsite(contactWebsite: JsonField<String>) = apply {
@@ -367,7 +368,7 @@ private constructor(
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         fun idempotencyKey(idempotencyKey: Optional<String>) =
-            idempotencyKey(idempotencyKey.orElse(null))
+            idempotencyKey(idempotencyKey.getOrNull())
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and

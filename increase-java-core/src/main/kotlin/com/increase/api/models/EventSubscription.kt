@@ -19,6 +19,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * Webhooks are event notifications we send to you by HTTPS POST requests. Event Subscriptions are
@@ -217,7 +218,7 @@ private constructor(
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         fun idempotencyKey(idempotencyKey: Optional<String>) =
-            idempotencyKey(idempotencyKey.orElse(null))
+            idempotencyKey(idempotencyKey.getOrNull())
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -240,7 +241,7 @@ private constructor(
          * this OAuth Connection.
          */
         fun oauthConnectionId(oauthConnectionId: Optional<String>) =
-            oauthConnectionId(oauthConnectionId.orElse(null))
+            oauthConnectionId(oauthConnectionId.getOrNull())
 
         /**
          * If specified, this subscription will only receive webhooks for Events associated with
@@ -262,7 +263,7 @@ private constructor(
          * `category`.
          */
         fun selectedEventCategory(selectedEventCategory: Optional<SelectedEventCategory>) =
-            selectedEventCategory(selectedEventCategory.orElse(null))
+            selectedEventCategory(selectedEventCategory.getOrNull())
 
         /**
          * If specified, this subscription will only receive webhooks for Events with the specified

@@ -19,6 +19,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Inbound Mail Items represent pieces of physical mail delivered to a Lockbox. */
 @NoAutoDetect
@@ -211,7 +212,7 @@ private constructor(
          * The identifier for the Lockbox that received this mail item. For mail items that could
          * not be processed due to an invalid address, this will be null.
          */
-        fun lockboxId(lockboxId: Optional<String>) = lockboxId(lockboxId.orElse(null))
+        fun lockboxId(lockboxId: Optional<String>) = lockboxId(lockboxId.getOrNull())
 
         /**
          * The identifier for the Lockbox that received this mail item. For mail items that could
@@ -225,7 +226,7 @@ private constructor(
 
         /** The recipient name as written on the mail item. */
         fun recipientName(recipientName: Optional<String>) =
-            recipientName(recipientName.orElse(null))
+            recipientName(recipientName.getOrNull())
 
         /** The recipient name as written on the mail item. */
         fun recipientName(recipientName: JsonField<String>) = apply {
@@ -238,7 +239,7 @@ private constructor(
 
         /** If the mail item has been rejected, why it was rejected. */
         fun rejectionReason(rejectionReason: Optional<RejectionReason>) =
-            rejectionReason(rejectionReason.orElse(null))
+            rejectionReason(rejectionReason.getOrNull())
 
         /** If the mail item has been rejected, why it was rejected. */
         fun rejectionReason(rejectionReason: JsonField<RejectionReason>) = apply {

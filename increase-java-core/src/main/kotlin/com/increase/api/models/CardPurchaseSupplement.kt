@@ -20,6 +20,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.LocalDate
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * Additional information about a card purchase (e.g., settlement or refund), such as level 3 line
@@ -157,7 +158,7 @@ private constructor(
 
         /** The ID of the Card Payment this transaction belongs to. */
         fun cardPaymentId(cardPaymentId: Optional<String>) =
-            cardPaymentId(cardPaymentId.orElse(null))
+            cardPaymentId(cardPaymentId.getOrNull())
 
         /** The ID of the Card Payment this transaction belongs to. */
         fun cardPaymentId(cardPaymentId: JsonField<String>) = apply {
@@ -168,7 +169,7 @@ private constructor(
         fun invoice(invoice: Invoice?) = invoice(JsonField.ofNullable(invoice))
 
         /** Invoice-level information about the payment. */
-        fun invoice(invoice: Optional<Invoice>) = invoice(invoice.orElse(null))
+        fun invoice(invoice: Optional<Invoice>) = invoice(invoice.getOrNull())
 
         /** Invoice-level information about the payment. */
         fun invoice(invoice: JsonField<Invoice>) = apply { this.invoice = invoice }
@@ -177,7 +178,7 @@ private constructor(
         fun lineItems(lineItems: List<LineItem>?) = lineItems(JsonField.ofNullable(lineItems))
 
         /** Line item information, such as individual products purchased. */
-        fun lineItems(lineItems: Optional<List<LineItem>>) = lineItems(lineItems.orElse(null))
+        fun lineItems(lineItems: Optional<List<LineItem>>) = lineItems(lineItems.getOrNull())
 
         /** Line item information, such as individual products purchased. */
         fun lineItems(lineItems: JsonField<List<LineItem>>) = apply {
@@ -540,9 +541,8 @@ private constructor(
             fun discountAmount(discountAmount: Long) = discountAmount(discountAmount as Long?)
 
             /** Discount given to cardholder. */
-            @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
             fun discountAmount(discountAmount: Optional<Long>) =
-                discountAmount(discountAmount.orElse(null) as Long?)
+                discountAmount(discountAmount.getOrNull())
 
             /** Discount given to cardholder. */
             fun discountAmount(discountAmount: JsonField<Long>) = apply {
@@ -555,7 +555,7 @@ private constructor(
 
             /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the discount. */
             fun discountCurrency(discountCurrency: Optional<String>) =
-                discountCurrency(discountCurrency.orElse(null))
+                discountCurrency(discountCurrency.getOrNull())
 
             /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the discount. */
             fun discountCurrency(discountCurrency: JsonField<String>) = apply {
@@ -568,7 +568,7 @@ private constructor(
 
             /** Indicates how the merchant applied the discount. */
             fun discountTreatmentCode(discountTreatmentCode: Optional<DiscountTreatmentCode>) =
-                discountTreatmentCode(discountTreatmentCode.orElse(null))
+                discountTreatmentCode(discountTreatmentCode.getOrNull())
 
             /** Indicates how the merchant applied the discount. */
             fun discountTreatmentCode(discountTreatmentCode: JsonField<DiscountTreatmentCode>) =
@@ -584,9 +584,8 @@ private constructor(
             fun dutyTaxAmount(dutyTaxAmount: Long) = dutyTaxAmount(dutyTaxAmount as Long?)
 
             /** Amount of duty taxes. */
-            @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
             fun dutyTaxAmount(dutyTaxAmount: Optional<Long>) =
-                dutyTaxAmount(dutyTaxAmount.orElse(null) as Long?)
+                dutyTaxAmount(dutyTaxAmount.getOrNull())
 
             /** Amount of duty taxes. */
             fun dutyTaxAmount(dutyTaxAmount: JsonField<Long>) = apply {
@@ -599,7 +598,7 @@ private constructor(
 
             /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the duty tax. */
             fun dutyTaxCurrency(dutyTaxCurrency: Optional<String>) =
-                dutyTaxCurrency(dutyTaxCurrency.orElse(null))
+                dutyTaxCurrency(dutyTaxCurrency.getOrNull())
 
             /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the duty tax. */
             fun dutyTaxCurrency(dutyTaxCurrency: JsonField<String>) = apply {
@@ -610,7 +609,7 @@ private constructor(
             fun orderDate(orderDate: LocalDate?) = orderDate(JsonField.ofNullable(orderDate))
 
             /** Date the order was taken. */
-            fun orderDate(orderDate: Optional<LocalDate>) = orderDate(orderDate.orElse(null))
+            fun orderDate(orderDate: Optional<LocalDate>) = orderDate(orderDate.getOrNull())
 
             /** Date the order was taken. */
             fun orderDate(orderDate: JsonField<LocalDate>) = apply { this.orderDate = orderDate }
@@ -623,9 +622,8 @@ private constructor(
             fun shippingAmount(shippingAmount: Long) = shippingAmount(shippingAmount as Long?)
 
             /** The shipping cost. */
-            @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
             fun shippingAmount(shippingAmount: Optional<Long>) =
-                shippingAmount(shippingAmount.orElse(null) as Long?)
+                shippingAmount(shippingAmount.getOrNull())
 
             /** The shipping cost. */
             fun shippingAmount(shippingAmount: JsonField<Long>) = apply {
@@ -642,7 +640,7 @@ private constructor(
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the shipping cost.
              */
             fun shippingCurrency(shippingCurrency: Optional<String>) =
-                shippingCurrency(shippingCurrency.orElse(null))
+                shippingCurrency(shippingCurrency.getOrNull())
 
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the shipping cost.
@@ -657,7 +655,7 @@ private constructor(
 
             /** Country code of the shipping destination. */
             fun shippingDestinationCountryCode(shippingDestinationCountryCode: Optional<String>) =
-                shippingDestinationCountryCode(shippingDestinationCountryCode.orElse(null))
+                shippingDestinationCountryCode(shippingDestinationCountryCode.getOrNull())
 
             /** Country code of the shipping destination. */
             fun shippingDestinationCountryCode(shippingDestinationCountryCode: JsonField<String>) =
@@ -671,7 +669,7 @@ private constructor(
 
             /** Postal code of the shipping destination. */
             fun shippingDestinationPostalCode(shippingDestinationPostalCode: Optional<String>) =
-                shippingDestinationPostalCode(shippingDestinationPostalCode.orElse(null))
+                shippingDestinationPostalCode(shippingDestinationPostalCode.getOrNull())
 
             /** Postal code of the shipping destination. */
             fun shippingDestinationPostalCode(shippingDestinationPostalCode: JsonField<String>) =
@@ -685,7 +683,7 @@ private constructor(
 
             /** Postal code of the location being shipped from. */
             fun shippingSourcePostalCode(shippingSourcePostalCode: Optional<String>) =
-                shippingSourcePostalCode(shippingSourcePostalCode.orElse(null))
+                shippingSourcePostalCode(shippingSourcePostalCode.getOrNull())
 
             /** Postal code of the location being shipped from. */
             fun shippingSourcePostalCode(shippingSourcePostalCode: JsonField<String>) = apply {
@@ -701,9 +699,8 @@ private constructor(
                 shippingTaxAmount(shippingTaxAmount as Long?)
 
             /** Taxes paid for freight and shipping. */
-            @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
             fun shippingTaxAmount(shippingTaxAmount: Optional<Long>) =
-                shippingTaxAmount(shippingTaxAmount.orElse(null) as Long?)
+                shippingTaxAmount(shippingTaxAmount.getOrNull())
 
             /** Taxes paid for freight and shipping. */
             fun shippingTaxAmount(shippingTaxAmount: JsonField<Long>) = apply {
@@ -716,7 +713,7 @@ private constructor(
 
             /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the shipping tax. */
             fun shippingTaxCurrency(shippingTaxCurrency: Optional<String>) =
-                shippingTaxCurrency(shippingTaxCurrency.orElse(null))
+                shippingTaxCurrency(shippingTaxCurrency.getOrNull())
 
             /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the shipping tax. */
             fun shippingTaxCurrency(shippingTaxCurrency: JsonField<String>) = apply {
@@ -729,7 +726,7 @@ private constructor(
 
             /** Tax rate for freight and shipping. */
             fun shippingTaxRate(shippingTaxRate: Optional<String>) =
-                shippingTaxRate(shippingTaxRate.orElse(null))
+                shippingTaxRate(shippingTaxRate.getOrNull())
 
             /** Tax rate for freight and shipping. */
             fun shippingTaxRate(shippingTaxRate: JsonField<String>) = apply {
@@ -742,7 +739,7 @@ private constructor(
 
             /** Indicates how the merchant applied taxes. */
             fun taxTreatments(taxTreatments: Optional<TaxTreatments>) =
-                taxTreatments(taxTreatments.orElse(null))
+                taxTreatments(taxTreatments.getOrNull())
 
             /** Indicates how the merchant applied taxes. */
             fun taxTreatments(taxTreatments: JsonField<TaxTreatments>) = apply {
@@ -758,10 +755,7 @@ private constructor(
             /** Value added tax invoice reference number. */
             fun uniqueValueAddedTaxInvoiceReference(
                 uniqueValueAddedTaxInvoiceReference: Optional<String>
-            ) =
-                uniqueValueAddedTaxInvoiceReference(
-                    uniqueValueAddedTaxInvoiceReference.orElse(null)
-                )
+            ) = uniqueValueAddedTaxInvoiceReference(uniqueValueAddedTaxInvoiceReference.getOrNull())
 
             /** Value added tax invoice reference number. */
             fun uniqueValueAddedTaxInvoiceReference(
@@ -1405,7 +1399,7 @@ private constructor(
 
             /** Indicates the type of line item. */
             fun detailIndicator(detailIndicator: Optional<DetailIndicator>) =
-                detailIndicator(detailIndicator.orElse(null))
+                detailIndicator(detailIndicator.getOrNull())
 
             /** Indicates the type of line item. */
             fun detailIndicator(detailIndicator: JsonField<DetailIndicator>) = apply {
@@ -1420,9 +1414,8 @@ private constructor(
             fun discountAmount(discountAmount: Long) = discountAmount(discountAmount as Long?)
 
             /** Discount amount for this specific line item. */
-            @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
             fun discountAmount(discountAmount: Optional<Long>) =
-                discountAmount(discountAmount.orElse(null) as Long?)
+                discountAmount(discountAmount.getOrNull())
 
             /** Discount amount for this specific line item. */
             fun discountAmount(discountAmount: JsonField<Long>) = apply {
@@ -1435,7 +1428,7 @@ private constructor(
 
             /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the discount. */
             fun discountCurrency(discountCurrency: Optional<String>) =
-                discountCurrency(discountCurrency.orElse(null))
+                discountCurrency(discountCurrency.getOrNull())
 
             /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the discount. */
             fun discountCurrency(discountCurrency: JsonField<String>) = apply {
@@ -1448,7 +1441,7 @@ private constructor(
 
             /** Indicates how the merchant applied the discount for this specific line item. */
             fun discountTreatmentCode(discountTreatmentCode: Optional<DiscountTreatmentCode>) =
-                discountTreatmentCode(discountTreatmentCode.orElse(null))
+                discountTreatmentCode(discountTreatmentCode.getOrNull())
 
             /** Indicates how the merchant applied the discount for this specific line item. */
             fun discountTreatmentCode(discountTreatmentCode: JsonField<DiscountTreatmentCode>) =
@@ -1462,7 +1455,7 @@ private constructor(
 
             /** Code used to categorize the purchase item. */
             fun itemCommodityCode(itemCommodityCode: Optional<String>) =
-                itemCommodityCode(itemCommodityCode.orElse(null))
+                itemCommodityCode(itemCommodityCode.getOrNull())
 
             /** Code used to categorize the purchase item. */
             fun itemCommodityCode(itemCommodityCode: JsonField<String>) = apply {
@@ -1475,7 +1468,7 @@ private constructor(
 
             /** Description of the purchase item. */
             fun itemDescriptor(itemDescriptor: Optional<String>) =
-                itemDescriptor(itemDescriptor.orElse(null))
+                itemDescriptor(itemDescriptor.getOrNull())
 
             /** Description of the purchase item. */
             fun itemDescriptor(itemDescriptor: JsonField<String>) = apply {
@@ -1488,7 +1481,7 @@ private constructor(
 
             /** The number of units of the product being purchased. */
             fun itemQuantity(itemQuantity: Optional<String>) =
-                itemQuantity(itemQuantity.orElse(null))
+                itemQuantity(itemQuantity.getOrNull())
 
             /** The number of units of the product being purchased. */
             fun itemQuantity(itemQuantity: JsonField<String>) = apply {
@@ -1499,7 +1492,7 @@ private constructor(
             fun productCode(productCode: String?) = productCode(JsonField.ofNullable(productCode))
 
             /** Code used to categorize the product being purchased. */
-            fun productCode(productCode: Optional<String>) = productCode(productCode.orElse(null))
+            fun productCode(productCode: Optional<String>) = productCode(productCode.getOrNull())
 
             /** Code used to categorize the product being purchased. */
             fun productCode(productCode: JsonField<String>) = apply {
@@ -1514,9 +1507,8 @@ private constructor(
             fun salesTaxAmount(salesTaxAmount: Long) = salesTaxAmount(salesTaxAmount as Long?)
 
             /** Sales tax amount for this line item. */
-            @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
             fun salesTaxAmount(salesTaxAmount: Optional<Long>) =
-                salesTaxAmount(salesTaxAmount.orElse(null) as Long?)
+                salesTaxAmount(salesTaxAmount.getOrNull())
 
             /** Sales tax amount for this line item. */
             fun salesTaxAmount(salesTaxAmount: JsonField<Long>) = apply {
@@ -1535,7 +1527,7 @@ private constructor(
              * assessed.
              */
             fun salesTaxCurrency(salesTaxCurrency: Optional<String>) =
-                salesTaxCurrency(salesTaxCurrency.orElse(null))
+                salesTaxCurrency(salesTaxCurrency.getOrNull())
 
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the sales tax
@@ -1551,7 +1543,7 @@ private constructor(
 
             /** Sales tax rate for this line item. */
             fun salesTaxRate(salesTaxRate: Optional<String>) =
-                salesTaxRate(salesTaxRate.orElse(null))
+                salesTaxRate(salesTaxRate.getOrNull())
 
             /** Sales tax rate for this line item. */
             fun salesTaxRate(salesTaxRate: JsonField<String>) = apply {
@@ -1565,9 +1557,7 @@ private constructor(
             fun totalAmount(totalAmount: Long) = totalAmount(totalAmount as Long?)
 
             /** Total amount of all line items. */
-            @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
-            fun totalAmount(totalAmount: Optional<Long>) =
-                totalAmount(totalAmount.orElse(null) as Long?)
+            fun totalAmount(totalAmount: Optional<Long>) = totalAmount(totalAmount.getOrNull())
 
             /** Total amount of all line items. */
             fun totalAmount(totalAmount: JsonField<Long>) = apply { this.totalAmount = totalAmount }
@@ -1578,7 +1568,7 @@ private constructor(
 
             /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total amount. */
             fun totalAmountCurrency(totalAmountCurrency: Optional<String>) =
-                totalAmountCurrency(totalAmountCurrency.orElse(null))
+                totalAmountCurrency(totalAmountCurrency.getOrNull())
 
             /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total amount. */
             fun totalAmountCurrency(totalAmountCurrency: JsonField<String>) = apply {
@@ -1589,7 +1579,7 @@ private constructor(
             fun unitCost(unitCost: String?) = unitCost(JsonField.ofNullable(unitCost))
 
             /** Cost of line item per unit of measure, in major units. */
-            fun unitCost(unitCost: Optional<String>) = unitCost(unitCost.orElse(null))
+            fun unitCost(unitCost: Optional<String>) = unitCost(unitCost.getOrNull())
 
             /** Cost of line item per unit of measure, in major units. */
             fun unitCost(unitCost: JsonField<String>) = apply { this.unitCost = unitCost }
@@ -1600,7 +1590,7 @@ private constructor(
 
             /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the unit cost. */
             fun unitCostCurrency(unitCostCurrency: Optional<String>) =
-                unitCostCurrency(unitCostCurrency.orElse(null))
+                unitCostCurrency(unitCostCurrency.getOrNull())
 
             /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the unit cost. */
             fun unitCostCurrency(unitCostCurrency: JsonField<String>) = apply {
@@ -1613,7 +1603,7 @@ private constructor(
 
             /** Code indicating unit of measure (gallons, etc.). */
             fun unitOfMeasureCode(unitOfMeasureCode: Optional<String>) =
-                unitOfMeasureCode(unitOfMeasureCode.orElse(null))
+                unitOfMeasureCode(unitOfMeasureCode.getOrNull())
 
             /** Code indicating unit of measure (gallons, etc.). */
             fun unitOfMeasureCode(unitOfMeasureCode: JsonField<String>) = apply {

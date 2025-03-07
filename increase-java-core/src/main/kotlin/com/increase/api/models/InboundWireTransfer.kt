@@ -19,6 +19,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** An Inbound Wire Transfer is a wire transfer initiated outside of Increase to your account. */
 @NoAutoDetect
@@ -495,7 +496,7 @@ private constructor(
 
         /** A free-form address field set by the sender. */
         fun beneficiaryAddressLine1(beneficiaryAddressLine1: Optional<String>) =
-            beneficiaryAddressLine1(beneficiaryAddressLine1.orElse(null))
+            beneficiaryAddressLine1(beneficiaryAddressLine1.getOrNull())
 
         /** A free-form address field set by the sender. */
         fun beneficiaryAddressLine1(beneficiaryAddressLine1: JsonField<String>) = apply {
@@ -508,7 +509,7 @@ private constructor(
 
         /** A free-form address field set by the sender. */
         fun beneficiaryAddressLine2(beneficiaryAddressLine2: Optional<String>) =
-            beneficiaryAddressLine2(beneficiaryAddressLine2.orElse(null))
+            beneficiaryAddressLine2(beneficiaryAddressLine2.getOrNull())
 
         /** A free-form address field set by the sender. */
         fun beneficiaryAddressLine2(beneficiaryAddressLine2: JsonField<String>) = apply {
@@ -521,7 +522,7 @@ private constructor(
 
         /** A free-form address field set by the sender. */
         fun beneficiaryAddressLine3(beneficiaryAddressLine3: Optional<String>) =
-            beneficiaryAddressLine3(beneficiaryAddressLine3.orElse(null))
+            beneficiaryAddressLine3(beneficiaryAddressLine3.getOrNull())
 
         /** A free-form address field set by the sender. */
         fun beneficiaryAddressLine3(beneficiaryAddressLine3: JsonField<String>) = apply {
@@ -534,7 +535,7 @@ private constructor(
 
         /** A name set by the sender. */
         fun beneficiaryName(beneficiaryName: Optional<String>) =
-            beneficiaryName(beneficiaryName.orElse(null))
+            beneficiaryName(beneficiaryName.getOrNull())
 
         /** A name set by the sender. */
         fun beneficiaryName(beneficiaryName: JsonField<String>) = apply {
@@ -547,7 +548,7 @@ private constructor(
 
         /** A free-form reference string set by the sender, to help identify the transfer. */
         fun beneficiaryReference(beneficiaryReference: Optional<String>) =
-            beneficiaryReference(beneficiaryReference.orElse(null))
+            beneficiaryReference(beneficiaryReference.getOrNull())
 
         /** A free-form reference string set by the sender, to help identify the transfer. */
         fun beneficiaryReference(beneficiaryReference: JsonField<String>) = apply {
@@ -586,7 +587,7 @@ private constructor(
          * is helpful when debugging wires with the originating bank.
          */
         fun inputMessageAccountabilityData(inputMessageAccountabilityData: Optional<String>) =
-            inputMessageAccountabilityData(inputMessageAccountabilityData.orElse(null))
+            inputMessageAccountabilityData(inputMessageAccountabilityData.getOrNull())
 
         /**
          * A unique identifier available to the originating and receiving banks, commonly
@@ -604,7 +605,7 @@ private constructor(
 
         /** The address of the wire originator, set by the sending bank. */
         fun originatorAddressLine1(originatorAddressLine1: Optional<String>) =
-            originatorAddressLine1(originatorAddressLine1.orElse(null))
+            originatorAddressLine1(originatorAddressLine1.getOrNull())
 
         /** The address of the wire originator, set by the sending bank. */
         fun originatorAddressLine1(originatorAddressLine1: JsonField<String>) = apply {
@@ -617,7 +618,7 @@ private constructor(
 
         /** The address of the wire originator, set by the sending bank. */
         fun originatorAddressLine2(originatorAddressLine2: Optional<String>) =
-            originatorAddressLine2(originatorAddressLine2.orElse(null))
+            originatorAddressLine2(originatorAddressLine2.getOrNull())
 
         /** The address of the wire originator, set by the sending bank. */
         fun originatorAddressLine2(originatorAddressLine2: JsonField<String>) = apply {
@@ -630,7 +631,7 @@ private constructor(
 
         /** The address of the wire originator, set by the sending bank. */
         fun originatorAddressLine3(originatorAddressLine3: Optional<String>) =
-            originatorAddressLine3(originatorAddressLine3.orElse(null))
+            originatorAddressLine3(originatorAddressLine3.getOrNull())
 
         /** The address of the wire originator, set by the sending bank. */
         fun originatorAddressLine3(originatorAddressLine3: JsonField<String>) = apply {
@@ -643,7 +644,7 @@ private constructor(
 
         /** The originator of the wire, set by the sending bank. */
         fun originatorName(originatorName: Optional<String>) =
-            originatorName(originatorName.orElse(null))
+            originatorName(originatorName.getOrNull())
 
         /** The originator of the wire, set by the sending bank. */
         fun originatorName(originatorName: JsonField<String>) = apply {
@@ -662,7 +663,7 @@ private constructor(
          * transfer.
          */
         fun originatorRoutingNumber(originatorRoutingNumber: Optional<String>) =
-            originatorRoutingNumber(originatorRoutingNumber.orElse(null))
+            originatorRoutingNumber(originatorRoutingNumber.getOrNull())
 
         /**
          * The American Banking Association (ABA) routing number of the bank originating the
@@ -681,7 +682,7 @@ private constructor(
         /** An Increase-created concatenation of the Originator-to-Beneficiary lines. */
         fun originatorToBeneficiaryInformation(
             originatorToBeneficiaryInformation: Optional<String>
-        ) = originatorToBeneficiaryInformation(originatorToBeneficiaryInformation.orElse(null))
+        ) = originatorToBeneficiaryInformation(originatorToBeneficiaryInformation.getOrNull())
 
         /** An Increase-created concatenation of the Originator-to-Beneficiary lines. */
         fun originatorToBeneficiaryInformation(
@@ -701,7 +702,7 @@ private constructor(
             originatorToBeneficiaryInformationLine1: Optional<String>
         ) =
             originatorToBeneficiaryInformationLine1(
-                originatorToBeneficiaryInformationLine1.orElse(null)
+                originatorToBeneficiaryInformationLine1.getOrNull()
             )
 
         /** A free-form message set by the wire originator. */
@@ -724,7 +725,7 @@ private constructor(
             originatorToBeneficiaryInformationLine2: Optional<String>
         ) =
             originatorToBeneficiaryInformationLine2(
-                originatorToBeneficiaryInformationLine2.orElse(null)
+                originatorToBeneficiaryInformationLine2.getOrNull()
             )
 
         /** A free-form message set by the wire originator. */
@@ -747,7 +748,7 @@ private constructor(
             originatorToBeneficiaryInformationLine3: Optional<String>
         ) =
             originatorToBeneficiaryInformationLine3(
-                originatorToBeneficiaryInformationLine3.orElse(null)
+                originatorToBeneficiaryInformationLine3.getOrNull()
             )
 
         /** A free-form message set by the wire originator. */
@@ -770,7 +771,7 @@ private constructor(
             originatorToBeneficiaryInformationLine4: Optional<String>
         ) =
             originatorToBeneficiaryInformationLine4(
-                originatorToBeneficiaryInformationLine4.orElse(null)
+                originatorToBeneficiaryInformationLine4.getOrNull()
             )
 
         /** A free-form message set by the wire originator. */
@@ -786,7 +787,7 @@ private constructor(
 
         /** The sending bank's reference number for the wire transfer. */
         fun senderReference(senderReference: Optional<String>) =
-            senderReference(senderReference.orElse(null))
+            senderReference(senderReference.getOrNull())
 
         /** The sending bank's reference number for the wire transfer. */
         fun senderReference(senderReference: JsonField<String>) = apply {
