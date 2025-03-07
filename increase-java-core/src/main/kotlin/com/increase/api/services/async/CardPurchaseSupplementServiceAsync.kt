@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -21,20 +19,32 @@ interface CardPurchaseSupplementServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve a Card Purchase Supplement */
-    @JvmOverloads
+    fun retrieve(
+        params: CardPurchaseSupplementRetrieveParams
+    ): CompletableFuture<CardPurchaseSupplement> = retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: CardPurchaseSupplementRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CardPurchaseSupplement>
 
     /** List Card Purchase Supplements */
-    @JvmOverloads
+    fun list(): CompletableFuture<CardPurchaseSupplementListPageAsync> =
+        list(CardPurchaseSupplementListParams.none())
+
+    /** @see [list] */
     fun list(
         params: CardPurchaseSupplementListParams = CardPurchaseSupplementListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CardPurchaseSupplementListPageAsync>
 
-    /** List Card Purchase Supplements */
+    /** @see [list] */
+    fun list(
+        params: CardPurchaseSupplementListParams = CardPurchaseSupplementListParams.none()
+    ): CompletableFuture<CardPurchaseSupplementListPageAsync> = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(
         requestOptions: RequestOptions
     ): CompletableFuture<CardPurchaseSupplementListPageAsync> =
@@ -51,7 +61,13 @@ interface CardPurchaseSupplementServiceAsync {
          * /card_purchase_supplements/{card_purchase_supplement_id}`, but is otherwise the same as
          * [CardPurchaseSupplementServiceAsync.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: CardPurchaseSupplementRetrieveParams
+        ): CompletableFuture<HttpResponseFor<CardPurchaseSupplement>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: CardPurchaseSupplementRetrieveParams,
@@ -62,17 +78,25 @@ interface CardPurchaseSupplementServiceAsync {
          * Returns a raw HTTP response for `get /card_purchase_supplements`, but is otherwise the
          * same as [CardPurchaseSupplementServiceAsync.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): CompletableFuture<HttpResponseFor<CardPurchaseSupplementListPageAsync>> =
+            list(CardPurchaseSupplementListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: CardPurchaseSupplementListParams = CardPurchaseSupplementListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CardPurchaseSupplementListPageAsync>>
 
-        /**
-         * Returns a raw HTTP response for `get /card_purchase_supplements`, but is otherwise the
-         * same as [CardPurchaseSupplementServiceAsync.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: CardPurchaseSupplementListParams = CardPurchaseSupplementListParams.none()
+        ): CompletableFuture<HttpResponseFor<CardPurchaseSupplementListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions

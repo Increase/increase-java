@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking.simulations
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -21,7 +19,10 @@ interface PhysicalCardService {
      * This endpoint allows you to simulate advancing the shipment status of a Physical Card, to
      * simulate e.g., that a physical card was attempted shipped but then failed delivery.
      */
-    @JvmOverloads
+    fun advanceShipment(params: SimulationPhysicalCardAdvanceShipmentParams): PhysicalCard =
+        advanceShipment(params, RequestOptions.none())
+
+    /** @see [advanceShipment] */
     fun advanceShipment(
         params: SimulationPhysicalCardAdvanceShipmentParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -37,7 +38,12 @@ interface PhysicalCardService {
          * /simulations/physical_cards/{physical_card_id}/advance_shipment`, but is otherwise the
          * same as [PhysicalCardService.advanceShipment].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun advanceShipment(
+            params: SimulationPhysicalCardAdvanceShipmentParams
+        ): HttpResponseFor<PhysicalCard> = advanceShipment(params, RequestOptions.none())
+
+        /** @see [advanceShipment] */
         @MustBeClosed
         fun advanceShipment(
             params: SimulationPhysicalCardAdvanceShipmentParams,

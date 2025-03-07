@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -20,20 +18,29 @@ interface CardPaymentService {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve a Card Payment */
-    @JvmOverloads
+    fun retrieve(params: CardPaymentRetrieveParams): CardPayment =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: CardPaymentRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPayment
 
     /** List Card Payments */
-    @JvmOverloads
+    fun list(): CardPaymentListPage = list(CardPaymentListParams.none())
+
+    /** @see [list] */
     fun list(
         params: CardPaymentListParams = CardPaymentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPaymentListPage
 
-    /** List Card Payments */
+    /** @see [list] */
+    fun list(params: CardPaymentListParams = CardPaymentListParams.none()): CardPaymentListPage =
+        list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CardPaymentListPage =
         list(CardPaymentListParams.none(), requestOptions)
 
@@ -46,7 +53,11 @@ interface CardPaymentService {
          * Returns a raw HTTP response for `get /card_payments/{card_payment_id}`, but is otherwise
          * the same as [CardPaymentService.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(params: CardPaymentRetrieveParams): HttpResponseFor<CardPayment> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: CardPaymentRetrieveParams,
@@ -57,17 +68,23 @@ interface CardPaymentService {
          * Returns a raw HTTP response for `get /card_payments`, but is otherwise the same as
          * [CardPaymentService.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): HttpResponseFor<CardPaymentListPage> = list(CardPaymentListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: CardPaymentListParams = CardPaymentListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardPaymentListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /card_payments`, but is otherwise the same as
-         * [CardPaymentService.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: CardPaymentListParams = CardPaymentListParams.none()
+        ): HttpResponseFor<CardPaymentListPage> = list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<CardPaymentListPage> =
             list(CardPaymentListParams.none(), requestOptions)

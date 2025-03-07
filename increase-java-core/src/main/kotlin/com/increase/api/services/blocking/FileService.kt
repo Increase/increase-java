@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -25,27 +23,37 @@ interface FileService {
      * `multipart/form-data`. The request should contain the file you would like to upload, as well
      * as the parameters for creating a file.
      */
-    @JvmOverloads
+    fun create(params: FileCreateParams): File = create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: FileCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): File
 
     /** Retrieve a File */
-    @JvmOverloads
+    fun retrieve(params: FileRetrieveParams): File = retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: FileRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): File
 
     /** List Files */
-    @JvmOverloads
+    fun list(): FileListPage = list(FileListParams.none())
+
+    /** @see [list] */
     fun list(
         params: FileListParams = FileListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): FileListPage
 
-    /** List Files */
+    /** @see [list] */
+    fun list(params: FileListParams = FileListParams.none()): FileListPage =
+        list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): FileListPage =
         list(FileListParams.none(), requestOptions)
 
@@ -56,7 +64,11 @@ interface FileService {
          * Returns a raw HTTP response for `post /files`, but is otherwise the same as
          * [FileService.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(params: FileCreateParams): HttpResponseFor<File> =
+            create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: FileCreateParams,
@@ -67,7 +79,11 @@ interface FileService {
          * Returns a raw HTTP response for `get /files/{file_id}`, but is otherwise the same as
          * [FileService.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(params: FileRetrieveParams): HttpResponseFor<File> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: FileRetrieveParams,
@@ -78,17 +94,21 @@ interface FileService {
          * Returns a raw HTTP response for `get /files`, but is otherwise the same as
          * [FileService.list].
          */
-        @JvmOverloads
+        @MustBeClosed fun list(): HttpResponseFor<FileListPage> = list(FileListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: FileListParams = FileListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<FileListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /files`, but is otherwise the same as
-         * [FileService.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(params: FileListParams = FileListParams.none()): HttpResponseFor<FileListPage> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<FileListPage> =
             list(FileListParams.none(), requestOptions)

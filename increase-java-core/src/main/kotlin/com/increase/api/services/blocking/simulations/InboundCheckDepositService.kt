@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking.simulations
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -24,7 +22,10 @@ interface InboundCheckDepositService {
      * create a Transaction or a Declined Transaction as a result. You can inspect the resulting
      * Inbound Check Deposit object to see the result.
      */
-    @JvmOverloads
+    fun create(params: SimulationInboundCheckDepositCreateParams): InboundCheckDeposit =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: SimulationInboundCheckDepositCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -40,7 +41,12 @@ interface InboundCheckDepositService {
          * Returns a raw HTTP response for `post /simulations/inbound_check_deposits`, but is
          * otherwise the same as [InboundCheckDepositService.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: SimulationInboundCheckDepositCreateParams
+        ): HttpResponseFor<InboundCheckDeposit> = create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: SimulationInboundCheckDepositCreateParams,

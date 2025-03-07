@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async.simulations
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -22,7 +20,10 @@ interface CardRefundServiceAsync {
      * Simulates refunding a card transaction. The full value of the original sandbox transaction is
      * refunded.
      */
-    @JvmOverloads
+    fun create(params: SimulationCardRefundCreateParams): CompletableFuture<Transaction> =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: SimulationCardRefundCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -38,7 +39,12 @@ interface CardRefundServiceAsync {
          * Returns a raw HTTP response for `post /simulations/card_refunds`, but is otherwise the
          * same as [CardRefundServiceAsync.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: SimulationCardRefundCreateParams
+        ): CompletableFuture<HttpResponseFor<Transaction>> = create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: SimulationCardRefundCreateParams,

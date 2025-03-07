@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -25,46 +23,68 @@ interface CheckTransferServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Create a Check Transfer */
-    @JvmOverloads
+    fun create(params: CheckTransferCreateParams): CompletableFuture<CheckTransfer> =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: CheckTransferCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CheckTransfer>
 
     /** Retrieve a Check Transfer */
-    @JvmOverloads
+    fun retrieve(params: CheckTransferRetrieveParams): CompletableFuture<CheckTransfer> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: CheckTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CheckTransfer>
 
     /** List Check Transfers */
-    @JvmOverloads
+    fun list(): CompletableFuture<CheckTransferListPageAsync> = list(CheckTransferListParams.none())
+
+    /** @see [list] */
     fun list(
         params: CheckTransferListParams = CheckTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CheckTransferListPageAsync>
 
-    /** List Check Transfers */
+    /** @see [list] */
+    fun list(
+        params: CheckTransferListParams = CheckTransferListParams.none()
+    ): CompletableFuture<CheckTransferListPageAsync> = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CompletableFuture<CheckTransferListPageAsync> =
         list(CheckTransferListParams.none(), requestOptions)
 
     /** Approve a Check Transfer */
-    @JvmOverloads
+    fun approve(params: CheckTransferApproveParams): CompletableFuture<CheckTransfer> =
+        approve(params, RequestOptions.none())
+
+    /** @see [approve] */
     fun approve(
         params: CheckTransferApproveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CheckTransfer>
 
     /** Cancel a pending Check Transfer */
-    @JvmOverloads
+    fun cancel(params: CheckTransferCancelParams): CompletableFuture<CheckTransfer> =
+        cancel(params, RequestOptions.none())
+
+    /** @see [cancel] */
     fun cancel(
         params: CheckTransferCancelParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CheckTransfer>
 
     /** Request a stop payment on a Check Transfer */
-    @JvmOverloads
+    fun stopPayment(params: CheckTransferStopPaymentParams): CompletableFuture<CheckTransfer> =
+        stopPayment(params, RequestOptions.none())
+
+    /** @see [stopPayment] */
     fun stopPayment(
         params: CheckTransferStopPaymentParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -80,7 +100,12 @@ interface CheckTransferServiceAsync {
          * Returns a raw HTTP response for `post /check_transfers`, but is otherwise the same as
          * [CheckTransferServiceAsync.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: CheckTransferCreateParams
+        ): CompletableFuture<HttpResponseFor<CheckTransfer>> = create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: CheckTransferCreateParams,
@@ -91,7 +116,13 @@ interface CheckTransferServiceAsync {
          * Returns a raw HTTP response for `get /check_transfers/{check_transfer_id}`, but is
          * otherwise the same as [CheckTransferServiceAsync.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: CheckTransferRetrieveParams
+        ): CompletableFuture<HttpResponseFor<CheckTransfer>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: CheckTransferRetrieveParams,
@@ -102,17 +133,25 @@ interface CheckTransferServiceAsync {
          * Returns a raw HTTP response for `get /check_transfers`, but is otherwise the same as
          * [CheckTransferServiceAsync.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): CompletableFuture<HttpResponseFor<CheckTransferListPageAsync>> =
+            list(CheckTransferListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: CheckTransferListParams = CheckTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CheckTransferListPageAsync>>
 
-        /**
-         * Returns a raw HTTP response for `get /check_transfers`, but is otherwise the same as
-         * [CheckTransferServiceAsync.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: CheckTransferListParams = CheckTransferListParams.none()
+        ): CompletableFuture<HttpResponseFor<CheckTransferListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions
@@ -123,7 +162,13 @@ interface CheckTransferServiceAsync {
          * Returns a raw HTTP response for `post /check_transfers/{check_transfer_id}/approve`, but
          * is otherwise the same as [CheckTransferServiceAsync.approve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun approve(
+            params: CheckTransferApproveParams
+        ): CompletableFuture<HttpResponseFor<CheckTransfer>> =
+            approve(params, RequestOptions.none())
+
+        /** @see [approve] */
         @MustBeClosed
         fun approve(
             params: CheckTransferApproveParams,
@@ -134,7 +179,12 @@ interface CheckTransferServiceAsync {
          * Returns a raw HTTP response for `post /check_transfers/{check_transfer_id}/cancel`, but
          * is otherwise the same as [CheckTransferServiceAsync.cancel].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun cancel(
+            params: CheckTransferCancelParams
+        ): CompletableFuture<HttpResponseFor<CheckTransfer>> = cancel(params, RequestOptions.none())
+
+        /** @see [cancel] */
         @MustBeClosed
         fun cancel(
             params: CheckTransferCancelParams,
@@ -145,7 +195,13 @@ interface CheckTransferServiceAsync {
          * Returns a raw HTTP response for `post /check_transfers/{check_transfer_id}/stop_payment`,
          * but is otherwise the same as [CheckTransferServiceAsync.stopPayment].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun stopPayment(
+            params: CheckTransferStopPaymentParams
+        ): CompletableFuture<HttpResponseFor<CheckTransfer>> =
+            stopPayment(params, RequestOptions.none())
+
+        /** @see [stopPayment] */
         @MustBeClosed
         fun stopPayment(
             params: CheckTransferStopPaymentParams,

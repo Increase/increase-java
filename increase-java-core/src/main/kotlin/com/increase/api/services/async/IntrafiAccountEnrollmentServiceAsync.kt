@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -23,34 +21,55 @@ interface IntrafiAccountEnrollmentServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Enroll an account in the IntraFi deposit sweep network */
-    @JvmOverloads
+    fun create(
+        params: IntrafiAccountEnrollmentCreateParams
+    ): CompletableFuture<IntrafiAccountEnrollment> = create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: IntrafiAccountEnrollmentCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<IntrafiAccountEnrollment>
 
     /** Get an IntraFi Account Enrollment */
-    @JvmOverloads
+    fun retrieve(
+        params: IntrafiAccountEnrollmentRetrieveParams
+    ): CompletableFuture<IntrafiAccountEnrollment> = retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: IntrafiAccountEnrollmentRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<IntrafiAccountEnrollment>
 
     /** List IntraFi Account Enrollments */
-    @JvmOverloads
+    fun list(): CompletableFuture<IntrafiAccountEnrollmentListPageAsync> =
+        list(IntrafiAccountEnrollmentListParams.none())
+
+    /** @see [list] */
     fun list(
         params: IntrafiAccountEnrollmentListParams = IntrafiAccountEnrollmentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<IntrafiAccountEnrollmentListPageAsync>
 
-    /** List IntraFi Account Enrollments */
+    /** @see [list] */
+    fun list(
+        params: IntrafiAccountEnrollmentListParams = IntrafiAccountEnrollmentListParams.none()
+    ): CompletableFuture<IntrafiAccountEnrollmentListPageAsync> =
+        list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(
         requestOptions: RequestOptions
     ): CompletableFuture<IntrafiAccountEnrollmentListPageAsync> =
         list(IntrafiAccountEnrollmentListParams.none(), requestOptions)
 
     /** Unenroll an account from IntraFi */
-    @JvmOverloads
+    fun unenroll(
+        params: IntrafiAccountEnrollmentUnenrollParams
+    ): CompletableFuture<IntrafiAccountEnrollment> = unenroll(params, RequestOptions.none())
+
+    /** @see [unenroll] */
     fun unenroll(
         params: IntrafiAccountEnrollmentUnenrollParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -66,7 +85,13 @@ interface IntrafiAccountEnrollmentServiceAsync {
          * Returns a raw HTTP response for `post /intrafi_account_enrollments`, but is otherwise the
          * same as [IntrafiAccountEnrollmentServiceAsync.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: IntrafiAccountEnrollmentCreateParams
+        ): CompletableFuture<HttpResponseFor<IntrafiAccountEnrollment>> =
+            create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: IntrafiAccountEnrollmentCreateParams,
@@ -78,7 +103,13 @@ interface IntrafiAccountEnrollmentServiceAsync {
          * /intrafi_account_enrollments/{intrafi_account_enrollment_id}`, but is otherwise the same
          * as [IntrafiAccountEnrollmentServiceAsync.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: IntrafiAccountEnrollmentRetrieveParams
+        ): CompletableFuture<HttpResponseFor<IntrafiAccountEnrollment>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: IntrafiAccountEnrollmentRetrieveParams,
@@ -89,17 +120,25 @@ interface IntrafiAccountEnrollmentServiceAsync {
          * Returns a raw HTTP response for `get /intrafi_account_enrollments`, but is otherwise the
          * same as [IntrafiAccountEnrollmentServiceAsync.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): CompletableFuture<HttpResponseFor<IntrafiAccountEnrollmentListPageAsync>> =
+            list(IntrafiAccountEnrollmentListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: IntrafiAccountEnrollmentListParams = IntrafiAccountEnrollmentListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<IntrafiAccountEnrollmentListPageAsync>>
 
-        /**
-         * Returns a raw HTTP response for `get /intrafi_account_enrollments`, but is otherwise the
-         * same as [IntrafiAccountEnrollmentServiceAsync.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: IntrafiAccountEnrollmentListParams = IntrafiAccountEnrollmentListParams.none()
+        ): CompletableFuture<HttpResponseFor<IntrafiAccountEnrollmentListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions
@@ -111,7 +150,13 @@ interface IntrafiAccountEnrollmentServiceAsync {
          * /intrafi_account_enrollments/{intrafi_account_enrollment_id}/unenroll`, but is otherwise
          * the same as [IntrafiAccountEnrollmentServiceAsync.unenroll].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun unenroll(
+            params: IntrafiAccountEnrollmentUnenrollParams
+        ): CompletableFuture<HttpResponseFor<IntrafiAccountEnrollment>> =
+            unenroll(params, RequestOptions.none())
+
+        /** @see [unenroll] */
         @MustBeClosed
         fun unenroll(
             params: IntrafiAccountEnrollmentUnenrollParams,

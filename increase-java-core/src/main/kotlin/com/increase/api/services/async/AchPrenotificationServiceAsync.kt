@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -22,27 +20,41 @@ interface AchPrenotificationServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Create an ACH Prenotification */
-    @JvmOverloads
+    fun create(params: AchPrenotificationCreateParams): CompletableFuture<AchPrenotification> =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: AchPrenotificationCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AchPrenotification>
 
     /** Retrieve an ACH Prenotification */
-    @JvmOverloads
+    fun retrieve(params: AchPrenotificationRetrieveParams): CompletableFuture<AchPrenotification> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: AchPrenotificationRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AchPrenotification>
 
     /** List ACH Prenotifications */
-    @JvmOverloads
+    fun list(): CompletableFuture<AchPrenotificationListPageAsync> =
+        list(AchPrenotificationListParams.none())
+
+    /** @see [list] */
     fun list(
         params: AchPrenotificationListParams = AchPrenotificationListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AchPrenotificationListPageAsync>
 
-    /** List ACH Prenotifications */
+    /** @see [list] */
+    fun list(
+        params: AchPrenotificationListParams = AchPrenotificationListParams.none()
+    ): CompletableFuture<AchPrenotificationListPageAsync> = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CompletableFuture<AchPrenotificationListPageAsync> =
         list(AchPrenotificationListParams.none(), requestOptions)
 
@@ -56,7 +68,13 @@ interface AchPrenotificationServiceAsync {
          * Returns a raw HTTP response for `post /ach_prenotifications`, but is otherwise the same
          * as [AchPrenotificationServiceAsync.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: AchPrenotificationCreateParams
+        ): CompletableFuture<HttpResponseFor<AchPrenotification>> =
+            create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: AchPrenotificationCreateParams,
@@ -67,7 +85,13 @@ interface AchPrenotificationServiceAsync {
          * Returns a raw HTTP response for `get /ach_prenotifications/{ach_prenotification_id}`, but
          * is otherwise the same as [AchPrenotificationServiceAsync.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: AchPrenotificationRetrieveParams
+        ): CompletableFuture<HttpResponseFor<AchPrenotification>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: AchPrenotificationRetrieveParams,
@@ -78,17 +102,25 @@ interface AchPrenotificationServiceAsync {
          * Returns a raw HTTP response for `get /ach_prenotifications`, but is otherwise the same as
          * [AchPrenotificationServiceAsync.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): CompletableFuture<HttpResponseFor<AchPrenotificationListPageAsync>> =
+            list(AchPrenotificationListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: AchPrenotificationListParams = AchPrenotificationListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AchPrenotificationListPageAsync>>
 
-        /**
-         * Returns a raw HTTP response for `get /ach_prenotifications`, but is otherwise the same as
-         * [AchPrenotificationServiceAsync.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: AchPrenotificationListParams = AchPrenotificationListParams.none()
+        ): CompletableFuture<HttpResponseFor<AchPrenotificationListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions

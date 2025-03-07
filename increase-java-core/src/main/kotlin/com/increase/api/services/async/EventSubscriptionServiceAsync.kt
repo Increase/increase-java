@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -23,34 +21,51 @@ interface EventSubscriptionServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Create an Event Subscription */
-    @JvmOverloads
+    fun create(params: EventSubscriptionCreateParams): CompletableFuture<EventSubscription> =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: EventSubscriptionCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<EventSubscription>
 
     /** Retrieve an Event Subscription */
-    @JvmOverloads
+    fun retrieve(params: EventSubscriptionRetrieveParams): CompletableFuture<EventSubscription> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: EventSubscriptionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<EventSubscription>
 
     /** Update an Event Subscription */
-    @JvmOverloads
+    fun update(params: EventSubscriptionUpdateParams): CompletableFuture<EventSubscription> =
+        update(params, RequestOptions.none())
+
+    /** @see [update] */
     fun update(
         params: EventSubscriptionUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<EventSubscription>
 
     /** List Event Subscriptions */
-    @JvmOverloads
+    fun list(): CompletableFuture<EventSubscriptionListPageAsync> =
+        list(EventSubscriptionListParams.none())
+
+    /** @see [list] */
     fun list(
         params: EventSubscriptionListParams = EventSubscriptionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<EventSubscriptionListPageAsync>
 
-    /** List Event Subscriptions */
+    /** @see [list] */
+    fun list(
+        params: EventSubscriptionListParams = EventSubscriptionListParams.none()
+    ): CompletableFuture<EventSubscriptionListPageAsync> = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CompletableFuture<EventSubscriptionListPageAsync> =
         list(EventSubscriptionListParams.none(), requestOptions)
 
@@ -64,7 +79,13 @@ interface EventSubscriptionServiceAsync {
          * Returns a raw HTTP response for `post /event_subscriptions`, but is otherwise the same as
          * [EventSubscriptionServiceAsync.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: EventSubscriptionCreateParams
+        ): CompletableFuture<HttpResponseFor<EventSubscription>> =
+            create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: EventSubscriptionCreateParams,
@@ -75,7 +96,13 @@ interface EventSubscriptionServiceAsync {
          * Returns a raw HTTP response for `get /event_subscriptions/{event_subscription_id}`, but
          * is otherwise the same as [EventSubscriptionServiceAsync.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: EventSubscriptionRetrieveParams
+        ): CompletableFuture<HttpResponseFor<EventSubscription>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: EventSubscriptionRetrieveParams,
@@ -86,7 +113,13 @@ interface EventSubscriptionServiceAsync {
          * Returns a raw HTTP response for `patch /event_subscriptions/{event_subscription_id}`, but
          * is otherwise the same as [EventSubscriptionServiceAsync.update].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun update(
+            params: EventSubscriptionUpdateParams
+        ): CompletableFuture<HttpResponseFor<EventSubscription>> =
+            update(params, RequestOptions.none())
+
+        /** @see [update] */
         @MustBeClosed
         fun update(
             params: EventSubscriptionUpdateParams,
@@ -97,17 +130,25 @@ interface EventSubscriptionServiceAsync {
          * Returns a raw HTTP response for `get /event_subscriptions`, but is otherwise the same as
          * [EventSubscriptionServiceAsync.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): CompletableFuture<HttpResponseFor<EventSubscriptionListPageAsync>> =
+            list(EventSubscriptionListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: EventSubscriptionListParams = EventSubscriptionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<EventSubscriptionListPageAsync>>
 
-        /**
-         * Returns a raw HTTP response for `get /event_subscriptions`, but is otherwise the same as
-         * [EventSubscriptionServiceAsync.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: EventSubscriptionListParams = EventSubscriptionListParams.none()
+        ): CompletableFuture<HttpResponseFor<EventSubscriptionListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions

@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -19,13 +17,20 @@ interface GroupServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Returns details for the currently authenticated Group. */
-    @JvmOverloads
+    fun retrieve(): CompletableFuture<Group> = retrieve(GroupRetrieveParams.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: GroupRetrieveParams = GroupRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Group>
 
-    /** Returns details for the currently authenticated Group. */
+    /** @see [retrieve] */
+    fun retrieve(
+        params: GroupRetrieveParams = GroupRetrieveParams.none()
+    ): CompletableFuture<Group> = retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(requestOptions: RequestOptions): CompletableFuture<Group> =
         retrieve(GroupRetrieveParams.none(), requestOptions)
 
@@ -36,17 +41,24 @@ interface GroupServiceAsync {
          * Returns a raw HTTP response for `get /groups/current`, but is otherwise the same as
          * [GroupServiceAsync.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(): CompletableFuture<HttpResponseFor<Group>> =
+            retrieve(GroupRetrieveParams.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: GroupRetrieveParams = GroupRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Group>>
 
-        /**
-         * Returns a raw HTTP response for `get /groups/current`, but is otherwise the same as
-         * [GroupServiceAsync.retrieve].
-         */
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: GroupRetrieveParams = GroupRetrieveParams.none()
+        ): CompletableFuture<HttpResponseFor<Group>> = retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(requestOptions: RequestOptions): CompletableFuture<HttpResponseFor<Group>> =
             retrieve(GroupRetrieveParams.none(), requestOptions)

@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -24,39 +22,58 @@ interface AchTransferServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Create an ACH Transfer */
-    @JvmOverloads
+    fun create(params: AchTransferCreateParams): CompletableFuture<AchTransfer> =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: AchTransferCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AchTransfer>
 
     /** Retrieve an ACH Transfer */
-    @JvmOverloads
+    fun retrieve(params: AchTransferRetrieveParams): CompletableFuture<AchTransfer> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: AchTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AchTransfer>
 
     /** List ACH Transfers */
-    @JvmOverloads
+    fun list(): CompletableFuture<AchTransferListPageAsync> = list(AchTransferListParams.none())
+
+    /** @see [list] */
     fun list(
         params: AchTransferListParams = AchTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AchTransferListPageAsync>
 
-    /** List ACH Transfers */
+    /** @see [list] */
+    fun list(
+        params: AchTransferListParams = AchTransferListParams.none()
+    ): CompletableFuture<AchTransferListPageAsync> = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CompletableFuture<AchTransferListPageAsync> =
         list(AchTransferListParams.none(), requestOptions)
 
     /** Approves an ACH Transfer in a pending_approval state. */
-    @JvmOverloads
+    fun approve(params: AchTransferApproveParams): CompletableFuture<AchTransfer> =
+        approve(params, RequestOptions.none())
+
+    /** @see [approve] */
     fun approve(
         params: AchTransferApproveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AchTransfer>
 
     /** Cancels an ACH Transfer in a pending_approval state. */
-    @JvmOverloads
+    fun cancel(params: AchTransferCancelParams): CompletableFuture<AchTransfer> =
+        cancel(params, RequestOptions.none())
+
+    /** @see [cancel] */
     fun cancel(
         params: AchTransferCancelParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -72,7 +89,12 @@ interface AchTransferServiceAsync {
          * Returns a raw HTTP response for `post /ach_transfers`, but is otherwise the same as
          * [AchTransferServiceAsync.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: AchTransferCreateParams
+        ): CompletableFuture<HttpResponseFor<AchTransfer>> = create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: AchTransferCreateParams,
@@ -83,7 +105,12 @@ interface AchTransferServiceAsync {
          * Returns a raw HTTP response for `get /ach_transfers/{ach_transfer_id}`, but is otherwise
          * the same as [AchTransferServiceAsync.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: AchTransferRetrieveParams
+        ): CompletableFuture<HttpResponseFor<AchTransfer>> = retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: AchTransferRetrieveParams,
@@ -94,17 +121,25 @@ interface AchTransferServiceAsync {
          * Returns a raw HTTP response for `get /ach_transfers`, but is otherwise the same as
          * [AchTransferServiceAsync.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): CompletableFuture<HttpResponseFor<AchTransferListPageAsync>> =
+            list(AchTransferListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: AchTransferListParams = AchTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AchTransferListPageAsync>>
 
-        /**
-         * Returns a raw HTTP response for `get /ach_transfers`, but is otherwise the same as
-         * [AchTransferServiceAsync.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: AchTransferListParams = AchTransferListParams.none()
+        ): CompletableFuture<HttpResponseFor<AchTransferListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions
@@ -115,7 +150,12 @@ interface AchTransferServiceAsync {
          * Returns a raw HTTP response for `post /ach_transfers/{ach_transfer_id}/approve`, but is
          * otherwise the same as [AchTransferServiceAsync.approve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun approve(
+            params: AchTransferApproveParams
+        ): CompletableFuture<HttpResponseFor<AchTransfer>> = approve(params, RequestOptions.none())
+
+        /** @see [approve] */
         @MustBeClosed
         fun approve(
             params: AchTransferApproveParams,
@@ -126,7 +166,12 @@ interface AchTransferServiceAsync {
          * Returns a raw HTTP response for `post /ach_transfers/{ach_transfer_id}/cancel`, but is
          * otherwise the same as [AchTransferServiceAsync.cancel].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun cancel(
+            params: AchTransferCancelParams
+        ): CompletableFuture<HttpResponseFor<AchTransfer>> = cancel(params, RequestOptions.none())
+
+        /** @see [cancel] */
         @MustBeClosed
         fun cancel(
             params: AchTransferCancelParams,

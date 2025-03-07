@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -24,39 +22,53 @@ interface CardService {
     fun withRawResponse(): WithRawResponse
 
     /** Create a Card */
-    @JvmOverloads
+    fun create(params: CardCreateParams): Card = create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: CardCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Card
 
     /** Retrieve a Card */
-    @JvmOverloads
+    fun retrieve(params: CardRetrieveParams): Card = retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: CardRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Card
 
     /** Update a Card */
-    @JvmOverloads
+    fun update(params: CardUpdateParams): Card = update(params, RequestOptions.none())
+
+    /** @see [update] */
     fun update(
         params: CardUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Card
 
     /** List Cards */
-    @JvmOverloads
+    fun list(): CardListPage = list(CardListParams.none())
+
+    /** @see [list] */
     fun list(
         params: CardListParams = CardListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardListPage
 
-    /** List Cards */
+    /** @see [list] */
+    fun list(params: CardListParams = CardListParams.none()): CardListPage =
+        list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CardListPage =
         list(CardListParams.none(), requestOptions)
 
     /** Retrieve sensitive details for a Card */
-    @JvmOverloads
+    fun details(params: CardDetailsParams): CardDetails = details(params, RequestOptions.none())
+
+    /** @see [details] */
     fun details(
         params: CardDetailsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -69,7 +81,11 @@ interface CardService {
          * Returns a raw HTTP response for `post /cards`, but is otherwise the same as
          * [CardService.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(params: CardCreateParams): HttpResponseFor<Card> =
+            create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: CardCreateParams,
@@ -80,7 +96,11 @@ interface CardService {
          * Returns a raw HTTP response for `get /cards/{card_id}`, but is otherwise the same as
          * [CardService.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(params: CardRetrieveParams): HttpResponseFor<Card> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: CardRetrieveParams,
@@ -91,7 +111,11 @@ interface CardService {
          * Returns a raw HTTP response for `patch /cards/{card_id}`, but is otherwise the same as
          * [CardService.update].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun update(params: CardUpdateParams): HttpResponseFor<Card> =
+            update(params, RequestOptions.none())
+
+        /** @see [update] */
         @MustBeClosed
         fun update(
             params: CardUpdateParams,
@@ -102,17 +126,21 @@ interface CardService {
          * Returns a raw HTTP response for `get /cards`, but is otherwise the same as
          * [CardService.list].
          */
-        @JvmOverloads
+        @MustBeClosed fun list(): HttpResponseFor<CardListPage> = list(CardListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: CardListParams = CardListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /cards`, but is otherwise the same as
-         * [CardService.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(params: CardListParams = CardListParams.none()): HttpResponseFor<CardListPage> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<CardListPage> =
             list(CardListParams.none(), requestOptions)
@@ -121,7 +149,11 @@ interface CardService {
          * Returns a raw HTTP response for `get /cards/{card_id}/details`, but is otherwise the same
          * as [CardService.details].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun details(params: CardDetailsParams): HttpResponseFor<CardDetails> =
+            details(params, RequestOptions.none())
+
+        /** @see [details] */
         @MustBeClosed
         fun details(
             params: CardDetailsParams,

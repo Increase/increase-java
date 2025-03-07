@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -23,39 +21,59 @@ interface InboundAchTransferService {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve an Inbound ACH Transfer */
-    @JvmOverloads
+    fun retrieve(params: InboundAchTransferRetrieveParams): InboundAchTransfer =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: InboundAchTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundAchTransfer
 
     /** List Inbound ACH Transfers */
-    @JvmOverloads
+    fun list(): InboundAchTransferListPage = list(InboundAchTransferListParams.none())
+
+    /** @see [list] */
     fun list(
         params: InboundAchTransferListParams = InboundAchTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundAchTransferListPage
 
-    /** List Inbound ACH Transfers */
+    /** @see [list] */
+    fun list(
+        params: InboundAchTransferListParams = InboundAchTransferListParams.none()
+    ): InboundAchTransferListPage = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): InboundAchTransferListPage =
         list(InboundAchTransferListParams.none(), requestOptions)
 
     /** Create a notification of change for an Inbound ACH Transfer */
-    @JvmOverloads
+    fun createNotificationOfChange(
+        params: InboundAchTransferCreateNotificationOfChangeParams
+    ): InboundAchTransfer = createNotificationOfChange(params, RequestOptions.none())
+
+    /** @see [createNotificationOfChange] */
     fun createNotificationOfChange(
         params: InboundAchTransferCreateNotificationOfChangeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundAchTransfer
 
     /** Decline an Inbound ACH Transfer */
-    @JvmOverloads
+    fun decline(params: InboundAchTransferDeclineParams): InboundAchTransfer =
+        decline(params, RequestOptions.none())
+
+    /** @see [decline] */
     fun decline(
         params: InboundAchTransferDeclineParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundAchTransfer
 
     /** Return an Inbound ACH Transfer */
-    @JvmOverloads
+    fun transferReturn(params: InboundAchTransferTransferReturnParams): InboundAchTransfer =
+        transferReturn(params, RequestOptions.none())
+
+    /** @see [transferReturn] */
     fun transferReturn(
         params: InboundAchTransferTransferReturnParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -71,7 +89,12 @@ interface InboundAchTransferService {
          * Returns a raw HTTP response for `get /inbound_ach_transfers/{inbound_ach_transfer_id}`,
          * but is otherwise the same as [InboundAchTransferService.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: InboundAchTransferRetrieveParams
+        ): HttpResponseFor<InboundAchTransfer> = retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: InboundAchTransferRetrieveParams,
@@ -82,17 +105,24 @@ interface InboundAchTransferService {
          * Returns a raw HTTP response for `get /inbound_ach_transfers`, but is otherwise the same
          * as [InboundAchTransferService.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): HttpResponseFor<InboundAchTransferListPage> =
+            list(InboundAchTransferListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: InboundAchTransferListParams = InboundAchTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundAchTransferListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /inbound_ach_transfers`, but is otherwise the same
-         * as [InboundAchTransferService.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: InboundAchTransferListParams = InboundAchTransferListParams.none()
+        ): HttpResponseFor<InboundAchTransferListPage> = list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<InboundAchTransferListPage> =
             list(InboundAchTransferListParams.none(), requestOptions)
@@ -102,7 +132,13 @@ interface InboundAchTransferService {
          * /inbound_ach_transfers/{inbound_ach_transfer_id}/create_notification_of_change`, but is
          * otherwise the same as [InboundAchTransferService.createNotificationOfChange].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun createNotificationOfChange(
+            params: InboundAchTransferCreateNotificationOfChangeParams
+        ): HttpResponseFor<InboundAchTransfer> =
+            createNotificationOfChange(params, RequestOptions.none())
+
+        /** @see [createNotificationOfChange] */
         @MustBeClosed
         fun createNotificationOfChange(
             params: InboundAchTransferCreateNotificationOfChangeParams,
@@ -114,7 +150,11 @@ interface InboundAchTransferService {
          * /inbound_ach_transfers/{inbound_ach_transfer_id}/decline`, but is otherwise the same as
          * [InboundAchTransferService.decline].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun decline(params: InboundAchTransferDeclineParams): HttpResponseFor<InboundAchTransfer> =
+            decline(params, RequestOptions.none())
+
+        /** @see [decline] */
         @MustBeClosed
         fun decline(
             params: InboundAchTransferDeclineParams,
@@ -126,7 +166,12 @@ interface InboundAchTransferService {
          * /inbound_ach_transfers/{inbound_ach_transfer_id}/transfer_return`, but is otherwise the
          * same as [InboundAchTransferService.transferReturn].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun transferReturn(
+            params: InboundAchTransferTransferReturnParams
+        ): HttpResponseFor<InboundAchTransfer> = transferReturn(params, RequestOptions.none())
+
+        /** @see [transferReturn] */
         @MustBeClosed
         fun transferReturn(
             params: InboundAchTransferTransferReturnParams,

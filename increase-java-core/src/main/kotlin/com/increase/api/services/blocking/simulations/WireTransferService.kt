@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking.simulations
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -23,7 +21,10 @@ interface WireTransferService {
      * error conditions. This will also create a [Transaction](#transaction) to account for the
      * returned funds. This Wire Transfer must first have a `status` of `complete`.
      */
-    @JvmOverloads
+    fun reverse(params: SimulationWireTransferReverseParams): WireTransfer =
+        reverse(params, RequestOptions.none())
+
+    /** @see [reverse] */
     fun reverse(
         params: SimulationWireTransferReverseParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -33,7 +34,10 @@ interface WireTransferService {
      * Simulates the submission of a [Wire Transfer](#wire-transfers) to the Federal Reserve. This
      * transfer must first have a `status` of `pending_approval` or `pending_creating`.
      */
-    @JvmOverloads
+    fun submit(params: SimulationWireTransferSubmitParams): WireTransfer =
+        submit(params, RequestOptions.none())
+
+    /** @see [submit] */
     fun submit(
         params: SimulationWireTransferSubmitParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -49,7 +53,11 @@ interface WireTransferService {
          * /simulations/wire_transfers/{wire_transfer_id}/reverse`, but is otherwise the same as
          * [WireTransferService.reverse].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun reverse(params: SimulationWireTransferReverseParams): HttpResponseFor<WireTransfer> =
+            reverse(params, RequestOptions.none())
+
+        /** @see [reverse] */
         @MustBeClosed
         fun reverse(
             params: SimulationWireTransferReverseParams,
@@ -61,7 +69,11 @@ interface WireTransferService {
          * /simulations/wire_transfers/{wire_transfer_id}/submit`, but is otherwise the same as
          * [WireTransferService.submit].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun submit(params: SimulationWireTransferSubmitParams): HttpResponseFor<WireTransfer> =
+            submit(params, RequestOptions.none())
+
+        /** @see [submit] */
         @MustBeClosed
         fun submit(
             params: SimulationWireTransferSubmitParams,

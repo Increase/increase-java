@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -22,27 +20,44 @@ interface RealTimePaymentsTransferServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Create a Real-Time Payments Transfer */
-    @JvmOverloads
+    fun create(
+        params: RealTimePaymentsTransferCreateParams
+    ): CompletableFuture<RealTimePaymentsTransfer> = create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: RealTimePaymentsTransferCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<RealTimePaymentsTransfer>
 
     /** Retrieve a Real-Time Payments Transfer */
-    @JvmOverloads
+    fun retrieve(
+        params: RealTimePaymentsTransferRetrieveParams
+    ): CompletableFuture<RealTimePaymentsTransfer> = retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: RealTimePaymentsTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<RealTimePaymentsTransfer>
 
     /** List Real-Time Payments Transfers */
-    @JvmOverloads
+    fun list(): CompletableFuture<RealTimePaymentsTransferListPageAsync> =
+        list(RealTimePaymentsTransferListParams.none())
+
+    /** @see [list] */
     fun list(
         params: RealTimePaymentsTransferListParams = RealTimePaymentsTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<RealTimePaymentsTransferListPageAsync>
 
-    /** List Real-Time Payments Transfers */
+    /** @see [list] */
+    fun list(
+        params: RealTimePaymentsTransferListParams = RealTimePaymentsTransferListParams.none()
+    ): CompletableFuture<RealTimePaymentsTransferListPageAsync> =
+        list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(
         requestOptions: RequestOptions
     ): CompletableFuture<RealTimePaymentsTransferListPageAsync> =
@@ -58,7 +73,13 @@ interface RealTimePaymentsTransferServiceAsync {
          * Returns a raw HTTP response for `post /real_time_payments_transfers`, but is otherwise
          * the same as [RealTimePaymentsTransferServiceAsync.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: RealTimePaymentsTransferCreateParams
+        ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>> =
+            create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: RealTimePaymentsTransferCreateParams,
@@ -70,7 +91,13 @@ interface RealTimePaymentsTransferServiceAsync {
          * /real_time_payments_transfers/{real_time_payments_transfer_id}`, but is otherwise the
          * same as [RealTimePaymentsTransferServiceAsync.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: RealTimePaymentsTransferRetrieveParams
+        ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: RealTimePaymentsTransferRetrieveParams,
@@ -81,17 +108,25 @@ interface RealTimePaymentsTransferServiceAsync {
          * Returns a raw HTTP response for `get /real_time_payments_transfers`, but is otherwise the
          * same as [RealTimePaymentsTransferServiceAsync.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): CompletableFuture<HttpResponseFor<RealTimePaymentsTransferListPageAsync>> =
+            list(RealTimePaymentsTransferListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: RealTimePaymentsTransferListParams = RealTimePaymentsTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransferListPageAsync>>
 
-        /**
-         * Returns a raw HTTP response for `get /real_time_payments_transfers`, but is otherwise the
-         * same as [RealTimePaymentsTransferServiceAsync.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: RealTimePaymentsTransferListParams = RealTimePaymentsTransferListParams.none()
+        ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransferListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions

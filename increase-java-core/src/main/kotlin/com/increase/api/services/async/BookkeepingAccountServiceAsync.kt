@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -24,32 +22,50 @@ interface BookkeepingAccountServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Create a Bookkeeping Account */
-    @JvmOverloads
+    fun create(params: BookkeepingAccountCreateParams): CompletableFuture<BookkeepingAccount> =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: BookkeepingAccountCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BookkeepingAccount>
 
     /** Update a Bookkeeping Account */
-    @JvmOverloads
+    fun update(params: BookkeepingAccountUpdateParams): CompletableFuture<BookkeepingAccount> =
+        update(params, RequestOptions.none())
+
+    /** @see [update] */
     fun update(
         params: BookkeepingAccountUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BookkeepingAccount>
 
     /** List Bookkeeping Accounts */
-    @JvmOverloads
+    fun list(): CompletableFuture<BookkeepingAccountListPageAsync> =
+        list(BookkeepingAccountListParams.none())
+
+    /** @see [list] */
     fun list(
         params: BookkeepingAccountListParams = BookkeepingAccountListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BookkeepingAccountListPageAsync>
 
-    /** List Bookkeeping Accounts */
+    /** @see [list] */
+    fun list(
+        params: BookkeepingAccountListParams = BookkeepingAccountListParams.none()
+    ): CompletableFuture<BookkeepingAccountListPageAsync> = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CompletableFuture<BookkeepingAccountListPageAsync> =
         list(BookkeepingAccountListParams.none(), requestOptions)
 
     /** Retrieve a Bookkeeping Account Balance */
-    @JvmOverloads
+    fun balance(
+        params: BookkeepingAccountBalanceParams
+    ): CompletableFuture<BookkeepingBalanceLookup> = balance(params, RequestOptions.none())
+
+    /** @see [balance] */
     fun balance(
         params: BookkeepingAccountBalanceParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -65,7 +81,13 @@ interface BookkeepingAccountServiceAsync {
          * Returns a raw HTTP response for `post /bookkeeping_accounts`, but is otherwise the same
          * as [BookkeepingAccountServiceAsync.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: BookkeepingAccountCreateParams
+        ): CompletableFuture<HttpResponseFor<BookkeepingAccount>> =
+            create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: BookkeepingAccountCreateParams,
@@ -76,7 +98,13 @@ interface BookkeepingAccountServiceAsync {
          * Returns a raw HTTP response for `patch /bookkeeping_accounts/{bookkeeping_account_id}`,
          * but is otherwise the same as [BookkeepingAccountServiceAsync.update].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun update(
+            params: BookkeepingAccountUpdateParams
+        ): CompletableFuture<HttpResponseFor<BookkeepingAccount>> =
+            update(params, RequestOptions.none())
+
+        /** @see [update] */
         @MustBeClosed
         fun update(
             params: BookkeepingAccountUpdateParams,
@@ -87,17 +115,25 @@ interface BookkeepingAccountServiceAsync {
          * Returns a raw HTTP response for `get /bookkeeping_accounts`, but is otherwise the same as
          * [BookkeepingAccountServiceAsync.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): CompletableFuture<HttpResponseFor<BookkeepingAccountListPageAsync>> =
+            list(BookkeepingAccountListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: BookkeepingAccountListParams = BookkeepingAccountListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<BookkeepingAccountListPageAsync>>
 
-        /**
-         * Returns a raw HTTP response for `get /bookkeeping_accounts`, but is otherwise the same as
-         * [BookkeepingAccountServiceAsync.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: BookkeepingAccountListParams = BookkeepingAccountListParams.none()
+        ): CompletableFuture<HttpResponseFor<BookkeepingAccountListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions
@@ -109,7 +145,13 @@ interface BookkeepingAccountServiceAsync {
          * /bookkeeping_accounts/{bookkeeping_account_id}/balance`, but is otherwise the same as
          * [BookkeepingAccountServiceAsync.balance].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun balance(
+            params: BookkeepingAccountBalanceParams
+        ): CompletableFuture<HttpResponseFor<BookkeepingBalanceLookup>> =
+            balance(params, RequestOptions.none())
+
+        /** @see [balance] */
         @MustBeClosed
         fun balance(
             params: BookkeepingAccountBalanceParams,

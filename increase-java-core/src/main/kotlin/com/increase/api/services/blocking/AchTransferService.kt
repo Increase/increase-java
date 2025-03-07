@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -23,39 +21,55 @@ interface AchTransferService {
     fun withRawResponse(): WithRawResponse
 
     /** Create an ACH Transfer */
-    @JvmOverloads
+    fun create(params: AchTransferCreateParams): AchTransfer = create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: AchTransferCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 
     /** Retrieve an ACH Transfer */
-    @JvmOverloads
+    fun retrieve(params: AchTransferRetrieveParams): AchTransfer =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: AchTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 
     /** List ACH Transfers */
-    @JvmOverloads
+    fun list(): AchTransferListPage = list(AchTransferListParams.none())
+
+    /** @see [list] */
     fun list(
         params: AchTransferListParams = AchTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransferListPage
 
-    /** List ACH Transfers */
+    /** @see [list] */
+    fun list(params: AchTransferListParams = AchTransferListParams.none()): AchTransferListPage =
+        list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): AchTransferListPage =
         list(AchTransferListParams.none(), requestOptions)
 
     /** Approves an ACH Transfer in a pending_approval state. */
-    @JvmOverloads
+    fun approve(params: AchTransferApproveParams): AchTransfer =
+        approve(params, RequestOptions.none())
+
+    /** @see [approve] */
     fun approve(
         params: AchTransferApproveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 
     /** Cancels an ACH Transfer in a pending_approval state. */
-    @JvmOverloads
+    fun cancel(params: AchTransferCancelParams): AchTransfer = cancel(params, RequestOptions.none())
+
+    /** @see [cancel] */
     fun cancel(
         params: AchTransferCancelParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -70,7 +84,11 @@ interface AchTransferService {
          * Returns a raw HTTP response for `post /ach_transfers`, but is otherwise the same as
          * [AchTransferService.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(params: AchTransferCreateParams): HttpResponseFor<AchTransfer> =
+            create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: AchTransferCreateParams,
@@ -81,7 +99,11 @@ interface AchTransferService {
          * Returns a raw HTTP response for `get /ach_transfers/{ach_transfer_id}`, but is otherwise
          * the same as [AchTransferService.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(params: AchTransferRetrieveParams): HttpResponseFor<AchTransfer> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: AchTransferRetrieveParams,
@@ -92,17 +114,23 @@ interface AchTransferService {
          * Returns a raw HTTP response for `get /ach_transfers`, but is otherwise the same as
          * [AchTransferService.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): HttpResponseFor<AchTransferListPage> = list(AchTransferListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: AchTransferListParams = AchTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AchTransferListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /ach_transfers`, but is otherwise the same as
-         * [AchTransferService.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: AchTransferListParams = AchTransferListParams.none()
+        ): HttpResponseFor<AchTransferListPage> = list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<AchTransferListPage> =
             list(AchTransferListParams.none(), requestOptions)
@@ -111,7 +139,11 @@ interface AchTransferService {
          * Returns a raw HTTP response for `post /ach_transfers/{ach_transfer_id}/approve`, but is
          * otherwise the same as [AchTransferService.approve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun approve(params: AchTransferApproveParams): HttpResponseFor<AchTransfer> =
+            approve(params, RequestOptions.none())
+
+        /** @see [approve] */
         @MustBeClosed
         fun approve(
             params: AchTransferApproveParams,
@@ -122,7 +154,11 @@ interface AchTransferService {
          * Returns a raw HTTP response for `post /ach_transfers/{ach_transfer_id}/cancel`, but is
          * otherwise the same as [AchTransferService.cancel].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun cancel(params: AchTransferCancelParams): HttpResponseFor<AchTransfer> =
+            cancel(params, RequestOptions.none())
+
+        /** @see [cancel] */
         @MustBeClosed
         fun cancel(
             params: AchTransferCancelParams,

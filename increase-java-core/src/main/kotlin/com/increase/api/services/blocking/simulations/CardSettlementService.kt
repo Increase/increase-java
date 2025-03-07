@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking.simulations
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -23,7 +21,10 @@ interface CardSettlementService {
      * may occur many days after the purchase in production. The amount settled can be different
      * from the amount originally authorized, for example, when adding a tip to a restaurant bill.
      */
-    @JvmOverloads
+    fun create(params: SimulationCardSettlementCreateParams): Transaction =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: SimulationCardSettlementCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -38,7 +39,11 @@ interface CardSettlementService {
          * Returns a raw HTTP response for `post /simulations/card_settlements`, but is otherwise
          * the same as [CardSettlementService.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(params: SimulationCardSettlementCreateParams): HttpResponseFor<Transaction> =
+            create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: SimulationCardSettlementCreateParams,

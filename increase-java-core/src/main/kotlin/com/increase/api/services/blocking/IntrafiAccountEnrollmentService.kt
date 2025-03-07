@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -22,32 +20,48 @@ interface IntrafiAccountEnrollmentService {
     fun withRawResponse(): WithRawResponse
 
     /** Enroll an account in the IntraFi deposit sweep network */
-    @JvmOverloads
+    fun create(params: IntrafiAccountEnrollmentCreateParams): IntrafiAccountEnrollment =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: IntrafiAccountEnrollmentCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiAccountEnrollment
 
     /** Get an IntraFi Account Enrollment */
-    @JvmOverloads
+    fun retrieve(params: IntrafiAccountEnrollmentRetrieveParams): IntrafiAccountEnrollment =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: IntrafiAccountEnrollmentRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiAccountEnrollment
 
     /** List IntraFi Account Enrollments */
-    @JvmOverloads
+    fun list(): IntrafiAccountEnrollmentListPage = list(IntrafiAccountEnrollmentListParams.none())
+
+    /** @see [list] */
     fun list(
         params: IntrafiAccountEnrollmentListParams = IntrafiAccountEnrollmentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiAccountEnrollmentListPage
 
-    /** List IntraFi Account Enrollments */
+    /** @see [list] */
+    fun list(
+        params: IntrafiAccountEnrollmentListParams = IntrafiAccountEnrollmentListParams.none()
+    ): IntrafiAccountEnrollmentListPage = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): IntrafiAccountEnrollmentListPage =
         list(IntrafiAccountEnrollmentListParams.none(), requestOptions)
 
     /** Unenroll an account from IntraFi */
-    @JvmOverloads
+    fun unenroll(params: IntrafiAccountEnrollmentUnenrollParams): IntrafiAccountEnrollment =
+        unenroll(params, RequestOptions.none())
+
+    /** @see [unenroll] */
     fun unenroll(
         params: IntrafiAccountEnrollmentUnenrollParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -63,7 +77,12 @@ interface IntrafiAccountEnrollmentService {
          * Returns a raw HTTP response for `post /intrafi_account_enrollments`, but is otherwise the
          * same as [IntrafiAccountEnrollmentService.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: IntrafiAccountEnrollmentCreateParams
+        ): HttpResponseFor<IntrafiAccountEnrollment> = create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: IntrafiAccountEnrollmentCreateParams,
@@ -75,7 +94,12 @@ interface IntrafiAccountEnrollmentService {
          * /intrafi_account_enrollments/{intrafi_account_enrollment_id}`, but is otherwise the same
          * as [IntrafiAccountEnrollmentService.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: IntrafiAccountEnrollmentRetrieveParams
+        ): HttpResponseFor<IntrafiAccountEnrollment> = retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: IntrafiAccountEnrollmentRetrieveParams,
@@ -86,17 +110,24 @@ interface IntrafiAccountEnrollmentService {
          * Returns a raw HTTP response for `get /intrafi_account_enrollments`, but is otherwise the
          * same as [IntrafiAccountEnrollmentService.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): HttpResponseFor<IntrafiAccountEnrollmentListPage> =
+            list(IntrafiAccountEnrollmentListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: IntrafiAccountEnrollmentListParams = IntrafiAccountEnrollmentListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<IntrafiAccountEnrollmentListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /intrafi_account_enrollments`, but is otherwise the
-         * same as [IntrafiAccountEnrollmentService.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: IntrafiAccountEnrollmentListParams = IntrafiAccountEnrollmentListParams.none()
+        ): HttpResponseFor<IntrafiAccountEnrollmentListPage> = list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions
@@ -108,7 +139,12 @@ interface IntrafiAccountEnrollmentService {
          * /intrafi_account_enrollments/{intrafi_account_enrollment_id}/unenroll`, but is otherwise
          * the same as [IntrafiAccountEnrollmentService.unenroll].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun unenroll(
+            params: IntrafiAccountEnrollmentUnenrollParams
+        ): HttpResponseFor<IntrafiAccountEnrollment> = unenroll(params, RequestOptions.none())
+
+        /** @see [unenroll] */
         @MustBeClosed
         fun unenroll(
             params: IntrafiAccountEnrollmentUnenrollParams,

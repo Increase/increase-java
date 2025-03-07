@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking.simulations
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -22,7 +20,10 @@ interface CheckTransferService {
      * throughout the day in production but can be sped up in sandbox. This transfer must first have
      * a `status` of `pending_approval` or `pending_submission`.
      */
-    @JvmOverloads
+    fun mail(params: SimulationCheckTransferMailParams): CheckTransfer =
+        mail(params, RequestOptions.none())
+
+    /** @see [mail] */
     fun mail(
         params: SimulationCheckTransferMailParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -38,7 +39,11 @@ interface CheckTransferService {
          * /simulations/check_transfers/{check_transfer_id}/mail`, but is otherwise the same as
          * [CheckTransferService.mail].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun mail(params: SimulationCheckTransferMailParams): HttpResponseFor<CheckTransfer> =
+            mail(params, RequestOptions.none())
+
+        /** @see [mail] */
         @MustBeClosed
         fun mail(
             params: SimulationCheckTransferMailParams,

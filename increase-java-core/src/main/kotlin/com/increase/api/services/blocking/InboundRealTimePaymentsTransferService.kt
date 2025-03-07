@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -20,21 +18,34 @@ interface InboundRealTimePaymentsTransferService {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve an Inbound Real-Time Payments Transfer */
-    @JvmOverloads
+    fun retrieve(
+        params: InboundRealTimePaymentsTransferRetrieveParams
+    ): InboundRealTimePaymentsTransfer = retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: InboundRealTimePaymentsTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundRealTimePaymentsTransfer
 
     /** List Inbound Real-Time Payments Transfers */
-    @JvmOverloads
+    fun list(): InboundRealTimePaymentsTransferListPage =
+        list(InboundRealTimePaymentsTransferListParams.none())
+
+    /** @see [list] */
     fun list(
         params: InboundRealTimePaymentsTransferListParams =
             InboundRealTimePaymentsTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundRealTimePaymentsTransferListPage
 
-    /** List Inbound Real-Time Payments Transfers */
+    /** @see [list] */
+    fun list(
+        params: InboundRealTimePaymentsTransferListParams =
+            InboundRealTimePaymentsTransferListParams.none()
+    ): InboundRealTimePaymentsTransferListPage = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): InboundRealTimePaymentsTransferListPage =
         list(InboundRealTimePaymentsTransferListParams.none(), requestOptions)
 
@@ -49,7 +60,13 @@ interface InboundRealTimePaymentsTransferService {
          * /inbound_real_time_payments_transfers/{inbound_real_time_payments_transfer_id}`, but is
          * otherwise the same as [InboundRealTimePaymentsTransferService.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: InboundRealTimePaymentsTransferRetrieveParams
+        ): HttpResponseFor<InboundRealTimePaymentsTransfer> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: InboundRealTimePaymentsTransferRetrieveParams,
@@ -60,7 +77,11 @@ interface InboundRealTimePaymentsTransferService {
          * Returns a raw HTTP response for `get /inbound_real_time_payments_transfers`, but is
          * otherwise the same as [InboundRealTimePaymentsTransferService.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): HttpResponseFor<InboundRealTimePaymentsTransferListPage> =
+            list(InboundRealTimePaymentsTransferListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: InboundRealTimePaymentsTransferListParams =
@@ -68,10 +89,15 @@ interface InboundRealTimePaymentsTransferService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundRealTimePaymentsTransferListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /inbound_real_time_payments_transfers`, but is
-         * otherwise the same as [InboundRealTimePaymentsTransferService.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: InboundRealTimePaymentsTransferListParams =
+                InboundRealTimePaymentsTransferListParams.none()
+        ): HttpResponseFor<InboundRealTimePaymentsTransferListPage> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions

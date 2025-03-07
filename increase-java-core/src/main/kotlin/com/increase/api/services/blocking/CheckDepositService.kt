@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -21,27 +19,39 @@ interface CheckDepositService {
     fun withRawResponse(): WithRawResponse
 
     /** Create a Check Deposit */
-    @JvmOverloads
+    fun create(params: CheckDepositCreateParams): CheckDeposit =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: CheckDepositCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDeposit
 
     /** Retrieve a Check Deposit */
-    @JvmOverloads
+    fun retrieve(params: CheckDepositRetrieveParams): CheckDeposit =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: CheckDepositRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDeposit
 
     /** List Check Deposits */
-    @JvmOverloads
+    fun list(): CheckDepositListPage = list(CheckDepositListParams.none())
+
+    /** @see [list] */
     fun list(
         params: CheckDepositListParams = CheckDepositListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDepositListPage
 
-    /** List Check Deposits */
+    /** @see [list] */
+    fun list(params: CheckDepositListParams = CheckDepositListParams.none()): CheckDepositListPage =
+        list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CheckDepositListPage =
         list(CheckDepositListParams.none(), requestOptions)
 
@@ -54,7 +64,11 @@ interface CheckDepositService {
          * Returns a raw HTTP response for `post /check_deposits`, but is otherwise the same as
          * [CheckDepositService.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(params: CheckDepositCreateParams): HttpResponseFor<CheckDeposit> =
+            create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: CheckDepositCreateParams,
@@ -65,7 +79,11 @@ interface CheckDepositService {
          * Returns a raw HTTP response for `get /check_deposits/{check_deposit_id}`, but is
          * otherwise the same as [CheckDepositService.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(params: CheckDepositRetrieveParams): HttpResponseFor<CheckDeposit> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: CheckDepositRetrieveParams,
@@ -76,17 +94,23 @@ interface CheckDepositService {
          * Returns a raw HTTP response for `get /check_deposits`, but is otherwise the same as
          * [CheckDepositService.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): HttpResponseFor<CheckDepositListPage> = list(CheckDepositListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: CheckDepositListParams = CheckDepositListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CheckDepositListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /check_deposits`, but is otherwise the same as
-         * [CheckDepositService.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: CheckDepositListParams = CheckDepositListParams.none()
+        ): HttpResponseFor<CheckDepositListPage> = list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<CheckDepositListPage> =
             list(CheckDepositListParams.none(), requestOptions)

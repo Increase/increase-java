@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -22,34 +20,50 @@ interface EventSubscriptionService {
     fun withRawResponse(): WithRawResponse
 
     /** Create an Event Subscription */
-    @JvmOverloads
+    fun create(params: EventSubscriptionCreateParams): EventSubscription =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: EventSubscriptionCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EventSubscription
 
     /** Retrieve an Event Subscription */
-    @JvmOverloads
+    fun retrieve(params: EventSubscriptionRetrieveParams): EventSubscription =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: EventSubscriptionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EventSubscription
 
     /** Update an Event Subscription */
-    @JvmOverloads
+    fun update(params: EventSubscriptionUpdateParams): EventSubscription =
+        update(params, RequestOptions.none())
+
+    /** @see [update] */
     fun update(
         params: EventSubscriptionUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EventSubscription
 
     /** List Event Subscriptions */
-    @JvmOverloads
+    fun list(): EventSubscriptionListPage = list(EventSubscriptionListParams.none())
+
+    /** @see [list] */
     fun list(
         params: EventSubscriptionListParams = EventSubscriptionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EventSubscriptionListPage
 
-    /** List Event Subscriptions */
+    /** @see [list] */
+    fun list(
+        params: EventSubscriptionListParams = EventSubscriptionListParams.none()
+    ): EventSubscriptionListPage = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): EventSubscriptionListPage =
         list(EventSubscriptionListParams.none(), requestOptions)
 
@@ -63,7 +77,11 @@ interface EventSubscriptionService {
          * Returns a raw HTTP response for `post /event_subscriptions`, but is otherwise the same as
          * [EventSubscriptionService.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(params: EventSubscriptionCreateParams): HttpResponseFor<EventSubscription> =
+            create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: EventSubscriptionCreateParams,
@@ -74,7 +92,11 @@ interface EventSubscriptionService {
          * Returns a raw HTTP response for `get /event_subscriptions/{event_subscription_id}`, but
          * is otherwise the same as [EventSubscriptionService.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(params: EventSubscriptionRetrieveParams): HttpResponseFor<EventSubscription> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: EventSubscriptionRetrieveParams,
@@ -85,7 +107,11 @@ interface EventSubscriptionService {
          * Returns a raw HTTP response for `patch /event_subscriptions/{event_subscription_id}`, but
          * is otherwise the same as [EventSubscriptionService.update].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun update(params: EventSubscriptionUpdateParams): HttpResponseFor<EventSubscription> =
+            update(params, RequestOptions.none())
+
+        /** @see [update] */
         @MustBeClosed
         fun update(
             params: EventSubscriptionUpdateParams,
@@ -96,17 +122,24 @@ interface EventSubscriptionService {
          * Returns a raw HTTP response for `get /event_subscriptions`, but is otherwise the same as
          * [EventSubscriptionService.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): HttpResponseFor<EventSubscriptionListPage> =
+            list(EventSubscriptionListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: EventSubscriptionListParams = EventSubscriptionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<EventSubscriptionListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /event_subscriptions`, but is otherwise the same as
-         * [EventSubscriptionService.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: EventSubscriptionListParams = EventSubscriptionListParams.none()
+        ): HttpResponseFor<EventSubscriptionListPage> = list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<EventSubscriptionListPage> =
             list(EventSubscriptionListParams.none(), requestOptions)

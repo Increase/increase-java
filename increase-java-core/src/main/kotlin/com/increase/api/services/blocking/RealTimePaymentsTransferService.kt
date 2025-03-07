@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -21,27 +19,40 @@ interface RealTimePaymentsTransferService {
     fun withRawResponse(): WithRawResponse
 
     /** Create a Real-Time Payments Transfer */
-    @JvmOverloads
+    fun create(params: RealTimePaymentsTransferCreateParams): RealTimePaymentsTransfer =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: RealTimePaymentsTransferCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RealTimePaymentsTransfer
 
     /** Retrieve a Real-Time Payments Transfer */
-    @JvmOverloads
+    fun retrieve(params: RealTimePaymentsTransferRetrieveParams): RealTimePaymentsTransfer =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: RealTimePaymentsTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RealTimePaymentsTransfer
 
     /** List Real-Time Payments Transfers */
-    @JvmOverloads
+    fun list(): RealTimePaymentsTransferListPage = list(RealTimePaymentsTransferListParams.none())
+
+    /** @see [list] */
     fun list(
         params: RealTimePaymentsTransferListParams = RealTimePaymentsTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RealTimePaymentsTransferListPage
 
-    /** List Real-Time Payments Transfers */
+    /** @see [list] */
+    fun list(
+        params: RealTimePaymentsTransferListParams = RealTimePaymentsTransferListParams.none()
+    ): RealTimePaymentsTransferListPage = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): RealTimePaymentsTransferListPage =
         list(RealTimePaymentsTransferListParams.none(), requestOptions)
 
@@ -55,7 +66,12 @@ interface RealTimePaymentsTransferService {
          * Returns a raw HTTP response for `post /real_time_payments_transfers`, but is otherwise
          * the same as [RealTimePaymentsTransferService.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: RealTimePaymentsTransferCreateParams
+        ): HttpResponseFor<RealTimePaymentsTransfer> = create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: RealTimePaymentsTransferCreateParams,
@@ -67,7 +83,12 @@ interface RealTimePaymentsTransferService {
          * /real_time_payments_transfers/{real_time_payments_transfer_id}`, but is otherwise the
          * same as [RealTimePaymentsTransferService.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: RealTimePaymentsTransferRetrieveParams
+        ): HttpResponseFor<RealTimePaymentsTransfer> = retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: RealTimePaymentsTransferRetrieveParams,
@@ -78,17 +99,24 @@ interface RealTimePaymentsTransferService {
          * Returns a raw HTTP response for `get /real_time_payments_transfers`, but is otherwise the
          * same as [RealTimePaymentsTransferService.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): HttpResponseFor<RealTimePaymentsTransferListPage> =
+            list(RealTimePaymentsTransferListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: RealTimePaymentsTransferListParams = RealTimePaymentsTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<RealTimePaymentsTransferListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /real_time_payments_transfers`, but is otherwise the
-         * same as [RealTimePaymentsTransferService.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: RealTimePaymentsTransferListParams = RealTimePaymentsTransferListParams.none()
+        ): HttpResponseFor<RealTimePaymentsTransferListPage> = list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions
