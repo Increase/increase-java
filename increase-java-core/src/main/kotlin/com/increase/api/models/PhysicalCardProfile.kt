@@ -19,6 +19,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * This contains artwork and metadata relating to a Physical Card's appearance. For more
@@ -271,7 +272,7 @@ private constructor(
 
         /** The identifier of the File containing the physical card's back image. */
         fun backImageFileId(backImageFileId: Optional<String>) =
-            backImageFileId(backImageFileId.orElse(null))
+            backImageFileId(backImageFileId.getOrNull())
 
         /** The identifier of the File containing the physical card's back image. */
         fun backImageFileId(backImageFileId: JsonField<String>) = apply {
@@ -284,7 +285,7 @@ private constructor(
 
         /** The identifier of the File containing the physical card's carrier image. */
         fun carrierImageFileId(carrierImageFileId: Optional<String>) =
-            carrierImageFileId(carrierImageFileId.orElse(null))
+            carrierImageFileId(carrierImageFileId.getOrNull())
 
         /** The identifier of the File containing the physical card's carrier image. */
         fun carrierImageFileId(carrierImageFileId: JsonField<String>) = apply {
@@ -295,7 +296,7 @@ private constructor(
         fun contactPhone(contactPhone: String?) = contactPhone(JsonField.ofNullable(contactPhone))
 
         /** A phone number the user can contact to receive support for their card. */
-        fun contactPhone(contactPhone: Optional<String>) = contactPhone(contactPhone.orElse(null))
+        fun contactPhone(contactPhone: Optional<String>) = contactPhone(contactPhone.getOrNull())
 
         /** A phone number the user can contact to receive support for their card. */
         fun contactPhone(contactPhone: JsonField<String>) = apply {
@@ -332,7 +333,7 @@ private constructor(
 
         /** The identifier of the File containing the physical card's front image. */
         fun frontImageFileId(frontImageFileId: Optional<String>) =
-            frontImageFileId(frontImageFileId.orElse(null))
+            frontImageFileId(frontImageFileId.getOrNull())
 
         /** The identifier of the File containing the physical card's front image. */
         fun frontImageFileId(frontImageFileId: JsonField<String>) = apply {
@@ -353,7 +354,7 @@ private constructor(
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         fun idempotencyKey(idempotencyKey: Optional<String>) =
-            idempotencyKey(idempotencyKey.orElse(null))
+            idempotencyKey(idempotencyKey.getOrNull())
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and

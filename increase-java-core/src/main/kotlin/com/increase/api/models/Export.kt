@@ -19,6 +19,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * Exports are batch summaries of your Increase data. You can make them from the API or dashboard.
@@ -241,7 +242,7 @@ private constructor(
          * Export's status transitions to `complete`.
          */
         fun fileDownloadUrl(fileDownloadUrl: Optional<String>) =
-            fileDownloadUrl(fileDownloadUrl.orElse(null))
+            fileDownloadUrl(fileDownloadUrl.getOrNull())
 
         /**
          * A URL at which the Export's file can be downloaded. This will be present when the
@@ -261,7 +262,7 @@ private constructor(
          * The File containing the contents of the Export. This will be present when the Export's
          * status transitions to `complete`.
          */
-        fun fileId(fileId: Optional<String>) = fileId(fileId.orElse(null))
+        fun fileId(fileId: Optional<String>) = fileId(fileId.getOrNull())
 
         /**
          * The File containing the contents of the Export. This will be present when the Export's
@@ -283,7 +284,7 @@ private constructor(
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         fun idempotencyKey(idempotencyKey: Optional<String>) =
-            idempotencyKey(idempotencyKey.orElse(null))
+            idempotencyKey(idempotencyKey.getOrNull())
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and

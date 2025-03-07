@@ -19,6 +19,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * Real Time Decisions are created when your application needs to take action in real-time to some
@@ -266,7 +267,7 @@ private constructor(
 
         /** Fields related to a 3DS authentication attempt. */
         fun cardAuthentication(cardAuthentication: Optional<CardAuthentication>) =
-            cardAuthentication(cardAuthentication.orElse(null))
+            cardAuthentication(cardAuthentication.getOrNull())
 
         /** Fields related to a 3DS authentication attempt. */
         fun cardAuthentication(cardAuthentication: JsonField<CardAuthentication>) = apply {
@@ -280,7 +281,7 @@ private constructor(
         /** Fields related to a 3DS authentication attempt. */
         fun cardAuthenticationChallenge(
             cardAuthenticationChallenge: Optional<CardAuthenticationChallenge>
-        ) = cardAuthenticationChallenge(cardAuthenticationChallenge.orElse(null))
+        ) = cardAuthenticationChallenge(cardAuthenticationChallenge.getOrNull())
 
         /** Fields related to a 3DS authentication attempt. */
         fun cardAuthenticationChallenge(
@@ -293,7 +294,7 @@ private constructor(
 
         /** Fields related to a card authorization. */
         fun cardAuthorization(cardAuthorization: Optional<CardAuthorization>) =
-            cardAuthorization(cardAuthorization.orElse(null))
+            cardAuthorization(cardAuthorization.getOrNull())
 
         /** Fields related to a card authorization. */
         fun cardAuthorization(cardAuthorization: JsonField<CardAuthorization>) = apply {
@@ -325,7 +326,7 @@ private constructor(
         /** Fields related to a digital wallet authentication attempt. */
         fun digitalWalletAuthentication(
             digitalWalletAuthentication: Optional<DigitalWalletAuthentication>
-        ) = digitalWalletAuthentication(digitalWalletAuthentication.orElse(null))
+        ) = digitalWalletAuthentication(digitalWalletAuthentication.getOrNull())
 
         /** Fields related to a digital wallet authentication attempt. */
         fun digitalWalletAuthentication(
@@ -338,7 +339,7 @@ private constructor(
 
         /** Fields related to a digital wallet token provisioning attempt. */
         fun digitalWalletToken(digitalWalletToken: Optional<DigitalWalletToken>) =
-            digitalWalletToken(digitalWalletToken.orElse(null))
+            digitalWalletToken(digitalWalletToken.getOrNull())
 
         /** Fields related to a digital wallet token provisioning attempt. */
         fun digitalWalletToken(digitalWalletToken: JsonField<DigitalWalletToken>) = apply {
@@ -535,7 +536,7 @@ private constructor(
             fun decision(decision: Decision?) = decision(JsonField.ofNullable(decision))
 
             /** Whether or not the authentication attempt was approved. */
-            fun decision(decision: Optional<Decision>) = decision(decision.orElse(null))
+            fun decision(decision: Optional<Decision>) = decision(decision.getOrNull())
 
             /** Whether or not the authentication attempt was approved. */
             fun decision(decision: JsonField<Decision>) = apply { this.decision = decision }
@@ -875,7 +876,7 @@ private constructor(
             fun result(result: Result?) = result(JsonField.ofNullable(result))
 
             /** Whether or not the challenge was delivered to the cardholder. */
-            fun result(result: Optional<Result>) = result(result.orElse(null))
+            fun result(result: Optional<Result>) = result(result.getOrNull())
 
             /** Whether or not the challenge was delivered to the cardholder. */
             fun result(result: JsonField<Result>) = apply { this.result = result }
@@ -1564,7 +1565,7 @@ private constructor(
             fun decision(decision: Decision?) = decision(JsonField.ofNullable(decision))
 
             /** Whether or not the authorization was approved. */
-            fun decision(decision: Optional<Decision>) = decision(decision.orElse(null))
+            fun decision(decision: Optional<Decision>) = decision(decision.getOrNull())
 
             /** Whether or not the authorization was approved. */
             fun decision(decision: JsonField<Decision>) = apply { this.decision = decision }
@@ -1581,7 +1582,7 @@ private constructor(
              * purchase), the identifier of the token that was used.
              */
             fun digitalWalletTokenId(digitalWalletTokenId: Optional<String>) =
-                digitalWalletTokenId(digitalWalletTokenId.orElse(null))
+                digitalWalletTokenId(digitalWalletTokenId.getOrNull())
 
             /**
              * If the authorization was made via a Digital Wallet Token (such as an Apple Pay
@@ -1639,7 +1640,7 @@ private constructor(
 
             /** The city the merchant resides in. */
             fun merchantCity(merchantCity: Optional<String>) =
-                merchantCity(merchantCity.orElse(null))
+                merchantCity(merchantCity.getOrNull())
 
             /** The city the merchant resides in. */
             fun merchantCity(merchantCity: JsonField<String>) = apply {
@@ -1676,7 +1677,7 @@ private constructor(
              * code, where the first 5 and last 4 are separated by a dash.
              */
             fun merchantPostalCode(merchantPostalCode: Optional<String>) =
-                merchantPostalCode(merchantPostalCode.orElse(null))
+                merchantPostalCode(merchantPostalCode.getOrNull())
 
             /**
              * The merchant's postal code. For US merchants this is either a 5-digit or 9-digit ZIP
@@ -1692,7 +1693,7 @@ private constructor(
 
             /** The state the merchant resides in. */
             fun merchantState(merchantState: Optional<String>) =
-                merchantState(merchantState.orElse(null))
+                merchantState(merchantState.getOrNull())
 
             /** The state the merchant resides in. */
             fun merchantState(merchantState: JsonField<String>) = apply {
@@ -1735,9 +1736,8 @@ private constructor(
              * The risk score generated by the card network. For Visa this is the Visa Advanced
              * Authorization risk score, from 0 to 99, where 99 is the riskiest.
              */
-            @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
             fun networkRiskScore(networkRiskScore: Optional<Long>) =
-                networkRiskScore(networkRiskScore.orElse(null) as Long?)
+                networkRiskScore(networkRiskScore.getOrNull())
 
             /**
              * The risk score generated by the card network. For Visa this is the Visa Advanced
@@ -1759,7 +1759,7 @@ private constructor(
              * was used.
              */
             fun physicalCardId(physicalCardId: Optional<String>) =
-                physicalCardId(physicalCardId.orElse(null))
+                physicalCardId(physicalCardId.getOrNull())
 
             /**
              * If the authorization was made in-person with a physical card, the Physical Card that
@@ -1865,7 +1865,7 @@ private constructor(
              * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
              * transacting with.
              */
-            fun terminalId(terminalId: Optional<String>) = terminalId(terminalId.orElse(null))
+            fun terminalId(terminalId: Optional<String>) = terminalId(terminalId.getOrNull())
 
             /**
              * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
@@ -2264,7 +2264,7 @@ private constructor(
                 fun visa(visa: Visa?) = visa(JsonField.ofNullable(visa))
 
                 /** Fields specific to the `visa` network. */
-                fun visa(visa: Optional<Visa>) = visa(visa.orElse(null))
+                fun visa(visa: Optional<Visa>) = visa(visa.getOrNull())
 
                 /** Fields specific to the `visa` network. */
                 fun visa(visa: JsonField<Visa>) = apply { this.visa = visa }
@@ -2549,7 +2549,7 @@ private constructor(
                      */
                     fun electronicCommerceIndicator(
                         electronicCommerceIndicator: Optional<ElectronicCommerceIndicator>
-                    ) = electronicCommerceIndicator(electronicCommerceIndicator.orElse(null))
+                    ) = electronicCommerceIndicator(electronicCommerceIndicator.getOrNull())
 
                     /**
                      * For electronic commerce transactions, this identifies the level of security
@@ -2573,7 +2573,7 @@ private constructor(
                      */
                     fun pointOfServiceEntryMode(
                         pointOfServiceEntryMode: Optional<PointOfServiceEntryMode>
-                    ) = pointOfServiceEntryMode(pointOfServiceEntryMode.orElse(null))
+                    ) = pointOfServiceEntryMode(pointOfServiceEntryMode.getOrNull())
 
                     /**
                      * The method used to enter the cardholder's primary account number and card
@@ -2596,7 +2596,7 @@ private constructor(
                      */
                     fun standInProcessingReason(
                         standInProcessingReason: Optional<StandInProcessingReason>
-                    ) = standInProcessingReason(standInProcessingReason.orElse(null))
+                    ) = standInProcessingReason(standInProcessingReason.getOrNull())
 
                     /**
                      * Only present when `actioner: network`. Describes why a card authorization was
@@ -3523,7 +3523,7 @@ private constructor(
                  * networks the retrieval reference number includes the trace counter.
                  */
                 fun retrievalReferenceNumber(retrievalReferenceNumber: Optional<String>) =
-                    retrievalReferenceNumber(retrievalReferenceNumber.orElse(null))
+                    retrievalReferenceNumber(retrievalReferenceNumber.getOrNull())
 
                 /**
                  * A life-cycle identifier used across e.g., an authorization and a reversal.
@@ -3546,7 +3546,7 @@ private constructor(
                  * acquirer within a window of time.
                  */
                 fun traceNumber(traceNumber: Optional<String>) =
-                    traceNumber(traceNumber.orElse(null))
+                    traceNumber(traceNumber.getOrNull())
 
                 /**
                  * A counter used to verify an individual authorization. Expected to be unique per
@@ -3568,7 +3568,7 @@ private constructor(
                  * across multiple life-cycle requests.
                  */
                 fun transactionId(transactionId: Optional<String>) =
-                    transactionId(transactionId.orElse(null))
+                    transactionId(transactionId.getOrNull())
 
                 /**
                  * A globally unique transaction identifier provided by the card network, used
@@ -3937,7 +3937,7 @@ private constructor(
                 /** Fields specific to the category `incremental_authorization`. */
                 fun incrementalAuthorization(
                     incrementalAuthorization: Optional<IncrementalAuthorization>
-                ) = incrementalAuthorization(incrementalAuthorization.orElse(null))
+                ) = incrementalAuthorization(incrementalAuthorization.getOrNull())
 
                 /** Fields specific to the category `incremental_authorization`. */
                 fun incrementalAuthorization(
@@ -4810,7 +4810,7 @@ private constructor(
 
                     /** Line 1 of the address on file for the cardholder. */
                     fun actualLine1(actualLine1: Optional<String>) =
-                        actualLine1(actualLine1.orElse(null))
+                        actualLine1(actualLine1.getOrNull())
 
                     /** Line 1 of the address on file for the cardholder. */
                     fun actualLine1(actualLine1: JsonField<String>) = apply {
@@ -4823,7 +4823,7 @@ private constructor(
 
                     /** The postal code of the address on file for the cardholder. */
                     fun actualPostalCode(actualPostalCode: Optional<String>) =
-                        actualPostalCode(actualPostalCode.orElse(null))
+                        actualPostalCode(actualPostalCode.getOrNull())
 
                     /** The postal code of the address on file for the cardholder. */
                     fun actualPostalCode(actualPostalCode: JsonField<String>) = apply {
@@ -4842,7 +4842,7 @@ private constructor(
                      * request.
                      */
                     fun providedLine1(providedLine1: Optional<String>) =
-                        providedLine1(providedLine1.orElse(null))
+                        providedLine1(providedLine1.getOrNull())
 
                     /**
                      * The cardholder address line 1 provided for verification in the authorization
@@ -4858,7 +4858,7 @@ private constructor(
 
                     /** The postal code provided for verification in the authorization request. */
                     fun providedPostalCode(providedPostalCode: Optional<String>) =
-                        providedPostalCode(providedPostalCode.orElse(null))
+                        providedPostalCode(providedPostalCode.getOrNull())
 
                     /** The postal code provided for verification in the authorization request. */
                     fun providedPostalCode(providedPostalCode: JsonField<String>) = apply {
@@ -5436,7 +5436,7 @@ private constructor(
             fun email(email: String?) = email(JsonField.ofNullable(email))
 
             /** The email to send the one-time passcode to if `channel` is equal to `email`. */
-            fun email(email: Optional<String>) = email(email.orElse(null))
+            fun email(email: Optional<String>) = email(email.getOrNull())
 
             /** The email to send the one-time passcode to if `channel` is equal to `email`. */
             fun email(email: JsonField<String>) = apply { this.email = email }
@@ -5454,7 +5454,7 @@ private constructor(
             fun phone(phone: String?) = phone(JsonField.ofNullable(phone))
 
             /** The phone number to send the one-time passcode to if `channel` is equal to `sms`. */
-            fun phone(phone: Optional<String>) = phone(phone.orElse(null))
+            fun phone(phone: Optional<String>) = phone(phone.getOrNull())
 
             /** The phone number to send the one-time passcode to if `channel` is equal to `sms`. */
             fun phone(phone: JsonField<String>) = apply { this.phone = phone }
@@ -5463,7 +5463,7 @@ private constructor(
             fun result(result: Result?) = result(JsonField.ofNullable(result))
 
             /** Whether your application successfully delivered the one-time passcode. */
-            fun result(result: Optional<Result>) = result(result.orElse(null))
+            fun result(result: Optional<Result>) = result(result.getOrNull())
 
             /** Whether your application successfully delivered the one-time passcode. */
             fun result(result: JsonField<Result>) = apply { this.result = result }
@@ -6010,7 +6010,7 @@ private constructor(
              * not set a card profile.
              */
             fun cardProfileId(cardProfileId: Optional<String>) =
-                cardProfileId(cardProfileId.orElse(null))
+                cardProfileId(cardProfileId.getOrNull())
 
             /**
              * The identifier of the Card Profile that was set via the real time decision. This will
@@ -6031,7 +6031,7 @@ private constructor(
              * Whether or not the provisioning request was approved. This will be null until the
              * real time decision is responded to.
              */
-            fun decision(decision: Optional<Decision>) = decision(decision.orElse(null))
+            fun decision(decision: Optional<Decision>) = decision(decision.getOrNull())
 
             /**
              * Whether or not the provisioning request was approved. This will be null until the

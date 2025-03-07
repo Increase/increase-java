@@ -19,6 +19,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * Information submitted in response to a proof of authorization request. Per Nacha's guidance on
@@ -394,7 +395,7 @@ private constructor(
 
         /** Company of the authorizer. */
         fun authorizerCompany(authorizerCompany: Optional<String>) =
-            authorizerCompany(authorizerCompany.orElse(null))
+            authorizerCompany(authorizerCompany.getOrNull())
 
         /** Company of the authorizer. */
         fun authorizerCompany(authorizerCompany: JsonField<String>) = apply {
@@ -407,7 +408,7 @@ private constructor(
 
         /** Email of the authorizer. */
         fun authorizerEmail(authorizerEmail: Optional<String>) =
-            authorizerEmail(authorizerEmail.orElse(null))
+            authorizerEmail(authorizerEmail.getOrNull())
 
         /** Email of the authorizer. */
         fun authorizerEmail(authorizerEmail: JsonField<String>) = apply {
@@ -420,7 +421,7 @@ private constructor(
 
         /** IP address of the authorizer. */
         fun authorizerIpAddress(authorizerIpAddress: Optional<String>) =
-            authorizerIpAddress(authorizerIpAddress.orElse(null))
+            authorizerIpAddress(authorizerIpAddress.getOrNull())
 
         /** IP address of the authorizer. */
         fun authorizerIpAddress(authorizerIpAddress: JsonField<String>) = apply {
@@ -433,7 +434,7 @@ private constructor(
 
         /** Name of the authorizer. */
         fun authorizerName(authorizerName: Optional<String>) =
-            authorizerName(authorizerName.orElse(null))
+            authorizerName(authorizerName.getOrNull())
 
         /** Name of the authorizer. */
         fun authorizerName(authorizerName: JsonField<String>) = apply {
@@ -455,9 +456,8 @@ private constructor(
             customerHasBeenOffboarded(customerHasBeenOffboarded as Boolean?)
 
         /** Whether the customer has been offboarded. */
-        @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
         fun customerHasBeenOffboarded(customerHasBeenOffboarded: Optional<Boolean>) =
-            customerHasBeenOffboarded(customerHasBeenOffboarded.orElse(null) as Boolean?)
+            customerHasBeenOffboarded(customerHasBeenOffboarded.getOrNull())
 
         /** Whether the customer has been offboarded. */
         fun customerHasBeenOffboarded(customerHasBeenOffboarded: JsonField<Boolean>) = apply {
@@ -478,7 +478,7 @@ private constructor(
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         fun idempotencyKey(idempotencyKey: Optional<String>) =
-            idempotencyKey(idempotencyKey.orElse(null))
+            idempotencyKey(idempotencyKey.getOrNull())
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -540,12 +540,11 @@ private constructor(
             )
 
         /** Whether account ownership was validated via credential (for instance, Plaid). */
-        @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
         fun validatedAccountOwnershipViaCredential(
             validatedAccountOwnershipViaCredential: Optional<Boolean>
         ) =
             validatedAccountOwnershipViaCredential(
-                validatedAccountOwnershipViaCredential.orElse(null) as Boolean?
+                validatedAccountOwnershipViaCredential.getOrNull()
             )
 
         /** Whether account ownership was validated via credential (for instance, Plaid). */
@@ -572,12 +571,11 @@ private constructor(
             )
 
         /** Whether account ownership was validated with an account statement. */
-        @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
         fun validatedAccountOwnershipWithAccountStatement(
             validatedAccountOwnershipWithAccountStatement: Optional<Boolean>
         ) =
             validatedAccountOwnershipWithAccountStatement(
-                validatedAccountOwnershipWithAccountStatement.orElse(null) as Boolean?
+                validatedAccountOwnershipWithAccountStatement.getOrNull()
             )
 
         /** Whether account ownership was validated with an account statement. */
@@ -605,12 +603,11 @@ private constructor(
             )
 
         /** Whether account ownership was validated with microdeposit. */
-        @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
         fun validatedAccountOwnershipWithMicrodeposit(
             validatedAccountOwnershipWithMicrodeposit: Optional<Boolean>
         ) =
             validatedAccountOwnershipWithMicrodeposit(
-                validatedAccountOwnershipWithMicrodeposit.orElse(null) as Boolean?
+                validatedAccountOwnershipWithMicrodeposit.getOrNull()
             )
 
         /** Whether account ownership was validated with microdeposit. */

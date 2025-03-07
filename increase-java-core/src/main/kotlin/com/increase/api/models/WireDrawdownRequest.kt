@@ -19,6 +19,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * Wire drawdown requests enable you to request that someone else send you a wire. This feature is
@@ -486,7 +487,7 @@ private constructor(
          * identifier of the corresponding Transaction.
          */
         fun fulfillmentInboundWireTransferId(fulfillmentInboundWireTransferId: Optional<String>) =
-            fulfillmentInboundWireTransferId(fulfillmentInboundWireTransferId.orElse(null))
+            fulfillmentInboundWireTransferId(fulfillmentInboundWireTransferId.getOrNull())
 
         /**
          * If the recipient fulfills the drawdown request by sending funds, then this will be the
@@ -511,7 +512,7 @@ private constructor(
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         fun idempotencyKey(idempotencyKey: Optional<String>) =
-            idempotencyKey(idempotencyKey.orElse(null))
+            idempotencyKey(idempotencyKey.getOrNull())
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -537,7 +538,7 @@ private constructor(
 
         /** The originator's address line 1. */
         fun originatorAddressLine1(originatorAddressLine1: Optional<String>) =
-            originatorAddressLine1(originatorAddressLine1.orElse(null))
+            originatorAddressLine1(originatorAddressLine1.getOrNull())
 
         /** The originator's address line 1. */
         fun originatorAddressLine1(originatorAddressLine1: JsonField<String>) = apply {
@@ -550,7 +551,7 @@ private constructor(
 
         /** The originator's address line 2. */
         fun originatorAddressLine2(originatorAddressLine2: Optional<String>) =
-            originatorAddressLine2(originatorAddressLine2.orElse(null))
+            originatorAddressLine2(originatorAddressLine2.getOrNull())
 
         /** The originator's address line 2. */
         fun originatorAddressLine2(originatorAddressLine2: JsonField<String>) = apply {
@@ -563,7 +564,7 @@ private constructor(
 
         /** The originator's address line 3. */
         fun originatorAddressLine3(originatorAddressLine3: Optional<String>) =
-            originatorAddressLine3(originatorAddressLine3.orElse(null))
+            originatorAddressLine3(originatorAddressLine3.getOrNull())
 
         /** The originator's address line 3. */
         fun originatorAddressLine3(originatorAddressLine3: JsonField<String>) = apply {
@@ -576,7 +577,7 @@ private constructor(
 
         /** The originator's name. */
         fun originatorName(originatorName: Optional<String>) =
-            originatorName(originatorName.orElse(null))
+            originatorName(originatorName.getOrNull())
 
         /** The originator's name. */
         fun originatorName(originatorName: JsonField<String>) = apply {
@@ -598,7 +599,7 @@ private constructor(
 
         /** Line 1 of the drawdown request's recipient's address. */
         fun recipientAddressLine1(recipientAddressLine1: Optional<String>) =
-            recipientAddressLine1(recipientAddressLine1.orElse(null))
+            recipientAddressLine1(recipientAddressLine1.getOrNull())
 
         /** Line 1 of the drawdown request's recipient's address. */
         fun recipientAddressLine1(recipientAddressLine1: JsonField<String>) = apply {
@@ -611,7 +612,7 @@ private constructor(
 
         /** Line 2 of the drawdown request's recipient's address. */
         fun recipientAddressLine2(recipientAddressLine2: Optional<String>) =
-            recipientAddressLine2(recipientAddressLine2.orElse(null))
+            recipientAddressLine2(recipientAddressLine2.getOrNull())
 
         /** Line 2 of the drawdown request's recipient's address. */
         fun recipientAddressLine2(recipientAddressLine2: JsonField<String>) = apply {
@@ -624,7 +625,7 @@ private constructor(
 
         /** Line 3 of the drawdown request's recipient's address. */
         fun recipientAddressLine3(recipientAddressLine3: Optional<String>) =
-            recipientAddressLine3(recipientAddressLine3.orElse(null))
+            recipientAddressLine3(recipientAddressLine3.getOrNull())
 
         /** Line 3 of the drawdown request's recipient's address. */
         fun recipientAddressLine3(recipientAddressLine3: JsonField<String>) = apply {
@@ -637,7 +638,7 @@ private constructor(
 
         /** The drawdown request's recipient's name. */
         fun recipientName(recipientName: Optional<String>) =
-            recipientName(recipientName.orElse(null))
+            recipientName(recipientName.getOrNull())
 
         /** The drawdown request's recipient's name. */
         fun recipientName(recipientName: JsonField<String>) = apply {
@@ -669,7 +670,7 @@ private constructor(
          * After the drawdown request is submitted to Fedwire, this will contain supplemental
          * details.
          */
-        fun submission(submission: Optional<Submission>) = submission(submission.orElse(null))
+        fun submission(submission: Optional<Submission>) = submission(submission.getOrNull())
 
         /**
          * After the drawdown request is submitted to Fedwire, this will contain supplemental

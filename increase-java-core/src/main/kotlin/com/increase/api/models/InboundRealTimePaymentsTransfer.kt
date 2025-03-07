@@ -19,6 +19,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * An Inbound Real-Time Payments Transfer is a Real-Time Payments transfer initiated outside of
@@ -345,7 +346,7 @@ private constructor(
 
         /** If your transfer is confirmed, this will contain details of the confirmation. */
         fun confirmation(confirmation: Optional<Confirmation>) =
-            confirmation(confirmation.orElse(null))
+            confirmation(confirmation.getOrNull())
 
         /** If your transfer is confirmed, this will contain details of the confirmation. */
         fun confirmation(confirmation: JsonField<Confirmation>) = apply {
@@ -412,7 +413,7 @@ private constructor(
         fun decline(decline: Decline?) = decline(JsonField.ofNullable(decline))
 
         /** If your transfer is declined, this will contain details of the decline. */
-        fun decline(decline: Optional<Decline>) = decline(decline.orElse(null))
+        fun decline(decline: Optional<Decline>) = decline(decline.getOrNull())
 
         /** If your transfer is declined, this will contain details of the decline. */
         fun decline(decline: JsonField<Decline>) = apply { this.decline = decline }
@@ -423,7 +424,7 @@ private constructor(
 
         /** Additional information included with the transfer. */
         fun remittanceInformation(remittanceInformation: Optional<String>) =
-            remittanceInformation(remittanceInformation.orElse(null))
+            remittanceInformation(remittanceInformation.getOrNull())
 
         /** Additional information included with the transfer. */
         fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {

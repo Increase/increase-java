@@ -21,6 +21,7 @@ import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** An Inbound ACH Transfer is an ACH transfer initiated outside of Increase to your account. */
 @NoAutoDetect
@@ -527,7 +528,7 @@ private constructor(
         fun acceptance(acceptance: Acceptance?) = acceptance(JsonField.ofNullable(acceptance))
 
         /** If your transfer is accepted, this will contain details of the acceptance. */
-        fun acceptance(acceptance: Optional<Acceptance>) = acceptance(acceptance.orElse(null))
+        fun acceptance(acceptance: Optional<Acceptance>) = acceptance(acceptance.getOrNull())
 
         /** If your transfer is accepted, this will contain details of the acceptance. */
         fun acceptance(acceptance: JsonField<Acceptance>) = apply { this.acceptance = acceptance }
@@ -551,7 +552,7 @@ private constructor(
         fun addenda(addenda: Addenda?) = addenda(JsonField.ofNullable(addenda))
 
         /** Additional information sent from the originator. */
-        fun addenda(addenda: Optional<Addenda>) = addenda(addenda.orElse(null))
+        fun addenda(addenda: Optional<Addenda>) = addenda(addenda.getOrNull())
 
         /** Additional information sent from the originator. */
         fun addenda(addenda: JsonField<Addenda>) = apply { this.addenda = addenda }
@@ -587,7 +588,7 @@ private constructor(
         fun decline(decline: Decline?) = decline(JsonField.ofNullable(decline))
 
         /** If your transfer is declined, this will contain details of the decline. */
-        fun decline(decline: Optional<Decline>) = decline(decline.orElse(null))
+        fun decline(decline: Optional<Decline>) = decline(decline.getOrNull())
 
         /** If your transfer is declined, this will contain details of the decline. */
         fun decline(decline: JsonField<Decline>) = apply { this.decline = decline }
@@ -633,7 +634,7 @@ private constructor(
          * fields pertaining to the International ACH Transaction.
          */
         fun internationalAddenda(internationalAddenda: Optional<InternationalAddenda>) =
-            internationalAddenda(internationalAddenda.orElse(null))
+            internationalAddenda(internationalAddenda.getOrNull())
 
         /**
          * If the Inbound ACH Transfer has a Standard Entry Class Code of IAT, this will contain
@@ -655,7 +656,7 @@ private constructor(
          * its details.
          */
         fun notificationOfChange(notificationOfChange: Optional<NotificationOfChange>) =
-            notificationOfChange(notificationOfChange.orElse(null))
+            notificationOfChange(notificationOfChange.getOrNull())
 
         /**
          * If you initiate a notification of change in response to the transfer, this will contain
@@ -671,7 +672,7 @@ private constructor(
 
         /** The descriptive date of the transfer. */
         fun originatorCompanyDescriptiveDate(originatorCompanyDescriptiveDate: Optional<String>) =
-            originatorCompanyDescriptiveDate(originatorCompanyDescriptiveDate.orElse(null))
+            originatorCompanyDescriptiveDate(originatorCompanyDescriptiveDate.getOrNull())
 
         /** The descriptive date of the transfer. */
         fun originatorCompanyDescriptiveDate(originatorCompanyDescriptiveDate: JsonField<String>) =
@@ -688,7 +689,7 @@ private constructor(
         /** The additional information included with the transfer. */
         fun originatorCompanyDiscretionaryData(
             originatorCompanyDiscretionaryData: Optional<String>
-        ) = originatorCompanyDiscretionaryData(originatorCompanyDiscretionaryData.orElse(null))
+        ) = originatorCompanyDiscretionaryData(originatorCompanyDiscretionaryData.getOrNull())
 
         /** The additional information included with the transfer. */
         fun originatorCompanyDiscretionaryData(
@@ -743,7 +744,7 @@ private constructor(
 
         /** The id of the receiver of the transfer. */
         fun receiverIdNumber(receiverIdNumber: Optional<String>) =
-            receiverIdNumber(receiverIdNumber.orElse(null))
+            receiverIdNumber(receiverIdNumber.getOrNull())
 
         /** The id of the receiver of the transfer. */
         fun receiverIdNumber(receiverIdNumber: JsonField<String>) = apply {
@@ -754,7 +755,7 @@ private constructor(
         fun receiverName(receiverName: String?) = receiverName(JsonField.ofNullable(receiverName))
 
         /** The name of the receiver of the transfer. */
-        fun receiverName(receiverName: Optional<String>) = receiverName(receiverName.orElse(null))
+        fun receiverName(receiverName: Optional<String>) = receiverName(receiverName.getOrNull())
 
         /** The name of the receiver of the transfer. */
         fun receiverName(receiverName: JsonField<String>) = apply {
@@ -799,7 +800,7 @@ private constructor(
 
         /** If your transfer is returned, this will contain details of the return. */
         fun transferReturn(transferReturn: Optional<TransferReturn>) =
-            transferReturn(transferReturn.orElse(null))
+            transferReturn(transferReturn.getOrNull())
 
         /** If your transfer is returned, this will contain details of the return. */
         fun transferReturn(transferReturn: JsonField<TransferReturn>) = apply {
@@ -1097,7 +1098,7 @@ private constructor(
             fun freeform(freeform: Freeform?) = freeform(JsonField.ofNullable(freeform))
 
             /** Unstructured `payment_related_information` passed through by the originator. */
-            fun freeform(freeform: Optional<Freeform>) = freeform(freeform.orElse(null))
+            fun freeform(freeform: Optional<Freeform>) = freeform(freeform.getOrNull())
 
             /** Unstructured `payment_related_information` passed through by the originator. */
             fun freeform(freeform: JsonField<Freeform>) = apply { this.freeform = freeform }
@@ -2948,7 +2949,7 @@ private constructor(
              * reference to a well-known rate.
              */
             fun foreignExchangeReference(foreignExchangeReference: Optional<String>) =
-                foreignExchangeReference(foreignExchangeReference.orElse(null))
+                foreignExchangeReference(foreignExchangeReference.getOrNull())
 
             /**
              * Depending on the `foreign_exchange_reference_indicator`, an exchange rate or a
@@ -2995,7 +2996,7 @@ private constructor(
 
             /** A reference number in the foreign banking infrastructure. */
             fun foreignTraceNumber(foreignTraceNumber: Optional<String>) =
-                foreignTraceNumber(foreignTraceNumber.orElse(null))
+                foreignTraceNumber(foreignTraceNumber.getOrNull())
 
             /** A reference number in the foreign banking infrastructure. */
             fun foreignTraceNumber(foreignTraceNumber: JsonField<String>) = apply {
@@ -3175,7 +3176,7 @@ private constructor(
 
             /** A portion of the originator address. This may be incomplete. */
             fun originatorPostalCode(originatorPostalCode: Optional<String>) =
-                originatorPostalCode(originatorPostalCode.orElse(null))
+                originatorPostalCode(originatorPostalCode.getOrNull())
 
             /** A portion of the originator address. This may be incomplete. */
             fun originatorPostalCode(originatorPostalCode: JsonField<String>) = apply {
@@ -3188,7 +3189,7 @@ private constructor(
 
             /** A portion of the originator address. This may be incomplete. */
             fun originatorStateOrProvince(originatorStateOrProvince: Optional<String>) =
-                originatorStateOrProvince(originatorStateOrProvince.orElse(null))
+                originatorStateOrProvince(originatorStateOrProvince.getOrNull())
 
             /** A portion of the originator address. This may be incomplete. */
             fun originatorStateOrProvince(originatorStateOrProvince: JsonField<String>) = apply {
@@ -3210,7 +3211,7 @@ private constructor(
 
             /** A description field set by the originator. */
             fun paymentRelatedInformation(paymentRelatedInformation: Optional<String>) =
-                paymentRelatedInformation(paymentRelatedInformation.orElse(null))
+                paymentRelatedInformation(paymentRelatedInformation.getOrNull())
 
             /** A description field set by the originator. */
             fun paymentRelatedInformation(paymentRelatedInformation: JsonField<String>) = apply {
@@ -3223,7 +3224,7 @@ private constructor(
 
             /** A description field set by the originator. */
             fun paymentRelatedInformation2(paymentRelatedInformation2: Optional<String>) =
-                paymentRelatedInformation2(paymentRelatedInformation2.orElse(null))
+                paymentRelatedInformation2(paymentRelatedInformation2.getOrNull())
 
             /** A description field set by the originator. */
             fun paymentRelatedInformation2(paymentRelatedInformation2: JsonField<String>) = apply {
@@ -3261,7 +3262,7 @@ private constructor(
 
             /** An identification number the originator uses for the receiver. */
             fun receiverIdentificationNumber(receiverIdentificationNumber: Optional<String>) =
-                receiverIdentificationNumber(receiverIdentificationNumber.orElse(null))
+                receiverIdentificationNumber(receiverIdentificationNumber.getOrNull())
 
             /** An identification number the originator uses for the receiver. */
             fun receiverIdentificationNumber(receiverIdentificationNumber: JsonField<String>) =
@@ -3275,7 +3276,7 @@ private constructor(
 
             /** A portion of the receiver address. This may be incomplete. */
             fun receiverPostalCode(receiverPostalCode: Optional<String>) =
-                receiverPostalCode(receiverPostalCode.orElse(null))
+                receiverPostalCode(receiverPostalCode.getOrNull())
 
             /** A portion of the receiver address. This may be incomplete. */
             fun receiverPostalCode(receiverPostalCode: JsonField<String>) = apply {
@@ -3288,7 +3289,7 @@ private constructor(
 
             /** A portion of the receiver address. This may be incomplete. */
             fun receiverStateOrProvince(receiverStateOrProvince: Optional<String>) =
-                receiverStateOrProvince(receiverStateOrProvince.orElse(null))
+                receiverStateOrProvince(receiverStateOrProvince.getOrNull())
 
             /** A portion of the receiver address. This may be incomplete. */
             fun receiverStateOrProvince(receiverStateOrProvince: JsonField<String>) = apply {
@@ -4459,7 +4460,7 @@ private constructor(
 
             /** The new account number provided in the notification of change. */
             fun updatedAccountNumber(updatedAccountNumber: Optional<String>) =
-                updatedAccountNumber(updatedAccountNumber.orElse(null))
+                updatedAccountNumber(updatedAccountNumber.getOrNull())
 
             /** The new account number provided in the notification of change. */
             fun updatedAccountNumber(updatedAccountNumber: JsonField<String>) = apply {
@@ -4472,7 +4473,7 @@ private constructor(
 
             /** The new account number provided in the notification of change. */
             fun updatedRoutingNumber(updatedRoutingNumber: Optional<String>) =
-                updatedRoutingNumber(updatedRoutingNumber.orElse(null))
+                updatedRoutingNumber(updatedRoutingNumber.getOrNull())
 
             /** The new account number provided in the notification of change. */
             fun updatedRoutingNumber(updatedRoutingNumber: JsonField<String>) = apply {
