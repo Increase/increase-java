@@ -20,6 +20,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Check Transfers move funds from your Increase account by mailing a physical check. */
 @NoAutoDetect
@@ -469,7 +470,7 @@ private constructor(
          * If your account requires approvals for transfers and the transfer was approved, this will
          * contain details of the approval.
          */
-        fun approval(approval: Optional<Approval>) = approval(approval.orElse(null))
+        fun approval(approval: Optional<Approval>) = approval(approval.getOrNull())
 
         /**
          * If your account requires approvals for transfers and the transfer was approved, this will
@@ -489,7 +490,7 @@ private constructor(
          * Inbound Check Deposit object with details of the deposit.
          */
         fun approvedInboundCheckDepositId(approvedInboundCheckDepositId: Optional<String>) =
-            approvedInboundCheckDepositId(approvedInboundCheckDepositId.orElse(null))
+            approvedInboundCheckDepositId(approvedInboundCheckDepositId.getOrNull())
 
         /**
          * If the Check Transfer was successfully deposited, this will contain the identifier of the
@@ -512,7 +513,7 @@ private constructor(
          * will contain details of the cancellation.
          */
         fun cancellation(cancellation: Optional<Cancellation>) =
-            cancellation(cancellation.orElse(null))
+            cancellation(cancellation.getOrNull())
 
         /**
          * If your account requires approvals for transfers and the transfer was not approved, this
@@ -544,7 +545,7 @@ private constructor(
         fun createdBy(createdBy: CreatedBy?) = createdBy(JsonField.ofNullable(createdBy))
 
         /** What object created the transfer, either via the API or the dashboard. */
-        fun createdBy(createdBy: Optional<CreatedBy>) = createdBy(createdBy.orElse(null))
+        fun createdBy(createdBy: Optional<CreatedBy>) = createdBy(createdBy.getOrNull())
 
         /** What object created the transfer, either via the API or the dashboard. */
         fun createdBy(createdBy: JsonField<CreatedBy>) = apply { this.createdBy = createdBy }
@@ -578,7 +579,7 @@ private constructor(
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         fun idempotencyKey(idempotencyKey: Optional<String>) =
-            idempotencyKey(idempotencyKey.orElse(null))
+            idempotencyKey(idempotencyKey.getOrNull())
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -593,7 +594,7 @@ private constructor(
         fun mailing(mailing: Mailing?) = mailing(JsonField.ofNullable(mailing))
 
         /** If the check has been mailed by Increase, this will contain details of the shipment. */
-        fun mailing(mailing: Optional<Mailing>) = mailing(mailing.orElse(null))
+        fun mailing(mailing: Optional<Mailing>) = mailing(mailing.getOrNull())
 
         /** If the check has been mailed by Increase, this will contain details of the shipment. */
         fun mailing(mailing: JsonField<Mailing>) = apply { this.mailing = mailing }
@@ -614,7 +615,7 @@ private constructor(
          * by someone else in your organization.
          */
         fun pendingTransactionId(pendingTransactionId: Optional<String>) =
-            pendingTransactionId(pendingTransactionId.orElse(null))
+            pendingTransactionId(pendingTransactionId.getOrNull())
 
         /**
          * The ID for the pending transaction representing the transfer. A pending transaction is
@@ -638,7 +639,7 @@ private constructor(
          * if and only if `fulfillment_method` is equal to `physical_check`.
          */
         fun physicalCheck(physicalCheck: Optional<PhysicalCheck>) =
-            physicalCheck(physicalCheck.orElse(null))
+            physicalCheck(physicalCheck.getOrNull())
 
         /**
          * Details relating to the physical check that Increase will print and mail. Will be present
@@ -668,7 +669,7 @@ private constructor(
          * check.
          */
         fun sourceAccountNumberId(sourceAccountNumberId: Optional<String>) =
-            sourceAccountNumberId(sourceAccountNumberId.orElse(null))
+            sourceAccountNumberId(sourceAccountNumberId.getOrNull())
 
         /**
          * The identifier of the Account Number from which to send the transfer and print on the
@@ -694,7 +695,7 @@ private constructor(
          * After a stop-payment is requested on the check, this will contain supplemental details.
          */
         fun stopPaymentRequest(stopPaymentRequest: Optional<StopPaymentRequest>) =
-            stopPaymentRequest(stopPaymentRequest.orElse(null))
+            stopPaymentRequest(stopPaymentRequest.getOrNull())
 
         /**
          * After a stop-payment is requested on the check, this will contain supplemental details.
@@ -707,7 +708,7 @@ private constructor(
         fun submission(submission: Submission?) = submission(JsonField.ofNullable(submission))
 
         /** After the transfer is submitted, this will contain supplemental details. */
-        fun submission(submission: Optional<Submission>) = submission(submission.orElse(null))
+        fun submission(submission: Optional<Submission>) = submission(submission.getOrNull())
 
         /** After the transfer is submitted, this will contain supplemental details. */
         fun submission(submission: JsonField<Submission>) = apply { this.submission = submission }
@@ -722,7 +723,7 @@ private constructor(
          * Details relating to the custom fulfillment you will perform. Will be present if and only
          * if `fulfillment_method` is equal to `third_party`.
          */
-        fun thirdParty(thirdParty: Optional<ThirdParty>) = thirdParty(thirdParty.orElse(null))
+        fun thirdParty(thirdParty: Optional<ThirdParty>) = thirdParty(thirdParty.getOrNull())
 
         /**
          * Details relating to the custom fulfillment you will perform. Will be present if and only
@@ -896,7 +897,7 @@ private constructor(
              * If the Transfer was approved by a user in the dashboard, the email address of that
              * user.
              */
-            fun approvedBy(approvedBy: Optional<String>) = approvedBy(approvedBy.orElse(null))
+            fun approvedBy(approvedBy: Optional<String>) = approvedBy(approvedBy.getOrNull())
 
             /**
              * If the Transfer was approved by a user in the dashboard, the email address of that
@@ -1055,7 +1056,7 @@ private constructor(
              * If the Transfer was canceled by a user in the dashboard, the email address of that
              * user.
              */
-            fun canceledBy(canceledBy: Optional<String>) = canceledBy(canceledBy.orElse(null))
+            fun canceledBy(canceledBy: Optional<String>) = canceledBy(canceledBy.getOrNull())
 
             /**
              * If the Transfer was canceled by a user in the dashboard, the email address of that
@@ -1201,7 +1202,7 @@ private constructor(
             fun apiKey(apiKey: ApiKey?) = apiKey(JsonField.ofNullable(apiKey))
 
             /** If present, details about the API key that created the transfer. */
-            fun apiKey(apiKey: Optional<ApiKey>) = apiKey(apiKey.orElse(null))
+            fun apiKey(apiKey: Optional<ApiKey>) = apiKey(apiKey.getOrNull())
 
             /** If present, details about the API key that created the transfer. */
             fun apiKey(apiKey: JsonField<ApiKey>) = apply { this.apiKey = apiKey }
@@ -1218,7 +1219,7 @@ private constructor(
 
             /** If present, details about the OAuth Application that created the transfer. */
             fun oauthApplication(oauthApplication: Optional<OAuthApplication>) =
-                oauthApplication(oauthApplication.orElse(null))
+                oauthApplication(oauthApplication.getOrNull())
 
             /** If present, details about the OAuth Application that created the transfer. */
             fun oauthApplication(oauthApplication: JsonField<OAuthApplication>) = apply {
@@ -1229,7 +1230,7 @@ private constructor(
             fun user(user: User?) = user(JsonField.ofNullable(user))
 
             /** If present, details about the User that created the transfer. */
-            fun user(user: Optional<User>) = user(user.orElse(null))
+            fun user(user: Optional<User>) = user(user.getOrNull())
 
             /** If present, details about the User that created the transfer. */
             fun user(user: JsonField<User>) = apply { this.user = user }
@@ -1324,7 +1325,7 @@ private constructor(
 
                 /** The description set for the API key when it was created. */
                 fun description(description: Optional<String>) =
-                    description(description.orElse(null))
+                    description(description.getOrNull())
 
                 /** The description set for the API key when it was created. */
                 fun description(description: JsonField<String>) = apply {
@@ -2095,7 +2096,7 @@ private constructor(
              * The ID of the file corresponding to an image of the check that was mailed, if
              * available.
              */
-            fun imageId(imageId: Optional<String>) = imageId(imageId.orElse(null))
+            fun imageId(imageId: Optional<String>) = imageId(imageId.getOrNull())
 
             /**
              * The ID of the file corresponding to an image of the check that was mailed, if
@@ -2121,7 +2122,7 @@ private constructor(
 
             /** The tracking number of the shipment, if available for the shipping method. */
             fun trackingNumber(trackingNumber: Optional<String>) =
-                trackingNumber(trackingNumber.orElse(null))
+                trackingNumber(trackingNumber.getOrNull())
 
             /** The tracking number of the shipment, if available for the shipping method. */
             fun trackingNumber(trackingNumber: JsonField<String>) = apply {
@@ -2348,7 +2349,7 @@ private constructor(
             fun memo(memo: String?) = memo(JsonField.ofNullable(memo))
 
             /** The descriptor that will be printed on the memo field on the check. */
-            fun memo(memo: Optional<String>) = memo(memo.orElse(null))
+            fun memo(memo: Optional<String>) = memo(memo.getOrNull())
 
             /** The descriptor that will be printed on the memo field on the check. */
             fun memo(memo: JsonField<String>) = apply { this.memo = memo }
@@ -2357,7 +2358,7 @@ private constructor(
             fun note(note: String?) = note(JsonField.ofNullable(note))
 
             /** The descriptor that will be printed on the letter included with the check. */
-            fun note(note: Optional<String>) = note(note.orElse(null))
+            fun note(note: Optional<String>) = note(note.getOrNull())
 
             /** The descriptor that will be printed on the letter included with the check. */
             fun note(note: JsonField<String>) = apply { this.note = note }
@@ -2376,7 +2377,7 @@ private constructor(
 
             /** The return address to be printed on the check. */
             fun returnAddress(returnAddress: Optional<ReturnAddress>) =
-                returnAddress(returnAddress.orElse(null))
+                returnAddress(returnAddress.getOrNull())
 
             /** The return address to be printed on the check. */
             fun returnAddress(returnAddress: JsonField<ReturnAddress>) = apply {
@@ -2389,7 +2390,7 @@ private constructor(
 
             /** The shipping method for the check. */
             fun shippingMethod(shippingMethod: Optional<ShippingMethod>) =
-                shippingMethod(shippingMethod.orElse(null))
+                shippingMethod(shippingMethod.getOrNull())
 
             /** The shipping method for the check. */
             fun shippingMethod(shippingMethod: JsonField<ShippingMethod>) = apply {
@@ -2408,7 +2409,7 @@ private constructor(
              * the check will be printed with 'No signature required'.
              */
             fun signatureText(signatureText: Optional<String>) =
-                signatureText(signatureText.orElse(null))
+                signatureText(signatureText.getOrNull())
 
             /**
              * The text that will appear as the signature on the check in cursive font. If blank,
@@ -2587,7 +2588,7 @@ private constructor(
                 fun city(city: String?) = city(JsonField.ofNullable(city))
 
                 /** The city of the check's destination. */
-                fun city(city: Optional<String>) = city(city.orElse(null))
+                fun city(city: Optional<String>) = city(city.getOrNull())
 
                 /** The city of the check's destination. */
                 fun city(city: JsonField<String>) = apply { this.city = city }
@@ -2596,7 +2597,7 @@ private constructor(
                 fun line1(line1: String?) = line1(JsonField.ofNullable(line1))
 
                 /** The street address of the check's destination. */
-                fun line1(line1: Optional<String>) = line1(line1.orElse(null))
+                fun line1(line1: Optional<String>) = line1(line1.getOrNull())
 
                 /** The street address of the check's destination. */
                 fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
@@ -2605,7 +2606,7 @@ private constructor(
                 fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
 
                 /** The second line of the address of the check's destination. */
-                fun line2(line2: Optional<String>) = line2(line2.orElse(null))
+                fun line2(line2: Optional<String>) = line2(line2.getOrNull())
 
                 /** The second line of the address of the check's destination. */
                 fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
@@ -2614,7 +2615,7 @@ private constructor(
                 fun name(name: String?) = name(JsonField.ofNullable(name))
 
                 /** The name component of the check's mailing address. */
-                fun name(name: Optional<String>) = name(name.orElse(null))
+                fun name(name: Optional<String>) = name(name.getOrNull())
 
                 /** The name component of the check's mailing address. */
                 fun name(name: JsonField<String>) = apply { this.name = name }
@@ -2623,7 +2624,7 @@ private constructor(
                 fun postalCode(postalCode: String?) = postalCode(JsonField.ofNullable(postalCode))
 
                 /** The postal code of the check's destination. */
-                fun postalCode(postalCode: Optional<String>) = postalCode(postalCode.orElse(null))
+                fun postalCode(postalCode: Optional<String>) = postalCode(postalCode.getOrNull())
 
                 /** The postal code of the check's destination. */
                 fun postalCode(postalCode: JsonField<String>) = apply {
@@ -2634,7 +2635,7 @@ private constructor(
                 fun state(state: String?) = state(JsonField.ofNullable(state))
 
                 /** The state of the check's destination. */
-                fun state(state: Optional<String>) = state(state.orElse(null))
+                fun state(state: Optional<String>) = state(state.getOrNull())
 
                 /** The state of the check's destination. */
                 fun state(state: JsonField<String>) = apply { this.state = state }
@@ -2810,7 +2811,7 @@ private constructor(
                 fun city(city: String?) = city(JsonField.ofNullable(city))
 
                 /** The city of the check's destination. */
-                fun city(city: Optional<String>) = city(city.orElse(null))
+                fun city(city: Optional<String>) = city(city.getOrNull())
 
                 /** The city of the check's destination. */
                 fun city(city: JsonField<String>) = apply { this.city = city }
@@ -2819,7 +2820,7 @@ private constructor(
                 fun line1(line1: String?) = line1(JsonField.ofNullable(line1))
 
                 /** The street address of the check's destination. */
-                fun line1(line1: Optional<String>) = line1(line1.orElse(null))
+                fun line1(line1: Optional<String>) = line1(line1.getOrNull())
 
                 /** The street address of the check's destination. */
                 fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
@@ -2828,7 +2829,7 @@ private constructor(
                 fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
 
                 /** The second line of the address of the check's destination. */
-                fun line2(line2: Optional<String>) = line2(line2.orElse(null))
+                fun line2(line2: Optional<String>) = line2(line2.getOrNull())
 
                 /** The second line of the address of the check's destination. */
                 fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
@@ -2837,7 +2838,7 @@ private constructor(
                 fun name(name: String?) = name(JsonField.ofNullable(name))
 
                 /** The name component of the check's return address. */
-                fun name(name: Optional<String>) = name(name.orElse(null))
+                fun name(name: Optional<String>) = name(name.getOrNull())
 
                 /** The name component of the check's return address. */
                 fun name(name: JsonField<String>) = apply { this.name = name }
@@ -2846,7 +2847,7 @@ private constructor(
                 fun postalCode(postalCode: String?) = postalCode(JsonField.ofNullable(postalCode))
 
                 /** The postal code of the check's destination. */
-                fun postalCode(postalCode: Optional<String>) = postalCode(postalCode.orElse(null))
+                fun postalCode(postalCode: Optional<String>) = postalCode(postalCode.getOrNull())
 
                 /** The postal code of the check's destination. */
                 fun postalCode(postalCode: JsonField<String>) = apply {
@@ -2857,7 +2858,7 @@ private constructor(
                 fun state(state: String?) = state(JsonField.ofNullable(state))
 
                 /** The state of the check's destination. */
-                fun state(state: Optional<String>) = state(state.orElse(null))
+                fun state(state: Optional<String>) = state(state.getOrNull())
 
                 /** The state of the check's destination. */
                 fun state(state: JsonField<String>) = apply { this.state = state }
@@ -4094,7 +4095,7 @@ private constructor(
             fun checkNumber(checkNumber: String?) = checkNumber(JsonField.ofNullable(checkNumber))
 
             /** The check number that will be printed on the check. */
-            fun checkNumber(checkNumber: Optional<String>) = checkNumber(checkNumber.orElse(null))
+            fun checkNumber(checkNumber: Optional<String>) = checkNumber(checkNumber.getOrNull())
 
             /** The check number that will be printed on the check. */
             fun checkNumber(checkNumber: JsonField<String>) = apply {

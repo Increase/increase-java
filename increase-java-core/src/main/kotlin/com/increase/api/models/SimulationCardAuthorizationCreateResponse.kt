@@ -18,6 +18,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** The results of a Card Authorization simulation. */
 @NoAutoDetect
@@ -135,7 +136,7 @@ private constructor(
          * `source` will be of `category: card_decline`.
          */
         fun declinedTransaction(declinedTransaction: Optional<DeclinedTransaction>) =
-            declinedTransaction(declinedTransaction.orElse(null))
+            declinedTransaction(declinedTransaction.getOrNull())
 
         /**
          * If the authorization attempt fails, this will contain the resulting
@@ -160,7 +161,7 @@ private constructor(
          * card_authorization`.
          */
         fun pendingTransaction(pendingTransaction: Optional<PendingTransaction>) =
-            pendingTransaction(pendingTransaction.orElse(null))
+            pendingTransaction(pendingTransaction.getOrNull())
 
         /**
          * If the authorization attempt succeeds, this will contain the resulting Pending

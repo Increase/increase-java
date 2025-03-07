@@ -19,6 +19,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * Certain institutions may be excluded per Entity when sweeping funds into the IntraFi network.
@@ -247,7 +248,7 @@ private constructor(
         fun excludedAt(excludedAt: OffsetDateTime?) = excludedAt(JsonField.ofNullable(excludedAt))
 
         /** When this was exclusion was confirmed by IntraFi. */
-        fun excludedAt(excludedAt: Optional<OffsetDateTime>) = excludedAt(excludedAt.orElse(null))
+        fun excludedAt(excludedAt: Optional<OffsetDateTime>) = excludedAt(excludedAt.getOrNull())
 
         /** When this was exclusion was confirmed by IntraFi. */
         fun excludedAt(excludedAt: JsonField<OffsetDateTime>) = apply {
@@ -260,7 +261,7 @@ private constructor(
 
         /** The Federal Deposit Insurance Corporation's certificate number for the institution. */
         fun fdicCertificateNumber(fdicCertificateNumber: Optional<String>) =
-            fdicCertificateNumber(fdicCertificateNumber.orElse(null))
+            fdicCertificateNumber(fdicCertificateNumber.getOrNull())
 
         /** The Federal Deposit Insurance Corporation's certificate number for the institution. */
         fun fdicCertificateNumber(fdicCertificateNumber: JsonField<String>) = apply {
@@ -281,7 +282,7 @@ private constructor(
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         fun idempotencyKey(idempotencyKey: Optional<String>) =
-            idempotencyKey(idempotencyKey.orElse(null))
+            idempotencyKey(idempotencyKey.getOrNull())
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -304,7 +305,7 @@ private constructor(
 
         /** When this was exclusion was submitted to IntraFi by Increase. */
         fun submittedAt(submittedAt: Optional<OffsetDateTime>) =
-            submittedAt(submittedAt.orElse(null))
+            submittedAt(submittedAt.getOrNull())
 
         /** When this was exclusion was submitted to IntraFi by Increase. */
         fun submittedAt(submittedAt: JsonField<OffsetDateTime>) = apply {

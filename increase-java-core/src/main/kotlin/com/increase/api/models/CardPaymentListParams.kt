@@ -10,6 +10,7 @@ import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** List Card Payments */
 class CardPaymentListParams
@@ -92,23 +93,23 @@ private constructor(
         fun accountId(accountId: String?) = apply { this.accountId = accountId }
 
         /** Filter Card Payments to ones belonging to the specified Account. */
-        fun accountId(accountId: Optional<String>) = accountId(accountId.orElse(null))
+        fun accountId(accountId: Optional<String>) = accountId(accountId.getOrNull())
 
         /** Filter Card Payments to ones belonging to the specified Card. */
         fun cardId(cardId: String?) = apply { this.cardId = cardId }
 
         /** Filter Card Payments to ones belonging to the specified Card. */
-        fun cardId(cardId: Optional<String>) = cardId(cardId.orElse(null))
+        fun cardId(cardId: Optional<String>) = cardId(cardId.getOrNull())
 
         fun createdAt(createdAt: CreatedAt?) = apply { this.createdAt = createdAt }
 
-        fun createdAt(createdAt: Optional<CreatedAt>) = createdAt(createdAt.orElse(null))
+        fun createdAt(createdAt: Optional<CreatedAt>) = createdAt(createdAt.getOrNull())
 
         /** Return the page of entries after this one. */
         fun cursor(cursor: String?) = apply { this.cursor = cursor }
 
         /** Return the page of entries after this one. */
-        fun cursor(cursor: Optional<String>) = cursor(cursor.orElse(null))
+        fun cursor(cursor: Optional<String>) = cursor(cursor.getOrNull())
 
         /**
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
@@ -123,8 +124,7 @@ private constructor(
         /**
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
          */
-        @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
-        fun limit(limit: Optional<Long>) = limit(limit.orElse(null) as Long?)
+        fun limit(limit: Optional<Long>) = limit(limit.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -321,7 +321,7 @@ private constructor(
              * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun after(after: Optional<OffsetDateTime>) = after(after.orElse(null))
+            fun after(after: Optional<OffsetDateTime>) = after(after.getOrNull())
 
             /**
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
@@ -333,7 +333,7 @@ private constructor(
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun before(before: Optional<OffsetDateTime>) = before(before.orElse(null))
+            fun before(before: Optional<OffsetDateTime>) = before(before.getOrNull())
 
             /**
              * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
@@ -345,7 +345,7 @@ private constructor(
              * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun onOrAfter(onOrAfter: Optional<OffsetDateTime>) = onOrAfter(onOrAfter.orElse(null))
+            fun onOrAfter(onOrAfter: Optional<OffsetDateTime>) = onOrAfter(onOrAfter.getOrNull())
 
             /**
              * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
@@ -358,7 +358,7 @@ private constructor(
              * timestamp.
              */
             fun onOrBefore(onOrBefore: Optional<OffsetDateTime>) =
-                onOrBefore(onOrBefore.orElse(null))
+                onOrBefore(onOrBefore.getOrNull())
 
             fun additionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.clear()

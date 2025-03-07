@@ -19,6 +19,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * If unauthorized activity occurs on a card, you can create a Card Dispute and we'll return the
@@ -255,7 +256,7 @@ private constructor(
          * If the Card Dispute's status is `accepted`, this will contain details of the successful
          * dispute.
          */
-        fun acceptance(acceptance: Optional<Acceptance>) = acceptance(acceptance.orElse(null))
+        fun acceptance(acceptance: Optional<Acceptance>) = acceptance(acceptance.getOrNull())
 
         /**
          * If the Card Dispute's status is `accepted`, this will contain details of the successful
@@ -270,8 +271,7 @@ private constructor(
         fun amount(amount: Long) = amount(amount as Long?)
 
         /** The amount of the dispute, if provided, or the transaction amount otherwise. */
-        @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
-        fun amount(amount: Optional<Long>) = amount(amount.orElse(null) as Long?)
+        fun amount(amount: Optional<Long>) = amount(amount.getOrNull())
 
         /** The amount of the dispute, if provided, or the transaction amount otherwise. */
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
@@ -317,7 +317,7 @@ private constructor(
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         fun idempotencyKey(idempotencyKey: Optional<String>) =
-            idempotencyKey(idempotencyKey.orElse(null))
+            idempotencyKey(idempotencyKey.getOrNull())
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -336,7 +336,7 @@ private constructor(
         /**
          * If the Card Dispute's status is `lost`, this will contain details of the lost dispute.
          */
-        fun loss(loss: Optional<Loss>) = loss(loss.orElse(null))
+        fun loss(loss: Optional<Loss>) = loss(loss.getOrNull())
 
         /**
          * If the Card Dispute's status is `lost`, this will contain details of the lost dispute.
@@ -353,7 +353,7 @@ private constructor(
          * If the Card Dispute's status is `rejected`, this will contain details of the unsuccessful
          * dispute.
          */
-        fun rejection(rejection: Optional<Rejection>) = rejection(rejection.orElse(null))
+        fun rejection(rejection: Optional<Rejection>) = rejection(rejection.getOrNull())
 
         /**
          * If the Card Dispute's status is `rejected`, this will contain details of the unsuccessful
@@ -383,7 +383,7 @@ private constructor(
         fun win(win: Win?) = win(JsonField.ofNullable(win))
 
         /** If the Card Dispute's status is `won`, this will contain details of the won dispute. */
-        fun win(win: Optional<Win>) = win(win.orElse(null))
+        fun win(win: Optional<Win>) = win(win.getOrNull())
 
         /** If the Card Dispute's status is `won`, this will contain details of the won dispute. */
         fun win(win: JsonField<Win>) = apply { this.win = win }

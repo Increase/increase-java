@@ -19,6 +19,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * Inbound wire drawdown requests are requests from someone else to send them a wire. This feature
@@ -461,7 +462,7 @@ private constructor(
 
         /** Line 1 of the drawdown request's beneficiary's address. */
         fun beneficiaryAddressLine1(beneficiaryAddressLine1: Optional<String>) =
-            beneficiaryAddressLine1(beneficiaryAddressLine1.orElse(null))
+            beneficiaryAddressLine1(beneficiaryAddressLine1.getOrNull())
 
         /** Line 1 of the drawdown request's beneficiary's address. */
         fun beneficiaryAddressLine1(beneficiaryAddressLine1: JsonField<String>) = apply {
@@ -474,7 +475,7 @@ private constructor(
 
         /** Line 2 of the drawdown request's beneficiary's address. */
         fun beneficiaryAddressLine2(beneficiaryAddressLine2: Optional<String>) =
-            beneficiaryAddressLine2(beneficiaryAddressLine2.orElse(null))
+            beneficiaryAddressLine2(beneficiaryAddressLine2.getOrNull())
 
         /** Line 2 of the drawdown request's beneficiary's address. */
         fun beneficiaryAddressLine2(beneficiaryAddressLine2: JsonField<String>) = apply {
@@ -487,7 +488,7 @@ private constructor(
 
         /** Line 3 of the drawdown request's beneficiary's address. */
         fun beneficiaryAddressLine3(beneficiaryAddressLine3: Optional<String>) =
-            beneficiaryAddressLine3(beneficiaryAddressLine3.orElse(null))
+            beneficiaryAddressLine3(beneficiaryAddressLine3.getOrNull())
 
         /** Line 3 of the drawdown request's beneficiary's address. */
         fun beneficiaryAddressLine3(beneficiaryAddressLine3: JsonField<String>) = apply {
@@ -500,7 +501,7 @@ private constructor(
 
         /** The drawdown request's beneficiary's name. */
         fun beneficiaryName(beneficiaryName: Optional<String>) =
-            beneficiaryName(beneficiaryName.orElse(null))
+            beneficiaryName(beneficiaryName.getOrNull())
 
         /** The drawdown request's beneficiary's name. */
         fun beneficiaryName(beneficiaryName: JsonField<String>) = apply {
@@ -546,7 +547,7 @@ private constructor(
 
         /** A message from the drawdown request's originator. */
         fun messageToRecipient(messageToRecipient: Optional<String>) =
-            messageToRecipient(messageToRecipient.orElse(null))
+            messageToRecipient(messageToRecipient.getOrNull())
 
         /** A message from the drawdown request's originator. */
         fun messageToRecipient(messageToRecipient: JsonField<String>) = apply {
@@ -568,7 +569,7 @@ private constructor(
 
         /** Line 1 of the drawdown request's originator's address. */
         fun originatorAddressLine1(originatorAddressLine1: Optional<String>) =
-            originatorAddressLine1(originatorAddressLine1.orElse(null))
+            originatorAddressLine1(originatorAddressLine1.getOrNull())
 
         /** Line 1 of the drawdown request's originator's address. */
         fun originatorAddressLine1(originatorAddressLine1: JsonField<String>) = apply {
@@ -581,7 +582,7 @@ private constructor(
 
         /** Line 2 of the drawdown request's originator's address. */
         fun originatorAddressLine2(originatorAddressLine2: Optional<String>) =
-            originatorAddressLine2(originatorAddressLine2.orElse(null))
+            originatorAddressLine2(originatorAddressLine2.getOrNull())
 
         /** Line 2 of the drawdown request's originator's address. */
         fun originatorAddressLine2(originatorAddressLine2: JsonField<String>) = apply {
@@ -594,7 +595,7 @@ private constructor(
 
         /** Line 3 of the drawdown request's originator's address. */
         fun originatorAddressLine3(originatorAddressLine3: Optional<String>) =
-            originatorAddressLine3(originatorAddressLine3.orElse(null))
+            originatorAddressLine3(originatorAddressLine3.getOrNull())
 
         /** Line 3 of the drawdown request's originator's address. */
         fun originatorAddressLine3(originatorAddressLine3: JsonField<String>) = apply {
@@ -607,7 +608,7 @@ private constructor(
 
         /** The drawdown request's originator's name. */
         fun originatorName(originatorName: Optional<String>) =
-            originatorName(originatorName.orElse(null))
+            originatorName(originatorName.getOrNull())
 
         /** The drawdown request's originator's name. */
         fun originatorName(originatorName: JsonField<String>) = apply {
@@ -640,7 +641,7 @@ private constructor(
             originatorToBeneficiaryInformationLine1: Optional<String>
         ) =
             originatorToBeneficiaryInformationLine1(
-                originatorToBeneficiaryInformationLine1.orElse(null)
+                originatorToBeneficiaryInformationLine1.getOrNull()
             )
 
         /**
@@ -669,7 +670,7 @@ private constructor(
             originatorToBeneficiaryInformationLine2: Optional<String>
         ) =
             originatorToBeneficiaryInformationLine2(
-                originatorToBeneficiaryInformationLine2.orElse(null)
+                originatorToBeneficiaryInformationLine2.getOrNull()
             )
 
         /**
@@ -698,7 +699,7 @@ private constructor(
             originatorToBeneficiaryInformationLine3: Optional<String>
         ) =
             originatorToBeneficiaryInformationLine3(
-                originatorToBeneficiaryInformationLine3.orElse(null)
+                originatorToBeneficiaryInformationLine3.getOrNull()
             )
 
         /**
@@ -727,7 +728,7 @@ private constructor(
             originatorToBeneficiaryInformationLine4: Optional<String>
         ) =
             originatorToBeneficiaryInformationLine4(
-                originatorToBeneficiaryInformationLine4.orElse(null)
+                originatorToBeneficiaryInformationLine4.getOrNull()
             )
 
         /**

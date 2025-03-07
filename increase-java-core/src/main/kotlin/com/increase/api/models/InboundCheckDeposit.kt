@@ -20,6 +20,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * Inbound Check Deposits are records of third-parties attempting to deposit checks against your
@@ -413,7 +414,7 @@ private constructor(
          * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which this took
          * place.
          */
-        fun acceptedAt(acceptedAt: Optional<OffsetDateTime>) = acceptedAt(acceptedAt.orElse(null))
+        fun acceptedAt(acceptedAt: Optional<OffsetDateTime>) = acceptedAt(acceptedAt.getOrNull())
 
         /**
          * If the Inbound Check Deposit was accepted, the
@@ -436,7 +437,7 @@ private constructor(
 
         /** The Account Number the check is being deposited against. */
         fun accountNumberId(accountNumberId: Optional<String>) =
-            accountNumberId(accountNumberId.orElse(null))
+            accountNumberId(accountNumberId.getOrNull())
 
         /** The Account Number the check is being deposited against. */
         fun accountNumberId(accountNumberId: JsonField<String>) = apply {
@@ -480,7 +481,7 @@ private constructor(
 
         /** The ID for the File containing the image of the back of the check. */
         fun backImageFileId(backImageFileId: Optional<String>) =
-            backImageFileId(backImageFileId.orElse(null))
+            backImageFileId(backImageFileId.getOrNull())
 
         /** The ID for the File containing the image of the back of the check. */
         fun backImageFileId(backImageFileId: JsonField<String>) = apply {
@@ -501,7 +502,7 @@ private constructor(
          * value will be null.
          */
         fun bankOfFirstDepositRoutingNumber(bankOfFirstDepositRoutingNumber: Optional<String>) =
-            bankOfFirstDepositRoutingNumber(bankOfFirstDepositRoutingNumber.orElse(null))
+            bankOfFirstDepositRoutingNumber(bankOfFirstDepositRoutingNumber.getOrNull())
 
         /**
          * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the bank
@@ -517,7 +518,7 @@ private constructor(
         fun checkNumber(checkNumber: String?) = checkNumber(JsonField.ofNullable(checkNumber))
 
         /** The check number printed on the check being deposited. */
-        fun checkNumber(checkNumber: Optional<String>) = checkNumber(checkNumber.orElse(null))
+        fun checkNumber(checkNumber: Optional<String>) = checkNumber(checkNumber.getOrNull())
 
         /** The check number printed on the check being deposited. */
         fun checkNumber(checkNumber: JsonField<String>) = apply { this.checkNumber = checkNumber }
@@ -532,7 +533,7 @@ private constructor(
          * If this deposit is for an existing Check Transfer, the identifier of that Check Transfer.
          */
         fun checkTransferId(checkTransferId: Optional<String>) =
-            checkTransferId(checkTransferId.orElse(null))
+            checkTransferId(checkTransferId.getOrNull())
 
         /**
          * If this deposit is for an existing Check Transfer, the identifier of that Check Transfer.
@@ -571,7 +572,7 @@ private constructor(
          * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which this took
          * place.
          */
-        fun declinedAt(declinedAt: Optional<OffsetDateTime>) = declinedAt(declinedAt.orElse(null))
+        fun declinedAt(declinedAt: Optional<OffsetDateTime>) = declinedAt(declinedAt.getOrNull())
 
         /**
          * If the Inbound Check Deposit was declined, the
@@ -594,7 +595,7 @@ private constructor(
          * object created as a result of the failed deposit.
          */
         fun declinedTransactionId(declinedTransactionId: Optional<String>) =
-            declinedTransactionId(declinedTransactionId.orElse(null))
+            declinedTransactionId(declinedTransactionId.getOrNull())
 
         /**
          * If the deposit attempt has been rejected, the identifier of the Declined Transaction
@@ -610,7 +611,7 @@ private constructor(
 
         /** If you requested a return of this deposit, this will contain details of the return. */
         fun depositReturn(depositReturn: Optional<DepositReturn>) =
-            depositReturn(depositReturn.orElse(null))
+            depositReturn(depositReturn.getOrNull())
 
         /** If you requested a return of this deposit, this will contain details of the return. */
         fun depositReturn(depositReturn: JsonField<DepositReturn>) = apply {
@@ -623,7 +624,7 @@ private constructor(
 
         /** The ID for the File containing the image of the front of the check. */
         fun frontImageFileId(frontImageFileId: Optional<String>) =
-            frontImageFileId(frontImageFileId.orElse(null))
+            frontImageFileId(frontImageFileId.getOrNull())
 
         /** The ID for the File containing the image of the front of the check. */
         fun frontImageFileId(frontImageFileId: JsonField<String>) = apply {
@@ -663,7 +664,7 @@ private constructor(
          * created as a result of the successful deposit.
          */
         fun transactionId(transactionId: Optional<String>) =
-            transactionId(transactionId.orElse(null))
+            transactionId(transactionId.getOrNull())
 
         /**
          * If the deposit attempt has been accepted, the identifier of the Transaction object

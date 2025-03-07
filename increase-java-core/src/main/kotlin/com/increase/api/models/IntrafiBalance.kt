@@ -20,6 +20,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.LocalDate
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * When using IntraFi, each account's balance over the standard FDIC insurance amount are swept to
@@ -388,7 +389,7 @@ private constructor(
 
             /** The primary location of the bank. */
             fun bankLocation(bankLocation: Optional<BankLocation>) =
-                bankLocation(bankLocation.orElse(null))
+                bankLocation(bankLocation.getOrNull())
 
             /** The primary location of the bank. */
             fun bankLocation(bankLocation: JsonField<BankLocation>) = apply {

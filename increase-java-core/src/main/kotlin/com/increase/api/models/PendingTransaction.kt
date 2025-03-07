@@ -19,6 +19,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * Pending Transactions are potential future additions and removals of money from your bank account.
@@ -290,7 +291,7 @@ private constructor(
          * Transaction was completed.
          */
         fun completedAt(completedAt: Optional<OffsetDateTime>) =
-            completedAt(completedAt.orElse(null))
+            completedAt(completedAt.getOrNull())
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which the Pending
@@ -346,7 +347,7 @@ private constructor(
          * The identifier for the route this Pending Transaction came through. Routes are things
          * like cards and ACH details.
          */
-        fun routeId(routeId: Optional<String>) = routeId(routeId.orElse(null))
+        fun routeId(routeId: Optional<String>) = routeId(routeId.getOrNull())
 
         /**
          * The identifier for the route this Pending Transaction came through. Routes are things
@@ -358,7 +359,7 @@ private constructor(
         fun routeType(routeType: RouteType?) = routeType(JsonField.ofNullable(routeType))
 
         /** The type of the route this Pending Transaction came through. */
-        fun routeType(routeType: Optional<RouteType>) = routeType(routeType.orElse(null))
+        fun routeType(routeType: Optional<RouteType>) = routeType(routeType.getOrNull())
 
         /** The type of the route this Pending Transaction came through. */
         fun routeType(routeType: JsonField<RouteType>) = apply { this.routeType = routeType }
@@ -999,7 +1000,7 @@ private constructor(
              */
             fun accountTransferInstruction(
                 accountTransferInstruction: Optional<AccountTransferInstruction>
-            ) = accountTransferInstruction(accountTransferInstruction.orElse(null))
+            ) = accountTransferInstruction(accountTransferInstruction.getOrNull())
 
             /**
              * An Account Transfer Instruction object. This field will be present in the JSON
@@ -1021,7 +1022,7 @@ private constructor(
              * if and only if `category` is equal to `ach_transfer_instruction`.
              */
             fun achTransferInstruction(achTransferInstruction: Optional<AchTransferInstruction>) =
-                achTransferInstruction(achTransferInstruction.orElse(null))
+                achTransferInstruction(achTransferInstruction.getOrNull())
 
             /**
              * An ACH Transfer Instruction object. This field will be present in the JSON response
@@ -1048,7 +1049,7 @@ private constructor(
              * transaction.
              */
             fun cardAuthorization(cardAuthorization: Optional<CardAuthorization>) =
-                cardAuthorization(cardAuthorization.orElse(null))
+                cardAuthorization(cardAuthorization.getOrNull())
 
             /**
              * A Card Authorization object. This field will be present in the JSON response if and
@@ -1085,7 +1086,7 @@ private constructor(
              */
             fun checkDepositInstruction(
                 checkDepositInstruction: Optional<CheckDepositInstruction>
-            ) = checkDepositInstruction(checkDepositInstruction.orElse(null))
+            ) = checkDepositInstruction(checkDepositInstruction.getOrNull())
 
             /**
              * A Check Deposit Instruction object. This field will be present in the JSON response
@@ -1108,7 +1109,7 @@ private constructor(
              */
             fun checkTransferInstruction(
                 checkTransferInstruction: Optional<CheckTransferInstruction>
-            ) = checkTransferInstruction(checkTransferInstruction.orElse(null))
+            ) = checkTransferInstruction(checkTransferInstruction.getOrNull())
 
             /**
              * A Check Transfer Instruction object. This field will be present in the JSON response
@@ -1134,7 +1135,7 @@ private constructor(
              * back by the sending institution.
              */
             fun inboundFundsHold(inboundFundsHold: Optional<InboundFundsHold>) =
-                inboundFundsHold(inboundFundsHold.orElse(null))
+                inboundFundsHold(inboundFundsHold.getOrNull())
 
             /**
              * An Inbound Funds Hold object. This field will be present in the JSON response if and
@@ -1164,7 +1165,7 @@ private constructor(
              */
             fun inboundWireTransferReversal(
                 inboundWireTransferReversal: Optional<InboundWireTransferReversal>
-            ) = inboundWireTransferReversal(inboundWireTransferReversal.orElse(null))
+            ) = inboundWireTransferReversal(inboundWireTransferReversal.getOrNull())
 
             /**
              * An Inbound Wire Transfer Reversal object. This field will be present in the JSON
@@ -1201,10 +1202,7 @@ private constructor(
              */
             fun realTimePaymentsTransferInstruction(
                 realTimePaymentsTransferInstruction: Optional<RealTimePaymentsTransferInstruction>
-            ) =
-                realTimePaymentsTransferInstruction(
-                    realTimePaymentsTransferInstruction.orElse(null)
-                )
+            ) = realTimePaymentsTransferInstruction(realTimePaymentsTransferInstruction.getOrNull())
 
             /**
              * A Real-Time Payments Transfer Instruction object. This field will be present in the
@@ -1230,7 +1228,7 @@ private constructor(
              */
             fun wireTransferInstruction(
                 wireTransferInstruction: Optional<WireTransferInstruction>
-            ) = wireTransferInstruction(wireTransferInstruction.orElse(null))
+            ) = wireTransferInstruction(wireTransferInstruction.getOrNull())
 
             /**
              * A Wire Transfer Instruction object. This field will be present in the JSON response
@@ -2325,7 +2323,7 @@ private constructor(
                  * purchase), the identifier of the token that was used.
                  */
                 fun digitalWalletTokenId(digitalWalletTokenId: Optional<String>) =
-                    digitalWalletTokenId(digitalWalletTokenId.orElse(null))
+                    digitalWalletTokenId(digitalWalletTokenId.getOrNull())
 
                 /**
                  * If the authorization was made via a Digital Wallet Token (such as an Apple Pay
@@ -2399,7 +2397,7 @@ private constructor(
 
                 /** The city the merchant resides in. */
                 fun merchantCity(merchantCity: Optional<String>) =
-                    merchantCity(merchantCity.orElse(null))
+                    merchantCity(merchantCity.getOrNull())
 
                 /** The city the merchant resides in. */
                 fun merchantCity(merchantCity: JsonField<String>) = apply {
@@ -2436,7 +2434,7 @@ private constructor(
                  * ZIP code, where the first 5 and last 4 are separated by a dash.
                  */
                 fun merchantPostalCode(merchantPostalCode: Optional<String>) =
-                    merchantPostalCode(merchantPostalCode.orElse(null))
+                    merchantPostalCode(merchantPostalCode.getOrNull())
 
                 /**
                  * The merchant's postal code. For US merchants this is either a 5-digit or 9-digit
@@ -2452,7 +2450,7 @@ private constructor(
 
                 /** The state the merchant resides in. */
                 fun merchantState(merchantState: Optional<String>) =
-                    merchantState(merchantState.orElse(null))
+                    merchantState(merchantState.getOrNull())
 
                 /** The state the merchant resides in. */
                 fun merchantState(merchantState: JsonField<String>) = apply {
@@ -2495,9 +2493,8 @@ private constructor(
                  * The risk score generated by the card network. For Visa this is the Visa Advanced
                  * Authorization risk score, from 0 to 99, where 99 is the riskiest.
                  */
-                @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
                 fun networkRiskScore(networkRiskScore: Optional<Long>) =
-                    networkRiskScore(networkRiskScore.orElse(null) as Long?)
+                    networkRiskScore(networkRiskScore.getOrNull())
 
                 /**
                  * The risk score generated by the card network. For Visa this is the Visa Advanced
@@ -2513,7 +2510,7 @@ private constructor(
 
                 /** The identifier of the Pending Transaction associated with this Transaction. */
                 fun pendingTransactionId(pendingTransactionId: Optional<String>) =
-                    pendingTransactionId(pendingTransactionId.orElse(null))
+                    pendingTransactionId(pendingTransactionId.getOrNull())
 
                 /** The identifier of the Pending Transaction associated with this Transaction. */
                 fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {
@@ -2532,7 +2529,7 @@ private constructor(
                  * that was used.
                  */
                 fun physicalCardId(physicalCardId: Optional<String>) =
-                    physicalCardId(physicalCardId.orElse(null))
+                    physicalCardId(physicalCardId.getOrNull())
 
                 /**
                  * If the authorization was made in-person with a physical card, the Physical Card
@@ -2597,7 +2594,7 @@ private constructor(
                  * transaction.
                  */
                 fun realTimeDecisionId(realTimeDecisionId: Optional<String>) =
-                    realTimeDecisionId(realTimeDecisionId.orElse(null))
+                    realTimeDecisionId(realTimeDecisionId.getOrNull())
 
                 /**
                  * The identifier of the Real-Time Decision sent to approve or decline this
@@ -2617,7 +2614,7 @@ private constructor(
                  * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
                  * transacting with.
                  */
-                fun terminalId(terminalId: Optional<String>) = terminalId(terminalId.orElse(null))
+                fun terminalId(terminalId: Optional<String>) = terminalId(terminalId.getOrNull())
 
                 /**
                  * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
@@ -3175,7 +3172,7 @@ private constructor(
                     fun visa(visa: Visa?) = visa(JsonField.ofNullable(visa))
 
                     /** Fields specific to the `visa` network. */
-                    fun visa(visa: Optional<Visa>) = visa(visa.orElse(null))
+                    fun visa(visa: Optional<Visa>) = visa(visa.getOrNull())
 
                     /** Fields specific to the `visa` network. */
                     fun visa(visa: JsonField<Visa>) = apply { this.visa = visa }
@@ -3459,7 +3456,7 @@ private constructor(
                          */
                         fun electronicCommerceIndicator(
                             electronicCommerceIndicator: Optional<ElectronicCommerceIndicator>
-                        ) = electronicCommerceIndicator(electronicCommerceIndicator.orElse(null))
+                        ) = electronicCommerceIndicator(electronicCommerceIndicator.getOrNull())
 
                         /**
                          * For electronic commerce transactions, this identifies the level of
@@ -3485,7 +3482,7 @@ private constructor(
                          */
                         fun pointOfServiceEntryMode(
                             pointOfServiceEntryMode: Optional<PointOfServiceEntryMode>
-                        ) = pointOfServiceEntryMode(pointOfServiceEntryMode.orElse(null))
+                        ) = pointOfServiceEntryMode(pointOfServiceEntryMode.getOrNull())
 
                         /**
                          * The method used to enter the cardholder's primary account number and card
@@ -3509,7 +3506,7 @@ private constructor(
                          */
                         fun standInProcessingReason(
                             standInProcessingReason: Optional<StandInProcessingReason>
-                        ) = standInProcessingReason(standInProcessingReason.orElse(null))
+                        ) = standInProcessingReason(standInProcessingReason.getOrNull())
 
                         /**
                          * Only present when `actioner: network`. Describes why a card authorization
@@ -4441,7 +4438,7 @@ private constructor(
                      * networks the retrieval reference number includes the trace counter.
                      */
                     fun retrievalReferenceNumber(retrievalReferenceNumber: Optional<String>) =
-                        retrievalReferenceNumber(retrievalReferenceNumber.orElse(null))
+                        retrievalReferenceNumber(retrievalReferenceNumber.getOrNull())
 
                     /**
                      * A life-cycle identifier used across e.g., an authorization and a reversal.
@@ -4465,7 +4462,7 @@ private constructor(
                      * per acquirer within a window of time.
                      */
                     fun traceNumber(traceNumber: Optional<String>) =
-                        traceNumber(traceNumber.orElse(null))
+                        traceNumber(traceNumber.getOrNull())
 
                     /**
                      * A counter used to verify an individual authorization. Expected to be unique
@@ -4487,7 +4484,7 @@ private constructor(
                      * across multiple life-cycle requests.
                      */
                     fun transactionId(transactionId: Optional<String>) =
-                        transactionId(transactionId.orElse(null))
+                        transactionId(transactionId.getOrNull())
 
                     /**
                      * A globally unique transaction identifier provided by the card network, used
@@ -5356,7 +5353,7 @@ private constructor(
 
                         /** Line 1 of the address on file for the cardholder. */
                         fun actualLine1(actualLine1: Optional<String>) =
-                            actualLine1(actualLine1.orElse(null))
+                            actualLine1(actualLine1.getOrNull())
 
                         /** Line 1 of the address on file for the cardholder. */
                         fun actualLine1(actualLine1: JsonField<String>) = apply {
@@ -5369,7 +5366,7 @@ private constructor(
 
                         /** The postal code of the address on file for the cardholder. */
                         fun actualPostalCode(actualPostalCode: Optional<String>) =
-                            actualPostalCode(actualPostalCode.orElse(null))
+                            actualPostalCode(actualPostalCode.getOrNull())
 
                         /** The postal code of the address on file for the cardholder. */
                         fun actualPostalCode(actualPostalCode: JsonField<String>) = apply {
@@ -5388,7 +5385,7 @@ private constructor(
                          * authorization request.
                          */
                         fun providedLine1(providedLine1: Optional<String>) =
-                            providedLine1(providedLine1.orElse(null))
+                            providedLine1(providedLine1.getOrNull())
 
                         /**
                          * The cardholder address line 1 provided for verification in the
@@ -5408,7 +5405,7 @@ private constructor(
                          * The postal code provided for verification in the authorization request.
                          */
                         fun providedPostalCode(providedPostalCode: Optional<String>) =
-                            providedPostalCode(providedPostalCode.orElse(null))
+                            providedPostalCode(providedPostalCode.getOrNull())
 
                         /**
                          * The postal code provided for verification in the authorization request.
@@ -6075,7 +6072,7 @@ private constructor(
                  * deposited.
                  */
                 fun backImageFileId(backImageFileId: Optional<String>) =
-                    backImageFileId(backImageFileId.orElse(null))
+                    backImageFileId(backImageFileId.getOrNull())
 
                 /**
                  * The identifier of the File containing the image of the back of the check that was
@@ -6091,7 +6088,7 @@ private constructor(
 
                 /** The identifier of the Check Deposit. */
                 fun checkDepositId(checkDepositId: Optional<String>) =
-                    checkDepositId(checkDepositId.orElse(null))
+                    checkDepositId(checkDepositId.getOrNull())
 
                 /** The identifier of the Check Deposit. */
                 fun checkDepositId(checkDepositId: JsonField<String>) = apply {
@@ -6913,7 +6910,7 @@ private constructor(
 
                 /** The ID of the Transaction for which funds were held. */
                 fun heldTransactionId(heldTransactionId: Optional<String>) =
-                    heldTransactionId(heldTransactionId.orElse(null))
+                    heldTransactionId(heldTransactionId.getOrNull())
 
                 /** The ID of the Transaction for which funds were held. */
                 fun heldTransactionId(heldTransactionId: JsonField<String>) = apply {
@@ -6926,7 +6923,7 @@ private constructor(
 
                 /** The ID of the Pending Transaction representing the held funds. */
                 fun pendingTransactionId(pendingTransactionId: Optional<String>) =
-                    pendingTransactionId(pendingTransactionId.orElse(null))
+                    pendingTransactionId(pendingTransactionId.getOrNull())
 
                 /** The ID of the Pending Transaction representing the held funds. */
                 fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {
@@ -6939,7 +6936,7 @@ private constructor(
 
                 /** When the hold was released (if it has been released). */
                 fun releasedAt(releasedAt: Optional<OffsetDateTime>) =
-                    releasedAt(releasedAt.orElse(null))
+                    releasedAt(releasedAt.getOrNull())
 
                 /** When the hold was released (if it has been released). */
                 fun releasedAt(releasedAt: JsonField<OffsetDateTime>) = apply {

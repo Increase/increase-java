@@ -20,6 +20,7 @@ import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * Accounts are your bank accounts with Increase. They store money, receive transfers, and send
@@ -319,7 +320,7 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was
          * closed.
          */
-        fun closedAt(closedAt: Optional<OffsetDateTime>) = closedAt(closedAt.orElse(null))
+        fun closedAt(closedAt: Optional<OffsetDateTime>) = closedAt(closedAt.getOrNull())
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was
@@ -349,7 +350,7 @@ private constructor(
         fun entityId(entityId: String?) = entityId(JsonField.ofNullable(entityId))
 
         /** The identifier for the Entity the Account belongs to. */
-        fun entityId(entityId: Optional<String>) = entityId(entityId.orElse(null))
+        fun entityId(entityId: Optional<String>) = entityId(entityId.getOrNull())
 
         /** The identifier for the Entity the Account belongs to. */
         fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
@@ -368,7 +369,7 @@ private constructor(
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         fun idempotencyKey(idempotencyKey: Optional<String>) =
-            idempotencyKey(idempotencyKey.orElse(null))
+            idempotencyKey(idempotencyKey.getOrNull())
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -391,7 +392,7 @@ private constructor(
          * activity.
          */
         fun informationalEntityId(informationalEntityId: Optional<String>) =
-            informationalEntityId(informationalEntityId.orElse(null))
+            informationalEntityId(informationalEntityId.getOrNull())
 
         /**
          * The identifier of an Entity that, while not owning the Account, is associated with its
@@ -428,7 +429,7 @@ private constructor(
          * accrued.
          */
         fun interestAccruedAt(interestAccruedAt: Optional<LocalDate>) =
-            interestAccruedAt(interestAccruedAt.orElse(null))
+            interestAccruedAt(interestAccruedAt.getOrNull())
 
         /**
          * The latest [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which interest was

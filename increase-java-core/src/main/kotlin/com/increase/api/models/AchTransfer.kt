@@ -21,6 +21,7 @@ import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * ACH transfers move funds between your Increase account and any other account accessible by the
@@ -679,7 +680,7 @@ private constructor(
          * Federal Reserve sends an acknowledgement message for each file that Increase submits.
          */
         fun acknowledgement(acknowledgement: Optional<Acknowledgement>) =
-            acknowledgement(acknowledgement.orElse(null))
+            acknowledgement(acknowledgement.getOrNull())
 
         /**
          * After the transfer is acknowledged by FedACH, this will contain supplemental details. The
@@ -693,7 +694,7 @@ private constructor(
         fun addenda(addenda: Addenda?) = addenda(JsonField.ofNullable(addenda))
 
         /** Additional information that will be sent to the recipient. */
-        fun addenda(addenda: Optional<Addenda>) = addenda(addenda.orElse(null))
+        fun addenda(addenda: Optional<Addenda>) = addenda(addenda.getOrNull())
 
         /** Additional information that will be sent to the recipient. */
         fun addenda(addenda: JsonField<Addenda>) = apply { this.addenda = addenda }
@@ -722,7 +723,7 @@ private constructor(
          * If your account requires approvals for transfers and the transfer was approved, this will
          * contain details of the approval.
          */
-        fun approval(approval: Optional<Approval>) = approval(approval.orElse(null))
+        fun approval(approval: Optional<Approval>) = approval(approval.getOrNull())
 
         /**
          * If your account requires approvals for transfers and the transfer was approved, this will
@@ -742,7 +743,7 @@ private constructor(
          * will contain details of the cancellation.
          */
         fun cancellation(cancellation: Optional<Cancellation>) =
-            cancellation(cancellation.orElse(null))
+            cancellation(cancellation.getOrNull())
 
         /**
          * If your account requires approvals for transfers and the transfer was not approved, this
@@ -758,7 +759,7 @@ private constructor(
 
         /** The description of the date of the transfer. */
         fun companyDescriptiveDate(companyDescriptiveDate: Optional<String>) =
-            companyDescriptiveDate(companyDescriptiveDate.orElse(null))
+            companyDescriptiveDate(companyDescriptiveDate.getOrNull())
 
         /** The description of the date of the transfer. */
         fun companyDescriptiveDate(companyDescriptiveDate: JsonField<String>) = apply {
@@ -771,7 +772,7 @@ private constructor(
 
         /** The data you chose to associate with the transfer. */
         fun companyDiscretionaryData(companyDiscretionaryData: Optional<String>) =
-            companyDiscretionaryData(companyDiscretionaryData.orElse(null))
+            companyDiscretionaryData(companyDiscretionaryData.getOrNull())
 
         /** The data you chose to associate with the transfer. */
         fun companyDiscretionaryData(companyDiscretionaryData: JsonField<String>) = apply {
@@ -784,7 +785,7 @@ private constructor(
 
         /** The description of the transfer you set to be shown to the recipient. */
         fun companyEntryDescription(companyEntryDescription: Optional<String>) =
-            companyEntryDescription(companyEntryDescription.orElse(null))
+            companyEntryDescription(companyEntryDescription.getOrNull())
 
         /** The description of the transfer you set to be shown to the recipient. */
         fun companyEntryDescription(companyEntryDescription: JsonField<String>) = apply {
@@ -795,7 +796,7 @@ private constructor(
         fun companyName(companyName: String?) = companyName(JsonField.ofNullable(companyName))
 
         /** The name by which the recipient knows you. */
-        fun companyName(companyName: Optional<String>) = companyName(companyName.orElse(null))
+        fun companyName(companyName: Optional<String>) = companyName(companyName.getOrNull())
 
         /** The name by which the recipient knows you. */
         fun companyName(companyName: JsonField<String>) = apply { this.companyName = companyName }
@@ -816,7 +817,7 @@ private constructor(
         fun createdBy(createdBy: CreatedBy?) = createdBy(JsonField.ofNullable(createdBy))
 
         /** What object created the transfer, either via the API or the dashboard. */
-        fun createdBy(createdBy: Optional<CreatedBy>) = createdBy(createdBy.orElse(null))
+        fun createdBy(createdBy: Optional<CreatedBy>) = createdBy(createdBy.getOrNull())
 
         /** What object created the transfer, either via the API or the dashboard. */
         fun createdBy(createdBy: JsonField<CreatedBy>) = apply { this.createdBy = createdBy }
@@ -848,7 +849,7 @@ private constructor(
 
         /** The identifier of the External Account the transfer was made to, if any. */
         fun externalAccountId(externalAccountId: Optional<String>) =
-            externalAccountId(externalAccountId.orElse(null))
+            externalAccountId(externalAccountId.getOrNull())
 
         /** The identifier of the External Account the transfer was made to, if any. */
         fun externalAccountId(externalAccountId: JsonField<String>) = apply {
@@ -875,7 +876,7 @@ private constructor(
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         fun idempotencyKey(idempotencyKey: Optional<String>) =
-            idempotencyKey(idempotencyKey.orElse(null))
+            idempotencyKey(idempotencyKey.getOrNull())
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -898,7 +899,7 @@ private constructor(
          * sub-object will contain details of the hold.
          */
         fun inboundFundsHold(inboundFundsHold: Optional<InboundFundsHold>) =
-            inboundFundsHold(inboundFundsHold.orElse(null))
+            inboundFundsHold(inboundFundsHold.getOrNull())
 
         /**
          * Increase will sometimes hold the funds for ACH debit transfers. If funds are held, this
@@ -912,7 +913,7 @@ private constructor(
         fun individualId(individualId: String?) = individualId(JsonField.ofNullable(individualId))
 
         /** Your identifier for the transfer recipient. */
-        fun individualId(individualId: Optional<String>) = individualId(individualId.orElse(null))
+        fun individualId(individualId: Optional<String>) = individualId(individualId.getOrNull())
 
         /** Your identifier for the transfer recipient. */
         fun individualId(individualId: JsonField<String>) = apply {
@@ -931,7 +932,7 @@ private constructor(
          * recipient's bank.
          */
         fun individualName(individualName: Optional<String>) =
-            individualName(individualName.orElse(null))
+            individualName(individualName.getOrNull())
 
         /**
          * The name of the transfer recipient. This value is information and not verified by the
@@ -990,7 +991,7 @@ private constructor(
          * by someone else in your organization.
          */
         fun pendingTransactionId(pendingTransactionId: Optional<String>) =
-            pendingTransactionId(pendingTransactionId.orElse(null))
+            pendingTransactionId(pendingTransactionId.getOrNull())
 
         /**
          * The ID for the pending transaction representing the transfer. A pending transaction is
@@ -1026,7 +1027,7 @@ private constructor(
         fun return_(return_: Return?) = return_(JsonField.ofNullable(return_))
 
         /** If your transfer is returned, this will contain details of the return. */
-        fun return_(return_: Optional<Return>) = return_(return_.orElse(null))
+        fun return_(return_: Optional<Return>) = return_(return_.getOrNull())
 
         /** If your transfer is returned, this will contain details of the return. */
         fun return_(return_: JsonField<Return>) = apply { this.return_ = return_ }
@@ -1049,7 +1050,7 @@ private constructor(
          * A subhash containing information about when and how the transfer settled at the Federal
          * Reserve.
          */
-        fun settlement(settlement: Optional<Settlement>) = settlement(settlement.orElse(null))
+        fun settlement(settlement: Optional<Settlement>) = settlement(settlement.getOrNull())
 
         /**
          * A subhash containing information about when and how the transfer settled at the Federal
@@ -1096,7 +1097,7 @@ private constructor(
          * minutes. The Federal Reserve processes ACH transfers during weekdays according to their
          * [posted schedule](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html).
          */
-        fun submission(submission: Optional<Submission>) = submission(submission.orElse(null))
+        fun submission(submission: Optional<Submission>) = submission(submission.getOrNull())
 
         /**
          * After the transfer is submitted to FedACH, this will contain supplemental details.
@@ -1112,7 +1113,7 @@ private constructor(
 
         /** The ID for the transaction funding the transfer. */
         fun transactionId(transactionId: Optional<String>) =
-            transactionId(transactionId.orElse(null))
+            transactionId(transactionId.getOrNull())
 
         /** The ID for the transaction funding the transfer. */
         fun transactionId(transactionId: JsonField<String>) = apply {
@@ -1419,7 +1420,7 @@ private constructor(
             fun freeform(freeform: Freeform?) = freeform(JsonField.ofNullable(freeform))
 
             /** Unstructured `payment_related_information` passed through with the transfer. */
-            fun freeform(freeform: Optional<Freeform>) = freeform(freeform.orElse(null))
+            fun freeform(freeform: Optional<Freeform>) = freeform(freeform.getOrNull())
 
             /** Unstructured `payment_related_information` passed through with the transfer. */
             fun freeform(freeform: JsonField<Freeform>) = apply { this.freeform = freeform }
@@ -1438,7 +1439,7 @@ private constructor(
              */
             fun paymentOrderRemittanceAdvice(
                 paymentOrderRemittanceAdvice: Optional<PaymentOrderRemittanceAdvice>
-            ) = paymentOrderRemittanceAdvice(paymentOrderRemittanceAdvice.orElse(null))
+            ) = paymentOrderRemittanceAdvice(paymentOrderRemittanceAdvice.getOrNull())
 
             /**
              * Structured ASC X12 820 remittance advice records. Please reach out to
@@ -2236,7 +2237,7 @@ private constructor(
              * If the Transfer was approved by a user in the dashboard, the email address of that
              * user.
              */
-            fun approvedBy(approvedBy: Optional<String>) = approvedBy(approvedBy.orElse(null))
+            fun approvedBy(approvedBy: Optional<String>) = approvedBy(approvedBy.getOrNull())
 
             /**
              * If the Transfer was approved by a user in the dashboard, the email address of that
@@ -2395,7 +2396,7 @@ private constructor(
              * If the Transfer was canceled by a user in the dashboard, the email address of that
              * user.
              */
-            fun canceledBy(canceledBy: Optional<String>) = canceledBy(canceledBy.orElse(null))
+            fun canceledBy(canceledBy: Optional<String>) = canceledBy(canceledBy.getOrNull())
 
             /**
              * If the Transfer was canceled by a user in the dashboard, the email address of that
@@ -2541,7 +2542,7 @@ private constructor(
             fun apiKey(apiKey: ApiKey?) = apiKey(JsonField.ofNullable(apiKey))
 
             /** If present, details about the API key that created the transfer. */
-            fun apiKey(apiKey: Optional<ApiKey>) = apiKey(apiKey.orElse(null))
+            fun apiKey(apiKey: Optional<ApiKey>) = apiKey(apiKey.getOrNull())
 
             /** If present, details about the API key that created the transfer. */
             fun apiKey(apiKey: JsonField<ApiKey>) = apply { this.apiKey = apiKey }
@@ -2558,7 +2559,7 @@ private constructor(
 
             /** If present, details about the OAuth Application that created the transfer. */
             fun oauthApplication(oauthApplication: Optional<OAuthApplication>) =
-                oauthApplication(oauthApplication.orElse(null))
+                oauthApplication(oauthApplication.getOrNull())
 
             /** If present, details about the OAuth Application that created the transfer. */
             fun oauthApplication(oauthApplication: JsonField<OAuthApplication>) = apply {
@@ -2569,7 +2570,7 @@ private constructor(
             fun user(user: User?) = user(JsonField.ofNullable(user))
 
             /** If present, details about the User that created the transfer. */
-            fun user(user: Optional<User>) = user(user.orElse(null))
+            fun user(user: Optional<User>) = user(user.getOrNull())
 
             /** If present, details about the User that created the transfer. */
             fun user(user: JsonField<User>) = apply { this.user = user }
@@ -2664,7 +2665,7 @@ private constructor(
 
                 /** The description set for the API key when it was created. */
                 fun description(description: Optional<String>) =
-                    description(description.orElse(null))
+                    description(description.getOrNull())
 
                 /** The description set for the API key when it was created. */
                 fun description(description: JsonField<String>) = apply {
@@ -3709,7 +3710,7 @@ private constructor(
 
             /** The ID of the Transaction for which funds were held. */
             fun heldTransactionId(heldTransactionId: Optional<String>) =
-                heldTransactionId(heldTransactionId.orElse(null))
+                heldTransactionId(heldTransactionId.getOrNull())
 
             /** The ID of the Transaction for which funds were held. */
             fun heldTransactionId(heldTransactionId: JsonField<String>) = apply {
@@ -3722,7 +3723,7 @@ private constructor(
 
             /** The ID of the Pending Transaction representing the held funds. */
             fun pendingTransactionId(pendingTransactionId: Optional<String>) =
-                pendingTransactionId(pendingTransactionId.orElse(null))
+                pendingTransactionId(pendingTransactionId.getOrNull())
 
             /** The ID of the Pending Transaction representing the held funds. */
             fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {
@@ -3735,7 +3736,7 @@ private constructor(
 
             /** When the hold was released (if it has been released). */
             fun releasedAt(releasedAt: Optional<OffsetDateTime>) =
-                releasedAt(releasedAt.orElse(null))
+                releasedAt(releasedAt.getOrNull())
 
             /** When the hold was released (if it has been released). */
             fun releasedAt(releasedAt: JsonField<OffsetDateTime>) = apply {
@@ -4902,7 +4903,7 @@ private constructor(
              * A specific date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format to use
              * as the effective date when submitting this transfer.
              */
-            fun date(date: Optional<LocalDate>) = date(date.orElse(null))
+            fun date(date: Optional<LocalDate>) = date(date.getOrNull())
 
             /**
              * A specific date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format to use
@@ -4916,7 +4917,7 @@ private constructor(
 
             /** A schedule by which Increase will choose an effective date for the transfer. */
             fun settlementSchedule(settlementSchedule: Optional<SettlementSchedule>) =
-                settlementSchedule(settlementSchedule.orElse(null))
+                settlementSchedule(settlementSchedule.getOrNull())
 
             /** A schedule by which Increase will choose an effective date for the transfer. */
             fun settlementSchedule(settlementSchedule: JsonField<SettlementSchedule>) = apply {

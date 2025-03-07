@@ -19,6 +19,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * Cards are commercial credit cards. They'll immediately work for online purchases after you create
@@ -285,7 +286,7 @@ private constructor(
         fun description(description: String?) = description(JsonField.ofNullable(description))
 
         /** The card's description for display purposes. */
-        fun description(description: Optional<String>) = description(description.orElse(null))
+        fun description(description: Optional<String>) = description(description.getOrNull())
 
         /** The card's description for display purposes. */
         fun description(description: JsonField<String>) = apply { this.description = description }
@@ -302,7 +303,7 @@ private constructor(
          * least one field must be present to complete the digital wallet steps.
          */
         fun digitalWallet(digitalWallet: Optional<DigitalWallet>) =
-            digitalWallet(digitalWallet.orElse(null))
+            digitalWallet(digitalWallet.getOrNull())
 
         /**
          * The contact information used in the two-factor steps for digital wallet card creation. At
@@ -316,7 +317,7 @@ private constructor(
         fun entityId(entityId: String?) = entityId(JsonField.ofNullable(entityId))
 
         /** The identifier for the entity associated with this card. */
-        fun entityId(entityId: Optional<String>) = entityId(entityId.orElse(null))
+        fun entityId(entityId: Optional<String>) = entityId(entityId.getOrNull())
 
         /** The identifier for the entity associated with this card. */
         fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
@@ -351,7 +352,7 @@ private constructor(
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         fun idempotencyKey(idempotencyKey: Optional<String>) =
-            idempotencyKey(idempotencyKey.orElse(null))
+            idempotencyKey(idempotencyKey.getOrNull())
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -529,7 +530,7 @@ private constructor(
             fun city(city: String?) = city(JsonField.ofNullable(city))
 
             /** The city of the billing address. */
-            fun city(city: Optional<String>) = city(city.orElse(null))
+            fun city(city: Optional<String>) = city(city.getOrNull())
 
             /** The city of the billing address. */
             fun city(city: JsonField<String>) = apply { this.city = city }
@@ -538,7 +539,7 @@ private constructor(
             fun line1(line1: String?) = line1(JsonField.ofNullable(line1))
 
             /** The first line of the billing address. */
-            fun line1(line1: Optional<String>) = line1(line1.orElse(null))
+            fun line1(line1: Optional<String>) = line1(line1.getOrNull())
 
             /** The first line of the billing address. */
             fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
@@ -547,7 +548,7 @@ private constructor(
             fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
 
             /** The second line of the billing address. */
-            fun line2(line2: Optional<String>) = line2(line2.orElse(null))
+            fun line2(line2: Optional<String>) = line2(line2.getOrNull())
 
             /** The second line of the billing address. */
             fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
@@ -556,7 +557,7 @@ private constructor(
             fun postalCode(postalCode: String?) = postalCode(JsonField.ofNullable(postalCode))
 
             /** The postal code of the billing address. */
-            fun postalCode(postalCode: Optional<String>) = postalCode(postalCode.orElse(null))
+            fun postalCode(postalCode: Optional<String>) = postalCode(postalCode.getOrNull())
 
             /** The postal code of the billing address. */
             fun postalCode(postalCode: JsonField<String>) = apply { this.postalCode = postalCode }
@@ -565,7 +566,7 @@ private constructor(
             fun state(state: String?) = state(JsonField.ofNullable(state))
 
             /** The US state of the billing address. */
-            fun state(state: Optional<String>) = state(state.orElse(null))
+            fun state(state: Optional<String>) = state(state.getOrNull())
 
             /** The US state of the billing address. */
             fun state(state: JsonField<String>) = apply { this.state = state }
@@ -728,7 +729,7 @@ private constructor(
              * assigned at the program level.
              */
             fun digitalCardProfileId(digitalCardProfileId: Optional<String>) =
-                digitalCardProfileId(digitalCardProfileId.orElse(null))
+                digitalCardProfileId(digitalCardProfileId.getOrNull())
 
             /**
              * The digital card profile assigned to this digital card. Card profiles may also be
@@ -748,7 +749,7 @@ private constructor(
              * An email address that can be used to verify the cardholder via one-time passcode over
              * email.
              */
-            fun email(email: Optional<String>) = email(email.orElse(null))
+            fun email(email: Optional<String>) = email(email.getOrNull())
 
             /**
              * An email address that can be used to verify the cardholder via one-time passcode over
@@ -766,7 +767,7 @@ private constructor(
              * A phone number that can be used to verify the cardholder via one-time passcode over
              * SMS.
              */
-            fun phone(phone: Optional<String>) = phone(phone.orElse(null))
+            fun phone(phone: Optional<String>) = phone(phone.getOrNull())
 
             /**
              * A phone number that can be used to verify the cardholder via one-time passcode over

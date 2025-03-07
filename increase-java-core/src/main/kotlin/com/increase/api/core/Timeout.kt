@@ -5,6 +5,7 @@ package com.increase.api.core
 import java.time.Duration
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** A class containing timeouts for various processing phases of a request. */
 class Timeout
@@ -95,7 +96,7 @@ private constructor(
          *
          * Defaults to `Duration.ofMinutes(1)`.
          */
-        fun connect(connect: Optional<Duration>) = connect(connect.orElse(null))
+        fun connect(connect: Optional<Duration>) = connect(connect.getOrNull())
 
         /**
          * The maximum time allowed between two data packets when waiting for the server’s response.
@@ -113,7 +114,7 @@ private constructor(
          *
          * Defaults to `request()`.
          */
-        fun read(read: Optional<Duration>) = read(read.orElse(null))
+        fun read(read: Optional<Duration>) = read(read.getOrNull())
 
         /**
          * The maximum time allowed between two data packets when sending the request to the server.
@@ -131,7 +132,7 @@ private constructor(
          *
          * Defaults to `request()`.
          */
-        fun write(write: Optional<Duration>) = write(write.orElse(null))
+        fun write(write: Optional<Duration>) = write(write.getOrNull())
 
         /**
          * The maximum time allowed for a complete HTTP call, not including retries.
@@ -155,7 +156,7 @@ private constructor(
          *
          * Defaults to `Duration.ofMinutes(1)`.
          */
-        fun request(request: Optional<Duration>) = request(request.orElse(null))
+        fun request(request: Optional<Duration>) = request(request.getOrNull())
 
         fun build(): Timeout = Timeout(connect, read, write, request)
     }

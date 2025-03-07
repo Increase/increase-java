@@ -20,6 +20,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * ACH Prenotifications are one way you can verify account and routing numbers by Automated Clearing
@@ -329,7 +330,7 @@ private constructor(
         fun addendum(addendum: String?) = addendum(JsonField.ofNullable(addendum))
 
         /** Additional information for the recipient. */
-        fun addendum(addendum: Optional<String>) = addendum(addendum.orElse(null))
+        fun addendum(addendum: Optional<String>) = addendum(addendum.getOrNull())
 
         /** Additional information for the recipient. */
         fun addendum(addendum: JsonField<String>) = apply { this.addendum = addendum }
@@ -340,7 +341,7 @@ private constructor(
 
         /** The description of the date of the notification. */
         fun companyDescriptiveDate(companyDescriptiveDate: Optional<String>) =
-            companyDescriptiveDate(companyDescriptiveDate.orElse(null))
+            companyDescriptiveDate(companyDescriptiveDate.getOrNull())
 
         /** The description of the date of the notification. */
         fun companyDescriptiveDate(companyDescriptiveDate: JsonField<String>) = apply {
@@ -353,7 +354,7 @@ private constructor(
 
         /** Optional data associated with the notification. */
         fun companyDiscretionaryData(companyDiscretionaryData: Optional<String>) =
-            companyDiscretionaryData(companyDiscretionaryData.orElse(null))
+            companyDiscretionaryData(companyDiscretionaryData.getOrNull())
 
         /** Optional data associated with the notification. */
         fun companyDiscretionaryData(companyDiscretionaryData: JsonField<String>) = apply {
@@ -366,7 +367,7 @@ private constructor(
 
         /** The description of the notification. */
         fun companyEntryDescription(companyEntryDescription: Optional<String>) =
-            companyEntryDescription(companyEntryDescription.orElse(null))
+            companyEntryDescription(companyEntryDescription.getOrNull())
 
         /** The description of the notification. */
         fun companyEntryDescription(companyEntryDescription: JsonField<String>) = apply {
@@ -377,7 +378,7 @@ private constructor(
         fun companyName(companyName: String?) = companyName(JsonField.ofNullable(companyName))
 
         /** The name by which you know the company. */
-        fun companyName(companyName: Optional<String>) = companyName(companyName.orElse(null))
+        fun companyName(companyName: Optional<String>) = companyName(companyName.getOrNull())
 
         /** The name by which you know the company. */
         fun companyName(companyName: JsonField<String>) = apply { this.companyName = companyName }
@@ -400,7 +401,7 @@ private constructor(
 
         /** If the notification is for a future credit or debit. */
         fun creditDebitIndicator(creditDebitIndicator: Optional<CreditDebitIndicator>) =
-            creditDebitIndicator(creditDebitIndicator.orElse(null))
+            creditDebitIndicator(creditDebitIndicator.getOrNull())
 
         /** If the notification is for a future credit or debit. */
         fun creditDebitIndicator(creditDebitIndicator: JsonField<CreditDebitIndicator>) = apply {
@@ -413,7 +414,7 @@ private constructor(
 
         /** The effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
         fun effectiveDate(effectiveDate: Optional<OffsetDateTime>) =
-            effectiveDate(effectiveDate.orElse(null))
+            effectiveDate(effectiveDate.getOrNull())
 
         /** The effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
         fun effectiveDate(effectiveDate: JsonField<OffsetDateTime>) = apply {
@@ -434,7 +435,7 @@ private constructor(
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         fun idempotencyKey(idempotencyKey: Optional<String>) =
-            idempotencyKey(idempotencyKey.orElse(null))
+            idempotencyKey(idempotencyKey.getOrNull())
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -478,7 +479,7 @@ private constructor(
 
         /** If your prenotification is returned, this will contain details of the return. */
         fun prenotificationReturn(prenotificationReturn: Optional<PrenotificationReturn>) =
-            prenotificationReturn(prenotificationReturn.orElse(null))
+            prenotificationReturn(prenotificationReturn.getOrNull())
 
         /** If your prenotification is returned, this will contain details of the return. */
         fun prenotificationReturn(prenotificationReturn: JsonField<PrenotificationReturn>) = apply {

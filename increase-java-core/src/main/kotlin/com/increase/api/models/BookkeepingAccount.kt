@@ -18,6 +18,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * Accounts are T-accounts. They can store accounting entries. Your compliance setup might require
@@ -170,7 +171,7 @@ private constructor(
         fun accountId(accountId: String?) = accountId(JsonField.ofNullable(accountId))
 
         /** The API Account associated with this bookkeeping account. */
-        fun accountId(accountId: Optional<String>) = accountId(accountId.orElse(null))
+        fun accountId(accountId: Optional<String>) = accountId(accountId.getOrNull())
 
         /** The API Account associated with this bookkeeping account. */
         fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
@@ -181,7 +182,7 @@ private constructor(
 
         /** The compliance category of the account. */
         fun complianceCategory(complianceCategory: Optional<ComplianceCategory>) =
-            complianceCategory(complianceCategory.orElse(null))
+            complianceCategory(complianceCategory.getOrNull())
 
         /** The compliance category of the account. */
         fun complianceCategory(complianceCategory: JsonField<ComplianceCategory>) = apply {
@@ -192,7 +193,7 @@ private constructor(
         fun entityId(entityId: String?) = entityId(JsonField.ofNullable(entityId))
 
         /** The Entity associated with this bookkeeping account. */
-        fun entityId(entityId: Optional<String>) = entityId(entityId.orElse(null))
+        fun entityId(entityId: Optional<String>) = entityId(entityId.getOrNull())
 
         /** The Entity associated with this bookkeeping account. */
         fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
@@ -211,7 +212,7 @@ private constructor(
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         fun idempotencyKey(idempotencyKey: Optional<String>) =
-            idempotencyKey(idempotencyKey.orElse(null))
+            idempotencyKey(idempotencyKey.getOrNull())
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and

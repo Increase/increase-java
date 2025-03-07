@@ -15,6 +15,7 @@ import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** List Documents */
 class DocumentListParams
@@ -94,23 +95,23 @@ private constructor(
 
         fun category(category: Category?) = apply { this.category = category }
 
-        fun category(category: Optional<Category>) = category(category.orElse(null))
+        fun category(category: Optional<Category>) = category(category.getOrNull())
 
         fun createdAt(createdAt: CreatedAt?) = apply { this.createdAt = createdAt }
 
-        fun createdAt(createdAt: Optional<CreatedAt>) = createdAt(createdAt.orElse(null))
+        fun createdAt(createdAt: Optional<CreatedAt>) = createdAt(createdAt.getOrNull())
 
         /** Return the page of entries after this one. */
         fun cursor(cursor: String?) = apply { this.cursor = cursor }
 
         /** Return the page of entries after this one. */
-        fun cursor(cursor: Optional<String>) = cursor(cursor.orElse(null))
+        fun cursor(cursor: Optional<String>) = cursor(cursor.getOrNull())
 
         /** Filter Documents to ones belonging to the specified Entity. */
         fun entityId(entityId: String?) = apply { this.entityId = entityId }
 
         /** Filter Documents to ones belonging to the specified Entity. */
-        fun entityId(entityId: Optional<String>) = entityId(entityId.orElse(null))
+        fun entityId(entityId: Optional<String>) = entityId(entityId.getOrNull())
 
         /**
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
@@ -125,8 +126,7 @@ private constructor(
         /**
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
          */
-        @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
-        fun limit(limit: Optional<Long>) = limit(limit.orElse(null) as Long?)
+        fun limit(limit: Optional<Long>) = limit(limit.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -286,7 +286,7 @@ private constructor(
              * requests, this should be encoded as a comma-delimited string, such as
              * `?in=one,two,three`.
              */
-            fun in_(in_: Optional<List<In>>) = in_(in_.orElse(null))
+            fun in_(in_: Optional<List<In>>) = in_(in_.getOrNull())
 
             /**
              * Filter Documents for those with the specified category or categories. For GET
@@ -593,7 +593,7 @@ private constructor(
              * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun after(after: Optional<OffsetDateTime>) = after(after.orElse(null))
+            fun after(after: Optional<OffsetDateTime>) = after(after.getOrNull())
 
             /**
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
@@ -605,7 +605,7 @@ private constructor(
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun before(before: Optional<OffsetDateTime>) = before(before.orElse(null))
+            fun before(before: Optional<OffsetDateTime>) = before(before.getOrNull())
 
             /**
              * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
@@ -617,7 +617,7 @@ private constructor(
              * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun onOrAfter(onOrAfter: Optional<OffsetDateTime>) = onOrAfter(onOrAfter.orElse(null))
+            fun onOrAfter(onOrAfter: Optional<OffsetDateTime>) = onOrAfter(onOrAfter.getOrNull())
 
             /**
              * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
@@ -630,7 +630,7 @@ private constructor(
              * timestamp.
              */
             fun onOrBefore(onOrBefore: Optional<OffsetDateTime>) =
-                onOrBefore(onOrBefore.orElse(null))
+                onOrBefore(onOrBefore.getOrNull())
 
             fun additionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.clear()

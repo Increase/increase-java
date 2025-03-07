@@ -21,6 +21,7 @@ import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * Transactions are the immutable additions and removals of money from your bank account. They're
@@ -292,7 +293,7 @@ private constructor(
          * The identifier for the route this Transaction came through. Routes are things like cards
          * and ACH details.
          */
-        fun routeId(routeId: Optional<String>) = routeId(routeId.orElse(null))
+        fun routeId(routeId: Optional<String>) = routeId(routeId.getOrNull())
 
         /**
          * The identifier for the route this Transaction came through. Routes are things like cards
@@ -304,7 +305,7 @@ private constructor(
         fun routeType(routeType: RouteType?) = routeType(JsonField.ofNullable(routeType))
 
         /** The type of the route this Transaction came through. */
-        fun routeType(routeType: Optional<RouteType>) = routeType(routeType.orElse(null))
+        fun routeType(routeType: Optional<RouteType>) = routeType(routeType.getOrNull())
 
         /** The type of the route this Transaction came through. */
         fun routeType(routeType: JsonField<RouteType>) = apply { this.routeType = routeType }
@@ -1476,7 +1477,7 @@ private constructor(
              */
             fun accountTransferIntention(
                 accountTransferIntention: Optional<AccountTransferIntention>
-            ) = accountTransferIntention(accountTransferIntention.orElse(null))
+            ) = accountTransferIntention(accountTransferIntention.getOrNull())
 
             /**
              * An Account Transfer Intention object. This field will be present in the JSON response
@@ -1504,7 +1505,7 @@ private constructor(
              * into or out of an Increase account via the ACH network.
              */
             fun achTransferIntention(achTransferIntention: Optional<AchTransferIntention>) =
-                achTransferIntention(achTransferIntention.orElse(null))
+                achTransferIntention(achTransferIntention.getOrNull())
 
             /**
              * An ACH Transfer Intention object. This field will be present in the JSON response if
@@ -1533,7 +1534,7 @@ private constructor(
              * Transfer Intention. These rejections are rare.
              */
             fun achTransferRejection(achTransferRejection: Optional<AchTransferRejection>) =
-                achTransferRejection(achTransferRejection.orElse(null))
+                achTransferRejection(achTransferRejection.getOrNull())
 
             /**
              * An ACH Transfer Rejection object. This field will be present in the JSON response if
@@ -1564,7 +1565,7 @@ private constructor(
              * days after the transfer is initiated, but can occur much later.
              */
             fun achTransferReturn(achTransferReturn: Optional<AchTransferReturn>) =
-                achTransferReturn(achTransferReturn.orElse(null))
+                achTransferReturn(achTransferReturn.getOrNull())
 
             /**
              * An ACH Transfer Return object. This field will be present in the JSON response if and
@@ -1591,7 +1592,7 @@ private constructor(
              * a successful Card Dispute.
              */
             fun cardDisputeAcceptance(cardDisputeAcceptance: Optional<CardDisputeAcceptance>) =
-                cardDisputeAcceptance(cardDisputeAcceptance.orElse(null))
+                cardDisputeAcceptance(cardDisputeAcceptance.getOrNull())
 
             /**
              * A Card Dispute Acceptance object. This field will be present in the JSON response if
@@ -1617,7 +1618,7 @@ private constructor(
              * Card Dispute.
              */
             fun cardDisputeLoss(cardDisputeLoss: Optional<CardDisputeLoss>) =
-                cardDisputeLoss(cardDisputeLoss.orElse(null))
+                cardDisputeLoss(cardDisputeLoss.getOrNull())
 
             /**
              * A Card Dispute Loss object. This field will be present in the JSON response if and
@@ -1642,7 +1643,7 @@ private constructor(
              * While they are usually connected to a Card Settlement an acquirer can also refund
              * money directly to a card without relation to a transaction.
              */
-            fun cardRefund(cardRefund: Optional<CardRefund>) = cardRefund(cardRefund.orElse(null))
+            fun cardRefund(cardRefund: Optional<CardRefund>) = cardRefund(cardRefund.getOrNull())
 
             /**
              * A Card Refund object. This field will be present in the JSON response if and only if
@@ -1668,7 +1669,7 @@ private constructor(
              * earnings from fees on card transactions.
              */
             fun cardRevenuePayment(cardRevenuePayment: Optional<CardRevenuePayment>) =
-                cardRevenuePayment(cardRevenuePayment.orElse(null))
+                cardRevenuePayment(cardRevenuePayment.getOrNull())
 
             /**
              * A Card Revenue Payment object. This field will be present in the JSON response if and
@@ -1697,7 +1698,7 @@ private constructor(
              * authorizing it.
              */
             fun cardSettlement(cardSettlement: Optional<CardSettlement>) =
-                cardSettlement(cardSettlement.orElse(null))
+                cardSettlement(cardSettlement.getOrNull())
 
             /**
              * A Card Settlement object. This field will be present in the JSON response if and only
@@ -1726,7 +1727,7 @@ private constructor(
              * for the prior month's transactions.
              */
             fun cashbackPayment(cashbackPayment: Optional<CashbackPayment>) =
-                cashbackPayment(cashbackPayment.orElse(null))
+                cashbackPayment(cashbackPayment.getOrNull())
 
             /**
              * A Cashback Payment object. This field will be present in the JSON response if and
@@ -1768,7 +1769,7 @@ private constructor(
              * Deposit Return.
              */
             fun checkDepositAcceptance(checkDepositAcceptance: Optional<CheckDepositAcceptance>) =
-                checkDepositAcceptance(checkDepositAcceptance.orElse(null))
+                checkDepositAcceptance(checkDepositAcceptance.getOrNull())
 
             /**
              * A Check Deposit Acceptance object. This field will be present in the JSON response if
@@ -1802,7 +1803,7 @@ private constructor(
              * within the first 7 days after the deposit is made.
              */
             fun checkDepositReturn(checkDepositReturn: Optional<CheckDepositReturn>) =
-                checkDepositReturn(checkDepositReturn.orElse(null))
+                checkDepositReturn(checkDepositReturn.getOrNull())
 
             /**
              * A Check Deposit Return object. This field will be present in the JSON response if and
@@ -1832,7 +1833,7 @@ private constructor(
              * account. These types of checks are not pre-registered.
              */
             fun checkTransferDeposit(checkTransferDeposit: Optional<CheckTransferDeposit>) =
-                checkTransferDeposit(checkTransferDeposit.orElse(null))
+                checkTransferDeposit(checkTransferDeposit.getOrNull())
 
             /**
              * A Check Transfer Deposit object. This field will be present in the JSON response if
@@ -1857,7 +1858,7 @@ private constructor(
              * `category` is equal to `fee_payment`. A Fee Payment represents a payment made to
              * Increase.
              */
-            fun feePayment(feePayment: Optional<FeePayment>) = feePayment(feePayment.orElse(null))
+            fun feePayment(feePayment: Optional<FeePayment>) = feePayment(feePayment.getOrNull())
 
             /**
              * A Fee Payment object. This field will be present in the JSON response if and only if
@@ -1884,7 +1885,7 @@ private constructor(
              * received by Increase.
              */
             fun inboundAchTransfer(inboundAchTransfer: Optional<InboundAchTransfer>) =
-                inboundAchTransfer(inboundAchTransfer.orElse(null))
+                inboundAchTransfer(inboundAchTransfer.getOrNull())
 
             /**
              * An Inbound ACH Transfer Intention object. This field will be present in the JSON
@@ -1917,7 +1918,7 @@ private constructor(
              */
             fun inboundAchTransferReturnIntention(
                 inboundAchTransferReturnIntention: Optional<InboundAchTransferReturnIntention>
-            ) = inboundAchTransferReturnIntention(inboundAchTransferReturnIntention.orElse(null))
+            ) = inboundAchTransferReturnIntention(inboundAchTransferReturnIntention.getOrNull())
 
             /**
              * An Inbound ACH Transfer Return Intention object. This field will be present in the
@@ -1945,7 +1946,7 @@ private constructor(
              * deposited through Check21.
              */
             fun inboundCheckAdjustment(inboundCheckAdjustment: Optional<InboundCheckAdjustment>) =
-                inboundCheckAdjustment(inboundCheckAdjustment.orElse(null))
+                inboundCheckAdjustment(inboundCheckAdjustment.getOrNull())
 
             /**
              * An Inbound Check Adjustment object. This field will be present in the JSON response
@@ -1981,7 +1982,7 @@ private constructor(
              */
             fun inboundCheckDepositReturnIntention(
                 inboundCheckDepositReturnIntention: Optional<InboundCheckDepositReturnIntention>
-            ) = inboundCheckDepositReturnIntention(inboundCheckDepositReturnIntention.orElse(null))
+            ) = inboundCheckDepositReturnIntention(inboundCheckDepositReturnIntention.getOrNull())
 
             /**
              * An Inbound Check Deposit Return Intention object. This field will be present in the
@@ -2023,7 +2024,7 @@ private constructor(
                     Optional<InboundRealTimePaymentsTransferConfirmation>
             ) =
                 inboundRealTimePaymentsTransferConfirmation(
-                    inboundRealTimePaymentsTransferConfirmation.orElse(null)
+                    inboundRealTimePaymentsTransferConfirmation.getOrNull()
                 )
 
             /**
@@ -2063,7 +2064,7 @@ private constructor(
                     Optional<InboundRealTimePaymentsTransferDecline>
             ) =
                 inboundRealTimePaymentsTransferDecline(
-                    inboundRealTimePaymentsTransferDecline.orElse(null)
+                    inboundRealTimePaymentsTransferDecline.getOrNull()
                 )
 
             /**
@@ -2096,7 +2097,7 @@ private constructor(
              * account details were incorrect.
              */
             fun inboundWireReversal(inboundWireReversal: Optional<InboundWireReversal>) =
-                inboundWireReversal(inboundWireReversal.orElse(null))
+                inboundWireReversal(inboundWireReversal.getOrNull())
 
             /**
              * An Inbound Wire Reversal object. This field will be present in the JSON response if
@@ -2125,7 +2126,7 @@ private constructor(
              * and received by Increase.
              */
             fun inboundWireTransfer(inboundWireTransfer: Optional<InboundWireTransfer>) =
-                inboundWireTransfer(inboundWireTransfer.orElse(null))
+                inboundWireTransfer(inboundWireTransfer.getOrNull())
 
             /**
              * An Inbound Wire Transfer Intention object. This field will be present in the JSON
@@ -2155,7 +2156,7 @@ private constructor(
              */
             fun inboundWireTransferReversal(
                 inboundWireTransferReversal: Optional<InboundWireTransferReversal>
-            ) = inboundWireTransferReversal(inboundWireTransferReversal.orElse(null))
+            ) = inboundWireTransferReversal(inboundWireTransferReversal.getOrNull())
 
             /**
              * An Inbound Wire Transfer Reversal Intention object. This field will be present in the
@@ -2181,7 +2182,7 @@ private constructor(
              * payment of interest on an account. Interest is usually paid monthly.
              */
             fun interestPayment(interestPayment: Optional<InterestPayment>) =
-                interestPayment(interestPayment.orElse(null))
+                interestPayment(interestPayment.getOrNull())
 
             /**
              * An Interest Payment object. This field will be present in the JSON response if and
@@ -2206,7 +2207,7 @@ private constructor(
              * Increase. See the `reason` attribute for more information.
              */
             fun internalSource(internalSource: Optional<InternalSource>) =
-                internalSource(internalSource.orElse(null))
+                internalSource(internalSource.getOrNull())
 
             /**
              * An Internal Source object. This field will be present in the JSON response if and
@@ -2249,7 +2250,7 @@ private constructor(
                     Optional<RealTimePaymentsTransferAcknowledgement>
             ) =
                 realTimePaymentsTransferAcknowledgement(
-                    realTimePaymentsTransferAcknowledgement.orElse(null)
+                    realTimePaymentsTransferAcknowledgement.getOrNull()
                 )
 
             /**
@@ -2279,7 +2280,7 @@ private constructor(
              * `category` is equal to `sample_funds`. Sample funds for testing purposes.
              */
             fun sampleFunds(sampleFunds: Optional<SampleFunds>) =
-                sampleFunds(sampleFunds.orElse(null))
+                sampleFunds(sampleFunds.getOrNull())
 
             /**
              * A Sample Funds object. This field will be present in the JSON response if and only if
@@ -2303,7 +2304,7 @@ private constructor(
              * initiated via Increase and sent to a different bank.
              */
             fun wireTransferIntention(wireTransferIntention: Optional<WireTransferIntention>) =
-                wireTransferIntention(wireTransferIntention.orElse(null))
+                wireTransferIntention(wireTransferIntention.getOrNull())
 
             /**
              * A Wire Transfer Intention object. This field will be present in the JSON response if
@@ -5461,7 +5462,7 @@ private constructor(
                  * Cashback debited for this transaction, if eligible. Cashback is paid out in
                  * aggregate, monthly.
                  */
-                fun cashback(cashback: Optional<Cashback>) = cashback(cashback.orElse(null))
+                fun cashback(cashback: Optional<Cashback>) = cashback(cashback.getOrNull())
 
                 /**
                  * Cashback debited for this transaction, if eligible. Cashback is paid out in
@@ -5487,7 +5488,7 @@ private constructor(
 
                 /** Interchange assessed as a part of this transaciton. */
                 fun interchange(interchange: Optional<Interchange>) =
-                    interchange(interchange.orElse(null))
+                    interchange(interchange.getOrNull())
 
                 /** Interchange assessed as a part of this transaciton. */
                 fun interchange(interchange: JsonField<Interchange>) = apply {
@@ -5553,7 +5554,7 @@ private constructor(
                  * The merchant's postal code. For US merchants this is always a 5-digit ZIP code.
                  */
                 fun merchantPostalCode(merchantPostalCode: Optional<String>) =
-                    merchantPostalCode(merchantPostalCode.orElse(null))
+                    merchantPostalCode(merchantPostalCode.getOrNull())
 
                 /**
                  * The merchant's postal code. For US merchants this is always a 5-digit ZIP code.
@@ -5568,7 +5569,7 @@ private constructor(
 
                 /** The state the merchant resides in. */
                 fun merchantState(merchantState: Optional<String>) =
-                    merchantState(merchantState.orElse(null))
+                    merchantState(merchantState.getOrNull())
 
                 /** The state the merchant resides in. */
                 fun merchantState(merchantState: JsonField<String>) = apply {
@@ -5620,7 +5621,7 @@ private constructor(
                  * fields.
                  */
                 fun purchaseDetails(purchaseDetails: Optional<PurchaseDetails>) =
-                    purchaseDetails(purchaseDetails.orElse(null))
+                    purchaseDetails(purchaseDetails.getOrNull())
 
                 /**
                  * Additional details about the card purchase, such as tax and industry-specific
@@ -6257,7 +6258,7 @@ private constructor(
                     fun code(code: String?) = code(JsonField.ofNullable(code))
 
                     /** The card network specific interchange code. */
-                    fun code(code: Optional<String>) = code(code.orElse(null))
+                    fun code(code: Optional<String>) = code(code.getOrNull())
 
                     /** The card network specific interchange code. */
                     fun code(code: JsonField<String>) = apply { this.code = code }
@@ -6611,7 +6612,7 @@ private constructor(
                      * across multiple life-cycle requests.
                      */
                     fun transactionId(transactionId: Optional<String>) =
-                        transactionId(transactionId.orElse(null))
+                        transactionId(transactionId.getOrNull())
 
                     /**
                      * A globally unique transaction identifier provided by the card network, used
@@ -6887,8 +6888,7 @@ private constructor(
                         carRental(JsonField.ofNullable(carRental))
 
                     /** Fields specific to car rentals. */
-                    fun carRental(carRental: Optional<CarRental>) =
-                        carRental(carRental.orElse(null))
+                    fun carRental(carRental: Optional<CarRental>) = carRental(carRental.getOrNull())
 
                     /** Fields specific to car rentals. */
                     fun carRental(carRental: JsonField<CarRental>) = apply {
@@ -6903,7 +6903,7 @@ private constructor(
 
                     /** An identifier from the merchant for the customer or consumer. */
                     fun customerReferenceIdentifier(customerReferenceIdentifier: Optional<String>) =
-                        customerReferenceIdentifier(customerReferenceIdentifier.orElse(null))
+                        customerReferenceIdentifier(customerReferenceIdentifier.getOrNull())
 
                     /** An identifier from the merchant for the customer or consumer. */
                     fun customerReferenceIdentifier(
@@ -6919,9 +6919,8 @@ private constructor(
                         localTaxAmount(localTaxAmount as Long?)
 
                     /** The state or provincial tax amount in minor units. */
-                    @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
                     fun localTaxAmount(localTaxAmount: Optional<Long>) =
-                        localTaxAmount(localTaxAmount.orElse(null) as Long?)
+                        localTaxAmount(localTaxAmount.getOrNull())
 
                     /** The state or provincial tax amount in minor units. */
                     fun localTaxAmount(localTaxAmount: JsonField<Long>) = apply {
@@ -6940,7 +6939,7 @@ private constructor(
                      * assessed.
                      */
                     fun localTaxCurrency(localTaxCurrency: Optional<String>) =
-                        localTaxCurrency(localTaxCurrency.orElse(null))
+                        localTaxCurrency(localTaxCurrency.getOrNull())
 
                     /**
                      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the local tax
@@ -6954,7 +6953,7 @@ private constructor(
                     fun lodging(lodging: Lodging?) = lodging(JsonField.ofNullable(lodging))
 
                     /** Fields specific to lodging. */
-                    fun lodging(lodging: Optional<Lodging>) = lodging(lodging.orElse(null))
+                    fun lodging(lodging: Optional<Lodging>) = lodging(lodging.getOrNull())
 
                     /** Fields specific to lodging. */
                     fun lodging(lodging: JsonField<Lodging>) = apply { this.lodging = lodging }
@@ -6968,9 +6967,8 @@ private constructor(
                         nationalTaxAmount(nationalTaxAmount as Long?)
 
                     /** The national tax amount in minor units. */
-                    @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
                     fun nationalTaxAmount(nationalTaxAmount: Optional<Long>) =
-                        nationalTaxAmount(nationalTaxAmount.orElse(null) as Long?)
+                        nationalTaxAmount(nationalTaxAmount.getOrNull())
 
                     /** The national tax amount in minor units. */
                     fun nationalTaxAmount(nationalTaxAmount: JsonField<Long>) = apply {
@@ -6989,7 +6987,7 @@ private constructor(
                      * assessed.
                      */
                     fun nationalTaxCurrency(nationalTaxCurrency: Optional<String>) =
-                        nationalTaxCurrency(nationalTaxCurrency.orElse(null))
+                        nationalTaxCurrency(nationalTaxCurrency.getOrNull())
 
                     /**
                      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the local tax
@@ -7011,7 +7009,7 @@ private constructor(
                      * cardholder.
                      */
                     fun purchaseIdentifier(purchaseIdentifier: Optional<String>) =
-                        purchaseIdentifier(purchaseIdentifier.orElse(null))
+                        purchaseIdentifier(purchaseIdentifier.getOrNull())
 
                     /**
                      * An identifier from the merchant for the purchase to the issuer and
@@ -7029,7 +7027,7 @@ private constructor(
                     /** The format of the purchase identifier. */
                     fun purchaseIdentifierFormat(
                         purchaseIdentifierFormat: Optional<PurchaseIdentifierFormat>
-                    ) = purchaseIdentifierFormat(purchaseIdentifierFormat.orElse(null))
+                    ) = purchaseIdentifierFormat(purchaseIdentifierFormat.getOrNull())
 
                     /** The format of the purchase identifier. */
                     fun purchaseIdentifierFormat(
@@ -7040,7 +7038,7 @@ private constructor(
                     fun travel(travel: Travel?) = travel(JsonField.ofNullable(travel))
 
                     /** Fields specific to travel. */
-                    fun travel(travel: Optional<Travel>) = travel(travel.orElse(null))
+                    fun travel(travel: Optional<Travel>) = travel(travel.getOrNull())
 
                     /** Fields specific to travel. */
                     fun travel(travel: JsonField<Travel>) = apply { this.travel = travel }
@@ -7444,7 +7442,7 @@ private constructor(
 
                         /** Code indicating the vehicle's class. */
                         fun carClassCode(carClassCode: Optional<String>) =
-                            carClassCode(carClassCode.orElse(null))
+                            carClassCode(carClassCode.getOrNull())
 
                         /** Code indicating the vehicle's class. */
                         fun carClassCode(carClassCode: JsonField<String>) = apply {
@@ -7463,7 +7461,7 @@ private constructor(
                          * pre-pay transaction, the scheduled pick up date.
                          */
                         fun checkoutDate(checkoutDate: Optional<LocalDate>) =
-                            checkoutDate(checkoutDate.orElse(null))
+                            checkoutDate(checkoutDate.getOrNull())
 
                         /**
                          * Date the customer picked up the car or, in the case of a no-show or
@@ -7482,11 +7480,8 @@ private constructor(
                             dailyRentalRateAmount(dailyRentalRateAmount as Long?)
 
                         /** Daily rate being charged for the vehicle. */
-                        @Suppress(
-                            "USELESS_CAST"
-                        ) // See https://youtrack.jetbrains.com/issue/KT-74228
                         fun dailyRentalRateAmount(dailyRentalRateAmount: Optional<Long>) =
-                            dailyRentalRateAmount(dailyRentalRateAmount.orElse(null) as Long?)
+                            dailyRentalRateAmount(dailyRentalRateAmount.getOrNull())
 
                         /** Daily rate being charged for the vehicle. */
                         fun dailyRentalRateAmount(dailyRentalRateAmount: JsonField<Long>) = apply {
@@ -7505,7 +7500,7 @@ private constructor(
                          * rental rate.
                          */
                         fun dailyRentalRateCurrency(dailyRentalRateCurrency: Optional<String>) =
-                            dailyRentalRateCurrency(dailyRentalRateCurrency.orElse(null))
+                            dailyRentalRateCurrency(dailyRentalRateCurrency.getOrNull())
 
                         /**
                          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the daily
@@ -7524,11 +7519,8 @@ private constructor(
                         fun daysRented(daysRented: Long) = daysRented(daysRented as Long?)
 
                         /** Number of days the vehicle was rented. */
-                        @Suppress(
-                            "USELESS_CAST"
-                        ) // See https://youtrack.jetbrains.com/issue/KT-74228
                         fun daysRented(daysRented: Optional<Long>) =
-                            daysRented(daysRented.orElse(null) as Long?)
+                            daysRented(daysRented.getOrNull())
 
                         /** Number of days the vehicle was rented. */
                         fun daysRented(daysRented: JsonField<Long>) = apply {
@@ -7541,7 +7533,7 @@ private constructor(
 
                         /** Additional charges (gas, late fee, etc.) being billed. */
                         fun extraCharges(extraCharges: Optional<ExtraCharges>) =
-                            extraCharges(extraCharges.orElse(null))
+                            extraCharges(extraCharges.getOrNull())
 
                         /** Additional charges (gas, late fee, etc.) being billed. */
                         fun extraCharges(extraCharges: JsonField<ExtraCharges>) = apply {
@@ -7557,11 +7549,8 @@ private constructor(
                             fuelChargesAmount(fuelChargesAmount as Long?)
 
                         /** Fuel charges for the vehicle. */
-                        @Suppress(
-                            "USELESS_CAST"
-                        ) // See https://youtrack.jetbrains.com/issue/KT-74228
                         fun fuelChargesAmount(fuelChargesAmount: Optional<Long>) =
-                            fuelChargesAmount(fuelChargesAmount.orElse(null) as Long?)
+                            fuelChargesAmount(fuelChargesAmount.getOrNull())
 
                         /** Fuel charges for the vehicle. */
                         fun fuelChargesAmount(fuelChargesAmount: JsonField<Long>) = apply {
@@ -7580,7 +7569,7 @@ private constructor(
                          * charges assessed.
                          */
                         fun fuelChargesCurrency(fuelChargesCurrency: Optional<String>) =
-                            fuelChargesCurrency(fuelChargesCurrency.orElse(null))
+                            fuelChargesCurrency(fuelChargesCurrency.getOrNull())
 
                         /**
                          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the fuel
@@ -7599,11 +7588,8 @@ private constructor(
                             insuranceChargesAmount(insuranceChargesAmount as Long?)
 
                         /** Any insurance being charged for the vehicle. */
-                        @Suppress(
-                            "USELESS_CAST"
-                        ) // See https://youtrack.jetbrains.com/issue/KT-74228
                         fun insuranceChargesAmount(insuranceChargesAmount: Optional<Long>) =
-                            insuranceChargesAmount(insuranceChargesAmount.orElse(null) as Long?)
+                            insuranceChargesAmount(insuranceChargesAmount.getOrNull())
 
                         /** Any insurance being charged for the vehicle. */
                         fun insuranceChargesAmount(insuranceChargesAmount: JsonField<Long>) =
@@ -7623,7 +7609,7 @@ private constructor(
                          * insurance charges assessed.
                          */
                         fun insuranceChargesCurrency(insuranceChargesCurrency: Optional<String>) =
-                            insuranceChargesCurrency(insuranceChargesCurrency.orElse(null))
+                            insuranceChargesCurrency(insuranceChargesCurrency.getOrNull())
 
                         /**
                          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
@@ -7646,7 +7632,7 @@ private constructor(
                          * that was not actually rented (that is, a "no-show" charge).
                          */
                         fun noShowIndicator(noShowIndicator: Optional<NoShowIndicator>) =
-                            noShowIndicator(noShowIndicator.orElse(null))
+                            noShowIndicator(noShowIndicator.getOrNull())
 
                         /**
                          * An indicator that the cardholder is being billed for a reserved vehicle
@@ -7676,13 +7662,8 @@ private constructor(
                          * Charges for returning the vehicle at a different location than where it
                          * was picked up.
                          */
-                        @Suppress(
-                            "USELESS_CAST"
-                        ) // See https://youtrack.jetbrains.com/issue/KT-74228
                         fun oneWayDropOffChargesAmount(oneWayDropOffChargesAmount: Optional<Long>) =
-                            oneWayDropOffChargesAmount(
-                                oneWayDropOffChargesAmount.orElse(null) as Long?
-                            )
+                            oneWayDropOffChargesAmount(oneWayDropOffChargesAmount.getOrNull())
 
                         /**
                          * Charges for returning the vehicle at a different location than where it
@@ -7707,7 +7688,7 @@ private constructor(
                          */
                         fun oneWayDropOffChargesCurrency(
                             oneWayDropOffChargesCurrency: Optional<String>
-                        ) = oneWayDropOffChargesCurrency(oneWayDropOffChargesCurrency.orElse(null))
+                        ) = oneWayDropOffChargesCurrency(oneWayDropOffChargesCurrency.getOrNull())
 
                         /**
                          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
@@ -7725,7 +7706,7 @@ private constructor(
 
                         /** Name of the person renting the vehicle. */
                         fun renterName(renterName: Optional<String>) =
-                            renterName(renterName.orElse(null))
+                            renterName(renterName.getOrNull())
 
                         /** Name of the person renting the vehicle. */
                         fun renterName(renterName: JsonField<String>) = apply {
@@ -7741,11 +7722,8 @@ private constructor(
                             weeklyRentalRateAmount(weeklyRentalRateAmount as Long?)
 
                         /** Weekly rate being charged for the vehicle. */
-                        @Suppress(
-                            "USELESS_CAST"
-                        ) // See https://youtrack.jetbrains.com/issue/KT-74228
                         fun weeklyRentalRateAmount(weeklyRentalRateAmount: Optional<Long>) =
-                            weeklyRentalRateAmount(weeklyRentalRateAmount.orElse(null) as Long?)
+                            weeklyRentalRateAmount(weeklyRentalRateAmount.getOrNull())
 
                         /** Weekly rate being charged for the vehicle. */
                         fun weeklyRentalRateAmount(weeklyRentalRateAmount: JsonField<Long>) =
@@ -7765,7 +7743,7 @@ private constructor(
                          * weekly rental rate.
                          */
                         fun weeklyRentalRateCurrency(weeklyRentalRateCurrency: Optional<String>) =
-                            weeklyRentalRateCurrency(weeklyRentalRateCurrency.orElse(null))
+                            weeklyRentalRateCurrency(weeklyRentalRateCurrency.getOrNull())
 
                         /**
                          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
@@ -8473,7 +8451,7 @@ private constructor(
 
                         /** Date the customer checked in. */
                         fun checkInDate(checkInDate: Optional<LocalDate>) =
-                            checkInDate(checkInDate.orElse(null))
+                            checkInDate(checkInDate.getOrNull())
 
                         /** Date the customer checked in. */
                         fun checkInDate(checkInDate: JsonField<LocalDate>) = apply {
@@ -8489,11 +8467,8 @@ private constructor(
                             dailyRoomRateAmount(dailyRoomRateAmount as Long?)
 
                         /** Daily rate being charged for the room. */
-                        @Suppress(
-                            "USELESS_CAST"
-                        ) // See https://youtrack.jetbrains.com/issue/KT-74228
                         fun dailyRoomRateAmount(dailyRoomRateAmount: Optional<Long>) =
-                            dailyRoomRateAmount(dailyRoomRateAmount.orElse(null) as Long?)
+                            dailyRoomRateAmount(dailyRoomRateAmount.getOrNull())
 
                         /** Daily rate being charged for the room. */
                         fun dailyRoomRateAmount(dailyRoomRateAmount: JsonField<Long>) = apply {
@@ -8512,7 +8487,7 @@ private constructor(
                          * room rate.
                          */
                         fun dailyRoomRateCurrency(dailyRoomRateCurrency: Optional<String>) =
-                            dailyRoomRateCurrency(dailyRoomRateCurrency.orElse(null))
+                            dailyRoomRateCurrency(dailyRoomRateCurrency.getOrNull())
 
                         /**
                          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the daily
@@ -8529,7 +8504,7 @@ private constructor(
 
                         /** Additional charges (phone, late check-out, etc.) being billed. */
                         fun extraCharges(extraCharges: Optional<ExtraCharges>) =
-                            extraCharges(extraCharges.orElse(null))
+                            extraCharges(extraCharges.getOrNull())
 
                         /** Additional charges (phone, late check-out, etc.) being billed. */
                         fun extraCharges(extraCharges: JsonField<ExtraCharges>) = apply {
@@ -8545,11 +8520,8 @@ private constructor(
                             folioCashAdvancesAmount(folioCashAdvancesAmount as Long?)
 
                         /** Folio cash advances for the room. */
-                        @Suppress(
-                            "USELESS_CAST"
-                        ) // See https://youtrack.jetbrains.com/issue/KT-74228
                         fun folioCashAdvancesAmount(folioCashAdvancesAmount: Optional<Long>) =
-                            folioCashAdvancesAmount(folioCashAdvancesAmount.orElse(null) as Long?)
+                            folioCashAdvancesAmount(folioCashAdvancesAmount.getOrNull())
 
                         /** Folio cash advances for the room. */
                         fun folioCashAdvancesAmount(folioCashAdvancesAmount: JsonField<Long>) =
@@ -8571,7 +8543,7 @@ private constructor(
                          * cash advances.
                          */
                         fun folioCashAdvancesCurrency(folioCashAdvancesCurrency: Optional<String>) =
-                            folioCashAdvancesCurrency(folioCashAdvancesCurrency.orElse(null))
+                            folioCashAdvancesCurrency(folioCashAdvancesCurrency.getOrNull())
 
                         /**
                          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the folio
@@ -8592,13 +8564,8 @@ private constructor(
                             foodBeverageChargesAmount(foodBeverageChargesAmount as Long?)
 
                         /** Food and beverage charges for the room. */
-                        @Suppress(
-                            "USELESS_CAST"
-                        ) // See https://youtrack.jetbrains.com/issue/KT-74228
                         fun foodBeverageChargesAmount(foodBeverageChargesAmount: Optional<Long>) =
-                            foodBeverageChargesAmount(
-                                foodBeverageChargesAmount.orElse(null) as Long?
-                            )
+                            foodBeverageChargesAmount(foodBeverageChargesAmount.getOrNull())
 
                         /** Food and beverage charges for the room. */
                         fun foodBeverageChargesAmount(foodBeverageChargesAmount: JsonField<Long>) =
@@ -8621,7 +8588,7 @@ private constructor(
                          */
                         fun foodBeverageChargesCurrency(
                             foodBeverageChargesCurrency: Optional<String>
-                        ) = foodBeverageChargesCurrency(foodBeverageChargesCurrency.orElse(null))
+                        ) = foodBeverageChargesCurrency(foodBeverageChargesCurrency.getOrNull())
 
                         /**
                          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the food
@@ -8643,7 +8610,7 @@ private constructor(
                          * was not actually used.
                          */
                         fun noShowIndicator(noShowIndicator: Optional<NoShowIndicator>) =
-                            noShowIndicator(noShowIndicator.orElse(null))
+                            noShowIndicator(noShowIndicator.getOrNull())
 
                         /**
                          * Indicator that the cardholder is being billed for a reserved room that
@@ -8662,11 +8629,8 @@ private constructor(
                             prepaidExpensesAmount(prepaidExpensesAmount as Long?)
 
                         /** Prepaid expenses being charged for the room. */
-                        @Suppress(
-                            "USELESS_CAST"
-                        ) // See https://youtrack.jetbrains.com/issue/KT-74228
                         fun prepaidExpensesAmount(prepaidExpensesAmount: Optional<Long>) =
-                            prepaidExpensesAmount(prepaidExpensesAmount.orElse(null) as Long?)
+                            prepaidExpensesAmount(prepaidExpensesAmount.getOrNull())
 
                         /** Prepaid expenses being charged for the room. */
                         fun prepaidExpensesAmount(prepaidExpensesAmount: JsonField<Long>) = apply {
@@ -8685,7 +8649,7 @@ private constructor(
                          * prepaid expenses.
                          */
                         fun prepaidExpensesCurrency(prepaidExpensesCurrency: Optional<String>) =
-                            prepaidExpensesCurrency(prepaidExpensesCurrency.orElse(null))
+                            prepaidExpensesCurrency(prepaidExpensesCurrency.getOrNull())
 
                         /**
                          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
@@ -8704,11 +8668,8 @@ private constructor(
                         fun roomNights(roomNights: Long) = roomNights(roomNights as Long?)
 
                         /** Number of nights the room was rented. */
-                        @Suppress(
-                            "USELESS_CAST"
-                        ) // See https://youtrack.jetbrains.com/issue/KT-74228
                         fun roomNights(roomNights: Optional<Long>) =
-                            roomNights(roomNights.orElse(null) as Long?)
+                            roomNights(roomNights.getOrNull())
 
                         /** Number of nights the room was rented. */
                         fun roomNights(roomNights: JsonField<Long>) = apply {
@@ -8724,11 +8685,8 @@ private constructor(
                             totalRoomTaxAmount(totalRoomTaxAmount as Long?)
 
                         /** Total room tax being charged. */
-                        @Suppress(
-                            "USELESS_CAST"
-                        ) // See https://youtrack.jetbrains.com/issue/KT-74228
                         fun totalRoomTaxAmount(totalRoomTaxAmount: Optional<Long>) =
-                            totalRoomTaxAmount(totalRoomTaxAmount.orElse(null) as Long?)
+                            totalRoomTaxAmount(totalRoomTaxAmount.getOrNull())
 
                         /** Total room tax being charged. */
                         fun totalRoomTaxAmount(totalRoomTaxAmount: JsonField<Long>) = apply {
@@ -8747,7 +8705,7 @@ private constructor(
                          * room tax.
                          */
                         fun totalRoomTaxCurrency(totalRoomTaxCurrency: Optional<String>) =
-                            totalRoomTaxCurrency(totalRoomTaxCurrency.orElse(null))
+                            totalRoomTaxCurrency(totalRoomTaxCurrency.getOrNull())
 
                         /**
                          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total
@@ -8766,11 +8724,8 @@ private constructor(
                             totalTaxAmount(totalTaxAmount as Long?)
 
                         /** Total tax being charged for the room. */
-                        @Suppress(
-                            "USELESS_CAST"
-                        ) // See https://youtrack.jetbrains.com/issue/KT-74228
                         fun totalTaxAmount(totalTaxAmount: Optional<Long>) =
-                            totalTaxAmount(totalTaxAmount.orElse(null) as Long?)
+                            totalTaxAmount(totalTaxAmount.getOrNull())
 
                         /** Total tax being charged for the room. */
                         fun totalTaxAmount(totalTaxAmount: JsonField<Long>) = apply {
@@ -8789,7 +8744,7 @@ private constructor(
                          * tax assessed.
                          */
                         fun totalTaxCurrency(totalTaxCurrency: Optional<String>) =
-                            totalTaxCurrency(totalTaxCurrency.orElse(null))
+                            totalTaxCurrency(totalTaxCurrency.getOrNull())
 
                         /**
                          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total
@@ -9549,7 +9504,7 @@ private constructor(
 
                         /** Ancillary purchases in addition to the airfare. */
                         fun ancillary(ancillary: Optional<Ancillary>) =
-                            ancillary(ancillary.orElse(null))
+                            ancillary(ancillary.getOrNull())
 
                         /** Ancillary purchases in addition to the airfare. */
                         fun ancillary(ancillary: JsonField<Ancillary>) = apply {
@@ -9569,10 +9524,7 @@ private constructor(
                          */
                         fun computerizedReservationSystem(
                             computerizedReservationSystem: Optional<String>
-                        ) =
-                            computerizedReservationSystem(
-                                computerizedReservationSystem.orElse(null)
-                            )
+                        ) = computerizedReservationSystem(computerizedReservationSystem.getOrNull())
 
                         /**
                          * Indicates the computerized reservation system used to book the ticket.
@@ -9590,7 +9542,7 @@ private constructor(
                         /** Indicates the reason for a credit to the cardholder. */
                         fun creditReasonIndicator(
                             creditReasonIndicator: Optional<CreditReasonIndicator>
-                        ) = creditReasonIndicator(creditReasonIndicator.orElse(null))
+                        ) = creditReasonIndicator(creditReasonIndicator.getOrNull())
 
                         /** Indicates the reason for a credit to the cardholder. */
                         fun creditReasonIndicator(
@@ -9603,7 +9555,7 @@ private constructor(
 
                         /** Date of departure. */
                         fun departureDate(departureDate: Optional<LocalDate>) =
-                            departureDate(departureDate.orElse(null))
+                            departureDate(departureDate.getOrNull())
 
                         /** Date of departure. */
                         fun departureDate(departureDate: JsonField<LocalDate>) = apply {
@@ -9619,7 +9571,7 @@ private constructor(
                         /** Code for the originating city or airport. */
                         fun originationCityAirportCode(
                             originationCityAirportCode: Optional<String>
-                        ) = originationCityAirportCode(originationCityAirportCode.orElse(null))
+                        ) = originationCityAirportCode(originationCityAirportCode.getOrNull())
 
                         /** Code for the originating city or airport. */
                         fun originationCityAirportCode(
@@ -9632,7 +9584,7 @@ private constructor(
 
                         /** Name of the passenger. */
                         fun passengerName(passengerName: Optional<String>) =
-                            passengerName(passengerName.orElse(null))
+                            passengerName(passengerName.getOrNull())
 
                         /** Name of the passenger. */
                         fun passengerName(passengerName: JsonField<String>) = apply {
@@ -9650,7 +9602,7 @@ private constructor(
                         /** Indicates whether this ticket is non-refundable. */
                         fun restrictedTicketIndicator(
                             restrictedTicketIndicator: Optional<RestrictedTicketIndicator>
-                        ) = restrictedTicketIndicator(restrictedTicketIndicator.orElse(null))
+                        ) = restrictedTicketIndicator(restrictedTicketIndicator.getOrNull())
 
                         /** Indicates whether this ticket is non-refundable. */
                         fun restrictedTicketIndicator(
@@ -9664,7 +9616,7 @@ private constructor(
                         /** Indicates why a ticket was changed. */
                         fun ticketChangeIndicator(
                             ticketChangeIndicator: Optional<TicketChangeIndicator>
-                        ) = ticketChangeIndicator(ticketChangeIndicator.orElse(null))
+                        ) = ticketChangeIndicator(ticketChangeIndicator.getOrNull())
 
                         /** Indicates why a ticket was changed. */
                         fun ticketChangeIndicator(
@@ -9677,7 +9629,7 @@ private constructor(
 
                         /** Ticket number. */
                         fun ticketNumber(ticketNumber: Optional<String>) =
-                            ticketNumber(ticketNumber.orElse(null))
+                            ticketNumber(ticketNumber.getOrNull())
 
                         /** Ticket number. */
                         fun ticketNumber(ticketNumber: JsonField<String>) = apply {
@@ -9694,7 +9646,7 @@ private constructor(
                          * Code for the travel agency if the ticket was issued by a travel agency.
                          */
                         fun travelAgencyCode(travelAgencyCode: Optional<String>) =
-                            travelAgencyCode(travelAgencyCode.orElse(null))
+                            travelAgencyCode(travelAgencyCode.getOrNull())
 
                         /**
                          * Code for the travel agency if the ticket was issued by a travel agency.
@@ -9713,7 +9665,7 @@ private constructor(
                          * Name of the travel agency if the ticket was issued by a travel agency.
                          */
                         fun travelAgencyName(travelAgencyName: Optional<String>) =
-                            travelAgencyName(travelAgencyName.orElse(null))
+                            travelAgencyName(travelAgencyName.getOrNull())
 
                         /**
                          * Name of the travel agency if the ticket was issued by a travel agency.
@@ -9728,7 +9680,7 @@ private constructor(
 
                         /** Fields specific to each leg of the journey. */
                         fun tripLegs(tripLegs: Optional<List<TripLeg>>) =
-                            tripLegs(tripLegs.orElse(null))
+                            tripLegs(tripLegs.getOrNull())
 
                         /** Fields specific to each leg of the journey. */
                         fun tripLegs(tripLegs: JsonField<List<TripLeg>>) = apply {
@@ -9959,7 +9911,7 @@ private constructor(
                                 connectedTicketDocumentNumber: Optional<String>
                             ) =
                                 connectedTicketDocumentNumber(
-                                    connectedTicketDocumentNumber.orElse(null)
+                                    connectedTicketDocumentNumber.getOrNull()
                                 )
 
                             /**
@@ -9982,7 +9934,7 @@ private constructor(
                             /** Indicates the reason for a credit to the cardholder. */
                             fun creditReasonIndicator(
                                 creditReasonIndicator: Optional<CreditReasonIndicator>
-                            ) = creditReasonIndicator(creditReasonIndicator.orElse(null))
+                            ) = creditReasonIndicator(creditReasonIndicator.getOrNull())
 
                             /** Indicates the reason for a credit to the cardholder. */
                             fun creditReasonIndicator(
@@ -9998,7 +9950,7 @@ private constructor(
                             /** Name of the passenger or description of the ancillary purchase. */
                             fun passengerNameOrDescription(
                                 passengerNameOrDescription: Optional<String>
-                            ) = passengerNameOrDescription(passengerNameOrDescription.orElse(null))
+                            ) = passengerNameOrDescription(passengerNameOrDescription.getOrNull())
 
                             /** Name of the passenger or description of the ancillary purchase. */
                             fun passengerNameOrDescription(
@@ -10029,7 +9981,7 @@ private constructor(
 
                             /** Ticket document number. */
                             fun ticketDocumentNumber(ticketDocumentNumber: Optional<String>) =
-                                ticketDocumentNumber(ticketDocumentNumber.orElse(null))
+                                ticketDocumentNumber(ticketDocumentNumber.getOrNull())
 
                             /** Ticket document number. */
                             fun ticketDocumentNumber(ticketDocumentNumber: JsonField<String>) =
@@ -10314,7 +10266,7 @@ private constructor(
 
                                 /** Category of the ancillary service. */
                                 fun category(category: Optional<Category>) =
-                                    category(category.orElse(null))
+                                    category(category.getOrNull())
 
                                 /** Category of the ancillary service. */
                                 fun category(category: JsonField<Category>) = apply {
@@ -10327,7 +10279,7 @@ private constructor(
 
                                 /** Sub-category of the ancillary service, free-form. */
                                 fun subCategory(subCategory: Optional<String>) =
-                                    subCategory(subCategory.orElse(null))
+                                    subCategory(subCategory.getOrNull())
 
                                 /** Sub-category of the ancillary service, free-form. */
                                 fun subCategory(subCategory: JsonField<String>) = apply {
@@ -11299,7 +11251,7 @@ private constructor(
 
                             /** Carrier code (e.g., United Airlines, Jet Blue, etc.). */
                             fun carrierCode(carrierCode: Optional<String>) =
-                                carrierCode(carrierCode.orElse(null))
+                                carrierCode(carrierCode.getOrNull())
 
                             /** Carrier code (e.g., United Airlines, Jet Blue, etc.). */
                             fun carrierCode(carrierCode: JsonField<String>) = apply {
@@ -11315,7 +11267,7 @@ private constructor(
                             /** Code for the destination city or airport. */
                             fun destinationCityAirportCode(
                                 destinationCityAirportCode: Optional<String>
-                            ) = destinationCityAirportCode(destinationCityAirportCode.orElse(null))
+                            ) = destinationCityAirportCode(destinationCityAirportCode.getOrNull())
 
                             /** Code for the destination city or airport. */
                             fun destinationCityAirportCode(
@@ -11330,7 +11282,7 @@ private constructor(
 
                             /** Fare basis code. */
                             fun fareBasisCode(fareBasisCode: Optional<String>) =
-                                fareBasisCode(fareBasisCode.orElse(null))
+                                fareBasisCode(fareBasisCode.getOrNull())
 
                             /** Fare basis code. */
                             fun fareBasisCode(fareBasisCode: JsonField<String>) = apply {
@@ -11343,7 +11295,7 @@ private constructor(
 
                             /** Flight number. */
                             fun flightNumber(flightNumber: Optional<String>) =
-                                flightNumber(flightNumber.orElse(null))
+                                flightNumber(flightNumber.getOrNull())
 
                             /** Flight number. */
                             fun flightNumber(flightNumber: JsonField<String>) = apply {
@@ -11356,7 +11308,7 @@ private constructor(
 
                             /** Service class (e.g., first class, business class, etc.). */
                             fun serviceClass(serviceClass: Optional<String>) =
-                                serviceClass(serviceClass.orElse(null))
+                                serviceClass(serviceClass.getOrNull())
 
                             /** Service class (e.g., first class, business class, etc.). */
                             fun serviceClass(serviceClass: JsonField<String>) = apply {
@@ -11369,7 +11321,7 @@ private constructor(
 
                             /** Indicates whether a stopover is allowed on this ticket. */
                             fun stopOverCode(stopOverCode: Optional<StopOverCode>) =
-                                stopOverCode(stopOverCode.orElse(null))
+                                stopOverCode(stopOverCode.getOrNull())
 
                             /** Indicates whether a stopover is allowed on this ticket. */
                             fun stopOverCode(stopOverCode: JsonField<StopOverCode>) = apply {
@@ -11886,7 +11838,7 @@ private constructor(
 
                 /** The account the card belonged to. */
                 fun transactedOnAccountId(transactedOnAccountId: Optional<String>) =
-                    transactedOnAccountId(transactedOnAccountId.orElse(null))
+                    transactedOnAccountId(transactedOnAccountId.getOrNull())
 
                 /** The account the card belonged to. */
                 fun transactedOnAccountId(transactedOnAccountId: JsonField<String>) = apply {
@@ -12512,7 +12464,7 @@ private constructor(
                  * exists.
                  */
                 fun cardAuthorization(cardAuthorization: Optional<String>) =
-                    cardAuthorization(cardAuthorization.orElse(null))
+                    cardAuthorization(cardAuthorization.getOrNull())
 
                 /**
                  * The Card Authorization that was created prior to this Card Settlement, if one
@@ -12541,7 +12493,7 @@ private constructor(
                  * Cashback earned on this transaction, if eligible. Cashback is paid out in
                  * aggregate, monthly.
                  */
-                fun cashback(cashback: Optional<Cashback>) = cashback(cashback.orElse(null))
+                fun cashback(cashback: Optional<Cashback>) = cashback(cashback.getOrNull())
 
                 /**
                  * Cashback earned on this transaction, if eligible. Cashback is paid out in
@@ -12567,7 +12519,7 @@ private constructor(
 
                 /** Interchange assessed as a part of this transaction. */
                 fun interchange(interchange: Optional<Interchange>) =
-                    interchange(interchange.orElse(null))
+                    interchange(interchange.getOrNull())
 
                 /** Interchange assessed as a part of this transaction. */
                 fun interchange(interchange: JsonField<Interchange>) = apply {
@@ -12633,7 +12585,7 @@ private constructor(
                  * The merchant's postal code. For US merchants this is always a 5-digit ZIP code.
                  */
                 fun merchantPostalCode(merchantPostalCode: Optional<String>) =
-                    merchantPostalCode(merchantPostalCode.orElse(null))
+                    merchantPostalCode(merchantPostalCode.getOrNull())
 
                 /**
                  * The merchant's postal code. For US merchants this is always a 5-digit ZIP code.
@@ -12648,7 +12600,7 @@ private constructor(
 
                 /** The state the merchant resides in. */
                 fun merchantState(merchantState: Optional<String>) =
-                    merchantState(merchantState.orElse(null))
+                    merchantState(merchantState.getOrNull())
 
                 /** The state the merchant resides in. */
                 fun merchantState(merchantState: JsonField<String>) = apply {
@@ -12670,7 +12622,7 @@ private constructor(
 
                 /** The identifier of the Pending Transaction associated with this Transaction. */
                 fun pendingTransactionId(pendingTransactionId: Optional<String>) =
-                    pendingTransactionId(pendingTransactionId.orElse(null))
+                    pendingTransactionId(pendingTransactionId.getOrNull())
 
                 /** The identifier of the Pending Transaction associated with this Transaction. */
                 fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {
@@ -12713,7 +12665,7 @@ private constructor(
                  * fields.
                  */
                 fun purchaseDetails(purchaseDetails: Optional<PurchaseDetails>) =
-                    purchaseDetails(purchaseDetails.orElse(null))
+                    purchaseDetails(purchaseDetails.getOrNull())
 
                 /**
                  * Additional details about the card purchase, such as tax and industry-specific
@@ -13352,7 +13304,7 @@ private constructor(
                     fun code(code: String?) = code(JsonField.ofNullable(code))
 
                     /** The card network specific interchange code. */
-                    fun code(code: Optional<String>) = code(code.orElse(null))
+                    fun code(code: Optional<String>) = code(code.getOrNull())
 
                     /** The card network specific interchange code. */
                     fun code(code: JsonField<String>) = apply { this.code = code }
@@ -13706,7 +13658,7 @@ private constructor(
                      * across multiple life-cycle requests.
                      */
                     fun transactionId(transactionId: Optional<String>) =
-                        transactionId(transactionId.orElse(null))
+                        transactionId(transactionId.getOrNull())
 
                     /**
                      * A globally unique transaction identifier provided by the card network, used
@@ -13982,8 +13934,7 @@ private constructor(
                         carRental(JsonField.ofNullable(carRental))
 
                     /** Fields specific to car rentals. */
-                    fun carRental(carRental: Optional<CarRental>) =
-                        carRental(carRental.orElse(null))
+                    fun carRental(carRental: Optional<CarRental>) = carRental(carRental.getOrNull())
 
                     /** Fields specific to car rentals. */
                     fun carRental(carRental: JsonField<CarRental>) = apply {
@@ -13998,7 +13949,7 @@ private constructor(
 
                     /** An identifier from the merchant for the customer or consumer. */
                     fun customerReferenceIdentifier(customerReferenceIdentifier: Optional<String>) =
-                        customerReferenceIdentifier(customerReferenceIdentifier.orElse(null))
+                        customerReferenceIdentifier(customerReferenceIdentifier.getOrNull())
 
                     /** An identifier from the merchant for the customer or consumer. */
                     fun customerReferenceIdentifier(
@@ -14014,9 +13965,8 @@ private constructor(
                         localTaxAmount(localTaxAmount as Long?)
 
                     /** The state or provincial tax amount in minor units. */
-                    @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
                     fun localTaxAmount(localTaxAmount: Optional<Long>) =
-                        localTaxAmount(localTaxAmount.orElse(null) as Long?)
+                        localTaxAmount(localTaxAmount.getOrNull())
 
                     /** The state or provincial tax amount in minor units. */
                     fun localTaxAmount(localTaxAmount: JsonField<Long>) = apply {
@@ -14035,7 +13985,7 @@ private constructor(
                      * assessed.
                      */
                     fun localTaxCurrency(localTaxCurrency: Optional<String>) =
-                        localTaxCurrency(localTaxCurrency.orElse(null))
+                        localTaxCurrency(localTaxCurrency.getOrNull())
 
                     /**
                      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the local tax
@@ -14049,7 +13999,7 @@ private constructor(
                     fun lodging(lodging: Lodging?) = lodging(JsonField.ofNullable(lodging))
 
                     /** Fields specific to lodging. */
-                    fun lodging(lodging: Optional<Lodging>) = lodging(lodging.orElse(null))
+                    fun lodging(lodging: Optional<Lodging>) = lodging(lodging.getOrNull())
 
                     /** Fields specific to lodging. */
                     fun lodging(lodging: JsonField<Lodging>) = apply { this.lodging = lodging }
@@ -14063,9 +14013,8 @@ private constructor(
                         nationalTaxAmount(nationalTaxAmount as Long?)
 
                     /** The national tax amount in minor units. */
-                    @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
                     fun nationalTaxAmount(nationalTaxAmount: Optional<Long>) =
-                        nationalTaxAmount(nationalTaxAmount.orElse(null) as Long?)
+                        nationalTaxAmount(nationalTaxAmount.getOrNull())
 
                     /** The national tax amount in minor units. */
                     fun nationalTaxAmount(nationalTaxAmount: JsonField<Long>) = apply {
@@ -14084,7 +14033,7 @@ private constructor(
                      * assessed.
                      */
                     fun nationalTaxCurrency(nationalTaxCurrency: Optional<String>) =
-                        nationalTaxCurrency(nationalTaxCurrency.orElse(null))
+                        nationalTaxCurrency(nationalTaxCurrency.getOrNull())
 
                     /**
                      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the local tax
@@ -14106,7 +14055,7 @@ private constructor(
                      * cardholder.
                      */
                     fun purchaseIdentifier(purchaseIdentifier: Optional<String>) =
-                        purchaseIdentifier(purchaseIdentifier.orElse(null))
+                        purchaseIdentifier(purchaseIdentifier.getOrNull())
 
                     /**
                      * An identifier from the merchant for the purchase to the issuer and
@@ -14124,7 +14073,7 @@ private constructor(
                     /** The format of the purchase identifier. */
                     fun purchaseIdentifierFormat(
                         purchaseIdentifierFormat: Optional<PurchaseIdentifierFormat>
-                    ) = purchaseIdentifierFormat(purchaseIdentifierFormat.orElse(null))
+                    ) = purchaseIdentifierFormat(purchaseIdentifierFormat.getOrNull())
 
                     /** The format of the purchase identifier. */
                     fun purchaseIdentifierFormat(
@@ -14135,7 +14084,7 @@ private constructor(
                     fun travel(travel: Travel?) = travel(JsonField.ofNullable(travel))
 
                     /** Fields specific to travel. */
-                    fun travel(travel: Optional<Travel>) = travel(travel.orElse(null))
+                    fun travel(travel: Optional<Travel>) = travel(travel.getOrNull())
 
                     /** Fields specific to travel. */
                     fun travel(travel: JsonField<Travel>) = apply { this.travel = travel }
@@ -14539,7 +14488,7 @@ private constructor(
 
                         /** Code indicating the vehicle's class. */
                         fun carClassCode(carClassCode: Optional<String>) =
-                            carClassCode(carClassCode.orElse(null))
+                            carClassCode(carClassCode.getOrNull())
 
                         /** Code indicating the vehicle's class. */
                         fun carClassCode(carClassCode: JsonField<String>) = apply {
@@ -14558,7 +14507,7 @@ private constructor(
                          * pre-pay transaction, the scheduled pick up date.
                          */
                         fun checkoutDate(checkoutDate: Optional<LocalDate>) =
-                            checkoutDate(checkoutDate.orElse(null))
+                            checkoutDate(checkoutDate.getOrNull())
 
                         /**
                          * Date the customer picked up the car or, in the case of a no-show or
@@ -14577,11 +14526,8 @@ private constructor(
                             dailyRentalRateAmount(dailyRentalRateAmount as Long?)
 
                         /** Daily rate being charged for the vehicle. */
-                        @Suppress(
-                            "USELESS_CAST"
-                        ) // See https://youtrack.jetbrains.com/issue/KT-74228
                         fun dailyRentalRateAmount(dailyRentalRateAmount: Optional<Long>) =
-                            dailyRentalRateAmount(dailyRentalRateAmount.orElse(null) as Long?)
+                            dailyRentalRateAmount(dailyRentalRateAmount.getOrNull())
 
                         /** Daily rate being charged for the vehicle. */
                         fun dailyRentalRateAmount(dailyRentalRateAmount: JsonField<Long>) = apply {
@@ -14600,7 +14546,7 @@ private constructor(
                          * rental rate.
                          */
                         fun dailyRentalRateCurrency(dailyRentalRateCurrency: Optional<String>) =
-                            dailyRentalRateCurrency(dailyRentalRateCurrency.orElse(null))
+                            dailyRentalRateCurrency(dailyRentalRateCurrency.getOrNull())
 
                         /**
                          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the daily
@@ -14619,11 +14565,8 @@ private constructor(
                         fun daysRented(daysRented: Long) = daysRented(daysRented as Long?)
 
                         /** Number of days the vehicle was rented. */
-                        @Suppress(
-                            "USELESS_CAST"
-                        ) // See https://youtrack.jetbrains.com/issue/KT-74228
                         fun daysRented(daysRented: Optional<Long>) =
-                            daysRented(daysRented.orElse(null) as Long?)
+                            daysRented(daysRented.getOrNull())
 
                         /** Number of days the vehicle was rented. */
                         fun daysRented(daysRented: JsonField<Long>) = apply {
@@ -14636,7 +14579,7 @@ private constructor(
 
                         /** Additional charges (gas, late fee, etc.) being billed. */
                         fun extraCharges(extraCharges: Optional<ExtraCharges>) =
-                            extraCharges(extraCharges.orElse(null))
+                            extraCharges(extraCharges.getOrNull())
 
                         /** Additional charges (gas, late fee, etc.) being billed. */
                         fun extraCharges(extraCharges: JsonField<ExtraCharges>) = apply {
@@ -14652,11 +14595,8 @@ private constructor(
                             fuelChargesAmount(fuelChargesAmount as Long?)
 
                         /** Fuel charges for the vehicle. */
-                        @Suppress(
-                            "USELESS_CAST"
-                        ) // See https://youtrack.jetbrains.com/issue/KT-74228
                         fun fuelChargesAmount(fuelChargesAmount: Optional<Long>) =
-                            fuelChargesAmount(fuelChargesAmount.orElse(null) as Long?)
+                            fuelChargesAmount(fuelChargesAmount.getOrNull())
 
                         /** Fuel charges for the vehicle. */
                         fun fuelChargesAmount(fuelChargesAmount: JsonField<Long>) = apply {
@@ -14675,7 +14615,7 @@ private constructor(
                          * charges assessed.
                          */
                         fun fuelChargesCurrency(fuelChargesCurrency: Optional<String>) =
-                            fuelChargesCurrency(fuelChargesCurrency.orElse(null))
+                            fuelChargesCurrency(fuelChargesCurrency.getOrNull())
 
                         /**
                          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the fuel
@@ -14694,11 +14634,8 @@ private constructor(
                             insuranceChargesAmount(insuranceChargesAmount as Long?)
 
                         /** Any insurance being charged for the vehicle. */
-                        @Suppress(
-                            "USELESS_CAST"
-                        ) // See https://youtrack.jetbrains.com/issue/KT-74228
                         fun insuranceChargesAmount(insuranceChargesAmount: Optional<Long>) =
-                            insuranceChargesAmount(insuranceChargesAmount.orElse(null) as Long?)
+                            insuranceChargesAmount(insuranceChargesAmount.getOrNull())
 
                         /** Any insurance being charged for the vehicle. */
                         fun insuranceChargesAmount(insuranceChargesAmount: JsonField<Long>) =
@@ -14718,7 +14655,7 @@ private constructor(
                          * insurance charges assessed.
                          */
                         fun insuranceChargesCurrency(insuranceChargesCurrency: Optional<String>) =
-                            insuranceChargesCurrency(insuranceChargesCurrency.orElse(null))
+                            insuranceChargesCurrency(insuranceChargesCurrency.getOrNull())
 
                         /**
                          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
@@ -14741,7 +14678,7 @@ private constructor(
                          * that was not actually rented (that is, a "no-show" charge).
                          */
                         fun noShowIndicator(noShowIndicator: Optional<NoShowIndicator>) =
-                            noShowIndicator(noShowIndicator.orElse(null))
+                            noShowIndicator(noShowIndicator.getOrNull())
 
                         /**
                          * An indicator that the cardholder is being billed for a reserved vehicle
@@ -14771,13 +14708,8 @@ private constructor(
                          * Charges for returning the vehicle at a different location than where it
                          * was picked up.
                          */
-                        @Suppress(
-                            "USELESS_CAST"
-                        ) // See https://youtrack.jetbrains.com/issue/KT-74228
                         fun oneWayDropOffChargesAmount(oneWayDropOffChargesAmount: Optional<Long>) =
-                            oneWayDropOffChargesAmount(
-                                oneWayDropOffChargesAmount.orElse(null) as Long?
-                            )
+                            oneWayDropOffChargesAmount(oneWayDropOffChargesAmount.getOrNull())
 
                         /**
                          * Charges for returning the vehicle at a different location than where it
@@ -14802,7 +14734,7 @@ private constructor(
                          */
                         fun oneWayDropOffChargesCurrency(
                             oneWayDropOffChargesCurrency: Optional<String>
-                        ) = oneWayDropOffChargesCurrency(oneWayDropOffChargesCurrency.orElse(null))
+                        ) = oneWayDropOffChargesCurrency(oneWayDropOffChargesCurrency.getOrNull())
 
                         /**
                          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
@@ -14820,7 +14752,7 @@ private constructor(
 
                         /** Name of the person renting the vehicle. */
                         fun renterName(renterName: Optional<String>) =
-                            renterName(renterName.orElse(null))
+                            renterName(renterName.getOrNull())
 
                         /** Name of the person renting the vehicle. */
                         fun renterName(renterName: JsonField<String>) = apply {
@@ -14836,11 +14768,8 @@ private constructor(
                             weeklyRentalRateAmount(weeklyRentalRateAmount as Long?)
 
                         /** Weekly rate being charged for the vehicle. */
-                        @Suppress(
-                            "USELESS_CAST"
-                        ) // See https://youtrack.jetbrains.com/issue/KT-74228
                         fun weeklyRentalRateAmount(weeklyRentalRateAmount: Optional<Long>) =
-                            weeklyRentalRateAmount(weeklyRentalRateAmount.orElse(null) as Long?)
+                            weeklyRentalRateAmount(weeklyRentalRateAmount.getOrNull())
 
                         /** Weekly rate being charged for the vehicle. */
                         fun weeklyRentalRateAmount(weeklyRentalRateAmount: JsonField<Long>) =
@@ -14860,7 +14789,7 @@ private constructor(
                          * weekly rental rate.
                          */
                         fun weeklyRentalRateCurrency(weeklyRentalRateCurrency: Optional<String>) =
-                            weeklyRentalRateCurrency(weeklyRentalRateCurrency.orElse(null))
+                            weeklyRentalRateCurrency(weeklyRentalRateCurrency.getOrNull())
 
                         /**
                          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
@@ -15568,7 +15497,7 @@ private constructor(
 
                         /** Date the customer checked in. */
                         fun checkInDate(checkInDate: Optional<LocalDate>) =
-                            checkInDate(checkInDate.orElse(null))
+                            checkInDate(checkInDate.getOrNull())
 
                         /** Date the customer checked in. */
                         fun checkInDate(checkInDate: JsonField<LocalDate>) = apply {
@@ -15584,11 +15513,8 @@ private constructor(
                             dailyRoomRateAmount(dailyRoomRateAmount as Long?)
 
                         /** Daily rate being charged for the room. */
-                        @Suppress(
-                            "USELESS_CAST"
-                        ) // See https://youtrack.jetbrains.com/issue/KT-74228
                         fun dailyRoomRateAmount(dailyRoomRateAmount: Optional<Long>) =
-                            dailyRoomRateAmount(dailyRoomRateAmount.orElse(null) as Long?)
+                            dailyRoomRateAmount(dailyRoomRateAmount.getOrNull())
 
                         /** Daily rate being charged for the room. */
                         fun dailyRoomRateAmount(dailyRoomRateAmount: JsonField<Long>) = apply {
@@ -15607,7 +15533,7 @@ private constructor(
                          * room rate.
                          */
                         fun dailyRoomRateCurrency(dailyRoomRateCurrency: Optional<String>) =
-                            dailyRoomRateCurrency(dailyRoomRateCurrency.orElse(null))
+                            dailyRoomRateCurrency(dailyRoomRateCurrency.getOrNull())
 
                         /**
                          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the daily
@@ -15624,7 +15550,7 @@ private constructor(
 
                         /** Additional charges (phone, late check-out, etc.) being billed. */
                         fun extraCharges(extraCharges: Optional<ExtraCharges>) =
-                            extraCharges(extraCharges.orElse(null))
+                            extraCharges(extraCharges.getOrNull())
 
                         /** Additional charges (phone, late check-out, etc.) being billed. */
                         fun extraCharges(extraCharges: JsonField<ExtraCharges>) = apply {
@@ -15640,11 +15566,8 @@ private constructor(
                             folioCashAdvancesAmount(folioCashAdvancesAmount as Long?)
 
                         /** Folio cash advances for the room. */
-                        @Suppress(
-                            "USELESS_CAST"
-                        ) // See https://youtrack.jetbrains.com/issue/KT-74228
                         fun folioCashAdvancesAmount(folioCashAdvancesAmount: Optional<Long>) =
-                            folioCashAdvancesAmount(folioCashAdvancesAmount.orElse(null) as Long?)
+                            folioCashAdvancesAmount(folioCashAdvancesAmount.getOrNull())
 
                         /** Folio cash advances for the room. */
                         fun folioCashAdvancesAmount(folioCashAdvancesAmount: JsonField<Long>) =
@@ -15666,7 +15589,7 @@ private constructor(
                          * cash advances.
                          */
                         fun folioCashAdvancesCurrency(folioCashAdvancesCurrency: Optional<String>) =
-                            folioCashAdvancesCurrency(folioCashAdvancesCurrency.orElse(null))
+                            folioCashAdvancesCurrency(folioCashAdvancesCurrency.getOrNull())
 
                         /**
                          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the folio
@@ -15687,13 +15610,8 @@ private constructor(
                             foodBeverageChargesAmount(foodBeverageChargesAmount as Long?)
 
                         /** Food and beverage charges for the room. */
-                        @Suppress(
-                            "USELESS_CAST"
-                        ) // See https://youtrack.jetbrains.com/issue/KT-74228
                         fun foodBeverageChargesAmount(foodBeverageChargesAmount: Optional<Long>) =
-                            foodBeverageChargesAmount(
-                                foodBeverageChargesAmount.orElse(null) as Long?
-                            )
+                            foodBeverageChargesAmount(foodBeverageChargesAmount.getOrNull())
 
                         /** Food and beverage charges for the room. */
                         fun foodBeverageChargesAmount(foodBeverageChargesAmount: JsonField<Long>) =
@@ -15716,7 +15634,7 @@ private constructor(
                          */
                         fun foodBeverageChargesCurrency(
                             foodBeverageChargesCurrency: Optional<String>
-                        ) = foodBeverageChargesCurrency(foodBeverageChargesCurrency.orElse(null))
+                        ) = foodBeverageChargesCurrency(foodBeverageChargesCurrency.getOrNull())
 
                         /**
                          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the food
@@ -15738,7 +15656,7 @@ private constructor(
                          * was not actually used.
                          */
                         fun noShowIndicator(noShowIndicator: Optional<NoShowIndicator>) =
-                            noShowIndicator(noShowIndicator.orElse(null))
+                            noShowIndicator(noShowIndicator.getOrNull())
 
                         /**
                          * Indicator that the cardholder is being billed for a reserved room that
@@ -15757,11 +15675,8 @@ private constructor(
                             prepaidExpensesAmount(prepaidExpensesAmount as Long?)
 
                         /** Prepaid expenses being charged for the room. */
-                        @Suppress(
-                            "USELESS_CAST"
-                        ) // See https://youtrack.jetbrains.com/issue/KT-74228
                         fun prepaidExpensesAmount(prepaidExpensesAmount: Optional<Long>) =
-                            prepaidExpensesAmount(prepaidExpensesAmount.orElse(null) as Long?)
+                            prepaidExpensesAmount(prepaidExpensesAmount.getOrNull())
 
                         /** Prepaid expenses being charged for the room. */
                         fun prepaidExpensesAmount(prepaidExpensesAmount: JsonField<Long>) = apply {
@@ -15780,7 +15695,7 @@ private constructor(
                          * prepaid expenses.
                          */
                         fun prepaidExpensesCurrency(prepaidExpensesCurrency: Optional<String>) =
-                            prepaidExpensesCurrency(prepaidExpensesCurrency.orElse(null))
+                            prepaidExpensesCurrency(prepaidExpensesCurrency.getOrNull())
 
                         /**
                          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
@@ -15799,11 +15714,8 @@ private constructor(
                         fun roomNights(roomNights: Long) = roomNights(roomNights as Long?)
 
                         /** Number of nights the room was rented. */
-                        @Suppress(
-                            "USELESS_CAST"
-                        ) // See https://youtrack.jetbrains.com/issue/KT-74228
                         fun roomNights(roomNights: Optional<Long>) =
-                            roomNights(roomNights.orElse(null) as Long?)
+                            roomNights(roomNights.getOrNull())
 
                         /** Number of nights the room was rented. */
                         fun roomNights(roomNights: JsonField<Long>) = apply {
@@ -15819,11 +15731,8 @@ private constructor(
                             totalRoomTaxAmount(totalRoomTaxAmount as Long?)
 
                         /** Total room tax being charged. */
-                        @Suppress(
-                            "USELESS_CAST"
-                        ) // See https://youtrack.jetbrains.com/issue/KT-74228
                         fun totalRoomTaxAmount(totalRoomTaxAmount: Optional<Long>) =
-                            totalRoomTaxAmount(totalRoomTaxAmount.orElse(null) as Long?)
+                            totalRoomTaxAmount(totalRoomTaxAmount.getOrNull())
 
                         /** Total room tax being charged. */
                         fun totalRoomTaxAmount(totalRoomTaxAmount: JsonField<Long>) = apply {
@@ -15842,7 +15751,7 @@ private constructor(
                          * room tax.
                          */
                         fun totalRoomTaxCurrency(totalRoomTaxCurrency: Optional<String>) =
-                            totalRoomTaxCurrency(totalRoomTaxCurrency.orElse(null))
+                            totalRoomTaxCurrency(totalRoomTaxCurrency.getOrNull())
 
                         /**
                          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total
@@ -15861,11 +15770,8 @@ private constructor(
                             totalTaxAmount(totalTaxAmount as Long?)
 
                         /** Total tax being charged for the room. */
-                        @Suppress(
-                            "USELESS_CAST"
-                        ) // See https://youtrack.jetbrains.com/issue/KT-74228
                         fun totalTaxAmount(totalTaxAmount: Optional<Long>) =
-                            totalTaxAmount(totalTaxAmount.orElse(null) as Long?)
+                            totalTaxAmount(totalTaxAmount.getOrNull())
 
                         /** Total tax being charged for the room. */
                         fun totalTaxAmount(totalTaxAmount: JsonField<Long>) = apply {
@@ -15884,7 +15790,7 @@ private constructor(
                          * tax assessed.
                          */
                         fun totalTaxCurrency(totalTaxCurrency: Optional<String>) =
-                            totalTaxCurrency(totalTaxCurrency.orElse(null))
+                            totalTaxCurrency(totalTaxCurrency.getOrNull())
 
                         /**
                          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total
@@ -16644,7 +16550,7 @@ private constructor(
 
                         /** Ancillary purchases in addition to the airfare. */
                         fun ancillary(ancillary: Optional<Ancillary>) =
-                            ancillary(ancillary.orElse(null))
+                            ancillary(ancillary.getOrNull())
 
                         /** Ancillary purchases in addition to the airfare. */
                         fun ancillary(ancillary: JsonField<Ancillary>) = apply {
@@ -16664,10 +16570,7 @@ private constructor(
                          */
                         fun computerizedReservationSystem(
                             computerizedReservationSystem: Optional<String>
-                        ) =
-                            computerizedReservationSystem(
-                                computerizedReservationSystem.orElse(null)
-                            )
+                        ) = computerizedReservationSystem(computerizedReservationSystem.getOrNull())
 
                         /**
                          * Indicates the computerized reservation system used to book the ticket.
@@ -16685,7 +16588,7 @@ private constructor(
                         /** Indicates the reason for a credit to the cardholder. */
                         fun creditReasonIndicator(
                             creditReasonIndicator: Optional<CreditReasonIndicator>
-                        ) = creditReasonIndicator(creditReasonIndicator.orElse(null))
+                        ) = creditReasonIndicator(creditReasonIndicator.getOrNull())
 
                         /** Indicates the reason for a credit to the cardholder. */
                         fun creditReasonIndicator(
@@ -16698,7 +16601,7 @@ private constructor(
 
                         /** Date of departure. */
                         fun departureDate(departureDate: Optional<LocalDate>) =
-                            departureDate(departureDate.orElse(null))
+                            departureDate(departureDate.getOrNull())
 
                         /** Date of departure. */
                         fun departureDate(departureDate: JsonField<LocalDate>) = apply {
@@ -16714,7 +16617,7 @@ private constructor(
                         /** Code for the originating city or airport. */
                         fun originationCityAirportCode(
                             originationCityAirportCode: Optional<String>
-                        ) = originationCityAirportCode(originationCityAirportCode.orElse(null))
+                        ) = originationCityAirportCode(originationCityAirportCode.getOrNull())
 
                         /** Code for the originating city or airport. */
                         fun originationCityAirportCode(
@@ -16727,7 +16630,7 @@ private constructor(
 
                         /** Name of the passenger. */
                         fun passengerName(passengerName: Optional<String>) =
-                            passengerName(passengerName.orElse(null))
+                            passengerName(passengerName.getOrNull())
 
                         /** Name of the passenger. */
                         fun passengerName(passengerName: JsonField<String>) = apply {
@@ -16745,7 +16648,7 @@ private constructor(
                         /** Indicates whether this ticket is non-refundable. */
                         fun restrictedTicketIndicator(
                             restrictedTicketIndicator: Optional<RestrictedTicketIndicator>
-                        ) = restrictedTicketIndicator(restrictedTicketIndicator.orElse(null))
+                        ) = restrictedTicketIndicator(restrictedTicketIndicator.getOrNull())
 
                         /** Indicates whether this ticket is non-refundable. */
                         fun restrictedTicketIndicator(
@@ -16759,7 +16662,7 @@ private constructor(
                         /** Indicates why a ticket was changed. */
                         fun ticketChangeIndicator(
                             ticketChangeIndicator: Optional<TicketChangeIndicator>
-                        ) = ticketChangeIndicator(ticketChangeIndicator.orElse(null))
+                        ) = ticketChangeIndicator(ticketChangeIndicator.getOrNull())
 
                         /** Indicates why a ticket was changed. */
                         fun ticketChangeIndicator(
@@ -16772,7 +16675,7 @@ private constructor(
 
                         /** Ticket number. */
                         fun ticketNumber(ticketNumber: Optional<String>) =
-                            ticketNumber(ticketNumber.orElse(null))
+                            ticketNumber(ticketNumber.getOrNull())
 
                         /** Ticket number. */
                         fun ticketNumber(ticketNumber: JsonField<String>) = apply {
@@ -16789,7 +16692,7 @@ private constructor(
                          * Code for the travel agency if the ticket was issued by a travel agency.
                          */
                         fun travelAgencyCode(travelAgencyCode: Optional<String>) =
-                            travelAgencyCode(travelAgencyCode.orElse(null))
+                            travelAgencyCode(travelAgencyCode.getOrNull())
 
                         /**
                          * Code for the travel agency if the ticket was issued by a travel agency.
@@ -16808,7 +16711,7 @@ private constructor(
                          * Name of the travel agency if the ticket was issued by a travel agency.
                          */
                         fun travelAgencyName(travelAgencyName: Optional<String>) =
-                            travelAgencyName(travelAgencyName.orElse(null))
+                            travelAgencyName(travelAgencyName.getOrNull())
 
                         /**
                          * Name of the travel agency if the ticket was issued by a travel agency.
@@ -16823,7 +16726,7 @@ private constructor(
 
                         /** Fields specific to each leg of the journey. */
                         fun tripLegs(tripLegs: Optional<List<TripLeg>>) =
-                            tripLegs(tripLegs.orElse(null))
+                            tripLegs(tripLegs.getOrNull())
 
                         /** Fields specific to each leg of the journey. */
                         fun tripLegs(tripLegs: JsonField<List<TripLeg>>) = apply {
@@ -17054,7 +16957,7 @@ private constructor(
                                 connectedTicketDocumentNumber: Optional<String>
                             ) =
                                 connectedTicketDocumentNumber(
-                                    connectedTicketDocumentNumber.orElse(null)
+                                    connectedTicketDocumentNumber.getOrNull()
                                 )
 
                             /**
@@ -17077,7 +16980,7 @@ private constructor(
                             /** Indicates the reason for a credit to the cardholder. */
                             fun creditReasonIndicator(
                                 creditReasonIndicator: Optional<CreditReasonIndicator>
-                            ) = creditReasonIndicator(creditReasonIndicator.orElse(null))
+                            ) = creditReasonIndicator(creditReasonIndicator.getOrNull())
 
                             /** Indicates the reason for a credit to the cardholder. */
                             fun creditReasonIndicator(
@@ -17093,7 +16996,7 @@ private constructor(
                             /** Name of the passenger or description of the ancillary purchase. */
                             fun passengerNameOrDescription(
                                 passengerNameOrDescription: Optional<String>
-                            ) = passengerNameOrDescription(passengerNameOrDescription.orElse(null))
+                            ) = passengerNameOrDescription(passengerNameOrDescription.getOrNull())
 
                             /** Name of the passenger or description of the ancillary purchase. */
                             fun passengerNameOrDescription(
@@ -17124,7 +17027,7 @@ private constructor(
 
                             /** Ticket document number. */
                             fun ticketDocumentNumber(ticketDocumentNumber: Optional<String>) =
-                                ticketDocumentNumber(ticketDocumentNumber.orElse(null))
+                                ticketDocumentNumber(ticketDocumentNumber.getOrNull())
 
                             /** Ticket document number. */
                             fun ticketDocumentNumber(ticketDocumentNumber: JsonField<String>) =
@@ -17409,7 +17312,7 @@ private constructor(
 
                                 /** Category of the ancillary service. */
                                 fun category(category: Optional<Category>) =
-                                    category(category.orElse(null))
+                                    category(category.getOrNull())
 
                                 /** Category of the ancillary service. */
                                 fun category(category: JsonField<Category>) = apply {
@@ -17422,7 +17325,7 @@ private constructor(
 
                                 /** Sub-category of the ancillary service, free-form. */
                                 fun subCategory(subCategory: Optional<String>) =
-                                    subCategory(subCategory.orElse(null))
+                                    subCategory(subCategory.getOrNull())
 
                                 /** Sub-category of the ancillary service, free-form. */
                                 fun subCategory(subCategory: JsonField<String>) = apply {
@@ -18394,7 +18297,7 @@ private constructor(
 
                             /** Carrier code (e.g., United Airlines, Jet Blue, etc.). */
                             fun carrierCode(carrierCode: Optional<String>) =
-                                carrierCode(carrierCode.orElse(null))
+                                carrierCode(carrierCode.getOrNull())
 
                             /** Carrier code (e.g., United Airlines, Jet Blue, etc.). */
                             fun carrierCode(carrierCode: JsonField<String>) = apply {
@@ -18410,7 +18313,7 @@ private constructor(
                             /** Code for the destination city or airport. */
                             fun destinationCityAirportCode(
                                 destinationCityAirportCode: Optional<String>
-                            ) = destinationCityAirportCode(destinationCityAirportCode.orElse(null))
+                            ) = destinationCityAirportCode(destinationCityAirportCode.getOrNull())
 
                             /** Code for the destination city or airport. */
                             fun destinationCityAirportCode(
@@ -18425,7 +18328,7 @@ private constructor(
 
                             /** Fare basis code. */
                             fun fareBasisCode(fareBasisCode: Optional<String>) =
-                                fareBasisCode(fareBasisCode.orElse(null))
+                                fareBasisCode(fareBasisCode.getOrNull())
 
                             /** Fare basis code. */
                             fun fareBasisCode(fareBasisCode: JsonField<String>) = apply {
@@ -18438,7 +18341,7 @@ private constructor(
 
                             /** Flight number. */
                             fun flightNumber(flightNumber: Optional<String>) =
-                                flightNumber(flightNumber.orElse(null))
+                                flightNumber(flightNumber.getOrNull())
 
                             /** Flight number. */
                             fun flightNumber(flightNumber: JsonField<String>) = apply {
@@ -18451,7 +18354,7 @@ private constructor(
 
                             /** Service class (e.g., first class, business class, etc.). */
                             fun serviceClass(serviceClass: Optional<String>) =
-                                serviceClass(serviceClass.orElse(null))
+                                serviceClass(serviceClass.getOrNull())
 
                             /** Service class (e.g., first class, business class, etc.). */
                             fun serviceClass(serviceClass: JsonField<String>) = apply {
@@ -18464,7 +18367,7 @@ private constructor(
 
                             /** Indicates whether a stopover is allowed on this ticket. */
                             fun stopOverCode(stopOverCode: Optional<StopOverCode>) =
-                                stopOverCode(stopOverCode.orElse(null))
+                                stopOverCode(stopOverCode.getOrNull())
 
                             /** Indicates whether a stopover is allowed on this ticket. */
                             fun stopOverCode(stopOverCode: JsonField<StopOverCode>) = apply {
@@ -18941,7 +18844,7 @@ private constructor(
 
                 /** The card on which the cashback was accrued. */
                 fun accruedOnCardId(accruedOnCardId: Optional<String>) =
-                    accruedOnCardId(accruedOnCardId.orElse(null))
+                    accruedOnCardId(accruedOnCardId.getOrNull())
 
                 /** The card on which the cashback was accrued. */
                 fun accruedOnCardId(accruedOnCardId: JsonField<String>) = apply {
@@ -19929,7 +19832,7 @@ private constructor(
                  * check number for business checks.
                  */
                 fun auxiliaryOnUs(auxiliaryOnUs: Optional<String>) =
-                    auxiliaryOnUs(auxiliaryOnUs.orElse(null))
+                    auxiliaryOnUs(auxiliaryOnUs.getOrNull())
 
                 /**
                  * An additional line of metadata printed on the check. This typically includes the
@@ -19981,7 +19884,7 @@ private constructor(
                  * the serial number is usually in the `auxiliary_on_us` field.
                  */
                 fun serialNumber(serialNumber: Optional<String>) =
-                    serialNumber(serialNumber.orElse(null))
+                    serialNumber(serialNumber.getOrNull())
 
                 /**
                  * The check serial number, if present, for consumer checks. For business checks,
@@ -21150,7 +21053,7 @@ private constructor(
                  * deposited check.
                  */
                 fun backImageFileId(backImageFileId: Optional<String>) =
-                    backImageFileId(backImageFileId.orElse(null))
+                    backImageFileId(backImageFileId.getOrNull())
 
                 /**
                  * The identifier of the API File object containing an image of the back of the
@@ -21177,7 +21080,7 @@ private constructor(
                  */
                 fun bankOfFirstDepositRoutingNumber(
                     bankOfFirstDepositRoutingNumber: Optional<String>
-                ) = bankOfFirstDepositRoutingNumber(bankOfFirstDepositRoutingNumber.orElse(null))
+                ) = bankOfFirstDepositRoutingNumber(bankOfFirstDepositRoutingNumber.getOrNull())
 
                 /**
                  * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the bank
@@ -21209,7 +21112,7 @@ private constructor(
                  * deposited check.
                  */
                 fun frontImageFileId(frontImageFileId: Optional<String>) =
-                    frontImageFileId(frontImageFileId.orElse(null))
+                    frontImageFileId(frontImageFileId.getOrNull())
 
                 /**
                  * The identifier of the API File object containing an image of the front of the
@@ -21231,7 +21134,7 @@ private constructor(
                  * transaction.
                  */
                 fun inboundCheckDepositId(inboundCheckDepositId: Optional<String>) =
-                    inboundCheckDepositId(inboundCheckDepositId.orElse(null))
+                    inboundCheckDepositId(inboundCheckDepositId.getOrNull())
 
                 /**
                  * The identifier of the Inbound Check Deposit object associated with this
@@ -21251,7 +21154,7 @@ private constructor(
                  * The identifier of the Transaction object created when the check was deposited.
                  */
                 fun transactionId(transactionId: Optional<String>) =
-                    transactionId(transactionId.orElse(null))
+                    transactionId(transactionId.getOrNull())
 
                 /**
                  * The identifier of the Transaction object created when the check was deposited.
@@ -21264,7 +21167,7 @@ private constructor(
                 fun transferId(transferId: String?) = transferId(JsonField.ofNullable(transferId))
 
                 /** The identifier of the Check Transfer object that was deposited. */
-                fun transferId(transferId: Optional<String>) = transferId(transferId.orElse(null))
+                fun transferId(transferId: Optional<String>) = transferId(transferId.getOrNull())
 
                 /** The identifier of the Check Transfer object that was deposited. */
                 fun transferId(transferId: JsonField<String>) = apply {
@@ -21589,7 +21492,7 @@ private constructor(
                 fun programId(programId: String?) = programId(JsonField.ofNullable(programId))
 
                 /** The Program for which this fee was incurred. */
-                fun programId(programId: Optional<String>) = programId(programId.orElse(null))
+                fun programId(programId: Optional<String>) = programId(programId.getOrNull())
 
                 /** The Program for which this fee was incurred. */
                 fun programId(programId: JsonField<String>) = apply { this.programId = programId }
@@ -22040,7 +21943,7 @@ private constructor(
                 fun addenda(addenda: Addenda?) = addenda(JsonField.ofNullable(addenda))
 
                 /** Additional information sent from the originator. */
-                fun addenda(addenda: Optional<Addenda>) = addenda(addenda.orElse(null))
+                fun addenda(addenda: Optional<Addenda>) = addenda(addenda.getOrNull())
 
                 /** Additional information sent from the originator. */
                 fun addenda(addenda: JsonField<Addenda>) = apply { this.addenda = addenda }
@@ -22060,7 +21963,7 @@ private constructor(
                 /** The description of the date of the transfer, usually in the format `YYMMDD`. */
                 fun originatorCompanyDescriptiveDate(
                     originatorCompanyDescriptiveDate: Optional<String>
-                ) = originatorCompanyDescriptiveDate(originatorCompanyDescriptiveDate.orElse(null))
+                ) = originatorCompanyDescriptiveDate(originatorCompanyDescriptiveDate.getOrNull())
 
                 /** The description of the date of the transfer, usually in the format `YYMMDD`. */
                 fun originatorCompanyDescriptiveDate(
@@ -22082,7 +21985,7 @@ private constructor(
                     originatorCompanyDiscretionaryData: Optional<String>
                 ) =
                     originatorCompanyDiscretionaryData(
-                        originatorCompanyDiscretionaryData.orElse(null)
+                        originatorCompanyDiscretionaryData.getOrNull()
                     )
 
                 /** Data set by the originator. */
@@ -22135,7 +22038,7 @@ private constructor(
 
                 /** The originator's identifier for the transfer recipient. */
                 fun receiverIdNumber(receiverIdNumber: Optional<String>) =
-                    receiverIdNumber(receiverIdNumber.orElse(null))
+                    receiverIdNumber(receiverIdNumber.getOrNull())
 
                 /** The originator's identifier for the transfer recipient. */
                 fun receiverIdNumber(receiverIdNumber: JsonField<String>) = apply {
@@ -22154,7 +22057,7 @@ private constructor(
                  * by Increase.
                  */
                 fun receiverName(receiverName: Optional<String>) =
-                    receiverName(receiverName.orElse(null))
+                    receiverName(receiverName.getOrNull())
 
                 /**
                  * The name of the transfer recipient. This value is informational and not verified
@@ -22323,7 +22226,7 @@ private constructor(
                     /**
                      * Unstructured `payment_related_information` passed through by the originator.
                      */
-                    fun freeform(freeform: Optional<Freeform>) = freeform(freeform.orElse(null))
+                    fun freeform(freeform: Optional<Freeform>) = freeform(freeform.getOrNull())
 
                     /**
                      * Unstructured `payment_related_information` passed through by the originator.
@@ -23265,7 +23168,7 @@ private constructor(
                 fun transferId(transferId: String?) = transferId(JsonField.ofNullable(transferId))
 
                 /** The identifier of the Check Transfer object that was deposited. */
-                fun transferId(transferId: Optional<String>) = transferId(transferId.orElse(null))
+                fun transferId(transferId: Optional<String>) = transferId(transferId.getOrNull())
 
                 /** The identifier of the Check Transfer object that was deposited. */
                 fun transferId(transferId: JsonField<String>) = apply {
@@ -23583,7 +23486,7 @@ private constructor(
 
                 /** Additional information included with the transfer. */
                 fun remittanceInformation(remittanceInformation: Optional<String>) =
-                    remittanceInformation(remittanceInformation.orElse(null))
+                    remittanceInformation(remittanceInformation.getOrNull())
 
                 /** Additional information included with the transfer. */
                 fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {
@@ -24092,7 +23995,7 @@ private constructor(
 
                 /** Additional information included with the transfer. */
                 fun remittanceInformation(remittanceInformation: Optional<String>) =
-                    remittanceInformation(remittanceInformation.orElse(null))
+                    remittanceInformation(remittanceInformation.getOrNull())
 
                 /** Additional information included with the transfer. */
                 fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {
@@ -24869,7 +24772,7 @@ private constructor(
                     financialInstitutionToFinancialInstitutionInformation: Optional<String>
                 ) =
                     financialInstitutionToFinancialInstitutionInformation(
-                        financialInstitutionToFinancialInstitutionInformation.orElse(null)
+                        financialInstitutionToFinancialInstitutionInformation.getOrNull()
                     )
 
                 /** Additional financial institution information included in the wire reversal. */
@@ -24933,7 +24836,7 @@ private constructor(
                  * transfer.
                  */
                 fun originatorRoutingNumber(originatorRoutingNumber: Optional<String>) =
-                    originatorRoutingNumber(originatorRoutingNumber.orElse(null))
+                    originatorRoutingNumber(originatorRoutingNumber.getOrNull())
 
                 /**
                  * The American Banking Association (ABA) routing number of the bank originating the
@@ -25016,7 +24919,7 @@ private constructor(
                     receiverFinancialInstitutionInformation: Optional<String>
                 ) =
                     receiverFinancialInstitutionInformation(
-                        receiverFinancialInstitutionInformation.orElse(null)
+                        receiverFinancialInstitutionInformation.getOrNull()
                     )
 
                 /**
@@ -25036,7 +24939,7 @@ private constructor(
 
                 /** The sending bank's reference number for the wire reversal. */
                 fun senderReference(senderReference: Optional<String>) =
-                    senderReference(senderReference.orElse(null))
+                    senderReference(senderReference.getOrNull())
 
                 /** The sending bank's reference number for the wire reversal. */
                 fun senderReference(senderReference: JsonField<String>) = apply {
@@ -25539,7 +25442,7 @@ private constructor(
 
                 /** A free-form address field set by the sender. */
                 fun beneficiaryAddressLine1(beneficiaryAddressLine1: Optional<String>) =
-                    beneficiaryAddressLine1(beneficiaryAddressLine1.orElse(null))
+                    beneficiaryAddressLine1(beneficiaryAddressLine1.getOrNull())
 
                 /** A free-form address field set by the sender. */
                 fun beneficiaryAddressLine1(beneficiaryAddressLine1: JsonField<String>) = apply {
@@ -25552,7 +25455,7 @@ private constructor(
 
                 /** A free-form address field set by the sender. */
                 fun beneficiaryAddressLine2(beneficiaryAddressLine2: Optional<String>) =
-                    beneficiaryAddressLine2(beneficiaryAddressLine2.orElse(null))
+                    beneficiaryAddressLine2(beneficiaryAddressLine2.getOrNull())
 
                 /** A free-form address field set by the sender. */
                 fun beneficiaryAddressLine2(beneficiaryAddressLine2: JsonField<String>) = apply {
@@ -25565,7 +25468,7 @@ private constructor(
 
                 /** A free-form address field set by the sender. */
                 fun beneficiaryAddressLine3(beneficiaryAddressLine3: Optional<String>) =
-                    beneficiaryAddressLine3(beneficiaryAddressLine3.orElse(null))
+                    beneficiaryAddressLine3(beneficiaryAddressLine3.getOrNull())
 
                 /** A free-form address field set by the sender. */
                 fun beneficiaryAddressLine3(beneficiaryAddressLine3: JsonField<String>) = apply {
@@ -25578,7 +25481,7 @@ private constructor(
 
                 /** A name set by the sender. */
                 fun beneficiaryName(beneficiaryName: Optional<String>) =
-                    beneficiaryName(beneficiaryName.orElse(null))
+                    beneficiaryName(beneficiaryName.getOrNull())
 
                 /** A name set by the sender. */
                 fun beneficiaryName(beneficiaryName: JsonField<String>) = apply {
@@ -25595,7 +25498,7 @@ private constructor(
                  * A free-form reference string set by the sender, to help identify the transfer.
                  */
                 fun beneficiaryReference(beneficiaryReference: Optional<String>) =
-                    beneficiaryReference(beneficiaryReference.orElse(null))
+                    beneficiaryReference(beneficiaryReference.getOrNull())
 
                 /**
                  * A free-form reference string set by the sender, to help identify the transfer.
@@ -25629,7 +25532,7 @@ private constructor(
                  */
                 fun inputMessageAccountabilityData(
                     inputMessageAccountabilityData: Optional<String>
-                ) = inputMessageAccountabilityData(inputMessageAccountabilityData.orElse(null))
+                ) = inputMessageAccountabilityData(inputMessageAccountabilityData.getOrNull())
 
                 /**
                  * A unique identifier available to the originating and receiving banks, commonly
@@ -25646,7 +25549,7 @@ private constructor(
 
                 /** The address of the wire originator, set by the sending bank. */
                 fun originatorAddressLine1(originatorAddressLine1: Optional<String>) =
-                    originatorAddressLine1(originatorAddressLine1.orElse(null))
+                    originatorAddressLine1(originatorAddressLine1.getOrNull())
 
                 /** The address of the wire originator, set by the sending bank. */
                 fun originatorAddressLine1(originatorAddressLine1: JsonField<String>) = apply {
@@ -25659,7 +25562,7 @@ private constructor(
 
                 /** The address of the wire originator, set by the sending bank. */
                 fun originatorAddressLine2(originatorAddressLine2: Optional<String>) =
-                    originatorAddressLine2(originatorAddressLine2.orElse(null))
+                    originatorAddressLine2(originatorAddressLine2.getOrNull())
 
                 /** The address of the wire originator, set by the sending bank. */
                 fun originatorAddressLine2(originatorAddressLine2: JsonField<String>) = apply {
@@ -25672,7 +25575,7 @@ private constructor(
 
                 /** The address of the wire originator, set by the sending bank. */
                 fun originatorAddressLine3(originatorAddressLine3: Optional<String>) =
-                    originatorAddressLine3(originatorAddressLine3.orElse(null))
+                    originatorAddressLine3(originatorAddressLine3.getOrNull())
 
                 /** The address of the wire originator, set by the sending bank. */
                 fun originatorAddressLine3(originatorAddressLine3: JsonField<String>) = apply {
@@ -25685,7 +25588,7 @@ private constructor(
 
                 /** The originator of the wire, set by the sending bank. */
                 fun originatorName(originatorName: Optional<String>) =
-                    originatorName(originatorName.orElse(null))
+                    originatorName(originatorName.getOrNull())
 
                 /** The originator of the wire, set by the sending bank. */
                 fun originatorName(originatorName: JsonField<String>) = apply {
@@ -25704,7 +25607,7 @@ private constructor(
                  * transfer.
                  */
                 fun originatorRoutingNumber(originatorRoutingNumber: Optional<String>) =
-                    originatorRoutingNumber(originatorRoutingNumber.orElse(null))
+                    originatorRoutingNumber(originatorRoutingNumber.getOrNull())
 
                 /**
                  * The American Banking Association (ABA) routing number of the bank originating the
@@ -25727,7 +25630,7 @@ private constructor(
                     originatorToBeneficiaryInformation: Optional<String>
                 ) =
                     originatorToBeneficiaryInformation(
-                        originatorToBeneficiaryInformation.orElse(null)
+                        originatorToBeneficiaryInformation.getOrNull()
                     )
 
                 /** An Increase-created concatenation of the Originator-to-Beneficiary lines. */
@@ -25750,7 +25653,7 @@ private constructor(
                     originatorToBeneficiaryInformationLine1: Optional<String>
                 ) =
                     originatorToBeneficiaryInformationLine1(
-                        originatorToBeneficiaryInformationLine1.orElse(null)
+                        originatorToBeneficiaryInformationLine1.getOrNull()
                     )
 
                 /** A free-form message set by the wire originator. */
@@ -25774,7 +25677,7 @@ private constructor(
                     originatorToBeneficiaryInformationLine2: Optional<String>
                 ) =
                     originatorToBeneficiaryInformationLine2(
-                        originatorToBeneficiaryInformationLine2.orElse(null)
+                        originatorToBeneficiaryInformationLine2.getOrNull()
                     )
 
                 /** A free-form message set by the wire originator. */
@@ -25798,7 +25701,7 @@ private constructor(
                     originatorToBeneficiaryInformationLine3: Optional<String>
                 ) =
                     originatorToBeneficiaryInformationLine3(
-                        originatorToBeneficiaryInformationLine3.orElse(null)
+                        originatorToBeneficiaryInformationLine3.getOrNull()
                     )
 
                 /** A free-form message set by the wire originator. */
@@ -25822,7 +25725,7 @@ private constructor(
                     originatorToBeneficiaryInformationLine4: Optional<String>
                 ) =
                     originatorToBeneficiaryInformationLine4(
-                        originatorToBeneficiaryInformationLine4.orElse(null)
+                        originatorToBeneficiaryInformationLine4.getOrNull()
                     )
 
                 /** A free-form message set by the wire originator. */
