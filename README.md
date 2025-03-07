@@ -190,7 +190,7 @@ import java.net.URL;
 
 FileCreateParams params = FileCreateParams.builder()
     .purpose(FileCreateParams.Purpose.CHECK_IMAGE_FRONT)
-    .file(new URL("https://example.com").openStream())
+    .file(new URL("https://example.com/my/file.txt").openStream())
     .build();
 File file = client.files().create(params);
 ```
@@ -220,7 +220,7 @@ import java.net.URL;
 FileCreateParams params = FileCreateParams.builder()
     .purpose(FileCreateParams.Purpose.CHECK_IMAGE_FRONT)
     .file(MultipartField.<InputStream>builder()
-        .value(new URL("https://example.com").openStream())
+        .value(new URL("https://example.com/my/file.txt").openStream())
         .filename("my/file.txt")
         .build())
     .build();
