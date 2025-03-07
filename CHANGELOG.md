@@ -1,5 +1,32 @@
 # Changelog
 
+## 0.195.0 (2025-03-07)
+
+Full Changelog: [v0.194.0...v0.195.0](https://github.com/Increase/increase-java/compare/v0.194.0...v0.195.0)
+
+### ⚠ BREAKING CHANGES
+
+* **client:** refactor multipart formdata impl ([#840](https://github.com/Increase/increase-java/issues/840))
+
+### Features
+
+* **api:** api update ([#845](https://github.com/Increase/increase-java/issues/845)) ([d74ac06](https://github.com/Increase/increase-java/commit/d74ac0629c81b3dd4f2a3b25d0e8a5a1982eecc8))
+* **client:** accept `InputStream` and `Path` for file params ([#847](https://github.com/Increase/increase-java/issues/847)) ([8ac4f4b](https://github.com/Increase/increase-java/commit/8ac4f4b4dcd04c1228204536e9cfec102f49c735))
+* **client:** detect binary incompatible jackson versions ([#849](https://github.com/Increase/increase-java/issues/849)) ([ad91966](https://github.com/Increase/increase-java/commit/ad919664e3ae736ba496dc14a9dc70dff8b2b607))
+* generate and publish docs ([#850](https://github.com/Increase/increase-java/issues/850)) ([e307b90](https://github.com/Increase/increase-java/commit/e307b9043110c18a29ba9f186b996a1ca25dd50d))
+
+
+### Chores
+
+* **client:** expose `Optional`, not nullable, from `ClientOptions` ([#844](https://github.com/Increase/increase-java/issues/844)) ([b78051a](https://github.com/Increase/increase-java/commit/b78051a6e94e1b0096520932b127e0392d021121))
+* **client:** refactor multipart formdata impl ([#840](https://github.com/Increase/increase-java/issues/840)) ([493ba6c](https://github.com/Increase/increase-java/commit/493ba6c2b0d95dfa0041544553058ea9b4e983c3))
+* **internal:** codegen related update ([#848](https://github.com/Increase/increase-java/issues/848)) ([faee63f](https://github.com/Increase/increase-java/commit/faee63fd389383819ac1f07d7dbdf4b98ae5b48a))
+
+
+### Documentation
+
+* add raw response readme documentation ([#842](https://github.com/Increase/increase-java/issues/842)) ([4d8f72c](https://github.com/Increase/increase-java/commit/4d8f72caec7b6a2ad20f495a83713b6a68fcefe8))
+
 ## 0.194.0 (2025-03-04)
 
 Full Changelog: [v0.193.0...v0.194.0](https://github.com/Increase/increase-java/compare/v0.193.0...v0.194.0)
