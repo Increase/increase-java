@@ -48,7 +48,6 @@ import com.increase.api.services.async.ProgramServiceAsync
 import com.increase.api.services.async.ProofOfAuthorizationRequestServiceAsync
 import com.increase.api.services.async.ProofOfAuthorizationRequestSubmissionServiceAsync
 import com.increase.api.services.async.RealTimeDecisionServiceAsync
-import com.increase.api.services.async.RealTimePaymentsRequestForPaymentServiceAsync
 import com.increase.api.services.async.RealTimePaymentsTransferServiceAsync
 import com.increase.api.services.async.RoutingNumberServiceAsync
 import com.increase.api.services.async.SimulationServiceAsync
@@ -193,8 +192,6 @@ interface IncreaseClientAsync {
 
     fun intrafiExclusions(): IntrafiExclusionServiceAsync
 
-    fun realTimePaymentsRequestForPayments(): RealTimePaymentsRequestForPaymentServiceAsync
-
     fun simulations(): SimulationServiceAsync
 
     /**
@@ -320,9 +317,6 @@ interface IncreaseClientAsync {
         fun intrafiBalances(): IntrafiBalanceServiceAsync.WithRawResponse
 
         fun intrafiExclusions(): IntrafiExclusionServiceAsync.WithRawResponse
-
-        fun realTimePaymentsRequestForPayments():
-            RealTimePaymentsRequestForPaymentServiceAsync.WithRawResponse
 
         fun simulations(): SimulationServiceAsync.WithRawResponse
     }
