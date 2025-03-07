@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -23,34 +21,50 @@ interface PhysicalCardServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Create a Physical Card */
-    @JvmOverloads
+    fun create(params: PhysicalCardCreateParams): CompletableFuture<PhysicalCard> =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: PhysicalCardCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PhysicalCard>
 
     /** Retrieve a Physical Card */
-    @JvmOverloads
+    fun retrieve(params: PhysicalCardRetrieveParams): CompletableFuture<PhysicalCard> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: PhysicalCardRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PhysicalCard>
 
     /** Update a Physical Card */
-    @JvmOverloads
+    fun update(params: PhysicalCardUpdateParams): CompletableFuture<PhysicalCard> =
+        update(params, RequestOptions.none())
+
+    /** @see [update] */
     fun update(
         params: PhysicalCardUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PhysicalCard>
 
     /** List Physical Cards */
-    @JvmOverloads
+    fun list(): CompletableFuture<PhysicalCardListPageAsync> = list(PhysicalCardListParams.none())
+
+    /** @see [list] */
     fun list(
         params: PhysicalCardListParams = PhysicalCardListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PhysicalCardListPageAsync>
 
-    /** List Physical Cards */
+    /** @see [list] */
+    fun list(
+        params: PhysicalCardListParams = PhysicalCardListParams.none()
+    ): CompletableFuture<PhysicalCardListPageAsync> = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CompletableFuture<PhysicalCardListPageAsync> =
         list(PhysicalCardListParams.none(), requestOptions)
 
@@ -64,7 +78,12 @@ interface PhysicalCardServiceAsync {
          * Returns a raw HTTP response for `post /physical_cards`, but is otherwise the same as
          * [PhysicalCardServiceAsync.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: PhysicalCardCreateParams
+        ): CompletableFuture<HttpResponseFor<PhysicalCard>> = create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: PhysicalCardCreateParams,
@@ -75,7 +94,13 @@ interface PhysicalCardServiceAsync {
          * Returns a raw HTTP response for `get /physical_cards/{physical_card_id}`, but is
          * otherwise the same as [PhysicalCardServiceAsync.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: PhysicalCardRetrieveParams
+        ): CompletableFuture<HttpResponseFor<PhysicalCard>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: PhysicalCardRetrieveParams,
@@ -86,7 +111,12 @@ interface PhysicalCardServiceAsync {
          * Returns a raw HTTP response for `patch /physical_cards/{physical_card_id}`, but is
          * otherwise the same as [PhysicalCardServiceAsync.update].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun update(
+            params: PhysicalCardUpdateParams
+        ): CompletableFuture<HttpResponseFor<PhysicalCard>> = update(params, RequestOptions.none())
+
+        /** @see [update] */
         @MustBeClosed
         fun update(
             params: PhysicalCardUpdateParams,
@@ -97,17 +127,25 @@ interface PhysicalCardServiceAsync {
          * Returns a raw HTTP response for `get /physical_cards`, but is otherwise the same as
          * [PhysicalCardServiceAsync.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): CompletableFuture<HttpResponseFor<PhysicalCardListPageAsync>> =
+            list(PhysicalCardListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: PhysicalCardListParams = PhysicalCardListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<PhysicalCardListPageAsync>>
 
-        /**
-         * Returns a raw HTTP response for `get /physical_cards`, but is otherwise the same as
-         * [PhysicalCardServiceAsync.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: PhysicalCardListParams = PhysicalCardListParams.none()
+        ): CompletableFuture<HttpResponseFor<PhysicalCardListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions

@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking.simulations
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -21,7 +19,10 @@ interface CardRefundService {
      * Simulates refunding a card transaction. The full value of the original sandbox transaction is
      * refunded.
      */
-    @JvmOverloads
+    fun create(params: SimulationCardRefundCreateParams): Transaction =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: SimulationCardRefundCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -34,7 +35,11 @@ interface CardRefundService {
          * Returns a raw HTTP response for `post /simulations/card_refunds`, but is otherwise the
          * same as [CardRefundService.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(params: SimulationCardRefundCreateParams): HttpResponseFor<Transaction> =
+            create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: SimulationCardRefundCreateParams,

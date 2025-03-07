@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -24,39 +22,58 @@ interface WireTransferServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Create a Wire Transfer */
-    @JvmOverloads
+    fun create(params: WireTransferCreateParams): CompletableFuture<WireTransfer> =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: WireTransferCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<WireTransfer>
 
     /** Retrieve a Wire Transfer */
-    @JvmOverloads
+    fun retrieve(params: WireTransferRetrieveParams): CompletableFuture<WireTransfer> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: WireTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<WireTransfer>
 
     /** List Wire Transfers */
-    @JvmOverloads
+    fun list(): CompletableFuture<WireTransferListPageAsync> = list(WireTransferListParams.none())
+
+    /** @see [list] */
     fun list(
         params: WireTransferListParams = WireTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<WireTransferListPageAsync>
 
-    /** List Wire Transfers */
+    /** @see [list] */
+    fun list(
+        params: WireTransferListParams = WireTransferListParams.none()
+    ): CompletableFuture<WireTransferListPageAsync> = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CompletableFuture<WireTransferListPageAsync> =
         list(WireTransferListParams.none(), requestOptions)
 
     /** Approve a Wire Transfer */
-    @JvmOverloads
+    fun approve(params: WireTransferApproveParams): CompletableFuture<WireTransfer> =
+        approve(params, RequestOptions.none())
+
+    /** @see [approve] */
     fun approve(
         params: WireTransferApproveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<WireTransfer>
 
     /** Cancel a pending Wire Transfer */
-    @JvmOverloads
+    fun cancel(params: WireTransferCancelParams): CompletableFuture<WireTransfer> =
+        cancel(params, RequestOptions.none())
+
+    /** @see [cancel] */
     fun cancel(
         params: WireTransferCancelParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -72,7 +89,12 @@ interface WireTransferServiceAsync {
          * Returns a raw HTTP response for `post /wire_transfers`, but is otherwise the same as
          * [WireTransferServiceAsync.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: WireTransferCreateParams
+        ): CompletableFuture<HttpResponseFor<WireTransfer>> = create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: WireTransferCreateParams,
@@ -83,7 +105,13 @@ interface WireTransferServiceAsync {
          * Returns a raw HTTP response for `get /wire_transfers/{wire_transfer_id}`, but is
          * otherwise the same as [WireTransferServiceAsync.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: WireTransferRetrieveParams
+        ): CompletableFuture<HttpResponseFor<WireTransfer>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: WireTransferRetrieveParams,
@@ -94,17 +122,25 @@ interface WireTransferServiceAsync {
          * Returns a raw HTTP response for `get /wire_transfers`, but is otherwise the same as
          * [WireTransferServiceAsync.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): CompletableFuture<HttpResponseFor<WireTransferListPageAsync>> =
+            list(WireTransferListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: WireTransferListParams = WireTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<WireTransferListPageAsync>>
 
-        /**
-         * Returns a raw HTTP response for `get /wire_transfers`, but is otherwise the same as
-         * [WireTransferServiceAsync.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: WireTransferListParams = WireTransferListParams.none()
+        ): CompletableFuture<HttpResponseFor<WireTransferListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions
@@ -115,7 +151,12 @@ interface WireTransferServiceAsync {
          * Returns a raw HTTP response for `post /wire_transfers/{wire_transfer_id}/approve`, but is
          * otherwise the same as [WireTransferServiceAsync.approve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun approve(
+            params: WireTransferApproveParams
+        ): CompletableFuture<HttpResponseFor<WireTransfer>> = approve(params, RequestOptions.none())
+
+        /** @see [approve] */
         @MustBeClosed
         fun approve(
             params: WireTransferApproveParams,
@@ -126,7 +167,12 @@ interface WireTransferServiceAsync {
          * Returns a raw HTTP response for `post /wire_transfers/{wire_transfer_id}/cancel`, but is
          * otherwise the same as [WireTransferServiceAsync.cancel].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun cancel(
+            params: WireTransferCancelParams
+        ): CompletableFuture<HttpResponseFor<WireTransfer>> = cancel(params, RequestOptions.none())
+
+        /** @see [cancel] */
         @MustBeClosed
         fun cancel(
             params: WireTransferCancelParams,

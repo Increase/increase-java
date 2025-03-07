@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -23,32 +21,49 @@ interface IntrafiExclusionServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Create an IntraFi Exclusion */
-    @JvmOverloads
+    fun create(params: IntrafiExclusionCreateParams): CompletableFuture<IntrafiExclusion> =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: IntrafiExclusionCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<IntrafiExclusion>
 
     /** Get an IntraFi Exclusion */
-    @JvmOverloads
+    fun retrieve(params: IntrafiExclusionRetrieveParams): CompletableFuture<IntrafiExclusion> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: IntrafiExclusionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<IntrafiExclusion>
 
     /** List IntraFi Exclusions */
-    @JvmOverloads
+    fun list(): CompletableFuture<IntrafiExclusionListPageAsync> =
+        list(IntrafiExclusionListParams.none())
+
+    /** @see [list] */
     fun list(
         params: IntrafiExclusionListParams = IntrafiExclusionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<IntrafiExclusionListPageAsync>
 
-    /** List IntraFi Exclusions */
+    /** @see [list] */
+    fun list(
+        params: IntrafiExclusionListParams = IntrafiExclusionListParams.none()
+    ): CompletableFuture<IntrafiExclusionListPageAsync> = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CompletableFuture<IntrafiExclusionListPageAsync> =
         list(IntrafiExclusionListParams.none(), requestOptions)
 
     /** Archive an IntraFi Exclusion */
-    @JvmOverloads
+    fun archive(params: IntrafiExclusionArchiveParams): CompletableFuture<IntrafiExclusion> =
+        archive(params, RequestOptions.none())
+
+    /** @see [archive] */
     fun archive(
         params: IntrafiExclusionArchiveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -64,7 +79,13 @@ interface IntrafiExclusionServiceAsync {
          * Returns a raw HTTP response for `post /intrafi_exclusions`, but is otherwise the same as
          * [IntrafiExclusionServiceAsync.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: IntrafiExclusionCreateParams
+        ): CompletableFuture<HttpResponseFor<IntrafiExclusion>> =
+            create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: IntrafiExclusionCreateParams,
@@ -75,7 +96,13 @@ interface IntrafiExclusionServiceAsync {
          * Returns a raw HTTP response for `get /intrafi_exclusions/{intrafi_exclusion_id}`, but is
          * otherwise the same as [IntrafiExclusionServiceAsync.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: IntrafiExclusionRetrieveParams
+        ): CompletableFuture<HttpResponseFor<IntrafiExclusion>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: IntrafiExclusionRetrieveParams,
@@ -86,17 +113,25 @@ interface IntrafiExclusionServiceAsync {
          * Returns a raw HTTP response for `get /intrafi_exclusions`, but is otherwise the same as
          * [IntrafiExclusionServiceAsync.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): CompletableFuture<HttpResponseFor<IntrafiExclusionListPageAsync>> =
+            list(IntrafiExclusionListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: IntrafiExclusionListParams = IntrafiExclusionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<IntrafiExclusionListPageAsync>>
 
-        /**
-         * Returns a raw HTTP response for `get /intrafi_exclusions`, but is otherwise the same as
-         * [IntrafiExclusionServiceAsync.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: IntrafiExclusionListParams = IntrafiExclusionListParams.none()
+        ): CompletableFuture<HttpResponseFor<IntrafiExclusionListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions
@@ -108,7 +143,13 @@ interface IntrafiExclusionServiceAsync {
          * /intrafi_exclusions/{intrafi_exclusion_id}/archive`, but is otherwise the same as
          * [IntrafiExclusionServiceAsync.archive].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun archive(
+            params: IntrafiExclusionArchiveParams
+        ): CompletableFuture<HttpResponseFor<IntrafiExclusion>> =
+            archive(params, RequestOptions.none())
+
+        /** @see [archive] */
         @MustBeClosed
         fun archive(
             params: IntrafiExclusionArchiveParams,

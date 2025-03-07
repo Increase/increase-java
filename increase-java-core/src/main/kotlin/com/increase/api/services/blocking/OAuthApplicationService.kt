@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -20,20 +18,30 @@ interface OAuthApplicationService {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve an OAuth Application */
-    @JvmOverloads
+    fun retrieve(params: OAuthApplicationRetrieveParams): OAuthApplication =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: OAuthApplicationRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): OAuthApplication
 
     /** List OAuth Applications */
-    @JvmOverloads
+    fun list(): OAuthApplicationListPage = list(OAuthApplicationListParams.none())
+
+    /** @see [list] */
     fun list(
         params: OAuthApplicationListParams = OAuthApplicationListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): OAuthApplicationListPage
 
-    /** List OAuth Applications */
+    /** @see [list] */
+    fun list(
+        params: OAuthApplicationListParams = OAuthApplicationListParams.none()
+    ): OAuthApplicationListPage = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): OAuthApplicationListPage =
         list(OAuthApplicationListParams.none(), requestOptions)
 
@@ -47,7 +55,11 @@ interface OAuthApplicationService {
          * Returns a raw HTTP response for `get /oauth_applications/{oauth_application_id}`, but is
          * otherwise the same as [OAuthApplicationService.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(params: OAuthApplicationRetrieveParams): HttpResponseFor<OAuthApplication> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: OAuthApplicationRetrieveParams,
@@ -58,17 +70,24 @@ interface OAuthApplicationService {
          * Returns a raw HTTP response for `get /oauth_applications`, but is otherwise the same as
          * [OAuthApplicationService.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): HttpResponseFor<OAuthApplicationListPage> =
+            list(OAuthApplicationListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: OAuthApplicationListParams = OAuthApplicationListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<OAuthApplicationListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /oauth_applications`, but is otherwise the same as
-         * [OAuthApplicationService.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: OAuthApplicationListParams = OAuthApplicationListParams.none()
+        ): HttpResponseFor<OAuthApplicationListPage> = list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<OAuthApplicationListPage> =
             list(OAuthApplicationListParams.none(), requestOptions)

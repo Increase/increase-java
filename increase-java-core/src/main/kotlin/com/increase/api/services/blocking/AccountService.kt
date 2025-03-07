@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -25,34 +23,46 @@ interface AccountService {
     fun withRawResponse(): WithRawResponse
 
     /** Create an Account */
-    @JvmOverloads
+    fun create(params: AccountCreateParams): Account = create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: AccountCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Account
 
     /** Retrieve an Account */
-    @JvmOverloads
+    fun retrieve(params: AccountRetrieveParams): Account = retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: AccountRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Account
 
     /** Update an Account */
-    @JvmOverloads
+    fun update(params: AccountUpdateParams): Account = update(params, RequestOptions.none())
+
+    /** @see [update] */
     fun update(
         params: AccountUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Account
 
     /** List Accounts */
-    @JvmOverloads
+    fun list(): AccountListPage = list(AccountListParams.none())
+
+    /** @see [list] */
     fun list(
         params: AccountListParams = AccountListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountListPage
 
-    /** List Accounts */
+    /** @see [list] */
+    fun list(params: AccountListParams = AccountListParams.none()): AccountListPage =
+        list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): AccountListPage =
         list(AccountListParams.none(), requestOptions)
 
@@ -60,14 +70,19 @@ interface AccountService {
      * Retrieve the current and available balances for an account in minor units of the account's
      * currency. Learn more about [account balances](/documentation/balance).
      */
-    @JvmOverloads
+    fun balance(params: AccountBalanceParams): BalanceLookup =
+        balance(params, RequestOptions.none())
+
+    /** @see [balance] */
     fun balance(
         params: AccountBalanceParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BalanceLookup
 
     /** Close an Account */
-    @JvmOverloads
+    fun close(params: AccountCloseParams): Account = close(params, RequestOptions.none())
+
+    /** @see [close] */
     fun close(
         params: AccountCloseParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -80,7 +95,11 @@ interface AccountService {
          * Returns a raw HTTP response for `post /accounts`, but is otherwise the same as
          * [AccountService.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(params: AccountCreateParams): HttpResponseFor<Account> =
+            create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: AccountCreateParams,
@@ -91,7 +110,11 @@ interface AccountService {
          * Returns a raw HTTP response for `get /accounts/{account_id}`, but is otherwise the same
          * as [AccountService.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(params: AccountRetrieveParams): HttpResponseFor<Account> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: AccountRetrieveParams,
@@ -102,7 +125,11 @@ interface AccountService {
          * Returns a raw HTTP response for `patch /accounts/{account_id}`, but is otherwise the same
          * as [AccountService.update].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun update(params: AccountUpdateParams): HttpResponseFor<Account> =
+            update(params, RequestOptions.none())
+
+        /** @see [update] */
         @MustBeClosed
         fun update(
             params: AccountUpdateParams,
@@ -113,17 +140,22 @@ interface AccountService {
          * Returns a raw HTTP response for `get /accounts`, but is otherwise the same as
          * [AccountService.list].
          */
-        @JvmOverloads
+        @MustBeClosed fun list(): HttpResponseFor<AccountListPage> = list(AccountListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: AccountListParams = AccountListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AccountListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /accounts`, but is otherwise the same as
-         * [AccountService.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: AccountListParams = AccountListParams.none()
+        ): HttpResponseFor<AccountListPage> = list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<AccountListPage> =
             list(AccountListParams.none(), requestOptions)
@@ -132,7 +164,11 @@ interface AccountService {
          * Returns a raw HTTP response for `get /accounts/{account_id}/balance`, but is otherwise
          * the same as [AccountService.balance].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun balance(params: AccountBalanceParams): HttpResponseFor<BalanceLookup> =
+            balance(params, RequestOptions.none())
+
+        /** @see [balance] */
         @MustBeClosed
         fun balance(
             params: AccountBalanceParams,
@@ -143,7 +179,11 @@ interface AccountService {
          * Returns a raw HTTP response for `post /accounts/{account_id}/close`, but is otherwise the
          * same as [AccountService.close].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun close(params: AccountCloseParams): HttpResponseFor<Account> =
+            close(params, RequestOptions.none())
+
+        /** @see [close] */
         @MustBeClosed
         fun close(
             params: AccountCloseParams,

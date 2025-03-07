@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async.simulations
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -19,7 +17,12 @@ interface DigitalWalletTokenRequestServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Simulates a user attempting add a [Card](#cards) to a digital wallet such as Apple Pay. */
-    @JvmOverloads
+    fun create(
+        params: SimulationDigitalWalletTokenRequestCreateParams
+    ): CompletableFuture<SimulationDigitalWalletTokenRequestCreateResponse> =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: SimulationDigitalWalletTokenRequestCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -35,7 +38,13 @@ interface DigitalWalletTokenRequestServiceAsync {
          * Returns a raw HTTP response for `post /simulations/digital_wallet_token_requests`, but is
          * otherwise the same as [DigitalWalletTokenRequestServiceAsync.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: SimulationDigitalWalletTokenRequestCreateParams
+        ): CompletableFuture<HttpResponseFor<SimulationDigitalWalletTokenRequestCreateResponse>> =
+            create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: SimulationDigitalWalletTokenRequestCreateParams,

@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -20,20 +18,31 @@ interface InboundWireDrawdownRequestService {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve an Inbound Wire Drawdown Request */
-    @JvmOverloads
+    fun retrieve(params: InboundWireDrawdownRequestRetrieveParams): InboundWireDrawdownRequest =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: InboundWireDrawdownRequestRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundWireDrawdownRequest
 
     /** List Inbound Wire Drawdown Requests */
-    @JvmOverloads
+    fun list(): InboundWireDrawdownRequestListPage =
+        list(InboundWireDrawdownRequestListParams.none())
+
+    /** @see [list] */
     fun list(
         params: InboundWireDrawdownRequestListParams = InboundWireDrawdownRequestListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundWireDrawdownRequestListPage
 
-    /** List Inbound Wire Drawdown Requests */
+    /** @see [list] */
+    fun list(
+        params: InboundWireDrawdownRequestListParams = InboundWireDrawdownRequestListParams.none()
+    ): InboundWireDrawdownRequestListPage = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): InboundWireDrawdownRequestListPage =
         list(InboundWireDrawdownRequestListParams.none(), requestOptions)
 
@@ -48,7 +57,12 @@ interface InboundWireDrawdownRequestService {
          * /inbound_wire_drawdown_requests/{inbound_wire_drawdown_request_id}`, but is otherwise the
          * same as [InboundWireDrawdownRequestService.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: InboundWireDrawdownRequestRetrieveParams
+        ): HttpResponseFor<InboundWireDrawdownRequest> = retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: InboundWireDrawdownRequestRetrieveParams,
@@ -59,7 +73,11 @@ interface InboundWireDrawdownRequestService {
          * Returns a raw HTTP response for `get /inbound_wire_drawdown_requests`, but is otherwise
          * the same as [InboundWireDrawdownRequestService.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): HttpResponseFor<InboundWireDrawdownRequestListPage> =
+            list(InboundWireDrawdownRequestListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: InboundWireDrawdownRequestListParams =
@@ -67,10 +85,14 @@ interface InboundWireDrawdownRequestService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundWireDrawdownRequestListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /inbound_wire_drawdown_requests`, but is otherwise
-         * the same as [InboundWireDrawdownRequestService.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: InboundWireDrawdownRequestListParams =
+                InboundWireDrawdownRequestListParams.none()
+        ): HttpResponseFor<InboundWireDrawdownRequestListPage> = list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions

@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -23,34 +21,51 @@ interface ExternalAccountServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Create an External Account */
-    @JvmOverloads
+    fun create(params: ExternalAccountCreateParams): CompletableFuture<ExternalAccount> =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: ExternalAccountCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ExternalAccount>
 
     /** Retrieve an External Account */
-    @JvmOverloads
+    fun retrieve(params: ExternalAccountRetrieveParams): CompletableFuture<ExternalAccount> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: ExternalAccountRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ExternalAccount>
 
     /** Update an External Account */
-    @JvmOverloads
+    fun update(params: ExternalAccountUpdateParams): CompletableFuture<ExternalAccount> =
+        update(params, RequestOptions.none())
+
+    /** @see [update] */
     fun update(
         params: ExternalAccountUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ExternalAccount>
 
     /** List External Accounts */
-    @JvmOverloads
+    fun list(): CompletableFuture<ExternalAccountListPageAsync> =
+        list(ExternalAccountListParams.none())
+
+    /** @see [list] */
     fun list(
         params: ExternalAccountListParams = ExternalAccountListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ExternalAccountListPageAsync>
 
-    /** List External Accounts */
+    /** @see [list] */
+    fun list(
+        params: ExternalAccountListParams = ExternalAccountListParams.none()
+    ): CompletableFuture<ExternalAccountListPageAsync> = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CompletableFuture<ExternalAccountListPageAsync> =
         list(ExternalAccountListParams.none(), requestOptions)
 
@@ -64,7 +79,13 @@ interface ExternalAccountServiceAsync {
          * Returns a raw HTTP response for `post /external_accounts`, but is otherwise the same as
          * [ExternalAccountServiceAsync.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: ExternalAccountCreateParams
+        ): CompletableFuture<HttpResponseFor<ExternalAccount>> =
+            create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: ExternalAccountCreateParams,
@@ -75,7 +96,13 @@ interface ExternalAccountServiceAsync {
          * Returns a raw HTTP response for `get /external_accounts/{external_account_id}`, but is
          * otherwise the same as [ExternalAccountServiceAsync.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: ExternalAccountRetrieveParams
+        ): CompletableFuture<HttpResponseFor<ExternalAccount>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: ExternalAccountRetrieveParams,
@@ -86,7 +113,13 @@ interface ExternalAccountServiceAsync {
          * Returns a raw HTTP response for `patch /external_accounts/{external_account_id}`, but is
          * otherwise the same as [ExternalAccountServiceAsync.update].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun update(
+            params: ExternalAccountUpdateParams
+        ): CompletableFuture<HttpResponseFor<ExternalAccount>> =
+            update(params, RequestOptions.none())
+
+        /** @see [update] */
         @MustBeClosed
         fun update(
             params: ExternalAccountUpdateParams,
@@ -97,17 +130,25 @@ interface ExternalAccountServiceAsync {
          * Returns a raw HTTP response for `get /external_accounts`, but is otherwise the same as
          * [ExternalAccountServiceAsync.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): CompletableFuture<HttpResponseFor<ExternalAccountListPageAsync>> =
+            list(ExternalAccountListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: ExternalAccountListParams = ExternalAccountListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<ExternalAccountListPageAsync>>
 
-        /**
-         * Returns a raw HTTP response for `get /external_accounts`, but is otherwise the same as
-         * [ExternalAccountServiceAsync.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: ExternalAccountListParams = ExternalAccountListParams.none()
+        ): CompletableFuture<HttpResponseFor<ExternalAccountListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions

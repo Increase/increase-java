@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -20,20 +18,30 @@ interface InboundWireTransferService {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve an Inbound Wire Transfer */
-    @JvmOverloads
+    fun retrieve(params: InboundWireTransferRetrieveParams): InboundWireTransfer =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: InboundWireTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundWireTransfer
 
     /** List Inbound Wire Transfers */
-    @JvmOverloads
+    fun list(): InboundWireTransferListPage = list(InboundWireTransferListParams.none())
+
+    /** @see [list] */
     fun list(
         params: InboundWireTransferListParams = InboundWireTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundWireTransferListPage
 
-    /** List Inbound Wire Transfers */
+    /** @see [list] */
+    fun list(
+        params: InboundWireTransferListParams = InboundWireTransferListParams.none()
+    ): InboundWireTransferListPage = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): InboundWireTransferListPage =
         list(InboundWireTransferListParams.none(), requestOptions)
 
@@ -47,7 +55,12 @@ interface InboundWireTransferService {
          * Returns a raw HTTP response for `get /inbound_wire_transfers/{inbound_wire_transfer_id}`,
          * but is otherwise the same as [InboundWireTransferService.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: InboundWireTransferRetrieveParams
+        ): HttpResponseFor<InboundWireTransfer> = retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: InboundWireTransferRetrieveParams,
@@ -58,17 +71,24 @@ interface InboundWireTransferService {
          * Returns a raw HTTP response for `get /inbound_wire_transfers`, but is otherwise the same
          * as [InboundWireTransferService.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): HttpResponseFor<InboundWireTransferListPage> =
+            list(InboundWireTransferListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: InboundWireTransferListParams = InboundWireTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundWireTransferListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /inbound_wire_transfers`, but is otherwise the same
-         * as [InboundWireTransferService.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: InboundWireTransferListParams = InboundWireTransferListParams.none()
+        ): HttpResponseFor<InboundWireTransferListPage> = list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<InboundWireTransferListPage> =
             list(InboundWireTransferListParams.none(), requestOptions)

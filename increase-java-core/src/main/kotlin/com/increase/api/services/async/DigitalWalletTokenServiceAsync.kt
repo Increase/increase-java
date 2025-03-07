@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -21,20 +19,31 @@ interface DigitalWalletTokenServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve a Digital Wallet Token */
-    @JvmOverloads
+    fun retrieve(params: DigitalWalletTokenRetrieveParams): CompletableFuture<DigitalWalletToken> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: DigitalWalletTokenRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<DigitalWalletToken>
 
     /** List Digital Wallet Tokens */
-    @JvmOverloads
+    fun list(): CompletableFuture<DigitalWalletTokenListPageAsync> =
+        list(DigitalWalletTokenListParams.none())
+
+    /** @see [list] */
     fun list(
         params: DigitalWalletTokenListParams = DigitalWalletTokenListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<DigitalWalletTokenListPageAsync>
 
-    /** List Digital Wallet Tokens */
+    /** @see [list] */
+    fun list(
+        params: DigitalWalletTokenListParams = DigitalWalletTokenListParams.none()
+    ): CompletableFuture<DigitalWalletTokenListPageAsync> = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CompletableFuture<DigitalWalletTokenListPageAsync> =
         list(DigitalWalletTokenListParams.none(), requestOptions)
 
@@ -48,7 +57,13 @@ interface DigitalWalletTokenServiceAsync {
          * Returns a raw HTTP response for `get /digital_wallet_tokens/{digital_wallet_token_id}`,
          * but is otherwise the same as [DigitalWalletTokenServiceAsync.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: DigitalWalletTokenRetrieveParams
+        ): CompletableFuture<HttpResponseFor<DigitalWalletToken>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: DigitalWalletTokenRetrieveParams,
@@ -59,17 +74,25 @@ interface DigitalWalletTokenServiceAsync {
          * Returns a raw HTTP response for `get /digital_wallet_tokens`, but is otherwise the same
          * as [DigitalWalletTokenServiceAsync.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): CompletableFuture<HttpResponseFor<DigitalWalletTokenListPageAsync>> =
+            list(DigitalWalletTokenListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: DigitalWalletTokenListParams = DigitalWalletTokenListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<DigitalWalletTokenListPageAsync>>
 
-        /**
-         * Returns a raw HTTP response for `get /digital_wallet_tokens`, but is otherwise the same
-         * as [DigitalWalletTokenServiceAsync.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: DigitalWalletTokenListParams = DigitalWalletTokenListParams.none()
+        ): CompletableFuture<HttpResponseFor<DigitalWalletTokenListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions

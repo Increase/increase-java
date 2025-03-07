@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async.simulations
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -22,7 +20,11 @@ interface InboundRealTimePaymentsTransferServiceAsync {
      * Simulates an [Inbound Real-Time Payments Transfer](#inbound-real-time-payments-transfers) to
      * your account. Real-Time Payments are a beta feature.
      */
-    @JvmOverloads
+    fun create(
+        params: SimulationInboundRealTimePaymentsTransferCreateParams
+    ): CompletableFuture<InboundRealTimePaymentsTransfer> = create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: SimulationInboundRealTimePaymentsTransferCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -38,7 +40,13 @@ interface InboundRealTimePaymentsTransferServiceAsync {
          * Returns a raw HTTP response for `post /simulations/inbound_real_time_payments_transfers`,
          * but is otherwise the same as [InboundRealTimePaymentsTransferServiceAsync.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: SimulationInboundRealTimePaymentsTransferCreateParams
+        ): CompletableFuture<HttpResponseFor<InboundRealTimePaymentsTransfer>> =
+            create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: SimulationInboundRealTimePaymentsTransferCreateParams,

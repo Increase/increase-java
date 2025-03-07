@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -21,27 +19,40 @@ interface WireDrawdownRequestService {
     fun withRawResponse(): WithRawResponse
 
     /** Create a Wire Drawdown Request */
-    @JvmOverloads
+    fun create(params: WireDrawdownRequestCreateParams): WireDrawdownRequest =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: WireDrawdownRequestCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireDrawdownRequest
 
     /** Retrieve a Wire Drawdown Request */
-    @JvmOverloads
+    fun retrieve(params: WireDrawdownRequestRetrieveParams): WireDrawdownRequest =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: WireDrawdownRequestRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireDrawdownRequest
 
     /** List Wire Drawdown Requests */
-    @JvmOverloads
+    fun list(): WireDrawdownRequestListPage = list(WireDrawdownRequestListParams.none())
+
+    /** @see [list] */
     fun list(
         params: WireDrawdownRequestListParams = WireDrawdownRequestListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireDrawdownRequestListPage
 
-    /** List Wire Drawdown Requests */
+    /** @see [list] */
+    fun list(
+        params: WireDrawdownRequestListParams = WireDrawdownRequestListParams.none()
+    ): WireDrawdownRequestListPage = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): WireDrawdownRequestListPage =
         list(WireDrawdownRequestListParams.none(), requestOptions)
 
@@ -55,7 +66,11 @@ interface WireDrawdownRequestService {
          * Returns a raw HTTP response for `post /wire_drawdown_requests`, but is otherwise the same
          * as [WireDrawdownRequestService.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(params: WireDrawdownRequestCreateParams): HttpResponseFor<WireDrawdownRequest> =
+            create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: WireDrawdownRequestCreateParams,
@@ -66,7 +81,12 @@ interface WireDrawdownRequestService {
          * Returns a raw HTTP response for `get /wire_drawdown_requests/{wire_drawdown_request_id}`,
          * but is otherwise the same as [WireDrawdownRequestService.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: WireDrawdownRequestRetrieveParams
+        ): HttpResponseFor<WireDrawdownRequest> = retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: WireDrawdownRequestRetrieveParams,
@@ -77,17 +97,24 @@ interface WireDrawdownRequestService {
          * Returns a raw HTTP response for `get /wire_drawdown_requests`, but is otherwise the same
          * as [WireDrawdownRequestService.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): HttpResponseFor<WireDrawdownRequestListPage> =
+            list(WireDrawdownRequestListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: WireDrawdownRequestListParams = WireDrawdownRequestListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<WireDrawdownRequestListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /wire_drawdown_requests`, but is otherwise the same
-         * as [WireDrawdownRequestService.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: WireDrawdownRequestListParams = WireDrawdownRequestListParams.none()
+        ): HttpResponseFor<WireDrawdownRequestListPage> = list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<WireDrawdownRequestListPage> =
             list(WireDrawdownRequestListParams.none(), requestOptions)

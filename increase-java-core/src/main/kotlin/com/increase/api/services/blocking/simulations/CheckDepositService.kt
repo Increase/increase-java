@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking.simulations
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -23,7 +21,10 @@ interface CheckDepositService {
      * Simulates the rejection of a [Check Deposit](#check-deposits) by Increase due to factors like
      * poor image quality. This Check Deposit must first have a `status` of `pending`.
      */
-    @JvmOverloads
+    fun reject(params: SimulationCheckDepositRejectParams): CheckDeposit =
+        reject(params, RequestOptions.none())
+
+    /** @see [reject] */
     fun reject(
         params: SimulationCheckDepositRejectParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -33,7 +34,10 @@ interface CheckDepositService {
      * Simulates the return of a [Check Deposit](#check-deposits). This Check Deposit must first
      * have a `status` of `submitted`.
      */
-    @JvmOverloads
+    fun return_(params: SimulationCheckDepositReturnParams): CheckDeposit =
+        return_(params, RequestOptions.none())
+
+    /** @see [return_] */
     fun return_(
         params: SimulationCheckDepositReturnParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -43,7 +47,10 @@ interface CheckDepositService {
      * Simulates the submission of a [Check Deposit](#check-deposits) to the Federal Reserve. This
      * Check Deposit must first have a `status` of `pending`.
      */
-    @JvmOverloads
+    fun submit(params: SimulationCheckDepositSubmitParams): CheckDeposit =
+        submit(params, RequestOptions.none())
+
+    /** @see [submit] */
     fun submit(
         params: SimulationCheckDepositSubmitParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -59,7 +66,11 @@ interface CheckDepositService {
          * /simulations/check_deposits/{check_deposit_id}/reject`, but is otherwise the same as
          * [CheckDepositService.reject].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun reject(params: SimulationCheckDepositRejectParams): HttpResponseFor<CheckDeposit> =
+            reject(params, RequestOptions.none())
+
+        /** @see [reject] */
         @MustBeClosed
         fun reject(
             params: SimulationCheckDepositRejectParams,
@@ -71,7 +82,11 @@ interface CheckDepositService {
          * /simulations/check_deposits/{check_deposit_id}/return`, but is otherwise the same as
          * [CheckDepositService.return_].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun return_(params: SimulationCheckDepositReturnParams): HttpResponseFor<CheckDeposit> =
+            return_(params, RequestOptions.none())
+
+        /** @see [return_] */
         @MustBeClosed
         fun return_(
             params: SimulationCheckDepositReturnParams,
@@ -83,7 +98,11 @@ interface CheckDepositService {
          * /simulations/check_deposits/{check_deposit_id}/submit`, but is otherwise the same as
          * [CheckDepositService.submit].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun submit(params: SimulationCheckDepositSubmitParams): HttpResponseFor<CheckDeposit> =
+            submit(params, RequestOptions.none())
+
+        /** @see [submit] */
         @MustBeClosed
         fun submit(
             params: SimulationCheckDepositSubmitParams,

@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -21,20 +19,30 @@ interface ProgramServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve a Program */
-    @JvmOverloads
+    fun retrieve(params: ProgramRetrieveParams): CompletableFuture<Program> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: ProgramRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Program>
 
     /** List Programs */
-    @JvmOverloads
+    fun list(): CompletableFuture<ProgramListPageAsync> = list(ProgramListParams.none())
+
+    /** @see [list] */
     fun list(
         params: ProgramListParams = ProgramListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ProgramListPageAsync>
 
-    /** List Programs */
+    /** @see [list] */
+    fun list(
+        params: ProgramListParams = ProgramListParams.none()
+    ): CompletableFuture<ProgramListPageAsync> = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CompletableFuture<ProgramListPageAsync> =
         list(ProgramListParams.none(), requestOptions)
 
@@ -47,7 +55,11 @@ interface ProgramServiceAsync {
          * Returns a raw HTTP response for `get /programs/{program_id}`, but is otherwise the same
          * as [ProgramServiceAsync.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(params: ProgramRetrieveParams): CompletableFuture<HttpResponseFor<Program>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: ProgramRetrieveParams,
@@ -58,17 +70,25 @@ interface ProgramServiceAsync {
          * Returns a raw HTTP response for `get /programs`, but is otherwise the same as
          * [ProgramServiceAsync.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): CompletableFuture<HttpResponseFor<ProgramListPageAsync>> =
+            list(ProgramListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: ProgramListParams = ProgramListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<ProgramListPageAsync>>
 
-        /**
-         * Returns a raw HTTP response for `get /programs`, but is otherwise the same as
-         * [ProgramServiceAsync.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: ProgramListParams = ProgramListParams.none()
+        ): CompletableFuture<HttpResponseFor<ProgramListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions

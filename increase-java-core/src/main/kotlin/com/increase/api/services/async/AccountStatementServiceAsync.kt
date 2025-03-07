@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -21,20 +19,31 @@ interface AccountStatementServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve an Account Statement */
-    @JvmOverloads
+    fun retrieve(params: AccountStatementRetrieveParams): CompletableFuture<AccountStatement> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: AccountStatementRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AccountStatement>
 
     /** List Account Statements */
-    @JvmOverloads
+    fun list(): CompletableFuture<AccountStatementListPageAsync> =
+        list(AccountStatementListParams.none())
+
+    /** @see [list] */
     fun list(
         params: AccountStatementListParams = AccountStatementListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AccountStatementListPageAsync>
 
-    /** List Account Statements */
+    /** @see [list] */
+    fun list(
+        params: AccountStatementListParams = AccountStatementListParams.none()
+    ): CompletableFuture<AccountStatementListPageAsync> = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CompletableFuture<AccountStatementListPageAsync> =
         list(AccountStatementListParams.none(), requestOptions)
 
@@ -48,7 +57,13 @@ interface AccountStatementServiceAsync {
          * Returns a raw HTTP response for `get /account_statements/{account_statement_id}`, but is
          * otherwise the same as [AccountStatementServiceAsync.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: AccountStatementRetrieveParams
+        ): CompletableFuture<HttpResponseFor<AccountStatement>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: AccountStatementRetrieveParams,
@@ -59,17 +74,25 @@ interface AccountStatementServiceAsync {
          * Returns a raw HTTP response for `get /account_statements`, but is otherwise the same as
          * [AccountStatementServiceAsync.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): CompletableFuture<HttpResponseFor<AccountStatementListPageAsync>> =
+            list(AccountStatementListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: AccountStatementListParams = AccountStatementListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AccountStatementListPageAsync>>
 
-        /**
-         * Returns a raw HTTP response for `get /account_statements`, but is otherwise the same as
-         * [AccountStatementServiceAsync.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: AccountStatementListParams = AccountStatementListParams.none()
+        ): CompletableFuture<HttpResponseFor<AccountStatementListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions

@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -21,20 +19,31 @@ interface OAuthConnectionServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve an OAuth Connection */
-    @JvmOverloads
+    fun retrieve(params: OAuthConnectionRetrieveParams): CompletableFuture<OAuthConnection> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: OAuthConnectionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<OAuthConnection>
 
     /** List OAuth Connections */
-    @JvmOverloads
+    fun list(): CompletableFuture<OAuthConnectionListPageAsync> =
+        list(OAuthConnectionListParams.none())
+
+    /** @see [list] */
     fun list(
         params: OAuthConnectionListParams = OAuthConnectionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<OAuthConnectionListPageAsync>
 
-    /** List OAuth Connections */
+    /** @see [list] */
+    fun list(
+        params: OAuthConnectionListParams = OAuthConnectionListParams.none()
+    ): CompletableFuture<OAuthConnectionListPageAsync> = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CompletableFuture<OAuthConnectionListPageAsync> =
         list(OAuthConnectionListParams.none(), requestOptions)
 
@@ -48,7 +57,13 @@ interface OAuthConnectionServiceAsync {
          * Returns a raw HTTP response for `get /oauth_connections/{oauth_connection_id}`, but is
          * otherwise the same as [OAuthConnectionServiceAsync.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: OAuthConnectionRetrieveParams
+        ): CompletableFuture<HttpResponseFor<OAuthConnection>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: OAuthConnectionRetrieveParams,
@@ -59,17 +74,25 @@ interface OAuthConnectionServiceAsync {
          * Returns a raw HTTP response for `get /oauth_connections`, but is otherwise the same as
          * [OAuthConnectionServiceAsync.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): CompletableFuture<HttpResponseFor<OAuthConnectionListPageAsync>> =
+            list(OAuthConnectionListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: OAuthConnectionListParams = OAuthConnectionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<OAuthConnectionListPageAsync>>
 
-        /**
-         * Returns a raw HTTP response for `get /oauth_connections`, but is otherwise the same as
-         * [OAuthConnectionServiceAsync.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: OAuthConnectionListParams = OAuthConnectionListParams.none()
+        ): CompletableFuture<HttpResponseFor<OAuthConnectionListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions
