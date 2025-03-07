@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking.simulations
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -21,7 +19,10 @@ interface InboundMailItemService {
      * Simulates an inbound mail item to your account, as if someone had mailed a physical check to
      * one of your account's Lockboxes.
      */
-    @JvmOverloads
+    fun create(params: SimulationInboundMailItemCreateParams): InboundMailItem =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: SimulationInboundMailItemCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -37,7 +38,12 @@ interface InboundMailItemService {
          * Returns a raw HTTP response for `post /simulations/inbound_mail_items`, but is otherwise
          * the same as [InboundMailItemService.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: SimulationInboundMailItemCreateParams
+        ): HttpResponseFor<InboundMailItem> = create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: SimulationInboundMailItemCreateParams,

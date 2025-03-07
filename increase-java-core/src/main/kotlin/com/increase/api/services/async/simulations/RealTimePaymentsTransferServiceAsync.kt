@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async.simulations
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -23,7 +21,11 @@ interface RealTimePaymentsTransferServiceAsync {
      * handling the response from the destination financial institution. This transfer must first
      * have a `status` of `pending_submission`.
      */
-    @JvmOverloads
+    fun complete(
+        params: SimulationRealTimePaymentsTransferCompleteParams
+    ): CompletableFuture<RealTimePaymentsTransfer> = complete(params, RequestOptions.none())
+
+    /** @see [complete] */
     fun complete(
         params: SimulationRealTimePaymentsTransferCompleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -40,7 +42,13 @@ interface RealTimePaymentsTransferServiceAsync {
          * /simulations/real_time_payments_transfers/{real_time_payments_transfer_id}/complete`, but
          * is otherwise the same as [RealTimePaymentsTransferServiceAsync.complete].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun complete(
+            params: SimulationRealTimePaymentsTransferCompleteParams
+        ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>> =
+            complete(params, RequestOptions.none())
+
+        /** @see [complete] */
         @MustBeClosed
         fun complete(
             params: SimulationRealTimePaymentsTransferCompleteParams,

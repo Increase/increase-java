@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking.simulations
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -22,7 +20,10 @@ interface CardFuelConfirmationService {
      * asynchronously right after a fuel pump transaction is completed. A fuel confirmation can only
      * happen once per authorization.
      */
-    @JvmOverloads
+    fun create(params: SimulationCardFuelConfirmationCreateParams): CardPayment =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: SimulationCardFuelConfirmationCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -38,7 +39,12 @@ interface CardFuelConfirmationService {
          * Returns a raw HTTP response for `post /simulations/card_fuel_confirmations`, but is
          * otherwise the same as [CardFuelConfirmationService.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: SimulationCardFuelConfirmationCreateParams
+        ): HttpResponseFor<CardPayment> = create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: SimulationCardFuelConfirmationCreateParams,

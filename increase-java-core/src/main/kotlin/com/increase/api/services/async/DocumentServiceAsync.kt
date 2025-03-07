@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -21,20 +19,30 @@ interface DocumentServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve a Document */
-    @JvmOverloads
+    fun retrieve(params: DocumentRetrieveParams): CompletableFuture<Document> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: DocumentRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Document>
 
     /** List Documents */
-    @JvmOverloads
+    fun list(): CompletableFuture<DocumentListPageAsync> = list(DocumentListParams.none())
+
+    /** @see [list] */
     fun list(
         params: DocumentListParams = DocumentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<DocumentListPageAsync>
 
-    /** List Documents */
+    /** @see [list] */
+    fun list(
+        params: DocumentListParams = DocumentListParams.none()
+    ): CompletableFuture<DocumentListPageAsync> = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CompletableFuture<DocumentListPageAsync> =
         list(DocumentListParams.none(), requestOptions)
 
@@ -47,7 +55,11 @@ interface DocumentServiceAsync {
          * Returns a raw HTTP response for `get /documents/{document_id}`, but is otherwise the same
          * as [DocumentServiceAsync.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(params: DocumentRetrieveParams): CompletableFuture<HttpResponseFor<Document>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: DocumentRetrieveParams,
@@ -58,17 +70,25 @@ interface DocumentServiceAsync {
          * Returns a raw HTTP response for `get /documents`, but is otherwise the same as
          * [DocumentServiceAsync.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): CompletableFuture<HttpResponseFor<DocumentListPageAsync>> =
+            list(DocumentListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: DocumentListParams = DocumentListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<DocumentListPageAsync>>
 
-        /**
-         * Returns a raw HTTP response for `get /documents`, but is otherwise the same as
-         * [DocumentServiceAsync.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: DocumentListParams = DocumentListParams.none()
+        ): CompletableFuture<HttpResponseFor<DocumentListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions

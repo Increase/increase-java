@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async.simulations
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -22,7 +20,10 @@ interface InterestPaymentServiceAsync {
      * Simulates an interest payment to your account. In production, this happens automatically on
      * the first of each month.
      */
-    @JvmOverloads
+    fun create(params: SimulationInterestPaymentCreateParams): CompletableFuture<Transaction> =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: SimulationInterestPaymentCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -38,7 +39,12 @@ interface InterestPaymentServiceAsync {
          * Returns a raw HTTP response for `post /simulations/interest_payments`, but is otherwise
          * the same as [InterestPaymentServiceAsync.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: SimulationInterestPaymentCreateParams
+        ): CompletableFuture<HttpResponseFor<Transaction>> = create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: SimulationInterestPaymentCreateParams,

@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -22,27 +20,42 @@ interface BookkeepingEntrySetServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Create a Bookkeeping Entry Set */
-    @JvmOverloads
+    fun create(params: BookkeepingEntrySetCreateParams): CompletableFuture<BookkeepingEntrySet> =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: BookkeepingEntrySetCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BookkeepingEntrySet>
 
     /** Retrieve a Bookkeeping Entry Set */
-    @JvmOverloads
+    fun retrieve(
+        params: BookkeepingEntrySetRetrieveParams
+    ): CompletableFuture<BookkeepingEntrySet> = retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: BookkeepingEntrySetRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BookkeepingEntrySet>
 
     /** List Bookkeeping Entry Sets */
-    @JvmOverloads
+    fun list(): CompletableFuture<BookkeepingEntrySetListPageAsync> =
+        list(BookkeepingEntrySetListParams.none())
+
+    /** @see [list] */
     fun list(
         params: BookkeepingEntrySetListParams = BookkeepingEntrySetListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BookkeepingEntrySetListPageAsync>
 
-    /** List Bookkeeping Entry Sets */
+    /** @see [list] */
+    fun list(
+        params: BookkeepingEntrySetListParams = BookkeepingEntrySetListParams.none()
+    ): CompletableFuture<BookkeepingEntrySetListPageAsync> = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CompletableFuture<BookkeepingEntrySetListPageAsync> =
         list(BookkeepingEntrySetListParams.none(), requestOptions)
 
@@ -56,7 +69,13 @@ interface BookkeepingEntrySetServiceAsync {
          * Returns a raw HTTP response for `post /bookkeeping_entry_sets`, but is otherwise the same
          * as [BookkeepingEntrySetServiceAsync.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: BookkeepingEntrySetCreateParams
+        ): CompletableFuture<HttpResponseFor<BookkeepingEntrySet>> =
+            create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: BookkeepingEntrySetCreateParams,
@@ -67,7 +86,13 @@ interface BookkeepingEntrySetServiceAsync {
          * Returns a raw HTTP response for `get /bookkeeping_entry_sets/{bookkeeping_entry_set_id}`,
          * but is otherwise the same as [BookkeepingEntrySetServiceAsync.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: BookkeepingEntrySetRetrieveParams
+        ): CompletableFuture<HttpResponseFor<BookkeepingEntrySet>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: BookkeepingEntrySetRetrieveParams,
@@ -78,17 +103,25 @@ interface BookkeepingEntrySetServiceAsync {
          * Returns a raw HTTP response for `get /bookkeeping_entry_sets`, but is otherwise the same
          * as [BookkeepingEntrySetServiceAsync.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): CompletableFuture<HttpResponseFor<BookkeepingEntrySetListPageAsync>> =
+            list(BookkeepingEntrySetListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: BookkeepingEntrySetListParams = BookkeepingEntrySetListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<BookkeepingEntrySetListPageAsync>>
 
-        /**
-         * Returns a raw HTTP response for `get /bookkeeping_entry_sets`, but is otherwise the same
-         * as [BookkeepingEntrySetServiceAsync.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: BookkeepingEntrySetListParams = BookkeepingEntrySetListParams.none()
+        ): CompletableFuture<HttpResponseFor<BookkeepingEntrySetListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions

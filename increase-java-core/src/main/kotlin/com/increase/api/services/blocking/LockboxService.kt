@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -22,34 +20,46 @@ interface LockboxService {
     fun withRawResponse(): WithRawResponse
 
     /** Create a Lockbox */
-    @JvmOverloads
+    fun create(params: LockboxCreateParams): Lockbox = create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: LockboxCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Lockbox
 
     /** Retrieve a Lockbox */
-    @JvmOverloads
+    fun retrieve(params: LockboxRetrieveParams): Lockbox = retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: LockboxRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Lockbox
 
     /** Update a Lockbox */
-    @JvmOverloads
+    fun update(params: LockboxUpdateParams): Lockbox = update(params, RequestOptions.none())
+
+    /** @see [update] */
     fun update(
         params: LockboxUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Lockbox
 
     /** List Lockboxes */
-    @JvmOverloads
+    fun list(): LockboxListPage = list(LockboxListParams.none())
+
+    /** @see [list] */
     fun list(
         params: LockboxListParams = LockboxListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LockboxListPage
 
-    /** List Lockboxes */
+    /** @see [list] */
+    fun list(params: LockboxListParams = LockboxListParams.none()): LockboxListPage =
+        list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): LockboxListPage =
         list(LockboxListParams.none(), requestOptions)
 
@@ -60,7 +70,11 @@ interface LockboxService {
          * Returns a raw HTTP response for `post /lockboxes`, but is otherwise the same as
          * [LockboxService.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(params: LockboxCreateParams): HttpResponseFor<Lockbox> =
+            create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: LockboxCreateParams,
@@ -71,7 +85,11 @@ interface LockboxService {
          * Returns a raw HTTP response for `get /lockboxes/{lockbox_id}`, but is otherwise the same
          * as [LockboxService.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(params: LockboxRetrieveParams): HttpResponseFor<Lockbox> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: LockboxRetrieveParams,
@@ -82,7 +100,11 @@ interface LockboxService {
          * Returns a raw HTTP response for `patch /lockboxes/{lockbox_id}`, but is otherwise the
          * same as [LockboxService.update].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun update(params: LockboxUpdateParams): HttpResponseFor<Lockbox> =
+            update(params, RequestOptions.none())
+
+        /** @see [update] */
         @MustBeClosed
         fun update(
             params: LockboxUpdateParams,
@@ -93,17 +115,22 @@ interface LockboxService {
          * Returns a raw HTTP response for `get /lockboxes`, but is otherwise the same as
          * [LockboxService.list].
          */
-        @JvmOverloads
+        @MustBeClosed fun list(): HttpResponseFor<LockboxListPage> = list(LockboxListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: LockboxListParams = LockboxListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LockboxListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /lockboxes`, but is otherwise the same as
-         * [LockboxService.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: LockboxListParams = LockboxListParams.none()
+        ): HttpResponseFor<LockboxListPage> = list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<LockboxListPage> =
             list(LockboxListParams.none(), requestOptions)

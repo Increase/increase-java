@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -22,32 +20,48 @@ interface InboundCheckDepositService {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve an Inbound Check Deposit */
-    @JvmOverloads
+    fun retrieve(params: InboundCheckDepositRetrieveParams): InboundCheckDeposit =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: InboundCheckDepositRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundCheckDeposit
 
     /** List Inbound Check Deposits */
-    @JvmOverloads
+    fun list(): InboundCheckDepositListPage = list(InboundCheckDepositListParams.none())
+
+    /** @see [list] */
     fun list(
         params: InboundCheckDepositListParams = InboundCheckDepositListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundCheckDepositListPage
 
-    /** List Inbound Check Deposits */
+    /** @see [list] */
+    fun list(
+        params: InboundCheckDepositListParams = InboundCheckDepositListParams.none()
+    ): InboundCheckDepositListPage = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): InboundCheckDepositListPage =
         list(InboundCheckDepositListParams.none(), requestOptions)
 
     /** Decline an Inbound Check Deposit */
-    @JvmOverloads
+    fun decline(params: InboundCheckDepositDeclineParams): InboundCheckDeposit =
+        decline(params, RequestOptions.none())
+
+    /** @see [decline] */
     fun decline(
         params: InboundCheckDepositDeclineParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundCheckDeposit
 
     /** Return an Inbound Check Deposit */
-    @JvmOverloads
+    fun return_(params: InboundCheckDepositReturnParams): InboundCheckDeposit =
+        return_(params, RequestOptions.none())
+
+    /** @see [return_] */
     fun return_(
         params: InboundCheckDepositReturnParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -63,7 +77,12 @@ interface InboundCheckDepositService {
          * Returns a raw HTTP response for `get /inbound_check_deposits/{inbound_check_deposit_id}`,
          * but is otherwise the same as [InboundCheckDepositService.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: InboundCheckDepositRetrieveParams
+        ): HttpResponseFor<InboundCheckDeposit> = retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: InboundCheckDepositRetrieveParams,
@@ -74,17 +93,24 @@ interface InboundCheckDepositService {
          * Returns a raw HTTP response for `get /inbound_check_deposits`, but is otherwise the same
          * as [InboundCheckDepositService.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): HttpResponseFor<InboundCheckDepositListPage> =
+            list(InboundCheckDepositListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: InboundCheckDepositListParams = InboundCheckDepositListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundCheckDepositListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /inbound_check_deposits`, but is otherwise the same
-         * as [InboundCheckDepositService.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: InboundCheckDepositListParams = InboundCheckDepositListParams.none()
+        ): HttpResponseFor<InboundCheckDepositListPage> = list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<InboundCheckDepositListPage> =
             list(InboundCheckDepositListParams.none(), requestOptions)
@@ -94,7 +120,12 @@ interface InboundCheckDepositService {
          * /inbound_check_deposits/{inbound_check_deposit_id}/decline`, but is otherwise the same as
          * [InboundCheckDepositService.decline].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun decline(
+            params: InboundCheckDepositDeclineParams
+        ): HttpResponseFor<InboundCheckDeposit> = decline(params, RequestOptions.none())
+
+        /** @see [decline] */
         @MustBeClosed
         fun decline(
             params: InboundCheckDepositDeclineParams,
@@ -106,7 +137,11 @@ interface InboundCheckDepositService {
          * /inbound_check_deposits/{inbound_check_deposit_id}/return`, but is otherwise the same as
          * [InboundCheckDepositService.return_].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun return_(params: InboundCheckDepositReturnParams): HttpResponseFor<InboundCheckDeposit> =
+            return_(params, RequestOptions.none())
+
+        /** @see [return_] */
         @MustBeClosed
         fun return_(
             params: InboundCheckDepositReturnParams,

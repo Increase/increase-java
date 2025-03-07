@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -20,20 +18,30 @@ interface DigitalWalletTokenService {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve a Digital Wallet Token */
-    @JvmOverloads
+    fun retrieve(params: DigitalWalletTokenRetrieveParams): DigitalWalletToken =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: DigitalWalletTokenRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalWalletToken
 
     /** List Digital Wallet Tokens */
-    @JvmOverloads
+    fun list(): DigitalWalletTokenListPage = list(DigitalWalletTokenListParams.none())
+
+    /** @see [list] */
     fun list(
         params: DigitalWalletTokenListParams = DigitalWalletTokenListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalWalletTokenListPage
 
-    /** List Digital Wallet Tokens */
+    /** @see [list] */
+    fun list(
+        params: DigitalWalletTokenListParams = DigitalWalletTokenListParams.none()
+    ): DigitalWalletTokenListPage = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): DigitalWalletTokenListPage =
         list(DigitalWalletTokenListParams.none(), requestOptions)
 
@@ -47,7 +55,12 @@ interface DigitalWalletTokenService {
          * Returns a raw HTTP response for `get /digital_wallet_tokens/{digital_wallet_token_id}`,
          * but is otherwise the same as [DigitalWalletTokenService.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: DigitalWalletTokenRetrieveParams
+        ): HttpResponseFor<DigitalWalletToken> = retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: DigitalWalletTokenRetrieveParams,
@@ -58,17 +71,24 @@ interface DigitalWalletTokenService {
          * Returns a raw HTTP response for `get /digital_wallet_tokens`, but is otherwise the same
          * as [DigitalWalletTokenService.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): HttpResponseFor<DigitalWalletTokenListPage> =
+            list(DigitalWalletTokenListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: DigitalWalletTokenListParams = DigitalWalletTokenListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DigitalWalletTokenListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /digital_wallet_tokens`, but is otherwise the same
-         * as [DigitalWalletTokenService.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: DigitalWalletTokenListParams = DigitalWalletTokenListParams.none()
+        ): HttpResponseFor<DigitalWalletTokenListPage> = list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<DigitalWalletTokenListPage> =
             list(DigitalWalletTokenListParams.none(), requestOptions)

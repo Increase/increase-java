@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -24,39 +22,59 @@ interface AccountTransferServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Create an Account Transfer */
-    @JvmOverloads
+    fun create(params: AccountTransferCreateParams): CompletableFuture<AccountTransfer> =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: AccountTransferCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AccountTransfer>
 
     /** Retrieve an Account Transfer */
-    @JvmOverloads
+    fun retrieve(params: AccountTransferRetrieveParams): CompletableFuture<AccountTransfer> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: AccountTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AccountTransfer>
 
     /** List Account Transfers */
-    @JvmOverloads
+    fun list(): CompletableFuture<AccountTransferListPageAsync> =
+        list(AccountTransferListParams.none())
+
+    /** @see [list] */
     fun list(
         params: AccountTransferListParams = AccountTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AccountTransferListPageAsync>
 
-    /** List Account Transfers */
+    /** @see [list] */
+    fun list(
+        params: AccountTransferListParams = AccountTransferListParams.none()
+    ): CompletableFuture<AccountTransferListPageAsync> = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CompletableFuture<AccountTransferListPageAsync> =
         list(AccountTransferListParams.none(), requestOptions)
 
     /** Approve an Account Transfer */
-    @JvmOverloads
+    fun approve(params: AccountTransferApproveParams): CompletableFuture<AccountTransfer> =
+        approve(params, RequestOptions.none())
+
+    /** @see [approve] */
     fun approve(
         params: AccountTransferApproveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AccountTransfer>
 
     /** Cancel an Account Transfer */
-    @JvmOverloads
+    fun cancel(params: AccountTransferCancelParams): CompletableFuture<AccountTransfer> =
+        cancel(params, RequestOptions.none())
+
+    /** @see [cancel] */
     fun cancel(
         params: AccountTransferCancelParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -72,7 +90,13 @@ interface AccountTransferServiceAsync {
          * Returns a raw HTTP response for `post /account_transfers`, but is otherwise the same as
          * [AccountTransferServiceAsync.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: AccountTransferCreateParams
+        ): CompletableFuture<HttpResponseFor<AccountTransfer>> =
+            create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: AccountTransferCreateParams,
@@ -83,7 +107,13 @@ interface AccountTransferServiceAsync {
          * Returns a raw HTTP response for `get /account_transfers/{account_transfer_id}`, but is
          * otherwise the same as [AccountTransferServiceAsync.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: AccountTransferRetrieveParams
+        ): CompletableFuture<HttpResponseFor<AccountTransfer>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: AccountTransferRetrieveParams,
@@ -94,17 +124,25 @@ interface AccountTransferServiceAsync {
          * Returns a raw HTTP response for `get /account_transfers`, but is otherwise the same as
          * [AccountTransferServiceAsync.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): CompletableFuture<HttpResponseFor<AccountTransferListPageAsync>> =
+            list(AccountTransferListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: AccountTransferListParams = AccountTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AccountTransferListPageAsync>>
 
-        /**
-         * Returns a raw HTTP response for `get /account_transfers`, but is otherwise the same as
-         * [AccountTransferServiceAsync.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: AccountTransferListParams = AccountTransferListParams.none()
+        ): CompletableFuture<HttpResponseFor<AccountTransferListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions
@@ -115,7 +153,13 @@ interface AccountTransferServiceAsync {
          * Returns a raw HTTP response for `post /account_transfers/{account_transfer_id}/approve`,
          * but is otherwise the same as [AccountTransferServiceAsync.approve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun approve(
+            params: AccountTransferApproveParams
+        ): CompletableFuture<HttpResponseFor<AccountTransfer>> =
+            approve(params, RequestOptions.none())
+
+        /** @see [approve] */
         @MustBeClosed
         fun approve(
             params: AccountTransferApproveParams,
@@ -126,7 +170,13 @@ interface AccountTransferServiceAsync {
          * Returns a raw HTTP response for `post /account_transfers/{account_transfer_id}/cancel`,
          * but is otherwise the same as [AccountTransferServiceAsync.cancel].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun cancel(
+            params: AccountTransferCancelParams
+        ): CompletableFuture<HttpResponseFor<AccountTransfer>> =
+            cancel(params, RequestOptions.none())
+
+        /** @see [cancel] */
         @MustBeClosed
         fun cancel(
             params: AccountTransferCancelParams,

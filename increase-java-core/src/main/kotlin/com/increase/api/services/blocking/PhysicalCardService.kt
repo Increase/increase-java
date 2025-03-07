@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -22,34 +20,49 @@ interface PhysicalCardService {
     fun withRawResponse(): WithRawResponse
 
     /** Create a Physical Card */
-    @JvmOverloads
+    fun create(params: PhysicalCardCreateParams): PhysicalCard =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: PhysicalCardCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PhysicalCard
 
     /** Retrieve a Physical Card */
-    @JvmOverloads
+    fun retrieve(params: PhysicalCardRetrieveParams): PhysicalCard =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: PhysicalCardRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PhysicalCard
 
     /** Update a Physical Card */
-    @JvmOverloads
+    fun update(params: PhysicalCardUpdateParams): PhysicalCard =
+        update(params, RequestOptions.none())
+
+    /** @see [update] */
     fun update(
         params: PhysicalCardUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PhysicalCard
 
     /** List Physical Cards */
-    @JvmOverloads
+    fun list(): PhysicalCardListPage = list(PhysicalCardListParams.none())
+
+    /** @see [list] */
     fun list(
         params: PhysicalCardListParams = PhysicalCardListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PhysicalCardListPage
 
-    /** List Physical Cards */
+    /** @see [list] */
+    fun list(params: PhysicalCardListParams = PhysicalCardListParams.none()): PhysicalCardListPage =
+        list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): PhysicalCardListPage =
         list(PhysicalCardListParams.none(), requestOptions)
 
@@ -62,7 +75,11 @@ interface PhysicalCardService {
          * Returns a raw HTTP response for `post /physical_cards`, but is otherwise the same as
          * [PhysicalCardService.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(params: PhysicalCardCreateParams): HttpResponseFor<PhysicalCard> =
+            create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: PhysicalCardCreateParams,
@@ -73,7 +90,11 @@ interface PhysicalCardService {
          * Returns a raw HTTP response for `get /physical_cards/{physical_card_id}`, but is
          * otherwise the same as [PhysicalCardService.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(params: PhysicalCardRetrieveParams): HttpResponseFor<PhysicalCard> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: PhysicalCardRetrieveParams,
@@ -84,7 +105,11 @@ interface PhysicalCardService {
          * Returns a raw HTTP response for `patch /physical_cards/{physical_card_id}`, but is
          * otherwise the same as [PhysicalCardService.update].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun update(params: PhysicalCardUpdateParams): HttpResponseFor<PhysicalCard> =
+            update(params, RequestOptions.none())
+
+        /** @see [update] */
         @MustBeClosed
         fun update(
             params: PhysicalCardUpdateParams,
@@ -95,17 +120,23 @@ interface PhysicalCardService {
          * Returns a raw HTTP response for `get /physical_cards`, but is otherwise the same as
          * [PhysicalCardService.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): HttpResponseFor<PhysicalCardListPage> = list(PhysicalCardListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: PhysicalCardListParams = PhysicalCardListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PhysicalCardListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /physical_cards`, but is otherwise the same as
-         * [PhysicalCardService.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: PhysicalCardListParams = PhysicalCardListParams.none()
+        ): HttpResponseFor<PhysicalCardListPage> = list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<PhysicalCardListPage> =
             list(PhysicalCardListParams.none(), requestOptions)

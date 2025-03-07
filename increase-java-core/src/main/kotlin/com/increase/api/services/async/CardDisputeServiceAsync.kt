@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -22,27 +20,40 @@ interface CardDisputeServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Create a Card Dispute */
-    @JvmOverloads
+    fun create(params: CardDisputeCreateParams): CompletableFuture<CardDispute> =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: CardDisputeCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CardDispute>
 
     /** Retrieve a Card Dispute */
-    @JvmOverloads
+    fun retrieve(params: CardDisputeRetrieveParams): CompletableFuture<CardDispute> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: CardDisputeRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CardDispute>
 
     /** List Card Disputes */
-    @JvmOverloads
+    fun list(): CompletableFuture<CardDisputeListPageAsync> = list(CardDisputeListParams.none())
+
+    /** @see [list] */
     fun list(
         params: CardDisputeListParams = CardDisputeListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CardDisputeListPageAsync>
 
-    /** List Card Disputes */
+    /** @see [list] */
+    fun list(
+        params: CardDisputeListParams = CardDisputeListParams.none()
+    ): CompletableFuture<CardDisputeListPageAsync> = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CompletableFuture<CardDisputeListPageAsync> =
         list(CardDisputeListParams.none(), requestOptions)
 
@@ -56,7 +67,12 @@ interface CardDisputeServiceAsync {
          * Returns a raw HTTP response for `post /card_disputes`, but is otherwise the same as
          * [CardDisputeServiceAsync.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: CardDisputeCreateParams
+        ): CompletableFuture<HttpResponseFor<CardDispute>> = create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: CardDisputeCreateParams,
@@ -67,7 +83,12 @@ interface CardDisputeServiceAsync {
          * Returns a raw HTTP response for `get /card_disputes/{card_dispute_id}`, but is otherwise
          * the same as [CardDisputeServiceAsync.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: CardDisputeRetrieveParams
+        ): CompletableFuture<HttpResponseFor<CardDispute>> = retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: CardDisputeRetrieveParams,
@@ -78,17 +99,25 @@ interface CardDisputeServiceAsync {
          * Returns a raw HTTP response for `get /card_disputes`, but is otherwise the same as
          * [CardDisputeServiceAsync.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): CompletableFuture<HttpResponseFor<CardDisputeListPageAsync>> =
+            list(CardDisputeListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: CardDisputeListParams = CardDisputeListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CardDisputeListPageAsync>>
 
-        /**
-         * Returns a raw HTTP response for `get /card_disputes`, but is otherwise the same as
-         * [CardDisputeServiceAsync.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: CardDisputeListParams = CardDisputeListParams.none()
+        ): CompletableFuture<HttpResponseFor<CardDisputeListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions

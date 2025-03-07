@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -22,28 +20,48 @@ interface ProofOfAuthorizationRequestSubmissionServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Submit Proof of Authorization */
-    @JvmOverloads
+    fun create(
+        params: ProofOfAuthorizationRequestSubmissionCreateParams
+    ): CompletableFuture<ProofOfAuthorizationRequestSubmission> =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: ProofOfAuthorizationRequestSubmissionCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ProofOfAuthorizationRequestSubmission>
 
     /** Retrieve a Proof of Authorization Request Submission */
-    @JvmOverloads
+    fun retrieve(
+        params: ProofOfAuthorizationRequestSubmissionRetrieveParams
+    ): CompletableFuture<ProofOfAuthorizationRequestSubmission> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: ProofOfAuthorizationRequestSubmissionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ProofOfAuthorizationRequestSubmission>
 
     /** List Proof of Authorization Request Submissions */
-    @JvmOverloads
+    fun list(): CompletableFuture<ProofOfAuthorizationRequestSubmissionListPageAsync> =
+        list(ProofOfAuthorizationRequestSubmissionListParams.none())
+
+    /** @see [list] */
     fun list(
         params: ProofOfAuthorizationRequestSubmissionListParams =
             ProofOfAuthorizationRequestSubmissionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ProofOfAuthorizationRequestSubmissionListPageAsync>
 
-    /** List Proof of Authorization Request Submissions */
+    /** @see [list] */
+    fun list(
+        params: ProofOfAuthorizationRequestSubmissionListParams =
+            ProofOfAuthorizationRequestSubmissionListParams.none()
+    ): CompletableFuture<ProofOfAuthorizationRequestSubmissionListPageAsync> =
+        list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(
         requestOptions: RequestOptions
     ): CompletableFuture<ProofOfAuthorizationRequestSubmissionListPageAsync> =
@@ -59,7 +77,13 @@ interface ProofOfAuthorizationRequestSubmissionServiceAsync {
          * Returns a raw HTTP response for `post /proof_of_authorization_request_submissions`, but
          * is otherwise the same as [ProofOfAuthorizationRequestSubmissionServiceAsync.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: ProofOfAuthorizationRequestSubmissionCreateParams
+        ): CompletableFuture<HttpResponseFor<ProofOfAuthorizationRequestSubmission>> =
+            create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: ProofOfAuthorizationRequestSubmissionCreateParams,
@@ -72,7 +96,13 @@ interface ProofOfAuthorizationRequestSubmissionServiceAsync {
          * but is otherwise the same as
          * [ProofOfAuthorizationRequestSubmissionServiceAsync.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: ProofOfAuthorizationRequestSubmissionRetrieveParams
+        ): CompletableFuture<HttpResponseFor<ProofOfAuthorizationRequestSubmission>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: ProofOfAuthorizationRequestSubmissionRetrieveParams,
@@ -83,7 +113,12 @@ interface ProofOfAuthorizationRequestSubmissionServiceAsync {
          * Returns a raw HTTP response for `get /proof_of_authorization_request_submissions`, but is
          * otherwise the same as [ProofOfAuthorizationRequestSubmissionServiceAsync.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list():
+            CompletableFuture<HttpResponseFor<ProofOfAuthorizationRequestSubmissionListPageAsync>> =
+            list(ProofOfAuthorizationRequestSubmissionListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: ProofOfAuthorizationRequestSubmissionListParams =
@@ -91,10 +126,15 @@ interface ProofOfAuthorizationRequestSubmissionServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<ProofOfAuthorizationRequestSubmissionListPageAsync>>
 
-        /**
-         * Returns a raw HTTP response for `get /proof_of_authorization_request_submissions`, but is
-         * otherwise the same as [ProofOfAuthorizationRequestSubmissionServiceAsync.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: ProofOfAuthorizationRequestSubmissionListParams =
+                ProofOfAuthorizationRequestSubmissionListParams.none()
+        ): CompletableFuture<HttpResponseFor<ProofOfAuthorizationRequestSubmissionListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions

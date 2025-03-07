@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -20,20 +18,28 @@ interface ProgramService {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve a Program */
-    @JvmOverloads
+    fun retrieve(params: ProgramRetrieveParams): Program = retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: ProgramRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Program
 
     /** List Programs */
-    @JvmOverloads
+    fun list(): ProgramListPage = list(ProgramListParams.none())
+
+    /** @see [list] */
     fun list(
         params: ProgramListParams = ProgramListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ProgramListPage
 
-    /** List Programs */
+    /** @see [list] */
+    fun list(params: ProgramListParams = ProgramListParams.none()): ProgramListPage =
+        list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): ProgramListPage =
         list(ProgramListParams.none(), requestOptions)
 
@@ -44,7 +50,11 @@ interface ProgramService {
          * Returns a raw HTTP response for `get /programs/{program_id}`, but is otherwise the same
          * as [ProgramService.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(params: ProgramRetrieveParams): HttpResponseFor<Program> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: ProgramRetrieveParams,
@@ -55,17 +65,22 @@ interface ProgramService {
          * Returns a raw HTTP response for `get /programs`, but is otherwise the same as
          * [ProgramService.list].
          */
-        @JvmOverloads
+        @MustBeClosed fun list(): HttpResponseFor<ProgramListPage> = list(ProgramListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: ProgramListParams = ProgramListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ProgramListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /programs`, but is otherwise the same as
-         * [ProgramService.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: ProgramListParams = ProgramListParams.none()
+        ): HttpResponseFor<ProgramListPage> = list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<ProgramListPage> =
             list(ProgramListParams.none(), requestOptions)

@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -23,39 +21,58 @@ interface PhysicalCardProfileService {
     fun withRawResponse(): WithRawResponse
 
     /** Create a Physical Card Profile */
-    @JvmOverloads
+    fun create(params: PhysicalCardProfileCreateParams): PhysicalCardProfile =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: PhysicalCardProfileCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PhysicalCardProfile
 
     /** Retrieve a Card Profile */
-    @JvmOverloads
+    fun retrieve(params: PhysicalCardProfileRetrieveParams): PhysicalCardProfile =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: PhysicalCardProfileRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PhysicalCardProfile
 
     /** List Physical Card Profiles */
-    @JvmOverloads
+    fun list(): PhysicalCardProfileListPage = list(PhysicalCardProfileListParams.none())
+
+    /** @see [list] */
     fun list(
         params: PhysicalCardProfileListParams = PhysicalCardProfileListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PhysicalCardProfileListPage
 
-    /** List Physical Card Profiles */
+    /** @see [list] */
+    fun list(
+        params: PhysicalCardProfileListParams = PhysicalCardProfileListParams.none()
+    ): PhysicalCardProfileListPage = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): PhysicalCardProfileListPage =
         list(PhysicalCardProfileListParams.none(), requestOptions)
 
     /** Archive a Physical Card Profile */
-    @JvmOverloads
+    fun archive(params: PhysicalCardProfileArchiveParams): PhysicalCardProfile =
+        archive(params, RequestOptions.none())
+
+    /** @see [archive] */
     fun archive(
         params: PhysicalCardProfileArchiveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PhysicalCardProfile
 
     /** Clone a Physical Card Profile */
-    @JvmOverloads
+    fun clone(params: PhysicalCardProfileCloneParams): PhysicalCardProfile =
+        clone(params, RequestOptions.none())
+
+    /** @see [clone] */
     fun clone(
         params: PhysicalCardProfileCloneParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -71,7 +88,11 @@ interface PhysicalCardProfileService {
          * Returns a raw HTTP response for `post /physical_card_profiles`, but is otherwise the same
          * as [PhysicalCardProfileService.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(params: PhysicalCardProfileCreateParams): HttpResponseFor<PhysicalCardProfile> =
+            create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: PhysicalCardProfileCreateParams,
@@ -82,7 +103,12 @@ interface PhysicalCardProfileService {
          * Returns a raw HTTP response for `get /physical_card_profiles/{physical_card_profile_id}`,
          * but is otherwise the same as [PhysicalCardProfileService.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: PhysicalCardProfileRetrieveParams
+        ): HttpResponseFor<PhysicalCardProfile> = retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: PhysicalCardProfileRetrieveParams,
@@ -93,17 +119,24 @@ interface PhysicalCardProfileService {
          * Returns a raw HTTP response for `get /physical_card_profiles`, but is otherwise the same
          * as [PhysicalCardProfileService.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): HttpResponseFor<PhysicalCardProfileListPage> =
+            list(PhysicalCardProfileListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: PhysicalCardProfileListParams = PhysicalCardProfileListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PhysicalCardProfileListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /physical_card_profiles`, but is otherwise the same
-         * as [PhysicalCardProfileService.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: PhysicalCardProfileListParams = PhysicalCardProfileListParams.none()
+        ): HttpResponseFor<PhysicalCardProfileListPage> = list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<PhysicalCardProfileListPage> =
             list(PhysicalCardProfileListParams.none(), requestOptions)
@@ -113,7 +146,12 @@ interface PhysicalCardProfileService {
          * /physical_card_profiles/{physical_card_profile_id}/archive`, but is otherwise the same as
          * [PhysicalCardProfileService.archive].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun archive(
+            params: PhysicalCardProfileArchiveParams
+        ): HttpResponseFor<PhysicalCardProfile> = archive(params, RequestOptions.none())
+
+        /** @see [archive] */
         @MustBeClosed
         fun archive(
             params: PhysicalCardProfileArchiveParams,
@@ -125,7 +163,11 @@ interface PhysicalCardProfileService {
          * /physical_card_profiles/{physical_card_profile_id}/clone`, but is otherwise the same as
          * [PhysicalCardProfileService.clone].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun clone(params: PhysicalCardProfileCloneParams): HttpResponseFor<PhysicalCardProfile> =
+            clone(params, RequestOptions.none())
+
+        /** @see [clone] */
         @MustBeClosed
         fun clone(
             params: PhysicalCardProfileCloneParams,

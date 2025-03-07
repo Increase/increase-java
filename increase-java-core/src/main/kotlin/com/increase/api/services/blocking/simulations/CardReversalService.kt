@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking.simulations
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -22,7 +20,10 @@ interface CardReversalService {
      * partially reversed multiple times, up until the total authorized amount. Marks the pending
      * transaction as complete if the authorization is fully reversed.
      */
-    @JvmOverloads
+    fun create(params: SimulationCardReversalCreateParams): CardPayment =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: SimulationCardReversalCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -37,7 +38,11 @@ interface CardReversalService {
          * Returns a raw HTTP response for `post /simulations/card_reversals`, but is otherwise the
          * same as [CardReversalService.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(params: SimulationCardReversalCreateParams): HttpResponseFor<CardPayment> =
+            create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: SimulationCardReversalCreateParams,

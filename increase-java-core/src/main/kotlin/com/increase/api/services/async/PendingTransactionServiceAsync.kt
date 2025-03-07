@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -21,20 +19,31 @@ interface PendingTransactionServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve a Pending Transaction */
-    @JvmOverloads
+    fun retrieve(params: PendingTransactionRetrieveParams): CompletableFuture<PendingTransaction> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: PendingTransactionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PendingTransaction>
 
     /** List Pending Transactions */
-    @JvmOverloads
+    fun list(): CompletableFuture<PendingTransactionListPageAsync> =
+        list(PendingTransactionListParams.none())
+
+    /** @see [list] */
     fun list(
         params: PendingTransactionListParams = PendingTransactionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PendingTransactionListPageAsync>
 
-    /** List Pending Transactions */
+    /** @see [list] */
+    fun list(
+        params: PendingTransactionListParams = PendingTransactionListParams.none()
+    ): CompletableFuture<PendingTransactionListPageAsync> = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CompletableFuture<PendingTransactionListPageAsync> =
         list(PendingTransactionListParams.none(), requestOptions)
 
@@ -48,7 +57,13 @@ interface PendingTransactionServiceAsync {
          * Returns a raw HTTP response for `get /pending_transactions/{pending_transaction_id}`, but
          * is otherwise the same as [PendingTransactionServiceAsync.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: PendingTransactionRetrieveParams
+        ): CompletableFuture<HttpResponseFor<PendingTransaction>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: PendingTransactionRetrieveParams,
@@ -59,17 +74,25 @@ interface PendingTransactionServiceAsync {
          * Returns a raw HTTP response for `get /pending_transactions`, but is otherwise the same as
          * [PendingTransactionServiceAsync.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): CompletableFuture<HttpResponseFor<PendingTransactionListPageAsync>> =
+            list(PendingTransactionListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: PendingTransactionListParams = PendingTransactionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<PendingTransactionListPageAsync>>
 
-        /**
-         * Returns a raw HTTP response for `get /pending_transactions`, but is otherwise the same as
-         * [PendingTransactionServiceAsync.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: PendingTransactionListParams = PendingTransactionListParams.none()
+        ): CompletableFuture<HttpResponseFor<PendingTransactionListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions

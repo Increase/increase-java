@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -23,34 +21,50 @@ interface AccountNumberServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Create an Account Number */
-    @JvmOverloads
+    fun create(params: AccountNumberCreateParams): CompletableFuture<AccountNumber> =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: AccountNumberCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AccountNumber>
 
     /** Retrieve an Account Number */
-    @JvmOverloads
+    fun retrieve(params: AccountNumberRetrieveParams): CompletableFuture<AccountNumber> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: AccountNumberRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AccountNumber>
 
     /** Update an Account Number */
-    @JvmOverloads
+    fun update(params: AccountNumberUpdateParams): CompletableFuture<AccountNumber> =
+        update(params, RequestOptions.none())
+
+    /** @see [update] */
     fun update(
         params: AccountNumberUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AccountNumber>
 
     /** List Account Numbers */
-    @JvmOverloads
+    fun list(): CompletableFuture<AccountNumberListPageAsync> = list(AccountNumberListParams.none())
+
+    /** @see [list] */
     fun list(
         params: AccountNumberListParams = AccountNumberListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AccountNumberListPageAsync>
 
-    /** List Account Numbers */
+    /** @see [list] */
+    fun list(
+        params: AccountNumberListParams = AccountNumberListParams.none()
+    ): CompletableFuture<AccountNumberListPageAsync> = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CompletableFuture<AccountNumberListPageAsync> =
         list(AccountNumberListParams.none(), requestOptions)
 
@@ -64,7 +78,12 @@ interface AccountNumberServiceAsync {
          * Returns a raw HTTP response for `post /account_numbers`, but is otherwise the same as
          * [AccountNumberServiceAsync.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: AccountNumberCreateParams
+        ): CompletableFuture<HttpResponseFor<AccountNumber>> = create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: AccountNumberCreateParams,
@@ -75,7 +94,13 @@ interface AccountNumberServiceAsync {
          * Returns a raw HTTP response for `get /account_numbers/{account_number_id}`, but is
          * otherwise the same as [AccountNumberServiceAsync.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: AccountNumberRetrieveParams
+        ): CompletableFuture<HttpResponseFor<AccountNumber>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: AccountNumberRetrieveParams,
@@ -86,7 +111,12 @@ interface AccountNumberServiceAsync {
          * Returns a raw HTTP response for `patch /account_numbers/{account_number_id}`, but is
          * otherwise the same as [AccountNumberServiceAsync.update].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun update(
+            params: AccountNumberUpdateParams
+        ): CompletableFuture<HttpResponseFor<AccountNumber>> = update(params, RequestOptions.none())
+
+        /** @see [update] */
         @MustBeClosed
         fun update(
             params: AccountNumberUpdateParams,
@@ -97,17 +127,25 @@ interface AccountNumberServiceAsync {
          * Returns a raw HTTP response for `get /account_numbers`, but is otherwise the same as
          * [AccountNumberServiceAsync.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): CompletableFuture<HttpResponseFor<AccountNumberListPageAsync>> =
+            list(AccountNumberListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: AccountNumberListParams = AccountNumberListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AccountNumberListPageAsync>>
 
-        /**
-         * Returns a raw HTTP response for `get /account_numbers`, but is otherwise the same as
-         * [AccountNumberServiceAsync.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: AccountNumberListParams = AccountNumberListParams.none()
+        ): CompletableFuture<HttpResponseFor<AccountNumberListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions

@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking.simulations
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -18,7 +16,11 @@ interface InboundWireDrawdownRequestService {
     fun withRawResponse(): WithRawResponse
 
     /** Simulates receiving an [Inbound Wire Drawdown Request](#inbound-wire-drawdown-requests). */
-    @JvmOverloads
+    fun create(
+        params: SimulationInboundWireDrawdownRequestCreateParams
+    ): InboundWireDrawdownRequest = create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: SimulationInboundWireDrawdownRequestCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -34,7 +36,12 @@ interface InboundWireDrawdownRequestService {
          * Returns a raw HTTP response for `post /simulations/inbound_wire_drawdown_requests`, but
          * is otherwise the same as [InboundWireDrawdownRequestService.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: SimulationInboundWireDrawdownRequestCreateParams
+        ): HttpResponseFor<InboundWireDrawdownRequest> = create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: SimulationInboundWireDrawdownRequestCreateParams,

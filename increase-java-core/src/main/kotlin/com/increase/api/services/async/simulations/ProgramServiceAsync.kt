@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async.simulations
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -23,7 +21,10 @@ interface ProgramServiceAsync {
      * program called Commercial Banking. Note that when your group operates more than one program,
      * `program_id` is a required field when creating accounts.
      */
-    @JvmOverloads
+    fun create(params: SimulationProgramCreateParams): CompletableFuture<Program> =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: SimulationProgramCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -38,7 +39,12 @@ interface ProgramServiceAsync {
          * Returns a raw HTTP response for `post /simulations/programs`, but is otherwise the same
          * as [ProgramServiceAsync.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: SimulationProgramCreateParams
+        ): CompletableFuture<HttpResponseFor<Program>> = create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: SimulationProgramCreateParams,

@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -19,7 +17,10 @@ interface OAuthTokenServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Create an OAuth Token */
-    @JvmOverloads
+    fun create(params: OAuthTokenCreateParams): CompletableFuture<OAuthToken> =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: OAuthTokenCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -35,7 +36,11 @@ interface OAuthTokenServiceAsync {
          * Returns a raw HTTP response for `post /oauth/tokens`, but is otherwise the same as
          * [OAuthTokenServiceAsync.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(params: OAuthTokenCreateParams): CompletableFuture<HttpResponseFor<OAuthToken>> =
+            create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: OAuthTokenCreateParams,

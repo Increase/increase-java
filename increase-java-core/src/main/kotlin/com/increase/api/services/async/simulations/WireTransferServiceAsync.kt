@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async.simulations
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -24,7 +22,10 @@ interface WireTransferServiceAsync {
      * error conditions. This will also create a [Transaction](#transaction) to account for the
      * returned funds. This Wire Transfer must first have a `status` of `complete`.
      */
-    @JvmOverloads
+    fun reverse(params: SimulationWireTransferReverseParams): CompletableFuture<WireTransfer> =
+        reverse(params, RequestOptions.none())
+
+    /** @see [reverse] */
     fun reverse(
         params: SimulationWireTransferReverseParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -34,7 +35,10 @@ interface WireTransferServiceAsync {
      * Simulates the submission of a [Wire Transfer](#wire-transfers) to the Federal Reserve. This
      * transfer must first have a `status` of `pending_approval` or `pending_creating`.
      */
-    @JvmOverloads
+    fun submit(params: SimulationWireTransferSubmitParams): CompletableFuture<WireTransfer> =
+        submit(params, RequestOptions.none())
+
+    /** @see [submit] */
     fun submit(
         params: SimulationWireTransferSubmitParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -51,7 +55,12 @@ interface WireTransferServiceAsync {
          * /simulations/wire_transfers/{wire_transfer_id}/reverse`, but is otherwise the same as
          * [WireTransferServiceAsync.reverse].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun reverse(
+            params: SimulationWireTransferReverseParams
+        ): CompletableFuture<HttpResponseFor<WireTransfer>> = reverse(params, RequestOptions.none())
+
+        /** @see [reverse] */
         @MustBeClosed
         fun reverse(
             params: SimulationWireTransferReverseParams,
@@ -63,7 +72,12 @@ interface WireTransferServiceAsync {
          * /simulations/wire_transfers/{wire_transfer_id}/submit`, but is otherwise the same as
          * [WireTransferServiceAsync.submit].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun submit(
+            params: SimulationWireTransferSubmitParams
+        ): CompletableFuture<HttpResponseFor<WireTransfer>> = submit(params, RequestOptions.none())
+
+        /** @see [submit] */
         @MustBeClosed
         fun submit(
             params: SimulationWireTransferSubmitParams,

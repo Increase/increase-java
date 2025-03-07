@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -22,34 +20,50 @@ interface AccountNumberService {
     fun withRawResponse(): WithRawResponse
 
     /** Create an Account Number */
-    @JvmOverloads
+    fun create(params: AccountNumberCreateParams): AccountNumber =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: AccountNumberCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountNumber
 
     /** Retrieve an Account Number */
-    @JvmOverloads
+    fun retrieve(params: AccountNumberRetrieveParams): AccountNumber =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: AccountNumberRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountNumber
 
     /** Update an Account Number */
-    @JvmOverloads
+    fun update(params: AccountNumberUpdateParams): AccountNumber =
+        update(params, RequestOptions.none())
+
+    /** @see [update] */
     fun update(
         params: AccountNumberUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountNumber
 
     /** List Account Numbers */
-    @JvmOverloads
+    fun list(): AccountNumberListPage = list(AccountNumberListParams.none())
+
+    /** @see [list] */
     fun list(
         params: AccountNumberListParams = AccountNumberListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountNumberListPage
 
-    /** List Account Numbers */
+    /** @see [list] */
+    fun list(
+        params: AccountNumberListParams = AccountNumberListParams.none()
+    ): AccountNumberListPage = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): AccountNumberListPage =
         list(AccountNumberListParams.none(), requestOptions)
 
@@ -62,7 +76,11 @@ interface AccountNumberService {
          * Returns a raw HTTP response for `post /account_numbers`, but is otherwise the same as
          * [AccountNumberService.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(params: AccountNumberCreateParams): HttpResponseFor<AccountNumber> =
+            create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: AccountNumberCreateParams,
@@ -73,7 +91,11 @@ interface AccountNumberService {
          * Returns a raw HTTP response for `get /account_numbers/{account_number_id}`, but is
          * otherwise the same as [AccountNumberService.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(params: AccountNumberRetrieveParams): HttpResponseFor<AccountNumber> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: AccountNumberRetrieveParams,
@@ -84,7 +106,11 @@ interface AccountNumberService {
          * Returns a raw HTTP response for `patch /account_numbers/{account_number_id}`, but is
          * otherwise the same as [AccountNumberService.update].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun update(params: AccountNumberUpdateParams): HttpResponseFor<AccountNumber> =
+            update(params, RequestOptions.none())
+
+        /** @see [update] */
         @MustBeClosed
         fun update(
             params: AccountNumberUpdateParams,
@@ -95,17 +121,23 @@ interface AccountNumberService {
          * Returns a raw HTTP response for `get /account_numbers`, but is otherwise the same as
          * [AccountNumberService.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): HttpResponseFor<AccountNumberListPage> = list(AccountNumberListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: AccountNumberListParams = AccountNumberListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AccountNumberListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /account_numbers`, but is otherwise the same as
-         * [AccountNumberService.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: AccountNumberListParams = AccountNumberListParams.none()
+        ): HttpResponseFor<AccountNumberListPage> = list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<AccountNumberListPage> =
             list(AccountNumberListParams.none(), requestOptions)

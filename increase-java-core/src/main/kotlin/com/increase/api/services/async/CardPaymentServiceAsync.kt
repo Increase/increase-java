@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -21,20 +19,30 @@ interface CardPaymentServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve a Card Payment */
-    @JvmOverloads
+    fun retrieve(params: CardPaymentRetrieveParams): CompletableFuture<CardPayment> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: CardPaymentRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CardPayment>
 
     /** List Card Payments */
-    @JvmOverloads
+    fun list(): CompletableFuture<CardPaymentListPageAsync> = list(CardPaymentListParams.none())
+
+    /** @see [list] */
     fun list(
         params: CardPaymentListParams = CardPaymentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CardPaymentListPageAsync>
 
-    /** List Card Payments */
+    /** @see [list] */
+    fun list(
+        params: CardPaymentListParams = CardPaymentListParams.none()
+    ): CompletableFuture<CardPaymentListPageAsync> = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CompletableFuture<CardPaymentListPageAsync> =
         list(CardPaymentListParams.none(), requestOptions)
 
@@ -48,7 +56,12 @@ interface CardPaymentServiceAsync {
          * Returns a raw HTTP response for `get /card_payments/{card_payment_id}`, but is otherwise
          * the same as [CardPaymentServiceAsync.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: CardPaymentRetrieveParams
+        ): CompletableFuture<HttpResponseFor<CardPayment>> = retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: CardPaymentRetrieveParams,
@@ -59,17 +72,25 @@ interface CardPaymentServiceAsync {
          * Returns a raw HTTP response for `get /card_payments`, but is otherwise the same as
          * [CardPaymentServiceAsync.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): CompletableFuture<HttpResponseFor<CardPaymentListPageAsync>> =
+            list(CardPaymentListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: CardPaymentListParams = CardPaymentListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CardPaymentListPageAsync>>
 
-        /**
-         * Returns a raw HTTP response for `get /card_payments`, but is otherwise the same as
-         * [CardPaymentServiceAsync.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: CardPaymentListParams = CardPaymentListParams.none()
+        ): CompletableFuture<HttpResponseFor<CardPaymentListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions

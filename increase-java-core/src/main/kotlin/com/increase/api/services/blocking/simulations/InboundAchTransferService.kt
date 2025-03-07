@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking.simulations
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -28,7 +26,10 @@ interface InboundAchTransferService {
      * [Transaction](#transactions) or a [Declined Transaction](#declined-transactions) depending on
      * whether or not the transfer is allowed.
      */
-    @JvmOverloads
+    fun create(params: SimulationInboundAchTransferCreateParams): InboundAchTransfer =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: SimulationInboundAchTransferCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -44,7 +45,12 @@ interface InboundAchTransferService {
          * Returns a raw HTTP response for `post /simulations/inbound_ach_transfers`, but is
          * otherwise the same as [InboundAchTransferService.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: SimulationInboundAchTransferCreateParams
+        ): HttpResponseFor<InboundAchTransfer> = create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: SimulationInboundAchTransferCreateParams,

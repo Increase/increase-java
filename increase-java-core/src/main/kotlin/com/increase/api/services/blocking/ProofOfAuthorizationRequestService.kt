@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -20,21 +18,32 @@ interface ProofOfAuthorizationRequestService {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve a Proof of Authorization Request */
-    @JvmOverloads
+    fun retrieve(params: ProofOfAuthorizationRequestRetrieveParams): ProofOfAuthorizationRequest =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: ProofOfAuthorizationRequestRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ProofOfAuthorizationRequest
 
     /** List Proof of Authorization Requests */
-    @JvmOverloads
+    fun list(): ProofOfAuthorizationRequestListPage =
+        list(ProofOfAuthorizationRequestListParams.none())
+
+    /** @see [list] */
     fun list(
         params: ProofOfAuthorizationRequestListParams =
             ProofOfAuthorizationRequestListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ProofOfAuthorizationRequestListPage
 
-    /** List Proof of Authorization Requests */
+    /** @see [list] */
+    fun list(
+        params: ProofOfAuthorizationRequestListParams = ProofOfAuthorizationRequestListParams.none()
+    ): ProofOfAuthorizationRequestListPage = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): ProofOfAuthorizationRequestListPage =
         list(ProofOfAuthorizationRequestListParams.none(), requestOptions)
 
@@ -49,7 +58,12 @@ interface ProofOfAuthorizationRequestService {
          * /proof_of_authorization_requests/{proof_of_authorization_request_id}`, but is otherwise
          * the same as [ProofOfAuthorizationRequestService.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: ProofOfAuthorizationRequestRetrieveParams
+        ): HttpResponseFor<ProofOfAuthorizationRequest> = retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: ProofOfAuthorizationRequestRetrieveParams,
@@ -60,7 +74,11 @@ interface ProofOfAuthorizationRequestService {
          * Returns a raw HTTP response for `get /proof_of_authorization_requests`, but is otherwise
          * the same as [ProofOfAuthorizationRequestService.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): HttpResponseFor<ProofOfAuthorizationRequestListPage> =
+            list(ProofOfAuthorizationRequestListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: ProofOfAuthorizationRequestListParams =
@@ -68,10 +86,15 @@ interface ProofOfAuthorizationRequestService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ProofOfAuthorizationRequestListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /proof_of_authorization_requests`, but is otherwise
-         * the same as [ProofOfAuthorizationRequestService.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: ProofOfAuthorizationRequestListParams =
+                ProofOfAuthorizationRequestListParams.none()
+        ): HttpResponseFor<ProofOfAuthorizationRequestListPage> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions

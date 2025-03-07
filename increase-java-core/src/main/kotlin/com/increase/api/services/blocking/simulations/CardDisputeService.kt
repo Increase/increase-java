@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking.simulations
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -23,7 +21,10 @@ interface CardDisputeService {
      * into a rejected or accepted state. A Card Dispute can only be actioned one time and must have
      * a status of `pending_reviewing`.
      */
-    @JvmOverloads
+    fun action(params: SimulationCardDisputeActionParams): CardDispute =
+        action(params, RequestOptions.none())
+
+    /** @see [action] */
     fun action(
         params: SimulationCardDisputeActionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -39,7 +40,11 @@ interface CardDisputeService {
          * /simulations/card_disputes/{card_dispute_id}/action`, but is otherwise the same as
          * [CardDisputeService.action].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun action(params: SimulationCardDisputeActionParams): HttpResponseFor<CardDispute> =
+            action(params, RequestOptions.none())
+
+        /** @see [action] */
         @MustBeClosed
         fun action(
             params: SimulationCardDisputeActionParams,

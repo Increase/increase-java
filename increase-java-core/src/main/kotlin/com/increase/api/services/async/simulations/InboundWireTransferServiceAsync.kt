@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async.simulations
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -19,7 +17,11 @@ interface InboundWireTransferServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Simulates an [Inbound Wire Transfer](#inbound-wire-transfers) to your account. */
-    @JvmOverloads
+    fun create(
+        params: SimulationInboundWireTransferCreateParams
+    ): CompletableFuture<InboundWireTransfer> = create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: SimulationInboundWireTransferCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -35,7 +37,13 @@ interface InboundWireTransferServiceAsync {
          * Returns a raw HTTP response for `post /simulations/inbound_wire_transfers`, but is
          * otherwise the same as [InboundWireTransferServiceAsync.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: SimulationInboundWireTransferCreateParams
+        ): CompletableFuture<HttpResponseFor<InboundWireTransfer>> =
+            create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: SimulationInboundWireTransferCreateParams,

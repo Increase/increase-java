@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -22,32 +20,48 @@ interface IntrafiExclusionService {
     fun withRawResponse(): WithRawResponse
 
     /** Create an IntraFi Exclusion */
-    @JvmOverloads
+    fun create(params: IntrafiExclusionCreateParams): IntrafiExclusion =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: IntrafiExclusionCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiExclusion
 
     /** Get an IntraFi Exclusion */
-    @JvmOverloads
+    fun retrieve(params: IntrafiExclusionRetrieveParams): IntrafiExclusion =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: IntrafiExclusionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiExclusion
 
     /** List IntraFi Exclusions */
-    @JvmOverloads
+    fun list(): IntrafiExclusionListPage = list(IntrafiExclusionListParams.none())
+
+    /** @see [list] */
     fun list(
         params: IntrafiExclusionListParams = IntrafiExclusionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiExclusionListPage
 
-    /** List IntraFi Exclusions */
+    /** @see [list] */
+    fun list(
+        params: IntrafiExclusionListParams = IntrafiExclusionListParams.none()
+    ): IntrafiExclusionListPage = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): IntrafiExclusionListPage =
         list(IntrafiExclusionListParams.none(), requestOptions)
 
     /** Archive an IntraFi Exclusion */
-    @JvmOverloads
+    fun archive(params: IntrafiExclusionArchiveParams): IntrafiExclusion =
+        archive(params, RequestOptions.none())
+
+    /** @see [archive] */
     fun archive(
         params: IntrafiExclusionArchiveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -63,7 +77,11 @@ interface IntrafiExclusionService {
          * Returns a raw HTTP response for `post /intrafi_exclusions`, but is otherwise the same as
          * [IntrafiExclusionService.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(params: IntrafiExclusionCreateParams): HttpResponseFor<IntrafiExclusion> =
+            create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: IntrafiExclusionCreateParams,
@@ -74,7 +92,11 @@ interface IntrafiExclusionService {
          * Returns a raw HTTP response for `get /intrafi_exclusions/{intrafi_exclusion_id}`, but is
          * otherwise the same as [IntrafiExclusionService.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(params: IntrafiExclusionRetrieveParams): HttpResponseFor<IntrafiExclusion> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: IntrafiExclusionRetrieveParams,
@@ -85,17 +107,24 @@ interface IntrafiExclusionService {
          * Returns a raw HTTP response for `get /intrafi_exclusions`, but is otherwise the same as
          * [IntrafiExclusionService.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): HttpResponseFor<IntrafiExclusionListPage> =
+            list(IntrafiExclusionListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: IntrafiExclusionListParams = IntrafiExclusionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<IntrafiExclusionListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /intrafi_exclusions`, but is otherwise the same as
-         * [IntrafiExclusionService.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: IntrafiExclusionListParams = IntrafiExclusionListParams.none()
+        ): HttpResponseFor<IntrafiExclusionListPage> = list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<IntrafiExclusionListPage> =
             list(IntrafiExclusionListParams.none(), requestOptions)
@@ -105,7 +134,11 @@ interface IntrafiExclusionService {
          * /intrafi_exclusions/{intrafi_exclusion_id}/archive`, but is otherwise the same as
          * [IntrafiExclusionService.archive].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun archive(params: IntrafiExclusionArchiveParams): HttpResponseFor<IntrafiExclusion> =
+            archive(params, RequestOptions.none())
+
+        /** @see [archive] */
         @MustBeClosed
         fun archive(
             params: IntrafiExclusionArchiveParams,

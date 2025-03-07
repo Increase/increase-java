@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -21,21 +19,35 @@ interface InboundRealTimePaymentsTransferServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve an Inbound Real-Time Payments Transfer */
-    @JvmOverloads
+    fun retrieve(
+        params: InboundRealTimePaymentsTransferRetrieveParams
+    ): CompletableFuture<InboundRealTimePaymentsTransfer> = retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: InboundRealTimePaymentsTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundRealTimePaymentsTransfer>
 
     /** List Inbound Real-Time Payments Transfers */
-    @JvmOverloads
+    fun list(): CompletableFuture<InboundRealTimePaymentsTransferListPageAsync> =
+        list(InboundRealTimePaymentsTransferListParams.none())
+
+    /** @see [list] */
     fun list(
         params: InboundRealTimePaymentsTransferListParams =
             InboundRealTimePaymentsTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundRealTimePaymentsTransferListPageAsync>
 
-    /** List Inbound Real-Time Payments Transfers */
+    /** @see [list] */
+    fun list(
+        params: InboundRealTimePaymentsTransferListParams =
+            InboundRealTimePaymentsTransferListParams.none()
+    ): CompletableFuture<InboundRealTimePaymentsTransferListPageAsync> =
+        list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(
         requestOptions: RequestOptions
     ): CompletableFuture<InboundRealTimePaymentsTransferListPageAsync> =
@@ -52,7 +64,13 @@ interface InboundRealTimePaymentsTransferServiceAsync {
          * /inbound_real_time_payments_transfers/{inbound_real_time_payments_transfer_id}`, but is
          * otherwise the same as [InboundRealTimePaymentsTransferServiceAsync.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: InboundRealTimePaymentsTransferRetrieveParams
+        ): CompletableFuture<HttpResponseFor<InboundRealTimePaymentsTransfer>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: InboundRealTimePaymentsTransferRetrieveParams,
@@ -63,7 +81,12 @@ interface InboundRealTimePaymentsTransferServiceAsync {
          * Returns a raw HTTP response for `get /inbound_real_time_payments_transfers`, but is
          * otherwise the same as [InboundRealTimePaymentsTransferServiceAsync.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list():
+            CompletableFuture<HttpResponseFor<InboundRealTimePaymentsTransferListPageAsync>> =
+            list(InboundRealTimePaymentsTransferListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: InboundRealTimePaymentsTransferListParams =
@@ -71,10 +94,15 @@ interface InboundRealTimePaymentsTransferServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<InboundRealTimePaymentsTransferListPageAsync>>
 
-        /**
-         * Returns a raw HTTP response for `get /inbound_real_time_payments_transfers`, but is
-         * otherwise the same as [InboundRealTimePaymentsTransferServiceAsync.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: InboundRealTimePaymentsTransferListParams =
+                InboundRealTimePaymentsTransferListParams.none()
+        ): CompletableFuture<HttpResponseFor<InboundRealTimePaymentsTransferListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions

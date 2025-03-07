@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -22,27 +20,42 @@ interface WireDrawdownRequestServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Create a Wire Drawdown Request */
-    @JvmOverloads
+    fun create(params: WireDrawdownRequestCreateParams): CompletableFuture<WireDrawdownRequest> =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: WireDrawdownRequestCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<WireDrawdownRequest>
 
     /** Retrieve a Wire Drawdown Request */
-    @JvmOverloads
+    fun retrieve(
+        params: WireDrawdownRequestRetrieveParams
+    ): CompletableFuture<WireDrawdownRequest> = retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: WireDrawdownRequestRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<WireDrawdownRequest>
 
     /** List Wire Drawdown Requests */
-    @JvmOverloads
+    fun list(): CompletableFuture<WireDrawdownRequestListPageAsync> =
+        list(WireDrawdownRequestListParams.none())
+
+    /** @see [list] */
     fun list(
         params: WireDrawdownRequestListParams = WireDrawdownRequestListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<WireDrawdownRequestListPageAsync>
 
-    /** List Wire Drawdown Requests */
+    /** @see [list] */
+    fun list(
+        params: WireDrawdownRequestListParams = WireDrawdownRequestListParams.none()
+    ): CompletableFuture<WireDrawdownRequestListPageAsync> = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CompletableFuture<WireDrawdownRequestListPageAsync> =
         list(WireDrawdownRequestListParams.none(), requestOptions)
 
@@ -56,7 +69,13 @@ interface WireDrawdownRequestServiceAsync {
          * Returns a raw HTTP response for `post /wire_drawdown_requests`, but is otherwise the same
          * as [WireDrawdownRequestServiceAsync.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: WireDrawdownRequestCreateParams
+        ): CompletableFuture<HttpResponseFor<WireDrawdownRequest>> =
+            create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: WireDrawdownRequestCreateParams,
@@ -67,7 +86,13 @@ interface WireDrawdownRequestServiceAsync {
          * Returns a raw HTTP response for `get /wire_drawdown_requests/{wire_drawdown_request_id}`,
          * but is otherwise the same as [WireDrawdownRequestServiceAsync.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: WireDrawdownRequestRetrieveParams
+        ): CompletableFuture<HttpResponseFor<WireDrawdownRequest>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: WireDrawdownRequestRetrieveParams,
@@ -78,17 +103,25 @@ interface WireDrawdownRequestServiceAsync {
          * Returns a raw HTTP response for `get /wire_drawdown_requests`, but is otherwise the same
          * as [WireDrawdownRequestServiceAsync.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): CompletableFuture<HttpResponseFor<WireDrawdownRequestListPageAsync>> =
+            list(WireDrawdownRequestListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: WireDrawdownRequestListParams = WireDrawdownRequestListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<WireDrawdownRequestListPageAsync>>
 
-        /**
-         * Returns a raw HTTP response for `get /wire_drawdown_requests`, but is otherwise the same
-         * as [WireDrawdownRequestServiceAsync.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: WireDrawdownRequestListParams = WireDrawdownRequestListParams.none()
+        ): CompletableFuture<HttpResponseFor<WireDrawdownRequestListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions

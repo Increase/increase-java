@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -20,20 +18,30 @@ interface CardPurchaseSupplementService {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve a Card Purchase Supplement */
-    @JvmOverloads
+    fun retrieve(params: CardPurchaseSupplementRetrieveParams): CardPurchaseSupplement =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: CardPurchaseSupplementRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPurchaseSupplement
 
     /** List Card Purchase Supplements */
-    @JvmOverloads
+    fun list(): CardPurchaseSupplementListPage = list(CardPurchaseSupplementListParams.none())
+
+    /** @see [list] */
     fun list(
         params: CardPurchaseSupplementListParams = CardPurchaseSupplementListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPurchaseSupplementListPage
 
-    /** List Card Purchase Supplements */
+    /** @see [list] */
+    fun list(
+        params: CardPurchaseSupplementListParams = CardPurchaseSupplementListParams.none()
+    ): CardPurchaseSupplementListPage = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CardPurchaseSupplementListPage =
         list(CardPurchaseSupplementListParams.none(), requestOptions)
 
@@ -48,7 +56,12 @@ interface CardPurchaseSupplementService {
          * /card_purchase_supplements/{card_purchase_supplement_id}`, but is otherwise the same as
          * [CardPurchaseSupplementService.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: CardPurchaseSupplementRetrieveParams
+        ): HttpResponseFor<CardPurchaseSupplement> = retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: CardPurchaseSupplementRetrieveParams,
@@ -59,17 +72,24 @@ interface CardPurchaseSupplementService {
          * Returns a raw HTTP response for `get /card_purchase_supplements`, but is otherwise the
          * same as [CardPurchaseSupplementService.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): HttpResponseFor<CardPurchaseSupplementListPage> =
+            list(CardPurchaseSupplementListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: CardPurchaseSupplementListParams = CardPurchaseSupplementListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardPurchaseSupplementListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /card_purchase_supplements`, but is otherwise the
-         * same as [CardPurchaseSupplementService.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: CardPurchaseSupplementListParams = CardPurchaseSupplementListParams.none()
+        ): HttpResponseFor<CardPurchaseSupplementListPage> = list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<CardPurchaseSupplementListPage> =
             list(CardPurchaseSupplementListParams.none(), requestOptions)

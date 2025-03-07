@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -21,20 +19,33 @@ interface InboundWireDrawdownRequestServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve an Inbound Wire Drawdown Request */
-    @JvmOverloads
+    fun retrieve(
+        params: InboundWireDrawdownRequestRetrieveParams
+    ): CompletableFuture<InboundWireDrawdownRequest> = retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: InboundWireDrawdownRequestRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundWireDrawdownRequest>
 
     /** List Inbound Wire Drawdown Requests */
-    @JvmOverloads
+    fun list(): CompletableFuture<InboundWireDrawdownRequestListPageAsync> =
+        list(InboundWireDrawdownRequestListParams.none())
+
+    /** @see [list] */
     fun list(
         params: InboundWireDrawdownRequestListParams = InboundWireDrawdownRequestListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundWireDrawdownRequestListPageAsync>
 
-    /** List Inbound Wire Drawdown Requests */
+    /** @see [list] */
+    fun list(
+        params: InboundWireDrawdownRequestListParams = InboundWireDrawdownRequestListParams.none()
+    ): CompletableFuture<InboundWireDrawdownRequestListPageAsync> =
+        list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(
         requestOptions: RequestOptions
     ): CompletableFuture<InboundWireDrawdownRequestListPageAsync> =
@@ -51,7 +62,13 @@ interface InboundWireDrawdownRequestServiceAsync {
          * /inbound_wire_drawdown_requests/{inbound_wire_drawdown_request_id}`, but is otherwise the
          * same as [InboundWireDrawdownRequestServiceAsync.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: InboundWireDrawdownRequestRetrieveParams
+        ): CompletableFuture<HttpResponseFor<InboundWireDrawdownRequest>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: InboundWireDrawdownRequestRetrieveParams,
@@ -62,7 +79,11 @@ interface InboundWireDrawdownRequestServiceAsync {
          * Returns a raw HTTP response for `get /inbound_wire_drawdown_requests`, but is otherwise
          * the same as [InboundWireDrawdownRequestServiceAsync.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): CompletableFuture<HttpResponseFor<InboundWireDrawdownRequestListPageAsync>> =
+            list(InboundWireDrawdownRequestListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: InboundWireDrawdownRequestListParams =
@@ -70,10 +91,15 @@ interface InboundWireDrawdownRequestServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<InboundWireDrawdownRequestListPageAsync>>
 
-        /**
-         * Returns a raw HTTP response for `get /inbound_wire_drawdown_requests`, but is otherwise
-         * the same as [InboundWireDrawdownRequestServiceAsync.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: InboundWireDrawdownRequestListParams =
+                InboundWireDrawdownRequestListParams.none()
+        ): CompletableFuture<HttpResponseFor<InboundWireDrawdownRequestListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions

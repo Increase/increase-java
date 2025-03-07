@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -18,7 +16,10 @@ interface IntrafiBalanceService {
     fun withRawResponse(): WithRawResponse
 
     /** Get IntraFi balances by bank */
-    @JvmOverloads
+    fun intrafiBalance(params: IntrafiBalanceIntrafiBalanceParams): IntrafiBalance =
+        intrafiBalance(params, RequestOptions.none())
+
+    /** @see [intrafiBalance] */
     fun intrafiBalance(
         params: IntrafiBalanceIntrafiBalanceParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -33,7 +34,12 @@ interface IntrafiBalanceService {
          * Returns a raw HTTP response for `get /accounts/{account_id}/intrafi_balance`, but is
          * otherwise the same as [IntrafiBalanceService.intrafiBalance].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun intrafiBalance(
+            params: IntrafiBalanceIntrafiBalanceParams
+        ): HttpResponseFor<IntrafiBalance> = intrafiBalance(params, RequestOptions.none())
+
+        /** @see [intrafiBalance] */
         @MustBeClosed
         fun intrafiBalance(
             params: IntrafiBalanceIntrafiBalanceParams,
