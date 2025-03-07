@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -21,20 +19,31 @@ interface OAuthApplicationServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve an OAuth Application */
-    @JvmOverloads
+    fun retrieve(params: OAuthApplicationRetrieveParams): CompletableFuture<OAuthApplication> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: OAuthApplicationRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<OAuthApplication>
 
     /** List OAuth Applications */
-    @JvmOverloads
+    fun list(): CompletableFuture<OAuthApplicationListPageAsync> =
+        list(OAuthApplicationListParams.none())
+
+    /** @see [list] */
     fun list(
         params: OAuthApplicationListParams = OAuthApplicationListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<OAuthApplicationListPageAsync>
 
-    /** List OAuth Applications */
+    /** @see [list] */
+    fun list(
+        params: OAuthApplicationListParams = OAuthApplicationListParams.none()
+    ): CompletableFuture<OAuthApplicationListPageAsync> = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CompletableFuture<OAuthApplicationListPageAsync> =
         list(OAuthApplicationListParams.none(), requestOptions)
 
@@ -48,7 +57,13 @@ interface OAuthApplicationServiceAsync {
          * Returns a raw HTTP response for `get /oauth_applications/{oauth_application_id}`, but is
          * otherwise the same as [OAuthApplicationServiceAsync.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: OAuthApplicationRetrieveParams
+        ): CompletableFuture<HttpResponseFor<OAuthApplication>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: OAuthApplicationRetrieveParams,
@@ -59,17 +74,25 @@ interface OAuthApplicationServiceAsync {
          * Returns a raw HTTP response for `get /oauth_applications`, but is otherwise the same as
          * [OAuthApplicationServiceAsync.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): CompletableFuture<HttpResponseFor<OAuthApplicationListPageAsync>> =
+            list(OAuthApplicationListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: OAuthApplicationListParams = OAuthApplicationListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<OAuthApplicationListPageAsync>>
 
-        /**
-         * Returns a raw HTTP response for `get /oauth_applications`, but is otherwise the same as
-         * [OAuthApplicationServiceAsync.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: OAuthApplicationListParams = OAuthApplicationListParams.none()
+        ): CompletableFuture<HttpResponseFor<OAuthApplicationListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions

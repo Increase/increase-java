@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -19,14 +17,20 @@ interface RealTimeDecisionService {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve a Real-Time Decision */
-    @JvmOverloads
+    fun retrieve(params: RealTimeDecisionRetrieveParams): RealTimeDecision =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: RealTimeDecisionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RealTimeDecision
 
     /** Action a Real-Time Decision */
-    @JvmOverloads
+    fun action(params: RealTimeDecisionActionParams): RealTimeDecision =
+        action(params, RequestOptions.none())
+
+    /** @see [action] */
     fun action(
         params: RealTimeDecisionActionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -42,7 +46,11 @@ interface RealTimeDecisionService {
          * Returns a raw HTTP response for `get /real_time_decisions/{real_time_decision_id}`, but
          * is otherwise the same as [RealTimeDecisionService.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(params: RealTimeDecisionRetrieveParams): HttpResponseFor<RealTimeDecision> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: RealTimeDecisionRetrieveParams,
@@ -54,7 +62,11 @@ interface RealTimeDecisionService {
          * /real_time_decisions/{real_time_decision_id}/action`, but is otherwise the same as
          * [RealTimeDecisionService.action].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun action(params: RealTimeDecisionActionParams): HttpResponseFor<RealTimeDecision> =
+            action(params, RequestOptions.none())
+
+        /** @see [action] */
         @MustBeClosed
         fun action(
             params: RealTimeDecisionActionParams,

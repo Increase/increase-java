@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -22,27 +20,40 @@ interface CheckDepositServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Create a Check Deposit */
-    @JvmOverloads
+    fun create(params: CheckDepositCreateParams): CompletableFuture<CheckDeposit> =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: CheckDepositCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CheckDeposit>
 
     /** Retrieve a Check Deposit */
-    @JvmOverloads
+    fun retrieve(params: CheckDepositRetrieveParams): CompletableFuture<CheckDeposit> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: CheckDepositRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CheckDeposit>
 
     /** List Check Deposits */
-    @JvmOverloads
+    fun list(): CompletableFuture<CheckDepositListPageAsync> = list(CheckDepositListParams.none())
+
+    /** @see [list] */
     fun list(
         params: CheckDepositListParams = CheckDepositListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CheckDepositListPageAsync>
 
-    /** List Check Deposits */
+    /** @see [list] */
+    fun list(
+        params: CheckDepositListParams = CheckDepositListParams.none()
+    ): CompletableFuture<CheckDepositListPageAsync> = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CompletableFuture<CheckDepositListPageAsync> =
         list(CheckDepositListParams.none(), requestOptions)
 
@@ -56,7 +67,12 @@ interface CheckDepositServiceAsync {
          * Returns a raw HTTP response for `post /check_deposits`, but is otherwise the same as
          * [CheckDepositServiceAsync.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: CheckDepositCreateParams
+        ): CompletableFuture<HttpResponseFor<CheckDeposit>> = create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: CheckDepositCreateParams,
@@ -67,7 +83,13 @@ interface CheckDepositServiceAsync {
          * Returns a raw HTTP response for `get /check_deposits/{check_deposit_id}`, but is
          * otherwise the same as [CheckDepositServiceAsync.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: CheckDepositRetrieveParams
+        ): CompletableFuture<HttpResponseFor<CheckDeposit>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: CheckDepositRetrieveParams,
@@ -78,17 +100,25 @@ interface CheckDepositServiceAsync {
          * Returns a raw HTTP response for `get /check_deposits`, but is otherwise the same as
          * [CheckDepositServiceAsync.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): CompletableFuture<HttpResponseFor<CheckDepositListPageAsync>> =
+            list(CheckDepositListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: CheckDepositListParams = CheckDepositListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CheckDepositListPageAsync>>
 
-        /**
-         * Returns a raw HTTP response for `get /check_deposits`, but is otherwise the same as
-         * [CheckDepositServiceAsync.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: CheckDepositListParams = CheckDepositListParams.none()
+        ): CompletableFuture<HttpResponseFor<CheckDepositListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions

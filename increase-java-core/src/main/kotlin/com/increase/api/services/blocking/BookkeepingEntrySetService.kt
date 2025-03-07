@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -21,27 +19,40 @@ interface BookkeepingEntrySetService {
     fun withRawResponse(): WithRawResponse
 
     /** Create a Bookkeeping Entry Set */
-    @JvmOverloads
+    fun create(params: BookkeepingEntrySetCreateParams): BookkeepingEntrySet =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: BookkeepingEntrySetCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingEntrySet
 
     /** Retrieve a Bookkeeping Entry Set */
-    @JvmOverloads
+    fun retrieve(params: BookkeepingEntrySetRetrieveParams): BookkeepingEntrySet =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: BookkeepingEntrySetRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingEntrySet
 
     /** List Bookkeeping Entry Sets */
-    @JvmOverloads
+    fun list(): BookkeepingEntrySetListPage = list(BookkeepingEntrySetListParams.none())
+
+    /** @see [list] */
     fun list(
         params: BookkeepingEntrySetListParams = BookkeepingEntrySetListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingEntrySetListPage
 
-    /** List Bookkeeping Entry Sets */
+    /** @see [list] */
+    fun list(
+        params: BookkeepingEntrySetListParams = BookkeepingEntrySetListParams.none()
+    ): BookkeepingEntrySetListPage = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): BookkeepingEntrySetListPage =
         list(BookkeepingEntrySetListParams.none(), requestOptions)
 
@@ -55,7 +66,11 @@ interface BookkeepingEntrySetService {
          * Returns a raw HTTP response for `post /bookkeeping_entry_sets`, but is otherwise the same
          * as [BookkeepingEntrySetService.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(params: BookkeepingEntrySetCreateParams): HttpResponseFor<BookkeepingEntrySet> =
+            create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: BookkeepingEntrySetCreateParams,
@@ -66,7 +81,12 @@ interface BookkeepingEntrySetService {
          * Returns a raw HTTP response for `get /bookkeeping_entry_sets/{bookkeeping_entry_set_id}`,
          * but is otherwise the same as [BookkeepingEntrySetService.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: BookkeepingEntrySetRetrieveParams
+        ): HttpResponseFor<BookkeepingEntrySet> = retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: BookkeepingEntrySetRetrieveParams,
@@ -77,17 +97,24 @@ interface BookkeepingEntrySetService {
          * Returns a raw HTTP response for `get /bookkeeping_entry_sets`, but is otherwise the same
          * as [BookkeepingEntrySetService.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): HttpResponseFor<BookkeepingEntrySetListPage> =
+            list(BookkeepingEntrySetListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: BookkeepingEntrySetListParams = BookkeepingEntrySetListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BookkeepingEntrySetListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /bookkeeping_entry_sets`, but is otherwise the same
-         * as [BookkeepingEntrySetService.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: BookkeepingEntrySetListParams = BookkeepingEntrySetListParams.none()
+        ): HttpResponseFor<BookkeepingEntrySetListPage> = list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<BookkeepingEntrySetListPage> =
             list(BookkeepingEntrySetListParams.none(), requestOptions)

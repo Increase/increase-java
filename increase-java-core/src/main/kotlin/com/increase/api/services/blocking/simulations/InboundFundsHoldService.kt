@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking.simulations
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -21,7 +19,11 @@ interface InboundFundsHoldService {
      * This endpoint simulates immediately releasing an Inbound Funds Hold, which might be created
      * as a result of e.g., an ACH debit.
      */
-    @JvmOverloads
+    fun release(
+        params: SimulationInboundFundsHoldReleaseParams
+    ): SimulationInboundFundsHoldReleaseResponse = release(params, RequestOptions.none())
+
+    /** @see [release] */
     fun release(
         params: SimulationInboundFundsHoldReleaseParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -38,7 +40,13 @@ interface InboundFundsHoldService {
          * /simulations/inbound_funds_holds/{inbound_funds_hold_id}/release`, but is otherwise the
          * same as [InboundFundsHoldService.release].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun release(
+            params: SimulationInboundFundsHoldReleaseParams
+        ): HttpResponseFor<SimulationInboundFundsHoldReleaseResponse> =
+            release(params, RequestOptions.none())
+
+        /** @see [release] */
         @MustBeClosed
         fun release(
             params: SimulationInboundFundsHoldReleaseParams,

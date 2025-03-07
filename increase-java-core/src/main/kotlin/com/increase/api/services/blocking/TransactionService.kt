@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -20,20 +18,29 @@ interface TransactionService {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve a Transaction */
-    @JvmOverloads
+    fun retrieve(params: TransactionRetrieveParams): Transaction =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: TransactionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Transaction
 
     /** List Transactions */
-    @JvmOverloads
+    fun list(): TransactionListPage = list(TransactionListParams.none())
+
+    /** @see [list] */
     fun list(
         params: TransactionListParams = TransactionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): TransactionListPage
 
-    /** List Transactions */
+    /** @see [list] */
+    fun list(params: TransactionListParams = TransactionListParams.none()): TransactionListPage =
+        list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): TransactionListPage =
         list(TransactionListParams.none(), requestOptions)
 
@@ -46,7 +53,11 @@ interface TransactionService {
          * Returns a raw HTTP response for `get /transactions/{transaction_id}`, but is otherwise
          * the same as [TransactionService.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(params: TransactionRetrieveParams): HttpResponseFor<Transaction> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: TransactionRetrieveParams,
@@ -57,17 +68,23 @@ interface TransactionService {
          * Returns a raw HTTP response for `get /transactions`, but is otherwise the same as
          * [TransactionService.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): HttpResponseFor<TransactionListPage> = list(TransactionListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: TransactionListParams = TransactionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<TransactionListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /transactions`, but is otherwise the same as
-         * [TransactionService.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: TransactionListParams = TransactionListParams.none()
+        ): HttpResponseFor<TransactionListPage> = list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<TransactionListPage> =
             list(TransactionListParams.none(), requestOptions)

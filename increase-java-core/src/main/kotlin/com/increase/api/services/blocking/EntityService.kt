@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -28,39 +26,54 @@ interface EntityService {
     fun withRawResponse(): WithRawResponse
 
     /** Create an Entity */
-    @JvmOverloads
+    fun create(params: EntityCreateParams): Entity = create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: EntityCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
     /** Retrieve an Entity */
-    @JvmOverloads
+    fun retrieve(params: EntityRetrieveParams): Entity = retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: EntityRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
     /** List Entities */
-    @JvmOverloads
+    fun list(): EntityListPage = list(EntityListParams.none())
+
+    /** @see [list] */
     fun list(
         params: EntityListParams = EntityListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EntityListPage
 
-    /** List Entities */
+    /** @see [list] */
+    fun list(params: EntityListParams = EntityListParams.none()): EntityListPage =
+        list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): EntityListPage =
         list(EntityListParams.none(), requestOptions)
 
     /** Archive an Entity */
-    @JvmOverloads
+    fun archive(params: EntityArchiveParams): Entity = archive(params, RequestOptions.none())
+
+    /** @see [archive] */
     fun archive(
         params: EntityArchiveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
     /** Archive a beneficial owner for a corporate Entity */
-    @JvmOverloads
+    fun archiveBeneficialOwner(params: EntityArchiveBeneficialOwnerParams): Entity =
+        archiveBeneficialOwner(params, RequestOptions.none())
+
+    /** @see [archiveBeneficialOwner] */
     fun archiveBeneficialOwner(
         params: EntityArchiveBeneficialOwnerParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -71,35 +84,49 @@ interface EntityService {
      * recurring basis. After making any required updates, call this endpoint to record that your
      * user confirmed their details.
      */
-    @JvmOverloads
+    fun confirm(params: EntityConfirmParams): Entity = confirm(params, RequestOptions.none())
+
+    /** @see [confirm] */
     fun confirm(
         params: EntityConfirmParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
     /** Create a beneficial owner for a corporate Entity */
-    @JvmOverloads
+    fun createBeneficialOwner(params: EntityCreateBeneficialOwnerParams): Entity =
+        createBeneficialOwner(params, RequestOptions.none())
+
+    /** @see [createBeneficialOwner] */
     fun createBeneficialOwner(
         params: EntityCreateBeneficialOwnerParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
     /** Update a Natural Person or Corporation's address */
-    @JvmOverloads
+    fun updateAddress(params: EntityUpdateAddressParams): Entity =
+        updateAddress(params, RequestOptions.none())
+
+    /** @see [updateAddress] */
     fun updateAddress(
         params: EntityUpdateAddressParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
     /** Update the address for a beneficial owner belonging to a corporate Entity */
-    @JvmOverloads
+    fun updateBeneficialOwnerAddress(params: EntityUpdateBeneficialOwnerAddressParams): Entity =
+        updateBeneficialOwnerAddress(params, RequestOptions.none())
+
+    /** @see [updateBeneficialOwnerAddress] */
     fun updateBeneficialOwnerAddress(
         params: EntityUpdateBeneficialOwnerAddressParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
     /** Update the industry code for a corporate Entity */
-    @JvmOverloads
+    fun updateIndustryCode(params: EntityUpdateIndustryCodeParams): Entity =
+        updateIndustryCode(params, RequestOptions.none())
+
+    /** @see [updateIndustryCode] */
     fun updateIndustryCode(
         params: EntityUpdateIndustryCodeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -112,7 +139,11 @@ interface EntityService {
          * Returns a raw HTTP response for `post /entities`, but is otherwise the same as
          * [EntityService.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(params: EntityCreateParams): HttpResponseFor<Entity> =
+            create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: EntityCreateParams,
@@ -123,7 +154,11 @@ interface EntityService {
          * Returns a raw HTTP response for `get /entities/{entity_id}`, but is otherwise the same as
          * [EntityService.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(params: EntityRetrieveParams): HttpResponseFor<Entity> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: EntityRetrieveParams,
@@ -134,17 +169,22 @@ interface EntityService {
          * Returns a raw HTTP response for `get /entities`, but is otherwise the same as
          * [EntityService.list].
          */
-        @JvmOverloads
+        @MustBeClosed fun list(): HttpResponseFor<EntityListPage> = list(EntityListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: EntityListParams = EntityListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<EntityListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /entities`, but is otherwise the same as
-         * [EntityService.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: EntityListParams = EntityListParams.none()
+        ): HttpResponseFor<EntityListPage> = list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<EntityListPage> =
             list(EntityListParams.none(), requestOptions)
@@ -153,7 +193,11 @@ interface EntityService {
          * Returns a raw HTTP response for `post /entities/{entity_id}/archive`, but is otherwise
          * the same as [EntityService.archive].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun archive(params: EntityArchiveParams): HttpResponseFor<Entity> =
+            archive(params, RequestOptions.none())
+
+        /** @see [archive] */
         @MustBeClosed
         fun archive(
             params: EntityArchiveParams,
@@ -164,7 +208,12 @@ interface EntityService {
          * Returns a raw HTTP response for `post /entities/{entity_id}/archive_beneficial_owner`,
          * but is otherwise the same as [EntityService.archiveBeneficialOwner].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun archiveBeneficialOwner(
+            params: EntityArchiveBeneficialOwnerParams
+        ): HttpResponseFor<Entity> = archiveBeneficialOwner(params, RequestOptions.none())
+
+        /** @see [archiveBeneficialOwner] */
         @MustBeClosed
         fun archiveBeneficialOwner(
             params: EntityArchiveBeneficialOwnerParams,
@@ -175,7 +224,11 @@ interface EntityService {
          * Returns a raw HTTP response for `post /entities/{entity_id}/confirm`, but is otherwise
          * the same as [EntityService.confirm].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun confirm(params: EntityConfirmParams): HttpResponseFor<Entity> =
+            confirm(params, RequestOptions.none())
+
+        /** @see [confirm] */
         @MustBeClosed
         fun confirm(
             params: EntityConfirmParams,
@@ -186,7 +239,12 @@ interface EntityService {
          * Returns a raw HTTP response for `post /entities/{entity_id}/create_beneficial_owner`, but
          * is otherwise the same as [EntityService.createBeneficialOwner].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun createBeneficialOwner(
+            params: EntityCreateBeneficialOwnerParams
+        ): HttpResponseFor<Entity> = createBeneficialOwner(params, RequestOptions.none())
+
+        /** @see [createBeneficialOwner] */
         @MustBeClosed
         fun createBeneficialOwner(
             params: EntityCreateBeneficialOwnerParams,
@@ -197,7 +255,11 @@ interface EntityService {
          * Returns a raw HTTP response for `post /entities/{entity_id}/update_address`, but is
          * otherwise the same as [EntityService.updateAddress].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun updateAddress(params: EntityUpdateAddressParams): HttpResponseFor<Entity> =
+            updateAddress(params, RequestOptions.none())
+
+        /** @see [updateAddress] */
         @MustBeClosed
         fun updateAddress(
             params: EntityUpdateAddressParams,
@@ -209,7 +271,12 @@ interface EntityService {
          * /entities/{entity_id}/update_beneficial_owner_address`, but is otherwise the same as
          * [EntityService.updateBeneficialOwnerAddress].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun updateBeneficialOwnerAddress(
+            params: EntityUpdateBeneficialOwnerAddressParams
+        ): HttpResponseFor<Entity> = updateBeneficialOwnerAddress(params, RequestOptions.none())
+
+        /** @see [updateBeneficialOwnerAddress] */
         @MustBeClosed
         fun updateBeneficialOwnerAddress(
             params: EntityUpdateBeneficialOwnerAddressParams,
@@ -220,7 +287,11 @@ interface EntityService {
          * Returns a raw HTTP response for `post /entities/{entity_id}/update_industry_code`, but is
          * otherwise the same as [EntityService.updateIndustryCode].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun updateIndustryCode(params: EntityUpdateIndustryCodeParams): HttpResponseFor<Entity> =
+            updateIndustryCode(params, RequestOptions.none())
+
+        /** @see [updateIndustryCode] */
         @MustBeClosed
         fun updateIndustryCode(
             params: EntityUpdateIndustryCodeParams,

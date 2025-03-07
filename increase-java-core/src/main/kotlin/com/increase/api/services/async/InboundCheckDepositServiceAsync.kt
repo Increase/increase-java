@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -23,32 +21,50 @@ interface InboundCheckDepositServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve an Inbound Check Deposit */
-    @JvmOverloads
+    fun retrieve(
+        params: InboundCheckDepositRetrieveParams
+    ): CompletableFuture<InboundCheckDeposit> = retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: InboundCheckDepositRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundCheckDeposit>
 
     /** List Inbound Check Deposits */
-    @JvmOverloads
+    fun list(): CompletableFuture<InboundCheckDepositListPageAsync> =
+        list(InboundCheckDepositListParams.none())
+
+    /** @see [list] */
     fun list(
         params: InboundCheckDepositListParams = InboundCheckDepositListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundCheckDepositListPageAsync>
 
-    /** List Inbound Check Deposits */
+    /** @see [list] */
+    fun list(
+        params: InboundCheckDepositListParams = InboundCheckDepositListParams.none()
+    ): CompletableFuture<InboundCheckDepositListPageAsync> = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CompletableFuture<InboundCheckDepositListPageAsync> =
         list(InboundCheckDepositListParams.none(), requestOptions)
 
     /** Decline an Inbound Check Deposit */
-    @JvmOverloads
+    fun decline(params: InboundCheckDepositDeclineParams): CompletableFuture<InboundCheckDeposit> =
+        decline(params, RequestOptions.none())
+
+    /** @see [decline] */
     fun decline(
         params: InboundCheckDepositDeclineParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundCheckDeposit>
 
     /** Return an Inbound Check Deposit */
-    @JvmOverloads
+    fun return_(params: InboundCheckDepositReturnParams): CompletableFuture<InboundCheckDeposit> =
+        return_(params, RequestOptions.none())
+
+    /** @see [return_] */
     fun return_(
         params: InboundCheckDepositReturnParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -64,7 +80,13 @@ interface InboundCheckDepositServiceAsync {
          * Returns a raw HTTP response for `get /inbound_check_deposits/{inbound_check_deposit_id}`,
          * but is otherwise the same as [InboundCheckDepositServiceAsync.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: InboundCheckDepositRetrieveParams
+        ): CompletableFuture<HttpResponseFor<InboundCheckDeposit>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: InboundCheckDepositRetrieveParams,
@@ -75,17 +97,25 @@ interface InboundCheckDepositServiceAsync {
          * Returns a raw HTTP response for `get /inbound_check_deposits`, but is otherwise the same
          * as [InboundCheckDepositServiceAsync.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): CompletableFuture<HttpResponseFor<InboundCheckDepositListPageAsync>> =
+            list(InboundCheckDepositListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: InboundCheckDepositListParams = InboundCheckDepositListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<InboundCheckDepositListPageAsync>>
 
-        /**
-         * Returns a raw HTTP response for `get /inbound_check_deposits`, but is otherwise the same
-         * as [InboundCheckDepositServiceAsync.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: InboundCheckDepositListParams = InboundCheckDepositListParams.none()
+        ): CompletableFuture<HttpResponseFor<InboundCheckDepositListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions
@@ -97,7 +127,13 @@ interface InboundCheckDepositServiceAsync {
          * /inbound_check_deposits/{inbound_check_deposit_id}/decline`, but is otherwise the same as
          * [InboundCheckDepositServiceAsync.decline].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun decline(
+            params: InboundCheckDepositDeclineParams
+        ): CompletableFuture<HttpResponseFor<InboundCheckDeposit>> =
+            decline(params, RequestOptions.none())
+
+        /** @see [decline] */
         @MustBeClosed
         fun decline(
             params: InboundCheckDepositDeclineParams,
@@ -109,7 +145,13 @@ interface InboundCheckDepositServiceAsync {
          * /inbound_check_deposits/{inbound_check_deposit_id}/return`, but is otherwise the same as
          * [InboundCheckDepositServiceAsync.return_].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun return_(
+            params: InboundCheckDepositReturnParams
+        ): CompletableFuture<HttpResponseFor<InboundCheckDeposit>> =
+            return_(params, RequestOptions.none())
+
+        /** @see [return_] */
         @MustBeClosed
         fun return_(
             params: InboundCheckDepositReturnParams,

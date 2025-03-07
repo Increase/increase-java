@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking.simulations
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -23,7 +21,10 @@ interface AccountTransferService {
      * Account Transfers in the dashboard. This transfer must first have a `status` of
      * `pending_approval`.
      */
-    @JvmOverloads
+    fun complete(params: SimulationAccountTransferCompleteParams): AccountTransfer =
+        complete(params, RequestOptions.none())
+
+    /** @see [complete] */
     fun complete(
         params: SimulationAccountTransferCompleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -40,7 +41,12 @@ interface AccountTransferService {
          * /simulations/account_transfers/{account_transfer_id}/complete`, but is otherwise the same
          * as [AccountTransferService.complete].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun complete(
+            params: SimulationAccountTransferCompleteParams
+        ): HttpResponseFor<AccountTransfer> = complete(params, RequestOptions.none())
+
+        /** @see [complete] */
         @MustBeClosed
         fun complete(
             params: SimulationAccountTransferCompleteParams,

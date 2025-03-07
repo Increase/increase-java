@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async.simulations
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -29,14 +27,22 @@ interface AchTransferServiceAsync {
      * not submitted to the Federal Reserve, this endpoint allows you to skip that delay and add the
      * acknowledgment subresource to the ACH Transfer.
      */
-    @JvmOverloads
+    fun acknowledge(
+        params: SimulationAchTransferAcknowledgeParams
+    ): CompletableFuture<AchTransfer> = acknowledge(params, RequestOptions.none())
+
+    /** @see [acknowledge] */
     fun acknowledge(
         params: SimulationAchTransferAcknowledgeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AchTransfer>
 
     /** Simulates receiving a Notification of Change for an [ACH Transfer](#ach-transfers). */
-    @JvmOverloads
+    fun createNotificationOfChange(
+        params: SimulationAchTransferCreateNotificationOfChangeParams
+    ): CompletableFuture<AchTransfer> = createNotificationOfChange(params, RequestOptions.none())
+
+    /** @see [createNotificationOfChange] */
     fun createNotificationOfChange(
         params: SimulationAchTransferCreateNotificationOfChangeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -47,7 +53,10 @@ interface AchTransferServiceAsync {
      * error condition. This will also create a Transaction to account for the returned funds. This
      * transfer must first have a `status` of `submitted`.
      */
-    @JvmOverloads
+    fun return_(params: SimulationAchTransferReturnParams): CompletableFuture<AchTransfer> =
+        return_(params, RequestOptions.none())
+
+    /** @see [return_] */
     fun return_(
         params: SimulationAchTransferReturnParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -58,7 +67,10 @@ interface AchTransferServiceAsync {
      * transfer must first have a `status` of `submitted`. Without this simulation the transfer will
      * eventually settle on its own following the same Federal Reserve timeline as in production.
      */
-    @JvmOverloads
+    fun settle(params: SimulationAchTransferSettleParams): CompletableFuture<AchTransfer> =
+        settle(params, RequestOptions.none())
+
+    /** @see [settle] */
     fun settle(
         params: SimulationAchTransferSettleParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -71,7 +83,10 @@ interface AchTransferServiceAsync {
      * weekdays. Since sandbox ACH Transfers are not submitted to the Federal Reserve, this endpoint
      * allows you to skip that delay and transition the ACH Transfer to a status of `submitted`.
      */
-    @JvmOverloads
+    fun submit(params: SimulationAchTransferSubmitParams): CompletableFuture<AchTransfer> =
+        submit(params, RequestOptions.none())
+
+    /** @see [submit] */
     fun submit(
         params: SimulationAchTransferSubmitParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -88,7 +103,13 @@ interface AchTransferServiceAsync {
          * /simulations/ach_transfers/{ach_transfer_id}/acknowledge`, but is otherwise the same as
          * [AchTransferServiceAsync.acknowledge].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun acknowledge(
+            params: SimulationAchTransferAcknowledgeParams
+        ): CompletableFuture<HttpResponseFor<AchTransfer>> =
+            acknowledge(params, RequestOptions.none())
+
+        /** @see [acknowledge] */
         @MustBeClosed
         fun acknowledge(
             params: SimulationAchTransferAcknowledgeParams,
@@ -100,7 +121,13 @@ interface AchTransferServiceAsync {
          * /simulations/ach_transfers/{ach_transfer_id}/create_notification_of_change`, but is
          * otherwise the same as [AchTransferServiceAsync.createNotificationOfChange].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun createNotificationOfChange(
+            params: SimulationAchTransferCreateNotificationOfChangeParams
+        ): CompletableFuture<HttpResponseFor<AchTransfer>> =
+            createNotificationOfChange(params, RequestOptions.none())
+
+        /** @see [createNotificationOfChange] */
         @MustBeClosed
         fun createNotificationOfChange(
             params: SimulationAchTransferCreateNotificationOfChangeParams,
@@ -112,7 +139,12 @@ interface AchTransferServiceAsync {
          * /simulations/ach_transfers/{ach_transfer_id}/return`, but is otherwise the same as
          * [AchTransferServiceAsync.return_].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun return_(
+            params: SimulationAchTransferReturnParams
+        ): CompletableFuture<HttpResponseFor<AchTransfer>> = return_(params, RequestOptions.none())
+
+        /** @see [return_] */
         @MustBeClosed
         fun return_(
             params: SimulationAchTransferReturnParams,
@@ -124,7 +156,12 @@ interface AchTransferServiceAsync {
          * /simulations/ach_transfers/{ach_transfer_id}/settle`, but is otherwise the same as
          * [AchTransferServiceAsync.settle].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun settle(
+            params: SimulationAchTransferSettleParams
+        ): CompletableFuture<HttpResponseFor<AchTransfer>> = settle(params, RequestOptions.none())
+
+        /** @see [settle] */
         @MustBeClosed
         fun settle(
             params: SimulationAchTransferSettleParams,
@@ -136,7 +173,12 @@ interface AchTransferServiceAsync {
          * /simulations/ach_transfers/{ach_transfer_id}/submit`, but is otherwise the same as
          * [AchTransferServiceAsync.submit].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun submit(
+            params: SimulationAchTransferSubmitParams
+        ): CompletableFuture<HttpResponseFor<AchTransfer>> = submit(params, RequestOptions.none())
+
+        /** @see [submit] */
         @MustBeClosed
         fun submit(
             params: SimulationAchTransferSubmitParams,

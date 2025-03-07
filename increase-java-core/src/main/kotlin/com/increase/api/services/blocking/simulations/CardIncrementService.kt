@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking.simulations
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -21,7 +19,10 @@ interface CardIncrementService {
      * Simulates the increment of an authorization by a card acquirer. An authorization can be
      * incremented multiple times.
      */
-    @JvmOverloads
+    fun create(params: SimulationCardIncrementCreateParams): CardPayment =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: SimulationCardIncrementCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -36,7 +37,11 @@ interface CardIncrementService {
          * Returns a raw HTTP response for `post /simulations/card_increments`, but is otherwise the
          * same as [CardIncrementService.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(params: SimulationCardIncrementCreateParams): HttpResponseFor<CardPayment> =
+            create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: SimulationCardIncrementCreateParams,

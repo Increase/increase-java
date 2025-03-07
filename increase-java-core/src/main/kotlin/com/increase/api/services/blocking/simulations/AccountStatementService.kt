@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking.simulations
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -21,7 +19,10 @@ interface AccountStatementService {
      * Simulates an [Account Statement](#account-statements) being created for an account. In
      * production, Account Statements are generated once per month.
      */
-    @JvmOverloads
+    fun create(params: SimulationAccountStatementCreateParams): AccountStatement =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: SimulationAccountStatementCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -37,7 +38,12 @@ interface AccountStatementService {
          * Returns a raw HTTP response for `post /simulations/account_statements`, but is otherwise
          * the same as [AccountStatementService.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: SimulationAccountStatementCreateParams
+        ): HttpResponseFor<AccountStatement> = create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: SimulationAccountStatementCreateParams,

@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async.simulations
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -19,7 +17,11 @@ interface CardAuthorizationExpirationServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Simulates expiring a Card Authorization immediately. */
-    @JvmOverloads
+    fun create(
+        params: SimulationCardAuthorizationExpirationCreateParams
+    ): CompletableFuture<CardPayment> = create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: SimulationCardAuthorizationExpirationCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -35,7 +37,12 @@ interface CardAuthorizationExpirationServiceAsync {
          * Returns a raw HTTP response for `post /simulations/card_authorization_expirations`, but
          * is otherwise the same as [CardAuthorizationExpirationServiceAsync.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(
+            params: SimulationCardAuthorizationExpirationCreateParams
+        ): CompletableFuture<HttpResponseFor<CardPayment>> = create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: SimulationCardAuthorizationExpirationCreateParams,

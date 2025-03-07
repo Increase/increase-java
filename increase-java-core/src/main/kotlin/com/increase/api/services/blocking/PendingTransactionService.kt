@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -20,20 +18,30 @@ interface PendingTransactionService {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve a Pending Transaction */
-    @JvmOverloads
+    fun retrieve(params: PendingTransactionRetrieveParams): PendingTransaction =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: PendingTransactionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PendingTransaction
 
     /** List Pending Transactions */
-    @JvmOverloads
+    fun list(): PendingTransactionListPage = list(PendingTransactionListParams.none())
+
+    /** @see [list] */
     fun list(
         params: PendingTransactionListParams = PendingTransactionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PendingTransactionListPage
 
-    /** List Pending Transactions */
+    /** @see [list] */
+    fun list(
+        params: PendingTransactionListParams = PendingTransactionListParams.none()
+    ): PendingTransactionListPage = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): PendingTransactionListPage =
         list(PendingTransactionListParams.none(), requestOptions)
 
@@ -47,7 +55,12 @@ interface PendingTransactionService {
          * Returns a raw HTTP response for `get /pending_transactions/{pending_transaction_id}`, but
          * is otherwise the same as [PendingTransactionService.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: PendingTransactionRetrieveParams
+        ): HttpResponseFor<PendingTransaction> = retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: PendingTransactionRetrieveParams,
@@ -58,17 +71,24 @@ interface PendingTransactionService {
          * Returns a raw HTTP response for `get /pending_transactions`, but is otherwise the same as
          * [PendingTransactionService.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): HttpResponseFor<PendingTransactionListPage> =
+            list(PendingTransactionListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: PendingTransactionListParams = PendingTransactionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PendingTransactionListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /pending_transactions`, but is otherwise the same as
-         * [PendingTransactionService.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: PendingTransactionListParams = PendingTransactionListParams.none()
+        ): HttpResponseFor<PendingTransactionListPage> = list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<PendingTransactionListPage> =
             list(PendingTransactionListParams.none(), requestOptions)

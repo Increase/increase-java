@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -23,39 +21,58 @@ interface DigitalCardProfileService {
     fun withRawResponse(): WithRawResponse
 
     /** Create a Digital Card Profile */
-    @JvmOverloads
+    fun create(params: DigitalCardProfileCreateParams): DigitalCardProfile =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: DigitalCardProfileCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalCardProfile
 
     /** Retrieve a Digital Card Profile */
-    @JvmOverloads
+    fun retrieve(params: DigitalCardProfileRetrieveParams): DigitalCardProfile =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: DigitalCardProfileRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalCardProfile
 
     /** List Card Profiles */
-    @JvmOverloads
+    fun list(): DigitalCardProfileListPage = list(DigitalCardProfileListParams.none())
+
+    /** @see [list] */
     fun list(
         params: DigitalCardProfileListParams = DigitalCardProfileListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalCardProfileListPage
 
-    /** List Card Profiles */
+    /** @see [list] */
+    fun list(
+        params: DigitalCardProfileListParams = DigitalCardProfileListParams.none()
+    ): DigitalCardProfileListPage = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): DigitalCardProfileListPage =
         list(DigitalCardProfileListParams.none(), requestOptions)
 
     /** Archive a Digital Card Profile */
-    @JvmOverloads
+    fun archive(params: DigitalCardProfileArchiveParams): DigitalCardProfile =
+        archive(params, RequestOptions.none())
+
+    /** @see [archive] */
     fun archive(
         params: DigitalCardProfileArchiveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalCardProfile
 
     /** Clones a Digital Card Profile */
-    @JvmOverloads
+    fun clone(params: DigitalCardProfileCloneParams): DigitalCardProfile =
+        clone(params, RequestOptions.none())
+
+    /** @see [clone] */
     fun clone(
         params: DigitalCardProfileCloneParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -71,7 +88,11 @@ interface DigitalCardProfileService {
          * Returns a raw HTTP response for `post /digital_card_profiles`, but is otherwise the same
          * as [DigitalCardProfileService.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(params: DigitalCardProfileCreateParams): HttpResponseFor<DigitalCardProfile> =
+            create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: DigitalCardProfileCreateParams,
@@ -82,7 +103,12 @@ interface DigitalCardProfileService {
          * Returns a raw HTTP response for `get /digital_card_profiles/{digital_card_profile_id}`,
          * but is otherwise the same as [DigitalCardProfileService.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: DigitalCardProfileRetrieveParams
+        ): HttpResponseFor<DigitalCardProfile> = retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: DigitalCardProfileRetrieveParams,
@@ -93,17 +119,24 @@ interface DigitalCardProfileService {
          * Returns a raw HTTP response for `get /digital_card_profiles`, but is otherwise the same
          * as [DigitalCardProfileService.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): HttpResponseFor<DigitalCardProfileListPage> =
+            list(DigitalCardProfileListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: DigitalCardProfileListParams = DigitalCardProfileListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DigitalCardProfileListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /digital_card_profiles`, but is otherwise the same
-         * as [DigitalCardProfileService.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: DigitalCardProfileListParams = DigitalCardProfileListParams.none()
+        ): HttpResponseFor<DigitalCardProfileListPage> = list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<DigitalCardProfileListPage> =
             list(DigitalCardProfileListParams.none(), requestOptions)
@@ -113,7 +146,11 @@ interface DigitalCardProfileService {
          * /digital_card_profiles/{digital_card_profile_id}/archive`, but is otherwise the same as
          * [DigitalCardProfileService.archive].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun archive(params: DigitalCardProfileArchiveParams): HttpResponseFor<DigitalCardProfile> =
+            archive(params, RequestOptions.none())
+
+        /** @see [archive] */
         @MustBeClosed
         fun archive(
             params: DigitalCardProfileArchiveParams,
@@ -125,7 +162,11 @@ interface DigitalCardProfileService {
          * /digital_card_profiles/{digital_card_profile_id}/clone`, but is otherwise the same as
          * [DigitalCardProfileService.clone].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun clone(params: DigitalCardProfileCloneParams): HttpResponseFor<DigitalCardProfile> =
+            clone(params, RequestOptions.none())
+
+        /** @see [clone] */
         @MustBeClosed
         fun clone(
             params: DigitalCardProfileCloneParams,

@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -24,7 +22,10 @@ interface RoutingNumberServiceAsync {
      * will always return 0 or 1 entry. In Sandbox, the only valid routing number for this method
      * is 110000000.
      */
-    @JvmOverloads
+    fun list(params: RoutingNumberListParams): CompletableFuture<RoutingNumberListPageAsync> =
+        list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(
         params: RoutingNumberListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -40,7 +41,13 @@ interface RoutingNumberServiceAsync {
          * Returns a raw HTTP response for `get /routing_numbers`, but is otherwise the same as
          * [RoutingNumberServiceAsync.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(
+            params: RoutingNumberListParams
+        ): CompletableFuture<HttpResponseFor<RoutingNumberListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: RoutingNumberListParams,

@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -21,20 +19,31 @@ interface InboundMailItemServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve an Inbound Mail Item */
-    @JvmOverloads
+    fun retrieve(params: InboundMailItemRetrieveParams): CompletableFuture<InboundMailItem> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: InboundMailItemRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundMailItem>
 
     /** List Inbound Mail Items */
-    @JvmOverloads
+    fun list(): CompletableFuture<InboundMailItemListPageAsync> =
+        list(InboundMailItemListParams.none())
+
+    /** @see [list] */
     fun list(
         params: InboundMailItemListParams = InboundMailItemListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundMailItemListPageAsync>
 
-    /** List Inbound Mail Items */
+    /** @see [list] */
+    fun list(
+        params: InboundMailItemListParams = InboundMailItemListParams.none()
+    ): CompletableFuture<InboundMailItemListPageAsync> = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CompletableFuture<InboundMailItemListPageAsync> =
         list(InboundMailItemListParams.none(), requestOptions)
 
@@ -48,7 +57,13 @@ interface InboundMailItemServiceAsync {
          * Returns a raw HTTP response for `get /inbound_mail_items/{inbound_mail_item_id}`, but is
          * otherwise the same as [InboundMailItemServiceAsync.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: InboundMailItemRetrieveParams
+        ): CompletableFuture<HttpResponseFor<InboundMailItem>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: InboundMailItemRetrieveParams,
@@ -59,17 +74,25 @@ interface InboundMailItemServiceAsync {
          * Returns a raw HTTP response for `get /inbound_mail_items`, but is otherwise the same as
          * [InboundMailItemServiceAsync.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): CompletableFuture<HttpResponseFor<InboundMailItemListPageAsync>> =
+            list(InboundMailItemListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: InboundMailItemListParams = InboundMailItemListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<InboundMailItemListPageAsync>>
 
-        /**
-         * Returns a raw HTTP response for `get /inbound_mail_items`, but is otherwise the same as
-         * [InboundMailItemServiceAsync.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: InboundMailItemListParams = InboundMailItemListParams.none()
+        ): CompletableFuture<HttpResponseFor<InboundMailItemListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions

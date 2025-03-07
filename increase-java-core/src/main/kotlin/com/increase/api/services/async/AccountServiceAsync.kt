@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -26,34 +24,50 @@ interface AccountServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Create an Account */
-    @JvmOverloads
+    fun create(params: AccountCreateParams): CompletableFuture<Account> =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: AccountCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Account>
 
     /** Retrieve an Account */
-    @JvmOverloads
+    fun retrieve(params: AccountRetrieveParams): CompletableFuture<Account> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: AccountRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Account>
 
     /** Update an Account */
-    @JvmOverloads
+    fun update(params: AccountUpdateParams): CompletableFuture<Account> =
+        update(params, RequestOptions.none())
+
+    /** @see [update] */
     fun update(
         params: AccountUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Account>
 
     /** List Accounts */
-    @JvmOverloads
+    fun list(): CompletableFuture<AccountListPageAsync> = list(AccountListParams.none())
+
+    /** @see [list] */
     fun list(
         params: AccountListParams = AccountListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AccountListPageAsync>
 
-    /** List Accounts */
+    /** @see [list] */
+    fun list(
+        params: AccountListParams = AccountListParams.none()
+    ): CompletableFuture<AccountListPageAsync> = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CompletableFuture<AccountListPageAsync> =
         list(AccountListParams.none(), requestOptions)
 
@@ -61,14 +75,20 @@ interface AccountServiceAsync {
      * Retrieve the current and available balances for an account in minor units of the account's
      * currency. Learn more about [account balances](/documentation/balance).
      */
-    @JvmOverloads
+    fun balance(params: AccountBalanceParams): CompletableFuture<BalanceLookup> =
+        balance(params, RequestOptions.none())
+
+    /** @see [balance] */
     fun balance(
         params: AccountBalanceParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BalanceLookup>
 
     /** Close an Account */
-    @JvmOverloads
+    fun close(params: AccountCloseParams): CompletableFuture<Account> =
+        close(params, RequestOptions.none())
+
+    /** @see [close] */
     fun close(
         params: AccountCloseParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -83,7 +103,11 @@ interface AccountServiceAsync {
          * Returns a raw HTTP response for `post /accounts`, but is otherwise the same as
          * [AccountServiceAsync.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(params: AccountCreateParams): CompletableFuture<HttpResponseFor<Account>> =
+            create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: AccountCreateParams,
@@ -94,7 +118,11 @@ interface AccountServiceAsync {
          * Returns a raw HTTP response for `get /accounts/{account_id}`, but is otherwise the same
          * as [AccountServiceAsync.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(params: AccountRetrieveParams): CompletableFuture<HttpResponseFor<Account>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: AccountRetrieveParams,
@@ -105,7 +133,11 @@ interface AccountServiceAsync {
          * Returns a raw HTTP response for `patch /accounts/{account_id}`, but is otherwise the same
          * as [AccountServiceAsync.update].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun update(params: AccountUpdateParams): CompletableFuture<HttpResponseFor<Account>> =
+            update(params, RequestOptions.none())
+
+        /** @see [update] */
         @MustBeClosed
         fun update(
             params: AccountUpdateParams,
@@ -116,17 +148,25 @@ interface AccountServiceAsync {
          * Returns a raw HTTP response for `get /accounts`, but is otherwise the same as
          * [AccountServiceAsync.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): CompletableFuture<HttpResponseFor<AccountListPageAsync>> =
+            list(AccountListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: AccountListParams = AccountListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AccountListPageAsync>>
 
-        /**
-         * Returns a raw HTTP response for `get /accounts`, but is otherwise the same as
-         * [AccountServiceAsync.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: AccountListParams = AccountListParams.none()
+        ): CompletableFuture<HttpResponseFor<AccountListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions
@@ -137,7 +177,13 @@ interface AccountServiceAsync {
          * Returns a raw HTTP response for `get /accounts/{account_id}/balance`, but is otherwise
          * the same as [AccountServiceAsync.balance].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun balance(
+            params: AccountBalanceParams
+        ): CompletableFuture<HttpResponseFor<BalanceLookup>> =
+            balance(params, RequestOptions.none())
+
+        /** @see [balance] */
         @MustBeClosed
         fun balance(
             params: AccountBalanceParams,
@@ -148,7 +194,11 @@ interface AccountServiceAsync {
          * Returns a raw HTTP response for `post /accounts/{account_id}/close`, but is otherwise the
          * same as [AccountServiceAsync.close].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun close(params: AccountCloseParams): CompletableFuture<HttpResponseFor<Account>> =
+            close(params, RequestOptions.none())
+
+        /** @see [close] */
         @MustBeClosed
         fun close(
             params: AccountCloseParams,

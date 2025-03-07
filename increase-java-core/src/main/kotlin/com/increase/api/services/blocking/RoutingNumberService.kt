@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -23,7 +21,10 @@ interface RoutingNumberService {
      * will always return 0 or 1 entry. In Sandbox, the only valid routing number for this method
      * is 110000000.
      */
-    @JvmOverloads
+    fun list(params: RoutingNumberListParams): RoutingNumberListPage =
+        list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(
         params: RoutingNumberListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -38,7 +39,11 @@ interface RoutingNumberService {
          * Returns a raw HTTP response for `get /routing_numbers`, but is otherwise the same as
          * [RoutingNumberService.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(params: RoutingNumberListParams): HttpResponseFor<RoutingNumberListPage> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: RoutingNumberListParams,

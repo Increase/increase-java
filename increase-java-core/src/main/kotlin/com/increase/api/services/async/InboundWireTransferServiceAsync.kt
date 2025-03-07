@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -21,20 +19,32 @@ interface InboundWireTransferServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve an Inbound Wire Transfer */
-    @JvmOverloads
+    fun retrieve(
+        params: InboundWireTransferRetrieveParams
+    ): CompletableFuture<InboundWireTransfer> = retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: InboundWireTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundWireTransfer>
 
     /** List Inbound Wire Transfers */
-    @JvmOverloads
+    fun list(): CompletableFuture<InboundWireTransferListPageAsync> =
+        list(InboundWireTransferListParams.none())
+
+    /** @see [list] */
     fun list(
         params: InboundWireTransferListParams = InboundWireTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundWireTransferListPageAsync>
 
-    /** List Inbound Wire Transfers */
+    /** @see [list] */
+    fun list(
+        params: InboundWireTransferListParams = InboundWireTransferListParams.none()
+    ): CompletableFuture<InboundWireTransferListPageAsync> = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CompletableFuture<InboundWireTransferListPageAsync> =
         list(InboundWireTransferListParams.none(), requestOptions)
 
@@ -48,7 +58,13 @@ interface InboundWireTransferServiceAsync {
          * Returns a raw HTTP response for `get /inbound_wire_transfers/{inbound_wire_transfer_id}`,
          * but is otherwise the same as [InboundWireTransferServiceAsync.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: InboundWireTransferRetrieveParams
+        ): CompletableFuture<HttpResponseFor<InboundWireTransfer>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: InboundWireTransferRetrieveParams,
@@ -59,17 +75,25 @@ interface InboundWireTransferServiceAsync {
          * Returns a raw HTTP response for `get /inbound_wire_transfers`, but is otherwise the same
          * as [InboundWireTransferServiceAsync.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): CompletableFuture<HttpResponseFor<InboundWireTransferListPageAsync>> =
+            list(InboundWireTransferListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: InboundWireTransferListParams = InboundWireTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<InboundWireTransferListPageAsync>>
 
-        /**
-         * Returns a raw HTTP response for `get /inbound_wire_transfers`, but is otherwise the same
-         * as [InboundWireTransferServiceAsync.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: InboundWireTransferListParams = InboundWireTransferListParams.none()
+        ): CompletableFuture<HttpResponseFor<InboundWireTransferListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions

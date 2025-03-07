@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -20,14 +18,20 @@ interface RealTimeDecisionServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve a Real-Time Decision */
-    @JvmOverloads
+    fun retrieve(params: RealTimeDecisionRetrieveParams): CompletableFuture<RealTimeDecision> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: RealTimeDecisionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<RealTimeDecision>
 
     /** Action a Real-Time Decision */
-    @JvmOverloads
+    fun action(params: RealTimeDecisionActionParams): CompletableFuture<RealTimeDecision> =
+        action(params, RequestOptions.none())
+
+    /** @see [action] */
     fun action(
         params: RealTimeDecisionActionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -43,7 +47,13 @@ interface RealTimeDecisionServiceAsync {
          * Returns a raw HTTP response for `get /real_time_decisions/{real_time_decision_id}`, but
          * is otherwise the same as [RealTimeDecisionServiceAsync.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(
+            params: RealTimeDecisionRetrieveParams
+        ): CompletableFuture<HttpResponseFor<RealTimeDecision>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: RealTimeDecisionRetrieveParams,
@@ -55,7 +65,13 @@ interface RealTimeDecisionServiceAsync {
          * /real_time_decisions/{real_time_decision_id}/action`, but is otherwise the same as
          * [RealTimeDecisionServiceAsync.action].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun action(
+            params: RealTimeDecisionActionParams
+        ): CompletableFuture<HttpResponseFor<RealTimeDecision>> =
+            action(params, RequestOptions.none())
+
+        /** @see [action] */
         @MustBeClosed
         fun action(
             params: RealTimeDecisionActionParams,

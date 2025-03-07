@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -18,13 +16,19 @@ interface GroupService {
     fun withRawResponse(): WithRawResponse
 
     /** Returns details for the currently authenticated Group. */
-    @JvmOverloads
+    fun retrieve(): Group = retrieve(GroupRetrieveParams.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: GroupRetrieveParams = GroupRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Group
 
-    /** Returns details for the currently authenticated Group. */
+    /** @see [retrieve] */
+    fun retrieve(params: GroupRetrieveParams = GroupRetrieveParams.none()): Group =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(requestOptions: RequestOptions): Group =
         retrieve(GroupRetrieveParams.none(), requestOptions)
 
@@ -35,17 +39,22 @@ interface GroupService {
          * Returns a raw HTTP response for `get /groups/current`, but is otherwise the same as
          * [GroupService.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed fun retrieve(): HttpResponseFor<Group> = retrieve(GroupRetrieveParams.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: GroupRetrieveParams = GroupRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Group>
 
-        /**
-         * Returns a raw HTTP response for `get /groups/current`, but is otherwise the same as
-         * [GroupService.retrieve].
-         */
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: GroupRetrieveParams = GroupRetrieveParams.none()
+        ): HttpResponseFor<Group> = retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(requestOptions: RequestOptions): HttpResponseFor<Group> =
             retrieve(GroupRetrieveParams.none(), requestOptions)

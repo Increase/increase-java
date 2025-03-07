@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-@file:Suppress("OVERLOADS_INTERFACE") // See https://youtrack.jetbrains.com/issue/KT-36102
-
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
@@ -29,39 +27,59 @@ interface EntityServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Create an Entity */
-    @JvmOverloads
+    fun create(params: EntityCreateParams): CompletableFuture<Entity> =
+        create(params, RequestOptions.none())
+
+    /** @see [create] */
     fun create(
         params: EntityCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Entity>
 
     /** Retrieve an Entity */
-    @JvmOverloads
+    fun retrieve(params: EntityRetrieveParams): CompletableFuture<Entity> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
     fun retrieve(
         params: EntityRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Entity>
 
     /** List Entities */
-    @JvmOverloads
+    fun list(): CompletableFuture<EntityListPageAsync> = list(EntityListParams.none())
+
+    /** @see [list] */
     fun list(
         params: EntityListParams = EntityListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<EntityListPageAsync>
 
-    /** List Entities */
+    /** @see [list] */
+    fun list(
+        params: EntityListParams = EntityListParams.none()
+    ): CompletableFuture<EntityListPageAsync> = list(params, RequestOptions.none())
+
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CompletableFuture<EntityListPageAsync> =
         list(EntityListParams.none(), requestOptions)
 
     /** Archive an Entity */
-    @JvmOverloads
+    fun archive(params: EntityArchiveParams): CompletableFuture<Entity> =
+        archive(params, RequestOptions.none())
+
+    /** @see [archive] */
     fun archive(
         params: EntityArchiveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Entity>
 
     /** Archive a beneficial owner for a corporate Entity */
-    @JvmOverloads
+    fun archiveBeneficialOwner(
+        params: EntityArchiveBeneficialOwnerParams
+    ): CompletableFuture<Entity> = archiveBeneficialOwner(params, RequestOptions.none())
+
+    /** @see [archiveBeneficialOwner] */
     fun archiveBeneficialOwner(
         params: EntityArchiveBeneficialOwnerParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -72,35 +90,52 @@ interface EntityServiceAsync {
      * recurring basis. After making any required updates, call this endpoint to record that your
      * user confirmed their details.
      */
-    @JvmOverloads
+    fun confirm(params: EntityConfirmParams): CompletableFuture<Entity> =
+        confirm(params, RequestOptions.none())
+
+    /** @see [confirm] */
     fun confirm(
         params: EntityConfirmParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Entity>
 
     /** Create a beneficial owner for a corporate Entity */
-    @JvmOverloads
+    fun createBeneficialOwner(
+        params: EntityCreateBeneficialOwnerParams
+    ): CompletableFuture<Entity> = createBeneficialOwner(params, RequestOptions.none())
+
+    /** @see [createBeneficialOwner] */
     fun createBeneficialOwner(
         params: EntityCreateBeneficialOwnerParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Entity>
 
     /** Update a Natural Person or Corporation's address */
-    @JvmOverloads
+    fun updateAddress(params: EntityUpdateAddressParams): CompletableFuture<Entity> =
+        updateAddress(params, RequestOptions.none())
+
+    /** @see [updateAddress] */
     fun updateAddress(
         params: EntityUpdateAddressParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Entity>
 
     /** Update the address for a beneficial owner belonging to a corporate Entity */
-    @JvmOverloads
+    fun updateBeneficialOwnerAddress(
+        params: EntityUpdateBeneficialOwnerAddressParams
+    ): CompletableFuture<Entity> = updateBeneficialOwnerAddress(params, RequestOptions.none())
+
+    /** @see [updateBeneficialOwnerAddress] */
     fun updateBeneficialOwnerAddress(
         params: EntityUpdateBeneficialOwnerAddressParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Entity>
 
     /** Update the industry code for a corporate Entity */
-    @JvmOverloads
+    fun updateIndustryCode(params: EntityUpdateIndustryCodeParams): CompletableFuture<Entity> =
+        updateIndustryCode(params, RequestOptions.none())
+
+    /** @see [updateIndustryCode] */
     fun updateIndustryCode(
         params: EntityUpdateIndustryCodeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -115,7 +150,11 @@ interface EntityServiceAsync {
          * Returns a raw HTTP response for `post /entities`, but is otherwise the same as
          * [EntityServiceAsync.create].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun create(params: EntityCreateParams): CompletableFuture<HttpResponseFor<Entity>> =
+            create(params, RequestOptions.none())
+
+        /** @see [create] */
         @MustBeClosed
         fun create(
             params: EntityCreateParams,
@@ -126,7 +165,11 @@ interface EntityServiceAsync {
          * Returns a raw HTTP response for `get /entities/{entity_id}`, but is otherwise the same as
          * [EntityServiceAsync.retrieve].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun retrieve(params: EntityRetrieveParams): CompletableFuture<HttpResponseFor<Entity>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
             params: EntityRetrieveParams,
@@ -137,17 +180,25 @@ interface EntityServiceAsync {
          * Returns a raw HTTP response for `get /entities`, but is otherwise the same as
          * [EntityServiceAsync.list].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun list(): CompletableFuture<HttpResponseFor<EntityListPageAsync>> =
+            list(EntityListParams.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             params: EntityListParams = EntityListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<EntityListPageAsync>>
 
-        /**
-         * Returns a raw HTTP response for `get /entities`, but is otherwise the same as
-         * [EntityServiceAsync.list].
-         */
+        /** @see [list] */
+        @MustBeClosed
+        fun list(
+            params: EntityListParams = EntityListParams.none()
+        ): CompletableFuture<HttpResponseFor<EntityListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions
@@ -158,7 +209,11 @@ interface EntityServiceAsync {
          * Returns a raw HTTP response for `post /entities/{entity_id}/archive`, but is otherwise
          * the same as [EntityServiceAsync.archive].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun archive(params: EntityArchiveParams): CompletableFuture<HttpResponseFor<Entity>> =
+            archive(params, RequestOptions.none())
+
+        /** @see [archive] */
         @MustBeClosed
         fun archive(
             params: EntityArchiveParams,
@@ -169,7 +224,13 @@ interface EntityServiceAsync {
          * Returns a raw HTTP response for `post /entities/{entity_id}/archive_beneficial_owner`,
          * but is otherwise the same as [EntityServiceAsync.archiveBeneficialOwner].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun archiveBeneficialOwner(
+            params: EntityArchiveBeneficialOwnerParams
+        ): CompletableFuture<HttpResponseFor<Entity>> =
+            archiveBeneficialOwner(params, RequestOptions.none())
+
+        /** @see [archiveBeneficialOwner] */
         @MustBeClosed
         fun archiveBeneficialOwner(
             params: EntityArchiveBeneficialOwnerParams,
@@ -180,7 +241,11 @@ interface EntityServiceAsync {
          * Returns a raw HTTP response for `post /entities/{entity_id}/confirm`, but is otherwise
          * the same as [EntityServiceAsync.confirm].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun confirm(params: EntityConfirmParams): CompletableFuture<HttpResponseFor<Entity>> =
+            confirm(params, RequestOptions.none())
+
+        /** @see [confirm] */
         @MustBeClosed
         fun confirm(
             params: EntityConfirmParams,
@@ -191,7 +256,13 @@ interface EntityServiceAsync {
          * Returns a raw HTTP response for `post /entities/{entity_id}/create_beneficial_owner`, but
          * is otherwise the same as [EntityServiceAsync.createBeneficialOwner].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun createBeneficialOwner(
+            params: EntityCreateBeneficialOwnerParams
+        ): CompletableFuture<HttpResponseFor<Entity>> =
+            createBeneficialOwner(params, RequestOptions.none())
+
+        /** @see [createBeneficialOwner] */
         @MustBeClosed
         fun createBeneficialOwner(
             params: EntityCreateBeneficialOwnerParams,
@@ -202,7 +273,12 @@ interface EntityServiceAsync {
          * Returns a raw HTTP response for `post /entities/{entity_id}/update_address`, but is
          * otherwise the same as [EntityServiceAsync.updateAddress].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun updateAddress(
+            params: EntityUpdateAddressParams
+        ): CompletableFuture<HttpResponseFor<Entity>> = updateAddress(params, RequestOptions.none())
+
+        /** @see [updateAddress] */
         @MustBeClosed
         fun updateAddress(
             params: EntityUpdateAddressParams,
@@ -214,7 +290,13 @@ interface EntityServiceAsync {
          * /entities/{entity_id}/update_beneficial_owner_address`, but is otherwise the same as
          * [EntityServiceAsync.updateBeneficialOwnerAddress].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun updateBeneficialOwnerAddress(
+            params: EntityUpdateBeneficialOwnerAddressParams
+        ): CompletableFuture<HttpResponseFor<Entity>> =
+            updateBeneficialOwnerAddress(params, RequestOptions.none())
+
+        /** @see [updateBeneficialOwnerAddress] */
         @MustBeClosed
         fun updateBeneficialOwnerAddress(
             params: EntityUpdateBeneficialOwnerAddressParams,
@@ -225,7 +307,13 @@ interface EntityServiceAsync {
          * Returns a raw HTTP response for `post /entities/{entity_id}/update_industry_code`, but is
          * otherwise the same as [EntityServiceAsync.updateIndustryCode].
          */
-        @JvmOverloads
+        @MustBeClosed
+        fun updateIndustryCode(
+            params: EntityUpdateIndustryCodeParams
+        ): CompletableFuture<HttpResponseFor<Entity>> =
+            updateIndustryCode(params, RequestOptions.none())
+
+        /** @see [updateIndustryCode] */
         @MustBeClosed
         fun updateIndustryCode(
             params: EntityUpdateIndustryCodeParams,
