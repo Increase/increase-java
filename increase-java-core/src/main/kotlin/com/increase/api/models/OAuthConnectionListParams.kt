@@ -13,6 +13,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** List OAuth Connections */
 class OAuthConnectionListParams
@@ -91,7 +92,7 @@ private constructor(
         fun cursor(cursor: String?) = apply { this.cursor = cursor }
 
         /** Return the page of entries after this one. */
-        fun cursor(cursor: Optional<String>) = cursor(cursor.orElse(null))
+        fun cursor(cursor: Optional<String>) = cursor(cursor.getOrNull())
 
         /**
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
@@ -106,8 +107,7 @@ private constructor(
         /**
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
          */
-        @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
-        fun limit(limit: Optional<Long>) = limit(limit.orElse(null) as Long?)
+        fun limit(limit: Optional<Long>) = limit(limit.getOrNull())
 
         /** Filter results to only include OAuth Connections for a specific OAuth Application. */
         fun oauthApplicationId(oauthApplicationId: String?) = apply {
@@ -116,11 +116,11 @@ private constructor(
 
         /** Filter results to only include OAuth Connections for a specific OAuth Application. */
         fun oauthApplicationId(oauthApplicationId: Optional<String>) =
-            oauthApplicationId(oauthApplicationId.orElse(null))
+            oauthApplicationId(oauthApplicationId.getOrNull())
 
         fun status(status: Status?) = apply { this.status = status }
 
-        fun status(status: Optional<Status>) = status(status.orElse(null))
+        fun status(status: Optional<Status>) = status(status.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -281,7 +281,7 @@ private constructor(
              * ones. For GET requests, this should be encoded as a comma-delimited string, such as
              * `?in=one,two,three`.
              */
-            fun in_(in_: Optional<List<In>>) = in_(in_.orElse(null))
+            fun in_(in_: Optional<List<In>>) = in_(in_.getOrNull())
 
             /**
              * Filter to OAuth Connections by their status. By default, return only the `active`

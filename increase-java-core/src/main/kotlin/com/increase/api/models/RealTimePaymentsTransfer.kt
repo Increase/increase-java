@@ -19,6 +19,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * Real-Time Payments transfers move funds, within seconds, between your Increase account and any
@@ -543,7 +544,7 @@ private constructor(
          * details.
          */
         fun acknowledgement(acknowledgement: Optional<Acknowledgement>) =
-            acknowledgement(acknowledgement.orElse(null))
+            acknowledgement(acknowledgement.getOrNull())
 
         /**
          * If the transfer is acknowledged by the recipient bank, this will contain supplemental
@@ -569,7 +570,7 @@ private constructor(
          * If your account requires approvals for transfers and the transfer was approved, this will
          * contain details of the approval.
          */
-        fun approval(approval: Optional<Approval>) = approval(approval.orElse(null))
+        fun approval(approval: Optional<Approval>) = approval(approval.getOrNull())
 
         /**
          * If your account requires approvals for transfers and the transfer was approved, this will
@@ -589,7 +590,7 @@ private constructor(
          * will contain details of the cancellation.
          */
         fun cancellation(cancellation: Optional<Cancellation>) =
-            cancellation(cancellation.orElse(null))
+            cancellation(cancellation.getOrNull())
 
         /**
          * If your account requires approvals for transfers and the transfer was not approved, this
@@ -615,7 +616,7 @@ private constructor(
         fun createdBy(createdBy: CreatedBy?) = createdBy(JsonField.ofNullable(createdBy))
 
         /** What object created the transfer, either via the API or the dashboard. */
-        fun createdBy(createdBy: Optional<CreatedBy>) = createdBy(createdBy.orElse(null))
+        fun createdBy(createdBy: Optional<CreatedBy>) = createdBy(createdBy.getOrNull())
 
         /** What object created the transfer, either via the API or the dashboard. */
         fun createdBy(createdBy: JsonField<CreatedBy>) = apply { this.createdBy = createdBy }
@@ -656,7 +657,7 @@ private constructor(
          * The name of the transfer's sender. If not provided, defaults to the name of the account's
          * entity.
          */
-        fun debtorName(debtorName: Optional<String>) = debtorName(debtorName.orElse(null))
+        fun debtorName(debtorName: Optional<String>) = debtorName(debtorName.getOrNull())
 
         /**
          * The name of the transfer's sender. If not provided, defaults to the name of the account's
@@ -688,7 +689,7 @@ private constructor(
 
         /** The identifier of the External Account the transfer was made to, if any. */
         fun externalAccountId(externalAccountId: Optional<String>) =
-            externalAccountId(externalAccountId.orElse(null))
+            externalAccountId(externalAccountId.getOrNull())
 
         /** The identifier of the External Account the transfer was made to, if any. */
         fun externalAccountId(externalAccountId: JsonField<String>) = apply {
@@ -709,7 +710,7 @@ private constructor(
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         fun idempotencyKey(idempotencyKey: Optional<String>) =
-            idempotencyKey(idempotencyKey.orElse(null))
+            idempotencyKey(idempotencyKey.getOrNull())
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -736,7 +737,7 @@ private constructor(
          * by someone else in your organization.
          */
         fun pendingTransactionId(pendingTransactionId: Optional<String>) =
-            pendingTransactionId(pendingTransactionId.orElse(null))
+            pendingTransactionId(pendingTransactionId.getOrNull())
 
         /**
          * The ID for the pending transaction representing the transfer. A pending transaction is
@@ -758,7 +759,7 @@ private constructor(
          * If the transfer is rejected by Real-Time Payments or the destination financial
          * institution, this will contain supplemental details.
          */
-        fun rejection(rejection: Optional<Rejection>) = rejection(rejection.orElse(null))
+        fun rejection(rejection: Optional<Rejection>) = rejection(rejection.getOrNull())
 
         /**
          * If the transfer is rejected by Real-Time Payments or the destination financial
@@ -800,7 +801,7 @@ private constructor(
          * After the transfer is submitted to Real-Time Payments, this will contain supplemental
          * details.
          */
-        fun submission(submission: Optional<Submission>) = submission(submission.orElse(null))
+        fun submission(submission: Optional<Submission>) = submission(submission.getOrNull())
 
         /**
          * After the transfer is submitted to Real-Time Payments, this will contain supplemental
@@ -814,7 +815,7 @@ private constructor(
 
         /** The Transaction funding the transfer once it is complete. */
         fun transactionId(transactionId: Optional<String>) =
-            transactionId(transactionId.orElse(null))
+            transactionId(transactionId.getOrNull())
 
         /** The Transaction funding the transfer once it is complete. */
         fun transactionId(transactionId: JsonField<String>) = apply {
@@ -845,7 +846,7 @@ private constructor(
          * intermediary receiving the payment for someone else.
          */
         fun ultimateCreditorName(ultimateCreditorName: Optional<String>) =
-            ultimateCreditorName(ultimateCreditorName.orElse(null))
+            ultimateCreditorName(ultimateCreditorName.getOrNull())
 
         /**
          * The name of the ultimate recipient of the transfer. Set this if the creditor is an
@@ -867,7 +868,7 @@ private constructor(
          * behalf of someone who is not the account holder at Increase.
          */
         fun ultimateDebtorName(ultimateDebtorName: Optional<String>) =
-            ultimateDebtorName(ultimateDebtorName.orElse(null))
+            ultimateDebtorName(ultimateDebtorName.getOrNull())
 
         /**
          * The name of the ultimate sender of the transfer. Set this if the funds are being sent on
@@ -1160,7 +1161,7 @@ private constructor(
              * If the Transfer was approved by a user in the dashboard, the email address of that
              * user.
              */
-            fun approvedBy(approvedBy: Optional<String>) = approvedBy(approvedBy.orElse(null))
+            fun approvedBy(approvedBy: Optional<String>) = approvedBy(approvedBy.getOrNull())
 
             /**
              * If the Transfer was approved by a user in the dashboard, the email address of that
@@ -1328,7 +1329,7 @@ private constructor(
              * If the Transfer was canceled by a user in the dashboard, the email address of that
              * user.
              */
-            fun canceledBy(canceledBy: Optional<String>) = canceledBy(canceledBy.orElse(null))
+            fun canceledBy(canceledBy: Optional<String>) = canceledBy(canceledBy.getOrNull())
 
             /**
              * If the Transfer was canceled by a user in the dashboard, the email address of that
@@ -1485,7 +1486,7 @@ private constructor(
             fun apiKey(apiKey: ApiKey?) = apiKey(JsonField.ofNullable(apiKey))
 
             /** If present, details about the API key that created the transfer. */
-            fun apiKey(apiKey: Optional<ApiKey>) = apiKey(apiKey.orElse(null))
+            fun apiKey(apiKey: Optional<ApiKey>) = apiKey(apiKey.getOrNull())
 
             /** If present, details about the API key that created the transfer. */
             fun apiKey(apiKey: JsonField<ApiKey>) = apply { this.apiKey = apiKey }
@@ -1502,7 +1503,7 @@ private constructor(
 
             /** If present, details about the OAuth Application that created the transfer. */
             fun oauthApplication(oauthApplication: Optional<OAuthApplication>) =
-                oauthApplication(oauthApplication.orElse(null))
+                oauthApplication(oauthApplication.getOrNull())
 
             /** If present, details about the OAuth Application that created the transfer. */
             fun oauthApplication(oauthApplication: JsonField<OAuthApplication>) = apply {
@@ -1513,7 +1514,7 @@ private constructor(
             fun user(user: User?) = user(JsonField.ofNullable(user))
 
             /** If present, details about the User that created the transfer. */
-            fun user(user: Optional<User>) = user(user.orElse(null))
+            fun user(user: Optional<User>) = user(user.getOrNull())
 
             /** If present, details about the User that created the transfer. */
             fun user(user: JsonField<User>) = apply { this.user = user }
@@ -1616,7 +1617,7 @@ private constructor(
 
                 /** The description set for the API key when it was created. */
                 fun description(description: Optional<String>) =
-                    description(description.orElse(null))
+                    description(description.getOrNull())
 
                 /** The description set for the API key when it was created. */
                 fun description(description: JsonField<String>) = apply {
@@ -2321,7 +2322,7 @@ private constructor(
              */
             fun rejectReasonAdditionalInformation(
                 rejectReasonAdditionalInformation: Optional<String>
-            ) = rejectReasonAdditionalInformation(rejectReasonAdditionalInformation.orElse(null))
+            ) = rejectReasonAdditionalInformation(rejectReasonAdditionalInformation.getOrNull())
 
             /**
              * Additional information about the rejection provided by the recipient bank when the
@@ -2358,7 +2359,7 @@ private constructor(
              * transfer was rejected.
              */
             fun rejectedAt(rejectedAt: Optional<OffsetDateTime>) =
-                rejectedAt(rejectedAt.orElse(null))
+                rejectedAt(rejectedAt.getOrNull())
 
             /**
              * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
@@ -3158,7 +3159,7 @@ private constructor(
              * transfer was submitted to The Clearing House.
              */
             fun submittedAt(submittedAt: Optional<OffsetDateTime>) =
-                submittedAt(submittedAt.orElse(null))
+                submittedAt(submittedAt.getOrNull())
 
             /**
              * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the

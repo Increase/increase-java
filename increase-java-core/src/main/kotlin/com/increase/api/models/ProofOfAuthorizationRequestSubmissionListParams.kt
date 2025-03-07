@@ -8,6 +8,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** List Proof of Authorization Request Submissions */
 class ProofOfAuthorizationRequestSubmissionListParams
@@ -99,7 +100,7 @@ private constructor(
         fun cursor(cursor: String?) = apply { this.cursor = cursor }
 
         /** Return the page of entries after this one. */
-        fun cursor(cursor: Optional<String>) = cursor(cursor.orElse(null))
+        fun cursor(cursor: Optional<String>) = cursor(cursor.getOrNull())
 
         /**
          * Filter records to the one with the specified `idempotency_key` you chose for that object.
@@ -116,7 +117,7 @@ private constructor(
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         fun idempotencyKey(idempotencyKey: Optional<String>) =
-            idempotencyKey(idempotencyKey.orElse(null))
+            idempotencyKey(idempotencyKey.getOrNull())
 
         /**
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
@@ -131,8 +132,7 @@ private constructor(
         /**
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
          */
-        @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
-        fun limit(limit: Optional<Long>) = limit(limit.orElse(null) as Long?)
+        fun limit(limit: Optional<Long>) = limit(limit.getOrNull())
 
         /** ID of the proof of authorization request. */
         fun proofOfAuthorizationRequestId(proofOfAuthorizationRequestId: String?) = apply {
@@ -141,7 +141,7 @@ private constructor(
 
         /** ID of the proof of authorization request. */
         fun proofOfAuthorizationRequestId(proofOfAuthorizationRequestId: Optional<String>) =
-            proofOfAuthorizationRequestId(proofOfAuthorizationRequestId.orElse(null))
+            proofOfAuthorizationRequestId(proofOfAuthorizationRequestId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

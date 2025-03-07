@@ -18,6 +18,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** The results of a Digital Wallet Token simulation. */
 @NoAutoDetect
@@ -143,7 +144,7 @@ private constructor(
          * why.
          */
         fun declineReason(declineReason: Optional<DeclineReason>) =
-            declineReason(declineReason.orElse(null))
+            declineReason(declineReason.getOrNull())
 
         /**
          * If the simulated tokenization attempt was declined, this field contains details as to
@@ -165,7 +166,7 @@ private constructor(
          * Digital Wallet Token that was created.
          */
         fun digitalWalletTokenId(digitalWalletTokenId: Optional<String>) =
-            digitalWalletTokenId(digitalWalletTokenId.orElse(null))
+            digitalWalletTokenId(digitalWalletTokenId.getOrNull())
 
         /**
          * If the simulated tokenization attempt was accepted, this field contains the id of the

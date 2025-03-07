@@ -15,6 +15,7 @@ import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** List Inbound ACH Transfers */
 class InboundAchTransferListParams
@@ -106,7 +107,7 @@ private constructor(
         fun accountId(accountId: String?) = apply { this.accountId = accountId }
 
         /** Filter Inbound ACH Transfers to ones belonging to the specified Account. */
-        fun accountId(accountId: Optional<String>) = accountId(accountId.orElse(null))
+        fun accountId(accountId: Optional<String>) = accountId(accountId.getOrNull())
 
         /** Filter Inbound ACH Transfers to ones belonging to the specified Account Number. */
         fun accountNumberId(accountNumberId: String?) = apply {
@@ -115,17 +116,17 @@ private constructor(
 
         /** Filter Inbound ACH Transfers to ones belonging to the specified Account Number. */
         fun accountNumberId(accountNumberId: Optional<String>) =
-            accountNumberId(accountNumberId.orElse(null))
+            accountNumberId(accountNumberId.getOrNull())
 
         fun createdAt(createdAt: CreatedAt?) = apply { this.createdAt = createdAt }
 
-        fun createdAt(createdAt: Optional<CreatedAt>) = createdAt(createdAt.orElse(null))
+        fun createdAt(createdAt: Optional<CreatedAt>) = createdAt(createdAt.getOrNull())
 
         /** Return the page of entries after this one. */
         fun cursor(cursor: String?) = apply { this.cursor = cursor }
 
         /** Return the page of entries after this one. */
-        fun cursor(cursor: Optional<String>) = cursor(cursor.orElse(null))
+        fun cursor(cursor: Optional<String>) = cursor(cursor.getOrNull())
 
         /**
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
@@ -140,12 +141,11 @@ private constructor(
         /**
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
          */
-        @Suppress("USELESS_CAST") // See https://youtrack.jetbrains.com/issue/KT-74228
-        fun limit(limit: Optional<Long>) = limit(limit.orElse(null) as Long?)
+        fun limit(limit: Optional<Long>) = limit(limit.getOrNull())
 
         fun status(status: Status?) = apply { this.status = status }
 
-        fun status(status: Optional<Status>) = status(status.orElse(null))
+        fun status(status: Optional<Status>) = status(status.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -344,7 +344,7 @@ private constructor(
              * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun after(after: Optional<OffsetDateTime>) = after(after.orElse(null))
+            fun after(after: Optional<OffsetDateTime>) = after(after.getOrNull())
 
             /**
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
@@ -356,7 +356,7 @@ private constructor(
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun before(before: Optional<OffsetDateTime>) = before(before.orElse(null))
+            fun before(before: Optional<OffsetDateTime>) = before(before.getOrNull())
 
             /**
              * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
@@ -368,7 +368,7 @@ private constructor(
              * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun onOrAfter(onOrAfter: Optional<OffsetDateTime>) = onOrAfter(onOrAfter.orElse(null))
+            fun onOrAfter(onOrAfter: Optional<OffsetDateTime>) = onOrAfter(onOrAfter.getOrNull())
 
             /**
              * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
@@ -381,7 +381,7 @@ private constructor(
              * timestamp.
              */
             fun onOrBefore(onOrBefore: Optional<OffsetDateTime>) =
-                onOrBefore(onOrBefore.orElse(null))
+                onOrBefore(onOrBefore.getOrNull())
 
             fun additionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.clear()
@@ -501,7 +501,7 @@ private constructor(
              * Filter Inbound ACH Transfers to those with the specified status. For GET requests,
              * this should be encoded as a comma-delimited string, such as `?in=one,two,three`.
              */
-            fun in_(in_: Optional<List<In>>) = in_(in_.orElse(null))
+            fun in_(in_: Optional<List<In>>) = in_(in_.getOrNull())
 
             /**
              * Filter Inbound ACH Transfers to those with the specified status. For GET requests,

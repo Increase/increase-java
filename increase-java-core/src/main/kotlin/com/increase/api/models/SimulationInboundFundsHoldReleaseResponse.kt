@@ -19,6 +19,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * We hold funds for certain transaction types to account for return windows where funds might still
@@ -291,7 +292,7 @@ private constructor(
 
         /** The ID of the Transaction for which funds were held. */
         fun heldTransactionId(heldTransactionId: Optional<String>) =
-            heldTransactionId(heldTransactionId.orElse(null))
+            heldTransactionId(heldTransactionId.getOrNull())
 
         /** The ID of the Transaction for which funds were held. */
         fun heldTransactionId(heldTransactionId: JsonField<String>) = apply {
@@ -304,7 +305,7 @@ private constructor(
 
         /** The ID of the Pending Transaction representing the held funds. */
         fun pendingTransactionId(pendingTransactionId: Optional<String>) =
-            pendingTransactionId(pendingTransactionId.orElse(null))
+            pendingTransactionId(pendingTransactionId.getOrNull())
 
         /** The ID of the Pending Transaction representing the held funds. */
         fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {
@@ -315,7 +316,7 @@ private constructor(
         fun releasedAt(releasedAt: OffsetDateTime?) = releasedAt(JsonField.ofNullable(releasedAt))
 
         /** When the hold was released (if it has been released). */
-        fun releasedAt(releasedAt: Optional<OffsetDateTime>) = releasedAt(releasedAt.orElse(null))
+        fun releasedAt(releasedAt: Optional<OffsetDateTime>) = releasedAt(releasedAt.getOrNull())
 
         /** When the hold was released (if it has been released). */
         fun releasedAt(releasedAt: JsonField<OffsetDateTime>) = apply {

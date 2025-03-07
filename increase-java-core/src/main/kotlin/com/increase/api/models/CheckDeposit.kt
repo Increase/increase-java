@@ -19,6 +19,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Check Deposits allow you to deposit images of paper checks into your account. */
 @NoAutoDetect
@@ -404,7 +405,7 @@ private constructor(
 
         /** The ID for the File containing the image of the back of the check. */
         fun backImageFileId(backImageFileId: Optional<String>) =
-            backImageFileId(backImageFileId.orElse(null))
+            backImageFileId(backImageFileId.getOrNull())
 
         /** The ID for the File containing the image of the back of the check. */
         fun backImageFileId(backImageFileId: JsonField<String>) = apply {
@@ -435,7 +436,7 @@ private constructor(
          * details of the parsed check.
          */
         fun depositAcceptance(depositAcceptance: Optional<DepositAcceptance>) =
-            depositAcceptance(depositAcceptance.orElse(null))
+            depositAcceptance(depositAcceptance.getOrNull())
 
         /**
          * If your deposit is successfully parsed and accepted by Increase, this will contain
@@ -457,7 +458,7 @@ private constructor(
          * rejected.
          */
         fun depositRejection(depositRejection: Optional<DepositRejection>) =
-            depositRejection(depositRejection.orElse(null))
+            depositRejection(depositRejection.getOrNull())
 
         /**
          * If your deposit is rejected by Increase, this will contain details as to why it was
@@ -473,7 +474,7 @@ private constructor(
 
         /** If your deposit is returned, this will contain details as to why it was returned. */
         fun depositReturn(depositReturn: Optional<DepositReturn>) =
-            depositReturn(depositReturn.orElse(null))
+            depositReturn(depositReturn.getOrNull())
 
         /** If your deposit is returned, this will contain details as to why it was returned. */
         fun depositReturn(depositReturn: JsonField<DepositReturn>) = apply {
@@ -492,7 +493,7 @@ private constructor(
          * will contain details of the submission.
          */
         fun depositSubmission(depositSubmission: Optional<DepositSubmission>) =
-            depositSubmission(depositSubmission.orElse(null))
+            depositSubmission(depositSubmission.getOrNull())
 
         /**
          * After the check is parsed, it is submitted to the Check21 network for processing. This
@@ -506,7 +507,7 @@ private constructor(
         fun description(description: String?) = description(JsonField.ofNullable(description))
 
         /** The description of the Check Deposit, for display purposes only. */
-        fun description(description: Optional<String>) = description(description.orElse(null))
+        fun description(description: Optional<String>) = description(description.getOrNull())
 
         /** The description of the Check Deposit, for display purposes only. */
         fun description(description: JsonField<String>) = apply { this.description = description }
@@ -534,7 +535,7 @@ private constructor(
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         fun idempotencyKey(idempotencyKey: Optional<String>) =
-            idempotencyKey(idempotencyKey.orElse(null))
+            idempotencyKey(idempotencyKey.getOrNull())
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -557,7 +558,7 @@ private constructor(
          * sub-object will contain details of the hold.
          */
         fun inboundFundsHold(inboundFundsHold: Optional<InboundFundsHold>) =
-            inboundFundsHold(inboundFundsHold.orElse(null))
+            inboundFundsHold(inboundFundsHold.getOrNull())
 
         /**
          * Increase will sometimes hold the funds for Check Deposits. If funds are held, this
@@ -579,7 +580,7 @@ private constructor(
          * identifier of the Inbound Mail Item.
          */
         fun inboundMailItemId(inboundMailItemId: Optional<String>) =
-            inboundMailItemId(inboundMailItemId.orElse(null))
+            inboundMailItemId(inboundMailItemId.getOrNull())
 
         /**
          * If the Check Deposit was the result of an Inbound Mail Item, this will contain the
@@ -599,7 +600,7 @@ private constructor(
          * If the Check Deposit was the result of an Inbound Mail Item, this will contain the
          * identifier of the Lockbox that received it.
          */
-        fun lockboxId(lockboxId: Optional<String>) = lockboxId(lockboxId.orElse(null))
+        fun lockboxId(lockboxId: Optional<String>) = lockboxId(lockboxId.getOrNull())
 
         /**
          * If the Check Deposit was the result of an Inbound Mail Item, this will contain the
@@ -619,7 +620,7 @@ private constructor(
 
         /** The ID for the Transaction created by the deposit. */
         fun transactionId(transactionId: Optional<String>) =
-            transactionId(transactionId.orElse(null))
+            transactionId(transactionId.getOrNull())
 
         /** The ID for the Transaction created by the deposit. */
         fun transactionId(transactionId: JsonField<String>) = apply {
@@ -890,7 +891,7 @@ private constructor(
              * check number for business checks.
              */
             fun auxiliaryOnUs(auxiliaryOnUs: Optional<String>) =
-                auxiliaryOnUs(auxiliaryOnUs.orElse(null))
+                auxiliaryOnUs(auxiliaryOnUs.getOrNull())
 
             /**
              * An additional line of metadata printed on the check. This typically includes the
@@ -941,7 +942,7 @@ private constructor(
              * serial number is usually in the `auxiliary_on_us` field.
              */
             fun serialNumber(serialNumber: Optional<String>) =
-                serialNumber(serialNumber.orElse(null))
+                serialNumber(serialNumber.getOrNull())
 
             /**
              * The check serial number, if present, for consumer checks. For business checks, the
@@ -2958,7 +2959,7 @@ private constructor(
 
             /** The ID of the Transaction for which funds were held. */
             fun heldTransactionId(heldTransactionId: Optional<String>) =
-                heldTransactionId(heldTransactionId.orElse(null))
+                heldTransactionId(heldTransactionId.getOrNull())
 
             /** The ID of the Transaction for which funds were held. */
             fun heldTransactionId(heldTransactionId: JsonField<String>) = apply {
@@ -2971,7 +2972,7 @@ private constructor(
 
             /** The ID of the Pending Transaction representing the held funds. */
             fun pendingTransactionId(pendingTransactionId: Optional<String>) =
-                pendingTransactionId(pendingTransactionId.orElse(null))
+                pendingTransactionId(pendingTransactionId.getOrNull())
 
             /** The ID of the Pending Transaction representing the held funds. */
             fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {
@@ -2984,7 +2985,7 @@ private constructor(
 
             /** When the hold was released (if it has been released). */
             fun releasedAt(releasedAt: Optional<OffsetDateTime>) =
-                releasedAt(releasedAt.orElse(null))
+                releasedAt(releasedAt.getOrNull())
 
             /** When the hold was released (if it has been released). */
             fun releasedAt(releasedAt: JsonField<OffsetDateTime>) = apply {

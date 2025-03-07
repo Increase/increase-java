@@ -11,6 +11,7 @@ import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * Retrieve the current and available balances for an account in minor units of the account's
@@ -91,7 +92,7 @@ private constructor(
         fun atTime(atTime: OffsetDateTime?) = apply { this.atTime = atTime }
 
         /** The moment to query the balance at. If not set, returns the current balances. */
-        fun atTime(atTime: Optional<OffsetDateTime>) = atTime(atTime.orElse(null))
+        fun atTime(atTime: Optional<OffsetDateTime>) = atTime(atTime.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

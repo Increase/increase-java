@@ -19,6 +19,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * Increase generates certain documents / forms automatically for your application; they can be
@@ -183,7 +184,7 @@ private constructor(
         fun entityId(entityId: String?) = entityId(JsonField.ofNullable(entityId))
 
         /** The identifier of the Entity the document was generated for. */
-        fun entityId(entityId: Optional<String>) = entityId(entityId.orElse(null))
+        fun entityId(entityId: Optional<String>) = entityId(entityId.getOrNull())
 
         /** The identifier of the Entity the document was generated for. */
         fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }

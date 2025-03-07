@@ -21,6 +21,7 @@ import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * Entities are the legal entities that own accounts. They can be people, corporations,
@@ -349,7 +350,7 @@ private constructor(
          * Details of the corporation entity. Will be present if `structure` is equal to
          * `corporation`.
          */
-        fun corporation(corporation: Optional<Corporation>) = corporation(corporation.orElse(null))
+        fun corporation(corporation: Optional<Corporation>) = corporation(corporation.getOrNull())
 
         /**
          * Details of the corporation entity. Will be present if `structure` is equal to
@@ -375,7 +376,7 @@ private constructor(
         fun description(description: String?) = description(JsonField.ofNullable(description))
 
         /** The entity's description for display purposes. */
-        fun description(description: Optional<String>) = description(description.orElse(null))
+        fun description(description: Optional<String>) = description(description.getOrNull())
 
         /** The entity's description for display purposes. */
         fun description(description: JsonField<String>) = apply { this.description = description }
@@ -392,7 +393,7 @@ private constructor(
          * were most recently confirmed.
          */
         fun detailsConfirmedAt(detailsConfirmedAt: Optional<OffsetDateTime>) =
-            detailsConfirmedAt(detailsConfirmedAt.orElse(null))
+            detailsConfirmedAt(detailsConfirmedAt.getOrNull())
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Entity's details
@@ -414,7 +415,7 @@ private constructor(
          * `government_authority`.
          */
         fun governmentAuthority(governmentAuthority: Optional<GovernmentAuthority>) =
-            governmentAuthority(governmentAuthority.orElse(null))
+            governmentAuthority(governmentAuthority.getOrNull())
 
         /**
          * Details of the government authority entity. Will be present if `structure` is equal to
@@ -438,7 +439,7 @@ private constructor(
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         fun idempotencyKey(idempotencyKey: Optional<String>) =
-            idempotencyKey(idempotencyKey.orElse(null))
+            idempotencyKey(idempotencyKey.getOrNull())
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -453,7 +454,7 @@ private constructor(
         fun joint(joint: Joint?) = joint(JsonField.ofNullable(joint))
 
         /** Details of the joint entity. Will be present if `structure` is equal to `joint`. */
-        fun joint(joint: Optional<Joint>) = joint(joint.orElse(null))
+        fun joint(joint: Optional<Joint>) = joint(joint.getOrNull())
 
         /** Details of the joint entity. Will be present if `structure` is equal to `joint`. */
         fun joint(joint: JsonField<Joint>) = apply { this.joint = joint }
@@ -470,7 +471,7 @@ private constructor(
          * `natural_person`.
          */
         fun naturalPerson(naturalPerson: Optional<NaturalPerson>) =
-            naturalPerson(naturalPerson.orElse(null))
+            naturalPerson(naturalPerson.getOrNull())
 
         /**
          * Details of the natural person entity. Will be present if `structure` is equal to
@@ -533,7 +534,7 @@ private constructor(
          * may not use this field.
          */
         fun thirdPartyVerification(thirdPartyVerification: Optional<ThirdPartyVerification>) =
-            thirdPartyVerification(thirdPartyVerification.orElse(null))
+            thirdPartyVerification(thirdPartyVerification.getOrNull())
 
         /**
          * A reference to data stored in a third-party verification service. Your integration may or
@@ -548,7 +549,7 @@ private constructor(
         fun trust(trust: Trust?) = trust(JsonField.ofNullable(trust))
 
         /** Details of the trust entity. Will be present if `structure` is equal to `trust`. */
-        fun trust(trust: Optional<Trust>) = trust(trust.orElse(null))
+        fun trust(trust: Optional<Trust>) = trust(trust.getOrNull())
 
         /** Details of the trust entity. Will be present if `structure` is equal to `trust`. */
         fun trust(trust: JsonField<Trust>) = apply { this.trust = trust }
@@ -817,7 +818,7 @@ private constructor(
              * state of incorporation.
              */
             fun incorporationState(incorporationState: Optional<String>) =
-                incorporationState(incorporationState.orElse(null))
+                incorporationState(incorporationState.getOrNull())
 
             /**
              * The two-letter United States Postal Service (USPS) abbreviation for the corporation's
@@ -839,7 +840,7 @@ private constructor(
              * the corporation.
              */
             fun industryCode(industryCode: Optional<String>) =
-                industryCode(industryCode.orElse(null))
+                industryCode(industryCode.getOrNull())
 
             /**
              * The numeric North American Industry Classification System (NAICS) code submitted for
@@ -861,7 +862,7 @@ private constructor(
 
             /** The Employer Identification Number (EIN) for the corporation. */
             fun taxIdentifier(taxIdentifier: Optional<String>) =
-                taxIdentifier(taxIdentifier.orElse(null))
+                taxIdentifier(taxIdentifier.getOrNull())
 
             /** The Employer Identification Number (EIN) for the corporation. */
             fun taxIdentifier(taxIdentifier: JsonField<String>) = apply {
@@ -872,7 +873,7 @@ private constructor(
             fun website(website: String?) = website(JsonField.ofNullable(website))
 
             /** The website of the corporation. */
-            fun website(website: Optional<String>) = website(website.orElse(null))
+            fun website(website: Optional<String>) = website(website.getOrNull())
 
             /** The website of the corporation. */
             fun website(website: JsonField<String>) = apply { this.website = website }
@@ -1043,7 +1044,7 @@ private constructor(
                 fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
 
                 /** The second line of the address. */
-                fun line2(line2: Optional<String>) = line2(line2.orElse(null))
+                fun line2(line2: Optional<String>) = line2(line2.getOrNull())
 
                 /** The second line of the address. */
                 fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
@@ -1237,7 +1238,7 @@ private constructor(
 
                 /** This person's role or title within the entity. */
                 fun companyTitle(companyTitle: Optional<String>) =
-                    companyTitle(companyTitle.orElse(null))
+                    companyTitle(companyTitle.getOrNull())
 
                 /** This person's role or title within the entity. */
                 fun companyTitle(companyTitle: JsonField<String>) = apply {
@@ -1591,7 +1592,7 @@ private constructor(
                         fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
 
                         /** The second line of the address. */
-                        fun line2(line2: Optional<String>) = line2(line2.orElse(null))
+                        fun line2(line2: Optional<String>) = line2(line2.getOrNull())
 
                         /** The second line of the address. */
                         fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
@@ -2306,7 +2307,7 @@ private constructor(
 
             /** The Employer Identification Number (EIN) of the government authority. */
             fun taxIdentifier(taxIdentifier: Optional<String>) =
-                taxIdentifier(taxIdentifier.orElse(null))
+                taxIdentifier(taxIdentifier.getOrNull())
 
             /** The Employer Identification Number (EIN) of the government authority. */
             fun taxIdentifier(taxIdentifier: JsonField<String>) = apply {
@@ -2317,7 +2318,7 @@ private constructor(
             fun website(website: String?) = website(JsonField.ofNullable(website))
 
             /** The government authority's website. */
-            fun website(website: Optional<String>) = website(website.orElse(null))
+            fun website(website: Optional<String>) = website(website.getOrNull())
 
             /** The government authority's website. */
             fun website(website: JsonField<String>) = apply { this.website = website }
@@ -2487,7 +2488,7 @@ private constructor(
                 fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
 
                 /** The second line of the address. */
-                fun line2(line2: Optional<String>) = line2(line2.orElse(null))
+                fun line2(line2: Optional<String>) = line2(line2.getOrNull())
 
                 /** The second line of the address. */
                 fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
@@ -3239,7 +3240,7 @@ private constructor(
                     fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
 
                     /** The second line of the address. */
-                    fun line2(line2: Optional<String>) = line2(line2.orElse(null))
+                    fun line2(line2: Optional<String>) = line2(line2.getOrNull())
 
                     /** The second line of the address. */
                     fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
@@ -3940,7 +3941,7 @@ private constructor(
                 fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
 
                 /** The second line of the address. */
-                fun line2(line2: Optional<String>) = line2(line2.orElse(null))
+                fun line2(line2: Optional<String>) = line2(line2.getOrNull())
 
                 /** The second line of the address. */
                 fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
@@ -5003,7 +5004,7 @@ private constructor(
 
             /** The ID for the File containing the formation document of the trust. */
             fun formationDocumentFileId(formationDocumentFileId: Optional<String>) =
-                formationDocumentFileId(formationDocumentFileId.orElse(null))
+                formationDocumentFileId(formationDocumentFileId.getOrNull())
 
             /** The ID for the File containing the formation document of the trust. */
             fun formationDocumentFileId(formationDocumentFileId: JsonField<String>) = apply {
@@ -5022,7 +5023,7 @@ private constructor(
              * which the trust was formed.
              */
             fun formationState(formationState: Optional<String>) =
-                formationState(formationState.orElse(null))
+                formationState(formationState.getOrNull())
 
             /**
              * The two-letter United States Postal Service (USPS) abbreviation for the state in
@@ -5036,7 +5037,7 @@ private constructor(
             fun grantor(grantor: Grantor?) = grantor(JsonField.ofNullable(grantor))
 
             /** The grantor of the trust. Will be present if the `category` is `revocable`. */
-            fun grantor(grantor: Optional<Grantor>) = grantor(grantor.orElse(null))
+            fun grantor(grantor: Optional<Grantor>) = grantor(grantor.getOrNull())
 
             /** The grantor of the trust. Will be present if the `category` is `revocable`. */
             fun grantor(grantor: JsonField<Grantor>) = apply { this.grantor = grantor }
@@ -5053,7 +5054,7 @@ private constructor(
 
             /** The Employer Identification Number (EIN) of the trust itself. */
             fun taxIdentifier(taxIdentifier: Optional<String>) =
-                taxIdentifier(taxIdentifier.orElse(null))
+                taxIdentifier(taxIdentifier.getOrNull())
 
             /** The Employer Identification Number (EIN) of the trust itself. */
             fun taxIdentifier(taxIdentifier: JsonField<String>) = apply {
@@ -5243,7 +5244,7 @@ private constructor(
                 fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
 
                 /** The second line of the address. */
-                fun line2(line2: Optional<String>) = line2(line2.orElse(null))
+                fun line2(line2: Optional<String>) = line2(line2.getOrNull())
 
                 /** The second line of the address. */
                 fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
@@ -5725,7 +5726,7 @@ private constructor(
                     fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
 
                     /** The second line of the address. */
-                    fun line2(line2: Optional<String>) = line2(line2.orElse(null))
+                    fun line2(line2: Optional<String>) = line2(line2.getOrNull())
 
                     /** The second line of the address. */
                     fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
@@ -6205,7 +6206,7 @@ private constructor(
                  * is equal to `individual`.
                  */
                 fun individual(individual: Optional<Individual>) =
-                    individual(individual.orElse(null))
+                    individual(individual.getOrNull())
 
                 /**
                  * The individual trustee of the trust. Will be present if the trustee's `structure`
@@ -6557,7 +6558,7 @@ private constructor(
                         fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
 
                         /** The second line of the address. */
-                        fun line2(line2: Optional<String>) = line2(line2.orElse(null))
+                        fun line2(line2: Optional<String>) = line2(line2.getOrNull())
 
                         /** The second line of the address. */
                         fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }

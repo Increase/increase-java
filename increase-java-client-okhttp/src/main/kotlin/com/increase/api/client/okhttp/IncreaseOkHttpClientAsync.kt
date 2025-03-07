@@ -13,6 +13,7 @@ import java.net.Proxy
 import java.time.Clock
 import java.time.Duration
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 class IncreaseOkHttpClientAsync private constructor() {
 
@@ -154,7 +155,7 @@ class IncreaseOkHttpClientAsync private constructor() {
         }
 
         fun webhookSecret(webhookSecret: Optional<String>) =
-            webhookSecret(webhookSecret.orElse(null))
+            webhookSecret(webhookSecret.getOrNull())
 
         fun fromEnv() = apply { clientOptions.fromEnv() }
 

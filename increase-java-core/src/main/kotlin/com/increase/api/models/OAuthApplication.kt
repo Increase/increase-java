@@ -19,6 +19,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * An OAuth Application lets you build an application for others to use with their Increase data.
@@ -216,7 +217,7 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth
          * Application was deleted.
          */
-        fun deletedAt(deletedAt: Optional<OffsetDateTime>) = deletedAt(deletedAt.orElse(null))
+        fun deletedAt(deletedAt: Optional<OffsetDateTime>) = deletedAt(deletedAt.getOrNull())
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth
@@ -228,7 +229,7 @@ private constructor(
         fun name(name: String?) = name(JsonField.ofNullable(name))
 
         /** The name you chose for this OAuth Application. */
-        fun name(name: Optional<String>) = name(name.orElse(null))
+        fun name(name: Optional<String>) = name(name.getOrNull())
 
         /** The name you chose for this OAuth Application. */
         fun name(name: JsonField<String>) = apply { this.name = name }
