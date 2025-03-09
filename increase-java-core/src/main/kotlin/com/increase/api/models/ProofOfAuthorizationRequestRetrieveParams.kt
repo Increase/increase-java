@@ -39,6 +39,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [ProofOfAuthorizationRequestRetrieveParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .proofOfAuthorizationRequestId()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

@@ -39,6 +39,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [RealTimeDecisionRetrieveParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .realTimeDecisionId()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

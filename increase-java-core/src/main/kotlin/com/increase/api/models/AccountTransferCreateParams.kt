@@ -166,6 +166,17 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```java
+             * .accountId()
+             * .amount()
+             * .description()
+             * .destinationAccountId()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -285,6 +296,17 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [AccountTransferCreateParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .accountId()
+         * .amount()
+         * .description()
+         * .destinationAccountId()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

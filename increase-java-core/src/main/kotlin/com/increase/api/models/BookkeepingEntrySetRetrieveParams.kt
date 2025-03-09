@@ -39,6 +39,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [BookkeepingEntrySetRetrieveParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .bookkeepingEntrySetId()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

@@ -138,6 +138,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```java
+             * .accountId()
+             * .name()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -243,6 +252,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [AccountNumberCreateParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .accountId()
+         * .name()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -461,6 +479,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [InboundAch].
+             *
+             * The following fields are required:
+             * ```java
+             * .debitStatus()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -694,6 +720,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [InboundChecks].
+             *
+             * The following fields are required:
+             * ```java
+             * .status()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 

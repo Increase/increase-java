@@ -55,6 +55,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [SimulationAchTransferAcknowledgeParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .achTransferId()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

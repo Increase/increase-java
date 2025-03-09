@@ -140,6 +140,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [LockboxListPageAsync]. */
             @JvmStatic fun builder() = Builder()
         }
 

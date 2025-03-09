@@ -343,6 +343,33 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [InboundCheckDeposit].
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .acceptedAt()
+         * .accountId()
+         * .accountNumberId()
+         * .adjustments()
+         * .amount()
+         * .backImageFileId()
+         * .bankOfFirstDepositRoutingNumber()
+         * .checkNumber()
+         * .checkTransferId()
+         * .createdAt()
+         * .currency()
+         * .declinedAt()
+         * .declinedTransactionId()
+         * .depositReturn()
+         * .frontImageFileId()
+         * .payeeNameAnalysis()
+         * .status()
+         * .transactionId()
+         * .type()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -801,6 +828,17 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Adjustment].
+             *
+             * The following fields are required:
+             * ```java
+             * .adjustedAt()
+             * .amount()
+             * .reason()
+             * .transactionId()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -1264,6 +1302,16 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [DepositReturn].
+             *
+             * The following fields are required:
+             * ```java
+             * .reason()
+             * .returnedAt()
+             * .transactionId()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 

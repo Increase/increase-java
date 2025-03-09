@@ -180,6 +180,24 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [SimulationInboundFundsHoldReleaseResponse].
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .amount()
+         * .automaticallyReleasesAt()
+         * .createdAt()
+         * .currency()
+         * .heldTransactionId()
+         * .pendingTransactionId()
+         * .releasedAt()
+         * .status()
+         * .type()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
