@@ -19,6 +19,7 @@ class IncreaseOkHttpClient private constructor() {
 
     companion object {
 
+        /** Returns a mutable builder for constructing an instance of [IncreaseOkHttpClient]. */
         @JvmStatic fun builder() = Builder()
 
         @JvmStatic fun fromEnv(): IncreaseClient = builder().fromEnv().build()
