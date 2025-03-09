@@ -208,7 +208,7 @@ FileCreateParams params = FileCreateParams.builder()
 File file = client.files().create(params);
 ```
 
-Note that when passing a non-`Path` its filename is unknown so it will not be included in the request. To manually set a filename, pass a `MultipartField`:
+Note that when passing a non-`Path` its filename is unknown so it will not be included in the request. To manually set a filename, pass a [`MultipartField`](increase-java-core/src/main/kotlin/com/increase/api/core/Values.kt):
 
 ```java
 import com.increase.api.core.MultipartField;
@@ -470,7 +470,7 @@ AccountCreateParams params = AccountCreateParams.builder()
 
 These can be accessed on the built object later using the `_additionalHeaders()`, `_additionalQueryParams()`, and `_additionalBodyProperties()` methods.
 
-To set a documented parameter or property to an undocumented or not yet supported _value_, pass a [`JsonValue`](increase-java-core/src/main/kotlin/com/increase/api/core/JsonValue.kt) object to its setter:
+To set a documented parameter or property to an undocumented or not yet supported _value_, pass a [`JsonValue`](increase-java-core/src/main/kotlin/com/increase/api/core/Values.kt) object to its setter:
 
 ```java
 import com.increase.api.core.JsonValue;
@@ -481,6 +481,45 @@ AccountCreateParams params = AccountCreateParams.builder()
     .entityId("entity_n8y8tnk2p9339ti393yi")
     .programId("program_i2v2os4mwza1oetokh9i")
     .build();
+```
+
+The most straightforward way to create a [`JsonValue`](increase-java-core/src/main/kotlin/com/increase/api/core/Values.kt) is using its `from(...)` method:
+
+```java
+import com.increase.api.core.JsonValue;
+import java.util.List;
+import java.util.Map;
+
+// Create primitive JSON values
+JsonValue nullValue = JsonValue.from(null);
+JsonValue booleanValue = JsonValue.from(true);
+JsonValue numberValue = JsonValue.from(42);
+JsonValue stringValue = JsonValue.from("Hello World!");
+
+// Create a JSON array value equivalent to `["Hello", "World"]`
+JsonValue arrayValue = JsonValue.from(List.of(
+  "Hello", "World"
+));
+
+// Create a JSON object value equivalent to `{ "a": 1, "b": 2 }`
+JsonValue objectValue = JsonValue.from(Map.of(
+  "a", 1,
+  "b", 2
+));
+
+// Create an arbitrarily nested JSON equivalent to:
+// {
+//   "a": [1, 2],
+//   "b": [3, 4]
+// }
+JsonValue complexValue = JsonValue.from(Map.of(
+  "a", List.of(
+    1, 2
+  ),
+  "b", List.of(
+    3, 4
+  )
+));
 ```
 
 ### Response properties
