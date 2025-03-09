@@ -67,6 +67,9 @@ private constructor(
 
         @JvmStatic fun none(): AccountTransferListParams = builder().build()
 
+        /**
+         * Returns a mutable builder for constructing an instance of [AccountTransferListParams].
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -305,6 +308,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [CreatedAt]. */
             @JvmStatic fun builder() = Builder()
         }
 

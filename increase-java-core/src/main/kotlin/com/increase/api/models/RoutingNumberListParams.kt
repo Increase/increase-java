@@ -53,6 +53,14 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [RoutingNumberListParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .routingNumber()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

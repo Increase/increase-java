@@ -115,6 +115,19 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [BookkeepingEntry].
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .accountId()
+         * .amount()
+         * .createdAt()
+         * .entrySetId()
+         * .type()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

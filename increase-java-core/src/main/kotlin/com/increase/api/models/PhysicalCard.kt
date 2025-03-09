@@ -168,6 +168,22 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [PhysicalCard].
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .cardId()
+         * .cardholder()
+         * .createdAt()
+         * .idempotencyKey()
+         * .physicalCardProfileId()
+         * .shipment()
+         * .status()
+         * .type()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -372,6 +388,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Cardholder].
+             *
+             * The following fields are required:
+             * ```java
+             * .firstName()
+             * .lastName()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -513,6 +538,17 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Shipment].
+             *
+             * The following fields are required:
+             * ```java
+             * .address()
+             * .method()
+             * .status()
+             * .tracking()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -689,6 +725,20 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [Address].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .city()
+                 * .line1()
+                 * .line2()
+                 * .line3()
+                 * .name()
+                 * .postalCode()
+                 * .state()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -1196,6 +1246,17 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [Tracking].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .number()
+                 * .returnNumber()
+                 * .returnReason()
+                 * .shippedAt()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 

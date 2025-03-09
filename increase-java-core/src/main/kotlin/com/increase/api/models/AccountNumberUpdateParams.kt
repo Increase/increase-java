@@ -149,6 +149,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Body]. */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -248,6 +249,14 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [AccountNumberUpdateParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .accountNumberId()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -473,6 +482,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [InboundAch]. */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -693,6 +703,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [InboundChecks].
+             *
+             * The following fields are required:
+             * ```java
+             * .status()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 

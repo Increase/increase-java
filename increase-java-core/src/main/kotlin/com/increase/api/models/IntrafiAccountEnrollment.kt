@@ -156,6 +156,20 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [IntrafiAccountEnrollment].
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .accountId()
+         * .createdAt()
+         * .idempotencyKey()
+         * .intrafiId()
+         * .status()
+         * .type()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

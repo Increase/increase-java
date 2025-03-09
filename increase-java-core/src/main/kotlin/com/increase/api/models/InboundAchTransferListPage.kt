@@ -139,6 +139,10 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [InboundAchTransferListPage].
+             */
             @JvmStatic fun builder() = Builder()
         }
 

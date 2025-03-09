@@ -138,6 +138,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [CheckDepositListPage]. */
             @JvmStatic fun builder() = Builder()
         }
 

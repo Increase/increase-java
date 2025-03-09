@@ -52,6 +52,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [SimulationWireTransferSubmitParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .wireTransferId()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

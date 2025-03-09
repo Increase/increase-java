@@ -39,6 +39,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [DigitalWalletTokenRetrieveParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .digitalWalletTokenId()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

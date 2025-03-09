@@ -116,6 +116,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```java
+             * .cardPaymentId()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -202,6 +210,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [SimulationCardReversalCreateParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .cardPaymentId()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

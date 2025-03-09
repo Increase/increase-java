@@ -61,6 +61,9 @@ private constructor(
 
         @JvmStatic fun none(): OAuthConnectionListParams = builder().build()
 
+        /**
+         * Returns a mutable builder for constructing an instance of [OAuthConnectionListParams].
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -250,6 +253,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Status]. */
             @JvmStatic fun builder() = Builder()
         }
 

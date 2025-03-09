@@ -39,6 +39,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [DeclinedTransactionRetrieveParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .declinedTransactionId()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

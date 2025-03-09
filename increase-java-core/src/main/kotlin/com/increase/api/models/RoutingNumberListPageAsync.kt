@@ -146,6 +146,10 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [RoutingNumberListPageAsync].
+             */
             @JvmStatic fun builder() = Builder()
         }
 

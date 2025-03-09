@@ -218,6 +218,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```java
+             * .category()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -367,6 +375,14 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [ExportCreateParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .category()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -777,6 +793,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [AccountStatementOfx].
+             *
+             * The following fields are required:
+             * ```java
+             * .accountId()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -933,6 +957,7 @@ private constructor(
 
             companion object {
 
+                /** Returns a mutable builder for constructing an instance of [CreatedAt]. */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -1134,6 +1159,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [BalanceCsv]. */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -1294,6 +1320,7 @@ private constructor(
 
             companion object {
 
+                /** Returns a mutable builder for constructing an instance of [CreatedAt]. */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -1491,6 +1518,10 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [BookkeepingAccountBalanceCsv].
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -1651,6 +1682,7 @@ private constructor(
 
             companion object {
 
+                /** Returns a mutable builder for constructing an instance of [CreatedAt]. */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -1829,6 +1861,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [EntityCsv]. */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -1915,6 +1948,14 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [Status].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .in_()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -2202,6 +2243,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [TransactionCsv]. */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -2362,6 +2404,7 @@ private constructor(
 
             companion object {
 
+                /** Returns a mutable builder for constructing an instance of [CreatedAt]. */
                 @JvmStatic fun builder() = Builder()
             }
 

@@ -53,6 +53,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [SimulationCheckTransferMailParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .checkTransferId()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

@@ -395,6 +395,38 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [InboundWireTransfer].
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .accountId()
+         * .accountNumberId()
+         * .amount()
+         * .beneficiaryAddressLine1()
+         * .beneficiaryAddressLine2()
+         * .beneficiaryAddressLine3()
+         * .beneficiaryName()
+         * .beneficiaryReference()
+         * .createdAt()
+         * .description()
+         * .inputMessageAccountabilityData()
+         * .originatorAddressLine1()
+         * .originatorAddressLine2()
+         * .originatorAddressLine3()
+         * .originatorName()
+         * .originatorRoutingNumber()
+         * .originatorToBeneficiaryInformation()
+         * .originatorToBeneficiaryInformationLine1()
+         * .originatorToBeneficiaryInformationLine2()
+         * .originatorToBeneficiaryInformationLine3()
+         * .originatorToBeneficiaryInformationLine4()
+         * .senderReference()
+         * .status()
+         * .type()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
