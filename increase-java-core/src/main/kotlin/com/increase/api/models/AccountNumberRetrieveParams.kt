@@ -39,6 +39,14 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [AccountNumberRetrieveParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .accountNumberId()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

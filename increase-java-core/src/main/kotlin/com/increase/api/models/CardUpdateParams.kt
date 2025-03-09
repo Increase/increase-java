@@ -192,6 +192,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Body]. */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -317,6 +318,14 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [CardUpdateParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .cardId()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -595,6 +604,17 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [BillingAddress].
+             *
+             * The following fields are required:
+             * ```java
+             * .city()
+             * .line1()
+             * .postalCode()
+             * .state()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -769,6 +789,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [DigitalWallet]. */
             @JvmStatic fun builder() = Builder()
         }
 

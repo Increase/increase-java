@@ -49,6 +49,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [PhysicalCardProfileArchiveParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .physicalCardProfileId()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

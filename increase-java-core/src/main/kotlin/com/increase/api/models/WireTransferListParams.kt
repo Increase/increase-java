@@ -74,6 +74,7 @@ private constructor(
 
         @JvmStatic fun none(): WireTransferListParams = builder().build()
 
+        /** Returns a mutable builder for constructing an instance of [WireTransferListParams]. */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -324,6 +325,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [CreatedAt]. */
             @JvmStatic fun builder() = Builder()
         }
 

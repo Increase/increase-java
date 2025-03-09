@@ -102,6 +102,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Body]. */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -167,6 +168,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [SimulationRealTimePaymentsTransferCompleteParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .realTimePaymentsTransferId()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -370,6 +380,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Rejection].
+             *
+             * The following fields are required:
+             * ```java
+             * .rejectReasonCode()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 

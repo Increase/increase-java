@@ -62,6 +62,10 @@ private constructor(
 
         @JvmStatic fun none(): ProofOfAuthorizationRequestSubmissionListParams = builder().build()
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [ProofOfAuthorizationRequestSubmissionListParams].
+         */
         @JvmStatic fun builder() = Builder()
     }
 

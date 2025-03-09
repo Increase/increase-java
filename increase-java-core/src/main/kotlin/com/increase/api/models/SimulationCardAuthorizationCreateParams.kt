@@ -455,6 +455,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```java
+             * .amount()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -733,6 +741,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [SimulationCardAuthorizationCreateParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .amount()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -1484,6 +1501,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [NetworkDetails].
+             *
+             * The following fields are required:
+             * ```java
+             * .visa()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -1572,6 +1597,7 @@ private constructor(
 
             companion object {
 
+                /** Returns a mutable builder for constructing an instance of [Visa]. */
                 @JvmStatic fun builder() = Builder()
             }
 

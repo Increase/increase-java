@@ -105,6 +105,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```java
+             * .address()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -177,6 +185,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [EntityUpdateAddressParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .entityId()
+         * .address()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -422,6 +439,17 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Address].
+             *
+             * The following fields are required:
+             * ```java
+             * .city()
+             * .line1()
+             * .state()
+             * .zip()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 

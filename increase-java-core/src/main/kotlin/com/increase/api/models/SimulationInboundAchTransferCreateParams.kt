@@ -307,6 +307,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```java
+             * .accountNumberId()
+             * .amount()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -505,6 +514,16 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [SimulationInboundAchTransferCreateParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .accountNumberId()
+         * .amount()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

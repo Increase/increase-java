@@ -39,6 +39,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [OAuthApplicationRetrieveParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .oauthApplicationId()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

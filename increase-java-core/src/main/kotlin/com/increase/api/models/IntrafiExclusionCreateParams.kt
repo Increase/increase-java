@@ -97,6 +97,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```java
+             * .bankName()
+             * .entityId()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -175,6 +184,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [IntrafiExclusionCreateParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .bankName()
+         * .entityId()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

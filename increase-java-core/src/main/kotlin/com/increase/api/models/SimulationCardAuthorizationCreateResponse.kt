@@ -100,6 +100,17 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [SimulationCardAuthorizationCreateResponse].
+         *
+         * The following fields are required:
+         * ```java
+         * .declinedTransaction()
+         * .pendingTransaction()
+         * .type()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

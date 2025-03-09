@@ -241,6 +241,30 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [InboundRealTimePaymentsTransfer].
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .accountId()
+         * .accountNumberId()
+         * .amount()
+         * .confirmation()
+         * .createdAt()
+         * .creditorName()
+         * .currency()
+         * .debtorAccountNumber()
+         * .debtorName()
+         * .debtorRoutingNumber()
+         * .decline()
+         * .remittanceInformation()
+         * .status()
+         * .transactionIdentification()
+         * .type()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -526,6 +550,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Confirmation].
+             *
+             * The following fields are required:
+             * ```java
+             * .confirmedAt()
+             * .transactionId()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -812,6 +845,16 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Decline].
+             *
+             * The following fields are required:
+             * ```java
+             * .declinedAt()
+             * .declinedTransactionId()
+             * .reason()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 

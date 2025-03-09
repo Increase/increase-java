@@ -149,6 +149,16 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```java
+             * .cardId()
+             * .cardholder()
+             * .shipment()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -256,6 +266,16 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [PhysicalCardCreateParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .cardId()
+         * .cardholder()
+         * .shipment()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -480,6 +500,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Cardholder].
+             *
+             * The following fields are required:
+             * ```java
+             * .firstName()
+             * .lastName()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -601,6 +630,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Shipment].
+             *
+             * The following fields are required:
+             * ```java
+             * .address()
+             * .method()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -769,6 +807,18 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [Address].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .city()
+                 * .line1()
+                 * .name()
+                 * .postalCode()
+                 * .state()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 

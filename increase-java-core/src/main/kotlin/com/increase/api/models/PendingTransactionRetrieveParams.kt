@@ -39,6 +39,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [PendingTransactionRetrieveParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .pendingTransactionId()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

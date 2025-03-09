@@ -118,6 +118,19 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [Document].
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .category()
+         * .createdAt()
+         * .entityId()
+         * .fileId()
+         * .type()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

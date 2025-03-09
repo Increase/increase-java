@@ -45,6 +45,10 @@ private constructor(
 
         @JvmStatic fun none(): InboundWireDrawdownRequestListParams = builder().build()
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [InboundWireDrawdownRequestListParams].
+         */
         @JvmStatic fun builder() = Builder()
     }
 

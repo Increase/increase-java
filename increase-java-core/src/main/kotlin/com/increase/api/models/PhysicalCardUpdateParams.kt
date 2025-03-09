@@ -94,6 +94,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```java
+             * .status()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -159,6 +167,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [PhysicalCardUpdateParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .physicalCardId()
+         * .status()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

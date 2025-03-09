@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.195.2 (2025-03-09)
+
+Full Changelog: [v0.195.1...v0.195.2](https://github.com/Increase/increase-java/compare/v0.195.1...v0.195.2)
+
+### Chores
+
+* **internal:** remove .idea/ ([4d708b1](https://github.com/Increase/increase-java/commit/4d708b12072a145c3662067d38af00b2ecd487ee))
+* **internal:** revert accidental custom code ([3fb2596](https://github.com/Increase/increase-java/commit/3fb25969206cbbcb7f6f9eaa9f5f601eff1fca48))
+* **internal:** revert last bit of accidental custom code ([d872989](https://github.com/Increase/increase-java/commit/d872989a6a3add15b7fdba422d75e264ad7c3ea6))
+
+
+### Documentation
+
+* document `JsonValue` construction in readme ([#859](https://github.com/Increase/increase-java/issues/859)) ([75be21b](https://github.com/Increase/increase-java/commit/75be21bd1ba6b3c6f148693e67db7b52af01db57))
+* revise readme docs about nested params ([#858](https://github.com/Increase/increase-java/issues/858)) ([b6eab23](https://github.com/Increase/increase-java/commit/b6eab232021d3577f08b2a1729fcbb5118a764ce))
+
 ## 0.195.1 (2025-03-09)
 
 Full Changelog: [v0.195.0...v0.195.1](https://github.com/Increase/increase-java/compare/v0.195.0...v0.195.1)

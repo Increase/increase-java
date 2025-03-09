@@ -190,6 +190,23 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [Transaction].
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .accountId()
+         * .amount()
+         * .createdAt()
+         * .currency()
+         * .description()
+         * .routeId()
+         * .routeType()
+         * .source()
+         * .type()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -1374,6 +1391,43 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Source].
+             *
+             * The following fields are required:
+             * ```java
+             * .accountTransferIntention()
+             * .achTransferIntention()
+             * .achTransferRejection()
+             * .achTransferReturn()
+             * .cardDisputeAcceptance()
+             * .cardDisputeLoss()
+             * .cardRefund()
+             * .cardRevenuePayment()
+             * .cardSettlement()
+             * .cashbackPayment()
+             * .category()
+             * .checkDepositAcceptance()
+             * .checkDepositReturn()
+             * .checkTransferDeposit()
+             * .feePayment()
+             * .inboundAchTransfer()
+             * .inboundAchTransferReturnIntention()
+             * .inboundCheckAdjustment()
+             * .inboundCheckDepositReturnIntention()
+             * .inboundRealTimePaymentsTransferConfirmation()
+             * .inboundRealTimePaymentsTransferDecline()
+             * .inboundWireReversal()
+             * .inboundWireTransfer()
+             * .inboundWireTransferReversal()
+             * .interestPayment()
+             * .internalSource()
+             * .other()
+             * .realTimePaymentsTransferAcknowledgement()
+             * .sampleFunds()
+             * .wireTransferIntention()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -2501,6 +2555,20 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [AccountTransferIntention].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .amount()
+                 * .currency()
+                 * .description()
+                 * .destinationAccountId()
+                 * .sourceAccountId()
+                 * .transferId()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -2890,6 +2958,18 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [AchTransferIntention].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .accountNumber()
+                 * .amount()
+                 * .routingNumber()
+                 * .statementDescriptor()
+                 * .transferId()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -3061,6 +3141,14 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [AchTransferRejection].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .transferId()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -3260,6 +3348,19 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [AchTransferReturn].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .createdAt()
+                 * .rawReturnReasonCode()
+                 * .returnReasonCode()
+                 * .traceNumber()
+                 * .transactionId()
+                 * .transferId()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -4759,6 +4860,17 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [CardDisputeAcceptance].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .acceptedAt()
+                 * .cardDisputeId()
+                 * .transactionId()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -4956,6 +5068,17 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [CardDisputeLoss].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .cardDisputeId()
+                 * .explanation()
+                 * .lostAt()
+                 * .transactionId()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -5374,6 +5497,32 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [CardRefund].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .id()
+                 * .amount()
+                 * .cardPaymentId()
+                 * .cashback()
+                 * .currency()
+                 * .interchange()
+                 * .merchantAcceptorId()
+                 * .merchantCategoryCode()
+                 * .merchantCity()
+                 * .merchantCountry()
+                 * .merchantName()
+                 * .merchantPostalCode()
+                 * .merchantState()
+                 * .networkIdentifiers()
+                 * .presentmentAmount()
+                 * .presentmentCurrency()
+                 * .purchaseDetails()
+                 * .transactionId()
+                 * .type()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -5759,6 +5908,15 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Cashback].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .amount()
+                     * .currency()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -6221,6 +6379,16 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Interchange].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .amount()
+                     * .code()
+                     * .currency()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -6555,6 +6723,17 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [NetworkIdentifiers].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .acquirerBusinessId()
+                     * .acquirerReferenceNumber()
+                     * .transactionId()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -6849,6 +7028,23 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [PurchaseDetails].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .carRental()
+                     * .customerReferenceIdentifier()
+                     * .localTaxAmount()
+                     * .localTaxCurrency()
+                     * .lodging()
+                     * .nationalTaxAmount()
+                     * .nationalTaxCurrency()
+                     * .purchaseIdentifier()
+                     * .purchaseIdentifierFormat()
+                     * .travel()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -7390,6 +7586,29 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [CarRental].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .carClassCode()
+                         * .checkoutDate()
+                         * .dailyRentalRateAmount()
+                         * .dailyRentalRateCurrency()
+                         * .daysRented()
+                         * .extraCharges()
+                         * .fuelChargesAmount()
+                         * .fuelChargesCurrency()
+                         * .insuranceChargesAmount()
+                         * .insuranceChargesCurrency()
+                         * .noShowIndicator()
+                         * .oneWayDropOffChargesAmount()
+                         * .oneWayDropOffChargesCurrency()
+                         * .renterName()
+                         * .weeklyRentalRateAmount()
+                         * .weeklyRentalRateCurrency()
+                         * ```
+                         */
                         @JvmStatic fun builder() = Builder()
                     }
 
@@ -8399,6 +8618,29 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Lodging].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .checkInDate()
+                         * .dailyRoomRateAmount()
+                         * .dailyRoomRateCurrency()
+                         * .extraCharges()
+                         * .folioCashAdvancesAmount()
+                         * .folioCashAdvancesCurrency()
+                         * .foodBeverageChargesAmount()
+                         * .foodBeverageChargesCurrency()
+                         * .noShowIndicator()
+                         * .prepaidExpensesAmount()
+                         * .prepaidExpensesCurrency()
+                         * .roomNights()
+                         * .totalRoomTaxAmount()
+                         * .totalRoomTaxCurrency()
+                         * .totalTaxAmount()
+                         * .totalTaxCurrency()
+                         * ```
+                         */
                         @JvmStatic fun builder() = Builder()
                     }
 
@@ -9458,6 +9700,25 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Travel].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .ancillary()
+                         * .computerizedReservationSystem()
+                         * .creditReasonIndicator()
+                         * .departureDate()
+                         * .originationCityAirportCode()
+                         * .passengerName()
+                         * .restrictedTicketIndicator()
+                         * .ticketChangeIndicator()
+                         * .ticketNumber()
+                         * .travelAgencyCode()
+                         * .travelAgencyName()
+                         * .tripLegs()
+                         * ```
+                         */
                         @JvmStatic fun builder() = Builder()
                     }
 
@@ -9862,6 +10123,19 @@ private constructor(
 
                         companion object {
 
+                            /**
+                             * Returns a mutable builder for constructing an instance of
+                             * [Ancillary].
+                             *
+                             * The following fields are required:
+                             * ```java
+                             * .connectedTicketDocumentNumber()
+                             * .creditReasonIndicator()
+                             * .passengerNameOrDescription()
+                             * .services()
+                             * .ticketDocumentNumber()
+                             * ```
+                             */
                             @JvmStatic fun builder() = Builder()
                         }
 
@@ -10241,6 +10515,16 @@ private constructor(
 
                             companion object {
 
+                                /**
+                                 * Returns a mutable builder for constructing an instance of
+                                 * [Service].
+                                 *
+                                 * The following fields are required:
+                                 * ```java
+                                 * .category()
+                                 * .subCategory()
+                                 * ```
+                                 */
                                 @JvmStatic fun builder() = Builder()
                             }
 
@@ -11219,6 +11503,19 @@ private constructor(
 
                         companion object {
 
+                            /**
+                             * Returns a mutable builder for constructing an instance of [TripLeg].
+                             *
+                             * The following fields are required:
+                             * ```java
+                             * .carrierCode()
+                             * .destinationCityAirportCode()
+                             * .fareBasisCode()
+                             * .flightNumber()
+                             * .serviceClass()
+                             * .stopOverCode()
+                             * ```
+                             */
                             @JvmStatic fun builder() = Builder()
                         }
 
@@ -11768,6 +12065,18 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [CardRevenuePayment].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .amount()
+                 * .currency()
+                 * .periodEnd()
+                 * .periodStart()
+                 * .transactedOnAccountId()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -12379,6 +12688,34 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [CardSettlement].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .id()
+                 * .amount()
+                 * .cardAuthorization()
+                 * .cardPaymentId()
+                 * .cashback()
+                 * .currency()
+                 * .interchange()
+                 * .merchantAcceptorId()
+                 * .merchantCategoryCode()
+                 * .merchantCity()
+                 * .merchantCountry()
+                 * .merchantName()
+                 * .merchantPostalCode()
+                 * .merchantState()
+                 * .networkIdentifiers()
+                 * .pendingTransactionId()
+                 * .presentmentAmount()
+                 * .presentmentCurrency()
+                 * .purchaseDetails()
+                 * .transactionId()
+                 * .type()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -12805,6 +13142,15 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Cashback].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .amount()
+                     * .currency()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -13267,6 +13613,16 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Interchange].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .amount()
+                     * .code()
+                     * .currency()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -13601,6 +13957,17 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [NetworkIdentifiers].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .acquirerBusinessId()
+                     * .acquirerReferenceNumber()
+                     * .transactionId()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -13895,6 +14262,23 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [PurchaseDetails].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .carRental()
+                     * .customerReferenceIdentifier()
+                     * .localTaxAmount()
+                     * .localTaxCurrency()
+                     * .lodging()
+                     * .nationalTaxAmount()
+                     * .nationalTaxCurrency()
+                     * .purchaseIdentifier()
+                     * .purchaseIdentifierFormat()
+                     * .travel()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -14436,6 +14820,29 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [CarRental].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .carClassCode()
+                         * .checkoutDate()
+                         * .dailyRentalRateAmount()
+                         * .dailyRentalRateCurrency()
+                         * .daysRented()
+                         * .extraCharges()
+                         * .fuelChargesAmount()
+                         * .fuelChargesCurrency()
+                         * .insuranceChargesAmount()
+                         * .insuranceChargesCurrency()
+                         * .noShowIndicator()
+                         * .oneWayDropOffChargesAmount()
+                         * .oneWayDropOffChargesCurrency()
+                         * .renterName()
+                         * .weeklyRentalRateAmount()
+                         * .weeklyRentalRateCurrency()
+                         * ```
+                         */
                         @JvmStatic fun builder() = Builder()
                     }
 
@@ -15445,6 +15852,29 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Lodging].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .checkInDate()
+                         * .dailyRoomRateAmount()
+                         * .dailyRoomRateCurrency()
+                         * .extraCharges()
+                         * .folioCashAdvancesAmount()
+                         * .folioCashAdvancesCurrency()
+                         * .foodBeverageChargesAmount()
+                         * .foodBeverageChargesCurrency()
+                         * .noShowIndicator()
+                         * .prepaidExpensesAmount()
+                         * .prepaidExpensesCurrency()
+                         * .roomNights()
+                         * .totalRoomTaxAmount()
+                         * .totalRoomTaxCurrency()
+                         * .totalTaxAmount()
+                         * .totalTaxCurrency()
+                         * ```
+                         */
                         @JvmStatic fun builder() = Builder()
                     }
 
@@ -16504,6 +16934,25 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Travel].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .ancillary()
+                         * .computerizedReservationSystem()
+                         * .creditReasonIndicator()
+                         * .departureDate()
+                         * .originationCityAirportCode()
+                         * .passengerName()
+                         * .restrictedTicketIndicator()
+                         * .ticketChangeIndicator()
+                         * .ticketNumber()
+                         * .travelAgencyCode()
+                         * .travelAgencyName()
+                         * .tripLegs()
+                         * ```
+                         */
                         @JvmStatic fun builder() = Builder()
                     }
 
@@ -16908,6 +17357,19 @@ private constructor(
 
                         companion object {
 
+                            /**
+                             * Returns a mutable builder for constructing an instance of
+                             * [Ancillary].
+                             *
+                             * The following fields are required:
+                             * ```java
+                             * .connectedTicketDocumentNumber()
+                             * .creditReasonIndicator()
+                             * .passengerNameOrDescription()
+                             * .services()
+                             * .ticketDocumentNumber()
+                             * ```
+                             */
                             @JvmStatic fun builder() = Builder()
                         }
 
@@ -17287,6 +17749,16 @@ private constructor(
 
                             companion object {
 
+                                /**
+                                 * Returns a mutable builder for constructing an instance of
+                                 * [Service].
+                                 *
+                                 * The following fields are required:
+                                 * ```java
+                                 * .category()
+                                 * .subCategory()
+                                 * ```
+                                 */
                                 @JvmStatic fun builder() = Builder()
                             }
 
@@ -18265,6 +18737,19 @@ private constructor(
 
                         companion object {
 
+                            /**
+                             * Returns a mutable builder for constructing an instance of [TripLeg].
+                             *
+                             * The following fields are required:
+                             * ```java
+                             * .carrierCode()
+                             * .destinationCityAirportCode()
+                             * .fareBasisCode()
+                             * .flightNumber()
+                             * .serviceClass()
+                             * .stopOverCode()
+                             * ```
+                             */
                             @JvmStatic fun builder() = Builder()
                         }
 
@@ -18815,6 +19300,18 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [CashbackPayment].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .accruedOnCardId()
+                 * .amount()
+                 * .currency()
+                 * .periodEnd()
+                 * .periodStart()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -19771,6 +20268,21 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [CheckDepositAcceptance].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .accountNumber()
+                 * .amount()
+                 * .auxiliaryOnUs()
+                 * .checkDepositId()
+                 * .currency()
+                 * .routingNumber()
+                 * .serialNumber()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -20219,6 +20731,19 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [CheckDepositReturn].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .amount()
+                 * .checkDepositId()
+                 * .currency()
+                 * .returnReason()
+                 * .returnedAt()
+                 * .transactionId()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -21011,6 +21536,21 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [CheckTransferDeposit].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .backImageFileId()
+                 * .bankOfFirstDepositRoutingNumber()
+                 * .depositedAt()
+                 * .frontImageFileId()
+                 * .inboundCheckDepositId()
+                 * .transactionId()
+                 * .transferId()
+                 * .type()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -21434,6 +21974,17 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [FeePayment].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .amount()
+                 * .currency()
+                 * .feePeriodStart()
+                 * .programId()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -21901,6 +22452,24 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [InboundAchTransfer].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .addenda()
+                 * .amount()
+                 * .originatorCompanyDescriptiveDate()
+                 * .originatorCompanyDiscretionaryData()
+                 * .originatorCompanyEntryDescription()
+                 * .originatorCompanyId()
+                 * .originatorCompanyName()
+                 * .receiverIdNumber()
+                 * .receiverName()
+                 * .traceNumber()
+                 * .transferId()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -22195,6 +22764,15 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Addenda].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .category()
+                     * .freeform()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -22407,6 +22985,14 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Freeform].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .entries()
+                         * ```
+                         */
                         @JvmStatic fun builder() = Builder()
                     }
 
@@ -22509,6 +23095,14 @@ private constructor(
 
                         companion object {
 
+                            /**
+                             * Returns a mutable builder for constructing an instance of [Entry].
+                             *
+                             * The following fields are required:
+                             * ```java
+                             * .paymentRelatedInformation()
+                             * ```
+                             */
                             @JvmStatic fun builder() = Builder()
                         }
 
@@ -22683,6 +23277,15 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [InboundAchTransferReturnIntention].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .inboundAchTransferId()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -22822,6 +23425,17 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [InboundCheckAdjustment].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .adjustedTransactionId()
+                 * .amount()
+                 * .reason()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -23135,6 +23749,16 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [InboundCheckDepositReturnIntention].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .inboundCheckDepositId()
+                 * .transferId()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -23378,6 +24002,23 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [InboundRealTimePaymentsTransferConfirmation].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .amount()
+                 * .creditorName()
+                 * .currency()
+                 * .debtorAccountNumber()
+                 * .debtorName()
+                 * .debtorRoutingNumber()
+                 * .remittanceInformation()
+                 * .transactionIdentification()
+                 * .transferId()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -23883,6 +24524,24 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [InboundRealTimePaymentsTransferDecline].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .amount()
+                 * .creditorName()
+                 * .currency()
+                 * .debtorAccountNumber()
+                 * .debtorName()
+                 * .debtorRoutingNumber()
+                 * .reason()
+                 * .remittanceInformation()
+                 * .transactionIdentification()
+                 * .transferId()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -24672,6 +25331,30 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [InboundWireReversal].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .amount()
+                 * .createdAt()
+                 * .description()
+                 * .financialInstitutionToFinancialInstitutionInformation()
+                 * .inputCycleDate()
+                 * .inputMessageAccountabilityData()
+                 * .inputSequenceNumber()
+                 * .inputSource()
+                 * .originatorRoutingNumber()
+                 * .previousMessageInputCycleDate()
+                 * .previousMessageInputMessageAccountabilityData()
+                 * .previousMessageInputSequenceNumber()
+                 * .previousMessageInputSource()
+                 * .receiverFinancialInstitutionInformation()
+                 * .senderReference()
+                 * .transactionId()
+                 * .wireTransferId()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -25373,6 +26056,32 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [InboundWireTransfer].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .amount()
+                 * .beneficiaryAddressLine1()
+                 * .beneficiaryAddressLine2()
+                 * .beneficiaryAddressLine3()
+                 * .beneficiaryName()
+                 * .beneficiaryReference()
+                 * .description()
+                 * .inputMessageAccountabilityData()
+                 * .originatorAddressLine1()
+                 * .originatorAddressLine2()
+                 * .originatorAddressLine3()
+                 * .originatorName()
+                 * .originatorRoutingNumber()
+                 * .originatorToBeneficiaryInformation()
+                 * .originatorToBeneficiaryInformationLine1()
+                 * .originatorToBeneficiaryInformationLine2()
+                 * .originatorToBeneficiaryInformationLine3()
+                 * .originatorToBeneficiaryInformationLine4()
+                 * .transferId()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -25872,6 +26581,15 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [InboundWireTransferReversal].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .inboundWireTransferId()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -26047,6 +26765,18 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [InterestPayment].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .accruedOnAccountId()
+                 * .amount()
+                 * .currency()
+                 * .periodEnd()
+                 * .periodStart()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -26402,6 +27132,16 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [InternalSource].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .amount()
+                 * .currency()
+                 * .reason()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -26981,6 +27721,19 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [RealTimePaymentsTransferAcknowledgement].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .amount()
+                 * .destinationAccountNumber()
+                 * .destinationRoutingNumber()
+                 * .remittanceInformation()
+                 * .transferId()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -27148,6 +27901,14 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [SampleFunds].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .originator()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -27308,6 +28069,19 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [WireTransferIntention].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .accountNumber()
+                 * .amount()
+                 * .messageToRecipient()
+                 * .routingNumber()
+                 * .transferId()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 

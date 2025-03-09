@@ -88,6 +88,16 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [BookkeepingBalanceLookup].
+         *
+         * The following fields are required:
+         * ```java
+         * .balance()
+         * .bookkeepingAccountId()
+         * .type()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

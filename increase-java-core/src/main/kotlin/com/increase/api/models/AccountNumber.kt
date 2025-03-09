@@ -189,6 +189,24 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [AccountNumber].
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .accountId()
+         * .accountNumber()
+         * .createdAt()
+         * .idempotencyKey()
+         * .inboundAch()
+         * .inboundChecks()
+         * .name()
+         * .routingNumber()
+         * .status()
+         * .type()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -412,6 +430,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [InboundAch].
+             *
+             * The following fields are required:
+             * ```java
+             * .debitStatus()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -636,6 +662,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [InboundChecks].
+             *
+             * The following fields are required:
+             * ```java
+             * .status()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 

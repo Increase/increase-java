@@ -39,6 +39,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [InboundMailItemRetrieveParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .inboundMailItemId()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
