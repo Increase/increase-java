@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.195.1 (2025-03-09)
+
+Full Changelog: [v0.195.0...v0.195.1](https://github.com/Increase/increase-java/compare/v0.195.0...v0.195.1)
+
+### Bug Fixes
+
+* revert accidental custom code and fix lint ([4affe9a](https://github.com/Increase/increase-java/commit/4affe9ac2ddb954cc9d12ded3a4951de775565cf))
+
+
+### Chores
+
+* **internal:** add `.kotlin` to `.gitignore` ([#852](https://github.com/Increase/increase-java/issues/852)) ([706a419](https://github.com/Increase/increase-java/commit/706a4199a5540e2d46ed4c0c69be4d526c5752d7))
+* **internal:** don't use `JvmOverloads` in interfaces ([d126781](https://github.com/Increase/increase-java/commit/d126781f0670f74417a9e73100c6f6dbbabf65e3))
+* **internal:** reenable warnings as errors ([#855](https://github.com/Increase/increase-java/issues/855)) ([d126781](https://github.com/Increase/increase-java/commit/d126781f0670f74417a9e73100c6f6dbbabf65e3))
+* **internal:** use `getOrNull` instead of `orElse(null)` ([#854](https://github.com/Increase/increase-java/issues/854)) ([69c471d](https://github.com/Increase/increase-java/commit/69c471d2674647003660d39ed7b628e1772468ea))
+* **internal:** version bump ([#851](https://github.com/Increase/increase-java/issues/851)) ([6d20733](https://github.com/Increase/increase-java/commit/6d2073358212d6bf1bf466bf50a58429931ef82f))
+
+
+### Documentation
+
+* make URL purpose clearer in readme ([#856](https://github.com/Increase/increase-java/issues/856)) ([30704cb](https://github.com/Increase/increase-java/commit/30704cb21214b72fc9518d028ca2711c632a2103))
+
 ## 0.195.0 (2025-03-07)
 
 Full Changelog: [v0.194.0...v0.195.0](https://github.com/Increase/increase-java/compare/v0.194.0...v0.195.0)
