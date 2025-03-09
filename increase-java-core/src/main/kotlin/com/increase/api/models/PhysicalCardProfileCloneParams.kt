@@ -184,6 +184,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Body]. */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -305,6 +306,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [PhysicalCardProfileCloneParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .physicalCardProfileId()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -560,6 +570,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [FrontText].
+             *
+             * The following fields are required:
+             * ```java
+             * .line1()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 

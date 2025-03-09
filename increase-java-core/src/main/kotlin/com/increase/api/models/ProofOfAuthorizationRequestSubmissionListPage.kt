@@ -148,6 +148,10 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [ProofOfAuthorizationRequestSubmissionListPage].
+             */
             @JvmStatic fun builder() = Builder()
         }
 

@@ -163,6 +163,21 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [EventSubscription].
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .createdAt()
+         * .idempotencyKey()
+         * .oauthConnectionId()
+         * .selectedEventCategory()
+         * .status()
+         * .type()
+         * .url()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

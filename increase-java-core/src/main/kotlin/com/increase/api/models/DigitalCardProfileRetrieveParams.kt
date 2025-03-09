@@ -39,6 +39,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [DigitalCardProfileRetrieveParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .digitalCardProfileId()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

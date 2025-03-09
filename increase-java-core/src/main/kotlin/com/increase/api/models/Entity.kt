@@ -268,6 +268,28 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [Entity].
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .corporation()
+         * .createdAt()
+         * .description()
+         * .detailsConfirmedAt()
+         * .governmentAuthority()
+         * .idempotencyKey()
+         * .joint()
+         * .naturalPerson()
+         * .status()
+         * .structure()
+         * .supplementalDocuments()
+         * .thirdPartyVerification()
+         * .trust()
+         * .type()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -711,6 +733,20 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Corporation].
+             *
+             * The following fields are required:
+             * ```java
+             * .address()
+             * .beneficialOwners()
+             * .incorporationState()
+             * .industryCode()
+             * .name()
+             * .taxIdentifier()
+             * .website()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -957,6 +993,18 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [Address].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .city()
+                 * .line1()
+                 * .line2()
+                 * .state()
+                 * .zip()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -1143,6 +1191,17 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [BeneficialOwner].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .beneficialOwnerId()
+                 * .companyTitle()
+                 * .individual()
+                 * .prong()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -1305,6 +1364,17 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Individual].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .address()
+                     * .dateOfBirth()
+                     * .identification()
+                     * .name()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -1470,6 +1540,18 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Address].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .city()
+                         * .line1()
+                         * .line2()
+                         * .state()
+                         * .zip()
+                         * ```
+                         */
                         @JvmStatic fun builder() = Builder()
                     }
 
@@ -1641,6 +1723,16 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of
+                         * [Identification].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .method()
+                         * .numberLast4()
+                         * ```
+                         */
                         @JvmStatic fun builder() = Builder()
                     }
 
@@ -2136,6 +2228,19 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [GovernmentAuthority].
+             *
+             * The following fields are required:
+             * ```java
+             * .address()
+             * .authorizedPersons()
+             * .category()
+             * .name()
+             * .taxIdentifier()
+             * .website()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -2332,6 +2437,18 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [Address].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .city()
+                 * .line1()
+                 * .line2()
+                 * .state()
+                 * .zip()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -2494,6 +2611,15 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [AuthorizedPerson].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .authorizedPersonId()
+                 * .name()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -2742,6 +2868,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Joint].
+             *
+             * The following fields are required:
+             * ```java
+             * .individuals()
+             * .name()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -2878,6 +3013,17 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [Individual].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .address()
+                 * .dateOfBirth()
+                 * .identification()
+                 * .name()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -3043,6 +3189,18 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Address].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .city()
+                     * .line1()
+                     * .line2()
+                     * .state()
+                     * .zip()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -3211,6 +3369,15 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Identification].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .method()
+                     * .numberLast4()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -3550,6 +3717,17 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [NaturalPerson].
+             *
+             * The following fields are required:
+             * ```java
+             * .address()
+             * .dateOfBirth()
+             * .identification()
+             * .name()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -3712,6 +3890,18 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [Address].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .city()
+                 * .line1()
+                 * .line2()
+                 * .state()
+                 * .zip()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -3880,6 +4070,15 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [Identification].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .method()
+                 * .numberLast4()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -4427,6 +4626,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [ThirdPartyVerification].
+             *
+             * The following fields are required:
+             * ```java
+             * .reference()
+             * .vendor()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -4734,6 +4942,21 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Trust].
+             *
+             * The following fields are required:
+             * ```java
+             * .address()
+             * .category()
+             * .formationDocumentFileId()
+             * .formationState()
+             * .grantor()
+             * .name()
+             * .taxIdentifier()
+             * .trustees()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -4970,6 +5193,18 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [Address].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .city()
+                 * .line1()
+                 * .line2()
+                 * .state()
+                 * .zip()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -5264,6 +5499,17 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [Grantor].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .address()
+                 * .dateOfBirth()
+                 * .identification()
+                 * .name()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -5429,6 +5675,18 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Address].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .city()
+                     * .line1()
+                     * .line2()
+                     * .state()
+                     * .zip()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -5597,6 +5855,15 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Identification].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .method()
+                     * .numberLast4()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -5901,6 +6168,15 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [Trustee].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .individual()
+                 * .structure()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -6054,6 +6330,17 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Individual].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .address()
+                     * .dateOfBirth()
+                     * .identification()
+                     * .name()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -6219,6 +6506,18 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Address].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .city()
+                         * .line1()
+                         * .line2()
+                         * .state()
+                         * .zip()
+                         * ```
+                         */
                         @JvmStatic fun builder() = Builder()
                     }
 
@@ -6390,6 +6689,16 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of
+                         * [Identification].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .method()
+                         * .numberLast4()
+                         * ```
+                         */
                         @JvmStatic fun builder() = Builder()
                     }
 

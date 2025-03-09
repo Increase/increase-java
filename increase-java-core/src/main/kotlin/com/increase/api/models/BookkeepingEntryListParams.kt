@@ -50,6 +50,9 @@ private constructor(
 
         @JvmStatic fun none(): BookkeepingEntryListParams = builder().build()
 
+        /**
+         * Returns a mutable builder for constructing an instance of [BookkeepingEntryListParams].
+         */
         @JvmStatic fun builder() = Builder()
     }
 

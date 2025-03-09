@@ -39,6 +39,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [InboundWireDrawdownRequestRetrieveParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .inboundWireDrawdownRequestId()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

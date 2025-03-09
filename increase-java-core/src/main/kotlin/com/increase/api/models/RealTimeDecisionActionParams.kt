@@ -246,6 +246,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Body]. */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -400,6 +401,14 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [RealTimeDecisionActionParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .realTimeDecisionId()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -673,6 +682,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [CardAuthentication].
+             *
+             * The following fields are required:
+             * ```java
+             * .decision()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -901,6 +918,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [CardAuthenticationChallenge].
+             *
+             * The following fields are required:
+             * ```java
+             * .result()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -1143,6 +1169,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [CardAuthorization].
+             *
+             * The following fields are required:
+             * ```java
+             * .decision()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -1588,6 +1622,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [DigitalWalletAuthentication].
+             *
+             * The following fields are required:
+             * ```java
+             * .result()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -1810,6 +1853,7 @@ private constructor(
 
             companion object {
 
+                /** Returns a mutable builder for constructing an instance of [Success]. */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -1972,6 +2016,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [DigitalWalletToken]. */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -2092,6 +2137,7 @@ private constructor(
 
             companion object {
 
+                /** Returns a mutable builder for constructing an instance of [Approval]. */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -2220,6 +2266,7 @@ private constructor(
 
             companion object {
 
+                /** Returns a mutable builder for constructing an instance of [Decline]. */
                 @JvmStatic fun builder() = Builder()
             }
 

@@ -141,6 +141,10 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [InboundCheckDepositListPageAsync].
+             */
             @JvmStatic fun builder() = Builder()
         }
 

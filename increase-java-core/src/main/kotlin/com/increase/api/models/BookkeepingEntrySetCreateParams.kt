@@ -131,6 +131,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```java
+             * .entries()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -236,6 +244,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [BookkeepingEntrySetCreateParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .entries()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -462,6 +479,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Entry].
+             *
+             * The following fields are required:
+             * ```java
+             * .accountId()
+             * .amount()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 

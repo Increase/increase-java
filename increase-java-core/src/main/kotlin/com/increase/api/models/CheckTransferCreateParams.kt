@@ -237,6 +237,17 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```java
+             * .accountId()
+             * .amount()
+             * .fulfillmentMethod()
+             * .sourceAccountNumberId()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -396,6 +407,17 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [CheckTransferCreateParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .accountId()
+         * .amount()
+         * .fulfillmentMethod()
+         * .sourceAccountNumberId()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -852,6 +874,16 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [PhysicalCheck].
+             *
+             * The following fields are required:
+             * ```java
+             * .mailingAddress()
+             * .memo()
+             * .recipientName()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -1045,6 +1077,17 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [MailingAddress].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .city()
+                 * .line1()
+                 * .postalCode()
+                 * .state()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -1243,6 +1286,18 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [ReturnAddress].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .city()
+                 * .line1()
+                 * .name()
+                 * .postalCode()
+                 * .state()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -1428,6 +1483,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [ThirdParty]. */
             @JvmStatic fun builder() = Builder()
         }
 

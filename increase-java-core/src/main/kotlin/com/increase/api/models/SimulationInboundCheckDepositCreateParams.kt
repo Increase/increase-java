@@ -123,6 +123,16 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```java
+             * .accountNumberId()
+             * .amount()
+             * .checkNumber()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -215,6 +225,17 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [SimulationInboundCheckDepositCreateParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .accountNumberId()
+         * .amount()
+         * .checkNumber()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

@@ -29,6 +29,7 @@ private constructor(
 
         @JvmStatic fun none(): GroupRetrieveParams = builder().build()
 
+        /** Returns a mutable builder for constructing an instance of [GroupRetrieveParams]. */
         @JvmStatic fun builder() = Builder()
     }
 

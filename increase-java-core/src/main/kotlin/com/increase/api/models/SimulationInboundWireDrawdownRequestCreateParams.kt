@@ -507,6 +507,21 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```java
+             * .amount()
+             * .beneficiaryAccountNumber()
+             * .beneficiaryRoutingNumber()
+             * .currency()
+             * .messageToRecipient()
+             * .originatorAccountNumber()
+             * .originatorRoutingNumber()
+             * .recipientAccountNumberId()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -873,6 +888,22 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [SimulationInboundWireDrawdownRequestCreateParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .amount()
+         * .beneficiaryAccountNumber()
+         * .beneficiaryRoutingNumber()
+         * .currency()
+         * .messageToRecipient()
+         * .originatorAccountNumber()
+         * .originatorRoutingNumber()
+         * .recipientAccountNumberId()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

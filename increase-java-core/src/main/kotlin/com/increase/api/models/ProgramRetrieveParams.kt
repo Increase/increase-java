@@ -39,6 +39,14 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [ProgramRetrieveParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .programId()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

@@ -189,6 +189,23 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [DeclinedTransaction].
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .accountId()
+         * .amount()
+         * .createdAt()
+         * .currency()
+         * .description()
+         * .routeId()
+         * .routeType()
+         * .source()
+         * .type()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -815,6 +832,21 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Source].
+             *
+             * The following fields are required:
+             * ```java
+             * .achDecline()
+             * .cardDecline()
+             * .category()
+             * .checkDecline()
+             * .checkDepositRejection()
+             * .inboundRealTimePaymentsTransferDecline()
+             * .other()
+             * .wireDecline()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -1236,6 +1268,25 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [AchDecline].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .id()
+                 * .amount()
+                 * .inboundAchTransferId()
+                 * .originatorCompanyDescriptiveDate()
+                 * .originatorCompanyDiscretionaryData()
+                 * .originatorCompanyId()
+                 * .originatorCompanyName()
+                 * .reason()
+                 * .receiverIdNumber()
+                 * .receiverName()
+                 * .traceNumber()
+                 * .type()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -2297,6 +2348,40 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [CardDecline].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .id()
+                 * .actioner()
+                 * .amount()
+                 * .cardPaymentId()
+                 * .currency()
+                 * .declinedTransactionId()
+                 * .digitalWalletTokenId()
+                 * .direction()
+                 * .merchantAcceptorId()
+                 * .merchantCategoryCode()
+                 * .merchantCity()
+                 * .merchantCountry()
+                 * .merchantDescriptor()
+                 * .merchantPostalCode()
+                 * .merchantState()
+                 * .networkDetails()
+                 * .networkIdentifiers()
+                 * .networkRiskScore()
+                 * .physicalCardId()
+                 * .presentmentAmount()
+                 * .presentmentCurrency()
+                 * .processingCategory()
+                 * .realTimeDecisionId()
+                 * .realTimeDecisionReason()
+                 * .reason()
+                 * .terminalId()
+                 * .verification()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -3245,6 +3330,15 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [NetworkDetails].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .category()
+                     * .visa()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -3511,6 +3605,16 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Visa].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .electronicCommerceIndicator()
+                         * .pointOfServiceEntryMode()
+                         * .standInProcessingReason()
+                         * ```
+                         */
                         @JvmStatic fun builder() = Builder()
                     }
 
@@ -4504,6 +4608,17 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [NetworkIdentifiers].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .retrievalReferenceNumber()
+                     * .traceNumber()
+                     * .transactionId()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -5390,6 +5505,15 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Verification].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .cardVerificationCode()
+                     * .cardholderAddress()
+                     * ```
+                     */
                     @JvmStatic fun builder() = Builder()
                 }
 
@@ -5509,6 +5633,15 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of
+                         * [CardVerificationCode].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .result()
+                         * ```
+                         */
                         @JvmStatic fun builder() = Builder()
                     }
 
@@ -5809,6 +5942,19 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of
+                         * [CardholderAddress].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .actualLine1()
+                         * .actualPostalCode()
+                         * .providedLine1()
+                         * .providedPostalCode()
+                         * .result()
+                         * ```
+                         */
                         @JvmStatic fun builder() = Builder()
                     }
 
@@ -6472,6 +6618,20 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [CheckDecline].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .amount()
+                 * .auxiliaryOnUs()
+                 * .backImageFileId()
+                 * .checkTransferId()
+                 * .frontImageFileId()
+                 * .inboundCheckDepositId()
+                 * .reason()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -7035,6 +7195,20 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [CheckDepositRejection].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .amount()
+                 * .checkDepositId()
+                 * .currency()
+                 * .declinedTransactionId()
+                 * .reason()
+                 * .rejectedAt()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -7680,6 +7854,24 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [InboundRealTimePaymentsTransferDecline].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .amount()
+                 * .creditorName()
+                 * .currency()
+                 * .debtorAccountNumber()
+                 * .debtorName()
+                 * .debtorRoutingNumber()
+                 * .reason()
+                 * .remittanceInformation()
+                 * .transactionIdentification()
+                 * .transferId()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 
@@ -8228,6 +8420,15 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [WireDecline].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .inboundWireTransferId()
+                 * .reason()
+                 * ```
+                 */
                 @JvmStatic fun builder() = Builder()
             }
 

@@ -96,6 +96,17 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [SimulationDigitalWalletTokenRequestCreateResponse].
+         *
+         * The following fields are required:
+         * ```java
+         * .declineReason()
+         * .digitalWalletTokenId()
+         * .type()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 

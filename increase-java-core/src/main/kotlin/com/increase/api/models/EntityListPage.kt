@@ -135,6 +135,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [EntityListPage]. */
             @JvmStatic fun builder() = Builder()
         }
 

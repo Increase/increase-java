@@ -140,6 +140,9 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [AchTransferListPageAsync].
+             */
             @JvmStatic fun builder() = Builder()
         }
 

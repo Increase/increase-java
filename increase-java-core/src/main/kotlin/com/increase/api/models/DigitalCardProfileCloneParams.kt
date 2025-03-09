@@ -248,6 +248,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Body]. */
             @JvmStatic fun builder() = Builder()
         }
 
@@ -406,6 +407,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [DigitalCardProfileCloneParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .digitalCardProfileId()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -680,6 +690,16 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [TextColor].
+             *
+             * The following fields are required:
+             * ```java
+             * .blue()
+             * .green()
+             * .red()
+             * ```
+             */
             @JvmStatic fun builder() = Builder()
         }
 
