@@ -11,7 +11,7 @@ The Increase Java SDK provides convenient access to the Increase REST API from a
 
 The Increase Java SDK is similar to the Increase Kotlin SDK but with minor differences that make it more ergonomic for use in Java, such as `Optional` instead of nullable values, `Stream` instead of `Sequence`, and `CompletableFuture` instead of suspend functions.
 
-The REST API documentation can be found on [increase.com](https://increase.com/documentation). Javadocs are also available on [javadoc.io](https://javadoc.io/doc/com.increase.api/increase-java/0.195.0).
+The REST API documentation can be found on [increase.com](https://increase.com/documentation). Javadocs are also available on [javadoc.io](https://javadoc.io/doc/com.increase.api/increase-java/0.195.1).
 
 ## Installation
 
@@ -468,7 +468,7 @@ AccountCreateParams params = AccountCreateParams.builder()
     .build();
 ```
 
-These can be accessed on the built object later using the `_additionalHeaders()`, `_additionalQueryParams()`, and `_additionalBodyProperties()` methods. You can also set undocumented parameters on nested headers, query params, or body classes using the `putAdditionalProperty` method. These properties can be accessed on the built object later using the `_additionalProperties()` method.
+These can be accessed on the built object later using the `_additionalHeaders()`, `_additionalQueryParams()`, and `_additionalBodyProperties()` methods.
 
 To set a documented parameter or property to an undocumented or not yet supported _value_, pass a [`JsonValue`](increase-java-core/src/main/kotlin/com/increase/api/core/JsonValue.kt) object to its setter:
 
