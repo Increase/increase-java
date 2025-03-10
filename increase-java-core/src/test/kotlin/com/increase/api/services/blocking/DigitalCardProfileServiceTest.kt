@@ -4,10 +4,10 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.DigitalCardProfileArchiveParams
-import com.increase.api.models.DigitalCardProfileCloneParams
-import com.increase.api.models.DigitalCardProfileCreateParams
-import com.increase.api.models.DigitalCardProfileRetrieveParams
+import com.increase.api.models.digitalcardprofiles.DigitalCardProfileArchiveParams
+import com.increase.api.models.digitalcardprofiles.DigitalCardProfileCloneParams
+import com.increase.api.models.digitalcardprofiles.DigitalCardProfileCreateParams
+import com.increase.api.models.digitalcardprofiles.DigitalCardProfileRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 

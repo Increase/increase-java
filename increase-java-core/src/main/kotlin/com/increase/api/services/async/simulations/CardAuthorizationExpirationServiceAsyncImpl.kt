@@ -15,8 +15,8 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.CardPayment
-import com.increase.api.models.SimulationCardAuthorizationExpirationCreateParams
+import com.increase.api.models.cardpayments.CardPayment
+import com.increase.api.models.simulations.cardauthorizationexpirations.CardAuthorizationExpirationCreateParams
 import java.util.concurrent.CompletableFuture
 
 class CardAuthorizationExpirationServiceAsyncImpl
@@ -31,7 +31,7 @@ internal constructor(private val clientOptions: ClientOptions) :
         withRawResponse
 
     override fun create(
-        params: SimulationCardAuthorizationExpirationCreateParams,
+        params: CardAuthorizationExpirationCreateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<CardPayment> =
         // post /simulations/card_authorization_expirations
@@ -46,7 +46,7 @@ internal constructor(private val clientOptions: ClientOptions) :
             jsonHandler<CardPayment>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
         override fun create(
-            params: SimulationCardAuthorizationExpirationCreateParams,
+            params: CardAuthorizationExpirationCreateParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<CardPayment>> {
             val request =

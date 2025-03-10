@@ -14,10 +14,10 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.Event
-import com.increase.api.models.EventListPage
-import com.increase.api.models.EventListParams
-import com.increase.api.models.EventRetrieveParams
+import com.increase.api.models.events.Event
+import com.increase.api.models.events.EventListPage
+import com.increase.api.models.events.EventListParams
+import com.increase.api.models.events.EventRetrieveParams
 
 class EventServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     EventService {

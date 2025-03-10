@@ -5,11 +5,11 @@ package com.increase.api.services.async
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.Export
-import com.increase.api.models.ExportCreateParams
-import com.increase.api.models.ExportListPageAsync
-import com.increase.api.models.ExportListParams
-import com.increase.api.models.ExportRetrieveParams
+import com.increase.api.models.exports.Export
+import com.increase.api.models.exports.ExportCreateParams
+import com.increase.api.models.exports.ExportListPageAsync
+import com.increase.api.models.exports.ExportListParams
+import com.increase.api.models.exports.ExportRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 interface ExportServiceAsync {

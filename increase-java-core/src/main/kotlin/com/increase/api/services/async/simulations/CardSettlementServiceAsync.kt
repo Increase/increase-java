@@ -5,8 +5,8 @@ package com.increase.api.services.async.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.SimulationCardSettlementCreateParams
-import com.increase.api.models.Transaction
+import com.increase.api.models.simulations.cardsettlements.CardSettlementCreateParams
+import com.increase.api.models.transactions.Transaction
 import java.util.concurrent.CompletableFuture
 
 interface CardSettlementServiceAsync {
@@ -22,12 +22,12 @@ interface CardSettlementServiceAsync {
      * may occur many days after the purchase in production. The amount settled can be different
      * from the amount originally authorized, for example, when adding a tip to a restaurant bill.
      */
-    fun create(params: SimulationCardSettlementCreateParams): CompletableFuture<Transaction> =
+    fun create(params: CardSettlementCreateParams): CompletableFuture<Transaction> =
         create(params, RequestOptions.none())
 
     /** @see [create] */
     fun create(
-        params: SimulationCardSettlementCreateParams,
+        params: CardSettlementCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Transaction>
 
@@ -43,13 +43,13 @@ interface CardSettlementServiceAsync {
          */
         @MustBeClosed
         fun create(
-            params: SimulationCardSettlementCreateParams
+            params: CardSettlementCreateParams
         ): CompletableFuture<HttpResponseFor<Transaction>> = create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
         fun create(
-            params: SimulationCardSettlementCreateParams,
+            params: CardSettlementCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Transaction>>
     }

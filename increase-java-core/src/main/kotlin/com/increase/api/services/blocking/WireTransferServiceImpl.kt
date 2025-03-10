@@ -15,13 +15,13 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.WireTransfer
-import com.increase.api.models.WireTransferApproveParams
-import com.increase.api.models.WireTransferCancelParams
-import com.increase.api.models.WireTransferCreateParams
-import com.increase.api.models.WireTransferListPage
-import com.increase.api.models.WireTransferListParams
-import com.increase.api.models.WireTransferRetrieveParams
+import com.increase.api.models.wiretransfers.WireTransfer
+import com.increase.api.models.wiretransfers.WireTransferApproveParams
+import com.increase.api.models.wiretransfers.WireTransferCancelParams
+import com.increase.api.models.wiretransfers.WireTransferCreateParams
+import com.increase.api.models.wiretransfers.WireTransferListPage
+import com.increase.api.models.wiretransfers.WireTransferListParams
+import com.increase.api.models.wiretransfers.WireTransferRetrieveParams
 
 class WireTransferServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     WireTransferService {

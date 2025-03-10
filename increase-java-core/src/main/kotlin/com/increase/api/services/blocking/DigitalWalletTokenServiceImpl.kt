@@ -14,10 +14,10 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.DigitalWalletToken
-import com.increase.api.models.DigitalWalletTokenListPage
-import com.increase.api.models.DigitalWalletTokenListParams
-import com.increase.api.models.DigitalWalletTokenRetrieveParams
+import com.increase.api.models.digitalwallettokens.DigitalWalletToken
+import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListPage
+import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListParams
+import com.increase.api.models.digitalwallettokens.DigitalWalletTokenRetrieveParams
 
 class DigitalWalletTokenServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     DigitalWalletTokenService {

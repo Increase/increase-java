@@ -15,11 +15,11 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.CardDispute
-import com.increase.api.models.CardDisputeCreateParams
-import com.increase.api.models.CardDisputeListPage
-import com.increase.api.models.CardDisputeListParams
-import com.increase.api.models.CardDisputeRetrieveParams
+import com.increase.api.models.carddisputes.CardDispute
+import com.increase.api.models.carddisputes.CardDisputeCreateParams
+import com.increase.api.models.carddisputes.CardDisputeListPage
+import com.increase.api.models.carddisputes.CardDisputeListParams
+import com.increase.api.models.carddisputes.CardDisputeRetrieveParams
 
 class CardDisputeServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     CardDisputeService {

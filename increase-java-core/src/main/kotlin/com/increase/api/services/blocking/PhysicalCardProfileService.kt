@@ -5,13 +5,13 @@ package com.increase.api.services.blocking
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.PhysicalCardProfile
-import com.increase.api.models.PhysicalCardProfileArchiveParams
-import com.increase.api.models.PhysicalCardProfileCloneParams
-import com.increase.api.models.PhysicalCardProfileCreateParams
-import com.increase.api.models.PhysicalCardProfileListPage
-import com.increase.api.models.PhysicalCardProfileListParams
-import com.increase.api.models.PhysicalCardProfileRetrieveParams
+import com.increase.api.models.physicalcardprofiles.PhysicalCardProfile
+import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileArchiveParams
+import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileCloneParams
+import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileCreateParams
+import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileListPage
+import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileListParams
+import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileRetrieveParams
 
 interface PhysicalCardProfileService {
 

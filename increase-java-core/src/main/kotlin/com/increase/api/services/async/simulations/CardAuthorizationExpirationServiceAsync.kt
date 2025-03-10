@@ -5,8 +5,8 @@ package com.increase.api.services.async.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.CardPayment
-import com.increase.api.models.SimulationCardAuthorizationExpirationCreateParams
+import com.increase.api.models.cardpayments.CardPayment
+import com.increase.api.models.simulations.cardauthorizationexpirations.CardAuthorizationExpirationCreateParams
 import java.util.concurrent.CompletableFuture
 
 interface CardAuthorizationExpirationServiceAsync {
@@ -17,13 +17,12 @@ interface CardAuthorizationExpirationServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Simulates expiring a Card Authorization immediately. */
-    fun create(
-        params: SimulationCardAuthorizationExpirationCreateParams
-    ): CompletableFuture<CardPayment> = create(params, RequestOptions.none())
+    fun create(params: CardAuthorizationExpirationCreateParams): CompletableFuture<CardPayment> =
+        create(params, RequestOptions.none())
 
     /** @see [create] */
     fun create(
-        params: SimulationCardAuthorizationExpirationCreateParams,
+        params: CardAuthorizationExpirationCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CardPayment>
 
@@ -39,13 +38,13 @@ interface CardAuthorizationExpirationServiceAsync {
          */
         @MustBeClosed
         fun create(
-            params: SimulationCardAuthorizationExpirationCreateParams
+            params: CardAuthorizationExpirationCreateParams
         ): CompletableFuture<HttpResponseFor<CardPayment>> = create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
         fun create(
-            params: SimulationCardAuthorizationExpirationCreateParams,
+            params: CardAuthorizationExpirationCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CardPayment>>
     }

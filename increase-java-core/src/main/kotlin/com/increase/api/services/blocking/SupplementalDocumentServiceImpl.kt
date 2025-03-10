@@ -15,10 +15,10 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.EntitySupplementalDocument
-import com.increase.api.models.SupplementalDocumentCreateParams
-import com.increase.api.models.SupplementalDocumentListPage
-import com.increase.api.models.SupplementalDocumentListParams
+import com.increase.api.models.supplementaldocuments.EntitySupplementalDocument
+import com.increase.api.models.supplementaldocuments.SupplementalDocumentCreateParams
+import com.increase.api.models.supplementaldocuments.SupplementalDocumentListPage
+import com.increase.api.models.supplementaldocuments.SupplementalDocumentListParams
 
 class SupplementalDocumentServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : SupplementalDocumentService {

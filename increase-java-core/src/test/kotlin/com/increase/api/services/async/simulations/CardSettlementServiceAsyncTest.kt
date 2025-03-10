@@ -4,7 +4,7 @@ package com.increase.api.services.async.simulations
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.SimulationCardSettlementCreateParams
+import com.increase.api.models.simulations.cardsettlements.CardSettlementCreateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -22,7 +22,7 @@ class CardSettlementServiceAsyncTest {
 
         val transactionFuture =
             cardSettlementServiceAsync.create(
-                SimulationCardSettlementCreateParams.builder()
+                CardSettlementCreateParams.builder()
                     .cardId("card_oubs0hwk5rn6knuecxg2")
                     .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
                     .amount(1L)

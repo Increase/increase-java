@@ -4,7 +4,7 @@ package com.increase.api.services.blocking.simulations
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.SimulationCardAuthorizationExpirationCreateParams
+import com.increase.api.models.simulations.cardauthorizationexpirations.CardAuthorizationExpirationCreateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -22,7 +22,7 @@ class CardAuthorizationExpirationServiceTest {
 
         val cardPayment =
             cardAuthorizationExpirationService.create(
-                SimulationCardAuthorizationExpirationCreateParams.builder()
+                CardAuthorizationExpirationCreateParams.builder()
                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                     .build()
             )

@@ -15,8 +15,8 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.CardPayment
-import com.increase.api.models.SimulationCardAuthorizationExpirationCreateParams
+import com.increase.api.models.cardpayments.CardPayment
+import com.increase.api.models.simulations.cardauthorizationexpirations.CardAuthorizationExpirationCreateParams
 
 class CardAuthorizationExpirationServiceImpl
 internal constructor(private val clientOptions: ClientOptions) :
@@ -30,7 +30,7 @@ internal constructor(private val clientOptions: ClientOptions) :
         withRawResponse
 
     override fun create(
-        params: SimulationCardAuthorizationExpirationCreateParams,
+        params: CardAuthorizationExpirationCreateParams,
         requestOptions: RequestOptions,
     ): CardPayment =
         // post /simulations/card_authorization_expirations
@@ -45,7 +45,7 @@ internal constructor(private val clientOptions: ClientOptions) :
             jsonHandler<CardPayment>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
         override fun create(
-            params: SimulationCardAuthorizationExpirationCreateParams,
+            params: CardAuthorizationExpirationCreateParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<CardPayment> {
             val request =

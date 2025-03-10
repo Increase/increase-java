@@ -14,10 +14,10 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.Transaction
-import com.increase.api.models.TransactionListPageAsync
-import com.increase.api.models.TransactionListParams
-import com.increase.api.models.TransactionRetrieveParams
+import com.increase.api.models.transactions.Transaction
+import com.increase.api.models.transactions.TransactionListPageAsync
+import com.increase.api.models.transactions.TransactionListParams
+import com.increase.api.models.transactions.TransactionRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class TransactionServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :

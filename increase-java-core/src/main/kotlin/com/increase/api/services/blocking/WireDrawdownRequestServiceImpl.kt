@@ -15,11 +15,11 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.WireDrawdownRequest
-import com.increase.api.models.WireDrawdownRequestCreateParams
-import com.increase.api.models.WireDrawdownRequestListPage
-import com.increase.api.models.WireDrawdownRequestListParams
-import com.increase.api.models.WireDrawdownRequestRetrieveParams
+import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequest
+import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestCreateParams
+import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestListPage
+import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestListParams
+import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestRetrieveParams
 
 class WireDrawdownRequestServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : WireDrawdownRequestService {

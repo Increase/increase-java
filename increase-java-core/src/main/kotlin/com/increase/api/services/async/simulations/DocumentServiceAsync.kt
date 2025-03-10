@@ -5,8 +5,8 @@ package com.increase.api.services.async.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.Document
-import com.increase.api.models.SimulationDocumentCreateParams
+import com.increase.api.models.documents.Document
+import com.increase.api.models.simulations.documents.DocumentCreateParams
 import java.util.concurrent.CompletableFuture
 
 interface DocumentServiceAsync {
@@ -17,12 +17,12 @@ interface DocumentServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Simulates an tax document being created for an account. */
-    fun create(params: SimulationDocumentCreateParams): CompletableFuture<Document> =
+    fun create(params: DocumentCreateParams): CompletableFuture<Document> =
         create(params, RequestOptions.none())
 
     /** @see [create] */
     fun create(
-        params: SimulationDocumentCreateParams,
+        params: DocumentCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Document>
 
@@ -36,14 +36,13 @@ interface DocumentServiceAsync {
          * as [DocumentServiceAsync.create].
          */
         @MustBeClosed
-        fun create(
-            params: SimulationDocumentCreateParams
-        ): CompletableFuture<HttpResponseFor<Document>> = create(params, RequestOptions.none())
+        fun create(params: DocumentCreateParams): CompletableFuture<HttpResponseFor<Document>> =
+            create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
         fun create(
-            params: SimulationDocumentCreateParams,
+            params: DocumentCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Document>>
     }

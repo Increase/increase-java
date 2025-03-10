@@ -5,8 +5,8 @@ package com.increase.api.services.blocking.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.CardPayment
-import com.increase.api.models.SimulationCardAuthorizationExpirationCreateParams
+import com.increase.api.models.cardpayments.CardPayment
+import com.increase.api.models.simulations.cardauthorizationexpirations.CardAuthorizationExpirationCreateParams
 
 interface CardAuthorizationExpirationService {
 
@@ -16,12 +16,12 @@ interface CardAuthorizationExpirationService {
     fun withRawResponse(): WithRawResponse
 
     /** Simulates expiring a Card Authorization immediately. */
-    fun create(params: SimulationCardAuthorizationExpirationCreateParams): CardPayment =
+    fun create(params: CardAuthorizationExpirationCreateParams): CardPayment =
         create(params, RequestOptions.none())
 
     /** @see [create] */
     fun create(
-        params: SimulationCardAuthorizationExpirationCreateParams,
+        params: CardAuthorizationExpirationCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPayment
 
@@ -36,14 +36,13 @@ interface CardAuthorizationExpirationService {
          * is otherwise the same as [CardAuthorizationExpirationService.create].
          */
         @MustBeClosed
-        fun create(
-            params: SimulationCardAuthorizationExpirationCreateParams
-        ): HttpResponseFor<CardPayment> = create(params, RequestOptions.none())
+        fun create(params: CardAuthorizationExpirationCreateParams): HttpResponseFor<CardPayment> =
+            create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
         fun create(
-            params: SimulationCardAuthorizationExpirationCreateParams,
+            params: CardAuthorizationExpirationCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardPayment>
     }

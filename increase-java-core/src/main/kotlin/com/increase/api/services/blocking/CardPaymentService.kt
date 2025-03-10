@@ -5,10 +5,10 @@ package com.increase.api.services.blocking
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.CardPayment
-import com.increase.api.models.CardPaymentListPage
-import com.increase.api.models.CardPaymentListParams
-import com.increase.api.models.CardPaymentRetrieveParams
+import com.increase.api.models.cardpayments.CardPayment
+import com.increase.api.models.cardpayments.CardPaymentListPage
+import com.increase.api.models.cardpayments.CardPaymentListParams
+import com.increase.api.models.cardpayments.CardPaymentRetrieveParams
 
 interface CardPaymentService {
 

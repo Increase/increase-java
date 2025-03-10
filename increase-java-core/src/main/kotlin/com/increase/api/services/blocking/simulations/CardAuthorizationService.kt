@@ -5,8 +5,8 @@ package com.increase.api.services.blocking.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.SimulationCardAuthorizationCreateParams
-import com.increase.api.models.SimulationCardAuthorizationCreateResponse
+import com.increase.api.models.simulations.cardauthorizations.CardAuthorizationCreateParams
+import com.increase.api.models.simulations.cardauthorizations.CardAuthorizationCreateResponse
 
 interface CardAuthorizationService {
 
@@ -23,15 +23,14 @@ interface CardAuthorizationService {
      * Card id or a [Digital Wallet Token](#digital-wallet-tokens) id to simulate the two different
      * ways purchases can be made.
      */
-    fun create(
-        params: SimulationCardAuthorizationCreateParams
-    ): SimulationCardAuthorizationCreateResponse = create(params, RequestOptions.none())
+    fun create(params: CardAuthorizationCreateParams): CardAuthorizationCreateResponse =
+        create(params, RequestOptions.none())
 
     /** @see [create] */
     fun create(
-        params: SimulationCardAuthorizationCreateParams,
+        params: CardAuthorizationCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SimulationCardAuthorizationCreateResponse
+    ): CardAuthorizationCreateResponse
 
     /**
      * A view of [CardAuthorizationService] that provides access to raw HTTP responses for each
@@ -45,15 +44,14 @@ interface CardAuthorizationService {
          */
         @MustBeClosed
         fun create(
-            params: SimulationCardAuthorizationCreateParams
-        ): HttpResponseFor<SimulationCardAuthorizationCreateResponse> =
-            create(params, RequestOptions.none())
+            params: CardAuthorizationCreateParams
+        ): HttpResponseFor<CardAuthorizationCreateResponse> = create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
         fun create(
-            params: SimulationCardAuthorizationCreateParams,
+            params: CardAuthorizationCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SimulationCardAuthorizationCreateResponse>
+        ): HttpResponseFor<CardAuthorizationCreateResponse>
     }
 }

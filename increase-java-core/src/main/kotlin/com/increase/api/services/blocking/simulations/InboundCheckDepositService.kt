@@ -5,8 +5,8 @@ package com.increase.api.services.blocking.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.InboundCheckDeposit
-import com.increase.api.models.SimulationInboundCheckDepositCreateParams
+import com.increase.api.models.inboundcheckdeposits.InboundCheckDeposit
+import com.increase.api.models.simulations.inboundcheckdeposits.InboundCheckDepositCreateParams
 
 interface InboundCheckDepositService {
 
@@ -22,12 +22,12 @@ interface InboundCheckDepositService {
      * create a Transaction or a Declined Transaction as a result. You can inspect the resulting
      * Inbound Check Deposit object to see the result.
      */
-    fun create(params: SimulationInboundCheckDepositCreateParams): InboundCheckDeposit =
+    fun create(params: InboundCheckDepositCreateParams): InboundCheckDeposit =
         create(params, RequestOptions.none())
 
     /** @see [create] */
     fun create(
-        params: SimulationInboundCheckDepositCreateParams,
+        params: InboundCheckDepositCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundCheckDeposit
 
@@ -42,14 +42,13 @@ interface InboundCheckDepositService {
          * otherwise the same as [InboundCheckDepositService.create].
          */
         @MustBeClosed
-        fun create(
-            params: SimulationInboundCheckDepositCreateParams
-        ): HttpResponseFor<InboundCheckDeposit> = create(params, RequestOptions.none())
+        fun create(params: InboundCheckDepositCreateParams): HttpResponseFor<InboundCheckDeposit> =
+            create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
         fun create(
-            params: SimulationInboundCheckDepositCreateParams,
+            params: InboundCheckDepositCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundCheckDeposit>
     }

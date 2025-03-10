@@ -14,10 +14,10 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.BookkeepingEntry
-import com.increase.api.models.BookkeepingEntryListPageAsync
-import com.increase.api.models.BookkeepingEntryListParams
-import com.increase.api.models.BookkeepingEntryRetrieveParams
+import com.increase.api.models.bookkeepingentries.BookkeepingEntry
+import com.increase.api.models.bookkeepingentries.BookkeepingEntryListPageAsync
+import com.increase.api.models.bookkeepingentries.BookkeepingEntryListParams
+import com.increase.api.models.bookkeepingentries.BookkeepingEntryRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class BookkeepingEntryServiceAsyncImpl

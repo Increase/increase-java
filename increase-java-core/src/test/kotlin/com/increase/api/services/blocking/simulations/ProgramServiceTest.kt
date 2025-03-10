@@ -4,7 +4,7 @@ package com.increase.api.services.blocking.simulations
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.SimulationProgramCreateParams
+import com.increase.api.models.simulations.programs.ProgramCreateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -21,9 +21,7 @@ class ProgramServiceTest {
         val programService = client.simulations().programs()
 
         val program =
-            programService.create(
-                SimulationProgramCreateParams.builder().name("For Benefit Of").build()
-            )
+            programService.create(ProgramCreateParams.builder().name("For Benefit Of").build())
 
         program.validate()
     }

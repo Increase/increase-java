@@ -5,10 +5,10 @@ package com.increase.api.services.async
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.AccountStatement
-import com.increase.api.models.AccountStatementListPageAsync
-import com.increase.api.models.AccountStatementListParams
-import com.increase.api.models.AccountStatementRetrieveParams
+import com.increase.api.models.accountstatements.AccountStatement
+import com.increase.api.models.accountstatements.AccountStatementListPageAsync
+import com.increase.api.models.accountstatements.AccountStatementListParams
+import com.increase.api.models.accountstatements.AccountStatementRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 interface AccountStatementServiceAsync {
