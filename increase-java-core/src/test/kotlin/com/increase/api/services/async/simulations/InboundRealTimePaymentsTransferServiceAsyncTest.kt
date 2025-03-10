@@ -4,7 +4,7 @@ package com.increase.api.services.async.simulations
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.SimulationInboundRealTimePaymentsTransferCreateParams
+import com.increase.api.models.simulations.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferCreateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -23,7 +23,7 @@ class InboundRealTimePaymentsTransferServiceAsyncTest {
 
         val inboundRealTimePaymentsTransferFuture =
             inboundRealTimePaymentsTransferServiceAsync.create(
-                SimulationInboundRealTimePaymentsTransferCreateParams.builder()
+                InboundRealTimePaymentsTransferCreateParams.builder()
                     .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                     .amount(1000L)
                     .debtorAccountNumber("x")

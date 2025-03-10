@@ -5,11 +5,11 @@ package com.increase.api.services.blocking
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.AchPrenotification
-import com.increase.api.models.AchPrenotificationCreateParams
-import com.increase.api.models.AchPrenotificationListPage
-import com.increase.api.models.AchPrenotificationListParams
-import com.increase.api.models.AchPrenotificationRetrieveParams
+import com.increase.api.models.achprenotifications.AchPrenotification
+import com.increase.api.models.achprenotifications.AchPrenotificationCreateParams
+import com.increase.api.models.achprenotifications.AchPrenotificationListPage
+import com.increase.api.models.achprenotifications.AchPrenotificationListParams
+import com.increase.api.models.achprenotifications.AchPrenotificationRetrieveParams
 
 interface AchPrenotificationService {
 

@@ -5,8 +5,8 @@ package com.increase.api.services.async.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.CheckTransfer
-import com.increase.api.models.SimulationCheckTransferMailParams
+import com.increase.api.models.checktransfers.CheckTransfer
+import com.increase.api.models.simulations.checktransfers.CheckTransferMailParams
 import java.util.concurrent.CompletableFuture
 
 interface CheckTransferServiceAsync {
@@ -21,12 +21,12 @@ interface CheckTransferServiceAsync {
      * throughout the day in production but can be sped up in sandbox. This transfer must first have
      * a `status` of `pending_approval` or `pending_submission`.
      */
-    fun mail(params: SimulationCheckTransferMailParams): CompletableFuture<CheckTransfer> =
+    fun mail(params: CheckTransferMailParams): CompletableFuture<CheckTransfer> =
         mail(params, RequestOptions.none())
 
     /** @see [mail] */
     fun mail(
-        params: SimulationCheckTransferMailParams,
+        params: CheckTransferMailParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CheckTransfer>
 
@@ -43,13 +43,13 @@ interface CheckTransferServiceAsync {
          */
         @MustBeClosed
         fun mail(
-            params: SimulationCheckTransferMailParams
+            params: CheckTransferMailParams
         ): CompletableFuture<HttpResponseFor<CheckTransfer>> = mail(params, RequestOptions.none())
 
         /** @see [mail] */
         @MustBeClosed
         fun mail(
-            params: SimulationCheckTransferMailParams,
+            params: CheckTransferMailParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CheckTransfer>>
     }

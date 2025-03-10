@@ -14,8 +14,8 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.RoutingNumberListPage
-import com.increase.api.models.RoutingNumberListParams
+import com.increase.api.models.routingnumbers.RoutingNumberListPage
+import com.increase.api.models.routingnumbers.RoutingNumberListParams
 
 class RoutingNumberServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     RoutingNumberService {

@@ -5,10 +5,10 @@ package com.increase.api.services.async
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.InboundMailItem
-import com.increase.api.models.InboundMailItemListPageAsync
-import com.increase.api.models.InboundMailItemListParams
-import com.increase.api.models.InboundMailItemRetrieveParams
+import com.increase.api.models.inboundmailitems.InboundMailItem
+import com.increase.api.models.inboundmailitems.InboundMailItemListPageAsync
+import com.increase.api.models.inboundmailitems.InboundMailItemListParams
+import com.increase.api.models.inboundmailitems.InboundMailItemRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 interface InboundMailItemServiceAsync {

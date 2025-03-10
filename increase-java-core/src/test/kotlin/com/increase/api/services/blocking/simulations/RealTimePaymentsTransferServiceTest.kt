@@ -4,7 +4,7 @@ package com.increase.api.services.blocking.simulations
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.SimulationRealTimePaymentsTransferCompleteParams
+import com.increase.api.models.simulations.realtimepaymentstransfers.RealTimePaymentsTransferCompleteParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -22,13 +22,12 @@ class RealTimePaymentsTransferServiceTest {
 
         val realTimePaymentsTransfer =
             realTimePaymentsTransferService.complete(
-                SimulationRealTimePaymentsTransferCompleteParams.builder()
+                RealTimePaymentsTransferCompleteParams.builder()
                     .realTimePaymentsTransferId("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
                     .rejection(
-                        SimulationRealTimePaymentsTransferCompleteParams.Rejection.builder()
+                        RealTimePaymentsTransferCompleteParams.Rejection.builder()
                             .rejectReasonCode(
-                                SimulationRealTimePaymentsTransferCompleteParams.Rejection
-                                    .RejectReasonCode
+                                RealTimePaymentsTransferCompleteParams.Rejection.RejectReasonCode
                                     .ACCOUNT_CLOSED
                             )
                             .build()

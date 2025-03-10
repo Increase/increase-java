@@ -5,11 +5,11 @@ package com.increase.api.services.blocking
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.WireDrawdownRequest
-import com.increase.api.models.WireDrawdownRequestCreateParams
-import com.increase.api.models.WireDrawdownRequestListPage
-import com.increase.api.models.WireDrawdownRequestListParams
-import com.increase.api.models.WireDrawdownRequestRetrieveParams
+import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequest
+import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestCreateParams
+import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestListPage
+import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestListParams
+import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestRetrieveParams
 
 interface WireDrawdownRequestService {
 

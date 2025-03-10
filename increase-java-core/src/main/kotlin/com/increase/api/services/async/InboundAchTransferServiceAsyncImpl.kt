@@ -15,13 +15,13 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.InboundAchTransfer
-import com.increase.api.models.InboundAchTransferCreateNotificationOfChangeParams
-import com.increase.api.models.InboundAchTransferDeclineParams
-import com.increase.api.models.InboundAchTransferListPageAsync
-import com.increase.api.models.InboundAchTransferListParams
-import com.increase.api.models.InboundAchTransferRetrieveParams
-import com.increase.api.models.InboundAchTransferTransferReturnParams
+import com.increase.api.models.inboundachtransfers.InboundAchTransfer
+import com.increase.api.models.inboundachtransfers.InboundAchTransferCreateNotificationOfChangeParams
+import com.increase.api.models.inboundachtransfers.InboundAchTransferDeclineParams
+import com.increase.api.models.inboundachtransfers.InboundAchTransferListPageAsync
+import com.increase.api.models.inboundachtransfers.InboundAchTransferListParams
+import com.increase.api.models.inboundachtransfers.InboundAchTransferRetrieveParams
+import com.increase.api.models.inboundachtransfers.InboundAchTransferTransferReturnParams
 import java.util.concurrent.CompletableFuture
 
 class InboundAchTransferServiceAsyncImpl

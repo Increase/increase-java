@@ -15,12 +15,12 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.IntrafiExclusion
-import com.increase.api.models.IntrafiExclusionArchiveParams
-import com.increase.api.models.IntrafiExclusionCreateParams
-import com.increase.api.models.IntrafiExclusionListPageAsync
-import com.increase.api.models.IntrafiExclusionListParams
-import com.increase.api.models.IntrafiExclusionRetrieveParams
+import com.increase.api.models.intrafiexclusions.IntrafiExclusion
+import com.increase.api.models.intrafiexclusions.IntrafiExclusionArchiveParams
+import com.increase.api.models.intrafiexclusions.IntrafiExclusionCreateParams
+import com.increase.api.models.intrafiexclusions.IntrafiExclusionListPageAsync
+import com.increase.api.models.intrafiexclusions.IntrafiExclusionListParams
+import com.increase.api.models.intrafiexclusions.IntrafiExclusionRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class IntrafiExclusionServiceAsyncImpl

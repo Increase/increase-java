@@ -5,10 +5,10 @@ package com.increase.api.services.blocking
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.EntitySupplementalDocument
-import com.increase.api.models.SupplementalDocumentCreateParams
-import com.increase.api.models.SupplementalDocumentListPage
-import com.increase.api.models.SupplementalDocumentListParams
+import com.increase.api.models.supplementaldocuments.EntitySupplementalDocument
+import com.increase.api.models.supplementaldocuments.SupplementalDocumentCreateParams
+import com.increase.api.models.supplementaldocuments.SupplementalDocumentListPage
+import com.increase.api.models.supplementaldocuments.SupplementalDocumentListParams
 
 interface SupplementalDocumentService {
 

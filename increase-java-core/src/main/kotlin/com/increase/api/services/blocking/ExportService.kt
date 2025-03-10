@@ -5,11 +5,11 @@ package com.increase.api.services.blocking
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.Export
-import com.increase.api.models.ExportCreateParams
-import com.increase.api.models.ExportListPage
-import com.increase.api.models.ExportListParams
-import com.increase.api.models.ExportRetrieveParams
+import com.increase.api.models.exports.Export
+import com.increase.api.models.exports.ExportCreateParams
+import com.increase.api.models.exports.ExportListPage
+import com.increase.api.models.exports.ExportListParams
+import com.increase.api.models.exports.ExportRetrieveParams
 
 interface ExportService {
 

@@ -5,11 +5,11 @@ package com.increase.api.services.async
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.File
-import com.increase.api.models.FileCreateParams
-import com.increase.api.models.FileListPageAsync
-import com.increase.api.models.FileListParams
-import com.increase.api.models.FileRetrieveParams
+import com.increase.api.models.files.File
+import com.increase.api.models.files.FileCreateParams
+import com.increase.api.models.files.FileListPageAsync
+import com.increase.api.models.files.FileListParams
+import com.increase.api.models.files.FileRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 interface FileServiceAsync {

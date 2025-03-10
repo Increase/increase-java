@@ -4,9 +4,9 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.EventSubscriptionCreateParams
-import com.increase.api.models.EventSubscriptionRetrieveParams
-import com.increase.api.models.EventSubscriptionUpdateParams
+import com.increase.api.models.eventsubscriptions.EventSubscriptionCreateParams
+import com.increase.api.models.eventsubscriptions.EventSubscriptionRetrieveParams
+import com.increase.api.models.eventsubscriptions.EventSubscriptionUpdateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 

@@ -5,10 +5,10 @@ package com.increase.api.services.blocking
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.ProofOfAuthorizationRequest
-import com.increase.api.models.ProofOfAuthorizationRequestListPage
-import com.increase.api.models.ProofOfAuthorizationRequestListParams
-import com.increase.api.models.ProofOfAuthorizationRequestRetrieveParams
+import com.increase.api.models.proofofauthorizationrequests.ProofOfAuthorizationRequest
+import com.increase.api.models.proofofauthorizationrequests.ProofOfAuthorizationRequestListPage
+import com.increase.api.models.proofofauthorizationrequests.ProofOfAuthorizationRequestListParams
+import com.increase.api.models.proofofauthorizationrequests.ProofOfAuthorizationRequestRetrieveParams
 
 interface ProofOfAuthorizationRequestService {
 

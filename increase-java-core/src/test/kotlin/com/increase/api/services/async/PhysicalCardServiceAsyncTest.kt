@@ -4,9 +4,9 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.PhysicalCardCreateParams
-import com.increase.api.models.PhysicalCardRetrieveParams
-import com.increase.api.models.PhysicalCardUpdateParams
+import com.increase.api.models.physicalcards.PhysicalCardCreateParams
+import com.increase.api.models.physicalcards.PhysicalCardRetrieveParams
+import com.increase.api.models.physicalcards.PhysicalCardUpdateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 

@@ -5,8 +5,8 @@ package com.increase.api.services.blocking.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.CardPayment
-import com.increase.api.models.SimulationCardFuelConfirmationCreateParams
+import com.increase.api.models.cardpayments.CardPayment
+import com.increase.api.models.simulations.cardfuelconfirmations.CardFuelConfirmationCreateParams
 
 interface CardFuelConfirmationService {
 
@@ -20,12 +20,12 @@ interface CardFuelConfirmationService {
      * asynchronously right after a fuel pump transaction is completed. A fuel confirmation can only
      * happen once per authorization.
      */
-    fun create(params: SimulationCardFuelConfirmationCreateParams): CardPayment =
+    fun create(params: CardFuelConfirmationCreateParams): CardPayment =
         create(params, RequestOptions.none())
 
     /** @see [create] */
     fun create(
-        params: SimulationCardFuelConfirmationCreateParams,
+        params: CardFuelConfirmationCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPayment
 
@@ -40,14 +40,13 @@ interface CardFuelConfirmationService {
          * otherwise the same as [CardFuelConfirmationService.create].
          */
         @MustBeClosed
-        fun create(
-            params: SimulationCardFuelConfirmationCreateParams
-        ): HttpResponseFor<CardPayment> = create(params, RequestOptions.none())
+        fun create(params: CardFuelConfirmationCreateParams): HttpResponseFor<CardPayment> =
+            create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
         fun create(
-            params: SimulationCardFuelConfirmationCreateParams,
+            params: CardFuelConfirmationCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardPayment>
     }

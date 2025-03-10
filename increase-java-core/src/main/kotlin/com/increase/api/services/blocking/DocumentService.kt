@@ -5,10 +5,10 @@ package com.increase.api.services.blocking
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.Document
-import com.increase.api.models.DocumentListPage
-import com.increase.api.models.DocumentListParams
-import com.increase.api.models.DocumentRetrieveParams
+import com.increase.api.models.documents.Document
+import com.increase.api.models.documents.DocumentListPage
+import com.increase.api.models.documents.DocumentListParams
+import com.increase.api.models.documents.DocumentRetrieveParams
 
 interface DocumentService {
 

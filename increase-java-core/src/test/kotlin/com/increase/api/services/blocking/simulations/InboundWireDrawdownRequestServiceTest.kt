@@ -4,7 +4,7 @@ package com.increase.api.services.blocking.simulations
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.SimulationInboundWireDrawdownRequestCreateParams
+import com.increase.api.models.simulations.inboundwiredrawdownrequests.InboundWireDrawdownRequestCreateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -22,7 +22,7 @@ class InboundWireDrawdownRequestServiceTest {
 
         val inboundWireDrawdownRequest =
             inboundWireDrawdownRequestService.create(
-                SimulationInboundWireDrawdownRequestCreateParams.builder()
+                InboundWireDrawdownRequestCreateParams.builder()
                     .amount(10000L)
                     .beneficiaryAccountNumber("987654321")
                     .beneficiaryRoutingNumber("101050001")

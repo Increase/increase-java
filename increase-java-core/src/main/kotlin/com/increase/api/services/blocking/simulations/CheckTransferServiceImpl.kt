@@ -15,8 +15,8 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.CheckTransfer
-import com.increase.api.models.SimulationCheckTransferMailParams
+import com.increase.api.models.checktransfers.CheckTransfer
+import com.increase.api.models.simulations.checktransfers.CheckTransferMailParams
 
 class CheckTransferServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     CheckTransferService {
@@ -28,7 +28,7 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
     override fun withRawResponse(): CheckTransferService.WithRawResponse = withRawResponse
 
     override fun mail(
-        params: SimulationCheckTransferMailParams,
+        params: CheckTransferMailParams,
         requestOptions: RequestOptions,
     ): CheckTransfer =
         // post /simulations/check_transfers/{check_transfer_id}/mail
@@ -43,7 +43,7 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
             jsonHandler<CheckTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
         override fun mail(
-            params: SimulationCheckTransferMailParams,
+            params: CheckTransferMailParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<CheckTransfer> {
             val request =

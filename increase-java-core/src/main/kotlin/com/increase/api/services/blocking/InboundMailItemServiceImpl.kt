@@ -14,10 +14,10 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.InboundMailItem
-import com.increase.api.models.InboundMailItemListPage
-import com.increase.api.models.InboundMailItemListParams
-import com.increase.api.models.InboundMailItemRetrieveParams
+import com.increase.api.models.inboundmailitems.InboundMailItem
+import com.increase.api.models.inboundmailitems.InboundMailItemListPage
+import com.increase.api.models.inboundmailitems.InboundMailItemListParams
+import com.increase.api.models.inboundmailitems.InboundMailItemRetrieveParams
 
 class InboundMailItemServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     InboundMailItemService {

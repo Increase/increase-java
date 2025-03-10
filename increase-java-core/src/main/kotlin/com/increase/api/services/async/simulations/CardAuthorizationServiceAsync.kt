@@ -5,8 +5,8 @@ package com.increase.api.services.async.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.SimulationCardAuthorizationCreateParams
-import com.increase.api.models.SimulationCardAuthorizationCreateResponse
+import com.increase.api.models.simulations.cardauthorizations.CardAuthorizationCreateParams
+import com.increase.api.models.simulations.cardauthorizations.CardAuthorizationCreateResponse
 import java.util.concurrent.CompletableFuture
 
 interface CardAuthorizationServiceAsync {
@@ -25,15 +25,14 @@ interface CardAuthorizationServiceAsync {
      * ways purchases can be made.
      */
     fun create(
-        params: SimulationCardAuthorizationCreateParams
-    ): CompletableFuture<SimulationCardAuthorizationCreateResponse> =
-        create(params, RequestOptions.none())
+        params: CardAuthorizationCreateParams
+    ): CompletableFuture<CardAuthorizationCreateResponse> = create(params, RequestOptions.none())
 
     /** @see [create] */
     fun create(
-        params: SimulationCardAuthorizationCreateParams,
+        params: CardAuthorizationCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SimulationCardAuthorizationCreateResponse>
+    ): CompletableFuture<CardAuthorizationCreateResponse>
 
     /**
      * A view of [CardAuthorizationServiceAsync] that provides access to raw HTTP responses for each
@@ -47,15 +46,15 @@ interface CardAuthorizationServiceAsync {
          */
         @MustBeClosed
         fun create(
-            params: SimulationCardAuthorizationCreateParams
-        ): CompletableFuture<HttpResponseFor<SimulationCardAuthorizationCreateResponse>> =
+            params: CardAuthorizationCreateParams
+        ): CompletableFuture<HttpResponseFor<CardAuthorizationCreateResponse>> =
             create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
         fun create(
-            params: SimulationCardAuthorizationCreateParams,
+            params: CardAuthorizationCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SimulationCardAuthorizationCreateResponse>>
+        ): CompletableFuture<HttpResponseFor<CardAuthorizationCreateResponse>>
     }
 }

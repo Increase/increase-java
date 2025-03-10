@@ -15,8 +15,8 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.PhysicalCard
-import com.increase.api.models.SimulationPhysicalCardAdvanceShipmentParams
+import com.increase.api.models.physicalcards.PhysicalCard
+import com.increase.api.models.simulations.physicalcards.PhysicalCardAdvanceShipmentParams
 
 class PhysicalCardServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     PhysicalCardService {
@@ -28,7 +28,7 @@ class PhysicalCardServiceImpl internal constructor(private val clientOptions: Cl
     override fun withRawResponse(): PhysicalCardService.WithRawResponse = withRawResponse
 
     override fun advanceShipment(
-        params: SimulationPhysicalCardAdvanceShipmentParams,
+        params: PhysicalCardAdvanceShipmentParams,
         requestOptions: RequestOptions,
     ): PhysicalCard =
         // post /simulations/physical_cards/{physical_card_id}/advance_shipment
@@ -43,7 +43,7 @@ class PhysicalCardServiceImpl internal constructor(private val clientOptions: Cl
             jsonHandler<PhysicalCard>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
         override fun advanceShipment(
-            params: SimulationPhysicalCardAdvanceShipmentParams,
+            params: PhysicalCardAdvanceShipmentParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<PhysicalCard> {
             val request =

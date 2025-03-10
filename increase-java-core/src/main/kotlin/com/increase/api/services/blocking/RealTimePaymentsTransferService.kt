@@ -5,11 +5,11 @@ package com.increase.api.services.blocking
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.RealTimePaymentsTransfer
-import com.increase.api.models.RealTimePaymentsTransferCreateParams
-import com.increase.api.models.RealTimePaymentsTransferListPage
-import com.increase.api.models.RealTimePaymentsTransferListParams
-import com.increase.api.models.RealTimePaymentsTransferRetrieveParams
+import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransfer
+import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferCreateParams
+import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferListPage
+import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferListParams
+import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferRetrieveParams
 
 interface RealTimePaymentsTransferService {
 

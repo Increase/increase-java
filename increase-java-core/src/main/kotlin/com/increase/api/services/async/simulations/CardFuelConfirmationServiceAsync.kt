@@ -5,8 +5,8 @@ package com.increase.api.services.async.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.CardPayment
-import com.increase.api.models.SimulationCardFuelConfirmationCreateParams
+import com.increase.api.models.cardpayments.CardPayment
+import com.increase.api.models.simulations.cardfuelconfirmations.CardFuelConfirmationCreateParams
 import java.util.concurrent.CompletableFuture
 
 interface CardFuelConfirmationServiceAsync {
@@ -21,12 +21,12 @@ interface CardFuelConfirmationServiceAsync {
      * asynchronously right after a fuel pump transaction is completed. A fuel confirmation can only
      * happen once per authorization.
      */
-    fun create(params: SimulationCardFuelConfirmationCreateParams): CompletableFuture<CardPayment> =
+    fun create(params: CardFuelConfirmationCreateParams): CompletableFuture<CardPayment> =
         create(params, RequestOptions.none())
 
     /** @see [create] */
     fun create(
-        params: SimulationCardFuelConfirmationCreateParams,
+        params: CardFuelConfirmationCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CardPayment>
 
@@ -42,13 +42,13 @@ interface CardFuelConfirmationServiceAsync {
          */
         @MustBeClosed
         fun create(
-            params: SimulationCardFuelConfirmationCreateParams
+            params: CardFuelConfirmationCreateParams
         ): CompletableFuture<HttpResponseFor<CardPayment>> = create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
         fun create(
-            params: SimulationCardFuelConfirmationCreateParams,
+            params: CardFuelConfirmationCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CardPayment>>
     }
