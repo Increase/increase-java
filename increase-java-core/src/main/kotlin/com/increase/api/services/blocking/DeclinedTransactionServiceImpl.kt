@@ -14,10 +14,10 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.DeclinedTransaction
-import com.increase.api.models.DeclinedTransactionListPage
-import com.increase.api.models.DeclinedTransactionListParams
-import com.increase.api.models.DeclinedTransactionRetrieveParams
+import com.increase.api.models.declinedtransactions.DeclinedTransaction
+import com.increase.api.models.declinedtransactions.DeclinedTransactionListPage
+import com.increase.api.models.declinedtransactions.DeclinedTransactionListParams
+import com.increase.api.models.declinedtransactions.DeclinedTransactionRetrieveParams
 
 class DeclinedTransactionServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : DeclinedTransactionService {

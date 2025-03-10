@@ -5,11 +5,11 @@ package com.increase.api.services.async
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.BookkeepingEntrySet
-import com.increase.api.models.BookkeepingEntrySetCreateParams
-import com.increase.api.models.BookkeepingEntrySetListPageAsync
-import com.increase.api.models.BookkeepingEntrySetListParams
-import com.increase.api.models.BookkeepingEntrySetRetrieveParams
+import com.increase.api.models.bookkeepingentrysets.BookkeepingEntrySet
+import com.increase.api.models.bookkeepingentrysets.BookkeepingEntrySetCreateParams
+import com.increase.api.models.bookkeepingentrysets.BookkeepingEntrySetListPageAsync
+import com.increase.api.models.bookkeepingentrysets.BookkeepingEntrySetListParams
+import com.increase.api.models.bookkeepingentrysets.BookkeepingEntrySetRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 interface BookkeepingEntrySetServiceAsync {

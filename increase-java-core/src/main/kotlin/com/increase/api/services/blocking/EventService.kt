@@ -5,10 +5,10 @@ package com.increase.api.services.blocking
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.Event
-import com.increase.api.models.EventListPage
-import com.increase.api.models.EventListParams
-import com.increase.api.models.EventRetrieveParams
+import com.increase.api.models.events.Event
+import com.increase.api.models.events.EventListPage
+import com.increase.api.models.events.EventListParams
+import com.increase.api.models.events.EventRetrieveParams
 
 interface EventService {
 

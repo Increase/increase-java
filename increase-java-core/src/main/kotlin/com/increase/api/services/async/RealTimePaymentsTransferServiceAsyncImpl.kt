@@ -15,11 +15,11 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.RealTimePaymentsTransfer
-import com.increase.api.models.RealTimePaymentsTransferCreateParams
-import com.increase.api.models.RealTimePaymentsTransferListPageAsync
-import com.increase.api.models.RealTimePaymentsTransferListParams
-import com.increase.api.models.RealTimePaymentsTransferRetrieveParams
+import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransfer
+import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferCreateParams
+import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferListPageAsync
+import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferListParams
+import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class RealTimePaymentsTransferServiceAsyncImpl

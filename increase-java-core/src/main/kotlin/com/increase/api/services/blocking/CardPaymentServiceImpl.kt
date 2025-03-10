@@ -14,10 +14,10 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.CardPayment
-import com.increase.api.models.CardPaymentListPage
-import com.increase.api.models.CardPaymentListParams
-import com.increase.api.models.CardPaymentRetrieveParams
+import com.increase.api.models.cardpayments.CardPayment
+import com.increase.api.models.cardpayments.CardPaymentListPage
+import com.increase.api.models.cardpayments.CardPaymentListParams
+import com.increase.api.models.cardpayments.CardPaymentRetrieveParams
 
 class CardPaymentServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     CardPaymentService {

@@ -15,8 +15,8 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.InboundMailItem
-import com.increase.api.models.SimulationInboundMailItemCreateParams
+import com.increase.api.models.inboundmailitems.InboundMailItem
+import com.increase.api.models.simulations.inboundmailitems.InboundMailItemCreateParams
 
 class InboundMailItemServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     InboundMailItemService {
@@ -28,7 +28,7 @@ class InboundMailItemServiceImpl internal constructor(private val clientOptions:
     override fun withRawResponse(): InboundMailItemService.WithRawResponse = withRawResponse
 
     override fun create(
-        params: SimulationInboundMailItemCreateParams,
+        params: InboundMailItemCreateParams,
         requestOptions: RequestOptions,
     ): InboundMailItem =
         // post /simulations/inbound_mail_items
@@ -43,7 +43,7 @@ class InboundMailItemServiceImpl internal constructor(private val clientOptions:
             jsonHandler<InboundMailItem>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
         override fun create(
-            params: SimulationInboundMailItemCreateParams,
+            params: InboundMailItemCreateParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<InboundMailItem> {
             val request =

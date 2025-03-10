@@ -5,8 +5,8 @@ package com.increase.api.services.async.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.InboundCheckDeposit
-import com.increase.api.models.SimulationInboundCheckDepositCreateParams
+import com.increase.api.models.inboundcheckdeposits.InboundCheckDeposit
+import com.increase.api.models.simulations.inboundcheckdeposits.InboundCheckDepositCreateParams
 import java.util.concurrent.CompletableFuture
 
 interface InboundCheckDepositServiceAsync {
@@ -23,13 +23,12 @@ interface InboundCheckDepositServiceAsync {
      * create a Transaction or a Declined Transaction as a result. You can inspect the resulting
      * Inbound Check Deposit object to see the result.
      */
-    fun create(
-        params: SimulationInboundCheckDepositCreateParams
-    ): CompletableFuture<InboundCheckDeposit> = create(params, RequestOptions.none())
+    fun create(params: InboundCheckDepositCreateParams): CompletableFuture<InboundCheckDeposit> =
+        create(params, RequestOptions.none())
 
     /** @see [create] */
     fun create(
-        params: SimulationInboundCheckDepositCreateParams,
+        params: InboundCheckDepositCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundCheckDeposit>
 
@@ -45,14 +44,14 @@ interface InboundCheckDepositServiceAsync {
          */
         @MustBeClosed
         fun create(
-            params: SimulationInboundCheckDepositCreateParams
+            params: InboundCheckDepositCreateParams
         ): CompletableFuture<HttpResponseFor<InboundCheckDeposit>> =
             create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
         fun create(
-            params: SimulationInboundCheckDepositCreateParams,
+            params: InboundCheckDepositCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<InboundCheckDeposit>>
     }

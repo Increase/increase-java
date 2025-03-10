@@ -5,8 +5,8 @@ package com.increase.api.services.async.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.SimulationDigitalWalletTokenRequestCreateParams
-import com.increase.api.models.SimulationDigitalWalletTokenRequestCreateResponse
+import com.increase.api.models.simulations.digitalwallettokenrequests.DigitalWalletTokenRequestCreateParams
+import com.increase.api.models.simulations.digitalwallettokenrequests.DigitalWalletTokenRequestCreateResponse
 import java.util.concurrent.CompletableFuture
 
 interface DigitalWalletTokenRequestServiceAsync {
@@ -18,15 +18,15 @@ interface DigitalWalletTokenRequestServiceAsync {
 
     /** Simulates a user attempting add a [Card](#cards) to a digital wallet such as Apple Pay. */
     fun create(
-        params: SimulationDigitalWalletTokenRequestCreateParams
-    ): CompletableFuture<SimulationDigitalWalletTokenRequestCreateResponse> =
+        params: DigitalWalletTokenRequestCreateParams
+    ): CompletableFuture<DigitalWalletTokenRequestCreateResponse> =
         create(params, RequestOptions.none())
 
     /** @see [create] */
     fun create(
-        params: SimulationDigitalWalletTokenRequestCreateParams,
+        params: DigitalWalletTokenRequestCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SimulationDigitalWalletTokenRequestCreateResponse>
+    ): CompletableFuture<DigitalWalletTokenRequestCreateResponse>
 
     /**
      * A view of [DigitalWalletTokenRequestServiceAsync] that provides access to raw HTTP responses
@@ -40,15 +40,15 @@ interface DigitalWalletTokenRequestServiceAsync {
          */
         @MustBeClosed
         fun create(
-            params: SimulationDigitalWalletTokenRequestCreateParams
-        ): CompletableFuture<HttpResponseFor<SimulationDigitalWalletTokenRequestCreateResponse>> =
+            params: DigitalWalletTokenRequestCreateParams
+        ): CompletableFuture<HttpResponseFor<DigitalWalletTokenRequestCreateResponse>> =
             create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
         fun create(
-            params: SimulationDigitalWalletTokenRequestCreateParams,
+            params: DigitalWalletTokenRequestCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SimulationDigitalWalletTokenRequestCreateResponse>>
+        ): CompletableFuture<HttpResponseFor<DigitalWalletTokenRequestCreateResponse>>
     }
 }

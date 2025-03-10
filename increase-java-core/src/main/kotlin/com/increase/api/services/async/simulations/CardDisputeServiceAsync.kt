@@ -5,8 +5,8 @@ package com.increase.api.services.async.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.CardDispute
-import com.increase.api.models.SimulationCardDisputeActionParams
+import com.increase.api.models.carddisputes.CardDispute
+import com.increase.api.models.simulations.carddisputes.CardDisputeActionParams
 import java.util.concurrent.CompletableFuture
 
 interface CardDisputeServiceAsync {
@@ -22,12 +22,12 @@ interface CardDisputeServiceAsync {
      * into a rejected or accepted state. A Card Dispute can only be actioned one time and must have
      * a status of `pending_reviewing`.
      */
-    fun action(params: SimulationCardDisputeActionParams): CompletableFuture<CardDispute> =
+    fun action(params: CardDisputeActionParams): CompletableFuture<CardDispute> =
         action(params, RequestOptions.none())
 
     /** @see [action] */
     fun action(
-        params: SimulationCardDisputeActionParams,
+        params: CardDisputeActionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CardDispute>
 
@@ -44,13 +44,13 @@ interface CardDisputeServiceAsync {
          */
         @MustBeClosed
         fun action(
-            params: SimulationCardDisputeActionParams
+            params: CardDisputeActionParams
         ): CompletableFuture<HttpResponseFor<CardDispute>> = action(params, RequestOptions.none())
 
         /** @see [action] */
         @MustBeClosed
         fun action(
-            params: SimulationCardDisputeActionParams,
+            params: CardDisputeActionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CardDispute>>
     }

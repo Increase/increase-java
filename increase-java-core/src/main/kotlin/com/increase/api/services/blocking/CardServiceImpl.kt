@@ -15,14 +15,14 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.Card
-import com.increase.api.models.CardCreateParams
-import com.increase.api.models.CardDetails
-import com.increase.api.models.CardDetailsParams
-import com.increase.api.models.CardListPage
-import com.increase.api.models.CardListParams
-import com.increase.api.models.CardRetrieveParams
-import com.increase.api.models.CardUpdateParams
+import com.increase.api.models.cards.Card
+import com.increase.api.models.cards.CardCreateParams
+import com.increase.api.models.cards.CardDetails
+import com.increase.api.models.cards.CardDetailsParams
+import com.increase.api.models.cards.CardListPage
+import com.increase.api.models.cards.CardListParams
+import com.increase.api.models.cards.CardRetrieveParams
+import com.increase.api.models.cards.CardUpdateParams
 
 class CardServiceImpl internal constructor(private val clientOptions: ClientOptions) : CardService {
 

@@ -5,8 +5,8 @@ package com.increase.api.services.blocking.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.SimulationCardSettlementCreateParams
-import com.increase.api.models.Transaction
+import com.increase.api.models.simulations.cardsettlements.CardSettlementCreateParams
+import com.increase.api.models.transactions.Transaction
 
 interface CardSettlementService {
 
@@ -21,12 +21,12 @@ interface CardSettlementService {
      * may occur many days after the purchase in production. The amount settled can be different
      * from the amount originally authorized, for example, when adding a tip to a restaurant bill.
      */
-    fun create(params: SimulationCardSettlementCreateParams): Transaction =
+    fun create(params: CardSettlementCreateParams): Transaction =
         create(params, RequestOptions.none())
 
     /** @see [create] */
     fun create(
-        params: SimulationCardSettlementCreateParams,
+        params: CardSettlementCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Transaction
 
@@ -40,13 +40,13 @@ interface CardSettlementService {
          * the same as [CardSettlementService.create].
          */
         @MustBeClosed
-        fun create(params: SimulationCardSettlementCreateParams): HttpResponseFor<Transaction> =
+        fun create(params: CardSettlementCreateParams): HttpResponseFor<Transaction> =
             create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
         fun create(
-            params: SimulationCardSettlementCreateParams,
+            params: CardSettlementCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Transaction>
     }

@@ -5,8 +5,8 @@ package com.increase.api.services.blocking.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.CardDispute
-import com.increase.api.models.SimulationCardDisputeActionParams
+import com.increase.api.models.carddisputes.CardDispute
+import com.increase.api.models.simulations.carddisputes.CardDisputeActionParams
 
 interface CardDisputeService {
 
@@ -21,12 +21,11 @@ interface CardDisputeService {
      * into a rejected or accepted state. A Card Dispute can only be actioned one time and must have
      * a status of `pending_reviewing`.
      */
-    fun action(params: SimulationCardDisputeActionParams): CardDispute =
-        action(params, RequestOptions.none())
+    fun action(params: CardDisputeActionParams): CardDispute = action(params, RequestOptions.none())
 
     /** @see [action] */
     fun action(
-        params: SimulationCardDisputeActionParams,
+        params: CardDisputeActionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardDispute
 
@@ -41,13 +40,13 @@ interface CardDisputeService {
          * [CardDisputeService.action].
          */
         @MustBeClosed
-        fun action(params: SimulationCardDisputeActionParams): HttpResponseFor<CardDispute> =
+        fun action(params: CardDisputeActionParams): HttpResponseFor<CardDispute> =
             action(params, RequestOptions.none())
 
         /** @see [action] */
         @MustBeClosed
         fun action(
-            params: SimulationCardDisputeActionParams,
+            params: CardDisputeActionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardDispute>
     }

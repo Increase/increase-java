@@ -5,8 +5,8 @@ package com.increase.api.services.async.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.SimulationCardRefundCreateParams
-import com.increase.api.models.Transaction
+import com.increase.api.models.simulations.cardrefunds.CardRefundCreateParams
+import com.increase.api.models.transactions.Transaction
 import java.util.concurrent.CompletableFuture
 
 interface CardRefundServiceAsync {
@@ -20,12 +20,12 @@ interface CardRefundServiceAsync {
      * Simulates refunding a card transaction. The full value of the original sandbox transaction is
      * refunded.
      */
-    fun create(params: SimulationCardRefundCreateParams): CompletableFuture<Transaction> =
+    fun create(params: CardRefundCreateParams): CompletableFuture<Transaction> =
         create(params, RequestOptions.none())
 
     /** @see [create] */
     fun create(
-        params: SimulationCardRefundCreateParams,
+        params: CardRefundCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Transaction>
 
@@ -41,13 +41,13 @@ interface CardRefundServiceAsync {
          */
         @MustBeClosed
         fun create(
-            params: SimulationCardRefundCreateParams
+            params: CardRefundCreateParams
         ): CompletableFuture<HttpResponseFor<Transaction>> = create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
         fun create(
-            params: SimulationCardRefundCreateParams,
+            params: CardRefundCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Transaction>>
     }

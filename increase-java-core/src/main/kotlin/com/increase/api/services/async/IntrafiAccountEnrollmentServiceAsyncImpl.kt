@@ -15,12 +15,12 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.IntrafiAccountEnrollment
-import com.increase.api.models.IntrafiAccountEnrollmentCreateParams
-import com.increase.api.models.IntrafiAccountEnrollmentListPageAsync
-import com.increase.api.models.IntrafiAccountEnrollmentListParams
-import com.increase.api.models.IntrafiAccountEnrollmentRetrieveParams
-import com.increase.api.models.IntrafiAccountEnrollmentUnenrollParams
+import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollment
+import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentCreateParams
+import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentListPageAsync
+import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentListParams
+import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentRetrieveParams
+import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentUnenrollParams
 import java.util.concurrent.CompletableFuture
 
 class IntrafiAccountEnrollmentServiceAsyncImpl

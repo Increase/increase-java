@@ -15,8 +15,8 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.SimulationDigitalWalletTokenRequestCreateParams
-import com.increase.api.models.SimulationDigitalWalletTokenRequestCreateResponse
+import com.increase.api.models.simulations.digitalwallettokenrequests.DigitalWalletTokenRequestCreateParams
+import com.increase.api.models.simulations.digitalwallettokenrequests.DigitalWalletTokenRequestCreateResponse
 import java.util.concurrent.CompletableFuture
 
 class DigitalWalletTokenRequestServiceAsyncImpl
@@ -31,9 +31,9 @@ internal constructor(private val clientOptions: ClientOptions) :
         withRawResponse
 
     override fun create(
-        params: SimulationDigitalWalletTokenRequestCreateParams,
+        params: DigitalWalletTokenRequestCreateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<SimulationDigitalWalletTokenRequestCreateResponse> =
+    ): CompletableFuture<DigitalWalletTokenRequestCreateResponse> =
         // post /simulations/digital_wallet_token_requests
         withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
@@ -42,14 +42,14 @@ internal constructor(private val clientOptions: ClientOptions) :
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val createHandler: Handler<SimulationDigitalWalletTokenRequestCreateResponse> =
-            jsonHandler<SimulationDigitalWalletTokenRequestCreateResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<DigitalWalletTokenRequestCreateResponse> =
+            jsonHandler<DigitalWalletTokenRequestCreateResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun create(
-            params: SimulationDigitalWalletTokenRequestCreateParams,
+            params: DigitalWalletTokenRequestCreateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<SimulationDigitalWalletTokenRequestCreateResponse>> {
+        ): CompletableFuture<HttpResponseFor<DigitalWalletTokenRequestCreateResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

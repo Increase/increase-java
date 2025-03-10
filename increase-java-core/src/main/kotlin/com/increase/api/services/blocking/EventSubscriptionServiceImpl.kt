@@ -15,12 +15,12 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.EventSubscription
-import com.increase.api.models.EventSubscriptionCreateParams
-import com.increase.api.models.EventSubscriptionListPage
-import com.increase.api.models.EventSubscriptionListParams
-import com.increase.api.models.EventSubscriptionRetrieveParams
-import com.increase.api.models.EventSubscriptionUpdateParams
+import com.increase.api.models.eventsubscriptions.EventSubscription
+import com.increase.api.models.eventsubscriptions.EventSubscriptionCreateParams
+import com.increase.api.models.eventsubscriptions.EventSubscriptionListPage
+import com.increase.api.models.eventsubscriptions.EventSubscriptionListParams
+import com.increase.api.models.eventsubscriptions.EventSubscriptionRetrieveParams
+import com.increase.api.models.eventsubscriptions.EventSubscriptionUpdateParams
 
 class EventSubscriptionServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     EventSubscriptionService {

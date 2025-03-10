@@ -14,10 +14,10 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.DeclinedTransaction
-import com.increase.api.models.DeclinedTransactionListPageAsync
-import com.increase.api.models.DeclinedTransactionListParams
-import com.increase.api.models.DeclinedTransactionRetrieveParams
+import com.increase.api.models.declinedtransactions.DeclinedTransaction
+import com.increase.api.models.declinedtransactions.DeclinedTransactionListPageAsync
+import com.increase.api.models.declinedtransactions.DeclinedTransactionListParams
+import com.increase.api.models.declinedtransactions.DeclinedTransactionRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class DeclinedTransactionServiceAsyncImpl

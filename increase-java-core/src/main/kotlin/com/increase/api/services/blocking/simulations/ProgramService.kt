@@ -5,8 +5,8 @@ package com.increase.api.services.blocking.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.Program
-import com.increase.api.models.SimulationProgramCreateParams
+import com.increase.api.models.programs.Program
+import com.increase.api.models.simulations.programs.ProgramCreateParams
 
 interface ProgramService {
 
@@ -20,12 +20,11 @@ interface ProgramService {
      * program called Commercial Banking. Note that when your group operates more than one program,
      * `program_id` is a required field when creating accounts.
      */
-    fun create(params: SimulationProgramCreateParams): Program =
-        create(params, RequestOptions.none())
+    fun create(params: ProgramCreateParams): Program = create(params, RequestOptions.none())
 
     /** @see [create] */
     fun create(
-        params: SimulationProgramCreateParams,
+        params: ProgramCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Program
 
@@ -37,13 +36,13 @@ interface ProgramService {
          * as [ProgramService.create].
          */
         @MustBeClosed
-        fun create(params: SimulationProgramCreateParams): HttpResponseFor<Program> =
+        fun create(params: ProgramCreateParams): HttpResponseFor<Program> =
             create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
         fun create(
-            params: SimulationProgramCreateParams,
+            params: ProgramCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Program>
     }

@@ -4,9 +4,9 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.IntrafiExclusionArchiveParams
-import com.increase.api.models.IntrafiExclusionCreateParams
-import com.increase.api.models.IntrafiExclusionRetrieveParams
+import com.increase.api.models.intrafiexclusions.IntrafiExclusionArchiveParams
+import com.increase.api.models.intrafiexclusions.IntrafiExclusionCreateParams
+import com.increase.api.models.intrafiexclusions.IntrafiExclusionRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 

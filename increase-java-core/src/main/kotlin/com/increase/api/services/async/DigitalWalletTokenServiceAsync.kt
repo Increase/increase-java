@@ -5,10 +5,10 @@ package com.increase.api.services.async
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.DigitalWalletToken
-import com.increase.api.models.DigitalWalletTokenListPageAsync
-import com.increase.api.models.DigitalWalletTokenListParams
-import com.increase.api.models.DigitalWalletTokenRetrieveParams
+import com.increase.api.models.digitalwallettokens.DigitalWalletToken
+import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListPageAsync
+import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListParams
+import com.increase.api.models.digitalwallettokens.DigitalWalletTokenRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 interface DigitalWalletTokenServiceAsync {

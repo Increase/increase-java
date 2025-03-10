@@ -15,8 +15,8 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.InboundCheckDeposit
-import com.increase.api.models.SimulationInboundCheckDepositCreateParams
+import com.increase.api.models.inboundcheckdeposits.InboundCheckDeposit
+import com.increase.api.models.simulations.inboundcheckdeposits.InboundCheckDepositCreateParams
 
 class InboundCheckDepositServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : InboundCheckDepositService {
@@ -28,7 +28,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundCheckDep
     override fun withRawResponse(): InboundCheckDepositService.WithRawResponse = withRawResponse
 
     override fun create(
-        params: SimulationInboundCheckDepositCreateParams,
+        params: InboundCheckDepositCreateParams,
         requestOptions: RequestOptions,
     ): InboundCheckDeposit =
         // post /simulations/inbound_check_deposits
@@ -44,7 +44,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundCheckDep
                 .withErrorHandler(errorHandler)
 
         override fun create(
-            params: SimulationInboundCheckDepositCreateParams,
+            params: InboundCheckDepositCreateParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<InboundCheckDeposit> {
             val request =

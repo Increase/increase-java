@@ -5,8 +5,8 @@ package com.increase.api.services.async
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.OAuthToken
-import com.increase.api.models.OAuthTokenCreateParams
+import com.increase.api.models.oauthtokens.OAuthToken
+import com.increase.api.models.oauthtokens.OAuthTokenCreateParams
 import java.util.concurrent.CompletableFuture
 
 interface OAuthTokenServiceAsync {

@@ -5,15 +5,15 @@ package com.increase.api.services.blocking
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.Account
-import com.increase.api.models.AccountBalanceParams
-import com.increase.api.models.AccountCloseParams
-import com.increase.api.models.AccountCreateParams
-import com.increase.api.models.AccountListPage
-import com.increase.api.models.AccountListParams
-import com.increase.api.models.AccountRetrieveParams
-import com.increase.api.models.AccountUpdateParams
-import com.increase.api.models.BalanceLookup
+import com.increase.api.models.accounts.Account
+import com.increase.api.models.accounts.AccountBalanceParams
+import com.increase.api.models.accounts.AccountCloseParams
+import com.increase.api.models.accounts.AccountCreateParams
+import com.increase.api.models.accounts.AccountListPage
+import com.increase.api.models.accounts.AccountListParams
+import com.increase.api.models.accounts.AccountRetrieveParams
+import com.increase.api.models.accounts.AccountUpdateParams
+import com.increase.api.models.accounts.BalanceLookup
 
 interface AccountService {
 

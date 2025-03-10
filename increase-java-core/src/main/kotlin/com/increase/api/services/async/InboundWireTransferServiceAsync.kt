@@ -5,10 +5,10 @@ package com.increase.api.services.async
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.InboundWireTransfer
-import com.increase.api.models.InboundWireTransferListPageAsync
-import com.increase.api.models.InboundWireTransferListParams
-import com.increase.api.models.InboundWireTransferRetrieveParams
+import com.increase.api.models.inboundwiretransfers.InboundWireTransfer
+import com.increase.api.models.inboundwiretransfers.InboundWireTransferListPageAsync
+import com.increase.api.models.inboundwiretransfers.InboundWireTransferListParams
+import com.increase.api.models.inboundwiretransfers.InboundWireTransferRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 interface InboundWireTransferServiceAsync {

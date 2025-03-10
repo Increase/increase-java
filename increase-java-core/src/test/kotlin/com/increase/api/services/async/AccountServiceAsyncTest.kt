@@ -4,11 +4,11 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.AccountBalanceParams
-import com.increase.api.models.AccountCloseParams
-import com.increase.api.models.AccountCreateParams
-import com.increase.api.models.AccountRetrieveParams
-import com.increase.api.models.AccountUpdateParams
+import com.increase.api.models.accounts.AccountBalanceParams
+import com.increase.api.models.accounts.AccountCloseParams
+import com.increase.api.models.accounts.AccountCreateParams
+import com.increase.api.models.accounts.AccountRetrieveParams
+import com.increase.api.models.accounts.AccountUpdateParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith

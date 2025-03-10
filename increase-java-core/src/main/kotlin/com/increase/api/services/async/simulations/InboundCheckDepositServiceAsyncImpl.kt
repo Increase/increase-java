@@ -15,8 +15,8 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.InboundCheckDeposit
-import com.increase.api.models.SimulationInboundCheckDepositCreateParams
+import com.increase.api.models.inboundcheckdeposits.InboundCheckDeposit
+import com.increase.api.models.simulations.inboundcheckdeposits.InboundCheckDepositCreateParams
 import java.util.concurrent.CompletableFuture
 
 class InboundCheckDepositServiceAsyncImpl
@@ -30,7 +30,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundCheckDep
         withRawResponse
 
     override fun create(
-        params: SimulationInboundCheckDepositCreateParams,
+        params: InboundCheckDepositCreateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<InboundCheckDeposit> =
         // post /simulations/inbound_check_deposits
@@ -46,7 +46,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundCheckDep
                 .withErrorHandler(errorHandler)
 
         override fun create(
-            params: SimulationInboundCheckDepositCreateParams,
+            params: InboundCheckDepositCreateParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<InboundCheckDeposit>> {
             val request =

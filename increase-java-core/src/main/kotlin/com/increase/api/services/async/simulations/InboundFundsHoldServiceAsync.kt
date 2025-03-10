@@ -5,8 +5,8 @@ package com.increase.api.services.async.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.SimulationInboundFundsHoldReleaseParams
-import com.increase.api.models.SimulationInboundFundsHoldReleaseResponse
+import com.increase.api.models.simulations.inboundfundsholds.InboundFundsHoldReleaseParams
+import com.increase.api.models.simulations.inboundfundsholds.InboundFundsHoldReleaseResponse
 import java.util.concurrent.CompletableFuture
 
 interface InboundFundsHoldServiceAsync {
@@ -21,15 +21,14 @@ interface InboundFundsHoldServiceAsync {
      * as a result of e.g., an ACH debit.
      */
     fun release(
-        params: SimulationInboundFundsHoldReleaseParams
-    ): CompletableFuture<SimulationInboundFundsHoldReleaseResponse> =
-        release(params, RequestOptions.none())
+        params: InboundFundsHoldReleaseParams
+    ): CompletableFuture<InboundFundsHoldReleaseResponse> = release(params, RequestOptions.none())
 
     /** @see [release] */
     fun release(
-        params: SimulationInboundFundsHoldReleaseParams,
+        params: InboundFundsHoldReleaseParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SimulationInboundFundsHoldReleaseResponse>
+    ): CompletableFuture<InboundFundsHoldReleaseResponse>
 
     /**
      * A view of [InboundFundsHoldServiceAsync] that provides access to raw HTTP responses for each
@@ -44,15 +43,15 @@ interface InboundFundsHoldServiceAsync {
          */
         @MustBeClosed
         fun release(
-            params: SimulationInboundFundsHoldReleaseParams
-        ): CompletableFuture<HttpResponseFor<SimulationInboundFundsHoldReleaseResponse>> =
+            params: InboundFundsHoldReleaseParams
+        ): CompletableFuture<HttpResponseFor<InboundFundsHoldReleaseResponse>> =
             release(params, RequestOptions.none())
 
         /** @see [release] */
         @MustBeClosed
         fun release(
-            params: SimulationInboundFundsHoldReleaseParams,
+            params: InboundFundsHoldReleaseParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SimulationInboundFundsHoldReleaseResponse>>
+        ): CompletableFuture<HttpResponseFor<InboundFundsHoldReleaseResponse>>
     }
 }

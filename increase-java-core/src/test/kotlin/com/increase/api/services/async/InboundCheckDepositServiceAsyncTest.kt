@@ -4,9 +4,9 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.InboundCheckDepositDeclineParams
-import com.increase.api.models.InboundCheckDepositRetrieveParams
-import com.increase.api.models.InboundCheckDepositReturnParams
+import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositDeclineParams
+import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositRetrieveParams
+import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositReturnParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 

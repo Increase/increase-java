@@ -4,8 +4,8 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.SupplementalDocumentCreateParams
-import com.increase.api.models.SupplementalDocumentListParams
+import com.increase.api.models.supplementaldocuments.SupplementalDocumentCreateParams
+import com.increase.api.models.supplementaldocuments.SupplementalDocumentListParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 

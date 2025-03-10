@@ -5,10 +5,10 @@ package com.increase.api.services.blocking
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.DigitalWalletToken
-import com.increase.api.models.DigitalWalletTokenListPage
-import com.increase.api.models.DigitalWalletTokenListParams
-import com.increase.api.models.DigitalWalletTokenRetrieveParams
+import com.increase.api.models.digitalwallettokens.DigitalWalletToken
+import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListPage
+import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListParams
+import com.increase.api.models.digitalwallettokens.DigitalWalletTokenRetrieveParams
 
 interface DigitalWalletTokenService {
 

@@ -5,10 +5,10 @@ package com.increase.api.services.async
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.OAuthConnection
-import com.increase.api.models.OAuthConnectionListPageAsync
-import com.increase.api.models.OAuthConnectionListParams
-import com.increase.api.models.OAuthConnectionRetrieveParams
+import com.increase.api.models.oauthconnections.OAuthConnection
+import com.increase.api.models.oauthconnections.OAuthConnectionListPageAsync
+import com.increase.api.models.oauthconnections.OAuthConnectionListParams
+import com.increase.api.models.oauthconnections.OAuthConnectionRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 interface OAuthConnectionServiceAsync {

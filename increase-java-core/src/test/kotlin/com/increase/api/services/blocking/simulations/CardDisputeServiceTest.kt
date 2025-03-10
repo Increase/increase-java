@@ -4,7 +4,7 @@ package com.increase.api.services.blocking.simulations
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.SimulationCardDisputeActionParams
+import com.increase.api.models.simulations.carddisputes.CardDisputeActionParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -22,9 +22,9 @@ class CardDisputeServiceTest {
 
         val cardDispute =
             cardDisputeService.action(
-                SimulationCardDisputeActionParams.builder()
+                CardDisputeActionParams.builder()
                     .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
-                    .status(SimulationCardDisputeActionParams.Status.PENDING_USER_INFORMATION)
+                    .status(CardDisputeActionParams.Status.PENDING_USER_INFORMATION)
                     .explanation("This was a valid recurring transaction")
                     .build()
             )

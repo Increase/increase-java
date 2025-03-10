@@ -15,8 +15,8 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.InboundWireTransfer
-import com.increase.api.models.SimulationInboundWireTransferCreateParams
+import com.increase.api.models.inboundwiretransfers.InboundWireTransfer
+import com.increase.api.models.simulations.inboundwiretransfers.InboundWireTransferCreateParams
 import java.util.concurrent.CompletableFuture
 
 class InboundWireTransferServiceAsyncImpl
@@ -30,7 +30,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundWireTran
         withRawResponse
 
     override fun create(
-        params: SimulationInboundWireTransferCreateParams,
+        params: InboundWireTransferCreateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<InboundWireTransfer> =
         // post /simulations/inbound_wire_transfers
@@ -46,7 +46,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundWireTran
                 .withErrorHandler(errorHandler)
 
         override fun create(
-            params: SimulationInboundWireTransferCreateParams,
+            params: InboundWireTransferCreateParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<InboundWireTransfer>> {
             val request =

@@ -5,8 +5,8 @@ package com.increase.api.services.blocking.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.InboundRealTimePaymentsTransfer
-import com.increase.api.models.SimulationInboundRealTimePaymentsTransferCreateParams
+import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransfer
+import com.increase.api.models.simulations.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferCreateParams
 
 interface InboundRealTimePaymentsTransferService {
 
@@ -20,12 +20,12 @@ interface InboundRealTimePaymentsTransferService {
      * your account. Real-Time Payments are a beta feature.
      */
     fun create(
-        params: SimulationInboundRealTimePaymentsTransferCreateParams
+        params: InboundRealTimePaymentsTransferCreateParams
     ): InboundRealTimePaymentsTransfer = create(params, RequestOptions.none())
 
     /** @see [create] */
     fun create(
-        params: SimulationInboundRealTimePaymentsTransferCreateParams,
+        params: InboundRealTimePaymentsTransferCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundRealTimePaymentsTransfer
 
@@ -41,13 +41,13 @@ interface InboundRealTimePaymentsTransferService {
          */
         @MustBeClosed
         fun create(
-            params: SimulationInboundRealTimePaymentsTransferCreateParams
+            params: InboundRealTimePaymentsTransferCreateParams
         ): HttpResponseFor<InboundRealTimePaymentsTransfer> = create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
         fun create(
-            params: SimulationInboundRealTimePaymentsTransferCreateParams,
+            params: InboundRealTimePaymentsTransferCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundRealTimePaymentsTransfer>
     }

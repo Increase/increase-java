@@ -5,12 +5,12 @@ package com.increase.api.services.blocking
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.EventSubscription
-import com.increase.api.models.EventSubscriptionCreateParams
-import com.increase.api.models.EventSubscriptionListPage
-import com.increase.api.models.EventSubscriptionListParams
-import com.increase.api.models.EventSubscriptionRetrieveParams
-import com.increase.api.models.EventSubscriptionUpdateParams
+import com.increase.api.models.eventsubscriptions.EventSubscription
+import com.increase.api.models.eventsubscriptions.EventSubscriptionCreateParams
+import com.increase.api.models.eventsubscriptions.EventSubscriptionListPage
+import com.increase.api.models.eventsubscriptions.EventSubscriptionListParams
+import com.increase.api.models.eventsubscriptions.EventSubscriptionRetrieveParams
+import com.increase.api.models.eventsubscriptions.EventSubscriptionUpdateParams
 
 interface EventSubscriptionService {
 

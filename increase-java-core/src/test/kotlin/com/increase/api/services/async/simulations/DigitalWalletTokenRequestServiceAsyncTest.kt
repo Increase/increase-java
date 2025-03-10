@@ -4,7 +4,7 @@ package com.increase.api.services.async.simulations
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.SimulationDigitalWalletTokenRequestCreateParams
+import com.increase.api.models.simulations.digitalwallettokenrequests.DigitalWalletTokenRequestCreateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -23,7 +23,7 @@ class DigitalWalletTokenRequestServiceAsyncTest {
 
         val digitalWalletTokenRequestFuture =
             digitalWalletTokenRequestServiceAsync.create(
-                SimulationDigitalWalletTokenRequestCreateParams.builder()
+                DigitalWalletTokenRequestCreateParams.builder()
                     .cardId("card_oubs0hwk5rn6knuecxg2")
                     .build()
             )

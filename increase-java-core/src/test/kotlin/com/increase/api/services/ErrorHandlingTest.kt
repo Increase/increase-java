@@ -23,7 +23,7 @@ import com.increase.api.errors.RateLimitException
 import com.increase.api.errors.UnauthorizedException
 import com.increase.api.errors.UnexpectedStatusCodeException
 import com.increase.api.errors.UnprocessableEntityException
-import com.increase.api.models.AccountCreateParams
+import com.increase.api.models.accounts.AccountCreateParams
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.entry
 import org.junit.jupiter.api.BeforeEach

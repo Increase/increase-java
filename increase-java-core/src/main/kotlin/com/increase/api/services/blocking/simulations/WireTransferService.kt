@@ -5,9 +5,9 @@ package com.increase.api.services.blocking.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.SimulationWireTransferReverseParams
-import com.increase.api.models.SimulationWireTransferSubmitParams
-import com.increase.api.models.WireTransfer
+import com.increase.api.models.simulations.wiretransfers.WireTransferReverseParams
+import com.increase.api.models.simulations.wiretransfers.WireTransferSubmitParams
+import com.increase.api.models.wiretransfers.WireTransfer
 
 interface WireTransferService {
 
@@ -21,12 +21,12 @@ interface WireTransferService {
      * error conditions. This will also create a [Transaction](#transaction) to account for the
      * returned funds. This Wire Transfer must first have a `status` of `complete`.
      */
-    fun reverse(params: SimulationWireTransferReverseParams): WireTransfer =
+    fun reverse(params: WireTransferReverseParams): WireTransfer =
         reverse(params, RequestOptions.none())
 
     /** @see [reverse] */
     fun reverse(
-        params: SimulationWireTransferReverseParams,
+        params: WireTransferReverseParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireTransfer
 
@@ -34,12 +34,12 @@ interface WireTransferService {
      * Simulates the submission of a [Wire Transfer](#wire-transfers) to the Federal Reserve. This
      * transfer must first have a `status` of `pending_approval` or `pending_creating`.
      */
-    fun submit(params: SimulationWireTransferSubmitParams): WireTransfer =
+    fun submit(params: WireTransferSubmitParams): WireTransfer =
         submit(params, RequestOptions.none())
 
     /** @see [submit] */
     fun submit(
-        params: SimulationWireTransferSubmitParams,
+        params: WireTransferSubmitParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireTransfer
 
@@ -54,13 +54,13 @@ interface WireTransferService {
          * [WireTransferService.reverse].
          */
         @MustBeClosed
-        fun reverse(params: SimulationWireTransferReverseParams): HttpResponseFor<WireTransfer> =
+        fun reverse(params: WireTransferReverseParams): HttpResponseFor<WireTransfer> =
             reverse(params, RequestOptions.none())
 
         /** @see [reverse] */
         @MustBeClosed
         fun reverse(
-            params: SimulationWireTransferReverseParams,
+            params: WireTransferReverseParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<WireTransfer>
 
@@ -70,13 +70,13 @@ interface WireTransferService {
          * [WireTransferService.submit].
          */
         @MustBeClosed
-        fun submit(params: SimulationWireTransferSubmitParams): HttpResponseFor<WireTransfer> =
+        fun submit(params: WireTransferSubmitParams): HttpResponseFor<WireTransfer> =
             submit(params, RequestOptions.none())
 
         /** @see [submit] */
         @MustBeClosed
         fun submit(
-            params: SimulationWireTransferSubmitParams,
+            params: WireTransferSubmitParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<WireTransfer>
     }

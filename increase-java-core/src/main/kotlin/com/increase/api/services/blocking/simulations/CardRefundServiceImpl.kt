@@ -15,8 +15,8 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.SimulationCardRefundCreateParams
-import com.increase.api.models.Transaction
+import com.increase.api.models.simulations.cardrefunds.CardRefundCreateParams
+import com.increase.api.models.transactions.Transaction
 
 class CardRefundServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     CardRefundService {
@@ -28,7 +28,7 @@ class CardRefundServiceImpl internal constructor(private val clientOptions: Clie
     override fun withRawResponse(): CardRefundService.WithRawResponse = withRawResponse
 
     override fun create(
-        params: SimulationCardRefundCreateParams,
+        params: CardRefundCreateParams,
         requestOptions: RequestOptions,
     ): Transaction =
         // post /simulations/card_refunds
@@ -43,7 +43,7 @@ class CardRefundServiceImpl internal constructor(private val clientOptions: Clie
             jsonHandler<Transaction>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
         override fun create(
-            params: SimulationCardRefundCreateParams,
+            params: CardRefundCreateParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<Transaction> {
             val request =

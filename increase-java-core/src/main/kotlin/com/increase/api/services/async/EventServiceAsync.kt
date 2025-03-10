@@ -5,10 +5,10 @@ package com.increase.api.services.async
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.Event
-import com.increase.api.models.EventListPageAsync
-import com.increase.api.models.EventListParams
-import com.increase.api.models.EventRetrieveParams
+import com.increase.api.models.events.Event
+import com.increase.api.models.events.EventListPageAsync
+import com.increase.api.models.events.EventListParams
+import com.increase.api.models.events.EventRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 interface EventServiceAsync {

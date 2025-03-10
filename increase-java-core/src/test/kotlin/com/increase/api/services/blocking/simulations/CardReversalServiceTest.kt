@@ -4,7 +4,7 @@ package com.increase.api.services.blocking.simulations
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.SimulationCardReversalCreateParams
+import com.increase.api.models.simulations.cardreversals.CardReversalCreateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -22,7 +22,7 @@ class CardReversalServiceTest {
 
         val cardPayment =
             cardReversalService.create(
-                SimulationCardReversalCreateParams.builder()
+                CardReversalCreateParams.builder()
                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                     .amount(1L)
                     .build()

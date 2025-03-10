@@ -4,10 +4,10 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.WireTransferApproveParams
-import com.increase.api.models.WireTransferCancelParams
-import com.increase.api.models.WireTransferCreateParams
-import com.increase.api.models.WireTransferRetrieveParams
+import com.increase.api.models.wiretransfers.WireTransferApproveParams
+import com.increase.api.models.wiretransfers.WireTransferCancelParams
+import com.increase.api.models.wiretransfers.WireTransferCreateParams
+import com.increase.api.models.wiretransfers.WireTransferRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 

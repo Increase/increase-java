@@ -5,13 +5,13 @@ package com.increase.api.services.async
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.AccountTransfer
-import com.increase.api.models.AccountTransferApproveParams
-import com.increase.api.models.AccountTransferCancelParams
-import com.increase.api.models.AccountTransferCreateParams
-import com.increase.api.models.AccountTransferListPageAsync
-import com.increase.api.models.AccountTransferListParams
-import com.increase.api.models.AccountTransferRetrieveParams
+import com.increase.api.models.accounttransfers.AccountTransfer
+import com.increase.api.models.accounttransfers.AccountTransferApproveParams
+import com.increase.api.models.accounttransfers.AccountTransferCancelParams
+import com.increase.api.models.accounttransfers.AccountTransferCreateParams
+import com.increase.api.models.accounttransfers.AccountTransferListPageAsync
+import com.increase.api.models.accounttransfers.AccountTransferListParams
+import com.increase.api.models.accounttransfers.AccountTransferRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 interface AccountTransferServiceAsync {

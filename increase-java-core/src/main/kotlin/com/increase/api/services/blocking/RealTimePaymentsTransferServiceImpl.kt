@@ -15,11 +15,11 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.RealTimePaymentsTransfer
-import com.increase.api.models.RealTimePaymentsTransferCreateParams
-import com.increase.api.models.RealTimePaymentsTransferListPage
-import com.increase.api.models.RealTimePaymentsTransferListParams
-import com.increase.api.models.RealTimePaymentsTransferRetrieveParams
+import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransfer
+import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferCreateParams
+import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferListPage
+import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferListParams
+import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferRetrieveParams
 
 class RealTimePaymentsTransferServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : RealTimePaymentsTransferService {

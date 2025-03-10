@@ -15,8 +15,8 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.CardDispute
-import com.increase.api.models.SimulationCardDisputeActionParams
+import com.increase.api.models.carddisputes.CardDispute
+import com.increase.api.models.simulations.carddisputes.CardDisputeActionParams
 
 class CardDisputeServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     CardDisputeService {
@@ -28,7 +28,7 @@ class CardDisputeServiceImpl internal constructor(private val clientOptions: Cli
     override fun withRawResponse(): CardDisputeService.WithRawResponse = withRawResponse
 
     override fun action(
-        params: SimulationCardDisputeActionParams,
+        params: CardDisputeActionParams,
         requestOptions: RequestOptions,
     ): CardDispute =
         // post /simulations/card_disputes/{card_dispute_id}/action
@@ -43,7 +43,7 @@ class CardDisputeServiceImpl internal constructor(private val clientOptions: Cli
             jsonHandler<CardDispute>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
         override fun action(
-            params: SimulationCardDisputeActionParams,
+            params: CardDisputeActionParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<CardDispute> {
             val request =

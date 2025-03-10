@@ -15,13 +15,13 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.AccountTransfer
-import com.increase.api.models.AccountTransferApproveParams
-import com.increase.api.models.AccountTransferCancelParams
-import com.increase.api.models.AccountTransferCreateParams
-import com.increase.api.models.AccountTransferListPage
-import com.increase.api.models.AccountTransferListParams
-import com.increase.api.models.AccountTransferRetrieveParams
+import com.increase.api.models.accounttransfers.AccountTransfer
+import com.increase.api.models.accounttransfers.AccountTransferApproveParams
+import com.increase.api.models.accounttransfers.AccountTransferCancelParams
+import com.increase.api.models.accounttransfers.AccountTransferCreateParams
+import com.increase.api.models.accounttransfers.AccountTransferListPage
+import com.increase.api.models.accounttransfers.AccountTransferListParams
+import com.increase.api.models.accounttransfers.AccountTransferRetrieveParams
 
 class AccountTransferServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     AccountTransferService {

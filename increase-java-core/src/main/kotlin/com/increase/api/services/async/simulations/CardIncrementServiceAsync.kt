@@ -5,8 +5,8 @@ package com.increase.api.services.async.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.CardPayment
-import com.increase.api.models.SimulationCardIncrementCreateParams
+import com.increase.api.models.cardpayments.CardPayment
+import com.increase.api.models.simulations.cardincrements.CardIncrementCreateParams
 import java.util.concurrent.CompletableFuture
 
 interface CardIncrementServiceAsync {
@@ -20,12 +20,12 @@ interface CardIncrementServiceAsync {
      * Simulates the increment of an authorization by a card acquirer. An authorization can be
      * incremented multiple times.
      */
-    fun create(params: SimulationCardIncrementCreateParams): CompletableFuture<CardPayment> =
+    fun create(params: CardIncrementCreateParams): CompletableFuture<CardPayment> =
         create(params, RequestOptions.none())
 
     /** @see [create] */
     fun create(
-        params: SimulationCardIncrementCreateParams,
+        params: CardIncrementCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CardPayment>
 
@@ -41,13 +41,13 @@ interface CardIncrementServiceAsync {
          */
         @MustBeClosed
         fun create(
-            params: SimulationCardIncrementCreateParams
+            params: CardIncrementCreateParams
         ): CompletableFuture<HttpResponseFor<CardPayment>> = create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
         fun create(
-            params: SimulationCardIncrementCreateParams,
+            params: CardIncrementCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CardPayment>>
     }

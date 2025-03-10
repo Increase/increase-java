@@ -14,10 +14,10 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.OAuthApplication
-import com.increase.api.models.OAuthApplicationListPageAsync
-import com.increase.api.models.OAuthApplicationListParams
-import com.increase.api.models.OAuthApplicationRetrieveParams
+import com.increase.api.models.oauthapplications.OAuthApplication
+import com.increase.api.models.oauthapplications.OAuthApplicationListPageAsync
+import com.increase.api.models.oauthapplications.OAuthApplicationListParams
+import com.increase.api.models.oauthapplications.OAuthApplicationRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class OAuthApplicationServiceAsyncImpl

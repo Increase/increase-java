@@ -5,8 +5,8 @@ package com.increase.api.services.async
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.IntrafiBalance
-import com.increase.api.models.IntrafiBalanceIntrafiBalanceParams
+import com.increase.api.models.intrafibalances.IntrafiBalance
+import com.increase.api.models.intrafibalances.IntrafiBalanceIntrafiBalanceParams
 import java.util.concurrent.CompletableFuture
 
 interface IntrafiBalanceServiceAsync {

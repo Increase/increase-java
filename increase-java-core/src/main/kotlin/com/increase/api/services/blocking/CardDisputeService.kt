@@ -5,11 +5,11 @@ package com.increase.api.services.blocking
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.CardDispute
-import com.increase.api.models.CardDisputeCreateParams
-import com.increase.api.models.CardDisputeListPage
-import com.increase.api.models.CardDisputeListParams
-import com.increase.api.models.CardDisputeRetrieveParams
+import com.increase.api.models.carddisputes.CardDispute
+import com.increase.api.models.carddisputes.CardDisputeCreateParams
+import com.increase.api.models.carddisputes.CardDisputeListPage
+import com.increase.api.models.carddisputes.CardDisputeListParams
+import com.increase.api.models.carddisputes.CardDisputeRetrieveParams
 
 interface CardDisputeService {
 

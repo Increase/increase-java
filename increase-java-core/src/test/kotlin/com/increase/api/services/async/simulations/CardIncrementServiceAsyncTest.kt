@@ -4,7 +4,7 @@ package com.increase.api.services.async.simulations
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.SimulationCardIncrementCreateParams
+import com.increase.api.models.simulations.cardincrements.CardIncrementCreateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -22,7 +22,7 @@ class CardIncrementServiceAsyncTest {
 
         val cardPaymentFuture =
             cardIncrementServiceAsync.create(
-                SimulationCardIncrementCreateParams.builder()
+                CardIncrementCreateParams.builder()
                     .amount(500L)
                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                     .eventSubscriptionId("event_subscription_id")

@@ -15,12 +15,12 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.ExternalAccount
-import com.increase.api.models.ExternalAccountCreateParams
-import com.increase.api.models.ExternalAccountListPageAsync
-import com.increase.api.models.ExternalAccountListParams
-import com.increase.api.models.ExternalAccountRetrieveParams
-import com.increase.api.models.ExternalAccountUpdateParams
+import com.increase.api.models.externalaccounts.ExternalAccount
+import com.increase.api.models.externalaccounts.ExternalAccountCreateParams
+import com.increase.api.models.externalaccounts.ExternalAccountListPageAsync
+import com.increase.api.models.externalaccounts.ExternalAccountListParams
+import com.increase.api.models.externalaccounts.ExternalAccountRetrieveParams
+import com.increase.api.models.externalaccounts.ExternalAccountUpdateParams
 import java.util.concurrent.CompletableFuture
 
 class ExternalAccountServiceAsyncImpl

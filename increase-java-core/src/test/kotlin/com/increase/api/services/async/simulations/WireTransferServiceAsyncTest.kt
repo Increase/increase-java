@@ -4,8 +4,8 @@ package com.increase.api.services.async.simulations
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.SimulationWireTransferReverseParams
-import com.increase.api.models.SimulationWireTransferSubmitParams
+import com.increase.api.models.simulations.wiretransfers.WireTransferReverseParams
+import com.increase.api.models.simulations.wiretransfers.WireTransferSubmitParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -23,7 +23,7 @@ class WireTransferServiceAsyncTest {
 
         val wireTransferFuture =
             wireTransferServiceAsync.reverse(
-                SimulationWireTransferReverseParams.builder()
+                WireTransferReverseParams.builder()
                     .wireTransferId("wire_transfer_5akynk7dqsq25qwk9q2u")
                     .build()
             )
@@ -43,7 +43,7 @@ class WireTransferServiceAsyncTest {
 
         val wireTransferFuture =
             wireTransferServiceAsync.submit(
-                SimulationWireTransferSubmitParams.builder()
+                WireTransferSubmitParams.builder()
                     .wireTransferId("wire_transfer_5akynk7dqsq25qwk9q2u")
                     .build()
             )

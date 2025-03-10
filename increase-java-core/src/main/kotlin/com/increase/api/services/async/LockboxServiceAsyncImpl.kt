@@ -15,12 +15,12 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.Lockbox
-import com.increase.api.models.LockboxCreateParams
-import com.increase.api.models.LockboxListPageAsync
-import com.increase.api.models.LockboxListParams
-import com.increase.api.models.LockboxRetrieveParams
-import com.increase.api.models.LockboxUpdateParams
+import com.increase.api.models.lockboxes.Lockbox
+import com.increase.api.models.lockboxes.LockboxCreateParams
+import com.increase.api.models.lockboxes.LockboxListPageAsync
+import com.increase.api.models.lockboxes.LockboxListParams
+import com.increase.api.models.lockboxes.LockboxRetrieveParams
+import com.increase.api.models.lockboxes.LockboxUpdateParams
 import java.util.concurrent.CompletableFuture
 
 class LockboxServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :

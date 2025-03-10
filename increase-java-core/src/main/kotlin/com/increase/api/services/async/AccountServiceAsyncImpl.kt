@@ -15,15 +15,15 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.Account
-import com.increase.api.models.AccountBalanceParams
-import com.increase.api.models.AccountCloseParams
-import com.increase.api.models.AccountCreateParams
-import com.increase.api.models.AccountListPageAsync
-import com.increase.api.models.AccountListParams
-import com.increase.api.models.AccountRetrieveParams
-import com.increase.api.models.AccountUpdateParams
-import com.increase.api.models.BalanceLookup
+import com.increase.api.models.accounts.Account
+import com.increase.api.models.accounts.AccountBalanceParams
+import com.increase.api.models.accounts.AccountCloseParams
+import com.increase.api.models.accounts.AccountCreateParams
+import com.increase.api.models.accounts.AccountListPageAsync
+import com.increase.api.models.accounts.AccountListParams
+import com.increase.api.models.accounts.AccountRetrieveParams
+import com.increase.api.models.accounts.AccountUpdateParams
+import com.increase.api.models.accounts.BalanceLookup
 import java.util.concurrent.CompletableFuture
 
 class AccountServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :

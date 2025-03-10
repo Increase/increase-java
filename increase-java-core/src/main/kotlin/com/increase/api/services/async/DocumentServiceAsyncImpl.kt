@@ -14,10 +14,10 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.Document
-import com.increase.api.models.DocumentListPageAsync
-import com.increase.api.models.DocumentListParams
-import com.increase.api.models.DocumentRetrieveParams
+import com.increase.api.models.documents.Document
+import com.increase.api.models.documents.DocumentListPageAsync
+import com.increase.api.models.documents.DocumentListParams
+import com.increase.api.models.documents.DocumentRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class DocumentServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :

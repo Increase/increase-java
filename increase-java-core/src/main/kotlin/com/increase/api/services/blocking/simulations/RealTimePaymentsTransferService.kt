@@ -5,8 +5,8 @@ package com.increase.api.services.blocking.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.RealTimePaymentsTransfer
-import com.increase.api.models.SimulationRealTimePaymentsTransferCompleteParams
+import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransfer
+import com.increase.api.models.simulations.realtimepaymentstransfers.RealTimePaymentsTransferCompleteParams
 
 interface RealTimePaymentsTransferService {
 
@@ -20,13 +20,12 @@ interface RealTimePaymentsTransferService {
      * handling the response from the destination financial institution. This transfer must first
      * have a `status` of `pending_submission`.
      */
-    fun complete(
-        params: SimulationRealTimePaymentsTransferCompleteParams
-    ): RealTimePaymentsTransfer = complete(params, RequestOptions.none())
+    fun complete(params: RealTimePaymentsTransferCompleteParams): RealTimePaymentsTransfer =
+        complete(params, RequestOptions.none())
 
     /** @see [complete] */
     fun complete(
-        params: SimulationRealTimePaymentsTransferCompleteParams,
+        params: RealTimePaymentsTransferCompleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RealTimePaymentsTransfer
 
@@ -43,13 +42,13 @@ interface RealTimePaymentsTransferService {
          */
         @MustBeClosed
         fun complete(
-            params: SimulationRealTimePaymentsTransferCompleteParams
+            params: RealTimePaymentsTransferCompleteParams
         ): HttpResponseFor<RealTimePaymentsTransfer> = complete(params, RequestOptions.none())
 
         /** @see [complete] */
         @MustBeClosed
         fun complete(
-            params: SimulationRealTimePaymentsTransferCompleteParams,
+            params: RealTimePaymentsTransferCompleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<RealTimePaymentsTransfer>
     }

@@ -5,10 +5,10 @@ package com.increase.api.services.async
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.Program
-import com.increase.api.models.ProgramListPageAsync
-import com.increase.api.models.ProgramListParams
-import com.increase.api.models.ProgramRetrieveParams
+import com.increase.api.models.programs.Program
+import com.increase.api.models.programs.ProgramListPageAsync
+import com.increase.api.models.programs.ProgramListParams
+import com.increase.api.models.programs.ProgramRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 interface ProgramServiceAsync {

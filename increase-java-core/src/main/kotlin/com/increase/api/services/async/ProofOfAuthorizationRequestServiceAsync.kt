@@ -5,10 +5,10 @@ package com.increase.api.services.async
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.ProofOfAuthorizationRequest
-import com.increase.api.models.ProofOfAuthorizationRequestListPageAsync
-import com.increase.api.models.ProofOfAuthorizationRequestListParams
-import com.increase.api.models.ProofOfAuthorizationRequestRetrieveParams
+import com.increase.api.models.proofofauthorizationrequests.ProofOfAuthorizationRequest
+import com.increase.api.models.proofofauthorizationrequests.ProofOfAuthorizationRequestListPageAsync
+import com.increase.api.models.proofofauthorizationrequests.ProofOfAuthorizationRequestListParams
+import com.increase.api.models.proofofauthorizationrequests.ProofOfAuthorizationRequestRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 interface ProofOfAuthorizationRequestServiceAsync {

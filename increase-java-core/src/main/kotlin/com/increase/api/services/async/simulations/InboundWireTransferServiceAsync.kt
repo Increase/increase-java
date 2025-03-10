@@ -5,8 +5,8 @@ package com.increase.api.services.async.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.InboundWireTransfer
-import com.increase.api.models.SimulationInboundWireTransferCreateParams
+import com.increase.api.models.inboundwiretransfers.InboundWireTransfer
+import com.increase.api.models.simulations.inboundwiretransfers.InboundWireTransferCreateParams
 import java.util.concurrent.CompletableFuture
 
 interface InboundWireTransferServiceAsync {
@@ -17,13 +17,12 @@ interface InboundWireTransferServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Simulates an [Inbound Wire Transfer](#inbound-wire-transfers) to your account. */
-    fun create(
-        params: SimulationInboundWireTransferCreateParams
-    ): CompletableFuture<InboundWireTransfer> = create(params, RequestOptions.none())
+    fun create(params: InboundWireTransferCreateParams): CompletableFuture<InboundWireTransfer> =
+        create(params, RequestOptions.none())
 
     /** @see [create] */
     fun create(
-        params: SimulationInboundWireTransferCreateParams,
+        params: InboundWireTransferCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundWireTransfer>
 
@@ -39,14 +38,14 @@ interface InboundWireTransferServiceAsync {
          */
         @MustBeClosed
         fun create(
-            params: SimulationInboundWireTransferCreateParams
+            params: InboundWireTransferCreateParams
         ): CompletableFuture<HttpResponseFor<InboundWireTransfer>> =
             create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
         fun create(
-            params: SimulationInboundWireTransferCreateParams,
+            params: InboundWireTransferCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<InboundWireTransfer>>
     }

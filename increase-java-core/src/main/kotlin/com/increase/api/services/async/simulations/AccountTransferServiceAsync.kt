@@ -5,8 +5,8 @@ package com.increase.api.services.async.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.AccountTransfer
-import com.increase.api.models.SimulationAccountTransferCompleteParams
+import com.increase.api.models.accounttransfers.AccountTransfer
+import com.increase.api.models.simulations.accounttransfers.AccountTransferCompleteParams
 import java.util.concurrent.CompletableFuture
 
 interface AccountTransferServiceAsync {
@@ -22,13 +22,12 @@ interface AccountTransferServiceAsync {
      * Account Transfers in the dashboard. This transfer must first have a `status` of
      * `pending_approval`.
      */
-    fun complete(
-        params: SimulationAccountTransferCompleteParams
-    ): CompletableFuture<AccountTransfer> = complete(params, RequestOptions.none())
+    fun complete(params: AccountTransferCompleteParams): CompletableFuture<AccountTransfer> =
+        complete(params, RequestOptions.none())
 
     /** @see [complete] */
     fun complete(
-        params: SimulationAccountTransferCompleteParams,
+        params: AccountTransferCompleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AccountTransfer>
 
@@ -45,14 +44,14 @@ interface AccountTransferServiceAsync {
          */
         @MustBeClosed
         fun complete(
-            params: SimulationAccountTransferCompleteParams
+            params: AccountTransferCompleteParams
         ): CompletableFuture<HttpResponseFor<AccountTransfer>> =
             complete(params, RequestOptions.none())
 
         /** @see [complete] */
         @MustBeClosed
         fun complete(
-            params: SimulationAccountTransferCompleteParams,
+            params: AccountTransferCompleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AccountTransfer>>
     }

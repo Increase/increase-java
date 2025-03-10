@@ -5,13 +5,13 @@ package com.increase.api.services.blocking
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.WireTransfer
-import com.increase.api.models.WireTransferApproveParams
-import com.increase.api.models.WireTransferCancelParams
-import com.increase.api.models.WireTransferCreateParams
-import com.increase.api.models.WireTransferListPage
-import com.increase.api.models.WireTransferListParams
-import com.increase.api.models.WireTransferRetrieveParams
+import com.increase.api.models.wiretransfers.WireTransfer
+import com.increase.api.models.wiretransfers.WireTransferApproveParams
+import com.increase.api.models.wiretransfers.WireTransferCancelParams
+import com.increase.api.models.wiretransfers.WireTransferCreateParams
+import com.increase.api.models.wiretransfers.WireTransferListPage
+import com.increase.api.models.wiretransfers.WireTransferListParams
+import com.increase.api.models.wiretransfers.WireTransferRetrieveParams
 
 interface WireTransferService {
 

@@ -5,12 +5,12 @@ package com.increase.api.services.blocking
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.InboundCheckDeposit
-import com.increase.api.models.InboundCheckDepositDeclineParams
-import com.increase.api.models.InboundCheckDepositListPage
-import com.increase.api.models.InboundCheckDepositListParams
-import com.increase.api.models.InboundCheckDepositRetrieveParams
-import com.increase.api.models.InboundCheckDepositReturnParams
+import com.increase.api.models.inboundcheckdeposits.InboundCheckDeposit
+import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositDeclineParams
+import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositListPage
+import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositListParams
+import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositRetrieveParams
+import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositReturnParams
 
 interface InboundCheckDepositService {
 

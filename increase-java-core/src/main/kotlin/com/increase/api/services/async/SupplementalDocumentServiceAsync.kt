@@ -5,10 +5,10 @@ package com.increase.api.services.async
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.EntitySupplementalDocument
-import com.increase.api.models.SupplementalDocumentCreateParams
-import com.increase.api.models.SupplementalDocumentListPageAsync
-import com.increase.api.models.SupplementalDocumentListParams
+import com.increase.api.models.supplementaldocuments.EntitySupplementalDocument
+import com.increase.api.models.supplementaldocuments.SupplementalDocumentCreateParams
+import com.increase.api.models.supplementaldocuments.SupplementalDocumentListPageAsync
+import com.increase.api.models.supplementaldocuments.SupplementalDocumentListParams
 import java.util.concurrent.CompletableFuture
 
 interface SupplementalDocumentServiceAsync {

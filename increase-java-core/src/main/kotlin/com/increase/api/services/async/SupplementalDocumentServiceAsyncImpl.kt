@@ -15,10 +15,10 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.EntitySupplementalDocument
-import com.increase.api.models.SupplementalDocumentCreateParams
-import com.increase.api.models.SupplementalDocumentListPageAsync
-import com.increase.api.models.SupplementalDocumentListParams
+import com.increase.api.models.supplementaldocuments.EntitySupplementalDocument
+import com.increase.api.models.supplementaldocuments.SupplementalDocumentCreateParams
+import com.increase.api.models.supplementaldocuments.SupplementalDocumentListPageAsync
+import com.increase.api.models.supplementaldocuments.SupplementalDocumentListParams
 import java.util.concurrent.CompletableFuture
 
 class SupplementalDocumentServiceAsyncImpl

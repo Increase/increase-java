@@ -5,8 +5,8 @@ package com.increase.api.services.async.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.CardPayment
-import com.increase.api.models.SimulationCardReversalCreateParams
+import com.increase.api.models.cardpayments.CardPayment
+import com.increase.api.models.simulations.cardreversals.CardReversalCreateParams
 import java.util.concurrent.CompletableFuture
 
 interface CardReversalServiceAsync {
@@ -21,12 +21,12 @@ interface CardReversalServiceAsync {
      * partially reversed multiple times, up until the total authorized amount. Marks the pending
      * transaction as complete if the authorization is fully reversed.
      */
-    fun create(params: SimulationCardReversalCreateParams): CompletableFuture<CardPayment> =
+    fun create(params: CardReversalCreateParams): CompletableFuture<CardPayment> =
         create(params, RequestOptions.none())
 
     /** @see [create] */
     fun create(
-        params: SimulationCardReversalCreateParams,
+        params: CardReversalCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CardPayment>
 
@@ -42,13 +42,13 @@ interface CardReversalServiceAsync {
          */
         @MustBeClosed
         fun create(
-            params: SimulationCardReversalCreateParams
+            params: CardReversalCreateParams
         ): CompletableFuture<HttpResponseFor<CardPayment>> = create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
         fun create(
-            params: SimulationCardReversalCreateParams,
+            params: CardReversalCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CardPayment>>
     }

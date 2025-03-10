@@ -4,9 +4,9 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.ExternalAccountCreateParams
-import com.increase.api.models.ExternalAccountRetrieveParams
-import com.increase.api.models.ExternalAccountUpdateParams
+import com.increase.api.models.externalaccounts.ExternalAccountCreateParams
+import com.increase.api.models.externalaccounts.ExternalAccountRetrieveParams
+import com.increase.api.models.externalaccounts.ExternalAccountUpdateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 

@@ -5,8 +5,8 @@ package com.increase.api.services.blocking.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.SimulationDigitalWalletTokenRequestCreateParams
-import com.increase.api.models.SimulationDigitalWalletTokenRequestCreateResponse
+import com.increase.api.models.simulations.digitalwallettokenrequests.DigitalWalletTokenRequestCreateParams
+import com.increase.api.models.simulations.digitalwallettokenrequests.DigitalWalletTokenRequestCreateResponse
 
 interface DigitalWalletTokenRequestService {
 
@@ -17,14 +17,14 @@ interface DigitalWalletTokenRequestService {
 
     /** Simulates a user attempting add a [Card](#cards) to a digital wallet such as Apple Pay. */
     fun create(
-        params: SimulationDigitalWalletTokenRequestCreateParams
-    ): SimulationDigitalWalletTokenRequestCreateResponse = create(params, RequestOptions.none())
+        params: DigitalWalletTokenRequestCreateParams
+    ): DigitalWalletTokenRequestCreateResponse = create(params, RequestOptions.none())
 
     /** @see [create] */
     fun create(
-        params: SimulationDigitalWalletTokenRequestCreateParams,
+        params: DigitalWalletTokenRequestCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SimulationDigitalWalletTokenRequestCreateResponse
+    ): DigitalWalletTokenRequestCreateResponse
 
     /**
      * A view of [DigitalWalletTokenRequestService] that provides access to raw HTTP responses for
@@ -38,15 +38,15 @@ interface DigitalWalletTokenRequestService {
          */
         @MustBeClosed
         fun create(
-            params: SimulationDigitalWalletTokenRequestCreateParams
-        ): HttpResponseFor<SimulationDigitalWalletTokenRequestCreateResponse> =
+            params: DigitalWalletTokenRequestCreateParams
+        ): HttpResponseFor<DigitalWalletTokenRequestCreateResponse> =
             create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
         fun create(
-            params: SimulationDigitalWalletTokenRequestCreateParams,
+            params: DigitalWalletTokenRequestCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SimulationDigitalWalletTokenRequestCreateResponse>
+        ): HttpResponseFor<DigitalWalletTokenRequestCreateResponse>
     }
 }

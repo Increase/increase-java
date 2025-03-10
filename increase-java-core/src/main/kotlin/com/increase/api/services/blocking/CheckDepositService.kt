@@ -5,11 +5,11 @@ package com.increase.api.services.blocking
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.CheckDeposit
-import com.increase.api.models.CheckDepositCreateParams
-import com.increase.api.models.CheckDepositListPage
-import com.increase.api.models.CheckDepositListParams
-import com.increase.api.models.CheckDepositRetrieveParams
+import com.increase.api.models.checkdeposits.CheckDeposit
+import com.increase.api.models.checkdeposits.CheckDepositCreateParams
+import com.increase.api.models.checkdeposits.CheckDepositListPage
+import com.increase.api.models.checkdeposits.CheckDepositListParams
+import com.increase.api.models.checkdeposits.CheckDepositRetrieveParams
 
 interface CheckDepositService {
 

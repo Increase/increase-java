@@ -14,10 +14,10 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.BookkeepingEntry
-import com.increase.api.models.BookkeepingEntryListPage
-import com.increase.api.models.BookkeepingEntryListParams
-import com.increase.api.models.BookkeepingEntryRetrieveParams
+import com.increase.api.models.bookkeepingentries.BookkeepingEntry
+import com.increase.api.models.bookkeepingentries.BookkeepingEntryListPage
+import com.increase.api.models.bookkeepingentries.BookkeepingEntryListParams
+import com.increase.api.models.bookkeepingentries.BookkeepingEntryRetrieveParams
 
 class BookkeepingEntryServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     BookkeepingEntryService {

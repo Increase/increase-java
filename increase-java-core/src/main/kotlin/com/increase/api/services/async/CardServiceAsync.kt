@@ -5,14 +5,14 @@ package com.increase.api.services.async
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.Card
-import com.increase.api.models.CardCreateParams
-import com.increase.api.models.CardDetails
-import com.increase.api.models.CardDetailsParams
-import com.increase.api.models.CardListPageAsync
-import com.increase.api.models.CardListParams
-import com.increase.api.models.CardRetrieveParams
-import com.increase.api.models.CardUpdateParams
+import com.increase.api.models.cards.Card
+import com.increase.api.models.cards.CardCreateParams
+import com.increase.api.models.cards.CardDetails
+import com.increase.api.models.cards.CardDetailsParams
+import com.increase.api.models.cards.CardListPageAsync
+import com.increase.api.models.cards.CardListParams
+import com.increase.api.models.cards.CardRetrieveParams
+import com.increase.api.models.cards.CardUpdateParams
 import java.util.concurrent.CompletableFuture
 
 interface CardServiceAsync {

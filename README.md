@@ -2,8 +2,8 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.increase.api/increase-java)](https://central.sonatype.com/artifact/com.increase.api/increase-java/0.195.1)
-[![javadoc](https://javadoc.io/badge2/com.increase.api/increase-java/0.195.1/javadoc.svg)](https://javadoc.io/doc/com.increase.api/increase-java/0.195.1)
+[![Maven Central](https://img.shields.io/maven-central/v/com.increase.api/increase-java)](https://central.sonatype.com/artifact/com.increase.api/increase-java/0.196.0)
+[![javadoc](https://javadoc.io/badge2/com.increase.api/increase-java/0.196.0/javadoc.svg)](https://javadoc.io/doc/com.increase.api/increase-java/0.196.0)
 
 <!-- x-release-please-end -->
 
@@ -11,7 +11,7 @@ The Increase Java SDK provides convenient access to the Increase REST API from a
 
 The Increase Java SDK is similar to the Increase Kotlin SDK but with minor differences that make it more ergonomic for use in Java, such as `Optional` instead of nullable values, `Stream` instead of `Sequence`, and `CompletableFuture` instead of suspend functions.
 
-The REST API documentation can be found on [increase.com](https://increase.com/documentation). Javadocs are also available on [javadoc.io](https://javadoc.io/doc/com.increase.api/increase-java/0.195.0).
+The REST API documentation can be found on [increase.com](https://increase.com/documentation). Javadocs are also available on [javadoc.io](https://javadoc.io/doc/com.increase.api/increase-java/0.195.1).
 
 ## Installation
 
@@ -20,7 +20,7 @@ The REST API documentation can be found on [increase.com](https://increase.com/d
 ### Gradle
 
 ```kotlin
-implementation("com.increase.api:increase-java:0.195.1")
+implementation("com.increase.api:increase-java:0.196.0")
 ```
 
 ### Maven
@@ -29,7 +29,7 @@ implementation("com.increase.api:increase-java:0.195.1")
 <dependency>
     <groupId>com.increase.api</groupId>
     <artifactId>increase-java</artifactId>
-    <version>0.195.1</version>
+    <version>0.196.0</version>
 </dependency>
 ```
 
@@ -44,8 +44,8 @@ This library requires Java 8 or later.
 ```java
 import com.increase.api.client.IncreaseClient;
 import com.increase.api.client.okhttp.IncreaseOkHttpClient;
-import com.increase.api.models.Account;
-import com.increase.api.models.AccountCreateParams;
+import com.increase.api.models.accounts.Account;
+import com.increase.api.models.accounts.AccountCreateParams;
 
 // Configures using the `INCREASE_API_KEY` and `INCREASE_WEBHOOK_SECRET` environment variables
 IncreaseClient client = IncreaseOkHttpClient.fromEnv();
@@ -126,8 +126,8 @@ The default client is synchronous. To switch to asynchronous execution, call the
 ```java
 import com.increase.api.client.IncreaseClient;
 import com.increase.api.client.okhttp.IncreaseOkHttpClient;
-import com.increase.api.models.Account;
-import com.increase.api.models.AccountCreateParams;
+import com.increase.api.models.accounts.Account;
+import com.increase.api.models.accounts.AccountCreateParams;
 import java.util.concurrent.CompletableFuture;
 
 // Configures using the `INCREASE_API_KEY` and `INCREASE_WEBHOOK_SECRET` environment variables
@@ -146,8 +146,8 @@ Or create an asynchronous client from the beginning:
 ```java
 import com.increase.api.client.IncreaseClientAsync;
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync;
-import com.increase.api.models.Account;
-import com.increase.api.models.AccountCreateParams;
+import com.increase.api.models.accounts.Account;
+import com.increase.api.models.accounts.AccountCreateParams;
 import java.util.concurrent.CompletableFuture;
 
 // Configures using the `INCREASE_API_KEY` and `INCREASE_WEBHOOK_SECRET` environment variables
@@ -170,8 +170,8 @@ The SDK defines methods that accept files.
 To upload a file, pass a [`Path`](https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html):
 
 ```java
-import com.increase.api.models.File;
-import com.increase.api.models.FileCreateParams;
+import com.increase.api.models.files.File;
+import com.increase.api.models.files.FileCreateParams;
 import java.nio.file.Paths;
 
 FileCreateParams params = FileCreateParams.builder()
@@ -184,8 +184,8 @@ File file = client.files().create(params);
 Or an arbitrary [`InputStream`](https://docs.oracle.com/javase/8/docs/api/java/io/InputStream.html):
 
 ```java
-import com.increase.api.models.File;
-import com.increase.api.models.FileCreateParams;
+import com.increase.api.models.files.File;
+import com.increase.api.models.files.FileCreateParams;
 import java.net.URL;
 
 FileCreateParams params = FileCreateParams.builder()
@@ -198,8 +198,8 @@ File file = client.files().create(params);
 Or a `byte[]` array:
 
 ```java
-import com.increase.api.models.File;
-import com.increase.api.models.FileCreateParams;
+import com.increase.api.models.files.File;
+import com.increase.api.models.files.FileCreateParams;
 
 FileCreateParams params = FileCreateParams.builder()
     .purpose(FileCreateParams.Purpose.CHECK_IMAGE_FRONT)
@@ -208,12 +208,12 @@ FileCreateParams params = FileCreateParams.builder()
 File file = client.files().create(params);
 ```
 
-Note that when passing a non-`Path` its filename is unknown so it will not be included in the request. To manually set a filename, pass a `MultipartField`:
+Note that when passing a non-`Path` its filename is unknown so it will not be included in the request. To manually set a filename, pass a [`MultipartField`](increase-java-core/src/main/kotlin/com/increase/api/core/Values.kt):
 
 ```java
 import com.increase.api.core.MultipartField;
-import com.increase.api.models.File;
-import com.increase.api.models.FileCreateParams;
+import com.increase.api.models.files.File;
+import com.increase.api.models.files.FileCreateParams;
 import java.io.InputStream;
 import java.net.URL;
 
@@ -236,8 +236,8 @@ To access this data, prefix any HTTP method call on a client or service with `wi
 ```java
 import com.increase.api.core.http.Headers;
 import com.increase.api.core.http.HttpResponseFor;
-import com.increase.api.models.Account;
-import com.increase.api.models.AccountCreateParams;
+import com.increase.api.models.accounts.Account;
+import com.increase.api.models.accounts.AccountCreateParams;
 
 AccountCreateParams params = AccountCreateParams.builder()
     .name("New Account!")
@@ -253,7 +253,7 @@ Headers headers = account.headers();
 You can still deserialize the response into an instance of a Java class if needed:
 
 ```java
-import com.increase.api.models.Account;
+import com.increase.api.models.accounts.Account;
 
 Account parsedAccount = account.parse();
 ```
@@ -292,8 +292,8 @@ To iterate through all results across all pages, you can use `autoPager`, which 
 ### Synchronous
 
 ```java
-import com.increase.api.models.Account;
-import com.increase.api.models.AccountListPage;
+import com.increase.api.models.accounts.Account;
+import com.increase.api.models.accounts.AccountListPage;
 
 // As an Iterable:
 AccountListPage page = client.accounts().list(params);
@@ -320,8 +320,8 @@ asyncClient.accounts().list(params).autoPager()
 If none of the above helpers meet your needs, you can also manually request pages one-by-one. A page of results has a `data()` method to fetch the list of objects, as well as top-level `response` and other methods to fetch top-level data about the page. It also has methods `hasNextPage`, `getNextPage`, and `getNextPageParams` methods to help with pagination.
 
 ```java
-import com.increase.api.models.Account;
-import com.increase.api.models.AccountListPage;
+import com.increase.api.models.accounts.Account;
+import com.increase.api.models.accounts.AccountListPage;
 
 AccountListPage page = client.accounts().list(params);
 while (page != null) {
@@ -394,8 +394,8 @@ Requests time out after 1 minute by default.
 To set a custom timeout, configure the method call using the `timeout` method:
 
 ```java
-import com.increase.api.models.Account;
-import com.increase.api.models.AccountCreateParams;
+import com.increase.api.models.accounts.Account;
+import com.increase.api.models.accounts.AccountCreateParams;
 
 Account account = client.accounts().create(
   params, RequestOptions.builder().timeout(Duration.ofSeconds(30)).build()
@@ -459,7 +459,7 @@ To set undocumented parameters, call the `putAdditionalHeader`, `putAdditionalQu
 
 ```java
 import com.increase.api.core.JsonValue;
-import com.increase.api.models.AccountCreateParams;
+import com.increase.api.models.accounts.AccountCreateParams;
 
 AccountCreateParams params = AccountCreateParams.builder()
     .putAdditionalHeader("Secret-Header", "42")
@@ -468,19 +468,58 @@ AccountCreateParams params = AccountCreateParams.builder()
     .build();
 ```
 
-These can be accessed on the built object later using the `_additionalHeaders()`, `_additionalQueryParams()`, and `_additionalBodyProperties()` methods. You can also set undocumented parameters on nested headers, query params, or body classes using the `putAdditionalProperty` method. These properties can be accessed on the built object later using the `_additionalProperties()` method.
+These can be accessed on the built object later using the `_additionalHeaders()`, `_additionalQueryParams()`, and `_additionalBodyProperties()` methods.
 
-To set a documented parameter or property to an undocumented or not yet supported _value_, pass a [`JsonValue`](increase-java-core/src/main/kotlin/com/increase/api/core/JsonValue.kt) object to its setter:
+To set a documented parameter or property to an undocumented or not yet supported _value_, pass a [`JsonValue`](increase-java-core/src/main/kotlin/com/increase/api/core/Values.kt) object to its setter:
 
 ```java
 import com.increase.api.core.JsonValue;
-import com.increase.api.models.AccountCreateParams;
+import com.increase.api.models.accounts.AccountCreateParams;
 
 AccountCreateParams params = AccountCreateParams.builder()
     .name(JsonValue.from(42))
     .entityId("entity_n8y8tnk2p9339ti393yi")
     .programId("program_i2v2os4mwza1oetokh9i")
     .build();
+```
+
+The most straightforward way to create a [`JsonValue`](increase-java-core/src/main/kotlin/com/increase/api/core/Values.kt) is using its `from(...)` method:
+
+```java
+import com.increase.api.core.JsonValue;
+import java.util.List;
+import java.util.Map;
+
+// Create primitive JSON values
+JsonValue nullValue = JsonValue.from(null);
+JsonValue booleanValue = JsonValue.from(true);
+JsonValue numberValue = JsonValue.from(42);
+JsonValue stringValue = JsonValue.from("Hello World!");
+
+// Create a JSON array value equivalent to `["Hello", "World"]`
+JsonValue arrayValue = JsonValue.from(List.of(
+  "Hello", "World"
+));
+
+// Create a JSON object value equivalent to `{ "a": 1, "b": 2 }`
+JsonValue objectValue = JsonValue.from(Map.of(
+  "a", 1,
+  "b", 2
+));
+
+// Create an arbitrarily nested JSON equivalent to:
+// {
+//   "a": [1, 2],
+//   "b": [3, 4]
+// }
+JsonValue complexValue = JsonValue.from(Map.of(
+  "a", List.of(
+    1, 2
+  ),
+  "b", List.of(
+    3, 4
+  )
+));
 ```
 
 ### Response properties
@@ -546,7 +585,7 @@ By default, the SDK will not throw an exception in this case. It will throw [`In
 If you would prefer to check that the response is completely well-typed upfront, then either call `validate()`:
 
 ```java
-import com.increase.api.models.Account;
+import com.increase.api.models.accounts.Account;
 
 Account account = client.accounts().create(params).validate();
 ```
@@ -554,8 +593,8 @@ Account account = client.accounts().create(params).validate();
 Or configure the method call to validate the response using the `responseValidation` method:
 
 ```java
-import com.increase.api.models.Account;
-import com.increase.api.models.AccountCreateParams;
+import com.increase.api.models.accounts.Account;
+import com.increase.api.models.accounts.AccountCreateParams;
 
 Account account = client.accounts().create(
   params, RequestOptions.builder().responseValidation(true).build()

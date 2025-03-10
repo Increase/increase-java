@@ -4,7 +4,7 @@ package com.increase.api.services.blocking.simulations
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.SimulationCheckTransferMailParams
+import com.increase.api.models.simulations.checktransfers.CheckTransferMailParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -22,7 +22,7 @@ class CheckTransferServiceTest {
 
         val checkTransfer =
             checkTransferService.mail(
-                SimulationCheckTransferMailParams.builder()
+                CheckTransferMailParams.builder()
                     .checkTransferId("check_transfer_30b43acfu9vw8fyc4f5")
                     .build()
             )

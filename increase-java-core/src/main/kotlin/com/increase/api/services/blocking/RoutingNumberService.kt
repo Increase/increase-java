@@ -5,8 +5,8 @@ package com.increase.api.services.blocking
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.RoutingNumberListPage
-import com.increase.api.models.RoutingNumberListParams
+import com.increase.api.models.routingnumbers.RoutingNumberListPage
+import com.increase.api.models.routingnumbers.RoutingNumberListParams
 
 interface RoutingNumberService {
 

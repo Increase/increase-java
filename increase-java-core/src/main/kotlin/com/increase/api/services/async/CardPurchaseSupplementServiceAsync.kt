@@ -5,10 +5,10 @@ package com.increase.api.services.async
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.CardPurchaseSupplement
-import com.increase.api.models.CardPurchaseSupplementListPageAsync
-import com.increase.api.models.CardPurchaseSupplementListParams
-import com.increase.api.models.CardPurchaseSupplementRetrieveParams
+import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplement
+import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementListPageAsync
+import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementListParams
+import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 interface CardPurchaseSupplementServiceAsync {

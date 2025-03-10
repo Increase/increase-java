@@ -15,12 +15,12 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.IntrafiExclusion
-import com.increase.api.models.IntrafiExclusionArchiveParams
-import com.increase.api.models.IntrafiExclusionCreateParams
-import com.increase.api.models.IntrafiExclusionListPage
-import com.increase.api.models.IntrafiExclusionListParams
-import com.increase.api.models.IntrafiExclusionRetrieveParams
+import com.increase.api.models.intrafiexclusions.IntrafiExclusion
+import com.increase.api.models.intrafiexclusions.IntrafiExclusionArchiveParams
+import com.increase.api.models.intrafiexclusions.IntrafiExclusionCreateParams
+import com.increase.api.models.intrafiexclusions.IntrafiExclusionListPage
+import com.increase.api.models.intrafiexclusions.IntrafiExclusionListParams
+import com.increase.api.models.intrafiexclusions.IntrafiExclusionRetrieveParams
 
 class IntrafiExclusionServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     IntrafiExclusionService {

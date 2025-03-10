@@ -5,10 +5,10 @@ package com.increase.api.services.blocking
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.Transaction
-import com.increase.api.models.TransactionListPage
-import com.increase.api.models.TransactionListParams
-import com.increase.api.models.TransactionRetrieveParams
+import com.increase.api.models.transactions.Transaction
+import com.increase.api.models.transactions.TransactionListPage
+import com.increase.api.models.transactions.TransactionListParams
+import com.increase.api.models.transactions.TransactionRetrieveParams
 
 interface TransactionService {
 

@@ -4,8 +4,8 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.WireDrawdownRequestCreateParams
-import com.increase.api.models.WireDrawdownRequestRetrieveParams
+import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestCreateParams
+import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 

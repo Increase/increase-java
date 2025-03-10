@@ -15,11 +15,11 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.ProofOfAuthorizationRequestSubmission
-import com.increase.api.models.ProofOfAuthorizationRequestSubmissionCreateParams
-import com.increase.api.models.ProofOfAuthorizationRequestSubmissionListPage
-import com.increase.api.models.ProofOfAuthorizationRequestSubmissionListParams
-import com.increase.api.models.ProofOfAuthorizationRequestSubmissionRetrieveParams
+import com.increase.api.models.proofofauthorizationrequestsubmissions.ProofOfAuthorizationRequestSubmission
+import com.increase.api.models.proofofauthorizationrequestsubmissions.ProofOfAuthorizationRequestSubmissionCreateParams
+import com.increase.api.models.proofofauthorizationrequestsubmissions.ProofOfAuthorizationRequestSubmissionListPage
+import com.increase.api.models.proofofauthorizationrequestsubmissions.ProofOfAuthorizationRequestSubmissionListParams
+import com.increase.api.models.proofofauthorizationrequestsubmissions.ProofOfAuthorizationRequestSubmissionRetrieveParams
 
 class ProofOfAuthorizationRequestSubmissionServiceImpl
 internal constructor(private val clientOptions: ClientOptions) :

@@ -15,12 +15,12 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.AccountNumber
-import com.increase.api.models.AccountNumberCreateParams
-import com.increase.api.models.AccountNumberListPage
-import com.increase.api.models.AccountNumberListParams
-import com.increase.api.models.AccountNumberRetrieveParams
-import com.increase.api.models.AccountNumberUpdateParams
+import com.increase.api.models.accountnumbers.AccountNumber
+import com.increase.api.models.accountnumbers.AccountNumberCreateParams
+import com.increase.api.models.accountnumbers.AccountNumberListPage
+import com.increase.api.models.accountnumbers.AccountNumberListParams
+import com.increase.api.models.accountnumbers.AccountNumberRetrieveParams
+import com.increase.api.models.accountnumbers.AccountNumberUpdateParams
 
 class AccountNumberServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     AccountNumberService {

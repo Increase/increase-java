@@ -1,0 +1,96 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.increase.api.models.accountnumbers
+
+import com.increase.api.core.http.QueryParams
+import java.time.OffsetDateTime
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+
+class AccountNumberListParamsTest {
+
+    @Test
+    fun create() {
+        AccountNumberListParams.builder()
+            .accountId("account_id")
+            .achDebitStatus(
+                AccountNumberListParams.AchDebitStatus.builder()
+                    .addIn(AccountNumberListParams.AchDebitStatus.In.ALLOWED)
+                    .build()
+            )
+            .createdAt(
+                AccountNumberListParams.CreatedAt.builder()
+                    .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .build()
+            )
+            .cursor("cursor")
+            .idempotencyKey("x")
+            .limit(1L)
+            .status(
+                AccountNumberListParams.Status.builder()
+                    .addIn(AccountNumberListParams.Status.In.ACTIVE)
+                    .build()
+            )
+            .build()
+    }
+
+    @Test
+    fun queryParams() {
+        val params =
+            AccountNumberListParams.builder()
+                .accountId("account_id")
+                .achDebitStatus(
+                    AccountNumberListParams.AchDebitStatus.builder()
+                        .addIn(AccountNumberListParams.AchDebitStatus.In.ALLOWED)
+                        .build()
+                )
+                .createdAt(
+                    AccountNumberListParams.CreatedAt.builder()
+                        .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .build()
+                )
+                .cursor("cursor")
+                .idempotencyKey("x")
+                .limit(1L)
+                .status(
+                    AccountNumberListParams.Status.builder()
+                        .addIn(AccountNumberListParams.Status.In.ACTIVE)
+                        .build()
+                )
+                .build()
+        val expected = QueryParams.builder()
+        expected.put("account_id", "account_id")
+        AccountNumberListParams.AchDebitStatus.builder()
+            .addIn(AccountNumberListParams.AchDebitStatus.In.ALLOWED)
+            .build()
+            .forEachQueryParam { key, values -> expected.put("ach_debit_status.$key", values) }
+        AccountNumberListParams.CreatedAt.builder()
+            .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+            .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+            .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+            .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+            .build()
+            .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
+        expected.put("cursor", "cursor")
+        expected.put("idempotency_key", "x")
+        expected.put("limit", "1")
+        AccountNumberListParams.Status.builder()
+            .addIn(AccountNumberListParams.Status.In.ACTIVE)
+            .build()
+            .forEachQueryParam { key, values -> expected.put("status.$key", values) }
+        assertThat(params._queryParams()).isEqualTo(expected.build())
+    }
+
+    @Test
+    fun queryParamsWithoutOptionalFields() {
+        val params = AccountNumberListParams.builder().build()
+        val expected = QueryParams.builder()
+        assertThat(params._queryParams()).isEqualTo(expected.build())
+    }
+}

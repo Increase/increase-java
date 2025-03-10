@@ -15,10 +15,10 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.CheckDeposit
-import com.increase.api.models.SimulationCheckDepositRejectParams
-import com.increase.api.models.SimulationCheckDepositReturnParams
-import com.increase.api.models.SimulationCheckDepositSubmitParams
+import com.increase.api.models.checkdeposits.CheckDeposit
+import com.increase.api.models.simulations.checkdeposits.CheckDepositRejectParams
+import com.increase.api.models.simulations.checkdeposits.CheckDepositReturnParams
+import com.increase.api.models.simulations.checkdeposits.CheckDepositSubmitParams
 
 class CheckDepositServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     CheckDepositService {
@@ -30,21 +30,21 @@ class CheckDepositServiceImpl internal constructor(private val clientOptions: Cl
     override fun withRawResponse(): CheckDepositService.WithRawResponse = withRawResponse
 
     override fun reject(
-        params: SimulationCheckDepositRejectParams,
+        params: CheckDepositRejectParams,
         requestOptions: RequestOptions,
     ): CheckDeposit =
         // post /simulations/check_deposits/{check_deposit_id}/reject
         withRawResponse().reject(params, requestOptions).parse()
 
     override fun return_(
-        params: SimulationCheckDepositReturnParams,
+        params: CheckDepositReturnParams,
         requestOptions: RequestOptions,
     ): CheckDeposit =
         // post /simulations/check_deposits/{check_deposit_id}/return
         withRawResponse().return_(params, requestOptions).parse()
 
     override fun submit(
-        params: SimulationCheckDepositSubmitParams,
+        params: CheckDepositSubmitParams,
         requestOptions: RequestOptions,
     ): CheckDeposit =
         // post /simulations/check_deposits/{check_deposit_id}/submit
@@ -59,7 +59,7 @@ class CheckDepositServiceImpl internal constructor(private val clientOptions: Cl
             jsonHandler<CheckDeposit>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
         override fun reject(
-            params: SimulationCheckDepositRejectParams,
+            params: CheckDepositRejectParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<CheckDeposit> {
             val request =
@@ -91,7 +91,7 @@ class CheckDepositServiceImpl internal constructor(private val clientOptions: Cl
             jsonHandler<CheckDeposit>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
         override fun return_(
-            params: SimulationCheckDepositReturnParams,
+            params: CheckDepositReturnParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<CheckDeposit> {
             val request =
@@ -123,7 +123,7 @@ class CheckDepositServiceImpl internal constructor(private val clientOptions: Cl
             jsonHandler<CheckDeposit>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
         override fun submit(
-            params: SimulationCheckDepositSubmitParams,
+            params: CheckDepositSubmitParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<CheckDeposit> {
             val request =

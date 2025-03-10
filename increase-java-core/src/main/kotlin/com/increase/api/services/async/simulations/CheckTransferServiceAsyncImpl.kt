@@ -15,8 +15,8 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.CheckTransfer
-import com.increase.api.models.SimulationCheckTransferMailParams
+import com.increase.api.models.checktransfers.CheckTransfer
+import com.increase.api.models.simulations.checktransfers.CheckTransferMailParams
 import java.util.concurrent.CompletableFuture
 
 class CheckTransferServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -29,7 +29,7 @@ class CheckTransferServiceAsyncImpl internal constructor(private val clientOptio
     override fun withRawResponse(): CheckTransferServiceAsync.WithRawResponse = withRawResponse
 
     override fun mail(
-        params: SimulationCheckTransferMailParams,
+        params: CheckTransferMailParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<CheckTransfer> =
         // post /simulations/check_transfers/{check_transfer_id}/mail
@@ -44,7 +44,7 @@ class CheckTransferServiceAsyncImpl internal constructor(private val clientOptio
             jsonHandler<CheckTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
         override fun mail(
-            params: SimulationCheckTransferMailParams,
+            params: CheckTransferMailParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<CheckTransfer>> {
             val request =

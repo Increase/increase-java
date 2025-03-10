@@ -5,8 +5,8 @@ package com.increase.api.services.blocking.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.SimulationInterestPaymentCreateParams
-import com.increase.api.models.Transaction
+import com.increase.api.models.simulations.interestpayments.InterestPaymentCreateParams
+import com.increase.api.models.transactions.Transaction
 
 interface InterestPaymentService {
 
@@ -19,12 +19,12 @@ interface InterestPaymentService {
      * Simulates an interest payment to your account. In production, this happens automatically on
      * the first of each month.
      */
-    fun create(params: SimulationInterestPaymentCreateParams): Transaction =
+    fun create(params: InterestPaymentCreateParams): Transaction =
         create(params, RequestOptions.none())
 
     /** @see [create] */
     fun create(
-        params: SimulationInterestPaymentCreateParams,
+        params: InterestPaymentCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Transaction
 
@@ -39,13 +39,13 @@ interface InterestPaymentService {
          * the same as [InterestPaymentService.create].
          */
         @MustBeClosed
-        fun create(params: SimulationInterestPaymentCreateParams): HttpResponseFor<Transaction> =
+        fun create(params: InterestPaymentCreateParams): HttpResponseFor<Transaction> =
             create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
         fun create(
-            params: SimulationInterestPaymentCreateParams,
+            params: InterestPaymentCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Transaction>
     }

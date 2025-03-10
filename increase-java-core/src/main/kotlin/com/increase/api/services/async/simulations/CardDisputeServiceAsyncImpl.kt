@@ -15,8 +15,8 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.CardDispute
-import com.increase.api.models.SimulationCardDisputeActionParams
+import com.increase.api.models.carddisputes.CardDispute
+import com.increase.api.models.simulations.carddisputes.CardDisputeActionParams
 import java.util.concurrent.CompletableFuture
 
 class CardDisputeServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -29,7 +29,7 @@ class CardDisputeServiceAsyncImpl internal constructor(private val clientOptions
     override fun withRawResponse(): CardDisputeServiceAsync.WithRawResponse = withRawResponse
 
     override fun action(
-        params: SimulationCardDisputeActionParams,
+        params: CardDisputeActionParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<CardDispute> =
         // post /simulations/card_disputes/{card_dispute_id}/action
@@ -44,7 +44,7 @@ class CardDisputeServiceAsyncImpl internal constructor(private val clientOptions
             jsonHandler<CardDispute>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
         override fun action(
-            params: SimulationCardDisputeActionParams,
+            params: CardDisputeActionParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<CardDispute>> {
             val request =

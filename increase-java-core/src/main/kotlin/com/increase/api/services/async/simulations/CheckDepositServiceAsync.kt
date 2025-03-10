@@ -5,10 +5,10 @@ package com.increase.api.services.async.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.CheckDeposit
-import com.increase.api.models.SimulationCheckDepositRejectParams
-import com.increase.api.models.SimulationCheckDepositReturnParams
-import com.increase.api.models.SimulationCheckDepositSubmitParams
+import com.increase.api.models.checkdeposits.CheckDeposit
+import com.increase.api.models.simulations.checkdeposits.CheckDepositRejectParams
+import com.increase.api.models.simulations.checkdeposits.CheckDepositReturnParams
+import com.increase.api.models.simulations.checkdeposits.CheckDepositSubmitParams
 import java.util.concurrent.CompletableFuture
 
 interface CheckDepositServiceAsync {
@@ -22,12 +22,12 @@ interface CheckDepositServiceAsync {
      * Simulates the rejection of a [Check Deposit](#check-deposits) by Increase due to factors like
      * poor image quality. This Check Deposit must first have a `status` of `pending`.
      */
-    fun reject(params: SimulationCheckDepositRejectParams): CompletableFuture<CheckDeposit> =
+    fun reject(params: CheckDepositRejectParams): CompletableFuture<CheckDeposit> =
         reject(params, RequestOptions.none())
 
     /** @see [reject] */
     fun reject(
-        params: SimulationCheckDepositRejectParams,
+        params: CheckDepositRejectParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CheckDeposit>
 
@@ -35,12 +35,12 @@ interface CheckDepositServiceAsync {
      * Simulates the return of a [Check Deposit](#check-deposits). This Check Deposit must first
      * have a `status` of `submitted`.
      */
-    fun return_(params: SimulationCheckDepositReturnParams): CompletableFuture<CheckDeposit> =
+    fun return_(params: CheckDepositReturnParams): CompletableFuture<CheckDeposit> =
         return_(params, RequestOptions.none())
 
     /** @see [return_] */
     fun return_(
-        params: SimulationCheckDepositReturnParams,
+        params: CheckDepositReturnParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CheckDeposit>
 
@@ -48,12 +48,12 @@ interface CheckDepositServiceAsync {
      * Simulates the submission of a [Check Deposit](#check-deposits) to the Federal Reserve. This
      * Check Deposit must first have a `status` of `pending`.
      */
-    fun submit(params: SimulationCheckDepositSubmitParams): CompletableFuture<CheckDeposit> =
+    fun submit(params: CheckDepositSubmitParams): CompletableFuture<CheckDeposit> =
         submit(params, RequestOptions.none())
 
     /** @see [submit] */
     fun submit(
-        params: SimulationCheckDepositSubmitParams,
+        params: CheckDepositSubmitParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CheckDeposit>
 
@@ -70,13 +70,13 @@ interface CheckDepositServiceAsync {
          */
         @MustBeClosed
         fun reject(
-            params: SimulationCheckDepositRejectParams
+            params: CheckDepositRejectParams
         ): CompletableFuture<HttpResponseFor<CheckDeposit>> = reject(params, RequestOptions.none())
 
         /** @see [reject] */
         @MustBeClosed
         fun reject(
-            params: SimulationCheckDepositRejectParams,
+            params: CheckDepositRejectParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CheckDeposit>>
 
@@ -87,13 +87,13 @@ interface CheckDepositServiceAsync {
          */
         @MustBeClosed
         fun return_(
-            params: SimulationCheckDepositReturnParams
+            params: CheckDepositReturnParams
         ): CompletableFuture<HttpResponseFor<CheckDeposit>> = return_(params, RequestOptions.none())
 
         /** @see [return_] */
         @MustBeClosed
         fun return_(
-            params: SimulationCheckDepositReturnParams,
+            params: CheckDepositReturnParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CheckDeposit>>
 
@@ -104,13 +104,13 @@ interface CheckDepositServiceAsync {
          */
         @MustBeClosed
         fun submit(
-            params: SimulationCheckDepositSubmitParams
+            params: CheckDepositSubmitParams
         ): CompletableFuture<HttpResponseFor<CheckDeposit>> = submit(params, RequestOptions.none())
 
         /** @see [submit] */
         @MustBeClosed
         fun submit(
-            params: SimulationCheckDepositSubmitParams,
+            params: CheckDepositSubmitParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CheckDeposit>>
     }

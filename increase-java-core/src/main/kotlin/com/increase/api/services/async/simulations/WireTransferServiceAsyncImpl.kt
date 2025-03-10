@@ -15,9 +15,9 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.SimulationWireTransferReverseParams
-import com.increase.api.models.SimulationWireTransferSubmitParams
-import com.increase.api.models.WireTransfer
+import com.increase.api.models.simulations.wiretransfers.WireTransferReverseParams
+import com.increase.api.models.simulations.wiretransfers.WireTransferSubmitParams
+import com.increase.api.models.wiretransfers.WireTransfer
 import java.util.concurrent.CompletableFuture
 
 class WireTransferServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -30,14 +30,14 @@ class WireTransferServiceAsyncImpl internal constructor(private val clientOption
     override fun withRawResponse(): WireTransferServiceAsync.WithRawResponse = withRawResponse
 
     override fun reverse(
-        params: SimulationWireTransferReverseParams,
+        params: WireTransferReverseParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<WireTransfer> =
         // post /simulations/wire_transfers/{wire_transfer_id}/reverse
         withRawResponse().reverse(params, requestOptions).thenApply { it.parse() }
 
     override fun submit(
-        params: SimulationWireTransferSubmitParams,
+        params: WireTransferSubmitParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<WireTransfer> =
         // post /simulations/wire_transfers/{wire_transfer_id}/submit
@@ -52,7 +52,7 @@ class WireTransferServiceAsyncImpl internal constructor(private val clientOption
             jsonHandler<WireTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
         override fun reverse(
-            params: SimulationWireTransferReverseParams,
+            params: WireTransferReverseParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<WireTransfer>> {
             val request =
@@ -87,7 +87,7 @@ class WireTransferServiceAsyncImpl internal constructor(private val clientOption
             jsonHandler<WireTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
         override fun submit(
-            params: SimulationWireTransferSubmitParams,
+            params: WireTransferSubmitParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<WireTransfer>> {
             val request =

@@ -15,12 +15,12 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.EventSubscription
-import com.increase.api.models.EventSubscriptionCreateParams
-import com.increase.api.models.EventSubscriptionListPageAsync
-import com.increase.api.models.EventSubscriptionListParams
-import com.increase.api.models.EventSubscriptionRetrieveParams
-import com.increase.api.models.EventSubscriptionUpdateParams
+import com.increase.api.models.eventsubscriptions.EventSubscription
+import com.increase.api.models.eventsubscriptions.EventSubscriptionCreateParams
+import com.increase.api.models.eventsubscriptions.EventSubscriptionListPageAsync
+import com.increase.api.models.eventsubscriptions.EventSubscriptionListParams
+import com.increase.api.models.eventsubscriptions.EventSubscriptionRetrieveParams
+import com.increase.api.models.eventsubscriptions.EventSubscriptionUpdateParams
 import java.util.concurrent.CompletableFuture
 
 class EventSubscriptionServiceAsyncImpl

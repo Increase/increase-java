@@ -5,8 +5,8 @@ package com.increase.api.services.async.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.InboundWireDrawdownRequest
-import com.increase.api.models.SimulationInboundWireDrawdownRequestCreateParams
+import com.increase.api.models.inboundwiredrawdownrequests.InboundWireDrawdownRequest
+import com.increase.api.models.simulations.inboundwiredrawdownrequests.InboundWireDrawdownRequestCreateParams
 import java.util.concurrent.CompletableFuture
 
 interface InboundWireDrawdownRequestServiceAsync {
@@ -18,12 +18,12 @@ interface InboundWireDrawdownRequestServiceAsync {
 
     /** Simulates receiving an [Inbound Wire Drawdown Request](#inbound-wire-drawdown-requests). */
     fun create(
-        params: SimulationInboundWireDrawdownRequestCreateParams
+        params: InboundWireDrawdownRequestCreateParams
     ): CompletableFuture<InboundWireDrawdownRequest> = create(params, RequestOptions.none())
 
     /** @see [create] */
     fun create(
-        params: SimulationInboundWireDrawdownRequestCreateParams,
+        params: InboundWireDrawdownRequestCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundWireDrawdownRequest>
 
@@ -39,14 +39,14 @@ interface InboundWireDrawdownRequestServiceAsync {
          */
         @MustBeClosed
         fun create(
-            params: SimulationInboundWireDrawdownRequestCreateParams
+            params: InboundWireDrawdownRequestCreateParams
         ): CompletableFuture<HttpResponseFor<InboundWireDrawdownRequest>> =
             create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
         fun create(
-            params: SimulationInboundWireDrawdownRequestCreateParams,
+            params: InboundWireDrawdownRequestCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<InboundWireDrawdownRequest>>
     }

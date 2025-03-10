@@ -5,8 +5,8 @@ package com.increase.api.services.async.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.RealTimePaymentsTransfer
-import com.increase.api.models.SimulationRealTimePaymentsTransferCompleteParams
+import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransfer
+import com.increase.api.models.simulations.realtimepaymentstransfers.RealTimePaymentsTransferCompleteParams
 import java.util.concurrent.CompletableFuture
 
 interface RealTimePaymentsTransferServiceAsync {
@@ -22,12 +22,12 @@ interface RealTimePaymentsTransferServiceAsync {
      * have a `status` of `pending_submission`.
      */
     fun complete(
-        params: SimulationRealTimePaymentsTransferCompleteParams
+        params: RealTimePaymentsTransferCompleteParams
     ): CompletableFuture<RealTimePaymentsTransfer> = complete(params, RequestOptions.none())
 
     /** @see [complete] */
     fun complete(
-        params: SimulationRealTimePaymentsTransferCompleteParams,
+        params: RealTimePaymentsTransferCompleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<RealTimePaymentsTransfer>
 
@@ -44,14 +44,14 @@ interface RealTimePaymentsTransferServiceAsync {
          */
         @MustBeClosed
         fun complete(
-            params: SimulationRealTimePaymentsTransferCompleteParams
+            params: RealTimePaymentsTransferCompleteParams
         ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>> =
             complete(params, RequestOptions.none())
 
         /** @see [complete] */
         @MustBeClosed
         fun complete(
-            params: SimulationRealTimePaymentsTransferCompleteParams,
+            params: RealTimePaymentsTransferCompleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>>
     }

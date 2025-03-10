@@ -4,7 +4,7 @@ package com.increase.api.services.blocking.simulations
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.SimulationAccountTransferCompleteParams
+import com.increase.api.models.simulations.accounttransfers.AccountTransferCompleteParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -22,7 +22,7 @@ class AccountTransferServiceTest {
 
         val accountTransfer =
             accountTransferService.complete(
-                SimulationAccountTransferCompleteParams.builder()
+                AccountTransferCompleteParams.builder()
                     .accountTransferId("account_transfer_7k9qe1ysdgqztnt63l7n")
                     .build()
             )

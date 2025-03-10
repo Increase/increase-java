@@ -15,12 +15,12 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.InboundCheckDeposit
-import com.increase.api.models.InboundCheckDepositDeclineParams
-import com.increase.api.models.InboundCheckDepositListPageAsync
-import com.increase.api.models.InboundCheckDepositListParams
-import com.increase.api.models.InboundCheckDepositRetrieveParams
-import com.increase.api.models.InboundCheckDepositReturnParams
+import com.increase.api.models.inboundcheckdeposits.InboundCheckDeposit
+import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositDeclineParams
+import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositListPageAsync
+import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositListParams
+import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositRetrieveParams
+import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositReturnParams
 import java.util.concurrent.CompletableFuture
 
 class InboundCheckDepositServiceAsyncImpl

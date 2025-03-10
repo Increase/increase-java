@@ -5,13 +5,13 @@ package com.increase.api.services.blocking
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.DigitalCardProfile
-import com.increase.api.models.DigitalCardProfileArchiveParams
-import com.increase.api.models.DigitalCardProfileCloneParams
-import com.increase.api.models.DigitalCardProfileCreateParams
-import com.increase.api.models.DigitalCardProfileListPage
-import com.increase.api.models.DigitalCardProfileListParams
-import com.increase.api.models.DigitalCardProfileRetrieveParams
+import com.increase.api.models.digitalcardprofiles.DigitalCardProfile
+import com.increase.api.models.digitalcardprofiles.DigitalCardProfileArchiveParams
+import com.increase.api.models.digitalcardprofiles.DigitalCardProfileCloneParams
+import com.increase.api.models.digitalcardprofiles.DigitalCardProfileCreateParams
+import com.increase.api.models.digitalcardprofiles.DigitalCardProfileListPage
+import com.increase.api.models.digitalcardprofiles.DigitalCardProfileListParams
+import com.increase.api.models.digitalcardprofiles.DigitalCardProfileRetrieveParams
 
 interface DigitalCardProfileService {
 

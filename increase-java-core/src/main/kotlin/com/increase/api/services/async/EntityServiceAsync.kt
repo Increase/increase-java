@@ -5,18 +5,18 @@ package com.increase.api.services.async
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.Entity
-import com.increase.api.models.EntityArchiveBeneficialOwnerParams
-import com.increase.api.models.EntityArchiveParams
-import com.increase.api.models.EntityConfirmParams
-import com.increase.api.models.EntityCreateBeneficialOwnerParams
-import com.increase.api.models.EntityCreateParams
-import com.increase.api.models.EntityListPageAsync
-import com.increase.api.models.EntityListParams
-import com.increase.api.models.EntityRetrieveParams
-import com.increase.api.models.EntityUpdateAddressParams
-import com.increase.api.models.EntityUpdateBeneficialOwnerAddressParams
-import com.increase.api.models.EntityUpdateIndustryCodeParams
+import com.increase.api.models.entities.Entity
+import com.increase.api.models.entities.EntityArchiveBeneficialOwnerParams
+import com.increase.api.models.entities.EntityArchiveParams
+import com.increase.api.models.entities.EntityConfirmParams
+import com.increase.api.models.entities.EntityCreateBeneficialOwnerParams
+import com.increase.api.models.entities.EntityCreateParams
+import com.increase.api.models.entities.EntityListPageAsync
+import com.increase.api.models.entities.EntityListParams
+import com.increase.api.models.entities.EntityRetrieveParams
+import com.increase.api.models.entities.EntityUpdateAddressParams
+import com.increase.api.models.entities.EntityUpdateBeneficialOwnerAddressParams
+import com.increase.api.models.entities.EntityUpdateIndustryCodeParams
 import java.util.concurrent.CompletableFuture
 
 interface EntityServiceAsync {

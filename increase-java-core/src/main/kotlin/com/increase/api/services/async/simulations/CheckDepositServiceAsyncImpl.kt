@@ -15,10 +15,10 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.CheckDeposit
-import com.increase.api.models.SimulationCheckDepositRejectParams
-import com.increase.api.models.SimulationCheckDepositReturnParams
-import com.increase.api.models.SimulationCheckDepositSubmitParams
+import com.increase.api.models.checkdeposits.CheckDeposit
+import com.increase.api.models.simulations.checkdeposits.CheckDepositRejectParams
+import com.increase.api.models.simulations.checkdeposits.CheckDepositReturnParams
+import com.increase.api.models.simulations.checkdeposits.CheckDepositSubmitParams
 import java.util.concurrent.CompletableFuture
 
 class CheckDepositServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -31,21 +31,21 @@ class CheckDepositServiceAsyncImpl internal constructor(private val clientOption
     override fun withRawResponse(): CheckDepositServiceAsync.WithRawResponse = withRawResponse
 
     override fun reject(
-        params: SimulationCheckDepositRejectParams,
+        params: CheckDepositRejectParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<CheckDeposit> =
         // post /simulations/check_deposits/{check_deposit_id}/reject
         withRawResponse().reject(params, requestOptions).thenApply { it.parse() }
 
     override fun return_(
-        params: SimulationCheckDepositReturnParams,
+        params: CheckDepositReturnParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<CheckDeposit> =
         // post /simulations/check_deposits/{check_deposit_id}/return
         withRawResponse().return_(params, requestOptions).thenApply { it.parse() }
 
     override fun submit(
-        params: SimulationCheckDepositSubmitParams,
+        params: CheckDepositSubmitParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<CheckDeposit> =
         // post /simulations/check_deposits/{check_deposit_id}/submit
@@ -60,7 +60,7 @@ class CheckDepositServiceAsyncImpl internal constructor(private val clientOption
             jsonHandler<CheckDeposit>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
         override fun reject(
-            params: SimulationCheckDepositRejectParams,
+            params: CheckDepositRejectParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<CheckDeposit>> {
             val request =
@@ -95,7 +95,7 @@ class CheckDepositServiceAsyncImpl internal constructor(private val clientOption
             jsonHandler<CheckDeposit>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
         override fun return_(
-            params: SimulationCheckDepositReturnParams,
+            params: CheckDepositReturnParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<CheckDeposit>> {
             val request =
@@ -130,7 +130,7 @@ class CheckDepositServiceAsyncImpl internal constructor(private val clientOption
             jsonHandler<CheckDeposit>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
         override fun submit(
-            params: SimulationCheckDepositSubmitParams,
+            params: CheckDepositSubmitParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<CheckDeposit>> {
             val request =

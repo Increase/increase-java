@@ -15,11 +15,11 @@ import com.increase.api.core.http.multipartFormData
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.File
-import com.increase.api.models.FileCreateParams
-import com.increase.api.models.FileListPageAsync
-import com.increase.api.models.FileListParams
-import com.increase.api.models.FileRetrieveParams
+import com.increase.api.models.files.File
+import com.increase.api.models.files.FileCreateParams
+import com.increase.api.models.files.FileListPageAsync
+import com.increase.api.models.files.FileListParams
+import com.increase.api.models.files.FileRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class FileServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :

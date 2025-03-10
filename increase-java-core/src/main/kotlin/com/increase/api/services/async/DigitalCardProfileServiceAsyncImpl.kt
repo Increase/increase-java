@@ -15,13 +15,13 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.DigitalCardProfile
-import com.increase.api.models.DigitalCardProfileArchiveParams
-import com.increase.api.models.DigitalCardProfileCloneParams
-import com.increase.api.models.DigitalCardProfileCreateParams
-import com.increase.api.models.DigitalCardProfileListPageAsync
-import com.increase.api.models.DigitalCardProfileListParams
-import com.increase.api.models.DigitalCardProfileRetrieveParams
+import com.increase.api.models.digitalcardprofiles.DigitalCardProfile
+import com.increase.api.models.digitalcardprofiles.DigitalCardProfileArchiveParams
+import com.increase.api.models.digitalcardprofiles.DigitalCardProfileCloneParams
+import com.increase.api.models.digitalcardprofiles.DigitalCardProfileCreateParams
+import com.increase.api.models.digitalcardprofiles.DigitalCardProfileListPageAsync
+import com.increase.api.models.digitalcardprofiles.DigitalCardProfileListParams
+import com.increase.api.models.digitalcardprofiles.DigitalCardProfileRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class DigitalCardProfileServiceAsyncImpl

@@ -4,7 +4,7 @@ package com.increase.api.services.blocking.simulations
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.SimulationAccountStatementCreateParams
+import com.increase.api.models.simulations.accountstatements.AccountStatementCreateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -22,7 +22,7 @@ class AccountStatementServiceTest {
 
         val accountStatement =
             accountStatementService.create(
-                SimulationAccountStatementCreateParams.builder()
+                AccountStatementCreateParams.builder()
                     .accountId("account_in71c4amph0vgo2qllky")
                     .build()
             )

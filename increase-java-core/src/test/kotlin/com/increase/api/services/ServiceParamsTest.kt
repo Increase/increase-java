@@ -15,7 +15,7 @@ import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import com.increase.api.client.IncreaseClient
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.core.JsonValue
-import com.increase.api.models.AccountCreateParams
+import com.increase.api.models.accounts.AccountCreateParams
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 

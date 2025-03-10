@@ -15,8 +15,8 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.InboundWireDrawdownRequest
-import com.increase.api.models.SimulationInboundWireDrawdownRequestCreateParams
+import com.increase.api.models.inboundwiredrawdownrequests.InboundWireDrawdownRequest
+import com.increase.api.models.simulations.inboundwiredrawdownrequests.InboundWireDrawdownRequestCreateParams
 
 class InboundWireDrawdownRequestServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : InboundWireDrawdownRequestService {
@@ -29,7 +29,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundWireDraw
         withRawResponse
 
     override fun create(
-        params: SimulationInboundWireDrawdownRequestCreateParams,
+        params: InboundWireDrawdownRequestCreateParams,
         requestOptions: RequestOptions,
     ): InboundWireDrawdownRequest =
         // post /simulations/inbound_wire_drawdown_requests
@@ -45,7 +45,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundWireDraw
                 .withErrorHandler(errorHandler)
 
         override fun create(
-            params: SimulationInboundWireDrawdownRequestCreateParams,
+            params: InboundWireDrawdownRequestCreateParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<InboundWireDrawdownRequest> {
             val request =

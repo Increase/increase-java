@@ -14,10 +14,10 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.InboundWireTransfer
-import com.increase.api.models.InboundWireTransferListPage
-import com.increase.api.models.InboundWireTransferListParams
-import com.increase.api.models.InboundWireTransferRetrieveParams
+import com.increase.api.models.inboundwiretransfers.InboundWireTransfer
+import com.increase.api.models.inboundwiretransfers.InboundWireTransferListPage
+import com.increase.api.models.inboundwiretransfers.InboundWireTransferListParams
+import com.increase.api.models.inboundwiretransfers.InboundWireTransferRetrieveParams
 
 class InboundWireTransferServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : InboundWireTransferService {

@@ -5,8 +5,8 @@ package com.increase.api.services.blocking.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.CardPayment
-import com.increase.api.models.SimulationCardReversalCreateParams
+import com.increase.api.models.cardpayments.CardPayment
+import com.increase.api.models.simulations.cardreversals.CardReversalCreateParams
 
 interface CardReversalService {
 
@@ -20,12 +20,12 @@ interface CardReversalService {
      * partially reversed multiple times, up until the total authorized amount. Marks the pending
      * transaction as complete if the authorization is fully reversed.
      */
-    fun create(params: SimulationCardReversalCreateParams): CardPayment =
+    fun create(params: CardReversalCreateParams): CardPayment =
         create(params, RequestOptions.none())
 
     /** @see [create] */
     fun create(
-        params: SimulationCardReversalCreateParams,
+        params: CardReversalCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPayment
 
@@ -39,13 +39,13 @@ interface CardReversalService {
          * same as [CardReversalService.create].
          */
         @MustBeClosed
-        fun create(params: SimulationCardReversalCreateParams): HttpResponseFor<CardPayment> =
+        fun create(params: CardReversalCreateParams): HttpResponseFor<CardPayment> =
             create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
         fun create(
-            params: SimulationCardReversalCreateParams,
+            params: CardReversalCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardPayment>
     }

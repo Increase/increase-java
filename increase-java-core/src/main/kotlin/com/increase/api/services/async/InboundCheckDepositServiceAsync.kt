@@ -5,12 +5,12 @@ package com.increase.api.services.async
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.InboundCheckDeposit
-import com.increase.api.models.InboundCheckDepositDeclineParams
-import com.increase.api.models.InboundCheckDepositListPageAsync
-import com.increase.api.models.InboundCheckDepositListParams
-import com.increase.api.models.InboundCheckDepositRetrieveParams
-import com.increase.api.models.InboundCheckDepositReturnParams
+import com.increase.api.models.inboundcheckdeposits.InboundCheckDeposit
+import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositDeclineParams
+import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositListPageAsync
+import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositListParams
+import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositRetrieveParams
+import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositReturnParams
 import java.util.concurrent.CompletableFuture
 
 interface InboundCheckDepositServiceAsync {

@@ -5,8 +5,8 @@ package com.increase.api.services.blocking.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.InboundAchTransfer
-import com.increase.api.models.SimulationInboundAchTransferCreateParams
+import com.increase.api.models.inboundachtransfers.InboundAchTransfer
+import com.increase.api.models.simulations.inboundachtransfers.InboundAchTransferCreateParams
 
 interface InboundAchTransferService {
 
@@ -26,12 +26,12 @@ interface InboundAchTransferService {
      * [Transaction](#transactions) or a [Declined Transaction](#declined-transactions) depending on
      * whether or not the transfer is allowed.
      */
-    fun create(params: SimulationInboundAchTransferCreateParams): InboundAchTransfer =
+    fun create(params: InboundAchTransferCreateParams): InboundAchTransfer =
         create(params, RequestOptions.none())
 
     /** @see [create] */
     fun create(
-        params: SimulationInboundAchTransferCreateParams,
+        params: InboundAchTransferCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundAchTransfer
 
@@ -46,14 +46,13 @@ interface InboundAchTransferService {
          * otherwise the same as [InboundAchTransferService.create].
          */
         @MustBeClosed
-        fun create(
-            params: SimulationInboundAchTransferCreateParams
-        ): HttpResponseFor<InboundAchTransfer> = create(params, RequestOptions.none())
+        fun create(params: InboundAchTransferCreateParams): HttpResponseFor<InboundAchTransfer> =
+            create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
         fun create(
-            params: SimulationInboundAchTransferCreateParams,
+            params: InboundAchTransferCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundAchTransfer>
     }

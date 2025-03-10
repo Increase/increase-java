@@ -15,8 +15,8 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.AccountTransfer
-import com.increase.api.models.SimulationAccountTransferCompleteParams
+import com.increase.api.models.accounttransfers.AccountTransfer
+import com.increase.api.models.simulations.accounttransfers.AccountTransferCompleteParams
 import java.util.concurrent.CompletableFuture
 
 class AccountTransferServiceAsyncImpl
@@ -29,7 +29,7 @@ internal constructor(private val clientOptions: ClientOptions) : AccountTransfer
     override fun withRawResponse(): AccountTransferServiceAsync.WithRawResponse = withRawResponse
 
     override fun complete(
-        params: SimulationAccountTransferCompleteParams,
+        params: AccountTransferCompleteParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<AccountTransfer> =
         // post /simulations/account_transfers/{account_transfer_id}/complete
@@ -44,7 +44,7 @@ internal constructor(private val clientOptions: ClientOptions) : AccountTransfer
             jsonHandler<AccountTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
         override fun complete(
-            params: SimulationAccountTransferCompleteParams,
+            params: AccountTransferCompleteParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<AccountTransfer>> {
             val request =

@@ -4,7 +4,7 @@ package com.increase.api.services.async.simulations
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.SimulationPhysicalCardAdvanceShipmentParams
+import com.increase.api.models.simulations.physicalcards.PhysicalCardAdvanceShipmentParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -22,11 +22,9 @@ class PhysicalCardServiceAsyncTest {
 
         val physicalCardFuture =
             physicalCardServiceAsync.advanceShipment(
-                SimulationPhysicalCardAdvanceShipmentParams.builder()
+                PhysicalCardAdvanceShipmentParams.builder()
                     .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
-                    .shipmentStatus(
-                        SimulationPhysicalCardAdvanceShipmentParams.ShipmentStatus.PENDING
-                    )
+                    .shipmentStatus(PhysicalCardAdvanceShipmentParams.ShipmentStatus.PENDING)
                     .build()
             )
 

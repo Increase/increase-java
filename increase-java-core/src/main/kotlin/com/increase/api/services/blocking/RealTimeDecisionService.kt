@@ -5,9 +5,9 @@ package com.increase.api.services.blocking
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.RealTimeDecision
-import com.increase.api.models.RealTimeDecisionActionParams
-import com.increase.api.models.RealTimeDecisionRetrieveParams
+import com.increase.api.models.realtimedecisions.RealTimeDecision
+import com.increase.api.models.realtimedecisions.RealTimeDecisionActionParams
+import com.increase.api.models.realtimedecisions.RealTimeDecisionRetrieveParams
 
 interface RealTimeDecisionService {
 
