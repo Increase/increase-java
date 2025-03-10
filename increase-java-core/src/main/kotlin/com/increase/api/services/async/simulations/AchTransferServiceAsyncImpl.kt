@@ -15,12 +15,12 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.AchTransfer
-import com.increase.api.models.SimulationAchTransferAcknowledgeParams
-import com.increase.api.models.SimulationAchTransferCreateNotificationOfChangeParams
-import com.increase.api.models.SimulationAchTransferReturnParams
-import com.increase.api.models.SimulationAchTransferSettleParams
-import com.increase.api.models.SimulationAchTransferSubmitParams
+import com.increase.api.models.achtransfers.AchTransfer
+import com.increase.api.models.simulations.achtransfers.AchTransferAcknowledgeParams
+import com.increase.api.models.simulations.achtransfers.AchTransferCreateNotificationOfChangeParams
+import com.increase.api.models.simulations.achtransfers.AchTransferReturnParams
+import com.increase.api.models.simulations.achtransfers.AchTransferSettleParams
+import com.increase.api.models.simulations.achtransfers.AchTransferSubmitParams
 import java.util.concurrent.CompletableFuture
 
 class AchTransferServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -33,14 +33,14 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
     override fun withRawResponse(): AchTransferServiceAsync.WithRawResponse = withRawResponse
 
     override fun acknowledge(
-        params: SimulationAchTransferAcknowledgeParams,
+        params: AchTransferAcknowledgeParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<AchTransfer> =
         // post /simulations/ach_transfers/{ach_transfer_id}/acknowledge
         withRawResponse().acknowledge(params, requestOptions).thenApply { it.parse() }
 
     override fun createNotificationOfChange(
-        params: SimulationAchTransferCreateNotificationOfChangeParams,
+        params: AchTransferCreateNotificationOfChangeParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<AchTransfer> =
         // post /simulations/ach_transfers/{ach_transfer_id}/create_notification_of_change
@@ -49,21 +49,21 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
         }
 
     override fun return_(
-        params: SimulationAchTransferReturnParams,
+        params: AchTransferReturnParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<AchTransfer> =
         // post /simulations/ach_transfers/{ach_transfer_id}/return
         withRawResponse().return_(params, requestOptions).thenApply { it.parse() }
 
     override fun settle(
-        params: SimulationAchTransferSettleParams,
+        params: AchTransferSettleParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<AchTransfer> =
         // post /simulations/ach_transfers/{ach_transfer_id}/settle
         withRawResponse().settle(params, requestOptions).thenApply { it.parse() }
 
     override fun submit(
-        params: SimulationAchTransferSubmitParams,
+        params: AchTransferSubmitParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<AchTransfer> =
         // post /simulations/ach_transfers/{ach_transfer_id}/submit
@@ -78,7 +78,7 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
             jsonHandler<AchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
         override fun acknowledge(
-            params: SimulationAchTransferAcknowledgeParams,
+            params: AchTransferAcknowledgeParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<AchTransfer>> {
             val request =
@@ -113,7 +113,7 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
             jsonHandler<AchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
         override fun createNotificationOfChange(
-            params: SimulationAchTransferCreateNotificationOfChangeParams,
+            params: AchTransferCreateNotificationOfChangeParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<AchTransfer>> {
             val request =
@@ -148,7 +148,7 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
             jsonHandler<AchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
         override fun return_(
-            params: SimulationAchTransferReturnParams,
+            params: AchTransferReturnParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<AchTransfer>> {
             val request =
@@ -183,7 +183,7 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
             jsonHandler<AchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
         override fun settle(
-            params: SimulationAchTransferSettleParams,
+            params: AchTransferSettleParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<AchTransfer>> {
             val request =
@@ -218,7 +218,7 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
             jsonHandler<AchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
         override fun submit(
-            params: SimulationAchTransferSubmitParams,
+            params: AchTransferSubmitParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<AchTransfer>> {
             val request =

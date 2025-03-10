@@ -15,13 +15,13 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.BookkeepingAccount
-import com.increase.api.models.BookkeepingAccountBalanceParams
-import com.increase.api.models.BookkeepingAccountCreateParams
-import com.increase.api.models.BookkeepingAccountListPage
-import com.increase.api.models.BookkeepingAccountListParams
-import com.increase.api.models.BookkeepingAccountUpdateParams
-import com.increase.api.models.BookkeepingBalanceLookup
+import com.increase.api.models.bookkeepingaccounts.BookkeepingAccount
+import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountBalanceParams
+import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountCreateParams
+import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountListPage
+import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountListParams
+import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountUpdateParams
+import com.increase.api.models.bookkeepingaccounts.BookkeepingBalanceLookup
 
 class BookkeepingAccountServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     BookkeepingAccountService {

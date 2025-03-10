@@ -4,7 +4,7 @@ package com.increase.api.services.async.simulations
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.SimulationDocumentCreateParams
+import com.increase.api.models.simulations.documents.DocumentCreateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -22,9 +22,7 @@ class DocumentServiceAsyncTest {
 
         val documentFuture =
             documentServiceAsync.create(
-                SimulationDocumentCreateParams.builder()
-                    .accountId("account_in71c4amph0vgo2qllky")
-                    .build()
+                DocumentCreateParams.builder().accountId("account_in71c4amph0vgo2qllky").build()
             )
 
         val document = documentFuture.get()

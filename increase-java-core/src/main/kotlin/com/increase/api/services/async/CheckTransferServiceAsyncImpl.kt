@@ -15,14 +15,14 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.CheckTransfer
-import com.increase.api.models.CheckTransferApproveParams
-import com.increase.api.models.CheckTransferCancelParams
-import com.increase.api.models.CheckTransferCreateParams
-import com.increase.api.models.CheckTransferListPageAsync
-import com.increase.api.models.CheckTransferListParams
-import com.increase.api.models.CheckTransferRetrieveParams
-import com.increase.api.models.CheckTransferStopPaymentParams
+import com.increase.api.models.checktransfers.CheckTransfer
+import com.increase.api.models.checktransfers.CheckTransferApproveParams
+import com.increase.api.models.checktransfers.CheckTransferCancelParams
+import com.increase.api.models.checktransfers.CheckTransferCreateParams
+import com.increase.api.models.checktransfers.CheckTransferListPageAsync
+import com.increase.api.models.checktransfers.CheckTransferListParams
+import com.increase.api.models.checktransfers.CheckTransferRetrieveParams
+import com.increase.api.models.checktransfers.CheckTransferStopPaymentParams
 import java.util.concurrent.CompletableFuture
 
 class CheckTransferServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :

@@ -4,8 +4,8 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.AchPrenotificationCreateParams
-import com.increase.api.models.AchPrenotificationRetrieveParams
+import com.increase.api.models.achprenotifications.AchPrenotificationCreateParams
+import com.increase.api.models.achprenotifications.AchPrenotificationRetrieveParams
 import java.time.LocalDate
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith

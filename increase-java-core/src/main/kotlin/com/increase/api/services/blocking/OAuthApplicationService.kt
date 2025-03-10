@@ -5,10 +5,10 @@ package com.increase.api.services.blocking
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.OAuthApplication
-import com.increase.api.models.OAuthApplicationListPage
-import com.increase.api.models.OAuthApplicationListParams
-import com.increase.api.models.OAuthApplicationRetrieveParams
+import com.increase.api.models.oauthapplications.OAuthApplication
+import com.increase.api.models.oauthapplications.OAuthApplicationListPage
+import com.increase.api.models.oauthapplications.OAuthApplicationListParams
+import com.increase.api.models.oauthapplications.OAuthApplicationRetrieveParams
 
 interface OAuthApplicationService {
 

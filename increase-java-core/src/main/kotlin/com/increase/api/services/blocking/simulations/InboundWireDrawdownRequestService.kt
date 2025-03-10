@@ -5,8 +5,8 @@ package com.increase.api.services.blocking.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.InboundWireDrawdownRequest
-import com.increase.api.models.SimulationInboundWireDrawdownRequestCreateParams
+import com.increase.api.models.inboundwiredrawdownrequests.InboundWireDrawdownRequest
+import com.increase.api.models.simulations.inboundwiredrawdownrequests.InboundWireDrawdownRequestCreateParams
 
 interface InboundWireDrawdownRequestService {
 
@@ -16,13 +16,12 @@ interface InboundWireDrawdownRequestService {
     fun withRawResponse(): WithRawResponse
 
     /** Simulates receiving an [Inbound Wire Drawdown Request](#inbound-wire-drawdown-requests). */
-    fun create(
-        params: SimulationInboundWireDrawdownRequestCreateParams
-    ): InboundWireDrawdownRequest = create(params, RequestOptions.none())
+    fun create(params: InboundWireDrawdownRequestCreateParams): InboundWireDrawdownRequest =
+        create(params, RequestOptions.none())
 
     /** @see [create] */
     fun create(
-        params: SimulationInboundWireDrawdownRequestCreateParams,
+        params: InboundWireDrawdownRequestCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundWireDrawdownRequest
 
@@ -38,13 +37,13 @@ interface InboundWireDrawdownRequestService {
          */
         @MustBeClosed
         fun create(
-            params: SimulationInboundWireDrawdownRequestCreateParams
+            params: InboundWireDrawdownRequestCreateParams
         ): HttpResponseFor<InboundWireDrawdownRequest> = create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
         fun create(
-            params: SimulationInboundWireDrawdownRequestCreateParams,
+            params: InboundWireDrawdownRequestCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundWireDrawdownRequest>
     }

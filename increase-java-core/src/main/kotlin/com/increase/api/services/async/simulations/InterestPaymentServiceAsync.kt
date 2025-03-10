@@ -5,8 +5,8 @@ package com.increase.api.services.async.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.SimulationInterestPaymentCreateParams
-import com.increase.api.models.Transaction
+import com.increase.api.models.simulations.interestpayments.InterestPaymentCreateParams
+import com.increase.api.models.transactions.Transaction
 import java.util.concurrent.CompletableFuture
 
 interface InterestPaymentServiceAsync {
@@ -20,12 +20,12 @@ interface InterestPaymentServiceAsync {
      * Simulates an interest payment to your account. In production, this happens automatically on
      * the first of each month.
      */
-    fun create(params: SimulationInterestPaymentCreateParams): CompletableFuture<Transaction> =
+    fun create(params: InterestPaymentCreateParams): CompletableFuture<Transaction> =
         create(params, RequestOptions.none())
 
     /** @see [create] */
     fun create(
-        params: SimulationInterestPaymentCreateParams,
+        params: InterestPaymentCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Transaction>
 
@@ -41,13 +41,13 @@ interface InterestPaymentServiceAsync {
          */
         @MustBeClosed
         fun create(
-            params: SimulationInterestPaymentCreateParams
+            params: InterestPaymentCreateParams
         ): CompletableFuture<HttpResponseFor<Transaction>> = create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
         fun create(
-            params: SimulationInterestPaymentCreateParams,
+            params: InterestPaymentCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Transaction>>
     }

@@ -4,7 +4,7 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.InboundMailItemRetrieveParams
+import com.increase.api.models.inboundmailitems.InboundMailItemRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 

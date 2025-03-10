@@ -5,11 +5,11 @@ package com.increase.api.services.blocking
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.BookkeepingEntrySet
-import com.increase.api.models.BookkeepingEntrySetCreateParams
-import com.increase.api.models.BookkeepingEntrySetListPage
-import com.increase.api.models.BookkeepingEntrySetListParams
-import com.increase.api.models.BookkeepingEntrySetRetrieveParams
+import com.increase.api.models.bookkeepingentrysets.BookkeepingEntrySet
+import com.increase.api.models.bookkeepingentrysets.BookkeepingEntrySetCreateParams
+import com.increase.api.models.bookkeepingentrysets.BookkeepingEntrySetListPage
+import com.increase.api.models.bookkeepingentrysets.BookkeepingEntrySetListParams
+import com.increase.api.models.bookkeepingentrysets.BookkeepingEntrySetRetrieveParams
 
 interface BookkeepingEntrySetService {
 

@@ -15,11 +15,11 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.Export
-import com.increase.api.models.ExportCreateParams
-import com.increase.api.models.ExportListPageAsync
-import com.increase.api.models.ExportListParams
-import com.increase.api.models.ExportRetrieveParams
+import com.increase.api.models.exports.Export
+import com.increase.api.models.exports.ExportCreateParams
+import com.increase.api.models.exports.ExportListPageAsync
+import com.increase.api.models.exports.ExportListParams
+import com.increase.api.models.exports.ExportRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class ExportServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :

@@ -5,8 +5,8 @@ package com.increase.api.services.blocking.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.AccountTransfer
-import com.increase.api.models.SimulationAccountTransferCompleteParams
+import com.increase.api.models.accounttransfers.AccountTransfer
+import com.increase.api.models.simulations.accounttransfers.AccountTransferCompleteParams
 
 interface AccountTransferService {
 
@@ -21,12 +21,12 @@ interface AccountTransferService {
      * Account Transfers in the dashboard. This transfer must first have a `status` of
      * `pending_approval`.
      */
-    fun complete(params: SimulationAccountTransferCompleteParams): AccountTransfer =
+    fun complete(params: AccountTransferCompleteParams): AccountTransfer =
         complete(params, RequestOptions.none())
 
     /** @see [complete] */
     fun complete(
-        params: SimulationAccountTransferCompleteParams,
+        params: AccountTransferCompleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountTransfer
 
@@ -42,14 +42,13 @@ interface AccountTransferService {
          * as [AccountTransferService.complete].
          */
         @MustBeClosed
-        fun complete(
-            params: SimulationAccountTransferCompleteParams
-        ): HttpResponseFor<AccountTransfer> = complete(params, RequestOptions.none())
+        fun complete(params: AccountTransferCompleteParams): HttpResponseFor<AccountTransfer> =
+            complete(params, RequestOptions.none())
 
         /** @see [complete] */
         @MustBeClosed
         fun complete(
-            params: SimulationAccountTransferCompleteParams,
+            params: AccountTransferCompleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AccountTransfer>
     }

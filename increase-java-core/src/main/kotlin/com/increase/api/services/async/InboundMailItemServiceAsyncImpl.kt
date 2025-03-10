@@ -14,10 +14,10 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.InboundMailItem
-import com.increase.api.models.InboundMailItemListPageAsync
-import com.increase.api.models.InboundMailItemListParams
-import com.increase.api.models.InboundMailItemRetrieveParams
+import com.increase.api.models.inboundmailitems.InboundMailItem
+import com.increase.api.models.inboundmailitems.InboundMailItemListPageAsync
+import com.increase.api.models.inboundmailitems.InboundMailItemListParams
+import com.increase.api.models.inboundmailitems.InboundMailItemRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class InboundMailItemServiceAsyncImpl

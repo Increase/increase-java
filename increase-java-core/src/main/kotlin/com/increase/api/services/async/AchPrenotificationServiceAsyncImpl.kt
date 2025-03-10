@@ -15,11 +15,11 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.AchPrenotification
-import com.increase.api.models.AchPrenotificationCreateParams
-import com.increase.api.models.AchPrenotificationListPageAsync
-import com.increase.api.models.AchPrenotificationListParams
-import com.increase.api.models.AchPrenotificationRetrieveParams
+import com.increase.api.models.achprenotifications.AchPrenotification
+import com.increase.api.models.achprenotifications.AchPrenotificationCreateParams
+import com.increase.api.models.achprenotifications.AchPrenotificationListPageAsync
+import com.increase.api.models.achprenotifications.AchPrenotificationListParams
+import com.increase.api.models.achprenotifications.AchPrenotificationRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class AchPrenotificationServiceAsyncImpl

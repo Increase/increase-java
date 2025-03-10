@@ -5,8 +5,8 @@ package com.increase.api.services.async
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.RoutingNumberListPageAsync
-import com.increase.api.models.RoutingNumberListParams
+import com.increase.api.models.routingnumbers.RoutingNumberListPageAsync
+import com.increase.api.models.routingnumbers.RoutingNumberListParams
 import java.util.concurrent.CompletableFuture
 
 interface RoutingNumberServiceAsync {

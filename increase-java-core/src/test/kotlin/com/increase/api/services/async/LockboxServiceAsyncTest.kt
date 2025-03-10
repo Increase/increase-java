@@ -4,9 +4,9 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.LockboxCreateParams
-import com.increase.api.models.LockboxRetrieveParams
-import com.increase.api.models.LockboxUpdateParams
+import com.increase.api.models.lockboxes.LockboxCreateParams
+import com.increase.api.models.lockboxes.LockboxRetrieveParams
+import com.increase.api.models.lockboxes.LockboxUpdateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 

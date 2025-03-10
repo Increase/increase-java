@@ -5,13 +5,13 @@ package com.increase.api.services.async
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.AchTransfer
-import com.increase.api.models.AchTransferApproveParams
-import com.increase.api.models.AchTransferCancelParams
-import com.increase.api.models.AchTransferCreateParams
-import com.increase.api.models.AchTransferListPageAsync
-import com.increase.api.models.AchTransferListParams
-import com.increase.api.models.AchTransferRetrieveParams
+import com.increase.api.models.achtransfers.AchTransfer
+import com.increase.api.models.achtransfers.AchTransferApproveParams
+import com.increase.api.models.achtransfers.AchTransferCancelParams
+import com.increase.api.models.achtransfers.AchTransferCreateParams
+import com.increase.api.models.achtransfers.AchTransferListPageAsync
+import com.increase.api.models.achtransfers.AchTransferListParams
+import com.increase.api.models.achtransfers.AchTransferRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 interface AchTransferServiceAsync {

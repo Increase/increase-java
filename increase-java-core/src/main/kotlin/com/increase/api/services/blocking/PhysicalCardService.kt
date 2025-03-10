@@ -5,12 +5,12 @@ package com.increase.api.services.blocking
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.PhysicalCard
-import com.increase.api.models.PhysicalCardCreateParams
-import com.increase.api.models.PhysicalCardListPage
-import com.increase.api.models.PhysicalCardListParams
-import com.increase.api.models.PhysicalCardRetrieveParams
-import com.increase.api.models.PhysicalCardUpdateParams
+import com.increase.api.models.physicalcards.PhysicalCard
+import com.increase.api.models.physicalcards.PhysicalCardCreateParams
+import com.increase.api.models.physicalcards.PhysicalCardListPage
+import com.increase.api.models.physicalcards.PhysicalCardListParams
+import com.increase.api.models.physicalcards.PhysicalCardRetrieveParams
+import com.increase.api.models.physicalcards.PhysicalCardUpdateParams
 
 interface PhysicalCardService {
 

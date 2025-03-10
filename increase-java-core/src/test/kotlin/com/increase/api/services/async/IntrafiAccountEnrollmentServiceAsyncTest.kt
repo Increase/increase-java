@@ -4,9 +4,9 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.IntrafiAccountEnrollmentCreateParams
-import com.increase.api.models.IntrafiAccountEnrollmentRetrieveParams
-import com.increase.api.models.IntrafiAccountEnrollmentUnenrollParams
+import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentCreateParams
+import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentRetrieveParams
+import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentUnenrollParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 

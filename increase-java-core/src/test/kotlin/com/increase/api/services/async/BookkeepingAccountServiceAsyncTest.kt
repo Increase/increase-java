@@ -4,9 +4,9 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.BookkeepingAccountBalanceParams
-import com.increase.api.models.BookkeepingAccountCreateParams
-import com.increase.api.models.BookkeepingAccountUpdateParams
+import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountBalanceParams
+import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountCreateParams
+import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountUpdateParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith

@@ -5,10 +5,10 @@ package com.increase.api.services.blocking
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.DeclinedTransaction
-import com.increase.api.models.DeclinedTransactionListPage
-import com.increase.api.models.DeclinedTransactionListParams
-import com.increase.api.models.DeclinedTransactionRetrieveParams
+import com.increase.api.models.declinedtransactions.DeclinedTransaction
+import com.increase.api.models.declinedtransactions.DeclinedTransactionListPage
+import com.increase.api.models.declinedtransactions.DeclinedTransactionListParams
+import com.increase.api.models.declinedtransactions.DeclinedTransactionRetrieveParams
 
 interface DeclinedTransactionService {
 

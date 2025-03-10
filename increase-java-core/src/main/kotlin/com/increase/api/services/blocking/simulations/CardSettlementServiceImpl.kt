@@ -15,8 +15,8 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.SimulationCardSettlementCreateParams
-import com.increase.api.models.Transaction
+import com.increase.api.models.simulations.cardsettlements.CardSettlementCreateParams
+import com.increase.api.models.transactions.Transaction
 
 class CardSettlementServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     CardSettlementService {
@@ -28,7 +28,7 @@ class CardSettlementServiceImpl internal constructor(private val clientOptions: 
     override fun withRawResponse(): CardSettlementService.WithRawResponse = withRawResponse
 
     override fun create(
-        params: SimulationCardSettlementCreateParams,
+        params: CardSettlementCreateParams,
         requestOptions: RequestOptions,
     ): Transaction =
         // post /simulations/card_settlements
@@ -43,7 +43,7 @@ class CardSettlementServiceImpl internal constructor(private val clientOptions: 
             jsonHandler<Transaction>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
         override fun create(
-            params: SimulationCardSettlementCreateParams,
+            params: CardSettlementCreateParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<Transaction> {
             val request =

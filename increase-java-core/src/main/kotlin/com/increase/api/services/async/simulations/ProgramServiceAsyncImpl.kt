@@ -15,8 +15,8 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.Program
-import com.increase.api.models.SimulationProgramCreateParams
+import com.increase.api.models.programs.Program
+import com.increase.api.models.simulations.programs.ProgramCreateParams
 import java.util.concurrent.CompletableFuture
 
 class ProgramServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -29,7 +29,7 @@ class ProgramServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun withRawResponse(): ProgramServiceAsync.WithRawResponse = withRawResponse
 
     override fun create(
-        params: SimulationProgramCreateParams,
+        params: ProgramCreateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Program> =
         // post /simulations/programs
@@ -44,7 +44,7 @@ class ProgramServiceAsyncImpl internal constructor(private val clientOptions: Cl
             jsonHandler<Program>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
         override fun create(
-            params: SimulationProgramCreateParams,
+            params: ProgramCreateParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<Program>> {
             val request =

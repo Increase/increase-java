@@ -5,12 +5,12 @@ package com.increase.api.services.async
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.Lockbox
-import com.increase.api.models.LockboxCreateParams
-import com.increase.api.models.LockboxListPageAsync
-import com.increase.api.models.LockboxListParams
-import com.increase.api.models.LockboxRetrieveParams
-import com.increase.api.models.LockboxUpdateParams
+import com.increase.api.models.lockboxes.Lockbox
+import com.increase.api.models.lockboxes.LockboxCreateParams
+import com.increase.api.models.lockboxes.LockboxListPageAsync
+import com.increase.api.models.lockboxes.LockboxListParams
+import com.increase.api.models.lockboxes.LockboxRetrieveParams
+import com.increase.api.models.lockboxes.LockboxUpdateParams
 import java.util.concurrent.CompletableFuture
 
 interface LockboxServiceAsync {

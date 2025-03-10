@@ -15,8 +15,8 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.InboundWireDrawdownRequest
-import com.increase.api.models.SimulationInboundWireDrawdownRequestCreateParams
+import com.increase.api.models.inboundwiredrawdownrequests.InboundWireDrawdownRequest
+import com.increase.api.models.simulations.inboundwiredrawdownrequests.InboundWireDrawdownRequestCreateParams
 import java.util.concurrent.CompletableFuture
 
 class InboundWireDrawdownRequestServiceAsyncImpl
@@ -31,7 +31,7 @@ internal constructor(private val clientOptions: ClientOptions) :
         withRawResponse
 
     override fun create(
-        params: SimulationInboundWireDrawdownRequestCreateParams,
+        params: InboundWireDrawdownRequestCreateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<InboundWireDrawdownRequest> =
         // post /simulations/inbound_wire_drawdown_requests
@@ -47,7 +47,7 @@ internal constructor(private val clientOptions: ClientOptions) :
                 .withErrorHandler(errorHandler)
 
         override fun create(
-            params: SimulationInboundWireDrawdownRequestCreateParams,
+            params: InboundWireDrawdownRequestCreateParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<InboundWireDrawdownRequest>> {
             val request =

@@ -14,8 +14,8 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.Group
-import com.increase.api.models.GroupRetrieveParams
+import com.increase.api.models.groups.Group
+import com.increase.api.models.groups.GroupRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class GroupServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :

@@ -4,7 +4,7 @@ package com.increase.api.services.async.simulations
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.SimulationCardRefundCreateParams
+import com.increase.api.models.simulations.cardrefunds.CardRefundCreateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -22,7 +22,7 @@ class CardRefundServiceAsyncTest {
 
         val transactionFuture =
             cardRefundServiceAsync.create(
-                SimulationCardRefundCreateParams.builder()
+                CardRefundCreateParams.builder()
                     .transactionId("transaction_uyrp7fld2ium70oa7oi")
                     .build()
             )

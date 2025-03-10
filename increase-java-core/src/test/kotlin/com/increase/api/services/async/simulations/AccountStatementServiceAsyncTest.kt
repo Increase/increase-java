@@ -4,7 +4,7 @@ package com.increase.api.services.async.simulations
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.SimulationAccountStatementCreateParams
+import com.increase.api.models.simulations.accountstatements.AccountStatementCreateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -22,7 +22,7 @@ class AccountStatementServiceAsyncTest {
 
         val accountStatementFuture =
             accountStatementServiceAsync.create(
-                SimulationAccountStatementCreateParams.builder()
+                AccountStatementCreateParams.builder()
                     .accountId("account_in71c4amph0vgo2qllky")
                     .build()
             )

@@ -5,8 +5,8 @@ package com.increase.api.services.async
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.Group
-import com.increase.api.models.GroupRetrieveParams
+import com.increase.api.models.groups.Group
+import com.increase.api.models.groups.GroupRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 interface GroupServiceAsync {
